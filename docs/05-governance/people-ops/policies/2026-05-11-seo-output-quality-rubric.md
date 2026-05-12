@@ -273,11 +273,11 @@ Agent 启动评审前必须：
 
 ### 9.2 归档矩阵
 
-| 类型 | 主文档（权威，Lynne 可写） | 只读副本（SEO 可读不可写） | 季度考核用作依据 |
-|------|---------------------------|-----------------------------|------------------|
-| 单次评审报告 | `docs/05-governance/people-ops/perf-feedback/seo/{YYYY-WW}-quality-audit.md` | 单向同步至 `docs/repo/gengrowth-ops/perf-feedback/seo/` 或等价的只读访问 | ✅ |
-| 月度反馈汇总 | 同上目录，`{YYYY-MM}-monthly-review.md` | 同上 | ✅ |
-| 季度评估留档 | `docs/05-governance/people-ops/{YYYY-QN}-perf-review-seo.md` | 不同步 | ✅ |
+| 类型     | 主文档（权威，Lynne 可写）                                                             | 只读副本（SEO 可读不可写）                                             | 季度考核用作依据 |
+| ------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------- | -------- |
+| 单次评审报告 | `docs/05-governance/people-ops/perf-feedback/seo/{YYYY-WW}-quality-audit.md` | 单向同步至 `docs/repo/gengrowth-ops/perf-feedback/seo/` 或等价的只读访问 | ✅        |
+| 月度反馈汇总 | 同上目录，`{YYYY-MM}-monthly-review.md`                                           | 同上                                                          | ✅        |
+| 季度评估留档 | `docs/05-governance/people-ops/{YYYY-QN}-perf-review-seo.md`                 | 不同步                                                         | ✅        |
 
 ### 9.3 同步机制
 
