@@ -118,15 +118,15 @@ mindmap
 
 > 业务类型按 GenGrowth 当前能力契合度 + 商业模式契合度排序（高 → 低）。
 
-| 业务类型 | 变现模式 | 关键词重心 | 对应 SOP |
-|---|---|---|---|
-| B2C 工具 / 早期 SaaS | 订阅付费 | 信息词 + 工具型查询 | `../03-seo/keyword-research-sop.md`（已有，当前主用）|
-| 电商 | 直接交易（持续付费）| Transactional 意图 + 类目长尾 | `keyword-research-sop-ecommerce.md`（待建，有合作资源）|
-| C 端小游戏 / 休闲游戏 | 广告变现 + IAP | ASO 关键词 + 付费投放素材关键词 | `keyword-research-sop-casual-game.md`（待建，团队基因强但客户付费意愿中等）|
-| B2B SaaS | 订阅付费 | Commercial 意图 + 长尾决策词 | `keyword-research-sop-b2b-saas.md`（待建，客户基础弱）|
-| 媒体 / 内容站 | 广告变现 | 信息词 + 时效热点 | `keyword-research-sop-media.md`（待建）|
-| 本地服务 | 服务付费 | 地理修饰词 + 即时意图 | `keyword-research-sop-local.md`（暂缓，缺合作资源）|
-| YMYL（医/金/法）| 服务付费 / 内容订阅 | 权威解释词 + E-E-A-T | `keyword-research-sop-ymyl.md`（暂缓，缺合作资源）|
+| 业务类型             | 变现模式        | 关键词重心                   | 对应 SOP                                                   |
+| ---------------- | ----------- | ----------------------- | -------------------------------------------------------- |
+| B2C 工具 / 早期 SaaS | 订阅付费        | 信息词 + 工具型查询             | `../03-seo/keyword-research-sop.md`（已有，当前主用）             |
+| 电商               | 直接交易（持续付费）  | Transactional 意图 + 类目长尾 | `keyword-research-sop-ecommerce.md`（待建，有合作资源）            |
+| C 端小游戏 / 休闲游戏    | 广告变现 + IAP  | ASO 关键词 + 付费投放素材关键词     | `keyword-research-sop-casual-game.md`（待建，团队基因强但客户付费意愿中等） |
+| B2B SaaS         | 订阅付费        | Commercial 意图 + 长尾决策词   | `keyword-research-sop-b2b-saas.md`（待建，客户基础弱）             |
+| 媒体 / 内容站         | 广告变现        | 信息词 + 时效热点              | `keyword-research-sop-media.md`（待建）                      |
+| 本地服务             | 服务付费        | 地理修饰词 + 即时意图            | `keyword-research-sop-local.md`（暂缓，缺合作资源）                |
+| YMYL（医/金/法）      | 服务付费 / 内容订阅 | 权威解释词 + E-E-A-T         | `keyword-research-sop-ymyl.md`（暂缓，缺合作资源）                 |
 
 > **GenGrowth 服务模式契合度过滤**：当前主力服务对象是订阅付费业务的关键词增长 SOP 咨询。广告变现业务（休闲游戏 / 媒体）的客户核心 KPI 是 ARPDAU / RPM / 留存，与 SEO 增长产出物匹配度中等；客户对外部咨询的付费意愿也中等。详见 `scenario-priority-matrix.md` 评分方法论 2.4 节。
 
@@ -147,12 +147,12 @@ mindmap
 
 不同地区使用不同的搜索引擎、工具链、内容生态。
 
-| 地区 | 主搜索引擎 | 关键词工具 | 内容生态 | 优先级 |
-|---|---|---|---|---|
-| 英文谷歌（美国为主，含英 / 加 / 澳新）| Google | Ahrefs / SEMrush / DataForSEO | YouTube / Reddit / Quora | **Tier 1** |
-| 巴西葡语 / 拉美西语 | Google | Ahrefs（葡 / 西语支持）| YouTube / Discord / Reddit | **Tier 1** |
-| 东南亚 / 其他多语言 | Google + 本地引擎 | 各地区工具组合 | TikTok / Telegram / Discord | Tier 2 |
-| 中文百度系 | 百度 / 神马 | 5118 / 站长之家 / 爱站 | 知乎 / 小红书 / 视频号 / 抖音 | **不规划**（团队不擅长百度系，与 Google/Bing 市场差异大）|
+| 地区                     | 主搜索引擎         | 关键词工具                         | 内容生态                        | 优先级                                   |
+| ---------------------- | ------------- | ----------------------------- | --------------------------- | ------------------------------------- |
+| 英文谷歌（美国为主，含英 / 加 / 澳新） | Google        | Ahrefs / SEMrush / DataForSEO | YouTube / Reddit / Quora    | **Tier 1**                            |
+| 巴西葡语 / 拉美西语            | Google        | Ahrefs（葡 / 西语支持）              | YouTube / Discord / Reddit  | **Tier 1**                            |
+| 东南亚 / 其他多语言            | Google + 本地引擎 | 各地区工具组合                       | TikTok / Telegram / Discord | Tier 2                                |
+| 中文百度系                  | 百度 / 神马       | 5118 / 站长之家 / 爱站              | 知乎 / 小红书 / 视频号 / 抖音         | **不规划**（团队不擅长百度系，与 Google/Bing 市场差异大） |
 
 > **GenGrowth 团队基因锚点**：以美国 + 巴西为主的休闲游戏与工具研发发行经验，与 Google 谷歌生态强相关。中文百度系短期不拓展。
 >
@@ -224,14 +224,15 @@ mindmap
 
 ### 步骤 2：内容承接（页面类型）
 
-| 页面类型 | 适配关键词 | 承接职能 |
-|---|---|---|
-| 落地页 | Transactional / Commercial | 短路径转化 |
-| 工具页 | Informational + 工具型查询 | 即时使用 + 留资 |
-| 文章博客 | Informational + 长尾 | SEO 主战场 + 教育引导 |
-| 比较页（vs / best）| Commercial | 决策辅助 + 引导 CTA |
-| 类目 / 产品页 | Transactional 类目长尾 | 电商主战场 |
-| 资源中心 / 集群中枢 | 长尾矩阵 | 集群权重 + 长尾流量汇聚 |
+| 页面类型           | 适配关键词                      | 承接职能           |
+| -------------- | -------------------------- | -------------- |
+| 落地页            | Transactional / Commercial | 短路径转化          |
+| 工具页            | Informational + 工具型查询      | 即时使用 + 留资      |
+| 文章博客           | Informational + 长尾         | SEO 主战场 + 教育引导 |
+| 比较页（vs / best） | Commercial                 | 决策辅助 + 引导 CTA  |
+| 类目 / 产品页       | Transactional 类目长尾         | 电商主战场          |
+| 资源中心 / 集群中枢    | 长尾矩阵                       | 集群权重 + 长尾流量汇聚  |
+|                |                            |                |
 
 > 待建：`page-type-design-sop.md`
 
@@ -268,22 +269,22 @@ mindmap
 
 > 按 GenGrowth 当前优先级排序（高 → 低）。
 
-| SOP 文档 | 覆盖场景 | 状态 |
-|---|---|---|
-| `../03-seo/keyword-research-sop.md` | 内容/工具站 + 新到中等 DR + 英文谷歌（主用）| [已有] v2.3 |
-| `../paid-acquisition-keyword-sop.md` | 付费投放词（下一阶段战略重点）| [待建] P0 |
-| `../03-seo/keyword-research-sop-ecommerce.md` | 电商分层 | [待建] P0（有合作资源）|
-| `../03-seo/keyword-research-sop-portuguese.md` | 巴西葡语 / 拉美西语 | [待建] P1 |
-| `../03-seo/keyword-research-sop-mature-site.md` | 老站刷新与修剪 | [待建] P1 |
-| `../03-seo/keyword-research-sop-casual-game.md` | C 端小游戏 / 休闲游戏 | [待建] P1（团队基因强但客户契合度中等）|
-| `../03-seo/keyword-research-sop-geo.md` | GEO/AEO 专项 | [待建] P3（当前嵌入主 SOP 第八章）|
-| `../03-seo/keyword-research-sop-b2b-saas.md` | B2B SaaS 决策意图词 | [暂缓]（客户基础弱）|
-| `../03-seo/keyword-research-sop-media.md` | 媒体 / 新闻站 | [暂缓] |
-| `../02-social-media/social-keyword-sop.md` | 社媒话题词 | [暂缓] |
-| `../03-seo/keyword-research-sop-multi-region.md` | 东南亚等多语言 | [暂缓] |
-| `../03-seo/keyword-research-sop-local.md` | 本地 SEO | [暂缓]（缺合作资源）|
-| `../03-seo/keyword-research-sop-ymyl.md` | YMYL 高权威领域 | [暂缓]（缺合作资源）|
-| `../03-seo/keyword-research-sop-chinese.md` | 中文百度系 | [不规划]（团队不擅长，市场差异大）|
+| SOP 文档                                           | 覆盖场景                        | 状态                     |
+| ------------------------------------------------ | --------------------------- | ---------------------- |
+| `../03-seo/keyword-research-sop.md`              | 内容/工具站 + 新到中等 DR + 英文谷歌（主用） | [已有] v2.3              |
+| `../paid-acquisition-keyword-sop.md`             | 付费投放词（下一阶段战略重点）             | [待建] P0                |
+| `../03-seo/keyword-research-sop-ecommerce.md`    | 电商分层                        | [待建] P0（有合作资源）         |
+| `../03-seo/keyword-research-sop-portuguese.md`   | 巴西葡语 / 拉美西语                 | [待建] P1                |
+| `../03-seo/keyword-research-sop-mature-site.md`  | 老站刷新与修剪                     | [待建] P1                |
+| `../03-seo/keyword-research-sop-casual-game.md`  | C 端小游戏 / 休闲游戏               | [待建] P1（团队基因强但客户契合度中等） |
+| `../03-seo/keyword-research-sop-geo.md`          | GEO/AEO 专项                  | [待建] P3（当前嵌入主 SOP 第八章） |
+| `../03-seo/keyword-research-sop-b2b-saas.md`     | B2B SaaS 决策意图词              | [暂缓]（客户基础弱）            |
+| `../03-seo/keyword-research-sop-media.md`        | 媒体 / 新闻站                    | [暂缓]                   |
+| `../02-social-media/social-keyword-sop.md`       | 社媒话题词                       | [暂缓]                   |
+| `../03-seo/keyword-research-sop-multi-region.md` | 东南亚等多语言                     | [暂缓]                   |
+| `../03-seo/keyword-research-sop-local.md`        | 本地 SEO                      | [暂缓]（缺合作资源）            |
+| `../03-seo/keyword-research-sop-ymyl.md`         | YMYL 高权威领域                  | [暂缓]（缺合作资源）            |
+| `../03-seo/keyword-research-sop-chinese.md`      | 中文百度系                       | [不规划]（团队不擅长，市场差异大）     |
 
 ### 执行操作层
 
