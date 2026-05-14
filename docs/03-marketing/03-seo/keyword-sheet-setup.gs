@@ -303,7 +303,7 @@ function createGenGrowthKeywordSheet() {
   // ────────────────────────────────────────────
   var qwSh = ss.insertSheet('⚡快速胜利');
   qwSh.getRange('A1').setFormula(
-    "=IF(COUNTIF('关键词主表'!R:R,\"*快速胜利*\")>0,{'关键词主表'!A1:X1;SORT(FILTER('关键词主表'!A2:X500,REGEXMATCH('关键词主表'!R2:R500,\"快速胜利\")),{21,3},{FALSE,FALSE})},{\"暂无快速胜利词\"})"
+    "=IF(COUNTIF('关键词主表'!R:R,\"*快速胜利*\")>0,{'关键词主表'!A1:X1;SORT(FILTER('关键词主表'!A2:X500,REGEXMATCH('关键词主表'!R2:R500,\"快速胜利\")),21,FALSE,3,FALSE)},{\"暂无快速胜利词\"})"
   );
   _styleViewSheet(qwSh, '#fff9c4',
     '快速胜利 — 排序权重（H列SERP弱度+M列意图）→ 月搜索量 降序 | H列SERP弱度填完后排序才有意义 | Week1-4主执行');
