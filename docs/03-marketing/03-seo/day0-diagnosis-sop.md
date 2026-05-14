@@ -163,7 +163,7 @@ aliases:
 
 竞品 URL 列表从 GenGrowth 产品档案获取（Step 0 已确认）。在录入指标前，先确认每个竞品的对标用途——**竞品选择策略和 DR 判断标准详见** [`docs/03-marketing/03-seo/keyword-research-sop.md`](docs/03-marketing/03-seo/keyword-research-sop.md) 零节，此处不重复。
 
-> 快速判断：查候选词的 SERP Top 10 平均 DR。有 2 个以上 DR < 你的站 → 可执行；平均 DR > 你的站 + 30 → 跳过。
+> 快速判断：查候选词的 SERP Top 10 中 DR 最低 2 站的均值。有 2 个以上 DR < 你的站 → 可执行；最低 2 站 DR 均值 > 你的站 + 30 → 跳过。
 
 **操作：** 在 Ahrefs Domain Overview 分别录入自有站 + 每个竞品的以下指标，**填入实验模板 Section I → 竞品基线快照**（表格在模板中维护，此处不重复建表）：
 
@@ -250,7 +250,7 @@ aliases:
 1. 将汇总去重后的关键词导入 `keyword-sheet-setup.gs` 生成的 Google Sheets 模板（A/B 列）
 2. 批量填写 C–I 列：
    - **C–E 列**（月搜索量 / KD / CPC）：Ahrefs Keywords Explorer 批量导出 CSV 粘贴
-   - **G 列**（Top10平均DR）+ **H 列**（SERP弱度）：同一次 Ahrefs SERP Overview 完成，无需额外步骤
+   - **G 列**（Top10最低2站DR均值）+ **H 列**（SERP弱度）：同一次 Ahrefs SERP Overview 完成，按 DR 升序取最低 2 行均值；无需额外步骤
    - **I 列**（自有站DR）：填当日自有站 DR 快照值（不随站 DR 后续变化更新，确保 J = G−I 的时间一致性）
 3. K / L / M / N / O / R / S / U 列公式自动计算（G1话题相关 / G2可承接 / 意图 / DR过滤 / 分桶_自动 / 分桶 / AIO预判 / 排序权重）
 4. 对 M 列意图 = `待确认` 的词：复制词列表，让 Claude/GPT 批量判断意图，结果粘回 M 列，R 列分桶自动重算
