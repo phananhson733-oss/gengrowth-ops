@@ -19,7 +19,7 @@
  *   D  KD             手动
  *   E  CPC($)         手动（辅助参考，不作分类主条件）
  *   F  Trends比值     手动（近3M均值÷近6M均值，留空=平稳）
- *   G  Top10平均DR    手动（目标词 SERP Top10 平均DR，每词不同，查词时填写）
+ *   G  Top10最低2站DR均值  手动（Top10 中 DR 最低的 2 站均值，规避高DR站把平均拉高，新站友好）
  *   H  SERP弱度       下拉（✅弱/⚠️中/❌强/未查）查词时同步判断，快速胜利桶必填
  *   I  自有站DR       手动（查词当时你的站DR快照，每词独立记录，不会被覆盖）
  *   J  DR差值         公式（G - I；正值=竞争强于你；负值=你已超越，仍✅通过）
@@ -88,7 +88,7 @@ function createGenGrowthKeywordSheet() {
     'KD',             // D  4
     'CPC($)',         // E  5
     'Trends比值',     // F  6
-    'Top10平均DR',    // G  7  ← 查词时手动填
+    'Top10最低2站DR均值', // G  7  ← 查词时手动填（取Top10中DR最低的2站均值）
     'SERP弱度',       // H  8  ← 前移，查词同步判断（必填）
     '自有站DR',       // I  9  ← 新增：查词当时站DR快照
     'DR差值',         // J  10 ← 公式 G-I
@@ -126,7 +126,7 @@ function createGenGrowthKeywordSheet() {
   var notes = {
     5:  'CPC仅做参考展示，不用于分桶判断。战略词的主条件是意图（M列），不是CPC高低。',
     6:  'Trends比值（手动，趋势词判断用）：近3个月均值 ÷ 近6个月均值。\n>1.2 = 近期上涨（趋势词候选）\n≈1.0 = 稳定\n<0.8 = 衰退词\n获取：Google Trends 或 Ahrefs "Trend"图表目测估算。留空视为平稳，仅趋势词分桶条件使用。',
-    7:  'Top10平均DR（查词时手动填写）：在Ahrefs关键词详情页SERP Overview直接读取，或安装Ahrefs SEO Toolbar后在Google搜索结果页直接看到每个结果的DR。\n注：每个词不同，需和H列SERP弱度、I列自有站DR同步填写。',
+    7:  'Top10最低2站DR均值（查词时手动填写）：取Top10结果中DR最低的2个站，求均值。\n\n为何不用全平均？前期自有站DR=0或接近0，几个高DR站（如WordPress.com DR=94、Reddit DR=91）会把全平均拉到80+，几乎所有词被N列误判为❌跳过；看末两位DR更贴近"你实际能挤进的位置"。\n\n获取：Ahrefs关键词详情页SERP Overview → 按DR升序排 → 取最低2行DR均值；或安装Ahrefs SEO Toolbar直接在Google搜索结果页读DR。\n注：每个词不同，需和H列SERP弱度、I列自有站DR同步填写。',
     8:  'SERP弱度（⚡快速胜利桶必填，查词时同步判断）\n\n判断方式（三种）：\n① Ahrefs关键词详情页 → SERP Overview：直接看每个排名页DR/UR，最快\n② 安装Ahrefs SEO Toolbar浏览器插件（免费）：Google搜索结果每条旁边直接显示DR/UR\n③ 手工Google搜索：看是否有论坛帖、内容薄弱页、无针对性优化的页面\n\n判断标准：\n✅弱：Top10中≥3个页面DR低/内容薄弱/或有论坛帖（Reddit/Quora等）排名 → 可超越\n⚠️中：Top10中有1-2个可超越位置\n❌强：Top10全部为高质量高DR站点\n\n注：Reddit(DR=91)/Quora(DR=88)虽然站DR高，但单帖内容薄弱且UR低，出现在Top10 = ✅弱信号——说明该词缺乏高质量专业内容，正是内容站机会所在。',
     9:  '自有站DR（查词当时的站DR快照，手动填写）：每次查词时填入你当前的Ahrefs站DR，只填一次，不随时间更新。\n获取：Ahrefs → 输入你的域名 → 查看Domain Rating。\n\n为何不用全局配置？G列是查词时的竞争快照，I列是同时刻你的站DR，两者配对才有意义。使用全局配置会导致新旧DR混用，比较无意义。',
     10: 'DR差值 = Top10平均DR（G）- 自有站DR（I），自动计算。\n差值>30 → ❌跳过；差值≤30（含负值）→ ✅通过\n负值（如-5）= 你的站DR已超越该词SERP均值，更应执行，属于正常情况。\n注：G和I均为查词时快照，执行前如距填写超60天建议重新核查SERP。',
