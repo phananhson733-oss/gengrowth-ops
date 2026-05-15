@@ -79,6 +79,29 @@ v0.19 必须包含以下字段，以支持三级架构及嵌套操作。
     - Logic_Mechanism: {机制与代价}
     - CTA_URL: {转化链接}
     ```
+_场景 1：如果你正在写一篇【Pillar (主词)】文章_
+
+  假设你正在写 Target_Keyword: aura colors。
+
+  因为这是一篇总览性的主文章，你需要在里面简述所有的颜色。
+
+   * **此时你应该填**：Spoke_Topics: blue aura meaning, yellow aura meaning, purple aura meaning...
+
+   * **AI 会怎么做**：AI 看到这些词，会在主文章里自动生成“蓝色光环”、“黄色光环”等 H2 小标题，对它们进行简单介绍，并留好位置让你将来放内链。
+
+  
+
+  _场景 2：如果你正在写一篇【Spoke (次级词)】文章_
+
+  假设你正在写 Target_Keyword: blue aura meaning。
+
+  因为这已经是一篇非常具体的次级文章了，它下面没有更细的次次级分类需要列成大纲了（它只需要消化那几个长尾词即可）。
+
+   * **此时你应该填**：Spoke_Topics: (留空或不填)
+
+   * **AI 会怎么做**：AI 知道这是一篇 Spoke 文章，它就不会去生成一堆并列的 H2 总览，而是集中火力，把“蓝色光环”这个词挖得很深很透。
+
+
 4. **红线质检**：AI 出稿后检查：
    * 是 Pillar？检查是否每个 Spoke 都有 H2 小节。
    * 包含禁词 (synergy, leverage)？打回重写。
