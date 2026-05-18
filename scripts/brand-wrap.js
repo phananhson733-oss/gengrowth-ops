@@ -200,14 +200,13 @@ function processFile(filepath) {
     changes.push(`补 updated: ${todayISO()}`);
   }
 
-  // 2. 文件名规范化
+  // 2. 文件名规范化: 只加日期前缀, 保留原 basename (短且自描述)
   const base = path.basename(filepath);
   const dir = path.dirname(filepath);
   let newBase = base;
-  // 只对没有日期前缀的文件改名
   if (!/^\d{4}-\d{2}-\d{2}-/.test(base)) {
-    const title = extractTitle(body) || path.basename(base, ".md");
-    const slug = slugify(title);
+    const stem = path.basename(base, ".md");
+    const slug = slugify(stem) || "untitled";
     newBase = `${todayISO()}-${slug}.md`;
     if (newBase !== base) {
       changes.push(`重命名: ${base} → ${newBase}`);
