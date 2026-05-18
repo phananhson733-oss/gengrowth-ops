@@ -117,7 +117,7 @@ Content Tier (生产定级)
 2.  **发送燃料包**（根据 A 列排版判断填写 Parent）：
     ```markdown
     # Assembly v0.19
-    Target: {A列词} | Parent: {若是Spoke填B列词，若是Pillar填A列词}
+    Target: {A列词} | Parent: {若是Spoke填主行词，若是Pillar填A列词}
     Associated: {B列的那几个长尾词}
     Intent: {E列} | Tier: {F列} | Template: {G列}
     Entity: {H列} | Friction: {I列} | Logic: {J列} | CTA: {K列}
