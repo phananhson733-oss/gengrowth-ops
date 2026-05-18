@@ -2,7 +2,7 @@
 project: astrologywiki
 type: blog-draft
 status: draft
-owner: Letty
+owner: Ma Boyang
 updated: 2026-05-18
 ---
 

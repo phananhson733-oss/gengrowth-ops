@@ -2,12 +2,13 @@
 project: astrologywiki
 type: blog-draft
 status: draft
-owner: Letty
+owner: Ma Boyang
 updated: 2026-05-18
 ---
 
 # Aura Colors: The Comprehensive Guide to Mapping Your Energy Field
 
+![[Aura Colors01.webp]]
 To understand **aura colors**, you must recognize that they are not static filters but dynamic signatures of your **Energy Field**. **Aura colors are the visible frequencies of your electromagnetic field, reflecting your current emotional, physical, and spiritual state.** While most people search for a single defining hue, the operational reality is that your aura is a shifting gradient. The trade-off is simple: **To gain the clarity of a single-color label, you sacrifice the nuanced truth of a multi-layered, evolving energy system.**
 
 ### The "Single Color" Trap: Why One Reading Isn't Enough
@@ -72,6 +73,7 @@ In practice, people with orange auras are the "Relators" of the world. They thri
 ---
 
 ### How to Identify Your Current Spectrum
+![[Aura Colors02.webp]]
 Determining your **aura colors** isn't a one-time event; it’s a diagnostic process. Because your **Energy Field** reacts to stress, diet, and environment, your "base" color may be obscured by secondary layers. 
 
 The most effective way to map your colors is to look for consistency across different states of mind. If you are consistently "yellow" during work but "blue" during rest, you aren't just one color—you are an adaptable energetic system.
