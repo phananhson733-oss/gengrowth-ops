@@ -18,14 +18,14 @@ updated: 2026-05-14
 
 本周完成了从**诊断基线**到**执行工具链**的全面搭建，正式进入工业化生产前夜。
 
-### 1. 实验基线确立 (`astrologywiki-growth-experiment-2026-05-v2`)
+### 1. 实验基线确立 (`astrologywiki-growth-experiment-2026-05-v2`)inbox/03-content-briefs/2026-05-14-seo-pipeline-sop-v2
 *   **数据对齐**：提取了自有站 (DR 0) 与核心竞品 (DR 23-25) 的基线指标。
 *   **策略升级**：将实验目标由“稳健型”调整为“**闪电战型 (Blitzkrieg)**”。
 *   **目标锁定**：Day 60 发布内容数调高至 **280+ (全量打满)**，非品牌 Impressions 预期目标调优至 **40,000+**。
 
 ### 2. 方法论 v0.19 集群版发布
 *   **SOP 升级**：发布了 `SEO内容生产流水线_v0.19_集群版`。从“单篇逻辑”进化为“**三级集群逻辑 (Pillar-Spoke-Longtail)**”。
-*   **提示词迭代**：发布了 `SEO内容生产提示词_v0.19`。增加了 `Associated_Keywords` 语义嵌套算法和 Pillar/Spoke 分叉写作逻辑，确保 AI 产出具备高信息增益。
+*   **提示词迭代**：发布了 `SEO内容生产提示词_v0.19`。增加了 `Associated_Keywords` 语义嵌套算法和 Pillar/Spoke 分叉写作逻辑，确保 AI 产出具备高信息增益。inbox/03-content-briefs/2026-05-14-seo-cluster-prompts
 
 ### 3. 内容执行大盘建模 (`GenGrowth内容生产执行表_最终优化版`)
 *   **全量聚类**：完成了 283 个快速胜利词与 133 个长尾词的精准匹配。
