@@ -33,15 +33,12 @@ jobs:
           REPO: ${{ github.repository }}
           WEEK_START: ${{ steps.gen.outputs.week_start }}
           WEEK_END: ${{ steps.gen.outputs.week_end }}
-          ASSIGNEES: ${{ vars.WEEKLY_DIGEST_ASSIGNEES }}
+          # CEO/PM 收件人 (周报 issue 自动 assign 给 ta)
+          ASSIGNEES: "xdawayer"
         run: |
-          ASSIGN_ARG=""
-          if [ -n "$ASSIGNEES" ]; then
-            ASSIGN_ARG="--assignee $ASSIGNEES"
-          fi
           gh issue create \
             --repo "$REPO" \
             --title "[周报摘要] inbox/ 周变化 ${WEEK_START} → ${WEEK_END}" \
             --body-file /tmp/digest-body.md \
             --label "weekly-digest" \
-            $ASSIGN_ARG
+            --assignee "$ASSIGNEES"
