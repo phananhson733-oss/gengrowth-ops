@@ -101,11 +101,6 @@ function inferType(filepath) {
   return "note";
 }
 
-function extractTitle(body) {
-  const m = body.match(/^#\s+(.+?)\s*$/m);
-  return m ? m[1].trim() : "";
-}
-
 /**
  * slugify: 保留中文 + 字母数字, 空格/标点转 -, 最长 60 字符
  */
@@ -228,12 +223,14 @@ function processFile(filepath) {
     changes.push(`   建议人工改写后再标 ready_for_review (SEO 降权风险)`);
   }
 
-  // 4. 品牌 CTA
+  // 4. 品牌 CTA: 只给 blog-draft 类型追加 (关键词调研/简报/反馈等不需要)
   let newBody = body.replace(/\s+$/, "");
-  const hasCta = /astrologywiki\.com|AstrologyWiki/i.test(newBody);
-  if (!hasCta) {
-    newBody += "\n\n" + BRAND_CTA;
-    changes.push("追加品牌 CTA");
+  if (newFm.type === "blog-draft") {
+    const hasCta = /astrologywiki\.com|AstrologyWiki/i.test(newBody);
+    if (!hasCta) {
+      newBody += "\n\n" + BRAND_CTA;
+      changes.push("追加品牌 CTA (blog 类型)");
+    }
   }
 
   const newContent = buildFrontmatter(newFm) + "\n\n" + newBody + "\n";
