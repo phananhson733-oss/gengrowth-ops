@@ -2,14 +2,10 @@ name: Weekly Inbox Digest
 
 # 作用: 每周一早上 9 点 (北京时间), 列出过去 7 天 inbox/ 的新增和修改文件,
 # 开成一个 issue 通知 CEO/PM, 让 ta 在 GitHub Mobile 也能看到 Ops 的产出, 决定哪些上行收编到 wiki。
-#
-# 重点高亮 reports-and-feedback/ 下的反馈和周报。
 
 on:
   schedule:
-    # 每周一北京时间 09:00 = UTC 01:00
-    - cron: "0 1 * * 1"
-  # 手动触发: gh workflow run weekly-inbox-digest.yml
+    - cron: "0 1 * * 1"   # 每周一 UTC 01:00 = 北京时间 09:00
   workflow_dispatch:
 
 permissions:
@@ -20,88 +16,15 @@ jobs:
   digest:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # 需要历史才能 diff
+          fetch-depth: 0
 
-      - name: 生成 digest
+      - name: 生成 digest body
         id: gen
-        run: |
-          set -euo pipefail
-
-          # 7 天前的 commit SHA (HEAD@{7 days ago} 不一定存在, 用日期更稳)
-          SINCE=$(date -u -d "7 days ago" +%Y-%m-%d 2>/dev/null || date -u -v-7d +%Y-%m-%d)
-          NOW=$(date -u +%Y-%m-%d)
-
-          # 收集过去 7 天 inbox/ 下的 added (A) 和 modified (M) 文件
-          # --name-status 给出文件状态; --since 限定时间窗口
-          CHANGES=$(git log --since="$SINCE" --pretty=format:"" --name-status -- 'inbox/' 2>/dev/null \
-            | grep -vE '^\s*$' | sort -u || true)
-
-          if [ -z "$CHANGES" ]; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "本周 inbox/ 无变化, 不开 issue。"
-            exit 0
-          fi
-
-          # 拆分三个 bucket
-          # 1. 高亮: 反馈/周报
-          # 2. 内容: 草稿/简报/调研
-          # 3. 其他: 归档/审计等
-          highlight=$(echo "$CHANGES" | grep -E "inbox/08-reports-and-feedback/" || true)
-          content=$(echo "$CHANGES" | grep -E "inbox/(01-keyword-research|03-content-briefs|04-production)/" || true)
-          other=$(echo "$CHANGES" | grep -vE "inbox/(08-reports-and-feedback|01-keyword-research|03-content-briefs|04-production)/" || true)
-
-          # 把文件路径转成 markdown 链接 (status A=新增, M=修改, D=删除)
-          render() {
-            local block="$1"
-            [ -z "$block" ] && { echo "_(无)_"; return; }
-            echo "$block" | while IFS=$'\t' read -r status file; do
-              [ -z "$file" ] && continue
-              case "$status" in
-                A) icon="✨" ;;
-                M) icon="✏️" ;;
-                D) icon="🗑️" ;;
-                *) icon="•" ;;
-              esac
-              # URL-encode 不做 (GitHub 自动处理), 但路径里 # 需要 escape
-              echo "- $icon \`$file\`"
-            done
-          }
-
-          BODY=$(cat <<EOF
-> 时间窗: $SINCE → $NOW
-> 仓库: ${{ github.repository }}
-> 触发: weekly-inbox-digest.yml
-
-## 🔔 反馈 & 周报 (重点看)
-
-$(render "$highlight")
-
-## ✍️ 内容产出 (调研 / 简报 / 草稿)
-
-$(render "$content")
-
-## 📦 其他
-
-$(render "$other")
-
----
-
-## 怎么处理
-
-- **值得收编到 wiki 的 SOP / 反馈结论** → 去 \`xdawayer/gengrowth-wiki\` 提 PR
-- **只是过程记录** → 留在 inbox/ 即可, 或归档到 \`inbox/09-archive/\`
-- **status: ready_for_review 的内容** → 应该已经触发 dispatch 开过 PR, 检查 PR 列表
-EOF
-)
-
-          # 把 body 写到文件再用 gh issue create --body-file (避免 shell escaping)
-          echo "$BODY" > /tmp/digest-body.md
-          echo "has_changes=true" >> $GITHUB_OUTPUT
-          echo "week_start=$SINCE" >> $GITHUB_OUTPUT
-          echo "week_end=$NOW" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash scripts/weekly-digest.sh
 
       - name: 开 issue
         if: steps.gen.outputs.has_changes == 'true'
@@ -110,10 +33,15 @@ EOF
           REPO: ${{ github.repository }}
           WEEK_START: ${{ steps.gen.outputs.week_start }}
           WEEK_END: ${{ steps.gen.outputs.week_end }}
+          ASSIGNEES: ${{ vars.WEEKLY_DIGEST_ASSIGNEES }}
         run: |
-          TITLE="[周报摘要] inbox/ 周变化 ${WEEK_START} → ${WEEK_END}"
+          ASSIGN_ARG=""
+          if [ -n "$ASSIGNEES" ]; then
+            ASSIGN_ARG="--assignee $ASSIGNEES"
+          fi
           gh issue create \
             --repo "$REPO" \
-            --title "$TITLE" \
+            --title "[周报摘要] inbox/ 周变化 ${WEEK_START} → ${WEEK_END}" \
             --body-file /tmp/digest-body.md \
-            --label "weekly-digest"
+            --label "weekly-digest" \
+            $ASSIGN_ARG
