@@ -65,7 +65,7 @@ updated: 2026-05-18
     >
     > **排期**：P0。研发可复用 OraclePage 现有图表渲染逻辑，抽免登录精简版。
 
-### 3. 首页内链权重模块 (Home Page Pillar Hub)
+### 3. astrologywiki.com landpage
 *   **提出日期**：2026-05-14
 *   **当前状态**：[x] 暂缓（前置条件：内容数 ≥ 15）
 *   **需求描述**：在官网首页 (`/`) 增加一个板块，如“Featured Articles”或“Latest Guides”。
