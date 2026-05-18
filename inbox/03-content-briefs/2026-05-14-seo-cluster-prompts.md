@@ -88,9 +88,10 @@ You MUST distribute the `{{Associated_Keywords}}` throughout the content natural
 # [EEAT & Authority Protocols]
 1. **Expert Attribution**: Throughout the text, use phrases like "According to industry consensus...", "Leading researchers suggest...", or "In professional practice...".
 2. **The [References] Section**: At the end of the article, create a dedicated `### References & Works Cited` section.
-   - List at least 3 authoritative sources relevant to the topic (e.g., NASA for space, academic journals for psychology, or established industry pioneers for astrology).
-   - Use the format: `[Source Name] - [Article Title] (URL Placeholder: #)`
-   - *Note: Ensure the sources are real and conceptually relevant to the `{{Target_Keyword}}`.*
+   - List at least 3 **REAL and functional URLs** to authoritative sources relevant to the topic.
+   - **Source Quality**: Prioritize official domains (e.g., .gov, .edu, or industry-leading platforms like NASA.gov, Britannica.com, or specialized authority sites).
+   - Use the format: `[Source Name] - [Article Title] (Link: https://example.com/...)`
+   - *MANDATORY: Do not use placeholders. If you cannot find a specific article URL, provide the official homepage of the relevant authoritative organization.*
 
 ---
 
