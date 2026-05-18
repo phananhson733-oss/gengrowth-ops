@@ -18,20 +18,29 @@ updated: 2026-05-18
 
 ### 1. 独立 Blog 发布与管理后台 (CMS)
 *   **提出日期**：2026-05-14
-*   **当前状态**：[x] 已驳回（暂缓 — 提前优化）
+*   **当前状态**：[x] 已接纳（**简化版**） — P1 排期
 *   **需求描述**：需要一个可视化的界面进行 Blog 的发布、预览（试看）和二次调整。
 *   **核心功能**：
     *   **SEO 元数据设置**：必须支持手动设置每篇文章的 `Title Tag`、`Meta Description` 和 `Focus Keywords`。
     *   **预览模式**：在发布前能看到文章在 PC/Mobile 端的实际呈现效果。
 *   **SEO 理由**：目前通过代码或数据库直接发布效率太低，且无法精准控制 TDK（标题、描述、关键词），这是 SEO 优化的基本盘。
 *   **💡 评审反馈**：
-    > **决议：暂不研发 CMS。**
+    > **决议：做简化版 CMS（非完整后台）。**
     >
-    > **理由**：oracle 仓库当前文章数 = 6（硬编码在 `data/articles/*.ts`），瓶颈在内容产能而非发布工具。CMS 是为月产 30+ 篇准备的基础设施，当前阶段做属于提前优化。
+    > **范围确认**：现阶段不做带可视化编辑器、用户系统、草稿/发布工作流的完整 CMS。**简化版 CMS = Markdown + front-matter + 自动转 article object**。
     >
-    > **替代方案（轻量改造，1 天工作量）**：把 `data/articles/*.ts` 改成 Markdown + front-matter，build 时由脚本自动转 article object。运营脱离 TypeScript，TDK 也通过 front-matter 直接配置（已在 Obsidian 模板 `templates/草稿-SEO博客-AIO.md` 中预置）。
+    > **实现路径**：
+    > 1. 把 `data/articles/*.ts` 全部改成 Markdown + front-matter
+    > 2. build 时由脚本（扩展现有 `scripts/generate-seo-pages.mjs`）扫描 markdown 自动构建 article index
+    > 3. front-matter 字段对齐 `templates/草稿-SEO博客-AIO.md`（title / slug / focus_keyword / pillar_slug / description / keywords / schema / lang 等）
+    > 4. 预览：用 Vite dev server 本地预览（`npm run dev` 即可看到 markdown 渲染结果），不做独立预览站
+    > 5. 移动端预览：dev server + 浏览器 DevTools 设备模拟即可
     >
-    > **重新评估时机**：月产文章 ≥ 20 篇时回头讨论。
+    > **不做的事**：可视化编辑器、用户登录、权限管理、发布按钮、Webhook、CMS UI。
+    >
+    > **运营受益**：写文章 = 在 Obsidian 用「草稿-SEO博客-AIO」模板新建 .md → 拖到 oracle 的 `data/articles/` → 本地预览 → commit。**全程脱离 TypeScript**。
+    >
+    > **排期**：P1（在 #2 Calculator 之后）。研发成本约 1-2 天。
 
 ### 2. Standalone 工具页：Vedic Birth Chart Calculator
 *   **提出日期**：2026-05-14
