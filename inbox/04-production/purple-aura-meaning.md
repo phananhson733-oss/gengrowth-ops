@@ -30,6 +30,7 @@ In practice, people with this energy signature usually choose unconventional mea
 Teams and families often struggle with purple personalities because they expect them to care about mundane, low-frequency details. A purple individual is focused on the macro-cosmic webs connecting humanity; they are notoriously bad at remembering to perform routine administrative tasks. 
 
 ## Decoding the Purple Aura Color Meaning: Frequencies and Shades
+![[purple-aura-meaning02.webp]]
 
 The **purple aura color meaning** shifts depending on the saturation and specific wavelength of the field. Not all purples process spiritual data the exact same way.
 
