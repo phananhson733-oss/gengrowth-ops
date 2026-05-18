@@ -60,5 +60,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # 校验失败时, 自动开 issue @ 这些人 (逗号分隔的 GitHub username)
-          ISSUE_NOTIFY_USERS: ""
+          ISSUE_NOTIFY_USERS: "Yuiteatime"
         run: node scripts/dispatch-inbox.js
