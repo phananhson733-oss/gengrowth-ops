@@ -45,9 +45,11 @@ const ISSUE_NOTIFY = (process.env.ISSUE_NOTIFY_USERS || "")
   .map((s) => s.trim())
   .filter(Boolean);
 
-// 真实存在的可写目录 (top README 标注为 "运营工作区" 的目录).
-// docs/ 子目录和 ✍️ 内容资产/ 是 wiki 单向同步只读, 不在白名单。
-const ALLOWED_TARGETS = ["onboarding/", "templates/", "task-collab/"];
+// 真实存在的可写目录.
+// 所有 wiki-sync 白名单目录 (docs/03-marketing, ✍️ 内容资产, task-collab 等) 都是 rsync --delete 单向覆盖,
+// dispatch 绝对不能往里搬运 (修改会被下次 sync 抹掉)。
+// 真正可写的只有 onboarding/ 和 templates/ (运营工作区, 非 wiki 同步)。
+const ALLOWED_TARGETS = ["onboarding/", "templates/"];
 
 // inbox 自动归档专用 target (status=archived 时强制使用此目录)
 const ARCHIVE_TARGET = "inbox/09-archive/";

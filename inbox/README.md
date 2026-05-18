@@ -37,8 +37,8 @@
 | `ready_to_move` | **直接搬运** 到 target | 已确认无需 review 的内容 |
 | `archived` | **自动归档** 到 `inbox/09-archive/` | 老版本、废弃文件 |
 
-> 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`, `task-collab/`）。
-> `docs/` 是 wiki 单向同步**只读**，不能直推；要更新 docs 请改 wiki repo。
+> 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
+> 所有 wiki 同步目录（`docs/`、`✍️ 内容资产/`、`参考资料/`、`每日日报/`、`task-collab/`）都是单向 rsync 镜像**只读**，dispatch 不能往里搬；要更新这些内容请改 wiki repo。
 
 ### Frontmatter 示例
 
