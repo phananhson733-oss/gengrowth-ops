@@ -1,3 +1,11 @@
+---
+project: astrologywiki
+type: blog-draft
+status: draft
+owner: Letty
+updated: 2026-05-18
+---
+
 # Purple Aura Meaning: The Mechanics of the Spiritual Realm
 
 When mapping the full human energy spectrum of [Link to aura colors], the **purple aura meaning** stands out as the highest frequency band visible to the untrained eye. **A purple aura signifies an active, high-bandwidth connection to the Spiritual Realm, indicating an individual who processes reality through psychic intuition, astral travel, and a deep alignment with cosmic cycles rather than mundane societal rules.** 

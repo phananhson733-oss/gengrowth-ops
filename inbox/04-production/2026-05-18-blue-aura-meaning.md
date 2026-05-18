@@ -1,3 +1,11 @@
+---
+project: astrologywiki
+type: blog-draft
+status: draft
+owner: Letty
+updated: 2026-05-18
+---
+
 # The Operational Reality of the Blue Aura Meaning
 
 When attempting to map your personal energy signature, defining the **blue aura meaning** is often the first major roadblock. **A blue aura signifies high-frequency communication, intuitive processing, and a dominant throat chakra, indicating an individual who prioritizes truth and vocal expression over physical action.** The problem most seekers face when researching [Link to aura colors] is the sheer volume of contradictory, generic information available.

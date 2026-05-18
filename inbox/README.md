@@ -65,6 +65,30 @@ updated: 2026-05-18
 ---
 ```
 
+## 🛠️ 写文章的辅助工具：`brand-wrap`
+
+用任何 AI（Gemini / Claude / ChatGPT）生成文章粘到 inbox 之后，跑一下规范化脚本：
+
+```bash
+# 预览（不改文件）
+node scripts/brand-wrap.js inbox/04-production/my-new-blog.md
+
+# 应用规范化（补 frontmatter + 加日期前缀 + AI 词警告 + blog 末尾追加品牌 CTA）
+node scripts/brand-wrap.js inbox/04-production/my-new-blog.md --apply
+
+# 扫描整个 inbox/，批量规范化所有缺 frontmatter 的文件
+node scripts/brand-wrap.js --scan inbox/ --apply
+```
+
+脚本会自动做：
+
+1. **补 frontmatter**：`project/type/status/owner/updated`（type 从 inbox 子目录推断）
+2. **文件名加日期前缀**：`my-blog.md` → `2026-05-18-my-blog.md`
+3. **AI 标志词扫描**：发现 `delve/crucial/robust/landscape/...` 等词 ≥ 3 个时警告，提示 SEO 降权风险
+4. **品牌 CTA**：blog-draft 类型文章末尾自动追加 AstrologyWiki 链接（已有的不重复加）
+
+> AI 警告是 advisory，不阻塞；frontmatter 缺失/文件名错误才会阻塞 dispatch。
+
 ## 🚨 校验失败怎么办
 
 如果 dispatch 脚本拒绝了某个文件，会自动开一个 GitHub Issue 通知作者。在 Issue 里能看到：

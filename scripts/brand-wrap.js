@@ -253,18 +253,19 @@ function processFile(filepath) {
 // ---- CLI ----
 
 function printResult(r, verbose = true) {
+  const hasAnything = r.changes.length > 0 || r.advisories.length > 0;
+  if (!hasAnything) return; // 完全 OK 的文件不打印
   console.log(`\n📄 ${r.filepath}`);
   if (r.newPath !== r.filepath) {
     console.log(`   → ${r.newPath}`);
   }
-  if (r.changes.length === 0) {
-    console.log("   ✅ 已规范, 无需改动");
-    return;
-  }
   for (const c of r.changes) {
     console.log(`   • ${c}`);
   }
-  if (verbose) {
+  for (const a of r.advisories) {
+    console.log(`   ${a}`);
+  }
+  if (verbose && r.changes.length > 0) {
     console.log("\n   新 frontmatter:");
     console.log(
       buildFrontmatter(r.newFm)

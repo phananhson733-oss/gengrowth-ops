@@ -1,3 +1,11 @@
+---
+project: astrologywiki
+type: blog-draft
+status: draft
+owner: Letty
+updated: 2026-05-18
+---
+
 # Aura Colors: The Comprehensive Guide to Mapping Your Energy Field
 
 To understand **aura colors**, you must recognize that they are not static filters but dynamic signatures of your **Energy Field**. **Aura colors are the visible frequencies of your electromagnetic field, reflecting your current emotional, physical, and spiritual state.** While most people search for a single defining hue, the operational reality is that your aura is a shifting gradient. The trade-off is simple: **To gain the clarity of a single-color label, you sacrifice the nuanced truth of a multi-layered, evolving energy system.**

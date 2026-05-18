@@ -1,3 +1,11 @@
+---
+project: astrologywiki
+type: blog-draft
+status: draft
+owner: Letty
+updated: 2026-05-18
+---
+
 # Yellow Aura Meaning: Intellectual Power and the Solar Plexus Trade-off
 
 The **yellow aura meaning** is defined by the specific frequency of the **Solar Plexus Chakra** (Manipura), representing a high-bandwidth energetic state focused on logic, creative optimization, and individual willpower. **A yellow aura indicates that an individual is currently operating in a state of high intellectual output, confidence, and optimism, prioritizing mental clarity and problem-solving over emotional receptivity.** While navigating the broader spectrum of [Link to aura colors], the yellow frequency stands out as the signature of the "Optimistic Architect." 
