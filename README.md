@@ -10,7 +10,6 @@
 
 | 目录 | 说明 |
 |---|---|
-| `docs/01-company/` | 公司基本信息：业务介绍、文化价值观、astrologywiki 介绍 |
 | `docs/03-marketing/` | 核心工作区：SEO、GEO、社媒策略、营销框架 |
 | `✍️ 内容资产/` | 已发布内容库，了解内容调性 |
 | `docs/06-shared/assets/brand/` | 品牌素材，内容制作必用 |

@@ -1,0 +1,124 @@
+name: Wiki Sync Guard
+
+# 作用: 监测有人在 wiki-sync 白名单目录里直接提交 (绕过 wiki repo PR 流程).
+# 这些目录是 wiki -> ops 单向 rsync --delete 镜像, ops 端任何修改都会在下次 sync 时被静默覆盖。
+# 不自动 revert (留给人类决策), 但开 issue 警告作者修改可能丢失。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/03-marketing/**"
+      - "✍️ 内容资产/**"
+      - "docs/06-shared/assets/brand/**"
+      - "参考资料/产品分析/**"
+      - "docs/04-programs/**"
+      - "每日日报/**"
+      - "参考资料/tool-guides/**"
+      - "docs/05-governance/account-access/**"
+      - "docs/05-governance/people-ops/policies/**"
+      - "task-collab/**"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检查 push 是否来自 wiki-sync[bot]
+        id: check
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+        run: |
+          set -euo pipefail
+          ZEROS='0000000000000000000000000000000000000000'
+
+          # 列出本次 push 范围内所有非 wiki-sync[bot] 的 commits
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "$ZEROS" ]; then
+            RANGE="$AFTER"
+            COMMITS=$(git log --pretty=format:"%H|%an" "$RANGE" 2>/dev/null | head -50)
+          else
+            RANGE="$BEFORE..$AFTER"
+            COMMITS=$(git log --pretty=format:"%H|%an" "$RANGE" 2>/dev/null)
+          fi
+
+          # 过滤出非 bot 的 commits
+          BAD_COMMITS=$(echo "$COMMITS" | grep -v '|wiki-sync\[bot\]$' || true)
+          if [ -z "$BAD_COMMITS" ]; then
+            echo "✅ 本次 push 仅含 wiki-sync[bot] 的 commit, 正常。"
+            echo "violation=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "violation=true" >> $GITHUB_OUTPUT
+
+          # 收集每个非 bot commit 改动的白名单目录文件
+          {
+            echo "report<<EOF"
+            echo "$BAD_COMMITS" | while IFS='|' read -r sha author; do
+              [ -z "$sha" ] && continue
+              files=$(git diff-tree --no-commit-id --name-only -r "$sha" 2>/dev/null \
+                | grep -E '^(docs/03-marketing/|✍️ 内容资产/|docs/06-shared/assets/brand/|参考资料/产品分析/|docs/04-programs/|每日日报/|参考资料/tool-guides/|docs/05-governance/account-access/|docs/05-governance/people-ops/policies/|task-collab/)' \
+                || true)
+              if [ -n "$files" ]; then
+                short=$(echo "$sha" | cut -c1-7)
+                echo "### commit $short — $author"
+                echo ""
+                echo "$files" | sed 's|^|- |'
+                echo ""
+              fi
+            done
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: 开 issue 警告
+        if: steps.check.outputs.violation == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT: ${{ steps.check.outputs.report }}
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          if [ -z "${REPORT// /}" ]; then
+            echo "白名单内无实际改动, 不开 issue。"
+            exit 0
+          fi
+
+          TITLE="[wiki-sync 警告] @${ACTOR} 在 wiki 同步目录里有修改 ($(date +%Y-%m-%d))"
+          BODY=$(cat <<EOF
+@${ACTOR}
+
+你刚推送了改动到 **wiki 同步目录**, 这些目录是 \`gengrowth-wiki\` 单向 rsync --delete 镜像, 修改**会在下次 wiki sync 触发时被静默覆盖或删除**。
+
+## 受影响的修改
+
+${REPORT}
+
+## 怎么办
+
+- 如果这些修改重要 → **去 \`xdawayer/gengrowth-wiki\` 提 PR**, 让改动从源头流过来
+- 如果是临时草稿 → 移到 \`inbox/\` 下保留, 或直接放弃
+- 如果是 ops 独有内容 → 放在非同步目录 (\`onboarding/\`, \`templates/\`)
+
+## 设计原则
+
+ops 是运营视图, **wiki 是真相源**。inbox/ 之外的内容以 wiki 为准。
+
+> Run: https://github.com/${REPO}/actions/runs/${RUN_ID}
+EOF
+)
+
+          gh issue create \
+            --repo "$REPO" \
+            --title "$TITLE" \
+            --body "$BODY" \
+            --label "wiki-sync-violation"

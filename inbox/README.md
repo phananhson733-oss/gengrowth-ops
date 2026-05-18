@@ -21,10 +21,58 @@
 
 ## 🛠️ 文件管理规范
 
-1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。
+1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。避免 `Untitled.md` / `未命名.md` 等占位名，会被自动校验拒绝。
 2. **元数据要求**：所有 `.md` 文件头部必须包含 `project`, `type`, `status`, `owner`, `updated` 字段。
 3. **Owner**：Ma Boyang。
 4. **清理规则**：正式 SOP 确定后应提交至 `docs/`；已发布的 Blog 初稿定期归档至内容资产库。
 
+## 🔄 status 字段语义（决定 dispatch 行为）
+
+`scripts/dispatch-inbox.js` 根据 frontmatter 里的 `status` 字段决定怎么处理一个文件：
+
+| status | 行为 | 适用场景 |
+|---|---|---|
+| `draft` (或无 frontmatter) | **留在 inbox/**，不动 | 草稿、半成品、思考记录。脚本不会骚扰。 |
+| `ready_for_review` | **开 PR** 等审批 | 完成的内容，需要他人 review |
+| `ready_to_move` | **直接搬运** 到 target | 已确认无需 review 的内容 |
+| `archived` | **自动归档** 到 `inbox/09-archive/` | 老版本、废弃文件 |
+
+> 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
+> 所有 wiki 同步目录（`docs/`、`✍️ 内容资产/`、`参考资料/`、`每日日报/`、`task-collab/`）都是单向 rsync 镜像**只读**，dispatch 不能往里搬；要更新这些内容请改 wiki repo。
+
+### Frontmatter 示例
+
+```yaml
 ---
-*最后更新：2026-05-14*
+project: astrologywiki
+type: blog-draft
+status: draft           # 草稿阶段：脚本会忽略
+owner: Ma Boyang
+updated: 2026-05-18
+---
+```
+
+完成后改成 ready 状态再触发 dispatch：
+
+```yaml
+---
+project: astrologywiki
+type: sop
+status: ready_for_review
+target: onboarding/
+owner: Ma Boyang
+updated: 2026-05-18
+---
+```
+
+## 🚨 校验失败怎么办
+
+如果 dispatch 脚本拒绝了某个文件，会自动开一个 GitHub Issue 通知作者。在 Issue 里能看到：
+
+- 哪个文件出了什么问题
+- 怎么修
+
+修复后在 Obsidian 里改完，按 F5 重新提交即可。
+
+---
+*最后更新：2026-05-18*
