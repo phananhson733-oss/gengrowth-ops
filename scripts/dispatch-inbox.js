@@ -349,6 +349,26 @@ function createIssueOnFailure(report) {
   ].join("\n");
 
   try {
+    // 确保 label 存在 (幂等; 失败忽略)
+    try {
+      execFileSync(
+        "gh",
+        [
+          "label",
+          "create",
+          "inbox-validation",
+          "--repo",
+          repo,
+          "--color",
+          "FBCA04",
+          "--description",
+          "inbox 文件校验失败",
+        ],
+        { stdio: "pipe" },
+      );
+    } catch (_) {
+      // label 已存在或创建失败, 不阻塞
+    }
     gh(
       "issue",
       "create",
