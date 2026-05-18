@@ -163,10 +163,12 @@ updated: 2026-05-18
 - **已交付**：AI-2 Obsidian 模板（`templates/草稿-SEO博客-AIO.md`）
 - **不做**：#4 LP Builder、AI-1 自动内链插件、AI-3 UTM 追踪研发
 
-任务卡已落地到 `task-collab/tasks/`：
-- `2026-05-18-birth-chart-calculator-task.md`
-- `2026-05-18-cms-simple-version-task.md`
-- `2026-05-18-astrologywiki-landpage-task.md`
+任务卡已落地到 `gengrowth-wiki` vault 的 `task-collab/tasks/`：
+- `2026-05-18-birth-chart-calculator-task.md`（P0）
+- `2026-05-18-cms-simple-version-task.md`（P1）
+- `2026-05-18-astrologywiki-landpage-task.md`（P1）
+
+绝对路径：`/Users/wzb/gengrowth-wiki/task-collab/tasks/`
 
 ---
 **附件/参考**：
