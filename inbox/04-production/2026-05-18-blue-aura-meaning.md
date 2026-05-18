@@ -31,6 +31,7 @@ Because the colors of our auras change based on our immediate energy—specifica
 
 ## Decoding the Spectrum: From Light Blue to Dark Indigo
 
+![[Blue Aura Meaning02.webp]]
 The blue spectrum is not monolithic. The exact shade you observe indicates the specific frequency and intent of the energy being utilized. 
 
 ### Light Blue Aura Meaning
