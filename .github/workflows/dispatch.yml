@@ -11,11 +11,13 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 # 防止多次 push 导致并发冲突
+# cancel-in-progress: true — Letty 用 Obsidian Git 高频自动 push 时, 旧 run 的 inbox 状态已过时, 取消它们让最新状态生效
 concurrency:
   group: dispatch-inbox
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   dispatch:
@@ -34,8 +36,16 @@ jobs:
       - name: 找出 inbox 里变化的文件
         id: changed
         run: |
-          # 对比上一个 commit，找出 inbox/ 里新增或修改的文件
-          FILES=$(git diff --name-only HEAD~1 HEAD -- 'inbox/' 2>/dev/null || echo "")
+          # push event 提供 before/after SHA。第一次 push / 强制 push / 分支创建时 before 可能是 zeros。
+          BEFORE='${{ github.event.before }}'
+          AFTER='${{ github.event.after }}'
+          ZEROS='0000000000000000000000000000000000000000'
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "$ZEROS" ]; then
+            # 第一次 push 或无法 diff: 退到看最近一个 commit 的变更
+            FILES=$(git diff --name-only HEAD~1 HEAD -- 'inbox/' 2>/dev/null || git ls-files 'inbox/')
+          else
+            FILES=$(git diff --name-only "$BEFORE" "$AFTER" -- 'inbox/' 2>/dev/null || echo "")
+          fi
           echo "files<<EOF" >> $GITHUB_OUTPUT
           echo "$FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -49,4 +59,6 @@ jobs:
           BASE_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 校验失败时, 自动开 issue @ 这些人 (逗号分隔的 GitHub username)
+          ISSUE_NOTIFY_USERS: ""
         run: node scripts/dispatch-inbox.js
