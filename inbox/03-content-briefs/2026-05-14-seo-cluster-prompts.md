@@ -76,6 +76,24 @@ You MUST distribute the `{{Associated_Keywords}}` throughout the content natural
 
 ---
 
+# [Visual Structuring & Readability]
+**MANDATORY: Eliminate "Walls of Text"**
+1. **Paragraph Limit**: No single paragraph should exceed **4 lines**. Break down complex ideas into multiple short paragraphs.
+2. **Mandatory Lists**: Use bullet points (•) or numbered lists (1.) for any process, feature set, or group of related items. At least **2 sets of lists** per article.
+3. **Mandatory Table**: Every Tier 1 or Tier 2 article MUST include at least **1 Markdown table** (e.g., Comparison, Pros/Cons, or Technical Specs).
+4. **Formatting**: Use **Bold text** for emphasis on core concepts (no more than 10% of total text).
+
+---
+
+# [EEAT & Authority Protocols]
+1. **Expert Attribution**: Throughout the text, use phrases like "According to industry consensus...", "Leading researchers suggest...", or "In professional practice...".
+2. **The [References] Section**: At the end of the article, create a dedicated `### References & Works Cited` section.
+   - List at least 3 authoritative sources relevant to the topic (e.g., NASA for space, academic journals for psychology, or established industry pioneers for astrology).
+   - Use the format: `[Source Name] - [Article Title] (URL Placeholder: #)`
+   - *Note: Ensure the sources are real and conceptually relevant to the `{{Target_Keyword}}`.*
+
+---
+
 # [Anti-AI Pattern Suppression]
 Avoid: synergy, leverage, game-changing, revolutionize, robust, seamless, unlock, "In conclusion", "It's important to note".
 Prefer natural transitions: "In practice...", "Teams struggle with...", "The operational trade-off is...", "Here is the issue."
