@@ -210,6 +210,8 @@ function processFile(filepath) {
   const newPath = path.join(dir, newBase);
 
   // 3. AI 标志词扫描
+  // AI 警告是 advisory, 不算实质改动 (不触发 needsWrite)
+  const advisories = [];
   const bodyLower = body.toLowerCase();
   const hits = AI_TELL_WORDS.filter((w) => {
     // 用单词边界, 避免 "navigate" 误中 "navigation"
@@ -217,10 +219,10 @@ function processFile(filepath) {
   });
   const aiWarning = hits.length >= AI_THRESHOLD;
   if (aiWarning) {
-    changes.push(
+    advisories.push(
       `⚠️  检测到 ${hits.length} 个 AI 标志词: ${hits.slice(0, 6).join(", ")}${hits.length > 6 ? "..." : ""}`,
     );
-    changes.push(`   建议人工改写后再标 ready_for_review (SEO 降权风险)`);
+    advisories.push(`   建议人工改写后再标 ready_for_review (SEO 降权风险)`);
   }
 
   // 4. 品牌 CTA: 只给 blog-draft 类型追加 (关键词调研/简报/反馈等不需要)
@@ -241,6 +243,7 @@ function processFile(filepath) {
     hasFm,
     aiWarning,
     changes,
+    advisories,
     newContent,
     needsWrite: changes.length > 0,
     newFm,
