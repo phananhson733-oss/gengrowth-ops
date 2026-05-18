@@ -76,25 +76,31 @@ updated: 2026-05-18
 
 ### 3. astrologywiki.com landpage
 *   **提出日期**：2026-05-14
-*   **当前状态**：[x] 暂缓（前置条件：内容数 ≥ 15）
+*   **当前状态**：[x] 已接纳（**作为首页 = 统一内链入口**） — P1 排期
 *   **需求描述**：在官网首页 (`/`) 增加一个板块，如“Featured Articles”或“Latest Guides”。
 *   **展示逻辑**：优先展示我们定义的 **Pillar Blog（主关键词文章）**。
 *   **SEO 理由**：首页是全站权重最高的地方。通过首页直接链接到 Pillar 页面，可以实现权重的快速下沉，加速主关键词的排名爬升。
 *   **💡 评审反馈**：
-    > **决议：暂缓研发，前置内容产能。**
+    > **决议：做。范围扩大为 astrologywiki.com 首页改版 — 把首页定位为「统一内链入口」。**
     >
-    > **理由**：当前文章数 = 6。"Pillar Hub" 隐含的逻辑是「在一堆文章里挑出最重磅的几篇主推」，6 篇全推 = 退化成"最新文章列表"，没有 SEO 杠杆，也没有权重分配的意义。
+    > **范围调整**：不只做"Pillar Hub 模块"，而是首页整体改造，承担：
+    > 1. **Calculator 入口**（与 #2 强耦合）：Hero 主 CTA 改成 "Get Your Free Birth Chart"，直达 `/tools/birth-chart`
+    > 2. **Featured Articles 模块**：3-6 张卡片，初期 = 全部 6 篇文章；内容到 15 篇后切换为 "Pillar 主推 + Sub-pillar 列表"
+    > 3. **Wiki Topics 入口**：网格化展示 12 颗行星 / 12 宫等 wiki 主题，链接到 `/wiki/*`
+    > 4. **Footer Sitemap**：全站 main URL 在 footer 都有一条路径
     >
-    > **真正前置**：内容侧先写到 15-20 篇，能明确分出 3 篇 Pillar + 6 篇 Sub-pillar 后再启动。
+    > **首页 = 内链权重分配总闸**：所有重要 URL 都从首页 ≤1 跳可达，让 PageRank 顺着分发。
     >
-    > **位置规划（确认了再做参考）**：
-    > - 位置：Hero 之下，第一屏滚下来第一个 section
-    > - 展示：3-6 张卡片（封面 + Title + 1 行 description + 阅读时长）
-    > - 底部 CTA：「View All Articles →」接 `/wiki` 或 `/blog`
+    > **位置规划**：
+    > - Hero：CTA → `/tools/birth-chart`（与 #2 同步上线）
+    > - Section 1: Featured Articles（初期最新 6 篇，达到 15 篇后切 Pillar 排序）
+    > - Section 2: Explore the Wiki（行星 / 宫位 / 相位的网格入口）
+    > - Section 3: 心理占星介绍（流派定位 + 与传统占星差异，承接 SEO 关键词「psychological astrology」）
+    > - Footer: 全站 sitemap
     >
-    > **研发成本**：2-3 天（可复用 gengrowth-agents 现有 `pillar_slug` + `RelatedArticles` 组件模式）。
+    > **研发成本**：3-4 天（含 Hero 改版、3 个 section 实现、SEO meta、移动端适配）。
     >
-    > **重新评估时机**：文章数 ≥ 15 时启动。
+    > **排期**：P1（依赖 #2 上线后）。Pillar 排序逻辑可以先用「最新 6 篇」兜底，等内容到 15+ 切换。
 
 ### 4. 模块化落地页组装工具 (Modular LP Builder)
 *   **提出日期**：2026-05-14
@@ -143,15 +149,24 @@ updated: 2026-05-18
 
 | # | 需求 | 决议 | 排期 |
 |---|------|------|------|
-| 1 | Blog CMS（TDK + 预览） | 暂缓（提前优化） | 月产文章 ≥ 20 时复评 |
-| **2** | **Free Birth Chart Calculator**（原 Vedic 范围修正） | **接纳** | **P0** |
-| 3 | 首页 Pillar Hub | 暂缓（前置内容产能） | 文章数 ≥ 15 时启动 |
+| **1** | **Blog CMS 简化版**（Markdown + front-matter，非完整后台） | **接纳** | **P1** |
+| **2** | **Free Birth Chart Calculator**（原 Vedic 范围修正，用我们的心理占星算法） | **接纳** | **P0** |
+| **3** | **astrologywiki.com 首页改版**（作为统一内链入口） | **接纳** | **P1** |
 | 4 | Modular LP Builder | 驳回（过度工程） | 不排期 |
 | AI-1 | 自动内链建议插件 | 驳回 | 不排期 |
 | AI-2 | AIO Answer Lock | 接纳（Obsidian 模板） | **已交付** |
 | AI-3 | CTA UTM 追踪 | 不进研发排期 | 文档约定 |
 
-**结论**：本次评审唯一进入研发的需求是 **#2 Free Birth Chart Calculator**，AI-2 通过 Obsidian 模板已同步落地。其余项暂缓或驳回，等内容产能/LP 数量到达阈值后重新评估。
+**结论**：本次评审 3 项进入研发，需求方 Ma Boyang，reviewer + 执行方 wzb：
+- **P0**：#2 Free Birth Chart Calculator（我们版本，非 Vedic）
+- **P1**：#1 Blog CMS 简化版 + #3 astrologywiki.com 首页改版（与 #2 入口联动）
+- **已交付**：AI-2 Obsidian 模板（`templates/草稿-SEO博客-AIO.md`）
+- **不做**：#4 LP Builder、AI-1 自动内链插件、AI-3 UTM 追踪研发
+
+任务卡已落地到 `task-collab/tasks/`：
+- `2026-05-18-birth-chart-calculator-task.md`
+- `2026-05-18-cms-simple-version-task.md`
+- `2026-05-18-astrologywiki-landpage-task.md`
 
 ---
 **附件/参考**：
