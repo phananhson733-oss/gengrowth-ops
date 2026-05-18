@@ -48,6 +48,7 @@ jobs:
           REPO: ${{ github.repository }}
           ACTOR: ${{ github.actor }}
         run: |
+          gh label create wiki-sync-violation --repo "$REPO" --color "D93F0B" --description "在 wiki 同步目录里直接提交" 2>/dev/null || true
           gh issue create \
             --repo "$REPO" \
             --title "[wiki-sync 警告] @${ACTOR} 在 wiki 同步目录里有修改 ($(date +%Y-%m-%d))" \

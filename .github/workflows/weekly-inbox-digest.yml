@@ -36,6 +36,8 @@ jobs:
           # CEO/PM 收件人 (周报 issue 自动 assign 给 ta)
           ASSIGNEES: "xdawayer"
         run: |
+          # 确保 label 存在 (幂等)
+          gh label create weekly-digest --repo "$REPO" --color "0E8A16" --description "每周 inbox 改动摘要" 2>/dev/null || true
           gh issue create \
             --repo "$REPO" \
             --title "[周报摘要] inbox/ 周变化 ${WEEK_START} → ${WEEK_END}" \
