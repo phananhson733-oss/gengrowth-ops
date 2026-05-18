@@ -11,7 +11,8 @@ set -euo pipefail
 SINCE=$(date -u -d "7 days ago" +%Y-%m-%d 2>/dev/null || date -u -v-7d +%Y-%m-%d)
 NOW=$(date -u +%Y-%m-%d)
 
-CHANGES=$(git log --since="$SINCE" --pretty=format:"" --name-status -- 'inbox/' 2>/dev/null \
+# -c core.quotepath=false 让中文路径正常显示, 不转义为 \344\272\247
+CHANGES=$(git -c core.quotepath=false log --since="$SINCE" --pretty=format:"" --name-status -- 'inbox/' 2>/dev/null \
   | grep -vE '^\s*$' | sort -u || true)
 
 if [ -z "$CHANGES" ]; then
@@ -31,15 +32,24 @@ render() {
     echo "_(无)_"
     return
   fi
-  echo "$block" | while IFS=$'\t' read -r status file; do
-    [ -z "$file" ] && continue
+  # git --name-status 对 rename 输出 "R100\told\tnew", 对其他输出 "STATUS\tfile"
+  # 我们按第一个 \t 拆出 status, 然后看是不是 rename
+  echo "$block" | while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    local status file_a file_b
+    status="${line%%	*}"
+    rest="${line#*	}"
     case "$status" in
-      A) icon="✨" ;;
-      M) icon="✏️" ;;
-      D) icon="🗑️" ;;
-      *) icon="•" ;;
+      A) echo "- ✨ \`${rest}\`" ;;
+      M) echo "- ✏️ \`${rest}\`" ;;
+      D) echo "- 🗑️ \`${rest}\`" ;;
+      R*)
+        file_a="${rest%%	*}"
+        file_b="${rest#*	}"
+        echo "- 🔀 \`${file_a}\` → \`${file_b}\`"
+        ;;
+      *) echo "- • \`${rest}\`" ;;
     esac
-    echo "- $icon \`$file\`"
   done
 }
 
