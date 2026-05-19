@@ -1,16 +1,23 @@
 /**
- * GenGrowth 关键词研究主表 · 一键生成脚本 v2.0
- * 配合《关键词研究 SOP（六源挖掘 → 四桶分级）》使用
+ * GenGrowth 关键词研究主表 · 一键生成脚本 v3.0
+ * 配合《关键词研究 SOP（六源挖掘 → 四桶分级）》+ GenGrowth MVP PRD v0.7 使用
+ *
+ * v3.0 变更（对齐 PRD v0.7 附录 D）：
+ *   - ⚙️配置 新增「目标国家」(B4) 与 NEGATIVE_KEYWORDS 负向词区 (A28:A45)
+ *   - 关键词主表 O 列分桶公式最前面加 NEGATIVE_KEYWORDS 否决
+ *   - K 列 G1话题相关 公式修复空配置格 bug（旧版 SEARCH("",A2)=1 会把所有词误判✅相关）
+ *   - 新增 4 张表：主题集群表 / 选题登记表 / CTA Map / 结果复盘表（落地 6-ID 体系）
  *
  * 使用方法：
  * 1. 打开任意 Google Sheet → 扩展程序 → Apps Script
  * 2. 粘贴本文件全部内容，替换默认代码
  * 3. 运行 createGenGrowthKeywordSheet
  * 4. 授权后自动创建新文件，链接打印在日志中
- * ⚠️  运行后请先在 ⚙️配置 表填写 TOPIC_KEYWORDS（A7起）
+ * ⚠️  运行后请先在 ⚙️配置 表填写：目标国家(B4)、TOPIC_KEYWORDS(A6起)、NEGATIVE_KEYWORDS(A28起)
  *
- * 生成 9 个工作表：
- *   ⚙️配置 / 关键词主表 / 🚀趋势词 / ⚡快速胜利 / 🎯战略词 / 📌长尾词 / 📋分桶规则 / 📊内容追踪 / 📈来源分析
+ * 生成 13 个工作表：
+ *   ⚙️配置 / 关键词主表 / 主题集群表 / 选题登记表 / CTA Map / 结果复盘表 /
+ *   🚀趋势词 / ⚡快速胜利 / 🎯战略词 / 📌长尾词 / 📋分桶规则 / 📊内容追踪 / 📈来源分析
  *
  * 列结构（关键词主表，A–X 共 24 列）：
  *   A  关键词         手动
@@ -53,10 +60,18 @@ function createGenGrowthKeywordSheet() {
     .setValues([['配置项', '值']])
     .setBackground('#37474f').setFontColor('#ffffff').setFontWeight('bold');
 
-  configSh.getRange('A2:B3').setValues([
+  configSh.getRange('A2:B4').setValues([
     ['客户产品名', ''],
-    ['实验开始日期', '']
+    ['实验开始日期', ''],
+    ['目标国家', '']
   ]);
+  configSh.getRange('B4').setBackground('#fff9c4');
+  configSh.getRange('A4').setNote(
+    '目标国家（Day-0 参数，如 US）。约束：\n' +
+    '① Ahrefs Keywords Explorer 导出设为此国家，关键词主表 C 列即取该国月搜索量；\n' +
+    '② SERP 弱度检查用此国家的 Google；\n' +
+    '③ 主题集群表 us_share 标签据此判断。'
+  );
 
   configSh.getRange('A5').setValue('TOPIC_KEYWORDS（趋势词G1相关性检测，每行一个话题词）');
   configSh.getRange('A5').setFontWeight('bold').setBackground('#e8f5e9');
@@ -71,6 +86,20 @@ function createGenGrowthKeywordSheet() {
     '替换为客户产品相关的核心话题词（英文），最多20行（A6:A25）。\n' +
     '例 astrologywiki：astrology, birth chart, horoscope, natal chart, mercury retrograde\n' +
     '命中TOPIC_KEYWORDS → K列G1话题相关=✅相关（趋势词闸门1通过）'
+  );
+
+  // NEGATIVE_KEYWORDS（负向词，v3.0 新增）
+  configSh.getRange('A27').setValue('NEGATIVE_KEYWORDS（负向词，关键词含其一即在主表 O 列判 ❌跳过，每行一个）');
+  configSh.getRange('A27').setFontWeight('bold').setBackground('#ffcdd2');
+  var defaultNegatives = ['miami', 'dade', 'trimet', 'hub city', 'bus tracker'];
+  for (var ni = 0; ni < defaultNegatives.length; ni++) {
+    configSh.getRange(28 + ni, 1).setValue(defaultNegatives[ni]);
+  }
+  configSh.getRange('A28:A45').setBackground('#fff5f5');
+  configSh.getRange('A28').setNote(
+    '负向词：与产品无关的词根，关键词命中即在关键词主表 O 列直接判 ❌跳过。\n' +
+    '最多18行（A28:A45），子串匹配，填词根即可（"bus tracker" 命中 "miami dade bus tracker"）。\n' +
+    '默认值是 astrologywiki 的公交类无关词示例，换产品时替换为该产品的无关词；留空=不否决。'
   );
 
   configSh.setColumnWidth(1, 320);
@@ -124,6 +153,7 @@ function createGenGrowthKeywordSheet() {
 
   // 列头说明（关键易错列）
   var notes = {
+    3:  '月搜索量取「目标国家」(⚙️配置!B4) 的数值。Ahrefs Keywords Explorer 把国家设为目标国后导出的 Volume 即此列，不用全球量。',
     5:  'CPC仅做参考展示，不用于分桶判断。战略词的主条件是意图（M列），不是CPC高低。',
     6:  'Trends比值（手动，趋势词判断用）：近3个月均值 ÷ 近6个月均值。\n>1.2 = 近期上涨（趋势词候选）\n≈1.0 = 稳定\n<0.8 = 衰退词\n获取：Google Trends 或 Ahrefs "Trend"图表目测估算。留空视为平稳，仅趋势词分桶条件使用。',
     7:  'Top10最低2站DR均值（查词时手动填写）：取Top10结果中DR最低的2个站，求均值。\n\n为何不用全平均？前期自有站DR=0或接近0，几个高DR站（如WordPress.com DR=94、Reddit DR=91）会把全平均拉到80+，几乎所有词被N列误判为❌跳过；看末两位DR更贴近"你实际能挤进的位置"。\n\n获取：Ahrefs关键词详情页SERP Overview → 按DR升序排 → 取最低2行DR均值；或安装Ahrefs SEO Toolbar直接在Google搜索结果页读DR。\n注：每个词不同，需和H列SERP弱度、I列自有站DR同步填写。',
@@ -166,9 +196,10 @@ function createGenGrowthKeywordSheet() {
   // J: DR差值（G - I，两者均为查词时快照）
   var fJ = '=IF(OR(G2="",I2=""),"待填",G2-I2)';
 
-  // K: G1话题相关（检测关键词是否命中TOPIC_KEYWORDS列表中任意词）
-  var fK = '=IF(A2="","",IF(SUMPRODUCT(--(ISNUMBER(SEARCH(' +
-    'IFERROR(' + CFG + '!$A$6:$A$25,""),A2))))>0,"✅相关","⚠️待确认"))';
+  // K: G1话题相关（v3.0 修复空配置格 bug：旧版 SEARCH("",A2)=1 会把所有词误判✅相关）
+  // 用 <>"" 掩码排除空的 TOPIC_KEYWORDS 格，只在命中真实话题词时才判✅相关
+  var fK = '=IF(A2="","",IF(SUMPRODUCT((' + CFG + '!$A$6:$A$25<>"")' +
+    '*ISNUMBER(SEARCH(' + CFG + '!$A$6:$A$25,A2)))>0,"✅相关","⚠️待确认"))';
 
   // M: 意图（模式匹配，按Commercial>Transactional>Problem-aware>Informational>待确认优先级）
   var fM =
@@ -194,15 +225,18 @@ function createGenGrowthKeywordSheet() {
   // N: DR过滤（唯一真正的过滤关卡，基于J列DR差值）
   var fN = '=IF(J2="待填","待填",IF(ISNUMBER(J2),IF(J2>30,"❌跳过","✅通过"),"待填"))';
 
-  // O: 分桶_自动（四桶核心逻辑，优先级：❌跳过>🚀趋势词>⚡快速胜利>🎯战略词>📌长尾词）
+  // O: 分桶_自动（v3.0：最前面加 NEGATIVE_KEYWORDS 否决）
+  // 优先级：负向词❌ > DR❌ > 🚀趋势词 > ⚡快速胜利 > 🎯战略词 > 📌长尾词
+  // 负向词公式同样用 <>"" 掩码：空负向词格不会误伤（留空=不否决）
   var fO =
     '=IF(A2="","",' +
+    'IF(SUMPRODUCT((' + CFG + '!$A$28:$A$45<>"")*ISNUMBER(SEARCH(' + CFG + '!$A$28:$A$45,A2)))>0,"❌跳过",' +
     'IF(N2="❌跳过","❌跳过",' +
     'IF(AND(ISNUMBER(F2),F2>1.2,ISNUMBER(D2),D2<35,K2="✅相关",L2="Y"),"🚀趋势词",' +
     'IF(AND(ISNUMBER(D2),D2<20,ISNUMBER(C2),C2>=100),"⚡快速胜利",' +
     'IF(AND(ISNUMBER(D2),D2<20,OR(M2="Problem-aware",M2="Informational"),ISNUMBER(C2),C2>=50),"⚡快速胜利",' +
     'IF(AND(ISNUMBER(D2),D2>=20,D2<=50,OR(M2="Commercial",M2="Transactional")),"🎯战略词",' +
-    '"📌长尾词"))))))';
+    '"📌长尾词")))))))';
 
   // R: 分桶（最终：P非空→人工调整加★；否则=自动结果）
   var fR = '=IF(A2="","",IF(P2<>"",P2&"★",O2))';
@@ -287,6 +321,123 @@ function createGenGrowthKeywordSheet() {
     .setRanges([master.getRange('S2:S500')]).build());
 
   master.setConditionalFormatRules(rules);
+
+  // ════════════════════════════════════════════
+  // v3.0 新增 4 表 — 6-ID 体系（cluster_id / page_id / cta_id / outcome_id）
+  // ════════════════════════════════════════════
+
+  // SHEET: 主题集群表（cluster_id）
+  var clusterSh = ss.insertSheet('主题集群表');
+  var clusterHeaders = [
+    'cluster_id', 'cluster_name', 'track', 'content_layer', 'business_role',
+    'primary_entity', 'jtbd', 'content_angle', 'us_share', 'pillar_page',
+    'series_pattern', 'keywords_included', 'page_assets', 'internal_link_rule',
+    'cta_primary', 'psych_safety_flag', 'priority', 'week', 'success_metric'
+  ];
+  clusterSh.getRange(1, 1, 1, clusterHeaders.length).setValues([clusterHeaders])
+    .setBackground('#1a237e').setFontColor('#ffffff').setFontWeight('bold');
+  clusterSh.setFrozenRows(1);
+  clusterSh.getRange('C2:C200').setDataValidation(
+    dv().requireValueInList(['量产线', '精修线'], true).build());
+  clusterSh.getRange('D2:D200').setDataValidation(
+    dv().requireValueInList(['Core Astrology', 'Product-led Journal', 'Tool-led', 'Wiki Support', 'Quarantine'], true).build());
+  clusterSh.getRange('I2:I200').setDataValidation(
+    dv().requireValueInList(['高', '中', '低'], true).build());
+  clusterSh.getRange('O2:O200').setDataValidation(
+    dv().requireValueInList(['Newsletter', '工具页', '星盘页', '注册'], true).build());
+  clusterSh.getRange('P2:P200').setDataValidation(
+    dv().requireValueInList(['Y', 'N'], true).build());
+  clusterSh.getRange('Q2:Q200').setDataValidation(
+    dv().requireValueInList(['P0', 'P1', 'P2'], true).build());
+  clusterSh.getRange('R2:R200').setDataValidation(
+    dv().requireValueInList(['Week 1', 'Week 2', 'Week 3', 'Backlog'], true).build());
+  clusterSh.getRange('A1').setNote('cluster_id：手工编号，如 clu_aura_colors。全流程外键，命名稳定不随标题变。');
+  clusterSh.getRange('C1').setNote('track：量产线=aura/Vedic/nakshatra 走量；精修线=自我认知/疗愈走差异化（PRD v0.7 §3.2）。');
+  clusterSh.getRange('I1').setNote(
+    'us_share 三档地区标签（PRD v0.7 §3.3）：\n' +
+    '高=目标国主导（aura/houses 等欧美向），正常进量产线、计入目标国 PV；\n' +
+    '低=非目标国主导（nakshatra/rashi 等印度向），不占 P0 产能；\n' +
+    '中=拿不准，查 2-3 头部词 Ahrefs by-country 饼图。靠主题常识判断即可，不算精确百分比。'
+  );
+  [110, 160, 70, 140, 90, 110, 200, 170, 70, 150, 150, 160, 140, 170, 90, 100, 60, 80, 170]
+    .forEach(function(w, i) { clusterSh.setColumnWidth(i + 1, w); });
+
+  // SHEET: 选题登记表（page_id）— v2.1 = v2.0 的 15 列 + 6 列
+  var pageSh = ss.insertSheet('选题登记表');
+  var pageHeaders = [
+    'Target Keyword', 'Associated Keywords', '月搜索量', 'KD', 'Intent', 'Tier',
+    'Template', 'Entity', 'Friction', 'Logic', 'CTA', 'GSC Keywords', 'Status', 'URL',
+    'Last Audit', 'page_id', 'cluster_id', 'page_role', 'content_angle',
+    'psych_safety_flag', 'journal_prompts'
+  ];
+  pageSh.getRange(1, 1, 1, pageHeaders.length).setValues([pageHeaders])
+    .setBackground('#2e7d32').setFontColor('#ffffff').setFontWeight('bold');
+  pageSh.setFrozenRows(1);
+  // C / D 列从关键词主表 VLOOKUP 自动同步（月搜索量取目标国数值）
+  pageSh.getRange('C2').setFormula('=IF($A2="","",IFERROR(VLOOKUP($A2,\'关键词主表\'!$A:$X,3,FALSE),"未找到"))');
+  pageSh.getRange('D2').setFormula('=IF($A2="","",IFERROR(VLOOKUP($A2,\'关键词主表\'!$A:$X,4,FALSE),"未找到"))');
+  pageSh.getRange('C2:D2').copyTo(pageSh.getRange('C3:D300'));
+  pageSh.getRange('E2:E300').setDataValidation(
+    dv().requireValueInList(['Info', 'Compare', 'Tutorial', 'Utility', 'Experience', 'BOFU'], true).build());
+  pageSh.getRange('F2:F300').setDataValidation(
+    dv().requireValueInList(['T1', 'T2', 'T3'], true).build());
+  pageSh.getRange('G2:G300').setDataValidation(
+    dv().requireValueInList(['Definition', 'Comparison', 'Tutorial', 'Programmatic', 'Case Study'], true).build());
+  pageSh.getRange('M2:M300').setDataValidation(
+    dv().requireValueInList(['待写', '写作中', '质检', '已发布', '已刷新'], true).build());
+  pageSh.getRange('R2:R300').setDataValidation(
+    dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
+  pageSh.getRange('T2:T300').setDataValidation(
+    dv().requireValueInList(['Y', 'N'], true).build());
+  pageSh.getRange('A1').setNote('Target Keyword=本页核心词。集群可用「主行/留空/次行」排版，但页面角色以 R 列 page_role 为准（不靠行位置）。');
+  pageSh.getRange('C1').setNote('月搜索量：公式自动从「关键词主表」VLOOKUP，勿手填。"未找到"=该词在主表没匹配上，需核对关键词字符串。');
+  pageSh.getRange('S1').setNote('content_angle：精修线必填，量产线留空（PRD v0.7 附录 C）。');
+  pageSh.getRange('U1').setNote('journal_prompts：仅精修线 product-led / healing 页填，量产线留空。');
+  [180, 220, 80, 55, 80, 55, 110, 110, 150, 150, 90, 140, 70, 200, 90, 130, 150, 80, 180, 100, 200]
+    .forEach(function(w, i) { pageSh.setColumnWidth(i + 1, w); });
+
+  // SHEET: CTA Map（cta_id）
+  var ctaSh = ss.insertSheet('CTA Map');
+  ctaSh.getRange(1, 1, 1, 6)
+    .setValues([['cta_id', 'page_role', 'cta_文案', 'target_url', 'ga4_event_name', 'track']])
+    .setBackground('#455a64').setFontColor('#ffffff').setFontWeight('bold');
+  ctaSh.setFrozenRows(1);
+  // 预填 Week-1 默认（工具页优先，PRD v0.7 §10）
+  ctaSh.getRange(2, 1, 6, 6).setValues([
+    ['cta_tool_pillar', 'Pillar', '探索你的星盘 / aura', '（工具页 URL）', 'tool_click', '量产线'],
+    ['cta_tool_series', 'Series', '查你的对应落座', '（工具页 URL）', 'tool_click', '量产线'],
+    ['cta_tool_support', 'Support', '用工具验证', '（工具页 URL）', 'tool_click', '量产线'],
+    ['cta_tool_use', 'Tool', '输入信息生成结果', '（工具页自身）', 'tool_use', '量产线'],
+    ['cta_tool_wiki', 'Wiki', '测一测你的 aura', '（aura test URL）', 'tool_click', '量产线'],
+    ['cta_news_b', 'Series', '订阅获取每周 journal prompts', '（newsletter URL，待搭建）', 'newsletter_signup', '精修线']
+  ]);
+  ctaSh.getRange('B2:B500').setDataValidation(
+    dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
+  ctaSh.getRange('F2:F500').setDataValidation(
+    dv().requireValueInList(['量产线', '精修线'], true).build());
+  ctaSh.getRange('A1').setNote('cta_id：手工编号。页面生产卡按 page_role + track 引用对应 CTA。预填行是 Week-1 默认（工具页优先）。');
+  ctaSh.getRange('E1').setNote('ga4_event_name：与 GA4 里配置的事件名一一对应（GA4 上线后填实）。');
+  [150, 90, 220, 200, 150, 80].forEach(function(w, i) { ctaSh.setColumnWidth(i + 1, w); });
+
+  // SHEET: 结果复盘表（outcome_id）
+  var outcomeSh = ss.insertSheet('结果复盘表');
+  var outcomeHeaders = [
+    'outcome_id', 'page_id', 'cluster_id', 'url', 'day14_收录', 'day14_impressions',
+    'day30_进Top50词数', 'day30_clicks', 'day60_pv', 'day60_目标国pv', '决策', '备注'
+  ];
+  outcomeSh.getRange(1, 1, 1, outcomeHeaders.length).setValues([outcomeHeaders])
+    .setBackground('#37474f').setFontColor('#ffffff').setFontWeight('bold');
+  outcomeSh.setFrozenRows(1);
+  outcomeSh.getRange('E2:E300').setDataValidation(
+    dv().requireValueInList(['Y', 'N'], true).build());
+  outcomeSh.getRange('K2:K300').setDataValidation(
+    dv().requireValueInList(['继续', '调整', '暂停'], true).build());
+  outcomeSh.getRange('A1').setNote('每个页面或集群一行。Day 14/30/60 数据从 GSC（按 Country 维度筛目标国）+ GA4 手工导出后填入。');
+  outcomeSh.getRange('J1').setNote('day60_目标国pv：GSC/GA4 按国家维度筛出目标国 PV，核对"美国为主"目标（PRD v0.7 §12 / §13）。');
+  [130, 130, 170, 220, 90, 130, 130, 100, 90, 120, 70, 260]
+    .forEach(function(w, i) { outcomeSh.setColumnWidth(i + 1, w); });
+
+  // ════════════════════════════════════════════
 
   // ────────────────────────────────────────────
   // SHEET 2: 🚀趋势词（按 Trends比值 降序）
@@ -442,8 +593,8 @@ function createGenGrowthKeywordSheet() {
   srcSh.getRange('A1').setNote('命中率最高的来源=GenGrowth产品优先自动化的模块');
 
   // ────────────────────────────────────────────
-  Logger.log('✅ 创建成功：' + ss.getUrl());
-  Logger.log('⚠️  请先在 ⚙️配置 表填写：你的站DR（B2）和 TOPIC_KEYWORDS（A7:A26）');
+  Logger.log('✅ 创建成功（v3.0 · 13 表）：' + ss.getUrl());
+  Logger.log('⚠️  请先在 ⚙️配置 表填写：目标国家(B4)、TOPIC_KEYWORDS(A6:A25)、NEGATIVE_KEYWORDS(A28:A45)');
 }
 
 // ── 辅助：为桶视图添加说明行 + 表头行 ──
