@@ -40,7 +40,7 @@
  *   R  分桶           公式（最终结果：P非空→P+"★"，否则=O）★=人工调整
  *   S  AIO预判        公式（搜索量≥500+定义型词→⚠️疑似高风险，供人工抽检参考）
  *   T  AIO风险        下拉（高/低/未查）人工无痕窗口确认后填写
- *   U  排序权重       公式（快速胜利桶内排序：H列SERP弱度+M列意图）
+ *   U  弱度意图分     公式（H列SERP弱度+M列意图；集群模式下为聚类辅助分流，非执行优先级）
  *   V  内容状态       下拉
  *   W  发布URL        手动
  *   X  备注           手动
@@ -131,7 +131,7 @@ function createGenGrowthKeywordSheet() {
     '分桶',           // R  18
     'AIO预判',        // S  19
     'AIO风险',        // T  20
-    '排序权重',       // U  21
+    '弱度意图分',     // U  21
     '内容状态',       // V  22
     '发布URL',        // W  23
     '备注'            // X  24
@@ -170,7 +170,7 @@ function createGenGrowthKeywordSheet() {
     18: '分桶（最终结果，只读公式列）：★=人工调整（P列非空），无★=自动分桶结果。\n⚠️ 请勿直接修改R列。如需调整：P列选目标桶→Q列填原因→R列自动更新显示"桶名★"。\n各桶视图Sheet按此列筛选，是决定一个词"去哪里执行"的最终依据。',
     19: 'AIO预判（自动）：搜索量≥500且含 what is/meaning/definition/how does/explained 时自动标注。\n仅供参考，须在T列用无痕窗口实际确认后填写最终结论。',
     20: 'AIO风险（手动，S列标记⚠️疑似高风险词须优先确认）：无痕窗口搜索目标词，查看是否出现AI Overview框。\n高：搜索结果顶部有AI Overview摘要框（须用无痕窗口，避免个性化影响）\n低：无AI Overview框\n未查：待确认\n高风险内容策略：避免纯定义型，改为操作型/对比型/案例型，增加原创视角。',
-    21: '排序权重（自动）：仅用于快速胜利桶视图排序。\nH列SERP弱度：✅弱=3/⚠️中=2/❌强=1；M列意图：Commercial或Problem-aware各+1分。\nH列（SERP弱度）填完后排序才有实际意义。'
+    21: '弱度意图分（自动）：H列SERP弱度+M列意图的合成分，供快速胜利桶视图排序、并在集群模式下作聚类辅助分流信号；不是执行优先级——执行优先级是集群级的（见主题集群表 priority）。\nH列SERP弱度：✅弱=3/⚠️中=2/❌强=1；M列意图：Commercial或Problem-aware各+1分。\nH列（SERP弱度）填完后排序才有实际意义。'
   };
   Object.keys(notes).forEach(function(col) {
     master.getRange(1, parseInt(col)).setNote(notes[col]);
@@ -248,7 +248,7 @@ function createGenGrowthKeywordSheet() {
       'ISNUMBER(SEARCH("definition",A2)),ISNUMBER(SEARCH("how does",A2)),' +
       'ISNUMBER(SEARCH("explained",A2)))),"⚠️疑似高风险",""))';
 
-  // U: 排序权重（H列SERP弱度+M列意图，供快速胜利桶视图排序）
+  // U: 弱度意图分（H列SERP弱度+M列意图，供快速胜利桶视图排序与聚类辅助分流，非执行优先级）
   var fU =
     '=IF(A2="",0,' +
     'IF(H2="✅弱",3,IF(H2="⚠️中",2,1))' +
