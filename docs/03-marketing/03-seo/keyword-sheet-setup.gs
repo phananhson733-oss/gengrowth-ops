@@ -1,6 +1,11 @@
 /**
- * GenGrowth 关键词研究主表 · 一键生成脚本 v3.0
+ * GenGrowth 关键词研究主表 · 一键生成脚本 v3.1
  * 配合《关键词研究 SOP（六源挖掘 → 四桶分级）》+ GenGrowth MVP PRD v0.7 使用
+ *
+ * v3.1 变更（2026-05-20）：
+ *   - 4 张新增表（主题集群表 / 选题登记表 / CTA Map / 结果复盘表）表头加颜色区分：
+ *       深蓝 #1a237e = 公式自动 / 深绿 #2e7d32 = 必填手动 / 深灰 #455a64 = 选填或条件字段
+ *   - 4 张表逐列加字段注释（hover 表头查看），口径对齐 PRD v0.7
  *
  * v3.0 变更（对齐 PRD v0.7 附录 D）：
  *   - ⚙️配置 新增「目标国家」(B4) 与 NEGATIVE_KEYWORDS 负向词区 (A28:A45)
@@ -324,9 +329,10 @@ function createGenGrowthKeywordSheet() {
 
   // ════════════════════════════════════════════
   // v3.0 新增 4 表 — 6-ID 体系（cluster_id / page_id / cta_id / outcome_id）
+  // v3.1 加列颜色与字段注释：深蓝=公式自动 / 深绿=必填手动 / 深灰=选填或条件字段
   // ════════════════════════════════════════════
 
-  // SHEET: 主题集群表（cluster_id）
+  // SHEET: 主题集群表（cluster_id）— v3.1 加列颜色与字段注释
   var clusterSh = ss.insertSheet('主题集群表');
   var clusterHeaders = [
     'cluster_id', 'cluster_name', 'track', 'content_layer', 'business_role',
@@ -335,34 +341,54 @@ function createGenGrowthKeywordSheet() {
     'cta_primary', 'psych_safety_flag', 'priority', 'week', 'success_metric'
   ];
   clusterSh.getRange(1, 1, 1, clusterHeaders.length).setValues([clusterHeaders])
-    .setBackground('#1a237e').setFontColor('#ffffff').setFontWeight('bold');
+    .setFontColor('#ffffff').setFontWeight('bold').setFontSize(11);
   clusterSh.setFrozenRows(1);
-  clusterSh.getRange('C2:C200').setDataValidation(
-    dv().requireValueInList(['量产线', '精修线'], true).build());
-  clusterSh.getRange('D2:D200').setDataValidation(
-    dv().requireValueInList(['Core Astrology', 'Product-led Journal', 'Tool-led', 'Wiki Support', 'Quarantine'], true).build());
-  clusterSh.getRange('I2:I200').setDataValidation(
-    dv().requireValueInList(['高', '中', '低'], true).build());
-  clusterSh.getRange('O2:O200').setDataValidation(
-    dv().requireValueInList(['Newsletter', '工具页', '星盘页', '注册'], true).build());
-  clusterSh.getRange('P2:P200').setDataValidation(
-    dv().requireValueInList(['Y', 'N'], true).build());
-  clusterSh.getRange('Q2:Q200').setDataValidation(
-    dv().requireValueInList(['P0', 'P1', 'P2'], true).build());
-  clusterSh.getRange('R2:R200').setDataValidation(
-    dv().requireValueInList(['Week 1', 'Week 2', 'Week 3', 'Backlog'], true).build());
-  clusterSh.getRange('A1').setNote('cluster_id：手工编号，如 clu_aura_colors。全流程外键，命名稳定不随标题变。');
-  clusterSh.getRange('C1').setNote('track：量产线=aura/Vedic/nakshatra 走量；精修线=自我认知/疗愈走差异化（PRD v0.7 §3.2）。');
-  clusterSh.getRange('I1').setNote(
-    'us_share 三档地区标签（PRD v0.7 §3.3）：\n' +
-    '高=目标国主导（aura/houses 等欧美向），正常进量产线、计入目标国 PV；\n' +
-    '低=非目标国主导（nakshatra/rashi 等印度向），不占 P0 产能；\n' +
-    '中=拿不准，查 2-3 头部词 Ahrefs by-country 饼图。靠主题常识判断即可，不算精确百分比。'
-  );
+
+  // 表头颜色：深绿=必填手动 / 深灰=选填手动（本表无公式自动列）
+  var cluGreen = [1, 2, 3, 4, 6, 9, 15, 16, 17, 18];  // id/name/track/layer/entity/us_share/cta/safety/priority/week
+  var cluSlate = [5, 7, 8, 10, 11, 12, 13, 14, 19];   // role/jtbd/angle/pillar/series/keywords/assets/links/metric
+  cluGreen.forEach(function(c) { clusterSh.getRange(1, c).setBackground('#2e7d32'); });
+  cluSlate.forEach(function(c) { clusterSh.getRange(1, c).setBackground('#455a64'); });
+
+  // 数据验证下拉
+  clusterSh.getRange('C2:C200').setDataValidation(dv().requireValueInList(['量产线', '精修线'], true).build());
+  clusterSh.getRange('D2:D200').setDataValidation(dv().requireValueInList(['Core Astrology', 'Product-led Journal', 'Tool-led', 'Wiki Support', 'Quarantine'], true).build());
+  clusterSh.getRange('I2:I200').setDataValidation(dv().requireValueInList(['高', '中', '低'], true).build());
+  clusterSh.getRange('O2:O200').setDataValidation(dv().requireValueInList(['Newsletter', '工具页', '星盘页', '注册'], true).build());
+  clusterSh.getRange('P2:P200').setDataValidation(dv().requireValueInList(['Y', 'N'], true).build());
+  clusterSh.getRange('Q2:Q200').setDataValidation(dv().requireValueInList(['P0', 'P1', 'P2'], true).build());
+  clusterSh.getRange('R2:R200').setDataValidation(dv().requireValueInList(['Week 1', 'Week 2', 'Week 3', 'Backlog'], true).build());
+
+  // 字段注释
+  var cluNotes = {
+    1:  'cluster_id：手工编号，如 clu_aura_colors。全流程外键，命名稳定不随标题变。',
+    2:  'cluster_name：可读名，如「Aura Colors 核心」。',
+    3:  'track：量产线=aura/Vedic/nakshatra 走量；精修线=自我认知/疗愈走差异化（PRD v0.7 §3.2）。两线都活在种子模板「Track A SEO」之下，与种子模板的「Track B Social Probe」不同维度，不要混。',
+    4:  'content_layer：Core Astrology / Product-led Journal / Tool-led / Wiki Support / Quarantine（脱离主线，不做）。',
+    5:  'business_role：业务角色——流量 / 权威 / 转化 / 工具承接 / newsletter 承接。',
+    6:  'primary_entity：主实体（Birth Chart / Moon Sign / Chiron 等）。决定语义主权，同站其他集群不应再用同实体（防内耗）。',
+    7:  'jtbd：用户带着什么任务来——理解 X 含义 / 查我的 X / 通过 X 反思自己。',
+    8:  'content_angle：本集群的差异化角度。精修线必填（如：用 chiron 反思隐藏的情绪与关系模式）；量产线留空（用模板默认）。',
+    9:  'us_share 三档地区标签（PRD v0.7 §3.3）：\n高=目标国主导（aura/houses 等欧美向），正常进量产线、计入目标国 PV；\n低=非目标国主导（nakshatra/rashi 等印度向），不占 P0 产能；\n中=拿不准，查 2-3 头部词 Ahrefs by-country 饼图。靠主题常识判断即可，不算精确百分比。',
+    10: 'pillar_page：Pillar 页 URL（已发布）或拟定标题（规划中）。每个核心集群最多 1 个 Pillar。',
+    11: 'series_pattern：Series 批量规则，如「Moon in 12 Signs」「Planets in Houses」。',
+    12: 'keywords_included：本集群覆盖的关键词列表（逗号分隔），与关键词主表交叉验证。',
+    13: 'page_assets：本集群已规划/发布的 page_id 列表，与选题登记表交叉验证。',
+    14: 'internal_link_rule：Pillar↔Series↔Support 内链规则；建议每 Series 前 30% 链 Pillar、同簇 Spoke 互链 1-2 条（W21 评审 B-7）。',
+    15: 'cta_primary：本集群默认主 CTA（Newsletter / 工具页 / 星盘页 / 注册）。页面级 CTA 仍由 page_role + track 经 CTA Map 决定，这里标方向。',
+    16: 'psych_safety_flag：Y/N。涉及 healing/trauma/relationship wound/anxiety 时 Y，触发心理安全 QA（附录 B 非临床反思语言规则）。',
+    17: 'priority：P0 / P1 / P2。P0=本周必启动；P1=排队；P2=暂缓或战略低配（如 us_share=低 的集群）。',
+    18: 'week：计划启动周——Week 1 / Week 2 / Week 3 / Backlog。',
+    19: 'success_metric：Day 30 / Day 60 衡量本集群是否成功的具体指标（如：Day 30 至少 5 词进 Top 50、Day 60 美国 PV 月贡献 ≥ 1000）。'
+  };
+  Object.keys(cluNotes).forEach(function(col) {
+    clusterSh.getRange(1, parseInt(col)).setNote(cluNotes[col]);
+  });
+
   [110, 160, 70, 140, 90, 110, 200, 170, 70, 150, 150, 160, 140, 170, 90, 100, 60, 80, 170]
     .forEach(function(w, i) { clusterSh.setColumnWidth(i + 1, w); });
 
-  // SHEET: 选题登记表（page_id）— v2.1 = v2.0 的 15 列 + 6 列
+  // SHEET: 选题登记表（page_id）— v2.1 = v2.0 的 15 列 + 6 列；v3.1 加列颜色与字段注释
   var pageSh = ss.insertSheet('选题登记表');
   var pageHeaders = [
     'Target Keyword', 'Associated Keywords', '月搜索量', 'KD', 'Intent', 'Tier',
@@ -371,37 +397,74 @@ function createGenGrowthKeywordSheet() {
     'psych_safety_flag', 'journal_prompts'
   ];
   pageSh.getRange(1, 1, 1, pageHeaders.length).setValues([pageHeaders])
-    .setBackground('#2e7d32').setFontColor('#ffffff').setFontWeight('bold');
+    .setFontColor('#ffffff').setFontWeight('bold').setFontSize(11);
   pageSh.setFrozenRows(1);
+
+  // 表头颜色：深蓝=公式自动 / 深绿=必填手动 / 深灰=选填或条件字段
+  var pgNavy  = [3, 4];                                      // 月搜索量、KD（VLOOKUP）
+  var pgGreen = [1, 5, 6, 7, 8, 13, 16, 17, 18, 20];         // keyword/intent/tier/template/entity/status/page_id/cluster_id/page_role/safety
+  var pgSlate = [2, 9, 10, 11, 12, 14, 15, 19, 21];          // assoc/friction/logic/cta/gsc/url/audit/angle/prompts
+  pgNavy.forEach(function(c)  { pageSh.getRange(1, c).setBackground('#1a237e'); });
+  pgGreen.forEach(function(c) { pageSh.getRange(1, c).setBackground('#2e7d32'); });
+  pgSlate.forEach(function(c) { pageSh.getRange(1, c).setBackground('#455a64'); });
+
   // C / D 列从关键词主表 VLOOKUP 自动同步（月搜索量取目标国数值）
   pageSh.getRange('C2').setFormula('=IF($A2="","",IFERROR(VLOOKUP($A2,\'关键词主表\'!$A:$X,3,FALSE),"未找到"))');
   pageSh.getRange('D2').setFormula('=IF($A2="","",IFERROR(VLOOKUP($A2,\'关键词主表\'!$A:$X,4,FALSE),"未找到"))');
   pageSh.getRange('C2:D2').copyTo(pageSh.getRange('C3:D300'));
-  pageSh.getRange('E2:E300').setDataValidation(
-    dv().requireValueInList(['Info', 'Compare', 'Tutorial', 'Utility', 'Experience', 'BOFU'], true).build());
-  pageSh.getRange('F2:F300').setDataValidation(
-    dv().requireValueInList(['T1', 'T2', 'T3'], true).build());
-  pageSh.getRange('G2:G300').setDataValidation(
-    dv().requireValueInList(['Definition', 'Comparison', 'Tutorial', 'Programmatic', 'Case Study'], true).build());
-  pageSh.getRange('M2:M300').setDataValidation(
-    dv().requireValueInList(['待写', '写作中', '质检', '已发布', '已刷新'], true).build());
-  pageSh.getRange('R2:R300').setDataValidation(
-    dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
-  pageSh.getRange('T2:T300').setDataValidation(
-    dv().requireValueInList(['Y', 'N'], true).build());
-  pageSh.getRange('A1').setNote('Target Keyword=本页核心词。集群可用「主行/留空/次行」排版，但页面角色以 R 列 page_role 为准（不靠行位置）。');
-  pageSh.getRange('C1').setNote('月搜索量：公式自动从「关键词主表」VLOOKUP，勿手填。"未找到"=该词在主表没匹配上，需核对关键词字符串。');
-  pageSh.getRange('S1').setNote('content_angle：精修线必填，量产线留空（PRD v0.7 附录 C）。');
-  pageSh.getRange('U1').setNote('journal_prompts：仅精修线 product-led / healing 页填，量产线留空。');
+
+  // 数据验证下拉
+  pageSh.getRange('E2:E300').setDataValidation(dv().requireValueInList(['Info', 'Compare', 'Tutorial', 'Utility', 'Experience', 'BOFU'], true).build());
+  pageSh.getRange('F2:F300').setDataValidation(dv().requireValueInList(['T1', 'T2', 'T3'], true).build());
+  pageSh.getRange('G2:G300').setDataValidation(dv().requireValueInList(['Definition', 'Comparison', 'Tutorial', 'Programmatic', 'Case Study'], true).build());
+  pageSh.getRange('M2:M300').setDataValidation(dv().requireValueInList(['待写', '写作中', '质检', '已发布', '已刷新'], true).build());
+  pageSh.getRange('R2:R300').setDataValidation(dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
+  pageSh.getRange('T2:T300').setDataValidation(dv().requireValueInList(['Y', 'N'], true).build());
+
+  // 字段注释
+  var pgNotes = {
+    1:  'Target Keyword：本页核心词。集群可用「主行/留空/次行」排版，但页面角色以 R 列 page_role 为准（不靠行位置）。',
+    2:  'Associated Keywords：1+N 嵌套长尾词（本页 secondary）。同意图变体合并到本页，禁止按数量机械拆 Part（W21 评审 A-3 / B-2）。',
+    3:  '月搜索量：公式自动从「关键词主表」VLOOKUP，勿手填。"未找到"=该词在主表没匹配上，核对关键词字符串。主表 C 列已切到目标国数值。',
+    4:  'KD：公式自动从「关键词主表」VLOOKUP，勿手填。',
+    5:  'Intent：Info / Compare / Tutorial / Utility / Experience / BOFU。决定 Template 选择。',
+    6:  'Tier：T1 重装（Pillar/战略/心理风险页，审 60-120 分钟）/ T2 标准（Series 主力，30-45 分钟）/ T3 占位（极长尾，10-20 分钟）。每周 T1 ≤ 3 篇（审核产能上限，PRD v0.7 §7.5）。',
+    7:  'Template：Definition / Comparison / Tutorial / Programmatic / Case Study。和 Intent 配对，具体结构见 PRD v0.7 附录 A 5 个页面模板。',
+    8:  'Entity：本页主权实体，如 Midheaven。v0.18 主权机制：同集群其他页不能再用同 Entity，防内容内耗。',
+    9:  'Friction：真实痛点证据（Reddit/论坛抓取的具体案例）。T1 必填、T2 AI 辅助、T3 跳过。严禁填形容词。',
+    10: 'Logic：机制 + 权衡（Mechanism + Trade-off）。T1 必填、T2 必填、T3 跳过。',
+    11: 'CTA：页面 CTA 文案/URL。可由 R 列 page_role + track 经 CTA Map 自动决定，不必逐页手填（只在偏离默认时填）。',
+    12: 'GSC Keywords：发布 30 天后从 GSC 抓取该 URL 已获排名但正文中缺失的词，用于内容刷新。维护期填。',
+    13: 'Status：待写 / 写作中 / 质检 / 已发布 / 已刷新。',
+    14: 'URL：发布后填入正式在线网址。',
+    15: 'Last Audit：最后一次内容审计/刷新日期。',
+    16: 'page_id：6-ID 主键，如 page_chiron_7th_house。手工编号，命名稳定。',
+    17: 'cluster_id：外键 → 主题集群表。每个页面必须归属一个集群，无 cluster_id 的页面属违规（PRD v0.7 §2.3）。',
+    18: 'page_role：Pillar / Series / Support / Tool / Wiki / Strategic。决定页面广深（Pillar 写广、Series 写深）、内链方向、CTA 选择。显式列，不靠行位置。',
+    19: 'content_angle：精修线必填（差异化角度），量产线留空（用模板默认）。PRD v0.7 附录 C。',
+    20: 'psych_safety_flag：Y/N。Y 触发心理安全 QA——必须用反思性、非临床语言（附录 B），不做诊断/治疗承诺。默认 N。',
+    21: 'journal_prompts：仅精修线 product-led / healing 页填（如 chiron 反思 prompts）。量产线 aura/Vedic 长尾页留空。'
+  };
+  Object.keys(pgNotes).forEach(function(col) {
+    pageSh.getRange(1, parseInt(col)).setNote(pgNotes[col]);
+  });
+
   [180, 220, 80, 55, 80, 55, 110, 110, 150, 150, 90, 140, 70, 200, 90, 130, 150, 80, 180, 100, 200]
     .forEach(function(w, i) { pageSh.setColumnWidth(i + 1, w); });
 
-  // SHEET: CTA Map（cta_id）
+  // SHEET: CTA Map（cta_id）— v3.1 加列颜色与字段注释
   var ctaSh = ss.insertSheet('CTA Map');
   ctaSh.getRange(1, 1, 1, 6)
     .setValues([['cta_id', 'page_role', 'cta_文案', 'target_url', 'ga4_event_name', 'track']])
-    .setBackground('#455a64').setFontColor('#ffffff').setFontWeight('bold');
+    .setFontColor('#ffffff').setFontWeight('bold').setFontSize(11);
   ctaSh.setFrozenRows(1);
+
+  // 表头颜色：深绿=必填手动 / 深灰=选填（GA4 上线后填）
+  var ctaGreen = [1, 2, 3, 4, 6];
+  var ctaSlate = [5];
+  ctaGreen.forEach(function(c) { ctaSh.getRange(1, c).setBackground('#2e7d32'); });
+  ctaSlate.forEach(function(c) { ctaSh.getRange(1, c).setBackground('#455a64'); });
+
   // 预填 Week-1 默认（工具页优先，PRD v0.7 §10）
   ctaSh.getRange(2, 1, 6, 6).setValues([
     ['cta_tool_pillar', 'Pillar', '探索你的星盘 / aura', '（工具页 URL）', 'tool_click', '量产线'],
@@ -411,29 +474,63 @@ function createGenGrowthKeywordSheet() {
     ['cta_tool_wiki', 'Wiki', '测一测你的 aura', '（aura test URL）', 'tool_click', '量产线'],
     ['cta_news_b', 'Series', '订阅获取每周 journal prompts', '（newsletter URL，待搭建）', 'newsletter_signup', '精修线']
   ]);
-  ctaSh.getRange('B2:B500').setDataValidation(
-    dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
-  ctaSh.getRange('F2:F500').setDataValidation(
-    dv().requireValueInList(['量产线', '精修线'], true).build());
-  ctaSh.getRange('A1').setNote('cta_id：手工编号。页面生产卡按 page_role + track 引用对应 CTA。预填行是 Week-1 默认（工具页优先）。');
-  ctaSh.getRange('E1').setNote('ga4_event_name：与 GA4 里配置的事件名一一对应（GA4 上线后填实）。');
+
+  ctaSh.getRange('B2:B500').setDataValidation(dv().requireValueInList(['Pillar', 'Series', 'Support', 'Tool', 'Wiki', 'Strategic'], true).build());
+  ctaSh.getRange('F2:F500').setDataValidation(dv().requireValueInList(['量产线', '精修线'], true).build());
+
+  // 字段注释
+  var ctaNotes = {
+    1: 'cta_id：手工编号，如 cta_tool_pillar。页面生产卡按 page_role + track 引用对应 CTA。预填 6 行是 Week-1 默认（工具页优先，PRD v0.7 §10）。',
+    2: 'page_role：Pillar / Series / Support / Tool / Wiki / Strategic。这条 CTA 适用于哪种页面角色。',
+    3: 'cta_文案：用户在页面看到的 CTA 按钮/链接文字。简短行动指令。',
+    4: 'target_url：点击 CTA 跳转的 URL（工具页 URL / newsletter 注册页 URL 等）。',
+    5: 'ga4_event_name：与 GA4 配置的事件名一一对应（如 tool_click、newsletter_signup）。GA4 上线后填实。',
+    6: 'track：量产线 / 精修线。Week-1 默认：量产线→工具页；精修线→newsletter（待搭建）。阶段策略见 PRD v0.7 §10。'
+  };
+  Object.keys(ctaNotes).forEach(function(col) {
+    ctaSh.getRange(1, parseInt(col)).setNote(ctaNotes[col]);
+  });
+
   [150, 90, 220, 200, 150, 80].forEach(function(w, i) { ctaSh.setColumnWidth(i + 1, w); });
 
-  // SHEET: 结果复盘表（outcome_id）
+  // SHEET: 结果复盘表（outcome_id）— v3.1 加列颜色与字段注释
   var outcomeSh = ss.insertSheet('结果复盘表');
   var outcomeHeaders = [
     'outcome_id', 'page_id', 'cluster_id', 'url', 'day14_收录', 'day14_impressions',
     'day30_进Top50词数', 'day30_clicks', 'day60_pv', 'day60_目标国pv', '决策', '备注'
   ];
   outcomeSh.getRange(1, 1, 1, outcomeHeaders.length).setValues([outcomeHeaders])
-    .setBackground('#37474f').setFontColor('#ffffff').setFontWeight('bold');
+    .setFontColor('#ffffff').setFontWeight('bold').setFontSize(11);
   outcomeSh.setFrozenRows(1);
-  outcomeSh.getRange('E2:E300').setDataValidation(
-    dv().requireValueInList(['Y', 'N'], true).build());
-  outcomeSh.getRange('K2:K300').setDataValidation(
-    dv().requireValueInList(['继续', '调整', '暂停'], true).build());
-  outcomeSh.getRange('A1').setNote('每个页面或集群一行。Day 14/30/60 数据从 GSC（按 Country 维度筛目标国）+ GA4 手工导出后填入。');
-  outcomeSh.getRange('J1').setNote('day60_目标国pv：GSC/GA4 按国家维度筛出目标国 PV，核对"美国为主"目标（PRD v0.7 §12 / §13）。');
+
+  // 表头颜色：深绿=必填手动（标识/决策）/ 深灰=GSC/GA4 粘贴的数据
+  var outGreen = [1, 2, 3, 4, 5, 11];   // outcome_id/page_id/cluster_id/url/day14_收录/决策
+  var outSlate = [6, 7, 8, 9, 10, 12];  // impressions/Top50/clicks/pv/目标国pv/备注
+  outGreen.forEach(function(c) { outcomeSh.getRange(1, c).setBackground('#2e7d32'); });
+  outSlate.forEach(function(c) { outcomeSh.getRange(1, c).setBackground('#455a64'); });
+
+  outcomeSh.getRange('E2:E300').setDataValidation(dv().requireValueInList(['Y', 'N'], true).build());
+  outcomeSh.getRange('K2:K300').setDataValidation(dv().requireValueInList(['继续', '调整', '暂停'], true).build());
+
+  // 字段注释
+  var outNotes = {
+    1:  'outcome_id：6-ID 主键。每个页面 × 每个时点（Day 14 / 30 / 60）一行，或集群级汇总一行。手工编号如 out_001、out_clu_aura_d30。',
+    2:  'page_id：外键 → 选题登记表。页面级复盘时填。',
+    3:  'cluster_id：外键 → 主题集群表。集群级汇总时填。',
+    4:  'url：发布 URL。便于直接复盘。',
+    5:  'day14_收录：Y/N。GSC → URL Inspection 看页面是否已收录。Day 14 节点。',
+    6:  'day14_impressions：GSC 该 URL 近 14 天 impressions（按 Country 维度筛目标国）。手工粘贴 GSC 导出。',
+    7:  'day30_进Top50词数：该 URL 在 GSC 排名 P1-P50 的 query 数。Day 30 节点。',
+    8:  'day30_clicks：GSC 该 URL 近 30 天 clicks（目标国）。',
+    9:  'day60_pv：GA4 该 URL 近 60 天 page_view 总数（全部地区）。',
+    10: 'day60_目标国pv：GA4 按 Country 维度筛目标国后的 PV。核对「美国为主」目标用这个，不用全部 PV（PRD v0.7 §12 / §13）。',
+    11: '决策：继续 / 调整 / 暂停。按 PRD v0.7 §7.9 Day 14/30/60 规则判：Day 14 未收录→查技术；Day 30 P31-P80→刷新标题；Day 60 无信号→合并/noindex/暂停。',
+    12: '备注：复盘观察、调整原因、下一步动作。'
+  };
+  Object.keys(outNotes).forEach(function(col) {
+    outcomeSh.getRange(1, parseInt(col)).setNote(outNotes[col]);
+  });
+
   [130, 130, 170, 220, 90, 130, 130, 100, 90, 120, 70, 260]
     .forEach(function(w, i) { outcomeSh.setColumnWidth(i + 1, w); });
 
@@ -593,7 +690,7 @@ function createGenGrowthKeywordSheet() {
   srcSh.getRange('A1').setNote('命中率最高的来源=GenGrowth产品优先自动化的模块');
 
   // ────────────────────────────────────────────
-  Logger.log('✅ 创建成功（v3.0 · 13 表）：' + ss.getUrl());
+  Logger.log('✅ 创建成功（v3.1 · 13 表）：' + ss.getUrl());
   Logger.log('⚠️  请先在 ⚙️配置 表填写：目标国家(B4)、TOPIC_KEYWORDS(A6:A25)、NEGATIVE_KEYWORDS(A28:A45)');
 }
 
