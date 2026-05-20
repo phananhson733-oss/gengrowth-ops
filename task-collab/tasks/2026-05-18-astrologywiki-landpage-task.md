@@ -1,10 +1,11 @@
 ---
 title: astrologywiki.com 首页改版（统一内链入口）
 date: 2026-05-18
-updated: 2026-05-18
+updated: 2026-05-20
+done: 2026-05-20
 type: note
 priority: P1
-status: todo
+status: done
 requester: Ma Boyang
 reviewer: wzb
 owner: wzb
@@ -24,7 +25,7 @@ aliases:
 
 # astrologywiki.com 首页改版（统一内链入口）
 
-- [ ] [astrologywiki/oracle] 改造 `LandingPage.tsx`，让首页承担「Calculator 入口 + Featured Articles + Wiki Topics + Footer Sitemap」四个内链分发职责 #task #astrologywiki #seo #owner/wzb 📅 2026-07-15 🔼
+- [x] [astrologywiki/oracle] 改造 `LandingPage.tsx`，让首页承担「Calculator 入口 + Featured Articles + Wiki Topics + Footer Sitemap」四个内链分发职责 #task #astrologywiki #seo #owner/wzb 📅 2026-07-15 🔼 ✅ 2026-05-20
 
 ## 背景
 
