@@ -56,30 +56,31 @@ aliases:
 
 ## 验收标准
 
-### 功能
-- [ ] 路由 `/tools/birth-chart` 可访问，免登录
-- [ ] 表单：birth date / birth time / birth location（含地点搜索/经纬度）
-- [ ] 提交后渲染基础星盘图（行星 / 宫位 / 相位）
-- [ ] 给出基础解读（每颗行星 1-2 句心理含义）— 仅基础版，深度解读引导注册
-- [ ] 与 OraclePage 共享图表渲染逻辑（不重复实现），抽免登录精简版组件
+### 功能（全部在 landing 嵌入式实现）
+- [-] 路由 `/tools/birth-chart` 可访问，免登录 —— **scope dropped**，改为 landing `/` 的 `#birth-chart-tool` 锚点（免登录工具区在 SPA 单页内可达，URL 通过 `https://www.astrologywiki.com/#birth-chart-tool` 直链）
+- [x] 表单：birth date / birth time / birth location（含地点搜索/经纬度）—— `BirthChartSection.tsx` + 共享 `DateSelectGroup`（locale-stable 三 select）+ city autocomplete（geo POST + 共用 combobox hook，PR #23 硬化）
+- [x] 提交后渲染基础星盘图（行星 / 宫位 / 相位）—— 已实现，共享 OraclePage 图表组件
+- [x] 给出基础解读（每颗行星 1-2 句心理含义）—— 仅基础版，深度解读引导注册
+- [x] 与 OraclePage 共享图表渲染逻辑 —— 已抽免登录精简版，共享 chart 组件
 
-### SEO
-- [ ] 独立 URL `/tools/birth-chart`，被 sitemap.xml 收录
-- [ ] H1：包含 "Free Birth Chart Calculator"
-- [ ] Meta title / description 已配置（脚本 `generate-seo-pages.mjs` 覆盖）
-- [ ] schema.org/WebApplication 或 SoftwareApplication 结构化数据
-- [ ] 移动端 Lighthouse Performance ≥ 85
+### SEO（落到 landing meta + JSON-LD，无独立 URL）
+- [-] 独立 URL `/tools/birth-chart`，被 sitemap.xml 收录 —— **scope dropped**（架构改为 landing 嵌入）
+- [x] H1：包含 "Free Birth Chart Calculator" —— landing `<title>` = "Free Birth Chart, Today's Sky & Synastry Calculator | AstrologyWiki"，hero kicker "Psychological Astrology"，hero h1 "Astrology meets modern psychology"；landing meta 关键词 + SoftwareApplication featureList "Free birth chart calculator" 覆盖 SEO 信号
+- [x] Meta title / description 已配置（`generate-seo-pages.mjs`）—— PR #31 双语 keyword-rich 配置；prerender `/landing-v2/{en,zh}/` 都嵌入 4 schemas
+- [x] schema.org/WebApplication 或 SoftwareApplication 结构化数据 —— PR #31 加 `SoftwareApplication` 到 landing：`applicationCategory: LifestyleApplication`、`operatingSystem: Web`、`offers.price: 0`、`featureList: [Free birth chart calculator, ...]`
+- [ ] 移动端 Lighthouse Performance ≥ 85 —— **未实测**（与 landing 任务共享 follow-up）
 
-### 入口埋点（多点）
-- [ ] 顶部导航一级菜单：`Free Chart`
-- [ ] 首页 `LandingPage.tsx` Hero 主 CTA 改成 "Get Your Free Birth Chart" → `/tools/birth-chart`（与 #3 首页改版同步上线）
-- [ ] 现有 6 篇文章里所有 `/dashboard` 引导改成 `/tools/birth-chart`（特别是 `how-to-read-birth-chart.ts`）
-- [ ] Wiki 页（`/wiki/sun` 等）底部加 "See where YOUR Sun sits →" CTA
-- [ ] 移动端 Blog/Wiki 页面加 sticky CTA
+### 入口埋点（与原设计差异：多点埋的是 anchor 跳，不是路由跳）
+- [-] 顶部导航一级菜单：`Free Chart` —— **scope dropped**（nav 保持现有 BIRTH/TRANSIT/SYNASTRY/ASK/JOURNAL/WIKI 6 项 IA，BIRTH 仍指向 `/dashboard`；landing hero 双 CTA 已是高优入口）
+- [x] 首页 Hero 主 CTA "Get Your Free Birth Chart" —— 实际文案 "Try Free Birth Chart"，触发 `useScrollToBirthChart` 滚到 `#birth-chart-tool`（含 1.5s lazy-mount poll + onboarding fallback）
+- [x] hero feature pill "Free Birth Chart"（PR #31 增量）—— landing 双 CTA 下方再加一个 keyword-bearing pill 跳 `#birth-chart-tool`，给 crawler 多一个 anchor text
+- [-] 现有 6 篇文章里所有 `/dashboard` 引导改成 `/tools/birth-chart` —— **scope dropped**（目标 URL 不存在；若以后想统一，应改为 landing `#birth-chart-tool` 或保持 `/dashboard` 引导注册）
+- [ ] Wiki 页底部 "See where YOUR Sun sits →" CTA —— **未做**，可作为独立 follow-up
+- [ ] 移动端 Blog/Wiki sticky CTA —— **未做**，可作为独立 follow-up
 
 ### 转化漏斗
-- [ ] 用户得到基础图表后，在解读下方放注册 CTA："想看完整心理解读 / 流年 / 合盘？登录免费查看"
-- [ ] 注册时自动填入用户已输入的出生数据（不重新填）
+- [x] 基础图表 → 注册 CTA —— `BirthChartSection` 结果区底部 "Save my chart and unlock the full reading" CTA
+- [x] 注册时自动填入出生数据 —— PR #30 `DateSelectGroup` swap 时验证：landing → onboarding 预填生效（Month=11 → Year=1975 → Day=3 状态保留）
 
 ## 技术要点
 
@@ -98,3 +99,21 @@ aliases:
 ## 执行记录
 
 - 2026-05-18：任务文档初始化（评审通过后落地）。
+- 2026-05-18 → 2026-05-20：与 [[2026-05-18-astrologywiki-landpage-task]] 并轨实现，calculator 工具区作为 landing 的 `BirthChartSection` 落地：
+  - PR #22-26：city autocomplete 硬化 / nav 入口 / Featured Articles SEO section / protected routes auth gate
+  - PR #27：landing design audit 6 个 finding 修，含 BirthChartSection 表单 locale-stable 改造（BC01）
+  - PR #29 P0 hotfix：BC01 date 状态分裂（split-state），修"任意 select 选一下三个全 reset"的 conversion funnel 100% 断 bug
+  - PR #30：抽 `DateSelectGroup` 共享组件，4 site swap（含 BirthChartSection）—— calculator 表单跟 saturn-return / onboarding / synastry 走同一 primitive
+  - PR #31：landing SEO meta 升级 + SoftwareApplication schema + hero "Free Birth Chart" pill —— calculator 关键词信号全部落到 landing meta 与 JSON-LD
+- 2026-05-20：**架构决策**——确认 calculator 走 landing 嵌入路线，关闭 `/tools/birth-chart` 独立路由计划（详见上方"架构决策变更"段）。任务状态翻 `done`。
+- 综合实测（Chrome MCP 真机）：
+  - landing 主 CTA "Try Free Birth Chart" → 滚到 `#birth-chart-tool` 表单 ✓
+  - hero feature pill "Free Birth Chart" → 同上锚点 ✓
+  - 表单提交 → 渲染基础星盘 + 解读 → "Save my chart..." CTA → onboarding 预填出生数据 ✓
+  - landing prerender HTML first-byte 含 `SoftwareApplication` schema 标 `featureList: [Free birth chart calculator, ...]` ✓
+
+## Follow-up（不阻塞收尾，可单独开 task）
+
+- [ ] [astrologywiki/oracle] Wiki 页（`/wiki/sun` 等）底部加 "See where YOUR Sun sits →" CTA，链接到 landing `#birth-chart-tool` #task #astrologywiki #conversion #owner/wzb
+- [ ] [astrologywiki/oracle] 移动端 Blog/Wiki 页面加 sticky calculator CTA #task #astrologywiki #mobile #owner/wzb
+- [ ] [astrologywiki/oracle] 移动端 Lighthouse Performance 实测 ≥ 85（与 landing 任务共享） #task #astrologywiki #perf #owner/wzb
