@@ -77,42 +77,51 @@ version: 2.3
 
 ## 🛠 第三部分：更顺滑的六步流水线 (Day-to-Day Execution)
 
-废除旧版逻辑跳跃的步骤，改用完全符合一线作业直觉的线性流程。
+废除旧版逻辑跳跃的步骤，改用完全符合一线作业直觉的线性流程。**执行关键：各步骤在 T1/T2/T3 下的介入深度存在严格差异，请依据定级精准投放时间。**
 
-### STEP 1：建卡与闸门 (耗时: 2 分钟)
-1. **判定准入**：核查 `us_share`（低占比不排 T1/T2）。
+### STEP 1：建卡与闸门 (全局耗时: 2 分钟)
+1. **判定准入**：核查 `us_share`。若为 `Low`，直接降级为 T3 极速处理，或存入 Backlog 等待季节性激活。
 2. **确认字段**：填入 ID，下拉选择 Cluster，人工校验 `Intent` 与 `Tier`。
-3. **分配资源**：明确对应的 `Primary CTA`。
+   * **[T1 专属红线]**：必须核对本周配额。**每周 T1 配额严格限制在 ≤ 3 篇**。一旦超额，新文章必须降级为 T2 或顺延至下周。
+3. **分配资源**：为页面明确指定 `Primary CTA`（如工具页入口或 Newsletter 订阅）。
 
-### STEP 2：人工搜证 (耗时: 5-10 分钟，仅限 T1/T2)
-1. **实体覆盖**：从 SERP 前 3 提取 5 个 Entity 填入 N 列。
-2. **真实痛点 (Friction)**：去 Reddit 搜索 `site:reddit.com "[Keyword]" (sucks | confused)`，提炼一句话填入 O 列。
-3. **高阶 EEAT (仅 T1)**：若为医疗/敏感词，准备 Editorial Methodology 声明（如：*This content was reviewed for factual consistency and updated based on current astrological terminology.*），禁止仅使用单薄的“Reviewed by Team”。
+### STEP 2：人工搜证 (T1: 15-25 分 / T2: 5 分 / T3: 0 分)
+*   **[T3 占位页]**：**直接跳过此步**。不进行任何人工搜证，以最低成本推进至下一环节。
+*   **[T2 主力页]**：
+    1. **实体覆盖**：利用 AI 快速扫描 SERP 前 3 名，提取 3-5 个核心 Entity 填入 N 列。
+*   **[T1 重装页]**：
+    1. **深度实体**：人工判断并补充差异化的专业词汇。
+    2. **真实痛点 (Friction)**：必须去 Reddit 搜索 `site:reddit.com "[Keyword]" (sucks | confused | myth)`，人工提炼 2-3 条真实用户的槽点与误区填入 O 列。
+    3. **高阶 EEAT (针对敏感词)**：若触发 `Psych Safety`，必须准备专属的 Editorial Methodology 声明（如：*This content was reviewed for factual consistency and updated based on current astrological terminology.*），严禁使用单薄的“Reviewed by Team”。
 
-### STEP 3：AI 组装 (柔化 AI 痕迹)
-将燃料包发送给 AI：
-```text
-Target Keyword: {D列词} | Associated Keywords: {E列词包}
-Intent: {H列} | Tier: {I列} | CTA_ID: {Q列} | Friction: {O列}
-```
-**[组装约束]**：
-1. **Direct Answer Block**：首段必须不废话直接回答意图（What/Why）。**废除强制使用 `## TL;DR` 标题**，排版需符合页面角色（如运势类不适合 TL;DR）。
-2. **按需 FAQ**：**废除 T3 强制生成 FAQ 的机械要求**。仅当词包中存在明确的 Follow-up Query 时，才生成 FAQ，避免被算法识别为低质模板。
-3. **CTA 前置**：根据 {Q列} 的角色，在文章自然节点（如 H2 前）自然植入。
+### STEP 3：AI 组装与柔化 (T1: 10-20 分 / T2: 5 分 / T3: <2 分)
+将参数包发送给 AI：`Target Keyword: {D列} | Associated Keywords: {E列} | Intent: {H列} | Tier: {I列} | CTA_ID: {Q列} | Friction: {O列}`
+*   **[全局柔化约束]**：
+    1. **Direct Answer Block**：首段必须直接回答意图。**严禁机械套用 `## TL;DR` 标题**，标题和结构必须自然融入当前页面角色（如运势类直接给结论）。
+    2. **按需 FAQ**：**废除 T3 强制生成 FAQ 的机械要求**。仅当词包中存在明确的 Follow-up Query（如 "how long", "can you"）时，才转化为 FAQ，避免触发 AI 低质惩罚。
+    3. **自然 CTA**：在最相关的语境节点（如 H2 前）自然植入转化。
+*   **[T3 专属]**：使用全自动 Prompt 一键成文，生成后不进行任何人工润色。
+*   **[T1 专属]**：重点人工审查 AI 生成的结构。打磨 H2/H3 逻辑深度，确保 Friction 被深刻解答，消除 AI 特有的套话与废话。
 
-### STEP 4：独立 QA 质检 (耗时: 5-10 秒)
-文章生成后，必须经过独立的“5秒 Pass/Fail”测试。详见第四部分。
+### STEP 4：独立 QA 质检 (全局耗时: 5-10 秒/篇)
+文章生成后，禁止连贯盲发，必须执行独立的“5秒 Pass/Fail”测试。
+*   **[T2/T3]**：扫视第四部分规定的 5 项基础红线。
+*   **[T1 专属]**：额外校验“医疗诊断违禁词 (cure, treat, diagnose)”是否出现，及 `Editorial Methodology` 是否正确挂载。
 
 ### STEP 5：部署与内链连线
-1. 完成单篇站内首发布。
-2. 建立结构链：Spoke 页面前 30% 插入一条指向其 Pillar 的链接。
-3. 检查 CTA 按钮可点击且逻辑正确。
+1. **站内首发**：将排版后的 Markdown 部署至 CMS。
+2. **结构化内链**：
+   * **[Pillar 页面]**：必须插入一个导航网格或列表，向下辐射到已知的 Spoke。
+   * **[Spoke 页面]**：正文前 30% 必须包含一条自然语境的文本链接，指回对应的 Pillar。
+3. **CTA 核验**：最后确认一次转化按钮逻辑畅通无阻。
 
 ### STEP 6：生命周期复盘与调优 (Day 14/30/60)
-*   **Day 14 (收录检)**：未收录则检查页面基础质量或提交 Search Console 抓取。
-*   **Day 30 (排名检 - 科学排查路线)**：若未进 Top 100，**严禁无脑堆砌 Entity**。按以下路线排查：
-    `Intent mismatch (意图错位) -> Title mismatch (标题不符) -> Internal links (内链支撑不足) -> Content gap (内容缺口) -> Entity coverage (实体覆盖率)`。
-*   **Day 60 (处置检)**：流量达标升入 Refine 线；长尾低质内容进入“资产合并/301”评估。
+*   **Day 14 (收录检)**：未收录则检查页面基础质量或提交 Search Console。
+*   **Day 30 (排名检 - 科学排查)**：若未进 Top 100，**严禁无脑堆砌 Entity**。按此路线排查：
+    `Intent mismatch (意图错位) -> Title mismatch (标题不符) -> Internal links (内链支撑不足) -> Content gap (内容缺口) -> Entity coverage (实体覆盖)`。
+*   **Day 60 (处置检)**：
+    *   **[T1/T2]**：流量达标升入 Refine 线常态维护；未达标则需调整 Content Angle 或合并重写。
+    *   **[T3]**：长期无点击的长尾低质内容，直接评估进入“资产合并/301”通道。
 
 ---
 
