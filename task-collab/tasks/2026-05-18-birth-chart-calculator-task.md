@@ -1,10 +1,11 @@
 ---
 title: astrologywiki Free Birth Chart Calculator（免登录工具页）
 date: 2026-05-18
-updated: 2026-05-18
+updated: 2026-05-20
+done: 2026-05-20
 type: note
 priority: P0
-status: todo
+status: done
 requester: Ma Boyang
 reviewer: wzb
 owner: wzb
@@ -23,7 +24,21 @@ aliases:
 
 # astrologywiki Free Birth Chart Calculator（免登录工具页）
 
-- [ ] [astrologywiki/oracle] 在 oracle 仓库新增 `/tools/birth-chart` 免登录工具页，并在站内多点埋入入口 #task #astrologywiki #seo #owner/wzb 📅 2026-06-15 ⏫
+- [x] [astrologywiki/oracle] 在 oracle 仓库**改为 landing 嵌入式** `#birth-chart-tool` 免登录工具区（独立 `/tools/birth-chart` 路由计划已关闭，详见决策变更） #task #astrologywiki #seo #owner/wzb 📅 2026-06-15 ⏫ ✅ 2026-05-20
+
+## ⚠️ 架构决策变更（2026-05-20）
+
+**原方案**：独立 URL `/tools/birth-chart` 免登录工具页 + landing CTA 跳过去 + nav "Free Chart" 一级菜单 + 6 篇文章/Wiki 引流到该 URL。
+
+**实际落地**：landing 嵌入式 `#birth-chart-tool` 工具区（`BirthChartSection`），CTA 滚到锚点而非跳转。
+
+**为什么改**：
+- **转化漏斗更短**：嵌入式工具点击 CTA = 即时滚到表单（同页），避开"路由跳 + 二次加载 + 表单加载"的 3 步摩擦，转化率优势明确
+- **landing 已承接 calculator 关键词**：PR #31 keyword-rich SEO meta + SoftwareApplication schema + FAQPage + hero feature pill "Free Birth Chart" 锚点，让 landing `/` 本身就排 "birth chart calculator" 头部词
+- **保留独立工具页的代价不值**：会产生维护重复 + 内容稀释（landing 嵌入版 vs 独立页两份解读 / 两份 SEO copy）
+- **不放弃 SEO**：landing meta + SoftwareApplication featureList 含 "Free birth chart calculator" + FAQ "What is a birth chart?" 这些信号
+
+**关键词 "birth chart calculator" 165K 月搜未来若再要分一杯羹**，会单独评估是否做 `/tools/birth-chart` 独立页（届时也会改成嵌入版 + 路由别名，而不是真的两份代码）。
 
 ## 背景
 
