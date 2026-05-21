@@ -1,10 +1,9 @@
 ---
-title: GenGrowth MVP 关键词流转与 AI 生成隐患分析报告
-date: 2026-05-21
-updated: 2026-05-21
+project: astrologywiki
 type: report
-author: Gemini CLI
-tags: [report, feedback, keyword-research, seo-ops]
+status: draft
+owner: Ma Boyang
+updated: 2026-05-21
 ---
 
 # GenGrowth MVP 关键词流转与 AI 生成隐患分析报告
