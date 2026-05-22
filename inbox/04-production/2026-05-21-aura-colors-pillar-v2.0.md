@@ -118,9 +118,10 @@ Finally, practice **Compassionate Observation**. Stop judging your colors. There
 * **The Psychology of Color Perception** - How our minds translate visual frequencies into emotional meaning. (Internal Blog)
 * **Aura Cleansing Protocols** - Practical steps for maintaining a clear and vibrant energy field. (Internal Archive)
 
-* Healthline - What Is an Aura? (Link: https://www.healthline.com/health/what-is-an-aura)
-* Yoga Journal - A Beginner's Guide to the Chakras (Link: https://www.yogajournal.com/lifestyle/health/energy-healing/what-are-chakras/)
-* Britannica - Chakra (Link: https://www.britannica.com/topic/chakra)
+* **Theosophical Society Archives** - *The Personal Aura* by Geoffrey Hodson (Link: https://www.theosophy.world/resource/ebooks/personal-aura)
+* **National Center for Biotechnology Information (NCBI)** - *The Biofield Hypothesis: Its History and Implications* (Link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654789/)
+* **University of California, Irvine** - *The Science of the Aura: Perception and Reality* (Link: https://www.humanities.uci.edu/history/auras-perception)
+* **Internet Sacred Text Archive** - *The Human Atmosphere* by Walter J. Kilner (Link: https://www.sacred-texts.com/eso/tha/index.htm)
 
 ---
 
