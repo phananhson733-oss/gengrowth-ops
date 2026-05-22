@@ -28,9 +28,7 @@ Upon receiving this prompt, your FIRST and ONLY response must be:
 - Primary_Entity: 
 - Friction: 
 - Logic: 
-- CTA: 
-- Page_ID: 
-- Cluster_ID: 
+- CTA: (e.g., 工具页 | Newsletter | Internal_Link)
 - Page_Role: (Pillar | Series | Support | Tool | Wiki)
 - Content_Angle: 
 - Psych_Safety_Flag: (Y | N)
