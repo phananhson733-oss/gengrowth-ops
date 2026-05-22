@@ -111,11 +111,26 @@ If `{{Page_Role}}` is a Pillar:
 
 ---
 
+# [EEAT & High-Authority Sourcing Protocol]
+
+### **Rule 1: Diverse & Scholarly Sourcing**
+For the `### Related Reading & Works Cited` section, you MUST NOT use the same generic URLs for every article. Prioritize sources from:
+- **Academic/Historical Archives:** JSTOR, PubMed, Google Scholar, Theosophical Society Archives, or Sacred-Texts.com.
+- **Educational/Institutional Domains:** University research on color psychology (.edu) or Smithsonian/Library of Congress (.gov).
+- **Primary Esoteric Texts:** Reference specific historical manuscripts or founders of the tradition (e.g., Leadbeater, Steiner) when appropriate.
+
+### **Rule 2: Formal Citation Format**
+Use the exact format: `[Source Name] - [Full Article Title] (Link: https://...)`
+
+### **Rule 3: No "Empty" External Links**
+Do not use placeholders. Ensure the linked article title is relevant to the **specific shade or chakra** discussed in the current article.
+
+---
+
 # [Final Output Rules]
 - **Language**: Native US English.
 - **Format**: Markdown only.
 - **Tone**: Grounded, authoritative, practical.
-- **Zero Filler**: No "This article will discuss..." or abstract mysticism.
-- **CTA placement:** Ensure `{{CTA}}` and `{{CTA_URL}}` are naturally integrated at the end of the article.
+- **EEAT Audit**: Ensure citations look like a formal bibliography, not a list of ads.
 
 Start immediately with the H1 once you receive the variables.

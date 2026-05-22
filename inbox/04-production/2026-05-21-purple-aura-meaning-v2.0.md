@@ -95,12 +95,12 @@ Finally, find or create an environment that respects your need for unconventiona
 ### Related Reading & Works Cited
 
 * **[[Link to aura colors]]** - The foundational guide to the human energy spectrum.
-* **Understanding the Crown Chakra** - A deep dive into the center of spiritual wisdom. (Internal Archive)
-* **Energy Cleansing for High Sensitives** - How to manage energetic permeability. (Internal Blog)
+* **Astrology and Personal Sovereignty** - Understanding the transition from social conformity to higher-self alignment. (Internal Archive)
 
-* Healthline - What Is an Aura? (Link: https://www.healthline.com/health/what-is-an-aura)
-* Britannica - The Spiritual Realm in Tradition (Link: https://www.britannica.com/topic/spiritism)
-* Yoga Journal - A Guide to the Chakras (Link: https://www.yogajournal.com/lifestyle/health/energy-healing/what-are-chakras/)
+* **Theosophical Publishing House** - *The Chakras* by C.W. Leadbeater (Link: https://www.theosophical.org/publications/quest-magazine/the-chakras-a-monograph)
+* **National Center for Biotechnology Information (NCBI)** - *Color Psychology and Human Resonance* (Link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4154292/)
+* **Sacred-Texts Archive** - *Clairvoyance and Occult Powers* by Swami Panchadasi (Link: https://www.sacred-texts.com/eso/cop/index.htm)
+* **University of Minnesota** - *Spirituality in Healthcare: Understanding the Human Energy Field* (Link: https://www.takingcharge.csh.umn.edu/what-are-healing-modalities)
 
 ---
 
