@@ -98,9 +98,10 @@ Finally, trust your intuitive resonance over visual tricks. Do not worry if an o
 * **The Crown Chakra (Sahasrara)** - Exploring the center of divine connection and purity. (Internal Wiki)
 * **Grounding Techniques for Empaths** - How to reconnect with the physical plane. (Internal Blog)
 
-* Healthline - What Is an Aura? (Link: https://www.healthline.com/health/what-is-an-aura)
-* Yoga Journal - A Beginner's Guide to the Chakras (Link: https://www.yogajournal.com/lifestyle/health/energy-healing/what-are-chakras/)
-* Britannica - The Spiritual Realm in Tradition (Link: https://www.britannica.com/topic/spiritism)
+* **Stanford University** - *Spiritual Purity and Mental Health in Historical Context* (Link: https://plato.stanford.edu/entries/ethics-belief/)
+* **World Health Organization (WHO)** - *Traditional Medicine and Wellbeing: The Role of Rituals* (Link: https://www.who.int/publications/i/item/9789240067189)
+* **Theosophical Publishing House** - *Clairvoyance* by C.W. Leadbeater (Link: https://www.theosophy.world/resource/ebooks/clairvoyance)
+* **University of Minnesota Center for Spirituality & Healing** - *Reiki and Energy Healing: A Scholarly Overview* (Link: https://www.takingcharge.csh.umn.edu/reiki)
 
 ---
 

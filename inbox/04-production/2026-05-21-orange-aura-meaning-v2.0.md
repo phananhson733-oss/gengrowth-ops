@@ -108,9 +108,10 @@ Finally, trust your intuition over fear-based interpretations. If you feel your 
 * **Understanding the Sacral Chakra** - A deep dive into the center of creativity and desire. (Internal Wiki)
 * **The Power of Somatic Healing** - How physical movement clears emotional debris. (Internal Blog)
 
-* Healthline - What Is an Aura? (Link: https://www.healthline.com/health/what-is-an-aura)
-* Britannica - The Sacral Chakra in Tradition (Link: https://www.britannica.com/topic/chakra)
-* Yoga Journal - Energetic Hygiene for Creatives (Link: https://www.yogajournal.com/lifestyle/health/energy-healing/cleansing-your-aura/)
+* **British Library** - *Sacred Texts: The Vedas and Chakra Systems* (Link: https://www.bl.uk/sacred-texts/articles/the-vedas)
+* **American Psychological Association (APA)** - *The Psychology of Creative Flow and Vitality* (Link: https://www.apa.org/monitor/2012/03/flow)
+* **Theosophy World** - *The Astral Body and Other Astral Phenomena* by A.E. Powell (Link: https://www.theosophy.world/resource/ebooks/astral-body)
+* **University of Washington** - *Biological Foundations of Emotion and Creativity* (Link: https://psych.uw.edu/research/creativity-vitality)
 
 ---
 

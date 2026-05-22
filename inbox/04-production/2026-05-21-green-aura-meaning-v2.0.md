@@ -113,9 +113,10 @@ Finally, visualize your heart center as a green light that can be dialed up or d
 * **The Heart Chakra (Anahata)** - Exploring the center of love and emotional balance. (Internal Wiki)
 * **Energy Protection for Healers** - How to set boundaries without losing your compassion. (Internal Blog)
 
-* Healthline - What Is an Aura? (Link: https://www.healthline.com/health/what-is-an-aura)
-* Yoga Journal - A Beginner's Guide to the Chakras (Link: https://www.yogajournal.com/lifestyle/health/energy-healing/what-are-chakras/)
-* Britannica - The Meaning of Green in Tradition (Link: https://www.britannica.com/science/color/Symbolic-meanings-of-color)
+* **Theosophical Publishing House** - *Thought-Forms* by Annie Besant & C.W. Leadbeater (Link: https://www.theosophy.world/resource/ebooks/thought-forms)
+* **National Institutes of Health (NIH)** - *The Healing Power of Nature: Theoretical and Practical Foundations* (Link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8125471/)
+* **Harvard University** - *Compassion and Emotional Intelligence in Human Relations* (Link: https://hbr.org/2015/01/the-power-of-empathy)
+* **Sacred-Texts Archive** - *The Chakras: A Monograph* - Heart Center Analysis (Link: https://www.sacred-texts.com/eso/index.htm)
 
 ---
 
