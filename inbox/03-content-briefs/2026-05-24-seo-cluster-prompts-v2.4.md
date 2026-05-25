@@ -30,6 +30,7 @@ When variables are missing or not fully provided:
 - CTA_URL: 
 [Optional - Ignore if blank]
 - Logic: 
+- CTA: 
 - Content_Angle: 
 - Journal_Prompts: 
 - Psych_Safety_Flag: (Y | N)
@@ -133,6 +134,6 @@ Before concluding, you must implicitly answer:
 
 # [Ending Requirements]
 - **Mandatory Ending H2:** `### Where to Go From Here`. 
-- **Mission Completion CTA:** Inside this final H2, resolve the user's next logical action. Synthesize the findings and present `{{CTA_URL}}` as a practical next step to apply the framework.
+- **Mission Completion CTA:** Inside this final H2, resolve the user's next logical action. Synthesize the findings and present `{{CTA}}` (or `{{CTA_URL}}` if no custom CTA copy is provided) as a practical next step to apply the framework.
 - **DO NOT** use "In conclusion" or "To summarize".
 - **Language**: Native US English. Format: Markdown only.
