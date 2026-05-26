@@ -8,7 +8,7 @@ updated: 2026-05-25
 
 # 🚀 SEO 内容量产 4 日排期表 (10 篇/日)
 
-本计划旨在通过 v4.3 SEO Content OS 提示词系统，在 4 天内完成 40 篇高质量文章的生产，重点补全宫位（Houses）、脉轮（Chakras）和南北交点（Nodes）集群。**本计划已剔除所有工具页（Tool Page）。**
+本计划旨在通过 v4.3 SEO Content OS 提示词系统，在 4 天内完成 40 篇高质量文章的生产，重点补全宫位（Houses）、脉轮（Chakras）和南北交点（Nodes）集群。在Status状态为“待写“时不要开始创作。
 
 ## 🗓️ 生产课表
 
