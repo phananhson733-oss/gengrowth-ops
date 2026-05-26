@@ -15,18 +15,18 @@ updated: 2026-05-25
 ### **Day 1 (今日)：
 *聚焦：收尾光环系列，主攻支柱型宫位与交点内容。*
 
-| 序号 | 目标关键词 | 集群 | 内容焦点 |
-| :--- | :--- | :--- | :--- |
-| 1 | green aura meaning | Aura Colors | 如何在直觉不足时转译心轮能量 |
-| 2 | orange aura meaning | Aura Colors | 识别活力转移，拆穿恐吓型灵性骗局 |
-| 3 | astrology houses | Astro Houses | 宫位句法：多层星盘的模块化解读蓝图 |
-| 4 | 8th house meaning | Astro Houses | 跨越第8宫盲点，整合潜意识阴影 |
-| 5 | 12th house astrology | Astro Houses | 转化“自我毁灭”为进化动力 |
-| 6 | 9th house astrology | Astro Houses | 占星师的占星：第9宫与集体信仰 |
-| 7 | 11th house | Astro Houses | 独行者的第11宫：超越友谊的集体对齐 |
-| 8 | North Node vs South Node | Lunar Nodes | 解决南北交点的历史矛盾与技术分歧 |
-| 9 | north node in scorpio | Lunar Nodes | 天蝎北交点：消除物质执念的实操机制 |
-| 10 | north node in taurus | Lunar Nodes | 金牛北交点：打破最难落位迷思的接地法 |
+| 序号  | 目标关键词                    | 集群           | 内容焦点               |
+| :-- | :----------------------- | :----------- | :----------------- |
+| 1   | green aura meaning       | Aura Colors  | 如何在直觉不足时转译心轮能量     |
+| 2   | orange aura meaning      | Aura Colors  | 识别活力转移，拆穿恐吓型灵性骗局   |
+| 3   | astrology houses         | Astro Houses | 宫位句法：多层星盘的模块化解读蓝图  |
+| 4   | 8th house meaning        | Astro Houses | 跨越第8宫盲点，整合潜意识阴影    |
+| 5   | 12th house astrology     | Astro Houses | 转化“自我毁灭”为进化动力      |
+| 6   | 9th house astrology      | Astro Houses | 占星师的占星：第9宫与集体信仰    |
+| 7   | 11th house               | Astro Houses | 独行者的第11宫：超越友谊的集体对齐 |
+| 8   | North Node vs South Node | Lunar Nodes  | 解决南北交点的历史矛盾与技术分歧   |
+| 9   | north node in scorpio    | Lunar Nodes  | 天蝎北交点：消除物质执念的实操机制  |
+| 10  | north node in taurus     | Lunar Nodes  | 金牛北交点：打破最难落位迷思的接地法 |
 
 ### **Day 2 (明日)：宫位补齐
 *聚焦：补全所有缺失宫位，建立领域护城河。*
