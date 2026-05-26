@@ -34,7 +34,7 @@ updated: 2026-05-25
 | 序号  | 目标关键词                  | 集群           | 内容焦点            |
 | :-- | :--------------------- | :----------- | :-------------- |
 | 1   | 1st house meaning      | Astro Houses | 第一宫：自我身份与人格面具   |
-| 2   | 2nd house in astrology | Astro Houses | 第二宫：个人资源与自我价值   |
+| 2   | 2nd house meaning      | Astro Houses | 第二宫：个人资源与自我价值   |
 | 3   | 3rd house meaning      | Astro Houses | 第三宫：心智交流与局部环境   |
 | 4   | pluto in 4th house     | Astro Houses | 第四宫：家庭根基与私人世界   |
 | 5   | 5th house meaning      | Astro Houses | 第五宫：创造力、愉悦与内在小孩 |
