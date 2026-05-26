@@ -80,3 +80,55 @@ updated: 2026-05-25
 1. **生成工具**：统一使用 `inbox/03-content-briefs/2026-05-25-seo-content-os-v4.3-sop.md`。
 2. **规范化**：每篇文章生成后必须运行 `node scripts/brand-wrap.js [file] --apply`。
 3. **审核清单**：遵循 v4.3 规定的 9 步 Content Schema。
+4. 新增：
+ **1. 占星宫位 (Houses) - 补齐 8 个**
+
+   * ✅ 1st house meaning (PG-HOUSE-006)
+
+   * ✅ 2nd house in astrology (PG-HOUSE-007)
+
+   * ✅ 3rd house meaning (PG-HOUSE-008)
+
+   * ✅ pluto in 4th house (PG-HOUSE-009)
+
+   * ✅ 5th house meaning (PG-HOUSE-010)
+
+   * ✅ pluto in 6th house (PG-HOUSE-011)
+
+   * ✅ whats my 7th house (PG-HOUSE-012)
+
+   * ✅ 10th house meaning (PG-HOUSE-013)
+
+  
+
+  **2. 脉轮疗愈 (Chakras) - 补齐 3 个**
+
+   * ✅ heart chakra meaning (PG-CHAKRA-007) 
+
+   * ✅ throat chakra meaning (PG-CHAKRA-008)
+
+   * ✅ ajna chakra (PG-CHAKRA-009)
+
+  
+
+  **3. 占星术语 (Terms) - 新增 6 个**
+
+   * ✅ astrology terms (PG-TERM-001 - Pillar)
+
+   * ✅ sextile astrology (PG-TERM-002)
+
+   * ✅ trine in astrology (PG-TERM-003)
+
+   * ✅ square astrology (PG-TERM-004)
+
+   * ✅ descendant astrology (PG-TERM-005)
+
+   * ✅ ic astrology (PG-TERM-006)
+
+  
+
+  **4. 流量突击词 (Traffic) - 新增 2 个**
+
+   * ✅ saturn in pisces (PG-TRANS-001)
+
+   * ✅ persephone goddess (PG-MYTH-001)
