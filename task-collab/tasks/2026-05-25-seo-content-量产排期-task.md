@@ -31,18 +31,18 @@ updated: 2026-05-25
 ### **Day 2 (明日)：宫位补齐
 *聚焦：补全所有缺失宫位，建立领域护城河。*
 
-| 序号 | 目标关键词 | 集群 | 内容焦点 |
-| :--- | :--- | :--- | :--- |
-| 1 | 1st house meaning | Astro Houses | 第一宫：自我身份与人格面具 |
-| 2 | 2nd house in astrology | Astro Houses | 第二宫：个人资源与自我价值 |
-| 3 | 3rd house meaning | Astro Houses | 第三宫：心智交流与局部环境 |
-| 4 | pluto in 4th house | Astro Houses | 第四宫：家庭根基与私人世界 |
-| 5 | 5th house meaning | Astro Houses | 第五宫：创造力、愉悦与内在小孩 |
-| 6 | pluto in 6th house | Astro Houses | 第六宫：日常健康与服务仪式 |
-| 7 | whats my 7th house | Astro Houses | 第七宫：镜像投射与一对一关系 |
-| 8 | 10th house meaning | Astro Houses | 第十宫：公众形象与成就巅峰 |
-| 9 | aura reading | Aura Colors | 光环阅读的结构化实操指南 |
-| 10 | how to find north node | Lunar Nodes | 寻找并计算南北交点的技术教程 |
+| 序号  | 目标关键词                  | 集群           | 内容焦点            |
+| :-- | :--------------------- | :----------- | :-------------- |
+| 1   | 1st house meaning      | Astro Houses | 第一宫：自我身份与人格面具   |
+| 2   | 2nd house in astrology | Astro Houses | 第二宫：个人资源与自我价值   |
+| 3   | 3rd house meaning      | Astro Houses | 第三宫：心智交流与局部环境   |
+| 4   | pluto in 4th house     | Astro Houses | 第四宫：家庭根基与私人世界   |
+| 5   | 5th house meaning      | Astro Houses | 第五宫：创造力、愉悦与内在小孩 |
+| 6   | pluto in 6th house     | Astro Houses | 第六宫：日常健康与服务仪式   |
+| 7   | whats my 7th house     | Astro Houses | 第七宫：镜像投射与一对一关系  |
+| 8   | 10th house meaning     | Astro Houses | 第十宫：公众形象与成就巅峰   |
+| 9   | aura reading           | Aura Colors  | 光环阅读的结构化实操指南    |
+| 10  | how to find north node | Lunar Nodes  | 寻找并计算南北交点的技术教程  |
 
 ### **Day 3 (后天)：脉轮与术语字典**
 *聚焦：脉轮纯内容线补全与占星基础术语。*
