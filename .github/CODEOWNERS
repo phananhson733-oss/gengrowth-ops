@@ -19,6 +19,3 @@
 # 自动化脚本和配置：Lynne 审批
 /scripts/                  @xdawayer
 /.github/                  @xdawayer
-
-# inbox 是 Ops (Letty) 专属个人工作台：别人开 PR 碰它需要 Ops 审批
-/inbox/                    @Yuiteatime
