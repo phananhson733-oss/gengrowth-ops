@@ -7,7 +7,7 @@
 | 目录编号   | 目录名称                      | 核心用途                            | 包含的主要文件                                            |
 | :----- | :------------------------ | :------------------------------ | :------------------------------------------------- |
 | **00** | `00-inbox`                | 临时输入、灵感草稿、未分类数据。                | -                                                  |
-| **06** | `06-keyword-research`     | 存放全量关键词库、1+N 集群执行表、长尾词聚类分析。     | `astrologywiki-keyword-cluster.md`                 |
+| **02** | `02-keyword-research`     | 存放全量关键词库、1+N 集群执行表、长尾词聚类分析。     | `astrologywiki-keyword-cluster.md`                 |
 | **03** | `03-content-briefs`       | 存放内容大纲、流量预测报告、SEO SOP 及提示词备份。   | `seo-pipeline-sop-v2.md`, `seo-cluster-prompts.md` |
 | **04** | `04-production`           | 正在撰写或 AI 生成中的 Blog 初稿（成品发布后移出）。 | `aura-colors-tutorial.md`                          |
 | **01** | `01-review-audit`         | 存放 Day 0 诊断记录、实验进度 Log、站点审计报告。  | `astrologywiki-growth-log-v2.md`                   |
