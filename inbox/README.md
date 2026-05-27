@@ -22,22 +22,23 @@
 
 ## 🛠️ 文件管理规范
 
-1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。避免 `Untitled.md` / `未命名.md` 等占位名，会被自动校验拒绝。
-2. **元数据要求**：所有 `.md` 文件头部必须包含 `project`, `type`, `status`, `owner`, `updated` 字段。
-3. **Owner**：Ma Boyang。
+1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。`Untitled.md` / `未命名.md` 等占位名只会收到 advisory 提示（不阻塞），但**走流程**（`ready_*` / `archived`）时会被拒绝。
+2. **元数据要求**：`.md` 文件头部建议包含 `project`, `type`, `status`, `owner`, `updated` 字段；草稿可以不写，**走流程时这 5 个字段必填**。
+3. **Owner**：Ma Boyang。inbox 是 Ops 专属工作台，其他人请勿直接修改（CODEOWNERS 已指定 inbox 由 Ops 审批）。
 4. **清理规则**：正式 SOP 确定后应提交至 `docs/`；已发布的 Blog 初稿定期归档至内容资产库。
 
 ## 🔄 status 字段语义（决定 dispatch 行为）
 
-`scripts/dispatch-inbox.js` 根据 frontmatter 里的 `status` 字段决定怎么处理一个文件：
+`scripts/dispatch-inbox.js` 根据 frontmatter 里的 `status` 字段决定怎么处理一个文件。**默认（非流程状态）只发提示、绝不阻塞、不开 issue** —— Obsidian Git 自动备份不会被骚扰。只有显式声明流程状态时，才会严格校验并搬运：
 
 | status | 行为 | 适用场景 |
 |---|---|---|
-| `draft` (或无 frontmatter) | **留在 inbox/**，不动 | 草稿、半成品、思考记录。脚本不会骚扰。 |
-| `ready_for_review` | **开 PR** 等审批 | 完成的内容，需要他人 review |
-| `ready_to_move` | **直接搬运** 到 target | 已确认无需 review 的内容 |
-| `archived` | **自动归档** 到 `inbox/09-archive/` | 老版本、废弃文件 |
+| `draft` / `active` / `final` / `in-progress` / 无 frontmatter / 无法识别 | **留在 inbox/**，不动，仅 advisory 提示 | 草稿、半成品、思考记录。脚本不会骚扰。 |
+| `ready_for_review` | 严格校验后**开 PR** 等审批 | 完成的内容，需要他人 review |
+| `ready_to_move` | 严格校验后**直接搬运** 到 target | 已确认无需 review 的内容 |
+| `archived` | 严格校验后**自动归档** 到 `inbox/09-archive/` | 老版本、废弃文件 |
 
+> 只有 `ready_for_review` / `ready_to_move` / `archived` 会触发校验失败开 issue；草稿状态永远静默。
 > 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
 > 所有 wiki 同步目录（`docs/`、`✍️ 内容资产/`、`参考资料/`、`每日日报/`、`task-collab/`）都是单向 rsync 镜像**只读**，dispatch 不能往里搬；要更新这些内容请改 wiki repo。
 
