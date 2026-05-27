@@ -6,15 +6,17 @@
  * 触发: GitHub Actions (.github/workflows/dispatch.yml) 在 inbox/ 有变化时调用。
  *
  * 设计原则:
- *   1. inbox/ 是个人工作台 (per inbox/README.md), 默认不搬运文件 — 草稿留在 inbox 即可。
- *   2. 只有当作者显式声明 status=ready_for_review / ready_to_move / archived 时, 才走对应流程。
- *   3. 失败时必须开 GitHub Issue, 这样 Letty 在 Obsidian/GitHub Mobile 也能看见, 而不是只有一个红 X。
+ *   1. inbox/ 是 Ops (Letty) 专属个人工作台 (per inbox/README.md), 允许草稿/空笔记/随手存。
+ *      Obsidian Git 高频自动备份会触发本脚本, 因此默认绝不阻塞、不开 issue, 只发 advisory 警告。
+ *   2. 只有当作者显式声明 status=ready_for_review / ready_to_move / archived 时,
+ *      才进入严格校验 + 搬运/开 PR 流程 (这才是 Ops 主动"提交点东西给别人看")。
+ *   3. 仅严格流程校验失败时才开 GitHub Issue, 这样 Letty 在 Obsidian/GitHub Mobile 也能看见。
  *
  * status 语义:
- *   draft (或无 frontmatter)  -> 留在 inbox/, 仅做基础卫生检查 (拒绝 Untitled.md / 空文件)
- *   ready_for_review          -> 必须 5 必填字段 + target, 开 PR
- *   ready_to_move             -> 必须 5 必填字段 + target, 直接搬运
- *   archived                  -> 自动搬到 inbox/09-archive/
+ *   draft / active / final / in-progress / 无 frontmatter / 无法识别 -> 留在 inbox/, 仅 advisory 警告
+ *   ready_for_review          -> 严格校验 (5 必填字段 + target + 非空非占位), 开 PR
+ *   ready_to_move             -> 严格校验, 直接搬运
+ *   archived                  -> 严格校验, 自动搬到 inbox/09-archive/
  *
  * 环境变量:
  *   CHANGED_FILES      换行分隔的变更文件列表 (由 Action 提供)
