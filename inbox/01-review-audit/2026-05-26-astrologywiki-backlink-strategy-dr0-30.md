@@ -85,16 +85,16 @@ updated: 2026-05-26
 
 **可立即联系的目标站点名单（已验证接受投稿）**
 
-| 站点                  | 主题方向         | 联系方式                        | 优先级  |
-| ------------------- | ------------ | --------------------------- | ---- |
-| theglobalhues.com   | 占星/灵性/生活方式   | info@theglobalhues.com      | 🔴 高 |
-| innermasteryhub.com | 灵性/情绪健康/个人成长 | 网站表单                        | 🔴 高 |
-| astronidan.com      | 占星技术/AI占星    | 网站表单                        | 🔴 高 |
-| astrosconnect.com   | 占星/塔罗/灵性     | marketing@astrosconnect.com | 🟡 中 |
-| globgyan.com        | 占星/生活方式      | 网站表单                        | 🟡 中 |
-| astroleaf.in        | 占星/灵性/数字命理   | 网站表单                        | 🟡 中 |
-| bhagyaasegyan.com   | 吠陀占星/灵性      | 网站表单                        | 🟢 低 |
-| astrologify.com     | 占星评测/工具      | 联系页面                        | 🟡 中 |
+| 站点 | 主题方向 | 联系方式 | 优先级 |
+|---|---|---|---|
+| theglobalhues.com | 占星/灵性/生活方式 | info@theglobalhues.com | 🔴 高 |
+| innermasteryhub.com | 灵性/情绪健康/个人成长 | 网站表单 | 🔴 高 |
+| astronidan.com | 占星技术/AI占星 | 网站表单 | 🔴 高 |
+| astrosconnect.com | 占星/塔罗/灵性 | marketing@astrosconnect.com | 🟡 中 |
+| globgyan.com | 占星/生活方式 | 网站表单 | 🟡 中 |
+| astroleaf.in | 占星/灵性/数字命理 | 网站表单 | 🟡 中 |
+| bhagyaasegyan.com | 吠陀占星/灵性 | 网站表单 | 🟢 低 |
+| astrologify.com | 占星评测/工具 | 联系页面 | 🟡 中 |
 
 **Guest Post 外展邮件模板**
 
@@ -117,6 +117,11 @@ Best,
 [作者名] | AstrologyWiki.com
 ```
 
+> **注意事项**
+> 1. 每封邮件必须个性化，提及对方站点的具体文章
+> 2. 文章内容质量必须与 AstrologyWiki.com 现有文章水准相当
+> 3. 确认发布前核查链接是否为 dofollow（用 Chrome 扩展 NoFollow 工具检查）
+
 ---
 
 ### 战术 2：Digital PR（数字公关）— 高 DR 链接的最有效路径
@@ -136,6 +141,23 @@ Best,
 | #journorequest（Twitter/X） | 免费，实时性强 | 快速响应突发话题 | 免费 |
 | SourceBottle | 澳洲/新西兰媒体覆盖好 | 英语圈多地域覆盖 | 免费 |
 
+**回应记者请求的技巧**
+
+- 回应长度控制在 150-250 词，记者没有时间读长文
+- 开头直接给出观点，不要铺垫背景
+- 引用具体数据或案例（如「在我 12 年的心理占星咨询中...」）
+- 结尾附上作者资质一句话和 AstrologyWiki.com 的具体相关页面 URL
+- **响应速度关键**：请求发出后 2 小时内回应胜率最高
+
+**适合 AstrologyWiki 作者的选题方向**
+
+| 作者 | 背景优势 | 适合话题 |
+|---|---|---|
+| Julian Thorne | 心理咨询 5 年 + 进化占星 12 年 | 占星与心理健康、成长危机、自我认知 |
+| Elena Vane | 广告转行 + 8 年能量工作 | 能量工作与职业倦怠恢复、正念实践 |
+| Aditi Sharma | 比较文学 + 吠陀研究 10 年 | 吠陀传统智慧与现代职场、跨文化灵性 |
+| Marcus Orion | 7 年数据分析 + 占星基础研究 | 星盘数据分析与决策、占星系统化学习 |
+
 ---
 
 ### 战术 3：Broken Link Building（断链修复）— 零成本高成功率
@@ -144,6 +166,14 @@ Best,
 - **预期 DR 贡献**：成功率约 5-10%，对方站点通常有真实流量，链接质量较高
 
 找到占星/灵性类高 DR 站点上的失效链接（404页面），向站长提议用 AstrologyWiki.com 的相关内容替换，帮对方修复用户体验，同时获得一条 dofollow 链接。
+
+**执行步骤**
+
+1. 在 Ahrefs 或 Semrush 中搜索竞品域名（如 cafeastrology.com），查看其 Outgoing Broken Links 报告
+2. 筛选 DR 30+ 的链接来源，找到指向已失效页面的链接
+3. 检查 AstrologyWiki.com 是否有可以替代该失效内容的页面
+4. 如果没有，快速创建一篇对应主题的文章（可用 v4.3 Prompt 生成）
+5. 发送邮件给站长，指出断链位置，提供替代内容链接
 
 **断链修复邮件模板**
 
@@ -166,6 +196,8 @@ Best,
 [名字] | AstrologyWiki.com
 ```
 
+> **关键**：邮件不要直接索要链接，只提供价值，让对方自己决定
+
 ---
 
 ### 战术 4：Resource Page Link Building（资源页链接）— 精准低竞争
@@ -175,12 +207,49 @@ Best,
 
 占星和灵性领域有大量「推荐资源」或「最佳占星网站」类页面。向它们申请收录是最自然的外链获取方式。
 
+**搜索目标页面的 Google 指令**
+
+```
+inurl:resources + astrology
+inurl:links + "astrology" + "birth chart"
+"best astrology websites" + "submit" OR "suggest"
+"astrology resources" inurl:recommended
+"spiritual wellness" + "recommended reading" + astrology
+```
+
+**已发现的目标机会**
+
+| 页面类型 | 找到方式 | 提交切入点 | 预期难度 |
+|---|---|---|---|
+| 占星工具推荐页 | Google: best free astrology tools | 提交星盘计算器工具页 | 低 |
+| 心理成长资源列表 | Google: psychological astrology resources | 提交 Julian 系列文章 | 低 |
+| 灵性阅读推荐 | Google: spiritual reading list astrology | 提交 Aura/Chakra 系列 | 低 |
+| 占星学习路径页 | Google: learn astrology beginner resources | 提交 Houses Pillar 文章 | 中 |
+| 瑜伽/正念类站点的参考资源 | Google: yoga teacher chakra references | 提交 Elena 系列 | 中 |
+
 ---
 
 ### 战术 5：内容资产驱动外链（Link Bait）— 长期被动增长
 
 - **适用阶段**：第 3-12 个月（内容投入期）
 - **预期 DR 贡献**：一篇高质量 Link Bait 内容可在 12 个月内自然吸引 10-50 个 referring domains
+
+**适合 AstrologyWiki.com 的 Link Bait 内容类型**
+
+| 内容类型 | 具体选题 | 引用者画像 | 预期引用量 |
+|---|---|---|---|
+| 数据研究 | 「2025年占星内容最常见的10个误解」（基于Reddit数据） | 媒体/博客/教育者 | 高 |
+| 权威词汇表 | 「心理占星学完整术语表（A-Z）」 | 学生/爱好者/其他站点 | 中高 |
+| 对比指南 | 「西方占星 vs 吠陀占星：完整系统对比」 | 学习者/其他内容站 | 中高 |
+| 免费工具 | 「星盘宫位计算器」（嵌入工具） | 工具类搜索用户 | 高 |
+| 引用统计 | 「占星相关心理研究文献整理（2010-2025）」 | 学术/研究类用户 | 中 |
+
+**Link Bait 内容的推广策略**
+
+- 发布后主动发送给 15-20 个可能引用的博主（分享发现，不是索要链接）
+- 在 Reddit r/astrology、r/spirituality 等社区分享研究发现
+- 通过 Digital PR 平台将数据研究推送给相关媒体记者
+- 在 Pinterest 和 Instagram 制作信息图版本，增加内容曝光
 
 ---
 
@@ -192,40 +261,111 @@ Best,
 
 | 月份 | 核心任务 | 目标链接数 | 预期 DR |
 |---|---|---|---|
-| **第1个月** | 1. 提交 GSC<br>2. 向 8 个站点发 Pitch<br>3. 注册作者账号<br>4. 整理 50 个目标资源页 | 5-8个 | 1-3 |
-| **第2个月** | 1. 跟进邮件<br>2. 发表 3-4 篇 Guest Post<br>3. 执行断链修复<br>4. 提交资源页收录 | 8-12个 | 3-6 |
-| **第3个月** | 1. 累计 10 篇 Guest Post<br>2. 开始 Digital PR<br>3. 制作第一篇 Link Bait<br>4. 社群运营 | 10-15个 | 5-8 |
+| **第1个月** | 1. 提交 Google Search Console，确认收录状态<br>2. 向 8 个已验证站点发送 Guest Post 邮件<br>3. 在 Featured.com 和 Qwoted 注册 4 个作者账号<br>4. 搜索并整理 50 个资源页目标 | 5-8个 | 1-3 |
+| **第2个月** | 1. 跟进第1个月未回复的邮件<br>2. 发表 3-4 篇 Guest Post<br>3. 执行断链修复：找到 20 个断链机会并发送邮件<br>4. 向 10 个资源页提交收录申请 | 8-12个 | 3-6 |
+| **第3个月** | 1. 继续 Guest Post 投稿（目标累计 10 篇）<br>2. 开始 Digital PR：每周回应 3-5 个记者请求<br>3. 制作第一篇 Link Bait 内容（词汇表或数据研究）<br>4. 在 Reddit 等社区建立存在感 | 10-15个 | 5-8 |
+
+### 第二阶段：加速增长期（第 4-8 个月）
+
+**目标：累计 referring domains 达到 60-80，DR 从 8 提升至 18-22**
+
+| 月份 | 核心任务 | 月度新增 | 累计 DR 目标 |
+|---|---|---|---|
+| **第4-5个月** | 1. 将每月 Guest Post 目标提升至 6-8 篇<br>2. Digital PR 持续：开始出现在 DR 40-60 的媒体<br>3. 整理竞品外链数据，找到 10 个新的 Link Gap 机会<br>4. 发布 Link Bait 内容并主动推广 | 10-15个/月 | DR 10-14 |
+| **第6-7个月** | 1. 针对 DR 40+ 站点定向外展（使用更高质量的 pitch）<br>2. 开始三角互链测试：联系 1-2 个互补垂直领域站点<br>3. 监控竞品新获得的链接，即时跟进同类机会<br>4. 评估前5个月数据，优化成功率最高的战术比例 | 12-18个/月 | DR 15-20 |
+| **第8个月** | 1. 审计已获得链接的质量（使用 Ahrefs 检查是否有毒链）<br>2. 将最成功的 Guest Post 主题复制到新平台<br>3. 开始布局 Vedic Astrology 和 Chakra 的专项外链<br>4. 与 5-8 个垂直博主建立长期合作关系 | 15-20个/月 | DR 18-22 |
+
+### 第三阶段：权威建立期（第 9-12 个月）
+
+**目标：累计 referring domains 达到 120-150，DR 从 22 提升至 28-32**
+
+| 月份 | 核心任务 | 月度新增 | 累计 DR 目标 |
+|---|---|---|---|
+| **第9-10个月** | 1. 定向攻坚 DR 50+ 站点（通过 Digital PR 和数据研究）<br>2. 发布第二篇 Link Bait 内容（基于前期流量数据选题）<br>3. 开始与 DR 30-50 的互补站点协商内容合作<br>4. 在 Medium/Substack 等平台建立作者存在感（品牌信号） | 15-20个/月 | DR 22-26 |
+| **第11-12个月** | 1. 复盘 12 个月外链数据，保留高质量战术，停止低效战术<br>2. 针对核心关键词对应的 Pillar 页面集中外链资源<br>3. 申请进入 2-3 个占星/灵性领域的专业目录或协会<br>4. 制定下一阶段（DR 30→50）的战略升级计划 | 20+个/月 | DR 28-32 |
 
 ---
 
 ## 四、外链质量控制与风险规则
 
+> ⚠️ **Google 2024 Helpful Content Update 之后的外链红线**
+>
+> 以下外链模式会触发惩罚：
+> 1. **付费链接网络（Link Farms）**——批量购买低质量链接会导致站点降权
+> 2. **无关联性的 Guest Post**——在与占星完全无关的站点发文只为链接，会被识别为操控
+> 3. **锚文字过度优化**——50%+ 的链接使用完全相同的关键词锚文字是明显异常信号
+> 4. **快速批量增长**——短时间内获取大量链接（自然增长通常是缓慢且稳定的）
+
 ### 4.1 锚文字分布规范
 
-| 锚文字类型 | 示例 | 建议比例 |
+| 锚文字类型 | 示例 | 建议比例 | 说明 |
+|---|---|---|---|
+| 品牌词 | AstrologyWiki / AstrologyWiki.com | 30-40% | 最安全，建议作为主要锚文字 |
+| 裸 URL | https://www.astrologywiki.com/... | 15-20% | 自然链接中常见 |
+| 通用词 | click here / this guide / read more | 10-15% | 模拟真实用户行为 |
+| 部分匹配关键词 | astrology house guide / aura reading | 20-25% | 可接受，不要超过 30% |
+| 精确匹配关键词 | astrology houses meaning | 5-10% | 过多会触发算法警觉 |
+
+### 4.2 每月质量核查清单
+
+- [ ] 用 Ahrefs Site Explorer 检查新增 referring domains，过滤掉 DR 0-5 的垃圾链接
+- [ ] 检查新增链接的锚文字，确保精确匹配关键词锚文字不超过 10%
+- [ ] 使用 Google Search Console 监控「手动操作」通知
+- [ ] 对可疑的低质量链接（DR < 5，主题无关，非英文垃圾站）提交 Disavow 文件
+- [ ] 每季度用 Ahrefs 检查竞品新获得的链接，及时发现新机会
+
+### 4.3 绝对禁止的外链行为
+
+| 禁止行为 | 风险等级 | 处理原则 |
 |---|---|---|
-| 品牌词 | AstrologyWiki / AstrologyWiki.com | 30-40% |
-| 裸 URL | https://www.astrologywiki.com/... | 15-20% |
-| 通用词 | click here / this guide / read more | 10-15% |
-| 部分匹配关键词 | astrology house guide / aura reading | 20-25% |
-| 精确匹配关键词 | astrology houses meaning | 5-10% |
+| 购买付费链接（Link Farms / PBN） | 🔴 极高 | 绝对禁止，一次惩罚可能导致永久降权 |
+| 大量提交低质量目录网站 | 🟠 高 | 禁止，100 个 DR 0 的目录链接对 DR 几乎无贡献 |
+| 交换链接（A链B，B链A） | 🟠 高 | 禁止，Google 算法能识别互链模式 |
+| 在无关主题站点发 Guest Post | 🟡 中 | 避免，选择与占星/灵性至少间接相关的站点 |
+| 过度使用精确匹配锚文字 | 🟡 中 | 控制在 10% 以内 |
+| 短时间内获取大量链接 | 🟡 中 | 保持自然增长节奏，单月新增初期不超过 30 个 |
 
 ---
 
 ## 五、工具栈与月度预算参考
 
-- **Ahrefs Lite**: $129/月
-- **JournoFinder**: $49/月
-- **其余工具**: 免费版即可
+| 工具 | 用途 | 费用 | 优先级 |
+|---|---|---|---|
+| Ahrefs（Lite） | 竞品外链分析/自身链接监控/断链查找 | $129/月 | 必须 |
+| Google Search Console | 监控收录状态/手动惩罚通知/链接报告 | 免费 | 必须 |
+| NoFollow Chrome 扩展 | 检查链接是否为 dofollow | 免费 | 必须 |
+| Featured.com（HARO） | Digital PR，记者请求响应 | 免费基础版 | 推荐 |
+| JournoFinder Alerts | 聚合多平台记者请求 | $49/月 | 推荐 |
+| Hunter.io | 寻找站长/编辑的联系邮箱 | 免费50次/月 | 推荐 |
+| Airtable / 飞书 | 外展管理/链接追踪 | 免费基础版 | 推荐 |
+
+> **月度预算参考**
+>
+> - **最低预算版（$180/月）**：Ahrefs Lite ($129) + JournoFinder ($49) + 其余免费工具
+> - **推荐预算版（$250-400/月）**：以上 + 偶尔聘请自由撰稿人协助 Guest Post 内容生产
+>
+> 不建议购买任何「外链服务包」或「批量提交服务」。根据 2026 年最新调研，62% 的 SEO 专家要求外链来源站点 DR 50+，质量门槛正在持续提高。
 
 ---
 
 ## 六、关键指标与里程碑
 
-- **第3个月末**: DR 5-8, 15-25 RD
-- **第6个月末**: DR 12-18, 50-70 RD
-- **第9个月末**: DR 20-26, 90-110 RD
-- **第12个月末**: DR 28-32, 120-150 RD
+| 时间节点 | 目标 DR | Referring Domains | 验证方式 | 调整触发条件 |
+|---|---|---|---|---|
+| 第3个月末 | 5-8 | 15-25 | Ahrefs Site Explorer | 未达到 10 个 RD：加大 Guest Post 频率 |
+| 第6个月末 | 12-18 | 50-70 | Ahrefs + GSC | DR < 10：检查链接质量，是否有毒链 |
+| 第9个月末 | 20-26 | 90-110 | Ahrefs + GSC | DR 停滞：转向 Digital PR 攻坚高 DR 来源 |
+| 第12个月末 | 28-32 | 120-150 | Ahrefs + GSC | 超额完成：制定 DR 30→50 升级计划 |
+
+> **DR 30 在占星/灵性垂直领域意味着什么**
+>
+> - 超越大多数新兴竞品（DR 10-25 区间），进入中级权威站点行列
+> - 核心关键词（如「8th house meaning」「aura colors」）具备争夺第 1-3 页排名的基础权重
+> - 可开始被更高 DR 站点主动引用，进入外链自然增长的正向循环
+> - 为下一阶段（DR 30→50）的付费媒体合作奠定资质基础
+>
+> **从 DR 0 到 DR 30 的 12 个月，是整个网站生命周期中单位投入回报最高的阶段。**
 
 ---
+
 *AstrologyWiki.com 外链增长策略方案 · 2026年5月 · 内部保密文件*
