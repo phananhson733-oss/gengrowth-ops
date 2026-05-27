@@ -12,6 +12,7 @@
 | **03** | `03-content-briefs`       | 存放内容大纲、流量预测报告、SEO SOP 及提示词备份。   | `seo-pipeline-sop-v2.md`, `seo-cluster-prompts.md` |
 | **04** | `04-production`           | 正在撰写或 AI 生成中的 Blog 初稿（成品发布后移出）。 | `aura-colors-tutorial.md`                          |
 | **05** | `05-blog`                 | 已成型 / 待发布的 Blog 内容。              | -                                                  |
+| **06** | `06-tasks`                | 任务管理与执行跟踪（看板 + 单任务文档）。从 `task-collab/` 迁入。 | `task-board.md`, `tasks/*-task.md`                 |
 | **08** | `08-reports-and-feedback` | 所有的汇报、产品功能反馈、标准执行反馈。            | 详见下方子目录                                            |
 | **09** | `09-archive`              | 历史版本（v0.18 等）、已废弃的旧逻辑、参考旧件。     | `pipeline-v019-old.md`                             |
 

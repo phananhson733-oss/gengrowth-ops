@@ -64,6 +64,12 @@ const STATUS_ACTIONS = {
   active: "keep",
   final: "keep", // 已完成但留在工作台自查
   "in-progress": "keep",
+  // Tasks 插件常用的任务状态 (inbox/06-tasks/), 一律留 inbox
+  todo: "keep",
+  doing: "keep",
+  done: "keep",
+  blocked: "keep",
+  cancelled: "keep",
   // 开 PR
   ready_for_review: "review",
   review: "review",
