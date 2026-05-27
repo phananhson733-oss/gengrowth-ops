@@ -198,75 +198,81 @@ function validateFile(file) {
   const errors = [];
   const warnings = [];
 
-  // 1. 必须是文件 (避免目录路径进来)
+  // 1. 必须是文件 (避免目录路径进来). 读不到只 warn, 不阻塞 — inbox 是工作台。
   let stat;
   try {
     stat = fs.statSync(file);
   } catch (e) {
-    errors.push(`无法读取: ${e.message}`);
-    return { errors, warnings };
+    return { errors, warnings: [`${file}: 无法读取 (${e.message}), 跳过`] };
   }
   if (!stat.isFile()) {
-    return { errors: [], warnings: [`${file} 不是文件, 跳过`] };
+    return { errors, warnings: [`${file} 不是文件, 跳过`] };
   }
 
-  // 2. 文件名占位拒绝 (无论 status 都拦)
-  const base = path.basename(file);
-  if (isPlaceholderName(base)) {
-    errors.push(
-      `占位文件名不允许: "${base}". 请按 YYYY-MM-DD-主题.md 命名后再提交。`,
-    );
-    return { errors, warnings };
-  }
-
-  // 3. 扩展名: 只处理 .md, 其他放过 (Obsidian 的 .canvas/.base 等以及附件)
+  // 2. 扩展名: 只处理 .md, 其他放过 (Obsidian 的 .canvas/.base 等以及附件)
   if (path.extname(file).toLowerCase() !== ".md") {
-    return { errors: [], warnings: [`${file}: 非 .md 文件, 跳过校验`] };
+    return { errors, warnings: [`${file}: 非 .md 文件, 跳过校验`] };
   }
 
-  // 4. 读文件
+  // 3. 读文件 + 先定动作 (status 决定严不严)
   const content = fs.readFileSync(file, "utf8");
   const { frontmatter, body, hasFrontmatter } = parseFile(content);
+  const base = path.basename(file);
+  const rawStatus = (frontmatter.status || "draft").toLowerCase();
+  const action = hasFrontmatter ? STATUS_ACTIONS[rawStatus] : "keep";
+  const isRouting =
+    action === "review" || action === "move" || action === "archive";
 
-  // 5. 空文件 / 模板拒绝
+  // 4. 非流程状态 (draft / keep / 无 frontmatter / 无法识别) -> 一律留 inbox, 只 advisory。
+  //    inbox 是 Ops 专属工作台, Obsidian 自动备份不该被阻塞或开 issue。
+  if (!isRouting) {
+    if (hasFrontmatter && frontmatter.status && !action) {
+      warnings.push(
+        `${file}: status "${frontmatter.status}" 无法识别, 暂按 draft 保留。要走流程请用: ${Object.keys(STATUS_ACTIONS).join(" / ")}`,
+      );
+    }
+    if (!hasFrontmatter) {
+      warnings.push(
+        `${file}: 无 frontmatter, 视作 draft 保留 (要走流程再加 status/${REQUIRED_FIELDS.join("/")})。`,
+      );
+    }
+    if (isPlaceholderName(base)) {
+      warnings.push(
+        `${file}: 占位文件名 "${base}", 建议改成 YYYY-MM-DD-主题.md (不阻塞)。`,
+      );
+    }
+    if (body.length < MIN_BODY_CHARS) {
+      warnings.push(
+        `${file}: 正文偏短 (${body.length} 字符), 像空模板 (不阻塞)。`,
+      );
+    }
+    return { errors, warnings, action: "leave-as-draft" };
+  }
+
+  // ---- 以下仅对显式流程状态 (review/move/archive) 严格校验, 失败才会开 issue ----
+
+  // 5. 占位文件名 / 空文件: 要走流程的东西必须像样
+  if (isPlaceholderName(base)) {
+    errors.push(
+      `占位文件名不能走流程: "${base}". 请按 YYYY-MM-DD-主题.md 命名后再提交。`,
+    );
+    return { errors, warnings };
+  }
   if (body.length < MIN_BODY_CHARS) {
     errors.push(
-      `正文不足 ${MIN_BODY_CHARS} 字符 (当前 ${body.length}), 看起来是空模板。`,
+      `正文不足 ${MIN_BODY_CHARS} 字符 (当前 ${body.length}), 看起来是空模板, 不能走流程。`,
     );
     return { errors, warnings };
   }
 
-  // 6. 无 frontmatter -> 视作 draft, 但提示作者
-  if (!hasFrontmatter) {
-    warnings.push(
-      `${file}: 无 frontmatter, 视作 draft 保留。建议补全 ${REQUIRED_FIELDS.join("/")} 字段。`,
-    );
-    return { errors, warnings, action: "leave-as-draft" };
-  }
-
-  // 7. status 字段校验 (空 status 当 draft)
-  const rawStatus = (frontmatter.status || "draft").toLowerCase();
-  const action = STATUS_ACTIONS[rawStatus];
-  if (!action) {
-    errors.push(
-      `status "${frontmatter.status}" 无效。允许: ${Object.keys(STATUS_ACTIONS).join(" / ")}`,
-    );
-    return { errors, warnings };
-  }
-
-  // 8. keep -> 不动它, 也不强制 5 字段 (允许渐进采用)
-  if (action === "keep") {
-    return { errors, warnings, action: "leave-as-draft" };
-  }
-
-  // 9. 非 keep: 必须有 5 必填字段
+  // 6. 必须有 5 必填字段
   for (const key of REQUIRED_FIELDS) {
     if (!frontmatter[key])
       errors.push(`缺少必填字段 "${key}" (status=${rawStatus} 要求)`);
   }
   if (errors.length > 0) return { errors, warnings };
 
-  // 10. archive: 如果已经在 ARCHIVE_TARGET 下, idempotent 放过
+  // 7. archive: 如果已经在 ARCHIVE_TARGET 下, idempotent 放过
   if (action === "archive") {
     if (file.startsWith(ARCHIVE_TARGET)) {
       return { errors, warnings, action: "leave-as-draft" };
@@ -279,7 +285,7 @@ function validateFile(file) {
     return { errors, warnings, action: "move", dest, review: "none" };
   }
 
-  // 11. review / move: 需要 target
+  // 8. review / move: 需要 target
   const target = frontmatter.target ? normalizeDir(frontmatter.target) : "";
   if (!target) {
     errors.push(
