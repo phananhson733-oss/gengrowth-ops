@@ -43,11 +43,11 @@ updated: 2026-05-27
 
 ---
 
-## 🔵 5月28日 (周四) - 待写
+## 🔵 5月28日 (周四) - 写作中
 **状态**：`计划中` (目标：10 篇)
 - [ ] `PG-AURA-009` aura reading
-- [ ] `PG-VEDIC-002` vedic astrology birth chart
-- [ ] `PG-VEDIC-003` vedic birth chart calculator online free
+- [ ] `PG-VEDIC-002` vedic astrology birth chart（暂时不写）
+- [ ] `PG-VEDIC-003` vedic birth chart calculator online free（暂时不写）
 - [ ] `PG-VEDIC-004` best vedic birth chart calculator
 PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文章
 - [ ] `PG-CHAKRA-001` The 7 Chakras
