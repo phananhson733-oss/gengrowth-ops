@@ -143,6 +143,16 @@ next_action: "进入提纲生成；但风险项核验前，不要进入成稿"
 
 把 Agent 之间的"对话"换成"契约"，不是为了规范而规范，是因为只有这样，一条正式工作流才能在换模型、换人、持续迭代的情况下，还跑得稳。
 
-如果你也在被"上一步好像成了、下一步却崩了"困扰，今天可以只做一件小事：挑一条你正在跑的流程，给其中两三个步骤之间，补一张哪怕只有 `status / result / risks / next_action` 四个字段的交接单。
+如果你也在被"上一步好像成了、下一步却崩了"困扰，今天可以只做一件小事：挑一条你正在跑的流程，给其中两三个步骤之间，补一张哪怕只有 `status / result / risks / next_action` 四个字段的交接单。判断它及不及格只看一条：**下游不用重新读全文，就能照着往下做。**
 
 先让它接得住，再谈让它更聪明。
+
+---
+
+**参考来源**
+
+1. AWS｜Multi-agent architectures
+2. MindStudio｜What Is the Agent Handoff Pattern?
+3. Anthropic｜Harness design for long-running application development
+4. Anthropic｜Writing effective tools for AI agents
+5. OpenAI｜A practical guide to building AI agents
