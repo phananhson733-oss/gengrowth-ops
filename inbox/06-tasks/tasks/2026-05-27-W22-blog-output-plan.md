@@ -49,6 +49,7 @@ updated: 2026-05-27
 - [ ] `PG-VEDIC-002` vedic astrology birth chart
 - [ ] `PG-VEDIC-003` vedic birth chart calculator online free
 - [ ] `PG-VEDIC-004` best vedic birth chart calculator
+PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文章
 - [ ] `PG-CHAKRA-001` The 7 Chakras
 - [ ] `PG-CHAKRA-002` crown chakra meaning
 - [ ] `PG-CHAKRA-003` chakra test
