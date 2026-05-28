@@ -41,3 +41,55 @@ skill需求目的：
 3、生成的skill应该放在哪里，后续如何调用，使用边界是什么？
 
 在生图这块花的时间最多，不符合省时的逻辑。基于历史对话，总结原因，在后续的skills中需重点规避
+
+---
+
+# 完成情况（2026-05-28 · Claude）
+
+## 状态：✅ 已完成并验证
+
+用内置 `skill-creator` 写出 `wechat-writing` skill，结合参考 `baoyu-*` 系列 + 新增 `humanizer-zh`。已校验（`Skill is valid!`）、跑通一篇真文章端到端测试、codex 独立评审通过、分发就位（项目级软链，全队可用）。
+
+## 需求 10 步覆盖
+
+| 需求步骤 | skill 实现 | 状态 |
+|---|---|---|
+| 1 背景知悉 | Step 0 + `references/background-sources.md`（商业计划书/营销框架/历史文章/每日日报选题源，按 author 字段分声音） | ✅ |
+| 2 整体框架设定 | 「固定框架」section：受众=个人开发者/一人公司、一周一篇、创始人≤1h、1w粉丝/受众>50%、风格四要素 | ✅ |
+| 3 初步想法输入 | Step 1（终端对话 + 工作台草稿目录；外链/视频可委托 baoyu-url-to-markdown / youtube-transcript） | ✅ |
+| 4 关键结构确认 | Step 2-4，框架+标题落 `工作台/content/wechat/` | ✅ |
+| 5 评审机制 | Step 5.5 多模型评审（codex/gemini，rubric 见 `references/review-rubric.md`） | ✅ |
+| 6 内容优化 | Step 5.5 后段 + Step 5.6 去AI味（humanizer-zh） | ✅ |
+| 7 配图 | Step 6：≤3张/风格一致/spec/prompt；**双模型出图（nano banana + GPT Image）选优**；委托 baoyu-cover-image/article-illustrator/infographic/imagine | ✅ |
+| 8 配图优化 | Step 6.5 独立环节（看初版→优化 prompt→重出，最多 1-2 轮） | ✅ |
+| 9 排版 | Step 7 委托 baoyu-markdown-to-html，人工兜底 | ✅ |
+| 10 自进化 | 自进化 section（需创始人同意 + 充足数据；benchmark/后台数据/评论三接口待接） | ✅（数据接口待接） |
+
+## 对三个原始问题的回答
+
+1. **需求本身的问题/确认事项**：① 生图最耗时——已规避（生图踢出关键路径、定稿后异步、双模型一次选优不 retry）；② 自进化数据三接口（公开 benchmark / 后台数据 / 评论）当前拿不到，已标待接、不接前只做定性复盘不实质改 skill；③ 存盘路径已定（WIP→工作台/content/wechat/，发布后归档→内容资产/微信公众号/）。
+2. **GitHub 参考 + 怎么借鉴**：参考 baoyu 系列（生图/排版/发布/多平台，委托而非重造）+ humanizer-zh（op7418，去AI味，基于 Wikipedia "Signs of AI writing"）。借鉴方式 = 内容引擎自己做，下游能力委托成熟 skill，不重复造轮子。
+3. **放哪/怎么调用/边界**：真身 `tools/internal/skills/wechat-writing-skill/wechat-writing/`，项目级软链 `.claude/skills/wechat-writing`（已提交，clone 即用）。调用 = `/wechat-writing` 或自然语。边界 = 只管 GenGrowth成长笔记 内容引擎 + 编排；生图/排版/发布委托 baoyu；发布等不可逆动作必须创始人确认。
+
+## 如何使用
+
+- **触发**：在仓库里输 `/wechat-writing`，或直接说"写篇公众号""把这个想法写成公众号"。
+- **流程**：Step 0 背景 → 1 素材 → 2 声音/类型 → 3 标题 → 4 大纲 → 5 正文 → 5.5 多模型评审 → 5.6 **出两份**（结构版 + 人话版）→ 6/6.5 配图（双模型出图 spec）→ 7 排版 → 8 发布 → 9 多平台。每步暂停等创始人拍板（控时 ≤1h）。
+- **两份输出**：每篇出「结构版」（金句/加粗/信息密度）+「人话版」（humanizer-zh 重写，自然口语），创始人选一份发或要求融合。
+- **存盘**：WIP 在 `工作台/content/wechat/`，发布后归档 `内容资产/微信公众号/`。
+
+## 关键文件
+
+- skill 本体：`tools/internal/skills/wechat-writing-skill/wechat-writing/SKILL.md` + `references/`（style-guide / review-rubric / image-style / background-sources）
+- 去AI味依赖：`tools/internal/skills/humanizer-zh/`（已 bundle 进仓库）
+- 测试产出：`工作台/content/wechat/【草稿】别再做旧软件加AI，AI产品该按结果收钱.md`（结构版 codex 4.4）+ `…-人话版.md`（humanizer-zh 45/50）+ `配图提示词-AI产品定价.md`
+
+## 测试结果（选题「AI 产品别按旧 SaaS 逻辑定价」）
+
+选题(日报)→声音2/类型D→标题→大纲→正文(2600字)→codex 评审 4.1→改 4 红线→复评 4.4→3 轻修→humanizer-zh 重写人话版 45/50→配图 spec + 双模型 prompt。全链路跑通，创始人仅做 6 道选择题。
+
+## 待办 / 依赖
+
+- **baoyu-* 需各自装 + 配 API key**（生图/发布 creds），不在仓库内；缺了不影响写作+评审+去AI味，只是配图/发布那步要补装。
+- 生图当前靠 prompt 手动出（OAuth CLI 不能直接出图，需 Gemini/OpenAI API key）。
+- 自进化的三个数据接口待接。
