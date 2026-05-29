@@ -45,7 +45,8 @@ updated: 2026-05-27
 
 ## 🔵 5月28日 (周四) - 写作中
 **状态**：`计划中` (目标：10 篇)
-- [ ] `PG-AURA-009` aura reading
+- [ ] `PG-AURA-009` aura reading（暂时不写）
+aura reading这个关键词，搜索内容大多为《黎明杀机》相关内容，和网站内容不符
 - [ ] `PG-VEDIC-002` vedic astrology birth chart（暂时不写）
 - [ ] `PG-VEDIC-003` vedic birth chart calculator online free（暂时不写）
 - [ ] `PG-VEDIC-004` best vedic birth chart calculator
