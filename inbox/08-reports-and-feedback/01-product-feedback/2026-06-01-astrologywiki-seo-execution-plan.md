@@ -2,11 +2,12 @@
 project: astrologywiki
 type: execution-plan
 status: draft
-version: v2
+version: v3
 owner: wzb
 based_on: 2026-06-01-astrologywiki-feedback-review-response.md
 source_req: 2026-05-31-astrologywiki-product-feedback.md
-reviewed_by: Claude (Opus 4.8) + OpenAI Codex（plan v1 双模型审核）
+reviewed_by: Claude (Opus 4.8) + OpenAI Codex（plan 双模型审核）+ /plan-eng-review（对 oracle 代码库工程审计）
+target_repo: github.com/xdawayer/oracle（React 19 + Vite SPA，build 时 generate-seo-pages.mjs 生成静态 SEO stub；Vercel 部署）
 updated: 2026-06-01
 ---
 
