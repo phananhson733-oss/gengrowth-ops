@@ -77,15 +77,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ## ⚪ 6月1日 (周一) - 待写
 **状态**：`计划中` (剩余 9 篇)
-- [ ] `PG-HEAL-001` Healing Your Inner Wound
-- [ ] `PG-HEAL-002` chiron in 12th house
-- [ ] `PG-HEAL-003` mars in 12th house
+- [x] `PG-HEAL-001` Healing Your Inner Wound
+- [x] `PG-HEAL-002` chiron in 12th house
+- [x] `PG-HEAL-003` mars in 12th house
 - [ ] `PG-TRANS-001` transits
-- [ ] `PG-TRANS-002`saturn in pisces
+- [x] `PG-TRANS-002`saturn in pisces
 - [ ] `PG-TRANS-003`natal chart transits
 - [ ] `PG-TRANS-004`june 2026 planetary transits
 - [ ] `PG-TRANS-005`July 2026 planetary transits
-- [ ] `PG-MYTH-001` persephone goddess
+- [x] `PG-MYTH-001` persephone goddess
 
 ---
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
