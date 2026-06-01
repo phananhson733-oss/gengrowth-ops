@@ -80,11 +80,11 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-HEAL-001` Healing Your Inner Wound
 - [x] `PG-HEAL-002` chiron in 12th house
 - [x] `PG-HEAL-003` mars in 12th house
-- [ ] `PG-TRANS-001` transits
+- [x] `PG-TRANS-001` transits
 - [x] `PG-TRANS-002`saturn in pisces
-- [ ] `PG-TRANS-003`natal chart transits
-- [ ] `PG-TRANS-004`june 2026 planetary transits
-- [ ] `PG-TRANS-005`July 2026 planetary transits
+- [x] `PG-TRANS-003`natal chart transits
+- [x] `PG-TRANS-004`june 2026 planetary transits
+- [x] `PG-TRANS-005`July 2026 planetary transits
 - [x] `PG-MYTH-001` persephone goddess
 
 ---
