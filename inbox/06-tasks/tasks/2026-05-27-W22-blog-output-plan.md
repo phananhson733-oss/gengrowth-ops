@@ -13,7 +13,7 @@ updated: 2026-05-27
 
 ---
 
-## 🟢 5月26日 (周二) - 质检中
+## 🟢 5月26日 (周二) - 已发布
 **状态**：`已输出` (共 10 篇)
 - `PG-AURA-004` green aura meaning
 - `PG-AURA-005` orange aura meaning
@@ -28,59 +28,63 @@ updated: 2026-05-27
 
 ---
 
-## 🟡 5月27日 (周三) - 写作中
+## 🟡 5月27日 (周三) - 已发布
 **状态**：`进行中` (今日目标：10 篇)
-- [ ] `PG-HOUSE-006` 1st house meaning
-- [ ] `PG-HOUSE-007` 2nd house astrology
-- [ ] `PG-HOUSE-008` 3rd house astrology
-- [ ] `PG-HOUSE-009` 4th house meaning
-- [ ] `PG-HOUSE-010` 5th house
-- [ ] `PG-HOUSE-011` 6th house astrology
-- [ ] `PG-HOUSE-012` 7th house astrology
-- [ ] `PG-HOUSE-013` 10th house astrology
-- [ ] `PG-NODE-004` how to find north node
-- [ ] `PG-VEDIC-001` Vedic vs Western Astrology
+- [x] `PG-HOUSE-006` 1st house meaning
+- [x] `PG-HOUSE-007` 2nd house astrology
+- [x] `PG-HOUSE-008` 3rd house astrology
+- [x] `PG-HOUSE-009` 4th house meaning
+- [x] `PG-HOUSE-010` 5th house
+- [x] `PG-HOUSE-011` 6th house astrology
+- [x] `PG-HOUSE-012` 7th house astrology
+- [x] `PG-HOUSE-013` 10th house astrology
+- [x] `PG-NODE-004` how to find north node
+- [x] `PG-VEDIC-001` Vedic vs Western Astrology
 
 ---
 
-## 🔵 5月28日 (周四) - 写作中
+## 🔵 5月28日 (周四) -已发布
 **状态**：`计划中` (目标：10 篇)
-- [ ] `PG-AURA-009` aura reading（暂时不写）
+- [x] `PG-AURA-009` aura reading（暂时不写）
 aura reading这个关键词，搜索内容大多为《黎明杀机》相关内容，和网站内容不符
-- [ ] `PG-VEDIC-002` vedic astrology birth chart（暂时不写）
-- [ ] `PG-VEDIC-003` vedic birth chart calculator online free（暂时不写）
-- [ ] `PG-VEDIC-004` best vedic birth chart calculator
+- [x] `PG-VEDIC-002` vedic astrology birth chart（暂时不写）
+- [x] `PG-VEDIC-003` vedic birth chart calculator online free（暂时不写）
+- [x] `PG-VEDIC-004` best vedic birth chart calculator
 PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文章
-- [ ] `PG-CHAKRA-001` The 7 Chakras
-- [ ] `PG-CHAKRA-002` crown chakra meaning
-- [ ] `PG-CHAKRA-003` chakra test
-- [ ] `PG-CHAKRA-004` root chakra meaning
-- [ ] `PG-CHAKRA-005` sacral chakra meaning
-- [ ] `PG-CHAKRA-006` solar plexus chakra affirmations
+- [x] `PG-CHAKRA-001` The 7 Chakras
+- [x] `PG-CHAKRA-002` crown chakra meaning
+- [x] `PG-CHAKRA-003` chakra test
+- [x] `PG-CHAKRA-004` root chakra meaning
+- [x] `PG-CHAKRA-005` sacral chakra meaning
+- [x] `PG-CHAKRA-006` solar plexus chakra affirmations
 
 ---
 
-## 🔵 5月29日 (周五) - 待写
+## 🔵 5月29日 (周五) - 已发布
 **状态**：`计划中` (目标：10 篇)
-- [ ] `PG-CHAKRA-007` heart chakra meaning
-- [ ] `PG-CHAKRA-008` throat chakra meaning
-- [ ] `PG-CHAKRA-009` ajna chakra
-- [ ] `PG-CHAKRA-011` crystals for each chakra
-- [ ] `PG-TERM-001` astrology terms
-- [ ] `PG-TERM-002` sextile astrology
-- [ ] `PG-TERM-003` trine in astrology
-- [ ] `PG-TERM-004` square astrology
-- [ ] `PG-TERM-005` descendant astrology
-- [ ] `PG-TERM-006` ic astrology
+- [x] `PG-CHAKRA-007` heart chakra meaning
+- [x] `PG-CHAKRA-008` throat chakra meaning
+- [x] `PG-CHAKRA-009` ajna chakra
+- [x] `PG-CHAKRA-011` crystals for each chakra
+- [x] `PG-TERM-001` astrology terms
+- [x] `PG-TERM-002` sextile astrology
+- [x] `PG-TERM-003` trine in astrology
+- [x] `PG-TERM-004` square astrology
+- [x] `PG-TERM-005` descendant astrology
+- [x] `PG-TERM-006` ic astrology
 
 ---
 
-## ⚪ 5月30日 (周六) - 待写
-**状态**：`计划中` (剩余 5 篇)
+## ⚪ 6月1日 (周一) - 待写
+**状态**：`计划中` (剩余 9 篇)
 - [ ] `PG-HEAL-001` Healing Your Inner Wound
 - [ ] `PG-HEAL-002` chiron in 12th house
 - [ ] `PG-HEAL-003` mars in 12th house
-- [ ] `PG-TRANS-001` saturn in pisces
+- [ ] `PG-TRANS-001` transits
+- [ ] `PG-TRANS-002`saturn in pisces
+- [ ] `PG-TRANS-003`natal chart transits
+- [ ] `PG-TRANS-004`june 2026 planetary transits
+- [ ] `PG-TRANS-005`July 2026 planetary transits
 - [ ] `PG-MYTH-001` persephone goddess
 
 ---
