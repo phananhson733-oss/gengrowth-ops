@@ -118,6 +118,62 @@ DR 仅作观察指标。
 
 ---
 
+## 工程实现审计（/plan-eng-review，对 oracle 代码库）
+
+> v3 新增。读了线上站点代码后的实情：**plan 工程部分大半已建好**，真实工作是"审计现有 + 补窄 gap + 修 2 个线上 P1"，不是从零建 5 个功能。
+
+### 现状审计 — 已存在，勿重复造轮子
+
+| 需求 | 现状 | 代码位置 |
+|---|---|---|
+| 需求5 OG/Twitter 每页 meta 注入 | ✅ 已建 | `scripts/generate-seo-pages.mjs:199-208` buildHead |
+| 需求2 sitemap.xml + robots.txt | ✅ 已建（含作者页+文章 URL，build 时自动生成） | `generate-seo-pages.mjs:723-966` |
+| 需求1 作者页 + byline | ✅ 已建 | `components/wiki/AuthorPage.tsx` / `AuthorByline.tsx` / `data/authors/` / 测试 |
+| 结构化数据 JSON-LD | ✅ 已建 WebSite/ItemList/DefinedTerm/Book/Person/FAQ/Organization | `generate-seo-pages.mjs` + `data/authors/schema.ts` |
+
+### 🔴 2 个线上 P1（现在代码里就错，优先于一切 gap）
+
+**P1-1 lastmod 污染** — `scripts/generate-seo-pages.mjs:950` 每个 URL 写 `<lastmod>${today}</lastmod>`，`today`（line 13）= 当前 build 日期。每次部署把全站 lastmod 刷成今天，与内容变更无关 → **Google 学会不信任 lastmod 并忽略它**。极可能是原始文档"sitemap 7 周未重读/收录滞后"的元凶之一。
+- 修法：lastmod 取该页内容的真实最后修改时间（按 slug 维护 content-hash → 变更时间映射，或取源 md 的 git mtime），只在实质变更时更新。
+
+**P1-2 虚构 persona 输出 schema.org/Person** — `data/authors/schema.ts:25` 4 个虚构 persona 正以 `Person` + `jobTitle` + `knowsAbout`（专长声明）输出，且是"文章详情页/列表页/作者页"的唯一构造点。**与 D1（披露式 persona）直接冲突，且是 codex 警告的 E-E-A-T/spam 风险——现在就是线上状态。**
+- 修法：核心 author entity 改 `Organization`（AstrologyWiki Editorial Team）；persona 作 editorial voice，不带 jobTitle/knowsAbout 的真实专家声明；配合 byline 披露文案。
+
+### 真实 gap — 这才是工程活（映射到 Wave）
+
+| 任务 | 优先级 | 性质 | 落点 |
+|---|---|---|---|
+| 修 P1-1 lastmod | P1（Wave 1） | 改现有 | `generate-seo-pages.mjs` sitemap 段 + 内容时间源 |
+| 修 P1-2 Person→Organization schema | P1（Wave 2，但 D1 已定可提前） | 改现有 | `data/authors/schema.ts` + byline 披露 |
+| 需求5 每篇独立封面图 | P2（Wave 1） | 新建 | 现所有页共用站级 `og-image.png`（`generate-seo-pages.mjs:12`）；需 per-slug og:image + 文章页 frontmatter 封面字段 |
+| 需求5 WebP 自动压缩 | P2（Wave 1） | 新建 | build 管线加图片压缩步骤 |
+| 需求2 IndexNow 接入 | P2（Wave 1） | 新建 | build 后 ping IndexNow（仅 Bing/Yandex，非 Google 收录方案） |
+| 需求1 披露式 persona 缓解（byline 格式 + 披露文案 + 非真人头像） | P2（Wave 2） | 改现有 | `AuthorByline.tsx`（现为 `{name} · {title}` 真人格式）+ AuthorPage |
+| 需求6 内链工具 + orphan 检测 | P2（Wave 2） | 新建 | 编辑器/管线侧 + sitemap 交叉比对 orphan |
+| 需求4 可嵌入 widget | P3（Wave 3） | 新建 | 独立 embed 路由 + iframe + 可选 dofollow |
+
+### Implementation Tasks（build 可执行）
+
+- [ ] **T1 (P1, human ~3h / CC ~30min)** — sitemap — 修 lastmod 污染：按 slug 取真实内容变更时间，停止全站刷 today
+  - Surfaced by: eng-review — `generate-seo-pages.mjs:950` + `:13`
+  - Verify: 改一篇文章后 build，仅该 URL 的 lastmod 变；其余不变
+- [ ] **T2 (P1, human ~2h / CC ~20min)** — author schema — `Person` → `Organization`（编辑部），移除虚构 persona 的 jobTitle/knowsAbout
+  - Surfaced by: eng-review — `data/authors/schema.ts:25-31`
+  - Verify: 富结果测试工具看 author 为 Organization；persona 页含披露文案
+- [ ] **T3 (P2, human ~1d / CC ~2h)** — OG — 每篇独立封面图 + WebP 压缩
+  - Surfaced by: eng-review — `generate-seo-pages.mjs:12,202`
+  - Verify: 分享某文章卡片显示该文专属图；图 ≤200KB WebP
+- [ ] **T4 (P2, human ~2h / CC ~30min)** — IndexNow — build 后 ping（Bing/Yandex）
+  - Verify: IndexNow key 部署、ping 返回 200
+- [ ] **T5 (P2, human ~3h / CC ~40min)** — author — byline 去真人格式 + 披露文案 + 非真人头像（已是 monogram，确认无真人照片）
+  - Surfaced by: eng-review — `AuthorByline.tsx:97-102`
+- [ ] **T6 (P2, human ~3d / CC ~半天)** — 内链 — 内链工具 + orphan 检测（sitemap × 内链图交叉）
+- [ ] **T7 (P3, human ~1w / CC ~1d)** — widget — 可嵌入 embed（独立路由 + 可选 dofollow，合规形态）
+
+> 注：T1/T2 是线上 P1，建议先单独修掉并验证（对应 scope 选项"先修 2 个 P1"也已覆盖），再推 T3-T7。
+
+---
+
 ## Backlog（双模型审计列出的缺失项，逐步折叠，勿一次上全）
 
 > 这些是 plan 之外该补但不必一次做完的，按需在各 Wave 折叠。
