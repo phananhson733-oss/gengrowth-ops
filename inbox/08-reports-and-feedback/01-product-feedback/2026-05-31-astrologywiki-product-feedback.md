@@ -43,7 +43,7 @@ DR 提升 = 外链质量 × 外链数量 × 站点技术健康度
 
 ### 需求 1：作者页（Author Page）系统
 
-**需求描述** 为四位虚拟作者（Elena Vane / Julian Thorne / Aditi Sharma / Marcus Orion）各建立独立的作者页，展示资质、经历、专长领域；并在每篇文章页头标注作者署名，链接到对应作者页。
+**需求描述** 为四位虚拟作者（Elena Vane / Julian Thorne / Aditi Sharma / Marcus Orion）各建立独立的作者页，完善展示资质、经历、专长领域，以及头像。
 
 **功能要点**
 
