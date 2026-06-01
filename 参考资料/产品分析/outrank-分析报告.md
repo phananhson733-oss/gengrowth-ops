@@ -397,14 +397,14 @@ Tibo X 内容/Newsletter → 试用注册（$1/3d）→ 30 篇/月自动产出
 
 #### 美国竞争格局
 
-| 排名 | 工具 | 估算用户规模 |
-|---|---|---|
-| 1 | Jasper | ~100K+ [Medium] |
-| 2 | Surfer SEO | ~150K [Medium] |
-| 3 | Frase | ~30K [Low] |
-| 4 | Byword | ~10-20K [Low] |
-| 5 | Autoblogging.ai | ~40K 创作者 [Medium] |
-| 6 | **Outrank** | **1,200+ 付费 [High]** |
+| 排名  | 工具              | 估算用户规模               |
+| --- | --------------- | -------------------- |
+| 1   | Jasper          | ~100K+ [Medium]      |
+| 2   | Surfer SEO      | ~150K [Medium]       |
+| 3   | Frase           | ~30K [Low]           |
+| 4   | Byword          | ~10-20K [Low]        |
+| 5   | Autoblogging.ai | ~40K 创作者 [Medium]    |
+| 6   | **Outrank**     | **1,200+ 付费 [High]** |
 
 注：Outrank 仍处早期阶段，规模显著小于 Tier 1 玩家，但增速最快。
 
