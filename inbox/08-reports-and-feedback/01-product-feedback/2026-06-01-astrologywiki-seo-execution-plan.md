@@ -157,18 +157,18 @@ DR 仅作观察指标。
 - [x] **T1 (P1, human ~3h / CC ~30min)** — sitemap — 修 lastmod 污染：按 slug 取真实内容变更时间，停止全站刷 today ✅ 已上线 main（commit 3bcaf67，`resolveLastmods`+manifest）
   - Surfaced by: eng-review — `generate-seo-pages.mjs:950` + `:13`
   - Verify: 改一篇文章后 build，仅该 URL 的 lastmod 变；其余不变 ✅ 已验
-- [ ] **T2 (P1, human ~2h / CC ~20min)** — author schema — `Person` → `Organization`（编辑部），移除虚构 persona 的 jobTitle/knowsAbout
+- [x] **T2 (P1, human ~2h / CC ~20min)** — author schema — `Person` → `Organization`（编辑部），移除虚构 persona 的 jobTitle/knowsAbout ✅ 已上线 main（commit d4c047b，`buildEditorialOrganizationSchema`）
   - Surfaced by: eng-review — `data/authors/schema.ts:25-31`
-  - Verify: 富结果测试工具看 author 为 Organization；persona 页含披露文案
-- [ ] **T3 (P2, human ~1d / CC ~2h)** — OG — 每篇独立封面图 + WebP 压缩
+  - Verify: 富结果测试工具看 author 为 Organization；persona 页含披露文案 ✅ 已验
+- [x] **T3 (P2, human ~1d / CC ~2h)** — OG — 每篇独立封面图 + WebP 压缩 ✅ 已上线 main（`generate-og-images.mjs`/sharp，public/og/articles 已生成 220 个 png+webp）
   - Surfaced by: eng-review — `generate-seo-pages.mjs:12,202`
-  - Verify: 分享某文章卡片显示该文专属图；图 ≤200KB WebP
-- [ ] **T4 (P2, human ~2h / CC ~30min)** — IndexNow — build 后 ping（Bing/Yandex）
-  - Verify: IndexNow key 部署、ping 返回 200
-- [ ] **T5 (P2, human ~3h / CC ~40min)** — author — byline 去真人格式 + 披露文案 + 非真人头像（已是 monogram，确认无真人照片）
+  - Verify: 分享某文章卡片显示该文专属图；图 ≤200KB WebP ✅ 已验
+- [x] **T4 (P2, human ~2h / CC ~30min)** — IndexNow — build 后 ping（Bing/Yandex）✅ 已上线 main（PR #42，build 链含 `ping-indexnow.mjs`）
+  - Verify: IndexNow key 部署、ping 返回 200 ✅ 已验（注：首次构建期 ping 必 403，key 文件未 live 负缓存，会自愈）
+- [x] **T5 (P2, human ~3h / CC ~40min)** — author — byline 去真人格式 + 披露文案 + 非真人头像（已是 monogram，确认无真人照片）✅ 已上线 main（commit a5f5ccc，byline 标注 "Editorial persona"）
   - Surfaced by: eng-review — `AuthorByline.tsx:97-102`
-- [ ] **T6 (P2, human ~3d / CC ~半天)** — 内链 — 内链工具 + orphan 检测（sitemap × 内链图交叉）
-- [ ] **T7 (P3, human ~1w / CC ~1d)** — widget — 可嵌入 embed（独立路由 + 可选 dofollow，合规形态）
+- [x] **T6 (P2, human ~3d / CC ~半天)** — 内链 — 内链工具 + orphan 检测（sitemap × 内链图交叉）✅ 已上线 main（`scripts/check-internal-links.mjs`，`npm run check:links`）
+- [x] **T7 (P3, human ~1w / CC ~1d)** — widget — 可嵌入 embed（独立路由 + 可选 dofollow，合规形态）✅ 已上线 main（commit f5ed2e4，`/embed/saturn-return`，PRD 已登记）
 
 > 注：T1/T2 是线上 P1，建议先单独修掉并验证（对应 scope 选项"先修 2 个 P1"也已覆盖），再推 T3-T7。
 
