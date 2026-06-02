@@ -282,8 +282,8 @@
 ### 3.3 ⚠ 未覆盖缺口（critic 发现，不在 24 story 内，列为占位别丢）
 - **GAP-1**：208 处裸 `console.*` → 结构化 logger **全量迁移**。#10 显式 out-of-scope，~200 个非结构化（潜在 PII）日志点 epic 后仍在。→ **已提升为 story #25** `obs-migrate-console-to-structured-logger`。
 - **GAP-2**：CBT 危机门 + cbt/ask 安全 disclaimer。**注：AI 安全审计已确认这两项落地**（`cbt.ts:49-78` 危机短路、FrameworkDisclaimer 已扩展 cbt/ask、`safety.test.ts` 守护）——critic 因"无 story"误报为 gap，**实际已做**。唯一真残留是 `cbt.ts` 仍用内联 lang 三元未迁 `resolveLang`（CLAUDE.md 已知债）→ 顺手清理。
-- **GAP-3**：GDPR 数据主体 erasure/export。#24 给新 saved_readings 加了账号删除级联，但**现有** Synastry/CBT 客户端 localStorage PII 无删除/导出闭环。→ 建议 DSAR story。
-- **GAP-4**：#8 CSP 依赖的支付 SDK（PayPal/Airwallex/Stripe）域名 allowlist 无 discovery story 产出——epic 内最高风险的未规约工作。→ 应做 discovery 子任务前置 #8。
+- **GAP-3**：GDPR 数据主体 erasure/export。#24 给新 saved_readings 加了账号删除级联，但**现有** Synastry/CBT 客户端 localStorage PII 无删除/导出闭环。→ **已提升为 story #26** `privacy-dsar-erasure-export`。
+- **GAP-4**：#8 CSP 依赖的支付 SDK（PayPal/Airwallex/Stripe）域名 allowlist 无 discovery story 产出——epic 内最高风险的未规约工作。→ **已提升为 story #27** `trust-csp-payment-domain-discovery`（#8 硬前置）。
 - **GAP-5**：webhook/billing 测试覆盖。#17 把 auth/billing/webhook 列为 100% 目标，但若实测低只留 ratchet TODO，计费正确性仍未测。
 - **GAP-6**：#21 只产出 runbook + TODO，**不实际启用** PITR/定时备份。若发现平台未启用，可靠性缺口仍是 doc-only。→ runbook 首要 TODO 须带 owner/deadline。
 
