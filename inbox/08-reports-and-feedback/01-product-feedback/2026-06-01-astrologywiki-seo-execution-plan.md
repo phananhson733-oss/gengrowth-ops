@@ -154,9 +154,9 @@ DR 仅作观察指标。
 
 ### Implementation Tasks（build 可执行）
 
-- [ ] **T1 (P1, human ~3h / CC ~30min)** — sitemap — 修 lastmod 污染：按 slug 取真实内容变更时间，停止全站刷 today
+- [x] **T1 (P1, human ~3h / CC ~30min)** — sitemap — 修 lastmod 污染：按 slug 取真实内容变更时间，停止全站刷 today ✅ 已上线 main（commit 3bcaf67，`resolveLastmods`+manifest）
   - Surfaced by: eng-review — `generate-seo-pages.mjs:950` + `:13`
-  - Verify: 改一篇文章后 build，仅该 URL 的 lastmod 变；其余不变
+  - Verify: 改一篇文章后 build，仅该 URL 的 lastmod 变；其余不变 ✅ 已验
 - [ ] **T2 (P1, human ~2h / CC ~20min)** — author schema — `Person` → `Organization`（编辑部），移除虚构 persona 的 jobTitle/knowsAbout
   - Surfaced by: eng-review — `data/authors/schema.ts:25-31`
   - Verify: 富结果测试工具看 author 为 Organization；persona 页含披露文案
