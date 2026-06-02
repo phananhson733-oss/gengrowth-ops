@@ -3,12 +3,13 @@ project: astrologywiki
 type: execution-plan
 status: draft
 version: v3
+status_update_2026-06-02: T1–T7 全部实现并上线 main；另追加 plan 外 soft-404 根因修复（详情页+classics hub bootstrap）已上线。非代码策略/内容/外链 Wave 项仍为 backlog（设计如此）。
 owner: wzb
 based_on: 2026-06-01-astrologywiki-feedback-review-response.md
 source_req: 2026-05-31-astrologywiki-product-feedback.md
 reviewed_by: Claude (Opus 4.8) + OpenAI Codex（plan 双模型审核）+ /plan-eng-review（对 oracle 代码库工程审计）
 target_repo: github.com/xdawayer/oracle（React 19 + Vite SPA，build 时 generate-seo-pages.mjs 生成静态 SEO stub；Vercel 部署）
-updated: 2026-06-01
+updated: 2026-06-02
 ---
 
 # AstrologyWiki SEO 执行 Plan 与优先级（v2）
@@ -138,6 +139,24 @@ DR 仅作观察指标。
 
 **P1-2 虚构 persona 输出 schema.org/Person** — `data/authors/schema.ts:25` 4 个虚构 persona 正以 `Person` + `jobTitle` + `knowsAbout`（专长声明）输出，且是"文章详情页/列表页/作者页"的唯一构造点。**与 D1（披露式 persona）直接冲突，且是 codex 警告的 E-E-A-T/spam 风险——现在就是线上状态。**
 - 修法：核心 author entity 改 `Organization`（AstrologyWiki Editorial Team）；persona 作 editorial voice，不带 jobTitle/knowsAbout 的真实专家声明；配合 byline 披露文案。
+
+### ✅ 追加修复（2026-06-02）— soft-404 根因（plan 外，GSC 另报，已上线）
+
+> 不在本 plan 原始范围（T1–T7），是 GSC 报 `/en/wiki/classics/four-elements` 为「软 404」后单独排查的。**很可能才是"sitemap 7 周未重读/收录滞后"更直接的元凶**，与 T1（lastmod 信号）互补——页面返回 200、有正文、有 schema，却被 Google WRS 判成空壳。
+
+**根因（三层叠加，逐层剥开才治本）**：① 静态 stub 早期只输出 `<h1>+description`，正文没进 HTML（已于 5/31 注入正文修复）；② React error/loading 分支注入运行时 `noindex`，被 WRS 卡死误伤有效页（PR #40 移除）；③ **最终层**：入口是 `createRoot`（非 hydrate），React 挂载 `#root` 后**清空静态 `<main>`**，改用 runtime API 重拉；WRS 下跨域 API 冷启动 ~2.8s 超渲染预算 → 抓到空 loading/error 壳 → soft-404。
+
+**修法（③）**：SEO 生成器在 `<main>` 前注入 `<script id="__WIKI_INITIAL__" type="application/json">`（API 同构数据，`safeJsonLd` 防 XSS）；inject-spa 把 `<main>` 包进 `#root`、script 留在外被保留；详情页/hub 用同步 `useState(()=>readInitial...)` 首屏直接渲染、零 API 依赖，背景刷新失败不降级。
+
+| 子项 | 覆盖页 | 状态 |
+|---|---|---|
+| 详情页 bootstrap（wiki 条目 + classic，完整 item） | `/en/wiki/:id`、`/en/wiki/classics/:id` | ✅ PR #43→#44 上线 main |
+| classics hub bootstrap（书架摘要列表，剔除 content） | `/en/wiki/classics` | ✅ PR #45→#47 上线 main |
+| 全站同类排查 | 文章页/作者页=打包数据天然免疫；`/en/wiki` home hub=首屏有打包内容、非 soft-404 | ✅ 已排查 |
+
+**验收（无后端 serve dist = 复刻 WRS 冷 API）**：classics hub 由 484 字/0 链接/无 ItemList → 2463 字/33 链接/ItemList 含 30 本；four-elements 渲染完整 ~3500 词。生产实测 + GSC「测试实际版本」判定**可编入索引**。
+
+**遗留（待 GSC 数据决定）**：en 页通过 hreflang 声明了一批无静态 stub 的 zh URL（zh 经典书全部 + 非白名单 zh 条目），被爬时 SPA-only，有同类风险；不在 sitemap，风险较低。先查 GSC 软 404 报告是否出现 zh 路径再决定是否摸除 hreflang 或补 zh stub。
 
 ### 真实 gap — 这才是工程活（映射到 Wave）
 
