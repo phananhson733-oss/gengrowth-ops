@@ -90,15 +90,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月2日 (周二) - 已发布
 **状态**：`计划中` (计划 10 篇)
-- [ ] PG-EMPATH-001 sensitive person
-- [ ] PG-EMPATH-002 famous highly sensitive person
-- [ ] PG-EMPATH-003 highly sensitive person vs autism
-- [ ] PG-EMPATH-004 signs you're a highly sensitive person
-- [ ] PG-MAHADASHA-001 mahadasha
-- [ ] PG-MAHADASHA-002 ketu mahadasha
-- [ ] PG-MAHADASHA-003 rahu mahadasha
-- [ ] PG-MAHADASHA-004 saturn mahadasha
-- [ ] PG-MAHADASHA-005 shani mahadasha
-- [ ] PG-MAHADASHA-005 venus mahadasha
+- [x] PG-EMPATH-001 sensitive person → slug `highly-sensitive-person`
+- [x] PG-EMPATH-002 famous highly sensitive person
+- [x] PG-EMPATH-003 highly sensitive person vs autism
+- [x] PG-EMPATH-004 signs you're a highly sensitive person
+- [x] PG-MAHADASHA-001 mahadasha
+- [x] PG-MAHADASHA-002 ketu mahadasha
+- [x] PG-MAHADASHA-003 rahu mahadasha
+- [x] PG-MAHADASHA-004 saturn mahadasha
+- [x] PG-MAHADASHA-005 shani mahadasha → 并入 `saturn-mahadasha`（Shani=土星，同一 19 年 Vimshottari dasha；分开写会是重复内容，shani 作关联词 + 命名章节覆盖）
+- [x] PG-MAHADASHA-005 venus mahadasha → slug `venus-mahadasha`
+
+> 全部 9 篇唯一文章 × EN+ZH = 18 页已 2026-06-02 错峰 prod 部署到 www.astrologywiki.com（sitemap 250，18/18 验证 live，零重复）。shani 去重为 9 篇而非 10。
 ---
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
