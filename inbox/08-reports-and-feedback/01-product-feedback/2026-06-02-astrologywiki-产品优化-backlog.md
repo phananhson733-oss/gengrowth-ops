@@ -7,7 +7,7 @@
 > 生成日期：2026-06-02
 > 来源：Claude 四维审计（转化/留存/AI 安全/性能）+ Codex gpt-5.5 xhigh 对抗核验 + 8-epic 并行 spec（实读代码）+ 一致性 critic
 > 证据强度：所有 file:line 经 workflow agent 实读复核；标 `UNVERIFIED` 的需落地前再确认
-> 共 24 个 story（7×P0 / 14×P1 / 3×P2）
+> 共 27 个 story（7×P0 / 17×P1 / 3×P2）；#25-27 由 §3.3 缺口提升为正式 story
 
 ---
 
@@ -48,6 +48,9 @@
 | **I 收尾** | 22 | `perf-img-dimensions-lazy` | P2 | 3 个 img 加尺寸（范围比原判断小）|
 | | 23 | `retention-newsletter-confirm-unsubscribe` | P2 | 双 opt-in + 退订（迁移 008）|
 | | 24 | `retention-saved-readings-history` | P2 | 最高 PII + 最大工时（~2wk），垫底 |
+| **J 缺口提升**（§3.3） | 25 | `obs-migrate-console-to-structured-logger` | P1 | 208 console 全量迁移，依赖 #10 的 sanitizeForLog |
+| | 26 | `privacy-dsar-erasure-export` | P1 | GDPR 导出/删除闭环，依赖 #24/#10 |
+| | 27 | `trust-csp-payment-domain-discovery` | P1 | ⚠ #8 的硬前置，应排在 #8 之前 |
 
 ---
 
@@ -239,6 +242,29 @@
 - **步骤**：迁移 009 saved_readings(user_id/tool_type/title/input_json/output/created_at + 索引 + RLS)→ `savedReadings.ts` 路由（authMiddleware：POST/GET 列表/GET:id own/DELETE:id own）→ 账号删除级联 → 前端 result 视图加 Save + Saved 列表页（登录 gate）→ i18n → TDD authz 隔离 + E2E。
 - **工时**：human ~1.5-2 周 / CC ~3-4h　**风险**：最高 PII——server-side birth + 解读文本必须 RLS 锁 + 日志脱敏 + 账号删除覆盖，否则破红线；存全 LLM 输出膨胀存储；范围易膨胀，v1 限 save/list/open/delete　**依赖**：现有账号系统（无新依赖）　**文档**：`docs/PRD.md` §4.3+路由+§4.4+§2、`migrations/FOLDER.md`、`api/FOLDER.md`
 
+### 批 J — 从 §3.3 缺口提升的正式 story（#25-27，均 P1）
+
+#### 25. `obs-migrate-console-to-structured-logger` · P1 ·（原 GAP-1）
+- **问题**：208 处裸 `console.*` 非结构化、不可过滤/追踪，潜在 PII 泄露面；#10 只覆盖高流量 AI/auth endpoint，其余 ~200 处 epic 后仍在。
+- **证据**：`backend/src` grep `console.*` = 208（121 error/61 log/26 warn）；无 logger 模块；#10 显式 scope out 全量迁移。
+- **验收**：建轻量结构化 logger（level + context JSON）；分批迁 208 处、PII 字段强制经 `sanitizeForLog`；零裸 `console.error(req.body)`；加 lint 禁新 `console.*`；`cd backend && npm run test && npm run build` 过。
+- **步骤**：待 #10 的 `sanitizeForLog` 落地 → 建 `backend/src/utils/logger.ts` → 按目录分批迁（api → services → 其余，小 commit）→ eslint no-console。
+- **工时**：human ~2-3d / CC ~90min　**风险**：大面积机械改动，分批小 commit，别改日志语义　**依赖**：#10　**文档**：`backend/src/utils/FOLDER.md`
+
+#### 26. `privacy-dsar-erasure-export` · P1 ·（原 GAP-3）
+- **问题**：GDPR 数据主体权（导出/删除）无端到端闭环；现有 Synastry/CBT 客户端 localStorage PII + 服务端存储无统一删除/导出接口。
+- **证据**：`SynastryPage.tsx:1483-1501` localStorage profile（PII）；`CBTMainPage.tsx:43` CBT localStorage；`cbt.ts` CBT_RETENTION_TTL=90d 服务端；`auth.ts:703` DELETE 账号（已有删除模式但未覆盖所有 PII 存储）；CLAUDE.md 隐私红线 5 要求 CBT 支持主动删除。
+- **验收**：用户可一键导出全部 PII（出生数据/CBT/Synastry/saved_readings）为机器可读格式；可请求删除（清服务端 + 引导清客户端 localStorage）；删除幂等且级联所有存储；脱敏审计日志；与 #24 账号删除级联对齐。
+- **步骤**：盘点所有 PII 存储点（server + localStorage）→ 后端 `/api/account/export` + `/api/account/erase`（authMiddleware）→ 前端 Settings 加导出/删除入口 + 清 localStorage → TDD 覆盖删除完整性。
+- **工时**：human ~3-5d / CC ~2h　**风险**：删除必须真完整（漏一处即违规）；导出含全 PII 必须 auth + 不落日志　**依赖**：#24、#10　**文档**：`docs/PRD.md` §4.3+§2、隐私政策（#9）
+
+#### 27. `trust-csp-payment-domain-discovery` · P1 · ⚠ #8 硬前置 ·（原 GAP-4）
+- **问题**：#8 重开 CSP 依赖支付 SDK（PayPal/Airwallex/Stripe）+ GA/字体/Unsplash 的精确 script/frame/connect 域名 allowlist，但无 discovery 产出——epic 内最高风险的未规约工作。
+- **证据**：`index.html:35-40` fonts、`:38` unsplash；`analytics.ts:38-52` gtag；`PrivacyPolicy.tsx:213-217` 三家支付；各支付 SDK 实际加载域名 UNVERIFIED。
+- **验收**：产出完整 CSP 域名清单（按 directive 分组 script/style/font/img/connect/frame-src），每域名标来源；含 Report-Only 实测 violation 清单交叉验证；交付 #8 直接消费。
+- **步骤**：读 `services/` 支付集成 + 各 SDK 官方 CSP 文档列域名 → 先上 Report-Only CSP 收一个发布周期真实 violation → 汇总成 allowlist。
+- **工时**：human ~1-2d / CC ~40min（需真实流量观察）　**风险**：漏一个支付域名 enforce 后挡下单，Report-Only 兜底　**依赖**：无（是 #8 前置）　**文档**：交付物喂 #8
+
 ---
 
 ## 3. 跨切面（落地前必读）
@@ -254,7 +280,7 @@
 - **Ask 云端数据告知措辞**：#3（定义文案）、#9（隐私政策 AI 披露需一致）、#7（同一 birth-data-to-LLM 流）——**单一文案来源**贯穿三者。
 
 ### 3.3 ⚠ 未覆盖缺口（critic 发现，不在 24 story 内，列为占位别丢）
-- **GAP-1**：208 处裸 `console.*` → 结构化 logger **全量迁移**。#10 显式 out-of-scope，~200 个非结构化（潜在 PII）日志点 epic 后仍在。→ 建议独立 story。
+- **GAP-1**：208 处裸 `console.*` → 结构化 logger **全量迁移**。#10 显式 out-of-scope，~200 个非结构化（潜在 PII）日志点 epic 后仍在。→ **已提升为 story #25** `obs-migrate-console-to-structured-logger`。
 - **GAP-2**：CBT 危机门 + cbt/ask 安全 disclaimer。**注：AI 安全审计已确认这两项落地**（`cbt.ts:49-78` 危机短路、FrameworkDisclaimer 已扩展 cbt/ask、`safety.test.ts` 守护）——critic 因"无 story"误报为 gap，**实际已做**。唯一真残留是 `cbt.ts` 仍用内联 lang 三元未迁 `resolveLang`（CLAUDE.md 已知债）→ 顺手清理。
 - **GAP-3**：GDPR 数据主体 erasure/export。#24 给新 saved_readings 加了账号删除级联，但**现有** Synastry/CBT 客户端 localStorage PII 无删除/导出闭环。→ 建议 DSAR story。
 - **GAP-4**：#8 CSP 依赖的支付 SDK（PayPal/Airwallex/Stripe）域名 allowlist 无 discovery story 产出——epic 内最高风险的未规约工作。→ 应做 discovery 子任务前置 #8。
