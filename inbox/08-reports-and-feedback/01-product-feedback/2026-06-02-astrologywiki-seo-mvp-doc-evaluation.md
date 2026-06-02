@@ -144,3 +144,43 @@
 - **本评估文件**：就放在这里 —— `gengrowth-ops/inbox/08-reports-and-feedback/01-product-feedback/2026-06-02-astrologywiki-seo-mvp-doc-evaluation.md`（与 5 份同类前序文件同目录同命名）。它是**外部文档评估**，不是产品代码，**不进 oracle 仓库**。
 - **原 Google Doc**：定位为"关键词机会素材库"，**不要**当执行计划归档；它的价值是 §1 的关键词地图，已被本评估吸收 + 纠偏。
 - **唯一应进 oracle 仓库的**：是批准后的实际修复（§6），且须遵守 PRD 同步规则（新路由/schema/页面/sitemap 变更触 docs/PRD.md 判定清单）。
+
+---
+
+## 附：关键词挖掘表（gengrowth-wiki pipeline Sheet）交叉分析 — 2026-06-02 补
+
+> 对象：Google Sheet `1CkjOCgYbRfXGYc6l2FJOaxUIzxT0NBVUhUpgCjyzcQc`（实验起始 2026-05-21，US）
+> 方法：python 全量解析两张表（99 词主表 + 9 cluster 定义 + pipeline tab）+ 对 sitemap 交叉
+
+### A. 这是什么
+**不是"另一份关键词清单"，而是 gengrowth-wiki 自动化内容流水线的主控表**：`mine →（wzb_approve 人工门）→ promote → codex 生成 → publish → monitor`（gg-status/gg-monitor/_phase2-validate.mjs、PRD §7.3.2 分桶规则、.gg-cache、内容资产/astrologywiki/ 草稿）。**oracle 仓库里 aura/chakra/vedic 那批页就是它产出的。** 它比 Google Doc **高一个量级**：用 DR-gap 模型（Top10最弱2站DR均值 + SERP弱度 + DR差值）+ AIO风险 + 自动分桶 + per-cluster `psych_safety_flag`。
+
+### B. 决定性发现：两份文档是**两套冲突的策略**
+| | Sheet（在产、数据验证）| Google Doc（论点、多数未建）|
+|---|---|---|
+| 关键词宇宙 | Aura 21 / Vedic 16 / Nodes 6 / Houses 5 / Chakra 4 / Nakshatra | Venus 落座 / synastry 相位 / mercury-live / full moon / big three |
+| 选词模型 | DR-gap + SERP弱度（严谨）| 朴素 KD（dilettante）|
+| 与 git log | **完全吻合**（W1 Aura+Houses→W2 Nodes+Vedic+Chakra+Healing→W3 Nakshatra）| 几乎零重叠 |
+| 心理学/therapy | **列为 NEGATIVE_KEYWORDS 过滤掉** | 称其为"核心资产" |
+
+→ Doc 的西方核心词**几乎完全不在 Sheet 里**；两者连"要不要做心理学词"都对立。**真正的决策不是"Doc 好不好"，而是"哪台引擎定 roadmap"**：Sheet 的"可赢但偏离品牌"的神秘/Vedic 机器，还是 Doc 的"贴品牌但基本没建"的西方论点。0-DR 站做不了两套（主题权威稀释，gpt-5.5 + workflow 均已警示）。
+
+### C. Sheet 的优点（且按构造修掉了 Doc 的最大错误）
+- DR-gap 模型**正确跳过** Doc 会去追的难词：moon rising KD75、birth chart calculator free KD70、astro-seek KD73 全 ❌跳过 —— Doc 的 "rising sign KD 误判 65" 这类错误在此不会发生。
+- 有 AIO 风险标记 + cluster + 人工 `wzb_approve` 门；KD 与 Ahrefs 在重叠词上一致（north-node KD0 ✓）。
+
+### D. Sheet 自身要修的问题（评审增量）
+1. **品牌冲突被放大、未解决**：纯按 SERP-gap 可赢性选词，已**结构性地把站点拖离 PRD"西方心理学/无神秘主义"定位**（aura/chakra/nakshatra 正是要避开的神秘主义）。这是"0-DR 先在能赢处落地"的合理打法，但必须是**有意识的决策 + 回归品牌的退出计划**，不能靠 KD 高低默认漂移。
+2. **`psych_safety_flag=Y` 只是规划标记、非强制基建**：仅 `healing_placements`（{Planet} in 12th House / Healing Your Inner Wound）打了 Y，但静态 wiki 管线**零免责/危机控制**（见 §4 CRITICAL）。该簇 W2 上线时，此 flag 必须触发 §6 D5-6 的生成器强制免责+危机热线 footer。
+3. **种子词同形污染**："transits" 拉进 Miami 公交/trimet/bus tracker → `transit_bus_tracker`（P3）。已降级，但揭示 topic 种子需同形词护栏。
+4. **与 oracle canonical 体系冲突**：Sheet 把 `transit chart`（4100/KD22）判为可做长尾，但 oracle 已 canonical 化 transit-chart → /transits（sitemap:false）。新 slug（nakshatra 系列/北交各星座）**必须走 oracle 的 `WIKI_SEO_OVERRIDES`**，否则叠加 §3 的双管线蚕食。两个系统需互相感知。
+
+### E. Sheet 说要做、但仓库【还没建】的可动清单（神秘/Vedic 轨）
+- **Nakshatra 簇**（nakshatra 2900/KD3、ashlesha/rohini，P2 W3）——全新 27 页 Vedic 系列，低 KD，最干净的新增机会。
+- **Solar return (chart)** 5800/KD5 —— 新、低 KD，且**是西方技法**（两策略之间的桥），目前无 cluster 归属，值得认领。
+- **北交剩余星座 + north node calculator**（4500/KD24）、vedic 计算器/sidereal 变体、black moon lilith（2400）、aura quiz/test + spirit animal chart（quiz/工具型）、composite chart calculator（关系工具）。
+- **astrocartography**（4700/KD20，战略词）——⚠️ 但 6/2 评估已发现该 SERP top-2 是交互地图**工具**，"写 wiki 就能赢"是陷阱，应归为**产品功能机会**而非内容。
+- 注：matcher 标"未建"的 aura 疑问变体（"what does a blue aura mean"）多数已被现有 `-aura-meaning` 页覆盖（同意图长尾），非真缺。
+
+### F. 对结论的影响
+§0 总判断不变（Doc 执行前需修正）。但**对"放哪/该信谁"补一条**：执行 roadmap 应以**这张 Sheet 为主引擎**（它在产、数据严谨、与代码吻合），把 Google Doc 降为"西方核心候选词池"，在 Sheet 的人工选题门（选题登记表 / wzb_approve）里**择优并入**——而不是另起一套 7 天 sprint。真正待你拍板的是 **B 节的品牌取向**：继续 SERP-gap 神秘/Vedic 打法到什么程度、何时回归西方心理学定位。
