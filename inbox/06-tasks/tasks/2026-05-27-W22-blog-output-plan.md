@@ -75,7 +75,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 
-## ⚪ 6月1日 (周一) - 待写
+## ⚪ 6月1日 (周一) - 已发布
 **状态**：`计划中` (剩余 9 篇)
 - [x] `PG-HEAL-001` Healing Your Inner Wound
 - [x] `PG-HEAL-002` chiron in 12th house
@@ -87,5 +87,18 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-005`July 2026 planetary transits
 - [x] `PG-MYTH-001` persephone goddess
 
+---
+## ⚪ 6月2日 (周二) - 已发布
+**状态**：`计划中` (计划 10 篇)
+- [ ] PG-EMPATH-001 sensitive person
+- [ ] PG-EMPATH-002 famous highly sensitive person
+- [ ] PG-EMPATH-003 highly sensitive person vs autism
+- [ ] PG-EMPATH-004 signs you're a highly sensitive person
+- [ ] PG-MAHADASHA-001 mahadasha
+- [ ] PG-MAHADASHA-002 ketu mahadasha
+- [ ] PG-MAHADASHA-003 rahu mahadasha
+- [ ] PG-MAHADASHA-004 saturn mahadasha
+- [ ] PG-MAHADASHA-005 shani mahadasha
+- [ ] PG-MAHADASHA-005 venus mahadasha
 ---
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
