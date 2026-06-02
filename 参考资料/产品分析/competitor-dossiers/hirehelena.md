@@ -7,16 +7,16 @@
 
 ## 1. 快照
 
-| 维度 | 内容 |
-|------|------|
-| 产品 | Helena / HireHelena |
-| 公司 | Enrich Labs |
-| 官网 | https://hirehelena.com / https://www.enrichlabs.ai/ai-digital-marketing-agent |
-| 当前定位 | AI Digital Marketing Specialist，执行 SEO、社媒、广告、邮件和分析 |
-| 目标用户 | DTC 品牌、成长中品牌、代理商、多品牌团队 |
-| 当前定价 | Starter $39/月 / Pro $99/月 / Pro Plus $199/月 / Enterprise |
-| 公开用户规模 | 未公开 |
-| 团队规模信号 | LinkedIn 显示 2-10 employees / View all 8 employees；1,590 followers |
+| 维度      | 内容                                                                            |
+| ------- | ----------------------------------------------------------------------------- |
+| 产品      | Helena / HireHelena                                                           |
+| 公司      | Enrich Labs                                                                   |
+| 官网      | https://hirehelena.com / https://www.enrichlabs.ai/ai-digital-marketing-agent |
+| 当前定位    | AI Digital Marketing Specialist，执行 SEO、社媒、广告、邮件和分析                            |
+| 目标用户    | DTC 品牌、成长中品牌、代理商、多品牌团队                                                        |
+| 当前定价    | Starter $39/月 / Pro $99/月 / Pro Plus $199/月 / Enterprise                      |
+| 公开用户规模  | 未公开                                                                           |
+| 团队规模信号  | LinkedIn 显示 2-10 employees / View all 8 employees；1,590 followers             |
 | 研究结论一句话 | Helena 的增长打法更像“多 specialist AI 营销团队 + 免费试用 + 创始人/内容分发”，而不是重 SEO/GEO 分析的增长 OS。 |
 
 ## 2. 定位与 ICP
