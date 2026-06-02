@@ -184,3 +184,25 @@
 
 ### F. 对结论的影响
 §0 总判断不变（Doc 执行前需修正）。但**对"放哪/该信谁"补一条**：执行 roadmap 应以**这张 Sheet 为主引擎**（它在产、数据严谨、与代码吻合），把 Google Doc 降为"西方核心候选词池"，在 Sheet 的人工选题门（选题登记表 / wzb_approve）里**择优并入**——而不是另起一套 7 天 sprint。真正待你拍板的是 **B 节的品牌取向**：继续 SERP-gap 神秘/Vedic 打法到什么程度、何时回归西方心理学定位。
+
+---
+
+## 战略评审决定（plan-ceo-review + gpt-5.5 xhigh outside-voice，2026-06-02）
+
+> 本节是 F 节悬而未决问题的最终拍板，并**更新 F 节**：不再"以 Sheet 为主引擎"，而是**重写 Sheet 目标函数**、把唯一生产方向收敛到西方心理学。
+
+三个决策门：
+- **D1 = B**：决策轴从"西方 vs 神秘"改为"**排上去的词能否带来会付费的西方心理学受众**"。
+- **D2 = A**：Vedic/Mahadasha 立即冻新产；已建页保留 index,follow + 验证。
+- **D3 = A（采纳 gpt-5.5 反驳）**：aura/chakra **不是**受众契合层（SERP 被 Healthline/Cleveland Clinic 等健康垂直占据，与 Vedic 同一错配陷阱），降级到同档。**唯一生产方向 = 西方心理学占星。**
+
+**落定策略**：
+1. **唯一生产方向 = 西方心理学，tool-led**（每篇嵌计算器/个性化结果，打 placement×intent 长尾，不打 head term）。spine = **Birth Chart / Relationship / Self-Understanding**（非 wellness）。
+2. **非西方（Vedic + aura/chakra）= 冻新产 + 存量 index,follow + 60-90天/paid 测转化**（窗口从 14 天修正），数据决定 keep-or-consolidate；**不建 wellness hub**。
+3. **Sheet 目标函数重写**：加 audience-fit / geo-intent / tool-attachability / conversion-path / spine-fit gate，强罚 medical-wellness SERP、纯定义词、无工具 CTA、非西方方法。
+4. **外链 program**（linkable assets + outreach）= DR≈0 硬前提。
+5. **指标**：US 非品牌点击 + 分簇 content→tool→signup 转化；leading：indexed rate / top-20 数 / US CTR / chart-start / email capture / 外链数。**90/180 天 kill criteria**。
+
+**关键证据**：`mahadasha` 74% India / 11% US（Ahrefs volume-by-country）；aura/chakra SERP 被健康-wellness 站占据；DR≈0 养不起两个身份。
+
+CEO plan 全文：`~/.gstack/projects/xdawayer-oracle/ceo-plans/2026-06-02-astrologywiki-content-strategy.md`
