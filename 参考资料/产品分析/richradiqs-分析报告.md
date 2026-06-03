@@ -726,7 +726,7 @@ Zibuyu 集团供应链 + 中国生产 → 中等成本 + 中等品质
 - [Richradiqs Reviews — Trustpilot](https://www.trustpilot.com/review/richradiqs.com)
 - [richradiqs.com Reviews — ScamAdviser](https://www.scamadviser.com/check-website/richradiqs.com)
 - [Is richradiqs.com a Scam? — ScamMinder](https://scamminder.com/website/richradiqs.com)
-- [Rich Radi Q's, Another Name for Women's Beauty and Dream — IssueWire](https://www.issuewire.com/rich-radi-qs-another-name-for-womens-beauty-and-dream-1786617631180953)
+- [Rich Radi Q's, Another Name for Women's Beauty and Dream — IssueWire](https://www.issuewire.com/rich-radi-qs-another-name-for-womens-beauty-and-dream-1786617631180953) ⚠️ 付费 PR 发布稿，叙事不可独立验证（声称"founded 2011 by 英国贵族 Radi" 与域名 2023 年注册矛盾）；本报告不将其作为单独可信源
 - [Richradiqs Reviews — Buyersprove](https://buyersprove.com/review/richradiqs.com/)
 - [RICHRADIQS Amazon US Store](https://www.amazon.com/stores/RICHRADIQS/page/9912EEF3-8F5E-40C8-A350-1FF372D24DEA)
 - [Zibuyu Group (02420.HK) — Yahoo Finance](https://finance.yahoo.com/quote/2420.HK/) ⭐ 主源
