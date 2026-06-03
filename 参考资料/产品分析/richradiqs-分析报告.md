@@ -6,20 +6,20 @@
 
 ## 一、产品总览
 
-| 维度 | 详情 |
-|---|---|
-| **产品名** | RICHRADIQS（richradiqs.com） |
-| **所属公司** | 高概率为 **浙江子不语电子商务有限公司（Zibuyu Group，深交所 301337）** 旗下跨境品牌之一 [Medium]；前端定位 New York 品牌 |
-| **创始人/核心团队** | 子不语创始人 **华丙如**（公司 2011 年成立于杭州，2022 年港股上市，2023 年转 A 股 [High]）；RICHRADIQS 品牌方未实名披露 [High] |
-| **产品形态** | Web DTC（Shopify 托管）+ 多语言/多币种（英语 + 阿拉伯语等 200+ 国家/地区）+ Amazon US 店铺 |
-| **营收规模** | RICHRADIQS 品牌单店收入未披露，估算 **$5-15M ARR**（基于 ASP $269-369、上线 ~24 个月、47 条 Trustpilot 评价规模）[Low]；母公司子不语 TTM 收入 **$530M**（2025-06）[High] |
-| **用户规模** | Trustpilot 47 条评价（3.9-4.0 星）[High]；月独立访客估算 **30K-80K** [Low]；Facebook/Instagram 社媒粉丝量级 1K-5K [Low] |
-| **定位证据**（hero copy / tagline）| `"Handcrafted Luxury Dresses & Chic Everyday Womenswear"` —— 来源：[richradiqs.com](https://richradiqs.com/) 首页 hero。**双重 use case**：场合化 luxury（"Handcrafted Luxury"）+ 精致日常（"Chic Everyday Womenswear"），不是单一婚礼专营 |
-| **核心功能** | 全场景女装：Dresses（Maxi/Midi/Mini）、Resort Dresses（度假主类目）、Top luxury（高端胶囊）、Coats & Jackets、Tops、Bottoms；覆盖**日常 / 度假 / 晚宴 / 派对 / 纪念日 / 婚礼场合等多场景** |
-| **主要市场** | 美国（主，推断 ~45-55% 流量）+ 中东（英阿双语 + 多币种暗示，~15-25%）+ 欧洲 [Low] |
-| **商业模式** | DTC 跨境电商；单次交易（无订阅）；客单价 $269-369；毛利率推算 60-70%（中国制造 + 美元定价的典型跨境结构）|
-| **融资历程** | 品牌层级无独立融资；母公司子不语 **2022.10 港股上市（已退市重组），2023 A 股 IPO，市值约 RMB 30-40 亿 [Medium]**；H1 2024 净利润 YoY **+789%** [High] |
-| **核心优势** | 子不语集团供应链 + 多品牌矩阵能力 + 中国制造成本结构；"NY 品牌定位 + 全球配送 + 多语言"组合精准切入"$200-400 轻奢全场景"价位带，在 fast fashion（<$100）与真奢侈（>$1000）之间的中间地带竞争稀疏 |
+| 维度                            | 详情                                                                                                                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **产品名**                       | RICHRADIQS（richradiqs.com）                                                                                                                                                                                    |
+| **所属公司**                      | 高概率为 **浙江子不语电子商务有限公司（Zibuyu Group，深交所 301337）** 旗下跨境品牌之一 [Medium]；前端定位 New York 品牌                                                                                                                            |
+| **创始人/核心团队**                  | 子不语创始人 **华丙如**（公司 2011 年成立于杭州，2022 年港股上市，2023 年转 A 股 [High]）；RICHRADIQS 品牌方未实名披露 [High]                                                                                                                       |
+| **产品形态**                      | Web DTC（Shopify 托管）+ 多语言/多币种（英语 + 阿拉伯语等 200+ 国家/地区）+ Amazon US 店铺                                                                                                                                             |
+| **营收规模**                      | RICHRADIQS 品牌单店收入未披露，估算 **$5-15M ARR**（基于 ASP $269-369、上线 ~24 个月、47 条 Trustpilot 评价规模）[Low]；母公司子不语 TTM 收入 **$530M**（2025-06）[High]                                                                            |
+| **用户规模**                      | Trustpilot 47 条评价（3.9-4.0 星）[High]；月独立访客估算 **30K-80K** [Low]；Facebook/Instagram 社媒粉丝量级 1K-5K [Low]                                                                                                            |
+| **定位证据**（hero copy / tagline） | `"Handcrafted Luxury Dresses & Chic Everyday Womenswear"` —— 来源：[richradiqs.com](https://richradiqs.com/) 首页 hero。**双重 use case**：场合化 luxury（"Handcrafted Luxury"）+ 精致日常（"Chic Everyday Womenswear"），不是单一婚礼专营 |
+| **核心功能**                      | 全场景女装：Dresses（Maxi/Midi/Mini）、Resort Dresses（度假主类目）、Top luxury（高端胶囊）、Coats & Jackets、Tops、Bottoms；覆盖**日常 / 度假 / 晚宴 / 派对 / 纪念日 / 婚礼场合等多场景**                                                                    |
+| **主要市场**                      | 美国（主，推断 ~45-55% 流量）+ 中东（英阿双语 + 多币种暗示，~15-25%）+ 欧洲 [Low]                                                                                                                                                       |
+| **商业模式**                      | DTC 跨境电商；单次交易（无订阅）；客单价 $269-369；毛利率推算 60-70%（中国制造 + 美元定价的典型跨境结构）                                                                                                                                              |
+| **融资历程**                      | 品牌层级无独立融资；母公司子不语 **2022.10 港股上市（已退市重组），2023 A 股 IPO，市值约 RMB 30-40 亿 [Medium]**；H1 2024 净利润 YoY **+789%** [High]                                                                                               |
+| **核心优势**                      | 子不语集团供应链 + 多品牌矩阵能力 + 中国制造成本结构；"NY 品牌定位 + 全球配送 + 多语言"组合精准切入"$200-400 轻奢全场景"价位带，在 fast fashion（<$100）与真奢侈（>$1000）之间的中间地带竞争稀疏                                                                                    |
 
 > ⚠️ **关键披露**：母公司归属为公开搜索推断（IssueWire 公告 + Zibuyu 公司画像），未经 RICHRADIQS 官方确认。该品牌 about-us 页极简，无团队/创始人信息，是子不语系列跨境品牌的典型特征。
 
