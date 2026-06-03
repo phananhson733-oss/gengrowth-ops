@@ -9,28 +9,30 @@
 | 维度                            | 详情                                                                                                                                                                                                            |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **产品名**                       | RICHRADIQS（richradiqs.com）                                                                                                                                                                                    |
-| **所属公司**                      | 高概率为 **浙江子不语电子商务有限公司（Zibuyu Group，深交所 301337）** 旗下跨境品牌之一 [Medium]；前端定位 New York 品牌                                                                                                                            |
-| **创始人/核心团队**                  | 子不语创始人 **华丙如**（公司 2011 年成立于杭州，2022 年港股上市，2023 年转 A 股 [High]）；RICHRADIQS 品牌方未实名披露 [High]                                                                                                                       |
+| **所属公司**                      | **子不语集团有限公司（Zibuyu Group，港交所 02420.HK）** 旗下 7 个核心自有品牌之一 [Medium-High]（来源：Baidu Baike Zibuyu 词条 + 公司公开战略文件，列出 Rich Radi Q's / Runcati / Saodimallsu / Cicy Bell / Fisoew / Coutgo / Haloumoning 共 7 个品牌）。前端定位 New York 品牌                                                                                                                            |
+| **创始人/核心团队**                  | 子不语集团创始人 / 董事长 **华丙如**（85 后，2011 年与联合创始人 **王诗剑** 共同创立子不语于杭州；2022.11.11 港股主板上市，"跨境鞋服第一股"，华丙如与妻子余凤通过家族信托间接持股 55.47%）[High]；RICHRADIQS 品牌方负责人未公开披露 [High]                                                                                                                       |
 | **产品形态**                      | Web DTC（Shopify 托管）+ 多语言/多币种（英语 + 阿拉伯语等 200+ 国家/地区）+ Amazon US 店铺                                                                                                                                             |
-| **营收规模**                      | RICHRADIQS 品牌单店收入未披露，估算 **$5-15M ARR**（基于 ASP $269-369、上线 ~24 个月、47 条 Trustpilot 评价规模）[Low]；母公司子不语 TTM 收入 **$530M**（2025-06）[High]                                                                            |
+| **营收规模**                      | RICHRADIQS 品牌单店收入未披露，估算 **$5-15M ARR**（基于 ASP $269-369、上线 ~24 个月、47 条 Trustpilot 评价规模）[Low]；母公司子不语集团 **2024 营收 RMB 33.25 亿（+10.8% YoY），扭亏为盈净利润 RMB 1.508 亿；2025 营收 RMB 46.6 亿（+40.15% YoY），净利润 RMB 2.69 亿（+78.55% YoY）** [High]                                                                            |
 | **用户规模**                      | Trustpilot 47 条评价（3.9-4.0 星）[High]；月独立访客估算 **30K-80K** [Low]；Facebook/Instagram 社媒粉丝量级 1K-5K [Low]                                                                                                            |
 | **定位证据**（hero copy / tagline） | `"Handcrafted Luxury Dresses & Chic Everyday Womenswear"` —— 来源：[richradiqs.com](https://richradiqs.com/) 首页 hero。**双重 use case**：场合化 luxury（"Handcrafted Luxury"）+ 精致日常（"Chic Everyday Womenswear"），不是单一婚礼专营 |
 | **核心功能**                      | 全场景女装：Dresses（Maxi/Midi/Mini）、Resort Dresses（度假主类目）、Top luxury（高端胶囊）、Coats & Jackets、Tops、Bottoms；覆盖**日常 / 度假 / 晚宴 / 派对 / 纪念日 / 婚礼场合等多场景**                                                                    |
 | **主要市场**                      | 美国（主，推断 ~45-55% 流量）+ 中东（英阿双语 + 多币种暗示，~15-25%）+ 欧洲 [Low]                                                                                                                                                       |
 | **商业模式**                      | DTC 跨境电商；单次交易（无订阅）；客单价 $269-369；毛利率推算 60-70%（中国制造 + 美元定价的典型跨境结构）                                                                                                                                              |
-| **融资历程**                      | 品牌层级无独立融资；母公司子不语 **2022.10 港股上市（已退市重组），2023 A 股 IPO，市值约 RMB 30-40 亿 [Medium]**；H1 2024 净利润 YoY **+789%** [High]                                                                                               |
+| **融资历程**                      | 品牌层级无独立融资；母公司子不语集团 **2022.11.11 港股主板上市（02420.HK），发行价 HKD 7.86，募资约 HKD 2.30 亿，IPO 后从未退市；2024 扭亏为盈、2025 营收 +40.15% / 净利润 +78.55%，进入"品牌出海"战略期** [High]；当前港股市值未在本报告中核实 [Unverified]                                                                                               |
 | **核心优势**                      | 子不语集团供应链 + 多品牌矩阵能力 + 中国制造成本结构；"NY 品牌定位 + 全球配送 + 多语言"组合精准切入"$200-400 轻奢全场景"价位带，在 fast fashion（<$100）与真奢侈（>$1000）之间的中间地带竞争稀疏                                                                                    |
 
-> ⚠️ **关键披露**：母公司归属为公开搜索推断（IssueWire 公告 + Zibuyu 公司画像），未经 RICHRADIQS 官方确认。该品牌 about-us 页极简，无团队/创始人信息，是子不语系列跨境品牌的典型特征。
+> ⚠️ **关键披露与溯源**：
+> - 母公司归属由**多源证据交叉确认**：(1) **Baidu Baike 子不语词条**明确列出 "Rich Radi Q's" 是 Zibuyu Group 的 7 个核心自有品牌之一（其余 Runcati / Saodimallsu / Cicy Bell / Fisoew / Coutgo / Haloumoning）；(2) **Brandfetch** 等品牌数据库标注同样归属；(3) 子不语 2024-2025 "品牌出海" 战略升级与 RICHRADIQS "Handcrafted Luxury" 定位升级时间线吻合。整体置信度 **[Medium-High]**，但 RICHRADIQS 自有 about-us 页极简、未官方确认归属，仍存若干%误判可能。
+> - **2026-06-03 重大更正**：本报告早期版本曾错误标注子不语为"**深交所 301337**"（该代码实际属于山东亚华电子，主营医院智能通讯系统，与子不语完全无关）+ "已退市重组 / 2023 A 股 IPO"（均不存在 — 子不语于港交所 02420.HK 持续挂牌，未退市未转板）+ "H1 2024 净利润 +789%"（数据来源不明）。已系统性修正所有相关字段，并在 skill 层加入硬事实溯源验证规则。
 
 ## 二、关键数据趋势
 
 | 时间 | 用户规模 | 收入 | 关键事件 |
 |---|---|---|---|
 | 2023-07 | — | — | **域名注册（2023-07-19）[High]**；Shopify 建站；New York 品牌定位上线 |
-| 2024 H1 | 早期客户 [Low] | 估 ~$1-3M ARR [Low] | 多语言/多币种扩展；Amazon US 店铺同步运营；母公司子不语 H1 净利润 +789% [High] |
+| 2024 H1 | 早期客户 [Low] | 估 ~$1-3M ARR [Low] | 多语言/多币种扩展；Amazon US 店铺同步运营；母公司子不语 2024 全年营收 RMB 33.25 亿（+10.8% YoY），扭亏为盈净利润 RMB 150.8M [High] |
 | 2024 H2 | Trustpilot 累计 ~10 条评价 [Low] | ~$3-6M ARR（估）[Low] | 进入中东市场（阿拉伯语界面）[Medium]；Resort Dresses 类目独立 |
-| 2025 H1 | Trustpilot ~25-35 条评价 [Medium] | ~$5-10M ARR（估）[Low] | 子不语 TTM 收入达 $530M [High]；Top luxury 高端胶囊上线 |
+| 2025 H1 | Trustpilot ~25-35 条评价 [Medium] | ~$5-10M ARR（估）[Low] | 子不语集团 2025 营收 RMB 46.6 亿（+40.15% YoY，约 USD 640M），净利润 RMB 269M（+78.55% YoY）[High]；Top luxury 高端胶囊上线 |
 | 2025 H2 / 2026 H1 | Trustpilot 47 条评价 [High] | ~$8-15M ARR（估）[Low] | "Wedding Event" 等季节性 capsule 营销活动；"Save up to $210" 大促 [High] |
 
 > 数据局限：作为非上市品牌且母公司将其归入"其他自营店铺"汇总披露，单店财务不透明。所有营收估算基于"ASP × 推测订单量"逆推，置信度 [Low]。
@@ -727,9 +729,15 @@ Zibuyu 集团供应链 + 中国生产 → 中等成本 + 中等品质
 - [Rich Radi Q's, Another Name for Women's Beauty and Dream — IssueWire](https://www.issuewire.com/rich-radi-qs-another-name-for-womens-beauty-and-dream-1786617631180953)
 - [Richradiqs Reviews — Buyersprove](https://buyersprove.com/review/richradiqs.com/)
 - [RICHRADIQS Amazon US Store](https://www.amazon.com/stores/RICHRADIQS/page/9912EEF3-8F5E-40C8-A350-1FF372D24DEA)
+- [Zibuyu Group (02420.HK) — Yahoo Finance](https://finance.yahoo.com/quote/2420.HK/) ⭐ 主源
+- [Zibuyu Group (02420.HK) — Bloomberg Profile](https://www.bloomberg.com/profile/company/2420:HK) ⭐ 主源
+- [Zibuyu Group 2024 Annual Results — TipRanks](https://www.tipranks.com/news/company-announcements/zibuyu-group-releases-2024-annual-results)
+- [Zibuyu Group Baidu Baike — 7 个核心品牌矩阵含 Rich Radi Q's](https://baike.baidu.com/en/item/Zibuyu%20Group%20Co.,%20Ltd./89677) ⭐ 母公司归属主源
+- [Zibuyu Group Limited 招股 / 战略文件 — HKEXnews](https://www.hkexnews.hk/listedco/listconews/sehk/2025/0826/2025082602124.pdf) ⭐ 港交所原始披露
+- ["跨境鞋服第一股" 子不语 11.11 港股挂牌 — 卖家之家](https://mjzj.com/article/c37uvxpatf5v) — IPO 主源
+- [跨境电商子不语再次冲刺港交所 / 华丙如背景 — 新浪财经](https://finance.sina.com.cn/stock/hkstock/ggipo/2022-03-10/doc-imcwipih7619785.shtml)
 - [Zibuyu Group — CB Insights Profile](https://www.cbinsights.com/company/zibuyu-group)
 - [Zibuyu Group — PitchBook Profile](https://pitchbook.com/profiles/company/510099-49)
-- [Zibuyu Cross-border H1 2024 Net Profit +789% — LongPort](https://longportapp.com/en/news/212975403)
 - [Reformation $350M Revenue + Double-Digit Profit — Yahoo Finance](https://finance.yahoo.com/news/reformation-ceo-expanded-trendy-brand-135033785.html)
 - [Reformation Financials — Fashionbi](https://www.fashionbi.com/financials/brands/reformation)
 - [Reformation Revenue 2015-2027 — ECDB](https://ecdb.com/resources/sample-data/retailer/thereformation)
