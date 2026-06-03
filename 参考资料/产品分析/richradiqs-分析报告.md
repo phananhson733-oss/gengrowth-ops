@@ -236,15 +236,15 @@ Zibuyu 集团供应链 + 中国生产 → 中等成本 + 中等品质
 
 #### 劣势
 
-| 劣势 | 详情 |
-|---|---|
-| 品牌透明度低 | 母公司归属不公开 + about-us 极简 + 假"NY 品牌"定位，对欧美高净值客户存在长期信任阻力 |
-| 多场景但无 hero 类目 | 覆盖广但无"必选项"或"破圈品"，无 Aritzia Super Puff / Reformation 可持续 / Lululemon Align 这类品牌锚点 |
-| 内容生态空白 | 无 TikTok 矩阵 / 无 KOL 投放公开记录 / 无社区运营，与 Princess Polly / Revolve 差距大 |
-| 品牌叙事缺失 | 既无 Reformation 的可持续 ESG，也无 Aritzia 的"everyday luxury" 上市背书，也无 SMCP 的"法式 IP"，定位略散 |
-| 退货 / 尺码痛点 | 客户投诉集中在 sizing 与 delivery time，"中国制造跨境配送"的典型病灶 |
-| Trustpilot 体量小 | 仅 47 条评价 vs Reformation / Aritzia 数万条；社会证明严重不足 |
-| Made-to-order 缺位 | Azazie 已证明定制模式在 high-impact dress 的护城河，RICHRADIQS 仍是 ready-to-ship |
+| 劣势               | 详情                                                                               |
+| ---------------- | -------------------------------------------------------------------------------- |
+| 品牌透明度低           | 母公司归属不公开 + about-us 极简 + 假"NY 品牌"定位，对欧美高净值客户存在长期信任阻力                             |
+| 多场景但无 hero 类目    | 覆盖广但无"必选项"或"破圈品"，无 Aritzia Super Puff / Reformation 可持续 / Lululemon Align 这类品牌锚点 |
+| 内容生态空白           | 无 TikTok 矩阵 / 无 KOL 投放公开记录 / 无社区运营，与 Princess Polly / Revolve 差距大                |
+| 品牌叙事缺失           | 既无 Reformation 的可持续 ESG，也无 Aritzia 的"everyday luxury" 上市背书，也无 SMCP 的"法式 IP"，定位略散 |
+| 退货 / 尺码痛点        | 客户投诉集中在 sizing 与 delivery time，"中国制造跨境配送"的典型病灶                                   |
+| Trustpilot 体量小   | 仅 47 条评价 vs Reformation / Aritzia 数万条；社会证明严重不足                                   |
+| Made-to-order 缺位 | Azazie 已证明定制模式在 high-impact dress 的护城河，RICHRADIQS 仍是 ready-to-ship               |
 
 #### 机遇
 
