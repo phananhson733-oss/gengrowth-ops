@@ -18,3 +18,4 @@ updated: 2026-06-04
 | 2026-06-04 | PG-NAKSH-006 | bharani-nakshatra | Bharani Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/bharani-nakshatra | published |
 | 2026-06-04 | PG-HEAL-004 | chiron-in-taurus | Chiron In Taurus | julian-thorne | https://www.astrologywiki.com/en/wiki/chiron-in-taurus | published |
 | 2026-06-04 | PG-NAKSH-002 | ashlesha-nakshatra | Ashlesha Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/ashlesha-nakshatra | published |
+| 2026-06-04 | PG-NAKSH-003 | rohini-nakshatra | Rohini Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/rohini-nakshatra | published |
