@@ -22,3 +22,4 @@ updated: 2026-06-04
 | 2026-06-04 | PG-NODE-005 | south-node | South Node | julian-thorne | https://www.astrologywiki.com/en/wiki/south-node | published |
 | 2026-06-04 | PG-NODE-006 | north-node-in-gemini | North Node In Gemini | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-gemini | published |
 | 2026-06-04 | PG-NODE-007 | north-node-in-sagittarius | North Node In Sagittarius | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-sagittarius | published |
+| 2026-06-04 | PG-NODE-008 | cancer-north-node | Cancer North Node | julian-thorne | https://www.astrologywiki.com/en/wiki/cancer-north-node | published |
