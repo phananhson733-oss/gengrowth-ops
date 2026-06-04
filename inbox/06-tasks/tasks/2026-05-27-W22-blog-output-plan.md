@@ -1,9 +1,9 @@
 ---
 project: astrologywiki
 type: content-plan
-status: active
+status: done
 owner: Ma Boyang
-updated: 2026-05-27
+updated: 2026-06-04
 ---
 
 # 📅 W22 博客内容输出计划 (10篇/日)
@@ -105,9 +105,9 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月3日 (周三) - 待写作
 **状态**：`计划中` (计划 11 篇)
-- [ ] PG-SOLAR-001 solar return chart
-- [ ] PG-MOON-001 what is a full moon ritual
-- [ ] PG-MOON-002 full moon energy
+- [x] PG-SOLAR-001 solar return chart
+- [x] PG-MOON-001 what is a full moon ritual
+- [x] PG-MOON-002 full moon energy
 - [ ] PG-MOON-003 what to do on a full moon spiritually
 - [ ] PG-HEAL-004 Chiron in Taurus
 - [ ] PG-NAKSH-001 nakshatra
