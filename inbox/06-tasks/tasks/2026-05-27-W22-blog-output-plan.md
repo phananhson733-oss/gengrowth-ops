@@ -111,7 +111,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-MOON-003 what to do on a full moon spiritually
 - [x] PG-HEAL-004 Chiron in Taurus
 - [ ] PG-NAKSH-001 nakshatra
-- [ ] PG-NAKSH-002 ashlesha nakshatra
+- [x] PG-NAKSH-002 ashlesha nakshatra
 - [ ] PG-NAKSH-003 rohini nakshatra
 - [ ] PG-NAKSH-004 pushya nakshatra
 - [x] PG-NAKSH-005 anuradha nakshatra
