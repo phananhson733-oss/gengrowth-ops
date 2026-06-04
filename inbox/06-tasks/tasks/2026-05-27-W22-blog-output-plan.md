@@ -103,7 +103,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 > 全部 9 篇唯一文章 × EN+ZH = 18 页已 2026-06-02 错峰 prod 部署到 www.astrologywiki.com（sitemap 250，18/18 验证 live，零重复）。shani 去重为 9 篇而非 10。
 ---
-## ⚪ 6月3日 (周三) - 待写作
+## ⚪ 6月3日 (周三) - 写作中
 **状态**：`计划中` (计划 11 篇)
 - [x] PG-SOLAR-001 solar return chart
 - [x] PG-MOON-001 what is a full moon ritual
@@ -116,6 +116,21 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-NAKSH-004 pushya nakshatra
 - [x] PG-NAKSH-005 anuradha nakshatra
 - [x] PG-NAKSH-006 bharani nakshatra
+
+---
+## ⚪ 6月4日 (周四) - 计划
+**状态**：`计划中` (计划 10 篇)
+- [ ] PG-SOLAR-001 solar return chart
+- [ ] PG-MOON-001 what is a full moon ritual
+- [ ] PG-MOON-002 full moon energy
+- [ ] PG-MOON-003 what to do on a full moon spiritually
+- [ ] PG-HEAL-004 Chiron in Taurus
+- [ ] PG-NAKSH-001 nakshatra
+- [ ] PG-NAKSH-002 ashlesha nakshatra
+- [ ] PG-NAKSH-003 rohini nakshatra
+- [ ] PG-NAKSH-004 pushya nakshatra
+- [ ] PG-NAKSH-005 anuradha nakshatra
+- [ ] PG-NAKSH-006 bharani nakshatra
 
 ---
 
