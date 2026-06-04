@@ -16,3 +16,4 @@ updated: 2026-06-04
 | 2026-06-04 | PG-MOON-003 | what-to-do-on-a-full-moon-spiritually | What To Do On A Full Moon Spiritually | marcus-orion | https://www.astrologywiki.com/en/wiki/what-to-do-on-a-full-moon-spiritually | published |
 | 2026-06-04 | PG-NAKSH-005 | anuradha-nakshatra | Anuradha Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/anuradha-nakshatra | published |
 | 2026-06-04 | PG-NAKSH-006 | bharani-nakshatra | Bharani Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/bharani-nakshatra | published |
+| 2026-06-04 | PG-HEAL-004 | chiron-in-taurus | Chiron In Taurus | julian-thorne | https://www.astrologywiki.com/en/wiki/chiron-in-taurus | published |
