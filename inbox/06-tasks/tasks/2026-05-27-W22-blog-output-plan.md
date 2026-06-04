@@ -108,7 +108,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-SOLAR-001 solar return chart
 - [x] PG-MOON-001 what is a full moon ritual
 - [x] PG-MOON-002 full moon energy
-- [ ] PG-MOON-003 what to do on a full moon spiritually
+- [x] PG-MOON-003 what to do on a full moon spiritually
 - [ ] PG-HEAL-004 Chiron in Taurus
 - [ ] PG-NAKSH-001 nakshatra
 - [ ] PG-NAKSH-002 ashlesha nakshatra
