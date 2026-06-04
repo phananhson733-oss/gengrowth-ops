@@ -20,3 +20,4 @@ updated: 2026-06-04
 | 2026-06-04 | PG-NAKSH-002 | ashlesha-nakshatra | Ashlesha Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/ashlesha-nakshatra | published |
 | 2026-06-04 | PG-NAKSH-003 | rohini-nakshatra | Rohini Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/rohini-nakshatra | published |
 | 2026-06-04 | PG-NODE-005 | south-node | South Node | julian-thorne | https://www.astrologywiki.com/en/wiki/south-node | published |
+| 2026-06-04 | PG-NODE-006 | north-node-in-gemini | North Node In Gemini | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-gemini | published |
