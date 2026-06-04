@@ -122,7 +122,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`计划中` (计划 10 篇)
 - [x] PG-NODE-005 south node
 - [x] PG-NODE-006 north node in gemini
-- [ ] PG-NODE-007 north node in sagittarius
+- [x] PG-NODE-007 north node in sagittarius
 - [ ] PG-NODE-008 cancer north node
 - [ ] PG-MYTH-002 juno astrology
 - [ ] PG-TRANS-006 mecury in retrograde
