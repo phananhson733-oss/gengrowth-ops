@@ -168,16 +168,16 @@ GenGrowth（修正方法 / 沉淀案例）
 
 **B. 登录后核心产品页(转化与留存主战场)**
 
-| 页面类型 | 路径 | 角色 |
-|----------|------|------|
-| Dashboard / 本命盘 | `/dashboard` | 用户进入产品后的主面板,展示星盘解读 |
-| Forecast / 每日运势 | `/forecast` | 每日复访入口,行运分析 + 四维评分 |
-| Ask Oracle / AI 占星问答 | `/oracle` | 高价值付费功能之一 |
-| Synastry / 合盘 | `/us` | 双人星盘对比,共 16 个分析模块 |
-| CBT Journal / 认知日记 | `/journal` | 心理学侧产品线,情绪追踪 + 认知分析 |
-| Cycles / 生命周期 | `/cycles` | 月相 / 个人年 / 行运周期视图 |
-| Reports / 报告 | `/reports`、`/reports/:reportId` | 月度、年度、土星回归等付费报告 |
-| Settings / Credits 用量 | `/settings`、`/usage` | 账户与配额管理 |
+| 页面类型                  | 路径                              | 角色                  |
+| --------------------- | ------------------------------- | ------------------- |
+| Dashboard / 本命盘       | `/dashboard`                    | 用户进入产品后的主面板,展示星盘解读  |
+| Forecast / 每日运势       | `/forecast`                     | 每日复访入口,行运分析 + 四维评分  |
+| Ask Oracle / AI 占星问答  | `/oracle`                       | 高价值付费功能之一           |
+| Synastry / 合盘         | `/us`                           | 双人星盘对比,共 16 个分析模块   |
+| CBT Journal / 认知日记    | `/journal`                      | 心理学侧产品线,情绪追踪 + 认知分析 |
+| Cycles / 生命周期         | `/cycles`                       | 月相 / 个人年 / 行运周期视图   |
+| Reports / 报告          | `/reports`、`/reports/:reportId` | 月度、年度、土星回归等付费报告     |
+| Settings / Credits 用量 | `/settings`、`/usage`            | 账户与配额管理             |
 
 **C. 转化与合规支撑页**
 
