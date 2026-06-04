@@ -120,17 +120,16 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月4日 (周四) - 计划
 **状态**：`计划中` (计划 10 篇)
-- [ ] PG-SOLAR-001 solar return chart
-- [ ] PG-MOON-001 what is a full moon ritual
-- [ ] PG-MOON-002 full moon energy
-- [ ] PG-MOON-003 what to do on a full moon spiritually
-- [ ] PG-HEAL-004 Chiron in Taurus
-- [ ] PG-NAKSH-001 nakshatra
-- [ ] PG-NAKSH-002 ashlesha nakshatra
-- [ ] PG-NAKSH-003 rohini nakshatra
-- [ ] PG-NAKSH-004 pushya nakshatra
-- [ ] PG-NAKSH-005 anuradha nakshatra
-- [ ] PG-NAKSH-006 bharani nakshatra
+- [ ] PG-NODE-005 south node
+- [ ] PG-NODE-006 north node in gemini
+- [ ] PG-NODE-007 north node in sagittarius
+- [ ] PG-NODE-008 cancer north node
+- [ ] PG-MYTH-002 juno astrology
+- [ ] PG-TRANS-006 mecury in retrograde
+- [ ] PG-AI-001 ai astrology app
+- [ ] PG-AYUR-001 how to balance vata dosha
+- [ ] PG-SOLAR-002 solar return
+- [ ] PG-AYUR-002 3 gunas
 
 ---
 
