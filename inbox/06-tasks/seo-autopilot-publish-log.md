@@ -34,3 +34,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-AI-001 | ai-astrology-app | Ai Astrology App | marcus-orion | https://www.astrologywiki.com/en/wiki/ai-astrology-app | published |
 | 2026-06-05 | PG-AYUR-003 | sattva-rajas-tamas | Sattva Rajas Tamas | aditi-sharma | https://www.astrologywiki.com/en/wiki/sattva-rajas-tamas | published |
 | 2026-06-05 | PG-RISE-001 | libra-rising-houses | Libra Rising Houses | marcus-orion | https://www.astrologywiki.com/en/wiki/libra-rising-houses | published |
+| 2026-06-05 | PG-RISE-002 | leo-rising-houses | Leo Rising Houses | marcus-orion | https://www.astrologywiki.com/en/wiki/leo-rising-houses | published |
