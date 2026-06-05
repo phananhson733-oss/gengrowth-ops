@@ -129,7 +129,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-AI-001 ai astrology app
 - [x] PG-AYUR-001 how to balance vata dosha
 - [x] PG-SOLAR-002 solar return
-- [ ] PG-AYUR-002 3 gunas
+- [x] PG-AYUR-002 3 gunas
 
 ---
 
