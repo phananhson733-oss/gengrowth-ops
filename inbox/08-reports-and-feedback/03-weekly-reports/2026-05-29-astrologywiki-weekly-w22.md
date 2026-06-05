@@ -52,13 +52,17 @@ updated: 2026-05-29
 ## 🎯 下周目标（三条主线）
 
 ### 主线一：权重端启动（最高优先级）——外链增长、社媒起步
-- [ ] 筛选首批 50 个垂直目标站点，发送定制化 Guest Post 开发信，争取首条 dofollow 链接
+- [x] 筛选首批 50 个垂直目标站点，发送定制化 Guest Post 开发信，争取首条 dofollow 链接
+-暂时确定了30个可投稿站点，但暂时没有Guest Post回信，目前获得一个内容社区的dofollow
+具体内容看下表：
+https://docs.google.com/spreadsheets/d/1L9GriM-bqWuxUa5KFWBtEMrjQArokCurGymqpTsKbxQ/edit?usp=sharing
 - [x] 在 Pinterest / X / Medium 建立品牌账号并回链官网（社交占位）
 - [x] 用 Ahrefs/GSC 挖掘上升期占星趋势词（如特定星象行运），更新《关键词主表》
 
 ### 主线二：品牌可信度补齐（E-E-A-T）——提升点击率、建立权威
 - [ ] 与设计协同，产出标准化封面图模板，并补全重点文章
-- [ ] 完善 4 位虚拟作者 Profile 页，确保背景经历与内容属性对齐
+- [x] 完善 4 位虚拟作者 Profile 页，确保背景经历与内容属性对齐
+结果讨论暂时不去试图将虚拟作者真人化
 - [ ] 优化核心 Landing Page 设计，提升留存与转化
 
 ### 主线三：生产线扫尾——内容素材维护
