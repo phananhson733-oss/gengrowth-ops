@@ -1,0 +1,350 @@
+---
+title: Outrank.so 竞品分析报告 · 对标 GenGrowth.ai
+date: 2026-06-04
+type: competitive-analysis
+status: final
+author: Claude
+tags:
+  - competitive-intelligence
+  - outrank
+  - gengrowth
+  - seo
+  - product-analysis
+---
+
+# Outrank.so 竞品分析报告 · 对标 GenGrowth.ai
+
+---
+
+## 一、Outrank.so 试用体验报告
+
+### 1.1 Onboarding 流程（共 5 步）
+
+你的试用路径还原如下：
+
+**Step 1 · Business**
+填写企业名称（AstrologyWiki）、语言（英文）、目标国家（全球/英语）、产品描述。描述框要求写得足够详细，系统会据此自动生成后续所有内容策略，是整条链路的种子输入。
+
+**Step 2 · Audience & Competitors**
+两个核心动作：
+- 目标受众：系统根据产品描述**自动预生成了 5 个受众分组**（占星爱好者、自我成长型用户、伴侣/朋友关系探索者、学生研究者、新手寻求快速指引），用户只需增删，体感极轻。
+- 竞品输入：要求至少填 3 个竞品 URL，这是系统获取关键词情报的核心来源。
+
+**Step 3 · Blog**
+读取现有内容：Sitemap URL、主 Blog 地址、最多 3 个最佳文章示例 URL。直接连接 GSC（Google Search Console），账号 hokagoteatiem@gmail.com 在这一步完成授权。
+
+**Step 4 · Articles**（配置最丰富的一步）
+- Auto-publish 开关
+- 文章风格（默认 Informational，从示例文章自动学习）
+- 每篇内链数量（默认 3）
+- 全局写作指令（可选，系统说自己已有 battle-tested 算法，只需填写品牌偏好）
+- 品牌色（#000000）
+- 图片风格：Sketch / Watercolor / Realistic / Illustration / Brand & Text
+- **Title-based Featured Image**（NEW 标签：生成带文章标题叠加品牌色的封面图）
+- 功能开关列表：目录、YouTube 嵌入、CTA、信息图替换、Emoji、相似产品提及、第一人称写作
+- **Improvement Schedule**：可设置哪几天自动刷新旧文，自动推送到集成平台
+
+**Step 5 · Integration**
+支持 WordPress、Notion、Webflow、Shopify、Wix、WordPress.com、API Webhook、Framer、Ghost 等 9+ 平台，一键连接后可全自动发布。
+
+---
+
+### 1.2 进入 Dashboard 后的核心体验
+
+**内容策略生成**
+完成 onboarding 后弹出 "Creating a Content Strategy for You" 对话框（预计 8–16 分钟），实际完成后显示中文弹窗："您的 1 个月内容策略已准备就绪！"，并直接推荐第一篇文章的关键词（即 "Uttara Bhadrapada Nakshatra"）。
+
+**Content Planner（内容日历）**
+以月历形式展示，每个格子显示：文章标题（如 "Guide: Explainer - 占星学方面详解"）、月搜索量（Vol: 590）、难度（Diff: 11）。日历中清晰看到本月 30 篇的节奏安排，哪天发什么文章一目了然。有"预创建"按钮，但免费试用用户触发后直接跳出升级提示（**付费墙：预创建功能仅对付费用户开放**）。
+
+**搜索性能 Dashboard**
+接入 GSC 后，首页直接展示：关键词数量（10）、印象（1.9K）、平均 CTR（0.5%）、平均位置（25.7）、已索引页数（65）——这些是 AstrologyWiki 的真实数据，系统在 onboarding 时就拿到了。
+
+---
+
+### 1.3 产品矩阵与定价全景
+
+| 产品线 | 价格 | 核心内容 |
+|---|---|---|
+| 基础内容计划 | $99/月 | 30 篇自动发布文章，无限团队用户 |
+| 高级反向链接 | $199/月（原$400）| 每月 20+ 反向链接，400 分/月，自定义锚文字 |
+| 企业反向链接 | $899/月（原$1,200）| 每月 50+ 反向链接，1,400 分/月 |
+| SEO 工具构建器 | $199/月（原$800）| 5 个免费 SEO 工具，AI 生成，每月 20,000 次 LLM 请求 |
+| 人工精选服务 | $1,399/月（原$2,000）| 人工编辑审稿润色，真人专家介入 |
+| 目录提交（一次性）| $500/次（原$800）| 提交到 350+ 高质量目录 |
+
+**免费获取反向链接积分的"飞轮"方式**（产品内看到的增长钩子）：
+- 在网站添加 Outrank 徽标 → OK×2 积分
+- 在 LinkedIn/Facebook 分享 → 50 积分
+- 加入合作伙伴计划 → 50 积分
+- 在 G2 留评 → 50 积分
+- 发布 YouTube/TikTok 视频 → 200 积分
+
+---
+
+### 1.4 Outrank 生成的博文质量评估
+
+以 **《Uttara Bhadrapada Nakshatra: A Practical Guide》** 为样本：
+
+**优点：**
+- 3,000+ 字，结构完整（目录、锚点链接、H2/H3 层级清晰）
+- 视角克制务实：全文刻意避开"神秘主义"叙事，改用"心理调节风格"框架解读，角度有辨识度
+- 多个自定义 AI 图片（非通用素材）
+- 嵌入 YouTube 视频
+- 内链指向 AstrologyWiki 相关页面
+- 外链引用真实第三方来源（indastro.com、thenakshatras.com 等）
+- 文末 CTA 自然收束
+
+**局限：**
+- 语气统一但缺乏个人色彩（不是"你的"声音，是行业标准声音）
+- 表格偏多，部分读感偏学术论文而非内容营销
+- 文末暴露来源：`*Published via the Outrank app*`（病毒传播钩子，但对品牌建设有双刃剑效应）
+
+---
+
+## 二、Outrank.so 产品拆解：优势与劣势
+
+### 优势
+
+**1. Onboarding 设计是行业标杆**
+5 步引导、进度条可视、每步只做一件事、自动预填建议（受众分组）——整体体感媲美 Notion/Linear 的 onboarding。用户从注册到看到"内容策略已就绪"全程不超过 20 分钟，中间几乎没有认知负担。
+
+**2. "给我看结果，而不是给我看操作"的产品逻辑**
+用户不需要懂 SEO，不需要知道关键词、KD、DR 是什么。Outrank 直接呈现一个日历，告诉你"周五发这篇，搜索量 590，难度 11"。复杂性被完全包裹在系统内部。
+
+**3. 内容质量超出 AI 工具平均水准**
+从样本文章看，Outrank 的内容质量明显高于 Jasper 或 Writesonic 等通用写作工具，更接近 Surfer SEO + ChatGPT 深度配合的产出。它应该有系统级 Prompt 工程在运行，而不只是让 AI 自由发挥。
+
+**4. GSC 深度集成**
+在 onboarding 第 3 步就接入 GSC，Dashboard 首页直接展示 GSC 数据（位置、印象、CTR、收录数）。这是竞品中少见的"监控即时可用"体验。
+
+**5. 全自动发布管道**
+WordPress/Webflow/Shopify 等主流 CMS 一键接入，文章不需要手动复制粘贴。对于需要高频发布的场景，这个效率差异是质的提升。
+
+**6. 内置增长飞轮（referral + 积分）**
+文章尾部的"Published via Outrank"徽标、积分兑换反向链接、推荐返利计划——多层增长钩子设计成熟，用用户的内容为自己做广告，同时通过积分激励用户参与推广。
+
+---
+
+### 劣势
+
+**1. 内容农场风险**
+每月 30 篇自动发布，无人审核，是 Google Helpful Content Update 之后最危险的做法之一。2024 年后，大量采用类似策略的站点遭到批量降权。Outrank 把"量"包装成价值主张，实质上在押注 AI 生成内容的 Google 包容度，这个赌注风险越来越高。
+
+**2. 没有策略层——文章是孤立的**
+Outrank 的内容计划是"关键词→文章"的线性关系，没有 Pillar/Cluster/Series 架构。30 篇文章之间没有内链逻辑、没有主题权威建设路径，相互孤立。这导致网站 DR 可能长期徘徊，无法建立主题领域的 Topical Authority。
+
+**3. 反向链接交换存在根本性风险**
+Outrank 的"反向链接交换网络"本质上是一个有组织的互链系统，是 Google 明确禁止的 Link Scheme 之一。用积分兑换反向链接，和付费买链接在 Google 算法眼中并无区别。这对用户站点有潜在降权风险，但 Outrank 把它包装成了高价订阅的核心卖点。
+
+**4. 试用体验受付费墙干扰严重**
+"预创建"按钮→付费墙、内容日历高级功能→付费墙、反向链接功能→付费墙。免费试用用户在 20 分钟内会遭遇 3 次以上升级提示。试用价值被严重稀释，用户难以真正体验到产品核心价值。
+
+**5. 无 GEO/AIO 意识**
+没有任何关于 AI 搜索引擎优化（Perplexity、ChatGPT Search、AI Overview）的功能或提示。对于 2026 年的 SEO 产品来说，这是明显的认知盲区。
+
+**6. 没有地区流量精准控制**
+Outrank 的关键词筛选以全球搜索量为准，无法区分美国流量和印度流量。对于 AstrologyWiki 这类占星站，大量 Vedic/Nakshatra 词的流量主要来自印度，Outrank 不会告诉你这些文章对"美国 PV 目标"毫无贡献。
+
+**7. 人工判断完全缺席**
+没有心理安全规则、没有 Tier 分级审核、没有内容角度判断、没有 ICP 过滤。一切靠 AI 自动完成，适合"填内容"但不适合"建品牌"。
+
+---
+
+## 三、Outrank vs GenGrowth.ai 全面对比
+
+### 3.1 战略定位对比
+
+| 维度 | Outrank.so | GenGrowth.ai |
+|---|---|---|
+| 核心主张 | SEO 内容自动化，"躺着涨流量" | 增长作战系统，人机协作，可归因 |
+| 目标用户 | 任何有网站的人，尤其是不懂 SEO 的创业者 | 内容站/工具站创始人，有 SEO 基础意识 |
+| 产品阶段 | 成熟 SaaS，多定价层，有付费用户 | MVP 阶段，内部系统，正用 astrologywiki 跑通 |
+| 差异化赌注 | 量——30 篇/月全自动 | 质+策略——集群架构、地区精准、可归因 |
+| 对 AI 的态度 | AI = 替代人工 | AI = 放大人工判断 |
+
+---
+
+### 3.2 功能维度对比
+
+| 功能模块 | Outrank | GenGrowth | 差距评估 |
+|---|---|---|---|
+| Onboarding 体验 | ⭐⭐⭐⭐⭐ 5步向导，极流畅 | ⭐⭐ 目前无产品化入口 | **Outrank 大幅领先** |
+| 关键词研究 | ⭐⭐⭐ 自动化，但黑盒 | ⭐⭐⭐⭐⭐ 六源挖掘+四桶分级，方法论透明 | GenGrowth 方法论更深 |
+| 内容策略架构 | ⭐⭐ 词→文章，无集群 | ⭐⭐⭐⭐⭐ Cluster中心，Pillar/Series/Support | **GenGrowth 大幅领先** |
+| 内容生产 | ⭐⭐⭐⭐ 全自动，质量中上 | ⭐⭐⭐ AI+人审，有Tier，有psych safety | 各有优势（自动化 vs 质量控制）|
+| 内容日历可视化 | ⭐⭐⭐⭐⭐ 月历视图，直观 | ❌ 目前是周度 Markdown 清单 | **Outrank 大幅领先** |
+| GSC 集成 | ⭐⭐⭐⭐⭐ Onboarding 即接入 | ⭐⭐⭐ 有，但是手动粘贴 | Outrank 领先 |
+| GA4 集成 | ⭐⭐⭐ 接入但功能有限 | ⭐⭐ 还在建设中 | Outrank 略领先 |
+| 自动发布 | ⭐⭐⭐⭐⭐ 9+ 平台一键发布 | ❌ 暂无（人工发布）| **Outrank 大幅领先** |
+| 图片生成 | ⭐⭐⭐⭐ 5种风格+品牌色+标题图 | ❌ 无 | Outrank 领先 |
+| 地区流量控制 | ❌ 无（全球搜索量）| ⭐⭐⭐⭐⭐ us_share 三档标签+地区闸门 | **GenGrowth 大幅领先** |
+| 反向链接 | ⭐⭐ 积分交换系统（有风险）| ⭐⭐⭐⭐ 完整 DR 0-20 外链战略方案 | 方向不同，GenGrowth 更安全 |
+| GEO/AIO 优化 | ❌ 无 | ⭐⭐⭐⭐ 关键词 SOP 第八章，Perplexity 实测流程 | **GenGrowth 大幅领先** |
+| 归因系统 | ⭐⭐ 基础 GSC 指标 | ⭐⭐⭐⭐ UTM 指纹+渠道隔离（产品主张）| GenGrowth 领先 |
+| 竞品情报 | ⭐⭐⭐ Onboarding 抓竞品词 | ⭐⭐⭐ Day-0 诊断+SERP 弱度判断 | 持平 |
+| 心理安全/内容边界 | ❌ 无 | ⭐⭐⭐⭐⭐ Psych safety flag，附录B规则 | GenGrowth 独有 |
+| 定价透明度 | ⭐⭐⭐⭐ 多层清晰 | ⭐ 首页无价格 | Outrank 领先 |
+| 产品可发现性 | ⭐⭐⭐⭐ 750M+ views 社会证明 | ⭐⭐ 237 teams，14 countries | Outrank 领先 |
+
+---
+
+## 四、内容产出质量横向对比：GenGrowth 产出 vs Outrank 产出
+
+> 样本：GenGrowth 为 AstrologyWiki 生产的三篇文章（Purple Aura Meaning / June 2026 Planetary Transits / 8th House Meaning）vs Outrank 生成的《Uttara Bhadrapada Nakshatra: A Practical Guide》。
+
+### 4.1 三篇 AstrologyWiki 文章质量拆解
+
+**文章一：Purple Aura Meaning（量产线 · T2）**
+
+结构：定义层→读者痛点层→四色对比表→快速参考表（含"常见误读"列）→Reflection Prompts→CTA
+
+亮点：
+- 完全避开"你有特殊天赋"式神秘叙事，改用"注意力倾向"框架，与 PRD 中"astrology-informed self-discovery"定位高度一致
+- "常见误读"列是隐藏的 SEO 武器，直接回答用户会搜索的疑问，同时是 Perplexity 引用的理想形态
+- Psych safety 执行到位：全文无诊断性语言
+
+待优化：
+- 反思问题仅 3 个，精修线标准应有 5–7 个
+- 未确认是否有工具页 CTA（如 aura test 嵌入）
+
+---
+
+**文章二：June 2026 Planetary Transits（量产线 · T2，趋势词）**
+
+结构：事件标题（含月份+关键词全塞入）→三段式月度框架→7个天象事件表格→实操方法论（查宫位）→观察框架收束
+
+亮点：
+- **趋势词最佳实践教科书**——时间性极强，发布窗口窄但流量集中，符合关键词 SOP "发现即插队"原则
+- 事件表格结构化程度高，GEO/Perplexity 引用的理想形态
+- `Cancer Season Opens` 副标题写法，标题本身即内容预告，CTR 高于纯关键词标题
+- 把"6月30日同时发生满月+水逆"包装成 "The Loaded Day"，叙事节奏感强
+- 将内容从"信息"升级为"工具"：教用户查自己出生图中对应宫位，实操性强
+
+待优化：
+- 无星历图或互动工具嵌入，对行星过境话题，有工具的竞品会直接抢走 featured snippet
+- 纯文字对日历类内容略弱，可视化行星轨迹图是强化点
+
+---
+
+**文章三：8th House Meaning（精修线 · T1）**
+
+结构：Curiosity gap 标题→核心命题（上升盲点）→3×4对比表→5步实操阅读法→破除3个常见误解→权威引用→相关内链
+
+亮点：
+- **三篇中策略深度最高**，完全体现精修线"差异化角度"原则
+- 标题创意最强："The 8th House Meaning Your Ascendant Can't See"，curiosity gap + 技术钩子
+- "上升星座无法相位第8宫"作为核心框架，是真知识点而非噱头，对懂行用户有强吸引力
+- 破除误解结构天然吸引 AI 搜索引用——Perplexity 极喜欢"X 不等于 Y"纠偏型内容
+- 引用 Liz Greene 和 Howard Sasportas，直接建立 E-E-A-T 信号
+
+待优化：
+- 未见 Journal Prompts——按 PRD 要求，精修线 healing 页面必须有，如确实缺失需补 QA
+- 5步实操法无示例（如"以上升双子为例，第8宫落摩羯...意味着..."），有示例的文章转化更高
+
+---
+
+### 4.2 GenGrowth 产出 vs Outrank 产出横向对比
+
+| 维度 | AstrologyWiki 三篇（GenGrowth 产出）| Uttara Bhadrapada（Outrank 产出）|
+|---|---|---|
+| 字数 | 各约 1,500–2,500 字 | 3,000+ 字 |
+| 标题创意 | 第8宫篇极强（curiosity gap），其余中等 | 中规中矩（关键词 + "Practical Guide"）|
+| 差异化视角 | 明显（心理框架、注意力倾向、盲点概念）| 较明显（避神秘主义，改用心理调节框架）|
+| 结构清晰度 | 三篇均高 | 高 |
+| 实操性 | 高（5步法、反思问题、按宫位应用）| 中（有反思问题，但以知识讲解为主）|
+| GEO/AI 引用友好度 | 高（纠偏结构、表格、事件清单）| 中高 |
+| 品牌声音一致性 | 三篇风格统一，心理学视角贯穿全文 | 单篇声音一致，但与品牌整体关联度弱 |
+| Psych safety 执行 | 良好，无诊断性语言 | 良好 |
+| 内链质量 | 有，指向相关集群文章 | 有，指向 AstrologyWiki wiki 页面 |
+| AI 图片配置 | 未能通过网页确认 | 有多张 AI 生成图（5种风格系统）|
+| 发布水印 | 无，干净 | 有 `Published via the Outrank app` 尾注 |
+| 趋势词捕捉 | 有（June 2026 Planetary Transits）| 未见明确趋势词策略 |
+| 集群归属 | 有（每篇可追溯 cluster）| 无（文章孤立，无 cluster 归属）|
+
+**核心结论：GenGrowth 产出在差异化角度、品牌一致性、集群策略归属上优于 Outrank；Outrank 在篇幅、图片配置、全自动化效率上占优。**
+
+---
+
+### 4.3 可系统化复制的内容方法论
+
+从三篇文章中提炼出两个值得固化进 `content_angle` 标准模板的写法：
+
+**方法一：Curiosity Gap + 技术钩子标题**
+模板：`The [主题] [目标受众] Can't See`  
+适用：精修线 T1，目标是点击率和差异化，区别于同品类"XXX meaning explained"的通用标题
+
+**方法二：事件表格 + 实操宫位映射**
+模板：日期|行星/事件|解读|如何查你的星盘  
+适用：量产线趋势词（月度行星过境、年度预测类），结构化程度高，天然适合 GEO 引用和 featured snippet 抢占
+
+---
+
+## 五、结论：我们需要学什么、避免什么
+
+### 必须学习和借鉴（优先级排序）
+
+**P0 · 立刻行动**
+
+**1. 做一个真正的 Onboarding 产品化流程**
+Outrank 最大的竞争力不是内容质量，而是那 5 步 Onboarding。用户进来 20 分钟就能看到结果（关键词、日历、策略），这是激活率的核心驱动力。GenGrowth 目前的 MVP 是内部作战系统，但当进入 M2 阶段时，必须参考这个设计：分步引导、每步单一任务、自动预填建议、进度条可视、最后一步给一个"哇"的时刻（策略生成弹窗）。
+
+**2. 内容日历可视化**
+把目前的"周度 Markdown 行动清单"升级为月历视图，每个格子显示集群名、关键词、Vol、Diff，以及所属 track（量产/精修）。这是和客户沟通、让客户感受到"系统在运转"的最高效的 UI 设计。
+
+**3. Onboarding 时要求输入竞品 URL（至少 3 个）**
+Outrank 在第 2 步就强制要求填 3 个竞品 URL，这是关键词情报的核心来源。GenGrowth 的关键词 SOP 有竞品分析章节，但目前是人工流程，未来产品化时应该在第一步就收集这个输入。
+
+**4. 风格学习：让用户提供示例文章 URL**
+Outrank 通过 "Your best article examples URL" 自动学习写作风格，用户不需要写 Brief，只需要给 URL。这个设计极大降低了内容配置门槛。GenGrowth 的 content_angle 和 psych_safety 规则需要人工填，未来可以考虑先抓取示例文章，AI 起草 content_angle，人工审核。
+
+**P1 · 近期规划**
+
+**5. 自动发布集成（至少一个 CMS）**
+目前 GenGrowth 是人工发布，这是效率瓶颈。短期优先接入 WordPress（覆盖面最广），再考虑 Webflow（现代化站点常用）。自动发布是从"工具"变成"系统"的关键一步。
+
+**6. GSC 接入放到 Day-0 就完成**
+Outrank 在 Onboarding 第 3 步就接入 GSC，这意味着客户一进 Dashboard 就能看到自己的数据，立刻感受到价值。GenGrowth 目前 GA4/GSC 是"建设任务"，应该提前到 onboarding 流程本身。
+
+**7. 产品内的升级路径要有明确价值叙述**
+Outrank 每个付费层都有清晰的"你会得到什么"描述（20+ 反向链接/月，1,000-2,000 SEO 价值）。GenGrowth 未来定价时，每个层级的 ROI 叙述要比 Outrank 更精准，因为 GenGrowth 有归因系统，可以用数据说话。
+
+**P2 · 中长期**
+
+**8. 图片生成能力**
+Outrank 的品牌色+图片风格+标题叠加图是一个完整的内容视觉系统。GenGrowth 在 M2+ 阶段，如果做内容产出平台，这个功能是必须的（尤其是 Title-based Featured Image，SEO + 社媒双用途）。
+
+**9. 内容改善调度（Improvement Schedule）**
+Outrank 可以设置哪几天自动刷新旧文、自动推送改善到 CMS。这对应 GenGrowth PRD 中的 Day 14/30/60 刷新规则，未来可以把人工刷新决策产品化成自动调度。
+
+---
+
+### 必须避免的坑
+
+**1. 不做"量产即正义"的定位**
+Outrank 的"30 篇/月全自动"是一把双刃剑：在 Google 算法趋严的环境下，这是高风险定位。GenGrowth 的量产线+精修线双轨模型是正确的，必须坚守。永远不要把"篇数"作为核心指标对外宣传，应该宣传"集群覆盖度"和"美国 PV 增长"。
+
+**2. 不做积分式反向链接网络**
+Outrank 的反向链接交换是 Google 明确禁止的 Link Scheme，用户在不知情的情况下承担了降权风险。GenGrowth 的外链策略（Guest Post + Digital PR + Broken Link + Resource Page）虽然慢，但是白帽且可持续的。这是我们的护城河，不要为了快速变现而妥协。
+
+**3. 不要让付费墙出现在免费试用的核心动作上**
+Outrank 的"预创建"按钮在试用期完全封锁，用户点击后只看到升级弹窗，体验很差。GenGrowth 未来做产品时，Free tier 应该让用户真正体验到完整的一次核心价值循环（哪怕只有一个集群、几篇文章），而不是给他们看一个漂亮的界面然后每次点击都要付钱。
+
+**4. 不要做"任何行业都适用"的通用 SEO 工具**
+Outrank 是完全行业无感知的，它不知道 Nakshatra 是印度流量为主、也不知道 healing 内容需要心理安全边界。GenGrowth 的垂直理解和 psych safety 规则是真正的差异化，这是对"创始人/增长合伙人"定位最重要的护城河。不要为了扩大 TAM 而稀释这个能力。
+
+**5. 不要把目录提交作为服务**
+$500 一次提交 350 个目录是 2015 年的 SEO 战术，在 2026 年这是一个伤害品牌信誉的服务。Outrank 在产品矩阵里卖这个，是产品扩张时的变现焦虑，我们不应该学。
+
+---
+
+## 六、一句话总结
+
+Outrank 是一个**极度流畅的内容自动化工具**，它赢在产品体验和部署速度，但它卖的是"量"和"懒"。GenGrowth 要赢的是"策略深度"和"可归因的增长"——**Outrank 告诉用户"我帮你发文章"，GenGrowth 要告诉用户"我帮你知道为什么有效"**。
+
+最值得立刻借鉴的一个动作：**把 5 步 Onboarding + 内容日历可视化列入 M2 产品路线图的第一优先级**。这两个 UX 设计决定了用户是否能在 30 分钟内感受到 GenGrowth 的价值，是激活率的核心杠杆。
+
+---
+
+*分析基于：Outrank.so 官网 + 真实试用截图（24张）+ 生成博文样本 + AstrologyWiki 三篇实际内容 + GenGrowth MVP PRD v0.7 + 关键词研究 SOP + 外链策略方案*  
+*数据截止：2026-06-04*
