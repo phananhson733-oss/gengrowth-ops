@@ -24,3 +24,4 @@ updated: 2026-06-05
 | 2026-06-04 | PG-NODE-007 | north-node-in-sagittarius | North Node In Sagittarius | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-sagittarius | published |
 | 2026-06-04 | PG-NODE-008 | cancer-north-node | Cancer North Node | julian-thorne | https://www.astrologywiki.com/en/wiki/cancer-north-node | published |
 | 2026-06-05 | PG-MYTH-002 | juno-astrology | Juno Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/juno-astrology | published |
+| 2026-06-05 | PG-AYUR-001 | how-to-balance-vata-dosha | How To Balance Vata Dosha | aditi-sharma | https://www.astrologywiki.com/en/wiki/how-to-balance-vata-dosha | published |
