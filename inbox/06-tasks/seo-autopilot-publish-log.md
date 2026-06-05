@@ -28,3 +28,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-SOLAR-002 | solar-return | Solar Return | marcus-orion | https://www.astrologywiki.com/en/wiki/solar-return | published |
 | 2026-06-05 | PG-AYUR-002 | 3-gunas | 3 Gunas | aditi-sharma | https://www.astrologywiki.com/en/wiki/3-gunas | published |
 | 2026-06-05 | PG-EMPATH-002 | famous-highly-sensitive-person | Famous Highly Sensitive Person | elena-vane | https://www.astrologywiki.com/en/wiki/famous-highly-sensitive-person | published |
+| 2026-06-05 | PG-EMPATH-004 | signs-you-re-a-highly-sensitive-person | Signs You're A Highly Sensitive Person | elena-vane | https://www.astrologywiki.com/en/wiki/signs-you-re-a-highly-sensitive-person | published |
