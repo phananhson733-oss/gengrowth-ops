@@ -126,7 +126,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-NODE-008 cancer north node
 - [x] PG-MYTH-002 juno astrology
 - [ ] PG-TRANS-006 mecury in retrograde
-- [ ] PG-AI-001 ai astrology app
+- [x] PG-AI-001 ai astrology app
 - [x] PG-AYUR-001 how to balance vata dosha
 - [x] PG-SOLAR-002 solar return
 - [x] PG-AYUR-002 3 gunas

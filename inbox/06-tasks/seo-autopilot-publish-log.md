@@ -31,3 +31,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-EMPATH-004 | signs-you-re-a-highly-sensitive-person | Signs You're A Highly Sensitive Person | elena-vane | https://www.astrologywiki.com/en/wiki/signs-you-re-a-highly-sensitive-person | published |
 | 2026-06-05 | PG-NAKSH-004 | pushya-nakshatra | Pushya Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/pushya-nakshatra | published |
 | 2026-06-05 | PG-NAKSH-001 | nakshatra | Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/nakshatra | published |
+| 2026-06-05 | PG-AI-001 | ai-astrology-app | Ai Astrology App | marcus-orion | https://www.astrologywiki.com/en/wiki/ai-astrology-app | published |
