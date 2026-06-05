@@ -134,16 +134,16 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月5日 (周五) - 计划
 **状态**：`计划中` (计划 10 篇)
-- [x] PG-NODE-005 south node
-- [x] PG-NODE-006 north node in gemini
-- [x] PG-NODE-007 north node in sagittarius
-- [x] PG-NODE-008 cancer north node
-- [x] PG-MYTH-002 juno astrology
-- [ ] PG-TRANS-006 mecury in retrograde
-- [ ] PG-AI-001 ai astrology app
-- [x] PG-AYUR-001 how to balance vata dosha
-- [x] PG-SOLAR-002 solar return
-- [x] PG-AYUR-002 3 gunas
+- [ ] PG-AYUR-003 sattva rajas tamas
+- [ ] PG-RISE-001 libra rising houses
+- [ ] PG-RISE-002 leo rising houses
+- [ ] PG-RISE-003 scorpio rising houses
+- [ ] PG-MOON-004 full moon June 2026
+- [ ] PG-MOON-005 full moon July 2026
+- [ ] PG-MOON-006 moon journal
+- [ ] PG-MOON-007 full moon journal prompts
+- [ ] PG-MOON-008 new moon journal prompts
+- [ ] PG-JOURNAL-001 journal prompts
 
 ---
 
