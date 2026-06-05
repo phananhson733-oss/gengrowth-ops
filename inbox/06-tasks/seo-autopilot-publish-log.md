@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-04
+updated: 2026-06-05
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -23,3 +23,4 @@ updated: 2026-06-04
 | 2026-06-04 | PG-NODE-006 | north-node-in-gemini | North Node In Gemini | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-gemini | published |
 | 2026-06-04 | PG-NODE-007 | north-node-in-sagittarius | North Node In Sagittarius | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-sagittarius | published |
 | 2026-06-04 | PG-NODE-008 | cancer-north-node | Cancer North Node | julian-thorne | https://www.astrologywiki.com/en/wiki/cancer-north-node | published |
+| 2026-06-05 | PG-MYTH-002 | juno-astrology | Juno Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/juno-astrology | published |
