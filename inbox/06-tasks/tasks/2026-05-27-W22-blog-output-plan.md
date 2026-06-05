@@ -141,7 +141,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-MOON-004 full moon June 2026
 - [ ] PG-MOON-005 full moon July 2026
 - [x] PG-MOON-006 moon journal
-- [ ] PG-MOON-007 full moon journal prompts
+- [x] PG-MOON-007 full moon journal prompts
 - [ ] PG-MOON-008 new moon journal prompts
 - [ ] PG-JOURNAL-001 journal prompts
 
