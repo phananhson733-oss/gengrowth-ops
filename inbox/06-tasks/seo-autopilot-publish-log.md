@@ -39,3 +39,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-MOON-004 | full-moon-june-2026 | Full Moon June 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-june-2026 | published |
 | 2026-06-05 | PG-MOON-006 | moon-journal | Moon Journal | marcus-orion | https://www.astrologywiki.com/en/wiki/moon-journal | published |
 | 2026-06-05 | PG-MOON-007 | full-moon-journal-prompts | Full Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-journal-prompts | published |
+| 2026-06-05 | PG-MOON-008 | new-moon-journal-prompts | New Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/new-moon-journal-prompts | published |
