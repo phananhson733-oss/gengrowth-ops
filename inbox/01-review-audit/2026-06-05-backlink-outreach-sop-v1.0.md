@@ -48,9 +48,9 @@ tags:
 在正式外展之前，让 Google 识别 AstrologyWiki 是一个真实品牌实体。
 
 **执行清单：**
-- [ ] Pinterest — 建立品牌账号，主页留官网链接
+- [x] Pinterest — 建立品牌账号，主页留官网链接
 - [ ] X（Twitter）— 建立品牌账号，简介留官网链接
-- [ ] Medium — 建立作者账号，留官网链接
+- [x] Medium — 建立作者账号，留官网链接
 - [ ] YouTube — 建立频道（可暂无内容）
 - [ ] Instagram — 建立账号
 - [ ] LinkedIn — 建立品牌页
