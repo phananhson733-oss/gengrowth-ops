@@ -43,7 +43,7 @@ tags:
 
 ---
 
-## STEP 0：枕头链接（第1个月必做，约 2 小时）
+## STEP 0：枕头链接（第1个月必做）
 
 在正式外展之前，让 Google 识别 AstrologyWiki 是一个真实品牌实体。
 
@@ -152,14 +152,14 @@ inurl:links "birth chart" astrology
 
 ### 2.1 已验证目标站点
 
-| 站点 | 主题方向 | 联系方式 | 优先级 |
-|---|---|---|---|
-| theglobalhues.com | 占星/灵性/生活方式 | info@theglobalhues.com | 🔴 高 |
-| innermasteryhub.com | 灵性/情绪健康/个人成长 | 网站表单 | 🔴 高 |
-| astronidan.com | 占星技术/AI占星 | 网站表单 | 🔴 高 |
-| astrosconnect.com | 占星/塔罗/灵性 | marketing@astrosconnect.com | 🟡 中 |
-| globgyan.com | 占星/生活方式 | 网站表单 | 🟡 中 |
-| astrologify.com | 占星评测/工具 | 联系页面 | 🟡 中 |
+| 站点                  | 主题方向         | 联系方式                        | 优先级  |
+| ------------------- | ------------ | --------------------------- | ---- |
+| theglobalhues.com   | 占星/灵性/生活方式   | info@theglobalhues.com      | 🔴 高 |
+| innermasteryhub.com | 灵性/情绪健康/个人成长 | 网站表单                        | 🔴 高 |
+| astronidan.com      | 占星技术/AI占星    | 网站表单                        | 🔴 高 |
+| astrosconnect.com   | 占星/塔罗/灵性     | marketing@astrosconnect.com | 🟡 中 |
+| globgyan.com        | 占星/生活方式      | 网站表单                        | 🟡 中 |
+| astrologify.com     | 占星评测/工具      | 联系页面                        | 🟡 中 |
 
 ### 2.2 外展邮件模板
 
