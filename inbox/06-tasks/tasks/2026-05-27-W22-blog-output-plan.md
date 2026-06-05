@@ -93,7 +93,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-EMPATH-001 sensitive person → slug `highly-sensitive-person`
 - [x] PG-EMPATH-002 famous highly sensitive person
 - [x] PG-EMPATH-003 highly sensitive person vs autism
-- [x] PG-EMPATH-004 signs you're a highly sensitive person
+- [ ] PG-EMPATH-004 signs you're a highly sensitive person
 - [x] PG-MAHADASHA-001 mahadasha
 - [x] PG-MAHADASHA-002 ketu mahadasha
 - [x] PG-MAHADASHA-003 rahu mahadasha

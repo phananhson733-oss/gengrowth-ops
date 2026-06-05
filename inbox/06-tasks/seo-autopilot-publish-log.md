@@ -27,3 +27,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-AYUR-001 | how-to-balance-vata-dosha | How To Balance Vata Dosha | aditi-sharma | https://www.astrologywiki.com/en/wiki/how-to-balance-vata-dosha | published |
 | 2026-06-05 | PG-SOLAR-002 | solar-return | Solar Return | marcus-orion | https://www.astrologywiki.com/en/wiki/solar-return | published |
 | 2026-06-05 | PG-AYUR-002 | 3-gunas | 3 Gunas | aditi-sharma | https://www.astrologywiki.com/en/wiki/3-gunas | published |
+| 2026-06-05 | PG-EMPATH-002 | famous-highly-sensitive-person | Famous Highly Sensitive Person | elena-vane | https://www.astrologywiki.com/en/wiki/famous-highly-sensitive-person | published |
