@@ -40,3 +40,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-MOON-006 | moon-journal | Moon Journal | marcus-orion | https://www.astrologywiki.com/en/wiki/moon-journal | published |
 | 2026-06-05 | PG-MOON-007 | full-moon-journal-prompts | Full Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-journal-prompts | published |
 | 2026-06-05 | PG-MOON-008 | new-moon-journal-prompts | New Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/new-moon-journal-prompts | published |
+| 2026-06-05 | PG-JOURNAL-001 | journal-prompts | Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/journal-prompts | published |
