@@ -134,7 +134,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月5日 (周五) - 计划
 **状态**：`计划中` (计划 10 篇)
-- [ ] PG-AYUR-003 sattva rajas tamas
+- [x] PG-AYUR-003 sattva rajas tamas
 - [ ] PG-RISE-001 libra rising houses
 - [ ] PG-RISE-002 leo rising houses
 - [ ] PG-RISE-003 scorpio rising houses
