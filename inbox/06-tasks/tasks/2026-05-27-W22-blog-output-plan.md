@@ -132,5 +132,19 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-AYUR-002 3 gunas
 
 ---
+## ⚪ 6月5日 (周五) - 计划
+**状态**：`计划中` (计划 10 篇)
+- [x] PG-NODE-005 south node
+- [x] PG-NODE-006 north node in gemini
+- [x] PG-NODE-007 north node in sagittarius
+- [x] PG-NODE-008 cancer north node
+- [x] PG-MYTH-002 juno astrology
+- [ ] PG-TRANS-006 mecury in retrograde
+- [ ] PG-AI-001 ai astrology app
+- [x] PG-AYUR-001 how to balance vata dosha
+- [x] PG-SOLAR-002 solar return
+- [x] PG-AYUR-002 3 gunas
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
