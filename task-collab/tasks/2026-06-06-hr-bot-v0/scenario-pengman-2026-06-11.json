@@ -1,0 +1,51 @@
+{
+  "employee_name": "彭满",
+  "employee_email": "2967267838@qq.com",
+  "role": "AI内容运营",
+  "employment_type": "实习生",
+  "report_date": "2026-06-11",
+  "report_time": "10:00",
+  "report_location": "广州市天河区中山大道建工路 4 号未来社区 PCI A座 4 楼",
+  "manager": "王玲",
+  "company": "广州进格智能科技有限公司",
+  "work_city": "广州",
+  "internship_end": "2026-07-01",
+  "direct_send_scope": [
+    "信息采集",
+    "材料清单",
+    "报到提醒",
+    "员工手册提醒"
+  ],
+  "materials": [
+    "学生证原件（现场核验后当场归还）",
+    "招商银行储蓄卡（一类卡）复印件 1 张（复印件上请手写账号并签署本人姓名）",
+    "身份证复印件 1 张（正反两面复印在同一页）",
+    "入职体检报告原件（三甲医院或正规体检机构，近 3 个月内）",
+    "学校出具的实习证明或介绍信（如学校有要求，请提前准备；如无要求可不带）"
+  ],
+  "signing_rule": "入职当天打印新版整份《实习生录用通知》，由彭满签字、公司盖章，作为当前阶段实习签署文件；拿到毕业证后再签正式劳动合同。",
+  "stale_offer_date": "2026-06-02",
+  "authoritative_date_source": "docs/records/lynne-wang/2026-06-05-chat-record.md Q6",
+  "sensitive_review_topics": [
+    "offer",
+    "薪酬",
+    "合同新增条款",
+    "保密/IP 条款变更",
+    "录用/不录用",
+    "转正",
+    "调薪",
+    "绩效结论",
+    "法律/财务/HR 承诺"
+  ],
+  "source_paths": {
+    "hr_lead": "/Users/awayer_mini/gengrowth-wiki/.claude/agents/hr-lead.md",
+    "onboarding_sop": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/新员工入职SOP.md",
+    "employee_info_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/员工信息采集文本模板.md",
+    "register_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/入职登记表-模板.md",
+    "receipt_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/员工入职材料签收表-模板.md",
+    "device_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/设备账号准备清单-模板.md",
+    "offer_mail": "/Users/awayer_mini/gengrowth-wiki/实例库/people-ops/offers/彭满/offer邮件-彭满.md",
+    "intern_offer": "/Users/awayer_mini/gengrowth-wiki/实例库/people-ops/offers/彭满/实习生录用通知-彭满.md",
+    "chat_record": "/Users/awayer_mini/gengrowth-wiki/docs/records/lynne-wang/2026-06-05-chat-record.md"
+  }
+}

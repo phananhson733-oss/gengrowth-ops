@@ -1,0 +1,39 @@
+runtime_shape:
+  profile: hr-lead
+  gateway: existing-feishu-gateway
+  mode: dry-run
+  outbound_enabled: false
+  note: 先在 sandbox home 演练，确认后再迁到正式 profile
+route_rules:
+  - trigger: employee-added-to-feishu
+    guard: employee_record_confirmed
+    action: send-employee-info-collection-preview
+  - trigger: onboarding-confirmed
+    guard: allow-direct-send
+    action: send-materials-list-preview
+  - trigger: D-1-18:00
+    guard: allow-direct-send
+    action: send-reporting-reminder-preview
+  - trigger: D-Day-09:00
+    guard: allow-direct-send
+    action: send-handbook-reminder-preview
+direct_send_scope:
+  - 信息采集
+  - 材料清单
+  - 报到提醒
+  - 员工手册提醒
+human_review_required:
+  - offer
+  - 薪酬
+  - 合同新增条款
+  - 保密/IP 条款变更
+  - 录用/不录用
+  - 转正
+  - 调薪
+  - 绩效结论
+  - 法律/财务/HR 承诺
+live_write_targets:
+  instance_zone: 实例库/people-ops/onboarding/彭满/
+  standard_zone: docs/05-governance/people-ops/
+dry_run_write_targets:
+  artifact_root: task-collab/tasks/2026-06-06-hr-bot-v0/

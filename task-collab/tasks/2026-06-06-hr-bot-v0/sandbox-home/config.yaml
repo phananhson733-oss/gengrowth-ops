@@ -1,0 +1,13 @@
+timezone: Asia/Shanghai
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+security:
+  redact_secrets: true
+approvals:
+  mode: off
+platforms:
+  feishu:
+    enabled: false
+  slack:
+    enabled: false

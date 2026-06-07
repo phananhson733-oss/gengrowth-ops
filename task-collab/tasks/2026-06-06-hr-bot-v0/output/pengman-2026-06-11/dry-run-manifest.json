@@ -1,0 +1,153 @@
+{
+  "artifact_root": "/Users/awayer_mini/gengrowth-wiki/task-collab/tasks/2026-06-06-hr-bot-v0",
+  "scenario": {
+    "employee_name": "彭满",
+    "employee_email": "2967267838@qq.com",
+    "role": "AI内容运营",
+    "employment_type": "实习生",
+    "report_date": "2026-06-11",
+    "report_time": "10:00",
+    "report_location": "广州市天河区中山大道建工路 4 号未来社区 PCI A座 4 楼",
+    "manager": "王玲",
+    "company": "广州进格智能科技有限公司",
+    "work_city": "广州",
+    "internship_end": "2026-07-01",
+    "direct_send_scope": [
+      "信息采集",
+      "材料清单",
+      "报到提醒",
+      "员工手册提醒"
+    ],
+    "materials": [
+      "学生证原件（现场核验后当场归还）",
+      "招商银行储蓄卡（一类卡）复印件 1 张（复印件上请手写账号并签署本人姓名）",
+      "身份证复印件 1 张（正反两面复印在同一页）",
+      "入职体检报告原件（三甲医院或正规体检机构，近 3 个月内）",
+      "学校出具的实习证明或介绍信（如学校有要求，请提前准备；如无要求可不带）"
+    ],
+    "signing_rule": "入职当天打印新版整份《实习生录用通知》，由彭满签字、公司盖章，作为当前阶段实习签署文件；拿到毕业证后再签正式劳动合同。",
+    "stale_offer_date": "2026-06-02",
+    "authoritative_date_source": "docs/records/lynne-wang/2026-06-05-chat-record.md Q6"
+  },
+  "source_paths": {
+    "hr_lead": "/Users/awayer_mini/gengrowth-wiki/.claude/agents/hr-lead.md",
+    "onboarding_sop": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/新员工入职SOP.md",
+    "employee_info_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/员工信息采集文本模板.md",
+    "register_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/入职登记表-模板.md",
+    "receipt_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/员工入职材料签收表-模板.md",
+    "device_template": "/Users/awayer_mini/gengrowth-wiki/docs/05-governance/people-ops/onboarding/templates/设备账号准备清单-模板.md",
+    "offer_mail": "/Users/awayer_mini/gengrowth-wiki/实例库/people-ops/offers/彭满/offer邮件-彭满.md",
+    "intern_offer": "/Users/awayer_mini/gengrowth-wiki/实例库/people-ops/offers/彭满/实习生录用通知-彭满.md",
+    "chat_record": "/Users/awayer_mini/gengrowth-wiki/docs/records/lynne-wang/2026-06-05-chat-record.md"
+  },
+  "validations": {
+    "feishu_disabled_in_root_config": true,
+    "feishu_disabled_in_profile_config": true,
+    "home_channel_is_placeholder": true,
+    "writes_inside_artifact_root": true,
+    "employee_messages_omit_salary_numbers": true,
+    "employee_messages_only_cover_allowed_scope": true
+  },
+  "generated_files": [
+    {
+      "path": "../2026-06-06-hr-bot-v0-task.md",
+      "sha256": "cdaed9c866a96185917c8790603169f66fd642921d0c21970dd5645f2612a5da",
+      "bytes": 2179
+    },
+    {
+      "path": "README.md",
+      "sha256": "4125af6a3f459e5408de553910e2403a1df4e6129ed79df7b55a18666c5e8dfe",
+      "bytes": 2854
+    },
+    {
+      "path": "feishu-routing-draft.yaml",
+      "sha256": "6b8ee701a1e8be0da4ebfad0a2fb785b2792287f347424b503185861553dd5e8",
+      "bytes": 1095
+    },
+    {
+      "path": "output/pengman-2026-06-11/D-Day执行清单-彭满.md",
+      "sha256": "062e03e399448543a2916eba3aa6ec0f730649e88b2b058520ed80b4bca2a0d1",
+      "bytes": 581
+    },
+    {
+      "path": "output/pengman-2026-06-11/dry-run-report.md",
+      "sha256": "69b08d687824b9b8859ce8470774ec9d4a34a447f093d60b590a1ba496c8481b",
+      "bytes": 803
+    },
+    {
+      "path": "output/pengman-2026-06-11/live-落位映射.md",
+      "sha256": "36a4588d5504e190ad2307a56190a46ec76225f07cfc91d31b98c595fed52d8f",
+      "bytes": 483
+    },
+    {
+      "path": "output/pengman-2026-06-11/入职材料清单消息-彭满.md",
+      "sha256": "1571a7566ddd7e6a34758491ebe4b9ceb559aa1a5450c5dc1060d7651d5017b4",
+      "bytes": 850
+    },
+    {
+      "path": "output/pengman-2026-06-11/内部协作消息-lynne.md",
+      "sha256": "e00f912432c9e0b46e97fd8fa7d581792f66e3dfc7b017a8469bfd717f709549",
+      "bytes": 449
+    },
+    {
+      "path": "output/pengman-2026-06-11/内部协作消息-wzb.md",
+      "sha256": "a9c04fbe81d0a9d23d0ea682d95443942e965b5bc01b5f350316819158d9811b",
+      "bytes": 390
+    },
+    {
+      "path": "output/pengman-2026-06-11/员工信息采集消息-彭满.md",
+      "sha256": "1faa75c49a47804b5089cab15886f9ea0aba60acaa12cebea31db5c1489f1e9d",
+      "bytes": 1596
+    },
+    {
+      "path": "output/pengman-2026-06-11/员工入职材料签收表-彭满.md",
+      "sha256": "9d6558a4a2d61761c637b8f241fed39d95dc2cce07b7351d034b23fe15e79092",
+      "bytes": 1214
+    },
+    {
+      "path": "output/pengman-2026-06-11/员工入职登记-彭满.md",
+      "sha256": "0636046f2dde18405661d5534034fe87269fad413518920f67ec968efd12fa97",
+      "bytes": 2909
+    },
+    {
+      "path": "output/pengman-2026-06-11/员工手册提醒-彭满.md",
+      "sha256": "d094850a0166d07a446a15b1aebf8eafb65e071160d48873f7f52138ca9f6b70",
+      "bytes": 430
+    },
+    {
+      "path": "output/pengman-2026-06-11/报到提醒-彭满.md",
+      "sha256": "940f281433f46ded908fcd215a5284f5a3ed42fc18844a51789f471b1c2bf841",
+      "bytes": 513
+    },
+    {
+      "path": "output/pengman-2026-06-11/设备账号准备清单-彭满.md",
+      "sha256": "8f462599b36439e2a1709d09088ca1ea15dd5c6dab648aaaecc8c8afed725fa2",
+      "bytes": 2714
+    },
+    {
+      "path": "sandbox-home/config.yaml",
+      "sha256": "cd84db5f3164ac609178c2f617e015f8cb3768e9ac599c6f062aba5e44c10acd",
+      "bytes": 209
+    },
+    {
+      "path": "sandbox-home/profiles/hr-lead/SOUL.md",
+      "sha256": "77d47127f079ab3793f242fd466b74031bb53e6967435cbe75bafa9051291d70",
+      "bytes": 1453
+    },
+    {
+      "path": "sandbox-home/profiles/hr-lead/config.yaml",
+      "sha256": "88fbefc4154c8e583282c7bde2bbbd265e13d2bd92e6164d30975126d614648e",
+      "bytes": 929
+    },
+    {
+      "path": "sandbox-home/profiles/hr-lead/skills/hr-onboarding-v0/SKILL.md",
+      "sha256": "828a23b288c2796f724b4dce7a0d6cda0c9ab353e56f2ea3d02a7b1ed0c709a7",
+      "bytes": 1495
+    },
+    {
+      "path": "scenario-pengman-2026-06-11.json",
+      "sha256": "11944e8b7e8d1c39cc15c12ab027c0e0194032fcad09c3b8f8a5f17004128250",
+      "bytes": 2695
+    }
+  ]
+}

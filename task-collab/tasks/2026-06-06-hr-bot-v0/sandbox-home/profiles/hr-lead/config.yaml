@@ -1,0 +1,47 @@
+# dry-run profile draft only; do not copy to production without real toolset validation
+_config_version: 16
+group_sessions_per_user: true
+isolate_platforms: true
+streaming:
+  enabled: false
+timezone: Asia/Shanghai
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+platform_toolsets:
+  cli:
+    - file
+    - kanban
+  telegram: []
+  discord: []
+  whatsapp: []
+  slack: []
+  signal: []
+  homeassistant: []
+  feishu:
+    - file
+    - kanban
+    - feishu_doc
+platforms:
+  feishu:
+    enabled: false
+    home_channel:
+      platform: feishu
+      chat_id: DRY_RUN_ONLY
+      name: hr-lead-dry-run
+    extra:
+      require_mention: true
+      default_group_policy: closed
+  slack:
+    enabled: false
+collaboration:
+  enabled: true
+  allow_direct_profile_mentions: false
+  default_platform: feishu
+security:
+  redact_secrets: true
+kanban:
+  dispatch_in_gateway: false
+fallback_model:
+  provider: openai-codex
+  model: gpt-5.4
