@@ -15,13 +15,13 @@
 
 ## 1. 已修复 → 验证通过，PASS
 
-| 报告/Sheet 主张 | 实测当前状态（Googlebot UA） | 结论 |
-|---|---|---|
-| ⚠️「裸 SPA，内容重写无意义」 | 92 个待修 URL 中 **86 个 wiki 页已预渲染**，可见 3k–17k 字正文 + `index,follow` | 前提不成立，**PASS** |
-| Sheet 71 行「SSG + canonical」 | wiki 页 SSG 全自动（`generate-seo-pages.mjs` 读 `wiki.ts` 循环生成） | 已做，**PASS** |
-| wiki soft-404 | `#__WIKI_INITIAL__` bootstrap 注入治本 | 已做，**PASS** |
-| sitemap lastmod 抖动 | 改内容签名 manifest 驱动 | 已做，**PASS** |
-| robots 误封 JS/CSS | robots.txt 干净，显式 `Allow: /wiki` | 本就没问题，**PASS** |
+| 报告/Sheet 主张                 | 实测当前状态（Googlebot UA）                                            | 结论             |
+| --------------------------- | --------------------------------------------------------------- | -------------- |
+| ⚠️「裸 SPA，内容重写无意义」           | 92 个待修 URL 中 **86 个 wiki 页已预渲染**，可见 3k–17k 字正文 + `index,follow` | 前提不成立，**PASS** |
+| Sheet 71 行「SSG + canonical」 | wiki 页 SSG 全自动（`generate-seo-pages.mjs` 读 `wiki.ts` 循环生成）       | 已做，**PASS**    |
+| wiki soft-404               | `#__WIKI_INITIAL__` bootstrap 注入治本                              | 已做，**PASS**    |
+| sitemap lastmod 抖动          | 改内容签名 manifest 驱动                                               | 已做，**PASS**    |
+| robots 误封 JS/CSS            | robots.txt 干净，显式 `Allow: /wiki`                                 | 本就没问题，**PASS** |
 
 **验证命令（可复跑）**：
 ```bash
