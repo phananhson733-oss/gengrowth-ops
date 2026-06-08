@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-05
+updated: 2026-06-08
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -42,3 +42,4 @@ updated: 2026-06-05
 | 2026-06-05 | PG-MOON-007 | full-moon-journal-prompts | Full Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-journal-prompts | published |
 | 2026-06-05 | PG-MOON-008 | new-moon-journal-prompts | New Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/new-moon-journal-prompts | published |
 | 2026-06-05 | PG-JOURNAL-001 | journal-prompts | Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/journal-prompts | published |
+| 2026-06-08 | PG-JOURNAL-002 | shadow-work-journal-prompts | Shadow Work Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/shadow-work-journal-prompts | published |
