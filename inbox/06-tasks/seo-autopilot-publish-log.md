@@ -47,3 +47,4 @@ updated: 2026-06-08
 | 2026-06-08 | PG-SYNASTRY-001 | composite-chart-calculator | Composite Chart Calculator | marcus-orion | https://www.astrologywiki.com/en/wiki/composite-chart-calculator | published |
 | 2026-06-08 | PG-SYNASTRY-002 | synastry-chart-compatibility | Synastry Chart Compatibility | marcus-orion | https://www.astrologywiki.com/en/wiki/synastry-chart-compatibility | published |
 | 2026-06-08 | PG-NAKSH-007 | mrigashira-nakshatra | Mrigashira Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/mrigashira-nakshatra | published |
+| 2026-06-08 | PG-NAKSH-008 | swati-nakshatra | Swati Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/swati-nakshatra | published |
