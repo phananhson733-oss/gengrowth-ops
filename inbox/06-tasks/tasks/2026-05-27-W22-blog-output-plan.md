@@ -156,7 +156,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-NAKSH-007 mrigashira nakshatra
 - [x] PG-NAKSH-008 swati nakshatra
 - [x] PG-NAKSH-009 hasta nakshatra
-- [ ] PG-NAKSH-010 krittika nakshatra
+- [x] PG-NAKSH-010 krittika nakshatra
 - [x] PG-NAKSH-011 ashwini nakshatra
 
 ---
