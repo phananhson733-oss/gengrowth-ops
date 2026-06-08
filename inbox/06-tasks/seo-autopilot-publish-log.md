@@ -37,6 +37,7 @@ updated: 2026-06-05
 | 2026-06-05 | PG-RISE-002 | leo-rising-houses | Leo Rising Houses | marcus-orion | https://www.astrologywiki.com/en/wiki/leo-rising-houses | published |
 | 2026-06-05 | PG-RISE-003 | scorpio-rising-houses | Scorpio Rising Houses | marcus-orion | https://www.astrologywiki.com/en/wiki/scorpio-rising-houses | published |
 | 2026-06-05 | PG-MOON-004 | full-moon-june-2026 | Full Moon June 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-june-2026 | published |
+| 2026-06-05 | PG-MOON-005 | full-moon-july-2026 | Full Moon July 2026 Peaks After Mercury Retrograde — Use It to Integrate What Changed | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-july-2026 | published |
 | 2026-06-05 | PG-MOON-006 | moon-journal | Moon Journal | marcus-orion | https://www.astrologywiki.com/en/wiki/moon-journal | published |
 | 2026-06-05 | PG-MOON-007 | full-moon-journal-prompts | Full Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/full-moon-journal-prompts | published |
 | 2026-06-05 | PG-MOON-008 | new-moon-journal-prompts | New Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/new-moon-journal-prompts | published |

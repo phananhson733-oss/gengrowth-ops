@@ -3,12 +3,12 @@ project: astrologywiki
 type: content-plan
 status: done
 owner: Ma Boyang
-updated: 2026-06-04
+updated: 2026-06-07
 ---
 
 # 📅 W22 博客内容输出计划 (10篇/日)
 
-> **当前状态**：26日任务（质检中）已入库；27日任务（写作中）正在执行。
+> **当前状态**：W22 计划内条目已全部发布上线；任务清单与 claims 已完成收口。
 > **目标**：每日输出 10 篇，系统化推进 Houses、Chakra 及术语库建设。
 
 ---
@@ -103,8 +103,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 > 全部 9 篇唯一文章 × EN+ZH = 18 页已 2026-06-02 错峰 prod 部署到 www.astrologywiki.com（sitemap 250，18/18 验证 live，零重复）。shani 去重为 9 篇而非 10。
 ---
-## ⚪ 6月3日 (周三) - 写作中
-**状态**：`计划中` (计划 11 篇)
+## ⚪ 6月3日 (周三) - 已发布
+**状态**：`已输出` (共 11 篇)
 - [x] PG-SOLAR-001 solar return chart
 - [x] PG-MOON-001 what is a full moon ritual
 - [x] PG-MOON-002 full moon energy
@@ -118,28 +118,28 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-NAKSH-006 bharani nakshatra
 
 ---
-## ⚪ 6月4日 (周四) - 计划
-**状态**：`计划中` (计划 10 篇)
+## ⚪ 6月4日 (周四) - 已发布
+**状态**：`已输出` (共 10 篇)
 - [x] PG-NODE-005 south node
 - [x] PG-NODE-006 north node in gemini
 - [x] PG-NODE-007 north node in sagittarius
 - [x] PG-NODE-008 cancer north node
 - [x] PG-MYTH-002 juno astrology
-- [ ] PG-TRANS-006 mecury in retrograde
+- [x] PG-TRANS-006 mecury in retrograde
 - [x] PG-AI-001 ai astrology app
 - [x] PG-AYUR-001 how to balance vata dosha
 - [x] PG-SOLAR-002 solar return
 - [x] PG-AYUR-002 3 gunas
 
 ---
-## ⚪ 6月5日 (周五) - 计划
-**状态**：`计划中` (计划 10 篇)
+## ⚪ 6月5日 (周五) - 已发布
+**状态**：`已输出` (共 10 篇)
 - [x] PG-AYUR-003 sattva rajas tamas
 - [x] PG-RISE-001 libra rising houses
 - [x] PG-RISE-002 leo rising houses
 - [x] PG-RISE-003 scorpio rising houses
 - [x] PG-MOON-004 full moon June 2026
-- [ ] PG-MOON-005 full moon July 2026
+- [x] PG-MOON-005 full moon July 2026
 - [x] PG-MOON-006 moon journal
 - [x] PG-MOON-007 full moon journal prompts
 - [x] PG-MOON-008 new moon journal prompts
