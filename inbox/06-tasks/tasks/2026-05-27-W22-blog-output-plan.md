@@ -153,7 +153,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-SYNASTRY-001 composite chart calculator
 - [x] PG-SYNASTRY-002 synastry chart compatibility
 - [ ] PG-TRANS-007 neptune in pisces
-- [ ] PG-NAKSH-007 mrigashira nakshatra
+- [x] PG-NAKSH-007 mrigashira nakshatra
 - [ ] PG-NAKSH-008 swati nakshatra
 - [ ] PG-NAKSH-009 hasta nakshatra
 - [ ] PG-NAKSH-010 krittika nakshatra
