@@ -43,3 +43,4 @@ updated: 2026-06-08
 | 2026-06-05 | PG-MOON-008 | new-moon-journal-prompts | New Moon Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/new-moon-journal-prompts | published |
 | 2026-06-05 | PG-JOURNAL-001 | journal-prompts | Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/journal-prompts | published |
 | 2026-06-08 | PG-JOURNAL-002 | shadow-work-journal-prompts | Shadow Work Journal Prompts | marcus-orion | https://www.astrologywiki.com/en/wiki/shadow-work-journal-prompts | published |
+| 2026-06-08 | PG-LILITH-001 | black-moon-lilith | Black Moon Lilith | marcus-orion | https://www.astrologywiki.com/en/wiki/black-moon-lilith | published |
