@@ -49,3 +49,4 @@ updated: 2026-06-08
 | 2026-06-08 | PG-NAKSH-007 | mrigashira-nakshatra | Mrigashira Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/mrigashira-nakshatra | published |
 | 2026-06-08 | PG-NAKSH-008 | swati-nakshatra | Swati Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/swati-nakshatra | published |
 | 2026-06-08 | PG-NAKSH-009 | hasta-nakshatra | Hasta Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/hasta-nakshatra | published |
+| 2026-06-08 | PG-NAKSH-011 | ashwini-nakshatra | Ashwini Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/ashwini-nakshatra | published |
