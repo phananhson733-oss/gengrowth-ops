@@ -51,3 +51,4 @@ updated: 2026-06-08
 | 2026-06-08 | PG-NAKSH-009 | hasta-nakshatra | Hasta Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/hasta-nakshatra | published |
 | 2026-06-08 | PG-NAKSH-011 | ashwini-nakshatra | Ashwini Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/ashwini-nakshatra | published |
 | 2026-06-08 | PG-NAKSH-010 | krittika-nakshatra | Krittika Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/krittika-nakshatra | published |
+| 2026-06-08 | PG-TRANS-007 | neptune-in-pisces | Neptune In Pisces | marcus-orion | https://www.astrologywiki.com/en/wiki/neptune-in-pisces | published |
