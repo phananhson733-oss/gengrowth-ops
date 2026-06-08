@@ -146,5 +146,19 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-JOURNAL-001 journal prompts
 
 ---
+## ⚪ 6月8日 (周一) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [ ] PG-JOURNAL-002 shadow work journal prompts
+- [ ] PG-LILITH-001 black moon lilith
+- [ ] PG-SYNASTRY-001 composite chart calculator
+- [ ] PG-SYNASTRY-002 synastry chart compatibility
+- [ ] PG-TRANS-007 neptune in pisces
+- [ ] PG-NAKSH-007 mrigashira nakshatra
+- [ ] PG-NAKSH-008 swati nakshatra
+- [ ] PG-NAKSH-009 hasta nakshatra
+- [ ] PG-NAKSH-010 krittika nakshatra
+- [ ] PG-NAKSH-011 ashwini nakshatra
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
