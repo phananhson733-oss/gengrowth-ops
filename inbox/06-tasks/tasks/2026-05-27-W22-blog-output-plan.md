@@ -150,7 +150,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`已输出` (共 10 篇)
 - [x] PG-JOURNAL-002 shadow work journal prompts
 - [x] PG-LILITH-001 black moon lilith
-- [ ] PG-SYNASTRY-001 composite chart calculator
+- [x] PG-SYNASTRY-001 composite chart calculator
 - [ ] PG-SYNASTRY-002 synastry chart compatibility
 - [ ] PG-TRANS-007 neptune in pisces
 - [ ] PG-NAKSH-007 mrigashira nakshatra
