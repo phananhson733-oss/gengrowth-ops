@@ -118,26 +118,26 @@ tags:
 | 指标 | Day 0 基线 | Day 14（领先） | Day 30（中期） | Day 60（目标） |
 |------|-----------|--------------|--------------|--------------|
 | 发布内容数 | 0 | 5–8篇 | 15–20篇 | 35–45篇 |
-| 非品牌 impressions（US） | 0 | > 0（任意） | 待定 | 待定 |
+| 非品牌 impressions（US） | 0 | > 0（任意） | ≥ 500 | ≥ 3,000 |
 | 目标词进 Top 30 数 | 0 | — | ≥ 3个 | ≥ 10个 |
-| 非品牌 organic clicks（US） | 0 | — | — | 待定 |
-| 核心 key event（注册/试用） | 0 | — | — | 待定 |
+| 非品牌 organic clicks（US） | 0 | — | ≥ 15 | ≥ 100 |
+| 核心 key event（注册/试用） | 0 | — | — | ≥ 3 |
 
-> 注：具体数字待关键词库建立后（Step 5完成后）根据快速胜利词数量回填。
+> 注：Step 5 完成（2026-06-09）；目标基于 115 词词库、55 个快速胜利词、KD 集中在 0–14 区间。Red light 触发条件：Day 30 impressions < 100 → 技术问题或收录问题，优先排查。
 
 ### 实验核心假设
 
-| # | 假设 | 验证时点 | 红灯条件（触发重新评估） |
-|---|------|---------|----------------------|
-| H1 | 品类内存在 ≥ 10 个 KD < 15 + SERP弱的商业/问题意图词 | Day 0 Step 5 完成时 | < 5 个 → 竞争密度过高或品类过窄，重新评估 |
-| H2 | 内容发布 14 天内被 Google 收录 | Day 14 | 收录率 < 50% → 先排查技术/内链问题 |
-| H3 | Week 2 末 GSC 出现任意 impressions | Day 14 | 0 impressions → 内容质量或格式不匹配 |
+| # | 假设 | 验证时点 | 结果 | 红灯条件（触发重新评估） |
+|---|------|---------|------|----------------------|
+| H1 | 品类内存在 ≥ 10 个 KD < 15 + SERP弱的商业/问题意图词 | Day 0 Step 5 完成时 | ✅ 通过（实际 55 个，2026-06-09） | < 5 个 → 竞争密度过高或品类过窄，重新评估 |
+| H2 | 内容发布 14 天内被 Google 收录 | Day 14 | 待验证 | 收录率 < 50% → 先排查技术/内链问题 |
+| H3 | Week 2 末 GSC 出现任意 impressions | Day 14 | 待验证 | 0 impressions → 内容质量或格式不匹配 |
 
 ### 产品初步判断
 
-- 可增长性评估：⚠️ 带条件启动（新站 DR ≈ 0，快速胜利词库待确认）
-- 判断依据：品类新兴，大站尚未深度覆盖长尾；但 DR 为零意味着初期 DR 过滤会拦截大量词，需依赖 SERP弱度信号执行
-- 前置条件：H1 假设验证通过（快速胜利词 ≥ 10 个）后方可全速启动内容生产
+- 可增长性评估：✅ 双轨启动（H1 假设已验证通过，快速胜利词 55 个，远超门槛）
+- 判断依据：品类词零搜索量（负面），但方法论/痛点词竞争度极低（KD 0–14），SERP 弱度信号明显；两个直接竞品均未做相关内容（内容空白 = 机会）
+- 前置条件：⚠️ 技术审计（Step 1 Core Web Vitals + PageSpeed）尚未执行，需在首批内容发布前完成
 
 ---
 
@@ -170,28 +170,40 @@ tags:
 
 > 注意：不用 "growth"、"marketing" 等过大的多义词单独做种子；使用"grow saas"、"saas growth"等已消歧的词组
 
-### 词池摘要（Step 5 完成后填入）
+### 词池摘要（Step 5 — 2026-06-09 完成）
+
+> 数据来源：Keywords Explorer Matching Terms 237行 + Overview 26词；KD ≤ 15 + Vol ≥ 10 + 相关性过滤。内容缺口词 = 0（Content Gap 318行全为竞品离题内容，见 Step 3 说明）。
 
 | 桶 | 词数 | 备注 |
 |----|------|------|
-| 趋势词 | — | 发现即插队执行 |
-| 快速胜利（KD < 15 + SERP弱） | — | 主战场，约 60% 产能 |
-| 长尾词 | — | 主战场，约 40% 产能，矩阵执行 |
-| 战略词 | — | 最低优先，全周期 ≤ 5 篇 |
-| **合计** | — | |
+| 趋势词 | 5 | PLG品类热度上升；AI growth工具品类兴起中 |
+| 快速胜利（KD < 15 + SERP弱） | 55 | 主战场，约 60% 产能；需 SERP 逐词确认弱度 |
+| 长尾词 | 40 | 意图较窄的变体矩阵（onboarding / pmf / metrics 子集） |
+| 战略词 | 15 | KD 15–20，全周期 ≤ 5 篇 |
+| **合计** | **115** | |
 
-### 本轮策略决策（Step 5 完成后填入）
+### 本轮策略决策（Step 5 — 2026-06-09）
 
-- **快速胜利方向**：待填（预判：indie developer SEO系列 / SaaS增长工具对比系列）
-- **长尾矩阵系列**：待填
-- **战略词门面选择**：待填（预判候选：「ai growth tool」「growth automation」）
-- **趋势词关注话题**：AI SEO工具品类兴起（2026年Q2趋势）
+- **快速胜利方向**：4条主线并行 — ① SaaS增长策略系列（saas growth strategy、startup growth strategy、b2b saas growth strategy）② SaaS指标追踪系列（saas metrics dashboard、saas growth metrics、saas funnel metrics）③ Product-Led Growth系列（PLG examples / tools / strategy / metrics）④ B2B SaaS营销系列（b2b saas marketing strategies、content marketing、marketing funnel）
+- **长尾矩阵系列**：SaaS Onboarding变体矩阵（20+ 变体；checklist / kpis / strategy / best practices / low touch）；Product Market Fit变体矩阵（15+ 变体；survey / checklist / framework / metrics）
+- **战略词门面选择**：b2b saas marketing（KD 6, Vol 900）；product-led growth strategy（KD 14, Vol 700）—— 两篇"镇站之宝"，早期发布建立主题权威
+- **趋势词关注话题**：product led growth（品类持续升温，2026Q2 SERP竞争度仍低）；"ai + growth/saas"相关词（新兴品类，品类定义期，低竞争）
+- **⚠️ 核心发现**：GenGrowth 原定位词（growth automation tool / attribution tracking saas）美国搜索量为零，无法直接做。实际内容角度需从"方法论+痛点"切入（PLG / SaaS metrics / growth strategy），用内容受众转化 GenGrowth 用户。
 
-### Week 1 执行词单（Step 5 完成后填入）
+### Week 1 执行词单（Step 5 — 2026-06-09）
+
+> 优先级排序依据：KD × 相关度 × GenGrowth转化潜力。SERP弱度需在 Ahrefs SERP Overview 逐一确认后方可正式开写。
 
 | 关键词 | KD | 月搜索量 | SERP弱度 | AIO风险 | 内容格式建议 |
 |--------|-----|---------|---------|---------|-----------|
-| | | | | | |
+| saas growth strategy | 1 | 300 | ✅弱（有Discussions） | 中 | 完整指南 + 框架图 |
+| product led growth examples | 4 | 600 | ✅弱（有Discussions） | 中 | 案例列表文（8–10个真实案例） |
+| saas metrics dashboard | 2 | 400 | ✅弱 | 低 | 工具对比指南（GenGrowth 自然植入） |
+| b2b saas marketing | 6 | 900 | ⚠️中（有AI Overview） | 高 | Hub页 / 完整策略指南 |
+| user acquisition strategy | 1 | 200 | ✅弱（有Discussions） | 中 | 完整指南（SaaS founder视角） |
+| product led growth tools | 4 | 150 | ✅弱 | 低 | 工具对比清单（商业意图，直接命中GenGrowth） |
+| low touch onboarding saas | 0 | 150 | ✅弱 | 低 | 方法论指南（GenGrowth核心理念直接匹配） |
+| saas growth metrics | 13 | 200 | ⚠️中 | 中 | 指标清单 + 追踪模板 |
 
 ---
 
