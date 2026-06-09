@@ -53,13 +53,31 @@ tags:
 
 ### 行业与竞品概览
 
-> ⚠️ 品类 DR 情况（已确认）：找不到 DR 差距 ≤ 30 的同体量竞品，触发关键词 SOP 零节**备用路径**。
-> 关键词挖掘主要依靠 Keywords Explorer 直查（KD ≤ 15 + SERP弱度），而非竞品 Content Gap。
+> ⚠️ 品类 DR 情况（已确认）：outrank.so DR 72 / okara.ai DR 63，与 GenGrowth（DR ≈ 0）差距分别达 72 和 63，远超30。触发关键词 SOP 零节**备用路径**，Content Gap 不做，改为 Keywords Explorer 直查。
 
-- **品类 DR 竞争水位**：待 Ahrefs 确认 outrank.so 和 okara.ai 的实际 DR
-- **可对标竞品 DR 区间**：暂无（DR 差距 > 30，仅作话题发现用）
-- **新站切入薄弱点**：AI 增长工具品类新兴，大量长尾需求尚未被大站覆盖；
-  重点切入方向：个人开发者增长 / SaaS增长无团队 / 增长实验方法论 / AI SEO工具对比
+- **品类 DR 竞争水位**：头部竞品 DR 63–72，属于高 DR 品类
+- **可对标竞品 DR 区间**：无（两个竞品 DR 差距均 > 60，只做话题发现）
+- **关键数据洞察**：
+  - outrank.so：DR 72 + 3,400 引用域名，但引用域名严重虚高（其产品内置 Backlink Exchange，引用来源大量是自己的交换网络），实际权威度参考价值打折
+  - okara.ai：仅 16 个排名词带来 5,600 月流量，极度集中，说明 SEO 内容几乎未做，流量靠品牌词 + 极少品类词支撑 → **此品类内容竞争实际偏低**
+  - outrank.so：313 词带 48,200 流量，头部词流量集中度高，品类内搜索量存在但被少数大词主导
+- **新站切入薄弱点**（基于 Top 50 页面扫描）：
+
+  **outrank.so 内容现状：**
+  - Top 1 流量页（33k/月）是浏览器 UI 问题帖（尼日利亚受众），与产品完全无关的意外流量
+  - 内容分散：SEO工具对比（Moz vs Ahrefs、SEMrush alternatives 等）+ 免费工具（robots.txt生成器、标题生成器）+ 基础SEO教程
+  - **零篇**关于增长自动化 / 增长实验 / attribution 的内容
+
+  **okara.ai 内容现状：**
+  - 首页靠品牌词撑流量，博客以 alternatives 文章为主（Later、Mangools、CoSchedule 等），大量页面标注 Lost
+  - **零篇** solo founder / indie developer 增长角度内容
+
+  **内容空白 = GenGrowth 的机会：**
+  - 增长实验方法论（两个竞品完全未覆盖）
+  - Indie developer / solo founder 增长内容集群（空白）
+  - 无团队 SaaS 增长策略（空白）
+  - Attribution / 增长归因内容（空白）
+  - 竞品替代词：outrank alternative / okara alternative（有搜索意图，竞品自己不做）
 
 ### 流量现状
 
@@ -93,7 +111,7 @@ tags:
 | 引用域名数    | ~0             | 3400            | 585             |
 | 估算月均自然流量 | ~0             | 48200           | 5600            |
 | 排名关键词数   | ~0             | 313             | 16              |
-| 对标用途     | —              | 话题发现（DR差距预估>30） | 话题发现（DR差距预估>30） |
+| 对标用途     | —              | 话题发现（DR差距=72，Step A only） | 话题发现（DR差距=63，Step A only） |
 
 ### 核心目标设定
 
@@ -141,13 +159,14 @@ tags:
 
 > 10–15 个种子词，覆盖多个维度，互相不存在包含关系
 
-| 维度 | 种子词 |
-|------|--------|
-| 用户角色 | indie developer, solo founder, indie hacker, bootstrapped startup |
-| 问题类型 | grow saas, increase organic traffic, saas growth without team |
-| 工具类型 | ai growth tool, seo automation tool, growth platform |
-| 方法论 | growth experiment, seo strategy automation, attribution tracking |
-| 竞品替代 | okara alternative, outrank alternative, ai marketing tool |
+| 维度 | 种子词 | 备注 |
+|------|--------|------|
+| 用户角色 | indie developer, solo founder, indie hacker, bootstrapped startup | 竞品完全未覆盖的受众角度 |
+| 问题类型 | grow saas without marketing team, saas growth strategy, how to get users for saas | 竞品空白，直接命中产品价值主张 |
+| 工具类型 | ai growth tool, growth automation tool, seo automation tool | 品类新兴，KD 预估偏低 |
+| 方法论 | growth experiment framework, attribution tracking saas, growth strategy template | 两个竞品均未覆盖 |
+| 竞品替代 | outrank alternative, okara alternative, outrank.so alternative | 有搜索意图，竞品自己不做这类内容 |
+| 对比类 | ai growth tool vs manual, growth tool for small teams | 对比型内容 AIO 引用率高 |
 
 > 注意：不用 "growth"、"marketing" 等过大的多义词单独做种子；使用"grow saas"、"saas growth"等已消歧的词组
 
