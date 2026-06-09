@@ -7,16 +7,16 @@
 
 ## 1. 快照
 
-| 维度 | 内容 |
-|------|------|
-| 产品 | BabyLoveGrowth |
-| 公司 | BabyLoveGrowth |
-| 官网 | https://www.babylovegrowth.ai/ |
-| 当前定位 | SEO for AI search / organic traffic on autopilot；内容、发布、外链、AI visibility 一体化自动增长工具 |
-| 目标用户 | 小企业、创始人、内容驱动业务、SEO/AEO operator、代理商 |
-| 当前定价 | All-in-One $99/月，3-day free trial；Agency plan 另议 |
-| 公开用户规模 | 官网公开 `Trusted by 2,000+ smart businesses`；LinkedIn 创始人/品牌帖子也出现 `3,000+ businesses` 口径 |
-| 团队规模信号 | LinkedIn 显示 2-10 employees，1,783 followers |
+| 维度      | 内容                                                                                      |
+| ------- | --------------------------------------------------------------------------------------- |
+| 产品      | BabyLoveGrowth                                                                          |
+| 公司      | BabyLoveGrowth                                                                          |
+| 官网      | https://www.babylovegrowth.ai/                                                          |
+| 当前定位    | SEO for AI search / organic traffic on autopilot；内容、发布、外链、AI visibility 一体化自动增长工具       |
+| 目标用户    | 小企业、创始人、内容驱动业务、SEO/AEO operator、代理商                                                     |
+| 当前定价    | All-in-One $99/月，3-day free trial；Agency plan 另议                                        |
+| 公开用户规模  | 官网公开 `Trusted by 2,000+ smart businesses`；LinkedIn 创始人/品牌帖子也出现 `3,000+ businesses` 口径   |
+| 团队规模信号  | LinkedIn 显示 2-10 employees，1,783 followers                                              |
 | 研究结论一句话 | BabyLoveGrowth 的增长最像“极其明确的结果承诺 + 低价试用 + 高频社媒教育 + 强 social proof”的 SEO/AEO autopilot 漏斗。 |
 
 ## 2. 定位与 ICP
