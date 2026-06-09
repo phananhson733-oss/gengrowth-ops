@@ -159,14 +159,14 @@ tags:
 
 > 10–15 个种子词，覆盖多个维度，互相不存在包含关系
 
-| 维度 | 种子词 | 备注 |
-|------|--------|------|
-| 用户角色 | indie developer, solo founder, indie hacker, bootstrapped startup | 竞品完全未覆盖的受众角度 |
-| 问题类型 | grow saas without marketing team, saas growth strategy, how to get users for saas | 竞品空白，直接命中产品价值主张 |
-| 工具类型 | ai growth tool, growth automation tool, seo automation tool | 品类新兴，KD 预估偏低 |
-| 方法论 | growth experiment framework, attribution tracking saas, growth strategy template | 两个竞品均未覆盖 |
-| 竞品替代 | outrank alternative, okara alternative, outrank.so alternative | 有搜索意图，竞品自己不做这类内容 |
-| 对比类 | ai growth tool vs manual, growth tool for small teams | 对比型内容 AIO 引用率高 |
+| 维度   | 种子词                                                                               | 备注               |
+| ---- | --------------------------------------------------------------------------------- | ---------------- |
+| 用户角色 | indie developer, solo founder, indie hacker, bootstrapped startup                 | 竞品完全未覆盖的受众角度     |
+| 问题类型 | grow saas without marketing team, saas growth strategy, how to get users for saas | 竞品空白，直接命中产品价值主张  |
+| 工具类型 | ai growth tool, growth automation tool, seo automation tool                       | 品类新兴，KD 预估偏低     |
+| 方法论  | growth experiment framework, attribution tracking saas, growth strategy template  | 两个竞品均未覆盖         |
+| 竞品替代 | outrank alternative, okara alternative, outrank.so alternative                    | 有搜索意图，竞品自己不做这类内容 |
+| 对比类  | ai growth tool vs manual, growth tool for small teams                             | 对比型内容 AIO 引用率高   |
 
 > 注意：不用 "growth"、"marketing" 等过大的多义词单独做种子；使用"grow saas"、"saas growth"等已消歧的词组
 
