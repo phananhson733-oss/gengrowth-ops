@@ -92,7 +92,7 @@ See our [aura reading guide](/en/wiki/aura-reading) for a step-by-step methodolo
 ## Sources
 - Brennan, B. A. (1988). *Hands of Light*. Bantam Books.
 - Hunt, V. (1996). *Infinite Mind: Science of the Human Vibrations of Consciousness*. Malibu Publishing.
-- Motoyama, H. (1981). *Theories of the Chakras*. Quest Books.
+- Motoyama, H. (1982). *Theories of the Chakras*. Quest Books.
 ```
 
 #### 修改6：添加图片（优先级：高）
@@ -206,7 +206,7 @@ highly intuitive communicator; purple with white suggests spiritual purification
 
 ```
 ## Sources
-- Andrews, T. (1998). *How to See and Read the Aura*. Llewellyn Publications.
+- Andrews, T. (1991). *How to See and Read the Aura*. Llewellyn Publications.
 - Brennan, B. A. (1988). *Hands of Light*. Bantam Books.
 ```
 
@@ -318,7 +318,7 @@ It is not itself a negative signal, but warrants attention to overall well-being
 ```
 ## Sources
 - Brennan, B. A. (1988). *Hands of Light*. Bantam Books.
-- Andrews, T. (1998). *How to See and Read the Aura*. Llewellyn Publications.
+- Andrews, T. (1991). *How to See and Read the Aura*. Llewellyn Publications.
 ```
 
 #### 修改8：添加图片（优先级：高）
@@ -626,7 +626,7 @@ Blue with purple suggests heightened intuitive perception layered over strong ex
 ```
 ## Sources
 - Brennan, B. A. (1988). *Hands of Light*. Bantam Books.
-- Andrews, T. (1998). *How to See and Read the Aura*. Llewellyn Publications.
+- Andrews, T. (1991). *How to See and Read the Aura*. Llewellyn Publications.
 - Judith, A. (2004). *Eastern Body, Western Mind*. Celestial Arts.
 ```
 
