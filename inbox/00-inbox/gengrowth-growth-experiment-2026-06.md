@@ -42,18 +42,24 @@ tags:
 
 ### 产品档案
 
-- **目标用户**：
-- **核心价值主张**：
-- **主要功能**：
-- **商业模式**：
-- **主要竞品（SEO层对标）**：
+- **目标用户**：Early-stage SaaS founders、Growth teams、Product teams
+- **最可能付费用户**：Early-stage SaaS founders（已验证，Step 0）
+- **核心价值主张**：一站式自然流量增长平台——SEO技术审计 + 关键词研究 + SEO blog内容生产 + 社交媒体 + 外链增长，全流程自动化，完全符合 Google 要求，长尾效果好
+- **核心功能**：Auto Discovery（SEO审计 + 关键词研究）/ SEO内容生产（blog文章）/ Strategy Engine（策略候选生成）/ Attribution Loop（UTM追踪 + 渠道归因）/ 社交媒体 / 外链增长
+- **商业模式**：Free Trial + 付费订阅
+- **核心差异化**：
+  - vs outrank.so（内容工厂型）：outrank 只做内容生产 + 外链交换；GenGrowth 覆盖全流程（技术审计 → 关键词 → 内容 → 社交 → 外链），一站式闭环
+  - vs okara.ai（多渠道广播型）：okara 做9渠道广播；GenGrowth 聚焦自然流量增长，有完整归因闭环
+- **主要竞品（初始列表）**：outrank.so / okara.ai
 
 ### 行业与竞品概览
 
-- **品类 DR 竞争水位**：
-- **可对标竞品 DR 区间**：
-- **关键数据洞察**：
-- **新站切入薄弱点**：
+> ⚠️ SEO竞品可用性验证（Step 0）：outrank.so DR 72 / okara.ai DR 63，与 GenGrowth（DR ≈ 0）差距分别达 72 和 63，均 > 30。两者对标用途 = **话题发现**，不做关键词对标。需通过 SERP 补入低 DR 可对标竞品（见下方待执行项）。
+
+- **品类 DR 竞争水位**：头部竞品 DR 63–72，高 DR 品类
+- **可对标竞品 DR 区间**：待补入（当前无 DR 差距 ≤ 30 的竞品）
+- **关键数据洞察**：待 Step 3 执行后填入
+- **新站切入薄弱点**：待 Step 3 执行后填入
 
 ### 流量现状
 
