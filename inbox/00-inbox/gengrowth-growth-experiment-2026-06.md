@@ -76,10 +76,19 @@ tags:
 
 ### 技术健康
 
-> 待执行 Step 1
+> 执行日期：2026-06-09 · 工具：Google PageSpeed Insights
 
-- Core Web Vitals：LCP ____ms / INP ____ms / CLS ____
-- 主要问题（待填）：
+| 指标 | Desktop | Mobile | 标准 | 判断 |
+|------|---------|--------|------|------|
+| LCP | 1.0s | **4.2s** | ≤ 2.5s | Desktop ✅ / Mobile ❌ |
+| TBT（INP代理）| 160ms | 10ms | < 200ms | Desktop ⚠️ / Mobile ✅ |
+| CLS | 0 | 0 | ≤ 0.1 | ✅ 两端完美 |
+| FCP | 0.4s | 1.8s | ≤ 1.8s | Desktop ✅ / Mobile ⚠️ 边界 |
+| Speed Index | 1.2s | 3.9s | — | — |
+
+- **阻塞级问题**：无（不阻塞 SEO 启动）
+- **影响级问题**：移动端 LCP 4.2s — Google 采用移动优先索引，此项会影响排名潜力，建议 Week 1 内与内容生产并行修复（排查图片懒加载 / 首屏大图 / 渲染阻塞资源）
+- **GSC 索引 / 移动可用性**：跳过（GSC 暂未连接）
 
 ### 竞品基线快照
 
