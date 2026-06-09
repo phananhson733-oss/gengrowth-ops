@@ -5,6 +5,30 @@
 
 ---
 
+## ✅ 执行记录 2026-06-09（已 live on www.astrologywiki.com）
+
+**已完成并验证上线：**
+- **3 个模板级 Bug（系统性，全站 featured 文章受益，非仅 8 页）**
+  - H1 重复：真因是静态 stub 生成器同时渲染 `<h1>{title}</h1>` + 正文 `# Title`（非 CMS 模板）。已在 `generate-seo-pages.mjs` 修复，全 8 页实测 `h1=1`。
+  - footer "Open the interactive wiki" 自链：CTA 改指 `/en/wiki` hub，自链=0。
+- **FAQ Schema**：静态 stub 现输出 FAQPage JSON-LD（此前仅 SPA 有），全 8 页实测有 schema。
+- **8 页内容补丁**：自链修复、补 FAQ（统一命名 `Common Questions About X Aura`）、补 How-to-Read/Common-Misreadings、Related Reading 去重+横向兄弟链（零死链）、Sources 升级完整书目、标题优化（title+H1 同步）、white 扩写至 ~2328 词。
+
+**清单中 3 处与实际不符（已纠正，未误改）：**
+- **Blue**：.ts 内无清单所述"Pew 数据/文化溯源"两特色章节（清单审计的是旧版本），按全新添加 FAQ/Sources 处理。
+- **Orange**：清单称"唯一无 chakra 链"有误——实际已有 sacral chakra 链，未重复添加。
+- **indigo/violet 页不存在** → purple 对比链转纯文字，未硬链死 slug。
+
+**QA（codex）额外软化 6 处**：white/purple 中把不可验证 aura 设定写成确定事实之处（含 1 条健康信号 FAQ）→ 改为"框架内描述"，健康 FAQ 明确声明不可用于健康判断（贴合本站不算命定位）。
+
+**未做（待决策/资源）：**
+- **图片（全 8 页）**：缺图像生成 API key，待提供后用 baoyu 生成并 wire（文章已支持 image/alt 字段）。
+- **Pillar URL 改名 + 301**：本轮缓做（除非该页 SEO 积累≈0 否则不优先）。
+- **H3 层级**：故意跳过（集群统一无 H3、用粗体伪小标题，保持风格一致）。
+- **Schema "Article Schema"**：原本就已存在（stub+SPA 均有），仅 FAQ 缺失，已补。
+
+---
+
 ## 模板级 Bug（开发统一修复，不逐页处理）
 
 > 以下问题由 CMS 模板引起，需技术同事一次性批量修复，优先于所有内容改动。
