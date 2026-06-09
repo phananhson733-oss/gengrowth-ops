@@ -7,17 +7,17 @@
 
 ## 1. 快照
 
-| 维度      | 内容                                                                                            |
-| ------- | --------------------------------------------------------------------------------------------- |
-| 产品      | Blaze.ai                                                                                      |
-| 公司      | Blaze                                                                                         |
-| 官网      | https://www.blaze.ai/                                                                         |
-| 当前定位    | AI that does marketing for you；围绕 strategy, content, autoposting, learning loop 的 AI marketer |
-| 目标用户    | SMB、创业者、小型营销团队、多品牌业务                                                                          |
-| 当前定价    | Free / Starter $39/月 / Growth $85/月；另有 done-for-you 服务 $999/月起                                |
-| 公开用户规模  | About 页公开 `130,000+ customers worldwide`                                                      |
-| 团队规模信号  | About 页公开 `31 employees and growing`；LinkedIn 显示 11-50 employees                              |
-| 研究结论一句话 | Blaze.ai 的增长最像“内容与分发自动化团队 + 强社证 + 低门槛 trial”的规模化 SMB 引擎。                                      |
+| 维度 | 内容 |
+|------|------|
+| 产品 | Blaze.ai |
+| 公司 | Blaze |
+| 官网 | https://www.blaze.ai/ |
+| 当前定位 | AI that does marketing for you；围绕 strategy, content, autoposting, learning loop 的 AI marketer |
+| 目标用户 | SMB、创业者、小型营销团队、多品牌业务 |
+| 当前定价 | Free / Starter $39/月 / Growth $85/月；另有 done-for-you 服务 $999/月起 |
+| 公开用户规模 | About 页公开 `130,000+ customers worldwide` |
+| 团队规模信号 | About 页公开 `31 employees and growing`；LinkedIn 显示 11-50 employees |
+| 研究结论一句话 | Blaze.ai 的增长最像“内容与分发自动化团队 + 强社证 + 低门槛 trial”的规模化 SMB 引擎。 |
 
 ## 2. 定位与 ICP
 
