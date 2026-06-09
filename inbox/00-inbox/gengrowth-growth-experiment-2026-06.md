@@ -37,51 +37,25 @@ tags:
 ## 一、Day 0 诊断基线
 
 > Day 0 执行日期：2026-06-09
+> 完整执行步骤参照 → `day0-diagnosis-sop.md`（总时长约 5 小时）
+> Steps 0–2 产出填入本节；Steps 3–5 产出关键词主表，Week 1 直接取用。
 
 ### 产品档案
 
-- **目标用户**：希望用最少人力跑增长实验的产品团队、solo founder、indie developer
-- **核心价值主张**："Automated Growth, Starting from User #1" — 自动跑/量化/优化增长实验；Minimal Input. Auto Decisions. Explainable. Self-Optimizing.
+- **目标用户**：
+- **核心价值主张**：
 - **主要功能**：
-  - Auto Discovery（SEO审计、关键词研究、竞品分析）
-  - Strategy Engine（生成3+个策略候选，带ROI评分）
-  - Attribution Loop（UTM指纹、渠道隔离、数据验证）
-- **商业模式**：Free Trial + 付费（/en/pricing，定价待确认）
+- **商业模式**：
 - **主要竞品（SEO层对标）**：
-  - outrank.so（SEO内容自动化，每日生成文章+外链交换，内容工厂型）
-  - okara.ai（"AI CMO"，多渠道营销：Reddit/SEO/Twitter/LinkedIn/HN等9个agent，$99/月）
 
 ### 行业与竞品概览
 
-> ⚠️ 品类 DR 情况（已确认）：outrank.so DR 72 / okara.ai DR 63，与 GenGrowth（DR ≈ 0）差距分别达 72 和 63，远超30。触发关键词 SOP 零节**备用路径**，Content Gap 不做，改为 Keywords Explorer 直查。
-
-- **品类 DR 竞争水位**：头部竞品 DR 63–72，属于高 DR 品类
-- **可对标竞品 DR 区间**：无（两个竞品 DR 差距均 > 60，只做话题发现）
+- **品类 DR 竞争水位**：
+- **可对标竞品 DR 区间**：
 - **关键数据洞察**：
-  - outrank.so：DR 72 + 3,400 引用域名，但引用域名严重虚高（其产品内置 Backlink Exchange，引用来源大量是自己的交换网络），实际权威度参考价值打折
-  - okara.ai：仅 16 个排名词带来 5,600 月流量，极度集中，说明 SEO 内容几乎未做，流量靠品牌词 + 极少品类词支撑 → **此品类内容竞争实际偏低**
-  - outrank.so：313 词带 48,200 流量，头部词流量集中度高，品类内搜索量存在但被少数大词主导
-- **新站切入薄弱点**（基于 Top 50 页面扫描）：
-
-  **outrank.so 内容现状：**
-  - Top 1 流量页（33k/月）是浏览器 UI 问题帖（尼日利亚受众），与产品完全无关的意外流量
-  - 内容分散：SEO工具对比（Moz vs Ahrefs、SEMrush alternatives 等）+ 免费工具（robots.txt生成器、标题生成器）+ 基础SEO教程
-  - **零篇**关于增长自动化 / 增长实验 / attribution 的内容
-
-  **okara.ai 内容现状：**
-  - 首页靠品牌词撑流量，博客以 alternatives 文章为主（Later、Mangools、CoSchedule 等），大量页面标注 Lost
-  - **零篇** solo founder / indie developer 增长角度内容
-
-  **内容空白 = GenGrowth 的机会：**
-  - 增长实验方法论（两个竞品完全未覆盖）
-  - Indie developer / solo founder 增长内容集群（空白）
-  - 无团队 SaaS 增长策略（空白）
-  - Attribution / 增长归因内容（空白）
-  - 竞品替代词：outrank alternative / okara alternative（有搜索意图，竞品自己不做）
+- **新站切入薄弱点**：
 
 ### 流量现状
-
-> GenGrowth 为完全新站，所有数据为零基线。
 
 | 指标 | 数值 | 备注 |
 |------|------|------|
@@ -96,48 +70,44 @@ tags:
 
 ### 技术健康
 
-> 待执行 Step 1（GenGrowth 技术审计 + PageSpeed Insights）
+> 待执行 Step 1
 
 - Core Web Vitals：LCP ____ms / INP ____ms / CLS ____
 - 主要问题（待填）：
 
 ### 竞品基线快照
 
-> 待执行 Step 2.3（Ahrefs Domain Overview）
-
-| 指标       | GenGrowth（自有站） | outrank.so      | okara.ai        |
-| -------- | -------------- | --------------- | --------------- |
-| DR       | ~0（新站）         | 72              | 63              |
-| 引用域名数    | ~0             | 3400            | 585             |
-| 估算月均自然流量 | ~0             | 48200           | 5600            |
-| 排名关键词数   | ~0             | 313             | 16              |
-| 对标用途     | —              | 话题发现（DR差距=72，Step A only） | 话题发现（DR差距=63，Step A only） |
+| 指标 | GenGrowth（自有站） | 竞品 A（___）| 竞品 B（___）|
+|------|----------------|-------------|-------------|
+| DR | ~0（新站） | | |
+| 引用域名数 | ~0 | | |
+| 估算月均自然流量 | ~0 | | |
+| 排名关键词数 | ~0 | | |
+| 对标用途 | — | 关键词对标 / 话题发现 | 关键词对标 / 话题发现 |
 
 ### 核心目标设定
 
 | 指标 | Day 0 基线 | Day 14（领先） | Day 30（中期） | Day 60（目标） |
 |------|-----------|--------------|--------------|--------------|
-| 发布内容数 | 0 | 5–8篇 | 15–20篇 | 35–45篇 |
-| 非品牌 impressions（US） | 0 | > 0（任意） | 待定 | 待定 |
-| 目标词进 Top 30 数 | 0 | — | ≥ 3个 | ≥ 10个 |
-| 非品牌 organic clicks（US） | 0 | — | — | 待定 |
-| 核心 key event（注册/试用） | 0 | — | — | 待定 |
-
-> 注：具体数字待关键词库建立后（Step 5完成后）根据快速胜利词数量回填。
+| 发布内容数 | 0 | | | |
+| 非品牌 impressions（US） | 0 | | | |
+| 目标词进 Top 30 数 | 0 | | | |
+| 非品牌 organic clicks（US） | 0 | | | |
+| 核心 key event（注册/试用） | 0 | | | |
 
 ### 实验核心假设
 
 | # | 假设 | 验证时点 | 结果 | 红灯条件（触发重新评估） |
 |---|------|---------|------|----------------------|
-| H1 | 品类内存在 ≥ 10 个 KD < 15 + SERP弱的商业/问题意图词 | Day 0 Step 5 完成时 | 待验证（词库建完后） | < 5 个 → 竞争密度过高或品类过窄，重新评估 |
+| H1 | 品类内存在 ≥ 10 个 KD < 20 + SERP弱的商业/问题意图词 | Day 0 Step 5 完成时 | 待验证 | < 5 个 → 竞争密度过高或品类过窄，重新评估 |
 | H2 | 内容发布 14 天内被 Google 收录 | Day 14 | 待验证 | 收录率 < 50% → 先排查技术/内链问题 |
 | H3 | Week 2 末 GSC 出现任意 impressions | Day 14 | 待验证 | 0 impressions → 内容质量或格式不匹配 |
 
 ### 产品初步判断
 
-- 可增长性评估：⚠️ 带条件启动（词库建立中，Step 5 分桶 + H1 验证完成后更新）
-- 判断依据（初步）：品类定位词零搜索量，但方法论/痛点词竞争度极低（KD 0–14），SERP 弱度信号明显；两个直接竞品均未覆盖相关内容
-- 前置条件：① 完成全部词选取 → 建立 Google Sheets 主表 → Step 5 分桶 → H1 验证；② Step 1 技术审计未执行
+- 可增长性评估：（待 Step 5 完成后填）
+- 判断依据：
+- 前置条件：
 
 ---
 
@@ -145,87 +115,30 @@ tags:
 
 > 完整词库 → 📊 [Google Sheets 待建立]
 
-### ⚠️ 新站 + 高DR品类的特殊执行规则
-
-根据 keyword-research-sop.md 零节备用路径 + 新站注意事项：
-
-1. **放弃 Content Gap 分析**（竞品 DR 差距 > 30，导出的词几乎全被第一关过滤）
-2. **主要方法改为 Keywords Explorer 直查**：KD ≤ 15，月搜索量 ≥ 50，优先 Questions + Related terms
-3. **竞品只做 Step A（Top Pages 话题扫描）**，不做 Step B（关键词直接导出）
-4. **第一关改为看 SERP弱度**：KD < 15 + H列 = ✅弱 → P列手动强制进快速胜利桶，不等 DR 过滤通过
-5. **快速胜利门槛降低**：KD 阈值从 < 20 降至 < 15（更保守，新站胜率更高）
-
-### 种子词设计（Keywords Explorer 输入用）
-
-> 10–15 个种子词，覆盖多个维度，互相不存在包含关系
-
-| 维度   | 种子词                                                                               | 备注               |
-| ---- | --------------------------------------------------------------------------------- | ---------------- |
-| 用户角色 | indie developer, solo founder, indie hacker, bootstrapped startup                 | 竞品完全未覆盖的受众角度     |
-| 问题类型 | grow saas without marketing team, saas growth strategy, how to get users for saas | 竞品空白，直接命中产品价值主张  |
-| 工具类型 | ai growth tool, growth automation tool, seo automation tool                       | 品类新兴，KD 预估偏低     |
-| 方法论  | growth experiment framework, attribution tracking saas, growth strategy template  | 两个竞品均未覆盖         |
-| 竞品替代 | outrank alternative, okara alternative, outrank.so alternative                    | 有搜索意图，竞品自己不做这类内容 |
-| 对比类  | ai growth tool vs manual, growth tool for small teams                             | 对比型内容 AIO 引用率高   |
-
-> 注意：不用 "growth"、"marketing" 等过大的多义词单独做种子；使用"grow saas"、"saas growth"等已消歧的词组
-
 ### 词池摘要（Step 5 完成后填入）
-
-> **三轮关键词导出已全部读取完成 ✅（2026-06-09）**
-> - ① 第一轮 Matching Terms（237行，23个种子词）→ ~115候选
-> - ② Question 过滤器（30行）→ ~13新词，引入 SaaS SEO + SaaS Churn 两个新集群
-> - ③ 第二轮 Matching Terms（53行，20个新角度种子词）→ ~30候选，引入 SaaS内容营销 / GTM策略 / SaaS定价 / SaaS留存 四个新集群
->
-> 三轮合计原始候选 ~158条，去重后预估 ~140条。内容缺口词 = 0（Content Gap 318行全为竞品离题内容）。
-> **下一步：建立 Google Sheets 主表 → SERP弱度核查 → Step 5 分桶 → 回填此处。**
 
 | 桶 | 词数 | 备注 |
 |----|------|------|
-| 趋势词 | — | 发现即插队执行 |
-| 快速胜利（KD < 15 + SERP弱） | — | 主战场，约 60% 产能 |
-| 长尾词 | — | 主战场，约 40% 产能，矩阵执行 |
-| 战略词 | — | 最低优先，全周期 ≤ 5 篇 |
-| **合计** | — | |
+| 趋势词 | | 发现即插队执行 |
+| 快速胜利（KD < 20 + Vol ≥ 100） | | 主战场，约 60% 产能 |
+| 长尾词（Vol < 100） | | 主战场，约 40% 产能，矩阵执行 |
+| 战略词（KD 20–50） | | 最低优先，全周期 ≤ 5 篇 |
+| **合计** | | |
 
-### 本轮策略决策（Step 5 — 2026-06-09）
+### 本轮策略决策
 
-- **快速胜利方向（三轮词库完整版）**：10个内容集群方向 —
-  - ① SaaS增长策略（saas growth strategy / b2b saas growth strategy）
-  - ② SaaS指标追踪（saas metrics dashboard / saas growth metrics）
-  - ③ PLG系列（product led growth examples / tools / strategy）
-  - ④ B2B SaaS营销（b2b saas marketing / b2b saas marketing strategies）
-  - ⑤ **★ SaaS内容营销**（saas content marketing KD4 Vol1800 ← 全词库最大新发现；b2b saas content strategy KD7 Vol300 有Discussions）
-  - ⑥ SaaS SEO（saas seo strategy KD9/Vol700；how to improve seo for saas KD2/Vol200）
-  - ⑦ GTM策略（saas go to market strategy KD3/Vol250 + b2b变体群）
-  - ⑧ SaaS定价（pricing strategy for saas KD14/Vol200；b2b saas pricing strategy KD8/Vol250）
-  - ⑨ SaaS留存/试用转化（saas customer retention KD2/Vol250；free trial conversion rate saas KD12/Vol150）
-  - ⑩ SaaS Churn（how to reduce churn saas KD7/Vol200；what is a good churn rate for saas KD12/Vol150）
-- **长尾矩阵系列**：SaaS Onboarding变体矩阵（20+ 变体；checklist / kpis / strategy / best practices / low touch）；Product Market Fit变体矩阵（15+ 变体；survey / checklist / framework / metrics）
-- **战略词门面选择**：b2b saas marketing（KD 6, Vol 900）；product-led growth strategy（KD 14, Vol 700）；**saas content marketing（KD 4, Vol 1800）← 重新评估，可能是最高优先级Hub页** —— 三篇"镇站之宝"，早期发布建立主题权威
-- **趋势词关注话题**：product led growth（品类持续升温，2026Q2 SERP竞争度仍低）；"ai + growth/saas"相关词（新兴品类，品类定义期，低竞争）
-- **⚠️ 核心发现**：GenGrowth 原定位词（growth automation tool / attribution tracking saas）美国搜索量为零，无法直接做。实际内容角度需从"方法论+痛点"切入（PLG / SaaS metrics / growth strategy），用内容受众转化 GenGrowth 用户。
+- **快速胜利方向**：
+- **长尾矩阵系列**：
+- **战略词门面选择**：
+- **趋势词关注话题**：
 
-### Week 1 执行词单（Step 5 — 2026-06-09）
+### Week 1 执行词单
 
-> 优先级排序依据：KD × 相关度 × GenGrowth转化潜力。SERP弱度需在 Ahrefs SERP Overview 逐一确认后方可正式开写。
+> 快速胜利桶前 5–8 个词，经 SERP 快检确认后填入。
 
 | 关键词 | KD | 月搜索量 | SERP弱度 | AIO风险 | 内容格式建议 |
 |--------|-----|---------|---------|---------|-----------|
-| saas growth strategy | 1 | 300 | ✅弱（有Discussions） | 中 | 完整指南 + 框架图 |
-| product led growth examples | 4 | 600 | ✅弱（有Discussions） | 中 | 案例列表文（8–10个真实案例） |
-| saas metrics dashboard | 2 | 400 | ✅弱 | 低 | 工具对比指南（GenGrowth 自然植入） |
-| b2b saas marketing | 6 | 900 | ⚠️中（有AI Overview） | 高 | Hub页 / 完整策略指南 |
-| user acquisition strategy | 1 | 200 | ✅弱（有Discussions） | 中 | 完整指南（SaaS founder视角） |
-| product led growth tools | 4 | 150 | ✅弱 | 低 | 工具对比清单（商业意图，直接命中GenGrowth） |
-| low touch onboarding saas | 0 | 150 | ✅弱 | 低 | 方法论指南（GenGrowth核心理念直接匹配） |
-| saas growth metrics | 13 | 200 | ⚠️中 | 中 | 指标清单 + 追踪模板 |
-| saas content marketing | 4 | 1800 | 待查 | 高 | Hub页（★全库最高Vol低KD词） |
-| saas seo strategy | 9 | 700 | 待查 | 中 | 完整策略指南 |
-| b2b saas content strategy | 7 | 300 | ✅弱（有Discussions） | 中 | 策略框架文 |
-| saas go to market strategy | 3 | 250 | 待查 | 中 | GTM框架指南 |
-| saas customer retention | 2 | 250 | 待查 | 中 | 留存策略完整指南 |
-| how to reduce churn saas | 7 | 200 | 待查 | 中 | 问题意图 + 方法论 |
+| | | | | | |
 
 ---
 
@@ -254,6 +167,14 @@ tags:
 ### Track B — Social Probe
 
 > 初期 Track B 未正式启动，来源 6 记录为 N/A。
+
+#### 内容角度假设（Week 1 初始）
+
+| 角度 | 假设依据 | 预期共鸣类型 |
+|------|---------|-----------|
+| 角度 A | | |
+| 角度 B | | |
+| 角度 C | | |
 
 **Week 3 决策门（必须输出三选一）**
 - [ ] 双轨继续
