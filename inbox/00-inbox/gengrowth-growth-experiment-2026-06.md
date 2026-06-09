@@ -172,7 +172,13 @@ tags:
 
 ### 词池摘要（Step 5 完成后填入）
 
-> 原始候选池：Keywords Explorer Matching Terms 237行 + Overview 26词，KD ≤ 15 + Vol ≥ 10 + 相关性过滤，得 ~115 条竞品映射词/种子词拓展候选。内容缺口词 = 0（Content Gap 318行全为竞品离题内容）。待全部词进入 Google Sheets 主表、完成 SERP 弱度核查后，分桶结果回填此处。
+> **三轮关键词导出已全部读取完成 ✅（2026-06-09）**
+> - ① 第一轮 Matching Terms（237行，23个种子词）→ ~115候选
+> - ② Question 过滤器（30行）→ ~13新词，引入 SaaS SEO + SaaS Churn 两个新集群
+> - ③ 第二轮 Matching Terms（53行，20个新角度种子词）→ ~30候选，引入 SaaS内容营销 / GTM策略 / SaaS定价 / SaaS留存 四个新集群
+>
+> 三轮合计原始候选 ~158条，去重后预估 ~140条。内容缺口词 = 0（Content Gap 318行全为竞品离题内容）。
+> **下一步：建立 Google Sheets 主表 → SERP弱度核查 → Step 5 分桶 → 回填此处。**
 
 | 桶 | 词数 | 备注 |
 |----|------|------|
@@ -184,9 +190,19 @@ tags:
 
 ### 本轮策略决策（Step 5 — 2026-06-09）
 
-- **快速胜利方向**：4条主线并行 — ① SaaS增长策略系列（saas growth strategy、startup growth strategy、b2b saas growth strategy）② SaaS指标追踪系列（saas metrics dashboard、saas growth metrics、saas funnel metrics）③ Product-Led Growth系列（PLG examples / tools / strategy / metrics）④ B2B SaaS营销系列（b2b saas marketing strategies、content marketing、marketing funnel）
+- **快速胜利方向（三轮词库完整版）**：10个内容集群方向 —
+  - ① SaaS增长策略（saas growth strategy / b2b saas growth strategy）
+  - ② SaaS指标追踪（saas metrics dashboard / saas growth metrics）
+  - ③ PLG系列（product led growth examples / tools / strategy）
+  - ④ B2B SaaS营销（b2b saas marketing / b2b saas marketing strategies）
+  - ⑤ **★ SaaS内容营销**（saas content marketing KD4 Vol1800 ← 全词库最大新发现；b2b saas content strategy KD7 Vol300 有Discussions）
+  - ⑥ SaaS SEO（saas seo strategy KD9/Vol700；how to improve seo for saas KD2/Vol200）
+  - ⑦ GTM策略（saas go to market strategy KD3/Vol250 + b2b变体群）
+  - ⑧ SaaS定价（pricing strategy for saas KD14/Vol200；b2b saas pricing strategy KD8/Vol250）
+  - ⑨ SaaS留存/试用转化（saas customer retention KD2/Vol250；free trial conversion rate saas KD12/Vol150）
+  - ⑩ SaaS Churn（how to reduce churn saas KD7/Vol200；what is a good churn rate for saas KD12/Vol150）
 - **长尾矩阵系列**：SaaS Onboarding变体矩阵（20+ 变体；checklist / kpis / strategy / best practices / low touch）；Product Market Fit变体矩阵（15+ 变体；survey / checklist / framework / metrics）
-- **战略词门面选择**：b2b saas marketing（KD 6, Vol 900）；product-led growth strategy（KD 14, Vol 700）—— 两篇"镇站之宝"，早期发布建立主题权威
+- **战略词门面选择**：b2b saas marketing（KD 6, Vol 900）；product-led growth strategy（KD 14, Vol 700）；**saas content marketing（KD 4, Vol 1800）← 重新评估，可能是最高优先级Hub页** —— 三篇"镇站之宝"，早期发布建立主题权威
 - **趋势词关注话题**：product led growth（品类持续升温，2026Q2 SERP竞争度仍低）；"ai + growth/saas"相关词（新兴品类，品类定义期，低竞争）
 - **⚠️ 核心发现**：GenGrowth 原定位词（growth automation tool / attribution tracking saas）美国搜索量为零，无法直接做。实际内容角度需从"方法论+痛点"切入（PLG / SaaS metrics / growth strategy），用内容受众转化 GenGrowth 用户。
 
@@ -204,6 +220,12 @@ tags:
 | product led growth tools | 4 | 150 | ✅弱 | 低 | 工具对比清单（商业意图，直接命中GenGrowth） |
 | low touch onboarding saas | 0 | 150 | ✅弱 | 低 | 方法论指南（GenGrowth核心理念直接匹配） |
 | saas growth metrics | 13 | 200 | ⚠️中 | 中 | 指标清单 + 追踪模板 |
+| saas content marketing | 4 | 1800 | 待查 | 高 | Hub页（★全库最高Vol低KD词） |
+| saas seo strategy | 9 | 700 | 待查 | 中 | 完整策略指南 |
+| b2b saas content strategy | 7 | 300 | ✅弱（有Discussions） | 中 | 策略框架文 |
+| saas go to market strategy | 3 | 250 | 待查 | 中 | GTM框架指南 |
+| saas customer retention | 2 | 250 | 待查 | 中 | 留存策略完整指南 |
+| how to reduce churn saas | 7 | 200 | 待查 | 中 | 问题意图 + 方法论 |
 
 ---
 
