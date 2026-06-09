@@ -35,7 +35,7 @@
 
 ---
 
-### 1. aura-colors-pillar（Pillar 页）
+### 1. aura-colors-pillar → aura-colors-guide（Pillar 页）
 
 **当前状态**（已校验）
 - 字数：约 3,200–3,400 词 ✓
@@ -45,6 +45,27 @@
 - 缺失：无 FAQ，无 Sources，无图片，无 H3
 
 **修改项**
+
+#### 修改0：URL 变更 + 301 跳转（优先级：紧急，需开发，最先执行）
+
+**背景：** 当前 URL `/en/wiki/aura-colors-pillar` 中"pillar"是内部内容架构术语，不是用户搜索词，对 SEO 无贡献。新 URL `/en/wiki/aura-colors-guide` 更贴近用户搜索意图。
+
+**执行步骤（开发操作）：**
+1. 在 CMS 中将页面 slug 从 `aura-colors-pillar` 改为 `aura-colors-guide`
+2. 在服务器/CMS 路由配置中添加 301 永久重定向：
+   ```
+   /en/wiki/aura-colors-pillar  →  /en/wiki/aura-colors-guide  [301]
+   ```
+3. 确认旧 URL 访问后浏览器地址栏跳转到新 URL（状态码 301，非 302）
+
+**执行完成后，内容同事需要同步更新：**
+- 集群内所有7个 series 页中指向 `/en/wiki/aura-colors-pillar` 的内链，全部改为 `/en/wiki/aura-colors-guide`
+- 本清单中涉及 pillar URL 的所有描述，同步替换
+
+**注意：**
+- 301 跳转必须在 URL 变更的同一时间上线，不能有窗口期（即哪怕几分钟的 404）
+- 如果该页已提交过 Google Search Console 的 URL 检查，变更后重新提交新 URL 请求收录
+- 不要使用 302（临时跳转），302 不传递链接权重
 
 #### 修改1：修复自链 Bug（优先级：紧急）
 - Related Reading 中"guide to aura reading"当前指向 `/en/wiki/aura-colors-pillar`（自链）
@@ -762,6 +783,7 @@ During creative flow states, it often brightens toward gold.
 
 | 优先级 | 任务 | 涉及页面 | 执行人 | 预估时间 |
 |--------|------|---------|--------|---------|
+| 🔴 紧急·开发 | Pillar 页 URL 变更：aura-colors-pillar → aura-colors-guide，同步上线 301 跳转 | pillar | 开发+内容 | 开发改 slug + 配置跳转；内容同步更新7个 series 页内链 |
 | 🔴 紧急·开发 | 修复 H1 重复出现两次（模板 bug） | 全部8页 | 开发 | 统一处理 |
 | 🔴 紧急·内容 | 修复 footer "Open the interactive wiki" 自链 | orange、white、green | 内容 | 10分钟 |
 | 🔴 紧急·内容 | 修复 pillar 的"guide to aura reading"自链（改为/en/wiki/aura-reading） | pillar | 内容 | 5分钟 |
