@@ -56,10 +56,19 @@ tags:
 
 > ⚠️ SEO竞品可用性验证（Step 0）：outrank.so DR 72 / okara.ai DR 63，与 GenGrowth（DR ≈ 0）差距分别达 72 和 63，均 > 30。两者对标用途 = **话题发现**，不做关键词对标。需通过 SERP 补入低 DR 可对标竞品（见下方待执行项）。
 
-- **品类 DR 竞争水位**：头部竞品 DR 63–72，高 DR 品类
-- **可对标竞品 DR 区间**：待补入（当前无 DR 差距 ≤ 30 的竞品）
-- **关键数据洞察**：待 Step 3 执行后填入
-- **新站切入薄弱点**：待 Step 3 执行后填入
+- **品类 DR 竞争水位**：头部竞品 DR 36–72；rankyfy.com DR 14 / ethicalseo.io DR 30 为可对标低 DR 竞品
+- **可对标竞品 DR 区间**：DR 14–30（rankyfy.com + ethicalseo.io，差距均 ≤ 30）
+- **关键数据洞察（Step 3A 话题发现 2026-06-09）**：
+  - 三个话题发现竞品（aeoengine / okara / outrank）内容几乎全是 SEO工具对比 + alternatives列表，目标受众是 SEO从业者/代理商，**不是** SaaS创始人或增长团队
+  - outrank.so #1 流量页（33k/月）来自尼日利亚用户搜索浏览器UI问题，与其产品完全无关，属于噪音流量
+  - okara.ai 流量高度依赖品牌词，博客内容几乎无有效 SEO 流量
+  - aeoengine.ai 最相关页面仅 "best saas seo tools"（346流量），其余均为通用SEO工具内容
+- **新站切入薄弱点（内容空白区）**：
+  - Growth experiment / 增长实验框架 → 三个竞品**零覆盖**
+  - Attribution tracking for startups → 三个竞品**零覆盖**
+  - Growth automation / 一站式增长平台 → 三个竞品**零覆盖**
+  - Solo founder / indie developer growth tools → 三个竞品**零覆盖**
+  - SaaS growth strategy（产品增长角度，非纯SEO角度） → 三个竞品**零覆盖**
 
 ### 流量现状
 
