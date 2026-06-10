@@ -151,6 +151,29 @@ tags:
 | 战略词（KD 20–50） | | 最低优先，全周期 ≤ 5 篇 |
 | **合计** | | |
 
+### Step 3 竞品来源关键词候选（待 Step 5 并入主表）
+
+> Step 3 完成日期：2026-06-09 | 来源：rankyfy.com + ethicalseo.io 关键词对标 + Content Gap
+
+| 关键词 | Vol | KD | 来源 | 备注 |
+|--------|-----|-----|------|------|
+| saas seo agency | 2,400 | 6 | ethicalseo | 用"vs tool/platform"角度切入 |
+| organic seo services | 2,200 | 1 | ethicalseo | "自动化替代外包"角度 |
+| saas seo platform | 800 | 1 | ethicalseo | 直接命中 GenGrowth 定位 |
+| seo agency for saas companies | 700 | 3 | ethicalseo | "agency vs tool"内容 |
+| seo outreach agency | 700 | 3 | ethicalseo | 外链增长需求信号 |
+| agency rank tracking | 4,200 | 3 | rankyfy | SEO agency偏，可写排名追踪角度 |
+| seo agency for saas | 600 | 2 | ethicalseo | 同 saas seo agency |
+| seo competitor research tool | 600 | 24 | rankyfy | 竞品分析工具 |
+| seo company for saas | 450 | 2 | ethicalseo | 同上 |
+| saas seo tools | 300 | 0 | ethicalseo | 直接命中 |
+| seo saas tools | 300 | 0 | ethicalseo | 直接命中 |
+| why use a backlink monitor tool | 300 | 0 | rankyfy | 外链监控教育内容 |
+| outsource link building services | 200 | 6 | ethicalseo | 外链需求信号 |
+| saas seo tool | 200 | 1 | ethicalseo | 直接命中 |
+
+**Step 3 小计：~15 条竞品映射词**（主力词量待 Step 4 扩充）
+
 ### 本轮策略决策
 
 - **快速胜利方向**：
