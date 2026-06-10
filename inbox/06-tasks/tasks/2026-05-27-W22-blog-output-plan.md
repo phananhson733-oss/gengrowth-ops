@@ -146,7 +146,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-JOURNAL-001 journal prompts
 
 ---
-## ⚪ 6月8日 (周一) - 待写作
+## ⚪ 6月8日 (周一) - 已写作
 **状态**：`已输出` (共 10 篇)
 - [x] PG-JOURNAL-002 shadow work journal prompts
 - [x] PG-LILITH-001 black moon lilith
@@ -158,6 +158,20 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-NAKSH-009 hasta nakshatra
 - [x] PG-NAKSH-010 krittika nakshatra
 - [x] PG-NAKSH-011 ashwini nakshatra
+
+---
+## ⚪ 6月10日 (周三) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [ ] PG-JOURNAL-003 emotion journal
+- [ ] PG-NODE-009 blue node astrology
+- [ ] PG-NODE-010 north node in leo
+- [ ] PG-NODE-011 rahu and ketu astrology
+- [ ] PG-NAKSH-012 uttara bhadrapada nakshatra
+- [ ] PG-NAKSH-013 uttara phalguni nakshatra
+- [ ] PG-NAKSH-014 purva bhadrapada nakshatra
+- [ ] PG-NAKSH-015 revati nakshatra
+- [ ] PG-NAKSH-016 punarvasu nakshatra
+- [ ] PG-NAKSH-017 magha nakshatra
 
 ---
 
