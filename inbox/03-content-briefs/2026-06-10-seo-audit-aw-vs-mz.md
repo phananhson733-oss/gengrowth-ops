@@ -10,12 +10,12 @@
 
 以下文章有足够字数但缺少FAQ结构，无法争夺Featured Snippet。
 
-| 发布日期 | 字数 | URL |
-|---|---|---|
-| 2026-06-01 | 1,797词 | https://www.astrologywiki.com/en/wiki/june-2026-planetary-transits |
-| 2026-06-01 | 1,735词 | https://www.astrologywiki.com/en/wiki/july-2026-planetary-transits |
-| 2026-05-22 | 2,532词 | https://www.astrologywiki.com/en/wiki/chakra-system-overview |
-| 2026-05-22 | 1,576词 | https://www.astrologywiki.com/en/wiki/four-element-framework |
+| 发布日期       | 字数     | URL                                                                | page_id      |
+| ---------- | ------ | ------------------------------------------------------------------ | ------------ |
+| 2026-06-01 | 1,797词 | https://www.astrologywiki.com/en/wiki/june-2026-planetary-transits | PG-TRANS-004 |
+| 2026-06-01 | 1,735词 | https://www.astrologywiki.com/en/wiki/july-2026-planetary-transits | PG-TRANS-005 |
+| 2026-05-22 | 2,532词 | https://www.astrologywiki.com/en/wiki/chakra-system-overview       |              |
+| 2026-05-22 | 1,576词 | https://www.astrologywiki.com/en/wiki/four-element-framework       |              |
 
 ---
 
