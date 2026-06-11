@@ -4,8 +4,8 @@
   "title": "请列出当前知识库的顶层文件夹，但不要修改任何文件。",
   "titleGenerationStatus": "failed",
   "createdAt": 1781149190350,
-  "updatedAt": 1781150048230,
-  "lastResponseAt": 1781150048230,
+  "updatedAt": 1781156073358,
+  "lastResponseAt": 1781156073358,
   "sessionId": "019eb4c3-e0de-7c41-b287-c88a9069f041",
   "providerState": {
     "threadId": "019eb4c3-e0de-7c41-b287-c88a9069f041",
@@ -14,12 +14,12 @@
   },
   "currentNote": "docs/01-company/culture/公司价值观.md",
   "usage": {
-    "inputTokens": 98627,
+    "inputTokens": 98881,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 98176,
+    "cacheReadInputTokens": 2432,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 98627,
+    "contextTokens": 98881,
     "percentage": 38,
     "model": "gpt-5.5"
   }
