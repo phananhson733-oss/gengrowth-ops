@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781149190347-ciauch96n",
+  "providerId": "codex",
+  "title": "请列出当前知识库的顶层文件夹，但不要修改任何文件。",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781149190350,
+  "updatedAt": 1781149765227,
+  "lastResponseAt": 1781149765227,
+  "sessionId": "019eb4c3-e0de-7c41-b287-c88a9069f041",
+  "providerState": {
+    "threadId": "019eb4c3-e0de-7c41-b287-c88a9069f041",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/10/rollout-2026-06-10T20-39-56-019eb4c3-e0de-7c41-b287-c88a9069f041.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "docs/01-company/culture/公司价值观.md",
+  "usage": {
+    "inputTokens": 97998,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 2432,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 97998,
+    "percentage": 38,
+    "model": "gpt-5.5"
+  }
+}
