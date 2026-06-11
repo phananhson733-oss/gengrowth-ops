@@ -195,137 +195,29 @@ MZ在量上的领先是规模优势，覆盖了更多长尾变体（12星座变�
 
 **① 修复1篇 < 1,000词的核心词文章**
 
-目标：每篇扩展到1,500–2,000词，同步补充FAQ模块。按字数升序排列（最短优先）：
+目标：每篇扩展到1,500–2,000词，同步补充FAQ模块。并且文章标题并没有出现关键词
 
-| 字数   | URL                                                        |
-| ---- | ---------------------------------------------------------- |
-| 924词 | https://www.astrologywiki.com/en/wiki/track-mood-astrology |
+| 字数   | URL                                                        | page_id      |
+| ---- | ---------------------------------------------------------- | ------------ |
+| 924词 | https://www.astrologywiki.com/en/wiki/track-mood-astrology | PG-TRANS-001 |
 
-
-**② 为41篇无E-E-A-T信号的页面添加作者+日期**
-
-操作：在JSON-LD schema中补充 `author` + `datePublished` + `dateModified` 字段。标注 ★ 的同时也在P0-①中（两项任务合并处理）。按字数降序：
-
-| 字数 | URL |
-|---|---|
-| 1,479词 | https://www.astrologywiki.com/en/wiki/cardinal-mode |
-| 1,458词 | https://www.astrologywiki.com/en/wiki/libra |
-| 1,423词 | https://www.astrologywiki.com/en/wiki/aries |
-| 1,393词 | https://www.astrologywiki.com/en/wiki/sagittarius |
-| 1,374词 | https://www.astrologywiki.com/en/wiki/fixed-mode |
-| 1,350词 | https://www.astrologywiki.com/en/wiki/virgo |
-| 1,315词 | https://www.astrologywiki.com/en/wiki/scorpio |
-| 1,278词 | https://www.astrologywiki.com/en/wiki/aquarius |
-| 1,277词 | https://www.astrologywiki.com/en/wiki/venus |
-| 1,263词 | https://www.astrologywiki.com/en/wiki/opposition |
-| 1,261词 | https://www.astrologywiki.com/en/wiki/capricorn |
-| 1,251词 | https://www.astrologywiki.com/en/wiki/jupiter |
-| 1,247词 | https://www.astrologywiki.com/en/wiki/cancer |
-| 1,243词 | https://www.astrologywiki.com/en/wiki/water-element |
-| 1,234词 | https://www.astrologywiki.com/en/wiki/leo |
-| 1,226词 | https://www.astrologywiki.com/en/wiki/chiron |
-| 1,218词 | https://www.astrologywiki.com/en/wiki/earth-element |
-| 1,180词 | https://www.astrologywiki.com/en/wiki/moon |
-| 1,168词 | https://www.astrologywiki.com/en/wiki/gemini |
-| 1,158词 | https://www.astrologywiki.com/en/wiki/taurus |
-| 1,117词 | https://www.astrologywiki.com/en/wiki/mercury |
-| 1,117词 | https://www.astrologywiki.com/en/wiki/neptune |
-| 1,075词 | https://www.astrologywiki.com/en/wiki/midheaven |
-| 1,074词 | https://www.astrologywiki.com/en/wiki/pluto |
-| 1,072词 | https://www.astrologywiki.com/en/wiki/mars |
-| 1,052词 | https://www.astrologywiki.com/en/wiki/synastry-chart |
-| 1,046词 | https://www.astrologywiki.com/en/wiki/conjunction |
-| 1,046词 | https://www.astrologywiki.com/en/wiki/pisces |
-| 1,042词 | https://www.astrologywiki.com/en/wiki/mutable-mode |
-| 1,024词 | https://www.astrologywiki.com/en/wiki/ascendant |
-| 1,010词 | https://www.astrologywiki.com/en/wiki/juno |
-| 974词 ★ | https://www.astrologywiki.com/en/wiki/air-element |
-| 971词 ★ | https://www.astrologywiki.com/en/wiki/fire-element |
-| 971词 ★ | https://www.astrologywiki.com/en/wiki/natal-chart |
-| 968词 ★ | https://www.astrologywiki.com/en/wiki/north-node |
-| 966词 ★ | https://www.astrologywiki.com/en/wiki/composite-chart |
-| 921词 ★ | https://www.astrologywiki.com/en/wiki/uranus |
-| 867词 ★ | https://www.astrologywiki.com/en/wiki/sun |
-| 865词 ★ | https://www.astrologywiki.com/en/wiki/modes |
-| 737词 ★ | https://www.astrologywiki.com/en/wiki/saturn |
-| 635词 ★ | https://www.astrologywiki.com/en/wiki/lilith |
 
 ---
 
 ### P1 — 高优先级（结构性提升）
 
-**③ 为5篇字数>1,500词但无FAQ的高价值页面添加FAQ**
+**③ 为5篇字数>1,500词但无FAQ的高价值页面添加FAQ**，PG-CHAKRA-001的标题中也没有出现关键词
 
-| 字数 | URL |
-|---|---|
-| 2,532词 | https://www.astrologywiki.com/en/wiki/chakra-system-overview |
-| 2,053词 | https://www.astrologywiki.com/en/wiki/how-to-read-birth-chart |
-| 1,797词 | https://www.astrologywiki.com/en/wiki/june-2026-planetary-transits |
-| 1,735词 | https://www.astrologywiki.com/en/wiki/july-2026-planetary-transits |
-| 1,576词 | https://www.astrologywiki.com/en/wiki/four-element-framework |
+| 字数     | URL                                                                | page_id       |
+| ------ | ------------------------------------------------------------------ | ------------- |
+| 2,532词 | https://www.astrologywiki.com/en/wiki/chakra-system-overview       | PG-CHAKRA-001 |
+| 1,797词 | https://www.astrologywiki.com/en/wiki/june-2026-planetary-transits | PG-TRANS-004  |
+| 1,735词 | https://www.astrologywiki.com/en/wiki/july-2026-planetary-transits | PG-TRANS-005  |
+
 
 **④ 每篇文章图片数从avg 2提升至avg 5–6**  
 重点方向：占星盘示意图（可程序化生成）、星座对应配色信息图、时间轴/周期图表  
 
-**⑤ 修复At-a-glance缺口（53篇）**
-
-以下页面缺少At-a-glance速览框，优先处理字数>1,500词的页面（前9篇为独立缺口，其余与P0-②重叠可合并处理）：
-
-| 字数 | URL |
-|---|---|
-| 2,488词 | https://www.astrologywiki.com/en/wiki/blue-aura-meaning |
-| 2,413词 | https://www.astrologywiki.com/en/wiki/white-aura-meaning |
-| 2,214词 | https://www.astrologywiki.com/en/wiki/purple-aura-meaning |
-| 2,111词 | https://www.astrologywiki.com/en/wiki/yellow-aura-meaning |
-| 2,053词 | https://www.astrologywiki.com/en/wiki/how-to-read-birth-chart |
-| 2,004词 | https://www.astrologywiki.com/en/wiki/red-aura-meaning |
-| 1,943词 | https://www.astrologywiki.com/en/wiki/full-moon-journal-prompts |
-| 1,576词 | https://www.astrologywiki.com/en/wiki/four-element-framework |
-| 1,519词 | https://www.astrologywiki.com/en/wiki/full-moon-july-2026 |
-| 1,479词 | https://www.astrologywiki.com/en/wiki/cardinal-mode |
-| 1,458词 | https://www.astrologywiki.com/en/wiki/libra |
-| 1,423词 | https://www.astrologywiki.com/en/wiki/aries |
-| 1,393词 | https://www.astrologywiki.com/en/wiki/sagittarius |
-| 1,374词 | https://www.astrologywiki.com/en/wiki/fixed-mode |
-| 1,350词 | https://www.astrologywiki.com/en/wiki/virgo |
-| 1,315词 | https://www.astrologywiki.com/en/wiki/scorpio |
-| 1,278词 | https://www.astrologywiki.com/en/wiki/aquarius |
-| 1,277词 | https://www.astrologywiki.com/en/wiki/venus |
-| 1,263词 | https://www.astrologywiki.com/en/wiki/opposition |
-| 1,261词 | https://www.astrologywiki.com/en/wiki/capricorn |
-| 1,251词 | https://www.astrologywiki.com/en/wiki/jupiter |
-| 1,247词 | https://www.astrologywiki.com/en/wiki/cancer |
-| 1,243词 | https://www.astrologywiki.com/en/wiki/water-element |
-| 1,234词 | https://www.astrologywiki.com/en/wiki/leo |
-| 1,226词 | https://www.astrologywiki.com/en/wiki/chiron |
-| 1,218词 | https://www.astrologywiki.com/en/wiki/earth-element |
-| 1,180词 | https://www.astrologywiki.com/en/wiki/moon |
-| 1,168词 | https://www.astrologywiki.com/en/wiki/gemini |
-| 1,158词 | https://www.astrologywiki.com/en/wiki/taurus |
-| 1,117词 | https://www.astrologywiki.com/en/wiki/mercury |
-| 1,117词 | https://www.astrologywiki.com/en/wiki/neptune |
-| 1,075词 | https://www.astrologywiki.com/en/wiki/midheaven |
-| 1,074词 | https://www.astrologywiki.com/en/wiki/pluto |
-| 1,072词 | https://www.astrologywiki.com/en/wiki/mars |
-| 1,052词 | https://www.astrologywiki.com/en/wiki/synastry-chart |
-| 1,046词 | https://www.astrologywiki.com/en/wiki/conjunction |
-| 1,046词 | https://www.astrologywiki.com/en/wiki/pisces |
-| 1,042词 | https://www.astrologywiki.com/en/wiki/mutable-mode |
-| 1,024词 | https://www.astrologywiki.com/en/wiki/ascendant |
-| 1,010词 | https://www.astrologywiki.com/en/wiki/juno |
-| 974词 | https://www.astrologywiki.com/en/wiki/air-element |
-| 971词 | https://www.astrologywiki.com/en/wiki/fire-element |
-| 971词 | https://www.astrologywiki.com/en/wiki/natal-chart |
-| 968词 | https://www.astrologywiki.com/en/wiki/north-node |
-| 966词 | https://www.astrologywiki.com/en/wiki/composite-chart |
-| 924词 | https://www.astrologywiki.com/en/wiki/track-mood-astrology |
-| 921词 | https://www.astrologywiki.com/en/wiki/uranus |
-| 867词 | https://www.astrologywiki.com/en/wiki/sun |
-| 865词 | https://www.astrologywiki.com/en/wiki/modes |
-| 752词 | https://www.astrologywiki.com/en/wiki/best-astrology-mental-health-apps |
-| 737词 | https://www.astrologywiki.com/en/wiki/saturn |
-| 635词 | https://www.astrologywiki.com/en/wiki/lilith |
-| 487词 | https://www.astrologywiki.com/en/wiki/mercury-retrograde-vs-moon-anxiety |
 
 ---
 
