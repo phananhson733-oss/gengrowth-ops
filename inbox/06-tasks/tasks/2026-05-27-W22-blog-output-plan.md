@@ -174,5 +174,19 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-NAKSH-017 magha nakshatra
 
 ---
+## ⚪ 6月11日 (周四) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [ ] PG-NAKSH-018 ardra nakshatra
+- [ ] PG-NAKSH-019 dhanishta nakshatra
+- [ ] PG-TRANS-008 saturn in aries 2026
+- [ ] PG-TRANS-009 uranus opposition
+- [ ] PG-TRANS-010 mars return astrology
+- [ ] PG-RISE-004 ascendant meaning
+- [ ] PG-RISE-005 cancer rising
+- [ ] PG-RISE-006 virgo rising
+- [ ] PG-RISE-007 gemini rising
+- [ ] PG-RISE-008 moon rising sign
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
