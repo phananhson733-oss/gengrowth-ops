@@ -199,7 +199,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-007 argentina world cup 2026 astrology
 - [x] PG-WC-008 zodiac signs as world cup 2026 teams
 - [x] PG-WC-009 best soccer players zodiac sign
-- [ ] PG-WC-0010 world cup 2026 june astrology
+- [ ] PG-WC-010 world cup 2026 june astrology
 
 ---
 

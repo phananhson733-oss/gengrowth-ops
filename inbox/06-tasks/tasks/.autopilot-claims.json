@@ -133,5 +133,13 @@
     "verificationEvidence": "chrome-verified: H1+author(Marcus Orion)+breadcrumb+tags+Best-Sign-Theory H2 render OK; codex-passed (RAE accuracy)",
     "verifiedAt": "2026-06-12T20:54:30.911Z",
     "mergedAt": "2026-06-12T20:54:41.678Z"
+  },
+  "PG-WC-010": {
+    "status": "active",
+    "slug": "world-cup-2026-june-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-010",
+    "branch": "seo/auto/2026-06-12-PG-WC-010"
   }
 }
