@@ -90,7 +90,7 @@
     "mergedAt": "2026-06-12T20:11:27.341Z"
   },
   "PG-WC-007": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "argentina-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -98,6 +98,18 @@
     "branch": "seo/auto/2026-06-12-PG-WC-007",
     "needs_hero": true,
     "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/138"
+    "pr": "https://github.com/xdawayer/oracle/pull/138",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-007-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "codex+chrome preview verification passed",
+    "verifiedAt": "2026-06-12T20:24:53.129Z",
+    "mergedAt": "2026-06-12T20:25:01.363Z"
+  },
+  "PG-WC-008": {
+    "status": "active",
+    "slug": "zodiac-signs-as-world-cup-2026-teams",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-008",
+    "branch": "seo/auto/2026-06-12-PG-WC-008"
   }
 }
