@@ -442,7 +442,7 @@ Would you consider adding it as an additional reference? We'd be happy to cross-
 
 Thank you for the consistently excellent science communication you produce.
 
-Best, [Name] | AstrologyWiki.com
+Best,  | AstrologyWiki.com
 
 ---
 
