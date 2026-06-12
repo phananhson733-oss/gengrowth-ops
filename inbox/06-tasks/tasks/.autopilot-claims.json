@@ -105,11 +105,14 @@
     "mergedAt": "2026-06-12T20:25:01.363Z"
   },
   "PG-WC-008": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "zodiac-signs-as-world-cup-2026-teams",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-008",
-    "branch": "seo/auto/2026-06-12-PG-WC-008"
+    "branch": "seo/auto/2026-06-12-PG-WC-008",
+    "needs_hero": true,
+    "zh": false,
+    "pr": "https://github.com/xdawayer/oracle/pull/139"
   }
 }
