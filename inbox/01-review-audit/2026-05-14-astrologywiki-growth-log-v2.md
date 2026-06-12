@@ -134,7 +134,7 @@ updated: 2026-05-14
 
 #### 外链建设
 
-> 详细追踪 → 📊 [Google Sheets 链接]
+> 详细追踪 → 📊 [[Google Sheets 链接]](https://docs.google.com/spreadsheets/d/1L9GriM-bqWuxUa5KFWBtEMrjQArokCurGymqpTsKbxQ/edit?usp=sharing)
 
 | 类型                                 | 60 天目标  | 状态  |
 | ---------------------------------- | ------- | --- |
