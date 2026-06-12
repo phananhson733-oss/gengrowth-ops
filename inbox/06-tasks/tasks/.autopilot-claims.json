@@ -45,7 +45,7 @@
     "mergedAt": "2026-06-12T19:26:42.764Z"
   },
   "PG-WC-004": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "cristiano-ronaldo-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -53,6 +53,18 @@
     "branch": "seo/auto/2026-06-12-PG-WC-004",
     "needs_hero": true,
     "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/135"
+    "pr": "https://github.com/xdawayer/oracle/pull/135",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-004-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "codex+chrome preview verification passed",
+    "verifiedAt": "2026-06-12T19:41:17.510Z",
+    "mergedAt": "2026-06-12T19:41:27.826Z"
+  },
+  "PG-WC-005": {
+    "status": "active",
+    "slug": "lamine-yamal-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-005",
+    "branch": "seo/auto/2026-06-12-PG-WC-005"
   }
 }
