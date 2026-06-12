@@ -13,5 +13,13 @@
     "verificationEvidence": "codex+chrome preview verification passed",
     "verifiedAt": "2026-06-12T18:07:37.648Z",
     "mergedAt": "2026-06-12T18:07:46.981Z"
+  },
+  "PG-WC-002": {
+    "status": "active",
+    "slug": "mbappe-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-002-dry-run-22433",
+    "branch": "seo/auto/2026-06-12-PG-WC-002"
   }
 }
