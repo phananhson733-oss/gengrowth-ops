@@ -30,6 +30,7 @@ tags:
 
 ### 1. astrologyyard.com (DR28) ⭐ 高优先
 > 已获取投稿规范：500–1000字 · Word文档 · 最多2条外链 · 须附版权免费图片 · 需回链
+> 需要blog
 
 **TO:** support@astrologyyard.com
 **SUBJECT:** Proposed Guest Blogger — "The 12 Astrological Houses Explained: A Practical Guide to Timing Life's Key Decisions"
