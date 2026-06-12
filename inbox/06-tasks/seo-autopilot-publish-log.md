@@ -56,3 +56,4 @@ updated: 2026-06-12
 | 2026-06-12 | PG-WC-002 | mbappe-birth-chart | Mbappe Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/mbappe-birth-chart | published |
 | 2026-06-12 | PG-WC-003 | lionel-messi-zodiac-sign | Lionel Messi Zodiac Sign | julian-thorne | https://www.astrologywiki.com/en/wiki/lionel-messi-zodiac-sign | published |
 | 2026-06-12 | PG-WC-004 | cristiano-ronaldo-zodiac-sign | Cristiano Ronaldo Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/cristiano-ronaldo-zodiac-sign | published |
+| 2026-06-12 | PG-WC-005 | lamine-yamal-birth-chart | Lamine Yamal Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/lamine-yamal-birth-chart | published |

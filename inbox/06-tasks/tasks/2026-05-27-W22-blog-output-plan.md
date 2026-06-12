@@ -194,7 +194,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-002 mbappe birth chart
 - [x] PG-WC-003 lionel messi zodiac sign
 - [x] PG-WC-004 cristiano ronaldo zodiac sign
-- [ ] PG-WC-005 lamine yamal birth chart
+- [x] PG-WC-005 lamine yamal birth chart
 - [ ] PG-WC-006 vinicius jr zodiac sign
 - [ ] PG-WC-007 argentina world cup 2026 astrology
 - [ ] PG-WC-008 zodiac signs as world cup 2026 teams
