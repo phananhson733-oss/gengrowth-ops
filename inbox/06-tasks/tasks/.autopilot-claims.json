@@ -105,7 +105,7 @@
     "mergedAt": "2026-06-12T20:25:01.363Z"
   },
   "PG-WC-008": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "zodiac-signs-as-world-cup-2026-teams",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -113,6 +113,18 @@
     "branch": "seo/auto/2026-06-12-PG-WC-008",
     "needs_hero": true,
     "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/139"
+    "pr": "https://github.com/xdawayer/oracle/pull/139",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-008-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "codex+chrome preview verification passed",
+    "verifiedAt": "2026-06-12T20:38:01.339Z",
+    "mergedAt": "2026-06-12T20:38:10.866Z"
+  },
+  "PG-WC-009": {
+    "status": "active",
+    "slug": "best-soccer-players-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-009",
+    "branch": "seo/auto/2026-06-12-PG-WC-009"
   }
 }
