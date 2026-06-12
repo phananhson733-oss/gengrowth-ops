@@ -28,5 +28,13 @@
     "verificationEvidence": "codex+chrome preview verification passed",
     "verifiedAt": "2026-06-12T18:53:21.183Z",
     "mergedAt": "2026-06-12T18:53:29.150Z"
+  },
+  "PG-WC-003": {
+    "status": "active",
+    "slug": "lionel-messi-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-003",
+    "branch": "seo/auto/2026-06-12-PG-WC-003"
   }
 }
