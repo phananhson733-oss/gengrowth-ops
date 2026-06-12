@@ -191,7 +191,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 6月12日 (周五) - 待写作
 **状态**：`已输出` (共 10 篇)
 - [x] PG-WC-001 world cup 2026 astrology prediction
-- [ ] PG-WC-002 mbappe birth chart
+- [x] PG-WC-002 mbappe birth chart
 - [ ] PG-WC-003 lionel messi zodiac sign
 - [ ] PG-WC-004 cristiano ronaldo zodiac sign
 - [ ] PG-WC-005 lamine yamal birth chart

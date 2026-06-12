@@ -53,3 +53,4 @@ updated: 2026-06-12
 | 2026-06-08 | PG-NAKSH-010 | krittika-nakshatra | Krittika Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/krittika-nakshatra | published |
 | 2026-06-08 | PG-TRANS-007 | neptune-in-pisces | Neptune In Pisces | marcus-orion | https://www.astrologywiki.com/en/wiki/neptune-in-pisces | published |
 | 2026-06-12 | PG-WC-001 | world-cup-2026-astrology-prediction | World Cup 2026 Astrology Prediction | julian-thorne | https://www.astrologywiki.com/en/wiki/world-cup-2026-astrology-prediction | published |
+| 2026-06-12 | PG-WC-002 | mbappe-birth-chart | Mbappe Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/mbappe-birth-chart | published |
