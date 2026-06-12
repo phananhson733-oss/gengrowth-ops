@@ -75,11 +75,14 @@
     "mergedAt": "2026-06-12T19:58:13.593Z"
   },
   "PG-WC-006": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "vinicius-jr-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-006",
-    "branch": "seo/auto/2026-06-12-PG-WC-006"
+    "branch": "seo/auto/2026-06-12-PG-WC-006",
+    "needs_hero": true,
+    "zh": false,
+    "pr": "https://github.com/xdawayer/oracle/pull/137"
   }
 }
