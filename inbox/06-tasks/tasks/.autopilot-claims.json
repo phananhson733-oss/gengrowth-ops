@@ -30,11 +30,14 @@
     "mergedAt": "2026-06-12T18:53:29.150Z"
   },
   "PG-WC-003": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "lionel-messi-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-003",
-    "branch": "seo/auto/2026-06-12-PG-WC-003"
+    "branch": "seo/auto/2026-06-12-PG-WC-003",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/134"
   }
 }
