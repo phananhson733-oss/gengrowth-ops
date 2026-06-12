@@ -59,3 +59,4 @@ updated: 2026-06-12
 | 2026-06-12 | PG-WC-005 | lamine-yamal-birth-chart | Lamine Yamal Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/lamine-yamal-birth-chart | published |
 | 2026-06-12 | PG-WC-006 | vinicius-jr-zodiac-sign | Vinicius Jr Zodiac Sign | aditi-sharma | https://www.astrologywiki.com/en/wiki/vinicius-jr-zodiac-sign | published |
 | 2026-06-12 | PG-WC-007 | argentina-world-cup-2026-astrology | Argentina World Cup 2026 Astrology | aditi-sharma | https://www.astrologywiki.com/en/wiki/argentina-world-cup-2026-astrology | published |
+| 2026-06-12 | PG-WC-008 | zodiac-signs-as-world-cup-2026-teams | Zodiac Signs As World Cup 2026 Teams | elena-vane | https://www.astrologywiki.com/en/wiki/zodiac-signs-as-world-cup-2026-teams | published |
