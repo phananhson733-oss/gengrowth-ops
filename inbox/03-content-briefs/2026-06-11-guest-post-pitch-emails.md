@@ -12,6 +12,11 @@ tags:
 
 # Guest Post Pitch Emails — AstrologyWiki.com
 
+## ⏰ 下周待办（Week of 2026-06-15）
+
+- [ ] **elephantjournal.com** — 直接在平台发布帖子，无需等待回复。访问 https://www.elephantjournal.com/write-for-elephant-journal/ 注册作者账号后提交。用文案见下方「表单提交站点 A」。
+- [ ] **codesupply.co** — 回复确认接受 $100 插入现有 blog 方案（2 dofollow）。均分DR 0.086，是当前付费选项中性价比最高的。回复邮件：outreach@codesupply.co
+
 > 来源：`外链追踪表 - Guest post站点追踪表.csv`
 > 筛选条件：投稿进度为空 + 是否保留=是 + 接受投稿=接受
 > 发邮件后请及时更新追踪表的「投稿进度」列
