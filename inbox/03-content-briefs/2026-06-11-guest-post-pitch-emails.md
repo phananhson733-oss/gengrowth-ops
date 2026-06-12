@@ -485,13 +485,13 @@ Mit freundlichen Grüssen,
 
 ## 三、前置操作站点（无需发邮件，先完成操作）
 
-| 站点 | DR | 操作 | 说明 |
-|------|----|------|------|
-| dang.ai | 81 | 在AstrologyWiki首页/页脚添加 Dang.ai 徽章或反向链接 | 添加后申请收录 |
-| fazier.com | 81 | 在网站首页或页脚添加指向 fazier.com 的反向链接 | 添加后15日内自动上线 |
-| shopify.com | 96 | 用信用卡完成付费上架（前3个月每月$1） | 找到信用卡后操作 |
-| toolify.ai | 73 | 通过 https://www.toolify.ai/zh/submit 付费提交（$99/6条dofollow） | 可选，按预算决定 |
-| mossai.org | 76 | 通过 https://mossai.org/de/submit 填表提交 | ⚠️ 疑似互链系统，先核实 |
+| 站点          | DR  | 操作                                                       | 说明            |
+| ----------- | --- | -------------------------------------------------------- | ------------- |
+| dang.ai     | 81  | 在AstrologyWiki首页/页脚添加 Dang.ai 徽章或反向链接                    | 添加后申请收录       |
+| fazier.com  | 81  | 在网站首页或页脚添加指向 fazier.com 的反向链接                            | 添加后15日内自动上线   |
+| shopify.com | 96  | 用信用卡完成付费上架（前3个月每月$1）                                     | 找到信用卡后操作      |
+| toolify.ai  | 73  | 通过 https://www.toolify.ai/zh/submit 付费提交（$99/6条dofollow） | 可选，按预算决定      |
+| mossai.org  | 76  | 通过 https://mossai.org/de/submit 填表提交                     | ⚠️ 疑似互链系统，先核实 |
 
 ---
 
