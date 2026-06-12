@@ -139,7 +139,7 @@ tags:
 
 ## 二、关键词策略
 
-> 完整词库 → 📊 [Google Sheets 待建立]
+> 完整词库 → 📊 https://docs.google.com/spreadsheets/d/1RRxsyFmdWgtd6tojjze_8lxwSUTTZKm4TqU4gZTIRA8/edit?usp=sharing
 
 ### 词池摘要（Step 5 完成 2026-06-10）
 
