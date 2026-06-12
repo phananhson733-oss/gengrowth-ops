@@ -15,7 +15,7 @@
     "mergedAt": "2026-06-12T18:07:46.981Z"
   },
   "PG-WC-002": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "mbappe-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -23,6 +23,10 @@
     "branch": "seo/auto/2026-06-12-PG-WC-002",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/133"
+    "pr": "https://github.com/xdawayer/oracle/pull/133",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-002-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "codex+chrome preview verification passed",
+    "verifiedAt": "2026-06-12T18:53:21.183Z",
+    "mergedAt": "2026-06-12T18:53:29.150Z"
   }
 }
