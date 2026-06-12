@@ -113,13 +113,16 @@ tags:
 
 ### 核心目标设定
 
+> 产能基准：5–10 篇/天。Day 14 按 7 天实际生产计（首周含技术配置）；数值为参考区间下限，领先指标。
+> impressions / clicks 为行业新站经验估算，非保证值，以 GSC 实测为准。
+
 | 指标 | Day 0 基线 | Day 14（领先） | Day 30（中期） | Day 60（目标） |
 |------|-----------|--------------|--------------|--------------|
-| 发布内容数 | 0 | | | |
-| 非品牌 impressions（US） | 0 | | | |
-| 目标词进 Top 30 数 | 0 | | | |
-| 非品牌 organic clicks（US） | 0 | | | |
-| 核心 key event（注册/试用） | 0 | | | |
+| 发布内容数 | 0 | 70 | 200 | 500 |
+| 非品牌 impressions（US） | 0 | 200 | 2,000 | 15,000 |
+| 目标词进 Top 30 数 | 0 | 3 | 15 | 40 |
+| 非品牌 organic clicks（US） | 0 | 10 | 100 | 500 |
+| 核心 key event（注册/试用） | 0 | 2 | 15 | 50 |
 
 ### 实验核心假设
 
@@ -131,9 +134,17 @@ tags:
 
 ### 产品初步判断
 
-- 可增长性评估：（待 Step 5 完成后填）
-- 判断依据：
-- 前置条件：
+- **可增长性评估：✅ 高**
+- **判断依据：**
+  1. 词库 1,099 个词，快速胜利桶 803 个（73%），SERP ✅弱 205 个，低竞争切入空间充足
+  2. 头部竞品（outrank / okara / aeoengine）对 GenGrowth 五大内容方向（增长实验 / 归因追踪 / 增长自动化 / Solo founder 工具 / SaaS 增长策略）**零覆盖**，内容白区明确可进攻
+  3. 可对标竞品流量体量极小（ethicalseo DR30 流量 889/月；rankyfy DR14 流量 341/月），正面竞争成本低
+  4. KD 0–5 高搜索量词的 SERP 由 blog 页面主导（DR < 50 的 blog 占弱信号来源 544 条），内容站可直接切入
+  5. 5–10 篇/天产能下，60 天覆盖 300–500 篇，相当于快速胜利桶 37–62%
+- **前置条件（影响排名速度）：**
+  - 移动端 LCP 4.2s → Week 1 内修复（Google 移动优先索引，未修复会压制排名上限）
+  - GSC + XML Sitemap → 首篇发布前立即提交，加速收录
+  - 内链架构 → 首批文章发布前设计好 cluster → pillar 内链路径
 
 ---
 
@@ -176,18 +187,26 @@ tags:
 
 ### 本轮策略决策
 
-- **快速胜利方向**：
-- **长尾矩阵系列**：
-- **战略词门面选择**：
-- **趋势词关注话题**：
+> 数据来源：关键词主表 v3.3（1,099词）+ SERP Overview 2026-06-12
+
+- **快速胜利方向**：优先覆盖 SERP ✅弱 + KD 0–5 的 SaaS SEO / Growth Tools 品类词（搜索量 100–4,200），切入角度以「工具替代外包」和「SaaS 增长自动化」为主；前 30 天目标生产 200 篇占据低竞争位；产能约 60% 用于此桶
+- **长尾矩阵系列**：围绕 Technical SEO Audit、SaaS SEO Strategy、Growth Automation、Attribution Tracking 四条主线建立 cluster，217 个长尾词作为 supporting pages（每条主线 10–20 篇），配合 pillar page 积累内链权重；产能约 40% 用于此桶
+- **战略词门面选择**：`best seo management software`（Vol 1,600 / KD 25）和 `best seo tracking software`（Vol 1,400 / KD 30）作为品类定位 pillar pages，早期发布作为内链汇聚点，前期不追排名，依靠内链持续积累
+- **趋势词关注话题**：`best seo metric software` / `new website seo strategy` / `saas seo guide`（Vol ~400，KD 8–24，SERP ✅弱或⚠️中），发现搜索量增长信号后插队优先执行
 
 ### Week 1 执行词单
 
-> 快速胜利桶前 5–8 个词，经 SERP 快检确认后填入。
+> 来源：关键词主表 v3.3 筛选条件：快速胜利桶 + SERP ✅弱 + KD ≤ 5 + 主题与 GenGrowth 直接相关，按搜索量降序取前 6
+> AIO 字段：已通过 Ahrefs SERP Overview 数据确认（全部有 AI Overview，风险等级为内容站主观判断）
 
-| 关键词 | KD | 月搜索量 | SERP弱度 | AIO风险 | 内容格式建议 |
-|--------|-----|---------|---------|---------|-----------|
-| | | | | | |
+| 关键词 | KD | 月搜索量 | SERP弱度 | Top10最低2站DR均值 | AIO风险 | 内容格式建议 |
+|--------|-----|---------|---------|-----------------|---------|-----------|
+| agency rank tracking | 3 | 4,200 | ✅弱 | 11.5 | ⚠️中（Transactional，用户仍需点击工具对比） | 工具对比 + 功能指南 |
+| how to do seo yourself | 5 | 1,300 | ✅弱 | 36.0 | ⚠️中（长指南，AIO 难以完全替代） | Step-by-step 完整指南（2,000字+） |
+| technical seo audits | 3 | 1,200 | ✅弱 | 47.5 | ⚠️中 | 完整指南 + Checklist |
+| enterprise saas seo | 2 | 1,100 | ✅弱 | 32.5 | ⚠️中 | 深度场景指南 |
+| seo for technology companies | 0 | 1,000 | ✅弱 | 27.5 | ⚠️中 | 场景指南 + 工具推荐 |
+| seo agency management software | 3 | 1,000 | ✅弱 | 31.5 | ⚠️低（Transactional，CPC $45，购买意图强）| 工具对比页 |
 
 ---
 
