@@ -1,6 +1,6 @@
 {
   "PG-WC-001": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "world-cup-2026-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -8,6 +8,10 @@
     "branch": "seo/auto/2026-06-12-PG-WC-001",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/132"
+    "pr": "https://github.com/xdawayer/oracle/pull/132",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-001-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "codex+chrome preview verification passed",
+    "verifiedAt": "2026-06-12T18:07:37.648Z",
+    "mergedAt": "2026-06-12T18:07:46.981Z"
   }
 }
