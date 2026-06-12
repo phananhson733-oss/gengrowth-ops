@@ -188,5 +188,19 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-RISE-008 moon rising sign
 
 ---
+## ⚪ 6月12日 (周五) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [ ] PG-WC-001 world cup 2026 astrology prediction
+- [ ] PG-WC-002 mbappe birth chart
+- [ ] PG-WC-003 lionel messi zodiac sign
+- [ ] PG-WC-004 cristiano ronaldo zodiac sign
+- [ ] PG-WC-005 lamine yamal birth chart
+- [ ] PG-WC-006 vinicius jr zodiac sign
+- [ ] PG-WC-007 argentina world cup 2026 astrology
+- [ ] PG-WC-008 zodiac signs as world cup 2026 teams
+- [ ] PG-WC-009 best soccer players zodiac sign
+- [ ] PG-WC-0010 world cup 2026 june astrology
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
