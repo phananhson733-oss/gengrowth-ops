@@ -120,11 +120,14 @@
     "mergedAt": "2026-06-12T20:38:10.866Z"
   },
   "PG-WC-009": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "best-soccer-players-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-009",
-    "branch": "seo/auto/2026-06-12-PG-WC-009"
+    "branch": "seo/auto/2026-06-12-PG-WC-009",
+    "needs_hero": true,
+    "zh": false,
+    "pr": "https://github.com/xdawayer/oracle/pull/140"
   }
 }
