@@ -1,10 +1,13 @@
 {
   "PG-WC-001": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "world-cup-2026-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-001",
-    "branch": "seo/auto/2026-06-12-PG-WC-001"
+    "branch": "seo/auto/2026-06-12-PG-WC-001",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/132"
   }
 }
