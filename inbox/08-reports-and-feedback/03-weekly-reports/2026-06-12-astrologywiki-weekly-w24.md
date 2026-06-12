@@ -93,15 +93,15 @@ updated: 2026-06-12
 
 ## ⚠️ 待解决问题
 
-| 问题 | 影响 | 拟解决时间 |
-|---|---|---|
-| 世界杯系列 10 篇文章未写 | 窗口只剩 37 天，Mbappé/Messi/Ronaldo/Yamal 球星词搜索量正处于本轮峰值 | **今明两天 P0**，从 Pillar + 4 球星词开始 |
-| GenGrowth Week 1 词单未执行 | 实验已启动但无内容产出，Day 14 目标依赖本周开始生产 | 下周开始写作，每天 5–10 篇 |
-| CPC 缺失 359 词 | 关键词优先级计算缺 ROI 维度 | 需重新从 Ahrefs 导出 rankyfy.com + ethicalseo.io 的关键词，勾选 CPC 列 |
-| codesupply.co $100 待确认 | 2 条 dofollow，均分DR 0.086，已通过筛选，回复延迟可能导致机会丢失 | 下周一前回复 outreach@codesupply.co |
-| elephantjournal.com 帖子未发布 | 已拿到直发权限，dofollow 链接等待发布 | 2026-06-15 前完成 |
-| technology.org $240 均分DR未核算 | Dofollow Linked Domains 数据缺失，无法判断是否通过均分DR门槛，$240 金额较高，不应盲目接受 | 下周查询补填后再决策 |
-| 4 篇文章缺 FAQ | Featured Snippet 竞争弱化 | 排在世界杯系列和 GenGrowth 之后，W25 处理 |
+| 问题                          | 影响                                                           | 拟解决时间                                                    |
+| --------------------------- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| 世界杯系列 10 篇文章未写              | 窗口只剩 37 天，Mbappé/Messi/Ronaldo/Yamal 球星词搜索量正处于本轮峰值           | **今明两天 P0**，从 Pillar + 4 球星词开始                           |
+| GenGrowth Week 1 词单未执行      | 实验已启动但无内容产出，Day 14 目标依赖本周开始生产                                | 下周开始写作，每天 5–10 篇                                         |
+| CPC 缺失 359 词                | 关键词优先级计算缺 ROI 维度                                             | 需重新从 Ahrefs 导出 rankyfy.com + ethicalseo.io 的关键词，勾选 CPC 列 |
+| codesupply.co $100 待确认      | 2 条 dofollow，均分DR 0.086，已通过筛选，回复延迟可能导致机会丢失                   | 下周二前回复 outreach@codesupply.co                            |
+| elephantjournal.com 帖子未发布   | 已拿到直发权限，dofollow 链接等待发布                                      | 2026-06-15 前完成                                           |
+| technology.org $240 均分DR未核算 | Dofollow Linked Domains 数据缺失，无法判断是否通过均分DR门槛，$240 金额较高，不应盲目接受 | 下周查询补填后再决策                                               |
+| 4 篇文章缺 FAQ                  | Featured Snippet 竞争弱化                                        | 排在世界杯系列和 GenGrowth 之后，W25 处理                             |
 
 ---
 
