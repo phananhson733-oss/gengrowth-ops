@@ -56,27 +56,23 @@
     "pr": "https://github.com/xdawayer/oracle/pull/142"
   },
   "PG-WC-005": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "lamine-yamal-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-005",
-    "branch": "seo/auto/2026-06-13-PG-WC-005"
+    "branch": "seo/auto/2026-06-13-PG-WC-005",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/143"
   },
   "PG-WC-006": {
-    "status": "done",
+    "status": "active",
     "slug": "vinicius-jr-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-006",
-    "branch": "seo/auto/2026-06-12-PG-WC-006",
-    "needs_hero": true,
-    "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/137",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-006-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "codex+chrome preview verification passed",
-    "verifiedAt": "2026-06-12T20:11:16.653Z",
-    "mergedAt": "2026-06-12T20:11:27.341Z"
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-006",
+    "branch": "seo/auto/2026-06-13-PG-WC-006"
   },
   "PG-WC-007": {
     "status": "done",
