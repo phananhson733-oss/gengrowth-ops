@@ -111,11 +111,14 @@
     "pr": "https://github.com/xdawayer/oracle/pull/147"
   },
   "PG-WC-010": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "world-cup-2026-june-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-010",
-    "branch": "seo/auto/2026-06-13-PG-WC-010"
+    "branch": "seo/auto/2026-06-13-PG-WC-010",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/148"
   }
 }
