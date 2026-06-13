@@ -56,19 +56,12 @@
     "pr": "https://github.com/xdawayer/oracle/pull/142"
   },
   "PG-WC-005": {
-    "status": "done",
+    "status": "active",
     "slug": "lamine-yamal-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-005",
-    "branch": "seo/auto/2026-06-12-PG-WC-005",
-    "needs_hero": true,
-    "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/136",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-005-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "codex+chrome preview verification passed",
-    "verifiedAt": "2026-06-12T19:58:02.834Z",
-    "mergedAt": "2026-06-12T19:58:13.593Z"
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-005",
+    "branch": "seo/auto/2026-06-13-PG-WC-005"
   },
   "PG-WC-006": {
     "status": "done",
