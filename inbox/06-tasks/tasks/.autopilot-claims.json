@@ -45,12 +45,15 @@
     "mergedAt": "2026-06-12T19:26:42.764Z"
   },
   "PG-WC-004": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "cristiano-ronaldo-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-004",
-    "branch": "seo/auto/2026-06-13-PG-WC-004"
+    "branch": "seo/auto/2026-06-13-PG-WC-004",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/142"
   },
   "PG-WC-005": {
     "status": "done",
