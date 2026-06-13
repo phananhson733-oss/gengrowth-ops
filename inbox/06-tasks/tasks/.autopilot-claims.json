@@ -89,27 +89,23 @@
     "pr": "https://github.com/xdawayer/oracle/pull/145"
   },
   "PG-WC-008": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "zodiac-signs-as-world-cup-2026-teams",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-008",
-    "branch": "seo/auto/2026-06-13-PG-WC-008"
+    "branch": "seo/auto/2026-06-13-PG-WC-008",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/146"
   },
   "PG-WC-009": {
-    "status": "done",
+    "status": "active",
     "slug": "best-soccer-players-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-009",
-    "branch": "seo/auto/2026-06-12-PG-WC-009",
-    "needs_hero": true,
-    "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/140",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-009-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "chrome-verified: H1+author(Marcus Orion)+breadcrumb+tags+Best-Sign-Theory H2 render OK; codex-passed (RAE accuracy)",
-    "verifiedAt": "2026-06-12T20:54:30.911Z",
-    "mergedAt": "2026-06-12T20:54:41.678Z"
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-009",
+    "branch": "seo/auto/2026-06-13-PG-WC-009"
   },
   "PG-WC-010": {
     "status": "done",
