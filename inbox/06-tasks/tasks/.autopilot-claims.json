@@ -100,26 +100,22 @@
     "pr": "https://github.com/xdawayer/oracle/pull/146"
   },
   "PG-WC-009": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "best-soccer-players-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-009",
-    "branch": "seo/auto/2026-06-13-PG-WC-009"
+    "branch": "seo/auto/2026-06-13-PG-WC-009",
+    "needs_hero": true,
+    "zh": true,
+    "pr": "https://github.com/xdawayer/oracle/pull/147"
   },
   "PG-WC-010": {
-    "status": "done",
+    "status": "active",
     "slug": "world-cup-2026-june-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-12-PG-WC-010",
-    "branch": "seo/auto/2026-06-12-PG-WC-010",
-    "needs_hero": true,
-    "zh": false,
-    "pr": "https://github.com/xdawayer/oracle/pull/141",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-12-pg-wc-010-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "chrome-verified: H1+deck+author(Elena Vane)+5 tags+breadcrumb+all H2(at-a-Glance table 4 rows+misreadings list)+Codex-corrected June sky render OK; codex-passed (lunation timing+Jupiter ingress+exalted precision fixed)",
-    "verifiedAt": "2026-06-12T21:16:29.742Z",
-    "mergedAt": "2026-06-12T21:16:38.144Z"
+    "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-010",
+    "branch": "seo/auto/2026-06-13-PG-WC-010"
   }
 }
