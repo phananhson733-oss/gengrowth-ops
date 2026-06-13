@@ -37,15 +37,15 @@
 
 **页面现状**
 
-| 项目 | 状态 |
-|---|---|
-| Title tag | "What 6th House Astrology Reveals About How You Work and Heal" |
-| H1 | 同 Title |
-| 字数 | ~2,100 词 |
-| Meta description | **缺失** |
-| H3 标题 | **无** |
-| 内链数（出） | 4 条（house pillar / 10th / 12th / Mercury） |
-| FAQ | 有（4 问） |
+| 项目               | 状态                                                             |
+| ---------------- | -------------------------------------------------------------- |
+| Title tag        | "What 6th House Astrology Reveals About How You Work and Heal" |
+| H1               | 同 Title                                                        |
+| 字数               | ~2,100 词                                                       |
+| Meta description | **缺失**                                                         |
+| H3 标题            | **无**                                                          |
+| 内链数（出）           | 4 条（house pillar / 10th / 12th / Mercury）                      |
+| FAQ              | 有（4 问）                                                         |
 
 **未收录原因**
 
