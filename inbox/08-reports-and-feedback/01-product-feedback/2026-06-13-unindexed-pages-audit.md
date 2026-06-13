@@ -18,9 +18,8 @@
 
 ### 所有 16 篇共性问题（批量修）
 
-1. **无 meta description** — 所有页面均缺失，Google 自动截取正文，CTR 损耗
-2. **无 H3 标题** — 所有页面只有 H1 + H2，内容层级扁平，不利于精细话题爬取
-3. **H2 模板化痕迹明显** — "What is full moon journal prompts?"（小写 + 语法错误）、"full moon spiritually vs Adjacent Concepts" 等，AI 生成感强，Google 可能降权
+1. **无 H3 标题** — 所有页面只有 H1 + H2，内容层级扁平，不利于精细话题爬取
+2. **H2 模板化痕迹明显** — "What is full moon journal prompts?"（小写 + 语法错误）、"full moon spiritually vs Adjacent Concepts" 等，AI 生成感强，Google 可能降权
 
 ---
 
@@ -56,8 +55,7 @@
 **优化建议**
 
 1. **扩充至 2,800-3,200 词**，重点增加"6th house 和工作方式/身体健康的具体关联"，与 10th house（事业抱负）形成清晰区分
-2. **补写 meta description**（≤155字）示例：`The 6th house rules how you work, stay healthy, and manage daily obligations—not just what career you want. Here's what your 6th house placement actually reveals.`
-3. **新增 H3 结构**（首批 H3 试点）：
+2. **新增 H3 结构**（首批 H3 试点）：
    - 在 H2 "How to Read The 6th House in Your Chart" 下拆出：
      - `H3: Sun, Moon, and Rising in the 6th House`
      - `H3: Saturn and Mars in the 6th House`
@@ -82,7 +80,7 @@
 | Title tag | "Reading the World Cup 2026 Astrology Prediction Through Jupiter in Cancer" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 4 条（birth chart / wiki overview / transits / wiki） |
 | FAQ | 有（4 问） |
@@ -97,14 +95,12 @@
 
 1. **重新定位角度**：从"体育预测"转向"个人星盘与世界杯时段的共鸣"，如"Jupiter in Cancer 期间，你的出生盘如何读懂这段集体能量"——与站点 topical authority 对齐
 2. **修改 H1**：`World Cup 2026 Astrology: What Jupiter in Cancer Means for Collective Energy`（关键词前置）
-3. **补写 meta description**：`World Cup 2026 opens under Jupiter in Cancer—here's what that transit means for national identity, collective emotion, and how it might show up in your own birth chart.`
-4. **新增 H3 结构**：
+3. **新增 H3 结构**：
    - 在 H2 "How to Read World Cup 2026 Astrology in Your Timing" 下：
      - `H3: Jupiter in Cancer and the Theme of National Belonging`
      - `H3: How to Layer This Transit With Your Natal Chart`
      - `H3: What the Opening Ceremony Chart Shows`
 5. **增加内链**：从 Jupiter transits 页、Cancer sign 页指向本页
-6. **评估是否保留此页**：若站点无计划系统做体育占星，可考虑 noindex 处理，避免影响整站 topical authority
 
 ---
 
@@ -131,7 +127,7 @@
 | Title tag | "Why Vedic vs Western Astrology Gives You Two Different Signs" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | ~4 条 |
 | FAQ | 有 |
@@ -143,9 +139,8 @@
 
 **优化建议**
 
-1. **meta description**：`Vedic astrology uses the sidereal zodiac; western uses tropical—that gap of ~23° is why your rising sign often shifts. Here's which system to use and when.`
-2. **H2 重写**："Vedic Astrology vs Adjacent Concepts" → "Vedic vs Western: Key Differences That Change Your Reading"
-3. **新增 H3 结构**：
+1. **H2 重写**："Vedic Astrology vs Adjacent Concepts" → "Vedic vs Western: Key Differences That Change Your Reading"
+2. **新增 H3 结构**：
    - 在 H2 比较区块下：
      - `H3: Sidereal vs Tropical Zodiac — The 23-Degree Gap Explained`
      - `H3: Which Sign Is "Correct"?`
@@ -170,7 +165,7 @@
 | Title tag | "Reading Your Vedic Birth Chart Calculator Output, Placement by Placement" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 4 条 |
 | FAQ | 有 |
@@ -183,8 +178,7 @@
 **优化建议**
 
 1. **修改 H1/Title**：`Vedic Birth Chart Calculator: How to Read Every Placement in Your Output`（关键词前置，说明页面性质）
-2. **meta description**：`No Vedic birth chart calculator gives you the interpretation—that's where this guide comes in. Here's how to read your Jyotish placements, house by house.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 在 "How to Read Your Vedic Birth Chart in Practice" 下：
      - `H3: Lagna (Ascendant) — Where to Start`
      - `H3: Moon Sign (Rashi) in Vedic Astrology`
@@ -207,7 +201,7 @@
 | Title tag | "The 7 Chakras Explained: A Guide to the Chakra System" |
 | H1 | 同 Title |
 | 字数 | ~2,700 词（最长） |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 19 条（最多） |
 | FAQ | 有 |
@@ -223,8 +217,7 @@
    - 主打 "chakra system overview" → 修改 H1 为 `Chakra System Overview: How the 7 Centers Work Together`
    - 主打 "7 chakras explained" → 修改 URL slug 为 `7-chakras-explained`（需 301 重定向旧 URL）
    - **推荐前者**：URL 已建立，改 H1 成本更低
-2. **meta description**：`The chakra system organizes your inner life into 7 centers—from safety at the root to integration at the crown. This guide explains how they work together, not just individually.`
-3. **新增 H3 结构**（这篇内容最长，最适合 H3）：
+2. **新增 H3 结构**（这篇内容最长，最适合 H3）：
    - 在 "The 7 Chakra System: Quick Guide" 下，每个 chakra 各一个 H3：
      - `H3: Root Chakra — Safety and Grounding`
      - `H3: Sacral Chakra — Desire and Creativity`
@@ -248,26 +241,22 @@
 
 | 项目 | 状态 |
 |---|---|
-| Title tag | 未获取（可能为空或 JS 渲染） |
-| H1 | "What Your Chakra Test Result Actually Tells You" |
+| Title tag | "What Your Chakra Test Result Actually Tells You" |
+| H1 | 同 Title |
 | 字数 | ~2,200 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 4 条 |
 | FAQ | 有 |
 
 **内容层面问题**
 
-- **H1 与 URL 不匹配**：URL 是 `chakra-test`（用户想找测试工具），H1 是"What Your Chakra Test Result Actually Tells You"——意图匹配尚可，但 title tag 可能缺失（爬取未获取到），这是严重问题
-- 如果 title tag 真的缺失，Google 会自动从 H1 抓取，但信号不稳定
-- 用户搜 "chakra test" 主要是想做测试，页面是解读文章，需要在开头明确提供测试入口或清晰说明页面价值
+- **搜索意图错配**：URL 是 `chakra-test`（用户想找测试工具），H1 是"What Your Chakra Test Result Actually Tells You"——页面是解读文章，需要在开头明确提供测试入口或清晰说明页面价值
 
 **优化建议**
 
-1. **检查并补全 title tag**（最优先）：`Chakra Test Results Explained: What Each Score Means for Your 7 Centers`
-2. **页面顶部加测试入口**：在 H1 下方第一段前嵌入 CTA 链接（若站点有 chakra quiz），否则加"take our chakra quiz"的内链
-3. **meta description**：`Got your chakra test result but not sure what it means? This guide breaks down what each center score actually tells you—and what to do next.`
-4. **新增 H3 结构**：
+1. **页面顶部加测试入口**：在 H1 下方第一段前嵌入 CTA 链接（若站点有 chakra quiz），否则加"take our chakra quiz"的内链
+2. **新增 H3 结构**：
    - 在 "The Chakra System at a Glance" 下：
      - `H3: What a High Score Means`
      - `H3: What a Low Score Means`
@@ -290,7 +279,7 @@
 | Title tag | "What Root Chakra Meaning Reveals About Your Sense of Safety" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | ~4 条 |
 | FAQ | 有 |
@@ -303,8 +292,7 @@
 **优化建议**
 
 1. **删除或改写 H2 "How Common Are Yoga and Meditation..."**：这个标题与 root chakra meaning 不相关，应替换为与正文内容匹配的标题，如 "Root Chakra in Modern Wellness Practice"
-2. **meta description**：`The root chakra is about safety, not just "being grounded." Here's what root chakra meaning actually reveals—and how to read imbalance without turning it into a diagnosis.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 在 "How to Read The Root Chakra in Yourself" 下：
      - `H3: Physical Signs of Root Chakra Tension`
      - `H3: Emotional Patterns That Point to Root Themes`
@@ -327,7 +315,7 @@
 | Title tag | "Sacral Chakra Meaning Runs Deeper Than Sexuality Alone" |
 | H1 | 同 Title |
 | 字数 | ~1,900 词（偏薄） |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 6 条 |
 | FAQ | 有 |
@@ -340,8 +328,7 @@
 **优化建议**
 
 1. **扩充至 2,400+ 词**，重点补充：创造力与情感流动的具体表达、sacral vs root 的区分（欲望 vs 安全）、常见误读的详细拆解
-2. **meta description**：`Sacral chakra meaning covers desire, creativity, and emotional flow—not just sexuality. Here's the fuller read, including how it pairs with root and heart chakras.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 在 "How to Read The Sacral Chakra in Yourself" 下：
      - `H3: Sacral Energy in Creative Work`
      - `H3: Sacral Energy in Relationships`
@@ -364,7 +351,7 @@
 | Title tag | "Solar Plexus Chakra Affirmations That Finally Feel True" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 5 条 |
 | FAQ | 有 |
@@ -377,8 +364,7 @@
 **优化建议**
 
 1. **增加肯定语列表**（对齐搜索意图）：在文章中段加入一个 H2 或 H3 "20 Solar Plexus Chakra Affirmations"，列出可直接使用的句子，这是此关键词的核心搜索意图
-2. **meta description**：`Solar plexus chakra affirmations work best when they match your actual block—not generic confidence scripts. Here are 20 affirmations that address agency, choice, and self-trust directly.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 新增一个 H2 "Solar Plexus Chakra Affirmations" 并在下面用 H3 分组：
      - `H3: Affirmations for Decision-Making`
      - `H3: Affirmations for Self-Trust`
@@ -401,7 +387,7 @@
 | Title tag | "Why the Persephone Goddess Still Names a Pattern You Live Through" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 4 条（8th / 12th house / lunar nodes / birth chart） |
 | FAQ | 有 |
@@ -416,8 +402,7 @@
 
 1. **明确双重角色**：在页面开头明确"本文覆盖：① Persephone 神话故事 ② 星盘中 Persephone 小行星的解读方式"
 2. **修改 H1**：`Persephone Goddess: The Myth, the Archetype, and What She Names in Your Chart`
-3. **meta description**：`Persephone goddess isn't just an abduction story—she's a map for navigating forced transformation. Here's the myth, the archetype, and how Asteroid 399 reads in your natal chart.`
-4. **新增 H3 结构**：
+3. **新增 H3 结构**：
    - 在 "What is Persephone?" 下：
      - `H3: The Myth in Brief`
      - `H3: Persephone as a Psychological Archetype`
@@ -437,10 +422,10 @@
 
 | 项目 | 状态 |
 |---|---|
-| Title tag | 未获取 |
-| H1 | "What a Full Moon Ritual Really Does in the 48 Hours After" |
+| Title tag | "What a Full Moon Ritual Really Does in the 48 Hours After" |
+| H1 | 同 Title |
 | 字数 | ~2,200 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 5 条 |
 | FAQ | 有 |
@@ -448,15 +433,12 @@
 **内容层面问题**
 
 - **H2 含语法错误**："What is full moon ritual?" → 应为 "What Is a Full Moon Ritual?"（缺冠词，小写）
-- Title tag 同样未被爬取获取，可能存在缺失
-- H1 角度聚焦在"48 小时后"，这是一个差异化角度，但用户搜 "what is a full moon ritual" 首先想知道的是"这是什么"，不是"之后怎样"——意图前段未覆盖
+- H1 角度聚焦在"48 小时后"，这是差异化角度，但用户搜 "what is a full moon ritual" 首先想知道的是"这是什么"，不是"之后怎样"——意图前段未覆盖
 
 **优化建议**
 
-1. **补全 title tag**：`What Is a Full Moon Ritual? What It Does and How to Do It`
-2. **H2 修正**："What is full moon ritual?" → "What Is a Full Moon Ritual?"
-3. **meta description**：`A full moon ritual is a structured practice for releasing what no longer fits. Here's what it actually does in your nervous system—and why the 48 hours after matter most.`
-4. **新增 H3 结构**：
+1. **H2 修正**："What is full moon ritual?" → "What Is a Full Moon Ritual?"
+2. **新增 H3 结构**：
    - 在 H2 "How to Recognize a Full Moon Ritual That Actually Lands" 下：
      - `H3: Setting Intention Before the Peak`
      - `H3: The Release Practice During the Full Moon`
@@ -479,7 +461,7 @@
 | Title tag | "Why Full Moon Energy Feels Amplified and How to Read It" |
 | H1 | 同 Title |
 | 字数 | ~1,850 词（最薄） |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 6 条 |
 | FAQ | 有 |
@@ -492,9 +474,8 @@
 **优化建议**
 
 1. **优先扩充内容至 2,500+ 词**，可增加：满月星座轮换对情绪的影响（按 12 星座）、满月期间的睡眠/梦境现象、与出生盘的关联读法
-2. **meta description**：`Full moon energy peaks in a 48-hour window—here's what gets amplified, why it feels different depending on your birth chart, and how to read it without over-reacting.`
-3. **H2 修正**："How to Read full moon energy in Yourself" → "How to Read Full Moon Energy in Your Own Chart"
-4. **新增 H3 结构**：
+2. **H2 修正**："How to Read full moon energy in Yourself" → "How to Read Full Moon Energy in Your Own Chart"
+3. **新增 H3 结构**：
    - 在 H2 "How to Read Full Moon Energy..." 下：
      - `H3: Finding Which House the Full Moon Activates`
      - `H3: When the Full Moon Aspects Your Natal Planets`
@@ -517,7 +498,7 @@
 | Title tag | "What to Do on a Full Moon Spiritually to Close What the New Moon Began" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | ~6 条 |
 | FAQ | 有 |
@@ -533,8 +514,7 @@
 1. **缩短 Title tag**：`What to Do on a Full Moon Spiritually — 8 Practices That Work`（添加数字，增加点击率）
 2. **修正语法错误的 H2**："What is full moon spiritually?" → "What Does It Mean to Observe a Full Moon Spiritually?"
 3. **替换模板 H2**："full moon spiritually vs Adjacent Concepts" → "Full Moon Spiritual Practice vs General Self-Care — What's the Difference?"
-4. **meta description**：`A full moon spiritual practice isn't just about candles—it's about timing your release with the lunar peak. Here are 8 specific things to do and why each one works.`
-5. **新增 H3 结构**：
+4. **新增 H3 结构**：
    - 在 "How to Read full moon spiritually in Yourself" 下：
      - `H3: Practices for Release and Letting Go`
      - `H3: Practices for Gratitude and Recognition`
@@ -554,7 +534,7 @@
 | Title tag | "The Full Moon June 2026 Is a Double Completion Signal, Not a Launch Window" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 5 条 |
 | FAQ | 有 |
@@ -567,8 +547,7 @@
 **优化建议**
 
 1. **立即修复内链**（时间紧迫）：在 full moon energy / lunar rituals pillar 页、june 2026 transits 页加入本页链接
-2. **meta description**：`The full moon on June 29, 2026 lands with the Sun in Cancer and Moon in Capricorn—a double-completion signal for home, ambition, and emotional structure. Here's how to read it.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 在 "How to Read full moon June 2026 in Your Timing" 下：
      - `H3: The Cancer-Capricorn Axis on June 29`
      - `H3: Which House This Full Moon Activates for You`
@@ -590,7 +569,7 @@
 | Title tag | "Full Moon July 2026 Peaks After Mercury Retrograde — Use It to Integrate What Changed" |
 | H1 | 同 Title |
 | 字数 | ~2,100 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 3 条（最少） |
 | FAQ | 有 |
@@ -603,8 +582,7 @@
 **优化建议**
 
 1. **立即增加内链入口**：从 Mercury retrograde 页、july 2026 transits 页、lunar calendar 类页面加入本页链接
-2. **meta description**：`The full moon in July 2026 arrives after Mercury retrograde ends—making it the first clear moment to act on decisions you've been reviewing. Here's how to use that timing.`
-3. **新增 H3 结构**：
+2. **新增 H3 结构**：
    - 在 "How to Read full moon July 2026 in Your Timing" 下：
      - `H3: What Changes After Mercury Retrograde Ends`
      - `H3: The Aquarius Full Moon Theme`
@@ -624,7 +602,7 @@
 | Title tag | "Full Moon Journal Prompts That Actually Match Lunar Energy" |
 | H1 | 同 Title |
 | 字数 | ~2,400 词 |
-| Meta description | **缺失** |
+| Meta description | 有 |
 | H3 标题 | **无** |
 | 内链数（出） | 5 条 |
 | FAQ | 有 |
@@ -638,8 +616,7 @@
 
 1. **H2 修正**："What is full moon journal prompts?" → "What Are Full Moon Journal Prompts?" 或直接改为 "How to Use These Prompts"
 2. **检查并增加 prompt 数量**：搜 "full moon journal prompts" 的用户期待 10-30 条具体问题，确认文章是否给够
-3. **meta description**：`Full moon journal prompts work best when they match what the moon is actually doing—not generic "release" questions. Here are 20 prompts organized by lunar theme.`
-4. **新增 H3 结构**（这篇最适合按主题拆 H3）：
+3. **新增 H3 结构**（这篇最适合按主题拆 H3）：
    - 在 prompt 列表区块加 H3 分组：
      - `H3: Prompts for Release and Letting Go`
      - `H3: Prompts for Recognizing What Grew`
@@ -659,19 +636,17 @@
 | 🔴 立即处理 | full-moon-july-2026 | 内链最少，必须先修复发现性 |
 | 🔴 立即处理 | chakra-system-overview | 关键词错配，是 chakra 集群入口页 |
 | 🟡 本周处理 | vedic-birth-chart-calculator | GSC 直接指出 H1 无关键词 |
-| 🟡 本周处理 | chakra-test | title tag 疑似缺失 |
+| 🟡 本周处理 | chakra-test | 搜索意图错配，需加测试入口 |
 | 🟡 本周处理 | 6th-house-astrology | 已被爬取，内容质量提升见效快 |
-| 🟡 本周处理 | what-is-a-full-moon-ritual | title tag 疑似缺失，语法错误多 |
-| 🟢 下周处理 | 其余 9 篇 | 批量修复 meta desc + H3 + 内链入口 |
+| 🟡 本周处理 | what-is-a-full-moon-ritual | 语法错误多，H1 意图覆盖不完整 |
+| 🟢 下周处理 | 其余 9 篇 | 批量修复 H3 + 内链入口 |
 
 ---
 
 ## 五、批量修复 Checklist（全 16 篇）
 
 - [ ] 在 sitemap.xml 中确认这 16 个 URL 均已列入
-- [ ] 每篇补写 meta description（≤155字，含关键词）
 - [ ] 每篇新增 H3 标题（按本文各页建议执行）
-- [ ] 检查每篇的 title tag 是否实际渲染（尤其 chakra-test / what-is-a-full-moon-ritual）
 - [ ] 从已收录 pillar 页增加内链指向这 14 篇"无法识别"的页面
 - [ ] 修正所有 H2 中小写和语法错误
 - [ ] GSC 修复后重新提交 URL 请求索引
