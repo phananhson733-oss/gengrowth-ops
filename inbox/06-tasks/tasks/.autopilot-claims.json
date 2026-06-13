@@ -60,7 +60,7 @@
     "mergedAt": "2026-06-13T04:43:46.257Z"
   },
   "PG-WC-005": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "lamine-yamal-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -68,10 +68,13 @@
     "branch": "seo/auto/2026-06-13-PG-WC-005",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/143"
+    "pr": "https://github.com/xdawayer/oracle/pull/143",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-005-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:14.790Z"
   },
   "PG-WC-006": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "vinicius-jr-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -79,10 +82,13 @@
     "branch": "seo/auto/2026-06-13-PG-WC-006",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/144"
+    "pr": "https://github.com/xdawayer/oracle/pull/144",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-006-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:19.187Z"
   },
   "PG-WC-007": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "argentina-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -90,10 +96,13 @@
     "branch": "seo/auto/2026-06-13-PG-WC-007",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/145"
+    "pr": "https://github.com/xdawayer/oracle/pull/145",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-007-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:26.047Z"
   },
   "PG-WC-008": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "zodiac-signs-as-world-cup-2026-teams",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -101,10 +110,13 @@
     "branch": "seo/auto/2026-06-13-PG-WC-008",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/146"
+    "pr": "https://github.com/xdawayer/oracle/pull/146",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-008-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:32.854Z"
   },
   "PG-WC-009": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "best-soccer-players-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -112,10 +124,13 @@
     "branch": "seo/auto/2026-06-13-PG-WC-009",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/147"
+    "pr": "https://github.com/xdawayer/oracle/pull/147",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-009-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:39.663Z"
   },
   "PG-WC-010": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "world-cup-2026-june-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -123,6 +138,9 @@
     "branch": "seo/auto/2026-06-13-PG-WC-010",
     "needs_hero": true,
     "zh": true,
-    "pr": "https://github.com/xdawayer/oracle/pull/148"
+    "pr": "https://github.com/xdawayer/oracle/pull/148",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-13-pg-wc-010-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome /zh/ verified: ZH H1+per-page author+中文导航 render OK (pipeline proven on WC-004/007/008/010); phase2 PASS + Codex spot-check",
+    "verifiedAt": "2026-06-13T04:49:46.704Z"
   }
 }
