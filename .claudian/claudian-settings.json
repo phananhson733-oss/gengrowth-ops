@@ -41,7 +41,9 @@
       "enabled": true,
       "safeMode": "workspace-write",
       "cliPath": "",
-      "cliPathsByHost": {},
+      "cliPathsByHost": {
+        "device:22cb5e1e-18dc-4eef-8a5b-fdb3ccc64a82": "/Users/pengman/.local/bin/codex"
+      },
       "customModels": "",
       "reasoningSummary": "detailed",
       "environmentVariables": "",
@@ -83,7 +85,7 @@
   },
   "savedProviderEffort": {
     "claude": "high",
-    "codex": "low"
+    "codex": "medium"
   },
   "savedProviderServiceTier": {
     "codex": "default"

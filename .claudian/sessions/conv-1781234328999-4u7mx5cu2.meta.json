@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781234328999-4u7mx5cu2",
+  "providerId": "codex",
+  "title": "这篇文章是在干什么",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781234329003,
+  "updatedAt": 1781235301816,
+  "lastResponseAt": 1781234349315,
+  "sessionId": "019eb9d6-fdbf-7172-bc83-08ba9b8a79a5",
+  "providerState": {
+    "threadId": "019eb9d6-fdbf-7172-bc83-08ba9b8a79a5",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/12/rollout-2026-06-12T11-18-55-019eb9d6-fdbf-7172-bc83-08ba9b8a79a5.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox/03-content-briefs/2026-06-11-guest-post-pitch-emails.md",
+  "usage": {
+    "inputTokens": 13678,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 12672,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 13678,
+    "percentage": 5,
+    "model": "gpt-5.5"
+  }
+}

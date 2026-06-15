@@ -1,0 +1,25 @@
+{
+  "id": "conv-1781231124266-ynyt1scmb",
+  "providerId": "codex",
+  "title": "可以。下面分成两部分：",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781231124266,
+  "updatedAt": 1781260061674,
+  "lastResponseAt": 1781260061674,
+  "sessionId": "019eb9a6-16f8-7fc3-9793-9d535502271c",
+  "providerState": {
+    "threadId": "019eb9a6-16f8-7fc3-9793-9d535502271c",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/12/rollout-2026-06-12T10-25-30-019eb9a6-16f8-7fc3-9793-9d535502271c.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 179828,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 179072,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 179828,
+    "percentage": 70,
+    "model": "gpt-5.5"
+  }
+}
