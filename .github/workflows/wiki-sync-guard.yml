@@ -9,7 +9,7 @@ on:
     branches: [main]
     paths:
       - "docs/03-marketing/**"
-      - "✍️ 内容资产/**"
+      - "内容资产/**"
       - "docs/06-shared/assets/brand/**"
       - "参考资料/产品分析/**"
       - "docs/04-programs/**"
