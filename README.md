@@ -35,6 +35,23 @@
 2. 写完按 **F5** 提交
 3. 机器人自动搬运到目标目录（或开 PR 等审批）
 
+## 多电脑同步
+
+这是多人协作仓库，同一个人也可能在多台电脑上打开。每台电脑都应配置 Obsidian Git：
+
+- 自动提交：1 分钟
+- 自动 pull：1 分钟
+- 自动 push：1 分钟
+- 打开 Obsidian 时自动 pull
+
+Obsidian 没打开时，插件不会运行；常用电脑建议加后台兜底：
+
+```bash
+bash scripts/obsidian-vault-git-sync.sh --verbose
+```
+
+这条命令会优先调用 sibling `gengrowth-wiki/tools/scripts/obsidian-vault-git-sync.py`，同步本机的 wiki / ops 仓库。
+
 ## 注意
 
 - **只往 inbox/ 写文件**，不要直接改同步过来的目录

@@ -65,7 +65,9 @@
 | 选项 | 推荐值 | 说明 |
 |---|---|---|
 | Commit message on auto backup/commit | `vault: {{date}}` | 自动生成 commit 信息，不用手填 |
-| Vault backup interval (minutes) | `0` | 0 = 只手动提交；想自动可设 10 |
+| Vault backup interval (minutes) | `1` | 多人多电脑协作默认 1 分钟自动提交 |
+| Auto push interval (minutes) | `1` | 自动把本机提交推到 GitHub |
+| Auto pull interval (minutes) | `1` | 自动拉取其它电脑 / 团队成员的更新 |
 | Pull updates on startup | ✅ 开启 | 打开 Obsidian 自动拉最新 |
 | Disable push | ❌ 关闭 | 别勾，否则 F5 不会推到 GitHub |
 | Sync method | `merge` | 多人协作冲突更少 |
@@ -123,7 +125,20 @@ git push
 >   IdentityFile ~/.ssh/id_ed25519
 > ```
 
-## 第六步：完整跑一遍
+## 第六步（推荐）：安装后台同步兜底
+
+Obsidian Git 只有在 Obsidian 打开时才会运行。多人多电脑协作时，建议每台常用电脑再加一个后台定时兜底。
+
+如果同一台机器同时有 `gengrowth-wiki` 和 `gengrowth-ops`：
+
+```bash
+cd /到/gengrowth-ops/路径
+bash scripts/obsidian-vault-git-sync.sh --verbose
+```
+
+这会调用 `gengrowth-wiki/tools/scripts/obsidian-vault-git-sync.py`，对 wiki / ops 做安全的 `commit -> pull --rebase -> push`。可以把这条命令放进 launchd、cron 或本机自动化中每 1 分钟执行一次。
+
+## 第七步：完整跑一遍
 
 1. 按 `Cmd+Alt+N`（Mac）/ `Ctrl+Alt+N`（Win）
 2. 选择"草稿-内容草稿"模板
