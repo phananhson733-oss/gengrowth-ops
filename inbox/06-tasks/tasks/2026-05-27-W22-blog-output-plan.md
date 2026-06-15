@@ -162,30 +162,44 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月10日 (周三) - 待写作
 **状态**：`已输出` (共 10 篇)
-- [ ] PG-JOURNAL-003 emotion journal
-- [ ] PG-NODE-009 blue node astrology
-- [ ] PG-NODE-010 north node in leo
-- [ ] PG-NODE-011 rahu and ketu astrology
-- [ ] PG-NAKSH-012 uttara bhadrapada nakshatra
-- [ ] PG-NAKSH-013 uttara phalguni nakshatra
-- [ ] PG-NAKSH-014 purva bhadrapada nakshatra
-- [ ] PG-NAKSH-015 revati nakshatra
-- [ ] PG-NAKSH-016 punarvasu nakshatra
-- [ ] PG-NAKSH-017 magha nakshatra
+- [x] PG-JOURNAL-003 emotion journal
+- [x] PG-NODE-009 blue node astrology
+- [x] PG-NODE-010 north node in leo
+- [x] PG-NODE-011 rahu and ketu astrology
+- [x] PG-NAKSH-012 uttara bhadrapada nakshatra
+- [x] PG-NAKSH-013 uttara phalguni nakshatra
+- [x] PG-NAKSH-014 purva bhadrapada nakshatra
+- [x] PG-NAKSH-015 revati nakshatra
+- [x] PG-NAKSH-016 punarvasu nakshatra
+- [x] PG-NAKSH-017 magha nakshatra
 
 ---
 ## ⚪ 6月11日 (周四) - 待写作
 **状态**：`已输出` (共 10 篇)
-- [ ] PG-NAKSH-018 ardra nakshatra
-- [ ] PG-NAKSH-019 dhanishta nakshatra
-- [ ] PG-TRANS-008 saturn in aries 2026
-- [ ] PG-TRANS-009 uranus opposition
-- [ ] PG-TRANS-010 mars return astrology
-- [ ] PG-RISE-004 ascendant meaning
-- [ ] PG-RISE-005 cancer rising
-- [ ] PG-RISE-006 virgo rising
-- [ ] PG-RISE-007 gemini rising
-- [ ] PG-RISE-008 moon rising sign
+- [x] PG-NAKSH-018 ardra nakshatra
+- [x] PG-NAKSH-019 dhanishta nakshatra
+- [x] PG-TRANS-008 saturn in aries 2026
+- [x] PG-TRANS-009 uranus opposition
+- [x] PG-TRANS-010 mars return astrology
+- [x] PG-RISE-004 ascendant meaning
+- [x] PG-RISE-005 cancer rising
+- [x] PG-RISE-006 virgo rising
+- [x] PG-RISE-007 gemini rising
+- [x] PG-RISE-008 moon rising sign
+
+---
+## ⚪ 6月12日 (周五) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [x] PG-WC-001 world cup 2026 astrology prediction
+- [x] PG-WC-002 mbappe birth chart
+- [x] PG-WC-003 lionel messi zodiac sign
+- [x] PG-WC-004 cristiano ronaldo zodiac sign
+- [x] PG-WC-005 lamine yamal birth chart
+- [x] PG-WC-006 vinicius jr zodiac sign
+- [x] PG-WC-007 argentina world cup 2026 astrology
+- [x] PG-WC-008 zodiac signs as world cup 2026 teams
+- [x] PG-WC-009 best soccer players zodiac sign
+- [x] PG-WC-010 world cup 2026 june astrology
 
 ---
 

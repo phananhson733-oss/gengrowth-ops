@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-08
+updated: 2026-06-12
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -52,3 +52,13 @@ updated: 2026-06-08
 | 2026-06-08 | PG-NAKSH-011 | ashwini-nakshatra | Ashwini Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/ashwini-nakshatra | published |
 | 2026-06-08 | PG-NAKSH-010 | krittika-nakshatra | Krittika Nakshatra | aditi-sharma | https://www.astrologywiki.com/en/wiki/krittika-nakshatra | published |
 | 2026-06-08 | PG-TRANS-007 | neptune-in-pisces | Neptune In Pisces | marcus-orion | https://www.astrologywiki.com/en/wiki/neptune-in-pisces | published |
+| 2026-06-12 | PG-WC-001 | world-cup-2026-astrology-prediction | World Cup 2026 Astrology Prediction | julian-thorne | https://www.astrologywiki.com/en/wiki/world-cup-2026-astrology-prediction | published |
+| 2026-06-12 | PG-WC-002 | mbappe-birth-chart | Mbappe Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/mbappe-birth-chart | published |
+| 2026-06-12 | PG-WC-003 | lionel-messi-zodiac-sign | Lionel Messi Zodiac Sign | julian-thorne | https://www.astrologywiki.com/en/wiki/lionel-messi-zodiac-sign | published |
+| 2026-06-12 | PG-WC-004 | cristiano-ronaldo-zodiac-sign | Cristiano Ronaldo Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/cristiano-ronaldo-zodiac-sign | published |
+| 2026-06-12 | PG-WC-005 | lamine-yamal-birth-chart | Lamine Yamal Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/lamine-yamal-birth-chart | published |
+| 2026-06-12 | PG-WC-006 | vinicius-jr-zodiac-sign | Vinicius Jr Zodiac Sign | aditi-sharma | https://www.astrologywiki.com/en/wiki/vinicius-jr-zodiac-sign | published |
+| 2026-06-12 | PG-WC-007 | argentina-world-cup-2026-astrology | Argentina World Cup 2026 Astrology | aditi-sharma | https://www.astrologywiki.com/en/wiki/argentina-world-cup-2026-astrology | published |
+| 2026-06-12 | PG-WC-008 | zodiac-signs-as-world-cup-2026-teams | Zodiac Signs As World Cup 2026 Teams | elena-vane | https://www.astrologywiki.com/en/wiki/zodiac-signs-as-world-cup-2026-teams | published |
+| 2026-06-12 | PG-WC-009 | best-soccer-players-zodiac-sign | Best Soccer Players Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/best-soccer-players-zodiac-sign | published |
+| 2026-06-12 | PG-WC-010 | world-cup-2026-june-astrology | World Cup 2026 June Astrology | elena-vane | https://www.astrologywiki.com/en/wiki/world-cup-2026-june-astrology | published |
