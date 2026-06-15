@@ -136,7 +136,7 @@ cd /到/gengrowth-ops/路径
 bash scripts/obsidian-vault-git-sync.sh --verbose
 ```
 
-这会调用 `gengrowth-wiki/tools/scripts/obsidian-vault-git-sync.py`，对 wiki / ops 做安全的 `commit -> pull --rebase -> push`。可以把这条命令放进 launchd、cron 或本机自动化中每 1 分钟执行一次。
+这会调用 `gengrowth-wiki/tools/scripts/obsidian-vault-git-sync.py`，对本机能发现的 wiki / ops / agents 做安全的 `commit -> pull --rebase -> push`。可以把这条命令放进 launchd、cron 或本机自动化中每 1 分钟执行一次。
 
 ## 第七步：完整跑一遍
 
