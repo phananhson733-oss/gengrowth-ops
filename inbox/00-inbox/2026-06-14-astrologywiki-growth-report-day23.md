@@ -130,15 +130,20 @@
 
 **Top50词数说明：** 85个总数中趋势词52个（行星过境42 + 世界杯10），常青词33个（分布于13个集群）。趋势词在世界杯结束（7月19日）后预计大幅缩减，常青词33个为站点真实的排名积累底盘。
 
-### 3.4 三个值得关注的异常信号
+### 3.4 四个值得关注的异常信号
 
-**信号1：多语言自然流量**
+**信号1：Google Sitelinks出现，多个博客页面被识别为站点入口**
+在GSC的页面级数据中，多个博客页面（如white-aura-meaning、chiron-in-12th-house等）出现了"www.astrologywiki.com"作为Top查询词。这是因为当用户在Google搜索品牌词"www.astrologywiki.com"时，Google会在首页结果下方额外展示若干子页面的快捷入口（Sitelinks），用户点击这些子入口后，GSC将该点击记录在对应子页面名下，查询词即为品牌词。
+
+Google决定将哪些子页面放入Sitelinks，依据是该页面在站点内的重要性与代表性。多个博客页面进入Sitelinks，说明Google已将这些内容识别为站点核心资产，是发布23天内的新站获得的内容质量认可信号。这部分品牌词流量已从Top50关键词统计中单独剔除，不计入SEO策略成效评估。
+
+**信号2：多语言自然流量**
 白色光环页面出现丹麦语排名词（hvid aura），世界杯页面捕获大量西班牙语词（signo zodiacal de messi、vini jr birth chart）。英语之外的语言流量自然出现，无需额外操作，但说明内容在目标市场之外有扩散。
 
-**信号2：Wikipedia替代效应**
+**信号3：Wikipedia替代效应**
 bharani-nakshatra和solar-return页面出现在"X astrology wikipedia"类搜索结果中，意味着Google已将这些页面视为与Wikipedia同级的参考来源。对发布23天的新站而言，这是内容质量被认可的强信号。
 
-**信号3：HSP集群低投入高回报**
+**信号4：HSP集群低投入高回报**
 仅3篇核心页面（highly-sensitive-person、hsp-vs-autism、famous-hsp），贡献10个Top50常青关键词，是所有集群中单页词密度最高的。"highly sensitive person vs autism"类词有多个变体词同时进入Top50，说明这个话题的需求多样性高，值得加大布局。
 
 ---
