@@ -1,0 +1,25 @@
+{
+  "id": "conv-1781518461519-rxqys96y2",
+  "providerId": "codex",
+  "title": "我有几个搞不懂的词可能想问你。dr",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781518461519,
+  "updatedAt": 1781518484169,
+  "lastResponseAt": 1781518484169,
+  "sessionId": "019ecac6-7e28-7af0-bff8-a5c8ad8f8f14",
+  "providerState": {
+    "threadId": "019ecac6-7e28-7af0-bff8-a5c8ad8f8f14",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/15/rollout-2026-06-15T18-14-26-019ecac6-7e28-7af0-bff8-a5c8ad8f8f14.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 10465,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 4992,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 10465,
+    "percentage": 4,
+    "model": "gpt-5.5"
+  }
+}

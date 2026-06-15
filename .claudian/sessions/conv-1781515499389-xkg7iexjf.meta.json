@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781515499389-xkg7iexjf",
+  "providerId": "codex",
+  "title": "刚刚和老板聊了聊我以后的任务，又重新明确了几个我要看的最重要的文档，主要在docs 03 marke...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781515499392,
+  "updatedAt": 1781519380335,
+  "lastResponseAt": 1781519380335,
+  "sessionId": "019eca99-50d0-7dc0-a2fd-c1f440cf7617",
+  "providerState": {
+    "threadId": "019eca99-50d0-7dc0-a2fd-c1f440cf7617",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/15/rollout-2026-06-15T17-25-05-019eca99-50d0-7dc0-a2fd-c1f440cf7617.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md",
+  "usage": {
+    "inputTokens": 139404,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 138112,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 139404,
+    "percentage": 54,
+    "model": "gpt-5.5"
+  }
+}
