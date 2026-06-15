@@ -4,8 +4,8 @@
   "title": "我要换一个GitHub账号去在现在这个obsidian仓库去commit，我应该怎么做？这个obsi...",
   "titleGenerationStatus": "failed",
   "createdAt": 1781495688410,
-  "updatedAt": 1781506102468,
-  "lastResponseAt": 1781506102468,
+  "updatedAt": 1781509567241,
+  "lastResponseAt": 1781509567241,
   "sessionId": "019ec96b-069d-7b31-aabf-d4f36d5255f0",
   "providerState": {
     "threadId": "019ec96b-069d-7b31-aabf-d4f36d5255f0",
@@ -13,13 +13,13 @@
     "transcriptRootPath": "/Users/pengman/.codex/sessions"
   },
   "usage": {
-    "inputTokens": 25916,
+    "inputTokens": 31128,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 24960,
+    "cacheReadInputTokens": 25984,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 25916,
-    "percentage": 10,
+    "contextTokens": 31128,
+    "percentage": 12,
     "model": "gpt-5.5"
   }
 }
