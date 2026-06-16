@@ -188,7 +188,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-RISE-008 moon rising sign
 
 ---
-## ⚪ 6月12日 (周五) - 待写作
+## ⚪ 6月12日 (周五) - 已发布
 **状态**：`已输出` (共 10 篇)
 - [x] PG-WC-001 world cup 2026 astrology prediction
 - [x] PG-WC-002 mbappe birth chart
@@ -200,6 +200,16 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-008 zodiac signs as world cup 2026 teams
 - [x] PG-WC-009 best soccer players zodiac sign
 - [x] PG-WC-010 world cup 2026 june astrology
+
+---
+## ⚪ 6月16日 (周二) - 待写作
+**状态**：`已输出` (共 10 篇)
+- [ ] PG-WC-011 vozinha birth chart
+- [ ] PG-WC-012 germany world cup players birth chart 2026
+- [ ] PG-WC-013 germany world cup 2026 astrology team
+- [ ] PG-WC-014 vinicius jr birth chart astrology
+- [ ] PG-WC-015 scotland world cup 2026 astrology saturn return
+
 
 ---
 
