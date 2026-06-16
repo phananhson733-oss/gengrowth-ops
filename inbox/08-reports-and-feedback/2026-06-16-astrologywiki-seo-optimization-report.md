@@ -2,6 +2,7 @@
 
 **生成日期：** 2026-06-16
 **数据来源：** Google Search Console，近28天数据（统计区间约 2026-05-19 至 2026-06-16）
+**审计修正版：** v1.1（2026-06-16）
 
 ---
 
@@ -24,6 +25,8 @@
 | jupiter enters leo 2026 astrology ephemeris | 6.0 | — | — |
 | jupiter enters leo july 2026 ephemeris | 8.0 | — | — |
 | 2026 jupiter enters leo july 2026 ephemeris | 11.0 | — | — |
+
+> 注：后三词的词级别展示/点击数据未在截图中单独记录，仅有排名。
 
 **当前 Title：**
 > July 2026 Planetary Transits: Jupiter Enters Leo While Mercury Retrograde Finally Lifts
@@ -54,6 +57,14 @@ Jupiter ingresses Leo on July 1, 2026. Full ephemeris for every planetary transi
 
 **页面正文：无需改动。** 结构完整，ephemeris 表和各事件解读均已具备。
 
+### 优化后预期目标
+
+| 指标 | 当前 | 目标 |
+|------|------|------|
+| CTR | 1.4% | ≥ 3% |
+| 点击（28天） | 4 | ≥ 8 |
+| 排名 | 6.1 | 维持（排名已优秀） |
+
 ---
 
 ## 二、North Node in Scorpio
@@ -69,10 +80,16 @@ Jupiter ingresses Leo on July 1, 2026. Full ephemeris for every planetary transi
 | CTR | 2.6% |
 | 平均排名 | 59.9 |
 
-| 关键词 | 排名 |
-|--------|------|
-| north node in scorpio soulmate | 11.7 |
-| 其余词 | 60–80+ |
+| 关键词 | 排名 | 展示 |
+|--------|------|------|
+| north node in scorpio soulmate | 11.7 | 3 |
+| scorpio n node | 69.6 | 2 |
+| north node scorpio | 72.6 | 6 |
+| n node scorpio | 73.5 | 1 |
+| north node in scorpio | 75.8 | 13 |
+| north node scorpio life purpose | 78.5 | 2 |
+
+> 注：展示数据从截图读取，排名由用户确认（soulmate词11.7），其余词读自截图，存在小幅误差可能。
 
 **当前 Title：**
 > What the North Node in Scorpio Is Quietly Asking You to Risk
@@ -100,15 +117,23 @@ Jupiter ingresses Leo on July 1, 2026. Full ephemeris for every planetary transi
 - 这个轴线如何影响伴侣选择和关系质量
 - 建议字数：400–500字，可拆 2–3 个 H3
 
-**新 Title：**
+**新 Title（56字符）：**
 ```
-North Node in Scorpio: Meaning, Relationships & What It's Asking You to Risk
+North Node in Scorpio: Meaning, Soulmate & Relationships
 ```
 
 **新 Meta（143字符）：**
 ```
 North Node in Scorpio pushes toward emotional depth, transformation, and real intimacy. Understand what this placement means for self-growth and relationships.
 ```
+
+### 优化后预期目标
+
+| 指标 | 当前 | 目标 |
+|------|------|------|
+| soulmate 词排名 | 11.7 | 进入前8 |
+| 总展示（28天） | 39 | ≥ 80 |
+| 点击 | 1 | ≥ 3 |
 
 ---
 
@@ -125,12 +150,14 @@ North Node in Scorpio pushes toward emotional depth, transformation, and real in
 | CTR | 0% |
 | 平均排名 | 53 |
 
-| 关键词 | 排名 |
-|--------|------|
-| 12th house chiron | 38.3 |
-| chiron 12th house | 41.5 |
-| chiron in 12th house | 45 |
-| chiron house 12 | 48 |
+| 关键词 | 排名 | 展示 |
+|--------|------|------|
+| 12th house chiron | 38.3 | 3 |
+| chiron 12th house | 41.5 | 3 |
+| chiron in 12th house | 45 | 3 |
+| chiron house 12 | 48 | 1 |
+
+> 注：排名由用户确认。展示数读自截图，存在小幅误差可能。
 
 **当前 Title：**
 > What Chiron in 12th House Reveals About a Quiet, Hidden Sensitivity
@@ -167,8 +194,16 @@ Chiron in the 12th house points to a hidden wound around solitude and the uncons
 需涵盖：
 - 过运 Chiron 进入第12宫与本命盘 Chiron 在12宫的区别
 - 过运期间常见的心理和生活模式变化
-- 持续时间参考（Chiron 约7–8年过一个宫位）
+- 持续时间参考（⚠️ 待编辑核实：Chiron 轨道为高度椭圆形，不同宫位停留时间差异较大，请勿直接引用固定年数）
 - 建议字数：350–450字
+
+### 优化后预期目标
+
+| 指标 | 当前 | 目标 |
+|------|------|------|
+| 核心词平均排名 | 38–48 | 进入前20 |
+| 总展示（28天） | 24 | ≥ 60 |
+| 点击 | 0 | ≥ 2 |
 
 ---
 
@@ -185,10 +220,13 @@ Chiron in the 12th house points to a hidden wound around solitude and the uncons
 | CTR | 0% |
 | 平均排名 | 34.6 |
 
-| 关键词 | 排名 |
-|--------|------|
-| 12 house rules | 58.0 |
-| no planet in 12th house | 65.0 |
+> ⚠️ 平均排名说明：34.6 受品牌导航词 "www.astrologywiki.com"（排名29）拉低。实际话题词水位在 58–65，两者不矛盾。品牌词不参与话题优化参考。
+
+| 关键词 | 排名 | 备注 |
+|--------|------|------|
+| www.astrologywiki.com | 29 | 品牌导航词，不参与话题优化 |
+| 12 house rules | 58.0 | 话题词 |
+| no planet in 12th house | 65.0 | 话题词 |
 
 **当前 Title：**
 > How 12th House Astrology Reframes Self-Undoing as Growth
@@ -198,12 +236,12 @@ Chiron in the 12th house points to a hidden wound around solitude and the uncons
 
 ### 优化原因
 
-抓取内容显示：文章心理解读层次高，但**两个有排名的关键词对应的内容均不存在或严重不足**：
+抓取内容显示：文章心理解读层次高，但**两个话题词对应的内容均不存在或严重不足**：
 
 - **"no planet in 12th house"（65.0）**：全文完全未提及空宫情况，而"我的12宫没有行星代表什么"是用户高频问题
 - **"12 house rules"（58.0）**：文章只散点提到 Pisces/Neptune 关联，没有系统性的主宰星和规则列表
 
-Title 也是文学化表达，"Reframes Self-Undoing as Growth" 对搜索词无贡献。
+Title 是文学化表达，"Reframes Self-Undoing as Growth" 对搜索词无贡献。
 
 ### 具体优化内容
 
@@ -233,6 +271,14 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 需包含：空宫的正确理解（宫头星座和主宰星仍然有效）、如何通过主宰星位置解读空12宫、常见误解（空宫不等于该领域缺失）
 建议字数：350字
 
+### 优化后预期目标
+
+| 指标 | 当前 | 目标 |
+|------|------|------|
+| 话题词平均排名 | 58–65 | 进入前45 |
+| 总展示（28天） | 16 | ≥ 40 |
+| 点击 | 0 | ≥ 1 |
+
 ---
 
 ## 五、How to Find North Node
@@ -248,10 +294,12 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 | CTR | 0% |
 | 平均排名 | 70.6 |
 
-| 关键词 | 排名 |
-|--------|------|
-| north node calculator | 56.6 |
-| north node berekenen | 63.0 |
+| 关键词 | 排名 | 展示 |
+|--------|------|------|
+| north node calculator | 56.6 | 13 |
+| north node berekenen | 63.0 | — |
+
+> 注：north node berekenen 为荷兰语"计算北交点"，说明存在荷兰语区用户流量。排名由用户确认。
 
 **当前 Title：**
 > How to Find North Node Placements You Can Actually Trust
@@ -262,8 +310,6 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 ### 优化原因
 
 抓取确认：**页面没有任何嵌入式计算器**，只引导用户去外部工具。但 "north node calculator" 展示105次、排名56.6，说明 Google 已将此页与 calculator 意图关联，而页面无法满足工具意图，因此卡在56位无法上升。
-
-"north node berekenen" 是荷兰语"计算北交点"，排名63，说明存在荷兰语区流量，同样因无计算器而流失。
 
 与前四篇不同，这篇的核心问题是**页面类型与搜索意图不匹配**，改内容和 title 无法根本解决，需要结构性调整。
 
@@ -280,6 +326,19 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 **Step 2 — 原页面 301 重定向：**
 `/en/wiki/how-to-find-north-node` → `/north-node-calculator`
 
+> ⚠️ 重定向注意事项：
+> - 必须使用 **301**（永久重定向），而非 302，否则权重不会转移
+> - 重定向生效后，原页面的 105 次展示数据会有 **2–6 周过渡期归零**，新页面需要重新被 Google 收录和排名，执行前需告知相关方有短期流量波动
+> - 新页面上线后主动在 GSC 提交 URL 检索，加快收录速度
+
+### 优化后预期目标（新页面建立后）
+
+| 指标 | 当前（旧页面） | 目标（新页面，建立后4–8周） |
+|------|------|------|
+| north node calculator 排名 | 56.6 | 进入前30 |
+| 总展示（28天） | 105 | ≥ 150 |
+| 点击 | 0 | ≥ 3 |
+
 ---
 
 ## 优先执行顺序
@@ -287,7 +346,7 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 | 优先级 | Blog | 操作类型 | 原因 |
 |--------|------|----------|------|
 | 🔴 立即 | Jupiter enters Leo | 改 title + meta | 只需10分钟，7月1日前必须上线 |
-| 🔴 本周 | North node in Scorpio | 新增章节 + 改 title/meta | 11.7的词等着冲进前10 |
+| 🔴 本周 | North node in Scorpio | 新增章节 + 改 title/meta | 11.7的词等着冲进前8 |
 | 🟠 本周 | Chiron in 12th house | 改 title/meta + 新增章节 | 四个词38–48，再推一把 |
 | 🟡 下周 | 12th house astrology | 新增两个章节 + 改 title/meta | 内容工作量较大 |
 | 🟠 需开发配合 | How to find north node | 新建页面 + 301重定向 | 需前端嵌入计算器，先排期再执行 |
