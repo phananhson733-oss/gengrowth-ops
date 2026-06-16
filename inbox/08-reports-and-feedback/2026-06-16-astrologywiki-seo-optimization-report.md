@@ -341,11 +341,43 @@ The 12th house governs solitude, the unconscious, and hidden patterns. Explore w
 
 ---
 
+## 补充策略：第三方 YouTube 视频嵌入
+
+### 结论
+
+在五篇 blog 中嵌入第三方 YouTube 视频作为补充手段，**可行，但仅限个人博主视频，不嵌入专业占星网站或商业频道的内容**。
+
+**关于 nofollow 属性：** YouTube 视频嵌入通过 `<iframe>` 实现，不是 `<a href>` 链接，iframe 不传递 PageRank，nofollow 对其无效也无法添加。此策略的风险不在于链接权重，而在于用户点击后进入 YouTube 环境可能流失，选择个人博主视频可实质性降低这一风险。
+
+### 视频筛选标准
+
+| 维度 | 要求 |
+|------|------|
+| 创作者类型 | 个人爱好者、学习者，非商业占星账号 |
+| 竞争风险 | 无竞争性产品（无星盘工具、付费课程、自己的 wiki） |
+| 视频内容 | 纯教育/分享性质，视频内无引流至竞争网站的 CTA |
+| 频道稳定性 | 频道有持续更新记录，避免选择活跃度极低的账号（防视频被删导致嵌入失效） |
+| 内容准确性 | 占星知识表达准确，与页面内容方向一致 |
+
+### 各篇应用计划
+
+| Blog | 嵌入优先级 | 原因 |
+|------|-----------|------|
+| Jupiter enters Leo | 🔴 优先试点 | 时效性内容，竞争者少，风险最低，适合验证效果 |
+| Chiron in 12th house | 🟡 可选 | 过运章节新增后，可配一个讲解 Chiron transit 的个人博主视频 |
+| North node in Scorpio | 🟡 可选 | soulmate 新章节配合关系解读类视频 |
+| 12th house astrology | 🟠 暂缓 | 空宫/rules 内容补充完后再评估 |
+| How to find north node | ⛔ 不适用 | 新页面以工具为核心，视频会分散用户注意力 |
+
+> 此策略为补充手段，不是核心优化动作。先在 Jupiter 那篇测试，观察 4 周的平均停留时长变化后再决定是否推广至其他篇。
+
+---
+
 ## 优先执行顺序
 
 | 优先级 | Blog | 操作类型 | 原因 |
 |--------|------|----------|------|
-| 🔴 立即 | Jupiter enters Leo | 改 title + meta | 只需10分钟，7月1日前必须上线 |
+| 🔴 立即 | Jupiter enters Leo | 改 title + meta + 嵌入视频（试点） | 10分钟完成，7月1日前必须上线 |
 | 🔴 本周 | North node in Scorpio | 新增章节 + 改 title/meta | 11.7的词等着冲进前8 |
 | 🟠 本周 | Chiron in 12th house | 改 title/meta + 新增章节 | 四个词38–48，再推一把 |
 | 🟡 下周 | 12th house astrology | 新增两个章节 + 改 title/meta | 内容工作量较大 |
