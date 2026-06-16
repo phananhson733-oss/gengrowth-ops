@@ -204,11 +204,11 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月16日 (周二) - 待写作
 **状态**：`已输出` (共 10 篇)
-- [ ] PG-WC-011 vozinha birth chart
-- [ ] PG-WC-012 germany world cup players birth chart 2026
-- [ ] PG-WC-013 germany world cup 2026 astrology team
-- [ ] PG-WC-014 vinicius jr birth chart astrology
-- [ ] PG-WC-015 scotland world cup 2026 astrology saturn return
+- [x] PG-WC-011 vozinha birth chart → slug `vozinha-birth-chart` LIVE 2026-06-16
+- [x] PG-WC-012 germany world cup players birth chart 2026 → `germany-world-cup-players-birth-chart-2026` LIVE
+- [x] PG-WC-013 germany world cup 2026 astrology team → `germany-world-cup-2026-astrology-team` LIVE
+- [x] PG-WC-014 vinicius jr birth chart astrology → `vinicius-jr-birth-chart-astrology` LIVE (vs WC-006 zodiac-sign, cross-linked)
+- [x] PG-WC-015 scotland world cup 2026 astrology saturn return → `scotland-world-cup-2026-astrology-saturn-return` LIVE
 
 
 ---
