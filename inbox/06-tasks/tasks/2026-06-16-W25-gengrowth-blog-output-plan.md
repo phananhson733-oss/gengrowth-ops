@@ -38,10 +38,10 @@ updated: 2026-06-16
 
 **状态**：`计划中`
 
-- [ ] `PG-SFS-001` seo for saas
-- [ ] `PG-SFS-002` saas seo platform
-- [ ] `PG-SFS-003` saas seo consultant
-- [ ] `PG-SFS-004` seo for saas startups
+- [x] `PG-SFS-001` seo for saas  -> LIVE https://gengrowth.ai/en/blog/seo-for-saas
+- [x] `PG-SFS-002` saas seo platform  -> LIVE https://gengrowth.ai/en/blog/saas-seo-platform
+- [x] `PG-SFS-003` saas seo consultant  -> LIVE https://gengrowth.ai/en/blog/saas-seo-consultant
+- [x] `PG-SFS-004` seo for saas startups  -> LIVE https://gengrowth.ai/en/blog/seo-for-saas-startups
 
 ---
 
