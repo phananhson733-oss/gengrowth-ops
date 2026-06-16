@@ -81,11 +81,11 @@
   "settingsProvider": "claude",
   "savedProviderModel": {
     "claude": "haiku",
-    "codex": "gpt-5.5"
+    "codex": "gpt-5.4-mini"
   },
   "savedProviderEffort": {
     "claude": "high",
-    "codex": "high"
+    "codex": "low"
   },
   "savedProviderServiceTier": {
     "codex": "default"

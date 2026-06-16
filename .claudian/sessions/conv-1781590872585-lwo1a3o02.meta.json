@@ -4,8 +4,8 @@
   "title": "这里写的内容是不是可以适当简化",
   "titleGenerationStatus": "failed",
   "createdAt": 1781590872588,
-  "updatedAt": 1781590896092,
-  "lastResponseAt": 1781590896092,
+  "updatedAt": 1781591881898,
+  "lastResponseAt": 1781591881898,
   "sessionId": "019ecf17-6b92-7fb1-9e97-a42331730541",
   "providerState": {
     "threadId": "019ecf17-6b92-7fb1-9e97-a42331730541",
@@ -14,13 +14,13 @@
   },
   "currentNote": "inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md",
   "usage": {
-    "inputTokens": 11446,
+    "inputTokens": 65675,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 4992,
+    "cacheReadInputTokens": 64896,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 11446,
-    "percentage": 4,
+    "contextTokens": 65675,
+    "percentage": 25,
     "model": "gpt-5.5"
   }
 }
