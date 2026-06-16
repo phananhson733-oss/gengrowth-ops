@@ -17,10 +17,10 @@ updated: 2026-06-16
 
 **状态**：`进行中`
 
-- [ ] `PG-WLS-001` white label keyword research
-- [ ] `PG-WLS-002` best white label seo tool
-- [ ] `PG-WLS-003` whitelabel seo tool
-- [ ] `PG-WLS-004` free white label seo
+- [x] `PG-WLS-001` white label keyword research  -> LIVE https://gengrowth.ai/en/blog/white-label-keyword-research
+- [x] `PG-WLS-002` best white label seo tool  -> LIVE https://gengrowth.ai/en/blog/best-white-label-seo-tool
+- [x] `PG-WLS-003` whitelabel seo tool  -> LIVE https://gengrowth.ai/en/blog/whitelabel-seo-tool
+- [x] `PG-WLS-004` free white label seo  -> LIVE https://gengrowth.ai/en/blog/free-white-label-seo
 
 ---
 
@@ -28,9 +28,9 @@ updated: 2026-06-16
 
 **状态**：`计划中`
 
-- [ ] `PG-ART-001` agency rank tracking
-- [ ] `PG-ART-002` seo reporting tool for seo companies
-- [ ] `PG-ART-003` local seo audit
+- [x] `PG-ART-001` agency rank tracking  -> LIVE https://gengrowth.ai/en/blog/agency-rank-tracking
+- [x] `PG-ART-002` seo reporting tool for seo companies  -> LIVE https://gengrowth.ai/en/blog/seo-reporting-tool-for-seo-companies
+- [x] `PG-ART-003` local seo audit  -> LIVE https://gengrowth.ai/en/blog/local-seo-audit
 
 ---
 
