@@ -73,6 +73,45 @@ source:
 | Reddit | 调研 P0 / 分发 P3 | 用户问题调研、社区规则观察、内容角度验证 | 不作为首轮发布/宣传主平台；只做观察、记录和少量自然互动 |
 | TikTok | P2 | Hook 观察、短视频趋势参考 | 暂不做首轮主平台；如做，也应服务网站访问而非单纯涨粉 |
 
+### 1.1 Birth Chart 是否适合作为首发主题
+
+当前多数样本围绕 Birth Chart，是因为它同时满足“用户认知入口、工具页承接、内容可复用、低成本制作”这几个条件。但这不等于首轮只做 Birth Chart，或把所有平台调研都限制在 Birth Chart。
+
+阶段性判断：
+
+> **Birth Chart 适合作为首发主题之一，但不建议单押。首轮更合理的结构是：Birth Chart Basics 作为入口主题，Houses / Aspects / Saturn Return 作为并行或第二主题包。**
+
+Birth Chart 适合作为首发候选的原因：
+
+| 判断维度 | 为什么适合 |
+|---|---|
+| 用户入口足够基础 | 新手通常先知道 sun sign / zodiac sign，再进入 birth chart；它适合作为 AstrologyWiki 的低门槛入口 |
+| 站内承接明确 | 可以直接导向 Birth Chart Calculator、Birth Chart Guide、Planets / Houses / Aspects Wiki |
+| 可自然拆成多种内容形态 | 一组 Birth Chart 素材可以拆成 Pinterest 图卡、Shorts、X 单帖、3–6 分钟轻量视频 |
+| 符合品牌定位 | 可强调 whole chart, not stereotypes；patterns, not predictions；适合建立“不是单一星座标签”的差异化 |
+| 用户真实问题多 | X / Shorts / Reddit 类平台都能看到“看不懂星盘”“线少是什么意思”“空宫是不是不好”等问题 |
+| 工具页导流顺畅 | 用户看完内容后的自然下一步是生成自己的 chart，而不是只停留在阅读或互动 |
+
+Birth Chart 的风险：
+
+| 风险 | 说明 | 应对 |
+|---|---|---|
+| 竞争很大 | YouTube、Pinterest、工具站、占星师账号都在做 birth chart 入门 | 不做泛泛“what is a birth chart”，聚焦“看懂而不焦虑 / patterns not predictions / 工具下一步” |
+| 容易做成泛科普 | 如果没有目标页面和 CTA，只会变成普通占星入门内容 | 每条内容绑定 Birth Chart Calculator / Guide / Wiki |
+| 容易被 AI 解盘内容带偏 | 平台上有“把星盘丢给 AI 解读”的趋势 | 建立“先用准确数据，再做 reflection”的安全口径 |
+| 主题过宽 | Birth Chart 可以无限扩展，容易拖慢首轮 MVP | 只做 Basics，不进入完整系统课程 |
+
+因此，首轮主题建议不是“Birth Chart 一个主题做到底”，而是：
+
+| 主题包                | 角色     | 首轮建议                                                   |
+| ------------------ | ------ | ------------------------------------------------------ |
+| Birth Chart Basics | 入口主题   | 首发候选，优先做低成本图卡 / Shorts / 轻量视频                          |
+| Astrology Houses   | 承接主题   | 与 Birth Chart 并行调研或作为第二主题包；适合 Pinterest 和 YouTube      |
+| Astrology Aspects  | FAQ 主题 | 承接“线少 / hard aspects / aspect patterns”问题，适合图卡和 Shorts |
+| Saturn Return      | 工具主题   | 有明确 calculator 承接，适合第二批或并行小测                           |
+
+首轮可以先用 Birth Chart 验证“站外内容 → 工具页 / Wiki 页”的路径，但复盘时必须同时观察 Houses / Aspects 是否更适合 Pinterest 和 Shorts。
+
 ---
 
 ## 2. 背景与目标
@@ -147,14 +186,6 @@ source:
 - 平台内容策划、发布、互动与复盘；
 - 各平台可见数据记录；
 - 将平台反馈回传给 SEO / 内容同事。
-
-你不默认负责：
-
-- 完整 SEO 关键词研究；
-- 站内文章批量生产；
-- 系统性外链建设；
-- GSC / GA4 / CTA / 注册数据的完整维护；
-- 付费工具采购决策。
 
 ---
 
@@ -238,6 +269,42 @@ source:
 | 用户反馈价值 | 是否能收集真实问题、评论原话、FAQ 和内容缺口 |
 | 成本与风险 | 是否可持续、是否容易被平台限制、是否容易偏离品牌边界 |
 
+### 5.1.1 平台本身调研与主题调研的区分
+
+当前调研包含两层：
+
+1. **平台本身调研**：判断平台机制、内容形态、导流路径、互动结构和风险；
+2. **主题样本调研**：用 Birth Chart / Houses / Aspects 等主题去观察具体内容是否能承接到 AstrologyWiki 页面。
+
+目前文档中已经有平台本身调研，但部分内容分散在各平台章节里。整理如下：
+
+| 平台 | 已有平台本身调研 | 已用主题样本 | 当前缺口 |
+|---|---|---|---|
+| YouTube 轻量视频 | 已观察搜索型视频、描述区 / 置顶评论导流、长视频制作成本、轻量视频可行性 | Birth Chart 长视频样本 | 还需补 Houses / Saturn Return 等非 Birth Chart 主题样本 |
+| YouTube Shorts | 已观察 Shorts 的 Hook、收藏、单点认知切片、知识卡片和工具录屏适配 | Birth Chart Shorts | 还需补 Houses / Aspects / Saturn Return Shorts，避免只看 Birth Chart |
+| Pinterest | 已观察视觉搜索、可保存图卡、shop carousel、Knowledge Cards 适配、未登录详情页限制 | Birth Chart、Houses、Aspects、Moon phases、Journal prompts | 需要登录后复核 Pin 外链路径、点击入口和账号发布设置 |
+| X | 已观察即时讨论、轻量分发、链接帖弱、用户问题强、AI 解盘争议 | Birth Chart / Birth Chart Calculator | 需要补非 Birth Chart 主题，如 Houses、Saturn Return、current sky 的表现 |
+| Reddit | 已基于社区规则和 spam / self-promotion 风险，判断为用户研究平台 | 通用占星问题，尚未深做本轮主题采样 | 需要按主题收集真实问题，不做首轮主导流 |
+| TikTok | 已判断为 Hook 观察和 Shorts 参考，不作为首轮主平台 | 泛占星短视频风险观察 | 暂不投入深调，除非决定复用 YouTube Shorts |
+
+因此，当前不是完全缺少平台本身调研；真正的缺口是：
+
+- Birth Chart 样本较多，Houses / Aspects / Saturn Return 等主题样本不足；
+- Pinterest 的真实外链点击路径还没有在登录状态下复核；
+- X 的非 Birth Chart 主题表现还没有补样；
+- YouTube Shorts 的非 Birth Chart 样本需要继续看，尤其是 Houses 和 Aspects；
+- 平台发布后台、账号设置、UTM / referral 追踪、外链限制等执行机制还没有进入验证。
+
+后续调研应按以下顺序补足：
+
+```text
+平台机制确认
+→ 主题样本横向比较
+→ 内容形态归类
+→ 目标页面承接
+→ 小规模发布验证
+```
+
 ### 5.2 平台矩阵
 
 | 平台 | 用户匹配 | 内容适配 | 搜索/长尾 | 用户问题 | 导流 | 成本 | 风险 | PV 贡献路径 | 初步结论 |
@@ -248,6 +315,97 @@ source:
 | X | 中/高 | 中 | 低/中 | 中 | 中 | 低/中 | 中 | 链接点击、话题测试、品牌搜索、站内页面分发 | P1，适合快速测试和分发，但账号归属待确认 |
 | Reddit | 高 | 中 | 中 | 高 | 低 | 中 | 高 | 主要贡献用户问题和 FAQ；直接导流弱，不作为首轮 PV 主路径 | 调研 P0 / 分发 P3；适合收集问题，不适合作为首轮宣传渠道 |
 | TikTok | 中/高 | 中 | 低 | 中 | 低 | 高 | 中/高 | 主页访问和品牌搜索为主，外链承接弱 | P2，暂不做首轮主平台；可观察 Hook |
+
+### 5.2.1 首轮内容形态归类
+
+为了降低制作成本，首轮不按平台拆出大量独立栏目，而是先按**内容形态**归类。平台只是分发位置，同一组选题和素材应尽量复用。
+
+首轮只保留 4 类内容形态：
+
+| 内容形态 | 核心资产 | 主要平台 | 复用平台 | 制作成本 | 首轮作用 |
+|---|---|---|---|---|---|
+| 图文知识卡片 | 竖版或方形 Knowledge Cards、速查表、FAQ 图卡 | Pinterest | X、YouTube Community、Shorts 画面素材 | 低 | 常青保存、Pin 点击、Wiki / Guide 导流 |
+| 知识卡片型 Shorts | 图卡 + 简单字幕 + 轻配音 / 音乐 | YouTube Shorts | TikTok（暂不主投）、Pinterest 视频 Pin（待验证） | 低/中 | Hook 测试、主页访问、工具页入口 |
+| 工具 / 页面录屏 Shorts | AstrologyWiki 页面录屏 + 简单高亮 + CTA | YouTube Shorts | X、Pinterest（待验证） | 低/中 | 直接展示站内工具，服务 PV / 工具启动 |
+| 3–6 分钟轻量视频 | 图卡 + 页面录屏 + 简单配音 / 字幕 | YouTube | 可拆成 Shorts、Pinterest 图卡、X 单帖 | 中 | 搜索承接、信任建立、描述区 / 置顶评论导流 |
+
+Reddit 不进入首轮内容生产形态，定位为用户研究和 FAQ 来源。X 不单独生产复杂内容，优先复用图卡、视频链接、用户问题和短观点。TikTok 暂不作为首轮主平台，只观察 Hook，必要时复用 Shorts。
+
+推荐使用“一个主题包，多平台复用”的生产方式：
+
+```text
+SEO 主题 / 目标页面
+→ 1 组 Knowledge Cards
+→ 1-2 条 Shorts
+→ 1 条 X 单帖或 thread
+→ 可选：1 条 3-6 分钟 YouTube 轻量视频
+→ 反馈回流到 Wiki FAQ / 下一轮选题
+```
+
+首轮示例：
+
+| 主题包 | 基础素材 | 可复用输出 | 目标页面 |
+|---|---|---|---|
+| Birth Chart Basics | Big Three / planets / houses / aspects 图卡 | Pinterest Pin、Shorts、X 单帖、YouTube 轻量视频 | Birth Chart Calculator + Birth Chart Guide |
+| Astrology Houses | 12 houses life areas 图卡 | Pinterest Pin 系列、Shorts 系列、YouTube 轻量视频 | Houses pillar / Wiki |
+| Astrology Aspects | “为什么我的线少？”FAQ 图卡 | Pinterest FAQ Pin、Shorts、X 问题帖 | Aspects Wiki + Birth Chart FAQ |
+| Saturn Return Without Fear | 反恐吓解释图卡 | Shorts、YouTube 轻量视频、X 单帖 | Saturn Return Calculator / Guide |
+
+首轮避免新增的内容复杂度：
+
+- 不为每个平台单独设计完全不同的栏目；
+- 不同时做长视频、直播、播客、newsletter、复杂 thread、复杂动画；
+- 不把 TikTok / Reddit / X 都当成独立主阵地；
+- 不为了平台热度生产没有目标页面承接的内容。
+
+### 5.3 X Birth Chart 定向调研补充（2026-06-16）
+
+本轮在 X 上围绕 `birth chart`、`birth chart calculator`、`birth chart filter:links`、`birth chart lang:en` 等搜索词做了定向采样。初步结论是：
+
+> X 不适合作为 Birth Chart 首轮核心导流平台，但适合作为用户问题雷达、话题测试和轻量分发渠道。
+
+#### 5.3.1 主要观察
+
+1. **英文区高互动 Birth Chart 内容主要不是工具导流，而是梗、事件感、身份代入和惊讶感。**  
+   例如 ShawtyAstrology 关于某个即将出生宝宝 birth chart 的帖子约 30.4 万 views，互动来自“这个星盘很夸张”的事件化表达，而不是教程或工具推荐。  
+   对 AstrologyWiki 的启发：可以观察其 Hook 结构，但不应照搬宿命化、恐吓化或过度猎奇的表达。
+
+2. **真实用户问题非常适合反哺 SEO FAQ、Shorts 和 Wiki 页面。**  
+   典型问题包括：为什么别人的 birth chart 看起来很复杂，而自己的 chart 线很少？这类问题可以转成：
+   - `Why does my birth chart have fewer lines?`
+   - `Do fewer aspects mean my chart is boring?`
+   - `What do empty houses or fewer aspect lines mean?`
+
+3. **`birth chart calculator` 在英文 X 上的直接工具推广互动偏弱。**  
+   明确宣传 free birth chart calculator 的帖子可见 views 和互动较低，说明 X 上直接发“来用工具”不是强路径。工具页更适合出现在“下一步怎么做”的场景中，而不是作为单条广告式链接。
+
+4. **带链接的高传播样本更像“用户分享 / 教程型 thread”，而不是品牌硬广。**  
+   非英文样本中出现 Astro-Seek 链接获得较高 views、转发和收藏，常见结构是“我试了这个工具，很准 / 这里可以看 birth chart / 具体怎么填信息”。这说明 X 的导流机会更可能来自“我该怎么做下一步”的场景。
+
+5. **AI 解读 birth chart 是当前 X 上的争议点。**  
+   一类用户会建议把 birth chart 截图丢给 ChatGPT / Gemini / Claude 解读；另一类占星账号批评 AI 容易读错 placements。AstrologyWiki 可以利用这一点建立安全口径：先用准确 calculator 得到 placements，再用 Wiki / Guide 理解含义，不鼓励直接让 AI 猜图或做宿命化判断。
+
+#### 5.3.2 对 AstrologyWiki 的判断
+
+| 角色 | 优先级 | 说明 |
+|---|---:|---|
+| 用户研究 | P1 | 收集真实问题、误解、评论原话和 FAQ |
+| 轻量分发 | P1/P2 | 配合 YouTube Shorts、Pinterest 图卡和站内页面做二次分发 |
+| 直接导流 | P2 | 不建议首轮押注单条链接帖带来明显 PV |
+
+#### 5.3.3 可测试内容方向
+
+| 方向 | 示例 | 目标页面 / 承接 |
+|---|---|---|
+| 星盘复杂度疑问 | `Why does my birth chart look so empty?` | Birth Chart Guide / Aspects Wiki |
+| 反单一太阳星座 | `Your Sun sign is not your whole birth chart.` | Birth Chart Calculator + Birth Chart Guide |
+| AI 安全使用 | `Before asking AI to read your chart, get the placements right first.` | Birth Chart Calculator / AI Prompt Guide（待确认） |
+| Big Three 入门 | `Check your Sun / Moon / Rising first, then read what each placement means.` | Birth Chart Calculator + Sun/Moon/Rising Wiki |
+| 焦虑缓解 | `Fewer lines in your birth chart do not mean your chart is less important.` | Aspects / Houses / Birth Chart FAQ |
+
+#### 5.3.4 初步结论
+
+X 不应替代 YouTube / Shorts 或潜在的 Pinterest 常青内容分发。它更适合作为 Birth Chart 主题的用户语言采集池和轻量分发渠道。首轮如果使用 X，应把 CTA 控制为自然下一步，例如引导用户去 Birth Chart Calculator、Birth Chart Guide 或相关 Wiki 页面，而不是直接硬推 astrologywiki.com。
 
 ---
 
@@ -728,13 +886,16 @@ Journal prompt: What feelings do I hide because they feel too much?
 
 ### 8.3 首轮内容栏目
 
-| 栏目 | 形式 | 示例 |
+X 首轮不建议单独生产复杂栏目，而是作为图文知识卡片、Shorts、轻量视频和用户问题的二次分发位。
+
+| 复用来源 | X 上的发布形式 | 示例 |
 |---|---|---|
-| Whole Chart Reminder | 单帖 | Your sun sign is only one sentence in a full chart. |
-| Placement to Journal | 单帖/Thread | Moon in houses → reflection prompts |
-| Current Sky, Not Fate | 单帖 | Jupiter in Cancer: what to observe, not what to expect |
-| Relationship Patterns | Thread | Synastry as conversation starters, not verdicts |
-| Astrology Literacy | Thread | What astrology can and cannot tell you |
+| Pinterest / Knowledge Cards | 单帖 + 图卡 | Your sun sign is only one sentence in a full chart. |
+| YouTube Shorts | 视频转发 + 简短观点 | Fewer lines in your birth chart do not mean your chart is less important. |
+| 轻量 YouTube 视频 | 链接帖 / thread 摘要 | How to read your birth chart without feeling overwhelmed. |
+| Reddit / X 用户问题 | 单帖问题 + 页面 CTA | Why does my birth chart look so empty? |
+
+首轮原则：X 不作为独立内容生产线，只复用已有主题包，并记录评论、转发、链接点击、品牌搜索和用户原话。
 
 ---
 
@@ -751,19 +912,83 @@ Pinterest 在正式 PV 路径中被提及，但当前仓库中具体调研较少
 
 ### 9.2 初步可测试内容
 
-| 内容类型 | 示例 | 对应页面 |
+Pinterest 首轮只测试图文知识卡片，不单独开发复杂图文栏目。优先从 YouTube / Shorts / SEO 主题包中拆素材。
+
+| 图文卡片类型 | 示例 | 对应页面 |
 |---|---|---|
 | 宫位速查图 | 12 houses as life areas | Houses pillar |
 | 星盘基础图 | Sun / Moon / Rising meaning | Birth chart guide |
+| Aspects FAQ 图卡 | Why does my birth chart have fewer lines? | Aspects Wiki / Birth Chart FAQ |
 | Journal prompt 图卡 | Moon sign journal prompts | Journal prompts |
-| 月相反思图 | New moon reflection prompts | Moon ritual |
 | Chiron 边界图 | Chiron as reflection, not diagnosis | Chiron pages |
 | Synastry 问题卡 | Questions to ask before judging compatibility | Synastry |
 
-### 9.3 首轮判断
+### 9.3 Pinterest 定向调研补充（2026-06-16）
 
-Pinterest 可作为 P1/P2 继续调研，不建议在账号注册前大量生产素材。  
-如果确认平台适合，可以优先把 YouTube 轻量视频内容和站内文章转成 5–10 张图卡测试。
+本轮在 Pinterest 上围绕 `birth chart`、`birth chart calculator`、`astrology houses`、`astrology aspects`、`moon phases astrology`、`astrology journal prompts`、`zodiac signs meanings` 等关键词做了快速采样。由于未登录状态下 Pin 详情页会触发登录弹窗，本轮主要基于搜索结果页、Pin 标题 / alt、推荐筛选词、shop carousel 和可见内容形态做初步判断；外链点击路径需要后续登录后复核。
+
+#### 9.3.1 主要观察
+
+1. **Pinterest 与 AstrologyWiki 的知识卡片形态高度匹配。**  
+   `birth chart`、`astrology houses`、`astrology aspects`、`zodiac signs meanings` 等搜索结果中，大量内容是速查表、图卡、符号表、宫位图、how to read 图解。这与 AstrologyWiki 的 Wiki 页面、工具页和基础指南天然匹配。
+
+2. **`birth chart` 搜索会混入购物、模板和装饰性内容。**  
+   搜索页出现 `Shop birth chart`、birth chart template、poster、sticker、Etsy / Redbubble / TeePublic 等商品结果。说明这个关键词不是纯知识搜索，首轮内容需要避开“商品化模板”竞争，优先做清晰、有保存价值的知识图卡。
+
+3. **`astrology houses` 和 `astrology aspects` 比单纯 `birth chart calculator` 更适合 Knowledge Cards。**  
+   Houses / Aspects 的结果更集中在图表、解释卡和 cheat sheet，适合拆成 12 宫位系列、相位含义系列、空宫 / 线少 FAQ 系列，并自然导向 Wiki 词条或 Birth Chart Guide。
+
+4. **`moon phases astrology` 和 `astrology journal prompts` 更偏审美、仪式、manifestation 和手账模板。**  
+   这类主题有 Pinterest 适配性，但更容易偏离 AstrologyWiki 的“self-understanding, not fate”口径。首轮可以少量测试 reflection prompts，不建议主打仪式感、许愿、显化和神秘疗愈包装。
+
+5. **Pinterest 更像常青入口，不像 X 的即时讨论场。**  
+   X 的 Birth Chart 内容更适合抓真实问题和测试表达；Pinterest 更适合沉淀可搜索、可保存、可复用的图文资产。它的潜在 PV 路径是：搜索 / 推荐看到图卡 → 保存或点击 → 进入 AstrologyWiki 对应工具页 / Wiki 页 / 指南页。
+
+#### 9.3.2 适合 AstrologyWiki 首轮测试的 Pin 类型
+
+| Pin 类型 | 示例标题 | 目标页面 / 承接 |
+|---|---|---|
+| Birth Chart 入门图卡 | `How to Read Your Birth Chart Without Feeling Overwhelmed` | Birth Chart Guide + Birth Chart Calculator |
+| Big Three 速查卡 | `Sun, Moon, Rising: What Each One Means` | Birth Chart Calculator + Sun / Moon / Rising Wiki |
+| 12 Houses 系列 | `The 12 Houses as Life Areas` | Astrology Houses pillar |
+| Aspects FAQ | `Why Does My Birth Chart Have Fewer Lines?` | Aspects Wiki + Birth Chart FAQ |
+| Planet Cheat Sheet | `Planets in Astrology: What, How, Where` | Planets Wiki + Birth Chart Guide |
+| Reflection Prompt 卡 | `Moon Sign Journal Prompts for Self-Understanding` | Journal prompt / Moon sign pages |
+
+#### 9.3.3 不建议首轮主打的 Pin 类型
+
+| 类型 | 原因 |
+|---|---|
+| 纯审美星盘壁纸 | 保存可能高，但站内 PV 承接弱 |
+| 商品模板 / Etsy 风格 birth chart print | 与 AstrologyWiki 工具 / Wiki 定位不一致 |
+| Manifestation / moon ritual 强承诺内容 | 容易偏离 patterns, not predictions |
+| 单一星座性格标签 | 容易违背 whole chart, not stereotypes |
+| 复杂长图大课 | 制作成本高，不符合低成本 MVP |
+
+#### 9.3.4 对 AstrologyWiki 的判断
+
+| 角色 | 优先级 | 说明 |
+|---|---:|---|
+| 常青图卡分发 | P1/P2 | 适合把 Wiki / Guide 拆成可保存知识卡 |
+| 直接导流 | P1/P2 待验证 | Pin 可承接 URL，但真实点击表现需登录后复核和小批量测试 |
+| 用户研究 | P2 | 不如 Reddit / X 适合看真实问题，但能观察视觉搜索语言 |
+| 品牌定位 | 中高 | 适合建立 AstrologyWiki 的清晰、克制、可查阅形象 |
+
+#### 9.3.5 初步结论
+
+Pinterest 值得进入首轮小规模实验，但不建议一上来大批量制作。更合适的做法是先选 2-3 个已有站内承接强的主题，每个主题做 3-5 张 Knowledge Cards，测试保存、点击、品牌搜索和目标页面访问。
+
+首轮优先主题建议：
+
+1. Birth Chart Basics：导向 Birth Chart Calculator / Birth Chart Guide；
+2. Astrology Houses：导向 Houses pillar / 12 houses Wiki；
+3. Astrology Aspects：导向 Aspects Wiki / Birth Chart FAQ；
+4. Moon Sign Journal Prompts：少量测试，注意保持 reflection 口径。
+
+### 9.4 首轮判断
+
+Pinterest 可作为 P1/P2 继续调研并进入小规模实验，不建议在账号注册和外链路径确认前大量生产素材。  
+如果确认平台适合，可以优先把 YouTube 轻量视频内容和站内文章转成 5–10 张图卡测试，并用 UTM 或独立记录表追踪 Pin → 页面访问路径。
 
 ---
 
@@ -826,10 +1051,10 @@ Pinterest 可作为 P1/P2 继续调研，不建议在账号注册前大量生产
 |---|---|---|
 | Day 1–2 | 完成 YouTube 竞品深调，重点记录目标页面和 CTA | 10 个频道/视频样本 + CTA/导流方式矩阵 |
 | Day 1–3 | 完成 Reddit / X / Pinterest 快速对比 | 平台优先级判断表 + PV 贡献路径说明 |
-| Day 3–4 | 确定首轮主题、目标页面和 CTA | 10–15 个内容选题，每个绑定 SEO 主题和目标页面 |
-| Day 4–5 | 准备首条轻量 YouTube 视频 + 3 条 Shorts 的内容方案 | 标题、结构、目标页面、描述区 CTA、置顶评论草案；确认不用真人出镜和复杂动画 |
+| Day 3–4 | 确定首轮主题包、目标页面和 CTA | 3–4 个主题包，每个绑定 SEO 主题、目标页面和可复用内容形态 |
+| Day 4–5 | 准备第 1 个主题包的图文卡片 + Shorts + 可选轻量视频方案 | Knowledge Cards、1–2 条 Shorts、X 复用帖、轻量视频结构；确认不用真人出镜和复杂动画 |
 | Week 1 | 开始账号基础配置/养号/素材储备 | 账号资料、主页链接、规则记录、素材库 |
-| Week 2 | 小规模发布或准备发布测试 | 1 条 3–6 分钟轻量视频、3–5 条 Shorts，或完成可发布版本和排期 |
+| Week 2 | 小规模发布或准备发布测试 | 1 个主题包的跨平台复用版本：Pinterest 图卡、3–5 条 Shorts、X 复用帖；可选 1 条 3–6 分钟轻量视频 |
 | Week 2 末 | 复盘站外 → 站内路径 | 继续 / 调整 / 暂停建议；记录平台指标 + 站内同步指标 |
 
 ---
@@ -1133,4 +1358,3 @@ Feedback to SEO: 用户最常追问年龄、关系、职业、焦虑、是否每
 - [ ] 是否能自然回到完整星盘，而不是单一星座标签？
 - [ ] 是否有明确但不过度的 CTA？
 - [ ] 是否记录了对应平台、主题、页面和实验假设？
-

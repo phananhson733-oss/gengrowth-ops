@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781590872585-lwo1a3o02",
+  "providerId": "codex",
+  "title": "这里写的内容是不是可以适当简化",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781590872588,
+  "updatedAt": 1781590896092,
+  "lastResponseAt": 1781590896092,
+  "sessionId": "019ecf17-6b92-7fb1-9e97-a42331730541",
+  "providerState": {
+    "threadId": "019ecf17-6b92-7fb1-9e97-a42331730541",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/16/rollout-2026-06-16T14-21-19-019ecf17-6b92-7fb1-9e97-a42331730541.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md",
+  "usage": {
+    "inputTokens": 11446,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 4992,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 11446,
+    "percentage": 4,
+    "model": "gpt-5.5"
+  }
+}
