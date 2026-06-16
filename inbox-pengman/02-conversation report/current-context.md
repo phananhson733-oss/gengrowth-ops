@@ -1,7 +1,7 @@
 ---
 title: Pengman 当前协作上下文
 date: 2026-06-15
-updated: 2026-06-15
+updated: 2026-06-16
 owner: Pengman
 type: conversation-context
 status: active
@@ -71,7 +71,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 
 ## 3. 当前已知决定
 
-- 项目整体目标是冲刺 AstrologyWiki 日 PV 5,000、美国流量为主；这是整体目标，不应直接视为 Pengman 单独负责的数据 KPI。
+- 项目整体目标是冲刺 AstrologyWiki  PV 5,000、美国流量为主；这是整体目标，不应直接视为 Pengman 单独负责的数据 KPI。
 - 当前了解到 AstrologyWiki 的平台账号可能都需要从零建立。
 - 注册前仍应确认是否存在未交接的历史账号，避免重复注册。
 - 当前工作顺序：调研 → 制定方案并确定平台与平台内容 → 注册账号 → 养号 → 初步测试。
@@ -105,3 +105,13 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-15：将任务从泛化的“SEO / 内容增长执行”收窄为“海外内容运营 / 营销执行”。
 - 2026-06-15：确认完整 SEO、系统外链建设及站内数据维护不属于 Pengman 的主要职责。
 - 2026-06-15：当前按平台账号从零搭建处理，但注册前需核查历史账号。
+- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档当前作为 YouTube、Shorts、平台优先级和首轮实验方案的工作草稿。
+- 2026-06-16：确认 Reddit 优先级应拆分：**用户研究 P0，内容分发 / 宣传 P3**。Reddit 适合收集真实问题、社区语言和 FAQ，不应作为首轮主发布或导流渠道。文档中已将其定位为“Research radar, not distribution channel / 调研雷达，不是扩音器”。
+- 2026-06-16：确认站外选题应与 SEO 关键词/主题集群关联：可以、也应该从 SEO 关键词里选题，但不能把关键词原样变成社媒标题；需要按平台语境改写，并绑定对应 Wiki / Article / Tool 页面。
+- 2026-06-16：完成 Birth Chart / Natal Chart YouTube 长视频第一轮调研，已记录 3 个样本：The Astrology Podcast、The Gem Goddess、Mastering the Zodiac。当前判断：Birth Chart 应进入 YouTube P0 首批内容，作为频道“基建视频”。首发视频建议以 Mastering the Zodiac 的“剥洋葱”结构为主要母版，融合 The Gem Goddess 的反宿命/free will 口径和 The Astrology Podcast 的专业克制。
+- 2026-06-16：Birth Chart 长视频合并建议：推荐做 8–10 分钟入门视频，标题方向为 `How to Read Your Birth Chart Without Feeling Overwhelmed` 或 `How to Read a Birth Chart in 10 Minutes: Patterns, Not Predictions`；默认使用 Tropical Astrology，避免 Sidereal 口径导致大众新手困惑；视觉形式优先几何图卡、星盘局部高亮、少量工具录屏和配音，不强依赖真人 IP。
+- 2026-06-16：开始 Birth Chart Shorts 调研，已形成阶段判断：Shorts 不是压缩版长视频，而是“单点认知切片”。长视频负责结构和信任，Shorts 负责入口、Hook 测试、收藏和评论问题收集，Wiki / 工具页负责深度承接。
+- 2026-06-16：Birth Chart Shorts 目前识别出几类适合 AstrologyWiki 的形式：反常识/辟谣型、焦虑缓解型、解盘公式型、知识卡片型、AI 工具工作流型。需避免单一配置判词、宿命化“隐藏钥匙”、心理诊断化表达。
+- 2026-06-16：新增 Shorts 样本和方向：`Your Birth Chart Explained` 代表 7 秒知识卡片/cheat sheet 型内容，适合做 AstrologyWiki Knowledge Cards；`ChatGPT natal chart analysis` 代表 AI-assisted chart reading 型内容，可启发“AI 辅助自我探索”，但必须强调 AI 是 reflection assistant，不是 fortune teller，且需要避免 AI 读图/转录错误和宿命式提问。
+- 2026-06-16：当前仍处于调研阶段，暂不进入脚本生产。下一步可继续补充 Birth Chart Shorts 的真实链接、播放量、评论和 CTA，或切到 Houses / Saturn Return 等下一个 SEO/YouTube 主题。
+- 2026-06-16：运营方案初稿已进一步修正为 **PV 增长 / 站内导流导向**：YouTube、Shorts、Pinterest、X 等站外内容的核心目标不是账号涨粉，而是为 astrologywiki.com 的公开工具页、Wiki 页面和重点 SEO 页面带来直接或间接访问。后续评估需记录目标页面、CTA、站外指标和由同事同步的站内 PV / referral / 工具启动等指标。

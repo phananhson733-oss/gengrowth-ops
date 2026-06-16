@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781575683397-xw4eb4thx",
+  "providerId": "codex",
+  "title": "请你仔细阅读这个0615内容运营与增长任务梳理，告诉我我紧接着应该做什么？我现在还没开始做事情，我的...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781575683397,
+  "updatedAt": 1781577372776,
+  "lastResponseAt": 1781577372776,
+  "sessionId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
+  "providerState": {
+    "threadId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/16/rollout-2026-06-16T10-08-09-019ece2f-a5cb-7883-8477-e27e40cbcf89.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md",
+  "usage": {
+    "inputTokens": 62335,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 61824,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 62335,
+    "percentage": 24,
+    "model": "gpt-5.5"
+  }
+}
