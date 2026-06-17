@@ -203,12 +203,23 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 6月16日 (周二) - 待写作
-**状态**：`已输出` (共 10 篇)
+**状态**：`已输出` (共 5 篇)
 - [x] PG-WC-011 vozinha birth chart → slug `vozinha-birth-chart` LIVE 2026-06-16
 - [x] PG-WC-012 germany world cup players birth chart 2026 → `germany-world-cup-players-birth-chart-2026` LIVE
 - [x] PG-WC-013 germany world cup 2026 astrology team → `germany-world-cup-2026-astrology-team` LIVE
 - [x] PG-WC-014 vinicius jr birth chart astrology → `vinicius-jr-birth-chart-astrology` LIVE (vs WC-006 zodiac-sign, cross-linked)
 - [x] PG-WC-015 scotland world cup 2026 astrology saturn return → `scotland-world-cup-2026-astrology-saturn-return` LIVE
+
+
+---
+
+## ⚪ 6月17日 (周三) - 待写作
+**状态**：`已输出` (共 5 篇)
+- [ ] PG-WC-016 jude bellingham birth chart
+- [ ] PG-WC-017 erling haaland birth chart
+- [ ] PG-WC-018 messi world cup record astrology
+- [ ] PG-WC-019 harry kane birth chart
+- [ ] PG-WC-020 cancer zodiac world cup 2026
 
 
 ---
