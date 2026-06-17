@@ -93,12 +93,13 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 ### 3.2 已确认付费采购（价格与dofollow书面确认）
 
-| 站点                | DR  | 均分DR      | 价格       | 建议锚文本                     | 行动          |
-| ----------------- | --- | --------- | -------- | ------------------------- | ----------- |
-| codesupply.co     | 81  | **0.086** | $100-150 | AstrologyWiki（品牌）         | 🔴 本周付款     |
-| uploadarticle.com | 55  | 0.034     | $40      | www.astrologywiki.com（裸链） | 🔴 本周付款     |
-| uneed.best        | 74  | —*        | $30      | AstrologyWiki（品牌）         | 🔴 本周付款     |
-| technology.org    | 73  | 待查**      | $240     | astrology wiki（部分匹配）      | 🟡 付款前查均分DR |
+| 站点                                       | DR  | 均分DR      | 价格       | 建议锚文本                     | 行动          |
+| ---------------------------------------- | --- | --------- | -------- | ------------------------- | ----------- |
+| codesupply.co                            | 81  | **0.086** | $100-150 | AstrologyWiki（品牌）         | 🔴 本周付款     |
+| [tubetorial.com](http://tubetorial.com/) | 55  | 0.034     | $40      | www.astrologywiki.com（裸链） | 🔴 本周付款     |
+| uneed.best                               | 74  | —*        | $30      | AstrologyWiki（品牌）         | 🔴 本周付款     |
+| technology.org                           | 73  | 待查**      | $240     | astrology wiki（部分匹配）      | 🟡 付款前查均分DR |
+|                                          |     |           |          |                           |             |
 
 > *uneed.best为社区策划型产品目录（类Product Hunt），有真实用户，均分DR标准不适用。
 > **technology.org付款前用ahrefs.com/backlink-checker核查均分DR，确认≥0.04再付款。
@@ -152,14 +153,14 @@ Step 5：邮件确认dofollow属性 + TAT ≤ 10天 → 付款
 
 以下站点正在联系中，**有书面确认dofollow后才纳入计划**，当前不计入任何DR或点击预测。
 
-| 站点 | DR | 状态 | 潜在价值 |
-|------|-----|------|---------|
-| elephantjournal.com | 79 | 等待回复 | 灵性内容强相关，若确认价值极高 |
-| instyle.com | 85 | 等待回复 | 高DR，话题相关性一般 |
-| thewrap.com | 84 | 等待回复 | 高DR，话题相关性一般 |
-| earthsky.org | 80 | 等待回复 | 天文相关，与占星有一定相关性 |
-| askastrology.com | 50 | 等待回复 | 利基完全吻合 |
-| fazier.com | 81 | 需先加回链 | 确认互链条件后评估 |
+| 站点                  | DR  | 状态    | 潜在价值            |
+| ------------------- | --- | ----- | --------------- |
+| elephantjournal.com | 79  | 等待回复  | 灵性内容强相关，若确认价值极高 |
+| instyle.com         | 85  | 等待回复  | 高DR，话题相关性一般     |
+| thewrap.com         | 84  | 等待回复  | 高DR，话题相关性一般     |
+| earthsky.org        | 80  | 等待回复  | 天文相关，与占星有一定相关性  |
+| askastrology.com    | 50  | 等待回复  | 利基完全吻合          |
+| fazier.com          | 81  | 需先加回链 | 确认互链条件后评估       |
 
 > 以上任意一个确认 = 计划外额外收益，届时更新预测数据。
 
