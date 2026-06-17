@@ -93,11 +93,11 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 ### 3.2 已确认付费采购（价格与dofollow书面确认）
 
-| 站点            | DR  | 均分DR      | 价格       | 建议锚文本                | 行动                 |
-| ------------- | --- | --------- | -------- | -------------------- | ------------------ |
-| uneed.best    | 74  | —*        | $29.99   | AstrologyWiki（品牌）    | ✅ 已购买，2026-06-16发布 |
-| codesupply.co | 81  | **0.086** | $100-150 | AstrologyWiki（品牌）    | 🔴 本周付款（议价中）       |
-| technology.org | 73 | 待查**      | $240     | astrology wiki（部分匹配） | 🟡 付款前查均分DR        |
+| 站点             | DR  | 均分DR      | 价格       | 建议锚文本                | 行动                 |
+| -------------- | --- | --------- | -------- | -------------------- | ------------------ |
+| uneed.best     | 74  | —*        | $29.99   | AstrologyWiki（品牌）    | ✅ 已购买，2026-06-16发布 |
+| codesupply.co  | 81  | **0.086** | $100-150 | AstrologyWiki（品牌）    | 🔴 本周付款（议价中）       |
+| technology.org | 73  | 待查**      | $240     | astrology wiki（部分匹配） | 🟡 付款前查均分DR        |
 
 > *uneed.best为社区策划型产品目录（类Product Hunt），有真实用户，均分DR标准不适用。
 > **technology.org付款前用ahrefs.com/backlink-checker核查均分DR，确认≥0.04再付款。
