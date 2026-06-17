@@ -14,6 +14,7 @@
   "sharedEnvironmentVariables": "",
   "envSnippets": [],
   "customContextLimits": {},
+  "customModelAliases": {},
   "keyboardNavigation": {
     "scrollUpKey": "w",
     "scrollDownKey": "s",
@@ -48,8 +49,7 @@
       "environmentVariables": "",
       "environmentHash": "",
       "installationMethodsByHost": {
-        "device:22cb5e1e-18dc-4eef-8a5b-fdb3ccc64a82": "native-windows",
-        "device:8b5aa28e-7351-426b-a694-701c5eade33d": "native-windows"
+        "device:22cb5e1e-18dc-4eef-8a5b-fdb3ccc64a82": "native-windows"
       },
       "wslDistroOverridesByHost": {}
     },
@@ -85,7 +85,7 @@
   },
   "savedProviderEffort": {
     "claude": "high",
-    "codex": "low"
+    "codex": "high"
   },
   "savedProviderServiceTier": {
     "codex": "default"
@@ -101,6 +101,5 @@
   "enableAutoScroll": true,
   "deferMathRenderingDuringStreaming": true,
   "chatViewPlacement": "right-sidebar",
-  "hiddenProviderCommands": {},
-  "customModelAliases": {}
+  "hiddenProviderCommands": {}
 }
