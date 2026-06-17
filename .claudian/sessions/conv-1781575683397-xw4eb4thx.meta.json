@@ -4,8 +4,8 @@
   "title": "请你仔细阅读这个0615内容运营与增长任务梳理，告诉我我紧接着应该做什么？我现在还没开始做事情，我的...",
   "titleGenerationStatus": "failed",
   "createdAt": 1781575683397,
-  "updatedAt": 1781577372776,
-  "lastResponseAt": 1781577372776,
+  "updatedAt": 1781605758919,
+  "lastResponseAt": 1781605758919,
   "sessionId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
   "providerState": {
     "threadId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
@@ -14,13 +14,13 @@
   },
   "currentNote": "inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md",
   "usage": {
-    "inputTokens": 62335,
+    "inputTokens": 66339,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 61824,
+    "cacheReadInputTokens": 65920,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 62335,
-    "percentage": 24,
-    "model": "gpt-5.5"
+    "contextTokens": 66339,
+    "percentage": 26,
+    "model": "gpt-5.4-mini"
   }
 }

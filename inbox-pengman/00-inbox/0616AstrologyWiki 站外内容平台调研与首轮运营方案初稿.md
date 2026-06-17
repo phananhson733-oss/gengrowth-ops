@@ -30,6 +30,8 @@ source:
 
 ### 0.1 现在先做什么
 
+
+
 | 优先级 | 事项       | 产出                                                                      | 说明                       |
 | --- | -------- | ----------------------------------------------------------------------- | ------------------------ |
 | P0  | 确认账号与权限  | YouTube / TikTok / Pinterest / X 是否新建、由谁持有、邮箱和 2FA 规则                   | 先确认归属，再开号                |
@@ -183,6 +185,25 @@ SEO 关键词 / 集群
 | Chart to Journal       | 把 placement 转成反思问题 | X / Pinterest / Shorts            | Moon sign journal prompts           |
 | Relationship Patterns  | 合盘、吸引、边界、沟通        | YouTube / X；Reddit 仅做问题调研         | Synastry is not a verdict           |
 | Current Sky Reflection | 当前星象对应的观察主题        | X / Shorts / YouTube              | Jupiter in Cancer: what to observe  |
+
+### 3.1.1 选题主线
+
+站外内容的主线建议是：
+
+```text
+AstrologyWiki 站内主要功能 / 基础内容
+→ 穿插马博洋 SEO 需要引用的 Wiki 文章
+→ 把文章内容改写成适合平台表达的图文 / 视频脚本
+→ 优先做高优先级基础内容与功能页
+→ 再根据高流量内容与 30-50 名关键词继续提排名
+```
+
+换句话说，选题顺序不是“先做什么都行”，而是：
+
+- 先围绕 Birth Chart、Houses、Aspects、Saturn Return 等站内主要功能和基础内容做内容；
+- 中间穿插 SEO 需要引用的 Wiki 文章，把这些文章改写成站外可发布的图文或视频脚本；
+- 再回头根据网站流量高的内容，或者排名已经在 30-50 名的关键词继续往前推；
+- 这样既保证站外内容和站内资产同频，也能避免内容创作被单一页面或单一 CTA 卡死。
 
 ### 3.2 Birth Chart 是否适合作为首发主题
 
