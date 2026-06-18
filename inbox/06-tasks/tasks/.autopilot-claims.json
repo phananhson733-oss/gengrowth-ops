@@ -661,10 +661,12 @@
     "slug": "solar-return-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "worktree",
+    "stage": "convert",
     "lockedBy": "62797",
-    "leaseUntil": "2026-06-18T15:45:20.422Z",
-    "updatedAt": "2026-06-18T14:45:20.422Z"
+    "leaseUntil": "2026-06-18T15:45:26.569Z",
+    "updatedAt": "2026-06-18T14:45:26.569Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-18-PG-SOLAR-001",
+    "branch": "seo/auto/2026-06-18-PG-SOLAR-001"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
