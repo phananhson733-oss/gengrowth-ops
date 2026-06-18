@@ -223,13 +223,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 
 ---
-## ⚪ 6月18日 (周四) - 待写作
-**状态**：待写作 (共 5 篇 ）
-- [ ] PG-WC-020 england world cup 2026 astrology
-- [ ] PG-WC-021 james rodriguez birth chart
-- [ ] PG-WC-022 luis díaz birth chart 
-- [ ] PG-WC-023 yoane wissa birth chart 
-- [ ] PG-WC-024 christian pulisic birth chart 
+## ⚪ 6月18日 (周四) - 已发布
+**状态**：`已输出` (共 5 篇 × EN+ZH = 10 页 LIVE on www.astrologywiki.com，sitemap EN+ZH 验证)
+- [x] PG-WC-020 england world cup 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/england-world-cup-2026-astrology （球队篇 T2）
+- [x] PG-WC-021 james rodriguez birth chart -> LIVE https://www.astrologywiki.com/en/wiki/james-rodriguez-birth-chart （巨蟹）
+- [x] PG-WC-022 luis díaz birth chart -> LIVE https://www.astrologywiki.com/en/wiki/luis-diaz-birth-chart （摩羯）
+- [x] PG-WC-023 yoane wissa birth chart -> LIVE https://www.astrologywiki.com/en/wiki/yoane-wissa-birth-chart （处女；纽卡/刚果金）
+- [x] PG-WC-024 christian pulisic birth chart -> LIVE https://www.astrologywiki.com/en/wiki/christian-pulisic-birth-chart （处女；美国东道主）
 
 
 ---
