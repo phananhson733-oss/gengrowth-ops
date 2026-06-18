@@ -223,5 +223,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 
 ---
+## ⚪ 6月18日 (周四) - 待写作
+**状态**：待写作 (共 5 篇 ）
+- [ ] PG-WC-020 england world cup 2026 astrology
+- [ ] PG-WC-021 james rodriguez birth chart
+- [ ] PG-WC-022 luis díaz birth chart 
+- [ ] PG-WC-023 yoane wissa birth chart 
+- [ ] PG-WC-024 christian pulisic birth chart 
+
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
