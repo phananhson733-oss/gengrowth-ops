@@ -23,6 +23,10 @@ aliases:
 3. `docs/05-governance/account-access/2026-03-12-platform-account-registration-playbook.md`
 4. `docs/05-governance/contracts/2026-03-04-client-data-authorization-terms.md`
 
+竞品 / 工具调研（拟体验、参考或合作，存放于研究区 `参考资料/产品分析/`）：
+1. `参考资料/产品分析/社媒自动化营销竞品概览.md` —— AI 红人/社媒自动化营销竞品对比（含重点社媒平台覆盖矩阵）
+2. `参考资料/产品分析/增长自动化top5-分析报告.md` —— Top 5 增长自动化产品深研 + GenGrowth 合作/借鉴方案
+
 ---
 
 ## 1. 文档定位
