@@ -13,7 +13,7 @@ updated: 2026-06-16
 
 ---
 
-## 🟡 W25 · 6月16日起 — white_label_seo (P0)
+## 🟡 6月16日起 — white_label_seo (P0)
 
 **状态**：`进行中`
 
@@ -24,7 +24,7 @@ updated: 2026-06-16
 
 ---
 
-## 🔵 W25 · 6月17日 — agency_rank_tracking (P0)
+## 🔵  6月17日 — agency_rank_tracking (P0)
 
 **状态**：`计划中`
 
@@ -34,7 +34,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W26 · 6月23日 — seo_for_saas (P0)
+## ⚪  6月23日 — seo_for_saas (P0)
 
 **状态**：`计划中`
 
@@ -45,7 +45,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W26 · 6月24日 — ethical_organic_seo (P1)
+## ⚪  6月19日 — ethical_organic_seo (P1)
 
 **状态**：`计划中`
 
@@ -55,7 +55,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W27 · 6月30日 — ai_seo_automation (P1)
+## ⚪ 6月20日 — ai_seo_automation (P1)
 
 **状态**：`计划中`
 
@@ -65,7 +65,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W27 · 7月1日 — technical_seo_audit (P1)
+## ⚪ 6月21日 — technical_seo_audit (P1)
 
 **状态**：`计划中`
 
@@ -75,7 +75,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W28 · 7月7日 — startup_diy_seo (P2)
+## ⚪ 6月22日 — startup_diy_seo (P2)
 
 **状态**：`计划中`
 
@@ -85,7 +85,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W28 · 7月8日 — b2b_agency_seo (P2)
+## ⚪ 6月23日 — b2b_agency_seo (P2)
 
 **状态**：`计划中`
 
@@ -95,7 +95,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W29 · 7月14日 — seo_tools_comparison (P2)
+## ⚪ 6月24日 — seo_tools_comparison (P2)
 
 **状态**：`计划中`
 
@@ -105,7 +105,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W30 · 7月21日 — social_link_building (P3)
+## ⚪ 6月25日 — social_link_building (P3)
 
 **状态**：`计划中`
 
@@ -113,7 +113,7 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ W31 · 7月28日 — social_media_seo_tools (P3)
+## ⚪ 6月26日 — social_media_seo_tools (P3)
 
 **状态**：`计划中`
 
