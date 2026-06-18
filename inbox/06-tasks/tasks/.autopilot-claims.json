@@ -665,12 +665,15 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-03-pg-0dfbf0-wzbs-projects-39a68c1d.vercel.app",
     "reconciliationNote": "auto-reconciled from merged GitHub PR",
     "slug": "solar-return-chart",
-    "status": "done",
+    "status": "needs_human",
     "verificationEvidence": "codex+chrome preview verification passed",
     "verifiedAt": "2026-06-03T12:54:19.089Z",
     "verifyNote": "manual override 2026-06-03: chrome verify blocked by Vercel Deployment Protection (401); build+phase2+.ts content verified by hand",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-03-PG-SOLAR-001",
-    "zh": false
+    "zh": false,
+    "stage": "authoring",
+    "error": "authoring: - - SC3c section scatter: 1 section(s) with >3 scattered prose paragraphs | - 《广告法》§9 禁词 \"保证\" matched. context: \"...度数那一刻所起的星盘**，呈现的是当年的象征性主题轮廓，而非保证发生的事件清单。这张盘由五个解读层构成：回归上升点、与本命盘...\" after 3 zh attempt(s) + deterministic repair",
+    "failedAt": "2026-06-18T14:32:00.897Z"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
