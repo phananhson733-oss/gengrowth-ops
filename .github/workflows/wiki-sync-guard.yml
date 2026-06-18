@@ -17,6 +17,7 @@ on:
       - "docs/05-governance/account-access/**"
       - "docs/05-governance/people-ops/policies/**"
       - "docs/05-governance/people-ops/perf-feedback/seo/**"
+      - "docs/05-governance/people-ops/team-collaboration/**"
       - "task-collab/**"
 
 permissions:

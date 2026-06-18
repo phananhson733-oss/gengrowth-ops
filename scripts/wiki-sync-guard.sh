@@ -27,8 +27,8 @@ if [ -z "$BAD_COMMITS" ]; then
   exit 0
 fi
 
-# 白名单正则 (10 个目录)
-WHITELIST_RE='^(docs/03-marketing/|内容资产/|docs/06-shared/assets/brand/|参考资料/产品分析/|docs/04-programs/|每日日报/|参考资料/tool-guides/|docs/05-governance/account-access/|docs/05-governance/people-ops/policies/|task-collab/)'
+# 白名单正则 (11 个目录)
+WHITELIST_RE='^(docs/03-marketing/|内容资产/|docs/06-shared/assets/brand/|参考资料/产品分析/|docs/04-programs/|每日日报/|参考资料/tool-guides/|docs/05-governance/account-access/|docs/05-governance/people-ops/policies/|docs/05-governance/people-ops/team-collaboration/|task-collab/)'
 
 REPORT=""
 HAS_VIOLATION=0
