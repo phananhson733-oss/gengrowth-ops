@@ -657,16 +657,16 @@
     "status": "needs_human"
   },
   "PG-SOLAR-001": {
-    "status": "done",
+    "status": "active",
     "slug": "solar-return-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "lockedBy": "62797",
-    "leaseUntil": "2026-06-18T15:52:37.302Z",
-    "updatedAt": "2026-06-18T14:52:37.302Z",
+    "stage": "convert",
+    "lockedBy": "67465",
+    "leaseUntil": "2026-06-18T16:05:24.331Z",
+    "updatedAt": "2026-06-18T15:05:24.331Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-18-PG-SOLAR-001",
-    "branch": "seo/auto/2026-06-18-PG-SOLAR-001",
-    "zh": false
+    "branch": "seo/auto/2026-06-18-PG-SOLAR-001"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
