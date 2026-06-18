@@ -657,7 +657,7 @@
     "status": "needs_human"
   },
   "PG-SOLAR-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "solar-return-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -670,7 +670,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/194",
     "zh": true,
     "needs_hero": true,
-    "failedAt": "2026-06-18T15:20:23.954Z"
+    "failedAt": "2026-06-18T15:33:20.450Z",
+    "error": "preview-wait failed: timeout"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
