@@ -670,8 +670,9 @@
     "pr": "https://github.com/xdawayer/oracle/pull/194",
     "zh": true,
     "needs_hero": true,
-    "failedAt": "2026-06-18T15:33:20.450Z",
-    "error": "preview-wait failed: timeout"
+    "failedAt": "2026-06-18T15:39:01.243Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-18-pg-00b577-wzbs-projects-39a68c1d.vercel.app",
+    "error": "chrome verify failed: tooling-error: chromium launch failed: browserType.launch: Executable doesn't exist at /Users/awayer_mini/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
