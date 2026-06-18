@@ -657,20 +657,14 @@
     "status": "needs_human"
   },
   "PG-SOLAR-001": {
-    "branch": "seo/auto/2026-06-03-PG-SOLAR-001",
-    "mergedAt": "2026-06-03T12:54:25.362Z",
+    "status": "active",
+    "slug": "solar-return-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "pr": "https://github.com/xdawayer/oracle/pull/72",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-03-pg-0dfbf0-wzbs-projects-39a68c1d.vercel.app",
-    "reconciliationNote": "auto-reconciled from merged GitHub PR",
-    "slug": "solar-return-chart",
-    "status": "done",
-    "verificationEvidence": "codex+chrome preview verification passed",
-    "verifiedAt": "2026-06-03T12:54:19.089Z",
-    "verifyNote": "manual override 2026-06-03: chrome verify blocked by Vercel Deployment Protection (401); build+phase2+.ts content verified by hand",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-03-PG-SOLAR-001",
-    "zh": false
+    "stage": "worktree",
+    "lockedBy": "62797",
+    "leaseUntil": "2026-06-18T15:45:20.422Z",
+    "updatedAt": "2026-06-18T14:45:20.422Z"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
