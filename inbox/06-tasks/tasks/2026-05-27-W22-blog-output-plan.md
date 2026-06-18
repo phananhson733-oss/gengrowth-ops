@@ -213,13 +213,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 
-## ⚪ 6月17日 (周三) - 待写作
-**状态**：`已输出` (共 5 篇)
-- [ ] PG-WC-016 jude bellingham birth chart
-- [ ] PG-WC-017 erling haaland birth chart
-- [ ] PG-WC-018 messi world cup record astrology
-- [ ] PG-WC-019 harry kane birth chart
-- [ ] PG-WC-020 cancer zodiac world cup 2026
+## ⚪ 6月17日 (周三) - 已发布（2026-06-18 补齐逾期）
+**状态**：`已输出` (共 5 篇 × EN+ZH = 10 页 LIVE on www.astrologywiki.com，sitemap 验证)
+- [x] PG-WC-016 jude bellingham birth chart -> LIVE https://www.astrologywiki.com/en/wiki/jude-bellingham-birth-chart
+- [x] PG-WC-017 erling haaland birth chart -> LIVE https://www.astrologywiki.com/en/wiki/erling-haaland-birth-chart
+- [x] PG-WC-018 messi world cup record astrology -> LIVE https://www.astrologywiki.com/en/wiki/messi-world-cup-record-astrology
+- [x] PG-WC-019 harry kane birth chart -> LIVE https://www.astrologywiki.com/en/wiki/harry-kane-birth-chart
+- [x] PG-WC-020 cancer zodiac world cup 2026 -> LIVE https://www.astrologywiki.com/en/wiki/cancer-zodiac-world-cup-2026
 
 
 ---
