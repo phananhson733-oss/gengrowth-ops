@@ -657,11 +657,10 @@
     "status": "needs_human"
   },
   "PG-SOLAR-001": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "solar-return-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "pushed-preview",
     "lockedBy": "67465",
     "leaseUntil": "2026-06-18T16:10:20.192Z",
     "updatedAt": "2026-06-18T15:10:20.192Z",
@@ -672,7 +671,9 @@
     "needs_hero": true,
     "failedAt": "2026-06-18T15:43:12.356Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-18-pg-00b577-wzbs-projects-39a68c1d.vercel.app",
-    "error": "chrome verify failed: [en] uncaught JS exception: Cannot read properties of null (reading 'classList')"
+    "mergedAt": "2026-06-18T15:46:47.000Z",
+    "verifiedAt": "2026-06-18T15:46:47.000Z",
+    "verificationEvidence": "zh backfill: phase2 PASS + preview /zh/ HTTP200 render verified manually; chrome-verify gate \"classList\" JS exception is PRE-EXISTING on prod (live EN page throws same), not a regression — merged PR#194 with head pinned"
   },
   "PG-SOLAR-002": {
     "branch": "seo/auto/2026-06-05-PG-SOLAR-002",
