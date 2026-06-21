@@ -935,5 +935,17 @@
     "updatedAt": "2026-06-21T10:40:13.402Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-027",
     "branch": "seo/auto/2026-06-21-PG-WC-027"
+  },
+  "PG-WC-028": {
+    "status": "active",
+    "slug": "scotland-brazil-world-cup-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "build-gate",
+    "lockedBy": "27076",
+    "leaseUntil": "2026-06-21T12:05:36.306Z",
+    "updatedAt": "2026-06-21T11:05:36.306Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-028",
+    "branch": "seo/auto/2026-06-21-PG-WC-028"
   }
 }
