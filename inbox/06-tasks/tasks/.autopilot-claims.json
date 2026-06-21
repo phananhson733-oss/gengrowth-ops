@@ -908,7 +908,7 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -920,6 +920,8 @@
     "branch": "seo/auto/2026-06-21-PG-WC-026",
     "pr": "https://github.com/xdawayer/oracle/pull/196",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-06-21T10:21:25.991Z"
   }
 }
