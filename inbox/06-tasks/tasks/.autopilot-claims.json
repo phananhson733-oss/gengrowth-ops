@@ -906,5 +906,17 @@
     "verifiedAt": "2026-06-13T04:49:46.704Z",
     "worktree": "/Users/wzb/oracle-worktrees/seo-autopilot/seo__auto__2026-06-13-PG-WC-010",
     "zh": true
+  },
+  "PG-WC-026": {
+    "status": "active",
+    "slug": "spain-world-cup-2026-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "71473",
+    "leaseUntil": "2026-06-21T11:09:17.340Z",
+    "updatedAt": "2026-06-21T10:09:17.340Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-026-dry-run-71473",
+    "branch": "seo/auto/2026-06-21-PG-WC-026"
   }
 }
