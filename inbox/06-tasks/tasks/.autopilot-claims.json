@@ -923,5 +923,17 @@
     "needs_hero": true,
     "error": "review[astrology] FAIL: The piece is grounded in a fabricated astrological premise — it asserts a Jupiter-in-Cancer transit in June 2026 when Jupiter is actually in Gemini/Cancer cusp regions per real ephemeris (Jupiter enters Cancer ~late June 2025 and is in Leo by mid-2026), making the central 'Jupiter-Cancer squares Capricorn' claim astronomically false.",
     "failedAt": "2026-06-21T10:24:02.327Z"
+  },
+  "PG-WC-027": {
+    "status": "active",
+    "slug": "matheus-cunha-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "build-gate",
+    "lockedBy": "54307",
+    "leaseUntil": "2026-06-21T11:38:22.837Z",
+    "updatedAt": "2026-06-21T10:38:22.837Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-027",
+    "branch": "seo/auto/2026-06-21-PG-WC-027"
   }
 }
