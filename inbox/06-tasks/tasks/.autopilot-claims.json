@@ -965,10 +965,10 @@
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "push",
     "lockedBy": "79521",
-    "leaseUntil": "2026-06-21T13:00:14.448Z",
-    "updatedAt": "2026-06-21T12:00:14.448Z",
+    "leaseUntil": "2026-06-21T13:02:05.295Z",
+    "updatedAt": "2026-06-21T12:02:05.295Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-MYTH-006",
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   }
