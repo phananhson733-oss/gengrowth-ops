@@ -941,10 +941,10 @@
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "push",
     "lockedBy": "27076",
-    "leaseUntil": "2026-06-21T12:05:36.306Z",
-    "updatedAt": "2026-06-21T11:05:36.306Z",
+    "leaseUntil": "2026-06-21T12:07:28.764Z",
+    "updatedAt": "2026-06-21T11:07:28.764Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-028",
     "branch": "seo/auto/2026-06-21-PG-WC-028"
   }
