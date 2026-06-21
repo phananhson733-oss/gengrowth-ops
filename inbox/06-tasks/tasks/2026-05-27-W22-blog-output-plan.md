@@ -233,13 +233,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 
 ---
-## ⚪ 6月21日 (周日) - 待写作
-**状态**：`已输出` (共 5 篇 )
-- [ ] PG-WC-026 spain world cup 2026 astrology
-- [ ] PG-WC-027 matheus cunha birth chart
-- [ ] PG-WC-028 scotland brazil world cup astrology
-- [ ] PG-TRANS-011 chiron in taurus 2026 astrology
-- [ ] PG-MYTH-006 toy story 5 zodiac signs
+## ⚪ 6月21日 (周日) - 已发布
+**状态**：`已输出` (共 5 篇 × EN+ZH = 10 页 LIVE on www.astrologywiki.com，sitemap EN+ZH + hero/inline 验证 + Chrome MCP 视觉验收 + GSC 请求编入索引)
+- [x] PG-WC-026 spain world cup 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/spain-world-cup-2026-astrology （球队篇 T2；审计修复 autopilot 抢发的 bug 版：Group F→H / 6-18→6-15 / 6-22→6-21 / 摩羯主导→天秤太阳）
+- [x] PG-WC-027 matheus cunha birth chart -> LIVE https://www.astrologywiki.com/en/wiki/matheus-cunha-birth-chart （双子；越界修复：删宫位/命主星/预示式断言，改太阳星座技法）
+- [x] PG-WC-028 scotland brazil world cup astrology -> LIVE https://www.astrologywiki.com/en/wiki/scotland-brazil-world-cup-astrology （C组前瞻 T2；6-24 对巴西必胜局）
+- [x] PG-TRANS-011 chiron in taurus 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/chiron-in-taurus-2026-astrology （行运；6-19 真实入金牛）
+- [x] PG-MYTH-006 toy story 5 zodiac signs -> LIVE https://www.astrologywiki.com/en/wiki/toy-story-5-zodiac-signs （流行文化；6-19 上映）
+
+> GSC 请求编入索引：5 EN 全部 + 4 ZH（spain/cunha/chiron/toy-story）已提交；scotland-brazil ZH 因当日配额用尽待次日补提（已在 sitemap，会自然抓取）。
 
 
 ---
