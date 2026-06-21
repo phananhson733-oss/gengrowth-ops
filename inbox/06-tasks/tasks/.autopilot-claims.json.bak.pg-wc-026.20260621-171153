@@ -909,10 +909,11 @@
   },
   "PG-WC-026": {
     "status": "needs_human",
+    "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "stage": "authoring",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: no row for PG-WC-026 (\"spain world cup 2026 astrology\") in 选题登记表",
-    "failedAt": "2026-06-21T09:11:55.688Z"
+    "error": "authoring: - phase2 FAIL: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ | [phase2] loaded fixture: /Users/awayer_mini/gengrowth-flow-mvp/.gg-cache/prompts/PG-WC-026.v8-fixture.json | ERROR: draft has no H1; aborting after 3 attempt(s) + deterministic repair",
+    "failedAt": "2026-06-21T08:34:29.819Z"
   }
 }
