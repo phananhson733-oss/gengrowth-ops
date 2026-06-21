@@ -929,10 +929,10 @@
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "push",
     "lockedBy": "54307",
-    "leaseUntil": "2026-06-21T11:38:22.837Z",
-    "updatedAt": "2026-06-21T10:38:22.837Z",
+    "leaseUntil": "2026-06-21T11:40:13.402Z",
+    "updatedAt": "2026-06-21T10:40:13.402Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-027",
     "branch": "seo/auto/2026-06-21-PG-WC-027"
   }
