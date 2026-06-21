@@ -908,15 +908,18 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "80956",
-    "leaseUntil": "2026-06-21T11:15:20.354Z",
-    "updatedAt": "2026-06-21T10:15:20.354Z",
+    "leaseUntil": "2026-06-21T11:15:25.442Z",
+    "updatedAt": "2026-06-21T10:15:25.442Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-026",
-    "branch": "seo/auto/2026-06-21-PG-WC-026"
+    "branch": "seo/auto/2026-06-21-PG-WC-026",
+    "pr": "https://github.com/xdawayer/oracle/pull/196",
+    "zh": false,
+    "needs_hero": true
   }
 }
