@@ -947,5 +947,15 @@
     "updatedAt": "2026-06-21T11:07:28.764Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-028",
     "branch": "seo/auto/2026-06-21-PG-WC-028"
+  },
+  "PG-TRANS-011": {
+    "status": "active",
+    "slug": "chiron-in-taurus-2026-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "worktree",
+    "lockedBy": "1957",
+    "leaseUntil": "2026-06-21T12:32:37.924Z",
+    "updatedAt": "2026-06-21T11:32:37.924Z"
   }
 }
