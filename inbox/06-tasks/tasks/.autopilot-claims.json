@@ -126,12 +126,13 @@
     "zh": false
   },
   "PG-JOURNAL-003": {
-    "error": "authoring: no row for PG-JOURNAL-003 (\"emotion journal\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:18.143Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "emotion-journal",
+    "mergedAt": "2026-06-22T10:00:39.063Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-LILITH-001": {
     "branch": "seo/auto/2026-06-08-PG-LILITH-001",
@@ -430,68 +431,76 @@
     "zh": false
   },
   "PG-NAKSH-012": {
-    "error": "authoring: no row for PG-NAKSH-012 (\"uttara bhadrapada nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:47.773Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "uttara-bhadrapada-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-013": {
-    "error": "authoring: no row for PG-NAKSH-013 (\"uttara phalguni nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:55.141Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "uttara-phalguni-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-014": {
-    "error": "authoring: no row for PG-NAKSH-014 (\"purva bhadrapada nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:33:02.013Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "purva-bhadrapada-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-015": {
-    "error": "authoring: no row for PG-NAKSH-015 (\"revati nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:33:08.790Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "revati-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-016": {
-    "error": "authoring: no row for PG-NAKSH-016 (\"punarvasu nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:33:15.350Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "punarvasu-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-017": {
-    "error": "authoring: no row for PG-NAKSH-017 (\"magha nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-10T10:33:22.152Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "magha-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-018": {
-    "error": "authoring: no row for PG-NAKSH-018 (\"ardra nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-11T07:53:26.782Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "ardra-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NAKSH-019": {
-    "error": "authoring: no row for PG-NAKSH-019 (\"dhanishta nakshatra\") in 选题登记表",
-    "failedAt": "2026-06-11T07:53:35.244Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "dhanishta-nakshatra",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NODE-005": {
     "branch": "seo/auto/2026-06-04-PG-NODE-005",
@@ -550,28 +559,31 @@
     "zh": false
   },
   "PG-NODE-009": {
-    "error": "authoring: no row for PG-NODE-009 (\"blue node astrology\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:26.131Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "blue-node-astrology",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NODE-010": {
-    "error": "authoring: no row for PG-NODE-010 (\"north node in leo\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:33.448Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "north-node-in-leo",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-NODE-011": {
-    "error": "authoring: no row for PG-NODE-011 (\"rahu and ketu astrology\") in 选题登记表",
-    "failedAt": "2026-06-10T10:32:40.722Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "rahu-and-ketu-astrology",
+    "mergedAt": "2026-06-22T10:00:39.064Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-RISE-001": {
     "branch": "seo/auto/2026-06-05-PG-RISE-001",
@@ -617,44 +629,49 @@
     "zh": false
   },
   "PG-RISE-004": {
-    "error": "authoring: no row for PG-RISE-004 (\"ascendant meaning\") in 选题登记表",
-    "failedAt": "2026-06-11T07:54:04.280Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "ascendant-meaning",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-RISE-005": {
-    "error": "authoring: no row for PG-RISE-005 (\"cancer rising\") in 选题登记表",
-    "failedAt": "2026-06-11T07:54:11.453Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "cancer-rising",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-RISE-006": {
-    "error": "authoring: no row for PG-RISE-006 (\"virgo rising\") in 选题登记表",
-    "failedAt": "2026-06-11T07:54:18.532Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "virgo-rising",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-RISE-007": {
-    "error": "authoring: no row for PG-RISE-007 (\"gemini rising\") in 选题登记表",
-    "failedAt": "2026-06-11T07:54:25.507Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "gemini-rising",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-RISE-008": {
-    "error": "authoring: no row for PG-RISE-008 (\"moon rising sign\") in 选题登记表",
-    "failedAt": "2026-06-11T07:54:32.577Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "moon-rising-sign",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-SOLAR-001": {
     "status": "done",
@@ -732,28 +749,31 @@
     "zh": true
   },
   "PG-TRANS-008": {
-    "error": "authoring: no row for PG-TRANS-008 (\"saturn in aries 2026\") in 选题登记表",
-    "failedAt": "2026-06-11T07:53:42.354Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "saturn-in-aries-2026",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-TRANS-009": {
-    "error": "authoring: no row for PG-TRANS-009 (\"uranus opposition\") in 选题登记表",
-    "failedAt": "2026-06-11T07:53:49.494Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "uranus-opposition",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-TRANS-010": {
-    "error": "authoring: no row for PG-TRANS-010 (\"mars return astrology\") in 选题登记表",
-    "failedAt": "2026-06-11T07:53:56.852Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "mars-return-astrology",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-001": {
     "branch": "seo/auto/2026-06-12-PG-WC-001",
@@ -771,12 +791,13 @@
     "zh": true
   },
   "PG-WC-0010": {
-    "error": "authoring: no row for PG-WC-0010 (\"world cup 2026 june astrology\") in 选题登记表",
-    "failedAt": "2026-06-12T10:42:23.582Z",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "authoring",
-    "status": "needs_human"
+    "status": "done",
+    "slug": "world-cup-2026-june-astrology",
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-002": {
     "branch": "seo/auto/2026-06-12-PG-WC-002",
@@ -945,7 +966,7 @@
     "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-028": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -957,8 +978,8 @@
     "branch": "seo/auto/2026-06-22-PG-WC-028",
     "pr": "https://github.com/xdawayer/oracle/pull/202",
     "zh": true,
-    "error": "review[astrology] FAIL: The article's repeated factual anchor that 'Chiron entered Taurus on June 19, 2026' is astronomically wrong — Chiron is in Aries through 2026 and does not ingress Taurus until 2027.",
-    "failedAt": "2026-06-22T08:45:33.614Z"
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-TRANS-011": {
     "status": "done",
@@ -982,7 +1003,7 @@
     "mergedAt": "2026-06-22T09:37:17.779Z"
   },
   "PG-MYTH-006": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -994,8 +1015,8 @@
     "branch": "seo/auto/2026-06-22-PG-MYTH-006",
     "pr": "https://github.com/xdawayer/oracle/pull/204",
     "zh": true,
-    "error": "review[links-seo] FAIL: The three intended internal wiki-links were never resolved and ship as plain italic text (e.g. *guide to the twelve zodiac signs and their personalities*, *Leo personality traits explainer*, *pillar page on zodiac signs in movies and pop culture*), so the published page has zero working internal links and no early internal link in the opening.",
-    "failedAt": "2026-06-22T09:32:01.922Z"
+    "mergedAt": "2026-06-22T10:00:39.065Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-MYTH-007": {
     "status": "done",
