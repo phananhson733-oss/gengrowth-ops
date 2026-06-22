@@ -976,10 +976,10 @@
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "30539",
-    "leaseUntil": "2026-06-22T05:25:57.455Z",
-    "updatedAt": "2026-06-22T04:25:57.455Z",
+    "leaseUntil": "2026-06-22T05:29:00.852Z",
+    "updatedAt": "2026-06-22T04:29:00.852Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-007",
     "branch": "seo/auto/2026-06-22-PG-MYTH-007"
   }
