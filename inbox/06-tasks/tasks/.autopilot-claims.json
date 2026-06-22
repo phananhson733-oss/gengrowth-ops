@@ -1111,7 +1111,7 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1122,6 +1122,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
     "branch": "seo/auto/2026-06-22-PG-WC-031",
     "pr": "https://github.com/xdawayer/oracle/pull/219",
-    "zh": false
+    "zh": false,
+    "error": "codex completed with codex FAIL —claimed Doku already left Belgium camp in June 2026 for childbirth",
+    "failedAt": "2026-06-22T15:34:19.343Z"
   }
 }
