@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -984,6 +984,8 @@
     "branch": "seo/auto/2026-06-22-PG-MYTH-007",
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[schema] FAIL: The schema `description` field is truncated mid-sentence (\"...born February 16\"), dropping the birth year and ending without punctuation, making it malformed and inconsistent with the body's \"February 16, 1997\".",
+    "failedAt": "2026-06-22T04:35:07.600Z"
   }
 }
