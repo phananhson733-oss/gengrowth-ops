@@ -1027,10 +1027,10 @@
     "slug": "prince-william-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "11571",
-    "leaseUntil": "2026-06-22T10:32:03.916Z",
-    "updatedAt": "2026-06-22T09:32:03.916Z",
+    "leaseUntil": "2026-06-22T10:34:41.593Z",
+    "updatedAt": "2026-06-22T09:34:41.593Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-008",
     "branch": "seo/auto/2026-06-22-PG-MYTH-008"
   }
