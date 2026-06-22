@@ -1040,15 +1040,18 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "93626",
-    "leaseUntil": "2026-06-22T14:36:54.759Z",
-    "updatedAt": "2026-06-22T13:36:54.759Z",
+    "leaseUntil": "2026-06-22T14:37:27.158Z",
+    "updatedAt": "2026-06-22T13:37:27.158Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
-    "branch": "seo/auto/2026-06-22-PG-WC-029"
+    "branch": "seo/auto/2026-06-22-PG-WC-029",
+    "pr": "https://github.com/xdawayer/oracle/pull/208",
+    "zh": false,
+    "needs_hero": true
   }
 }
