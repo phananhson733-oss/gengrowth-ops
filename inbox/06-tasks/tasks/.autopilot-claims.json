@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -985,6 +985,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
     "retryEvidence": "codex factual review passes with 600s timeout; timeout default raised",
-    "retryAt": "2026-06-22T05:38:03.350Z"
+    "retryAt": "2026-06-22T05:38:03.350Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-5f9742-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-22T05:43:36.569Z",
+    "headRefOid": "abe1836004cc4fd42fab9380e0e745425be2d996",
+    "mergedAt": "2026-06-22T05:43:46.051Z"
   }
 }
