@@ -63,3 +63,4 @@ updated: 2026-06-22
 | 2026-06-12 | PG-WC-009 | best-soccer-players-zodiac-sign | Best Soccer Players Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/best-soccer-players-zodiac-sign | published |
 | 2026-06-12 | PG-WC-010 | world-cup-2026-june-astrology | World Cup 2026 June Astrology | elena-vane | https://www.astrologywiki.com/en/wiki/world-cup-2026-june-astrology | published |
 | 2026-06-22 | PG-MYTH-007 | niko-birth-chart | Niko Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/niko-birth-chart | published |
+| 2026-06-22 | PG-WC-026 | spain-world-cup-2026-astrology | Spain World Cup 2026 Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/spain-world-cup-2026-astrology | published |
