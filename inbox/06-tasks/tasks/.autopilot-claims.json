@@ -961,16 +961,14 @@
     "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
-    "status": "done",
+    "status": "active",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "claim",
-    "lockedBy": "54224",
-    "leaseUntil": "2026-06-22T09:34:25.527Z",
-    "updatedAt": "2026-06-22T08:34:25.527Z",
-    "mergedAt": "2026-06-22T08:38:02.172Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "stage": "worktree",
+    "lockedBy": "99016",
+    "leaseUntil": "2026-06-22T10:16:33.319Z",
+    "updatedAt": "2026-06-22T09:16:33.319Z"
   },
   "PG-MYTH-006": {
     "status": "done",
