@@ -972,21 +972,19 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "50622",
-    "leaseUntil": "2026-06-22T06:17:10.955Z",
-    "updatedAt": "2026-06-22T05:17:10.955Z",
+    "lockedBy": "84069",
+    "leaseUntil": "2026-06-22T06:38:03.350Z",
+    "updatedAt": "2026-06-22T05:38:03.350Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-007",
     "branch": "seo/auto/2026-06-22-PG-MYTH-007",
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
-    "retryEvidence": "IEM Cologne Major 2026 fact cited; public-date chart bounded; local review/build passed",
-    "retryAt": "2026-06-22T05:17:10.955Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-06-22T05:23:30.389Z"
+    "retryEvidence": "codex factual review passes with 600s timeout; timeout default raised",
+    "retryAt": "2026-06-22T05:38:03.350Z"
   }
 }
