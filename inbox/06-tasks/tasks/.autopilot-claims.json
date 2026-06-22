@@ -908,22 +908,20 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "93768",
-    "leaseUntil": "2026-06-22T06:44:42.634Z",
-    "updatedAt": "2026-06-22T05:44:42.634Z",
+    "lockedBy": "5868",
+    "leaseUntil": "2026-06-22T06:50:18.103Z",
+    "updatedAt": "2026-06-22T05:50:18.103Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-026",
     "branch": "seo/auto/2026-06-22-PG-WC-026",
     "pr": "https://github.com/xdawayer/oracle/pull/197",
     "zh": true,
-    "retryEvidence": "EN/ZH descriptions regenerated; hero QA passed; codex timeout default raised",
-    "retryAt": "2026-06-22T05:44:42.634Z",
-    "error": "review[links-seo] FAIL: The intended primary internal links (the mundane-astrology pillar page and the 2010-vs-2026 comparison) shipped as unresolved TBD placeholders rendered as plain italic text, so no functional internal link sits in the opening, and the one resolved internal link's anchor mismatches its target.",
-    "failedAt": "2026-06-22T05:47:03.988Z"
+    "retryEvidence": "internal links resolved; EN/ZH schema and links-seo passed; build passed",
+    "retryAt": "2026-06-22T05:50:18.103Z"
   },
   "PG-WC-027": {
     "status": "active",
