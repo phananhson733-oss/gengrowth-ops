@@ -908,7 +908,7 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -922,7 +922,9 @@
     "zh": false,
     "needs_hero": true,
     "error": "review[astrology] FAIL: The piece is grounded in a fabricated astrological premise — it asserts a Jupiter-in-Cancer transit in June 2026 when Jupiter is actually in Gemini/Cancer cusp regions per real ephemeris (Jupiter enters Cancer ~late June 2025 and is in Leo by mid-2026), making the central 'Jupiter-Cancer squares Capricorn' claim astronomically false.",
-    "failedAt": "2026-06-21T10:24:02.327Z"
+    "failedAt": "2026-06-21T10:24:02.327Z",
+    "mergedAt": "2026-06-21T10:28:18Z",
+    "reconciliationNote": "auto-reconciled from merged GitHub PR"
   },
   "PG-WC-027": {
     "status": "active",
