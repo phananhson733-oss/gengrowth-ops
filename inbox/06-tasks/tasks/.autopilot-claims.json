@@ -1028,7 +1028,7 @@
     "failedAt": "2026-06-22T08:11:34.061Z"
   },
   "PG-MYTH-008": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "prince-william-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1040,6 +1040,8 @@
     "branch": "seo/auto/2026-06-22-PG-MYTH-008",
     "pr": "https://github.com/xdawayer/oracle/pull/205",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[links-seo] FAIL: Three Related Reading links use distinct topic-specific anchor text (Cancer Sun-Moon conjunction guide, Neptune conjunct Ascendant explainer, Sagittarius Rising overview) but two of them resolve to the same generic /en/wiki/how-to-read-birth-chart pillar URL, making the anchors misleading and the internal-link targeting deceptive.",
+    "failedAt": "2026-06-22T09:38:13.731Z"
   }
 }
