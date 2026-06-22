@@ -961,7 +961,7 @@
     "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -978,7 +978,8 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-55d320-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-22T09:37:11.031Z",
-    "headRefOid": "5a822422b1d83ace0457c598dbb08a1ff2c5ad1b"
+    "headRefOid": "5a822422b1d83ace0457c598dbb08a1ff2c5ad1b",
+    "mergedAt": "2026-06-22T09:37:17.779Z"
   },
   "PG-MYTH-006": {
     "status": "needs_human",
