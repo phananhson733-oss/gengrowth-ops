@@ -908,7 +908,7 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -921,7 +921,12 @@
     "pr": "https://github.com/xdawayer/oracle/pull/197",
     "zh": true,
     "retryEvidence": "codex diff budget raised to 200KB; EN/ZH verify/reviews passed",
-    "retryAt": "2026-06-22T05:58:49.087Z"
+    "retryAt": "2026-06-22T05:58:49.087Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-wc-026-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-22T06:04:05.621Z",
+    "headRefOid": "945dec3bbe279dbe297db3dc15a376eb9150aa9f",
+    "mergedAt": "2026-06-22T06:04:13.579Z"
   },
   "PG-WC-027": {
     "status": "active",
