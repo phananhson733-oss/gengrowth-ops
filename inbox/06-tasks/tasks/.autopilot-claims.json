@@ -977,7 +977,7 @@
     "retryAt": "2026-06-22T09:31:14.092Z"
   },
   "PG-MYTH-006": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -988,7 +988,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-006",
     "branch": "seo/auto/2026-06-22-PG-MYTH-006",
     "pr": "https://github.com/xdawayer/oracle/pull/204",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: The three intended internal wiki-links were never resolved and ship as plain italic text (e.g. *guide to the twelve zodiac signs and their personalities*, *Leo personality traits explainer*, *pillar page on zodiac signs in movies and pop culture*), so the published page has zero working internal links and no early internal link in the opening.",
+    "failedAt": "2026-06-22T09:32:01.922Z"
   },
   "PG-MYTH-007": {
     "status": "done",
@@ -1019,5 +1021,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - - H3 count = 3, expected 0 | - author banned token(s) matched: \"rising sign\", \"you will\" after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-06-22T08:11:34.061Z"
+  },
+  "PG-MYTH-008": {
+    "status": "active",
+    "slug": "prince-william-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "11571",
+    "leaseUntil": "2026-06-22T10:32:03.916Z",
+    "updatedAt": "2026-06-22T09:32:03.916Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-008",
+    "branch": "seo/auto/2026-06-22-PG-MYTH-008"
   }
 }
