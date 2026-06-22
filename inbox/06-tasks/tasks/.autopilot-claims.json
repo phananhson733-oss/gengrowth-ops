@@ -912,10 +912,10 @@
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "35976",
-    "leaseUntil": "2026-06-22T04:47:50.920Z",
-    "updatedAt": "2026-06-22T03:47:50.920Z",
+    "leaseUntil": "2026-06-22T04:52:19.531Z",
+    "updatedAt": "2026-06-22T03:52:19.531Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-026",
     "branch": "seo/auto/2026-06-22-PG-WC-026"
   },
