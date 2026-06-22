@@ -46,11 +46,11 @@ due: 2026-06-24（下周二对齐）
 
 **① 真实 GSC 状态中属于正常的：**
 
-| GSC 显示状态 | 含义 | 建议操作 |
-|---|---|---|
-| **Discovered - currently not indexed** | Google 发现了页面但尚未爬取，排在爬取队列中。新站和新文章极为常见，不代表技术问题 | 继续等待；发布超 21 天仍为此状态则升级关注 |
-| **Alternate page with proper canonical tag** | 页面有正确的 canonical 标签，Google 收录了 canonical 指向的主版本，属于预期行为 | 无需操作，属于正常的 URL 归一化 |
-| **Excluded by 'noindex' tag**（有意设置）| 隐私政策 / 服务条款 / 感谢页 / 登录页等主动排除的页面 | 无需操作；自动化监控应跳过此类 URL |
+| GSC 显示状态（英文）| 中文译名 | 含义 | 建议操作 |
+|---|---|---|---|
+| **Discovered - currently not indexed** | **已发现 - 目前未编入索引** | Google 发现了页面但尚未爬取，排在爬取队列中。新站和新文章极为常见，不代表技术问题 | 继续等待；发布超 21 天仍为此状态则升级关注 |
+| **Alternate page with proper canonical tag** | **包含恰当 canonical 标记的替代网页** | 页面有正确的 canonical 标签，Google 收录了 canonical 指向的主版本，属于预期行为 | 无需操作，属于正常的 URL 归一化 |
+| **Excluded by 'noindex' tag**（有意设置）| **已由 noindex 标记排除**（有意）| 隐私政策 / 服务条款 / 感谢页 / 登录页等主动排除的页面 | 无需操作；自动化监控应跳过此类 URL |
 
 **② 不是 GSC 状态，但影响审计判断的背景因素：**
 
@@ -58,29 +58,35 @@ due: 2026-06-24（下周二对齐）
 |---|---|---|
 | **新文章发布 D+14 内** | Google 爬取和收录本身有延迟，新站沙盒期延迟更长（有时 2–4 周）。D+14 内出现任何"未收录"状态均属正常等待窗口 | 自动化监控从 D+14 起开始评估，D+14 前不触发告警 |
 | **新站整体收录率偏低** | astrologywiki.com 于 2026-01-25 首次曝光，仍在沙盒期，整体收录率低于成熟站点是正常现象 | 审计时看收录率是否在持续提升，而非与成熟站横向比较绝对数字 |
-| **低流量页面爬取优先级低** | Google 会主动降低对低感知价值页面的爬取频率，"Discovered"状态可能持续更久 | 这类页面持续"Discovered"是策略性降权；改善内链密度和内容质量可提升优先级 |
+| **低流量页面爬取优先级低** | Google 会主动降低对低感知价值页面的爬取频率，"已发现"状态可能持续更久 | 这类页面持续"已发现"是策略性降权；改善内链密度和内容质量可提升优先级 |
+| **孤立页面（Orphan Page）** | 站内没有任何其他页面通过内链指向该页面，Google 依赖内链发现新页面，孤立页面可能长期处于"已发现"甚至根本未被发现 | 审计时检查是否有内链指向该页面；若无，补充内链后状态通常会改善 |
+| **JavaScript 渲染延迟** | Googlebot 爬取分两步：第一步抓取 HTML，第二步渲染 JS（有时滞数天）。若页面关键内容完全依赖 JS 渲染，Google 第一次爬取可能看到空白页，导致短期内判定为低价值 | 确认页面核心内容存在于 HTML 中（不需要 JS 执行才可见）；用 Google Rich Results Test 的"查看已测试的网页"验证 Googlebot 实际看到的内容 |
 
-> ⚠️ **审计时的常见误判：** 看到大量"Discovered - currently not indexed"就认为有技术问题 → 这在新站是完全正常的。真正需要关注的是"Crawled - currently not indexed"（已爬取但拒绝收录）。
+> ⚠️ **审计时的常见误判：** 看到大量"已发现 - 目前未编入索引"就认为有技术问题 → 这在新站是完全正常的。真正需要关注的是"已爬取 - 目前未编入索引"（已爬取但拒绝收录）。
 
 ---
 
 ### 3.2 需要处理的问题（分优先级）
 
-| 优先级            | GSC 状态                                      | 含义                                  | 处理方向                                               |
-| -------------- | ------------------------------------------- | ----------------------------------- | -------------------------------------------------- |
-| 🔴 **P0 紧急**   | Not found (404)                             | 页面已消失，Google 爬取时返回 404              | 恢复页面 或 设置 301 重定向到新 URL                            |
-| 🔴 **P0 紧急**   | Server error (5xx)                          | 服务器错误，Google 无法访问页面                 | 联系技术团队排查服务器                                        |
-| 🟡 **P1 本周处理** | Crawled - currently not indexed             | 已爬取但主动拒绝收录：内容质量不足（薄内容 / 重复 / 信息价值低） | 内容扩充（≥1500词）/ 增加内链 / 提升 E-E-A-T 信号 / 检查是否与已有内容高度重复 |
-| 🟡 **P1 本周处理** | Excluded by 'noindex' tag（非有意）              | 页面被错误加了 noindex 标签                  | 检查 CMS 模板或文章元数据，删除 noindex                         |
-| 🟡 **P1 本周处理** | Blocked by robots.txt（非有意）                  | 页面被 robots.txt 错误屏蔽                 | 检查 robots.txt 配置，移除对应 Disallow 规则                  |
-| 🟠 **P2 排期处理** | Duplicate, Google chose different canonical | Google 不认可你设置的 canonical，选择了另一个版本   | 检查页面是否存在实质重复内容，或 canonical 标签设置是否有误                |
-| 🟠 **P2 排期处理** | Soft 404                                    | 页面存在但内容极少或不相关，Google 判定等同于 404      | 补充有实质内容，或删除页面并重定向                                  |
-| 🟠 **P2 排期处理** | Page with redirect（链过长）                     | 重定向链太长（>3跳）或存在重定向循环                 | 简化重定向链，确保 301 直指最终 URL                             |
-| ⬜ **P3 观察**    | Indexed, though blocked by robots.txt       | 收录了但 robots.txt 有屏蔽规则，存在状态不一致风险     | 核查 robots.txt 是否需要更新                               |
+| 优先级 | GSC 显示状态（英文）| 中文译名 | 含义 | 处理方向 |
+|---|---|---|---|---|
+| 🔴 **P0 紧急** | Not found (404) | **未找到 (404)** | 页面已消失，Google 爬取时返回 404 | 恢复页面 或 设置 301 重定向到新 URL |
+| 🔴 **P0 紧急** | Server error (5xx) | **服务器错误 (5xx)** | 服务器错误，Google 无法访问页面 | 联系技术团队排查服务器 |
+| 🔴 **P0 紧急** | Blocked due to access forbidden (403) | **因拒绝访问 (403) 而遭到屏蔽** | 服务器返回 403，Google 无权访问。可能是身份验证 / IP 限制 / 误配置 | 检查服务器访问控制配置，确认 Googlebot 未被屏蔽 |
+| 🟡 **P1 本周处理** | Crawled - currently not indexed | **已爬取 - 目前未编入索引** | 已爬取但 Google 主动拒绝收录：内容质量不足（薄内容 / 重复 / 信息价值低）| 内容扩充 / 增加内链 / 提升 E-E-A-T 信号 / 检查重复度（详见 3.3）|
+| 🟡 **P1 本周处理** | Excluded by 'noindex' tag（非有意）| **已由 noindex 标记排除**（非有意）| 页面被错误加了 noindex 标签 | 检查 CMS 模板或文章元数据，删除 noindex |
+| 🟡 **P1 本周处理** | Blocked by robots.txt（非有意）| **已被 robots.txt 屏蔽**（非有意）| 页面被 robots.txt 错误屏蔽 | 检查 robots.txt 配置，移除对应 Disallow 规则 |
+| 🟡 **P1 本周处理** | Blocked due to other 4xx issue | **因其他 4xx 问题而遭到屏蔽** | 返回 401（需登录）/ 410（永久删除）等其他 4xx 错误 | 根据具体错误码排查：401 检查权限配置；410 确认是否误删 |
+| 🟠 **P2 排期处理** | Duplicate, Google chose different canonical than user | **重复页面 - Google 选择了与用户不同的规范网址** | 用户设置了 canonical 但 Google 不认可，另选了一个版本 | 检查两个页面内容是否实质重复；排查 canonical 标签是否指向错误 URL |
+| 🟠 **P2 排期处理** | Duplicate without user-selected canonical | **重复页面 - 未由用户选择规范网址** | 存在重复内容但没有设置 canonical，Google 自行选择了规范版本（可能选错）| 为所有重复 URL 添加明确的 canonical 标签，指向你希望被收录的版本 |
+| 🟠 **P2 排期处理** | Duplicate, submitted URL not selected as canonical | **重复页面 - 提交的网址未被选为规范网址** | 通过 sitemap 或 GSC 提交了该 URL，但 Google 把另一个 URL 视为规范版本 | 检查 sitemap 内是否有多个 URL 指向相同内容；确认 canonical 标签一致 |
+| 🟠 **P2 排期处理** | Soft 404 | **软 404** | 页面存在但内容极少或不相关，Google 判定等同于 404 | 补充有实质内容，或删除页面并设置 301 重定向 |
+| 🟠 **P2 排期处理** | Page with redirect | **包含重定向的页面** | 重定向链太长（> 3 跳）或存在重定向循环 | 简化重定向链，确保 301 直指最终 URL |
+| ⬜ **P3 观察** | Indexed, though blocked by robots.txt | **已编入索引（虽受 robots.txt 屏蔽）** | 收录了但 robots.txt 有屏蔽规则，状态不一致存在风险 | 核查 robots.txt 是否需要更新 |
 
 ---
 
-### 3.3 内容质量诊断清单（"Crawled - currently not indexed" 专项）
+### 3.3 内容质量诊断清单（"已爬取 - 目前未编入索引"专项）
 
 > 这是最常见的需要处理的状态，原因较多，需要逐项排查：
 
@@ -88,10 +94,12 @@ due: 2026-06-24（下周二对齐）
 |---|---|---|
 | 内容字数 | ≥ 1,200 词（竞争力较强词 ≥ 1,800）| 字数统计工具 |
 | 内容独特性 | 与站内其他页面重复率 < 30% | Copyscape / 人工比对 |
-| 内链密度 | 至少 2–3 条来自其他已收录页面的内链 | 检查内链追踪表 |
+| 内链密度 | 至少 2–3 条来自其他**已收录**页面的内链 | 检查内链追踪表；确认来源页面已被 GSC 确认收录 |
+| 是否为孤立页面 | sitemap 中有该 URL + 至少 1 条站内内链指向该页面 | Ahrefs → 输入 URL → 查看 Backlinks（内链）|
+| JavaScript 渲染检查 | 页面核心内容存在于原始 HTML 中，不依赖 JS 执行才可见 | Google Search Console → URL 检查 → 查看"已测试的网页"截图 |
 | 页面可访问性 | 未登录状态可正常访问，加载时间 < 3s | 浏览器无痕模式测试 |
 | 结构化数据 | 有 Article schema（或 FAQ / HowTo）| Google Rich Results Test |
-| 标题与 meta | title 和 meta description 存在且不重复 | GSC / 浏览器检查 |
+| 标题与 meta | title 和 meta description 存在且不重复 | GSC URL 检查 / 浏览器查看源代码 |
 | E-E-A-T 信号 | 有作者署名 + 作者简介 + 发布日期 | 页面直接检查 |
 
 ---
