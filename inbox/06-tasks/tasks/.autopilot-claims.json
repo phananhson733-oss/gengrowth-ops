@@ -908,22 +908,20 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "5868",
-    "leaseUntil": "2026-06-22T06:50:18.103Z",
-    "updatedAt": "2026-06-22T05:50:18.103Z",
+    "lockedBy": "14015",
+    "leaseUntil": "2026-06-22T06:55:15.307Z",
+    "updatedAt": "2026-06-22T05:55:15.307Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-026",
     "branch": "seo/auto/2026-06-22-PG-WC-026",
     "pr": "https://github.com/xdawayer/oracle/pull/197",
     "zh": true,
-    "retryEvidence": "internal links resolved; EN/ZH schema and links-seo passed; build passed",
-    "retryAt": "2026-06-22T05:50:18.103Z",
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-22T05:52:04.573Z"
+    "retryEvidence": "internal links resolved; preview verify wait raised and EN/ZH verify passed locally",
+    "retryAt": "2026-06-22T05:55:15.307Z"
   },
   "PG-WC-027": {
     "status": "active",
