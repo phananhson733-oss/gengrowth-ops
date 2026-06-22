@@ -1038,5 +1038,17 @@
     "verifiedAt": "2026-06-22T05:43:36.569Z",
     "headRefOid": "abe1836004cc4fd42fab9380e0e745425be2d996",
     "mergedAt": "2026-06-22T05:43:46.051Z"
+  },
+  "PG-WC-029": {
+    "status": "active",
+    "slug": "mo-salah-birth-chart",
+    "owner": "autopilot",
+    "plan": "wc029-plan.md",
+    "stage": "convert",
+    "lockedBy": "93626",
+    "leaseUntil": "2026-06-22T14:35:09.440Z",
+    "updatedAt": "2026-06-22T13:35:09.440Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
+    "branch": "seo/auto/2026-06-22-PG-WC-029"
   }
 }
