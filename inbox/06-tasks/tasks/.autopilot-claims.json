@@ -1046,22 +1046,20 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "1179",
-    "leaseUntil": "2026-06-22T14:43:55.613Z",
-    "updatedAt": "2026-06-22T13:43:55.613Z",
+    "lockedBy": "12983",
+    "leaseUntil": "2026-06-22T14:59:00.881Z",
+    "updatedAt": "2026-06-22T13:59:00.881Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
     "branch": "seo/auto/2026-06-22-PG-WC-029",
     "pr": "https://github.com/xdawayer/oracle/pull/208",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "re-run with GG_CODEX_BIN + _gg.env sourced (manual run wasn't inheriting plist env)",
-    "retryAt": "2026-06-22T13:43:55.613Z",
-    "error": "review[links-seo] FAIL: The Jupiter link's anchor text ('spoke page on Jupiter transit events in 2026') points to an unrelated target (/en/wiki/9th-house-astrology), a misleading/likely-wrong internal link, and the opening section's intended pillar link rendered as plain italic text rather than a resolved hyperlink.",
-    "failedAt": "2026-06-22T13:45:49.623Z"
+    "retryEvidence": "links-seo fix: remapped 5 TBDs to live targets (WC hub / June transits / how-to-read / best-soccer-by-zodiac); phase2 pass; rebuilt+pushed 02caf02",
+    "retryAt": "2026-06-22T13:59:00.881Z"
   }
 }
