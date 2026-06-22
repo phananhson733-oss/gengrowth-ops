@@ -567,16 +567,18 @@
     "zh": false
   },
   "PG-NODE-009": {
-    "status": "active",
+    "status": "dry-run-ok",
     "slug": "blue-node-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "dry-run-ok",
     "lockedBy": "83485",
-    "leaseUntil": "2026-06-22T16:12:45.518Z",
-    "updatedAt": "2026-06-22T15:12:45.518Z",
+    "leaseUntil": "2026-06-22T16:13:13.050Z",
+    "updatedAt": "2026-06-22T15:13:13.050Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-NODE-009-dry-run-83485",
-    "branch": "seo/auto/2026-06-22-PG-NODE-009"
+    "branch": "seo/auto/2026-06-22-PG-NODE-009",
+    "zh": true,
+    "needs_hero": true
   },
   "PG-NODE-010": {
     "owner": "autopilot",
