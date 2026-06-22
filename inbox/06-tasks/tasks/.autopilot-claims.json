@@ -1023,15 +1023,18 @@
     "failedAt": "2026-06-22T08:11:34.061Z"
   },
   "PG-MYTH-008": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "prince-william-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "11571",
-    "leaseUntil": "2026-06-22T10:34:41.593Z",
-    "updatedAt": "2026-06-22T09:34:41.593Z",
+    "leaseUntil": "2026-06-22T10:35:13.369Z",
+    "updatedAt": "2026-06-22T09:35:13.369Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-008",
-    "branch": "seo/auto/2026-06-22-PG-MYTH-008"
+    "branch": "seo/auto/2026-06-22-PG-MYTH-008",
+    "pr": "https://github.com/xdawayer/oracle/pull/205",
+    "zh": false,
+    "needs_hero": true
   }
 }
