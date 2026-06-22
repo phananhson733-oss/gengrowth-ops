@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-12
+updated: 2026-06-22
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -62,3 +62,4 @@ updated: 2026-06-12
 | 2026-06-12 | PG-WC-008 | zodiac-signs-as-world-cup-2026-teams | Zodiac Signs As World Cup 2026 Teams | elena-vane | https://www.astrologywiki.com/en/wiki/zodiac-signs-as-world-cup-2026-teams | published |
 | 2026-06-12 | PG-WC-009 | best-soccer-players-zodiac-sign | Best Soccer Players Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/best-soccer-players-zodiac-sign | published |
 | 2026-06-12 | PG-WC-010 | world-cup-2026-june-astrology | World Cup 2026 June Astrology | elena-vane | https://www.astrologywiki.com/en/wiki/world-cup-2026-june-astrology | published |
+| 2026-06-22 | PG-MYTH-007 | niko-birth-chart | Niko Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/niko-birth-chart | published |
