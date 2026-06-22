@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -985,6 +985,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
     "retryEvidence": "public-date chart grounded; major-drought framing corrected; local review/build passed",
-    "retryAt": "2026-06-22T05:10:15.828Z"
+    "retryAt": "2026-06-22T05:10:15.828Z",
+    "error": "codex completed with codex FAIL —NiKo has already won IEM Cologne Major 2026",
+    "failedAt": "2026-06-22T05:14:58.886Z"
   }
 }
