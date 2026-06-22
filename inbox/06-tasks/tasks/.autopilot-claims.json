@@ -965,10 +965,12 @@
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "worktree",
+    "stage": "convert",
     "lockedBy": "99016",
-    "leaseUntil": "2026-06-22T10:16:33.319Z",
-    "updatedAt": "2026-06-22T09:16:33.319Z"
+    "leaseUntil": "2026-06-22T10:16:33.995Z",
+    "updatedAt": "2026-06-22T09:16:33.995Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-TRANS-011",
+    "branch": "seo/auto/2026-06-22-PG-TRANS-011"
   },
   "PG-MYTH-006": {
     "status": "done",
