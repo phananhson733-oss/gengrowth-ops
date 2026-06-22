@@ -1044,10 +1044,10 @@
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "93626",
-    "leaseUntil": "2026-06-22T14:35:09.440Z",
-    "updatedAt": "2026-06-22T13:35:09.440Z",
+    "leaseUntil": "2026-06-22T14:36:54.759Z",
+    "updatedAt": "2026-06-22T13:36:54.759Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
     "branch": "seo/auto/2026-06-22-PG-WC-029"
   }
