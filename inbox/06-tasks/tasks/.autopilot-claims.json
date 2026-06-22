@@ -945,16 +945,18 @@
     "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-028": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "60065",
-    "leaseUntil": "2026-06-22T09:43:07.123Z",
-    "updatedAt": "2026-06-22T08:43:07.123Z",
+    "leaseUntil": "2026-06-22T09:43:41.868Z",
+    "updatedAt": "2026-06-22T08:43:41.868Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-028",
-    "branch": "seo/auto/2026-06-22-PG-WC-028"
+    "branch": "seo/auto/2026-06-22-PG-WC-028",
+    "pr": "https://github.com/xdawayer/oracle/pull/202",
+    "zh": true
   },
   "PG-TRANS-011": {
     "status": "done",
