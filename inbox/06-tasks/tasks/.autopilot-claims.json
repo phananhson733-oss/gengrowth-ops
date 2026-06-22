@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -985,6 +985,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
     "retryEvidence": "description regenerated; Gemini hero generated; hero QA passed; rerun with env sourced",
-    "retryAt": "2026-06-22T04:54:29.680Z"
+    "retryAt": "2026-06-22T04:54:29.680Z",
+    "error": "review[astrology] FAIL: The reading asserts specific house placements (Jupiter-Neptune in a tenth/sixth career house, minimal seventh-house energy, Saturn-return-triggered timing) as established chart facts, but NiKo has no publicly known birth time, so houses, ascendant, and decan-based 'intensity' are unknowable — the entire structural argument rests on fabricated, unfalsifiable data presented as grounded.",
+    "failedAt": "2026-06-22T04:55:40.769Z"
   }
 }
