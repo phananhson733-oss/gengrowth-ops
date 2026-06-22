@@ -126,16 +126,19 @@
     "zh": false
   },
   "PG-JOURNAL-003": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "emotion-journal",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "5357",
-    "leaseUntil": "2026-06-22T14:49:17.322Z",
-    "updatedAt": "2026-06-22T13:49:17.322Z",
+    "leaseUntil": "2026-06-22T14:55:27.827Z",
+    "updatedAt": "2026-06-22T13:55:27.827Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-JOURNAL-003",
-    "branch": "seo/auto/2026-06-22-PG-JOURNAL-003"
+    "branch": "seo/auto/2026-06-22-PG-JOURNAL-003",
+    "pr": "https://github.com/xdawayer/oracle/pull/210",
+    "zh": true,
+    "needs_hero": true
   },
   "PG-LILITH-001": {
     "branch": "seo/auto/2026-06-08-PG-LILITH-001",
