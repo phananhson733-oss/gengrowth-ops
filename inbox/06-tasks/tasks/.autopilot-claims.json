@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -985,6 +985,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
     "retryEvidence": "IEM Cologne Major 2026 fact cited; public-date chart bounded; local review/build passed",
-    "retryAt": "2026-06-22T05:17:10.955Z"
+    "retryAt": "2026-06-22T05:17:10.955Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-06-22T05:23:30.389Z"
   }
 }
