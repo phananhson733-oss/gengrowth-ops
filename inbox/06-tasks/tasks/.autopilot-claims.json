@@ -445,7 +445,9 @@
     "status": "done",
     "slug": "uttara-bhadrapada-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-013": {
     "owner": "autopilot",
@@ -454,7 +456,9 @@
     "status": "done",
     "slug": "uttara-phalguni-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-014": {
     "owner": "autopilot",
@@ -463,7 +467,9 @@
     "status": "done",
     "slug": "purva-bhadrapada-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-015": {
     "owner": "autopilot",
@@ -472,7 +478,9 @@
     "status": "done",
     "slug": "revati-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-016": {
     "owner": "autopilot",
@@ -481,7 +489,9 @@
     "status": "done",
     "slug": "punarvasu-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-017": {
     "owner": "autopilot",
@@ -490,7 +500,9 @@
     "status": "done",
     "slug": "magha-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-018": {
     "owner": "autopilot",
@@ -499,7 +511,9 @@
     "status": "done",
     "slug": "ardra-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NAKSH-019": {
     "owner": "autopilot",
@@ -508,7 +522,9 @@
     "status": "done",
     "slug": "dhanishta-nakshatra",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NODE-005": {
     "branch": "seo/auto/2026-06-04-PG-NODE-005",
@@ -587,7 +603,9 @@
     "status": "done",
     "slug": "north-node-in-leo",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-NODE-011": {
     "owner": "autopilot",
@@ -596,7 +614,9 @@
     "status": "done",
     "slug": "rahu-and-ketu-astrology",
     "mergedAt": "2026-06-22T10:00:39.064Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-RISE-001": {
     "branch": "seo/auto/2026-06-05-PG-RISE-001",
@@ -648,7 +668,9 @@
     "status": "done",
     "slug": "ascendant-meaning",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-RISE-005": {
     "owner": "autopilot",
@@ -657,7 +679,9 @@
     "status": "done",
     "slug": "cancer-rising",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-RISE-006": {
     "owner": "autopilot",
@@ -666,7 +690,9 @@
     "status": "done",
     "slug": "virgo-rising",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-RISE-007": {
     "owner": "autopilot",
@@ -675,7 +701,9 @@
     "status": "done",
     "slug": "gemini-rising",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-RISE-008": {
     "owner": "autopilot",
@@ -684,7 +712,9 @@
     "status": "done",
     "slug": "moon-rising-sign",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-SOLAR-001": {
     "status": "done",
@@ -768,7 +798,9 @@
     "status": "done",
     "slug": "saturn-in-aries-2026",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-TRANS-009": {
     "owner": "autopilot",
@@ -777,7 +809,9 @@
     "status": "done",
     "slug": "uranus-opposition",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-TRANS-010": {
     "owner": "autopilot",
@@ -786,7 +820,9 @@
     "status": "done",
     "slug": "mars-return-astrology",
     "mergedAt": "2026-06-22T10:00:39.065Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "reconciliationNote": "auto-reconciled from oracle main article registration",
+    "zh": true,
+    "zhReconciledNote": "zh verified live on prod 2026-06-22 (cleared stale zhBackfill flag)"
   },
   "PG-WC-001": {
     "branch": "seo/auto/2026-06-12-PG-WC-001",
@@ -1073,5 +1109,17 @@
     "verifiedAt": "2026-06-22T14:30:12.866Z",
     "headRefOid": "86bbaf10b68c340e7f888d06d50a2d0e6738f99b",
     "mergedAt": "2026-06-22T14:30:19.670Z"
+  },
+  "PG-WC-031": {
+    "status": "active",
+    "slug": "jeremy-doku-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "95394",
+    "leaseUntil": "2026-06-22T16:22:53.997Z",
+    "updatedAt": "2026-06-22T15:22:53.997Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031-dry-run-95394",
+    "branch": "seo/auto/2026-06-22-PG-WC-031"
   }
 }
