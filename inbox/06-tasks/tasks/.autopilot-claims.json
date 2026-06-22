@@ -1048,22 +1048,20 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "23434",
-    "leaseUntil": "2026-06-22T15:11:10.441Z",
-    "updatedAt": "2026-06-22T14:11:10.441Z",
+    "lockedBy": "36112",
+    "leaseUntil": "2026-06-22T15:27:20.981Z",
+    "updatedAt": "2026-06-22T14:27:20.981Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
     "branch": "seo/auto/2026-06-22-PG-WC-029",
     "pr": "https://github.com/xdawayer/oracle/pull/208",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "cleaned PR to 5 files (dropped 498 public/ build artifacts that broke gh pr diff >300 → codex exit3); links fixed; force-pushed c3f3964",
-    "retryAt": "2026-06-22T14:11:10.441Z",
-    "error": "codex completed with codex FAIL —Salah scored, rather than assisted, Egypt's go-ahead winning goal vs New Zealand",
-    "failedAt": "2026-06-22T14:17:00.438Z"
+    "retryEvidence": "corrected NZ match fact (Salah scored go-ahead + assisted Trezeguet, web-verified); reframed to two-way versatility; upstream override fixed; pushed 86bbaf1",
+    "retryAt": "2026-06-22T14:27:20.981Z"
   }
 }
