@@ -1111,15 +1111,17 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "99204",
-    "leaseUntil": "2026-06-22T16:30:28.304Z",
-    "updatedAt": "2026-06-22T15:30:28.304Z",
+    "leaseUntil": "2026-06-22T16:31:01.536Z",
+    "updatedAt": "2026-06-22T15:31:01.536Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
-    "branch": "seo/auto/2026-06-22-PG-WC-031"
+    "branch": "seo/auto/2026-06-22-PG-WC-031",
+    "pr": "https://github.com/xdawayer/oracle/pull/219",
+    "zh": false
   }
 }
