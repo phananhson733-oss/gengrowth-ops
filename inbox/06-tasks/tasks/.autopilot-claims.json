@@ -972,20 +972,19 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "30539",
-    "leaseUntil": "2026-06-22T05:31:17.251Z",
-    "updatedAt": "2026-06-22T04:31:17.251Z",
+    "lockedBy": "99044",
+    "leaseUntil": "2026-06-22T05:51:23.988Z",
+    "updatedAt": "2026-06-22T04:51:23.988Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-007",
     "branch": "seo/auto/2026-06-22-PG-MYTH-007",
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
-    "needs_hero": true,
-    "error": "review[schema] FAIL: The schema `description` field is truncated mid-sentence (\"...born February 16\"), dropping the birth year and ending without punctuation, making it malformed and inconsistent with the body's \"February 16, 1997\".",
-    "failedAt": "2026-06-22T04:35:07.600Z"
+    "retryEvidence": "description regenerated; Gemini hero generated; hero QA passed",
+    "retryAt": "2026-06-22T04:51:23.988Z"
   }
 }
