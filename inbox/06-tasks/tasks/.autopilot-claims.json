@@ -972,15 +972,18 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "30539",
-    "leaseUntil": "2026-06-22T05:29:00.852Z",
-    "updatedAt": "2026-06-22T04:29:00.852Z",
+    "leaseUntil": "2026-06-22T05:31:17.251Z",
+    "updatedAt": "2026-06-22T04:31:17.251Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-007",
-    "branch": "seo/auto/2026-06-22-PG-MYTH-007"
+    "branch": "seo/auto/2026-06-22-PG-MYTH-007",
+    "pr": "https://github.com/xdawayer/oracle/pull/198",
+    "zh": false,
+    "needs_hero": true
   }
 }
