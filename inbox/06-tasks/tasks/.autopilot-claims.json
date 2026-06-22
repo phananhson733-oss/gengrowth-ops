@@ -972,7 +972,7 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -985,6 +985,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
     "retryEvidence": "description regenerated; Gemini hero generated; hero QA passed",
-    "retryAt": "2026-06-22T04:51:23.988Z"
+    "retryAt": "2026-06-22T04:51:23.988Z",
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-06-22T04:52:40.148Z"
   }
 }
