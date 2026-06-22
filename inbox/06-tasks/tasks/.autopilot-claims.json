@@ -961,23 +961,23 @@
     "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "99016",
-    "leaseUntil": "2026-06-22T10:21:41.479Z",
-    "updatedAt": "2026-06-22T09:21:41.479Z",
+    "lockedBy": "10863",
+    "leaseUntil": "2026-06-22T10:31:14.092Z",
+    "updatedAt": "2026-06-22T09:31:14.092Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-TRANS-011",
     "branch": "seo/auto/2026-06-22-PG-TRANS-011",
     "pr": "https://github.com/xdawayer/oracle/pull/203",
     "zh": true,
-    "error": "codex factual review REQUIRED but GG_CODEX_BIN not configured (set GG_CODEX_GATE_REQUIRED=0 to override)",
-    "failedAt": "2026-06-22T09:24:45.093Z"
+    "retryEvidence": "human-fixed parked preview; rerun preview gate",
+    "retryAt": "2026-06-22T09:31:14.092Z"
   },
   "PG-MYTH-006": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -988,7 +988,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-006",
     "branch": "seo/auto/2026-06-22-PG-MYTH-006",
     "pr": "https://github.com/xdawayer/oracle/pull/204",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: The three intended internal wiki-links were never resolved and ship as plain italic text (e.g. *guide to the twelve zodiac signs and their personalities*, *Leo personality traits explainer*, *pillar page on zodiac signs in movies and pop culture*), so the published page has zero working internal links and no early internal link in the opening.",
+    "failedAt": "2026-06-22T09:32:01.922Z"
   },
   "PG-MYTH-007": {
     "status": "done",
@@ -1019,5 +1021,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - - H3 count = 3, expected 0 | - author banned token(s) matched: \"rising sign\", \"you will\" after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-06-22T08:11:34.061Z"
+  },
+  "PG-MYTH-008": {
+    "status": "active",
+    "slug": "prince-william-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "11571",
+    "leaseUntil": "2026-06-22T10:32:03.916Z",
+    "updatedAt": "2026-06-22T09:32:03.916Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-008",
+    "branch": "seo/auto/2026-06-22-PG-MYTH-008"
   }
 }
