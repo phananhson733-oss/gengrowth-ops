@@ -945,32 +945,26 @@
     "failedAt": "2026-06-22T07:44:44.940Z"
   },
   "PG-WC-028": {
-    "status": "done",
+    "status": "active",
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
-    "lockedBy": "27076",
-    "leaseUntil": "2026-06-21T12:07:28.764Z",
-    "updatedAt": "2026-06-21T11:07:28.764Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-028",
-    "branch": "seo/auto/2026-06-21-PG-WC-028",
-    "mergedAt": "2026-06-22T06:39:03.655Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "stage": "convert",
+    "lockedBy": "54224",
+    "leaseUntil": "2026-06-22T09:34:26.173Z",
+    "updatedAt": "2026-06-22T08:34:26.173Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-028-dry-run-54224",
+    "branch": "seo/auto/2026-06-22-PG-WC-028"
   },
   "PG-TRANS-011": {
-    "status": "done",
+    "status": "active",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
-    "lockedBy": "1957",
-    "leaseUntil": "2026-06-21T12:34:50.011Z",
-    "updatedAt": "2026-06-21T11:34:50.011Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-TRANS-011",
-    "branch": "seo/auto/2026-06-21-PG-TRANS-011",
-    "mergedAt": "2026-06-22T06:39:03.656Z",
-    "reconciliationNote": "auto-reconciled from oracle main article registration"
+    "stage": "claim",
+    "lockedBy": "54224",
+    "leaseUntil": "2026-06-22T09:34:25.527Z",
+    "updatedAt": "2026-06-22T08:34:25.527Z"
   },
   "PG-MYTH-006": {
     "status": "done",
