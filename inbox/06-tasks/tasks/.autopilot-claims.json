@@ -972,21 +972,19 @@
     "branch": "seo/auto/2026-06-21-PG-MYTH-006"
   },
   "PG-MYTH-007": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "niko-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "99044",
-    "leaseUntil": "2026-06-22T05:51:23.988Z",
-    "updatedAt": "2026-06-22T04:51:23.988Z",
+    "lockedBy": "5212",
+    "leaseUntil": "2026-06-22T05:54:29.680Z",
+    "updatedAt": "2026-06-22T04:54:29.680Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-007",
     "branch": "seo/auto/2026-06-22-PG-MYTH-007",
     "pr": "https://github.com/xdawayer/oracle/pull/198",
     "zh": false,
-    "retryEvidence": "description regenerated; Gemini hero generated; hero QA passed",
-    "retryAt": "2026-06-22T04:51:23.988Z",
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-06-22T04:52:40.148Z"
+    "retryEvidence": "description regenerated; Gemini hero generated; hero QA passed; rerun with env sourced",
+    "retryAt": "2026-06-22T04:54:29.680Z"
   }
 }
