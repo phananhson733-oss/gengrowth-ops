@@ -908,23 +908,16 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "done",
+    "status": "active",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "pushed-preview",
-    "lockedBy": "80956",
-    "leaseUntil": "2026-06-21T11:15:25.442Z",
-    "updatedAt": "2026-06-21T10:23:00Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-026",
-    "branch": "seo/auto/2026-06-21-PG-WC-026",
-    "pr": "https://github.com/xdawayer/oracle/pull/196",
-    "zh": false,
-    "needs_hero": true,
-    "error": "review[astrology] FAIL: The piece is grounded in a fabricated astrological premise — it asserts a Jupiter-in-Cancer transit in June 2026 when Jupiter is actually in Gemini/Cancer cusp regions per real ephemeris (Jupiter enters Cancer ~late June 2025 and is in Leo by mid-2026), making the central 'Jupiter-Cancer squares Capricorn' claim astronomically false.",
-    "failedAt": "2026-06-21T10:24:02.327Z",
-    "mergedAt": "2026-06-21T10:28:18Z",
-    "reconciliationNote": "auto-reconciled from merged GitHub PR"
+    "stage": "convert",
+    "lockedBy": "35976",
+    "leaseUntil": "2026-06-22T04:47:50.920Z",
+    "updatedAt": "2026-06-22T03:47:50.920Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-026",
+    "branch": "seo/auto/2026-06-22-PG-WC-026"
   },
   "PG-WC-027": {
     "status": "active",
