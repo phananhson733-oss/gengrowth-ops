@@ -1048,22 +1048,20 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "17168",
-    "leaseUntil": "2026-06-22T15:04:05.722Z",
-    "updatedAt": "2026-06-22T14:04:05.722Z",
+    "lockedBy": "21190",
+    "leaseUntil": "2026-06-22T15:08:27.780Z",
+    "updatedAt": "2026-06-22T14:08:27.780Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
     "branch": "seo/auto/2026-06-22-PG-WC-029",
     "pr": "https://github.com/xdawayer/oracle/pull/208",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "branch 02caf02 already remapped TBD links to live targets (pillar→world-cup-2026-astrology-prediction, june→world-cup-2026-june-astrology, national/footballer→how-to-read-birth-chart, best-soccer-players); local re-convert verified 0 unresolved TBD, no 9th-house misroute",
-    "retryAt": "2026-06-22T14:04:05.722Z",
-    "error": "codex factual review REQUIRED but GG_CODEX_BIN not configured (set GG_CODEX_GATE_REQUIRED=0 to override)",
-    "failedAt": "2026-06-22T14:05:58.474Z"
+    "retryEvidence": "all gates passed except codex which lacked GG_CODEX_BIN in manual shell (cron has it via plist); re-running with GG_CODEX_BIN set",
+    "retryAt": "2026-06-22T14:08:27.780Z"
   }
 }
