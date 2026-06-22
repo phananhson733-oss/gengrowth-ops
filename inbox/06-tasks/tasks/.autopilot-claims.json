@@ -126,7 +126,7 @@
     "zh": false
   },
   "PG-JOURNAL-003": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "emotion-journal",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -138,7 +138,9 @@
     "branch": "seo/auto/2026-06-22-PG-JOURNAL-003",
     "pr": "https://github.com/xdawayer/oracle/pull/210",
     "zh": true,
-    "needs_hero": true
+    "needs_hero": true,
+    "mergedAt": "2026-06-22T14:00:25.791Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-LILITH-001": {
     "branch": "seo/auto/2026-06-08-PG-LILITH-001",
