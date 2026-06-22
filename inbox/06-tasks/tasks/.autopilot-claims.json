@@ -929,16 +929,18 @@
     "mergedAt": "2026-06-22T06:04:13.579Z"
   },
   "PG-WC-027": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "67418",
-    "leaseUntil": "2026-06-22T08:41:18.040Z",
-    "updatedAt": "2026-06-22T07:41:18.040Z",
+    "leaseUntil": "2026-06-22T08:41:56.440Z",
+    "updatedAt": "2026-06-22T07:41:56.440Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-027",
-    "branch": "seo/auto/2026-06-22-PG-WC-027"
+    "branch": "seo/auto/2026-06-22-PG-WC-027",
+    "pr": "https://github.com/xdawayer/oracle/pull/200",
+    "zh": true
   },
   "PG-WC-028": {
     "status": "done",
