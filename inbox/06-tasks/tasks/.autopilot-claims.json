@@ -908,7 +908,7 @@
     "zh": true
   },
   "PG-WC-026": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "spain-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -919,7 +919,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-026",
     "branch": "seo/auto/2026-06-22-PG-WC-026",
     "pr": "https://github.com/xdawayer/oracle/pull/197",
-    "zh": true
+    "zh": true,
+    "error": "review[schema] FAIL: The Chinese WikiArticle's `description` field is truncated mid-sentence (ends at \"西班牙于6月15日在 H\"), making the rendered zh meta description malformed and inconsistent with the article body.",
+    "failedAt": "2026-06-22T03:57:04.897Z"
   },
   "PG-WC-027": {
     "status": "active",
