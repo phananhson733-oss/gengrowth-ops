@@ -1048,7 +1048,7 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
@@ -1062,6 +1062,11 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "corrected NZ match fact (Salah scored go-ahead + assisted Trezeguet, web-verified); reframed to two-way versatility; upstream override fixed; pushed 86bbaf1",
-    "retryAt": "2026-06-22T14:27:20.981Z"
+    "retryAt": "2026-06-22T14:27:20.981Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-wc-029-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-22T14:30:12.866Z",
+    "headRefOid": "86bbaf10b68c340e7f888d06d50a2d0e6738f99b",
+    "mergedAt": "2026-06-22T14:30:19.670Z"
   }
 }
