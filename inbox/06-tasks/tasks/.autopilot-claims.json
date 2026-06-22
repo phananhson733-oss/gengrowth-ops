@@ -1048,7 +1048,7 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
@@ -1062,6 +1062,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "all gates passed except codex which lacked GG_CODEX_BIN in manual shell (cron has it via plist); re-running with GG_CODEX_BIN set",
-    "retryAt": "2026-06-22T14:08:27.780Z"
+    "retryAt": "2026-06-22T14:08:27.780Z",
+    "error": "review[astrology] FAIL: The piece repeatedly assigns Salah specific natal houses (Jupiter in his 2nd house, 3rd-house emphasis, captaincy via 1st/10th houses) and a natal-Moon reading despite no birth time being established, which is a material astrological methodology error since houses and the Moon sign cannot be determined without a birth time.",
+    "failedAt": "2026-06-22T14:09:31.455Z"
   }
 }
