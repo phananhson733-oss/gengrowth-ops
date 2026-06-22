@@ -571,10 +571,10 @@
     "slug": "blue-node-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "83485",
-    "leaseUntil": "2026-06-22T16:09:59.875Z",
-    "updatedAt": "2026-06-22T15:09:59.875Z",
+    "leaseUntil": "2026-06-22T16:12:45.518Z",
+    "updatedAt": "2026-06-22T15:12:45.518Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-NODE-009-dry-run-83485",
     "branch": "seo/auto/2026-06-22-PG-NODE-009"
   },
