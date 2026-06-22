@@ -929,7 +929,7 @@
     "mergedAt": "2026-06-22T06:04:13.579Z"
   },
   "PG-WC-027": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -941,8 +941,8 @@
     "branch": "seo/auto/2026-06-22-PG-WC-027",
     "pr": "https://github.com/xdawayer/oracle/pull/200",
     "zh": true,
-    "error": "review[schema] FAIL: The zh meta description field is malformed: it embeds a leaked, untranslated English internal-link placeholder phrase ('pillar page on World Cup 2026 player and team birth charts') mid-sentence, so the served page description carries unresolved metadata.",
-    "failedAt": "2026-06-22T07:44:44.940Z"
+    "mergedAt": "2026-06-22T08:38:02.172Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-028": {
     "status": "active",
@@ -950,21 +950,23 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "convert",
-    "lockedBy": "54224",
-    "leaseUntil": "2026-06-22T09:34:26.173Z",
-    "updatedAt": "2026-06-22T08:34:26.173Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-028-dry-run-54224",
+    "lockedBy": "60065",
+    "leaseUntil": "2026-06-22T09:38:28.796Z",
+    "updatedAt": "2026-06-22T08:38:28.796Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-028",
     "branch": "seo/auto/2026-06-22-PG-WC-028"
   },
   "PG-TRANS-011": {
-    "status": "active",
+    "status": "done",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "claim",
     "lockedBy": "54224",
     "leaseUntil": "2026-06-22T09:34:25.527Z",
-    "updatedAt": "2026-06-22T08:34:25.527Z"
+    "updatedAt": "2026-06-22T08:34:25.527Z",
+    "mergedAt": "2026-06-22T08:38:02.172Z",
+    "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-MYTH-006": {
     "status": "done",
