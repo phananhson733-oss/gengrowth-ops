@@ -929,7 +929,7 @@
     "mergedAt": "2026-06-22T06:04:13.579Z"
   },
   "PG-WC-027": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -940,7 +940,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-027",
     "branch": "seo/auto/2026-06-22-PG-WC-027",
     "pr": "https://github.com/xdawayer/oracle/pull/200",
-    "zh": true
+    "zh": true,
+    "error": "review[schema] FAIL: The zh meta description field is malformed: it embeds a leaked, untranslated English internal-link placeholder phrase ('pillar page on World Cup 2026 player and team birth charts') mid-sentence, so the served page description carries unresolved metadata.",
+    "failedAt": "2026-06-22T07:44:44.940Z"
   },
   "PG-WC-028": {
     "status": "done",
