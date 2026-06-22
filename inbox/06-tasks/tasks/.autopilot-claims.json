@@ -961,7 +961,7 @@
     "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -978,7 +978,8 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-55d320-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-22T09:37:11.031Z",
-    "headRefOid": "5a822422b1d83ace0457c598dbb08a1ff2c5ad1b"
+    "headRefOid": "5a822422b1d83ace0457c598dbb08a1ff2c5ad1b",
+    "mergedAt": "2026-06-22T09:37:17.779Z"
   },
   "PG-MYTH-006": {
     "status": "needs_human",
@@ -1027,7 +1028,7 @@
     "failedAt": "2026-06-22T08:11:34.061Z"
   },
   "PG-MYTH-008": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "prince-william-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1039,6 +1040,8 @@
     "branch": "seo/auto/2026-06-22-PG-MYTH-008",
     "pr": "https://github.com/xdawayer/oracle/pull/205",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[links-seo] FAIL: Three Related Reading links use distinct topic-specific anchor text (Cancer Sun-Moon conjunction guide, Neptune conjunct Ascendant explainer, Sagittarius Rising overview) but two of them resolve to the same generic /en/wiki/how-to-read-birth-chart pillar URL, making the anchors misleading and the internal-link targeting deceptive.",
+    "failedAt": "2026-06-22T09:38:13.731Z"
   }
 }
