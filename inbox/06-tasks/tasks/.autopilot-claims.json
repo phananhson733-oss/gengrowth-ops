@@ -1048,22 +1048,20 @@
     "mergedAt": "2026-06-22T05:43:46.051Z"
   },
   "PG-WC-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mo-salah-birth-chart",
     "owner": "autopilot",
     "plan": "wc029-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "12983",
-    "leaseUntil": "2026-06-22T14:59:00.881Z",
-    "updatedAt": "2026-06-22T13:59:00.881Z",
+    "lockedBy": "17168",
+    "leaseUntil": "2026-06-22T15:04:05.722Z",
+    "updatedAt": "2026-06-22T14:04:05.722Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-029",
     "branch": "seo/auto/2026-06-22-PG-WC-029",
     "pr": "https://github.com/xdawayer/oracle/pull/208",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "links-seo fix: remapped 5 TBDs to live targets (WC hub / June transits / how-to-read / best-soccer-by-zodiac); phase2 pass; rebuilt+pushed 02caf02",
-    "retryAt": "2026-06-22T13:59:00.881Z",
-    "error": "review[links-seo] FAIL: Two distinct Related Reading anchors (\"guide to reading any footballer's birth chart\" and \"guide to reading a national chart\") both resolve to the same /en/wiki/how-to-read-birth-chart page, so the national-chart anchor is misleading and points to an unrelated/likely-nonexistent target.",
-    "failedAt": "2026-06-22T14:02:13.731Z"
+    "retryEvidence": "branch 02caf02 already remapped TBD links to live targets (pillar→world-cup-2026-astrology-prediction, june→world-cup-2026-june-astrology, national/footballer→how-to-read-birth-chart, best-soccer-players); local re-convert verified 0 unresolved TBD, no 9th-house misroute",
+    "retryAt": "2026-06-22T14:04:05.722Z"
   }
 }
