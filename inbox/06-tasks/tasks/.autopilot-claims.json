@@ -977,16 +977,18 @@
     "failedAt": "2026-06-22T09:24:45.093Z"
   },
   "PG-MYTH-006": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "5588",
-    "leaseUntil": "2026-06-22T10:28:23.891Z",
-    "updatedAt": "2026-06-22T09:28:23.891Z",
+    "leaseUntil": "2026-06-22T10:28:29.073Z",
+    "updatedAt": "2026-06-22T09:28:29.073Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-MYTH-006",
-    "branch": "seo/auto/2026-06-22-PG-MYTH-006"
+    "branch": "seo/auto/2026-06-22-PG-MYTH-006",
+    "pr": "https://github.com/xdawayer/oracle/pull/204",
+    "zh": true
   },
   "PG-MYTH-007": {
     "status": "done",
