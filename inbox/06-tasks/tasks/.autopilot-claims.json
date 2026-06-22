@@ -929,7 +929,7 @@
     "mergedAt": "2026-06-22T06:04:13.579Z"
   },
   "PG-WC-027": {
-    "status": "active",
+    "status": "needs_human",
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -938,10 +938,12 @@
     "leaseUntil": "2026-06-21T11:40:13.402Z",
     "updatedAt": "2026-06-21T10:40:13.402Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-027",
-    "branch": "seo/auto/2026-06-21-PG-WC-027"
+    "branch": "seo/auto/2026-06-21-PG-WC-027",
+    "error": "stale active push claim with expired lease and no GitHub PR; parked to unblock cron queue",
+    "failedAt": "2026-06-22T06:05:54.694Z"
   },
   "PG-WC-028": {
-    "status": "active",
+    "status": "needs_human",
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -950,10 +952,12 @@
     "leaseUntil": "2026-06-21T12:07:28.764Z",
     "updatedAt": "2026-06-21T11:07:28.764Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-WC-028",
-    "branch": "seo/auto/2026-06-21-PG-WC-028"
+    "branch": "seo/auto/2026-06-21-PG-WC-028",
+    "error": "stale active push claim with expired lease and no GitHub PR; parked to unblock cron queue",
+    "failedAt": "2026-06-22T06:05:54.751Z"
   },
   "PG-TRANS-011": {
-    "status": "active",
+    "status": "needs_human",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -962,10 +966,12 @@
     "leaseUntil": "2026-06-21T12:34:50.011Z",
     "updatedAt": "2026-06-21T11:34:50.011Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-TRANS-011",
-    "branch": "seo/auto/2026-06-21-PG-TRANS-011"
+    "branch": "seo/auto/2026-06-21-PG-TRANS-011",
+    "error": "stale active push claim with expired lease and no GitHub PR; parked to unblock cron queue",
+    "failedAt": "2026-06-22T06:05:54.811Z"
   },
   "PG-MYTH-006": {
-    "status": "active",
+    "status": "needs_human",
     "slug": "toy-story-5-zodiac-signs",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -974,7 +980,9 @@
     "leaseUntil": "2026-06-21T13:02:05.295Z",
     "updatedAt": "2026-06-21T12:02:05.295Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-21-PG-MYTH-006",
-    "branch": "seo/auto/2026-06-21-PG-MYTH-006"
+    "branch": "seo/auto/2026-06-21-PG-MYTH-006",
+    "error": "stale active push claim with expired lease and no GitHub PR; parked to unblock cron queue",
+    "failedAt": "2026-06-22T06:05:54.868Z"
   },
   "PG-MYTH-007": {
     "status": "done",
