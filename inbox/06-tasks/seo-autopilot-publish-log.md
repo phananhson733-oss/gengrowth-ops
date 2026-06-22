@@ -65,3 +65,4 @@ updated: 2026-06-22
 | 2026-06-22 | PG-MYTH-007 | niko-birth-chart | Niko Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/niko-birth-chart | published |
 | 2026-06-22 | PG-WC-026 | spain-world-cup-2026-astrology | Spain World Cup 2026 Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/spain-world-cup-2026-astrology | published |
 | 2026-06-22 | PG-TRANS-011 | chiron-in-taurus-2026-astrology | Chiron In Taurus 2026 Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/chiron-in-taurus-2026-astrology | published |
+| 2026-06-22 | PG-WC-029 | mo-salah-birth-chart | Mo Salah Birth Chart | aditi-sharma | https://www.astrologywiki.com/en/wiki/mo-salah-birth-chart | published |
