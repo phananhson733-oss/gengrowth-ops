@@ -961,16 +961,18 @@
     "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "chiron-in-taurus-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "99016",
-    "leaseUntil": "2026-06-22T10:16:33.995Z",
-    "updatedAt": "2026-06-22T09:16:33.995Z",
+    "leaseUntil": "2026-06-22T10:21:41.479Z",
+    "updatedAt": "2026-06-22T09:21:41.479Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-TRANS-011",
-    "branch": "seo/auto/2026-06-22-PG-TRANS-011"
+    "branch": "seo/auto/2026-06-22-PG-TRANS-011",
+    "pr": "https://github.com/xdawayer/oracle/pull/203",
+    "zh": true
   },
   "PG-MYTH-006": {
     "status": "done",
