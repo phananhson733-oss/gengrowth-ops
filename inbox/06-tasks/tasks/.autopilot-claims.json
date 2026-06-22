@@ -945,7 +945,7 @@
     "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
   "PG-WC-028": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "scotland-brazil-world-cup-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -956,7 +956,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-028",
     "branch": "seo/auto/2026-06-22-PG-WC-028",
     "pr": "https://github.com/xdawayer/oracle/pull/202",
-    "zh": true
+    "zh": true,
+    "error": "review[astrology] FAIL: The article's repeated factual anchor that 'Chiron entered Taurus on June 19, 2026' is astronomically wrong — Chiron is in Aries through 2026 and does not ingress Taurus until 2027.",
+    "failedAt": "2026-06-22T08:45:33.614Z"
   },
   "PG-TRANS-011": {
     "status": "done",
