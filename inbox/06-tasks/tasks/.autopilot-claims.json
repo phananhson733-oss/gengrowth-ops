@@ -1115,10 +1115,10 @@
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "99204",
-    "leaseUntil": "2026-06-22T16:27:49.988Z",
-    "updatedAt": "2026-06-22T15:27:49.988Z",
+    "leaseUntil": "2026-06-22T16:30:28.304Z",
+    "updatedAt": "2026-06-22T15:30:28.304Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
     "branch": "seo/auto/2026-06-22-PG-WC-031"
   }
