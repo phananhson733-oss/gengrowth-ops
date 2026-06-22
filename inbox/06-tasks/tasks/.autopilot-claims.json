@@ -933,10 +933,10 @@
     "slug": "matheus-cunha-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "67418",
-    "leaseUntil": "2026-06-22T08:36:44.993Z",
-    "updatedAt": "2026-06-22T07:36:44.993Z",
+    "leaseUntil": "2026-06-22T08:41:18.040Z",
+    "updatedAt": "2026-06-22T07:41:18.040Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-027",
     "branch": "seo/auto/2026-06-22-PG-WC-027"
   },
