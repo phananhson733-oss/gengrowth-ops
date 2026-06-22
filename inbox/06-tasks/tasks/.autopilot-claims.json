@@ -1047,5 +1047,14 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - - H3 count = 3, expected 0 | - author banned token(s) matched: \"sun sign\", \"same as western\" after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-06-22T10:26:16.306Z"
+  },
+  "PG-MYTH-008": {
+    "status": "needs_human",
+    "slug": "prince-william-birth-chart",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: - - SC3c section scatter: 1 section(s) with >3 scattered prose paragraphs | - author banned token(s) matched: \"you will\" after 3 attempt(s) + deterministic repair",
+    "failedAt": "2026-06-22T10:41:11.470Z"
   }
 }
