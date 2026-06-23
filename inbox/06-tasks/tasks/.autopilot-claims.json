@@ -1132,7 +1132,7 @@
     "mergedAt": "2026-06-23T05:18:03.724Z"
   },
   "PG-TRANS-012": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1145,6 +1145,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/227",
     "zh": false,
     "retryEvidence": "astro-fix: removed false 'Jupiter-Venus in Cancer on Father's Day' (Venus left Cancer Jun13, conj was Jun9 per multi-source); warmth now Jupiter-in-Cancer only (in Cancer until Jun29, ephemeris-verified)",
-    "retryAt": "2026-06-23T05:40:20.324Z"
+    "retryAt": "2026-06-23T05:40:20.324Z",
+    "error": "review[astrology] FAIL: The article repeatedly fixes the Sun's Cancer ingress to the June 21 solstice at 4:24 AM EDT, but in 2026 the Cancer ingress (solstice) actually occurs on June 21 at approximately 4:24 PM EDT (20:24 UTC), so the AM time is wrong by ~12 hours.",
+    "failedAt": "2026-06-23T05:42:04.393Z"
   }
 }
