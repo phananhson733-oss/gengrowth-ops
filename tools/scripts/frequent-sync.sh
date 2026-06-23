@@ -12,6 +12,7 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/_repo-discovery.sh"
+source "$SCRIPT_DIR/_shell-utils.sh"
 
 WIKI="${GENGROWTH_WIKI:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
 OPS_REPO="${GENGROWTH_OPS:-$(gengrowth_find_repo gengrowth-ops)}"
@@ -25,7 +26,7 @@ mkdir -p "$(dirname "$LOG")"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG"; }
 
 # 日志轮转：超过 2000 行时只保留最后 1000 行
-if [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 2000 ]; then
+if [ "$(gengrowth_log_line_count "$LOG")" -gt 2000 ]; then
   tail -1000 "$LOG" > "${LOG}.tmp" && mv "${LOG}.tmp" "$LOG"
 fi
 
