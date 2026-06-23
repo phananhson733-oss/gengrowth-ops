@@ -93,6 +93,8 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 ### 3.2 已确认付费采购（价格与dofollow书面确认）
 
+**① 直接采购站点**
+
 | 站点             | DR  | 均分DR      | 价格       | 建议锚文本                | 行动                 |
 | -------------- | --- | --------- | -------- | -------------------- | ------------------ |
 | uneed.best     | 74  | —*        | $29.99   | AstrologyWiki（品牌）    | ✅ 已购买，2026-06-16发布 |
@@ -102,7 +104,22 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 > *uneed.best为社区策划型产品目录（类Product Hunt），有真实用户，均分DR标准不适用。
 > **technology.org付款前用ahrefs.com/backlink-checker核查均分DR，确认≥0.04再付款。
 
-**小计：3个dofollow RDs，$370-420（uploadarticle.com已排除，见3.3）**
+**② BestLinks.ai 托管外联（哥飞外链服务）**
+
+> 渠道说明：全托管 Guest Post 中介，帮助筛站点 + 写文章 + 联系发布，按实际发布费 + 30% 服务费收取（每篇服务费 $10–$50 封顶）。英文站点专属，站点需符合正常内容标准。
+
+| 项目 | 详情 |
+|---|---|
+| 服务网站 | bestlinks.ai |
+| 定金 | 1,000 RMB（≈ $138）✅ 已付 |
+| 锚文字 | AstrologyWiki（品牌）+ astrology wiki（部分匹配）|
+| 目标链接 | astrologywiki.com（首批指向首页）|
+| 参考竞品 | cafeastrology.com / astrostyle.com / horoscope.com / astroseek.com / astro.com |
+| 预计购买篇数 | 6–7 篇（含定金，剩余预算 ~$467）|
+| 平均每篇预算 | $70–80/条（对应 DR 45–65 区间）|
+| 状态 | 🟡 表单待提交，定金已付 |
+
+**小计：直接采购 3 个 RDs（$370–420）+ BestLinks 6–7 个 RDs（~$605 含定金）**
 
 ---
 
@@ -119,34 +136,47 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 ---
 
-## 四、仍需采购：5-8个外链
+## 四、剩余采购：通过 BestLinks.ai 托管执行
 
-### 4.1 预算空间
+> 剩余外链采购已统一交由 BestLinks.ai 托管执行，不再需要独立自查站点和发邮件。以下为当前预算状态和行动项。
 
-| 项目 | 金额 |
-|------|------|
-| 总预算 | $1,000-1,200 |
-| 已确认付费支出 | $410-460 |
-| **剩余可用** | **$540-790** |
-| 目标采购数量 | 5-8个 |
-| 单条预算区间 | $70-150/条 |
+### 4.1 预算状态（更新于 2026-06-22）
 
-### 4.2 采购优先顺序
+| 项目 | 金额 | 状态 |
+|---|---|---|
+| 总预算 | $1,000 | — |
+| uneed.best | $30 | ✅ 已付 |
+| codesupply.co | $125 | 待付款 |
+| technology.org | $240 | 待均分DR核查后决定 |
+| BestLinks 定金 | $138（1000 RMB）| ✅ 已付 |
+| **已动用 / 已承诺** | **$533** | |
+| **BestLinks 剩余可用** | **$467** | |
+| BestLinks 可再购条数 | **≈ 5 条**（@$91/条均值）| |
+
+> ⚠️ 若 technology.org 均分DR不达标（< 0.04），释放 $240 → BestLinks 可追加 2–3 条，总计 8–10 条
+
+### 4.2 BestLinks 表单提交行动项
 
 ```
-第一优先：DR 55-75 + 均分DR ≥ 0.05 + 灵性/健康/女性内容
-第二优先：DR 45-55 + 均分DR ≥ 0.04 + 有真实英语国家流量
-不考虑：均分DR < 0.04 的任何站点，无论DR多高
+待提交内容（填写 bestlinks.ai 表单）：
+□ 网站域名：astrologywiki.com
+□ 锚文字：AstrologyWiki + astrology wiki
+□ 目标链接：https://astrologywiki.com（首批）
+□ 竞品：cafeastrology.com / astrostyle.com / horoscope.com / astroseek.com / astro.com
+□ 购买篇数：6 篇（首批，含定金抵扣）
+□ 均价：$70–80/条
 ```
 
-### 4.3 审核流程（每个候选站点）
+### 4.3 BestLinks 站点质量核查要点
+
+> BestLinks 负责初筛，但收到站点建议后需自行核查以下项目再确认：
 
 ```
-Step 1：ahrefs.com/backlink-checker → 查DR和Dofollow RDs数量
-Step 2：计算均分DR = DR ÷ Dofollow RDs → 低于0.04直接排除
-Step 3：确认Ahrefs月流量 > 1,000 且英语国家为主
-Step 4：站龄核查（WHOIS）→ 建站不足1年且DR > 40需警惕
-Step 5：邮件确认dofollow属性 + TAT ≤ 10天 → 付款
+□ 均分DR = DR ÷ Dofollow RDs → 确认 ≥ 0.04
+□ Ahrefs 月流量 > 1,000 且英语国家为主
+□ 主题相关性：灵性 / 健康 / 女性生活 / 自我成长
+□ 站龄核查：建站不足 1 年 + DR 快速飙升 = 排除
+□ 书面确认 dofollow 属性（发布前）
 ```
 
 ---
@@ -173,9 +203,10 @@ Step 5：邮件确认dofollow属性 + TAT ≤ 10天 → 付款
 
 | 类别 | 金额 | 备注 |
 |------|------|------|
-| 已确认付费外链（3个） | $370-420 | uneed($29.99) + codesupply + technology.org |
-| 待采购外链（8-11个） | $560-1,100 | 单条$70-150，均分DR≥0.04 |
-| **总计** | **$930-1,520** | 控制在$1,200以内，technology.org($240)若均分DR不达标可释放预算 |
+| 直接采购（uneed + codesupply + technology.org）| $370–420 | technology.org 待均分DR核查 |
+| BestLinks 定金 | $138 | 1000 RMB，✅ 已付 |
+| BestLinks 剩余订单 | ~$467 | ≈ 5 条，@$91/条均值 |
+| **总计** | **≈ $975–1,025** | 控制在 $1,000 以内；technology.org 不达标可追加 BestLinks |
 
 ---
 
@@ -234,5 +265,6 @@ Step 5：邮件确认dofollow属性 + TAT ≤ 10天 → 付款
 *制定：马博洋 / 2026-06-15*
 *更新：2026-06-15（中介审核+均分DR实测+预算修正+结构重组）*
 *更新：2026-06-16（对照外链追踪表-3全量修正）*
+*更新：2026-06-22（新增 BestLinks.ai 托管外联渠道；预算重新分配；Section 四改为 BestLinks 执行框架）*
 *主要修正（06-16）：排除uploadarticle.com（均分DR 0.0139）、排除toolify/mossai/techktimes（均分DR不达标）、uneed.best标记为已购买今日发布、确认RD计数从8修正为5、instyle.com升级为重点候选（均分DR 0.047）、elephantjournal状态更新为已发布待审核、预算缺口重新计算*
 *下次更新：2026-07-31（6.5周阶段总结）*
