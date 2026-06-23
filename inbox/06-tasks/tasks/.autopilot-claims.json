@@ -1221,7 +1221,7 @@
     "mergedAt": "2026-06-23T17:38:13.300Z"
   },
   "PG-MYTH-009": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-MYTH-009.md",
@@ -1233,6 +1233,8 @@
     "branch": "seo/auto/2026-06-23-PG-MYTH-009",
     "pr": "https://github.com/xdawayer/oracle/pull/248",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "codex completed with codex FAIL —House of the Dragon season 3 premiered on June 21, 2026, so “across both seasons” is outdated",
+    "failedAt": "2026-06-23T17:50:03.533Z"
   }
 }
