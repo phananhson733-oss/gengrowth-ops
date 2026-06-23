@@ -1221,15 +1221,18 @@
     "mergedAt": "2026-06-23T17:38:13.300Z"
   },
   "PG-MYTH-009": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-MYTH-009.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "12911",
-    "leaseUntil": "2026-06-23T18:44:28.668Z",
-    "updatedAt": "2026-06-23T17:44:28.668Z",
+    "leaseUntil": "2026-06-23T18:45:02.628Z",
+    "updatedAt": "2026-06-23T17:45:02.628Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-MYTH-009",
-    "branch": "seo/auto/2026-06-23-PG-MYTH-009"
+    "branch": "seo/auto/2026-06-23-PG-MYTH-009",
+    "pr": "https://github.com/xdawayer/oracle/pull/248",
+    "zh": false,
+    "needs_hero": true
   }
 }
