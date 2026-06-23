@@ -138,7 +138,6 @@
     "branch": "seo/auto/2026-06-22-PG-JOURNAL-003",
     "pr": "https://github.com/xdawayer/oracle/pull/210",
     "zh": true,
-    "needs_hero": true,
     "mergedAt": "2026-06-22T14:00:25.791Z",
     "reconciliationNote": "auto-reconciled from oracle main article registration"
   },
@@ -593,8 +592,7 @@
     "updatedAt": "2026-06-22T15:13:13.050Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-NODE-009-dry-run-83485",
     "branch": "seo/auto/2026-06-22-PG-NODE-009",
-    "zh": true,
-    "needs_hero": true
+    "zh": true
   },
   "PG-NODE-010": {
     "owner": "autopilot",
@@ -728,7 +726,6 @@
     "branch": "seo/auto/2026-06-18-PG-SOLAR-001",
     "pr": "https://github.com/xdawayer/oracle/pull/194",
     "zh": true,
-    "needs_hero": true,
     "failedAt": "2026-06-18T15:43:12.356Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-18-pg-00b577-wzbs-projects-39a68c1d.vercel.app",
     "mergedAt": "2026-06-18T15:46:47.000Z",
@@ -827,7 +824,6 @@
   "PG-WC-001": {
     "branch": "seo/auto/2026-06-12-PG-WC-001",
     "mergedAt": "2026-06-12T18:07:46.981Z",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/132",
@@ -851,7 +847,6 @@
   "PG-WC-002": {
     "branch": "seo/auto/2026-06-12-PG-WC-002",
     "mergedAt": "2026-06-12T18:53:29.150Z",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/133",
@@ -866,7 +861,6 @@
   "PG-WC-003": {
     "branch": "seo/auto/2026-06-12-PG-WC-003",
     "mergedAt": "2026-06-12T19:26:42.764Z",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/134",
@@ -881,7 +875,6 @@
   "PG-WC-004": {
     "branch": "seo/auto/2026-06-13-PG-WC-004",
     "mergedAt": "2026-06-13T04:43:46.257Z",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/142",
@@ -895,7 +888,6 @@
   },
   "PG-WC-005": {
     "branch": "seo/auto/2026-06-13-PG-WC-005",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/143",
@@ -909,7 +901,6 @@
   },
   "PG-WC-006": {
     "branch": "seo/auto/2026-06-13-PG-WC-006",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/144",
@@ -923,7 +914,6 @@
   },
   "PG-WC-007": {
     "branch": "seo/auto/2026-06-13-PG-WC-007",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/145",
@@ -937,7 +927,6 @@
   },
   "PG-WC-008": {
     "branch": "seo/auto/2026-06-13-PG-WC-008",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/146",
@@ -951,7 +940,6 @@
   },
   "PG-WC-009": {
     "branch": "seo/auto/2026-06-13-PG-WC-009",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/147",
@@ -965,7 +953,6 @@
   },
   "PG-WC-010": {
     "branch": "seo/auto/2026-06-13-PG-WC-010",
-    "needs_hero": true,
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "pr": "https://github.com/xdawayer/oracle/pull/148",
@@ -1101,7 +1088,6 @@
     "branch": "seo/auto/2026-06-22-PG-WC-029",
     "pr": "https://github.com/xdawayer/oracle/pull/208",
     "zh": false,
-    "needs_hero": true,
     "retryEvidence": "corrected NZ match fact (Salah scored go-ahead + assisted Trezeguet, web-verified); reframed to two-way versatility; upstream override fixed; pushed 86bbaf1",
     "retryAt": "2026-06-22T14:27:20.981Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-wc-029-wzbs-projects-39a68c1d.vercel.app",
