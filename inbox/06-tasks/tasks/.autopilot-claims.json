@@ -1179,7 +1179,7 @@
     "mergedAt": "2026-06-23T16:38:06.499Z"
   },
   "PG-WC-033": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
@@ -1191,6 +1191,8 @@
     "branch": "seo/auto/2026-06-23-PG-WC-033",
     "pr": "https://github.com/xdawayer/oracle/pull/246",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "codex completed with codex FAIL —Bruno Fernandes is not verifiably Portugal's vice-captain behind Cristiano Ronaldo",
+    "failedAt": "2026-06-23T17:08:15.621Z"
   }
 }
