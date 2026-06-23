@@ -1199,5 +1199,17 @@
     "verifiedAt": "2026-06-23T17:22:10.056Z",
     "headRefOid": "8c4fdecb0a38dbb3865e60b9961db7a6215ff98c",
     "mergedAt": "2026-06-23T17:22:16.481Z"
+  },
+  "PG-TRANS-013": {
+    "status": "active",
+    "slug": "cancer-season-2026-astrology",
+    "owner": "autopilot",
+    "plan": "one-plan-TRANS-013.md",
+    "stage": "convert",
+    "lockedBy": "93309",
+    "leaseUntil": "2026-06-23T18:30:52.492Z",
+    "updatedAt": "2026-06-23T17:30:52.492Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-TRANS-013",
+    "branch": "seo/auto/2026-06-23-PG-TRANS-013"
   }
 }
