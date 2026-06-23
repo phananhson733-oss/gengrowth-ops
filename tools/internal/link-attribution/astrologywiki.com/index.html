@@ -493,24 +493,33 @@
         return candidate;
       }
 
-      function normalizeUniqueSeed(value) {
+      function normalizeUniqueSeed(value, maxLength = 16) {
         return String(value || '')
           .trim()
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, '')
-          .slice(0, 8);
+          .slice(0, maxLength);
+      }
+
+      function createRandomPart(length) {
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+          const values = new Uint8Array(length);
+          crypto.getRandomValues(values);
+          return Array.from(values, (value) => alphabet[value % alphabet.length]).join('');
+        }
+
+        let result = '';
+        while (result.length < length) {
+          result += Math.random().toString(36).slice(2);
+        }
+        return result.slice(0, length);
       }
 
       function createUniqueSeed() {
-        let candidate = '';
-        if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
-          const values = new Uint32Array(2);
-          crypto.getRandomValues(values);
-          candidate = `${values[0].toString(36)}${values[1].toString(36)}`;
-        } else {
-          candidate = `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
-        }
-        return normalizeUniqueSeed(candidate) || 'auto';
+        const timePart = Date.now().toString(36).slice(-6);
+        const randomPart = createRandomPart(6);
+        return normalizeUniqueSeed(`${timePart}${randomPart}`) || 'auto';
       }
 
       function buildOwnedShortCode(params) {
@@ -539,6 +548,16 @@
         };
       }
 
+      function toDisplayShortUrl(shortUrl) {
+        const value = valueOf(shortUrl, '短链接');
+        try {
+          const url = new URL(value);
+          return `${url.pathname}${url.search}${url.hash}`;
+        } catch {
+          return value;
+        }
+      }
+
       function buildActionId({ medium, source, date }) {
         const channel = slugifyActionPart(medium || 'link') || 'link';
         const sourcePart = slugifyActionPart(source || 'source') || 'source';
@@ -553,6 +572,7 @@
         createUniqueSeed,
         buildLongUrl,
         buildRedirectMapping,
+        toDisplayShortUrl,
         normalizeLandingUrl,
         parseReservedCodes,
       };
@@ -611,6 +631,15 @@
         }
         codes.add(code);
         reservedCodeRegistry.textContent = JSON.stringify([...codes].sort());
+      }
+
+      function setShortUrlValue(fullUrl) {
+        shortUrl.dataset.fullUrl = fullUrl || '';
+        shortUrl.value = fullUrl ? core.toDisplayShortUrl(fullUrl) : '';
+      }
+
+      function valueForAction(target) {
+        return String(target?.dataset?.fullUrl || target?.value || '').trim();
       }
 
       async function registerRedirectMapping(mapping) {
@@ -674,11 +703,11 @@
         const data = formData();
         const generatedLongUrl = core.buildLongUrl(data);
         longUrl.value = generatedLongUrl;
-        shortUrl.value = '';
+        setShortUrlValue('');
         state.textContent = '正在提交';
         setStatus('正在提交到 Oracle...', 'warn');
         const { mapping, registered } = await registerWithGlobalConflictRetry(data, generatedLongUrl);
-        shortUrl.value = registered.short_url || mapping.clean_short_url;
+        setShortUrlValue(registered.short_url || mapping.clean_short_url);
         state.textContent = '链接已生成';
         setStatus('已生成并提交到 Oracle，可直接复制或打开测试。', 'ok');
         return generatedLongUrl;
@@ -697,7 +726,7 @@
       document.querySelectorAll('[data-copy]').forEach((button) => {
         button.addEventListener('click', async () => {
           const target = document.getElementById(button.dataset.copy);
-          const value = target.value.trim();
+          const value = valueForAction(target);
           if (!value) {
             setStatus('没有可复制的链接。', 'warn');
             return;
@@ -710,7 +739,7 @@
       document.querySelectorAll('[data-open]').forEach((button) => {
         button.addEventListener('click', () => {
           const target = document.getElementById(button.dataset.open);
-          const value = target.value.trim();
+          const value = valueForAction(target);
           if (!value) {
             setStatus('没有可打开的链接。', 'warn');
             return;
