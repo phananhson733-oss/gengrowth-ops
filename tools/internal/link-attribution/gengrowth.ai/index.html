@@ -313,8 +313,7 @@
             <textarea id="short-url" readonly spellcheck="false"></textarea>
           </label>
           <div class="row-actions">
-            <button class="secondary" type="button" data-copy-url="short-url">复制短链接</button>
-            <button class="secondary" type="button" data-copy="short-url">复制短码</button>
+            <button class="secondary" type="button" data-copy="short-url">复制短链接</button>
             <button class="secondary" type="button" data-open="short-url">打开短链接</button>
           </div>
 
@@ -553,7 +552,9 @@
         const value = valueOf(shortUrl, '短链接');
         try {
           const url = new URL(value);
-          return url.pathname.split('/').filter(Boolean).pop() || value;
+          const host = url.hostname.replace(/^www\./, '');
+          const path = url.pathname.replace(/^\/+/, '');
+          return path ? `${host}/${path}` : host;
         } catch {
           return value;
         }
@@ -642,10 +643,6 @@
 
       function valueForCopy(target) {
         return String(target?.value || '').trim();
-      }
-
-      function valueForCopyUrl(target) {
-        return String(target?.dataset?.fullUrl || target?.value || '').trim();
       }
 
       function valueForOpen(target) {
@@ -737,19 +734,6 @@
         button.addEventListener('click', async () => {
           const target = document.getElementById(button.dataset.copy);
           const value = valueForCopy(target);
-          if (!value) {
-            setStatus('没有可复制的链接。', 'warn');
-            return;
-          }
-          await navigator.clipboard.writeText(value);
-          setStatus('已复制。', 'ok');
-        });
-      });
-
-      document.querySelectorAll('[data-copy-url]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const target = document.getElementById(button.dataset.copyUrl);
-          const value = valueForCopyUrl(target);
           if (!value) {
             setStatus('没有可复制的链接。', 'warn');
             return;

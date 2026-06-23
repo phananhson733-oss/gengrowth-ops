@@ -145,7 +145,7 @@ test('生成自有短链：使用 astrologywiki 主站短路径，并输出映�
   assert.equal(mapping.clean_short_url, 'https://www.astrologywiki.com/go/x9k2p7');
   assert.equal(mapping.destination_url, longUrl);
   assert.equal(mapping.redirect_status, 302);
-  assert.equal(core.toDisplayShortUrl(shortLink), 'x9k2p7');
+  assert.equal(core.toDisplayShortUrl(shortLink), 'astrologywiki.com/go/x9k2p7');
 });
 
 test('生成自有短链：默认短码包含时间戳片段和安全随机片段', () => {
@@ -272,11 +272,12 @@ test('页面隐藏工程映射，但保留复制和打开链接操作', () => {
   assert.equal(html.includes('生成链接'), true);
 });
 
-test('页面显示随机 code，复制短链接和打开短链接仍使用完整 URL', () => {
+test('页面显示和复制 domain/go/code 短链接，打开短链接使用完整 URL', () => {
   assert.equal(html.includes('toDisplayShortUrl'), true);
   assert.equal(html.includes('dataset.fullUrl'), true);
-  assert.equal(html.includes('data-copy-url="short-url"'), true);
-  assert.equal(html.includes('复制短码'), true);
+  assert.equal(html.includes('data-copy="short-url"'), true);
+  assert.equal(html.includes('data-copy-url="short-url"'), false);
+  assert.equal(html.includes('复制短码'), false);
   assert.equal(html.includes('valueForCopy'), true);
   assert.equal(html.includes('valueForOpen'), true);
 });
@@ -329,8 +330,9 @@ test('GenGrowth 站点工具：独立目录、标题和脚本可用', () => {
   assert.equal(gengrowth.html.includes('appendReservedCodeToRegistry'), true);
   assert.equal(gengrowth.html.includes('toDisplayShortUrl'), true);
   assert.equal(gengrowth.html.includes('dataset.fullUrl'), true);
-  assert.equal(gengrowth.html.includes('data-copy-url="short-url"'), true);
-  assert.equal(gengrowth.html.includes('复制短码'), true);
+  assert.equal(gengrowth.html.includes('data-copy="short-url"'), true);
+  assert.equal(gengrowth.html.includes('data-copy-url="short-url"'), false);
+  assert.equal(gengrowth.html.includes('复制短码'), false);
   assert.equal(gengrowth.html.includes('valueForCopy'), true);
   assert.equal(gengrowth.html.includes('valueForOpen'), true);
   gengrowth.allScripts.forEach((source) => {
@@ -366,7 +368,7 @@ test('GenGrowth 站点工具：只允许 gengrowth.ai 域名并生成长短链',
     }),
     'https://www.gengrowth.ai/go/g9n2th'
   );
-  assert.equal(gengrowth.core.toDisplayShortUrl('https://www.gengrowth.ai/go/g9n2th'), 'g9n2th');
+  assert.equal(gengrowth.core.toDisplayShortUrl('https://www.gengrowth.ai/go/g9n2th'), 'gengrowth.ai/go/g9n2th');
 
   assert.throws(
     () => gengrowth.core.buildLongUrl({
