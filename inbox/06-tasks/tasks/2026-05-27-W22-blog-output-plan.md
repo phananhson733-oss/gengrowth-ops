@@ -259,7 +259,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-TRANS-013 cancer season 2026 astrology
 - [ ] PG-MYTH-009 rhaenyra targaryen zodiac sign
 - [x] PG-WC-032 luka modric zodiac sign
-- [ ] PG-WC-033 bruno fernandes zodiac sign
+- [x] PG-WC-033 bruno fernandes zodiac sign
 - [x] PG-WC-034 bukayo saka zodiac sign
 
 ---
