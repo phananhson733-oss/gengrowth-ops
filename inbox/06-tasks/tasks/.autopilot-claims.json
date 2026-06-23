@@ -1111,7 +1111,7 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1124,6 +1124,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
     "retryEvidence": "codex factual fix: reframed Doku World Cup 'exit' from a past June event to his announced paternity plan + the L'Equipe/Pierron controversy (verified ESPN/Goal/Mirror; Pierron suspended; baby due July). regenerated .ts, pushed 42def08",
-    "retryAt": "2026-06-23T04:51:28.510Z"
+    "retryAt": "2026-06-23T04:51:28.510Z",
+    "error": "review[astrology] FAIL: The article's central placement claim — Mars at the anaretic 29th degree of Gemini on May 27, 2002 — is astronomically wrong (Mars was at the end of Taurus / very early Gemini on that date, not 29° Gemini), and the asserted Leo Rising is fabricated since no birth time is given.",
+    "failedAt": "2026-06-23T04:53:28.435Z"
   }
 }
