@@ -1137,5 +1137,17 @@
     "verifiedAt": "2026-06-23T05:46:31.463Z",
     "headRefOid": "35c3783223ed5ef1b78256d167b2bd01c130ddb5",
     "mergedAt": "2026-06-23T05:46:37.824Z"
+  },
+  "PG-WC-034": {
+    "status": "active",
+    "slug": "bukayo-saka-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "one-plan-WC-034.md",
+    "stage": "convert",
+    "lockedBy": "55118",
+    "leaseUntil": "2026-06-23T17:04:29.789Z",
+    "updatedAt": "2026-06-23T16:04:29.789Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-034",
+    "branch": "seo/auto/2026-06-23-PG-WC-034"
   }
 }
