@@ -1111,7 +1111,7 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1124,6 +1124,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
     "retryEvidence": "astro-fix 94b7d1b: removed fabricated Leo Rising (no birth time → no ascendant); kept Mars 29deg Gemini (ephemeris-confirmed via signsbystars May2002: Mars 29d01 Gemini on 5/27, contra worker's Taurus hallucination); added verified Venus in Cancer (~8deg). All placements now time-independent + ephemeris-checked.",
-    "retryAt": "2026-06-23T05:01:43.407Z"
+    "retryAt": "2026-06-23T05:01:43.407Z",
+    "error": "review[astrology] FAIL: The chart's central, repeated factual claim — Mars at the anaretic 29th degree of Gemini for a May 27, 2002 birth — is unverifiable without a birth time and is astronomically implausible, making it a material astrological error driving the entire thesis.",
+    "failedAt": "2026-06-23T05:03:23.019Z"
   }
 }
