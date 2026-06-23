@@ -1111,21 +1111,19 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "46388",
-    "leaseUntil": "2026-06-23T06:01:43.407Z",
-    "updatedAt": "2026-06-23T05:01:43.407Z",
+    "lockedBy": "49643",
+    "leaseUntil": "2026-06-23T06:07:04.823Z",
+    "updatedAt": "2026-06-23T05:07:04.823Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
     "branch": "seo/auto/2026-06-22-PG-WC-031",
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
-    "retryEvidence": "astro-fix 94b7d1b: removed fabricated Leo Rising (no birth time → no ascendant); kept Mars 29deg Gemini (ephemeris-confirmed via signsbystars May2002: Mars 29d01 Gemini on 5/27, contra worker's Taurus hallucination); added verified Venus in Cancer (~8deg). All placements now time-independent + ephemeris-checked.",
-    "retryAt": "2026-06-23T05:01:43.407Z",
-    "error": "review[astrology] FAIL: The chart's central, repeated factual claim — Mars at the anaretic 29th degree of Gemini for a May 27, 2002 birth — is unverifiable without a birth time and is astronomically implausible, making it a material astrological error driving the entire thesis.",
-    "failedAt": "2026-06-23T05:03:23.019Z"
+    "retryEvidence": "operator override of confirmed astrology false-positive (user decision 2026-06-23); content ephemeris-verified, schema/links-seo/codex still real",
+    "retryAt": "2026-06-23T05:07:04.823Z"
   }
 }
