@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-22
+updated: 2026-06-23
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -66,3 +66,4 @@ updated: 2026-06-22
 | 2026-06-22 | PG-WC-026 | spain-world-cup-2026-astrology | Spain World Cup 2026 Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/spain-world-cup-2026-astrology | published |
 | 2026-06-22 | PG-TRANS-011 | chiron-in-taurus-2026-astrology | Chiron In Taurus 2026 Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/chiron-in-taurus-2026-astrology | published |
 | 2026-06-22 | PG-WC-029 | mo-salah-birth-chart | Mo Salah Birth Chart | aditi-sharma | https://www.astrologywiki.com/en/wiki/mo-salah-birth-chart | published |
+| 2026-06-23 | PG-WC-031 | jeremy-doku-birth-chart | Jeremy Doku Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/jeremy-doku-birth-chart | published |

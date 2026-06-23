@@ -250,7 +250,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-MYTH-007 niko birth chart
 - [x] PG-WC-029 mo salah birth chart
 - [x] PG-MYTH-008 prince william birth chart -> LIVE https://www.astrologywiki.com/en/wiki/prince-william-birth-chart
-- [ ] PG-WC-031 jeremy doku birth chart
+- [x] PG-WC-031 jeremy doku birth chart
 - [ ] PG-TRANS-012 father's day astrology 2026
 
 ---
