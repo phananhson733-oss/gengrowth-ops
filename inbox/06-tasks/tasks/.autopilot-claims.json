@@ -1111,21 +1111,19 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "49643",
-    "leaseUntil": "2026-06-23T06:07:04.823Z",
-    "updatedAt": "2026-06-23T05:07:04.823Z",
+    "lockedBy": "53679",
+    "leaseUntil": "2026-06-23T06:13:28.375Z",
+    "updatedAt": "2026-06-23T05:13:28.375Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
     "branch": "seo/auto/2026-06-22-PG-WC-031",
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
-    "retryEvidence": "operator override of confirmed astrology false-positive (user decision 2026-06-23); content ephemeris-verified, schema/links-seo/codex still real",
-    "retryAt": "2026-06-23T05:07:04.823Z",
-    "error": "review[links-seo] FAIL: Every internal wiki-link is an unresolved TBD placeholder rendered as plain italic text with no href, so the published page has zero working internal links including the required early-opening one.",
-    "failedAt": "2026-06-23T05:08:06.943Z"
+    "retryEvidence": "links-fix 790edb3: resolved all TBD internal links to 7 live /en/wiki targets (was zero working internal links); astrology override stands (ephemeris-confirmed)",
+    "retryAt": "2026-06-23T05:13:28.375Z"
   }
 }
