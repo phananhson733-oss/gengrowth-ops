@@ -1132,7 +1132,7 @@
     "mergedAt": "2026-06-23T05:18:03.724Z"
   },
   "PG-TRANS-012": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1143,6 +1143,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-TRANS-012",
     "branch": "seo/auto/2026-06-23-PG-TRANS-012",
     "pr": "https://github.com/xdawayer/oracle/pull/227",
-    "zh": false
+    "zh": false,
+    "error": "review[schema] FAIL: The meta description is truncated mid-sentence, ending on the dangling fragment \"...many U.S.\" instead of a complete, self-contained summary.",
+    "failedAt": "2026-06-23T05:31:52.241Z"
   }
 }
