@@ -1111,19 +1111,19 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "99204",
-    "leaseUntil": "2026-06-22T16:31:01.536Z",
-    "updatedAt": "2026-06-22T15:31:01.536Z",
+    "lockedBy": "39946",
+    "leaseUntil": "2026-06-23T05:51:28.510Z",
+    "updatedAt": "2026-06-23T04:51:28.510Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-22-PG-WC-031",
     "branch": "seo/auto/2026-06-22-PG-WC-031",
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
-    "error": "codex completed with codex FAIL —claimed Doku already left Belgium camp in June 2026 for childbirth",
-    "failedAt": "2026-06-22T15:34:19.343Z"
+    "retryEvidence": "codex factual fix: reframed Doku World Cup 'exit' from a past June event to his announced paternity plan + the L'Equipe/Pierron controversy (verified ESPN/Goal/Mirror; Pierron suspended; baby due July). regenerated .ts, pushed 42def08",
+    "retryAt": "2026-06-23T04:51:28.510Z"
   }
 }
