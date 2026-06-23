@@ -85,39 +85,39 @@ updated: 2026-06-16
 
 ---
 
-## ⚪ 6月23日 — b2b_agency_seo (P2)
+## 🟢 6月23日 — b2b_agency_seo (P2)
 
-**状态**：`计划中`
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-B2B-001` seo for technology companies
-- [ ] `PG-B2B-002` seo outreach agency
-- [ ] `PG-B2B-003` best tools for seo for b2b
+- [x] `PG-B2B-001` seo for technology companies  -> LIVE https://gengrowth.ai/en/blog/seo-for-technology-companies
+- [x] `PG-B2B-002` seo outreach agency  -> LIVE https://gengrowth.ai/en/blog/seo-outreach-agency
+- [x] `PG-B2B-003` best tools for seo for b2b  -> LIVE https://gengrowth.ai/en/blog/best-tools-for-seo-for-b2b
 
 ---
 
-## ⚪ 6月24日 — seo_tools_comparison (P2)
+## 🟡 6月24日 — seo_tools_comparison (P2)
 
-**状态**：`计划中`
+**状态**：`进行中` (CMP-001 LIVE；CMP-002/003 撰写中)
 
-- [ ] `PG-CMP-001` affordable seo tools
+- [x] `PG-CMP-001` affordable seo tools  -> LIVE https://gengrowth.ai/en/blog/affordable-seo-tools
 - [ ] `PG-CMP-002` serankings
 - [ ] `PG-CMP-003` seo diagrams
 
 ---
 
-## ⚪ 6月25日 — social_link_building (P3)
+## 🟢 6月25日 — social_link_building (P3)
 
-**状态**：`计划中`
+**状态**：`已输出` (LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-SLB-001` why use a backlink monitor tool
+- [x] `PG-SLB-001` why use a backlink monitor tool  -> LIVE https://gengrowth.ai/en/blog/why-use-a-backlink-monitor-tool
 
 ---
 
-## ⚪ 6月26日 — social_media_seo_tools (P3)
+## 🟢 6月26日 — social_media_seo_tools (P3)
 
-**状态**：`计划中`
+**状态**：`已输出` (LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-SMS-001` tiktok seo tool
+- [x] `PG-SMS-001` tiktok seo tool  -> LIVE https://gengrowth.ai/en/blog/tiktok-seo-tool
 
 ---
 
