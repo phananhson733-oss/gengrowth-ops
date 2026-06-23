@@ -261,19 +261,15 @@
           </label>
 
           <label>
-            短链 code（可选，建议留空）
-            <input id="short-code" name="shortCode" placeholder="多人使用时建议留空，系统会自动加唯一后缀" autocomplete="off">
-          </label>
-
-          <label>
             utm_source
-            <input id="utm-source" name="source" value="partner.example" autocomplete="off">
+            <input id="utm-source" name="source" autocomplete="off">
           </label>
 
           <label>
             utm_medium
             <select id="utm-medium" name="medium">
-              <option value="backlink" selected>backlink</option>
+              <option value="" selected>留空</option>
+              <option value="backlink">backlink</option>
               <option value="social">social</option>
               <option value="kol">kol</option>
               <option value="newsletter">newsletter</option>
@@ -282,12 +278,12 @@
 
           <label>
             utm_campaign / cluster_id
-            <input id="utm-campaign" name="campaign" value="seo_automation" autocomplete="off">
+            <input id="utm-campaign" name="campaign" autocomplete="off">
           </label>
 
           <label>
             utm_content / action_id
-            <input id="utm-content" name="content" value="act_backlink_partner_20260623" autocomplete="off">
+            <input id="utm-content" name="content" autocomplete="off">
           </label>
 
           <div class="actions">
@@ -481,7 +477,7 @@
         const reserved = parseReservedCodes(reservedCodes);
         const base = slugifyShortCode(baseCode);
         if (!base) {
-          throw new Error('短链 code 不能为空');
+          throw new Error('短码不能为空');
         }
 
         if (!reserved.has(base)) {
@@ -517,35 +513,8 @@
         return normalizeUniqueSeed(candidate) || 'auto';
       }
 
-      function lastPathPart(rawLandingUrl) {
-        const url = normalizeLandingUrl(rawLandingUrl);
-        const parts = url.pathname.split('/').filter(Boolean);
-        return parts[parts.length - 1] || 'link';
-      }
-
       function buildOwnedShortCode(params) {
-        const manualCode = slugifyShortCode(optionalValue(params.shortCode));
-        const candidates = manualCode ? [
-          manualCode,
-        ] : [
-          optionalValue(params.content),
-          optionalValue(params.campaign),
-          optionalValue(params.source),
-          lastPathPart(params.landingUrl),
-          'link',
-        ];
-        let code = candidates.map(slugifyShortCode).find(Boolean);
-        if (!code) {
-          throw new Error('短链 code 不能为空');
-        }
-
-        if (!manualCode) {
-          const seed = normalizeUniqueSeed(params.uniqueSeed) || createUniqueSeed();
-          const maxBaseLength = Math.max(8, 60 - seed.length - 1);
-          const base = code.slice(0, maxBaseLength).replace(/-+$/g, '') || 'link';
-          code = `${base}-${seed}`;
-        }
-
+        const code = normalizeUniqueSeed(params.uniqueSeed) || createUniqueSeed();
         return makeUniqueShortCode(code, params.reservedCodes);
       }
 
@@ -600,9 +569,6 @@
       const longUrl = document.getElementById('long-url');
       const shortUrl = document.getElementById('short-url');
       const reservedCodeRegistry = document.getElementById('reserved-code-registry');
-      const source = document.getElementById('utm-source');
-      const medium = document.getElementById('utm-medium');
-      const content = document.getElementById('utm-content');
 
       function setStatus(message, type) {
         status.textContent = message || '';
@@ -612,7 +578,7 @@
       function readableRegistrationError(payload, fallback) {
         const errorCode = payload?.code || payload?.error?.code;
         if (errorCode === 'code_conflict') {
-          return '短链 code 已被占用：请换一个 code，或留空让系统自动生成。';
+          return '短码已被占用：系统会自动重试，请重新生成。';
         }
         if (errorCode === 'storage_unconfigured') {
           return '短链存储未配置：请先在 GenGrowth 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认短链映射表已创建。';
@@ -625,34 +591,10 @@
         const data = new FormData(form);
         return {
           landingUrl: data.get('landingUrl'),
-          shortCode: data.get('shortCode'),
           source: data.get('source'),
           medium: data.get('medium'),
           campaign: data.get('campaign'),
           content: data.get('content'),
-        };
-      }
-
-      function currentDateKey() {
-        const now = new Date();
-        const yyyy = String(now.getFullYear());
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const dd = String(now.getDate()).padStart(2, '0');
-        return `${yyyy}${mm}${dd}`;
-      }
-
-      function ensureActionId(data) {
-        if (String(data.content || '').trim()) {
-          return data;
-        }
-        content.value = core.buildActionId({
-          source: source.value,
-          medium: medium.value,
-          date: currentDateKey(),
-        });
-        return {
-          ...data,
-          content: content.value,
         };
       }
 
@@ -696,8 +638,7 @@
       }
 
       async function registerWithGlobalConflictRetry(data, generatedLongUrl) {
-        const hasManualShortCode = String(data.shortCode || '').trim() !== '';
-        const maxAttempts = hasManualShortCode ? 1 : 3;
+        const maxAttempts = 3;
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
           const generatedShortUrl = core.buildOwnedShortUrl({
             ...data,
@@ -721,17 +662,17 @@
             if (error.code === 'code_conflict') {
               appendReservedCodeToRegistry(mapping.code);
             }
-            if (error.code === 'code_conflict' && !hasManualShortCode && attempt < maxAttempts - 1) {
+            if (error.code === 'code_conflict' && attempt < maxAttempts - 1) {
               continue;
             }
             throw error;
           }
         }
-        throw new Error('短链 code 已被占用，请重新生成。');
+        throw new Error('短码已被占用，请重新生成。');
       }
 
       async function generateLongLink() {
-        const data = ensureActionId(formData());
+        const data = formData();
         const generatedLongUrl = core.buildLongUrl(data);
         longUrl.value = generatedLongUrl;
         shortUrl.value = '';
