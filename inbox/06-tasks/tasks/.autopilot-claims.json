@@ -1179,7 +1179,7 @@
     "mergedAt": "2026-06-23T16:38:06.499Z"
   },
   "PG-WC-033": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
@@ -1193,6 +1193,10 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "removed disputed Mars placement (reviewer false-neg on correct Mars-in-Cancer per astrotheme); content now zero-dispute: Virgo Sun verified, Moon/Rising caveated unconfirmed, captaincy verifiable",
-    "retryAt": "2026-06-23T17:18:18.549Z"
+    "retryAt": "2026-06-23T17:18:18.549Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-23-pg-wc-033-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-23T17:22:10.056Z",
+    "headRefOid": "8c4fdecb0a38dbb3865e60b9961db7a6215ff98c"
   }
 }
