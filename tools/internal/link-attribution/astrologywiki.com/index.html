@@ -328,7 +328,7 @@
   <script id="link-attribution-core">
     (function () {
       const ASTROLOGYWIKI_HOSTS = new Set(['astrologywiki.com', 'www.astrologywiki.com']);
-      const OWNED_SHORT_BASE_URL = 'https://www.astrologywiki.com/go/';
+      const OWNED_SHORT_BASE_URL = 'https://www.astrologywiki.com/';
 
       function valueOf(input, label) {
         const value = String(input || '').trim();
@@ -442,7 +442,7 @@
           // Registry can also be pasted as loose text, URLs, or JSON snippets.
         }
 
-        const shortUrlPattern = /https?:\/\/(?:www\.)?astrologywiki\.com\/go\/([a-z0-9][a-z0-9-]*)/gi;
+        const shortUrlPattern = /https?:\/\/(?:www\.)?astrologywiki\.com\/(?:go\/)?([a-z0-9][a-z0-9-]*)/gi;
         let match = shortUrlPattern.exec(text);
         while (match) {
           addReservedCode(codes, match[1]);
@@ -553,8 +553,9 @@
         try {
           const url = new URL(value);
           const host = url.hostname.replace(/^www\./, '');
-          const path = url.pathname.replace(/^\/+/, '');
-          return path ? `${host}/${path}` : host;
+          const parts = url.pathname.split('/').filter(Boolean);
+          const code = parts[0] === 'go' ? parts[1] : parts[0];
+          return code ? `${host}/${code}` : host;
         } catch {
           return value;
         }
