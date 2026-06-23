@@ -272,9 +272,11 @@ test('页面隐藏工程映射，但保留复制和打开链接操作', () => {
   assert.equal(html.includes('生成链接'), true);
 });
 
-test('页面只显示和复制随机 code，打开短链接仍使用完整 URL', () => {
+test('页面显示随机 code，复制短链接和打开短链接仍使用完整 URL', () => {
   assert.equal(html.includes('toDisplayShortUrl'), true);
   assert.equal(html.includes('dataset.fullUrl'), true);
+  assert.equal(html.includes('data-copy-url="short-url"'), true);
+  assert.equal(html.includes('复制短码'), true);
   assert.equal(html.includes('valueForCopy'), true);
   assert.equal(html.includes('valueForOpen'), true);
 });
@@ -327,6 +329,8 @@ test('GenGrowth 站点工具：独立目录、标题和脚本可用', () => {
   assert.equal(gengrowth.html.includes('appendReservedCodeToRegistry'), true);
   assert.equal(gengrowth.html.includes('toDisplayShortUrl'), true);
   assert.equal(gengrowth.html.includes('dataset.fullUrl'), true);
+  assert.equal(gengrowth.html.includes('data-copy-url="short-url"'), true);
+  assert.equal(gengrowth.html.includes('复制短码'), true);
   assert.equal(gengrowth.html.includes('valueForCopy'), true);
   assert.equal(gengrowth.html.includes('valueForOpen'), true);
   gengrowth.allScripts.forEach((source) => {
