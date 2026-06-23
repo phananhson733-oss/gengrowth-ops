@@ -251,7 +251,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-029 mo salah birth chart
 - [x] PG-MYTH-008 prince william birth chart -> LIVE https://www.astrologywiki.com/en/wiki/prince-william-birth-chart
 - [x] PG-WC-031 jeremy doku birth chart -> LIVE https://www.astrologywiki.com/en/wiki/jeremy-doku-birth-chart （双子日+Venus巨蟹+Mars 29°双子星历证实；删杜撰Leo Rising；codex修正paternity-plan事实）
-- [x] PG-TRANS-012 father's day astrology 2026
+- [x] PG-TRANS-012 father's day astrology 2026 -> LIVE https://www.astrologywiki.com/en/wiki/father-s-day-astrology-2026 （夏至 6/21 4:24 AM EDT Sun入巨蟹 + Jupiter在巨蟹至6/29，星历核实；修正了 Venus 已于6/13离巨蟹的事实错误）
 
 ---
 
