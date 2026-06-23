@@ -1179,20 +1179,20 @@
     "mergedAt": "2026-06-23T16:38:06.499Z"
   },
   "PG-WC-033": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
     "stage": "pushed-preview",
-    "lockedBy": "38063",
-    "leaseUntil": "2026-06-23T18:01:57.427Z",
-    "updatedAt": "2026-06-23T17:01:57.427Z",
+    "lockedBy": "58680",
+    "leaseUntil": "2026-06-23T18:11:06.451Z",
+    "updatedAt": "2026-06-23T17:11:06.451Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-033",
     "branch": "seo/auto/2026-06-23-PG-WC-033",
     "pr": "https://github.com/xdawayer/oracle/pull/246",
     "zh": false,
     "needs_hero": true,
-    "error": "codex completed with codex FAIL —Bruno Fernandes is not verifiably Portugal's vice-captain behind Cristiano Ronaldo",
-    "failedAt": "2026-06-23T17:08:15.621Z"
+    "retryEvidence": "codex factual fix: reworded captaincy to verifiable (Man Utd captain; plays under Portugal captain Ronaldo); dropped disputed Portugal vice-captain title",
+    "retryAt": "2026-06-23T17:11:06.451Z"
   }
 }
