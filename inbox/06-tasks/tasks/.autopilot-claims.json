@@ -1111,7 +1111,7 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1124,6 +1124,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
     "retryEvidence": "links-fix 790edb3: resolved all TBD internal links to 7 live /en/wiki targets (was zero working internal links); astrology override stands (ephemeris-confirmed)",
-    "retryAt": "2026-06-23T05:13:28.375Z"
+    "retryAt": "2026-06-23T05:13:28.375Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-22-pg-wc-031-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-23T05:17:57.501Z",
+    "headRefOid": "790edb3f69fc4beab45983fff40fbad3caa94c17",
+    "mergedAt": "2026-06-23T05:18:03.724Z"
   }
 }
