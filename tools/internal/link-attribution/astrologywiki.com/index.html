@@ -72,7 +72,14 @@
       align-items: start;
     }
 
-    section {
+    .input-stack {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    section,
+    .note-panel {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -220,6 +227,33 @@
       gap: 8px;
     }
 
+    .note-body {
+      padding: 16px;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .note-list strong {
+      color: var(--text);
+    }
+
+    .note-list code {
+      border-radius: 5px;
+      padding: 1px 5px;
+      background: var(--surface-soft);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
     @media (max-width: 860px) {
       main {
         width: min(100vw - 20px, 680px);
@@ -249,49 +283,68 @@
     </header>
 
     <div class="workspace">
-      <section aria-labelledby="input-title">
-        <div class="panel-title" id="input-title">
-          <span>参数</span>
-          <span>UTM / 短链</span>
-        </div>
-        <form id="link-form">
-          <label class="full">
-            落地页
-            <input id="landing-url" name="landingUrl" value="https://www.astrologywiki.com/" autocomplete="off">
-          </label>
-
-          <label>
-            utm_source
-            <input id="utm-source" name="source" autocomplete="off">
-          </label>
-
-          <label>
-            utm_medium
-            <select id="utm-medium" name="medium">
-              <option value="" selected>留空</option>
-              <option value="backlink">backlink</option>
-              <option value="social">social</option>
-              <option value="kol">kol</option>
-              <option value="newsletter">newsletter</option>
-            </select>
-          </label>
-
-          <label>
-            utm_campaign / cluster_id
-            <input id="utm-campaign" name="campaign" autocomplete="off">
-          </label>
-
-          <label>
-            utm_content / action_id
-            <input id="utm-content" name="content" autocomplete="off">
-          </label>
-
-          <div class="actions">
-            <button type="submit">生成链接</button>
-            <button class="secondary" type="reset">重置</button>
+      <div class="input-stack">
+        <section aria-labelledby="input-title">
+          <div class="panel-title" id="input-title">
+            <span>参数</span>
+            <span>UTM / 短链</span>
           </div>
-        </form>
-      </section>
+          <form id="link-form">
+            <label class="full">
+              落地页
+              <input id="landing-url" name="landingUrl" value="https://www.astrologywiki.com/" autocomplete="off">
+            </label>
+
+            <label>
+              utm_source
+              <input id="utm-source" name="source" autocomplete="off">
+            </label>
+
+            <label>
+              utm_medium
+              <select id="utm-medium" name="medium">
+                <option value="" selected>留空</option>
+                <option value="backlink">backlink</option>
+                <option value="social">social</option>
+                <option value="kol">kol</option>
+                <option value="newsletter">newsletter</option>
+              </select>
+            </label>
+
+            <label>
+              utm_campaign / cluster_id
+              <input id="utm-campaign" name="campaign" autocomplete="off">
+            </label>
+
+            <label>
+              utm_content / action_id
+              <input id="utm-content" name="content" autocomplete="off">
+            </label>
+
+            <div class="actions">
+              <button type="submit">生成链接</button>
+              <button class="secondary" type="reset">重置</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="note-panel" aria-labelledby="usage-note-title">
+          <div class="panel-title" id="usage-note-title">
+            <span>备注</span>
+            <span>UTM 填写规则</span>
+          </div>
+          <div class="note-body">
+            <ul class="note-list">
+              <li><strong>唯一数据脊柱：</strong>三人共享 Google Sheet（选题登记 / 内容资产表），所有动作挂 <code>cluster_id</code>，写进同一张表，不各存一份。</li>
+              <li><code>utm_source</code> 填具体平台，如 reddit / pinterest / x / tiktok；KOL 用 <code>kol-{红人}</code>。</li>
+              <li><code>utm_medium</code> 填渠道类型，只填 social / backlink / kol / newsletter。</li>
+              <li><code>utm_campaign / cluster_id</code> 填共享表里的 <code>cluster_id</code>，如 CL-AW-05。</li>
+              <li><code>utm_content / action_id</code> 填这条分发动作/帖子的 <code>action_id</code>，取自 6-ID 体系。</li>
+              <li><strong>注意：</strong><code>utm_content</code> 填的是帖子 id，不是文章 id；<code>page_id</code> 由落地页 URL 自动对应，不用塞进 UTM。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
 
       <section aria-labelledby="output-title">
         <div class="panel-title" id="output-title">
