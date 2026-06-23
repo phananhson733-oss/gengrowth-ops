@@ -36,7 +36,7 @@ GSC数据显示首次曝光为2026年1月25日，当前处于第5个月：
 |------|------|
 | 目标总确认dofollow RDs | **13-16个** |
 | 当前已有 | 5个（免费4 + uneed已购） |
-| 已确认付费采购 | 1个（uneed，余下codesupply/technology.org待付款） |
+| 已确认付费采购 | 1个（uneed ✅） + BestLinks 10–11 条（待执行）|
 | 当前确认合计 | **5个** |
 | 仍需采购 | **8-11个** |
 | 采购截止时间 | **2026-06-30** |
@@ -154,14 +154,11 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 |---|---|---|
 | 总预算 | $1,000 | — |
 | uneed.best | $30 | ✅ 已付 |
-| codesupply.co | $125 | 待付款 |
-| technology.org | $240 | 待均分DR核查后决定 |
 | BestLinks 定金 | $138（1000 RMB）| ✅ 已付 |
-| **已动用 / 已承诺** | **$533** | |
-| **BestLinks 剩余可用** | **$467** | |
-| BestLinks 可再购条数 | **≈ 5 条**（@$91/条均值）| |
-
-> ⚠️ 若 technology.org 均分DR不达标（< 0.04），释放 $240 → BestLinks 可追加 2–3 条，总计 8–10 条
+| **已动用** | **$168** | |
+| **BestLinks 剩余可用** | **$832** | |
+| BestLinks 总可用（含定金）| **≈ $970** | |
+| BestLinks 可购总条数 | **≈ 10–11 条**（@$91/条均值）| |
 
 ### 4.2 BestLinks 表单提交行动项
 
@@ -171,7 +168,7 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 □ 锚文字：AstrologyWiki + astrology wiki
 □ 目标链接：https://astrologywiki.com（首批）
 □ 竞品：cafeastrology.com / astrostyle.com / horoscope.com / astroseek.com / astro.com
-□ 购买篇数：6 篇（首批，含定金抵扣）
+□ 购买篇数：10 篇（总预算 ~$970，含定金抵扣）
 □ 均价：$70–80/条
 ```
 
@@ -211,10 +208,10 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 | 类别 | 金额 | 备注 |
 |------|------|------|
-| 直接采购（uneed + codesupply + technology.org）| $370–420 | technology.org 待均分DR核查 |
+| uneed.best 直接采购 | $30 | ✅ 已付 |
 | BestLinks 定金 | $138 | 1000 RMB，✅ 已付 |
-| BestLinks 剩余订单 | ~$467 | ≈ 5 条，@$91/条均值 |
-| **总计** | **≈ $975–1,025** | 控制在 $1,000 以内；technology.org 不达标可追加 BestLinks |
+| BestLinks 剩余订单 | ~$832 | ≈ 9 条追加，@$91/条均值 |
+| **总计** | **≈ $1,000** | BestLinks 合计 ≈ 10–11 条；codesupply/technology.org 搁置不计 |
 
 ---
 
@@ -273,6 +270,6 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 *制定：马博洋 / 2026-06-15*
 *更新：2026-06-15（中介审核+均分DR实测+预算修正+结构重组）*
 *更新：2026-06-16（对照外链追踪表-3全量修正）*
-*更新：2026-06-22（新增 BestLinks.ai 托管外联渠道；预算重新分配；Section 四改为 BestLinks 执行框架）*
+*更新：2026-06-22（新增 BestLinks.ai 托管外联渠道；预算重新分配；Section 四改为 BestLinks 执行框架；codesupply.co / technology.org 沟通受阻移至搁置、全预算路由至 BestLinks，可购总量升至 10–11 条）*
 *主要修正（06-16）：排除uploadarticle.com（均分DR 0.0139）、排除toolify/mossai/techktimes（均分DR不达标）、uneed.best标记为已购买今日发布、确认RD计数从8修正为5、instyle.com升级为重点候选（均分DR 0.047）、elephantjournal状态更新为已发布待审核、预算缺口重新计算*
 *下次更新：2026-07-31（6.5周阶段总结）*
