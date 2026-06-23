@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AstrologyWiki 链接归因工具</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f6;
+      --surface: #ffffff;
+      --surface-soft: #eef3ef;
+      --text: #1d2520;
+      --muted: #5f6b64;
+      --line: #d9e0da;
+      --brand: #2f6f5e;
+      --brand-strong: #245749;
+      --warn: #9b4d18;
+      --danger: #a33b3b;
+      --focus: #6a8fdb;
+      --shadow: 0 10px 28px rgba(29, 37, 32, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 36px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 750;
+    }
+
+    .domain-pill {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-soft);
+      border-radius: 8px 8px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    label.full {
+      grid-column: 1 / -1;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    input,
+    select {
+      min-height: 40px;
+      padding: 9px 10px;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+      padding: 11px;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .actions {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: 2px;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      padding: 8px 12px;
+      background: var(--brand);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--brand-strong);
+    }
+
+    button.secondary {
+      background: #fff;
+      color: var(--brand);
+      border-color: var(--line);
+    }
+
+    button.secondary:hover {
+      background: var(--surface-soft);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    .output {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .status {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .status.ok {
+      color: var(--brand-strong);
+    }
+
+    .status.warn {
+      color: var(--warn);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .preset {
+      padding: 8px 9px;
+      font-size: 13px;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .preset:hover {
+      background: var(--surface-soft);
+    }
+
+    @media (max-width: 860px) {
+      main {
+        width: min(100vw - 20px, 680px);
+        padding-top: 18px;
+      }
+
+      header,
+      .workspace,
+      form {
+        display: block;
+      }
+
+      header > * + *,
+      .workspace > * + *,
+      form > * + * {
+        margin-top: 14px;
+      }
+
+      .compact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>AstrologyWiki 链接归因工具</h1>
+      <div class="domain-pill">仅允许 astrologywiki.com / www.astrologywiki.com</div>
+    </header>
+
+    <div class="workspace">
+      <section aria-labelledby="input-title">
+        <div class="panel-title" id="input-title">
+          <span>参数</span>
+          <span>UTM / 短链</span>
+        </div>
+        <form id="link-form">
+          <label class="full">
+            落地页
+            <input id="landing-url" name="landingUrl" value="https://www.astrologywiki.com/en/wiki/aura-colors-pillar" autocomplete="off">
+          </label>
+
+          <label>
+            短链 code
+            <input id="short-code" name="shortCode" placeholder="留空自动生成" autocomplete="off">
+          </label>
+
+          <label>
+            utm_source
+            <input id="utm-source" name="source" value="theglobalhues.com" autocomplete="off">
+          </label>
+
+          <label>
+            utm_medium
+            <select id="utm-medium" name="medium">
+              <option value="backlink" selected>backlink</option>
+              <option value="social">social</option>
+              <option value="kol">kol</option>
+              <option value="newsletter">newsletter</option>
+            </select>
+          </label>
+
+          <label>
+            utm_campaign / cluster_id
+            <input id="utm-campaign" name="campaign" value="aura_colors_1a" autocomplete="off">
+          </label>
+
+          <label>
+            utm_content / action_id
+            <input id="utm-content" name="content" value="act_backlink_theglobalhues_20260623" autocomplete="off">
+          </label>
+
+          <label class="full">
+            已占用 code / 映射
+            <textarea id="reserved-codes" name="reservedCodes" placeholder="可粘贴已有 code、/go/ 短链接或 Redirect 映射 JSON；生成时会自动避让重复 code。" spellcheck="false"></textarea>
+          </label>
+
+          <div class="actions">
+            <button type="submit">生成链接</button>
+            <button class="secondary" type="button" id="fill-action">补 action_id</button>
+            <button class="secondary" type="reset">重置</button>
+          </div>
+        </form>
+      </section>
+
+      <section aria-labelledby="output-title">
+        <div class="panel-title" id="output-title">
+          <span>结果</span>
+          <span id="result-state">待生成</span>
+        </div>
+        <div class="output">
+          <label>
+            长链接
+            <textarea id="long-url" readonly spellcheck="false"></textarea>
+          </label>
+          <div class="row-actions">
+            <button class="secondary" type="button" data-copy="long-url">复制长链接</button>
+            <button class="secondary" type="button" data-open="long-url">打开长链接</button>
+          </div>
+
+          <label>
+            自有短链接
+            <textarea id="short-url" readonly spellcheck="false"></textarea>
+          </label>
+          <div class="row-actions">
+            <button class="secondary" type="button" data-copy="short-url">复制短链接</button>
+            <button class="secondary" type="button" data-open="short-url">打开短链接</button>
+          </div>
+
+          <label>
+            Redirect 映射
+            <textarea id="redirect-map" readonly spellcheck="false"></textarea>
+          </label>
+          <div class="row-actions">
+            <button class="secondary" type="button" data-copy="redirect-map">复制映射</button>
+          </div>
+
+          <div class="status" id="status"></div>
+
+          <div class="compact-grid" aria-label="常用来源">
+            <button class="preset" type="button" data-source="theglobalhues.com">theglobalhues</button>
+            <button class="preset" type="button" data-source="maximum.fm">maximum</button>
+            <button class="preset" type="button" data-source="ktrk.kg">ktrk</button>
+            <button class="preset" type="button" data-source="topflop.pl">topflop</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script id="link-attribution-core">
+    (function () {
+      const ASTROLOGYWIKI_HOSTS = new Set(['astrologywiki.com', 'www.astrologywiki.com']);
+      const OWNED_SHORT_BASE_URL = 'https://www.astrologywiki.com/go/';
+
+      function valueOf(input, label) {
+        const value = String(input || '').trim();
+        if (!value) {
+          throw new Error(`${label} 不能为空`);
+        }
+        return value;
+      }
+
+      function optionalValue(input) {
+        return String(input || '').trim();
+      }
+
+      function normalizeLandingUrl(rawLandingUrl) {
+        let value = valueOf(rawLandingUrl, '落地页');
+        if (value.startsWith('/')) {
+          value = `https://www.astrologywiki.com${value}`;
+        } else if (!/^https?:\/\//i.test(value)) {
+          value = `https://${value}`;
+        }
+
+        const url = new URL(value);
+        const host = url.hostname.toLowerCase();
+        if (!ASTROLOGYWIKI_HOSTS.has(host)) {
+          throw new Error('落地页必须是 astrologywiki.com 或 www.astrologywiki.com');
+        }
+
+        url.protocol = 'https:';
+        return url;
+      }
+
+      function buildLongUrl(params) {
+        const url = normalizeLandingUrl(params.landingUrl);
+        const utmPairs = [
+          ['utm_source', optionalValue(params.source)],
+          ['utm_medium', optionalValue(params.medium)],
+          ['utm_campaign', optionalValue(params.campaign)],
+          ['utm_content', optionalValue(params.content)],
+        ];
+
+        utmPairs.forEach(([key]) => url.searchParams.delete(key));
+        utmPairs.forEach(([key, value]) => {
+          if (value) {
+            url.searchParams.set(key, value);
+          }
+        });
+
+        return url.toString();
+      }
+
+      function slugifyActionPart(value) {
+        return String(value || '')
+          .trim()
+          .toLowerCase()
+          .replace(/^https?:\/\//, '')
+          .replace(/^www\./, '')
+          .replace(/[^a-z0-9]+/g, '_')
+          .replace(/^_+|_+$/g, '')
+          .slice(0, 48);
+      }
+
+      function slugifyShortCode(value) {
+        return String(value || '')
+          .trim()
+          .toLowerCase()
+          .replace(/^https?:\/\//, '')
+          .replace(/^www\./, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 60);
+      }
+
+      function addReservedCode(codes, value) {
+        const code = slugifyShortCode(value);
+        if (code) {
+          codes.add(code);
+        }
+      }
+
+      function parseReservedCodes(input) {
+        const codes = new Set();
+        if (!input) {
+          return codes;
+        }
+
+        if (Array.isArray(input) || input instanceof Set) {
+          input.forEach((value) => addReservedCode(codes, value));
+          return codes;
+        }
+
+        const text = String(input);
+        const shortUrlPattern = /https?:\/\/(?:www\.)?astrologywiki\.com\/go\/([a-z0-9][a-z0-9-]*)/gi;
+        let match = shortUrlPattern.exec(text);
+        while (match) {
+          addReservedCode(codes, match[1]);
+          match = shortUrlPattern.exec(text);
+        }
+
+        const jsonCodePattern = /"code"\s*:\s*"([^"]+)"/gi;
+        match = jsonCodePattern.exec(text);
+        while (match) {
+          addReservedCode(codes, match[1]);
+          match = jsonCodePattern.exec(text);
+        }
+
+        text.split(/\r?\n/).forEach((line) => {
+          const trimmed = line.trim();
+          if (!trimmed || /[{}":/]/.test(trimmed)) {
+            return;
+          }
+          addReservedCode(codes, trimmed);
+        });
+
+        return codes;
+      }
+
+      function makeUniqueShortCode(baseCode, reservedCodes) {
+        const reserved = parseReservedCodes(reservedCodes);
+        const base = slugifyShortCode(baseCode);
+        if (!base) {
+          throw new Error('短链 code 不能为空');
+        }
+
+        if (!reserved.has(base)) {
+          return base;
+        }
+
+        let index = 2;
+        let candidate = `${base}-${index}`;
+        while (reserved.has(candidate)) {
+          index += 1;
+          candidate = `${base}-${index}`;
+        }
+        return candidate;
+      }
+
+      function lastPathPart(rawLandingUrl) {
+        const url = normalizeLandingUrl(rawLandingUrl);
+        const parts = url.pathname.split('/').filter(Boolean);
+        return parts[parts.length - 1] || 'link';
+      }
+
+      function buildOwnedShortCode(params) {
+        const candidates = [
+          optionalValue(params.shortCode),
+          optionalValue(params.content),
+          optionalValue(params.campaign),
+          optionalValue(params.source),
+          lastPathPart(params.landingUrl),
+          'link',
+        ];
+        const code = candidates.map(slugifyShortCode).find(Boolean);
+        if (!code) {
+          throw new Error('短链 code 不能为空');
+        }
+        return makeUniqueShortCode(code, params.reservedCodes);
+      }
+
+      function buildOwnedShortUrl(params) {
+        const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
+        return `${OWNED_SHORT_BASE_URL}${buildOwnedShortCode(params)}?to=${encodeURIComponent(destination)}`;
+      }
+
+      function buildRedirectMapping({ shortUrl, longUrl }) {
+        const short = new URL(valueOf(shortUrl, '短链接'));
+        const long = valueOf(longUrl, '长链接');
+        short.search = '';
+        return {
+          code: short.pathname.split('/').filter(Boolean).pop(),
+          short_url: valueOf(shortUrl, '短链接'),
+          clean_short_url: short.toString(),
+          destination_url: long,
+          redirect_status: 302,
+        };
+      }
+
+      function buildActionId({ medium, source, date }) {
+        const channel = slugifyActionPart(medium || 'link') || 'link';
+        const sourcePart = slugifyActionPart(source || 'source') || 'source';
+        const day = String(date || '').replace(/\D/g, '').slice(0, 8);
+        return `act_${channel}_${sourcePart}_${day || 'yyyymmdd'}`;
+      }
+
+      window.LinkAttributionCore = {
+        buildActionId,
+        buildOwnedShortCode,
+        buildOwnedShortUrl,
+        buildLongUrl,
+        buildRedirectMapping,
+        normalizeLandingUrl,
+        parseReservedCodes,
+      };
+    }());
+  </script>
+
+  <script>
+    (function () {
+      const core = window.LinkAttributionCore;
+      const form = document.getElementById('link-form');
+      const state = document.getElementById('result-state');
+      const status = document.getElementById('status');
+      const longUrl = document.getElementById('long-url');
+      const shortUrl = document.getElementById('short-url');
+      const redirectMap = document.getElementById('redirect-map');
+      const reservedCodes = document.getElementById('reserved-codes');
+      const source = document.getElementById('utm-source');
+      const medium = document.getElementById('utm-medium');
+      const content = document.getElementById('utm-content');
+
+      function setStatus(message, type) {
+        status.textContent = message || '';
+        status.className = `status ${type || ''}`.trim();
+      }
+
+      function formData() {
+        const data = new FormData(form);
+        return {
+          landingUrl: data.get('landingUrl'),
+          shortCode: data.get('shortCode'),
+          source: data.get('source'),
+          medium: data.get('medium'),
+          campaign: data.get('campaign'),
+          content: data.get('content'),
+          reservedCodes: data.get('reservedCodes'),
+        };
+      }
+
+      function appendReservedCode(code) {
+        const existing = core.parseReservedCodes(reservedCodes.value);
+        if (existing.has(code)) {
+          return;
+        }
+        const prefix = reservedCodes.value.trim() ? `${reservedCodes.value.trim()}\n` : '';
+        reservedCodes.value = `${prefix}${code}`;
+      }
+
+      function generateLongLink() {
+        const data = formData();
+        const generatedLongUrl = core.buildLongUrl(data);
+        const generatedShortUrl = core.buildOwnedShortUrl({
+          ...data,
+          destinationUrl: generatedLongUrl,
+        });
+        const mapping = core.buildRedirectMapping({
+          shortUrl: generatedShortUrl,
+          longUrl: generatedLongUrl,
+        });
+        longUrl.value = generatedLongUrl;
+        shortUrl.value = generatedShortUrl;
+        redirectMap.value = JSON.stringify(mapping, null, 2);
+        appendReservedCode(mapping.code);
+        state.textContent = '链接已生成';
+        setStatus(`短链接使用 AstrologyWiki 主站路径；code 已加入已占用列表：${mapping.code}`, 'ok');
+        return generatedLongUrl;
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        try {
+          generateLongLink();
+        } catch (error) {
+          state.textContent = '参数错误';
+          setStatus(error.message, 'error');
+        }
+      });
+
+      document.getElementById('fill-action').addEventListener('click', () => {
+        const now = new Date();
+        const yyyy = String(now.getFullYear());
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        content.value = core.buildActionId({
+          source: source.value,
+          medium: medium.value,
+          date: `${yyyy}${mm}${dd}`,
+        });
+      });
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const target = document.getElementById(button.dataset.copy);
+          const value = target.value.trim();
+          if (!value) {
+            setStatus('没有可复制的链接。', 'warn');
+            return;
+          }
+          await navigator.clipboard.writeText(value);
+          setStatus('已复制。', 'ok');
+        });
+      });
+
+      document.querySelectorAll('[data-open]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = document.getElementById(button.dataset.open);
+          const value = target.value.trim();
+          if (!value) {
+            setStatus('没有可打开的链接。', 'warn');
+            return;
+          }
+          window.open(value, '_blank', 'noopener,noreferrer');
+        });
+      });
+
+      document.querySelectorAll('[data-source]').forEach((button) => {
+        button.addEventListener('click', () => {
+          source.value = button.dataset.source;
+          content.value = core.buildActionId({
+            source: source.value,
+            medium: medium.value,
+            date: new Date().toISOString().slice(0, 10),
+          });
+        });
+      });
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "cro-reviewer"
+  short_description: "Conversion Rate Optimization reviewer for GenGrowth marketing pages. Audits CTA effectiveness, social proof, trust signals, form friction, and signup flow."
+  default_prompt: "Use $cro-reviewer for a GenGrowth wiki task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "secretary"
+  short_description: "个人助理 agent。捕捉对话中的待办事项和提醒，写入 ai-profile/reminders.md，跨会话持久保存。触发方式：说"记住"、"提醒我"、"待办"、"记一下"，或直接说"secretary"。"
+  default_prompt: "Use $secretary for a GenGrowth wiki task."

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.gengrowth.baoxiao-drop</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>@PYTHON@</string>
+        <string>@BAOXIAO_DIR@/cli.py</string>
+        <string>drop-scan</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>60</integer>
+    <key>WorkingDirectory</key>
+    <string>@BAOXIAO_DIR@</string>
+    <key>StandardOutPath</key>
+    <string>@BAOXIAO_DIR@/logs/launchd-drop.log</string>
+    <key>StandardErrorPath</key>
+    <string>@BAOXIAO_DIR@/logs/launchd-drop.err</string>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+        <key>LC_ALL</key>
+        <string>en_US.UTF-8</string>
+        <key>PYTHONIOENCODING</key>
+        <string>utf-8</string>
+    </dict>
+</dict>
+</plist>

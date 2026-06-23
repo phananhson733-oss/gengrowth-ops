@@ -1,0 +1,4 @@
+interface:
+  display_name: "seo-auditor"
+  short_description: "SEO audit specialist for GenGrowth marketing site. Audits crawlability, technical SEO, on-page optimization, structured data, and AI/GEO readiness."
+  default_prompt: "Use $seo-auditor for a GenGrowth wiki task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "doc-audit"
+  short_description: "文档治理审计。扫描 wiki 中的文档错放、内容重叠、命名不规范、README 覆盖盲区等问题，输出清单和处理建议。触发方式：在对话中说"审计文档"或"doc audit"。"
+  default_prompt: "Use $doc-audit for a GenGrowth wiki task."

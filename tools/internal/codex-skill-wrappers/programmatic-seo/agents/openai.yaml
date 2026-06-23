@@ -1,0 +1,4 @@
+interface:
+  display_name: "Programmatic SEO"
+  short_description: "Programmatic SEO covering template page generation, long-tail keyword targeting, glossary/comparison/use-case page patterns, and quality control at scale."
+  default_prompt: "Use $programmatic-seo for a GenGrowth wiki task."

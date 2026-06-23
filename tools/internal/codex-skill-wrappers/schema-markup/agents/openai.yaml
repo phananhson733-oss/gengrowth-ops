@@ -1,0 +1,4 @@
+interface:
+  display_name: "Schema Markup"
+  short_description: "Schema markup implementation covering JSON-LD types, required and recommended properties, validation, and rich results optimization."
+  default_prompt: "Use $schema-markup for a GenGrowth wiki task."

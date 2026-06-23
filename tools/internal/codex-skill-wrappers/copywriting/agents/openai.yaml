@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copywriting"
+  short_description: "Copywriting frameworks covering PAS, AIDA, benefit-driven writing, CTA optimization, headline formulas, and tone calibration."
+  default_prompt: "Use $copywriting for a GenGrowth wiki task."

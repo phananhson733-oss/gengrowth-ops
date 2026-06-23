@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Strategy"
+  short_description: "Content strategy covering the pillar-cluster model, buyer journey content matrix, editorial calendar planning, and keyword-to-content mapping."
+  default_prompt: "Use $content-strategy for a GenGrowth wiki task."

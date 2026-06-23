@@ -1,0 +1,25 @@
+# 报销人映射 + 发票对象规则(业务输入,wzb 填)
+#
+# email_to_name: 邮件来源邮箱 → 报销人姓名(v2 扫邮箱时识别报销人用)
+# domestic_title: 国内增值税发票抬头(公司主体)
+# overseas_object: 海外 invoice 的发票对象(一般是员工个人本人)
+
+email_to_name:
+  wl.ecwhu@gmail.com: Lynne
+  wangling@gengrowth.ai: Lynne
+  xdawayer@gmail.com: wzb
+  # mby 占位:等 wzb 给邮箱后填(发票邮件源识别);_drop/mby/ 已建好可投递。
+  # mby_email@example.com: mby
+  # 其余固定员工按此补全:
+  # someone@gengrowth.ai: 张三
+
+# 报销人姓名 → 飞书 open_id(「员工姓名」是人员字段,写入要 open_id 不是名字)
+# 取法:读表里该人已有记录的「员工姓名」字段值里的 id。
+name_to_open_id:
+  王玲: ou_4677063bf2c9f29dc08b62d4919224e9
+  # 王志彪: ou_xxx
+
+domestic_title: 广州进格智能科技有限公司
+
+# 海外 invoice 发票对象 = 员工个人(用报销人姓名),无需在此列举
+overseas_object: __reimburser__

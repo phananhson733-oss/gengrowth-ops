@@ -1,0 +1,4 @@
+interface:
+  display_name: "SEO Audit"
+  short_description: "Comprehensive SEO audit checklist covering crawlability, technical SEO, on-page optimization, content quality, structured data, and AI SEO readiness."
+  default_prompt: "Use $seo-audit for a GenGrowth wiki task."

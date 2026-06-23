@@ -1,0 +1,4 @@
+interface:
+  display_name: "Form CRO"
+  short_description: "Form optimization covering field reduction, smart defaults, inline validation, error handling, and multi-step form patterns."
+  default_prompt: "Use $form-cro for a GenGrowth wiki task."

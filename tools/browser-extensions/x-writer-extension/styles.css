@@ -1,0 +1,433 @@
+/* X Writer Extension Styles */
+
+/* ── Toggle button ── */
+#xwriter-toggle {
+  position: fixed;
+  bottom: 88px;
+  right: 20px;
+  z-index: 9999999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #1d9bf0;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#xwriter-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Panel ── */
+#xwriter-panel {
+  position: fixed;
+  bottom: 148px;
+  right: 20px;
+  z-index: 9999998;
+  width: 380px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color: #0f1419;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#xwriter-panel.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  #xwriter-panel {
+    background: #15202b;
+    border-color: #38444d;
+    color: #ffffff;
+  }
+}
+
+/* ── Header ── */
+#xwriter-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-header {
+    border-bottom-color: #38444d;
+  }
+}
+
+#xwriter-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d9bf0;
+  flex-shrink: 0;
+}
+
+/* ── Model switcher (in panel header) ── */
+#xwriter-model-switch {
+  display: flex;
+  border: 1px solid #cfd9de;
+  border-radius: 6px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.xwriter-model-btn {
+  flex: 1;
+  padding: 3px 6px;
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #536471;
+  transition: all 0.15s;
+}
+
+.xwriter-model-btn.active {
+  background: #1d9bf0;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-model-switch {
+    border-color: #38444d;
+  }
+  .xwriter-model-btn {
+    color: #8b98a5;
+  }
+}
+
+#xwriter-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #536471;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.1s;
+}
+
+#xwriter-close:hover {
+  background: rgba(15, 20, 25, 0.1);
+}
+
+/* ── Meta selectors ── */
+.xwriter-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xwriter-meta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.xwriter-meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #536471;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.xwriter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.xwriter-pill {
+  padding: 3px 10px;
+  border: 1px solid #cfd9de;
+  border-radius: 9999px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: #536471;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.xwriter-pill:hover {
+  border-color: #1d9bf0;
+  color: #1d9bf0;
+}
+
+.xwriter-pill.active {
+  background: #1d9bf0;
+  border-color: #1d9bf0;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .xwriter-pill {
+    border-color: #38444d;
+    color: #8b98a5;
+  }
+  .xwriter-pill.active {
+    background: #1d9bf0;
+    border-color: #1d9bf0;
+    color: white;
+  }
+}
+
+/* ── Action buttons row ── */
+#xwriter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+#xwriter-submit {
+  flex: 1;
+  padding: 10px;
+  background: #1d9bf0;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#xwriter-submit:hover:not(:disabled) {
+  background: #1a8cd8;
+}
+
+#xwriter-suggest {
+  flex: 1;
+  padding: 10px;
+  background: transparent;
+  color: #1d9bf0;
+  border: 1.5px solid #1d9bf0;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#xwriter-suggest:hover:not(:disabled) {
+  background: rgba(29, 155, 240, 0.08);
+}
+
+#xwriter-submit:disabled,
+#xwriter-suggest:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Body ── */
+#xwriter-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Labels ── */
+.xwriter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #536471;
+  margin-bottom: 4px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ── Textareas ── */
+#xwriter-context,
+#xwriter-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cfd9de;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+#xwriter-context:focus,
+#xwriter-input:focus {
+  border-color: #1d9bf0;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-context,
+  #xwriter-input {
+    border-color: #38444d;
+    color: #e7e9ea;
+  }
+  #xwriter-context::placeholder,
+  #xwriter-input::placeholder {
+    color: #536471;
+  }
+}
+
+/* ── Output ── */
+#xwriter-output-wrapper {
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-output-wrapper {
+    border-color: #38444d;
+  }
+}
+
+#xwriter-output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(29, 155, 240, 0.06);
+  border-bottom: 1px solid #e1e8ed;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-output-header {
+    border-bottom-color: #38444d;
+  }
+}
+
+#xwriter-output-actions {
+  display: flex;
+  gap: 6px;
+}
+
+#xwriter-copy,
+#xwriter-insert {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#xwriter-copy {
+  background: transparent;
+  border: 1px solid #cfd9de;
+  color: #536471;
+}
+
+#xwriter-copy:hover {
+  border-color: #1d9bf0;
+  color: #1d9bf0;
+}
+
+#xwriter-insert {
+  background: #1d9bf0;
+  border: none;
+  color: white;
+}
+
+#xwriter-insert:hover {
+  background: #1a8cd8;
+}
+
+#xwriter-output {
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: #0f1419;
+}
+
+#xwriter-suggestion-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 12px 12px;
+}
+
+#xwriter-suggestion-actions button {
+  flex: 1;
+  min-height: 32px;
+  border: 1px solid #cfd9de;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #0f1419;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#xwriter-suggestion-actions button:hover {
+  border-color: #1d9bf0;
+  color: #1d9bf0;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-output {
+    color: #e7e9ea;
+  }
+  #xwriter-suggestion-actions button {
+    background: #000000;
+    border-color: #38444d;
+    color: #e7e9ea;
+  }
+}
+
+/* ── Error ── */
+#xwriter-error {
+  background: #fff0f0;
+  border: 1px solid #ffd0d0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #d93025;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  #xwriter-error {
+    background: rgba(217, 48, 37, 0.1);
+    border-color: rgba(217, 48, 37, 0.3);
+  }
+}

@@ -1,0 +1,14 @@
+# 运行期暂存目录:绝不进自动提交(防原始发票/失败样本被推到远端 git 历史)
+# 注意:归档成品在仓库根 发票/{入档月}/{报销人}/,那些是事实源,正常提交。
+_inbox/
+_conflict/
+logs/
+*.lock
+
+# Python
+__pycache__/
+*.pyc
+
+# 凭证与本地缓存放仓库外(~/.config/gengrowth-baoxiao/),此处仅作提醒,勿在仓库内创建
+.env
+index.json

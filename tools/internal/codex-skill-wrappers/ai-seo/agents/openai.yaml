@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI SEO / GEO"
+  short_description: "AI and Generative Engine Optimization -- structuring content for AI extraction, building authority signals, and managing third-party presence for AI-driven search."
+  default_prompt: "Use $ai-seo for a GenGrowth wiki task."

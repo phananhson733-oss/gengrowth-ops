@@ -1,0 +1,4 @@
+interface:
+  display_name: "Signup Flow CRO"
+  short_description: "Signup flow optimization covering step reduction, email-first patterns, progressive profiling, and onboarding friction elimination."
+  default_prompt: "Use $signup-flow-cro for a GenGrowth wiki task."

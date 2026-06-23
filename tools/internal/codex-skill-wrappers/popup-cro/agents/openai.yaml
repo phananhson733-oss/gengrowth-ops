@@ -1,0 +1,4 @@
+interface:
+  display_name: "Popup CRO"
+  short_description: "Popup strategy covering exit-intent triggers, timing rules, audience targeting, frequency caps, and compliance considerations."
+  default_prompt: "Use $popup-cro for a GenGrowth wiki task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "content-strategist"
+  short_description: "Content strategy specialist for GenGrowth. Plans content calendars, maps keywords to buyer journey stages, reviews blog quality, and optimizes internal linking."
+  default_prompt: "Use $content-strategist for a GenGrowth wiki task."

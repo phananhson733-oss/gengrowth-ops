@@ -1,0 +1,17 @@
+{
+  "name": "web-clipper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "defuddle": "^0.10.0",
+    "jsdom": "^24.1.3"
+  }
+}

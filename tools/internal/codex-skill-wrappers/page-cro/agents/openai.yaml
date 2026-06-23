@@ -1,0 +1,4 @@
+interface:
+  display_name: "Page CRO"
+  short_description: "Page-level conversion rate optimization covering the 5-second clarity test, CTA placement, social proof, trust signals, friction reduction, and mobile optimization."
+  default_prompt: "Use $page-cro for a GenGrowth wiki task."

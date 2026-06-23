@@ -1,0 +1,4 @@
+interface:
+  display_name: "seo-quality-audit"
+  short_description: "SEO 输出质量评审 worker。依据 `docs/05-governance/people-ops/policies/2026-05-11-seo-output-quality-rubric.md` 给单个评审对象出强模板报告。**禁止直接调用**——必须由入口命令 `/perf-audit-seo` 在拿到 wzb 明确确认后、并传入 HANDSHAKE token 才能触发。主 Claude 不要绕过入口命令直接派遣本 agent。"
+  default_prompt: "Use $seo-quality-audit for a GenGrowth wiki task."
