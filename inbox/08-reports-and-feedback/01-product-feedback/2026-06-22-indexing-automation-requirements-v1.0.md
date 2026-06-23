@@ -390,3 +390,44 @@ GSC 状态：Crawled - currently not indexed
 
 *起草：Ma Boyang / 2026-06-22*
 *基于：astrologywiki.com GSC 现状 + Google 索引机制*
+
+---
+
+## 📝 审核反馈（Claude Ops / 2026-06-23）
+
+> 4 路 fan-out + Codex 交叉审核。跨文档的战略层与优先级见同目录 `2026-06-23-automation-requirements-cross-review.md`。本节为本文档专属问题。
+> **需求拆解（尤其 §3 诊断框架）质量很高，建议保留；问题集中在"实现层的 API 假设"。**
+
+### 🔴 硬伤（致命，必须回炉）：核心卖点"自动请求 Google 收录"在技术上不存在
+
+五位审核员独立指向同一结论：
+
+- **`urlInspection.index.inspect` API 是只读的**——只能查状态，没有"请求编入索引"动作。GSC 界面那个"请求编入索引"按钮**从无公开 API**。→ 直接推翻 §5.4「自动调用 GSC URL Inspection API 重新请求编入索引」。
+- **Google Indexing API 不能替代**：官方仅支持 JobPosting（招聘）和 BroadcastEvent（直播）两类；拿它提交普通文章**违反 Google 政策**，可能被吊销权限、甚至反伤收录。
+- **IndexNow 对 Google 无效**（仅 Bing/Yandex）。§5.1、§七把它当 Google 方案是误解。
+- **§5.6 的 `google.com/ping?sitemap=` 端点 Google 于 2023 年底废弃，现返回 404**——会静默失败。替代：在 robots.txt 声明 sitemap + 维护准确 `<lastmod>` + 必要时用 Sitemaps API 提交。
+- **§5.5 月报里的 "GSC Coverage API"** 作为公开产品基本不存在；宏观状态分布需用 URL Inspection 抽样、GSC 界面导出或 BigQuery Bulk Export。
+
+**因此 §二/§四把"URL 提交收录"标成"✅ 已自动化/已完成"是误导**——这与 §5.1 自己标的「⚠️ 部分完成，需补充」相互矛盾（SELF 矛盾）。
+
+**修正动作：**
+1. **先核实**"已自动化 ✅"现在真实跑的是什么（很可能只是 sitemap 提交，被误描述成"提交收录"）。**若有人误用 Indexing API 提交普通文章，立即停用。**
+2. 文档改名为「索引**发现与监控**自动化」，删除"自动请求收录"表述。
+3. §5.4 重写为"修复后自动重回监控队列 + 提醒人工"；对极少数高价值页生成"待人工在 GSC 界面点按"清单，不伪装成 API 自动提交。
+4. §七工具栈表"Google Search Console API → 编入索引请求"改为"URL 状态查询（只读）"。
+
+### 🟡 配额与逻辑
+
+- **GSC URL Inspection 配额 = 2000 次/天、600 次/分钟（per property）**，文档未提。当前文章量级短期安全，但 §5.2 每日轮询需做节流（≤600/分）并对"监控中"集合设上限，规模化后复查。外联 §4.5 也调同一 property 的 GSC API，**配额需两文档统筹**。
+- **§5.4「已修复→重提交」循环无退出条件**（IDX-1）：修复→重提交→14天仍不收录→诊断→再修复… 可无限告警。需定义最大重试轮次（如 2 轮）+ "放弃/转人工专项"终态。
+- **§5.2（D+14 触发）与 §3.1「新站 21 天才算异常」、§5.3「Discovered 等到 D+21 不告警」冲突**（IDX-2）：建议告警阈值按状态分层（Discovered → D+21，Crawled-not-indexed → D+14），而非统一 D+14 触发再在下游丢弃。
+- **§5.2 的 D+3/D+7 写"覆盖范围状态"措辞**易被实现者误读为 Coverage Report，与 §3.0 强结论冲突；统一写明"URL Inspection 返回的 coverageState"。
+
+### ✅ 准确且是亮点
+
+- **§3.0 两套数据源延迟差异**（Coverage 滞后 / Inspection 近实时，单篇诊断必须用 Inspection）—— 判断正确、专业。
+- **§3 未收录原因分类 + §3.3 内容质量诊断清单** —— 高质量领域知识，建议直接落成本地规则引擎 + Claude subagent 审核标准（与 content-draft-templates 同源）。
+
+### 验收标准
+
+§5.2"100% 触发告警无遗漏"、§5.3"≥8 种状态"等：补 GSC API 失败/超时下的重试补偿机制；"运行一周验证准确率"需定义样本量、通过线、签字人。
