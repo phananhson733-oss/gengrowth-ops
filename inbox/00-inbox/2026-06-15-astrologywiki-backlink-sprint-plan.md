@@ -105,16 +105,16 @@ ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
 
 > 渠道说明：全托管 Guest Post 中介，帮助筛站点 + 写文章 + 联系发布，按实际发布费 + 30% 服务费收取（每篇服务费 $10–$50 封顶）。英文站点专属。
 
-| 项目 | 详情 |
-|---|---|
-| 服务网站 | bestlinks.ai |
-| 定金 | 1,000 RMB（≈ $138）✅ 已付 |
-| 锚文字 | AstrologyWiki（品牌）+ astrology wiki（部分匹配）|
-| 目标链接 | astrologywiki.com（首批指向首页）|
-| 参考竞品 | cafeastrology.com / astrostyle.com / horoscope.com / astroseek.com / astro.com |
-| 预计购买篇数 | **10–11 篇**（BestLinks 总可用预算 ~$970）|
-| 平均每篇预算 | $70–80/条（对应 DR 45–65 区间）|
-| 状态 | 🟡 表单待提交，定金已付 |
+| 项目     | 详情                                                                             |
+| ------ | ------------------------------------------------------------------------------ |
+| 服务网站   | bestlinks.ai                                                                   |
+| 定金     | 1,000 RMB（≈ $138）✅ 已付                                                          |
+| 锚文字    | AstrologyWiki（品牌）+ astrology wiki（部分匹配）                                        |
+| 目标链接   | astrologywiki.com（首批指向首页）                                                      |
+| 参考竞品   | cafeastrology.com / astrostyle.com / horoscope.com / astroseek.com / astro.com |
+| 预计购买篇数 | **10–11 篇**（BestLinks 总可用预算 ~$970）                                             |
+| 平均每篇预算 | $70–80/条（对应 DR 45–65 区间）                                                       |
+| 状态     | 🟡 表单待提交，定金已付                                                                  |
 
 **小计：uneed 1 个 RD（$30）+ BestLinks 10–11 个 RDs（~$970 含定金）**
 
