@@ -45,43 +45,43 @@ updated: 2026-06-16
 
 ---
 
-## ⚪  6月19日 — ethical_organic_seo (P1)
+## 🟢  6月19日 — ethical_organic_seo (P1)
 
-**状态**：`计划中`
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-EOS-001` ethical seo
-- [ ] `PG-EOS-002` organic seo services
-- [ ] `PG-EOS-003` cost effective seo services
-
----
-
-## ⚪ 6月20日 — ai_seo_automation (P1)
-
-**状态**：`计划中`
-
-- [ ] `PG-AIS-001` best ai seo tools
-- [ ] `PG-AIS-002` seo automation
-- [ ] `PG-AIS-003` all in one seo
+- [x] `PG-EOS-001` ethical seo  -> LIVE https://gengrowth.ai/en/blog/ethical-seo
+- [x] `PG-EOS-002` organic seo services  -> LIVE https://gengrowth.ai/en/blog/organic-seo-services
+- [x] `PG-EOS-003` cost effective seo services  -> LIVE https://gengrowth.ai/en/blog/cost-effective-seo-services
 
 ---
 
-## ⚪ 6月21日 — technical_seo_audit (P1)
+## 🟢 6月20日 — ai_seo_automation (P1)
 
-**状态**：`计划中`
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-TAS-001` seo audit checklist
-- [ ] `PG-TAS-002` content audit tool
-- [ ] `PG-TAS-003` international seo audit
+- [x] `PG-AIS-001` best ai seo tools  -> LIVE https://gengrowth.ai/en/blog/best-ai-seo-tools
+- [x] `PG-AIS-002` seo automation  -> LIVE https://gengrowth.ai/en/blog/seo-automation
+- [x] `PG-AIS-003` all in one seo  -> LIVE https://gengrowth.ai/en/blog/all-in-one-seo
 
 ---
 
-## ⚪ 6月22日 — startup_diy_seo (P2)
+## 🟢 6月21日 — technical_seo_audit (P1)
 
-**状态**：`计划中`
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
 
-- [ ] `PG-SDS-001` startup seo
-- [ ] `PG-SDS-002` free seo consultation
-- [ ] `PG-SDS-003` seo starter package
+- [x] `PG-TAS-001` seo audit checklist  -> LIVE https://gengrowth.ai/en/blog/seo-audit-checklist
+- [x] `PG-TAS-002` content audit tool  -> LIVE https://gengrowth.ai/en/blog/content-audit-tool
+- [x] `PG-TAS-003` international seo audit  -> LIVE https://gengrowth.ai/en/blog/international-seo-audit
+
+---
+
+## 🟢 6月22日 — startup_diy_seo (P2)
+
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
+
+- [x] `PG-SDS-001` startup seo  -> LIVE https://gengrowth.ai/en/blog/startup-seo
+- [x] `PG-SDS-002` free seo consultation  -> LIVE https://gengrowth.ai/en/blog/free-seo-consultation
+- [x] `PG-SDS-003` seo starter package  -> LIVE https://gengrowth.ai/en/blog/seo-starter-package
 
 ---
 
