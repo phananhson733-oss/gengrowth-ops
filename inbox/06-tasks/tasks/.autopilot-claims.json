@@ -1183,10 +1183,10 @@
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "38063",
-    "leaseUntil": "2026-06-23T17:58:26.940Z",
-    "updatedAt": "2026-06-23T16:58:26.940Z",
+    "leaseUntil": "2026-06-23T18:01:22.903Z",
+    "updatedAt": "2026-06-23T17:01:22.903Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-033",
     "branch": "seo/auto/2026-06-23-PG-WC-033"
   }
