@@ -69,3 +69,4 @@ updated: 2026-06-23
 | 2026-06-23 | PG-WC-031 | jeremy-doku-birth-chart | Jeremy Doku Birth Chart | julian-thorne | https://www.astrologywiki.com/en/wiki/jeremy-doku-birth-chart | published |
 | 2026-06-23 | PG-TRANS-012 | father-s-day-astrology-2026 | Father's Day Astrology 2026 | elena-vane | https://www.astrologywiki.com/en/wiki/father-s-day-astrology-2026 | published |
 | 2026-06-23 | PG-WC-034 | bukayo-saka-zodiac-sign | Bukayo Saka Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/bukayo-saka-zodiac-sign | published |
+| 2026-06-23 | PG-WC-032 | luka-modric-zodiac-sign | Luka Modric Zodiac Sign | elena-vane | https://www.astrologywiki.com/en/wiki/luka-modric-zodiac-sign | published |
