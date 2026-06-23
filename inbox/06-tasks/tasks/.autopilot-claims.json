@@ -1159,15 +1159,18 @@
     "mergedAt": "2026-06-23T16:12:58.477Z"
   },
   "PG-WC-032": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "luka-modric-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-032.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "95532",
-    "leaseUntil": "2026-06-23T17:32:59.406Z",
-    "updatedAt": "2026-06-23T16:32:59.406Z",
+    "leaseUntil": "2026-06-23T17:33:33.469Z",
+    "updatedAt": "2026-06-23T16:33:33.469Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-032",
-    "branch": "seo/auto/2026-06-23-PG-WC-032"
+    "branch": "seo/auto/2026-06-23-PG-WC-032",
+    "pr": "https://github.com/xdawayer/oracle/pull/245",
+    "zh": false,
+    "needs_hero": true
   }
 }
