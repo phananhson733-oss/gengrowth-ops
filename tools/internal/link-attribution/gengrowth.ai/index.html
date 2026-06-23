@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AstrologyWiki 链接归因工具</title>
+  <title>GenGrowth 链接归因工具</title>
   <style>
     :root {
       color-scheme: light;
@@ -244,8 +244,8 @@
 <body>
   <main>
     <header>
-      <h1>AstrologyWiki 链接归因工具</h1>
-      <div class="domain-pill">仅允许 astrologywiki.com / www.astrologywiki.com</div>
+      <h1>GenGrowth 链接归因工具</h1>
+      <div class="domain-pill">仅允许 gengrowth.ai / www.gengrowth.ai</div>
     </header>
 
     <div class="workspace">
@@ -257,7 +257,7 @@
         <form id="link-form">
           <label class="full">
             落地页
-            <input id="landing-url" name="landingUrl" value="https://www.astrologywiki.com/" autocomplete="off">
+            <input id="landing-url" name="landingUrl" value="https://www.gengrowth.ai/" autocomplete="off">
           </label>
 
           <label>
@@ -267,7 +267,7 @@
 
           <label>
             utm_source
-            <input id="utm-source" name="source" value="theglobalhues.com" autocomplete="off">
+            <input id="utm-source" name="source" value="partner.example" autocomplete="off">
           </label>
 
           <label>
@@ -282,12 +282,12 @@
 
           <label>
             utm_campaign / cluster_id
-            <input id="utm-campaign" name="campaign" value="aura_colors_1a" autocomplete="off">
+            <input id="utm-campaign" name="campaign" value="seo_automation" autocomplete="off">
           </label>
 
           <label>
             utm_content / action_id
-            <input id="utm-content" name="content" value="act_backlink_theglobalhues_20260623" autocomplete="off">
+            <input id="utm-content" name="content" value="act_backlink_partner_20260623" autocomplete="off">
           </label>
 
           <div class="actions">
@@ -331,8 +331,8 @@
 
   <script id="link-attribution-core">
     (function () {
-      const ASTROLOGYWIKI_HOSTS = new Set(['astrologywiki.com', 'www.astrologywiki.com']);
-      const OWNED_SHORT_BASE_URL = 'https://www.astrologywiki.com/go/';
+      const GENGROWTH_HOSTS = new Set(['gengrowth.ai', 'www.gengrowth.ai']);
+      const OWNED_SHORT_BASE_URL = 'https://www.gengrowth.ai/go/';
 
       function valueOf(input, label) {
         const value = String(input || '').trim();
@@ -349,15 +349,15 @@
       function normalizeLandingUrl(rawLandingUrl) {
         let value = valueOf(rawLandingUrl, '落地页');
         if (value.startsWith('/')) {
-          value = `https://www.astrologywiki.com${value}`;
+          value = `https://www.gengrowth.ai${value}`;
         } else if (!/^https?:\/\//i.test(value)) {
           value = `https://${value}`;
         }
 
         const url = new URL(value);
         const host = url.hostname.toLowerCase();
-        if (!ASTROLOGYWIKI_HOSTS.has(host)) {
-          throw new Error('落地页必须是 astrologywiki.com 或 www.astrologywiki.com');
+        if (!GENGROWTH_HOSTS.has(host)) {
+          throw new Error('落地页必须是 gengrowth.ai 或 www.gengrowth.ai');
         }
 
         url.protocol = 'https:';
@@ -446,7 +446,7 @@
           // Registry can also be pasted as loose text, URLs, or JSON snippets.
         }
 
-        const shortUrlPattern = /https?:\/\/(?:www\.)?astrologywiki\.com\/go\/([a-z0-9][a-z0-9-]*)/gi;
+        const shortUrlPattern = /https?:\/\/(?:www\.)?gengrowth\.ai\/go\/([a-z0-9][a-z0-9-]*)/gi;
         let match = shortUrlPattern.exec(text);
         while (match) {
           addReservedCode(codes, match[1]);
@@ -593,7 +593,7 @@
   <script>
     (function () {
       const core = window.LinkAttributionCore;
-      const REDIRECT_REGISTRATION_ENDPOINT = 'https://www.astrologywiki.com/api/link-attribution/redirects';
+      const REDIRECT_REGISTRATION_ENDPOINT = 'https://www.gengrowth.ai/api/link-attribution/redirects?v=20260623';
       const form = document.getElementById('link-form');
       const state = document.getElementById('result-state');
       const status = document.getElementById('status');
@@ -610,13 +610,14 @@
       }
 
       function readableRegistrationError(payload, fallback) {
-        if (payload?.code === 'code_conflict') {
+        const errorCode = payload?.code || payload?.error?.code;
+        if (errorCode === 'code_conflict') {
           return '短链 code 已被占用：请换一个 code，或留空让系统自动生成。';
         }
-        if (payload?.code === 'storage_unconfigured') {
-          return '短链存储未配置：请先在 AstrologyWiki 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认 link_redirects 表已创建。';
+        if (errorCode === 'storage_unconfigured') {
+          return '短链存储未配置：请先在 GenGrowth 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认短链映射表已创建。';
         }
-        const message = payload?.error || payload?.message;
+        const message = payload?.error?.message || payload?.error || payload?.message;
         return typeof message === 'string' && message.trim() ? message : fallback;
       }
 
@@ -686,12 +687,12 @@
         });
         const payload = await response.json().catch(() => ({}));
         if (!response.ok) {
-          const message = readableRegistrationError(payload, '短链提交 Oracle 失败，请稍后重试。');
+          const message = readableRegistrationError(payload, '短链提交 GenGrowth 失败，请稍后重试。');
           const error = new Error(message);
-          error.code = payload?.code;
+          error.code = payload?.code || payload?.error?.code;
           throw error;
         }
-        return payload;
+        return payload.data || payload;
       }
 
       async function registerWithGlobalConflictRetry(data, generatedLongUrl) {
@@ -735,11 +736,11 @@
         longUrl.value = generatedLongUrl;
         shortUrl.value = '';
         state.textContent = '正在提交';
-        setStatus('正在提交到 Oracle...', 'warn');
+        setStatus('正在提交到 GenGrowth...', 'warn');
         const { mapping, registered } = await registerWithGlobalConflictRetry(data, generatedLongUrl);
         shortUrl.value = registered.short_url || mapping.clean_short_url;
         state.textContent = '链接已生成';
-        setStatus('已生成并提交到 Oracle，可直接复制或打开测试。', 'ok');
+        setStatus('已生成并提交到 GenGrowth，可直接复制或打开测试。', 'ok');
         return generatedLongUrl;
       }
 
