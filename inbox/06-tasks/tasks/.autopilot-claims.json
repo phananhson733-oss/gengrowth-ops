@@ -1221,12 +1221,15 @@
     "mergedAt": "2026-06-23T17:38:13.300Z"
   },
   "PG-MYTH-009": {
-    "status": "needs_human",
+    "status": "active",
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
-    "stage": "authoring",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - - word count 1424 < min 1500 | - target_keyword count = 10 (limit 9) | - author banned token(s) matched: \"you will\" after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-06-23T17:34:01.112Z"
+    "plan": "one-plan-MYTH-009.md",
+    "stage": "convert",
+    "lockedBy": "12911",
+    "leaseUntil": "2026-06-23T18:42:51.165Z",
+    "updatedAt": "2026-06-23T17:42:51.165Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-MYTH-009",
+    "branch": "seo/auto/2026-06-23-PG-MYTH-009"
   }
 }
