@@ -1157,5 +1157,17 @@
     "verifiedAt": "2026-06-23T16:12:52.510Z",
     "headRefOid": "5bc91a106a9b218b6820e6d2f09cefaed72b22cb",
     "mergedAt": "2026-06-23T16:12:58.477Z"
+  },
+  "PG-WC-032": {
+    "status": "active",
+    "slug": "luka-modric-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "one-plan-WC-032.md",
+    "stage": "convert",
+    "lockedBy": "95532",
+    "leaseUntil": "2026-06-23T17:31:02.716Z",
+    "updatedAt": "2026-06-23T16:31:02.716Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-032",
+    "branch": "seo/auto/2026-06-23-PG-WC-032"
   }
 }
