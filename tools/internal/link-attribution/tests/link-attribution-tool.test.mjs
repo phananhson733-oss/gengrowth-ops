@@ -275,17 +275,18 @@ test('页面隐藏工程映射，但保留复制和打开链接操作', () => {
   assert.equal(html.includes('生成链接'), true);
 });
 
-test('页面在参数卡下方展示 UTM 填写备注', () => {
+test('页面在参数卡下方只展示 UTM 字段填写备注和默认留空提示', () => {
   assert.equal(html.includes('class="input-stack"'), true);
   assert.equal(html.includes('id="usage-note-title"'), true);
   assert.equal(html.includes('备注'), true);
-  assert.equal(html.includes('唯一数据脊柱'), true);
+  assert.equal(html.includes('未填写会默认留空'), true);
   assert.equal(html.includes('utm_source'), true);
   assert.equal(html.includes('utm_medium'), true);
   assert.equal(html.includes('utm_campaign / cluster_id'), true);
   assert.equal(html.includes('utm_content / action_id'), true);
-  assert.equal(html.includes('填的是帖子 id，不是文章 id'), true);
-  assert.equal(html.includes('由落地页 URL 自动对应'), true);
+  assert.equal(html.includes('唯一数据脊柱'), false);
+  assert.equal(html.includes('page_id'), false);
+  assert.equal(html.includes('帖子 id，不是文章 id'), false);
 });
 
 test('页面显示和复制 domain/code 短链接，打开短链接使用完整 URL', () => {
@@ -353,8 +354,9 @@ test('GenGrowth 站点工具：独立目录、标题和脚本可用', () => {
   assert.equal(gengrowth.html.includes('valueForOpen'), true);
   assert.equal(gengrowth.html.includes('class="input-stack"'), true);
   assert.equal(gengrowth.html.includes('id="usage-note-title"'), true);
-  assert.equal(gengrowth.html.includes('唯一数据脊柱'), true);
-  assert.equal(gengrowth.html.includes('填的是帖子 id，不是文章 id'), true);
+  assert.equal(gengrowth.html.includes('未填写会默认留空'), true);
+  assert.equal(gengrowth.html.includes('唯一数据脊柱'), false);
+  assert.equal(gengrowth.html.includes('page_id'), false);
   gengrowth.allScripts.forEach((source) => {
     assert.doesNotThrow(() => new Function(source));
   });

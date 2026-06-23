@@ -335,12 +335,11 @@
           </div>
           <div class="note-body">
             <ul class="note-list">
-              <li><strong>唯一数据脊柱：</strong>三人共享 Google Sheet（选题登记 / 内容资产表），所有动作挂 <code>cluster_id</code>，写进同一张表，不各存一份。</li>
               <li><code>utm_source</code> 填具体平台，如 reddit / pinterest / x / tiktok；KOL 用 <code>kol-{红人}</code>。</li>
               <li><code>utm_medium</code> 填渠道类型，只填 social / backlink / kol / newsletter。</li>
               <li><code>utm_campaign / cluster_id</code> 填共享表里的 <code>cluster_id</code>，如 CL-AW-05。</li>
               <li><code>utm_content / action_id</code> 填这条分发动作/帖子的 <code>action_id</code>，取自 6-ID 体系。</li>
-              <li><strong>注意：</strong><code>utm_content</code> 填的是帖子 id，不是文章 id；<code>page_id</code> 由落地页 URL 自动对应，不用塞进 UTM。</li>
+              <li><strong>未填写会默认留空：</strong>空字段不会写入最终链接。</li>
             </ul>
           </div>
         </aside>
