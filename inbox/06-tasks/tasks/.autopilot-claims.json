@@ -1111,7 +1111,7 @@
     "mergedAt": "2026-06-22T14:30:19.670Z"
   },
   "PG-WC-031": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jeremy-doku-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1124,6 +1124,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/219",
     "zh": false,
     "retryEvidence": "operator override of confirmed astrology false-positive (user decision 2026-06-23); content ephemeris-verified, schema/links-seo/codex still real",
-    "retryAt": "2026-06-23T05:07:04.823Z"
+    "retryAt": "2026-06-23T05:07:04.823Z",
+    "error": "review[links-seo] FAIL: Every internal wiki-link is an unresolved TBD placeholder rendered as plain italic text with no href, so the published page has zero working internal links including the required early-opening one.",
+    "failedAt": "2026-06-23T05:08:06.943Z"
   }
 }
