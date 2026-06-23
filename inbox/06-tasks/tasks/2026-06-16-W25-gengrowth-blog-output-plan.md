@@ -1,15 +1,17 @@
 ---
 project: gengrowth
 type: content-plan
-status: in-progress
+status: done
 owner: Ma Boyang
-updated: 2026-06-16
+updated: 2026-06-23
 ---
 
 # 📅 W25+ gengrowth.ai 博客内容输出计划 (31篇)
 
-> **当前状态**：按选题登记表 cluster 优先级排期，P0 → P3 依次推进。
+> **当前状态**：31/31 全部 LIVE。
 > **目标**：31 篇覆盖 11 个主题集群，每周完成 1–2 个 cluster。
+
+> **2026-06-23 事实门拉齐 + 追溯修正**：Lane A（gengrowth.ai）已与 Lane B（astrologywiki）流程完全一致 —— 发布前 codex 事实门 + 发布后 GSC 提交 + vault 归档。对全部已上线文章做了一次追溯事实门扫描，发现 **15/31 篇有事实问题**（杜撰/错配来源、错误产品事实、误引 Google 文档、无支撑统计、第三方逐字引述无法核实等），经 3 轮"web 核实 → 改正 → 双门（事实+结构）复核 → 重发"全部修正并重新上线（每篇 GSC 已重新提交、vault 已更新）。涉及：AIS-001/002/003、B2B-001、CMP-001/002、EOS-002/003、SDS-001/002/003、TAS-001/003、WLS-004、SMS-001。
 
 ---
 
