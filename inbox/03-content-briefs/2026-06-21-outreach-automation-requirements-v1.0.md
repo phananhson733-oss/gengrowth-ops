@@ -24,6 +24,7 @@ due: 2026-06-24（下周二对齐）
 ## 二、当前人工操作全流程
 
 > 追踪工具：Google Sheets（外链追踪表），以下简称"追踪表"
+> https://docs.google.com/spreadsheets/d/1L9GriM-bqWuxUa5KFWBtEMrjQArokCurGymqpTsKbxQ/edit?usp=sharing
 
 ### 2.0 站点类型 × 合作形式 × 联系方式 分类
 
