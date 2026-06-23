@@ -298,13 +298,13 @@ inurl:links + "astrology" + "birth chart"
 
 ### 4.1 锚文字分布规范
 
-| 锚文字类型 | 示例 | 建议比例 | 说明 |
-|---|---|---|---|
-| 品牌词 | AstrologyWiki / AstrologyWiki.com | 30-40% | 最安全，建议作为主要锚文字 |
-| 裸 URL | https://www.astrologywiki.com/... | 15-20% | 自然链接中常见 |
-| 通用词 | click here / this guide / read more | 10-15% | 模拟真实用户行为 |
-| 部分匹配关键词 | astrology house guide / aura reading | 20-25% | 可接受，不要超过 30% |
-| 精确匹配关键词 | astrology houses meaning | 5-10% | 过多会触发算法警觉 |
+| 锚文字类型   | 示例                                   | 建议比例   | 说明            |
+| ------- | ------------------------------------ | ------ | ------------- |
+| 品牌词     | AstrologyWiki / AstrologyWiki.com    | 30-40% | 最安全，建议作为主要锚文字 |
+| 裸 URL   | https://www.astrologywiki.com/...    | 15-20% | 自然链接中常见       |
+| 通用词     | click here / this guide / read more  | 10-15% | 模拟真实用户行为      |
+| 部分匹配关键词 | astrology house guide / aura reading | 20-25% | 可接受，不要超过 30%  |
+| 精确匹配关键词 | astrology houses meaning             | 5-10%  | 过多会触发算法警觉     |
 
 ### 4.2 每月质量核查清单
 
@@ -329,15 +329,15 @@ inurl:links + "astrology" + "birth chart"
 
 ## 五、工具栈与月度预算参考
 
-| 工具 | 用途 | 费用 | 优先级 |
-|---|---|---|---|
-| Ahrefs（Lite） | 竞品外链分析/自身链接监控/断链查找 | $129/月 | 必须 |
-| Google Search Console | 监控收录状态/手动惩罚通知/链接报告 | 免费 | 必须 |
-| NoFollow Chrome 扩展 | 检查链接是否为 dofollow | 免费 | 必须 |
-| Featured.com（HARO） | Digital PR，记者请求响应 | 免费基础版 | 推荐 |
-| JournoFinder Alerts | 聚合多平台记者请求 | $49/月 | 推荐 |
-| Hunter.io | 寻找站长/编辑的联系邮箱 | 免费50次/月 | 推荐 |
-| Airtable / 飞书 | 外展管理/链接追踪 | 免费基础版 | 推荐 |
+| 工具                    | 用途                 | 费用      | 优先级 |
+| --------------------- | ------------------ | ------- | --- |
+| Ahrefs（Lite）          | 竞品外链分析/自身链接监控/断链查找 | $129/月  | 必须  |
+| Google Search Console | 监控收录状态/手动惩罚通知/链接报告 | 免费      | 必须  |
+| NoFollow Chrome 扩展    | 检查链接是否为 dofollow   | 免费      | 必须  |
+| Featured.com（HARO）    | Digital PR，记者请求响应  | 免费基础版   | 推荐  |
+| JournoFinder Alerts   | 聚合多平台记者请求          | $49/月   | 推荐  |
+| Hunter.io             | 寻找站长/编辑的联系邮箱       | 免费50次/月 | 推荐  |
+| Airtable / 飞书         | 外展管理/链接追踪          | 免费基础版   | 推荐  |
 
 > **月度预算参考**
 >
