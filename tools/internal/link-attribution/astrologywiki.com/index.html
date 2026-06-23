@@ -552,7 +552,7 @@
         const value = valueOf(shortUrl, '短链接');
         try {
           const url = new URL(value);
-          return `${url.pathname}${url.search}${url.hash}`;
+          return url.pathname.split('/').filter(Boolean).pop() || value;
         } catch {
           return value;
         }
@@ -638,7 +638,11 @@
         shortUrl.value = fullUrl ? core.toDisplayShortUrl(fullUrl) : '';
       }
 
-      function valueForAction(target) {
+      function valueForCopy(target) {
+        return String(target?.value || '').trim();
+      }
+
+      function valueForOpen(target) {
         return String(target?.dataset?.fullUrl || target?.value || '').trim();
       }
 
@@ -726,7 +730,7 @@
       document.querySelectorAll('[data-copy]').forEach((button) => {
         button.addEventListener('click', async () => {
           const target = document.getElementById(button.dataset.copy);
-          const value = valueForAction(target);
+          const value = valueForCopy(target);
           if (!value) {
             setStatus('没有可复制的链接。', 'warn');
             return;
@@ -739,7 +743,7 @@
       document.querySelectorAll('[data-open]').forEach((button) => {
         button.addEventListener('click', () => {
           const target = document.getElementById(button.dataset.open);
-          const value = valueForAction(target);
+          const value = valueForOpen(target);
           if (!value) {
             setStatus('没有可打开的链接。', 'warn');
             return;
