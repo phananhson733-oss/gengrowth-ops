@@ -1132,7 +1132,7 @@
     "mergedAt": "2026-06-23T05:18:03.724Z"
   },
   "PG-TRANS-012": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1145,6 +1145,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/227",
     "zh": false,
     "retryEvidence": "schema-fix: rewrote opening sentence so deriveDescription cuts on a complete sentence (was truncating at '...many U.S.'); facts/links unchanged",
-    "retryAt": "2026-06-23T05:34:28.298Z"
+    "retryAt": "2026-06-23T05:34:28.298Z",
+    "error": "review[astrology] FAIL: The article repeatedly claims the Sun enters Cancer at the June 21 solstice, but in 2026 the solstice is June 21 while the Sun's ingress into Cancer occurs June 21 04:24 EDT — however the piece also conflates the solstice with the ingress as a single coincident event when the stated 4:24 AM EDT time is the solstice/ingress; the material error is asserting a 'close Jupiter–Venus meeting in Cancer' when Venus and Jupiter are not both in Cancel together on this date in 2026 (Venus is in Gemini/early Cancer and the claimed tight conjunction is unverifiable and likely false).",
+    "failedAt": "2026-06-23T05:36:25.749Z"
   }
 }
