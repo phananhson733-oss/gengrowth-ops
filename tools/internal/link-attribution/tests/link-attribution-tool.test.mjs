@@ -36,9 +36,9 @@ test('页面脚本没有语法错误', () => {
   });
 });
 
-test('AstrologyWiki 站点工具：标题显示站点名字且默认落地页为主页', () => {
-  assert.match(html, /<title>\s*AstrologyWiki\s+链接归因工具\s*<\/title>/);
-  assert.match(html, /<h1>\s*AstrologyWiki\s+链接归因工具\s*<\/h1>/);
+test('AstrologyWiki 站点工具：标题显示站点名字、外链生成工具名且默认落地页为主页', () => {
+  assert.match(html, /<title>\s*AstrologyWiki\s+外链生成工具\s*<\/title>/);
+  assert.match(html, /<h1>\s*AstrologyWiki\s+外链生成工具\s*<\/h1>/);
   assert.match(html, /id="landing-url"[^>]+value="https:\/\/www\.astrologywiki\.com\/"/);
 });
 
@@ -309,8 +309,8 @@ test('页面保留隐藏同步 code registry，用作线上注册前的预防层
 test('GenGrowth 站点工具：独立目录、标题和脚本可用', () => {
   const gengrowth = loadSite('../gengrowth.ai/index.html', 'GenGrowth');
 
-  assert.match(gengrowth.html, /<title>\s*GenGrowth\s+链接归因工具\s*<\/title>/);
-  assert.match(gengrowth.html, /<h1>\s*GenGrowth\s+链接归因工具\s*<\/h1>/);
+  assert.match(gengrowth.html, /<title>\s*GenGrowth\s+外链生成工具\s*<\/title>/);
+  assert.match(gengrowth.html, /<h1>\s*GenGrowth\s+外链生成工具\s*<\/h1>/);
   assert.match(gengrowth.html, /id="landing-url"[^>]+value="https:\/\/www\.gengrowth\.ai\/"/);
   assert.equal(gengrowth.html.includes('data-open="long-url"'), true);
   assert.equal(gengrowth.html.includes('data-open="short-url"'), true);
