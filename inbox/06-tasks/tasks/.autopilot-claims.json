@@ -1225,10 +1225,10 @@
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-MYTH-009.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "12911",
-    "leaseUntil": "2026-06-23T18:42:51.165Z",
-    "updatedAt": "2026-06-23T17:42:51.165Z",
+    "leaseUntil": "2026-06-23T18:44:28.668Z",
+    "updatedAt": "2026-06-23T17:44:28.668Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-MYTH-009",
     "branch": "seo/auto/2026-06-23-PG-MYTH-009"
   }
