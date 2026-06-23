@@ -1136,10 +1136,10 @@
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "61535",
-    "leaseUntil": "2026-06-23T06:25:36.229Z",
-    "updatedAt": "2026-06-23T05:25:36.229Z",
+    "leaseUntil": "2026-06-23T06:28:19.722Z",
+    "updatedAt": "2026-06-23T05:28:19.722Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-TRANS-012",
     "branch": "seo/auto/2026-06-23-PG-TRANS-012"
   }
