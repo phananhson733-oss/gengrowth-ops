@@ -1221,20 +1221,20 @@
     "mergedAt": "2026-06-23T17:38:13.300Z"
   },
   "PG-MYTH-009": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-MYTH-009.md",
     "stage": "pushed-preview",
-    "lockedBy": "12911",
-    "leaseUntil": "2026-06-23T18:45:02.628Z",
-    "updatedAt": "2026-06-23T17:45:02.628Z",
+    "lockedBy": "25140",
+    "leaseUntil": "2026-06-23T18:51:20.298Z",
+    "updatedAt": "2026-06-23T17:51:20.298Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-MYTH-009",
     "branch": "seo/auto/2026-06-23-PG-MYTH-009",
     "pr": "https://github.com/xdawayer/oracle/pull/248",
     "zh": false,
     "needs_hero": true,
-    "error": "codex completed with codex FAIL —House of the Dragon season 3 premiered on June 21, 2026, so “across both seasons” is outdated",
-    "failedAt": "2026-06-23T17:50:03.533Z"
+    "retryEvidence": "season-agnostic phrasing fix (HotD S3 premiered 2026-06-21; replaced \"both seasons\" with \"across the series\")",
+    "retryAt": "2026-06-23T17:51:20.298Z"
   }
 }
