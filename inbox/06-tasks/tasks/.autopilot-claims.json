@@ -1179,22 +1179,20 @@
     "mergedAt": "2026-06-23T16:38:06.499Z"
   },
   "PG-WC-033": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
     "stage": "pushed-preview",
-    "lockedBy": "58680",
-    "leaseUntil": "2026-06-23T18:11:06.451Z",
-    "updatedAt": "2026-06-23T17:11:06.451Z",
+    "lockedBy": "70572",
+    "leaseUntil": "2026-06-23T18:18:18.549Z",
+    "updatedAt": "2026-06-23T17:18:18.549Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-033",
     "branch": "seo/auto/2026-06-23-PG-WC-033",
     "pr": "https://github.com/xdawayer/oracle/pull/246",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "codex factual fix: reworded captaincy to verifiable (Man Utd captain; plays under Portugal captain Ronaldo); dropped disputed Portugal vice-captain title",
-    "retryAt": "2026-06-23T17:11:06.451Z",
-    "error": "review[astrology] FAIL: The article's load-bearing claim that Bruno Fernandes has Mars in Cancer (8 September 1994) is astrologically wrong — Mars was in Leo on that date, so the entire 'protective not aggressive' Mars reading is built on a false placement.",
-    "failedAt": "2026-06-23T17:13:02.103Z"
+    "retryEvidence": "removed disputed Mars placement (reviewer false-neg on correct Mars-in-Cancer per astrotheme); content now zero-dispute: Virgo Sun verified, Moon/Rising caveated unconfirmed, captaincy verifiable",
+    "retryAt": "2026-06-23T17:18:18.549Z"
   }
 }
