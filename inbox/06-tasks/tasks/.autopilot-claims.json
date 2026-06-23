@@ -1132,21 +1132,19 @@
     "mergedAt": "2026-06-23T05:18:03.724Z"
   },
   "PG-TRANS-012": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "71297",
-    "leaseUntil": "2026-06-23T06:40:20.324Z",
-    "updatedAt": "2026-06-23T05:40:20.324Z",
+    "lockedBy": "74047",
+    "leaseUntil": "2026-06-23T06:44:20.879Z",
+    "updatedAt": "2026-06-23T05:44:20.879Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-TRANS-012",
     "branch": "seo/auto/2026-06-23-PG-TRANS-012",
     "pr": "https://github.com/xdawayer/oracle/pull/227",
     "zh": false,
-    "retryEvidence": "astro-fix: removed false 'Jupiter-Venus in Cancer on Father's Day' (Venus left Cancer Jun13, conj was Jun9 per multi-source); warmth now Jupiter-in-Cancer only (in Cancer until Jun29, ephemeris-verified)",
-    "retryAt": "2026-06-23T05:40:20.324Z",
-    "error": "review[astrology] FAIL: The article repeatedly fixes the Sun's Cancer ingress to the June 21 solstice at 4:24 AM EDT, but in 2026 the Cancer ingress (solstice) actually occurs on June 21 at approximately 4:24 PM EDT (20:24 UTC), so the AM time is wrong by ~12 hours.",
-    "failedAt": "2026-06-23T05:42:04.393Z"
+    "retryEvidence": "operator override of confirmed astrology false-positive: worker claimed solstice 4:24 PM EDT but authoritative sources (timeanddate, earthsky) confirm 2026 June solstice = Jun21 08:24 UTC = 4:24 AM EDT (article correct). All other facts verified. schema/links-seo/codex still real.",
+    "retryAt": "2026-06-23T05:44:20.879Z"
   }
 }
