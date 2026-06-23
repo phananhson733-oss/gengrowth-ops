@@ -72,3 +72,4 @@ updated: 2026-06-23
 | 2026-06-23 | PG-WC-032 | luka-modric-zodiac-sign | Luka Modric Zodiac Sign | elena-vane | https://www.astrologywiki.com/en/wiki/luka-modric-zodiac-sign | published |
 | 2026-06-23 | PG-WC-033 | bruno-fernandes-zodiac-sign | Bruno Fernandes Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/bruno-fernandes-zodiac-sign | published |
 | 2026-06-23 | PG-TRANS-013 | cancer-season-2026-astrology | Cancer Season 2026 Astrology | elena-vane | https://www.astrologywiki.com/en/wiki/cancer-season-2026-astrology | published |
+| 2026-06-23 | PG-MYTH-009 | rhaenyra-targaryen-zodiac-sign | Rhaenyra Targaryen Zodiac Sign | elena-vane | https://www.astrologywiki.com/en/wiki/rhaenyra-targaryen-zodiac-sign | published |
