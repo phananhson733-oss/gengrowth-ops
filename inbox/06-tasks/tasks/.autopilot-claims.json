@@ -1163,10 +1163,10 @@
     "slug": "luka-modric-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-032.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "95532",
-    "leaseUntil": "2026-06-23T17:31:02.716Z",
-    "updatedAt": "2026-06-23T16:31:02.716Z",
+    "leaseUntil": "2026-06-23T17:32:59.406Z",
+    "updatedAt": "2026-06-23T16:32:59.406Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-032",
     "branch": "seo/auto/2026-06-23-PG-WC-032"
   }
