@@ -95,13 +95,13 @@ updated: 2026-06-16
 
 ---
 
-## 🟡 6月24日 — seo_tools_comparison (P2)
+## 🟢 6月24日 — seo_tools_comparison (P2)
 
-**状态**：`进行中` (CMP-001 LIVE；CMP-002/003 撰写中)
+**状态**：`已输出` (3 篇 LIVE on gengrowth.ai，sitemap 验证)
 
-- [x] `PG-CMP-001` affordable seo tools  -> LIVE https://gengrowth.ai/en/blog/affordable-seo-tools
-- [ ] `PG-CMP-002` serankings
-- [ ] `PG-CMP-003` seo diagrams
+- [x] `PG-CMP-001` affordable seo tools  -> LIVE https://gengrowth.ai/en/blog/affordable-seo-tools （事实门修正：去除杜撰的 Ahrefs 时间数据 + 误attribution 的 Search Essentials 指令）
+- [x] `PG-CMP-002` serankings  -> LIVE https://gengrowth.ai/en/blog/serankings
+- [x] `PG-CMP-003` seo diagrams  -> LIVE https://gengrowth.ai/en/blog/seo-diagrams
 
 ---
 
