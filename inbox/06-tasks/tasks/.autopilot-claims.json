@@ -1179,15 +1179,18 @@
     "mergedAt": "2026-06-23T16:38:06.499Z"
   },
   "PG-WC-033": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "bruno-fernandes-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-033.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "38063",
-    "leaseUntil": "2026-06-23T18:01:22.903Z",
-    "updatedAt": "2026-06-23T17:01:22.903Z",
+    "leaseUntil": "2026-06-23T18:01:57.427Z",
+    "updatedAt": "2026-06-23T17:01:57.427Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-033",
-    "branch": "seo/auto/2026-06-23-PG-WC-033"
+    "branch": "seo/auto/2026-06-23-PG-WC-033",
+    "pr": "https://github.com/xdawayer/oracle/pull/246",
+    "zh": false,
+    "needs_hero": true
   }
 }
