@@ -1221,7 +1221,7 @@
     "mergedAt": "2026-06-23T17:38:13.300Z"
   },
   "PG-MYTH-009": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "rhaenyra-targaryen-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-MYTH-009.md",
@@ -1235,6 +1235,10 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "season-agnostic phrasing fix (HotD S3 premiered 2026-06-21; replaced \"both seasons\" with \"across the series\")",
-    "retryAt": "2026-06-23T17:51:20.298Z"
+    "retryAt": "2026-06-23T17:51:20.298Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-23-pg-f20816-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-23T17:56:09.432Z",
+    "headRefOid": "85028672e237a45e2a0fef31a1aa50dc0bd1731a"
   }
 }
