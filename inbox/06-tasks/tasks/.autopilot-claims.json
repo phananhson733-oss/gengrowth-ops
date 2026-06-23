@@ -1132,19 +1132,19 @@
     "mergedAt": "2026-06-23T05:18:03.724Z"
   },
   "PG-TRANS-012": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "father-s-day-astrology-2026",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "61535",
-    "leaseUntil": "2026-06-23T06:28:52.281Z",
-    "updatedAt": "2026-06-23T05:28:52.281Z",
+    "lockedBy": "67566",
+    "leaseUntil": "2026-06-23T06:34:28.298Z",
+    "updatedAt": "2026-06-23T05:34:28.298Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-TRANS-012",
     "branch": "seo/auto/2026-06-23-PG-TRANS-012",
     "pr": "https://github.com/xdawayer/oracle/pull/227",
     "zh": false,
-    "error": "review[schema] FAIL: The meta description is truncated mid-sentence, ending on the dangling fragment \"...many U.S.\" instead of a complete, self-contained summary.",
-    "failedAt": "2026-06-23T05:31:52.241Z"
+    "retryEvidence": "schema-fix: rewrote opening sentence so deriveDescription cuts on a complete sentence (was truncating at '...many U.S.'); facts/links unchanged",
+    "retryAt": "2026-06-23T05:34:28.298Z"
   }
 }
