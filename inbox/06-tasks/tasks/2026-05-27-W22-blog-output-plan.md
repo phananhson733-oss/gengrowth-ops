@@ -270,7 +270,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (共7篇）
 - [ ] PG-CELEB-001 emma watson zodiac sign
 - [ ] PG-CELEB-002 greta lee zodiac sign
-- [ ] PG-CELEB-003 kylie jenner zodiac sign
+- [x] PG-CELEB-003 kylie jenner zodiac sign
 - [ ] PG-CELEB-004 mariah carey zodiac sign
 - [ ] PG-CELEB-005 sharon osbourne zodiac sign
 - [ ] PG-WC-035 thomas partey zodiac sign
