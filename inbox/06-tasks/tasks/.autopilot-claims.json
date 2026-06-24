@@ -1305,5 +1305,14 @@
     "needs_hero": true,
     "error": "chrome verify failed: [en] no <h1> on rendered page",
     "failedAt": "2026-06-24T13:30:57.669Z"
+  },
+  "PG-WC-035": {
+    "status": "needs_human",
+    "slug": "thomas-partey-zodiac-sign",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
+    "failedAt": "2026-06-24T13:36:37.430Z"
   }
 }
