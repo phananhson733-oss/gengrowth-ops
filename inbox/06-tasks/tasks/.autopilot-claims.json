@@ -1232,23 +1232,21 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "28753",
-    "leaseUntil": "2026-06-24T18:56:30.365Z",
-    "updatedAt": "2026-06-24T17:56:30.365Z",
+    "lockedBy": "60743",
+    "leaseUntil": "2026-06-24T19:39:45.732Z",
+    "updatedAt": "2026-06-24T18:39:45.732Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-001",
     "branch": "seo/auto/2026-06-24-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/258",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
-    "retryAt": "2026-06-24T17:56:30.365Z",
-    "error": "review[astrology] FAIL: The article presents a Virgo Rising (and Sagittarius Moon) as established fact and builds its entire thesis on the Ascendant, but Emma Watson has no reliable public birth time, so the Rising sign is unverifiable and cannot be stated definitively.",
-    "failedAt": "2026-06-24T17:57:13.908Z"
+    "retryEvidence": "manual article/preview repair applied; rerunning gate",
+    "retryAt": "2026-06-24T18:39:45.732Z"
   },
   "PG-CELEB-002": {
     "status": "done",
