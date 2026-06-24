@@ -1255,7 +1255,7 @@
     "failedAt": "2026-06-24T15:09:22.143Z"
   },
   "PG-CELEB-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1269,7 +1269,9 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "re-verified current preview renders h1; rerunning gate",
-    "retryAt": "2026-06-24T16:30:12.104Z"
+    "retryAt": "2026-06-24T16:30:12.104Z",
+    "error": "review[schema] FAIL: The published .ts module declares schema type \"Article\" but contains a multi-question FAQ block and BreadcrumbList-style internal navigation with no FAQPage/BreadcrumbList structured-data declared, so the machine-readable metadata is incomplete relative to the rendered content.",
+    "failedAt": "2026-06-24T16:31:28.541Z"
   },
   "PG-CELEB-003": {
     "status": "needs_human",
