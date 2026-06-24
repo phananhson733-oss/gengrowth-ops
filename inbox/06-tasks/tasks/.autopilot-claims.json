@@ -1232,7 +1232,7 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
@@ -1246,7 +1246,9 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "manual article/preview repair applied; rerunning gate",
-    "retryAt": "2026-06-24T18:39:45.732Z"
+    "retryAt": "2026-06-24T18:39:45.732Z",
+    "error": "review[links-seo] FAIL: Multiple internal links are broken or misdirected — the 'Aries Sun sign personality traits' Related Reading entry rendered as plain italic with no link, and two distinct anchors ('Virgo rising sign profiles', 'comparison of Sun sign versus Rising sign') both resolve to the generic /en/wiki/how-to-read-birth-chart page rather than their promised targets.",
+    "failedAt": "2026-06-24T18:42:09.326Z"
   },
   "PG-CELEB-002": {
     "status": "done",
