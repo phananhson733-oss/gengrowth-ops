@@ -280,6 +280,7 @@ test('页面在参数卡下方只展示 UTM 字段填写备注和默认留空提
   assert.equal(html.includes('id="usage-note-title"'), true);
   assert.equal(html.includes('备注'), true);
   assert.equal(html.includes('未填写会默认留空'), true);
+  assert.equal(html.includes('utm_source</code> 填具体平台。如社交媒体用 reddit / pinterest / x / tiktok等；KOL 用 <code>kol-{红人}</code>；外链用主域名，比如：abc.com。注意：统一用小写字母，同一个来源不能有两种写法！'), true);
   assert.equal(html.includes('utm_source'), true);
   assert.equal(html.includes('utm_medium'), true);
   assert.equal(html.includes('utm_campaign / cluster_id'), true);
@@ -355,6 +356,7 @@ test('GenGrowth 站点工具：独立目录、标题和脚本可用', () => {
   assert.equal(gengrowth.html.includes('class="input-stack"'), true);
   assert.equal(gengrowth.html.includes('id="usage-note-title"'), true);
   assert.equal(gengrowth.html.includes('未填写会默认留空'), true);
+  assert.equal(gengrowth.html.includes('utm_source</code> 填具体平台。如社交媒体用 reddit / pinterest / x / tiktok等；KOL 用 <code>kol-{红人}</code>；外链用主域名，比如：abc.com。注意：统一用小写字母，同一个来源不能有两种写法！'), true);
   assert.equal(gengrowth.html.includes('唯一数据脊柱'), false);
   assert.equal(gengrowth.html.includes('page_id'), false);
   gengrowth.allScripts.forEach((source) => {
