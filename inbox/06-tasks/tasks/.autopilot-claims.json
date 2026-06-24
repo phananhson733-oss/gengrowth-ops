@@ -1197,7 +1197,7 @@
     "mergedAt": "2026-06-24T07:52:05.531Z"
   },
   "PG-TRANS-013": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "cancer-season-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-TRANS-013-zh.md",
@@ -1208,7 +1208,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-TRANS-013",
     "branch": "seo/auto/2026-06-24-PG-TRANS-013",
     "pr": "https://github.com/xdawayer/oracle/pull/257",
-    "zh": true
+    "zh": true,
+    "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-fc90f8-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-24T08:53:22.617Z",
+    "headRefOid": "3eae2b9a2da64ffe4922d28faa8b36438e4c67d9",
+    "mergedAt": "2026-06-24T08:53:28.298Z"
   },
   "PG-MYTH-009": {
     "status": "done",
