@@ -1256,7 +1256,7 @@
     "failedAt": "2026-06-24T12:05:06.190Z"
   },
   "PG-CELEB-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1268,6 +1268,8 @@
     "branch": "seo/auto/2026-06-24-PG-CELEB-002",
     "pr": "https://github.com/xdawayer/oracle/pull/259",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-06-24T12:24:03.375Z"
   }
 }
