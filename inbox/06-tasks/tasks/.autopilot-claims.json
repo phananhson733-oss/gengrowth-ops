@@ -1255,7 +1255,7 @@
     "failedAt": "2026-06-24T15:09:22.143Z"
   },
   "PG-CELEB-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1273,7 +1273,9 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-9583ca-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-24T17:11:13.219Z",
-    "headRefOid": "8f2d9909b46ac16389094df4931e273f724b1913"
+    "headRefOid": "8f2d9909b46ac16389094df4931e273f724b1913",
+    "error": "review[links-seo] FAIL: The exact-match keyword \"greta lee zodiac sign\" is inserted verbatim in lowercase mid-sentence five times, an unnatural over-optimization pattern that reads as keyword stuffing rather than serving search intent.",
+    "failedAt": "2026-06-24T17:48:40.688Z"
   },
   "PG-CELEB-003": {
     "status": "done",
