@@ -1139,7 +1139,7 @@
     "mergedAt": "2026-06-23T05:46:37.824Z"
   },
   "PG-WC-034": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "bukayo-saka-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-WC-034-zh.md",
@@ -1151,7 +1151,11 @@
     "branch": "seo/auto/2026-06-24-PG-WC-034",
     "pr": "https://github.com/xdawayer/oracle/pull/249",
     "zh": true,
-    "needs_hero": true
+    "needs_hero": true,
+    "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-wc-034-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-24T06:42:45.027Z",
+    "headRefOid": "8c8dab9b267ccca7a4e94e8cfa757d29e8fdf493"
   },
   "PG-WC-032": {
     "status": "done",
