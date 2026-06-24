@@ -167,10 +167,10 @@
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "52876",
-    "leaseUntil": "2026-06-24T17:19:11.386Z",
-    "updatedAt": "2026-06-24T16:19:11.386Z",
+    "leaseUntil": "2026-06-24T17:24:47.186Z",
+    "updatedAt": "2026-06-24T16:24:47.186Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-002",
     "branch": "seo/auto/2026-06-24-PG-MOON-002"
   },
