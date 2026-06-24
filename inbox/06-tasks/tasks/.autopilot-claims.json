@@ -1316,7 +1316,7 @@
     "failedAt": "2026-06-24T13:36:37.430Z"
   },
   "PG-CELEB-005": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1328,6 +1328,8 @@
     "branch": "seo/auto/2026-06-24-PG-CELEB-005",
     "pr": "https://github.com/xdawayer/oracle/pull/262",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-06-24T14:04:42.986Z"
   }
 }
