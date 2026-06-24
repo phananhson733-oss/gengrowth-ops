@@ -1159,24 +1159,16 @@
     "mergedAt": "2026-06-24T06:42:52.362Z"
   },
   "PG-WC-032": {
-    "status": "done",
+    "status": "active",
     "slug": "luka-modric-zodiac-sign",
     "owner": "autopilot",
-    "plan": "one-plan-WC-032.md",
-    "stage": "pushed-preview",
-    "lockedBy": "95532",
-    "leaseUntil": "2026-06-23T17:33:33.469Z",
-    "updatedAt": "2026-06-23T16:33:33.469Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-23-PG-WC-032",
-    "branch": "seo/auto/2026-06-23-PG-WC-032",
-    "pr": "https://github.com/xdawayer/oracle/pull/245",
-    "zh": false,
-    "needs_hero": true,
-    "previewUrl": "https://oracle-git-seo-auto2026-06-23-pg-wc-032-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-23T16:38:00.746Z",
-    "headRefOid": "06ca855ead760a5e69fd6650dbdc62ac51d3b7d8",
-    "mergedAt": "2026-06-23T16:38:06.499Z"
+    "plan": "one-plan-WC-032-zh.md",
+    "stage": "build-gate",
+    "lockedBy": "65537",
+    "leaseUntil": "2026-06-24T08:09:51.847Z",
+    "updatedAt": "2026-06-24T07:09:51.847Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-WC-032",
+    "branch": "seo/auto/2026-06-24-PG-WC-032"
   },
   "PG-WC-033": {
     "status": "done",
