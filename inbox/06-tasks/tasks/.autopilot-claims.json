@@ -1316,15 +1316,18 @@
     "failedAt": "2026-06-24T13:36:37.430Z"
   },
   "PG-CELEB-005": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "55204",
-    "leaseUntil": "2026-06-24T15:00:57.925Z",
-    "updatedAt": "2026-06-24T14:00:57.925Z",
+    "leaseUntil": "2026-06-24T15:01:07.658Z",
+    "updatedAt": "2026-06-24T14:01:07.658Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-005",
-    "branch": "seo/auto/2026-06-24-PG-CELEB-005"
+    "branch": "seo/auto/2026-06-24-PG-CELEB-005",
+    "pr": "https://github.com/xdawayer/oracle/pull/262",
+    "zh": false,
+    "needs_hero": true
   }
 }
