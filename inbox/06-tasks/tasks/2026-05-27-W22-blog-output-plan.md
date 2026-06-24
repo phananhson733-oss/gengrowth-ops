@@ -266,5 +266,16 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 > ZH 双语已于 2026-06-24 全部回填上线（语义改写非翻译，继承全部 EN 事实修正：天蝎/天秤上升标注"未证实"、Bruno 无 Mars+曼联队长、星历用"刑"非对分、Rhaenyra 诚实并列+Mysaria+97AC；Rhaenyra zh 经一次 codex park"具体站点星座枚举不可核实"→去枚举保留诚实核心后修复）。hero 配图暂缓：Gemini web 被 Google 临时封 IP、gpt-image-2（OAuth Image2）需 OPENAI_API_KEY、MiniMax 额度用尽——needs_hero 不阻断文章，inline 配图已有，待凭证就绪单独补。附带修复：publish-success 通知现双语时带 /zh URL（gg-seo-autopilot appendPublishLog）。
 
 ---
+## ⚪ 6月24日 (周三) - 待写作
+**状态**：`等待输出` (共7篇）
+- [ ] PG-CELEB-001 emma watson zodiac sign
+- [ ] PG-CELEB-002 greta lee zodiac sign
+- [ ] PG-CELEB-003 kylie jenner zodiac sign
+- [ ] PG-CELEB-004 mariah carey zodiac sign
+- [ ] PG-CELEB-005 sharon osbourne zodiac sign
+- [ ] PG-WC-035 thomas partey zodiac sign
+- [ ] PG-WC-036 marcus rashford zodiac sign
+
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
