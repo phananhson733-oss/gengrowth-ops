@@ -1267,21 +1267,21 @@
     "failedAt": "2026-06-24T12:24:03.375Z"
   },
   "PG-CELEB-003": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "3581",
-    "leaseUntil": "2026-06-24T13:54:53.280Z",
-    "updatedAt": "2026-06-24T12:54:53.280Z",
+    "lockedBy": "58500",
+    "leaseUntil": "2026-06-24T17:27:29.418Z",
+    "updatedAt": "2026-06-24T16:27:29.418Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-003",
     "branch": "seo/auto/2026-06-24-PG-CELEB-003",
     "pr": "https://github.com/xdawayer/oracle/pull/260",
     "zh": false,
     "needs_hero": true,
-    "error": "review[schema] FAIL: The keywords array includes \"kylie jenner pregnant astrology\" but the article body contains zero pregnancy-related content, making it hallucinated metadata that misrepresents the page topic.",
-    "failedAt": "2026-06-24T12:57:32.487Z"
+    "retryEvidence": "removed hallucinated pregnancy keyword; rebuilt and pushed updated branch",
+    "retryAt": "2026-06-24T16:27:29.418Z"
   },
   "PG-CELEB-004": {
     "status": "needs_human",
