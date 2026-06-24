@@ -1260,10 +1260,10 @@
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "53686",
-    "leaseUntil": "2026-06-24T13:16:19.247Z",
-    "updatedAt": "2026-06-24T12:16:19.247Z",
+    "leaseUntil": "2026-06-24T13:20:08.346Z",
+    "updatedAt": "2026-06-24T12:20:08.346Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-002",
     "branch": "seo/auto/2026-06-24-PG-CELEB-002"
   }
