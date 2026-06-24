@@ -84,7 +84,7 @@
     "zh": true
   },
   "PG-HEAL-004": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "chiron-in-taurus",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -95,7 +95,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-HEAL-004",
     "branch": "seo/auto/2026-06-24-PG-HEAL-004",
     "pr": "https://github.com/xdawayer/oracle/pull/266",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: Multiple internal links have anchor text that contradicts their destination slug — three distinct concepts all point to /wiki/chiron-in-12th-house or other mismatched targets, indicating misresolved placeholder links.",
+    "failedAt": "2026-06-24T21:31:36.282Z"
   },
   "PG-JOURNAL-001": {
     "branch": "seo/auto/2026-06-05-PG-JOURNAL-001",
