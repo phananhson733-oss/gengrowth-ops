@@ -1299,21 +1299,21 @@
     "mergedAt": "2026-06-24T17:04:26.141Z"
   },
   "PG-CELEB-004": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mariah-carey-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "26007",
-    "leaseUntil": "2026-06-24T14:28:20.174Z",
-    "updatedAt": "2026-06-24T13:28:20.174Z",
+    "lockedBy": "29497",
+    "leaseUntil": "2026-06-24T18:57:23.646Z",
+    "updatedAt": "2026-06-24T17:57:23.646Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-004",
     "branch": "seo/auto/2026-06-24-PG-CELEB-004",
     "pr": "https://github.com/xdawayer/oracle/pull/261",
     "zh": false,
     "needs_hero": true,
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-24T13:30:57.669Z"
+    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
+    "retryAt": "2026-06-24T17:57:23.646Z"
   },
   "PG-WC-035": {
     "status": "needs_human",
