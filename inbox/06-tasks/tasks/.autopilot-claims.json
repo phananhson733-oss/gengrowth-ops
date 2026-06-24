@@ -1274,23 +1274,21 @@
     "failedAt": "2026-06-24T16:43:41.361Z"
   },
   "PG-CELEB-003": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "84552",
-    "leaseUntil": "2026-06-24T17:57:14.608Z",
-    "updatedAt": "2026-06-24T16:57:14.608Z",
+    "lockedBy": "86499",
+    "leaseUntil": "2026-06-24T17:59:47.706Z",
+    "updatedAt": "2026-06-24T16:59:47.706Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-003",
     "branch": "seo/auto/2026-06-24-PG-CELEB-003",
     "pr": "https://github.com/xdawayer/oracle/pull/260",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "fixed keyword mismatch and enabled codex autodiscovery; rerunning full gate",
-    "retryAt": "2026-06-24T16:57:14.608Z",
-    "error": "codex factual review could not complete (codex exited 2) — required gate",
-    "failedAt": "2026-06-24T16:58:45.050Z"
+    "retryEvidence": "fixed keyword mismatch and preview-gate codex wrapper resolution; rerunning full gate",
+    "retryAt": "2026-06-24T16:59:47.706Z"
   },
   "PG-CELEB-004": {
     "status": "needs_human",
