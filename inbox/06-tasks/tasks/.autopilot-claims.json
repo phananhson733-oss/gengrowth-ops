@@ -1256,15 +1256,18 @@
     "failedAt": "2026-06-24T12:05:06.190Z"
   },
   "PG-CELEB-002": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "53686",
-    "leaseUntil": "2026-06-24T13:21:52.552Z",
-    "updatedAt": "2026-06-24T12:21:52.552Z",
+    "leaseUntil": "2026-06-24T13:22:02.006Z",
+    "updatedAt": "2026-06-24T12:22:02.006Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-002",
-    "branch": "seo/auto/2026-06-24-PG-CELEB-002"
+    "branch": "seo/auto/2026-06-24-PG-CELEB-002",
+    "pr": "https://github.com/xdawayer/oracle/pull/259",
+    "zh": false,
+    "needs_hero": true
   }
 }
