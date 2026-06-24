@@ -1273,7 +1273,7 @@
     "failedAt": "2026-06-24T12:24:03.375Z"
   },
   "PG-CELEB-003": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1285,6 +1285,8 @@
     "branch": "seo/auto/2026-06-24-PG-CELEB-003",
     "pr": "https://github.com/xdawayer/oracle/pull/260",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[schema] FAIL: The keywords array includes \"kylie jenner pregnant astrology\" but the article body contains zero pregnancy-related content, making it hallucinated metadata that misrepresents the page topic.",
+    "failedAt": "2026-06-24T12:57:32.487Z"
   }
 }
