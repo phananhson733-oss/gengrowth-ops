@@ -1237,7 +1237,7 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
@@ -1249,6 +1249,8 @@
     "branch": "seo/auto/2026-06-24-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/258",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-06-24T12:02:36.514Z"
   }
 }
