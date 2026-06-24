@@ -553,6 +553,23 @@
           .slice(0, maxLength);
       }
 
+      function createStableHash(value) {
+        let hash = 0xcbf29ce484222325n;
+        const prime = 0x100000001b3n;
+        const mask = 0xffffffffffffffffn;
+        const text = String(value || '');
+        for (let index = 0; index < text.length; index += 1) {
+          hash ^= BigInt(text.charCodeAt(index));
+          hash = (hash * prime) & mask;
+        }
+        return hash.toString(36);
+      }
+
+      function createStableShortCode(destination) {
+        const hash = createStableHash(destination).padStart(12, '0').slice(0, 12);
+        return slugifyShortCode(`q1${hash}`);
+      }
+
       function createRandomPart(length) {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
         if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
@@ -575,8 +592,8 @@
       }
 
       function buildOwnedShortCode(params) {
-        const code = normalizeUniqueSeed(params.uniqueSeed) || createUniqueSeed();
-        return makeUniqueShortCode(code, params.reservedCodes);
+        const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
+        return createStableShortCode(destination);
       }
 
       function buildOwnedShortUrl(params) {
@@ -653,7 +670,7 @@
       function readableRegistrationError(payload, fallback) {
         const errorCode = payload?.code || payload?.error?.code;
         if (errorCode === 'code_conflict') {
-          return '短码已被占用：系统会自动重试，请重新生成。';
+          return '短码已被占用且指向不同长链接：请联系管理员处理，不要重复生成。';
         }
         if (errorCode === 'storage_unconfigured') {
           return '短链存储未配置：请先在 GenGrowth 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认短链映射表已创建。';
@@ -726,37 +743,29 @@
       }
 
       async function registerWithGlobalConflictRetry(data, generatedLongUrl) {
-        const maxAttempts = 3;
-        for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-          const generatedShortUrl = core.buildOwnedShortUrl({
-            ...data,
-            reservedCodes: readReservedCodeRegistry(),
-            uniqueSeed: attempt === 0 ? undefined : core.createUniqueSeed(),
-            destinationUrl: generatedLongUrl,
-          });
-          const mapping = core.buildRedirectMapping({
-            shortUrl: generatedShortUrl,
-            longUrl: generatedLongUrl,
-          });
+        const generatedShortUrl = core.buildOwnedShortUrl({
+          ...data,
+          reservedCodes: readReservedCodeRegistry(),
+          destinationUrl: generatedLongUrl,
+        });
+        const mapping = core.buildRedirectMapping({
+          shortUrl: generatedShortUrl,
+          longUrl: generatedLongUrl,
+        });
 
-          try {
-            const registered = await registerRedirectMapping(mapping);
+        try {
+          const registered = await registerRedirectMapping(mapping);
+          appendReservedCodeToRegistry(mapping.code);
+          return {
+            mapping,
+            registered,
+          };
+        } catch (error) {
+          if (error.code === 'code_conflict') {
             appendReservedCodeToRegistry(mapping.code);
-            return {
-              mapping,
-              registered,
-            };
-          } catch (error) {
-            if (error.code === 'code_conflict') {
-              appendReservedCodeToRegistry(mapping.code);
-            }
-            if (error.code === 'code_conflict' && attempt < maxAttempts - 1) {
-              continue;
-            }
-            throw error;
           }
+          throw error;
         }
-        throw new Error('短码已被占用，请重新生成。');
       }
 
       async function generateLongLink() {
