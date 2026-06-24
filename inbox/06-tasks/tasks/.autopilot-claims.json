@@ -1277,10 +1277,10 @@
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "3581",
-    "leaseUntil": "2026-06-24T13:49:18.134Z",
-    "updatedAt": "2026-06-24T12:49:18.134Z",
+    "leaseUntil": "2026-06-24T13:52:21.770Z",
+    "updatedAt": "2026-06-24T12:52:21.770Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-003",
     "branch": "seo/auto/2026-06-24-PG-CELEB-003"
   }
