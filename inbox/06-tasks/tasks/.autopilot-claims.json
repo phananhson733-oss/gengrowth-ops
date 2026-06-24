@@ -1333,7 +1333,7 @@
     "failedAt": "2026-06-24T13:36:37.430Z"
   },
   "PG-CELEB-005": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1350,8 +1350,9 @@
     "retryAt": "2026-06-24T18:15:41.620Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-4176fd-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-24T17:56:15.056Z",
-    "headRefOid": "13d96e60f6d34948e8655399f645d721c6c66d33"
+    "verifiedAt": "2026-06-24T18:20:52.109Z",
+    "headRefOid": "e58d728bf9294f89728a02d63331808ba51916db",
+    "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-036": {
     "status": "needs_human",
