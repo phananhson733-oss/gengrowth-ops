@@ -1236,23 +1236,21 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "4129",
-    "leaseUntil": "2026-06-24T16:08:33.556Z",
-    "updatedAt": "2026-06-24T15:08:33.556Z",
+    "lockedBy": "28753",
+    "leaseUntil": "2026-06-24T18:56:30.365Z",
+    "updatedAt": "2026-06-24T17:56:30.365Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-001",
     "branch": "seo/auto/2026-06-24-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/258",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "bandwidth restored after FLUX download finished; preview now renders <h1>; re-verify",
-    "retryAt": "2026-06-24T15:08:33.556Z",
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-24T15:09:22.143Z"
+    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
+    "retryAt": "2026-06-24T17:56:30.365Z"
   },
   "PG-CELEB-002": {
     "status": "done",
@@ -1325,7 +1323,7 @@
     "failedAt": "2026-06-24T13:36:37.430Z"
   },
   "PG-CELEB-005": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1339,7 +1337,13 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
-    "retryAt": "2026-06-24T17:52:23.929Z"
+    "retryAt": "2026-06-24T17:52:23.929Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-4176fd-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-24T17:56:15.056Z",
+    "headRefOid": "13d96e60f6d34948e8655399f645d721c6c66d33",
+    "error": "merge failed: /auto/2026-06-24-PG-CELEB-005 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 13d96e60f6d34948e8655399f645d721c6c66d33 GraphQL: Pull Request has merge conflicts (mergePullRequest)",
+    "failedAt": "2026-06-24T17:56:17.241Z"
   },
   "PG-WC-036": {
     "status": "needs_human",
