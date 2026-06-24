@@ -262,7 +262,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-033 bruno fernandes zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/bruno-fernandes-zodiac-sign （处女日太阳；codex 否"葡萄牙副队长"→改"曼联队长+在 C罗麾下"可核实表述；移除 astrology-reviewer 误判的 Mars 落座）
 - [x] PG-WC-034 bukayo saka zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/bukayo-saka-zodiac-sign （处女日太阳；Aries Moon/Mars Sagittarius 按日期保留，自动规避杜撰 Scorpio 上升）
 
-> 5 篇唯一 EN 全部当日 prod 部署。流程：deep-research 事实预核查 → Opus 4.8 high 作者 → 逐篇修正不可核实断言/星历 → phase2 → preview gate（三维 review + codex 事实门）→ merge → prod 验证。Bruno（vice-captain + Mars 误判）与 Rhaenyra（HotD S3 时效 + authoring park）各经一次门 park 后修复上线。ZH 双语为后续单独回填。
+> 5 篇唯一 EN 全部当日 prod 部署。流程：deep-research 事实预核查 → Opus 4.8 high 作者 → 逐篇修正不可核实断言/星历 → phase2 → preview gate（三维 review + codex 事实门）→ merge → prod 验证。Bruno（vice-captain + Mars 误判）与 Rhaenyra（HotD S3 时效 + authoring park）各经一次门 park 后修复上线。
+> ZH 双语已于 2026-06-24 全部回填上线（语义改写非翻译，继承全部 EN 事实修正：天蝎/天秤上升标注"未证实"、Bruno 无 Mars+曼联队长、星历用"刑"非对分、Rhaenyra 诚实并列+Mysaria+97AC；Rhaenyra zh 经一次 codex park"具体站点星座枚举不可核实"→去枚举保留诚实核心后修复）。hero 配图暂缓：Gemini web 被 Google 临时封 IP、gpt-image-2（OAuth Image2）需 OPENAI_API_KEY、MiniMax 额度用尽——needs_hero 不阻断文章，inline 配图已有，待凭证就绪单独补。附带修复：publish-success 通知现双语时带 /zh URL（gg-seo-autopilot appendPublishLog）。
 
 ---
 
