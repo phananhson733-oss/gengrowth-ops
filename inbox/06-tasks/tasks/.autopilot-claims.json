@@ -163,23 +163,21 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "33568",
-    "leaseUntil": "2026-06-24T19:01:46.506Z",
-    "updatedAt": "2026-06-24T18:01:46.506Z",
+    "lockedBy": "64012",
+    "leaseUntil": "2026-06-24T19:43:13.323Z",
+    "updatedAt": "2026-06-24T18:43:13.323Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-002",
     "branch": "seo/auto/2026-06-24-PG-MOON-002",
     "pr": "https://github.com/xdawayer/oracle/pull/264",
     "zh": true,
     "needs_hero": true,
-    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
-    "retryAt": "2026-06-24T18:01:46.506Z",
-    "error": "review[links-seo] FAIL: Every intended internal wiki-link was rendered as plain italic text instead of a real link, so the page has no resolvable internal links in the body and the first/only internal link is the CTA at the very bottom rather than early in the opening.",
-    "failedAt": "2026-06-24T18:03:07.103Z"
+    "retryEvidence": "manual article/preview repair applied; rerunning gate",
+    "retryAt": "2026-06-24T18:43:13.323Z"
   },
   "PG-MOON-003": {
     "status": "active",
@@ -1349,7 +1347,7 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-036": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "marcus-rashford-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1363,6 +1361,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "manual article/preview repair applied; rerunning gate",
-    "retryAt": "2026-06-24T18:42:22.501Z"
+    "retryAt": "2026-06-24T18:42:22.501Z",
+    "error": "review[astrology] FAIL: The article states twice that an October 31 birthday places the Sun \"near the close of Scorpio season,\" but October 31 falls in early-to-mid Scorpio (~7-8° Scorpio; Scorpio runs ~Oct 23–Nov 21), so this is a material, checkable astrological error about the very placement the piece is built on.",
+    "failedAt": "2026-06-24T18:43:03.956Z"
   }
 }
