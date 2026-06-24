@@ -1325,21 +1325,21 @@
     "failedAt": "2026-06-24T13:36:37.430Z"
   },
   "PG-CELEB-005": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "55204",
-    "leaseUntil": "2026-06-24T15:01:07.658Z",
-    "updatedAt": "2026-06-24T14:01:07.658Z",
+    "lockedBy": "25797",
+    "leaseUntil": "2026-06-24T18:52:23.929Z",
+    "updatedAt": "2026-06-24T17:52:23.929Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-005",
     "branch": "seo/auto/2026-06-24-PG-CELEB-005",
     "pr": "https://github.com/xdawayer/oracle/pull/262",
     "zh": false,
     "needs_hero": true,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-06-24T14:04:42.986Z"
+    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
+    "retryAt": "2026-06-24T17:52:23.929Z"
   },
   "PG-WC-036": {
     "status": "needs_human",
