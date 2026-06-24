@@ -1288,5 +1288,17 @@
     "needs_hero": true,
     "error": "review[schema] FAIL: The keywords array includes \"kylie jenner pregnant astrology\" but the article body contains zero pregnancy-related content, making it hallucinated metadata that misrepresents the page topic.",
     "failedAt": "2026-06-24T12:57:32.487Z"
+  },
+  "PG-CELEB-004": {
+    "status": "active",
+    "slug": "mariah-carey-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "26007",
+    "leaseUntil": "2026-06-24T14:23:04.206Z",
+    "updatedAt": "2026-06-24T13:23:04.206Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-004",
+    "branch": "seo/auto/2026-06-24-PG-CELEB-004"
   }
 }
