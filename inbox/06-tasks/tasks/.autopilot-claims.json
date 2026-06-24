@@ -88,10 +88,10 @@
     "slug": "chiron-in-taurus",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "71682",
-    "leaseUntil": "2026-06-24T22:21:34.760Z",
-    "updatedAt": "2026-06-24T21:21:34.760Z",
+    "leaseUntil": "2026-06-24T22:26:27.949Z",
+    "updatedAt": "2026-06-24T21:26:27.949Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-HEAL-004",
     "branch": "seo/auto/2026-06-24-PG-HEAL-004"
   },
