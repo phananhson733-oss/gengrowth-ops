@@ -131,31 +131,70 @@ test('生成自有短链：使用 astrologywiki 主站短路径，并输出映�
     content: 'act_backlink_maximum_20260623',
     uniqueSeed: 'x9k2p7',
   });
-  assert.equal(
-    shortLink,
-    'https://www.astrologywiki.com/x9k2p7'
-  );
+  assert.match(shortLink, /^https:\/\/www\.astrologywiki\.com\/[a-z0-9]*[0-9][a-z0-9-]*$/);
 
   const mapping = core.buildRedirectMapping({ shortUrl: shortLink, longUrl });
-  assert.equal(mapping.code, 'x9k2p7');
-  assert.equal(
-    mapping.short_url,
-    'https://www.astrologywiki.com/x9k2p7'
-  );
-  assert.equal(mapping.clean_short_url, 'https://www.astrologywiki.com/x9k2p7');
+  assert.equal(mapping.short_url, shortLink);
+  assert.equal(mapping.clean_short_url, shortLink);
   assert.equal(mapping.destination_url, longUrl);
   assert.equal(mapping.redirect_status, 302);
-  assert.equal(core.toDisplayShortUrl(shortLink), 'astrologywiki.com/x9k2p7');
-  assert.equal(core.toDisplayShortUrl('https://www.astrologywiki.com/go/x9k2p7'), 'astrologywiki.com/x9k2p7');
+  assert.equal(core.toDisplayShortUrl(shortLink), `astrologywiki.com/${mapping.code}`);
+  assert.equal(core.toDisplayShortUrl(`https://www.astrologywiki.com/go/${mapping.code}`), `astrologywiki.com/${mapping.code}`);
 });
 
-test('生成自有短链：默认短码包含时间戳片段和安全随机片段', () => {
-  const seed = core.createUniqueSeed();
+test('生成自有短链：同一个长链接稳定得到同一个短链', () => {
+  const longUrl = core.buildLongUrl({
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    source: 'abc.com',
+    medium: 'backlink',
+    campaign: '',
+    content: '',
+  });
 
-  assert.match(seed, /^[a-z0-9]{10,16}$/);
+  const first = core.buildOwnedShortUrl({
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    destinationUrl: longUrl,
+    uniqueSeed: 'first111',
+  });
+  const second = core.buildOwnedShortUrl({
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    destinationUrl: longUrl,
+    uniqueSeed: 'second222',
+    reservedCodes: core.parseReservedCodes(first),
+  });
+
+  assert.equal(second, first);
 });
 
-test('生成自有短链：忽略手动 shortCode，只使用本地随机码', () => {
+test('生成自有短链：不同长链接得到不同短链', () => {
+  const firstLongUrl = core.buildLongUrl({
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    source: 'abc.com',
+    medium: 'backlink',
+    campaign: '',
+    content: '',
+  });
+  const secondLongUrl = core.buildLongUrl({
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    source: 'reddit',
+    medium: 'social',
+    campaign: '',
+    content: '',
+  });
+
+  assert.notEqual(
+    core.buildOwnedShortUrl({
+      landingUrl: '/en/wiki/aura-colors-pillar',
+      destinationUrl: firstLongUrl,
+    }),
+    core.buildOwnedShortUrl({
+      landingUrl: '/en/wiki/aura-colors-pillar',
+      destinationUrl: secondLongUrl,
+    })
+  );
+});
+
+test('生成自有短链：忽略手动 shortCode 和随机 seed，只按长链接生成', () => {
   assert.equal(
     core.buildOwnedShortUrl({
       shortCode: 'Aura 01 / Summer',
@@ -167,29 +206,44 @@ test('生成自有短链：忽略手动 shortCode，只使用本地随机码', (
       content: '',
       uniqueSeed: 'x9k2p7',
     }),
-    'https://www.astrologywiki.com/x9k2p7'
-  );
-});
-
-test('生成自有短链：已有 code 冲突时自动追加数字后缀', () => {
-  const destinationUrl = 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar';
-  assert.equal(
     core.buildOwnedShortUrl({
       shortCode: '',
       landingUrl: '/en/wiki/aura-colors-pillar',
-      destinationUrl,
-      source: 'maximum.fm',
-      medium: 'backlink',
-      campaign: 'aura_colors_1a',
-      content: 'act_backlink_maximum_20260623',
-      uniqueSeed: 'x9k2p7',
-      reservedCodes: [
-        'x9k2p7',
-        'x9k2p7-2',
-      ],
-    }),
-    'https://www.astrologywiki.com/x9k2p7-3'
+      destinationUrl: 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar',
+      source: '',
+      medium: '',
+      campaign: '',
+      content: '',
+      uniqueSeed: 'another9',
+    })
   );
+});
+
+test('生成自有短链：已有 code 记录不让同一个长链接变成新短链', () => {
+  const destinationUrl = 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar';
+  const first = core.buildOwnedShortUrl({
+    shortCode: '',
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    destinationUrl,
+    source: 'maximum.fm',
+    medium: 'backlink',
+    campaign: 'aura_colors_1a',
+    content: 'act_backlink_maximum_20260623',
+    uniqueSeed: 'x9k2p7',
+  });
+  const second = core.buildOwnedShortUrl({
+    shortCode: '',
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    destinationUrl,
+    source: 'maximum.fm',
+    medium: 'backlink',
+    campaign: 'aura_colors_1a',
+    content: 'act_backlink_maximum_20260623',
+    uniqueSeed: 'newseed9',
+    reservedCodes: core.parseReservedCodes(first),
+  });
+
+  assert.equal(second, first);
 });
 
 test('生成自有短链：可从短链接和映射文本解析已占用 code', () => {
@@ -210,20 +264,32 @@ test('生成自有短链：可从短链接和映射文本解析已占用 code', 
   assert.equal(reservedCodes.has('moon-02'), true);
 });
 
-test('生成自有短链：随机 shortCode 冲突时也会自动避让', () => {
+test('生成自有短链：reserved code 不改变长链接的一对一短码', () => {
+  const destinationUrl = 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar';
+  const stable = core.buildOwnedShortUrl({
+    shortCode: 'Aura 01',
+    landingUrl: '/en/wiki/aura-colors-pillar',
+    destinationUrl,
+    source: '',
+    medium: '',
+    campaign: '',
+    content: '',
+    uniqueSeed: 'x9k2p7',
+  });
+
   assert.equal(
     core.buildOwnedShortUrl({
       shortCode: 'Aura 01',
       landingUrl: '/en/wiki/aura-colors-pillar',
-      destinationUrl: 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar',
+      destinationUrl,
       source: '',
       medium: '',
       campaign: '',
       content: '',
-      uniqueSeed: 'x9k2p7',
-      reservedCodes: core.parseReservedCodes('x9k2p7'),
+      uniqueSeed: 'different9',
+      reservedCodes: core.parseReservedCodes(stable),
     }),
-    'https://www.astrologywiki.com/x9k2p7-2'
+    stable
   );
 });
 
@@ -390,10 +456,24 @@ test('GenGrowth 站点工具：只允许 gengrowth.ai 域名并生成长短链',
       content: 'act_backlink_partner_20260623',
       uniqueSeed: 'g9n2th',
     }),
-    'https://www.gengrowth.ai/g9n2th'
+    gengrowth.core.buildOwnedShortUrl({
+      shortCode: '',
+      landingUrl: '/en/wiki/seo-automation',
+      destinationUrl: longUrl,
+      source: 'partner.example',
+      medium: 'backlink',
+      campaign: 'seo_automation',
+      content: 'act_backlink_partner_20260623',
+      uniqueSeed: 'another9',
+    })
   );
-  assert.equal(gengrowth.core.toDisplayShortUrl('https://www.gengrowth.ai/g9n2th'), 'gengrowth.ai/g9n2th');
-  assert.equal(gengrowth.core.toDisplayShortUrl('https://www.gengrowth.ai/go/g9n2th'), 'gengrowth.ai/g9n2th');
+  const shortUrl = gengrowth.core.buildOwnedShortUrl({
+    landingUrl: '/en/wiki/seo-automation',
+    destinationUrl: longUrl,
+  });
+  const shortCode = new URL(shortUrl).pathname.slice(1);
+  assert.equal(gengrowth.core.toDisplayShortUrl(shortUrl), `gengrowth.ai/${shortCode}`);
+  assert.equal(gengrowth.core.toDisplayShortUrl(`https://www.gengrowth.ai/go/${shortCode}`), `gengrowth.ai/${shortCode}`);
 
   assert.throws(
     () => gengrowth.core.buildLongUrl({
