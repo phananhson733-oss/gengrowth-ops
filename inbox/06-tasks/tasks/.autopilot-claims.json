@@ -186,16 +186,18 @@
     "failedAt": "2026-06-24T18:45:41.678Z"
   },
   "PG-MOON-003": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "what-to-do-on-a-full-moon-spiritually",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "60239",
-    "leaseUntil": "2026-06-24T19:46:46.566Z",
-    "updatedAt": "2026-06-24T18:46:46.566Z",
+    "leaseUntil": "2026-06-24T19:47:04.810Z",
+    "updatedAt": "2026-06-24T18:47:04.810Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-003",
-    "branch": "seo/auto/2026-06-24-PG-MOON-003"
+    "branch": "seo/auto/2026-06-24-PG-MOON-003",
+    "pr": "https://github.com/xdawayer/oracle/pull/265",
+    "zh": true
   },
   "PG-MOON-004": {
     "branch": "seo/auto/2026-06-05-PG-MOON-004",
