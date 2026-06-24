@@ -1237,23 +1237,21 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "37975",
-    "leaseUntil": "2026-06-24T13:04:19.111Z",
-    "updatedAt": "2026-06-24T12:04:19.111Z",
+    "lockedBy": "4129",
+    "leaseUntil": "2026-06-24T16:08:33.556Z",
+    "updatedAt": "2026-06-24T15:08:33.556Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-001",
     "branch": "seo/auto/2026-06-24-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/258",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "preview now renders <h1> (Vercel prerender lag during initial verify; raw HTML 200 with article h1 confirmed via bypass)",
-    "retryAt": "2026-06-24T12:04:19.111Z",
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-24T12:05:06.190Z"
+    "retryEvidence": "bandwidth restored after FLUX download finished; preview now renders <h1>; re-verify",
+    "retryAt": "2026-06-24T15:08:33.556Z"
   },
   "PG-CELEB-002": {
     "status": "needs_human",
