@@ -84,16 +84,18 @@
     "zh": true
   },
   "PG-HEAL-004": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "chiron-in-taurus",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "71682",
-    "leaseUntil": "2026-06-24T22:26:27.949Z",
-    "updatedAt": "2026-06-24T21:26:27.949Z",
+    "leaseUntil": "2026-06-24T22:28:32.822Z",
+    "updatedAt": "2026-06-24T21:28:32.822Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-HEAL-004",
-    "branch": "seo/auto/2026-06-24-PG-HEAL-004"
+    "branch": "seo/auto/2026-06-24-PG-HEAL-004",
+    "pr": "https://github.com/xdawayer/oracle/pull/266",
+    "zh": true
   },
   "PG-JOURNAL-001": {
     "branch": "seo/auto/2026-06-05-PG-JOURNAL-001",
