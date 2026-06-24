@@ -1255,7 +1255,7 @@
     "failedAt": "2026-06-24T15:09:22.143Z"
   },
   "PG-CELEB-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1269,7 +1269,9 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "patched preview verifier hydration wait + schema reviewer auto-FAQ handling; rerunning gate",
-    "retryAt": "2026-06-24T16:42:10.720Z"
+    "retryAt": "2026-06-24T16:42:10.720Z",
+    "error": "review[links-seo] FAIL: Two of the four Related Reading internal links point to /en/wiki/12th-house-astrology for distinct anchors (Pisces Sun sign and Neptune ruling planet), a topic mismatch that makes at least one link wrong/misdirected, and a fifth bullet ships as un-anchored italic placeholder text with no link.",
+    "failedAt": "2026-06-24T16:43:41.361Z"
   },
   "PG-CELEB-003": {
     "status": "needs_human",
