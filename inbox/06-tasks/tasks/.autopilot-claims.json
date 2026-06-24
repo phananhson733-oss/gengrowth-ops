@@ -163,7 +163,7 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -177,7 +177,11 @@
     "zh": true,
     "needs_hero": true,
     "retryEvidence": "manual article/preview repair applied; rerunning gate",
-    "retryAt": "2026-06-24T18:43:13.323Z"
+    "retryAt": "2026-06-24T18:43:13.323Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-740c86-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-24T18:45:40.460Z",
+    "headRefOid": "b94de0bf92676255de16067b275da2e3029219ba"
   },
   "PG-MOON-003": {
     "status": "active",
