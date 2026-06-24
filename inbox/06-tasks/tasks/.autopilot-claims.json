@@ -1274,7 +1274,7 @@
     "failedAt": "2026-06-24T16:43:41.361Z"
   },
   "PG-CELEB-003": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1288,7 +1288,9 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed keyword mismatch; rerunning after preview verifier hydration patch",
-    "retryAt": "2026-06-24T16:50:44.361Z"
+    "retryAt": "2026-06-24T16:50:44.361Z",
+    "error": "codex factual review REQUIRED but GG_CODEX_BIN not configured (set GG_CODEX_GATE_REQUIRED=0 to override)",
+    "failedAt": "2026-06-24T16:52:27.814Z"
   },
   "PG-CELEB-004": {
     "status": "needs_human",
