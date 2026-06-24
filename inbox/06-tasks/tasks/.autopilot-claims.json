@@ -1270,7 +1270,7 @@
     "failedAt": "2026-06-24T12:24:03.375Z"
   },
   "PG-CELEB-003": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1284,7 +1284,9 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "removed hallucinated pregnancy keyword; rebuilt and pushed updated branch",
-    "retryAt": "2026-06-24T16:27:29.418Z"
+    "retryAt": "2026-06-24T16:27:29.418Z",
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-06-24T16:29:45.355Z"
   },
   "PG-CELEB-004": {
     "status": "needs_human",
