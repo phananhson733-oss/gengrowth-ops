@@ -163,21 +163,21 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "52876",
-    "leaseUntil": "2026-06-24T17:28:34.812Z",
-    "updatedAt": "2026-06-24T16:28:34.812Z",
+    "lockedBy": "33568",
+    "leaseUntil": "2026-06-24T19:01:46.506Z",
+    "updatedAt": "2026-06-24T18:01:46.506Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-002",
     "branch": "seo/auto/2026-06-24-PG-MOON-002",
     "pr": "https://github.com/xdawayer/oracle/pull/264",
     "zh": true,
     "needs_hero": true,
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-24T16:31:12.486Z"
+    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
+    "retryAt": "2026-06-24T18:01:46.506Z"
   },
   "PG-MOON-003": {
     "branch": "seo/auto/2026-06-04-PG-MOON-003",
