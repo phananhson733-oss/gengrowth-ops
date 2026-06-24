@@ -163,7 +163,7 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "status": "verified-preview",
+    "status": "needs_human",
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -181,7 +181,9 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-740c86-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-24T18:45:40.460Z",
-    "headRefOid": "b94de0bf92676255de16067b275da2e3029219ba"
+    "headRefOid": "b94de0bf92676255de16067b275da2e3029219ba",
+    "error": "merge failed: 19ba X Pull request xdawayer/oracle#264 is not mergeable: the merge commit cannot be cleanly created. To have the pull request merged after all the requirements have been met, add the `--auto` flag.",
+    "failedAt": "2026-06-24T18:45:41.678Z"
   },
   "PG-MOON-003": {
     "status": "active",
@@ -1302,22 +1304,22 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "41678",
-    "leaseUntil": "2026-06-24T19:13:04.062Z",
-    "updatedAt": "2026-06-24T18:13:04.062Z",
+    "lockedBy": "70362",
+    "leaseUntil": "2026-06-24T19:45:56.213Z",
+    "updatedAt": "2026-06-24T18:45:56.213Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-004",
     "branch": "seo/auto/2026-06-24-PG-CELEB-004",
     "pr": "https://github.com/xdawayer/oracle/pull/261",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "rebased onto main, resolved article index + EN-only slug conflicts, rebuilt and pushed",
-    "retryAt": "2026-06-24T18:13:04.062Z",
+    "retryEvidence": "manual article/preview repair applied; rerunning gate",
+    "retryAt": "2026-06-24T18:45:56.213Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-6689c9-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-24T18:00:50.038Z",
     "headRefOid": "fc5732029fd9db7fde0a56f6aac8513fc5dbfcfd",
     "error": "preview-wait failed: vercel deployment failed (commit-status)",
-    "failedAt": "2026-06-24T18:13:39.076Z"
+    "failedAt": "2026-06-24T18:46:04.656Z"
   },
   "PG-WC-035": {
     "status": "needs_human",
