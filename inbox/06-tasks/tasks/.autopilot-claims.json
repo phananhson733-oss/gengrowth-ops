@@ -163,7 +163,7 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -177,7 +177,9 @@
     "zh": true,
     "needs_hero": true,
     "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
-    "retryAt": "2026-06-24T18:01:46.506Z"
+    "retryAt": "2026-06-24T18:01:46.506Z",
+    "error": "review[links-seo] FAIL: Every intended internal wiki-link was rendered as plain italic text instead of a real link, so the page has no resolvable internal links in the body and the first/only internal link is the CTA at the very bottom rather than early in the opening.",
+    "failedAt": "2026-06-24T18:03:07.103Z"
   },
   "PG-MOON-003": {
     "branch": "seo/auto/2026-06-04-PG-MOON-003",
