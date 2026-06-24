@@ -1294,10 +1294,10 @@
     "slug": "mariah-carey-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "26007",
-    "leaseUntil": "2026-06-24T14:23:04.206Z",
-    "updatedAt": "2026-06-24T13:23:04.206Z",
+    "leaseUntil": "2026-06-24T14:25:37.614Z",
+    "updatedAt": "2026-06-24T13:25:37.614Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-004",
     "branch": "seo/auto/2026-06-24-PG-CELEB-004"
   }
