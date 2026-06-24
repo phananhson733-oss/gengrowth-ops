@@ -1271,5 +1271,17 @@
     "needs_hero": true,
     "error": "chrome verify failed: [en] no <h1> on rendered page",
     "failedAt": "2026-06-24T12:24:03.375Z"
+  },
+  "PG-CELEB-003": {
+    "status": "active",
+    "slug": "kylie-jenner-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "3581",
+    "leaseUntil": "2026-06-24T13:49:18.134Z",
+    "updatedAt": "2026-06-24T12:49:18.134Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-003",
+    "branch": "seo/auto/2026-06-24-PG-CELEB-003"
   }
 }
