@@ -1320,10 +1320,10 @@
     "slug": "sharon-osbourne-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "push",
     "lockedBy": "55204",
-    "leaseUntil": "2026-06-24T14:58:40.284Z",
-    "updatedAt": "2026-06-24T13:58:40.284Z",
+    "leaseUntil": "2026-06-24T15:00:57.925Z",
+    "updatedAt": "2026-06-24T14:00:57.925Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-005",
     "branch": "seo/auto/2026-06-24-PG-CELEB-005"
   }
