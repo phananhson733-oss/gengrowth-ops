@@ -1337,10 +1337,10 @@
     "slug": "marcus-rashford-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "75151",
-    "leaseUntil": "2026-06-24T15:30:16.779Z",
-    "updatedAt": "2026-06-24T14:30:16.779Z",
+    "leaseUntil": "2026-06-24T15:33:33.846Z",
+    "updatedAt": "2026-06-24T14:33:33.846Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-WC-036",
     "branch": "seo/auto/2026-06-24-PG-WC-036"
   }
