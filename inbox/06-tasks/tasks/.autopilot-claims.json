@@ -1333,7 +1333,7 @@
     "failedAt": "2026-06-24T14:04:42.986Z"
   },
   "PG-WC-036": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "marcus-rashford-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1345,6 +1345,8 @@
     "branch": "seo/auto/2026-06-24-PG-WC-036",
     "pr": "https://github.com/xdawayer/oracle/pull/263",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-06-24T14:37:49.666Z"
   }
 }
