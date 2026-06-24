@@ -366,7 +366,7 @@ test('页面显示和复制 domain/code 短链接，打开短链接使用完整 
   assert.equal(html.includes('valueForOpen'), true);
 });
 
-test('页面不暴露短链 code 输入，短链 code 由本地随机生成', () => {
+test('页面不暴露短链 code 输入，短链 code 由长链接稳定生成', () => {
   assert.equal(html.includes('id="short-code"'), false);
   assert.equal(html.includes('name="shortCode"'), false);
   assert.equal(html.includes('短链 code'), false);
