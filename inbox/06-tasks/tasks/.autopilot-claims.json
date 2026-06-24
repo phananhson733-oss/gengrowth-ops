@@ -1301,7 +1301,7 @@
     "mergedAt": "2026-06-24T17:04:26.141Z"
   },
   "PG-CELEB-004": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mariah-carey-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1319,7 +1319,9 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-6689c9-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-24T18:00:50.038Z",
-    "headRefOid": "fc5732029fd9db7fde0a56f6aac8513fc5dbfcfd"
+    "headRefOid": "fc5732029fd9db7fde0a56f6aac8513fc5dbfcfd",
+    "error": "preview-wait failed: vercel deployment failed (commit-status)",
+    "failedAt": "2026-06-24T18:13:39.076Z"
   },
   "PG-WC-035": {
     "status": "needs_human",
