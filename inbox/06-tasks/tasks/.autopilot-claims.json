@@ -186,7 +186,7 @@
     "failedAt": "2026-06-24T18:45:41.678Z"
   },
   "PG-MOON-003": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "what-to-do-on-a-full-moon-spiritually",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -197,7 +197,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-003",
     "branch": "seo/auto/2026-06-24-PG-MOON-003",
     "pr": "https://github.com/xdawayer/oracle/pull/265",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: The opening's intended internal links rendered as plain italic text with no href (dead links), so the first real internal link only appears in the Related Reading section near the page bottom, violating the early-internal-link requirement.",
+    "failedAt": "2026-06-24T18:50:05.466Z"
   },
   "PG-MOON-004": {
     "branch": "seo/auto/2026-06-05-PG-MOON-004",
