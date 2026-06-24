@@ -1237,7 +1237,7 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
@@ -1251,6 +1251,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "preview now renders <h1> (Vercel prerender lag during initial verify; raw HTML 200 with article h1 confirmed via bypass)",
-    "retryAt": "2026-06-24T12:04:19.111Z"
+    "retryAt": "2026-06-24T12:04:19.111Z",
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-06-24T12:05:06.190Z"
   }
 }
