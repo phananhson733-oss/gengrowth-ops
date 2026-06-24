@@ -163,22 +163,16 @@
     "status": "done"
   },
   "PG-MOON-002": {
-    "branch": "seo/auto/2026-06-03-PG-MOON-002",
-    "error": "authoring: - zh phase2 FAIL (no detail captured) after 1 zh attempt(s)",
-    "failedAt": "2026-06-06T19:02:55.669Z",
-    "mergedAt": "2026-06-03T17:40:38.004Z",
+    "status": "active",
+    "slug": "full-moon-energy",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "pr": "https://github.com/xdawayer/oracle/pull/80",
-    "previewUrl": "https://oracle-js6h8gcd1-wzbs-projects-39a68c1d.vercel.app",
-    "reconciliationNote": "auto-reconciled from merged GitHub PR",
-    "slug": "full-moon-energy",
-    "stage": "authoring",
-    "status": "done",
-    "verificationEvidence": "chrome preview + 3-subagent panel passed (codex: skipped-tooling)",
-    "verifiedAt": "2026-06-03T17:40:28.753Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-03-PG-MOON-002",
-    "zh": false
+    "stage": "convert",
+    "lockedBy": "52876",
+    "leaseUntil": "2026-06-24T17:19:11.386Z",
+    "updatedAt": "2026-06-24T16:19:11.386Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-MOON-002",
+    "branch": "seo/auto/2026-06-24-PG-MOON-002"
   },
   "PG-MOON-003": {
     "branch": "seo/auto/2026-06-04-PG-MOON-003",
