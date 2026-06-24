@@ -1274,7 +1274,7 @@
     "failedAt": "2026-06-24T16:43:41.361Z"
   },
   "PG-CELEB-003": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1288,7 +1288,12 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed keyword mismatch and preview-gate codex wrapper resolution; rerunning full gate",
-    "retryAt": "2026-06-24T16:59:47.706Z"
+    "retryAt": "2026-06-24T16:59:47.706Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-3b5c55-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-24T17:04:17.169Z",
+    "headRefOid": "9ab8833cd1a7e644e28918f9fee5a801e8073eac",
+    "mergedAt": "2026-06-24T17:04:26.141Z"
   },
   "PG-CELEB-004": {
     "status": "needs_human",
