@@ -75,3 +75,4 @@ updated: 2026-06-24
 | 2026-06-23 | PG-MYTH-009 | rhaenyra-targaryen-zodiac-sign | Rhaenyra Targaryen Zodiac Sign | elena-vane | https://www.astrologywiki.com/en/wiki/rhaenyra-targaryen-zodiac-sign | published |
 | 2026-06-24 | PG-CELEB-003 | kylie-jenner-zodiac-sign | Kylie Jenner Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/kylie-jenner-zodiac-sign | published |
 | 2026-06-24 | PG-CELEB-002 | greta-lee-zodiac-sign | Greta Lee Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/greta-lee-zodiac-sign | published |
+| 2026-06-24 | PG-CELEB-005 | sharon-osbourne-zodiac-sign | Sharon Osbourne Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/sharon-osbourne-zodiac-sign | published |
