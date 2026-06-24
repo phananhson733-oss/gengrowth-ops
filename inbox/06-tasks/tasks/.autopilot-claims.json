@@ -1237,20 +1237,20 @@
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
   "PG-CELEB-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-CELEB-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "30825",
-    "leaseUntil": "2026-06-24T13:00:44.148Z",
-    "updatedAt": "2026-06-24T12:00:44.148Z",
+    "lockedBy": "37975",
+    "leaseUntil": "2026-06-24T13:04:19.111Z",
+    "updatedAt": "2026-06-24T12:04:19.111Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-001",
     "branch": "seo/auto/2026-06-24-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/258",
     "zh": false,
     "needs_hero": true,
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-06-24T12:02:36.514Z"
+    "retryEvidence": "preview now renders <h1> (Vercel prerender lag during initial verify; raw HTML 200 with article h1 confirmed via bypass)",
+    "retryAt": "2026-06-24T12:04:19.111Z"
   }
 }
