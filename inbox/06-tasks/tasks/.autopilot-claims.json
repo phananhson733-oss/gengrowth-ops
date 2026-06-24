@@ -1349,22 +1349,20 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-036": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "marcus-rashford-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "32844",
-    "leaseUntil": "2026-06-24T19:01:04.116Z",
-    "updatedAt": "2026-06-24T18:01:04.116Z",
+    "lockedBy": "63071",
+    "leaseUntil": "2026-06-24T19:42:22.501Z",
+    "updatedAt": "2026-06-24T18:42:22.501Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-WC-036",
     "branch": "seo/auto/2026-06-24-PG-WC-036",
     "pr": "https://github.com/xdawayer/oracle/pull/263",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "rerun after preview/codex/autopilot gate fixes",
-    "retryAt": "2026-06-24T18:01:04.116Z",
-    "error": "review[astrology] FAIL: The article presents a Scorpio Moon and Capricorn Rising as if derived from his chart while the Moon sign for an Oct 31 1997 birth cannot be fixed without a birth time, and these placements appear to be unverifiable fan speculation rather than grounded astrology.",
-    "failedAt": "2026-06-24T18:01:34.627Z"
+    "retryEvidence": "manual article/preview repair applied; rerunning gate",
+    "retryAt": "2026-06-24T18:42:22.501Z"
   }
 }
