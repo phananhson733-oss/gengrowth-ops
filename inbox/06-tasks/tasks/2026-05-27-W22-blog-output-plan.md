@@ -255,7 +255,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 6月23日 (周二) - 已发布
-**状态**：`已输出` (共 5 篇 EN LIVE on www.astrologywiki.com；sitemap + 三维 review + codex 事实门 + GSC 索引提交验证；ZH 待回填)
+**状态**：`已输出` (5 篇 × EN+ZH = 10 页 LIVE on www.astrologywiki.com；sitemap + 三维 review + codex 事实门 + GSC 索引提交全部验证)
 - [x] PG-TRANS-013 cancer season 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/cancer-season-2026-astrology （T1 行运；修正星历：木星 6/30 交棒入狮子非整季放大、土星白羊"四分"非对分、水逆 6/29–7/23、无日食/摩羯满月 6/29+巨蟹新月 7/14）
 - [x] PG-MYTH-009 rhaenyra targaryen zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/rhaenyra-targaryen-zodiac-sign （虚构角色；纠正 brief 反向论点→诚实并列 Sagittarius/Taurus/Aries/Aquarius+Mysaria 说明+97AC 设定；codex 修正 HotD S3 6/21 首播致"both seasons"过时）
 - [x] PG-WC-032 luka modric zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/luka-modric-zodiac-sign （处女日太阳；Cancer Moon 保留，Scorpio 上升改"最常归为但无出生时间未证实"；caps 改"most-capped ever"避免易变数）
