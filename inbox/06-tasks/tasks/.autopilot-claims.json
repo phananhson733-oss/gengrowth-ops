@@ -1255,7 +1255,7 @@
     "failedAt": "2026-06-24T15:09:22.143Z"
   },
   "PG-CELEB-002": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "greta-lee-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1271,11 +1271,10 @@
     "retryEvidence": "rebased branch, resolved merge conflicts, repaired related-reading links, and reran build",
     "retryAt": "2026-06-24T17:45:33.691Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-24-pg-9583ca-wzbs-projects-39a68c1d.vercel.app",
-    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-24T17:11:13.219Z",
-    "headRefOid": "8f2d9909b46ac16389094df4931e273f724b1913",
-    "error": "review[links-seo] FAIL: The exact-match keyword \"greta lee zodiac sign\" is inserted verbatim in lowercase mid-sentence five times, an unnatural over-optimization pattern that reads as keyword stuffing rather than serving search intent.",
-    "failedAt": "2026-06-24T17:48:40.688Z"
+    "verificationEvidence": "chrome preview + astrology/schema/links review + codex factual review all passed after conflict resolution",
+    "verifiedAt": "2026-06-24T17:51:29.653Z",
+    "headRefOid": "c06a4666b212f0c7fb77710066fc0441b7963e0f",
+    "mergedAt": "2026-06-24T17:51:35.674Z"
   },
   "PG-CELEB-003": {
     "status": "done",
