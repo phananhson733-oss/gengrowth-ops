@@ -1273,15 +1273,18 @@
     "failedAt": "2026-06-24T12:24:03.375Z"
   },
   "PG-CELEB-003": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "kylie-jenner-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "3581",
-    "leaseUntil": "2026-06-24T13:52:21.770Z",
-    "updatedAt": "2026-06-24T12:52:21.770Z",
+    "leaseUntil": "2026-06-24T13:54:53.280Z",
+    "updatedAt": "2026-06-24T12:54:53.280Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-003",
-    "branch": "seo/auto/2026-06-24-PG-CELEB-003"
+    "branch": "seo/auto/2026-06-24-PG-CELEB-003",
+    "pr": "https://github.com/xdawayer/oracle/pull/260",
+    "zh": false,
+    "needs_hero": true
   }
 }
