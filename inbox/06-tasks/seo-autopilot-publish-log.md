@@ -77,3 +77,4 @@ updated: 2026-06-25
 | 2026-06-24 | PG-CELEB-002 | greta-lee-zodiac-sign | Greta Lee Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/greta-lee-zodiac-sign | published |
 | 2026-06-24 | PG-CELEB-005 | sharon-osbourne-zodiac-sign | Sharon Osbourne Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/sharon-osbourne-zodiac-sign | published |
 | 2026-06-25 | PG-WC-035 | thomas-partey-zodiac-sign | Thomas Partey Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/thomas-partey-zodiac-sign | published |
+| 2026-06-25 | PG-WC-036 | marcus-rashford-zodiac-sign | Marcus Rashford Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/marcus-rashford-zodiac-sign | published |

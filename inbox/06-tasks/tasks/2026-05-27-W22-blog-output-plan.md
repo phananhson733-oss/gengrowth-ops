@@ -274,7 +274,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] PG-CELEB-004 mariah carey zodiac sign
 - [x] PG-CELEB-005 sharon osbourne zodiac sign
 - [x] PG-WC-035 thomas partey zodiac sign
-- [ ] PG-WC-036 marcus rashford zodiac sign
+- [x] PG-WC-036 marcus rashford zodiac sign
 
 ---
 
