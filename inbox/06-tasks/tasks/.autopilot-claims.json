@@ -328,11 +328,14 @@
     "pr": "https://github.com/xdawayer/oracle/pull/89",
     "previewUrl": "https://oracle-git-seo-auto2026-06-04-pg-468ffe-wzbs-projects-39a68c1d.vercel.app",
     "slug": "rohini-nakshatra",
-    "status": "done",
+    "status": "needs_human",
     "verificationEvidence": "chrome preview rendered real article (h1 'Why Rohini Nakshatra Is the Moon's Favored Station of Abundance' + 2 valid JSON-LD [Org/WebSite + Article/BreadcrumbList/FAQPage] + 11 H2 + absolute astrologywiki.com CTA, not soft-404; console errors all benign preview-env: report-only CSP + preview->prod entitlements CORS + injected-context classList blip, no app-bundle failure) + 3-subagent panel A/B/C all PASS; codex ran but FAIL was false-positive (cited wrong file bharani-nakshatra.ts + flagged expected de-linked-italic soft internal-link gap; independently grep-verified zero raw [[/<TBD markup ships) — advisory, not a concrete blocker. Non-blocking note: one resolved internal link /en/wiki/north-node-in-taurus is topically off for 'Moon exaltation in Taurus'.",
     "verifiedAt": "2026-06-04T16:06:44.628Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-04-PG-NAKSH-003",
-    "zh": false
+    "zh": false,
+    "stage": "authoring",
+    "error": "authoring: - - SC8 CTA link: CTA issues (SC8): CTA URL(s) [astrologywiki.com/zh/wiki/how-to-read-birth-chart] ≠ cta_target_url | - 《广告法》§9 禁词 \"第一\"（超级化用法）matched. context: \"...个 navamsa 星座，为表达染上不同色彩： 1. **第一区（10°–13°20′，白羊 navamsa）：** 最具...\" | - drifted sections: \"为什么了解它能帮助自我觉察\" (jaccard=0.000, shingle=0.000, target-recall=0.00); \"如何在你的星盘里识别 罗喜尼星宿\" (jaccard=0.000, shingle=0.000, target-recall=0.00); \"常见误读\" (jaccard=0.000, shingle=0.000, target-recall=0.00); \"下一步行动\" (jaccard=0.013, shingle=0.000, target-recall=0.25) (skipped 4 structural: \"罗喜尼一览速查\", \"自我觉察小提示\", \"延伸阅读\", \"参考来源\") after 3 zh attempt(s) + deterministic repair",
+    "failedAt": "2026-06-25T04:37:31.199Z"
   },
   "PG-NAKSH-004": {
     "branch": "seo/auto/2026-06-05-PG-NAKSH-004",
