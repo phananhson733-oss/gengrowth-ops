@@ -1362,10 +1362,10 @@
     "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-035.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "21148",
-    "leaseUntil": "2026-06-25T06:26:33.547Z",
-    "updatedAt": "2026-06-25T05:26:33.547Z",
+    "leaseUntil": "2026-06-25T06:31:05.159Z",
+    "updatedAt": "2026-06-25T05:31:05.159Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
     "branch": "seo/auto/2026-06-25-PG-WC-035"
   },
