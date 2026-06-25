@@ -1398,10 +1398,10 @@
     "slug": "folarin-balogun-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "93656",
-    "leaseUntil": "2026-06-25T15:42:03.737Z",
-    "updatedAt": "2026-06-25T14:42:03.737Z",
+    "leaseUntil": "2026-06-25T15:43:42.551Z",
+    "updatedAt": "2026-06-25T14:43:42.551Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-037",
     "branch": "seo/auto/2026-06-25-PG-WC-037"
   }
