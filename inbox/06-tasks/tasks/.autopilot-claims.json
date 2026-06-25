@@ -1375,15 +1375,17 @@
     "mergedAt": "2026-06-25T06:24:30.161Z"
   },
   "PG-CELEB-001": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-001.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "88086",
-    "leaseUntil": "2026-06-25T07:41:35.334Z",
-    "updatedAt": "2026-06-25T06:41:35.334Z",
+    "leaseUntil": "2026-06-25T07:42:15.072Z",
+    "updatedAt": "2026-06-25T06:42:15.072Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-001",
-    "branch": "seo/auto/2026-06-25-PG-CELEB-001"
+    "branch": "seo/auto/2026-06-25-PG-CELEB-001",
+    "pr": "https://github.com/xdawayer/oracle/pull/273",
+    "zh": false
   }
 }
