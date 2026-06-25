@@ -1411,15 +1411,18 @@
     "retryAt": "2026-06-25T15:15:05.569Z"
   },
   "PG-WC-038": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "21745",
-    "leaseUntil": "2026-06-25T16:13:41.722Z",
-    "updatedAt": "2026-06-25T15:13:41.722Z",
+    "leaseUntil": "2026-06-25T16:15:33.988Z",
+    "updatedAt": "2026-06-25T15:15:33.988Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-038",
-    "branch": "seo/auto/2026-06-25-PG-WC-038"
+    "branch": "seo/auto/2026-06-25-PG-WC-038",
+    "pr": "https://github.com/xdawayer/oracle/pull/278",
+    "zh": false,
+    "needs_hero": true
   }
 }
