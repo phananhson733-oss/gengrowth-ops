@@ -1394,7 +1394,7 @@
     "mergedAt": "2026-06-25T07:02:21.432Z"
   },
   "PG-WC-037": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "folarin-balogun-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1408,6 +1408,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "manual serial Codex-only gate retry after old cron review-worker tooling failure",
-    "retryAt": "2026-06-25T15:07:27.133Z"
+    "retryAt": "2026-06-25T15:07:27.133Z",
+    "error": "review[links-seo] FAIL: Several internal links remain unresolved or are rendered as non-clickable placeholder-style text, and the first real internal link appears too late for the required opening SEO pattern.",
+    "failedAt": "2026-06-25T15:09:02.516Z"
   }
 }
