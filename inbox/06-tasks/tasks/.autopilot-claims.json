@@ -1472,7 +1472,7 @@
     "failedAt": "2026-06-25T16:17:54.842Z"
   },
   "PG-CELEB-006": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "ricky-gervais-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1483,6 +1483,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-006",
     "branch": "seo/auto/2026-06-25-PG-CELEB-006",
     "pr": "https://github.com/xdawayer/oracle/pull/281",
-    "zh": false
+    "zh": false,
+    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
+    "failedAt": "2026-06-25T16:43:43.055Z"
   }
 }
