@@ -1375,7 +1375,7 @@
     "mergedAt": "2026-06-25T06:24:30.161Z"
   },
   "PG-CELEB-001": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-001.md",
@@ -1388,6 +1388,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/273",
     "zh": false,
     "retryEvidence": "all reviews passed (verify+astrology[caveat fixed]+schema+links-seo); only codex collided (exit 3, concurrent cron gate) — re-gate for clean codex verdict",
-    "retryAt": "2026-06-25T06:58:00.429Z"
+    "retryAt": "2026-06-25T06:58:00.429Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-649ae1-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-25T07:02:14.605Z",
+    "headRefOid": "c61e85a1c73273df56ec7184d9c92b191109b674",
+    "mergedAt": "2026-06-25T07:02:21.432Z"
   }
 }
