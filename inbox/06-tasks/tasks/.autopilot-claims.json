@@ -1451,5 +1451,17 @@
     "branch": "seo/auto/2026-06-25-PG-COUPLE-001",
     "pr": "https://github.com/xdawayer/oracle/pull/279",
     "zh": false
+  },
+  "PG-COUPLE-002": {
+    "status": "active",
+    "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "37680",
+    "leaseUntil": "2026-06-25T16:42:06.881Z",
+    "updatedAt": "2026-06-25T15:42:06.881Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-002",
+    "branch": "seo/auto/2026-06-25-PG-COUPLE-002"
   }
 }
