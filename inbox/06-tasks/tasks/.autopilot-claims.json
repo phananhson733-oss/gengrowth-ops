@@ -293,10 +293,10 @@
     "slug": "nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "85038",
-    "leaseUntil": "2026-06-25T01:03:12.026Z",
-    "updatedAt": "2026-06-25T00:03:12.026Z",
+    "leaseUntil": "2026-06-25T01:08:52.187Z",
+    "updatedAt": "2026-06-25T00:08:52.187Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-001",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-001"
   },
