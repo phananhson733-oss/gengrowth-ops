@@ -1375,19 +1375,19 @@
     "mergedAt": "2026-06-25T06:24:30.161Z"
   },
   "PG-CELEB-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "23351",
-    "leaseUntil": "2026-06-25T07:50:43.817Z",
-    "updatedAt": "2026-06-25T06:50:43.817Z",
+    "lockedBy": "55507",
+    "leaseUntil": "2026-06-25T07:58:00.429Z",
+    "updatedAt": "2026-06-25T06:58:00.429Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-001",
     "branch": "seo/auto/2026-06-25-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/273",
     "zh": false,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-06-25T06:54:30.035Z"
+    "retryEvidence": "all reviews passed (verify+astrology[caveat fixed]+schema+links-seo); only codex collided (exit 3, concurrent cron gate) — re-gate for clean codex verdict",
+    "retryAt": "2026-06-25T06:58:00.429Z"
   }
 }
