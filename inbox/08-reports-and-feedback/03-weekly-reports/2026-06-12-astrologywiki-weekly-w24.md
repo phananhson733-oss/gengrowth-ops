@@ -108,21 +108,21 @@ updated: 2026-06-12
 ## 🎯 下周目标（三条主线）
 
 ### 主线一：世界杯趋势词立即执行（P0，窗口倒计时）
-- [ ] **今明两天**：PG-WC-001 支柱文章 + PG-WC-002 Mbappé + PG-WC-003 Messi + PG-WC-004 Ronaldo（搜索量最高，竞争最低）
-- [ ] **本周内**：PG-WC-005 Yamal + PG-WC-006 Vinicius + PG-WC-007 Argentina + PG-WC-010 June Astrology
-- [ ] **本轮最后**：PG-WC-008 zodiac-to-team（娱乐向，需配可视化）+ PG-WC-009 数据分析文章
-- [ ] 所有文章正文内部链接回 PG-WC-001 支柱文章
+- [x] **今明两天**：PG-WC-001 支柱文章 + PG-WC-002 Mbappé + PG-WC-003 Messi + PG-WC-004 Ronaldo（搜索量最高，竞争最低）
+- [x] **本周内**：PG-WC-005 Yamal + PG-WC-006 Vinicius + PG-WC-007 Argentina + PG-WC-010 June Astrology
+- [x] **本轮最后**：PG-WC-008 zodiac-to-team（娱乐向，需配可视化）+ PG-WC-009 数据分析文章
+- [x] 所有文章正文内部链接回 PG-WC-001 支柱文章
 
 ### 主线二：GenGrowth Week 1 执行启动
-- [ ] 按 6 词词单开始内容生产，每天 5–10 篇（60天实验要求 500 篇总产出）
-- [ ] 建立数据追踪 Sheet（增长实验文件中"待建立"项）
-- [ ] Ahrefs 补充导出：rankyfy.com + ethicalseo.io，需包含 CPC 列，填补 359 词空缺
+- [x] 按 6 词词单开始内容生产，每天 5–10 篇（60天实验要求 500 篇总产出）
+- [x] 建立数据追踪 Sheet（增长实验文件中"待建立"项）
+- [x] Ahrefs 补充导出：rankyfy.com + ethicalseo.io，需包含 CPC 列，填补 359 词空缺
 
 ### 主线三：外链清账
-- [ ] 回复 codesupply.co 确认 $100 插入（截止下周一）
-- [ ] elephantjournal.com 帖子发布（2026-06-15 前）
-- [ ] 查 technology.org 的 Dofollow Linked Domains 数据，算均分DR，再决定是否接受 $240
-- [ ] 核验 commonreplies.com 月流量（Semrush >5,000 才接受 $20 外链，且确认链接非 Sponsored 标签）
+- [x] 回复 codesupply.co 确认 $100 插入（截止下周一）
+- [x] elephantjournal.com 帖子发布（2026-06-15 前）
+- [x] 查 technology.org 的 Dofollow Linked Domains 数据，算均分DR，再决定是否接受 $240
+- [x] 核验 commonreplies.com 月流量（Semrush >5,000 才接受 $20 外链，且确认链接非 Sponsored 标签）
 
 ---
 
