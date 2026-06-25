@@ -1392,5 +1392,17 @@
     "verifiedAt": "2026-06-25T07:02:14.605Z",
     "headRefOid": "c61e85a1c73273df56ec7184d9c92b191109b674",
     "mergedAt": "2026-06-25T07:02:21.432Z"
+  },
+  "PG-WC-037": {
+    "status": "active",
+    "slug": "folarin-balogun-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "93656",
+    "leaseUntil": "2026-06-25T15:42:03.737Z",
+    "updatedAt": "2026-06-25T14:42:03.737Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-037",
+    "branch": "seo/auto/2026-06-25-PG-WC-037"
   }
 }
