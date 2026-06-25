@@ -1358,7 +1358,7 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-035": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-035.md",
@@ -1369,6 +1369,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
     "branch": "seo/auto/2026-06-25-PG-WC-035",
     "pr": "https://github.com/xdawayer/oracle/pull/269",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: The opening has no internal link and four of the five intended internal links (pillar, Mercury ruler, Gemini Sun guide, World Cup hub) render as plain italic text instead of resolved hyperlinks, leaving only one working internal target.",
+    "failedAt": "2026-06-25T05:20:29.734Z"
   }
 }
