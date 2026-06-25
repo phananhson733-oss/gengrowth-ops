@@ -289,16 +289,18 @@
     "zh": false
   },
   "PG-NAKSH-001": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "85038",
-    "leaseUntil": "2026-06-25T01:08:52.187Z",
-    "updatedAt": "2026-06-25T00:08:52.187Z",
+    "leaseUntil": "2026-06-25T01:10:56.186Z",
+    "updatedAt": "2026-06-25T00:10:56.186Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-001",
-    "branch": "seo/auto/2026-06-25-PG-NAKSH-001"
+    "branch": "seo/auto/2026-06-25-PG-NAKSH-001",
+    "pr": "https://github.com/xdawayer/oracle/pull/267",
+    "zh": true
   },
   "PG-NAKSH-002": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-002",
