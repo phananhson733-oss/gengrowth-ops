@@ -1399,16 +1399,16 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "20688",
-    "leaseUntil": "2026-06-25T16:11:22.612Z",
-    "updatedAt": "2026-06-25T15:11:22.612Z",
+    "lockedBy": "23129",
+    "leaseUntil": "2026-06-25T16:15:05.569Z",
+    "updatedAt": "2026-06-25T15:15:05.569Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-037",
     "branch": "seo/auto/2026-06-25-PG-WC-037",
     "pr": "https://github.com/xdawayer/oracle/pull/277",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "resolved internal links on branch d29a776; rerun serial Codex-only gate",
-    "retryAt": "2026-06-25T15:11:22.612Z"
+    "retryEvidence": "aligned CTA text with how-to-read-birth-chart target; rerun serial Codex-only gate",
+    "retryAt": "2026-06-25T15:15:05.569Z"
   },
   "PG-WC-038": {
     "status": "active",
