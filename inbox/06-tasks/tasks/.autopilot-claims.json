@@ -1438,7 +1438,7 @@
     "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jwoww-zack-carpinello-wedding-synastry",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1451,7 +1451,9 @@
     "pr": "https://github.com/xdawayer/oracle/pull/279",
     "zh": false,
     "retryEvidence": "Codex-only astrology and links-seo passed after limiting relationship reading to public birth-date data and adding early internal link.",
-    "retryAt": "2026-06-25T15:54:37.181Z"
+    "retryAt": "2026-06-25T15:54:37.181Z",
+    "error": "codex completed with codex FAIL —People reports Zack Carpinello’s birthday as Dec. 21, not Dec. 20: https://people.com/jersey-shore-star-jenni-jwoww-farley-marries-pro-wrestler-zack-carpinello-wedding-exclusive-12005286",
+    "failedAt": "2026-06-25T15:59:03.702Z"
   },
   "PG-COUPLE-002": {
     "status": "pushed-preview",
