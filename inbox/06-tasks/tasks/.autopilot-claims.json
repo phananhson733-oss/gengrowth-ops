@@ -1416,7 +1416,7 @@
     "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1434,7 +1434,9 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-wc-038-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-25T15:39:02.771Z",
-    "headRefOid": "3df5f3506aa59fc4e7f6674c95abcb0a26616fe2"
+    "headRefOid": "3df5f3506aa59fc4e7f6674c95abcb0a26616fe2",
+    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
+    "failedAt": "2026-06-25T15:47:24.165Z"
   },
   "PG-COUPLE-001": {
     "status": "pushed-preview",
@@ -1451,15 +1453,17 @@
     "zh": false
   },
   "PG-COUPLE-002": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "37680",
-    "leaseUntil": "2026-06-25T16:44:51.635Z",
-    "updatedAt": "2026-06-25T15:44:51.635Z",
+    "leaseUntil": "2026-06-25T16:46:46.575Z",
+    "updatedAt": "2026-06-25T15:46:46.575Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-002",
-    "branch": "seo/auto/2026-06-25-PG-COUPLE-002"
+    "branch": "seo/auto/2026-06-25-PG-COUPLE-002",
+    "pr": "https://github.com/xdawayer/oracle/pull/280",
+    "zh": false
   }
 }
