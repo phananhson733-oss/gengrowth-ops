@@ -1468,5 +1468,17 @@
     "branch": "seo/auto/2026-06-25-PG-COUPLE-002",
     "pr": "https://github.com/xdawayer/oracle/pull/280",
     "zh": false
+  },
+  "PG-CELEB-006": {
+    "status": "active",
+    "slug": "ricky-gervais-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "58429",
+    "leaseUntil": "2026-06-25T17:12:36.085Z",
+    "updatedAt": "2026-06-25T16:12:36.085Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-006",
+    "branch": "seo/auto/2026-06-25-PG-CELEB-006"
   }
 }
