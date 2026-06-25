@@ -1416,7 +1416,7 @@
     "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1428,7 +1428,9 @@
     "branch": "seo/auto/2026-06-25-PG-WC-038",
     "pr": "https://github.com/xdawayer/oracle/pull/278",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[astrology] FAIL: The quick-reference table incorrectly frames Cancer and Scorpio as house rulerships despite the article also saying houses are unconfirmed without a birth time.",
+    "failedAt": "2026-06-25T15:21:51.022Z"
   },
   "PG-COUPLE-001": {
     "status": "pushed-preview",
