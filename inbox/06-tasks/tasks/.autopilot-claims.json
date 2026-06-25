@@ -1416,7 +1416,7 @@
     "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1430,7 +1430,13 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "Codex-only astrology and links-seo passed after making Moon reading tentative and preserving confirmed Cancer Sun boundary.",
-    "retryAt": "2026-06-25T15:34:25.445Z"
+    "retryAt": "2026-06-25T15:34:25.445Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-wc-038-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-25T15:39:02.771Z",
+    "headRefOid": "3df5f3506aa59fc4e7f6674c95abcb0a26616fe2",
+    "error": "merge failed: seo/auto/2026-06-25-PG-WC-038 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 3df5f3506aa59fc4e7f6674c95abcb0a26616fe2 GraphQL: Pull Request has merge conflicts (mergePullRequest)",
+    "failedAt": "2026-06-25T15:39:05.028Z"
   },
   "PG-COUPLE-001": {
     "status": "pushed-preview",
