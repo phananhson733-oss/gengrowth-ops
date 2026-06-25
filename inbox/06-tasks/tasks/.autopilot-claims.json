@@ -305,16 +305,18 @@
     "failedAt": "2026-06-25T00:14:48.959Z"
   },
   "PG-NAKSH-002": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "ashlesha-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "82329",
-    "leaseUntil": "2026-06-25T03:25:46.928Z",
-    "updatedAt": "2026-06-25T02:25:46.928Z",
+    "leaseUntil": "2026-06-25T03:27:52.692Z",
+    "updatedAt": "2026-06-25T02:27:52.692Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-002",
-    "branch": "seo/auto/2026-06-25-PG-NAKSH-002"
+    "branch": "seo/auto/2026-06-25-PG-NAKSH-002",
+    "pr": "https://github.com/xdawayer/oracle/pull/268",
+    "zh": true
   },
   "PG-NAKSH-003": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-003",
