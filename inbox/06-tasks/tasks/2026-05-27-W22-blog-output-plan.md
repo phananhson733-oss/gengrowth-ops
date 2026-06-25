@@ -277,5 +277,14 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-036 marcus rashford zodiac sign
 
 ---
+## ⚪ 6月25日 (周四) - 待写作
+**状态**：`等待输出` (共5篇）
+- [ ] PG-WC-037 folarin balogun birth chart
+- [ ] PG-WC-038 darwin nunez zodiac sign
+- [ ] PG-COUPLE-001 jwoww zack carpinello wedding synastry
+- [ ] PG-COUPLE-002 reese witherspoon oliver haarmann compatibility astrology
+- [ ] PG-CELEB-006 ricky gervais zodiac sign
+ 
+---
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
