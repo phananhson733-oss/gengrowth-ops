@@ -1375,15 +1375,17 @@
     "mergedAt": "2026-06-25T06:00:15.821Z"
   },
   "PG-CELEB-004": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "mariah-carey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-004.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "28638",
-    "leaseUntil": "2026-06-25T07:18:37.319Z",
-    "updatedAt": "2026-06-25T06:18:37.319Z",
+    "leaseUntil": "2026-06-25T07:19:18.283Z",
+    "updatedAt": "2026-06-25T06:19:18.283Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-004",
-    "branch": "seo/auto/2026-06-25-PG-CELEB-004"
+    "branch": "seo/auto/2026-06-25-PG-CELEB-004",
+    "pr": "https://github.com/xdawayer/oracle/pull/272",
+    "zh": false
   }
 }
