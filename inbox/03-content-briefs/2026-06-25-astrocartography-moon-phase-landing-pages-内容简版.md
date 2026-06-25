@@ -7,6 +7,7 @@ status: draft
 # 一、Astrocartography Map Generator
 
 **网址**：`/en/astrocartography-map-generator`
+**原落地页（套皮参照）**：`/en/astrocartography`——UI/表单/计算逻辑直接复用这个页面，不用重新做
 
 **Meta标题**：Astrocartography Map Generator – Free Relocation Astrology Tool | AstrologyWiki
 **Meta描述**：Generate your personal astrocartography map free. Enter your birth date, time, and location to see which planetary lines run through any place on Earth.
@@ -36,10 +37,11 @@ status: draft
 3. What's the difference between this tool and the main Astrocartography page?
 4. Can I download or share my generated map?
 
-**内链**：
-- 链接到 `/en/astrocartography`（说明性母页）
-- 链接到 `/en/blog/astrocartography-interpretation`（深度解读文章，讲线型层级原理的内容放在这篇，不放在工具页里）
-- 链接到 `/en/birth-chart-calculator`、`/en/solar-return-calculator`
+**内链**（锚文本写法见下，要自然嵌进句子里，不要裸放关键词）：
+- 链接到 `/en/astrocartography`——锚文本用 **"full astrocartography guide"** 或 **"how astrocartography works"**，嵌在"Want to understand the full astrocartography guide before generating yours?"这类句子里
+- 链接到 `/en/blog/astrocartography-interpretation`——锚文本用 **"how to interpret your astrocartography lines"** 或 **"the full interpretation guide"**，比如"Read the full interpretation guide to learn which lines matter most →"
+- 链接到 `/en/birth-chart-calculator`——锚文本用 **"accurate birth chart"** 或 **"birth chart calculator"**，比如"Get an accurate birth chart first if you haven't already"
+- 链接到 `/en/solar-return-calculator`——锚文本用 **"solar return calculator"** 或 **"your solar return year"**
 
 **面包屑**：Home > Tools > Astrocartography > Map Generator
 
@@ -48,6 +50,7 @@ status: draft
 # 二、Moon Phase Today
 
 **网址**：`/en/moon-phase-today`
+**原落地页（套皮参照）**：`/en/moon-phase-calculator`——UI/表单/计算逻辑直接复用这个页面（默认输入改成"今天"），不用重新做
 
 **Meta标题**：Moon Phase Today – What Moon Phase Is It Right Now? | AstrologyWiki
 **Meta描述**：See today's exact moon phase and illumination percentage, updated daily. Plus a quick guide to all 8 moon phases.
@@ -73,9 +76,9 @@ status: draft
 3. What's the difference between this page and the Moon Phase Calculator?
 4. Where can I check the moon phase for a different date?
 
-**内链**：
-- 链接到 `/en/moon-phase-calculator`（查别的日期）
-- 链接到 `/en/birth-chart-calculator`
+**内链**（锚文本写法同上，自然嵌句）：
+- 链接到 `/en/moon-phase-calculator`——锚文本用 **"moon phase calculator"** 或 **"check a different date"**，比如"Use the moon phase calculator to check a different date"
+- 链接到 `/en/birth-chart-calculator`——锚文本用 **"your birth chart"** 或 **"natal moon sign"**，比如"Compare today's phase with your natal moon sign"
 
 **面包屑**：Home > Tools > Moon Phase > Today
 
@@ -85,3 +88,4 @@ status: draft
 
 - FAQ的答案文字要跟页面上H2标题/正文内容**逐字对应**，不能写一套FAQ、页面上又是另一套说法
 - 所有说明文字和FAQ，浏览器打开后要能肉眼看到，不能只在源代码里有、页面上却看不到
+- **内链锚文本要用跟目标页面相关的关键词，自然嵌在句子里**——内链锚文本不像外链那样有"精准关键词≤8%"的限制（那是针对外部买链接的规则），自己站内的链接用相关关键词做锚文本反而是加分项，但不要裸放关键词当锚文本，要嵌在一句完整的话里
