@@ -321,7 +321,7 @@
     "failedAt": "2026-06-25T02:30:38.651Z"
   },
   "PG-NAKSH-003": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "rohini-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -332,7 +332,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-003",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-003",
     "pr": "https://github.com/xdawayer/oracle/pull/275",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: The only resolved internal link points anchor text about \"the Moon's exaltation in Taurus\" to /wiki/north-node-in-taurus (a different concept), and in the ZH version that same slug is reused under three mismatched anchors, making the target an invented/incorrect mapping.",
+    "failedAt": "2026-06-25T07:32:53.381Z"
   },
   "PG-NAKSH-004": {
     "branch": "seo/auto/2026-06-05-PG-NAKSH-004",
