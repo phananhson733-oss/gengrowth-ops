@@ -1335,15 +1335,6 @@
     "error": "preview-wait failed: vercel deployment failed (commit-status)",
     "failedAt": "2026-06-24T18:46:04.656Z"
   },
-  "PG-WC-035": {
-    "status": "needs_human",
-    "slug": "thomas-partey-zodiac-sign",
-    "owner": "autopilot",
-    "stage": "authoring",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-06-24T13:36:37.430Z"
-  },
   "PG-CELEB-005": {
     "status": "done",
     "slug": "sharon-osbourne-zodiac-sign",
@@ -1366,23 +1357,16 @@
     "headRefOid": "e58d728bf9294f89728a02d63331808ba51916db",
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
-  "PG-WC-036": {
-    "status": "needs_human",
-    "slug": "marcus-rashford-zodiac-sign",
+  "PG-WC-035": {
+    "status": "active",
+    "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "pushed-preview",
-    "lockedBy": "63071",
-    "leaseUntil": "2026-06-24T19:42:22.501Z",
-    "updatedAt": "2026-06-24T18:42:22.501Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-WC-036",
-    "branch": "seo/auto/2026-06-24-PG-WC-036",
-    "pr": "https://github.com/xdawayer/oracle/pull/263",
-    "zh": false,
-    "needs_hero": true,
-    "retryEvidence": "manual article/preview repair applied; rerunning gate",
-    "retryAt": "2026-06-24T18:42:22.501Z",
-    "error": "review[astrology] FAIL: The article states twice that an October 31 birthday places the Sun \"near the close of Scorpio season,\" but October 31 falls in early-to-mid Scorpio (~7-8° Scorpio; Scorpio runs ~Oct 23–Nov 21), so this is a material, checkable astrological error about the very placement the piece is built on.",
-    "failedAt": "2026-06-24T18:43:03.956Z"
+    "plan": "one-WC-035.md",
+    "stage": "convert",
+    "lockedBy": "4460",
+    "leaseUntil": "2026-06-25T06:12:23.097Z",
+    "updatedAt": "2026-06-25T05:12:23.097Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
+    "branch": "seo/auto/2026-06-25-PG-WC-035"
   }
 }
