@@ -309,10 +309,10 @@
     "slug": "ashlesha-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "82329",
-    "leaseUntil": "2026-06-25T03:21:13.067Z",
-    "updatedAt": "2026-06-25T02:21:13.067Z",
+    "leaseUntil": "2026-06-25T03:25:46.928Z",
+    "updatedAt": "2026-06-25T02:25:46.928Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-002",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-002"
   },
