@@ -1394,7 +1394,7 @@
     "mergedAt": "2026-06-25T07:02:21.432Z"
   },
   "PG-WC-037": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "folarin-balogun-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1409,8 +1409,11 @@
     "needs_hero": true,
     "retryEvidence": "aligned CTA text with how-to-read-birth-chart target; rerun serial Codex-only gate",
     "retryAt": "2026-06-25T15:15:05.569Z",
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-06-25T15:16:48.652Z"
+    "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-wc-037-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-25T15:18:59.687Z",
+    "headRefOid": "724b550206ee653de7c9b4cd24630fbc3f904aa9",
+    "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
     "status": "pushed-preview",
