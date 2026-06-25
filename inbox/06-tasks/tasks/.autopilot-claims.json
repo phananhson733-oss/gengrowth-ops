@@ -305,7 +305,7 @@
     "failedAt": "2026-06-25T00:14:48.959Z"
   },
   "PG-NAKSH-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "ashlesha-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -316,7 +316,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-002",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-002",
     "pr": "https://github.com/xdawayer/oracle/pull/268",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: All internal wiki-links were left as unresolved TBD placeholders and rendered as plain italic text with no hrefs, so the page has zero functional internal links and no early in-opening internal link.",
+    "failedAt": "2026-06-25T02:30:38.651Z"
   },
   "PG-NAKSH-003": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-003",
