@@ -305,18 +305,16 @@
     "failedAt": "2026-06-25T00:14:48.959Z"
   },
   "PG-NAKSH-002": {
-    "branch": "seo/auto/2026-06-04-PG-NAKSH-002",
-    "mergedAt": "2026-06-04T14:47:20.372Z",
+    "status": "active",
+    "slug": "ashlesha-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "pr": "https://github.com/xdawayer/oracle/pull/88",
-    "previewUrl": "https://oracle-git-seo-auto2026-06-04-pg-0252dd-wzbs-projects-39a68c1d.vercel.app",
-    "slug": "ashlesha-nakshatra",
-    "status": "done",
-    "verificationEvidence": "chrome preview rendered real article (h1 'Ashlesha Nakshatra and the Misunderstood Power of the Serpent's Coil' + 2 valid JSON-LD [Org/WebSite + Article/BreadcrumbList/FAQPage] + 11 H2 + zero raw [[/<TBD leak, not soft-404; console errors all benign preview-env: report-only CSP + cross-origin entitlements CORS [preview origin hitting prod API] + injected-context classList blip, no app-bundle failure) + 3-subagent panel A/B/C all PASS; codex ran but FAIL was false-positive (cited wrong file bharani-nakshatra.ts + flagged expected de-linked-italic soft internal-link gap; independently verified zero raw [[/<TBD markup ships) — advisory, not a concrete blocker",
-    "verifiedAt": "2026-06-04T14:47:05.059Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-04-PG-NAKSH-002",
-    "zh": false
+    "stage": "convert",
+    "lockedBy": "82329",
+    "leaseUntil": "2026-06-25T03:21:13.067Z",
+    "updatedAt": "2026-06-25T02:21:13.067Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-002",
+    "branch": "seo/auto/2026-06-25-PG-NAKSH-002"
   },
   "PG-NAKSH-003": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-003",
