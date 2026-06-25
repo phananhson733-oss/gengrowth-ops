@@ -289,7 +289,7 @@
     "zh": false
   },
   "PG-NAKSH-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -300,7 +300,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-001",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-001",
     "pr": "https://github.com/xdawayer/oracle/pull/267",
-    "zh": true
+    "zh": true,
+    "error": "review[links-seo] FAIL: The Chinese variant contains no internal wiki-links at all (every Related Reading item and the dasha/overview references render as plain italic text), its only hyperlink is the closing CTA which sits at the very bottom and points to an /en/ target, so no internal link appears early and on-page internal-linking fundamentals are violated.",
+    "failedAt": "2026-06-25T00:14:48.959Z"
   },
   "PG-NAKSH-002": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-002",
