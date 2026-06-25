@@ -1249,25 +1249,6 @@
     "headRefOid": "9172a458fd60e216d587d96f5e243420a22d7a94",
     "mergedAt": "2026-06-24T08:31:41.610Z"
   },
-  "PG-CELEB-001": {
-    "status": "needs_human",
-    "slug": "emma-watson-zodiac-sign",
-    "owner": "autopilot",
-    "plan": "one-plan-CELEB-001.md",
-    "stage": "pushed-preview",
-    "lockedBy": "60743",
-    "leaseUntil": "2026-06-24T19:39:45.732Z",
-    "updatedAt": "2026-06-24T18:39:45.732Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-24-PG-CELEB-001",
-    "branch": "seo/auto/2026-06-24-PG-CELEB-001",
-    "pr": "https://github.com/xdawayer/oracle/pull/258",
-    "zh": false,
-    "needs_hero": true,
-    "retryEvidence": "manual article/preview repair applied; rerunning gate",
-    "retryAt": "2026-06-24T18:39:45.732Z",
-    "error": "review[links-seo] FAIL: Multiple internal links are broken or misdirected — the 'Aries Sun sign personality traits' Related Reading entry rendered as plain italic with no link, and two distinct anchors ('Virgo rising sign profiles', 'comparison of Sun sign versus Rising sign') both resolve to the generic /en/wiki/how-to-read-birth-chart page rather than their promised targets.",
-    "failedAt": "2026-06-24T18:42:09.326Z"
-  },
   "PG-CELEB-002": {
     "status": "done",
     "slug": "greta-lee-zodiac-sign",
@@ -1392,5 +1373,17 @@
     "verifiedAt": "2026-06-25T06:24:24.570Z",
     "headRefOid": "7c0ae95b036e88415258f33daf7611d3fd38e1d2",
     "mergedAt": "2026-06-25T06:24:30.161Z"
+  },
+  "PG-CELEB-001": {
+    "status": "active",
+    "slug": "emma-watson-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "one-CELEB-001.md",
+    "stage": "convert",
+    "lockedBy": "52119",
+    "leaseUntil": "2026-06-25T07:25:40.956Z",
+    "updatedAt": "2026-06-25T06:25:40.956Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-001",
+    "branch": "seo/auto/2026-06-25-PG-CELEB-001"
   }
 }
