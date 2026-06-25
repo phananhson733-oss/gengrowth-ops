@@ -1409,5 +1409,17 @@
     "needs_hero": true,
     "retryEvidence": "resolved internal links on branch d29a776; rerun serial Codex-only gate",
     "retryAt": "2026-06-25T15:11:22.612Z"
+  },
+  "PG-WC-038": {
+    "status": "active",
+    "slug": "darwin-nunez-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "build-gate",
+    "lockedBy": "21745",
+    "leaseUntil": "2026-06-25T16:13:41.722Z",
+    "updatedAt": "2026-06-25T15:13:41.722Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-038",
+    "branch": "seo/auto/2026-06-25-PG-WC-038"
   }
 }
