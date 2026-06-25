@@ -321,16 +321,18 @@
     "failedAt": "2026-06-25T02:30:38.651Z"
   },
   "PG-NAKSH-003": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "rohini-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "1443",
-    "leaseUntil": "2026-06-25T08:28:55.442Z",
-    "updatedAt": "2026-06-25T07:28:55.442Z",
+    "leaseUntil": "2026-06-25T08:29:04.858Z",
+    "updatedAt": "2026-06-25T07:29:04.858Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-003",
-    "branch": "seo/auto/2026-06-25-PG-NAKSH-003"
+    "branch": "seo/auto/2026-06-25-PG-NAKSH-003",
+    "pr": "https://github.com/xdawayer/oracle/pull/275",
+    "zh": true
   },
   "PG-NAKSH-004": {
     "branch": "seo/auto/2026-06-05-PG-NAKSH-004",
