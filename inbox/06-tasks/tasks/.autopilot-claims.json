@@ -289,18 +289,14 @@
     "zh": false
   },
   "PG-NAKSH-001": {
-    "branch": "seo/auto/2026-06-05-PG-NAKSH-001",
-    "mergedAt": "2026-06-05T14:09:47.470Z",
+    "status": "active",
+    "slug": "nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "pr": "https://github.com/xdawayer/oracle/pull/103",
-    "previewUrl": "https://oracle-3rszy3r0o-wzbs-projects-39a68c1d.vercel.app",
-    "slug": "nakshatra",
-    "status": "done",
-    "verificationEvidence": "chrome preview rendered real article (h1 'What Nakshatra Tells You About Timing That Your Sun Sign Cannot' + 2 parse-clean JSON-LD [Org/WebSite + Article/BreadcrumbList/FAQPage] + 11 content H2 + absolute astrologywiki.com CTA, bodyText 13.8k not soft-404, rawLeak=false; console errors all benign preview-env: report-only CSP on entitlements + preview-origin->prod entitlements CORS/ERR_FAILED + injected-context classList blip at page :135, no app-bundle failure) + 3-subagent panel A/B/C all PASS (node --check clean, 11 H2, absolute CTA); codex ran but FAIL was false-positive (cited wrong file bharani-nakshatra.ts + flagged expected de-linked-italic soft internal-link gap as placeholder leakage; independently verified zero raw [[/<TBD markup ships — chrome rawLeak=false + Reviewer C grep count=0) — advisory, not a concrete blocker",
-    "verifiedAt": "2026-06-05T14:09:33.551Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-05-PG-NAKSH-001",
-    "zh": false
+    "stage": "worktree",
+    "lockedBy": "85038",
+    "leaseUntil": "2026-06-25T01:03:05.321Z",
+    "updatedAt": "2026-06-25T00:03:05.321Z"
   },
   "PG-NAKSH-002": {
     "branch": "seo/auto/2026-06-04-PG-NAKSH-002",
