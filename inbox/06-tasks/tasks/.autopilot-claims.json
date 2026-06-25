@@ -1416,23 +1416,21 @@
     "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "30828",
-    "leaseUntil": "2026-06-25T16:28:11.719Z",
-    "updatedAt": "2026-06-25T15:28:11.719Z",
+    "lockedBy": "33540",
+    "leaseUntil": "2026-06-25T16:34:25.445Z",
+    "updatedAt": "2026-06-25T15:34:25.445Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-038",
     "branch": "seo/auto/2026-06-25-PG-WC-038",
     "pr": "https://github.com/xdawayer/oracle/pull/278",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "Codex-only astrology and links-seo review passed after removing unconfirmed house framing and resolving SEO links.",
-    "retryAt": "2026-06-25T15:28:11.719Z",
-    "error": "review[astrology] FAIL: The article makes a material astrological error by treating Darwin Núñez’s Moon as Scorpio from a noon chart when the Moon was not securely Scorpio without a late-day birth time.",
-    "failedAt": "2026-06-25T15:31:24.809Z"
+    "retryEvidence": "Codex-only astrology and links-seo passed after making Moon reading tentative and preserving confirmed Cancer Sun boundary.",
+    "retryAt": "2026-06-25T15:34:25.445Z"
   },
   "PG-COUPLE-001": {
     "status": "pushed-preview",
