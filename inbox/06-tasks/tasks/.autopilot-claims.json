@@ -1438,20 +1438,20 @@
     "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jwoww-zack-carpinello-wedding-synastry",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "25744",
-    "leaseUntil": "2026-06-25T16:20:08.335Z",
-    "updatedAt": "2026-06-25T15:20:08.335Z",
+    "lockedBy": "45080",
+    "leaseUntil": "2026-06-25T16:54:37.181Z",
+    "updatedAt": "2026-06-25T15:54:37.181Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-001",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-001",
     "pr": "https://github.com/xdawayer/oracle/pull/279",
     "zh": false,
-    "error": "review[astrology] FAIL: The article repeatedly labels a Sun-sign ruler comparison as “synastry” and even calls Jupiter a shared “chart ruler,” which is astrologically inaccurate without Ascendants or full charts.",
-    "failedAt": "2026-06-25T15:51:32.903Z"
+    "retryEvidence": "Codex-only astrology and links-seo passed after limiting relationship reading to public birth-date data and adding early internal link.",
+    "retryAt": "2026-06-25T15:54:37.181Z"
   },
   "PG-COUPLE-002": {
     "status": "pushed-preview",
