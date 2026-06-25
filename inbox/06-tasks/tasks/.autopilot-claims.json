@@ -1375,7 +1375,7 @@
     "mergedAt": "2026-06-25T06:24:30.161Z"
   },
   "PG-CELEB-001": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-001.md",
@@ -1386,6 +1386,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-001",
     "branch": "seo/auto/2026-06-25-PG-CELEB-001",
     "pr": "https://github.com/xdawayer/oracle/pull/273",
-    "zh": false
+    "zh": false,
+    "error": "review[astrology] FAIL: The article's entire thesis rests on a Virgo Rising (and a specific Sagittarius Moon) asserted as established fact, but Emma Watson has no reliably documented birth time, so an Ascendant cannot legitimately be claimed without a caveat.",
+    "failedAt": "2026-06-25T06:33:42.153Z"
   }
 }
