@@ -1394,7 +1394,7 @@
     "mergedAt": "2026-06-25T07:02:21.432Z"
   },
   "PG-WC-037": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "folarin-balogun-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1406,6 +1406,8 @@
     "branch": "seo/auto/2026-06-25-PG-WC-037",
     "pr": "https://github.com/xdawayer/oracle/pull/277",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
+    "failedAt": "2026-06-25T14:48:21.758Z"
   }
 }
