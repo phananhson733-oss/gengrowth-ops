@@ -1358,15 +1358,17 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-035": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-035.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "4460",
-    "leaseUntil": "2026-06-25T06:17:17.560Z",
-    "updatedAt": "2026-06-25T05:17:17.560Z",
+    "leaseUntil": "2026-06-25T06:17:54.491Z",
+    "updatedAt": "2026-06-25T05:17:54.491Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
-    "branch": "seo/auto/2026-06-25-PG-WC-035"
+    "branch": "seo/auto/2026-06-25-PG-WC-035",
+    "pr": "https://github.com/xdawayer/oracle/pull/269",
+    "zh": false
   }
 }
