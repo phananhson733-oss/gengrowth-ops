@@ -1379,10 +1379,10 @@
     "slug": "emma-watson-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-001.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "88086",
-    "leaseUntil": "2026-06-25T07:37:01.906Z",
-    "updatedAt": "2026-06-25T06:37:01.906Z",
+    "leaseUntil": "2026-06-25T07:41:35.334Z",
+    "updatedAt": "2026-06-25T06:41:35.334Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-001",
     "branch": "seo/auto/2026-06-25-PG-CELEB-001"
   }
