@@ -1416,7 +1416,7 @@
     "mergedAt": "2026-06-25T15:19:05.851Z"
   },
   "PG-WC-038": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "darwin-nunez-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1433,10 +1433,9 @@
     "retryAt": "2026-06-25T15:43:33.925Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-wc-038-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-25T15:39:02.771Z",
-    "headRefOid": "3df5f3506aa59fc4e7f6674c95abcb0a26616fe2",
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-06-25T15:47:24.165Z"
+    "verifiedAt": "2026-06-25T15:49:57.531Z",
+    "headRefOid": "5820eb596a1c68260eb368093c01cb6990fa1b13",
+    "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
     "status": "pushed-preview",
