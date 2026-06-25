@@ -1394,20 +1394,20 @@
     "mergedAt": "2026-06-25T07:02:21.432Z"
   },
   "PG-WC-037": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "folarin-balogun-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "93656",
-    "leaseUntil": "2026-06-25T15:46:36.926Z",
-    "updatedAt": "2026-06-25T14:46:36.926Z",
+    "lockedBy": "16358",
+    "leaseUntil": "2026-06-25T16:07:27.133Z",
+    "updatedAt": "2026-06-25T15:07:27.133Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-037",
     "branch": "seo/auto/2026-06-25-PG-WC-037",
     "pr": "https://github.com/xdawayer/oracle/pull/277",
     "zh": false,
     "needs_hero": true,
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-06-25T14:48:21.758Z"
+    "retryEvidence": "manual serial Codex-only gate retry after old cron review-worker tooling failure",
+    "retryAt": "2026-06-25T15:07:27.133Z"
   }
 }
