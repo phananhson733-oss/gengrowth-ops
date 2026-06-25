@@ -1429,5 +1429,17 @@
     "pr": "https://github.com/xdawayer/oracle/pull/278",
     "zh": false,
     "needs_hero": true
+  },
+  "PG-COUPLE-001": {
+    "status": "active",
+    "slug": "jwoww-zack-carpinello-wedding-synastry",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "push",
+    "lockedBy": "25744",
+    "leaseUntil": "2026-06-25T16:20:02.626Z",
+    "updatedAt": "2026-06-25T15:20:02.626Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-001",
+    "branch": "seo/auto/2026-06-25-PG-COUPLE-001"
   }
 }
