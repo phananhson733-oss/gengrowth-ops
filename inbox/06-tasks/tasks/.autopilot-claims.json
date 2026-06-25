@@ -1379,15 +1379,17 @@
     "mergedAt": "2026-06-25T05:39:45.111Z"
   },
   "PG-WC-036": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "marcus-rashford-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-036.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "56724",
-    "leaseUntil": "2026-06-25T06:54:20.140Z",
-    "updatedAt": "2026-06-25T05:54:20.140Z",
+    "leaseUntil": "2026-06-25T06:55:02.513Z",
+    "updatedAt": "2026-06-25T05:55:02.513Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-036",
-    "branch": "seo/auto/2026-06-25-PG-WC-036"
+    "branch": "seo/auto/2026-06-25-PG-WC-036",
+    "pr": "https://github.com/xdawayer/oracle/pull/270",
+    "zh": false
   }
 }
