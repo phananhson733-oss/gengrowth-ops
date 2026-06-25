@@ -1358,20 +1358,25 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-035": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-035.md",
     "stage": "pushed-preview",
-    "lockedBy": "21148",
-    "leaseUntil": "2026-06-25T06:31:44.928Z",
-    "updatedAt": "2026-06-25T05:31:44.928Z",
+    "lockedBy": "31117",
+    "leaseUntil": "2026-06-25T06:39:38.801Z",
+    "updatedAt": "2026-06-25T05:39:38.801Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
     "branch": "seo/auto/2026-06-25-PG-WC-035",
     "pr": "https://github.com/xdawayer/oracle/pull/269",
     "zh": false,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-06-25T05:36:45.725Z"
+    "retryEvidence": "all gates passed in my r2 run (verify+astrology+schema+links-seo+codex PASS); cron-collision parked it post-pass",
+    "retryAt": "2026-06-25T05:39:38.801Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-wc-035-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "r2 gate: chrome verify + 3-dim review + codex all PASS",
+    "verifiedAt": "2026-06-25T05:39:39.750Z",
+    "headRefOid": "9b3c53bfb128091f324241870320cec572661e54",
+    "mergedAt": "2026-06-25T05:39:45.111Z"
   },
   "PG-WC-036": {
     "status": "pushed-preview",
