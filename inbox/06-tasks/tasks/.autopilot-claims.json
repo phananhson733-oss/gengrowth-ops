@@ -1470,15 +1470,17 @@
     "zh": false
   },
   "PG-CELEB-006": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "ricky-gervais-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "58429",
-    "leaseUntil": "2026-06-25T17:15:21.560Z",
-    "updatedAt": "2026-06-25T16:15:21.560Z",
+    "leaseUntil": "2026-06-25T17:17:15.131Z",
+    "updatedAt": "2026-06-25T16:17:15.131Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-006",
-    "branch": "seo/auto/2026-06-25-PG-CELEB-006"
+    "branch": "seo/auto/2026-06-25-PG-CELEB-006",
+    "pr": "https://github.com/xdawayer/oracle/pull/281",
+    "zh": false
   }
 }
