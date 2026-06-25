@@ -1379,10 +1379,10 @@
     "slug": "mariah-carey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-CELEB-004.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "28638",
-    "leaseUntil": "2026-06-25T07:14:37.376Z",
-    "updatedAt": "2026-06-25T06:14:37.376Z",
+    "leaseUntil": "2026-06-25T07:18:37.319Z",
+    "updatedAt": "2026-06-25T06:18:37.319Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-004",
     "branch": "seo/auto/2026-06-25-PG-CELEB-004"
   }
