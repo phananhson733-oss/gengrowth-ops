@@ -26,6 +26,7 @@ status: draft
 |---|---|
 | Target keyword | Astrocartography Map Generator |
 | 建议URL | `/en/astrocartography-map-generator` |
+| **原落地页（套皮参照）** | `/en/astrocartography`——UI/表单/计算逻辑直接复用，不用重新开发 |
 | 跟现有页面关系 | **补充落地页，不替换** `/en/astrocartography`。现有页面定位"是什么"（探索型），新页面定位"生成我的地图"（动作型），避免内部关键词蚕食 |
 | Meta title | `Astrocartography Map Generator – Free Relocation Astrology Tool \| AstrologyWiki` |
 | Meta description | `Generate your personal astrocartography map free. Enter your birth date, time, and location to see which planetary lines run through any place on Earth.` |
@@ -81,6 +82,7 @@ status: draft
 |---|---|
 | Target keyword | Moon Phase Today |
 | 建议URL | `/en/moon-phase-today` |
+| **原落地页（套皮参照）** | `/en/moon-phase-calculator`——UI/表单/计算逻辑直接复用（默认输入改成"今天"），不用重新开发 |
 | 跟现有页面关系 | **补充落地页，不替换** `/en/moon-phase-calculator`。现有页面是"查任意日期"（lookup型），新页面是"查今天"（实时型），意图不同不算蚕食 |
 | Meta title | `Moon Phase Today – What Moon Phase Is It Right Now? \| AstrologyWiki` |
 | Meta description | `See today's exact moon phase and illumination percentage, updated daily. Plus a quick guide to all 8 moon phases.` |
