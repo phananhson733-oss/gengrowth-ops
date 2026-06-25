@@ -78,3 +78,4 @@ updated: 2026-06-25
 | 2026-06-24 | PG-CELEB-005 | sharon-osbourne-zodiac-sign | Sharon Osbourne Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/sharon-osbourne-zodiac-sign | published |
 | 2026-06-25 | PG-WC-035 | thomas-partey-zodiac-sign | Thomas Partey Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/thomas-partey-zodiac-sign | published |
 | 2026-06-25 | PG-WC-036 | marcus-rashford-zodiac-sign | Marcus Rashford Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/marcus-rashford-zodiac-sign | published |
+| 2026-06-25 | PG-CELEB-004 | mariah-carey-zodiac-sign | Mariah Carey Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/mariah-carey-zodiac-sign | published |
