@@ -325,10 +325,10 @@
     "slug": "rohini-nakshatra",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "1443",
-    "leaseUntil": "2026-06-25T08:19:41.390Z",
-    "updatedAt": "2026-06-25T07:19:41.390Z",
+    "leaseUntil": "2026-06-25T08:26:44.819Z",
+    "updatedAt": "2026-06-25T07:26:44.819Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-NAKSH-003",
     "branch": "seo/auto/2026-06-25-PG-NAKSH-003"
   },
