@@ -1358,19 +1358,15 @@
     "mergedAt": "2026-06-24T18:20:58.108Z"
   },
   "PG-WC-035": {
-    "status": "needs_human",
+    "status": "active",
     "slug": "thomas-partey-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-WC-035.md",
-    "stage": "pushed-preview",
-    "lockedBy": "4460",
-    "leaseUntil": "2026-06-25T06:17:54.491Z",
-    "updatedAt": "2026-06-25T05:17:54.491Z",
+    "stage": "convert",
+    "lockedBy": "21148",
+    "leaseUntil": "2026-06-25T06:26:33.547Z",
+    "updatedAt": "2026-06-25T05:26:33.547Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-WC-035",
-    "branch": "seo/auto/2026-06-25-PG-WC-035",
-    "pr": "https://github.com/xdawayer/oracle/pull/269",
-    "zh": false,
-    "error": "review[links-seo] FAIL: The opening has no internal link and four of the five intended internal links (pillar, Mercury ruler, Gemini Sun guide, World Cup hub) render as plain italic text instead of resolved hyperlinks, leaving only one working internal target.",
-    "failedAt": "2026-06-25T05:20:29.734Z"
+    "branch": "seo/auto/2026-06-25-PG-WC-035"
   }
 }
