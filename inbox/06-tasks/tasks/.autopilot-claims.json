@@ -1560,15 +1560,17 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "63886",
-    "leaseUntil": "2026-06-26T18:14:13.315Z",
-    "updatedAt": "2026-06-26T17:14:13.315Z",
+    "leaseUntil": "2026-06-26T18:14:51.078Z",
+    "updatedAt": "2026-06-26T17:14:51.078Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
-    "branch": "seo/auto/2026-06-26-PG-CELEB-008"
+    "branch": "seo/auto/2026-06-26-PG-CELEB-008",
+    "pr": "https://github.com/xdawayer/oracle/pull/286",
+    "zh": false
   }
 }
