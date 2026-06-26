@@ -1558,5 +1558,17 @@
     "verifiedAt": "2026-06-26T16:59:15.811Z",
     "headRefOid": "f0535dca061495fe2eb172c7b3a8b68b4901f3d7",
     "mergedAt": "2026-06-26T16:59:21.572Z"
+  },
+  "PG-CELEB-008": {
+    "status": "active",
+    "slug": "harry-styles-and-zo-kravitz",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-008.md",
+    "stage": "convert",
+    "lockedBy": "63886",
+    "leaseUntil": "2026-06-26T18:09:48.174Z",
+    "updatedAt": "2026-06-26T17:09:48.174Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
+    "branch": "seo/auto/2026-06-26-PG-CELEB-008"
   }
 }
