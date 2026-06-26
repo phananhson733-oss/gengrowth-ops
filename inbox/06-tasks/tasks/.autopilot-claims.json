@@ -1480,7 +1480,7 @@
     "mergedAt": "2026-06-26T05:56:29.943Z"
   },
   "PG-CELEB-006": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "ricky-gervais-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1493,6 +1493,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/281",
     "zh": false,
     "retryEvidence": "Previous failure was Codex tooling skipped; rerunning after quota reset with Codex-only review worker.",
-    "retryAt": "2026-06-26T05:57:06.313Z"
+    "retryAt": "2026-06-26T05:57:06.313Z",
+    "error": "review[schema] FAIL: The source draft frontmatter title contradicts the rendered module title and visible H1, creating inconsistent declared metadata.",
+    "failedAt": "2026-06-26T05:58:22.998Z"
   }
 }
