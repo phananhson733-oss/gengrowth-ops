@@ -1485,14 +1485,18 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "39903",
-    "leaseUntil": "2026-06-26T07:02:34.742Z",
-    "updatedAt": "2026-06-26T06:02:34.742Z",
+    "lockedBy": "47910",
+    "leaseUntil": "2026-06-26T07:08:56.947Z",
+    "updatedAt": "2026-06-26T06:08:56.947Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-CELEB-006",
     "branch": "seo/auto/2026-06-25-PG-CELEB-006",
     "pr": "https://github.com/xdawayer/oracle/pull/281",
     "zh": false,
-    "retryEvidence": "Codex schema and links-seo passed after aligning draft title with H1 and replacing unresolved internal-link placeholders/CTA with real wiki links.",
-    "retryAt": "2026-06-26T06:02:34.742Z"
+    "retryEvidence": "Content gate passed; merge conflict resolved by merging origin/main and retaining Ricky, Reese, JWoww, Darwin, and Folarin article entries.",
+    "retryAt": "2026-06-26T06:08:56.947Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-bad02c-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-26T06:08:07.934Z",
+    "headRefOid": "14af081491632e472eedca4454132c8e3f7ec7c2"
   }
 }
