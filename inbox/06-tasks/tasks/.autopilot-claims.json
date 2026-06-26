@@ -1501,15 +1501,17 @@
     "mergedAt": "2026-06-26T06:21:24.342Z"
   },
   "PG-WC-039": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "jordan-vs-argentina",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-039.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "30595",
-    "leaseUntil": "2026-06-26T17:05:09.267Z",
-    "updatedAt": "2026-06-26T16:05:09.267Z",
+    "leaseUntil": "2026-06-26T17:05:47.283Z",
+    "updatedAt": "2026-06-26T16:05:47.283Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-039",
-    "branch": "seo/auto/2026-06-26-PG-WC-039"
+    "branch": "seo/auto/2026-06-26-PG-WC-039",
+    "pr": "https://github.com/xdawayer/oracle/pull/283",
+    "zh": false
   }
 }
