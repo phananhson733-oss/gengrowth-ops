@@ -1459,26 +1459,24 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "10459",
-    "leaseUntil": "2026-06-26T06:45:33.203Z",
-    "updatedAt": "2026-06-26T05:45:33.203Z",
+    "lockedBy": "22904",
+    "leaseUntil": "2026-06-26T06:51:24.040Z",
+    "updatedAt": "2026-06-26T05:51:24.040Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-002",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-002",
     "pr": "https://github.com/xdawayer/oracle/pull/280",
     "zh": false,
-    "retryEvidence": "Content gate passed; merge conflict resolved by merging origin/main and retaining Reese, JWoww, Darwin, and Folarin article entries.",
-    "retryAt": "2026-06-26T05:45:33.203Z",
+    "retryEvidence": "Links-seo passed after replacing misleading Aries Virgo anchor, reducing exact-match repetition, and making Virgo source lower-confidence/conditional.",
+    "retryAt": "2026-06-26T05:51:24.040Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-478086-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-26T05:44:41.815Z",
-    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb",
-    "error": "review[links-seo] FAIL: The page uses an internal link with misleading anchor text because “Aries Virgo compatibility” points to the generic synastry chart compatibility URL rather than a dedicated Aries-Virgo target.",
-    "failedAt": "2026-06-26T05:48:29.315Z"
+    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
