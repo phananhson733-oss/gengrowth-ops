@@ -1560,7 +1560,7 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
@@ -1573,6 +1573,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
     "retryEvidence": "removed specific Pew stat → soft unattributed range; geometry + facts all clean",
-    "retryAt": "2026-06-26T17:41:53.165Z"
+    "retryAt": "2026-06-26T17:41:53.165Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-26-pg-b2a070-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-26T17:47:14.016Z",
+    "headRefOid": "bcb12c1b181bdf1156023e955b0e9b2e1074362b",
+    "mergedAt": "2026-06-26T17:47:20.170Z"
   }
 }
