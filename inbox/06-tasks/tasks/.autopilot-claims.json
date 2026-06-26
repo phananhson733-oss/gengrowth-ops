@@ -1564,10 +1564,10 @@
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "63886",
-    "leaseUntil": "2026-06-26T18:09:48.174Z",
-    "updatedAt": "2026-06-26T17:09:48.174Z",
+    "leaseUntil": "2026-06-26T18:14:13.315Z",
+    "updatedAt": "2026-06-26T17:14:13.315Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
     "branch": "seo/auto/2026-06-26-PG-CELEB-008"
   }
