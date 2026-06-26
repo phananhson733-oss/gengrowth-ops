@@ -1560,21 +1560,19 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
     "stage": "pushed-preview",
-    "lockedBy": "69949",
-    "leaseUntil": "2026-06-26T18:24:08.087Z",
-    "updatedAt": "2026-06-26T17:24:08.087Z",
+    "lockedBy": "72641",
+    "leaseUntil": "2026-06-26T18:31:21.803Z",
+    "updatedAt": "2026-06-26T17:31:21.803Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
     "branch": "seo/auto/2026-06-26-PG-CELEB-008",
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
-    "retryEvidence": "fixed sextile modality misstatement + flowing→harmonious; geometry fully consistent with table",
-    "retryAt": "2026-06-26T17:24:08.087Z",
-    "error": "codex completed with codex FAIL —inline assets wrongly call the Aquarius–Sagittarius sextile a trine/120°",
-    "failedAt": "2026-06-26T17:29:10.192Z"
+    "retryEvidence": "fixed trine→sextile in i0/i1/i2 inline SVGs + plan json; all geometry now consistent (sextile/60°/2 signs/diff modality)",
+    "retryAt": "2026-06-26T17:31:21.803Z"
   }
 }
