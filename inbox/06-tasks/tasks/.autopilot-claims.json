@@ -1459,26 +1459,24 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "97878",
-    "leaseUntil": "2026-06-26T06:38:57.762Z",
-    "updatedAt": "2026-06-26T05:38:57.762Z",
+    "lockedBy": "10459",
+    "leaseUntil": "2026-06-26T06:45:33.203Z",
+    "updatedAt": "2026-06-26T05:45:33.203Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-002",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-002",
     "pr": "https://github.com/xdawayer/oracle/pull/280",
     "zh": false,
-    "retryEvidence": "Codex astrology and links-seo passed after grounding Aries-Virgo as profile-based quincunx/Mars-Mercury timing reading with sourced public timeline.",
-    "retryAt": "2026-06-26T05:38:57.762Z",
+    "retryEvidence": "Content gate passed; merge conflict resolved by merging origin/main and retaining Reese, JWoww, Darwin, and Folarin article entries.",
+    "retryAt": "2026-06-26T05:45:33.203Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-478086-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-26T05:44:41.815Z",
-    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb",
-    "error": "merge failed: auto/2026-06-25-PG-COUPLE-002 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb GraphQL: Pull Request has merge conflicts (mergePullRequest)",
-    "failedAt": "2026-06-26T05:44:43.771Z"
+    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
