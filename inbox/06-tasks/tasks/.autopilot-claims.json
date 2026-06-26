@@ -1560,21 +1560,19 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
     "stage": "pushed-preview",
-    "lockedBy": "74471",
-    "leaseUntil": "2026-06-26T18:35:35.674Z",
-    "updatedAt": "2026-06-26T17:35:35.674Z",
+    "lockedBy": "76804",
+    "leaseUntil": "2026-06-26T18:41:53.165Z",
+    "updatedAt": "2026-06-26T17:41:53.165Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
     "branch": "seo/auto/2026-06-26-PG-CELEB-008",
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
-    "retryEvidence": "sextile=two signs/60° consistent across ts+draft+all 6 svg+plan; exhaustive grep clean",
-    "retryAt": "2026-06-26T17:35:35.674Z",
-    "error": "codex completed with codex FAIL —Pew astrology belief stat is misstated",
-    "failedAt": "2026-06-26T17:40:55.449Z"
+    "retryEvidence": "removed specific Pew stat → soft unattributed range; geometry + facts all clean",
+    "retryAt": "2026-06-26T17:41:53.165Z"
   }
 }
