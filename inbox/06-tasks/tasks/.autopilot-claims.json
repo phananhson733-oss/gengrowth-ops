@@ -1560,7 +1560,7 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
@@ -1573,6 +1573,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
     "retryEvidence": "fixed astrology: Aquarius-Sagittarius is a 60° sextile not 120° trine (geometry corrected throughout .ts + draft)",
-    "retryAt": "2026-06-26T17:20:12.952Z"
+    "retryAt": "2026-06-26T17:20:12.952Z",
+    "error": "review[astrology] FAIL: The 'Common Misreadings' section claims air and fire 'within the same modality...form a supportive sextile,' which is astrologically wrong and contradicts the article's own table — sextiles occur between same-POLARITY signs of DIFFERENT modalities (Aquarius is fixed, Sagittarius mutable), never within the same modality.",
+    "failedAt": "2026-06-26T17:22:20.292Z"
   }
 }
