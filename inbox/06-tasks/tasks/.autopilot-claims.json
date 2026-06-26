@@ -1520,5 +1520,17 @@
     "verifiedAt": "2026-06-26T16:19:00.367Z",
     "headRefOid": "0427da861e80e28fdbf80e09c1a37ab96c125030",
     "mergedAt": "2026-06-26T16:19:06.675Z"
+  },
+  "PG-WC-040": {
+    "status": "active",
+    "slug": "colombia-vs-portugal",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-WC-040.md",
+    "stage": "convert",
+    "lockedBy": "43864",
+    "leaseUntil": "2026-06-26T17:25:12.507Z",
+    "updatedAt": "2026-06-26T16:25:12.507Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-040",
+    "branch": "seo/auto/2026-06-26-PG-WC-040"
   }
 }
