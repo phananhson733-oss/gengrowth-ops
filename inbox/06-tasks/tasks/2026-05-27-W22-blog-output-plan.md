@@ -279,13 +279,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 > 全部 7 篇当日 prod 部署，带本地 FLUX (mflux schnell) hero 配图。流程：deep-research 事实预核查（7 路并行）→ Opus 4.8 high 作者 → 逐篇修正不可核实断言 → phase2 → preview gate（三维 review + codex 事实门）→ merge → prod 验证。CELEB 集群新增转换器互链规则修复 links-seo。文章在 /wiki 与 /blog 双路径可访问（UI 入口仍 /wiki）。
 
 ---
-## ⚪ 6月25日 (周四) - 待写作
-**状态**：`等待输出` (共5篇）
-- [x] PG-WC-037 folarin balogun birth chart
-- [x] PG-WC-038 darwin nunez zodiac sign
-- [x] PG-COUPLE-001 jwoww zack carpinello wedding synastry
-- [x] PG-COUPLE-002 reese witherspoon oliver haarmann compatibility astrology
-- [x] PG-CELEB-006 ricky gervais zodiac sign
+## ⚪ 6月25日 (周四) - 已发布
+**状态**：`已输出` (共 5 篇全部 LIVE on www.astrologywiki.com，hero + sitemap 验证)
+- [x] PG-WC-037 folarin balogun birth chart -> LIVE https://www.astrologywiki.com/en/wiki/folarin-balogun-birth-chart （hero 后补）
+- [x] PG-WC-038 darwin nunez zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/darwin-nunez-zodiac-sign （hero 后补）
+- [x] PG-COUPLE-001 jwoww zack carpinello wedding synastry -> LIVE https://www.astrologywiki.com/en/wiki/jwoww-zack-carpinello-wedding-synastry （hero 后补）
+- [x] PG-COUPLE-002 reese witherspoon oliver haarmann compatibility astrology -> LIVE https://www.astrologywiki.com/en/wiki/reese-witherspoon-oliver-haarmann-compatibility-astrology
+- [x] PG-CELEB-006 ricky gervais zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/ricky-gervais-zodiac-sign
+
+> 5 篇全部 LIVE 带 hero。其中 folarin/darwin/jwoww 三篇当初发布时缺 hero（gemini/openai/minimax 不可用），2026-06-26 用本地 FLUX (mflux) backfill 补齐（PR #282）。本周共 backfill 12 篇 hero（9 篇 PR #276 + 3 篇 PR #282）。
  
 ---
 
