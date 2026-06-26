@@ -1459,7 +1459,7 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1476,7 +1476,9 @@
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-478086-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-26T05:44:41.815Z",
-    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb"
+    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb",
+    "error": "review[links-seo] FAIL: The page uses an internal link with misleading anchor text because “Aries Virgo compatibility” points to the generic synastry chart compatibility URL rather than a dedicated Aries-Virgo target.",
+    "failedAt": "2026-06-26T05:48:29.315Z"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
