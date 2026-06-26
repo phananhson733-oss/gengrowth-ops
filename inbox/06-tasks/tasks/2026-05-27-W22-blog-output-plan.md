@@ -296,7 +296,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-CELEB-007` Taylor Swift and Travis Kelce
 - [ ] `PG-CELEB-008` Harry Styles and Zoë Kravitz
 - [x] `PG-WC-039` Jordan vs Argentina -> LIVE https://www.astrologywiki.com/en/wiki/jordan-vs-argentina （国家盘对比框架；修正木星双子→巨蟹星历 + 4 内链解析；codex 事实门 PASS）
-- [x] `PG-WC-040` Colombia vs Portugal
+- [x] `PG-WC-040` Colombia vs Portugal -> LIVE https://www.astrologywiki.com/en/wiki/colombia-vs-portugal （国家盘对比；木星双子→巨蟹修正 + 4 内链 + Luis Díaz 互链；codex 事实门 PASS）
 
 > ⚠️ 原"自动补充"的 4 个 AURA 选题（aura colors / red / blue / yellow aura meaning）已剔除：均已上线、属重复内容，不再重写（aura-colors-guide / red-aura-meaning / blue-aura-meaning / yellow-aura-meaning 已在 sitemap）。
 
