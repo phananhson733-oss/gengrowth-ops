@@ -1438,22 +1438,20 @@
     "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jwoww-zack-carpinello-wedding-synastry",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "45080",
-    "leaseUntil": "2026-06-25T16:54:37.181Z",
-    "updatedAt": "2026-06-25T15:54:37.181Z",
+    "lockedBy": "62046",
+    "leaseUntil": "2026-06-26T06:12:01.101Z",
+    "updatedAt": "2026-06-26T05:12:01.101Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-001",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-001",
     "pr": "https://github.com/xdawayer/oracle/pull/279",
     "zh": false,
-    "retryEvidence": "Codex-only astrology and links-seo passed after limiting relationship reading to public birth-date data and adding early internal link.",
-    "retryAt": "2026-06-25T15:54:37.181Z",
-    "error": "codex completed with codex FAIL —People reports Zack Carpinello’s birthday as Dec. 21, not Dec. 20: https://people.com/jersey-shore-star-jenni-jwoww-farley-marries-pro-wrestler-zack-carpinello-wedding-exclusive-12005286",
-    "failedAt": "2026-06-25T15:59:03.702Z"
+    "retryEvidence": "Fixed Codex factual blocker by removing exact Zack Dec.20 claim, bounding public birthday references around Dec.20-21, avoiding JWoww birth-year dependency, and preserving Sagittarius/Pisces Sun-sign reading only.",
+    "retryAt": "2026-06-26T05:12:01.101Z"
   },
   "PG-COUPLE-002": {
     "status": "needs_human",
