@@ -294,7 +294,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 6月26日 (周五) - 待写作
 **状态**：`等待输出` (共 4 篇待写)
 - [x] `PG-CELEB-007` Taylor Swift and Travis Kelce -> LIVE https://www.astrologywiki.com/en/wiki/taylor-swift-and-travis-kelce （合盘 Sagittarius×Libra；订婚未婚事实核实；新增 synastry/composite/ascendant 内链规则；codex PASS）
-- [ ] `PG-CELEB-008` Harry Styles and Zoë Kravitz
+- [x] `PG-CELEB-008` Harry Styles and Zoë Kravitz
 - [x] `PG-WC-039` Jordan vs Argentina -> LIVE https://www.astrologywiki.com/en/wiki/jordan-vs-argentina （国家盘对比框架；修正木星双子→巨蟹星历 + 4 内链解析；codex 事实门 PASS）
 - [x] `PG-WC-040` Colombia vs Portugal -> LIVE https://www.astrologywiki.com/en/wiki/colombia-vs-portugal （国家盘对比；木星双子→巨蟹修正 + 4 内链 + Luis Díaz 互链；codex 事实门 PASS）
 

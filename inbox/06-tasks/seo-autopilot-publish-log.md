@@ -88,3 +88,4 @@ updated: 2026-06-26
 | 2026-06-26 | PG-WC-039 | jordan-vs-argentina | Jordan Vs Argentina | marcus-orion | https://www.astrologywiki.com/en/wiki/jordan-vs-argentina | published |
 | 2026-06-26 | PG-WC-040 | colombia-vs-portugal | Colombia Vs Portugal | marcus-orion | https://www.astrologywiki.com/en/wiki/colombia-vs-portugal | published |
 | 2026-06-26 | PG-CELEB-007 | taylor-swift-and-travis-kelce | Taylor Swift And Travis Kelce | marcus-orion | https://www.astrologywiki.com/en/wiki/taylor-swift-and-travis-kelce | published |
+| 2026-06-26 | PG-CELEB-008 | harry-styles-and-zo-kravitz | Harry Styles And Zoë Kravitz | marcus-orion | https://www.astrologywiki.com/en/wiki/harry-styles-and-zo-kravitz | published |
