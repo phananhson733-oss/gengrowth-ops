@@ -1459,20 +1459,20 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "37680",
-    "leaseUntil": "2026-06-25T16:46:46.575Z",
-    "updatedAt": "2026-06-25T15:46:46.575Z",
+    "lockedBy": "83288",
+    "leaseUntil": "2026-06-26T06:34:18.981Z",
+    "updatedAt": "2026-06-26T05:34:18.981Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-002",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-002",
     "pr": "https://github.com/xdawayer/oracle/pull/280",
     "zh": false,
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-06-25T16:17:54.842Z"
+    "retryEvidence": "Previous failure was Codex tooling skipped; rerunning after quota reset with Codex-only review worker.",
+    "retryAt": "2026-06-26T05:34:18.981Z"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
