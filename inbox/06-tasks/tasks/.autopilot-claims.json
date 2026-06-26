@@ -1499,5 +1499,17 @@
     "verifiedAt": "2026-06-26T06:21:18.556Z",
     "headRefOid": "8c6b0f259dda6afaa8a509b0f8c67eeadc35fed1",
     "mergedAt": "2026-06-26T06:21:24.342Z"
+  },
+  "PG-WC-039": {
+    "status": "active",
+    "slug": "jordan-vs-argentina",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-WC-039.md",
+    "stage": "convert",
+    "lockedBy": "30595",
+    "leaseUntil": "2026-06-26T17:00:04.647Z",
+    "updatedAt": "2026-06-26T16:00:04.647Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-039",
+    "branch": "seo/auto/2026-06-26-PG-WC-039"
   }
 }
