@@ -1560,7 +1560,7 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
@@ -1573,6 +1573,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
     "retryEvidence": "sextile=two signs/60° consistent across ts+draft+all 6 svg+plan; exhaustive grep clean",
-    "retryAt": "2026-06-26T17:35:35.674Z"
+    "retryAt": "2026-06-26T17:35:35.674Z",
+    "error": "codex completed with codex FAIL —Pew astrology belief stat is misstated",
+    "failedAt": "2026-06-26T17:40:55.449Z"
   }
 }
