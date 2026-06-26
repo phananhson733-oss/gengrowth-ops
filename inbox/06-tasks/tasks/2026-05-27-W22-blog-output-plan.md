@@ -298,9 +298,5 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-WC-039` Jordan vs Argentina
 - [ ] `PG-WC-040` Colombia vs Portugal
 
-- [ ] `PG-AURA-001` aura colors
-- [ ] `PG-AURA-006` red aura meaning
-- [ ] `PG-AURA-007` blue aura meaning
-- [ ] `PG-AURA-008` yellow aura meaning
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
