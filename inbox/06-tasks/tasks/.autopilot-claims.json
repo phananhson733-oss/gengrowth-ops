@@ -1560,7 +1560,7 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
@@ -1573,6 +1573,8 @@
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
     "retryEvidence": "fixed trine→sextile in i0/i1/i2 inline SVGs + plan json; all geometry now consistent (sextile/60°/2 signs/diff modality)",
-    "retryAt": "2026-06-26T17:31:21.803Z"
+    "retryAt": "2026-06-26T17:31:21.803Z",
+    "error": "codex completed with codex FAIL —the SVG/plan says a sextile is about four signs apart, but a sextile is about two signs/60°",
+    "failedAt": "2026-06-26T17:34:29.517Z"
   }
 }
