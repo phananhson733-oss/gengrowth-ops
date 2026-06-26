@@ -1501,7 +1501,7 @@
     "mergedAt": "2026-06-26T06:21:24.342Z"
   },
   "PG-WC-039": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jordan-vs-argentina",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-039.md",
@@ -1514,6 +1514,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/283",
     "zh": false,
     "retryEvidence": "fixed 4 in-body internal links (TBD→live slugs), Jupiter-in-Cancer fact fix, phase2 PASS",
-    "retryAt": "2026-06-26T16:13:57.734Z"
+    "retryAt": "2026-06-26T16:13:57.734Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-26-pg-wc-039-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-26T16:19:00.367Z",
+    "headRefOid": "0427da861e80e28fdbf80e09c1a37ab96c125030",
+    "mergedAt": "2026-06-26T16:19:06.675Z"
   }
 }
