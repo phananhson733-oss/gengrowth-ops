@@ -1459,7 +1459,7 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1472,7 +1472,9 @@
     "pr": "https://github.com/xdawayer/oracle/pull/280",
     "zh": false,
     "retryEvidence": "Previous failure was Codex tooling skipped; rerunning after quota reset with Codex-only review worker.",
-    "retryAt": "2026-06-26T05:34:18.981Z"
+    "retryAt": "2026-06-26T05:34:18.981Z",
+    "error": "review[astrology] FAIL: The article has no obvious sign/rulership error, but it relies almost entirely on repetitive Aries-speed/Virgo-caution stereotypes and unsupported public-timing inference, so it reads as generic Sun-sign filler rather than grounded compatibility astrology.",
+    "failedAt": "2026-06-26T05:35:29.279Z"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
