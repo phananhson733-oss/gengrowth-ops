@@ -1539,5 +1539,17 @@
     "verifiedAt": "2026-06-26T16:40:24.933Z",
     "headRefOid": "2d8f4d1fb94496715122631570c80e6df886cecb",
     "mergedAt": "2026-06-26T16:40:30.568Z"
+  },
+  "PG-CELEB-007": {
+    "status": "active",
+    "slug": "taylor-swift-and-travis-kelce",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-007.md",
+    "stage": "convert",
+    "lockedBy": "54845",
+    "leaseUntil": "2026-06-26T17:50:11.512Z",
+    "updatedAt": "2026-06-26T16:50:11.512Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-007",
+    "branch": "seo/auto/2026-06-26-PG-CELEB-007"
   }
 }
