@@ -1541,7 +1541,7 @@
     "mergedAt": "2026-06-26T16:40:30.568Z"
   },
   "PG-CELEB-007": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "taylor-swift-and-travis-kelce",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-007.md",
@@ -1552,6 +1552,11 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-007",
     "branch": "seo/auto/2026-06-26-PG-CELEB-007",
     "pr": "https://github.com/xdawayer/oracle/pull/285",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-06-26-pg-24f9bb-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-26T16:59:15.811Z",
+    "headRefOid": "f0535dca061495fe2eb172c7b3a8b68b4901f3d7",
+    "mergedAt": "2026-06-26T16:59:21.572Z"
   }
 }
