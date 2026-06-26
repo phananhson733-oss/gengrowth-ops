@@ -1560,19 +1560,19 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
     "stage": "pushed-preview",
-    "lockedBy": "63886",
-    "leaseUntil": "2026-06-26T18:14:51.078Z",
-    "updatedAt": "2026-06-26T17:14:51.078Z",
+    "lockedBy": "68281",
+    "leaseUntil": "2026-06-26T18:20:12.952Z",
+    "updatedAt": "2026-06-26T17:20:12.952Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
     "branch": "seo/auto/2026-06-26-PG-CELEB-008",
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
-    "error": "review[astrology] FAIL: The article's entire premise is astrologically wrong: Aquarius and Sagittarius are 2 signs / ~60° apart (a sextile), not the 120° trine repeatedly claimed throughout.",
-    "failedAt": "2026-06-26T17:17:33.949Z"
+    "retryEvidence": "fixed astrology: Aquarius-Sagittarius is a 60° sextile not 120° trine (geometry corrected throughout .ts + draft)",
+    "retryAt": "2026-06-26T17:20:12.952Z"
   }
 }
