@@ -266,15 +266,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 > ZH 双语已于 2026-06-24 全部回填上线（语义改写非翻译，继承全部 EN 事实修正：天蝎/天秤上升标注"未证实"、Bruno 无 Mars+曼联队长、星历用"刑"非对分、Rhaenyra 诚实并列+Mysaria+97AC；Rhaenyra zh 经一次 codex park"具体站点星座枚举不可核实"→去枚举保留诚实核心后修复）。hero 配图暂缓：Gemini web 被 Google 临时封 IP、gpt-image-2（OAuth Image2）需 OPENAI_API_KEY、MiniMax 额度用尽——needs_hero 不阻断文章，inline 配图已有，待凭证就绪单独补。附带修复：publish-success 通知现双语时带 /zh URL（gg-seo-autopilot appendPublishLog）。
 
 ---
-## ⚪ 6月24日 (周三) - 待写作
-**状态**：`等待输出` (共7篇）
-- [x] PG-CELEB-001 emma watson zodiac sign
-- [x] PG-CELEB-002 greta lee zodiac sign
-- [x] PG-CELEB-003 kylie jenner zodiac sign
-- [x] PG-CELEB-004 mariah carey zodiac sign
-- [x] PG-CELEB-005 sharon osbourne zodiac sign
-- [x] PG-WC-035 thomas partey zodiac sign
-- [x] PG-WC-036 marcus rashford zodiac sign
+## ⚪ 6月24日 (周三) - 已发布
+**状态**：`已输出` (共 7 篇全部 LIVE on www.astrologywiki.com，本地 FLUX hero + inline + sitemap 验证)
+- [x] PG-CELEB-001 emma watson zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/emma-watson-zodiac-sign （白羊日；上升处女按广为记录的 6PM 巴黎时间标"未官方认证"）
+- [x] PG-CELEB-002 greta lee zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/greta-lee-zodiac-sign （双鱼日；通篇论点=无公开出生时间→上升/月亮未证实）
+- [x] PG-CELEB-003 kylie jenner zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/kylie-jenner-zodiac-sign （狮子日；规避 Travis Scott 婚姻/独女/亿万富翁雷区）
+- [x] PG-CELEB-004 mariah carey zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/mariah-carey-zodiac-sign （白羊日；不可核实的 12 宫 stellium 改写为可核实的太阳+巨蟹月亮）
+- [x] PG-CELEB-005 sharon osbourne zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/sharon-osbourne-zodiac-sign （天秤日+天秤 stellium；brief 误标"双子月亮"改为临界未证实；规避 Ozzy 已故雷区）
+- [x] PG-WC-035 thomas partey zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/thomas-partey-zodiac-sign （双子日；以省略实现中立，不碰刑事案/俱乐部/资格）
+- [x] PG-WC-036 marcus rashford zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/marcus-rashford-zodiac-sign （天蝎日"约 1/3 处"非尾声；月亮/上升对冲；俱乐部省略）
+
+> 全部 7 篇当日 prod 部署，带本地 FLUX (mflux schnell) hero 配图。流程：deep-research 事实预核查（7 路并行）→ Opus 4.8 high 作者 → 逐篇修正不可核实断言 → phase2 → preview gate（三维 review + codex 事实门）→ merge → prod 验证。CELEB 集群新增转换器互链规则修复 links-seo。文章在 /wiki 与 /blog 双路径可访问（UI 入口仍 /wiki）。
 
 ---
 ## ⚪ 6月25日 (周四) - 待写作
