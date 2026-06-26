@@ -1480,7 +1480,7 @@
     "mergedAt": "2026-06-26T05:56:29.943Z"
   },
   "PG-CELEB-006": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "ricky-gervais-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1496,7 +1496,8 @@
     "retryAt": "2026-06-26T06:08:56.947Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-bad02c-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-26T06:08:07.934Z",
-    "headRefOid": "14af081491632e472eedca4454132c8e3f7ec7c2"
+    "verifiedAt": "2026-06-26T06:21:18.556Z",
+    "headRefOid": "8c6b0f259dda6afaa8a509b0f8c67eeadc35fed1",
+    "mergedAt": "2026-06-26T06:21:24.342Z"
   }
 }
