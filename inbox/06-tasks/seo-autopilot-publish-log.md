@@ -86,3 +86,4 @@ updated: 2026-06-26
 | 2026-06-26 | PG-COUPLE-002 | reese-witherspoon-oliver-haarmann-compatibility-astrology | Reese Witherspoon Oliver Haarmann Compatibility Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/reese-witherspoon-oliver-haarmann-compatibility-astrology | published |
 | 2026-06-26 | PG-CELEB-006 | ricky-gervais-zodiac-sign | How Ricky Gervais Zodiac Sign Reveals the Soft Edge of Satire | marcus-orion | https://www.astrologywiki.com/en/wiki/ricky-gervais-zodiac-sign | published |
 | 2026-06-26 | PG-WC-039 | jordan-vs-argentina | Jordan Vs Argentina | marcus-orion | https://www.astrologywiki.com/en/wiki/jordan-vs-argentina | published |
+| 2026-06-26 | PG-WC-040 | colombia-vs-portugal | Colombia Vs Portugal | marcus-orion | https://www.astrologywiki.com/en/wiki/colombia-vs-portugal | published |
