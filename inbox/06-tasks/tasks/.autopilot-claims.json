@@ -1438,7 +1438,7 @@
     "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jwoww-zack-carpinello-wedding-synastry",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1454,8 +1454,9 @@
     "retryAt": "2026-06-26T05:26:09.001Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-e4981f-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-26T05:16:37.553Z",
-    "headRefOid": "6787d87f251849332d9d44e5c41c76007edbd9a0"
+    "verifiedAt": "2026-06-26T05:33:28.539Z",
+    "headRefOid": "a192f4240e20b737d119d51bc2744499b0834954",
+    "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
     "status": "needs_human",
