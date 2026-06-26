@@ -1505,10 +1505,10 @@
     "slug": "jordan-vs-argentina",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-039.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "30595",
-    "leaseUntil": "2026-06-26T17:00:04.647Z",
-    "updatedAt": "2026-06-26T16:00:04.647Z",
+    "leaseUntil": "2026-06-26T17:05:09.267Z",
+    "updatedAt": "2026-06-26T16:05:09.267Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-039",
     "branch": "seo/auto/2026-06-26-PG-WC-039"
   }
