@@ -1501,7 +1501,7 @@
     "mergedAt": "2026-06-26T06:21:24.342Z"
   },
   "PG-WC-039": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "jordan-vs-argentina",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-039.md",
@@ -1512,6 +1512,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-039",
     "branch": "seo/auto/2026-06-26-PG-WC-039",
     "pr": "https://github.com/xdawayer/oracle/pull/283",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: All intended internal wiki-links were left as unresolved TBD placeholders rendered as plain italic text, so the article ships with no functioning in-body internal links and none in the opening.",
+    "failedAt": "2026-06-26T16:08:52.714Z"
   }
 }
