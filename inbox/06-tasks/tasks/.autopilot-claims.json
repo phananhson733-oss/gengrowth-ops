@@ -1560,21 +1560,19 @@
     "mergedAt": "2026-06-26T16:59:21.572Z"
   },
   "PG-CELEB-008": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "harry-styles-and-zo-kravitz",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-008.md",
     "stage": "pushed-preview",
-    "lockedBy": "72641",
-    "leaseUntil": "2026-06-26T18:31:21.803Z",
-    "updatedAt": "2026-06-26T17:31:21.803Z",
+    "lockedBy": "74471",
+    "leaseUntil": "2026-06-26T18:35:35.674Z",
+    "updatedAt": "2026-06-26T17:35:35.674Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-CELEB-008",
     "branch": "seo/auto/2026-06-26-PG-CELEB-008",
     "pr": "https://github.com/xdawayer/oracle/pull/286",
     "zh": false,
-    "retryEvidence": "fixed trine→sextile in i0/i1/i2 inline SVGs + plan json; all geometry now consistent (sextile/60°/2 signs/diff modality)",
-    "retryAt": "2026-06-26T17:31:21.803Z",
-    "error": "codex completed with codex FAIL —the SVG/plan says a sextile is about four signs apart, but a sextile is about two signs/60°",
-    "failedAt": "2026-06-26T17:34:29.517Z"
+    "retryEvidence": "sextile=two signs/60° consistent across ts+draft+all 6 svg+plan; exhaustive grep clean",
+    "retryAt": "2026-06-26T17:35:35.674Z"
   }
 }
