@@ -5,9 +5,12 @@
 ---
 
 ## 0. 变量预处理 (Variable Pre-processing) - T1/T2 必填
-- [ ] **清洁化变量**：对于 T1/T2 级别的文章，必须先运行 `变量预处理器-pre-processor-v1.0.md`。
-- [ ] **Friction 客观化**：确保 Friction 已被转化为第三人称观察，不含任何私人聊天痕迹（如 "As you said"）。
-- [ ] **SERP 差异化验证**：Content_Angle 必须基于对当前 SERP 前 5 名标题的缺口分析，确保提供“内容增益”。
+- [ ] **清洁化变量**：对于 T1/T2 级别的文章，必须先运行 `变量预处理器-pre-processor-v2.0.md`（v1.0 已作废）。单一事实源 = flow-mvp `tools/scripts/lib/preprocessor-prompt.mjs`，自动化路径 `gg-brief-suggest.mjs` 与手动版同源。
+- [ ] **六字段契约**：产出必须覆盖下游 T2 闸门所需的 `Entity`(col H) / `Entity_Topology`(并入 Logic 首句) / `Friction`(col I) / `Logic`(col J，机制+权衡) / `Content_Angle`(col S)，**缺 Entity 或 Logic 会被 `gg-content-draft.mjs` 直接拒收**。
+- [ ] **两层输出**：SHEET_FIELDS（写回选题登记表）与 REVIEW_METADATA（Gap_Reason / Aligned / Evidence_Notes / Confidence / Status）分离；审计字段不得塞进 col S。
+- [ ] **Friction 客观化**：Friction 是 ≤25 词第三人称单句张力锚（原始案例归 friction_themes RAG），不含任何私人聊天痕迹（如 "As you said"）。
+- [ ] **SERP 差异化验证**：Content_Angle 基于 SERP 前 5 名缺口分析，gap 用可证伪措辞「No title in the provided set surfaces X」并标注 title-level/page-verified；标题不足 5 条或无真实困惑 → 输出 `Status: Needs More Evidence`，不得硬编。
+- [ ] **占星科学边界**：Logic / Content_Angle 绝不暗示占星能预测/导致/证明任何结果（§4）；事实锚点只用 `According to <具名来源>, <数字>`。
 
 ## 1. 标题与摘要锁定 (SEO & Snippet Lock)
 - [ ] **H1 磁性标题**：关键词必须自然融入标题前 60 个字符内（最好在前 3-5 个词）。严禁使用 `[关键词]: [从句]` 这种死板模板。
