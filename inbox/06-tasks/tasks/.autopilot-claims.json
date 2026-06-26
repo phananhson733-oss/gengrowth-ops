@@ -1499,5 +1499,14 @@
     "verifiedAt": "2026-06-26T06:21:18.556Z",
     "headRefOid": "8c6b0f259dda6afaa8a509b0f8c67eeadc35fed1",
     "mergedAt": "2026-06-26T06:21:24.342Z"
+  },
+  "PG-WC-039": {
+    "status": "needs_human",
+    "slug": "jordan-vs-argentina",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: render produced no v8 prompt",
+    "failedAt": "2026-06-26T15:35:17.530Z"
   }
 }
