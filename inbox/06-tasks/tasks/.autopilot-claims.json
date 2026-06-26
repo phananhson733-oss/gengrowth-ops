@@ -1522,7 +1522,7 @@
     "mergedAt": "2026-06-26T16:19:06.675Z"
   },
   "PG-WC-040": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "colombia-vs-portugal",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-040.md",
@@ -1533,6 +1533,10 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-040",
     "branch": "seo/auto/2026-06-26-PG-WC-040",
     "pr": "https://github.com/xdawayer/oracle/pull/284",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-06-26-pg-wc-040-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-26T16:40:24.933Z",
+    "headRefOid": "2d8f4d1fb94496715122631570c80e6df886cecb"
   }
 }
