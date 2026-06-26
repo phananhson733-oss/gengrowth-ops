@@ -1459,7 +1459,7 @@
     "mergedAt": "2026-06-26T05:33:34.219Z"
   },
   "PG-COUPLE-002": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "reese-witherspoon-oliver-haarmann-compatibility-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1475,8 +1475,9 @@
     "retryAt": "2026-06-26T05:51:24.040Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-478086-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-06-26T05:44:41.815Z",
-    "headRefOid": "8f72dbbff1c2cac0f2d5f0bb8b105661b67824bb"
+    "verifiedAt": "2026-06-26T05:56:22.904Z",
+    "headRefOid": "93aff0924f625a9ebc7cfe2b46927b7d0f4bd612",
+    "mergedAt": "2026-06-26T05:56:29.943Z"
   },
   "PG-CELEB-006": {
     "status": "needs_human",
