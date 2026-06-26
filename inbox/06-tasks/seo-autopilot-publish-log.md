@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-25
+updated: 2026-06-26
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -82,3 +82,4 @@ updated: 2026-06-25
 | 2026-06-25 | PG-CELEB-001 | emma-watson-zodiac-sign | Emma Watson Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/emma-watson-zodiac-sign | published |
 | 2026-06-25 | PG-WC-037 | folarin-balogun-birth-chart | Folarin Balogun Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/folarin-balogun-birth-chart | published |
 | 2026-06-25 | PG-WC-038 | darwin-nunez-zodiac-sign | Darwin Nunez Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/darwin-nunez-zodiac-sign | published |
+| 2026-06-26 | PG-COUPLE-001 | jwoww-zack-carpinello-wedding-synastry | Jwoww Zack Carpinello Wedding Synastry | marcus-orion | https://www.astrologywiki.com/en/wiki/jwoww-zack-carpinello-wedding-synastry | published |
