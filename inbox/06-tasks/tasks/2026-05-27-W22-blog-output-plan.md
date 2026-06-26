@@ -282,7 +282,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] PG-WC-037 folarin balogun birth chart
 - [x] PG-WC-038 darwin nunez zodiac sign
 - [x] PG-COUPLE-001 jwoww zack carpinello wedding synastry
-- [ ] PG-COUPLE-002 reese witherspoon oliver haarmann compatibility astrology
+- [x] PG-COUPLE-002 reese witherspoon oliver haarmann compatibility astrology
 - [ ] PG-CELEB-006 ricky gervais zodiac sign
  
 ---
