@@ -1501,19 +1501,19 @@
     "mergedAt": "2026-06-26T06:21:24.342Z"
   },
   "PG-WC-039": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jordan-vs-argentina",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-039.md",
     "stage": "pushed-preview",
-    "lockedBy": "30595",
-    "leaseUntil": "2026-06-26T17:05:47.283Z",
-    "updatedAt": "2026-06-26T16:05:47.283Z",
+    "lockedBy": "37060",
+    "leaseUntil": "2026-06-26T17:13:57.734Z",
+    "updatedAt": "2026-06-26T16:13:57.734Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-26-PG-WC-039",
     "branch": "seo/auto/2026-06-26-PG-WC-039",
     "pr": "https://github.com/xdawayer/oracle/pull/283",
     "zh": false,
-    "error": "review[links-seo] FAIL: All intended internal wiki-links were left as unresolved TBD placeholders rendered as plain italic text, so the article ships with no functioning in-body internal links and none in the opening.",
-    "failedAt": "2026-06-26T16:08:52.714Z"
+    "retryEvidence": "fixed 4 in-body internal links (TBD→live slugs), Jupiter-in-Cancer fact fix, phase2 PASS",
+    "retryAt": "2026-06-26T16:13:57.734Z"
   }
 }
