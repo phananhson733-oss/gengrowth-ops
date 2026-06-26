@@ -295,7 +295,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (共 4 篇待写)
 - [ ] `PG-CELEB-007` Taylor Swift and Travis Kelce
 - [ ] `PG-CELEB-008` Harry Styles and Zoë Kravitz
-- [ ] `PG-WC-039` Jordan vs Argentina
+- [x] `PG-WC-039` Jordan vs Argentina
 - [ ] `PG-WC-040` Colombia vs Portugal
 
 > ⚠️ 原"自动补充"的 4 个 AURA 选题（aura colors / red / blue / yellow aura meaning）已剔除：均已上线、属重复内容，不再重写（aura-colors-guide / red-aura-meaning / blue-aura-meaning / yellow-aura-meaning 已在 sitemap）。
