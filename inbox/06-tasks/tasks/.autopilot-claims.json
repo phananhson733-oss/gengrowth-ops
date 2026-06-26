@@ -1438,26 +1438,24 @@
     "mergedAt": "2026-06-25T15:50:03.377Z"
   },
   "PG-COUPLE-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "jwoww-zack-carpinello-wedding-synastry",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "66985",
-    "leaseUntil": "2026-06-26T06:17:17.385Z",
-    "updatedAt": "2026-06-26T05:17:17.385Z",
+    "lockedBy": "74016",
+    "leaseUntil": "2026-06-26T06:26:09.001Z",
+    "updatedAt": "2026-06-26T05:26:09.001Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-25-PG-COUPLE-001",
     "branch": "seo/auto/2026-06-25-PG-COUPLE-001",
     "pr": "https://github.com/xdawayer/oracle/pull/279",
     "zh": false,
-    "retryEvidence": "Content gate passed; merge conflict resolved by merging origin/main and retaining JWoww, Darwin, and Folarin EN-only slugs.",
-    "retryAt": "2026-06-26T05:17:17.385Z",
+    "retryEvidence": "Codex astrology and links-seo passed after restoring synastry target keyword, adding verifiable outbound sources, and making Zack Dec.21 Sagittarius/Capricorn cusp conditional.",
+    "retryAt": "2026-06-26T05:26:09.001Z",
     "previewUrl": "https://oracle-git-seo-auto2026-06-25-pg-e4981f-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-06-26T05:16:37.553Z",
-    "headRefOid": "6787d87f251849332d9d44e5c41c76007edbd9a0",
-    "error": "review[links-seo] FAIL: The page has credible early internal links, but the on-page SEO target keyword is weakened by title/H1 drift from the declared synastry intent and source/citation entries are mostly uncited name drops rather than verifiable outbound references.",
-    "failedAt": "2026-06-26T05:20:03.561Z"
+    "headRefOid": "6787d87f251849332d9d44e5c41c76007edbd9a0"
   },
   "PG-COUPLE-002": {
     "status": "needs_human",
