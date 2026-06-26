@@ -291,9 +291,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
  
 ---
 
----
-## ⚪ 6月26日 — 自动补充选题
-**状态**：`等待输出`
+## ⚪ 6月26日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 4 篇)
 - [ ] `PG-CELEB-007` Taylor Swift and Travis Kelce
 - [ ] `PG-CELEB-008` Harry Styles and Zoë Kravitz
 - [ ] `PG-WC-039` Jordan vs Argentina
