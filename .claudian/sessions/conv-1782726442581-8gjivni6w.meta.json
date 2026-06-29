@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782726442581-8gjivni6w",
+  "providerId": "codex",
+  "title": "有什么可以轻松发布内容到x和其他平台的工具？这个仓库里有提到吗？你可以看整个仓库",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782726442581,
+  "updatedAt": 1782726605810,
+  "lastResponseAt": 1782726605810,
+  "sessionId": "019f12c6-d7b1-7172-9303-e1bf2efd8372",
+  "providerState": {
+    "threadId": "019f12c6-d7b1-7172-9303-e1bf2efd8372",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/29/rollout-2026-06-29T17-47-29-019f12c6-d7b1-7172-9303-e1bf2efd8372.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 98068,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 90496,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 98068,
+    "percentage": 38,
+    "model": "gpt-5.5"
+  }
+}

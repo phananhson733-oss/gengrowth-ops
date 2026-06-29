@@ -9,13 +9,50 @@ updated: 2026-06-29
 
 # 内容运营内容方向与工具调研
 
-> 当前版本先保持简短，只记录刚启动阶段的内容方向、平台和工具判断。后续等测试数据出来后再扩展。
+> 当前版本用于整理 AstrologyWiki 站外内容冷启动阶段的**内容方向、平台节奏、X 图文工作流、短视频工作流和工具判断**。详细工具测试记录放在单独调研文档中，本文只保留执行层面的结论。
 
-## 1. 当前内容方向
+## 0. 当前结论
 
-目前刚开始，不需要把内容方向拆得太复杂。先做两个主方向：
+当前不需要把内容系统做复杂，先围绕两个方向、三个平台、小规模测试推进。
 
-### 方向一：基础型内容
+### 0.1 内容方向
+
+| 方向 | 内容 | 作用 |
+|---|---|---|
+| 基础型内容 | 占星知识科普；占星 + 心理学 / 自我认知科普 | 建立账号基础认知和 AstrologyWiki 的品牌边界。 |
+| 高 SEO 内容 + 热点内容 | 把站内 SEO 重点和外部热点改写成 X / YouTube / TikTok 内容 | 用热点提高注意力，用 SEO 主题保证长期承接。 |
+
+### 0.2 平台
+
+| 平台 | 当前定位 | 内容形式 |
+|---|---|---|
+| X | 轻量分发、观点测试、热点互动、图文内容 | 短帖、图文、少量视频 |
+| YouTube | 短视频主平台 | Shorts / 很短的短视频 |
+| TikTok | 复用短视频和图文测试 | 图文、短视频 |
+
+### 0.3 当前节奏
+
+| 内容类型 | 当前建议 |
+|---|---|
+| X 图文 / 短帖 | 每天 2–4 条，最好稳定在 3 条左右。 |
+| 短视频 | 先每周 3–5 条；产能稳定后 YouTube Shorts / TikTok 可提升到每天 1 条。 |
+| 明确外链 CTA | 不要每条都放；约 10% 内容放明确链接即可。 |
+
+### 0.4 工具优先级
+
+```text
+X 图文：Perplexity + ChatGPT + Canva
+短视频快速成片：Golpo 优先小测
+短视频素材：Higgsfield 简笔画 / 图解素材同步小测
+长期模板：Remotion 第二阶段再做
+Higgsfield 数字人：暂缓，作为 P2 记录
+```
+
+---
+
+## 1. 内容方向
+
+### 1.1 方向一：基础型内容
 
 用于建立 AstrologyWiki 的基础认知和账号调性。
 
@@ -38,11 +75,9 @@ updated: 2026-06-29
 - 让用户知道 AstrologyWiki 不是泛娱乐星座号；
 - 为后续导向 birth chart、wiki 页面和工具页做铺垫。
 
-### 方向二：根据高 SEO 内容和热点内容做
+### 1.2 方向二：高 SEO 内容 + 热点内容
 
 这个方向用于把已有 SEO 重点和外部热点转成平台内容。
-
-包括：
 
 1. **高 SEO 内容改写**
    - 从站内已有或计划重点做的 SEO 页面中选题；
@@ -52,7 +87,7 @@ updated: 2026-06-29
 2. **热点内容切入**
    - 用名人、体育、节日、当下事件作为入口；
    - 再转回占星知识或自我理解；
-   - 例如之前做过的 Messi Cancer Sun，就是“热点事件 + 占星解释”的测试。
+   - 热点只做入口，最后最好能回到 Moon sign、Venus sign、birth chart、Cancer season 等常青主题。
 
 这个方向的作用：
 
@@ -62,45 +97,173 @@ updated: 2026-06-29
 
 ---
 
-## 2. 平台方向
+## 2. 平台与发布节奏
 
-首轮主要做三个平台：
+### 2.1 X：每天 2–4 条，推荐 3 条
 
-| 平台 | 当前定位 | 内容形式 |
+当前 X 新号建议：**每天 2–4 条，最好稳定在 3 条左右。**
+
+| 每日数量 | 判断 |
+|---|---|
+| 1 条 | 偏低，账号容易显得不活跃，冷启动慢。 |
+| 2 条 | 可接受，适合产能不足时。 |
+| 3 条 | 推荐，兼顾活跃度、内容质量和人工回复。 |
+| 4 条 | 上限，只有内容差异明显时再发。 |
+| 5 条以上 | 暂不建议，新号容易显得营销化，人工互动也跟不上。 |
+
+每天 3 条可以这样分配：
+
+| 帖子 | 类型 | 目的 | 链接策略 |
+|---|---|---|---|
+| 第 1 条 | 热点 / 名人 / 娱乐 + 占星 angle | 拉回复、测试话题 | 主帖不放链接 |
+| 第 2 条 | 基础科普 / Myth vs Truth / 图卡 | 建立专业感 | 通常不放链接 |
+| 第 3 条 | 主题承接 / 软 CTA / 评论区补充 | 引导用户知道可以查 chart / 看页面 | 可放评论区或主页承接 |
+
+### 2.2 X 的 CTA 原则
+
+不需要每条都带硬 CTA / 外链。更好的理解是：
+
+> 不是每条帖子都导流，而是每个主题包有导流方向。
+
+建议比例：
+
+| 类型 | 比例 | 作用 |
+|---|---:|---|
+| 纯内容 / 互动帖 | 60–70% | 养号、互动、建立账号真实感。 |
+| 隐性导流 / 软 CTA | 20–30% | 让用户知道下一步可以查 birth chart / Moon / Venus。 |
+| 明确外链 CTA | 10% 左右 | 真正导流到 AstrologyWiki，但不要每条都放。 |
+
+隐晦导流方式：
+
+- 主帖不放链接，评论区补充 Moon / Venus / birth chart 的解释；
+- 主页 bio 和置顶帖承接 AstrologyWiki 工具或入门页；
+- 图卡轻品牌化，但不每张都放 URL；
+- 用“下一层知识”引导，例如：`If you only know your Sun sign, Moon and Venus are the next layers to check.`
+
+### 2.3 短视频发布频率
+
+短视频要分平台看，同时考虑当前产能。当前不建议为了数量牺牲脚本、字幕和画面质量。
+
+| 平台 | 当前产能建议 | 说明 |
 |---|---|---|
-| X | 轻量分发、观点测试、热点跟进 | 图文、短帖、视频 |
-| YouTube | 视频内容主平台 | Shorts / 很短的短视频 |
-| TikTok | 复用短视频和图文测试 | 图文、短视频 |
+| YouTube Shorts | 先 3–5 条 / 周；产能稳定后 1 条 / 天 | Shorts 适合常青科普，宁愿稳定一条好内容，不要一天塞很多低质视频。 |
+| TikTok | 先 1 条 / 天；最多 2 条 / 天 | 可以复用 YouTube Shorts，但不要为 TikTok 单独开制作线。 |
+| X 视频 | 0–1 条 / 天 | X 视频作为 X 每日 3 条内容的一部分，不额外叠加太多。 |
 
-目前不需要为每个平台单独做复杂内容线。先采用“一条内容，多平台改写 / 复用”的方式。
+当前最现实的短视频节奏：
+
+```text
+每周做 3–5 条短视频
+→ YouTube Shorts 首发
+→ TikTok 复用或轻改
+→ X 选择其中 2–3 条作为视频帖或图文补充
+```
+
+如果后续 Golpo / Higgsfield 流程跑顺，可以提升到：
+
+```text
+YouTube Shorts：1 条 / 天
+TikTok：1 条 / 天，复用 Shorts
+X：每天 0–1 条视频，其余用图文补足
+```
+
+暂不建议：
+
+- 一开始每天 3–4 条 Shorts；
+- 同一条视频在同一天重复改标题发多次；
+- 批量发布大量相似模板视频；
+- 没有人工检查字幕、事实和占星口径就直接发布。
+
+
+### 2.4 平台公开资料链接
+
+以下链接用于支持上面关于 X / YouTube Shorts / TikTok 发布节奏、账号行为和内容频率的判断。后续正式执行前可以再检查是否有更新。
+
+| 平台 | 资料 | 用途 |
+|---|---|---|
+| X | [About X limits](https://help.x.com/en/rules-and-policies/x-limits) | 查看 X 对未认证账号发帖、回复、DM 等技术限制。 |
+| X | [About rules and best practices with account behaviors](https://help.x.com/en/rules-and-policies/x-rules-and-best-practices) | 参考 X 对回复、趋势参与、搜索过滤和账号行为的基本规则。 |
+| X | [X's automation development rules](https://help.x.com/en/rules-and-policies/x-automation) | 参考自动化、重复内容、spam、误导链接等风险。 |
+| TikTok | [TikTok Creative: The Ultimate How-to Guide](https://ads.tiktok.com/business/en-US/blog/tiktok-creative-ultimate-guide) | 参考 TikTok 对持续发布、1–4 条 / 天测试内容反馈的建议。 |
+| TikTok | [TikTok Small Business Marketing Guide](https://ads.tiktok.com/business/en-US/blog/small-business-marketing-tiktok-ultimate-guide) | 参考 TikTok 对 organic content、发现和用户兴趣路径的说明。 |
+| YouTube Shorts | [Upload schedule tips - Shorts](https://support.google.com/youtube/answer/13616979?co=YOUTUBE._YTVideoType%3Dshorts&hl=en) | 参考 YouTube 对 Shorts 发布频率、稳定性和可持续排期的建议。 |
+| YouTube | [Optimize & Evolve Your Content](https://www.youtube.com/creators/grow/optimize-your-content) | 参考 YouTube 对 consistency、趋势内容与常青内容平衡的建议。 |
+| YouTube Shorts | [Your guide to getting started with YouTube Shorts](https://blog.youtube/creator-and-artist-stories/your-guide-to-getting-started-with-youtube-shorts/) | 参考 YouTube 对 Shorts regular posting、链接内容和评论互动的建议。 |
+
 
 ---
 
-## 3. 内容形式
+## 3. 工作流
 
-### 3.1 图文
+### 3.1 X 图文工作流
 
-主要发在：
+当前 X 图文不建议一开始就做复杂自动化，先用半手动流程跑通：
 
-- X
-- TikTok
+```text
+Perplexity 找热点 / 用户问题
+→ ChatGPT 生成 X 推文初稿
+→ 人工改口径 + Canva 做图卡
+→ Buffer / 手动发布
+→ 发布后 30 分钟内及时回复
+→ 把用户问题记录回 Obsidian
+```
 
-适合内容：
+#### Step 1：Perplexity 找弹药
 
-- 占星知识卡片；
-- 简短误区解释；
-- 热点 + 一段分析；
-- 自我认知问题 / journal prompt。
+每天用 Perplexity 查 1–2 次：
 
-### 3.2 视频
+```text
+What are the top 3 trending pop culture or entertainment stories today?
+For each one, give me the key names, what happened, why people are discussing it, and a possible astrology angle.
+```
 
-三个平台都可以发视频：
+也可以查 Reddit / 占星社区近期问题：
 
-- X
-- YouTube
-- TikTok
+```text
+Search recent discussions from Reddit astrology communities.
+What are the most repeated beginner astrology questions or memes from the last 7 days?
+Summarize them as possible X post angles for AstrologyWiki.
+```
 
-但当前阶段视频先做很简短的短视频，不做复杂长视频。
+注意：热点新闻、名人事件、具体日期必须二次核验，不确定不要写成事实。
+
+#### Step 2：ChatGPT 写 X 文案初稿
+
+```text
+你是 AstrologyWiki 的英文社媒内容编辑。
+请根据下面这个热点 / 用户问题，写 3 条适合 X 的英文图文帖。
+要求：
+1. 不要宿命化，不要预测具体结果；
+2. 用 astrology for self-understanding 的口径；
+3. 第一条不要放外链；
+4. 结尾用一个能引导用户回复自己配置 / 经验的问题；
+5. 语气要适合冷启动账号：清楚、轻巧、有互动性，但不要低俗引战；
+6. 必须写出 SEO bridge：这个热点能回到哪个常青占星概念 / AstrologyWiki 页面方向。
+
+输入：
+[粘贴 Perplexity 调研结果]
+```
+
+#### Step 3：Canva 做 X 图文（选做）
+
+优先做简单图文：
+
+- 1 张知识卡片 + 1 条短文案；
+- 3 张 carousel 风格图片；
+- Myth vs Truth 图卡；
+- 热点关键词 + AstrologyWiki 解释；
+- “Which placement explains this for you?”互动卡。
+
+#### Step 4：发布和回复
+
+- 主帖先不放外链，减少被限流风险；
+- 如果需要导流，可放在评论区或后续回复里；
+- 发布后前 30 分钟重点看回复，并及时用账号回复；
+- 有价值的问题记录回 Obsidian，作为下一条 X 图文或 Shorts 选题。
+
+### 3.2 短视频工作流
+
+短视频先做很短，不做复杂长视频。
 
 建议形式：
 
@@ -111,121 +274,46 @@ updated: 2026-06-29
 - 不做复杂动画；
 - YouTube Shorts 做主版本，TikTok 和 X 复用或轻改。
 
----
-
-## 4. 简单生产流程
+生产流程：
 
 ```text
 选题来源：基础科普 / SEO 内容 / 热点
 → 写一个简短 hook
-→ 做成图文或 15–45 秒短视频
-→ YouTube / TikTok / X 发布或复用
+→ 做成 15–45 秒短视频
+→ YouTube Shorts 首发
+→ TikTok 复用或轻改
+→ X 选择性复用
 → 记录表现：曝光、观看、互动、点击、评论问题
 ```
 
 ---
 
-## 5. 当前工具
+## 4. 工具判断
+
+### 4.1 当前基础工具
 
 | 用途 | 工具 | 说明 |
 |---|---|---|
-| 文案 / Hook / 脚本 | GPT / Claude / Gemini | 辅助生成初稿，人工改口径 |
-| 图文 / 封面 | Canva | 做知识卡片、图文、短视频画面 |
-| 短视频制作 | VEED / CapCut / 剪映 | 当前先做短视频，不上复杂剪辑 |
-| 记录与复盘 | Obsidian / 表格 | 记录选题、发布链接和结果 |
+| 热点 / 用户问题调研 | Perplexity | 先用免费版；用于找热点、Reddit 问题、竞品表达。 |
+| 文案 / Hook / 脚本 | ChatGPT / Gemini / Claude | 辅助生成初稿，人工改口径。 |
+| 图文 / 封面 | Canva | 做知识卡片、图文、短视频静态画面。 |
+| 短视频剪辑 | CapCut / 剪映 / VEED | 当前先做短视频，不上复杂剪辑。 |
+| 记录与复盘 | Obsidian / 表格 | 记录选题、发布链接和结果。 |
+| 自动化辅助 | Codex | 第二阶段再用于批量命名、整理素材、调用插件或写模板。 |
 
----
+### 4.2 文字与 X 图文工具
 
----
-
----
-
-## 6. 准备尝试的工具以及需要的帮助
-
-### 6.1 准备尝试的工具
-
-| 工具 | 想尝试的用途 | 当前判断 |
+| 工具 | 主要用途 | 当前判断 |
 |---|---|---|
-| Higgsfield | 生成短视频画面素材、简笔画 / 图解 / 抽象视觉 | 值得小规模测试，但先不作为完整视频主工具。 |
-| Golpo | 生成白板动画 / 解释型短视频 MP4 | 适合科普内容测试，先用网页端，不建议一开始买 API。 |
-| Remotion | 用代码搭可复用视频模板 / 动画系统 | 不适合马上替代 Golpo，适合第二阶段做固定模板。 |
-| CapCut / 剪映 | 把图片、字幕、配音合成短视频 | 当前短视频主剪辑工具。 |
-| VEED | 快速生成 / 编辑短视频 | 已经试过，效率不错，但需要判断是否付费。 |
-| Canva | 做图文、封面、知识卡片、短视频静态画面 | 适合稳定做图文和模板。 |
-| GPT / Claude / Gemini | 写 hook、脚本、图卡文案、视频 prompt | 用于提效，内容口径仍需人工审核。 |
-| Codex | 后续可尝试自动化：批量命名、整理素材、调用视频生成插件 | 第二阶段再尝试。 |
+| Perplexity | 找热点、查资料、看 Reddit / 竞品讨论、整理 X 图文选题 | 现在就可以用，先用免费版即可。 |
+| Tavily | 给未来自动化 agent / 脚本提供联网搜索 API | 暂时不用，等内容流程稳定后再考虑。 |
+| ChatGPT / Gemini | 把热点和 SEO 主题改成 X 文案、图文卡片文案、回复文案 | 继续作为写作和改写工具。 |
+| Canva | 做 X 图文卡片 | 继续作为图文主工具。 |
+| Buffer | 定时发布 X / 其他平台内容 | 可选，用免费版测试即可。 |
 
-### 6.2 Higgsfield 初步判断
+详细调研见：[[inbox-pengman/04-production/04-text-and-social-tool-research/2026-06-29-perplexity-tavily-x-content-workflow-research.md]]
 
-我目前了解到的 Higgsfield 工作流更像是：
-
-```text
-脚本 / 配音
-→ 带时间戳转写
-→ 每个时间戳生成一张画面
-→ 下载并按时间戳命名
-→ CapCut 拼成短视频
-```
-
-所以它不是直接替代剪辑工具，而是更适合做“短视频视觉素材生成”。
-
-初步判断：
-
-- **可行性：中高**，适合 15–45 秒短视频、知识卡片、简笔画解释、抽象自我认知画面；
-- **难易程度：中等**，手动生成几张图不难，但完整自动化需要配置 CLI / MCP / 脚本；
-- **效率：适合小规模短视频测试**，如果每条只需要 5–12 张画面，可能比手工找素材快；但一开始不建议搭建复杂自动化。
-
-另外，Higgsfield 也可以做真人数字人 / Avatar 视频，但这和简笔画自动化不是一条路线：
-
-- 真人数字人适合个人 IP、广告、品牌介绍、口播类内容；
-- 画面更精细，成本和返工成本也更高；
-- 当前 AstrologyWiki 还在内容方向测试期，不建议把真人数字人作为 P0；
-- 可以先记录为 P2 实验，等有明确账号人设、预算和审核机制后再尝试。
-
-详细调研见：[[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]、[[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
-
-### 6.3 Golpo 初步判断
-
-Golpo 更像是“一站式解释型视频生成工具”。它可以把 prompt、脚本、PDF、DOCX、PPTX、TXT、音频等内容转成白板动画 / 解释型视频，并输出 MP4。
-
-它和 Higgsfield 的区别：
-
-- Higgsfield 更偏生成图片 / 视觉素材；
-- Golpo 更偏直接生成解释型视频；
-- CapCut / Canva 仍然需要用于后期修正、字幕、封面和品牌统一。
-
-初步判断：
-
-- **可行性：高**，很适合 AstrologyWiki 的基础科普、占星 + 自我认知、白板解释型短视频；
-- **难易程度：网页端低，Codex 自动化中等**；
-- **成本：1 credit = 1 分钟视频；网页端适合先测试，API 自动化最低约 $200 起步，门槛偏高**；
-- **建议：先用网页端做 2–3 条 15–30 秒视频，不建议一开始购买 API 或搭自动化。**
-
-详细调研见：[[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
-
-
-### 6.4 Remotion 初步判断
-
-Remotion 和 Golpo 不是一类工具。Golpo 是“AI 帮你生成视频成品”，Remotion 是“用代码搭一个可复用的视频模板 / 动画系统”。
-
-它的核心逻辑是：
-
-```text
-React 组件 + CSS / SVG / Canvas / WebGL
-→ 按帧渲染动画
-→ 导出 MP4 / WebM / GIF
-```
-
-初步判断：
-
-- **可行性：中高**，适合后续做固定结构的 AstrologyWiki 科普短视频模板；
-- **难易程度：中到高**，需要 Node / React / TypeScript / 动画调试，Codex 可以辅助但不能完全一键生成；
-- **成本：软件本身低，但时间和学习成本高**；
-- **建议：不作为当前第一优先级，等 Golpo / Higgsfield 小样跑完、内容形式稳定后，再用 Remotion 搭长期模板。**
-
-详细调研见：[[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
-
-### 6.5 三个工具 / 方法的对比判断
+### 4.3 视频 / 视觉工具对比
 
 | 维度 | Higgsfield 简笔画 / 图解素材 | Higgsfield 数字人方法 | Golpo | Remotion |
 |---|---|---|---|---|
@@ -239,52 +327,6 @@ React 组件 + CSS / SVG / Canvas / WebGL
 | 可控性 | 中等 | 中等偏低，脸、口型、动作需要反复筛 | 中等 | 高 |
 | 当前建议 | 先测素材质量 | 暂缓，作为 P2 记录 | 优先测试 2–3 条解释型短视频 | 第二阶段再做模板系统 |
 
-
-### 6.5.1 Higgsfield 两种路线的成本估算
-
-> 以下是本次调研记录的价格和积分估算，后续实际付款前仍需以 Higgsfield 官网当时的套餐和账单为准。
-
-| 路线 | 典型消耗 | 估算成本 | 判断 |
-|---|---|---|---|
-| Higgsfield 数字人 / C-Dance | 8–13 秒高清片段约 40–80 credits；1 分钟成片考虑抽卡重做约 600–900 credits | 约 $30–$45 / 1 分钟成片 | 效果强，但贵，适合广告、个人 IP、品牌介绍，不适合当前低成本批量测试。 |
-| Higgsfield 简笔画 / 图解素材 | 单张极简图约 0.1–0.5 credits；5 分钟、每 3 秒换图约 100 张，约 50 credits | 约 $2–$3 / 5 分钟长视频 | 成本低、废片率低，更适合科普 / 故事 / faceless 内容自动化。 |
-
-当前调研到的套餐口径：
-
-- Pro / Ultimate 约 $19–$49 / 月，可能包含约 1000 credits；
-- 额外加购约 $49 / 1000 credits；
-- 如果按 1000 credits 粗算：
-  - 数字人路线只能做少量精修短片；
-  - 简笔画路线可批量做多条 5 分钟左右的解释 / 科普视频。
-
-补充：之前 Higgsfield 简笔画流程实测中，`text2image_soul_v2` 每张约 **0.12 credits**，低于上面保守估算；但正式预算仍建议按 0.5 credits / 张预留。
-
-
-### 6.5.2 Golpo 成本估算
-
-> 以下是本次调研记录的价格和积分估算，后续实际付款前仍需以 Golpo 官网当时的套餐和账单为准。
-
-Golpo 的核心口径：**1 credit = 1 分钟视频**。
-
-| 方式 | 成本 / 额度 | 判断 |
-|---|---|---|
-| Free | 1 credit / 1 分钟；有水印、不能下载 | 只适合看效果。 |
-| Starter | $39.99 / 月，20 分钟，约 $2 / 分钟 | 可测试，但功能限制较多，单支最长 2 分钟。 |
-| Creator | $99.99 / 月，60 分钟，约 $1.66 / 分钟 | 更适合竖屏短视频和多语言测试。 |
-| Growth | $199.99 / 月，150 分钟，约 $1.33 / 分钟 | 支持彩色、更多手绘风格、脚本修改，适合更正式测试。 |
-| Pay-As-You-Go | $5.99–$3.99 / credit | 不绑定订阅，但单价高，不含 API。 |
-| API Only | $200 / 月起，约 $2 / 分钟起 | 适合自动化，但不适合第一阶段小样测试。 |
-
-需要注意：
-
-- Golpo 按“目标时长”扣费，比如选 4 分钟即按 4 credits 扣；
-- 二次 frame-by-frame 编辑也可能按整条视频时长再次扣费；
-- 如果 prompt 不稳定，反复生成 / 修改会明显增加成本。
-
-当前建议：
-
-> 先不要直接买 API。先用网页端做 2–3 条 15–30 秒小样；如果需要竖屏，优先看 Creator；如果需要彩色和更多修改能力，再看 Growth。
-
 当前优先级：
 
 ```text
@@ -294,47 +336,77 @@ Golpo：先测快速成片能力
 → Higgsfield 数字人：暂缓，等有明确 IP / 预算 / 审核机制后再试
 ```
 
-### 6.6 需要的帮助
+### 4.4 工具成本摘要
+
+> 以下是本次调研记录的价格和积分估算，后续实际付款前仍需以官网当时的套餐和账单为准。
+
+| 工具 / 路线 | 成本口径 | 当前判断 |
+|---|---|---|
+| Higgsfield 简笔画 / 图解素材 | 单张极简图约 0.1–0.5 credits；5 分钟、每 3 秒换图约 100 张，约 50 credits；约 $2–$3 / 5 分钟长视频 | 成本低，适合当前短视频素材测试。 |
+| Higgsfield 数字人 / C-Dance | 8–13 秒高清片段约 40–80 credits；1 分钟成片考虑抽卡重做约 600–900 credits；约 $30–$45 / 分钟 | 效果强但贵，暂缓。 |
+| Golpo | 1 credit = 1 分钟；订阅约 $1.25–$2 / 分钟；API Only 最低约 $200 / 月起 | 适合先用网页端做 2–3 条小样，不直接买 API。 |
+| Remotion | 软件本身低成本，本地渲染免费；主要成本是学习和模板搭建时间 | 第二阶段再做模板系统。 |
+
+详细调研：
+
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
+
+---
+
+## 5. 需要的帮助
 
 后续如果要推进，需要确认或支持：
 
-1. 是否允许试用 / 付费 Higgsfield、Golpo、VEED、CapCut Pro、Canva Pro；Remotion 暂时主要是本地测试；Higgsfield 真人数字人暂时只记录，不作为当前主要付费项；
-2. Golpo 如果只测试，是否先走网页端 / Pay-As-You-Go，而不是 API；如果要竖屏短视频，是否需要 Creator 起步；
-3. 哪个工具可以报销，预算范围是多少；
-4. X 账号是否需要认证 / 蓝标，以及费用和付款方式怎么处理；
+1. 是否允许试用 / 付费 Higgsfield、Golpo、VEED、CapCut Pro、Canva Pro；Remotion 暂时主要是本地测试；Higgsfield 真人数字人暂时只记录，不作为当前主要付费项。
+2. Golpo 如果只测试，是否先走网页端 / Pay-As-You-Go，而不是 API；如果要竖屏短视频，是否需要 Creator 起步。
+3. 哪个工具可以报销，预算范围是多少。
+4. X 账号是否需要认证 / 蓝标，以及费用和付款方式怎么处理。
 5. 视频发布前是否需要审核，审核人是谁。
 
+---
 
-## 7. 下一步
+## 6. 下一步
 
 1. 先固定两个内容方向：基础型内容、高 SEO / 热点内容。
-2. 每个方向先做 3–5 条测试内容。
-3. 视频先做短，不做长视频和复杂制作。
-4. X、YouTube、TikTok 三个平台先同步测试。
-5. Higgsfield 和 Golpo 各做 1–2 条小样，比较质量、成本和后期工作量。
+2. X 先按每天约 3 条执行：热点互动、基础科普、主题承接各 1 条。
+3. 同步用 Perplexity + ChatGPT + Canva 跑 X 图文工作流。
+4. 短视频先按每周 3–5 条执行，YouTube Shorts 首发，TikTok 复用或轻改。
+5. Golpo 和 Higgsfield 各做 1–2 条小样，比较质量、成本和后期工作量。
 6. Remotion 暂不急着做成品，先记录为第二阶段模板化工具。
-7. 根据曝光、互动、评论和点击，再决定哪个方向和工具继续加量。
+7. 根据曝光、互动、评论、点击和人工产能，再决定哪个方向和工具继续加量。
 
-## **8. 第一次实测（2026-06）**
+---
 
-为了验证 Danny Why 的工作流是否能够在 **ChatGPT + Codex + Higgsfield** 环境下复现，本次进行了最小流程测试。
+## 7. 相关调研文档
 
-测试内容包括：
+### 策略与平台
 
-- 安装并配置 Node.js、Higgsfield CLI、Higgsfield Skills；
-- 登录 Higgsfield Free Plan（10 Credits）；
-- 使用一段约 20 秒、6 个时间戳的测试脚本；
-- Codex 自动生成 `manifest.json` 和图片任务清单；
-- 调用 Higgsfield CLI 生成并下载前 2 张图片。
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/0612 海外营销内容平台以及思考.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/0615 各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
-测试结果：
+### 视频 / 视觉工具
 
-- ✅ 整个「时间戳 → Prompt → 图片下载」流程成功跑通；
-- ✅ Codex 可以替代 Claude Code 完成图片生成、下载和任务管理；
-- ✅ 使用 `text2image_soul_v2` 模型，每张图片约消耗 **0.12 Credits**，2 张图片共消耗 **0.24 Credits**，成本较低；
-- ⚠️ 默认 Prompt 容易生成错误文字，需要明确要求 **No text**；
-- ⚠️ Danny Why 的 MS Paint 风格未必适合 AstrologyWiki，后续计划测试更符合品牌风格的插画方案。
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
 
-### **结论**
+### 文字 / 社媒工具
 
-本流程验证成功，可行性较高。对于 15–45 秒、5–10 张图片的短视频来说，整体成本较低，自动化程度较高，适合作为 AstrologyWiki 短视频的生产方案。当前最大的优化方向是**图片风格一致性、Prompt 质量以及 CapCut 自动拼接流程**，暂不建议直接扩展到长视频或大规模批量生成。
+- [[inbox-pengman/04-production/04-text-and-social-tool-research/2026-06-29-perplexity-tavily-x-content-workflow-research.md]]
+
+
+### 平台公开资料
+
+- [X - About X limits](https://help.x.com/en/rules-and-policies/x-limits)
+- [X - Account behavior best practices](https://help.x.com/en/rules-and-policies/x-rules-and-best-practices)
+- [X - Automation development rules](https://help.x.com/en/rules-and-policies/x-automation)
+- [TikTok - Creative: The Ultimate How-to Guide](https://ads.tiktok.com/business/en-US/blog/tiktok-creative-ultimate-guide)
+- [TikTok - Small Business Marketing Guide](https://ads.tiktok.com/business/en-US/blog/small-business-marketing-tiktok-ultimate-guide)
+- [YouTube Help - Upload schedule tips for Shorts](https://support.google.com/youtube/answer/13616979?co=YOUTUBE._YTVideoType%3Dshorts&hl=en)
+- [YouTube Creators - Optimize & Evolve Your Content](https://www.youtube.com/creators/grow/optimize-your-content)
+- [YouTube Blog - Getting started with YouTube Shorts](https://blog.youtube/creator-and-artist-stories/your-guide-to-getting-started-with-youtube-shorts/)

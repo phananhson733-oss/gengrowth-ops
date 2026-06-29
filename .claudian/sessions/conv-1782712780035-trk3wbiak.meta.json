@@ -4,8 +4,8 @@
   "title": "我需要写写这个文档。你能先简单的看看以前的inbox-pengman里的内容，看看我已有的内容创作的...",
   "titleGenerationStatus": "failed",
   "createdAt": 1782712780038,
-  "updatedAt": 1782722064631,
-  "lastResponseAt": 1782722064631,
+  "updatedAt": 1782730386843,
+  "lastResponseAt": 1782730386843,
   "sessionId": "019f11f6-5ea1-74a3-9ec7-30242929db7c",
   "providerState": {
     "threadId": "019f11f6-5ea1-74a3-9ec7-30242929db7c",
@@ -13,13 +13,13 @@
     "transcriptRootPath": "/Users/pengman/.codex/sessions"
   },
   "usage": {
-    "inputTokens": 98806,
+    "inputTokens": 149087,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 92032,
+    "cacheReadInputTokens": 145280,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 98806,
-    "percentage": 38,
+    "contextTokens": 149087,
+    "percentage": 58,
     "model": "gpt-5.5"
   }
 }
