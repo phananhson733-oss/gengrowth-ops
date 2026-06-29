@@ -10,6 +10,24 @@ file: index.html（根目录 <head> 区域）
 
 # 首页结构化数据与 OG 标签修复
 
+> **⚠️ 实施修正（2026-06-29 落地时核对 oracle 真实架构后修正，已按修正版实施）**
+>
+> 本 brief 方向正确——把 brand schema 提前到首字节，恰好兑现 `pages/landing/LandingPage.tsx` 里挂着的 first-byte parity TODO。但落地核对后做了以下必要修正；**直接照搬原文会造成质量倒退或重复 bug**：
+>
+> 1. **「首页缺 schema」前提不准确**：根 `/` 的静态 HTML 确实无 JSON-LD，但运行时 `App.tsx` 的 `<GlobalSchema />` 已注入**更完整**的 Organization（含 `sameAs` 社交 + `logo`）+ WebSite（含 SearchAction），Google WRS 执行 JS 后能看到。本次是把它**提前到首字节**，不是补缺失。
+> 2. **Organization.logo 用 `/logo.png`，不是 `/icon-192.png`**：与 `GlobalSchema` 及 landing-v2 stub 站内统一，避免同一实体声明两个 logo URL 造成消歧噪音（本次一并把 `generate-seo-pages.mjs` 的 landing-v2 logo 也统一到 `/logo.png`）。
+> 3. **Organization 必须含 `sameAs`**（twitter / instagram / youtube）：原文省略它是相对现状的退化，会丢掉 Knowledge Panel 实体消歧信号。
+> 4. **WebSite 必须是完整形态**：含 `inLanguage:"en"` + `potentialAction`（SearchAction，`EntryPoint` 对象形式），与 `GlobalSchema` 英文输出一致，而非裸的 `{name, url}`。
+> 5. **两个块合并为单个 array `<script>`，且必须带 `data-astro-global-schema="true"` 属性**：此属性承重——`GlobalSchema` 据此 dedup 跳过运行时再注入、`SEO.tsx` 据此豁免不剥离。缺它或 JSON 有语法错误，会让两处去重静默失效、在 WRS 渲染后产生重复（触发 GSC「字段重复」）。已加 `tests/unit/homepage-brand-schema.test.ts` 守护此契约。
+>
+> **Rationale 修正**：原文「改善 Sitelinks」论据有误——常规 Sitelinks 纯算法、无法用结构化数据影响；SearchAction 唯一驱动的 Sitelinks Searchbox 已被 Google 于 2024 末废弃。保留 SearchAction 只为与 `GlobalSchema` 字节一致（dedup 正确性），真正喂 Knowledge Panel 的是 Organization + sameAs。
+>
+> **验证步骤修正（对应下文第四节）**：Rich Results Test 现在只会显示 Organization enhancement，**不会**显示 WebSite（searchbox 已废弃）——勿把「WebSite 未检测到」当失败；两个块都用 `validator.schema.org` 验合法性。
+>
+> **落点**：`index.html` `<head>`（brand JSON-LD + og:url 尾斜杠）、`scripts/generate-seo-pages.mjs`（landing-v2 logo）、`tests/unit/homepage-brand-schema.test.ts`、`FOLDER.md` changelog。447 单测 + vite build 全绿。**PRD 不需更新**（SEO 加固，非新功能/路由/API/Schema，§触发清单不命中）。
+>
+> **遗留 follow-up（非阻塞）**：(a) landing-v2 的 Organization 仍缺 `sameAs`、其 WebSite 仍用裸字符串 SearchAction target（与 `GlobalSchema` 的 EntryPoint 形式有 drift）；(b) 确认 `sameAs` 三个社交账号真实归属、`/en/wiki?q=` 真为搜索端点。
+
 ## 一、背景与目的
 
 当前 `astrologywiki.com` 首页的 `<head>` 中缺少两类结构化数据（JSON-LD），同时存在一处 OG 标签小问题。这三处修复成本极低（纯静态标签，无需改动业务逻辑），但对品牌词搜索体验和 Google 品牌识别有直接收益。
