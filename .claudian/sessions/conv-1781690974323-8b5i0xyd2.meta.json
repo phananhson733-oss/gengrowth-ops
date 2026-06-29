@@ -1,0 +1,26 @@
+{
+  "id": "conv-1781690974323-8b5i0xyd2",
+  "providerId": "codex",
+  "title": "你是 AstrologyWiki 的站外内容策划与文案助手。帮我生成下一个可执行的选题，并写出对应的...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1781690974324,
+  "updatedAt": 1782716570581,
+  "lastResponseAt": 1781691604780,
+  "sessionId": "019ed50e-d8fb-7d42-8df7-fa051b4c2afe",
+  "providerState": {
+    "threadId": "019ed50e-d8fb-7d42-8df7-fa051b4c2afe",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/17/rollout-2026-06-17T18-09-40-019ed50e-d8fb-7d42-8df7-fa051b4c2afe.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md",
+  "usage": {
+    "inputTokens": 68800,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 65408,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 68800,
+    "percentage": 27,
+    "model": "gpt-5.5"
+  }
+}

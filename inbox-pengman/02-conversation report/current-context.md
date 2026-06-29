@@ -19,7 +19,7 @@ status: active
 - **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 PV、CTA、GSC 等站内数据维护。
 - **整体目标**：从站外内容和用户触达侧支持 AstrologyWiki 日 PV 5,000 的项目目标。
 - **当前重点**：YouTube 已确定必做；完成平台调研后形成 YouTube 核心方案及其他平台组合，再依次注册、养号和初步测试。
-- **任务入口**：[[inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md]]
+- **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
 ---
 
@@ -39,8 +39,8 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 
 相关个人调研：
 
-- [[inbox-pengman/00-inbox/0612 海外营销内容平台以及思考.md]]
-- [[inbox-pengman/00-inbox/0615 各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/0612 海外营销内容平台以及思考.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/0615 各多媒体平台具体内容调研.md]]
 - [[inbox-pengman/00-inbox/0611_Astrology Wiki体验.md]]
 
 ## 2. 已确认的职责边界
@@ -105,7 +105,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-15：将任务从泛化的“SEO / 内容增长执行”收窄为“海外内容运营 / 营销执行”。
 - 2026-06-15：确认完整 SEO、系统外链建设及站内数据维护不属于 Pengman 的主要职责。
 - 2026-06-15：当前按平台账号从零搭建处理，但注册前需核查历史账号。
-- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档当前作为 YouTube、Shorts、平台优先级和首轮实验方案的工作草稿。
+- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档当前作为 YouTube、Shorts、平台优先级和首轮实验方案的工作草稿。
 - 2026-06-16：确认 Reddit 优先级应拆分：**用户研究 P0，内容分发 / 宣传 P3**。Reddit 适合收集真实问题、社区语言和 FAQ，不应作为首轮主发布或导流渠道。文档中已将其定位为“Research radar, not distribution channel / 调研雷达，不是扩音器”。
 - 2026-06-16：确认站外选题应与 SEO 关键词/主题集群关联：可以、也应该从 SEO 关键词里选题，但不能把关键词原样变成社媒标题；需要按平台语境改写，并绑定对应 Wiki / Article / Tool 页面。
 - 2026-06-16：完成 Birth Chart / Natal Chart YouTube 长视频第一轮调研，已记录 3 个样本：The Astrology Podcast、The Gem Goddess、Mastering the Zodiac。当前判断：Birth Chart 应进入 YouTube P0 首批内容，作为频道“基建视频”。首发视频建议以 Mastering the Zodiac 的“剥洋葱”结构为主要母版，融合 The Gem Goddess 的反宿命/free will 口径和 The Astrology Podcast 的专业克制。

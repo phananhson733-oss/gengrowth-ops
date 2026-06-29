@@ -5,7 +5,7 @@ owner: Pengman
 project: astrologywiki
 type: conversation-report
 source:
-  - inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
+  - inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
 status: draft
 ---
 
@@ -13,7 +13,7 @@ status: draft
 
 ## 1. 本轮讨论背景
 
-本轮围绕 [[inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 做了多轮调整，目标是把原本较长、偏调研底稿的文档，整理成更容易执行和沟通的方案稿。
+本轮围绕 [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 做了多轮调整，目标是把原本较长、偏调研底稿的文档，整理成更容易执行和沟通的方案稿。
 
 核心方向：
 

@@ -7,7 +7,7 @@ project: astrologywiki
 type: topic-ideas
 status: draft
 source:
-  - [[inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+  - [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
   - [[inbox-pengman/02-conversation report/2026-06-16-astrologywiki-offsite-content-tools-and-next-steps.md]]
   - [[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
   - [[inbox-pengman/02-conversation report/current-context.md]]
@@ -25,8 +25,8 @@ source:
 
 - 先收灵感，再分主题包。
 - 先判断适不适合平台表达，再决定要不要进入生产。
-- 如果某个选题能自然对应到 [[inbox-pengman/00-inbox/topic-cluster-table.csv]] 里的 cluster，就顺手写上。
-- 如果后续要进入正式生产，可以再转到 [[inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 的实验节奏或选题记录里。
+- 如果某个选题能自然对应到 [[inbox/00-inbox/topic-cluster-table.csv]] 里的 cluster，就顺手写上。
+- 如果后续要进入正式生产，可以再转到 [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 的实验节奏或选题记录里。
 - 优先顺序建议是：
 
 ```text
@@ -62,7 +62,7 @@ source:
 - [[From Sun Sign to Birth Chart]]
 - [[Sun, Moon, Rising]]
 - [[Why You Do Not Always Feel Like Your Sun Sign]]
-- [[Your Zodiac Sign Is Only One Layer]]
+- [[Birth Chart]]
 - [[How to Read a Birth Chart Without Feeling Overwhelmed]]
 
 ### 2.2 结构主题

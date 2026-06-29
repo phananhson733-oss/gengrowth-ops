@@ -4,8 +4,8 @@
   "title": "请你仔细阅读这个0615内容运营与增长任务梳理，告诉我我紧接着应该做什么？我现在还没开始做事情，我的...",
   "titleGenerationStatus": "failed",
   "createdAt": 1781575683397,
-  "updatedAt": 1781686821421,
-  "lastResponseAt": 1781686821421,
+  "updatedAt": 1782720982932,
+  "lastResponseAt": 1781690750742,
   "sessionId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
   "providerState": {
     "threadId": "019ece2f-a5cb-7883-8477-e27e40cbcf89",
@@ -13,13 +13,13 @@
     "transcriptRootPath": "/Users/pengman/.codex/sessions"
   },
   "usage": {
-    "inputTokens": 147671,
+    "inputTokens": 188676,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 132480,
+    "cacheReadInputTokens": 184192,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 147671,
-    "percentage": 57,
+    "contextTokens": 188676,
+    "percentage": 73,
     "model": "gpt-5.4-mini"
   }
 }

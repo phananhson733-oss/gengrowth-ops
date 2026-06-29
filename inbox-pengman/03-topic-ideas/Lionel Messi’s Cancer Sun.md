@@ -5,10 +5,10 @@ updated: 2026-06-17
 owner: Pengman
 project: astrologywiki
 type: topic-note
-status: test
+status: 已发布
 source:
-  - [[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-  - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+  - - - inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md
+  - - - inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md
 ---
 
 # Lionel Messi’s Cancer Sun

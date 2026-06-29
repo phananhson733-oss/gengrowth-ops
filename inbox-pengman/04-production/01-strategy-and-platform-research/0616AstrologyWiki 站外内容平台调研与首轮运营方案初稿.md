@@ -7,9 +7,9 @@ project: astrologywiki
 type: research-plan
 status: draft
 source:
-  - inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md
-  - inbox-pengman/00-inbox/0615 各多媒体平台具体内容调研.md
-  - inbox-pengman/00-inbox/0612 海外营销内容平台以及思考.md
+  - inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md
+  - inbox-pengman/04-production/01-strategy-and-platform-research/0615 各多媒体平台具体内容调研.md
+  - inbox-pengman/04-production/01-strategy-and-platform-research/0612 海外营销内容平台以及思考.md
   - docs/03-marketing/02-social-media/social-media-operations.md
   - docs/03-marketing/2026-05-15-gengrowth-internal-growth-mvp-prd-v0.8.md
   - inbox/00-inbox/2026-06-14-astrologywiki-growth-report-day23.md

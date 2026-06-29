@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782712780035-trk3wbiak",
+  "providerId": "codex",
+  "title": "我需要写写这个文档。你能先简单的看看以前的inbox-pengman里的内容，看看我已有的内容创作的...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782712780038,
+  "updatedAt": 1782722064631,
+  "lastResponseAt": 1782722064631,
+  "sessionId": "019f11f6-5ea1-74a3-9ec7-30242929db7c",
+  "providerState": {
+    "threadId": "019f11f6-5ea1-74a3-9ec7-30242929db7c",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/29/rollout-2026-06-29T13-59-46-019f11f6-5ea1-74a3-9ec7-30242929db7c.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 98806,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 92032,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 98806,
+    "percentage": 38,
+    "model": "gpt-5.5"
+  }
+}

@@ -29,11 +29,20 @@ tags:
 
 ### 1.2 已发布 / 已启动的内容
 
-- 为赶热点，已经发布了梅西相关视频。
+- 为赶热点，已经发布了梅西相关内容，并开始在 X / YouTube / TikTok 做同步测试。
 - 视频主题聚焦：Lionel Messi 的 Cancer Sun，以及这条内容如何作为占星解释入口。
 - 视频目的：用热点事件带入 AstrologyWiki 的品牌表达和占星解释框架。
 
-### 1.3 使用的 AI / 视频工具
+### 1.3 今日已发布内容清单
+
+| 平台      | 链接                                                              | 内容类型   | 简述                                             |
+| ------- | --------------------------------------------------------------- | ------ | ---------------------------------------------- |
+| X       | https://x.com/AstrologyWiki/status/2067147246601437521          | 图文帖    | World Cup night, Messi’s birth chart in focus. |
+| X       | https://x.com/AstrologyWiki/status/2067181826356265056          | 视频     | Messi birth chart 的进一步分析帖，结合世界杯语境。             |
+| YouTube | https://www.youtube.com/shorts/zOXKoYuHJnE                      | Shorts | Messi / Cancer Sun 的短视频测试。                     |
+| TikTok  | https://www.tiktok.com/@astrologywiki/video/7652268013520948493 | 短视频    | 同主题视频复用，用于测试 TikTok 分发表现。                      |
+
+### 1.4 使用的 AI / 视频工具
 
 - **最终使用：veed.io**
   - 体验结论：好用，适合作为后续视频制作主工具。
@@ -140,7 +149,7 @@ Explore your own birth chart at AstrologyWiki.
 ## 5. 待补事项
 
 - [ ] 账号头图 / banner
-- [ ] YouTube 简介审核完成后再正式补全 profile
+- [x] YouTube 简介审核完成后再正式补全 profile
 - [ ] 账号资产本地归档结构整理完
 - [ ] 继续观察 VEED 是否值得付费
 - [ ] 决定是否给 X 加蓝标
@@ -156,4 +165,3 @@ Explore your own birth chart at AstrologyWiki.
 3. 继续做 1–2 条低成本内容测试。
 4. 在后续内容中逐步建立养号节奏。
 5. 评估 VEED 会员、X 蓝标、CapCut 会员等工具费用的优先级。
-

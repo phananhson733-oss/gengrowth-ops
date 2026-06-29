@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782716658971-9shpnyfia",
+  "providerId": "codex",
+  "title": "根据inbox-pengman的内容，我现在想让Gemini帮我搜索分析一下哪些YouTube适合a...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782716658972,
+  "updatedAt": 1782716777210,
+  "lastResponseAt": 1782716777210,
+  "sessionId": "019f1231-8d42-7250-ad21-fc35caf7bfb2",
+  "providerState": {
+    "threadId": "019f1231-8d42-7250-ad21-fc35caf7bfb2",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/29/rollout-2026-06-29T15-04-25-019f1231-8d42-7250-ad21-fc35caf7bfb2.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 15498,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 2432,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 15498,
+    "percentage": 6,
+    "model": "gpt-5.5"
+  }
+}

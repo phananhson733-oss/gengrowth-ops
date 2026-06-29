@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782721036272-hyfkdardm",
+  "providerId": "codex",
+  "title": "你能帮我整理一下inbox-pengman吗？现在有点混乱，尤其是整理关于内容创作（包括图文，视频等...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782721036272,
+  "updatedAt": 1782721673230,
+  "lastResponseAt": 1782721673230,
+  "sessionId": "019f1274-5882-7870-889b-f650ab1fefe2",
+  "providerState": {
+    "threadId": "019f1274-5882-7870-889b-f650ab1fefe2",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/29/rollout-2026-06-29T16-17-22-019f1274-5882-7870-889b-f650ab1fefe2.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 55636,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 53632,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 55636,
+    "percentage": 22,
+    "model": "gpt-5.5"
+  }
+}

@@ -7,8 +7,8 @@ project: astrologywiki
 type: task-list
 status: draft
 source:
-  - inbox-pengman/00-inbox/0615AstrologyWiki 内容运营与增长任务梳理.md
-  - inbox-pengman/00-inbox/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
+  - inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md
+  - inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
 ---
 
 # AstrologyWiki 本周 Todo

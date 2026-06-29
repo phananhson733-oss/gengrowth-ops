@@ -9,23 +9,28 @@
 | 目录编号   | 目录名称                      | 核心用途                            |
 | :----- | :------------------------ | :------------------------------ |
 | **00** | `00-inbox`                | 临时输入、灵感草稿、未分类数据。                |
-| **01** | `01-review-audit`         | Day 0 诊断记录、实验进度 Log、站点审计报告。     |
-| **02** | `02-conversation report` | 跨对话协作上下文、已确认决定、职责边界和待确认事项。 |
-| **03** | `03-content-briefs`       | 内容大纲、流量预测报告、SEO SOP 及提示词备份。     |
-| **04** | `04-production`           | 正在撰写或 AI 生成中的 Blog 初稿（成品发布后移出）。 |
-| **05** | `05-blog`                 | 已成型 / 待发布的 Blog 内容。              |
-| **06** | `06-tasks`                | 任务管理与执行跟踪（看板 + 单任务文档）。          |
-| **08** | `08-reports-and-feedback` | 所有的汇报、产品功能反馈、标准执行反馈。            |
-| **09** | `09-archive`              | 历史版本、已废弃的旧逻辑、参考旧件。              |
+| **02** | `02-conversation report`  | 跨对话协作上下文、已确认决定、职责边界和待确认事项。 |
+| **03** | `03-topic-ideas`          | 站外内容选题库、单条选题草稿、主题包灵感。          |
+| **04** | `04-production`           | 内容创作工作区：平台/内容方向、图文视频工具调研、生产工作流。 |
+| **05** | `05-media report`         | 已发布内容、媒体素材或单次发布复盘。              |
+| **06** | `06-tasks`                | 任务管理、周计划、执行跟踪、职责边界文档。          |
+| **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。           |
 
-### 📋 08 汇报与反馈细分
-- `01-product-feedback`: 针对网站功能（如 CMS、工具页）的需求反馈。
-- `02-standard-feedback`: 针对团队协作规范、SOP 流程的优化建议。
-- `03-weekly-reports`: 每一周的工作进展总结。
+
+### 🎬 04 内容创作工作区细分
+- `01-strategy-and-platform-research`: 内容方向、平台机制、平台样本、首轮方案。
+- `02-video-and-visual-tool-research`: 图文/视频/动画/自动化工具调研。
+- `03-reference-accounts`: 可学习账号与内容样式。
+- 入口文档：[[inbox-pengman/04-production/README.md]]
+
+
+### 🧹 已精简的复制型目录
+
+以下目录目前没有实际内容，已先删除：`01-review-audit`、`08-reports-and-feedback`、`09-archive`。如果后续真的需要审计、汇报反馈或归档，再按实际用法新建即可。
 
 ## 🛠️ 文件管理规范
 
-1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。`Untitled.md` / `未命名.md` 等占位名只会收到 advisory 提示（不阻塞），但**走流程**（`ready_*` / `archived`）时会被拒绝。
+1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。`Untitled.md` / `未命名.md` 等占位名只会收到 advisory 提示（不阻塞），但**走流程**（`ready_*`）时会被拒绝。
 2. **元数据要求**：`.md` 文件头部建议包含 `project`, `type`, `status`, `owner`, `updated` 字段；草稿可以不写，**走流程时这 5 个字段必填**。
 3. **Owner**：彭满。`inbox-pengman/` 是彭满专属工作台，其他人请勿直接修改。
 4. **清理规则**：正式 SOP 确定后应提交至 `docs/`；已发布的 Blog 初稿定期归档至内容资产库。
@@ -39,9 +44,8 @@
 | `draft` / `active` / `final` / `in-progress` / 无 frontmatter / 无法识别 | **留在 inbox-pengman/**，不动，仅 advisory 提示 | 草稿、半成品、思考记录。脚本不会骚扰。 |
 | `ready_for_review` | 严格校验后**开 PR** 等审批 | 完成的内容，需要他人 review |
 | `ready_to_move` | 严格校验后**直接搬运** 到 target | 已确认无需 review 的内容 |
-| `archived` | 严格校验后**自动归档** 到 `inbox-pengman/09-archive/` | 老版本、废弃文件 |
 
-> 只有 `ready_for_review` / `ready_to_move` / `archived` 会触发校验失败开 issue；草稿状态永远静默。
+> 只有 `ready_for_review` / `ready_to_move` 会触发校验失败开 issue；草稿状态永远静默。
 > 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
 > 所有 wiki 同步目录（`docs/`、`✍️ 内容资产/`、`参考资料/`、`每日日报/`、`task-collab/`）都是单向 rsync 镜像**只读**，dispatch 不能往里搬；要更新这些内容请改 wiki repo。
 
