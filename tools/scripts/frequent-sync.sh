@@ -11,12 +11,10 @@
 set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/_repo-discovery.sh"
-source "$SCRIPT_DIR/_shell-utils.sh"
 
 WIKI="${GENGROWTH_WIKI:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
-OPS_REPO="${GENGROWTH_OPS:-$(gengrowth_find_repo gengrowth-ops)}"
-AGENTS_REPO="${GENGROWTH_AGENTS:-$(gengrowth_find_repo gengrowth-agents)}"
+OPS_REPO="${GENGROWTH_OPS:-$HOME/gengrowth-ops}"
+AGENTS_REPO="${GENGROWTH_AGENTS:-$HOME/gengrowth-agents}"
 LOG="${GENGROWTH_FREQUENT_SYNC_LOG:-$HOME/Library/Logs/gengrowth-frequent-sync.log}"
 PYTHON="${PYTHON:-python3}"
 VAULT_SYNC="$SCRIPT_DIR/obsidian-vault-git-sync.py"
@@ -26,7 +24,7 @@ mkdir -p "$(dirname "$LOG")"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG"; }
 
 # 日志轮转：超过 2000 行时只保留最后 1000 行
-if [ "$(gengrowth_log_line_count "$LOG")" -gt 2000 ]; then
+if [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 2000 ]; then
   tail -1000 "$LOG" > "${LOG}.tmp" && mv "${LOG}.tmp" "$LOG"
 fi
 

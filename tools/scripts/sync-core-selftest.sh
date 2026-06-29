@@ -58,51 +58,6 @@ test_syncs_wiki_tools_into_ops_tools() {
     fail "ops repo should be synced again after tools mirror, saw $ops_sync_count sync call(s)"
 }
 
-test_repo_discovery_prefers_code_directory() {
-  local previous_home="$HOME"
-  local fake_home="$TMP_ROOT/home"
-  mkdir -p "$fake_home/Code/gengrowth-ops"
-
-  HOME="$fake_home"
-  export HOME
-
-  [ -f "$SCRIPT_DIR/_repo-discovery.sh" ] ||
-    fail "repo discovery helper is missing"
-
-  # shellcheck source=/dev/null
-  source "$SCRIPT_DIR/_repo-discovery.sh"
-
-  local discovered
-  discovered="$(gengrowth_find_repo gengrowth-ops)"
-
-  HOME="$previous_home"
-  export HOME
-
-  [ "$discovered" = "$fake_home/Code/gengrowth-ops" ] ||
-    fail "expected repo discovery to find $fake_home/Code/gengrowth-ops, got $discovered"
-}
-
-test_log_line_count_handles_missing_log_quietly() {
-  local missing_log="$TMP_ROOT/missing-dir/frequent-sync.log"
-  local stderr_file="$TMP_ROOT/log-line-count.stderr"
-  local count
-
-  [ -f "$SCRIPT_DIR/_shell-utils.sh" ] ||
-    fail "shell utils helper is missing"
-
-  # shellcheck source=/dev/null
-  source "$SCRIPT_DIR/_shell-utils.sh"
-
-  count="$(gengrowth_log_line_count "$missing_log" 2>"$stderr_file")"
-
-  [ "$count" = "0" ] ||
-    fail "expected missing log line count to be 0, got $count"
-  [ ! -s "$stderr_file" ] ||
-    fail "missing log line count should not write stderr"
-}
-
-test_repo_discovery_prefers_code_directory
-test_log_line_count_handles_missing_log_quietly
 test_syncs_wiki_tools_into_ops_tools
 
 echo "sync-core selftest: ok"

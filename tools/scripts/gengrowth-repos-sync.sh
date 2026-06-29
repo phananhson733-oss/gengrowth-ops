@@ -9,11 +9,10 @@
 set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/_repo-discovery.sh"
 
 WIKI="${GENGROWTH_WIKI:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
-OPS_REPO="${GENGROWTH_OPS:-$(gengrowth_find_repo gengrowth-ops)}"
-AGENTS_REPO="${GENGROWTH_AGENTS:-$(gengrowth_find_repo gengrowth-agents)}"
+OPS_REPO="${GENGROWTH_OPS:-$HOME/gengrowth-ops}"
+AGENTS_REPO="${GENGROWTH_AGENTS:-$HOME/gengrowth-agents}"
 LOG="${GENGROWTH_REPOS_SYNC_LOG:-$HOME/Library/Logs/gengrowth-repos-sync.log}"
 DOC_LOG="${GENGROWTH_DOC_HEALTH_LOG:-$HOME/Library/Logs/gengrowth-doc-health.log}"
 PYTHON="${PYTHON:-python3}"
