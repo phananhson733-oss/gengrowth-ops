@@ -143,18 +143,18 @@ updated: 2026-06-29
 
 **筛选结果：**
 
-| 词 | Volume | KD | CPC | Trends | KDRoi | 结论 |
-| --- | --- | --- | --- | --- | --- | --- |
-| **omegaverse quiz** | 49K | 1 | $0.07 | 不规则 | 3,430 | ✅ 备选 |
-| **google docs resume template** | 32K | 12 | $1.00 | 稳定 | 2,667 | ✅ 第一梯队 |
-| **cursive generator** | 61K | 11 | $0.31 | 稳定 | 1,719 | ✅ 第一梯队 |
-| **hogwarts house quiz** | 49K | 27 | $0.50 | 周期活跃 | 907 | ✅ 第一梯队 |
-| harry potter quiz | 28K | 4 | $0.02 | 稳定 | 140 | ⚠️ 被hogwarts覆盖 |
-| ai story generator | KD 0 | 0 | 待核 | 上升 | — | 待完整数据 |
-| fantasy name generator | 72K | 49 | $0.05 | 稳定 | 73 | ❌ KDRoi过低 |
-| travel itinerary template | 41K | 4 | $2.80 | 🚨尖峰归零 | — | ❌ Trends崩塌 |
-| Star Wars quiz | 3.1K | 3 | $0.02 | 事件尖峰 | — | ❌ 量太小 |
-| BoJack Horseman quiz | 6.9K | 1 | N/A | 病毒尖峰 | — | ❌ Trends崩塌 |
+| 词                               | Volume | KD  | CPC   | Trends | KDRoi | 结论             |
+| ------------------------------- | ------ | --- | ----- | ------ | ----- | -------------- |
+| **omegaverse quiz**             | 49K    | 1   | $0.07 | 不规则    | 3,430 | ✅ 备选           |
+| **google docs resume template** | 32K    | 12  | $1.00 | 稳定     | 2,667 | ✅ 第一梯队         |
+| **cursive generator**           | 61K    | 11  | $0.31 | 稳定     | 1,719 | ✅ 第一梯队         |
+| **hogwarts house quiz**         | 49K    | 27  | $0.50 | 周期活跃   | 907   | ✅ 第一梯队         |
+| harry potter quiz               | 28K    | 4   | $0.02 | 稳定     | 140   | ⚠️ 被hogwarts覆盖 |
+| ai story generator              | KD 0   | 0   | 待核    | 上升     | —     | 待完整数据          |
+| fantasy name generator          | 72K    | 49  | $0.05 | 稳定     | 73    | ❌ KDRoi过低      |
+| travel itinerary template       | 41K    | 4   | $2.80 | 🚨尖峰归零 | —     | ❌ Trends崩塌     |
+| Star Wars quiz                  | 3.1K   | 3   | $0.02 | 事件尖峰   | —     | ❌ 量太小          |
+| BoJack Horseman quiz            | 6.9K   | 1   | N/A   | 病毒尖峰   | —     | ❌ Trends崩塌     |
 
 **方法论补充（新增，沉淀进汇报）：**
 哥飞原框架偏好上升词（时间窗口竞争），但本次达标词均为长期平稳词——这是**结构性盲区**而非缺陷：工具/娱乐类词 CPC 偏低，主流 SEO 从业者长期不覆盖；大站靠域名权重溢出排名，页面级 KD 因此维持低位。平稳词优势：需求确定性高、无时间窗口压力、竞争结构可预测。
