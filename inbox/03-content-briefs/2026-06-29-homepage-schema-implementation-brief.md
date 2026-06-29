@@ -2,7 +2,7 @@
 title: 首页结构化数据与 OG 标签修复 — 开发实施文档
 date: 2026-06-29
 type: dev-brief
-status: 待实施
+status: 已实施（oracle，含落地修正）
 priority: P0
 owner: 前端工程团队
 file: index.html（根目录 <head> 区域）
