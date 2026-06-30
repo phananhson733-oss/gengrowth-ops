@@ -1642,5 +1642,17 @@
     "verifiedAt": "2026-06-30T12:47:06.641Z",
     "headRefOid": "9ae86f71e2a53a5c7097a36944e72677b00b511f",
     "mergedAt": "2026-06-30T12:47:12.385Z"
+  },
+  "PG-CELEB-012": {
+    "status": "active",
+    "slug": "ben-shelton-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-012.md",
+    "stage": "convert",
+    "lockedBy": "86848",
+    "leaseUntil": "2026-06-30T13:48:08.336Z",
+    "updatedAt": "2026-06-30T12:48:08.336Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-012",
+    "branch": "seo/auto/2026-06-30-PG-CELEB-012"
   }
 }
