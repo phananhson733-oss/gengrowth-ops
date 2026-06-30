@@ -245,31 +245,90 @@ googledocsresumetemplate.com 评论参考：
 
 ---
 
-### 任务 7：内页关键词规划
+### 任务 7：三层信息架构规划与内页建设
 
-**原理：** 哥飞方法论要求持续发布内页，每个内页针对一个长尾词，形成词根集群，整体提升主词排名。
+**原理：** 哥飞方法论的核心内容战略是"举全站之力做一个关键词"——围绕主词建立三层树状结构，先批量上线三级长尾页（竞争度低，率先获得流量），长尾页权重逐渐向上传递，推动二级目录页排名，最终共同拉升首页主词排名。这是新站在短期内建立主题权威性（Topical Authority）的最有效路径。
+
+```
+首页（主词）
+├── 二级目录页（次级关键词）
+│   ├── 三级内页（长尾词 A）
+│   ├── 三级内页（长尾词 B）
+│   └── 三级内页（长尾词 C）
+└── 二级目录页（次级关键词）
+    ├── 三级内页（长尾词 D）
+    └── 三级内页（长尾词 E）
+```
+
+---
+
+#### aistorygenerator.work 架构规划
+
+**主词（首页）：** `ai story generator`
+
+| 层级 | URL | 目标关键词 | 优先级 |
+|---|---|---|---|
+| 二级目录 | `/dnd/` | dnd story generator | 高 |
+| 二级目录 | `/rpg/` | rpg story generator | 高 |
+| 二级目录 | `/npc/` | npc generator | 中 |
+| 三级内页 | `/dnd/backstory-generator/` | dnd backstory generator | 高（先上） |
+| 三级内页 | `/dnd/quest-hook-generator/` | dnd quest hook generator | 高（先上） |
+| 三级内页 | `/dnd/campaign-opening-generator/` | dnd campaign opening generator | 中 |
+| 三级内页 | `/rpg/character-generator/` | rpg character generator | 高（先上） |
+| 三级内页 | `/rpg/world-building-generator/` | rpg world building generator | 中 |
+| 三级内页 | `/npc/npc-name-generator/` | npc name generator | 高（先上） |
+| 三级内页 | `/npc/villain-generator/` | villain generator dnd | 中 |
+
+**执行顺序：** 先批量上线全部三级内页 → 再完善二级目录页 → 三级页权重积累后自然推升首页排名。
+
+---
+
+#### googledocsresumetemplate.com 架构规划
+
+**主词（目录页）：** `google docs resume template`（当前路径 `/google-docs-resume-template/`）
+
+| 层级 | URL | 目标关键词 | 优先级 |
+|---|---|---|---|
+| 二级目录 | `/google-docs-resume-template/professional/` | professional resume template google docs | 高 |
+| 二级目录 | `/google-docs-resume-template/student/` | google docs resume template for students | 高 |
+| 二级目录 | `/google-docs-resume-template/tech/` | software engineer resume template google docs | 中 |
+| 三级内页 | `/google-docs-resume-template/ats-friendly/` | ats resume template google docs | 高（先上） |
+| 三级内页 | `/google-docs-resume-template/2025/` | google docs resume template 2025 | 高（先上） |
+| 三级内页 | `/google-docs-resume-template/no-experience/` | resume template google docs no experience | 高（先上） |
+| 三级内页 | `/google-docs-resume-template/one-page/` | one page resume template google docs | 中 |
+| 三级内页 | `/google-docs-resume-template/creative/` | creative resume template google docs | 中 |
+| 三级内页 | `/google-docs-resume-template/executive/` | executive resume template google docs | 低 |
+
+**注意：** 现有 9 个模板页已经是三级内页的起点，在此基础上扩展，不需要重建结构。
+
+---
 
 #### 操作步骤：
 
-**第一步：找长尾词**
+**第一步：用 Ahrefs 验证关键词数据**
 1. 打开 Ahrefs Keywords Explorer
-2. 输入核心词：`ai story generator` / `google docs resume template`
-3. 点击左侧 "Matching terms" → 筛选 KD ≤ 15，Volume ≥ 100
-4. 记录前 20 个词
+2. 逐一输入上表中的目标关键词
+3. 记录真实 Volume 和 KD，筛掉 KD > 20 或 Volume < 50 的词
+4. 按 KDROI（Volume × CPC ÷ KD）重新排序，优先建高分词的页面
 
-**第二步：验证意图**
-1. 把每个词 Google 一下，看 SERP 是工具页还是文章页
-2. 工具意图（搜索结果以工具站为主）→ 做工具子页
-3. 信息意图（搜索结果以博客为主）→ 做文章页
+**第二步：验证搜索意图**
+1. 把每个词 Google 一下，看 SERP 首页结果类型
+2. 工具/模板意图（结果以工具站为主）→ 做功能页
+3. 信息意图（结果以博客文章为主）→ 做内容页
+4. 意图与规划不符的词重新分类
 
-**第三步：确认后移交后端同事**
-整理成表格，格式：
+**第三步：移交后端同事**
+整理成表格交付，格式：
 
-| URL Slug | 目标关键词 | 搜索量 | KD | 页面类型 |
-|---|---|---|---|---|
-| /ai-npc-generator/ | ai npc generator | 500 | 3 | 工具子页 |
+| URL Slug | 目标关键词 | 搜索量 | KD | 页面类型 | 优先级 |
+|---|---|---|---|---|---|
+| /dnd/backstory-generator/ | dnd backstory generator | 800 | 5 | 工具子页 | P0 |
 
-交给后端同事实现路由和页面模板。
+**第四步：内链建设（与后端同事对接）**
+- 每个三级内页底部需链接回对应的二级目录页
+- 每个二级目录页需链接回首页
+- 相关三级内页之间互相链接（如 backstory generator ↔ npc generator）
+- 这是权重从底层向上传递的核心机制，内链不做，三层结构等于白建
 
 ---
 
