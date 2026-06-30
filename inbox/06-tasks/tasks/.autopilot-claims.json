@@ -1664,15 +1664,18 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "92600",
-    "leaseUntil": "2026-06-30T14:03:54.023Z",
-    "updatedAt": "2026-06-30T13:03:54.023Z",
+    "leaseUntil": "2026-06-30T14:04:31.885Z",
+    "updatedAt": "2026-06-30T13:04:31.885Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
-    "branch": "seo/auto/2026-06-30-PG-WC-041"
+    "branch": "seo/auto/2026-06-30-PG-WC-041",
+    "pr": "https://github.com/xdawayer/oracle/pull/295",
+    "zh": false,
+    "needs_hero": true
   }
 }
