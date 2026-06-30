@@ -1664,7 +1664,7 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
@@ -1678,6 +1678,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed line63: tournament window = June 13 group stage onward, not only late-June/July",
-    "retryAt": "2026-06-30T13:15:01.567Z"
+    "retryAt": "2026-06-30T13:15:01.567Z",
+    "error": "codex completed with codex FAIL —2026 World Cup is not in Morocco",
+    "failedAt": "2026-06-30T13:19:23.567Z"
   }
 }
