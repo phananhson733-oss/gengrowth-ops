@@ -93,3 +93,4 @@ updated: 2026-06-30
 | 2026-06-30 | PG-CELEB-010 | jannik-sinner-zodiac-sign | Jannik Sinner Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/jannik-sinner-zodiac-sign | published |
 | 2026-06-30 | PG-CELEB-011 | teyana-taylor-birth-chart | Teyana Taylor Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/teyana-taylor-birth-chart | published |
 | 2026-06-30 | PG-CELEB-012 | ben-shelton-zodiac-sign | Ben Shelton Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/ben-shelton-zodiac-sign | published |
+| 2026-06-30 | PG-WC-041 | morocco-world-cup-2026-astrology | Morocco World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology | published |
