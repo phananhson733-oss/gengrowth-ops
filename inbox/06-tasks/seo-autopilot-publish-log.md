@@ -90,3 +90,4 @@ updated: 2026-06-30
 | 2026-06-26 | PG-CELEB-007 | taylor-swift-and-travis-kelce | Taylor Swift And Travis Kelce | marcus-orion | https://www.astrologywiki.com/en/wiki/taylor-swift-and-travis-kelce | published |
 | 2026-06-26 | PG-CELEB-008 | harry-styles-and-zo-kravitz | Harry Styles And Zoë Kravitz | marcus-orion | https://www.astrologywiki.com/en/wiki/harry-styles-and-zo-kravitz | published |
 | 2026-06-30 | PG-CELEB-009 | serena-williams-birth-chart | Serena Williams Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/serena-williams-birth-chart | published |
+| 2026-06-30 | PG-CELEB-010 | jannik-sinner-zodiac-sign | Jannik Sinner Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/jannik-sinner-zodiac-sign | published |
