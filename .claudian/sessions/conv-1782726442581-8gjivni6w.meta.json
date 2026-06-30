@@ -4,8 +4,8 @@
   "title": "有什么可以轻松发布内容到x和其他平台的工具？这个仓库里有提到吗？你可以看整个仓库",
   "titleGenerationStatus": "failed",
   "createdAt": 1782726442581,
-  "updatedAt": 1782726605810,
-  "lastResponseAt": 1782726605810,
+  "updatedAt": 1782801627319,
+  "lastResponseAt": 1782801627319,
   "sessionId": "019f12c6-d7b1-7172-9303-e1bf2efd8372",
   "providerState": {
     "threadId": "019f12c6-d7b1-7172-9303-e1bf2efd8372",
@@ -13,13 +13,13 @@
     "transcriptRootPath": "/Users/pengman/.codex/sessions"
   },
   "usage": {
-    "inputTokens": 98068,
+    "inputTokens": 114486,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 90496,
+    "cacheReadInputTokens": 84352,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 98068,
-    "percentage": 38,
+    "contextTokens": 114486,
+    "percentage": 44,
     "model": "gpt-5.5"
   }
 }

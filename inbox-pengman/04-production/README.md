@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: draft
 owner: Pengman
-updated: 2026-06-29
+updated: 2026-06-30
 ---
 
 # 内容创作工作区入口
@@ -27,6 +27,8 @@ updated: 2026-06-29
 | [[inbox-pengman/04-production/01-strategy-and-platform-research/README.md]] | 内容方向、平台机制、平台样本、首轮运营方案 |
 | [[inbox-pengman/04-production/02-video-and-visual-tool-research/README.md]] | 视频、图文、动画、自动化工具调研 |
 | [[inbox-pengman/04-production/03-reference-accounts/README.md]] | 可学习账号、内容样式、竞品账号 |
+| [[inbox-pengman/04-production/04-text-and-social-tool-research/README.md]] | 文本内容、X 工作流、搜索/调研工具 |
+| [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 每周已发布内容合集、公开数据记录、复盘入口 |
 
 ## 当前工具调研结论入口
 

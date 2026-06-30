@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782814142441-ihftasl70",
+  "providerId": "codex",
+  "title": "帮我按照以一周为单位，创作个本周的已发布的内容的合集，带上他们的数据。你可以先创造一个模版，放在pe...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782814142443,
+  "updatedAt": 1782815201278,
+  "lastResponseAt": 1782815201278,
+  "sessionId": "019f1801-0856-7c52-aecf-1bdc158fab62",
+  "providerState": {
+    "threadId": "019f1801-0856-7c52-aecf-1bdc158fab62",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/30/rollout-2026-06-30T03-09-08-019f1801-0856-7c52-aecf-1bdc158fab62.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 71930,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 66432,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 71930,
+    "percentage": 28,
+    "model": "gpt-5.5"
+  }
+}
