@@ -2,7 +2,7 @@
 title: Path B 两站上线后行动计划（含操作步骤）
 date: 2026-06-29
 sites: aistorygenerator.work / googledocsresumetemplate.com
-status: 执行中
+status: 执行中（aistorygenerator.work 技术项已核查/落地 2026-06-30）
 ---
 
 # Path B 两站上线后行动计划
@@ -14,9 +14,36 @@ status: 执行中
 | 框架 | Next.js | Astro（静态） |
 | Title | ✅ 含核心词 | ✅ 含核心词 |
 | Description | ✅ 含 "no login" | ✅ 含 "No signup" |
-| JSON-LD | ⚠️ 静态 HTML 无（待确认运行时） | ✅ ItemList schema 已存在 |
-| Canonical | `aistorygenerator.work`（无尾斜杠，待统一） | `googledocsresumetemplate.com/google-docs-resume-template/`（无 www） |
-| 内页数量 | 待确认 | 9 个模板独立页面 |
+| JSON-LD | ✅ SSR 输出 ld+json（已线上确认 2026-06-30） | ✅ ItemList schema 已存在 |
+| Canonical | ✅ 每页各自 canonical，trailingSlash 全站统一（已确认） | `googledocsresumetemplate.com/google-docs-resume-template/`（无 www） |
+| 内页数量 | ✅ 11 个 /rpg-tools/ 工具页 + story-generators 等（已盘点） | 9 个模板独立页面 |
+
+---
+
+## 执行进度（2026-06-30 核查 + 落地）
+
+> 本轮聚焦 **aistorygenerator.work（本 repo）**。运营类任务（Reddit / HN / PH / 目录 / 外链）状态见各任务，未在本轮执行。
+
+### 技术项核查结论（线上 curl 实测）
+
+| 任务 | 站点 | 结论 |
+|---|---|---|
+| E. JSON-LD | aistorygenerator.work | ✅ 已完成 — 首页 HTML 含 `ld+json`（SSR），无需补 |
+| F. Canonical | aistorygenerator.work | ✅ 已完成 — 每页各自 canonical，trailingSlash 全站统一 |
+| B. Sitemap | aistorygenerator.work | ✅ `/sitemap.xml` 200，`robots.ts` 已在 |
+| B. Sitemap | googledocsresumetemplate.com | ❌ **待修** — `/sitemap.xml` 返回 404，需加 `@astrojs/sitemap` |
+| G①. www→non-www | googledocsresumetemplate.com | ❌ **待修** — www 返回 200 而非 301，重复内容风险 |
+| G②. 根域跳转 | googledocsresumetemplate.com | ✅ 301 正常 |
+
+→ aistorygenerator.work 的 E / F / B **实为已完成**（文档原"待确认"标注过时）。剩余技术债集中在 Astro 站的 **2 项**。
+
+### 任务 7 重大修正：经 Ahrefs 实测，原规划多为 0 量伪需求
+
+详见任务 7 内更新。核心结论：**不批量建三级页、不建 `/dnd` `/rpg` `/npc` 子目录**（重构 URL 只有坏处，现有页已收录）；本 repo 现有 11 个 `/rpg-tools/` 页已覆盖所有有量词。本轮落地：
+
+- ✅ 优化 `/rpg-tools/character-backstory-generator` 命中 `dnd backstory generator`（800 量 / KD 1）— title / H1 / description / OG 已上线
+- ✅ 顺带修复 `app/loading.tsx` 占位 h1→p（消除流式 SSR 的重复 h1）
+- ⏸ `npc name generator`（800 量 / KD 46）— 暂缓，难度偏高、需新建页
 
 ---
 
