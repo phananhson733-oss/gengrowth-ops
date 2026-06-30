@@ -300,5 +300,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 > ⚠️ 原"自动补充"的 4 个 AURA 选题（aura colors / red / blue / yellow aura meaning）已剔除：均已上线、属重复内容，不再重写（aura-colors-guide / red-aura-meaning / blue-aura-meaning / yellow-aura-meaning 已在 sitemap）。
 
+---
+## ⚪ 6月30日 (周二) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-CELEB-009` serena williams birth chart
+- [ ] `PG-CELEB-010` jannik sinner zodiac sign
+- [ ] `PG-CELEB-011` teyana taylor birth chart
+- [ ] `PG-CELEB-012` ben shelton zodiac sign
+- [ ] `PG-WC-041` morocco world cup 2026 astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
