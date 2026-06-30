@@ -1602,15 +1602,18 @@
     "mergedAt": "2026-06-30T12:05:55.647Z"
   },
   "PG-CELEB-010": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "jannik-sinner-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-010.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "66502",
-    "leaseUntil": "2026-06-30T13:14:59.885Z",
-    "updatedAt": "2026-06-30T12:14:59.885Z",
+    "leaseUntil": "2026-06-30T13:15:05.861Z",
+    "updatedAt": "2026-06-30T12:15:05.861Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-010",
-    "branch": "seo/auto/2026-06-30-PG-CELEB-010"
+    "branch": "seo/auto/2026-06-30-PG-CELEB-010",
+    "pr": "https://github.com/xdawayer/oracle/pull/292",
+    "zh": false,
+    "needs_hero": true
   }
 }
