@@ -307,6 +307,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-010` jannik sinner zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/jannik-sinner-zodiac-sign （Leo；去Pew统计+杂项关键词；needs_hero）
 - [x] `PG-CELEB-011` teyana taylor birth chart -> LIVE https://www.astrologywiki.com/en/wiki/teyana-taylor-birth-chart （Sagittarius；锚-目标匹配修复；needs_hero）
 - [x] `PG-CELEB-012` ben shelton zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/ben-shelton-zodiac-sign （Libra；补全星座陈述；needs_hero）
-- [x] `PG-WC-041` morocco world cup 2026 astrology
+- [x] `PG-WC-041` morocco world cup 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology （队篇；木星双子→巨蟹/狮子修正；codex 5轮纠错赛事时机+东道主；needs_hero）
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
