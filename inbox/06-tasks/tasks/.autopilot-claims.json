@@ -1669,15 +1669,15 @@
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
     "stage": "pushed-preview",
-    "lockedBy": "96305",
-    "leaseUntil": "2026-06-30T14:10:05.659Z",
-    "updatedAt": "2026-06-30T13:10:05.659Z",
+    "lockedBy": "98419",
+    "leaseUntil": "2026-06-30T14:15:01.567Z",
+    "updatedAt": "2026-06-30T13:15:01.567Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
     "branch": "seo/auto/2026-06-30-PG-WC-041",
     "pr": "https://github.com/xdawayer/oracle/pull/295",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "broadened Jupiter timing to span mid-June group stage through July, not just late June",
-    "retryAt": "2026-06-30T13:10:05.659Z"
+    "retryEvidence": "fixed line63: tournament window = June 13 group stage onward, not only late-June/July",
+    "retryAt": "2026-06-30T13:15:01.567Z"
   }
 }
