@@ -1664,7 +1664,7 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
@@ -1678,6 +1678,11 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed timing text in i0 SVG + plan json to span June 13 group stage",
-    "retryAt": "2026-06-30T13:26:42.768Z"
+    "retryAt": "2026-06-30T13:26:42.768Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-30-pg-wc-041-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-30T13:30:38.703Z",
+    "headRefOid": "370e34d7c19929a3b0fb1c0ed557643de140bd1e",
+    "mergedAt": "2026-06-30T13:30:44.346Z"
   }
 }
