@@ -1602,7 +1602,7 @@
     "mergedAt": "2026-06-30T12:05:55.647Z"
   },
   "PG-CELEB-010": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jannik-sinner-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-010.md",
@@ -1614,6 +1614,11 @@
     "branch": "seo/auto/2026-06-30-PG-CELEB-010",
     "pr": "https://github.com/xdawayer/oracle/pull/292",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "previewUrl": "https://oracle-git-seo-auto2026-06-30-pg-d40bd7-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-30T12:19:05.126Z",
+    "headRefOid": "64be9e3c077acf11abdf2e8056e0491f97ba94e8",
+    "mergedAt": "2026-06-30T12:19:12.881Z"
   }
 }
