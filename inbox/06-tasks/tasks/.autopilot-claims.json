@@ -1664,22 +1664,20 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
     "stage": "pushed-preview",
-    "lockedBy": "965",
-    "leaseUntil": "2026-06-30T14:20:43.510Z",
-    "updatedAt": "2026-06-30T13:20:43.510Z",
+    "lockedBy": "3254",
+    "leaseUntil": "2026-06-30T14:26:42.768Z",
+    "updatedAt": "2026-06-30T13:26:42.768Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
     "branch": "seo/auto/2026-06-30-PG-WC-041",
     "pr": "https://github.com/xdawayer/oracle/pull/295",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "fixed: Morocco is a participating team not the 2026 WC host; reworded \"World Cup in Morocco\"",
-    "retryAt": "2026-06-30T13:20:43.510Z",
-    "error": "codex completed with codex FAIL —SVG/plan says only late-June and July 2026 timing matters, but Morocco’s group stage begins June 13.",
-    "failedAt": "2026-06-30T13:24:58.129Z"
+    "retryEvidence": "fixed timing text in i0 SVG + plan json to span June 13 group stage",
+    "retryAt": "2026-06-30T13:26:42.768Z"
   }
 }
