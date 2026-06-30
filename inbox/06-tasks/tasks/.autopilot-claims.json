@@ -1664,20 +1664,20 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
     "stage": "pushed-preview",
-    "lockedBy": "92600",
-    "leaseUntil": "2026-06-30T14:04:31.885Z",
-    "updatedAt": "2026-06-30T13:04:31.885Z",
+    "lockedBy": "96305",
+    "leaseUntil": "2026-06-30T14:10:05.659Z",
+    "updatedAt": "2026-06-30T13:10:05.659Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
     "branch": "seo/auto/2026-06-30-PG-WC-041",
     "pr": "https://github.com/xdawayer/oracle/pull/295",
     "zh": false,
     "needs_hero": true,
-    "error": "codex completed with codex FAIL —article says only late-June/July 2026 timing matters, but Morocco’s World Cup group stage began June 13",
-    "failedAt": "2026-06-30T13:08:48.204Z"
+    "retryEvidence": "broadened Jupiter timing to span mid-June group stage through July, not just late June",
+    "retryAt": "2026-06-30T13:10:05.659Z"
   }
 }
