@@ -1,7 +1,8 @@
 ---
 title: aistorygenerator.work 标题结构修改计划（H1/H2/H3）
 date: 2026-06-30
-status: 待实施
+status: 已完成
+completed: 2026-06-30
 owner: 前端/后端同事
 ---
 
@@ -176,3 +177,32 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 
 *文件关联：inbox/06-tasks/2026-06-29-pathB-launch-action-plan.md*
 *关键词数据来源：aistorygenerator.work - 工作表1.csv（下载文件夹）*
+
+---
+
+## ✅ 完成记录（2026-06-30，已上线 + 线上验收通过）
+
+全部已部署到生产 `https://aistorygenerator.work`，逐项 curl 验收通过（详见会话）。
+
+| 计划节 | 项 | 状态 | 证据 |
+|---|---|---|---|
+| 三（P0） | `/ai-story-generator` 301→`/`（Next `permanent` 发 308，SEO 等价） | ✅ | 线上 308→`/`；旧路由页删除；查询参数保留 |
+| —（额外） | 首页内置真正的生成器，默认进来即 AI Story Generator | ✅ | 首页 `id="generator"` 内联生成器 |
+| —（用户追加） | 首页 hero 去 GM 化：H1 → `Free AI Story Generator`，GM 降次要 | ✅ | 线上 H1 已改 |
+| 一 1.1 | 首页 H2：删「What can you generate?」「Choose your path」；改名 4 个 | ✅ | 两块删除=0；4 个新 H2 命中 |
+| 一 1.2 | 首页 H3：删「AI Story Generator」；`AI NPC Generator`→`NPC Generator` | ✅ | 注册表改名，全站联动 |
+| 二 | 全部 11 个 RPG 工具子页补 What is/examples/Who for + Related tools | ✅ | 11/11 ToolSections + Related 命中（数据驱动 `lib/rpg-tool-content.ts`） |
+| 二 | Story Prompt / Short / Long Story 故事工具扩写 | ✅ | 各补 What is/examples/Who for；FAQ≥5 |
+| 四 | NPC 子页 H1 → `NPC Generator for D&D and Tabletop RPGs` | ✅ | 线上命中 |
+| 四 | Story Prompt H1 → `...for Writers and Game Masters` | ✅ | 线上命中 |
+| 四-补充 ① | Character Backstory 补 H2 `DnD Backstory Generator`（另由 owner 进一步改 H1/title 主打 DnD） | ✅ | H2 + meta 命中 |
+| 四-补充 ② | 新建 `/dnd-story-generator/`（H1 `DnD Story Generator`，归 Story Generators） | ✅ | 200；已接入 nav/sitemap/proxy/首页目录/hub |
+| 五/六 | 优先级与内容顺序 | ✅ | 已按 KDROI 顺序落地 |
+| 三 P3 | 全子页 Related tools 横向内链 | ✅ | 11/11 命中 |
+| 三 P3 | 移动端 hero 右侧 Quick Start 可见性 | ✅ | `.hero-grid` 移动端单列堆叠，不隐藏 |
+
+**实现要点：** 数据驱动共享组件 `components/tool-sections.tsx` + `components/related-tools.tsx`，内容集中于 `lib/rpg-tool-content.ts`（改内容只动这一个文件）。
+
+**相关提交（ai-story-generator @ main）：** `44f2508`(合并+301) · `467137c`(hero 通用化) · `10dfc64`(P2/P3) · `4a8cfdb`(剩余工具) · `c611be7`(首页内链+收尾)，以及 owner 的 Backstory DnD 主打改动。代码经 `/review`（含对抗式子代理）双重审查：无 P0/P1/P2 问题。
+
+**仅剩「未来」项（计划已标，非本次范围）：** 新建 `/story-title-generator/`（1800vol/KD14）——待站点 DR 升至 ~20+ 后执行。下一杠杆是外链/DR，而非更多页面。
