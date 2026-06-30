@@ -1622,20 +1622,20 @@
     "mergedAt": "2026-06-30T12:19:12.881Z"
   },
   "PG-CELEB-011": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "teyana-taylor-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-011.md",
     "stage": "pushed-preview",
-    "lockedBy": "72661",
-    "leaseUntil": "2026-06-30T13:24:48.224Z",
-    "updatedAt": "2026-06-30T12:24:48.224Z",
+    "lockedBy": "81170",
+    "leaseUntil": "2026-06-30T13:38:30.305Z",
+    "updatedAt": "2026-06-30T12:38:30.305Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-011",
     "branch": "seo/auto/2026-06-30-PG-CELEB-011",
     "pr": "https://github.com/xdawayer/oracle/pull/293",
     "zh": false,
     "needs_hero": true,
-    "error": "review[schema] FAIL: The keywords array contains \"emma watson zodiac sign\", an off-topic term for a different celebrity that contradicts this article's subject (the Teyana Taylor birth chart).",
-    "failedAt": "2026-06-30T12:36:52.020Z"
+    "retryEvidence": "removed stray emma-watson keyword (.ts+draft+override cache)",
+    "retryAt": "2026-06-30T12:38:30.305Z"
   }
 }
