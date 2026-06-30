@@ -1664,22 +1664,20 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
     "stage": "pushed-preview",
-    "lockedBy": "98419",
-    "leaseUntil": "2026-06-30T14:15:01.567Z",
-    "updatedAt": "2026-06-30T13:15:01.567Z",
+    "lockedBy": "965",
+    "leaseUntil": "2026-06-30T14:20:43.510Z",
+    "updatedAt": "2026-06-30T13:20:43.510Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
     "branch": "seo/auto/2026-06-30-PG-WC-041",
     "pr": "https://github.com/xdawayer/oracle/pull/295",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "fixed line63: tournament window = June 13 group stage onward, not only late-June/July",
-    "retryAt": "2026-06-30T13:15:01.567Z",
-    "error": "codex completed with codex FAIL —2026 World Cup is not in Morocco",
-    "failedAt": "2026-06-30T13:19:23.567Z"
+    "retryEvidence": "fixed: Morocco is a participating team not the 2026 WC host; reworded \"World Cup in Morocco\"",
+    "retryAt": "2026-06-30T13:20:43.510Z"
   }
 }
