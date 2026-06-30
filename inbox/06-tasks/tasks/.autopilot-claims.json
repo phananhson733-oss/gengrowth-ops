@@ -1668,10 +1668,10 @@
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "92600",
-    "leaseUntil": "2026-06-30T14:02:00.981Z",
-    "updatedAt": "2026-06-30T13:02:00.981Z",
+    "leaseUntil": "2026-06-30T14:03:54.023Z",
+    "updatedAt": "2026-06-30T13:03:54.023Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-WC-041",
     "branch": "seo/auto/2026-06-30-PG-WC-041"
   }
