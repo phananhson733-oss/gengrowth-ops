@@ -1622,7 +1622,7 @@
     "mergedAt": "2026-06-30T12:19:12.881Z"
   },
   "PG-CELEB-011": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "teyana-taylor-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-011.md",
@@ -1634,6 +1634,8 @@
     "branch": "seo/auto/2026-06-30-PG-CELEB-011",
     "pr": "https://github.com/xdawayer/oracle/pull/293",
     "zh": false,
-    "needs_hero": true
+    "needs_hero": true,
+    "error": "review[schema] FAIL: The keywords array contains \"emma watson zodiac sign\", an off-topic term for a different celebrity that contradicts this article's subject (the Teyana Taylor birth chart).",
+    "failedAt": "2026-06-30T12:36:52.020Z"
   }
 }
