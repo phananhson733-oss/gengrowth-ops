@@ -15,7 +15,7 @@ owner: 前端/后端同事
 
 | 位置  | 当前 H2                                                    | 修改为                                         | 操作                                |
 | --- | -------------------------------------------------------- | ------------------------------------------- | --------------------------------- |
-| 第1个 | What can you generate?                                   | —                                           | **删除**（与"Free AI generators"内容重复） |
+| 第1个 | What can you generate?                                   | —                                           | **删除 H2 及其下方整个内容区块**（该区块列出的工具 H3 与"Free AI generators"完全重复，后者更完整，直接保留后者即可） |
 | 第2个 | Start with a story, turn it into a campaign              | From AI story to full D&D campaign          | **修改**                            |
 | 第3个 | Choose your path                                         | —                                           | **删除**（纯UI标签，无关键词价值）              |
 | 第4个 | Free AI generators                                       | Free AI story and RPG generators            | **修改**                            |
