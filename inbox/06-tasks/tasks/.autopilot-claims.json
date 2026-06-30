@@ -1620,5 +1620,17 @@
     "verifiedAt": "2026-06-30T12:19:05.126Z",
     "headRefOid": "64be9e3c077acf11abdf2e8056e0491f97ba94e8",
     "mergedAt": "2026-06-30T12:19:12.881Z"
+  },
+  "PG-CELEB-011": {
+    "status": "active",
+    "slug": "teyana-taylor-birth-chart",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-011.md",
+    "stage": "convert",
+    "lockedBy": "72661",
+    "leaseUntil": "2026-06-30T13:22:08.277Z",
+    "updatedAt": "2026-06-30T12:22:08.277Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-011",
+    "branch": "seo/auto/2026-06-30-PG-CELEB-011"
   }
 }
