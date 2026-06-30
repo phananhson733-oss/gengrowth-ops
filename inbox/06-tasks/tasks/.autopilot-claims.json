@@ -1579,5 +1579,15 @@
     "verifiedAt": "2026-06-26T17:47:14.016Z",
     "headRefOid": "bcb12c1b181bdf1156023e955b0e9b2e1074362b",
     "mergedAt": "2026-06-26T17:47:20.170Z"
+  },
+  "PG-CELEB-009": {
+    "status": "active",
+    "slug": "serena-williams-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "worktree",
+    "lockedBy": "47690",
+    "leaseUntil": "2026-06-30T12:48:02.180Z",
+    "updatedAt": "2026-06-30T11:48:02.180Z"
   }
 }
