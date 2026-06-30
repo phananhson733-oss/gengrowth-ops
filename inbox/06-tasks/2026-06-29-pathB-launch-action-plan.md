@@ -266,18 +266,18 @@ googledocsresumetemplate.com 评论参考：
 
 **主词（首页）：** `ai story generator`
 
-| 层级 | URL | 目标关键词 | 优先级 |
-|---|---|---|---|
-| 二级目录 | `/dnd/` | dnd story generator | 高 |
-| 二级目录 | `/rpg/` | rpg story generator | 高 |
-| 二级目录 | `/npc/` | npc generator | 中 |
-| 三级内页 | `/dnd/backstory-generator/` | dnd backstory generator | 高（先上） |
-| 三级内页 | `/dnd/quest-hook-generator/` | dnd quest hook generator | 高（先上） |
-| 三级内页 | `/dnd/campaign-opening-generator/` | dnd campaign opening generator | 中 |
-| 三级内页 | `/rpg/character-generator/` | rpg character generator | 高（先上） |
-| 三级内页 | `/rpg/world-building-generator/` | rpg world building generator | 中 |
-| 三级内页 | `/npc/npc-name-generator/` | npc name generator | 高（先上） |
-| 三级内页 | `/npc/villain-generator/` | villain generator dnd | 中 |
+| 层级   | URL                                | 目标关键词                          | 优先级   |
+| ---- | ---------------------------------- | ------------------------------ | ----- |
+| 二级目录 | `/dnd/`                            | dnd story generator            | 高     |
+| 二级目录 | `/rpg/`                            | rpg story generator            | 高     |
+| 二级目录 | `/npc/`                            | npc generator                  | 中     |
+| 三级内页 | `/dnd/backstory-generator/`        | dnd backstory generator        | 高（先上） |
+| 三级内页 | `/dnd/quest-hook-generator/`       | dnd quest hook generator       | 高（先上） |
+| 三级内页 | `/dnd/campaign-opening-generator/` | dnd campaign opening generator | 中     |
+| 三级内页 | `/rpg/character-generator/`        | rpg character generator        | 高（先上） |
+| 三级内页 | `/rpg/world-building-generator/`   | rpg world building generator   | 中     |
+| 三级内页 | `/npc/npc-name-generator/`         | npc name generator             | 高（先上） |
+| 三级内页 | `/npc/villain-generator/`          | villain generator dnd          | 中     |
 
 **执行顺序：** 先批量上线全部三级内页 → 再完善二级目录页 → 三级页权重积累后自然推升首页排名。
 
