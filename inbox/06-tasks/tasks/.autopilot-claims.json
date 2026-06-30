@@ -1585,9 +1585,11 @@
     "slug": "serena-williams-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "worktree",
+    "stage": "convert",
     "lockedBy": "47690",
-    "leaseUntil": "2026-06-30T12:48:02.180Z",
-    "updatedAt": "2026-06-30T11:48:02.180Z"
+    "leaseUntil": "2026-06-30T12:48:11.308Z",
+    "updatedAt": "2026-06-30T11:48:11.308Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-009",
+    "branch": "seo/auto/2026-06-30-PG-CELEB-009"
   }
 }
