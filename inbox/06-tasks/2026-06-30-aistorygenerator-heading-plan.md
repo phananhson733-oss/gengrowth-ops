@@ -41,7 +41,7 @@ owner: 前端/后端同事
 | Romance Story Generator | 保留 | — |
 | Long Story Generator | 保留 | — |
 | Story Prompt Generator | 保留 | — |
-| AI NPC Generator | 保留 | — |
+| AI NPC Generator | **修改为 "NPC Generator"** | "npc generator" 月搜 2000、KD 3，是更优目标词；"ai npc generator" 月搜仅 30。H3 锚文本同步改为目标词，内链信号更强 |
 | Character Backstory Generator | 保留 | — |
 | D&D Name Generator | 保留 | — |
 | Tavern Name Generator | 保留 | — |
@@ -95,7 +95,7 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 
 | 子页 | 当前 H1 | 建议 H1 | 原因 |
 |---|---|---|---|
-| /rpg-tools/npc-generator 或类似路径 | AI NPC Generator | NPC Generator for D&D and Tabletop RPGs | "npc generator" 月搜 2000、KD 3；"ai npc generator" 月搜仅 30 |
+| /rpg-tools/ai-npc-generator（URL 不变） | AI NPC Generator | NPC Generator for D&D and Tabletop RPGs | "npc generator" 月搜 2000、KD 3，KDROI 100；"ai npc generator" 月搜仅 30。URL 无需修改，H1/H2/首页H3 锚文本统一换为 "npc generator" 即可 |
 | /story-generators/story-prompt-generator 或类似路径 | Story Prompt Generator | Story Prompt Generator for Writers and Game Masters | 补充使用场景，提升点击率 |
 
 **其余 13 个子页 H1 保持不变。**
