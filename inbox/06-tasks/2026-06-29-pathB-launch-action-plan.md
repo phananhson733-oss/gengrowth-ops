@@ -308,6 +308,23 @@ googledocsresumetemplate.com 评论参考：
 
 **执行顺序：** 先批量上线全部三级内页 → 再完善二级目录页 → 三级页权重积累后自然推升首页排名。
 
+> ⚠️ **2026-06-30 Ahrefs 实测修正（US）— 此"批量建页"规划不再执行：**
+>
+> | 关键词 | 月量 | KD | 处置 |
+> |---|---|---|---|
+> | npc generator | 2000 | 3 | ✅ 已有 `/rpg-tools/npc-generator` |
+> | dnd backstory generator | 800 | 1 | ✅ 已优化 `character-backstory-generator` 命中 |
+> | npc name generator | 800 | 46 | ⏸ 暂缓（KD 偏高，需新建页） |
+> | dnd story generator | 250 | 0 | ✅ 已有 `/dnd-story-generator` |
+> | rpg character generator | 40 | 26 | ✗ 跳过（量太小） |
+> | rpg story generator | 10 | 52 | ✗ 跳过（自身量 10） |
+> | rpg world building generator | 0 | — | ✗ 跳过（0 量） |
+> | dnd quest hook generator | 0 | — | ⚠️ 0 量，但已建页 |
+> | villain generator dnd | 0 | — | ✗ 跳过（0 量） |
+> | dnd campaign opening generator | 0 | — | ✗ 跳过（0 量） |
+>
+> 结论：现有 11 个扁平 `/rpg-tools/` 页已覆盖所有有量词；**保持扁平结构，不建 `/dnd` `/rpg` `/npc` 子目录**。新内页一律先用 Ahrefs 验证 volume>50 且 KD 可控再做。
+
 ---
 
 #### googledocsresumetemplate.com 架构规划
