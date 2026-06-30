@@ -1600,5 +1600,17 @@
     "verifiedAt": "2026-06-30T12:05:49.351Z",
     "headRefOid": "e8c6800da77d06db325d181994d8507d88b7e444",
     "mergedAt": "2026-06-30T12:05:55.647Z"
+  },
+  "PG-CELEB-010": {
+    "status": "active",
+    "slug": "jannik-sinner-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-010.md",
+    "stage": "convert",
+    "lockedBy": "66502",
+    "leaseUntil": "2026-06-30T13:10:31.932Z",
+    "updatedAt": "2026-06-30T12:10:31.932Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-010",
+    "branch": "seo/auto/2026-06-30-PG-CELEB-010"
   }
 }
