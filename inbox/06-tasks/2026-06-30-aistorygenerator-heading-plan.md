@@ -102,6 +102,42 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 
 ---
 
+## 四-补充、词根对比分析：行2-12候选词处理结论
+
+对 CSV 表格第2-12行候选词逐一与现有15个子页对比，得出以下结论：
+
+### 需要操作（2项）
+
+**① Character Backstory Generator 子页补充 H2**
+- 候选词 `dnd backstory generator`：800vol、KD 1、CPC $0.1
+- 现有子页目标词 `character backstory generator`：1200vol、KD 3——量更高，不替换 H1
+- 操作：在子页补充内容时，增加一个 H2 `DnD Backstory Generator`，一页同时覆盖两个词
+
+**② 新建子页 `/dnd-story-generator/`**
+- 候选词 `dnd story generator`：250vol、KD 0、CPC $0.4
+- 现有页面无直接对应（Fantasy/Horror 等为类型词，DnD 是游戏系统词，意图不同）
+- 操作：新建独立子页，H1 为 `DnD Story Generator`，归入 Story Generators 分类
+
+### 放入未来计划（DR 提升后再建，1项）
+
+| 词 | 数据 | 原因 |
+|---|---|---|
+| story title generator | 1800vol、KD 14、CPC $0.25 | Top10 最低 DR 为 60，当前站 DR 0 无法竞争，待 DR 提升后再建页面 |
+
+### 跳过（7项）
+
+| 词 | 原因 |
+|---|---|
+| rpg story generator | KD 52、量仅 10，性价比极低 |
+| dnd quest hook generator | 0 搜索量 |
+| dnd campaign opening generator | 0 搜索量 |
+| rpg character generator | 量 40、KD 26，KDROI 差 |
+| rpg world building generator | 0 搜索量 |
+| npc name generator | KD 46，新站无法竞争 |
+| villain generator dnd | 0 搜索量 |
+
+---
+
 ## 五、修改优先级汇总
 
 | 优先级 | 任务 |
@@ -111,8 +147,11 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 | P1 | 首页 H3 删除 "AI Story Generator" |
 | P2 | 按 KDROI 顺序为子页补充内容（Magic Item → Tavern Name → Story Prompt → Character Backstory） |
 | P3 | AI NPC Generator 子页 H1 调整 |
+| P3 | Character Backstory Generator 子页补充 H2 `DnD Backstory Generator`（覆盖 800vol KD1 候选词） |
+| P3 | 新建子页 `/dnd-story-generator/`（250vol、KD 0，DnD 专属意图，现有页面无对应） |
 | P3 | 全部子页添加 Related tools 横向内链 |
 | P3 | 确认 Hero 区块右侧工具（"Start with a rough idea" 输入框 + Genre/Tone 下拉）在移动端可见；当前桌面端可见，移动端是否折叠或隐藏需核实 |
+| 未来 | 新建 `/story-title-generator/`（1800vol、KD 14），待站点 DR 提升至 20+ 后执行 |
 
 ---
 
