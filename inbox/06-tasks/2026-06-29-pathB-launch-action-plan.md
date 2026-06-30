@@ -24,10 +24,6 @@ status: 执行中
 
 ### 第一阶段：48小时内 — 收录冷启动
 
-- [ ] GSC 验证两个域名（Add property → DNS 验证）
-- [ ] 提交 Sitemap：`aistorygenerator.work/sitemap.xml` 和 `googledocsresumetemplate.com/sitemap.xml`
-- [ ] GSC URL Inspection → 对两站核心页面点 "Request Indexing"
-
 **冷启动发帖（引蜘蛛，同时带外链）**
 
 | 平台 | aistorygenerator.work | googledocsresumetemplate.com |
@@ -37,7 +33,7 @@ status: 执行中
 | Product Hunt | 正式发布帖 | 正式发布帖 |
 | GitHub Awesome List | 搜 `awesome ai tools`、`awesome dnd`、`awesome rpg`，提 PR | 搜 `awesome resume`、`awesome job search`，提 PR |
 
-> GitHub Awesome List 的原理：github.com DR ~100，PR 合并后即获得一条高权重 dofollow 外链，同时触发蜘蛛快速发现新站。
+> GitHub Awesome List 提 PR 不需要技术权限，在网页端即可操作：找到目标 repo → Edit → 在列表末尾加一行自己的工具链接 → 提交 PR。PR 合并后即获得 DR ~100 的 dofollow 外链。
 
 ---
 
@@ -79,7 +75,16 @@ status: 执行中
 
 ---
 
-## 后端同事的任务（技术修复）
+## 后端同事的任务（技术修复 + 平台操作）
+
+### 收录冷启动（需后台权限）
+
+- [ ] **GSC 验证两个域名**（Add property → DNS 验证）
+- [ ] **提交 Sitemap**：`aistorygenerator.work/sitemap.xml` 和 `googledocsresumetemplate.com/sitemap.xml`
+- [ ] **GSC URL Inspection**：对两站核心页面点 "Request Indexing"
+- [ ] **建立 GitHub 项目仓库**：为两站各创建一个 GitHub repo，README 写工具介绍并附正式站链接（获得 github.com DR ~100 外链）
+
+---
 
 ### aistorygenerator.work
 
