@@ -17,7 +17,7 @@ owner: 前端/后端同事
 | --- | -------------------------------------------------------- | ------------------------------------------- | --------------------------------- |
 | 第1个 | What can you generate?                                   | —                                           | **删除 H2 及其下方整个内容区块**（该区块列出的工具 H3 与"Free AI generators"完全重复，后者更完整，直接保留后者即可） |
 | 第2个 | Start with a story, turn it into a campaign              | From AI story to full D&D campaign          | **修改**                            |
-| 第3个 | Choose your path                                         | —                                           | **删除**（纯UI标签，无关键词价值）              |
+| 第3个 | Choose your path                                         | —                                           | **删除 H2 及其下方整个内容区块**（纯UI标签，无关键词价值，内容无需保留）              |
 | 第4个 | Free AI generators                                       | Free AI story and RPG generators            | **修改**                            |
 | 第5个 | Built for tabletop RPG sessions                          | Built for D&D and tabletop RPG Game Masters | **修改**                            |
 | 第6个 | Example outputs                                          | Example AI story and NPC outputs            | **修改**                            |
@@ -112,6 +112,7 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 | P2 | 按 KDROI 顺序为子页补充内容（Magic Item → Tavern Name → Story Prompt → Character Backstory） |
 | P3 | AI NPC Generator 子页 H1 调整 |
 | P3 | 全部子页添加 Related tools 横向内链 |
+| P3 | 确认 Hero 区块右侧工具（"Start with a rough idea" 输入框 + Genre/Tone 下拉）在移动端可见；当前桌面端可见，移动端是否折叠或隐藏需核实 |
 
 ---
 
