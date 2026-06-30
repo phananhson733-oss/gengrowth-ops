@@ -1622,7 +1622,7 @@
     "mergedAt": "2026-06-30T12:19:12.881Z"
   },
   "PG-CELEB-011": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "teyana-taylor-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-011.md",
@@ -1636,6 +1636,11 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed anchor-target mismatch: Sagittarius sun sign anchor now points to Kylie Jenner zodiac (matching semantics)",
-    "retryAt": "2026-06-30T12:43:01.781Z"
+    "retryAt": "2026-06-30T12:43:01.781Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-06-30-pg-138a52-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-06-30T12:47:06.641Z",
+    "headRefOid": "9ae86f71e2a53a5c7097a36944e72677b00b511f",
+    "mergedAt": "2026-06-30T12:47:12.385Z"
   }
 }
