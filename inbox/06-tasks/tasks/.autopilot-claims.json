@@ -1664,7 +1664,7 @@
     "mergedAt": "2026-06-30T12:58:01.412Z"
   },
   "PG-WC-041": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "morocco-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-WC-041.md",
@@ -1678,6 +1678,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "fixed: Morocco is a participating team not the 2026 WC host; reworded \"World Cup in Morocco\"",
-    "retryAt": "2026-06-30T13:20:43.510Z"
+    "retryAt": "2026-06-30T13:20:43.510Z",
+    "error": "codex completed with codex FAIL —SVG/plan says only late-June and July 2026 timing matters, but Morocco’s group stage begins June 13.",
+    "failedAt": "2026-06-30T13:24:58.129Z"
   }
 }
