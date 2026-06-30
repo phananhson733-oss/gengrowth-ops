@@ -306,7 +306,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-009` serena williams birth chart
 - [x] `PG-CELEB-010` jannik sinner zodiac sign
 - [x] `PG-CELEB-011` teyana taylor birth chart
-- [ ] `PG-CELEB-012` ben shelton zodiac sign
+- [x] `PG-CELEB-012` ben shelton zodiac sign
 - [ ] `PG-WC-041` morocco world cup 2026 astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
