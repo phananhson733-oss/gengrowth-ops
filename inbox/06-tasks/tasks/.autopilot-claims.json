@@ -1644,15 +1644,18 @@
     "mergedAt": "2026-06-30T12:47:12.385Z"
   },
   "PG-CELEB-012": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "ben-shelton-zodiac-sign",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-012.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "86848",
-    "leaseUntil": "2026-06-30T13:51:18.579Z",
-    "updatedAt": "2026-06-30T12:51:18.579Z",
+    "leaseUntil": "2026-06-30T13:51:54.558Z",
+    "updatedAt": "2026-06-30T12:51:54.558Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-012",
-    "branch": "seo/auto/2026-06-30-PG-CELEB-012"
+    "branch": "seo/auto/2026-06-30-PG-CELEB-012",
+    "pr": "https://github.com/xdawayer/oracle/pull/294",
+    "zh": false,
+    "needs_hero": true
   }
 }
