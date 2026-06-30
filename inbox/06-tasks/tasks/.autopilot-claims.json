@@ -1622,7 +1622,7 @@
     "mergedAt": "2026-06-30T12:19:12.881Z"
   },
   "PG-CELEB-011": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "teyana-taylor-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-011.md",
@@ -1636,6 +1636,8 @@
     "zh": false,
     "needs_hero": true,
     "retryEvidence": "removed stray emma-watson keyword (.ts+draft+override cache)",
-    "retryAt": "2026-06-30T12:38:30.305Z"
+    "retryAt": "2026-06-30T12:38:30.305Z",
+    "error": "review[links-seo] FAIL: The in-body anchor \"the Sagittarius sun sign\" links to /en/wiki/9th-house-astrology, a target semantically unrelated to the anchor text, signaling a mis-wired internal link that misleads readers and crawlers.",
+    "failedAt": "2026-06-30T12:41:25.723Z"
   }
 }
