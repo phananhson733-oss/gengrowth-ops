@@ -303,7 +303,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 6月30日 (周二) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-CELEB-009` serena williams birth chart
+- [x] `PG-CELEB-009` serena williams birth chart
 - [ ] `PG-CELEB-010` jannik sinner zodiac sign
 - [ ] `PG-CELEB-011` teyana taylor birth chart
 - [ ] `PG-CELEB-012` ben shelton zodiac sign
