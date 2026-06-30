@@ -145,7 +145,7 @@ googledocsresumetemplate.com 评论参考：
 
 **第一步：找目标 repo**
 1. 打开 github.com，在搜索框输入以下关键词并回车：
-   - aistorygenerator.work 用：`awesome ai tools`、`awesome dnd`、`awesome rpg`
+   - aistorygenerator.work 用：c、`awesome dnd`、`awesome rpg`
    - googledocsresumetemplate.com 用：`awesome resume`、`awesome job search`
 2. 筛选条件：点击 "Repositories" 标签，按 Stars 排序，优先选 Star 数 500+ 的 repo
 
