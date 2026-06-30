@@ -1581,7 +1581,7 @@
     "mergedAt": "2026-06-26T17:47:20.170Z"
   },
   "PG-CELEB-009": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "serena-williams-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1592,6 +1592,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-009",
     "branch": "seo/auto/2026-06-30-PG-CELEB-009",
     "pr": "https://github.com/xdawayer/oracle/pull/291",
-    "zh": false
+    "zh": false,
+    "error": "review[schema] FAIL: The declared keywords array contains an off-topic, hallucinated entry (\"emma watson zodiac sign\") that contradicts the article body, which is entirely about Serena Williams.",
+    "failedAt": "2026-06-30T11:57:22.796Z"
   }
 }
