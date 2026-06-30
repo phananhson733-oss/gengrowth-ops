@@ -1622,22 +1622,20 @@
     "mergedAt": "2026-06-30T12:19:12.881Z"
   },
   "PG-CELEB-011": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "teyana-taylor-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-011.md",
     "stage": "pushed-preview",
-    "lockedBy": "81170",
-    "leaseUntil": "2026-06-30T13:38:30.305Z",
-    "updatedAt": "2026-06-30T12:38:30.305Z",
+    "lockedBy": "84378",
+    "leaseUntil": "2026-06-30T13:43:01.781Z",
+    "updatedAt": "2026-06-30T12:43:01.781Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-06-30-PG-CELEB-011",
     "branch": "seo/auto/2026-06-30-PG-CELEB-011",
     "pr": "https://github.com/xdawayer/oracle/pull/293",
     "zh": false,
     "needs_hero": true,
-    "retryEvidence": "removed stray emma-watson keyword (.ts+draft+override cache)",
-    "retryAt": "2026-06-30T12:38:30.305Z",
-    "error": "review[links-seo] FAIL: The in-body anchor \"the Sagittarius sun sign\" links to /en/wiki/9th-house-astrology, a target semantically unrelated to the anchor text, signaling a mis-wired internal link that misleads readers and crawlers.",
-    "failedAt": "2026-06-30T12:41:25.723Z"
+    "retryEvidence": "fixed anchor-target mismatch: Sagittarius sun sign anchor now points to Kylie Jenner zodiac (matching semantics)",
+    "retryAt": "2026-06-30T12:43:01.781Z"
   }
 }
