@@ -807,57 +807,90 @@ def cmd_settle(args):
     print(f"settled: {ledger_path.relative_to(ledger_root)} ({n_settled} rows)")
 
 
-def cmd_monthly_close(args):
-    """月底:carry-forward 未结清 row 到下月账本 + 生成本月 summary md。
-
-    v2.5.8:同时跑主账本(国内增值税票)和备用金账本(海外 invoice)。
-    备用金账本里未结清的 invoice 也要顺延,否则下月看不到。
-
-    v2.5.9:在 carry_forward 之前先跑 relocate-settled — 已结清 row 按 settled_date
-    月份归档(把"period=结清月"的设计意图落实)。两套账本一致处理。
-
-    幂等:重跑同月不会重复 carry(源月 row 标 ↗ 后会 skipped_already)。
-    """
-    month = args.month or datetime.date.today().strftime("%Y-%m")
-    ledger_root = Path(args.ledger_root).expanduser() if args.ledger_root else DEFAULT_LEDGER_ROOT
+def _resolve_roots(args):
+    """从 args 解析 4 个 root,缺省用 DEFAULT。month-end/start/monthly-close/uncarry 共用。"""
+    ledger_root = Path(args.ledger_root).expanduser() if getattr(args, "ledger_root", None) else DEFAULT_LEDGER_ROOT
     archive_root = Path(args.archive_root).expanduser() if getattr(args, "archive_root", None) else DEFAULT_ARCHIVE_ROOT
     petty_root = (Path(args.petty_ledger_root).expanduser()
-                  if getattr(args, "petty_ledger_root", None)
-                  else DEFAULT_PETTY_LEDGER_ROOT)
+                  if getattr(args, "petty_ledger_root", None) else DEFAULT_PETTY_LEDGER_ROOT)
     overseas_root = (Path(args.overseas_archive_root).expanduser()
-                     if getattr(args, "overseas_archive_root", None)
-                     else DEFAULT_OVERSEAS_INVOICE_ROOT)
-    to_month = transfer.next_month(month)
+                     if getattr(args, "overseas_archive_root", None) else DEFAULT_OVERSEAS_INVOICE_ROOT)
+    return ledger_root, archive_root, petty_root, overseas_root
 
-    # v2.5.9 Step 0:全量扫已结清 row,按 settled_date 月份归档(在 carry 之前跑,
-    # 否则 carry 会把"已结清但 period 未对齐"的 row 当未结清处理产生奇怪结果)
-    main_relocated = transfer.relocate_settled_by_settled_month(
-        ledger_root=ledger_root, wiki_root=WIKI_ROOT,
-        archive_root=archive_root, dry_run=False,
-    )
-    _print_relocate_summary("主账本", main_relocated)
-    petty_relocated = transfer.relocate_settled_by_settled_month(
-        ledger_root=petty_root, wiki_root=WIKI_ROOT,
-        archive_root=overseas_root, dry_run=False,
-    )
-    _print_relocate_summary("备用金账本", petty_relocated)
 
-    # 1. 主账本 carry(国内增值税票 → 发票/ 物理迁移)
-    main_results = transfer.carry_forward(
-        ledger_root=ledger_root, from_month=month,
-        wiki_root=WIKI_ROOT, archive_root=archive_root,
-    )
-    _print_carry_summary("主账本", month, to_month, main_results)
-    outs = summary.write_summary(ledger_root, month)
-    for o in outs:
+def _relocate_settled_both(ledger_root, archive_root, petty_root, overseas_root):
+    """两套账本各跑一次 relocate-settled(已结清按 settled_date 月份归位)。"""
+    _print_relocate_summary("主账本", transfer.relocate_settled_by_settled_month(
+        ledger_root=ledger_root, wiki_root=WIKI_ROOT, archive_root=archive_root, dry_run=False))
+    _print_relocate_summary("备用金账本", transfer.relocate_settled_by_settled_month(
+        ledger_root=petty_root, wiki_root=WIKI_ROOT, archive_root=overseas_root, dry_run=False))
+
+
+def _write_summaries_both(ledger_root, petty_root, month):
+    """两套账本各人 summary + 总表刷新。"""
+    for o in summary.write_summary(ledger_root, month):
         print(f"主账本 summary: {o}")
+    for o in summary.write_summary(petty_root, month):
+        print(f"备用金 summary: {o}")
+    summary.write_total(ledger_root)
+    summary.write_total(petty_root)
 
-    # 2. 备用金账本 carry(海外 invoice → invoice/ 物理迁移)
-    petty_results = transfer.carry_forward(
-        ledger_root=petty_root, from_month=month,
-        wiki_root=WIKI_ROOT, archive_root=overseas_root,
-    )
-    _print_carry_summary("备用金账本", month, to_month, petty_results)
+
+def _run_month_start(month, ledger_root, archive_root, petty_root, overseas_root):
+    """月初结转(= 原 monthly-close 逻辑体):relocate-settled → carry-forward → summary。
+    两套账本(主/备用金)一致处理。幂等:源月 row 标 ↗ 后重跑 skipped_already。"""
+    to_month = transfer.next_month(month)
+    _relocate_settled_both(ledger_root, archive_root, petty_root, overseas_root)
+    _print_carry_summary("主账本", month, to_month, transfer.carry_forward(
+        ledger_root=ledger_root, from_month=month, wiki_root=WIKI_ROOT, archive_root=archive_root))
+    _print_carry_summary("备用金账本", month, to_month, transfer.carry_forward(
+        ledger_root=petty_root, from_month=month, wiki_root=WIKI_ROOT, archive_root=overseas_root))
+    _write_summaries_both(ledger_root, petty_root, month)
+
+
+def cmd_monthly_close(args):
+    """[已拆分:推荐 month-end(月末汇总)+ month-start(月初结转)] 旧的月底一次性,保留向后兼容。"""
+    month = args.month or datetime.date.today().strftime("%Y-%m")
+    _run_month_start(month, *_resolve_roots(args))
+
+
+def cmd_month_start(args):
+    """下月第一天:上月所有结清已结束 → 上月定版 + 把仍未结清的结转到本月 + 开启新月。
+    --month 默认 = 上月(today 的上个月)。"""
+    month = args.month or transfer.prev_month(datetime.date.today().strftime("%Y-%m"))
+    _run_month_start(month, *_resolve_roots(args))
+    print(f"--- month-start:已 close {month} 并结转到 {transfer.next_month(month)} ---")
+
+
+def cmd_month_end(args):
+    """每月最后一天:本月结账 + 汇总呈现给员工查验/结清。**不结转、不建下月**。
+    ① relocate-settled(已结清归位)② 本月各人 summary ③ 总表刷新。"""
+    month = args.month or datetime.date.today().strftime("%Y-%m")
+    ledger_root, archive_root, petty_root, overseas_root = _resolve_roots(args)
+    _relocate_settled_both(ledger_root, archive_root, petty_root, overseas_root)
+    _write_summaries_both(ledger_root, petty_root, month)
+    print(f"--- month-end {month}:已结账 + 汇总,未结转。下月第一天跑 month-start 才结转开新月 ---")
+
+
+def cmd_uncarry(args):
+    """撤销 from_month → to_month 的结转(carry_forward 逆操作)。回滚误 carry 用。
+    默认 dry-run 预览,真跑加 --apply。主账本 + 备用金两套。"""
+    from_month = args.month
+    to_month = args.to_month or transfer.next_month(from_month)
+    dry_run = not args.apply
+    ledger_root, archive_root, petty_root, overseas_root = _resolve_roots(args)
+    main_res = transfer.uncarry_forward(
+        ledger_root=ledger_root, from_month=from_month, to_month=to_month,
+        wiki_root=WIKI_ROOT, archive_root=archive_root, dry_run=dry_run)
+    petty_res = transfer.uncarry_forward(
+        ledger_root=petty_root, from_month=from_month, to_month=to_month,
+        wiki_root=WIKI_ROOT, archive_root=overseas_root, dry_run=dry_run)
+    tag = "[DRY-RUN]" if dry_run else "[已撤销]"
+    for label, res in [("主账本", main_res), ("备用金", petty_res)]:
+        print(f"--- {label} uncarry {from_month}→{to_month}: {len(res)} 张"
+              f"{'(加 --apply 真跑)' if dry_run and res else ''} ---")
+        for r in res:
+            print(f"  {tag} {r.invoice_number or r.id8}")
 
 
 def cmd_relocate_settled(args):
@@ -971,7 +1004,7 @@ def main(argv=None):
     sp.set_defaults(func=cmd_fetch_mail)
 
     sp = sub.add_parser("monthly-close",
-                        help="月底:carry-forward 未结清 row 到下月 + 生成本月 summary(同时跑主+备用金账本)")
+                        help="[已拆分→month-end/month-start] 旧:月底一次性 carry+summary(向后兼容)")
     sp.add_argument("--month", default=None,
                     help="YYYY-MM 指定要 close 的月份(默认本月)")
     sp.add_argument("--ledger-root", default=None, help="主账本目录(默认 报销/)")
@@ -979,6 +1012,32 @@ def main(argv=None):
     sp.add_argument("--petty-ledger-root", default=None, help="备用金账本目录(默认 备用金/)")
     sp.add_argument("--overseas-archive-root", default=None, help="海外归档根(默认 invoice/)")
     sp.set_defaults(func=cmd_monthly_close)
+
+    def _add_close_roots(sp_):
+        sp_.add_argument("--ledger-root", default=None, help="主账本目录(默认 报销/)")
+        sp_.add_argument("--archive-root", default=None, help="国内归档根(默认 发票/)")
+        sp_.add_argument("--petty-ledger-root", default=None, help="备用金账本目录(默认 备用金/)")
+        sp_.add_argument("--overseas-archive-root", default=None, help="海外归档根(默认 invoice/)")
+
+    sp = sub.add_parser("month-end",
+                        help="每月最后一天:本月结账+汇总呈现给员工查验/结清(不结转、不建下月)")
+    sp.add_argument("--month", default=None, help="YYYY-MM(默认本月)")
+    _add_close_roots(sp)
+    sp.set_defaults(func=cmd_month_end)
+
+    sp = sub.add_parser("month-start",
+                        help="下月第一天:上月定版+把未结清结转到本月+开新月(--month 默认上月)")
+    sp.add_argument("--month", default=None, help="YYYY-MM 要 close 的月(默认上月)")
+    _add_close_roots(sp)
+    sp.set_defaults(func=cmd_month_start)
+
+    sp = sub.add_parser("uncarry",
+                        help="撤销某月→下月结转(carry 逆操作,回滚误 carry);默认 dry-run,真跑加 --apply")
+    sp.add_argument("--month", required=True, help="from_month:被结转出去的源月 YYYY-MM")
+    sp.add_argument("--to-month", default=None, help="目标月(默认 from_month 的下月)")
+    sp.add_argument("--apply", action="store_true", help="真跑(默认 dry-run 只预览)")
+    _add_close_roots(sp)
+    sp.set_defaults(func=cmd_uncarry)
 
     sp = sub.add_parser("drop-scan",
                         help="扫 wiki 投递区 _drop/{人}/ 搬到 _inbox(非邮件渠道发票)")

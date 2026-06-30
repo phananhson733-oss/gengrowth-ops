@@ -238,13 +238,22 @@ def _decode_header(value) -> str:
 
 
 def _attachment_filename(part) -> Optional[str]:
-    if part.get_content_disposition() not in ("attachment", "inline"):
-        return None
     name = part.get_filename()    # email lib 自动解 RFC 2231 / MIME B/Q 编码
     if not name:
         return None
     # 偶发 server 不规范返回 =?utf-8?B?...?= 还没解,补一刀
-    return _decode_header(name) if "=?" in name else name
+    name = _decode_header(name) if "=?" in name else name
+    disp = part.get_content_disposition()
+    if disp in ("attachment", "inline"):
+        return name
+    # v2.5.10:QQ/Foxmail 内嵌图片发票 Content-Disposition 缺失(None),
+    # filename 藏在 Content-Type 的 name 参数。有 filename 且非文本正文/非容器
+    # 就当附件 —— 白名单扩展名在 _matches_ext 兜底,故放宽安全。
+    # 修复马博洋入职体检发票(png, disposition=None)被判『无附件』漏抓的事故。
+    if disp is None and not part.is_multipart() \
+            and not part.get_content_type().startswith("text/"):
+        return name
+    return None
 
 
 _BAD_FN_CHARS = re.compile(r'[\\:*?"<>|\x00]')

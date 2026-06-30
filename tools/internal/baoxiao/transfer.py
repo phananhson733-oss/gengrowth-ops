@@ -45,6 +45,15 @@ def next_month(month: str) -> str:
     return f"{y}-{m + 1:02d}"
 
 
+def prev_month(month: str) -> str:
+    """上月。对称于 next_month;month-start 在下月第一天跑时 close 上月用。"""
+    y, m = month.split("-")
+    y, m = int(y), int(m)
+    if m == 1:
+        return f"{y - 1}-12"
+    return f"{y}-{m - 1:02d}"
+
+
 def _is_done(row) -> bool:
     return row.settled == ledger.SETTLED_OK
 
@@ -354,4 +363,120 @@ def carry_forward(*, ledger_root, from_month: str,
             ledger.update_row_note(src_path, row.id8, note=new_note)
             results.append(CarryResult(row.id8, from_month, to_month, "carried"))
 
+    return results
+
+
+@dataclass
+class UncarryResult:
+    id8: str
+    invoice_number: str
+    from_month: str
+    to_month: str
+    status: str            # "uncarried" | "dry_run"
+    file_moved: bool = False
+    reason: str = ""
+
+
+def _strip_carry_out_note(note: str, to_month: str) -> str:
+    """去掉 carry_forward 加在 note **末尾**的 ` ↗ 延至 {to_month}` 标记,恢复原 note。
+    carry 总是 append 到末尾(f"{orig} {mark}".strip() 或裸 mark),所以只去末尾单次,
+    避免全局 replace 误删用户 note 中间碰巧出现的同款标记文本(P2#6)。"""
+    note = note or ""
+    mark = f"{CARRY_OUT_MARK} {to_month}"
+    if note == mark:
+        return ""
+    if note.endswith(f" {mark}"):
+        return note[: -len(f" {mark}")].strip()
+    if note.endswith(mark):
+        return note[: -len(mark)].strip()
+    return note.strip()
+
+
+def uncarry_forward(*, ledger_root, from_month: str,
+                    to_month: Optional[str] = None,
+                    reimburser: Optional[str] = None,
+                    wiki_root=None, archive_root=None,
+                    dry_run: bool = True) -> List[UncarryResult]:
+    """carry_forward 的逆操作:撤销 from_month → to_month 的结转。
+
+    对 to_month 账本里每个 note 含 `{CARRY_IN_MARK} {from_month}`(← 自 ...)的 row:
+    1. 物理文件从 to_month 归档移回 from_month(relocate_file,前缀改回,复用撞名处理)
+    2. 删 to_month 这个 row(_delete_row_from_ledger,内部已 refresh dashboard)
+    3. from_month 同 id8 的源 row 撤掉 ↗ 标记(update_row_note 恢复原 note)
+    4. from_month refresh dashboard
+
+    幂等:to_month 无 carry-in row → 返回 []。
+    dry_run=True(默认):只收集 candidates,不动文件/账本(安全模式)。
+    """
+    ledger_root = Path(ledger_root)
+    to_month = to_month or next_month(from_month)
+    to_month_dir = ledger_root / to_month
+
+    if reimburser is not None:
+        targets = [(reimburser,
+                    ledger.ledger_path_for(to_month, ledger_root, reimburser=reimburser))]
+    else:
+        targets = []
+        if to_month_dir.exists():
+            for md in sorted(to_month_dir.glob("*.md")):
+                if md.stem.endswith("-summary"):
+                    continue
+                targets.append((md.stem, md))
+
+    carry_in_mark = f"{CARRY_IN_MARK} {from_month}"
+    candidates = []   # [(reimb, to_path, row)]
+    for reimb, to_path in targets:
+        if not to_path.exists():
+            continue
+        for row in ledger.parse_ledger(to_path):
+            # P2#7:carry_forward 把 carry-in marker 放在 note **开头**
+            # (`← 自 {m}` 或 `← 自 {m} | {orig}`),用 startswith 精确判定,
+            # 避免原生 row 的 note 中间碰巧含该文本被误判为 carried 而误删。
+            if (row.note or "").startswith(carry_in_mark):
+                candidates.append((reimb, to_path, row))
+
+    if dry_run:
+        return [UncarryResult(
+            id8=row.id8, invoice_number=row.invoice_number,
+            from_month=from_month, to_month=to_month, status="dry_run",
+        ) for _reimb, _to_path, row in candidates]
+
+    results: List[UncarryResult] = []
+    for reimb, to_path, row in candidates:
+        # P1#1 守卫:删 to_month 副本前先确认 from_month 源 row 还在。
+        # 若源 row 已不在(已结清被 relocate 迁走 / 手删),删了 to_month 副本就
+        # 无法重建 → 发票从所有账本消失、文件成孤儿。源缺失 → skip + 报告,不动数据。
+        from_path = ledger.ledger_path_for(from_month, ledger_root, reimburser=reimb)
+        from_row = ledger.find_by_id8(from_path, row.id8) if from_path.exists() else None
+        if from_row is None:
+            results.append(UncarryResult(
+                id8=row.id8, invoice_number=row.invoice_number,
+                from_month=from_month, to_month=to_month, status="skipped_no_source",
+                reason=f"{from_month} 无对应源 row,拒绝删 {to_month} 副本(否则发票丢失)",
+            ))
+            continue
+        # 1. 物理文件移回 from_month(前缀改回 to_yyyymm → from_yyyymm)。
+        #    P2#4:撞名时 relocate 落到 -c{N},new_rel != 源 row.file_rel → 写回源 row,
+        #    避免源 row 链接悬空指向撞名占位的别人文件。
+        file_moved = False
+        if wiki_root is not None and archive_root is not None and row.file_rel:
+            new_rel = relocate_file(
+                wiki_root=wiki_root, archive_root=archive_root,
+                file_rel=row.file_rel, target_month=from_month,
+                reimburser=row.reimburser,
+            )
+            file_moved = (new_rel != row.file_rel)
+            if new_rel != from_row.file_rel:
+                ledger.update_row_file_rel(from_path, row.id8, new_file_rel=new_rel)
+        # 2. 删 to_month row。P2#5:按精确 id8 删,避免 _delete 按共享 invoice_number 误删别 row。
+        ledger._delete_row_from_ledger(to_path, "", id8_fallback=row.id8)
+        # 3. from_month 源 row 撤 ↗ 标记
+        ledger.update_row_note(from_path, row.id8,
+                               note=_strip_carry_out_note(from_row.note, to_month))
+        ledger.refresh_dashboard(from_path)
+        results.append(UncarryResult(
+            id8=row.id8, invoice_number=row.invoice_number,
+            from_month=from_month, to_month=to_month, status="uncarried",
+            file_moved=file_moved,
+        ))
     return results

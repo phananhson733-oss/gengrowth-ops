@@ -490,5 +490,102 @@ class SafeSubdirTraversalTests(unittest.TestCase):
             mailbox._safe_subdir(".hidden")
 
 
+def _build_qq_inline_image_email(*, subject="入职体检发票",
+                                 sender="605166975@qq.com",
+                                 filename="invoice.png",
+                                 content=b"PNGBYTES",
+                                 subtype="octet-stream"):
+    """模拟 QQ/Foxmail 内嵌图片发票:multipart/related,image part 用
+    application/octet-stream + Content-Type 的 name 参数带 filename,
+    且**不带 Content-Disposition**(get_content_disposition() → None)。
+    线上事故:马博洋入职体检发票(png)就是这个形态,被旧逻辑判『无附件』漏抓。"""
+    msg = MIMEMultipart("related")
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = "lynne@gengrowth.ai"
+    msg.attach(MIMEText("<html><body>见图</body></html>", "html"))
+    part = MIMEApplication(content, _subtype=subtype)
+    part.set_param("name", filename)          # filename 放 Content-Type name 参数
+    if "Content-Disposition" in part:
+        del part["Content-Disposition"]       # 关键:确保无 disposition
+    msg.attach(part)
+    return msg.as_bytes()
+
+
+class QQInlineImageTests(unittest.TestCase):
+    """v2.5.10:QQ/Foxmail 内嵌图片发票(Content-Disposition 缺失)也要抓到。"""
+
+    def test_qq_inline_png_no_disposition_saved(self):
+        raw = _build_qq_inline_image_email(filename="体检发票.png", content=b"PNGBYTES")
+        # 先复现根因:image part 确实 disposition=None
+        msg = email.message_from_bytes(raw)
+        img = [p for p in msg.walk()
+               if p.get_content_type() == "application/octet-stream"]
+        self.assertEqual(len(img), 1)
+        self.assertIsNone(img[0].get_content_disposition())
+        client = FakeImapClient(mails={20: raw})
+        with tempfile.TemporaryDirectory() as tmp:
+            results, _ = mailbox.fetch_to_inbox(
+                user="u", password="p",
+                inbox_dir=Path(tmp) / "_inbox", state_file=Path(tmp) / "s.txt",
+                imap_factory=_factory(client),
+            )
+            self.assertTrue(results[0].saved, "QQ 内嵌图片应被抓取")
+            self.assertEqual(results[0].saved_paths[0].name, "体检发票.png")
+            self.assertEqual(results[0].saved_paths[0].read_bytes(), b"PNGBYTES")
+
+    def test_text_body_not_treated_as_attachment(self):
+        """回归保护:纯文本正文(disposition=None, text/plain)不能被误当附件。"""
+        client = FakeImapClient(mails={
+            22: _build_email(subject="发票", body="just text, no file")})
+        with tempfile.TemporaryDirectory() as tmp:
+            results, _ = mailbox.fetch_to_inbox(
+                user="u", password="p",
+                inbox_dir=Path(tmp) / "_inbox", state_file=Path(tmp) / "s.txt",
+                imap_factory=_factory(client),
+            )
+            self.assertFalse(results[0].saved)
+            self.assertIn("无附件", results[0].skipped_reason)
+
+    def test_non_whitelist_inline_still_skipped(self):
+        """disposition=None 但非白名单扩展名(.exe)仍被白名单兜底跳过。"""
+        raw = _build_qq_inline_image_email(filename="evil.exe", content=b"MZ")
+        client = FakeImapClient(mails={23: raw})
+        with tempfile.TemporaryDirectory() as tmp:
+            results, _ = mailbox.fetch_to_inbox(
+                user="u", password="p",
+                inbox_dir=Path(tmp) / "_inbox", state_file=Path(tmp) / "s.txt",
+                imap_factory=_factory(client),
+            )
+            self.assertFalse(results[0].saved)
+            self.assertIn("白名单", results[0].skipped_reason)
+
+    def test_inline_disposition_image_saved(self):
+        """回归保护:Content-Disposition: inline 的内嵌图(原有分支)必须仍被抓取。
+        防重构 _attachment_filename 时从 ("attachment","inline") 删掉 inline,
+        而 disp=None 兜底救不了它(它的 disposition 是 'inline' 不是 None)。"""
+        msg = MIMEMultipart("related")
+        msg["Subject"] = "发票"
+        msg["From"] = "x@x.com"
+        msg.attach(MIMEText("见图", "html"))
+        part = MIMEImage(b"PNGDATA", _subtype="png")
+        part.add_header("Content-Disposition", "inline", filename="inline-invoice.png")
+        msg.attach(part)
+        raw = msg.as_bytes()
+        # 前置:确认该 part 的 disposition 真的是 inline(非 None)
+        m = email.message_from_bytes(raw)
+        img = [p for p in m.walk() if p.get_content_type() == "image/png"]
+        self.assertEqual(img[0].get_content_disposition(), "inline")
+        client = FakeImapClient(mails={30: raw})
+        with tempfile.TemporaryDirectory() as tmp:
+            results, _ = mailbox.fetch_to_inbox(
+                user="u", password="p",
+                inbox_dir=Path(tmp) / "_inbox", state_file=Path(tmp) / "s.txt",
+                imap_factory=_factory(client),
+            )
+            self.assertTrue(results[0].saved, "inline 内嵌图应被抓取")
+            self.assertEqual(results[0].saved_paths[0].name, "inline-invoice.png")
+
+
 if __name__ == "__main__":
     unittest.main()

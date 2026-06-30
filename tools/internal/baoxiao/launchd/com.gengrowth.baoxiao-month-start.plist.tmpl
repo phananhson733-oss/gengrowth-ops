@@ -3,25 +3,25 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.gengrowth.baoxiao-monthly</string>
+    <string>com.gengrowth.baoxiao-month-start</string>
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>@BAOXIAO_DIR@/launchd/run-monthly-close-if-last-day.sh</string>
+        <string>@BAOXIAO_DIR@/launchd/run-month-start-on-first-day.sh</string>
     </array>
     <key>WorkingDirectory</key>
     <string>@BAOXIAO_DIR@</string>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>23</integer>
+        <integer>9</integer>
         <key>Minute</key>
-        <integer>30</integer>
+        <integer>0</integer>
     </dict>
     <key>StandardOutPath</key>
-    <string>@BAOXIAO_DIR@/logs/launchd-monthly.log</string>
+    <string>@BAOXIAO_DIR@/logs/launchd-month-start.log</string>
     <key>StandardErrorPath</key>
-    <string>@BAOXIAO_DIR@/logs/launchd-monthly.err</string>
+    <string>@BAOXIAO_DIR@/logs/launchd-month-start.err</string>
     <key>RunAtLoad</key>
     <false/>
     <key>EnvironmentVariables</key>

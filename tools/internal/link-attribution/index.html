@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AstrologyWiki 外链生成工具</title>
+  <title>外链生成工具</title>
   <style>
     :root {
       color-scheme: light;
@@ -45,7 +45,7 @@
       align-items: end;
       justify-content: space-between;
       gap: 18px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     h1 {
@@ -63,6 +63,40 @@
       background: var(--surface);
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0;
+    }
+
+    .tab {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      padding: 8px 16px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transform: translateY(1px);
+    }
+
+    .tab:hover {
+      color: var(--text);
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--brand-strong);
+      border-color: var(--line);
     }
 
     .workspace {
@@ -254,6 +288,37 @@
       font-size: 0.94em;
     }
 
+    .import-bar {
+      margin-top: 16px;
+    }
+
+    .import-body {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .import-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .import-row label {
+      flex: 1 1 320px;
+    }
+
+    .import-meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .import-meta a {
+      color: var(--brand-strong);
+    }
+
     @media (max-width: 860px) {
       main {
         width: min(100vw - 20px, 680px);
@@ -278,9 +343,11 @@
 <body>
   <main>
     <header>
-      <h1>AstrologyWiki 外链生成工具</h1>
-      <div class="domain-pill">仅允许 astrologywiki.com / www.astrologywiki.com</div>
+      <h1 id="page-title">外链生成工具</h1>
+      <div class="domain-pill" id="domain-pill"></div>
     </header>
+
+    <div class="tabs" id="site-tabs" role="tablist" aria-label="站点切换"></div>
 
     <div class="workspace">
       <div class="input-stack">
@@ -292,7 +359,7 @@
           <form id="link-form">
             <label class="full">
               落地页
-              <input id="landing-url" name="landingUrl" value="https://www.astrologywiki.com/" autocomplete="off">
+              <input id="landing-url" name="landingUrl" value="" autocomplete="off">
             </label>
 
             <label>
@@ -373,14 +440,79 @@
         </div>
       </section>
     </div>
+
+    <section class="import-bar" aria-labelledby="import-title">
+      <div class="panel-title" id="import-title">
+        <span>备份</span>
+        <span id="import-count">本会话已生成 0 条</span>
+      </div>
+      <div class="import-body">
+        <div class="import-row">
+          <label class="full">
+            Google Sheet Web App 地址
+            <input id="sheet-webapp-url" name="sheetWebappUrl" placeholder="部署 Apps Script 后粘贴 /exec 地址，会自动记住" autocomplete="off">
+          </label>
+        </div>
+        <div class="import-row">
+          <button type="button" id="import-google">导入Google</button>
+          <button class="secondary" type="button" id="clear-session">清空本会话记录</button>
+        </div>
+        <div class="import-meta" id="import-meta">
+          按钮会把本会话内所有站点生成过的链接（全部参数 + 长/短链接）追加到共享 Google Sheet，供 ops 查验备份。仅导出尚未导入过的记录。
+        </div>
+      </div>
+    </section>
   </main>
 
   <script type="application/json" id="reserved-code-registry" hidden>[]</script>
 
   <script id="link-attribution-core">
     (function () {
-      const ASTROLOGYWIKI_HOSTS = new Set(['astrologywiki.com', 'www.astrologywiki.com']);
-      const OWNED_SHORT_BASE_URL = 'https://www.astrologywiki.com/';
+      const SITES = [
+        {
+          key: 'gengrowth',
+          name: 'GenGrowth',
+          domain: 'gengrowth.ai',
+          hosts: ['gengrowth.ai', 'www.gengrowth.ai'],
+          baseUrl: 'https://www.gengrowth.ai/',
+          endpoint: 'https://www.gengrowth.ai/api/link-attribution/redirects?v=20260623',
+        },
+        {
+          key: 'astrologywiki',
+          name: 'AstrologyWiki',
+          domain: 'astrologywiki.com',
+          hosts: ['astrologywiki.com', 'www.astrologywiki.com'],
+          baseUrl: 'https://www.astrologywiki.com/',
+          endpoint: 'https://www.astrologywiki.com/api/link-attribution/redirects',
+        },
+        {
+          key: 'aistorygenerator',
+          name: 'AI Story Generator',
+          domain: 'aistorygenerator.work',
+          hosts: ['aistorygenerator.work', 'www.aistorygenerator.work'],
+          baseUrl: 'https://aistorygenerator.work/',
+          endpoint: 'https://aistorygenerator.work/api/link-attribution/redirects',
+        },
+        {
+          key: 'resumetemplate',
+          name: 'Resume Template',
+          domain: 'googledocsresumetemplate.com',
+          hosts: ['googledocsresumetemplate.com', 'www.googledocsresumetemplate.com'],
+          baseUrl: 'https://www.googledocsresumetemplate.com/',
+          endpoint: 'https://www.googledocsresumetemplate.com/api/link-attribution/redirects',
+        },
+      ];
+
+      function resolveSite(siteOrKey) {
+        if (siteOrKey && typeof siteOrKey === 'object') {
+          return siteOrKey;
+        }
+        const found = SITES.find((site) => site.key === siteOrKey);
+        if (!found) {
+          throw new Error(`未知站点：${siteOrKey}`);
+        }
+        return found;
+      }
 
       function valueOf(input, label) {
         const value = String(input || '').trim();
@@ -392,43 +524,6 @@
 
       function optionalValue(input) {
         return String(input || '').trim();
-      }
-
-      function normalizeLandingUrl(rawLandingUrl) {
-        let value = valueOf(rawLandingUrl, '落地页');
-        if (value.startsWith('/')) {
-          value = `https://www.astrologywiki.com${value}`;
-        } else if (!/^https?:\/\//i.test(value)) {
-          value = `https://${value}`;
-        }
-
-        const url = new URL(value);
-        const host = url.hostname.toLowerCase();
-        if (!ASTROLOGYWIKI_HOSTS.has(host)) {
-          throw new Error('落地页必须是 astrologywiki.com 或 www.astrologywiki.com');
-        }
-
-        url.protocol = 'https:';
-        return url;
-      }
-
-      function buildLongUrl(params) {
-        const url = normalizeLandingUrl(params.landingUrl);
-        const utmPairs = [
-          ['utm_source', optionalValue(params.source)],
-          ['utm_medium', optionalValue(params.medium)],
-          ['utm_campaign', optionalValue(params.campaign)],
-          ['utm_content', optionalValue(params.content)],
-        ];
-
-        utmPairs.forEach(([key]) => url.searchParams.delete(key));
-        utmPairs.forEach(([key, value]) => {
-          if (value) {
-            url.searchParams.set(key, value);
-          }
-        });
-
-        return url.toString();
       }
 
       function slugifyActionPart(value) {
@@ -458,91 +553,6 @@
         if (code) {
           codes.add(code);
         }
-      }
-
-      function parseReservedCodes(input) {
-        const codes = new Set();
-        if (!input) {
-          return codes;
-        }
-
-        if (Array.isArray(input) || input instanceof Set) {
-          input.forEach((value) => addReservedCode(codes, value));
-          return codes;
-        }
-
-        const text = String(input);
-        function addParsedValue(value) {
-          if (typeof value === 'string') {
-            addReservedCode(codes, value);
-            return;
-          }
-          if (Array.isArray(value)) {
-            value.forEach(addParsedValue);
-            return;
-          }
-          if (value && typeof value === 'object') {
-            addReservedCode(codes, value.code);
-            addReservedCode(codes, value.short_url);
-            addReservedCode(codes, value.clean_short_url);
-          }
-        }
-
-        try {
-          addParsedValue(JSON.parse(text));
-        } catch {
-          // Registry can also be pasted as loose text, URLs, or JSON snippets.
-        }
-
-        const shortUrlPattern = /https?:\/\/(?:www\.)?astrologywiki\.com\/(?:go\/)?([a-z0-9][a-z0-9-]*)/gi;
-        let match = shortUrlPattern.exec(text);
-        while (match) {
-          addReservedCode(codes, match[1]);
-          match = shortUrlPattern.exec(text);
-        }
-
-        const jsonCodePattern = /"code"\s*:\s*"([^"]+)"/gi;
-        match = jsonCodePattern.exec(text);
-        while (match) {
-          addReservedCode(codes, match[1]);
-          match = jsonCodePattern.exec(text);
-        }
-
-        text.split(/\r?\n/).forEach((line) => {
-          const trimmed = line.trim();
-          try {
-            addParsedValue(JSON.parse(trimmed));
-            return;
-          } catch {
-            // Fall through to bare-code parsing.
-          }
-          if (!trimmed || /[{}":/]/.test(trimmed)) {
-            return;
-          }
-          addReservedCode(codes, trimmed);
-        });
-
-        return codes;
-      }
-
-      function makeUniqueShortCode(baseCode, reservedCodes) {
-        const reserved = parseReservedCodes(reservedCodes);
-        const base = slugifyShortCode(baseCode);
-        if (!base) {
-          throw new Error('短码不能为空');
-        }
-
-        if (!reserved.has(base)) {
-          return base;
-        }
-
-        let index = 2;
-        let candidate = `${base}-${index}`;
-        while (reserved.has(candidate)) {
-          index += 1;
-          candidate = `${base}-${index}`;
-        }
-        return candidate;
       }
 
       function normalizeUniqueSeed(value, maxLength = 16) {
@@ -591,19 +601,6 @@
         return normalizeUniqueSeed(`${timePart}${randomPart}`) || 'auto';
       }
 
-      function buildOwnedShortCode(params) {
-        const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
-        return createStableShortCode(destination);
-      }
-
-      function buildOwnedShortUrl(params) {
-        const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
-        return `${OWNED_SHORT_BASE_URL}${buildOwnedShortCode({
-          ...params,
-          destinationUrl: destination,
-        })}`;
-      }
-
       function buildRedirectMapping({ shortUrl, longUrl }) {
         const short = new URL(valueOf(shortUrl, '短链接'));
         const long = valueOf(longUrl, '长链接');
@@ -637,30 +634,224 @@
         return `act_${channel}_${sourcePart}_${day || 'yyyymmdd'}`;
       }
 
+      function createSiteCore(siteOrKey) {
+        const site = resolveSite(siteOrKey);
+        const hosts = new Set(site.hosts.map((host) => host.toLowerCase()));
+        const ownedShortBaseUrl = site.baseUrl;
+        const domainPattern = site.domain.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const shortUrlPattern = new RegExp(
+          `https?:\\/\\/(?:www\\.)?${domainPattern}\\/(?:go\\/)?([a-z0-9][a-z0-9-]*)`,
+          'gi'
+        );
+
+        function normalizeLandingUrl(rawLandingUrl) {
+          let value = valueOf(rawLandingUrl, '落地页');
+          if (value.startsWith('/')) {
+            value = `${site.baseUrl.replace(/\/$/, '')}${value}`;
+          } else if (!/^https?:\/\//i.test(value)) {
+            value = `https://${value}`;
+          }
+
+          const url = new URL(value);
+          const host = url.hostname.toLowerCase();
+          if (!hosts.has(host)) {
+            throw new Error(`落地页必须是 ${site.hosts.join(' 或 ')}`);
+          }
+
+          url.protocol = 'https:';
+          return url;
+        }
+
+        function buildLongUrl(params) {
+          const url = normalizeLandingUrl(params.landingUrl);
+          const utmPairs = [
+            ['utm_source', optionalValue(params.source)],
+            ['utm_medium', optionalValue(params.medium)],
+            ['utm_campaign', optionalValue(params.campaign)],
+            ['utm_content', optionalValue(params.content)],
+          ];
+
+          utmPairs.forEach(([key]) => url.searchParams.delete(key));
+          utmPairs.forEach(([key, value]) => {
+            if (value) {
+              url.searchParams.set(key, value);
+            }
+          });
+
+          return url.toString();
+        }
+
+        function parseReservedCodes(input) {
+          const codes = new Set();
+          if (!input) {
+            return codes;
+          }
+
+          if (Array.isArray(input) || input instanceof Set) {
+            input.forEach((value) => addReservedCode(codes, value));
+            return codes;
+          }
+
+          const text = String(input);
+          function addParsedValue(value) {
+            if (typeof value === 'string') {
+              addReservedCode(codes, value);
+              return;
+            }
+            if (Array.isArray(value)) {
+              value.forEach(addParsedValue);
+              return;
+            }
+            if (value && typeof value === 'object') {
+              addReservedCode(codes, value.code);
+              addReservedCode(codes, value.short_url);
+              addReservedCode(codes, value.clean_short_url);
+            }
+          }
+
+          try {
+            addParsedValue(JSON.parse(text));
+          } catch {
+            // Registry can also be pasted as loose text, URLs, or JSON snippets.
+          }
+
+          const pattern = new RegExp(shortUrlPattern.source, 'gi');
+          let match = pattern.exec(text);
+          while (match) {
+            addReservedCode(codes, match[1]);
+            match = pattern.exec(text);
+          }
+
+          const jsonCodePattern = /"code"\s*:\s*"([^"]+)"/gi;
+          match = jsonCodePattern.exec(text);
+          while (match) {
+            addReservedCode(codes, match[1]);
+            match = jsonCodePattern.exec(text);
+          }
+
+          text.split(/\r?\n/).forEach((line) => {
+            const trimmed = line.trim();
+            try {
+              addParsedValue(JSON.parse(trimmed));
+              return;
+            } catch {
+              // Fall through to bare-code parsing.
+            }
+            if (!trimmed || /[{}":/]/.test(trimmed)) {
+              return;
+            }
+            addReservedCode(codes, trimmed);
+          });
+
+          return codes;
+        }
+
+        function buildOwnedShortCode(params) {
+          const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
+          return createStableShortCode(destination);
+        }
+
+        function buildOwnedShortUrl(params) {
+          const destination = normalizeLandingUrl(params.destinationUrl || params.landingUrl).toString();
+          return `${ownedShortBaseUrl}${buildOwnedShortCode({
+            ...params,
+            destinationUrl: destination,
+          })}`;
+        }
+
+        return {
+          site,
+          normalizeLandingUrl,
+          buildLongUrl,
+          parseReservedCodes,
+          buildOwnedShortCode,
+          buildOwnedShortUrl,
+          buildRedirectMapping,
+          toDisplayShortUrl,
+          buildActionId,
+          createUniqueSeed,
+        };
+      }
+
       window.LinkAttributionCore = {
-        buildActionId,
-        buildOwnedShortCode,
-        buildOwnedShortUrl,
-        createUniqueSeed,
-        buildLongUrl,
+        SITES,
+        createSiteCore,
+        resolveSite,
         buildRedirectMapping,
         toDisplayShortUrl,
-        normalizeLandingUrl,
-        parseReservedCodes,
+        buildActionId,
+        createUniqueSeed,
       };
     }());
   </script>
 
   <script>
     (function () {
-      const core = window.LinkAttributionCore;
-      const REDIRECT_REGISTRATION_ENDPOINT = 'https://www.astrologywiki.com/api/link-attribution/redirects';
+      const Core = window.LinkAttributionCore;
+      const SITES = Core.SITES;
+      const SESSION_STORAGE_KEY = 'link-attribution-session-records-v1';
+      const WEBAPP_URL_STORAGE_KEY = 'link-attribution-sheet-webapp-url';
+      const DEFAULT_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxNsFWW46ftQH9_1WGSoNlo522fGVeljsQrjm0B_blfy0hz8agEcCGu19jERNi_ng9Z/exec';
+
       const form = document.getElementById('link-form');
       const state = document.getElementById('result-state');
       const status = document.getElementById('status');
       const longUrl = document.getElementById('long-url');
       const shortUrl = document.getElementById('short-url');
+      const landingInput = document.getElementById('landing-url');
+      const pageTitle = document.getElementById('page-title');
+      const domainPill = document.getElementById('domain-pill');
+      const tabBar = document.getElementById('site-tabs');
       const reservedCodeRegistry = document.getElementById('reserved-code-registry');
+      const sheetWebappInput = document.getElementById('sheet-webapp-url');
+      const importButton = document.getElementById('import-google');
+      const clearButton = document.getElementById('clear-session');
+      const importCount = document.getElementById('import-count');
+      const importMeta = document.getElementById('import-meta');
+
+      let activeSite = SITES[0];
+      let core = Core.createSiteCore(activeSite);
+
+      function readStorage(key, fallback) {
+        try {
+          const raw = window.localStorage.getItem(key);
+          return raw == null ? fallback : raw;
+        } catch {
+          return fallback;
+        }
+      }
+
+      function writeStorage(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+        } catch {
+          // Storage may be unavailable (private mode); session falls back to memory only.
+        }
+      }
+
+      let sessionRecords = (function loadSessionRecords() {
+        try {
+          const parsed = JSON.parse(readStorage(SESSION_STORAGE_KEY, '[]'));
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }());
+
+      function persistSessionRecords() {
+        writeStorage(SESSION_STORAGE_KEY, JSON.stringify(sessionRecords));
+      }
+
+      function pendingCount() {
+        return sessionRecords.filter((record) => !record.imported_at).length;
+      }
+
+      function refreshImportMeta() {
+        importCount.textContent = `本会话已生成 ${sessionRecords.length} 条`;
+        const pending = pendingCount();
+        importButton.disabled = pending === 0;
+        importButton.textContent = pending > 0 ? `导入Google（${pending} 条待导入）` : '导入Google';
+      }
 
       function setStatus(message, type) {
         status.textContent = message || '';
@@ -668,13 +859,14 @@
       }
 
       function readableRegistrationError(payload, fallback) {
-        if (payload?.code === 'code_conflict') {
+        const errorCode = payload?.code || payload?.error?.code;
+        if (errorCode === 'code_conflict') {
           return '短码已被占用且指向不同长链接：请联系管理员处理，不要重复生成。';
         }
-        if (payload?.code === 'storage_unconfigured') {
-          return '短链存储未配置：请先在 AstrologyWiki 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认 link_redirects 表已创建。';
+        if (errorCode === 'storage_unconfigured') {
+          return `短链存储未配置：请先在 ${activeSite.name} 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认短链映射表已创建。`;
         }
-        const message = payload?.error || payload?.message;
+        const message = payload?.error?.message || payload?.error || payload?.message;
         return typeof message === 'string' && message.trim() ? message : fallback;
       }
 
@@ -718,8 +910,32 @@
         return String(target?.dataset?.fullUrl || target?.value || '').trim();
       }
 
+      function recordSession(data, generatedLongUrl, fullShortUrl, mapping) {
+        const record = {
+          site: activeSite.name,
+          site_key: activeSite.key,
+          landing_url: String(data.landingUrl || '').trim(),
+          utm_source: String(data.source || '').trim(),
+          utm_medium: String(data.medium || '').trim(),
+          utm_campaign: String(data.campaign || '').trim(),
+          utm_content: String(data.content || '').trim(),
+          long_url: generatedLongUrl,
+          short_url: fullShortUrl,
+          short_code: mapping.code,
+          imported_at: '',
+        };
+        const exists = sessionRecords.some(
+          (item) => item.short_code === record.short_code && item.long_url === record.long_url
+        );
+        if (!exists) {
+          sessionRecords = [...sessionRecords, record];
+          persistSessionRecords();
+          refreshImportMeta();
+        }
+      }
+
       async function registerRedirectMapping(mapping) {
-        const response = await fetch(REDIRECT_REGISTRATION_ENDPOINT, {
+        const response = await fetch(activeSite.endpoint, {
           method: 'POST',
           mode: 'cors',
           credentials: 'omit',
@@ -733,12 +949,12 @@
         });
         const payload = await response.json().catch(() => ({}));
         if (!response.ok) {
-          const message = readableRegistrationError(payload, '短链提交 Oracle 失败，请稍后重试。');
+          const message = readableRegistrationError(payload, `短链提交 ${activeSite.name} 失败，请稍后重试。`);
           const error = new Error(message);
-          error.code = payload?.code;
+          error.code = payload?.code || payload?.error?.code;
           throw error;
         }
-        return payload;
+        return payload.data || payload;
       }
 
       async function registerWithGlobalConflictRetry(data, generatedLongUrl) {
@@ -773,12 +989,98 @@
         longUrl.value = generatedLongUrl;
         setShortUrlValue('');
         state.textContent = '正在提交';
-        setStatus('正在提交到 Oracle...', 'warn');
+        setStatus(`正在提交到 ${activeSite.name}...`, 'warn');
         const { mapping, registered } = await registerWithGlobalConflictRetry(data, generatedLongUrl);
-        setShortUrlValue(registered.short_url || mapping.clean_short_url);
+        const fullShortUrl = registered.short_url || mapping.clean_short_url;
+        setShortUrlValue(fullShortUrl);
+        recordSession(data, generatedLongUrl, fullShortUrl, mapping);
         state.textContent = '链接已生成';
-        setStatus('已生成并提交到 Oracle，可直接复制或打开测试。', 'ok');
+        setStatus(`已生成并提交到 ${activeSite.name}，可直接复制或打开测试。`, 'ok');
         return generatedLongUrl;
+      }
+
+      async function importToGoogleSheet() {
+        const webappUrl = String(sheetWebappInput.value || '').trim();
+        if (!webappUrl) {
+          setStatus('请先填写 Google Sheet Web App 地址（部署 Apps Script 后的 /exec 链接）。', 'warn');
+          sheetWebappInput.focus();
+          return;
+        }
+        const pending = sessionRecords.filter((record) => !record.imported_at);
+        if (!pending.length) {
+          setStatus('没有待导入的新记录。', 'warn');
+          return;
+        }
+
+        writeStorage(WEBAPP_URL_STORAGE_KEY, webappUrl);
+        const importedAt = new Date().toISOString();
+        const rows = pending.map((record) => ({
+          imported_at: importedAt,
+          site: record.site,
+          landing_url: record.landing_url,
+          utm_source: record.utm_source,
+          utm_medium: record.utm_medium,
+          utm_campaign: record.utm_campaign,
+          utm_content: record.utm_content,
+          long_url: record.long_url,
+          short_url: record.short_url,
+          short_code: record.short_code,
+        }));
+
+        importButton.disabled = true;
+        setStatus(`正在导入 ${rows.length} 条记录到 Google Sheet...`, 'warn');
+        try {
+          // Apps Script Web App 不返回 CORS 头，用 no-cors + text/plain 走简单请求，避免预检失败。
+          await fetch(webappUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8',
+            },
+            body: JSON.stringify({ rows }),
+          });
+          pending.forEach((record) => {
+            record.imported_at = importedAt;
+          });
+          persistSessionRecords();
+          refreshImportMeta();
+          setStatus(`已提交 ${rows.length} 条到 Google Sheet（no-cors 模式无法读取返回，请到表里核对）。`, 'ok');
+        } catch (error) {
+          setStatus(`导入失败：${error.message}`, 'error');
+        } finally {
+          refreshImportMeta();
+        }
+      }
+
+      function renderTabs() {
+        tabBar.replaceChildren();
+        SITES.forEach((site) => {
+          const tab = document.createElement('button');
+          tab.type = 'button';
+          tab.className = 'tab';
+          tab.textContent = site.name;
+          tab.dataset.siteKey = site.key;
+          tab.setAttribute('role', 'tab');
+          tab.setAttribute('aria-selected', String(site.key === activeSite.key));
+          tab.addEventListener('click', () => applySite(site));
+          tabBar.appendChild(tab);
+        });
+      }
+
+      function applySite(site) {
+        activeSite = site;
+        core = Core.createSiteCore(site);
+        pageTitle.textContent = `${site.name} 外链生成工具`;
+        domainPill.textContent = `仅允许 ${site.hosts.join(' / ')}`;
+        landingInput.value = site.baseUrl;
+        longUrl.value = '';
+        setShortUrlValue('');
+        state.textContent = '待生成';
+        setStatus('', '');
+        document.title = `${site.name} 外链生成工具`;
+        tabBar.querySelectorAll('.tab').forEach((tab) => {
+          tab.setAttribute('aria-selected', String(tab.dataset.siteKey === site.key));
+        });
       }
 
       form.addEventListener('submit', async (event) => {
@@ -789,6 +1091,16 @@
           state.textContent = '生成失败';
           setStatus(error.message, 'error');
         }
+      });
+
+      form.addEventListener('reset', () => {
+        window.requestAnimationFrame(() => {
+          landingInput.value = activeSite.baseUrl;
+          longUrl.value = '';
+          setShortUrlValue('');
+          state.textContent = '待生成';
+          setStatus('', '');
+        });
       });
 
       document.querySelectorAll('[data-copy]').forEach((button) => {
@@ -817,6 +1129,23 @@
         });
       });
 
+      importButton.addEventListener('click', importToGoogleSheet);
+
+      clearButton.addEventListener('click', () => {
+        sessionRecords = [];
+        persistSessionRecords();
+        refreshImportMeta();
+        setStatus('已清空本会话生成记录。', 'ok');
+      });
+
+      sheetWebappInput.value = readStorage(WEBAPP_URL_STORAGE_KEY, DEFAULT_SHEET_WEBAPP_URL);
+      sheetWebappInput.addEventListener('change', () => {
+        writeStorage(WEBAPP_URL_STORAGE_KEY, String(sheetWebappInput.value || '').trim());
+      });
+
+      renderTabs();
+      applySite(activeSite);
+      refreshImportMeta();
     }());
   </script>
 </body>

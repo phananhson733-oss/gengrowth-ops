@@ -466,5 +466,173 @@ class RelocateSettledTests(unittest.TestCase):
             self.assertEqual(len(ledger.parse_ledger(dst_md)), 1)
 
 
+class PrevMonthTests(unittest.TestCase):
+    def test_normal(self):
+        self.assertEqual(transfer.prev_month("2026-07"), "2026-06")
+
+    def test_year_boundary(self):
+        self.assertEqual(transfer.prev_month("2026-01"), "2025-12")
+
+    def test_december(self):
+        self.assertEqual(transfer.prev_month("2026-12"), "2026-11")
+
+
+class UncarryForwardTests(unittest.TestCase):
+    """carry_forward 的逆操作:撤销 from_month → to_month 的结转。"""
+
+    def _carried_setup(self, tmp):
+        """造一张 6 月未结清 row + 物理 PDF,carry 到 7 月(A 方案)。"""
+        wiki_root = Path(tmp)
+        archive_root = wiki_root / "发票"
+        ledger_root = wiki_root / "报销"
+        src_dir = archive_root / "202606" / "王玲"
+        src_dir.mkdir(parents=True)
+        (src_dir / "202606-办公费-¥1000.pdf").write_bytes(b"FAKE")
+        src = ledger.ledger_path_for("2026-06", ledger_root, reimburser="王玲")
+        ledger.append_row(src, _row(
+            "aaaaaaaa",
+            file_rel="发票/202606/王玲/202606-办公费-¥1000.pdf",
+            period="202606", category="办公费",
+        ))
+        transfer.carry_forward(ledger_root=ledger_root, from_month="2026-06",
+                               wiki_root=wiki_root, archive_root=archive_root)
+        return wiki_root, archive_root, ledger_root, src
+
+    def test_uncarry_round_trip_restores_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            wiki_root, archive_root, ledger_root, src = self._carried_setup(tmp)
+            dst = ledger.ledger_path_for("2026-07", ledger_root, reimburser="王玲")
+            # 前置:carry 成功
+            self.assertIsNotNone(ledger.find_by_id8(dst, "aaaaaaaa"))
+            self.assertTrue((archive_root / "202607" / "王玲" / "202607-办公费-¥1000.pdf").exists())
+
+            results = transfer.uncarry_forward(
+                ledger_root=ledger_root, from_month="2026-06", to_month="2026-07",
+                wiki_root=wiki_root, archive_root=archive_root, dry_run=False,
+            )
+            self.assertEqual(sum(1 for r in results if r.status == "uncarried"), 1)
+            # 7 月 row 消失
+            self.assertIsNone(ledger.find_by_id8(dst, "aaaaaaaa"))
+            # 物理文件回 202606,202607 清空
+            self.assertTrue((archive_root / "202606" / "王玲" / "202606-办公费-¥1000.pdf").exists())
+            self.assertFalse((archive_root / "202607" / "王玲" / "202607-办公费-¥1000.pdf").exists())
+            # 6 月 row 撤 ↗
+            src_row = ledger.find_by_id8(src, "aaaaaaaa")
+            self.assertNotIn(transfer.CARRY_OUT_MARK, src_row.note)
+
+    def test_dry_run_does_not_change(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            wiki_root, archive_root, ledger_root, src = self._carried_setup(tmp)
+            dst = ledger.ledger_path_for("2026-07", ledger_root, reimburser="王玲")
+            results = transfer.uncarry_forward(
+                ledger_root=ledger_root, from_month="2026-06", to_month="2026-07",
+                wiki_root=wiki_root, archive_root=archive_root, dry_run=True,
+            )
+            self.assertEqual(sum(1 for r in results if r.status == "dry_run"), 1)
+            self.assertIsNotNone(ledger.find_by_id8(dst, "aaaaaaaa"))
+            self.assertTrue((archive_root / "202607" / "王玲" / "202607-办公费-¥1000.pdf").exists())
+
+    def test_idempotent_no_carry_in(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            results = transfer.uncarry_forward(
+                ledger_root=Path(tmp) / "报销", from_month="2026-06", to_month="2026-07",
+                dry_run=False,
+            )
+            self.assertEqual(results, [])
+
+    def test_preserves_original_note(self):
+        """源 row 原本有 note,carry 加 ↗,uncarry 后恢复原 note(B 方案,无文件)。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger_root = Path(tmp) / "报销"
+            src = ledger.ledger_path_for("2026-06", ledger_root, reimburser="王玲")
+            ledger.append_row(src, _row("aaaaaaaa", note="⚠️ 待核"))
+            transfer.carry_forward(ledger_root=ledger_root, from_month="2026-06")
+            self.assertIn(transfer.CARRY_OUT_MARK, ledger.find_by_id8(src, "aaaaaaaa").note)
+            transfer.uncarry_forward(ledger_root=ledger_root, from_month="2026-06",
+                                     to_month="2026-07", dry_run=False)
+            src_row = ledger.find_by_id8(src, "aaaaaaaa")
+            self.assertNotIn(transfer.CARRY_OUT_MARK, src_row.note)
+            self.assertIn("⚠️ 待核", src_row.note)
+
+    def test_skip_when_source_row_missing(self):
+        """P1#1:源 row 已不在 → 拒绝删 to_month 副本,skip+报告(防发票从所有账本消失)。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger_root = Path(tmp) / "报销"
+            src = ledger.ledger_path_for("2026-06", ledger_root, reimburser="王玲")
+            ledger.append_row(src, _row("aaaaaaaa"))
+            transfer.carry_forward(ledger_root=ledger_root, from_month="2026-06")
+            ledger._delete_row_from_ledger(src, "aaaaaaaa")  # 模拟源 row 被结清迁走/手删
+            dst = ledger.ledger_path_for("2026-07", ledger_root, reimburser="王玲")
+            self.assertIsNotNone(ledger.find_by_id8(dst, "aaaaaaaa"))
+            results = transfer.uncarry_forward(
+                ledger_root=ledger_root, from_month="2026-06", to_month="2026-07", dry_run=False)
+            self.assertEqual(sum(1 for r in results if r.status == "skipped_no_source"), 1)
+            self.assertIsNotNone(ledger.find_by_id8(dst, "aaaaaaaa"))  # 副本没被删,发票还在
+
+    def test_native_row_with_marker_text_not_uncarried(self):
+        """P2#7:to_month 原生 row 的 note 中间含 '← 自' 文本 → 不误判 carried(startswith 精确)。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "报销"
+            dst = ledger.ledger_path_for("2026-07", root, reimburser="王玲")
+            ledger.append_row(dst, _row("dddddddd", note="付款备注 ← 自 2026-06 那批的尾款"))
+            results = transfer.uncarry_forward(
+                ledger_root=root, from_month="2026-06", to_month="2026-07", dry_run=False)
+            self.assertEqual(results, [])
+            self.assertIsNotNone(ledger.find_by_id8(dst, "dddddddd"))
+
+    def test_dual_ledger_uncarry_independent(self):
+        """主账本 + 备用金各自 carry 后各自 uncarry 独立复位。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            main = Path(tmp) / "报销"
+            petty = Path(tmp) / "备用金"
+            ledger.append_row(ledger.ledger_path_for("2026-06", main, reimburser="Lynne"), _row("aaaaaaaa"))
+            ledger.append_row(ledger.ledger_path_for("2026-06", petty, reimburser="Lynne"),
+                              _row("bbbbbbbb", currency="USD"))
+            transfer.carry_forward(ledger_root=main, from_month="2026-06")
+            transfer.carry_forward(ledger_root=petty, from_month="2026-06")
+            mr = transfer.uncarry_forward(ledger_root=main, from_month="2026-06", to_month="2026-07", dry_run=False)
+            pr = transfer.uncarry_forward(ledger_root=petty, from_month="2026-06", to_month="2026-07", dry_run=False)
+            self.assertEqual(sum(1 for r in mr if r.status == "uncarried"), 1)
+            self.assertEqual(sum(1 for r in pr if r.status == "uncarried"), 1)
+            self.assertIsNone(ledger.find_by_id8(main / "2026-07" / "Lynne.md", "aaaaaaaa"))
+            self.assertIsNone(ledger.find_by_id8(petty / "2026-07" / "Lynne.md", "bbbbbbbb"))
+
+    def test_multi_row_glob_uncarry(self):
+        """reimburser=None 多人多 row glob 路径一起 uncarry。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "报销"
+            for rb, i in [("Lynne", "aaaaaaaa"), ("王玲", "bbbbbbbb"), ("王玲", "cccccccc")]:
+                ledger.append_row(ledger.ledger_path_for("2026-06", root, reimburser=rb), _row(i, reimburser=rb))
+            transfer.carry_forward(ledger_root=root, from_month="2026-06")
+            results = transfer.uncarry_forward(
+                ledger_root=root, from_month="2026-06", to_month="2026-07", dry_run=False)
+            self.assertEqual(sum(1 for r in results if r.status == "uncarried"), 3)
+            for rb in ["Lynne", "王玲"]:
+                p = root / "2026-07" / f"{rb}.md"
+                if p.exists():
+                    self.assertEqual(len(ledger.parse_ledger(p)), 0)
+
+    def test_collision_writes_back_file_rel(self):
+        """P2#4:from_month slot 被占 → relocate 落到 -c{N};源 row file_rel 写回真实路径,不悬空。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            wiki = Path(tmp)
+            archive = wiki / "发票"
+            ledger_root = wiki / "报销"
+            (archive / "202606" / "王玲").mkdir(parents=True)
+            (archive / "202606" / "王玲" / "202606-办公费-¥1000.pdf").write_bytes(b"ORIG")
+            src = ledger.ledger_path_for("2026-06", ledger_root, reimburser="王玲")
+            ledger.append_row(src, _row("aaaaaaaa", file_rel="发票/202606/王玲/202606-办公费-¥1000.pdf",
+                                        period="202606", category="办公费"))
+            transfer.carry_forward(ledger_root=ledger_root, from_month="2026-06", wiki_root=wiki, archive_root=archive)
+            # 202606 slot 又被占(另一张同名占住原位)→ uncarry 移回会撞名落到 -c1
+            (archive / "202606" / "王玲").mkdir(parents=True, exist_ok=True)
+            (archive / "202606" / "王玲" / "202606-办公费-¥1000.pdf").write_bytes(b"OTHER")
+            transfer.uncarry_forward(ledger_root=ledger_root, from_month="2026-06", to_month="2026-07",
+                                     wiki_root=wiki, archive_root=archive, dry_run=False)
+            src_row = ledger.find_by_id8(src, "aaaaaaaa")
+            self.assertEqual((wiki / src_row.file_rel).read_bytes(), b"ORIG",
+                             f"源 row file_rel={src_row.file_rel} 应指向这张票自己的文件(ORIG),不是撞名占位的 OTHER")
+
+
 if __name__ == "__main__":
     unittest.main()

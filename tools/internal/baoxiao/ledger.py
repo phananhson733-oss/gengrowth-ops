@@ -1274,6 +1274,29 @@ def _delete_row_from_ledger(path: Path, invoice_number: str,
     return True
 
 
+def update_row_file_rel(path, id8: str, *, new_file_rel: str) -> bool:
+    """更新指定 row 的文件链接(file_rel)。uncarry 撞名后把源 row 指到实际落地路径
+    (relocate_file 撞名加 -c{N} 后缀时),避免链接悬空指向别人的文件。
+    按 id8 或 invoice_number 定位;无匹配 / 已一致 → False。"""
+    path = Path(path)
+    if not path.exists():
+        return False
+    rows = parse_ledger(path)
+    target = next((r for r in rows if r.id8 == id8 or r.invoice_number == id8), None)
+    if target is None or target.file_rel == new_file_rel:
+        return False
+    target.file_rel = new_file_rel
+    text = path.read_text(encoding="utf-8")
+    m = _SECTION_START_RE.search(text)
+    prefix = text[:m.start()] if m else text
+    body = prefix.rstrip() + "\n\n"
+    for r in rows:
+        body += _format_section(r) + "\n"
+    path.write_text(_renumber_sections(body), encoding="utf-8")
+    _refresh_dashboard(path)
+    return True
+
+
 def migrate_invoices_to_petty(main_ledger_root, petty_ledger_root) -> List[tuple]:
     """v2.5.8 一次性 migration:主账本里 invoice_type='invoice' row 物理迁移到备用金账本。
 

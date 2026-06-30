@@ -33,7 +33,8 @@ cd tools/internal/baoxiao && python3 -m unittest discover -s tests
 | 审批 + 打款合并为单一「已结清」task | 👤 Lynne 在 Obsidian 点 `- [ ]` toggle |
 | 拿不准的「分类已确认」task | 👤 Lynne 看完点 ✓ → dashboard ⚠️ 消失 |
 | 改类型字段 | 👤 改 `📂 类型:X` 行 + 🤖 watch ~1s 自动 rename 文件 + 同步 dashboard |
-| 月底 carry-forward / summary | 🤖 launchd monthly 最后一天 23:30 |
+| 月末本月汇总(呈现给员工查验/结清,**不结转**) | 🤖 launchd month-end 最后一天 23:30 → `cli.py month-end` |
+| 月初结转上月未结清 + 开新月 | 🤖 launchd month-start 每月 1 号 09:00 → `cli.py month-start` |
 
 ## 整体流程
 
@@ -57,7 +58,9 @@ cd tools/internal/baoxiao && python3 -m unittest discover -s tests
         - dashboard 状态 + 类型同步
         - 文件名自动 rename(category 变化时)
      │
-     ▼  ⑥ launchd monthly 23:30(月最后一天) → 每人 carry-forward + summary
+     ▼  ⑥ launchd month-end 23:30(月最后一天) → 每人 summary(本月汇总,不结转)
+     │
+     ▼  ⑦ launchd month-start 09:00(下月 1 号) → 上月未结清 carry-forward + 开新月
 ```
 
 ## 配置
@@ -130,21 +133,26 @@ bash launchd/install.sh uninstall   # 如果以后想重新关
 - 永远在线,launchd 永不漏拉(Pro 关盖 / 睡眠 / 重启都会漏触发)
 - watch StartInterval=2 持续跑,Lynne / wzb 在 Pro 改 ledger → git push → Mac Mini git pull(下次定时拉)→ watch 同步 dashboard
 
-## launchd 3 个 plist
+## launchd 5 个 plist
 
 ```bash
-bash launchd/install.sh                # 装 3 个 plist
+bash launchd/install.sh                # 装 5 个 plist
 bash launchd/install.sh uninstall      # 卸载
 launchctl list | grep baoxiao
-tail -f logs/launchd-{daily,watch,monthly}.log
+tail -f logs/launchd-{daily,watch,month-end,month-start}.log
 ```
 
 | Label | 触发 | 干什么 |
 |---|---|---|
 | `com.gengrowth.baoxiao-daily` | 每天 19:00 | `fetch-mail --filter-subject` |
 | `com.gengrowth.baoxiao-watch` | `StartInterval=2`,每 2 秒轮询 | `refresh-dashboard`:同步 dashboard + 自动填 settled_date + 刷总表(全部幂等不变不写盘) |
-| `com.gengrowth.baoxiao-monthly` | 每天 23:30 | wrapper 判断月最后一天 → `monthly-close`(A 方案 row+文件都 carry) |
+| `com.gengrowth.baoxiao-month-end` | 每天 23:30 | wrapper 判断本月最后一天 → `month-end`(本月汇总,**不结转**) |
+| `com.gengrowth.baoxiao-month-start` | 每天 09:00 | wrapper 判断每月 1 号 → `month-start`(结转上月未结清 + 开新月) |
 | `com.gengrowth.baoxiao-drop` | `StartInterval=60`,每分钟 | `drop-scan`:扫 `_drop/{人}/` 搬到 `_inbox/{人}/`(非邮件渠道发票投递) |
+
+> **v2.5.10 两段式月度流程**:月末(`month-end`)只做本月汇总呈现给员工查验/结清,**不结转、不建下月**;下月第一天(`month-start`)等上月所有结清结束后,才把仍未结清的 carry 到本月并开启新月。这样员工有完整的「最后一天」窗口结清,结转集合到月初才冻结,下月文件夹不提前出现。
+>
+> **本机未装 launchd 时手动跑**:月末 `python3 cli.py month-end`,月初 `python3 cli.py month-start`(默认 close 上月)。误结转可用 `python3 cli.py uncarry --month YYYY-MM`(默认 dry-run 预览,加 `--apply` 真撤回:文件移回上月、撤 ↗ 标记、删下月 row)。旧的一次性 `monthly-close` 仍保留向后兼容。
 
 > v2.4 起 watch 从 `WatchPaths` 改成 `StartInterval=2` 轮询 —— 因为新结构 `报销/{月}/{人}.md` 是子目录,launchd `WatchPaths` 不监控子目录里的文件编辑,会丢事件。轮询 + 幂等(`_refresh_dashboard` 内容不变不写盘)能保证 ~2s 同步且无副作用。
 
