@@ -1818,10 +1818,10 @@
     "slug": "thylane-blondeau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "49085",
-    "leaseUntil": "2026-07-01T14:59:13.894Z",
-    "updatedAt": "2026-07-01T13:59:13.894Z",
+    "leaseUntil": "2026-07-01T15:03:44.324Z",
+    "updatedAt": "2026-07-01T14:03:44.324Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
     "branch": "seo/auto/2026-07-01-PG-CELEB-017"
   }
