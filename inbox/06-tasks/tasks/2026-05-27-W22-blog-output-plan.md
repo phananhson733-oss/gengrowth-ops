@@ -310,8 +310,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-WC-041` morocco world cup 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology （队篇；木星双子→巨蟹/狮子修正；codex 5轮纠错赛事时机+东道主；needs_hero）
 
 - [x] `PG-CELEB-013` Carlos Alcaraz Birth Chart -> LIVE https://www.astrologywiki.com/en/wiki/carlos-alcaraz-birth-chart （Taurus Sun；新模板去SEO套话；MC/Moon 因生时未公开改诚实 provisional；去关键词堆砌；codex PASS）
-- [x] `PG-UPRA-001` USA Pluto Return Astrology
-- [x] `PG-CELEB-014` Cardi B Birth Chart
+- [x] `PG-UPRA-001` USA Pluto Return Astrology -> LIVE https://www.astrologywiki.com/en/wiki/usa-pluto-return-astrology （新模板去SEO套话;时机稳妥;4内链重映射;CTA修;codex PASS）
+- [x] `PG-CELEB-014` Cardi B Birth Chart -> LIVE https://www.astrologywiki.com/en/wiki/cardi-b-birth-chart （Libra Sun 对分 Aries Moon 满月;新模板0套话;5内链直写真实页;CTA修how-to-read;codex一次PASS→MERGED）
 - [ ] `PG-TSE-001` Total Solar Eclipse 2026
 - [ ] `PG-HOUSE-014` Pride Month Astrology
 
