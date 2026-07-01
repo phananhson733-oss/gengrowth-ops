@@ -3,7 +3,7 @@ title: 增长团队分工 SSOT — 多模型评审意见（给 v0.3 修订）
 date: 2026-06-18
 updated: 2026-06-18
 type: review
-status: open
+status: resolved  # 已收敛入 SSOT v0.3（2026-06-29）：点1/2/3/5 + 补1-4 采纳，点4 设触发条件暂缓
 author: wzb
 reviewers:
   - codex (gpt-5.5)

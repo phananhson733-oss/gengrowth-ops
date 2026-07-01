@@ -1,7 +1,7 @@
 ---
 title: Loop Engineering详解：把反馈循环放进工程现场
 date: 2026-06-11
-updated: 2026-06-11
+updated: 2026-06-22
 type: knowledge-note
 source: https://mp.weixin.qq.com/s/hx7-BQ33JFOHHtJP30TkbA
 author: 若飞
@@ -176,6 +176,17 @@ aliases:
 - `2026-06-09-X-sairahul1-Loops-AI-Engineer-2026.md`：更偏 Loop Engineering 概念图谱与商业化机会。
 - `2026-05-14-codex-goal-long-task-agent.md`：更偏目标状态对象、预算收束与完成审计。
 - `H-Harness-长运行应用设计.md`：更偏单次长任务的 Planner / Generator / Evaluator 分工与自评偏差治理。
+
+## 新增传播信号（2026-06-22）
+
+- X 短评：Florian.C（@FinnTsai88）转发评论指出，Loop Engineering 把 AI 工程的演进脉络讲得最清楚：`Prompt → Context → Harness → Loop`。
+- 该短评强调的核心不是又造新词，而是把人的位置从“每轮手动催 Agent”后移到“设计让系统自己跑的循环”。
+- 帖子引用了 Miles.Ma（@ma_zhenyuan）的 X Article《冷饭硬炒？一文讲明白 Loop Engineering》，说明这个概念正在从工程圈方法论，向更广的产品/普通用户认知层扩散。
+- 证据边界：本次直接拿到的是 X 帖子正文、被引用 X Article 的标题与可见摘要；未完整抽取 X Article 全文，因此关于 Miles.Ma 长文的细节判断仍以已保存的一手长文/相关文章为主。
+- 关联链接：
+  - Florian.C 原帖：<https://x.com/FinnTsai88/status/2068536883454607595>
+  - Miles.Ma 帖子：<https://x.com/ma_zhenyuan/status/2068517179923091828>
+  - Miles.Ma X Article：<https://x.com/i/article/2068379052483006464>
 
 ## 相关链接
 
