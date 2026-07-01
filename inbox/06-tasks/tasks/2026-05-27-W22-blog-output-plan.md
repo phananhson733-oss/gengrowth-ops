@@ -319,7 +319,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月1日 (周三) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [x] `PG-CELEB-015` Maya Joint birth chart
-- [ ] `PG-CELEB-016` LeBron James birth chart
+- [x] `PG-CELEB-016` LeBron James birth chart
 - [x] `PG-CELEB-017` Thylane Blondeau birth chart
 - [x] `PG-CELEB-018` Elliot Page birth chart
 - [x] `PG-CELEB-019` Bella Hadid birth chart
