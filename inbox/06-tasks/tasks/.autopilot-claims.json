@@ -1837,7 +1837,7 @@
     "mergedAt": "2026-07-01T15:51:45.846Z"
   },
   "PG-CELEB-018": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "elliot-page-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-018.md",
@@ -1846,7 +1846,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
     "branch": "seo/auto/2026-07-01-PG-CELEB-018",
     "pr": "https://github.com/xdawayer/oracle/pull/308",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-9b6a45-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T15:57:39.792Z",
+    "headRefOid": "12ff0892e5b32decc179cfb3da8dcae335074edc",
+    "mergedAt": "2026-07-01T15:57:45.668Z"
   },
   "PG-CELEB-019": {
     "status": "pushed-preview",
