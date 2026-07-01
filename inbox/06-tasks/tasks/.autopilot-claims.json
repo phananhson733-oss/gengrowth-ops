@@ -1800,7 +1800,7 @@
     "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "lebron-james-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-016.md",
@@ -1809,7 +1809,9 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
-    "zh": false
+    "zh": false,
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-01T15:01:50.236Z"
   },
   "PG-CELEB-017": {
     "status": "pushed-preview",
