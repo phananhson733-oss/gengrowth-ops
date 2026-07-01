@@ -1728,15 +1728,17 @@
     "mergedAt": "2026-07-01T04:01:06.602Z"
   },
   "PG-CELEB-014": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "cardi-b-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-014.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "85157",
-    "leaseUntil": "2026-07-01T06:37:12.125Z",
-    "updatedAt": "2026-07-01T05:37:12.125Z",
+    "leaseUntil": "2026-07-01T06:41:58.376Z",
+    "updatedAt": "2026-07-01T05:41:58.376Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-014",
-    "branch": "seo/auto/2026-07-01-PG-CELEB-014"
+    "branch": "seo/auto/2026-07-01-PG-CELEB-014",
+    "pr": "https://github.com/xdawayer/oracle/pull/298",
+    "zh": false
   }
 }
