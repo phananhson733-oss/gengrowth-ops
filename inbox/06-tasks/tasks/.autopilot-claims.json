@@ -1686,7 +1686,7 @@
     "mergedAt": "2026-06-30T13:30:44.346Z"
   },
   "PG-CELEB-013": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "carlos-alcaraz-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-013.md",
@@ -1697,6 +1697,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-013",
     "branch": "seo/auto/2026-07-01-PG-CELEB-013",
     "pr": "https://github.com/xdawayer/oracle/pull/296",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: The exact-match keyword \"Carlos Alcaraz Birth Chart\" is force-repeated verbatim with unnatural mid-sentence capitalization throughout body prose and jammed into the CTA anchor text, which constitutes keyword stuffing.",
+    "failedAt": "2026-07-01T03:32:41.601Z"
   }
 }
