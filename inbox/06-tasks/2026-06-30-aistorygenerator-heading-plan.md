@@ -14,17 +14,17 @@ owner: 前端/后端同事
 
 ### 1.1 H2 修改
 
-| 位置  | 当前 H2                                                    | 修改为                                         | 操作                                |
-| --- | -------------------------------------------------------- | ------------------------------------------- | --------------------------------- |
+| 位置  | 当前 H2                                                    | 修改为                                         | 操作                                                                         |
+| --- | -------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------- |
 | 第1个 | What can you generate?                                   | —                                           | **删除 H2 及其下方整个内容区块**（该区块列出的工具 H3 与"Free AI generators"完全重复，后者更完整，直接保留后者即可） |
-| 第2个 | Start with a story, turn it into a campaign              | From AI story to full D&D campaign          | **修改**                            |
-| 第3个 | Choose your path                                         | —                                           | **删除 H2 及其下方整个内容区块**（纯UI标签，无关键词价值，内容无需保留）              |
-| 第4个 | Free AI generators                                       | Free AI story and RPG generators            | **修改**                            |
-| 第5个 | Built for tabletop RPG sessions                          | Built for D&D and tabletop RPG Game Masters | **修改**                            |
-| 第6个 | Example outputs                                          | Example AI story and NPC outputs            | **修改**                            |
-| 第7个 | How it works                                             | How the AI story generator works            | **修改**                            |
-| 第8个 | Why use AIStoryGenerator instead of a generic chat tool? | 不变                                          | **保留**                            |
-| 第9个 | Frequently asked questions                               | 不变                                          | **保留**                            |
+| 第2个 | Start with a story, turn it into a campaign              | From AI story to full D&D campaign          | **修改**                                                                     |
+| 第3个 | Choose your path                                         | —                                           | **删除 H2 及其下方整个内容区块**（纯UI标签，无关键词价值，内容无需保留）                                  |
+| 第4个 | Free AI generators                                       | Free AI story and RPG generators            | **修改**                                                                     |
+| 第5个 | Built for tabletop RPG sessions                          | Built for D&D and tabletop RPG Game Masters | **修改**                                                                     |
+| 第6个 | Example outputs                                          | Example AI story and NPC outputs            | **修改**                                                                     |
+| 第7个 | How it works                                             | How the AI story generator works            | **修改**                                                                     |
+| 第8个 | Why use AIStoryGenerator instead of a generic chat tool? | 不变                                          | **保留**                                                                     |
+| 第9个 | Frequently asked questions                               | 不变                                          | **保留**                                                                     |
 
 **修改逻辑：** H2 是 Google 判断页面主题的重要信号，当前 H2 中核心词 "ai story generator" 几乎没有出现。修改后，"ai story generator"、"D&D"、"tabletop RPG" 在 H2 层级多次出现，加强主题信号。
 
