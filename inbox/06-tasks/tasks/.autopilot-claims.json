@@ -1783,19 +1783,15 @@
     "mergedAt": "2026-07-01T06:35:00.410Z"
   },
   "PG-CELEB-015": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "maya-joint-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-015.md",
     "stage": "pushed-preview",
-    "lockedBy": "37932",
-    "leaseUntil": "2026-07-01T14:11:08.285Z",
     "updatedAt": "2026-07-01T13:11:08.285Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
     "branch": "seo/auto/2026-07-01-PG-CELEB-015",
     "pr": "https://github.com/xdawayer/oracle/pull/305",
-    "zh": false,
-    "error": "review[schema] FAIL: The keywords array contains a hallucinated, off-topic term \"emma watson zodiac sign\" (also mirrored in the draft's associated_keywords) that is unrelated to Maya Joint and contradicts the article body.",
-    "failedAt": "2026-07-01T13:14:17.273Z"
+    "zh": false
   }
 }
