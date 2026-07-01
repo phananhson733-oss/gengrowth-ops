@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782879666688-f1xkuuy0o",
+  "providerId": "codex",
+  "title": "能帮我根据astrology wiki，参考已有文档，帮我生成这两个空要填的内容吗",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782879666688,
+  "updatedAt": 1782879692635,
+  "lastResponseAt": 1782879692635,
+  "sessionId": "019f1be8-daa2-7162-b916-57e5dae23ff2",
+  "providerState": {
+    "threadId": "019f1be8-daa2-7162-b916-57e5dae23ff2",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/30/rollout-2026-06-30T21-21-13-019f1be8-daa2-7162-b916-57e5dae23ff2.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 15864,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 2432,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 15864,
+    "percentage": 6,
+    "model": "gpt-5.5"
+  }
+}

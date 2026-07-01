@@ -7,7 +7,7 @@ project: astrologywiki
 type: topic-note
 status: 已发布
 source:
-  - - - inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md
+  - - - inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md
   - - - inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md
 ---
 
@@ -43,7 +43,7 @@ source:
 - 视频正文已完成；
 - 最终制作工具：VEED；
 - 脚本初稿由 Pictory 辅助，后续由 GPT 完善；
-- 相关报告见：[[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+- 相关报告见：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ## 4. 可复用模板
 

@@ -10,7 +10,7 @@ source:
   - [[inbox-pengman/06-tasks/2026-06-16-astrologywiki-weekly-todo.md]]
   - [[inbox-pengman/07-account-assets/2026-06-17-astrologywiki-account-assets.md]]
   - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
-  - [[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
   - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
 ---
 
@@ -157,7 +157,7 @@ source:
 必须参考的上下文：
 - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
 - [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
-- [[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 - [[inbox-pengman/07-account-assets/2026-06-17-astrologywiki-account-assets.md]]
 - [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
@@ -239,7 +239,7 @@ D. Suggested CTA
 
 当前主要复盘文档：
 
-[[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ### 5.2 复盘要记录什么
 

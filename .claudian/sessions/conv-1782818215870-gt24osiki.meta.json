@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782818215870-gt24osiki",
+  "providerId": "codex",
+  "title": "有没有什么6",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782818215870,
+  "updatedAt": 1782876382416,
+  "lastResponseAt": 1782818445210,
+  "sessionId": "019f183f-2f7c-7e32-b2f0-eda148c06f29",
+  "providerState": {
+    "threadId": "019f183f-2f7c-7e32-b2f0-eda148c06f29",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/30/rollout-2026-06-30T04-17-01-019f183f-2f7c-7e32-b2f0-eda148c06f29.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 25867,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 25472,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 25867,
+    "percentage": 10,
+    "model": "gpt-5.5"
+  }
+}

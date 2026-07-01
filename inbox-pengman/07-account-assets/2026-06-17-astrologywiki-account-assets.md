@@ -71,7 +71,7 @@ tags:
 ## 4. 内容资产记录
 
 > 首条视频的完整制作记录、脚本、标题、简介与发布说明已统一放在：  \
-> [[inbox-pengman/05-media report/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+> [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ## 5. 工具与流程资产
 

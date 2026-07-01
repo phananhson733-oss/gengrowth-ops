@@ -4,7 +4,7 @@ project: astrologywiki
 type: tool-research
 status: draft
 owner: Pengman
-updated: 2026-06-29
+updated: 2026-07-01
 ---
 
 # Higgsfield 视频自动化工作流调研
@@ -264,4 +264,61 @@ Higgsfield 值得尝试，但当前不建议把它定义为“视频主工具”
 - 适合科普、故事、解释型内容的批量测试。
 
 因此，Higgsfield 简笔画 / 图解素材路线可以继续作为 AstrologyWiki 短视频素材测试方向；但仍建议先做短视频小样，不直接扩展成长视频矩阵。
+
+## 11. 当前推荐工作流：Higgsfield 生成素材 + CapCut 成片（2026-07-01）
+
+适用场景：15-45 秒 Shorts / TikTok，尤其是热点事件 + 占星解释类内容。
+
+当前判断：**第一条样片优先用 Higgsfield 网页端手动跑通；模板稳定后，再用 Codex 接入 Higgsfield 批量化。**
+
+### 11.1 工具分工
+
+| 环节 | 推荐工具 | 说明 |
+|---|---|---|
+| 脚本 / 分镜 | ChatGPT / Codex | 先把 30-45 秒拆成 5-6 个镜头。 |
+| 旁白 | Higgsfield Audio / ElevenLabs 11v3 | 用自然、沉稳的英文 voiceover。 |
+| 静态画面 | Higgsfield Image（GPT Image 2 / Nano Banana） | 生成 9:16 无文字竖屏图。 |
+| 少量动效 | Higgsfield Video（Seedance 2.0） | 只给 2-3 个关键镜头做轻动效。 |
+| 字幕 / 标题 / CTA | CapCut | 所有可读文字都在 CapCut 里加，避免 AI 文字错误。 |
+| 最终剪辑 | CapCut | 对齐旁白、加字幕、音乐、CTA。 |
+
+### 11.2 成本与便利性判断
+
+- Higgsfield 网页端和 Codex 接入通常都消耗同一个 Higgsfield 账号 / credits；同模型、同时长、同分辨率下，生成成本大概率差不多。
+- 网页端更适合第一条样片：可以直观看素材上传、voice、风格和动效结果。
+- Codex 更适合模板稳定后的批量化：拆分镜、批量写 prompt、批量生成素材、下载和命名。
+- 当前不建议让 Higgsfield 一次性生成完整成片；更稳的是让 Higgsfield 生成素材，CapCut 控制文字和节奏。
+
+### 11.3 单条 Shorts 的最小制作包
+
+```text
+1 条旁白音频
++ 5-6 张无文字竖屏图
++ 2-3 条轻动效视频
++ CapCut 字幕 / 标题 / CTA
+```
+
+### 11.4 素材准备清单
+
+必须准备：
+
+- 完整英文脚本；
+- 视觉结构 / 分镜时间点；
+- AstrologyWiki 文章截图或页面链接；
+- 最终 CTA 文案。
+
+可选准备：
+
+- 合法可用的人物 / 球队 / 赛事素材；
+- AstrologyWiki logo；
+- 品牌色、字体、字幕样式；
+- 参考视频截图或风格样例。
+
+如果没有合法人物照片，优先使用象征化画面：captain silhouette、stadium spotlight、football pitch、Leo / Sun motif 等，避免依赖 AI 生成真实名人肖像。
+
+### 11.5 Prompt 原则
+
+- 图片和视频 prompt 里明确写：`no text, no captions, no logos, no readable words`。
+- 涉及生日、星座、赛事、CTA 等准确文字，一律在 CapCut 添加。
+- 对热点体育内容，不做比赛结果预测，不写博彩语境；用现实事件作为入口，回到 astrology literacy / birth chart symbolism。
 

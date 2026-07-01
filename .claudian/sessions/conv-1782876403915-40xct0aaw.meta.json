@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782876403915-40xct0aaw",
+  "providerId": "codex",
+  "title": "这个仓库里有教我怎么进行报销的步骤吗？你可以查看整个仓库文档",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782876403916,
+  "updatedAt": 1782879643322,
+  "lastResponseAt": 1782876491347,
+  "sessionId": "019f1bb7-1da9-73e0-aa16-791d2460cb39",
+  "providerState": {
+    "threadId": "019f1bb7-1da9-73e0-aa16-791d2460cb39",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/06/30/rollout-2026-06-30T20-26-53-019f1bb7-1da9-73e0-aa16-791d2460cb39.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 51187,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 47488,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 51187,
+    "percentage": 20,
+    "model": "gpt-5.5"
+  }
+}
