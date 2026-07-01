@@ -1846,15 +1846,17 @@
     "failedAt": "2026-07-01T14:30:46.809Z"
   },
   "PG-CELEB-019": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "bella-hadid-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-019.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "85543",
-    "leaseUntil": "2026-07-01T15:44:44.008Z",
-    "updatedAt": "2026-07-01T14:44:44.008Z",
+    "leaseUntil": "2026-07-01T15:49:47.917Z",
+    "updatedAt": "2026-07-01T14:49:47.917Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-019",
-    "branch": "seo/auto/2026-07-01-PG-CELEB-019"
+    "branch": "seo/auto/2026-07-01-PG-CELEB-019",
+    "pr": "https://github.com/xdawayer/oracle/pull/309",
+    "zh": false
   }
 }
