@@ -1726,5 +1726,17 @@
     "verifiedAt": "2026-07-01T04:01:01.324Z",
     "headRefOid": "47c7fc0df0014bdb6cba30861fd082462e3555c4",
     "mergedAt": "2026-07-01T04:01:06.602Z"
+  },
+  "PG-CELEB-014": {
+    "status": "active",
+    "slug": "cardi-b-birth-chart",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-014.md",
+    "stage": "convert",
+    "lockedBy": "85157",
+    "leaseUntil": "2026-07-01T06:37:12.125Z",
+    "updatedAt": "2026-07-01T05:37:12.125Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-014",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-014"
   }
 }
