@@ -1705,5 +1705,17 @@
     "verifiedAt": "2026-07-01T03:46:44.792Z",
     "headRefOid": "eacd64c7354d4550e9bb99be52e7eacd71db8278",
     "mergedAt": "2026-07-01T03:46:50.119Z"
+  },
+  "PG-UPRA-001": {
+    "status": "active",
+    "slug": "usa-pluto-return-astrology",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-UPRA-001.md",
+    "stage": "convert",
+    "lockedBy": "77732",
+    "leaseUntil": "2026-07-01T04:48:29.115Z",
+    "updatedAt": "2026-07-01T03:48:29.115Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-UPRA-001",
+    "branch": "seo/auto/2026-07-01-PG-UPRA-001"
   }
 }
