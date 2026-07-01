@@ -313,6 +313,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-UPRA-001` USA Pluto Return Astrology -> LIVE https://www.astrologywiki.com/en/wiki/usa-pluto-return-astrology （新模板去SEO套话;时机稳妥;4内链重映射;CTA修;codex PASS）
 - [x] `PG-CELEB-014` Cardi B Birth Chart -> LIVE https://www.astrologywiki.com/en/wiki/cardi-b-birth-chart （Libra Sun 对分 Aries Moon 满月;新模板0套话;5内链直写真实页;CTA修how-to-read;codex一次PASS→MERGED）
 - [ ] `PG-TSE-001` Total Solar Eclipse 2026
-- [x] `PG-HOUSE-014` Pride Month Astrology
+- [x] `PG-HOUSE-014` Pride Month Astrology -> LIVE https://www.astrologywiki.com/en/wiki/pride-month-astrology （季节象征非身份标签;新模板0套话;codex纠夏至方向3拷贝→northernmost;MERGED）
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
