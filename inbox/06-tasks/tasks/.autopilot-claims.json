@@ -1783,7 +1783,7 @@
     "mergedAt": "2026-07-01T06:35:00.410Z"
   },
   "PG-CELEB-015": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "maya-joint-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-015.md",
@@ -1792,6 +1792,20 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
     "branch": "seo/auto/2026-07-01-PG-CELEB-015",
     "pr": "https://github.com/xdawayer/oracle/pull/305",
-    "zh": false
+    "zh": false,
+    "error": "codex completed with codex FAIL —Cancer Ascendant public-database claim is unverifiable",
+    "failedAt": "2026-07-01T13:35:55.885Z"
+  },
+  "PG-CELEB-016": {
+    "status": "active",
+    "slug": "lebron-james-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-016.md",
+    "stage": "convert",
+    "lockedBy": "43046",
+    "leaseUntil": "2026-07-01T14:35:04.907Z",
+    "updatedAt": "2026-07-01T13:35:04.907Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-016"
   }
 }
