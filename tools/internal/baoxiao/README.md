@@ -16,7 +16,7 @@
 - 跨月 carry A 方案:row + 文件都 mv 到下月
 - 跨月跨人**总表** `报销/总表.md`(已结清/未结清 两表,主键 = 发票编号)
 - id8 隐藏到 HTML 注释,H3 只显示 description(`### 仟佳食品 餐饮 员工`)
-- `_drop/{人}/` 投递区 + **ops 跨仓库报销投递区**(v2.5.11:mby/pengman 在 `gengrowth-ops/inbox-{人}/报销/` 顺手放,drop-scan 一并扫;`.md`/`.gitkeep` 说明文件不搬)(非邮件渠道发票,launchd 每分钟扫搬到 `_inbox`)
+- `_drop/{人}/` 投递区 + **ops 跨仓库报销投递区**(v2.5.11:mby/pengman 在各自 ops 工作区的 `报销/` 子目录放(mby=`inbox/报销`、pengman=`inbox-pengman/报销`,见 reimbursers.yaml `ops_expense_drops`),drop-scan 一并扫;`.md`/`.gitkeep` 说明文件不搬)(非邮件渠道发票,launchd 每分钟扫搬到 `_inbox`)
 - 批量 `cli.py settle --month --reimburser --ids ... | --all`
 - `WATCH_ONLY=1 bash install.sh`(Lynne 本机只装 watch + drop,Mac Mini 独占 daily/monthly)
 

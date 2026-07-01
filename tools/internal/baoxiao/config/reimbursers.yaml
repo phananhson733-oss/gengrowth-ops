@@ -32,5 +32,5 @@ overseas_object: __reimburser__
 # 把 mby/pengman 在自己 ops 工作区顺手放的报销图片搬进流程 → ingest 去重入账。
 # 值 = 相对 ops 根的路径;key = 报销人(决定搬到 _inbox/{谁}/)。
 ops_expense_drops:
-  mby: inbox-mby/报销
+  mby: inbox/报销            # inbox 就是 mby 的 ops 工作区
   pengman: inbox-pengman/报销
