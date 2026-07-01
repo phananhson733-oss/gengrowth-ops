@@ -1800,7 +1800,7 @@
     "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "lebron-james-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-016.md",
@@ -1809,7 +1809,13 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-acbfd3-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T15:40:26.481Z",
+    "headRefOid": "c832b058a27b0b9616cbf7210a544fae5176f2f6",
+    "error": "merge failed: /auto/2026-07-01-PG-CELEB-016 --repo xdawayer/oracle --merge --delete-branch --match-head-commit c832b058a27b0b9616cbf7210a544fae5176f2f6 GraphQL: Pull Request has merge conflicts (mergePullRequest)",
+    "failedAt": "2026-07-01T15:40:28.535Z"
   },
   "PG-CELEB-017": {
     "status": "pushed-preview",
