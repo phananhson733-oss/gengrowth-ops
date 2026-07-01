@@ -628,41 +628,82 @@ def cmd_migrate_invoices_to_petty(args):
         print(f"   {inv_no}:{src} → {dst}")
 
 
-def cmd_drop_scan(args):
-    """v2.5 F:扫 wiki 投递区 `docs/.../finance-payments/_drop/{reimburser}/*`,
-    搬到本机 `_inbox/{reimburser}/` 等 cowork ingest。
+def _scan_drop_dir(src_dir, reimb, inbox) -> int:
+    """从 src_dir 搬非隐藏文件到 _inbox/{reimb}/,原文件 mv 到 src_dir/.processed/。
+    同名已在 _inbox → skip(不覆盖)。返回搬运数。wiki _drop 与 ops 报销投递区共用。"""
+    import shutil as _sh
+    src_dir = Path(src_dir)
+    if not src_dir.exists():
+        return 0
+    target_inbox = Path(inbox) / reimb
+    target_inbox.mkdir(parents=True, exist_ok=True)
+    processed = src_dir / ".processed"
+    processed.mkdir(exist_ok=True)
+    n = 0
+    for src in sorted(src_dir.iterdir()):
+        if src.is_dir() or src.name.startswith(".") or src.name.endswith(".gitkeep"):
+            continue
+        dst = target_inbox / src.name
+        if dst.exists():
+            print(f"  ⚠️ {dst} 已存在,skip")
+            continue
+        _sh.copy2(str(src), str(dst))
+        _sh.move(str(src), str(processed / src.name))
+        print(f"  📥 {reimb}/{src.name} → _inbox/{reimb}/")
+        n += 1
+    return n
 
-    - 投递区 git 同步(Lynne 在 Pro 投递 → push → Mac Mini pull → 这里检测 → 搬到 _inbox)
-    - 搬完不删 _drop 原文件,而是 mv 到 _drop/.processed/(用户后续手动清)
-    - 不自动 ingest;cowork 模式下等人/Claude 读 PDF 出 fields JSON 再跑 ingest
+
+def _ops_root():
+    """定位 gengrowth-ops 仓库根:env GENGROWTH_OPS 优先,否则探 ~/Code/gengrowth-ops、~/gengrowth-ops。
+    找不到 → None(ops 报销扫描静默跳过,不影响 wiki _drop)。"""
+    import os
+    env = os.environ.get("GENGROWTH_OPS")
+    if env and Path(env).expanduser().exists():
+        return Path(env).expanduser()
+    for cand in ("~/Code/gengrowth-ops", "~/gengrowth-ops"):
+        p = Path(cand).expanduser()
+        if p.exists():
+            return p
+    return None
+
+
+def _resolve_ops_expense_drops(ops_root=None, yaml_path=None):
+    """从 reimbursers.yaml 的 `ops_expense_drops`(reimburser → 相对 ops 路径)解析出
+    {reimburser: 绝对 Path}。ops 不存在 / 无配置 → {}。ops_root/yaml_path 可注入(测试用)。"""
+    if ops_root is None:
+        ops_root = _ops_root()
+    if ops_root is None:
+        return {}
+    cfg = config.load_yaml(yaml_path or REIMBURSERS_YAML) or {}
+    mapping = cfg.get("ops_expense_drops") or {}
+    return {reimb: Path(ops_root) / rel for reimb, rel in mapping.items()}
+
+
+def cmd_drop_scan(args):
+    """扫报销图片投递区搬到 `_inbox/{reimburser}/` 等 cowork ingest。两类源:
+      1. wiki 本地投递区 `finance-payments/_drop/{reimburser}/*`(git 同步)
+      2. ops 跨仓库报销投递区 `gengrowth-ops/{ops_expense_drops 配置}/*`
+         (mby/pengman 在他们的 ops 工作区顺手放报销图片)
+    搬完原文件 mv 到各源的 `.processed/`;同名已在 _inbox → skip;不自动 ingest。
+    去重最终由 ingest 的 content-hash + invoice-number 兜底(跨源同一张只入账一次)。
     """
     drop_root = Path(args.drop_root).expanduser() if args.drop_root else DEFAULT_DROP_ROOT
     inbox = Path(args.inbox).expanduser()
-    if not drop_root.exists():
-        print(f"投递区不存在:{drop_root}")
-        return
     n_moved = 0
-    for reimb_dir in sorted(drop_root.iterdir()):
-        if not reimb_dir.is_dir() or reimb_dir.name.startswith("."):
-            continue
-        reimb = reimb_dir.name
-        target_inbox = inbox / reimb
-        target_inbox.mkdir(parents=True, exist_ok=True)
-        processed = reimb_dir / ".processed"
-        processed.mkdir(exist_ok=True)
-        for src in sorted(reimb_dir.iterdir()):
-            if src.is_dir() or src.name.startswith(".") or src.name.endswith(".gitkeep"):
+    # 1. wiki 本地 _drop/{人}/
+    if drop_root.exists():
+        for reimb_dir in sorted(drop_root.iterdir()):
+            if not reimb_dir.is_dir() or reimb_dir.name.startswith("."):
                 continue
-            dst = target_inbox / src.name
-            if dst.exists():
-                print(f"  ⚠️ {dst} 已存在,skip")
-                continue
-            import shutil as _sh
-            _sh.copy2(str(src), str(dst))
-            _sh.move(str(src), str(processed / src.name))
-            print(f"  📥 {reimb}/{src.name} → _inbox/{reimb}/")
-            n_moved += 1
-    print(f"--- {n_moved} 个文件从 _drop 搬到 _inbox(等 cowork ingest)---")
+            n_moved += _scan_drop_dir(reimb_dir, reimb_dir.name, inbox)
+    else:
+        print(f"wiki 投递区不存在:{drop_root}")
+    # 2. ops 跨仓库报销投递区(mby/pengman 等在 ops 工作区放的)
+    for reimb, ops_dir in sorted(_resolve_ops_expense_drops().items()):
+        if ops_dir.exists():
+            n_moved += _scan_drop_dir(ops_dir, reimb, inbox)
+    print(f"--- {n_moved} 个文件搬到 _inbox(wiki _drop + ops 报销投递,等 cowork ingest)---")
 
 
 def cmd_audit_near_dups(args):
