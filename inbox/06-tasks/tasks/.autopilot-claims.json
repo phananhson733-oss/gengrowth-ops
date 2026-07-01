@@ -1814,7 +1814,7 @@
     "failedAt": "2026-07-01T13:54:10.305Z"
   },
   "PG-CELEB-017": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "thylane-blondeau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
@@ -1825,6 +1825,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
     "branch": "seo/auto/2026-07-01-PG-CELEB-017",
     "pr": "https://github.com/xdawayer/oracle/pull/307",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: Multiple internal links have anchor text that misrepresents their destination — both the in-body \"rising sign personality profiles\" link and the Related Reading \"companion celebrity birth chart profile in this series\" link resolve to the generic /en/wiki/how-to-read-birth-chart pillar page, not the rising-sign or celebrity-profile targets they promise.",
+    "failedAt": "2026-07-01T14:07:36.733Z"
   }
 }
