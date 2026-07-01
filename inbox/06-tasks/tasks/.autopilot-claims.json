@@ -1783,7 +1783,7 @@
     "mergedAt": "2026-07-01T06:35:00.410Z"
   },
   "PG-CELEB-015": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "maya-joint-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-015.md",
@@ -1792,7 +1792,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
     "branch": "seo/auto/2026-07-01-PG-CELEB-015",
     "pr": "https://github.com/xdawayer/oracle/pull/305",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-7cb146-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T13:49:00.199Z",
+    "headRefOid": "e312579d83e1e1ab33fb86b7fa8aba4a9d003df5",
+    "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
     "status": "needs_human",
