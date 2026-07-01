@@ -1747,7 +1747,7 @@
     "mergedAt": "2026-07-01T05:46:32.771Z"
   },
   "PG-HOUSE-014": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pride-month-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-HOUSE-014.md",
@@ -1756,8 +1756,6 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-HOUSE-014",
     "branch": "seo/auto/2026-07-01-PG-HOUSE-014",
     "pr": "https://github.com/xdawayer/oracle/pull/299",
-    "zh": false,
-    "error": "codex completed with codex FAIL —the June 20–21 timeline wrongly says the Sun turns north",
-    "failedAt": "2026-07-01T06:06:46.452Z"
+    "zh": false
   }
 }
