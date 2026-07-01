@@ -1820,7 +1820,7 @@
     "reconciliationNote": "auto-reconciled from merged GitHub PR"
   },
   "PG-CELEB-017": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "thylane-blondeau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
@@ -1829,7 +1829,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
     "branch": "seo/auto/2026-07-01-PG-CELEB-017",
     "pr": "https://github.com/xdawayer/oracle/pull/307",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-fd75cd-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T15:51:40.060Z",
+    "headRefOid": "7fe634e7359c8582a547e7de6c6025f2f139107e",
+    "mergedAt": "2026-07-01T15:51:45.846Z"
   },
   "PG-CELEB-018": {
     "status": "pushed-preview",
