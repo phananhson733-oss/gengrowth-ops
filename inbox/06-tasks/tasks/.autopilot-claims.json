@@ -1684,5 +1684,17 @@
     "verifiedAt": "2026-06-30T13:30:38.703Z",
     "headRefOid": "370e34d7c19929a3b0fb1c0ed557643de140bd1e",
     "mergedAt": "2026-06-30T13:30:44.346Z"
+  },
+  "PG-CELEB-013": {
+    "status": "active",
+    "slug": "carlos-alcaraz-birth-chart",
+    "owner": "autopilot",
+    "plan": "one-plan-PG-CELEB-013.md",
+    "stage": "convert",
+    "lockedBy": "57060",
+    "leaseUntil": "2026-07-01T04:22:27.222Z",
+    "updatedAt": "2026-07-01T03:22:27.222Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-013",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-013"
   }
 }
