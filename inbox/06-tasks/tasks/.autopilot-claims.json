@@ -1846,7 +1846,7 @@
     "failedAt": "2026-07-01T14:30:46.809Z"
   },
   "PG-CELEB-019": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "bella-hadid-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-019.md",
@@ -1857,6 +1857,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-019",
     "branch": "seo/auto/2026-07-01-PG-CELEB-019",
     "pr": "https://github.com/xdawayer/oracle/pull/309",
-    "zh": false
+    "zh": false,
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-01T14:53:09.631Z"
   }
 }
