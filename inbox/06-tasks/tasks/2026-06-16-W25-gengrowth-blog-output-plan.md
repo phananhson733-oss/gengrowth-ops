@@ -124,10 +124,10 @@ updated: 2026-06-23
 ---
 ## ⚪ 7月1日 (周三) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-EOS-004` cheap seo
-- [ ] `PG-EOS-005` best cheap seo tools
-- [ ] `PG-CMP-004` affordable seo software
-- [ ] `PG-EOS-006` free seo company
-- [ ] `PG-EOS-007` organic seo service
+- [x] `PG-EOS-004` cheap seo  -> LIVE https://gengrowth.ai/en/blog/cheap-seo
+- [x] `PG-EOS-005` best cheap seo tools  -> LIVE https://gengrowth.ai/en/blog/best-cheap-seo-tools
+- [x] `PG-CMP-004` affordable seo software  -> LIVE https://gengrowth.ai/en/blog/affordable-seo-software
+- [x] `PG-EOS-006` free seo company  -> LIVE https://gengrowth.ai/en/blog/free-seo-company
+- [x] `PG-EOS-007` organic seo service  -> LIVE https://gengrowth.ai/en/blog/organic-seo-service
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
