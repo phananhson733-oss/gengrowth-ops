@@ -95,3 +95,4 @@ updated: 2026-07-01
 | 2026-06-30 | PG-CELEB-012 | ben-shelton-zodiac-sign | Ben Shelton Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/ben-shelton-zodiac-sign | published |
 | 2026-06-30 | PG-WC-041 | morocco-world-cup-2026-astrology | Morocco World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology | published |
 | 2026-07-01 | PG-CELEB-013 | carlos-alcaraz-birth-chart | Carlos Alcaraz Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/carlos-alcaraz-birth-chart | published |
+| 2026-07-01 | PG-UPRA-001 | usa-pluto-return-astrology | USA Pluto Return Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/usa-pluto-return-astrology | published |
