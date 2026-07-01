@@ -1686,7 +1686,7 @@
     "mergedAt": "2026-06-30T13:30:44.346Z"
   },
   "PG-CELEB-013": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "carlos-alcaraz-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-013.md",
@@ -1699,6 +1699,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/296",
     "zh": false,
     "retryEvidence": "removed unverifiable Cancer/Gemini Moon sources-dispute; Moon now honestly framed as undeterminable without verified birth time",
-    "retryAt": "2026-07-01T03:41:48.432Z"
+    "retryAt": "2026-07-01T03:41:48.432Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-a9e2ed-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T03:46:44.792Z",
+    "headRefOid": "eacd64c7354d4550e9bb99be52e7eacd71db8278",
+    "mergedAt": "2026-07-01T03:46:50.119Z"
   }
 }
