@@ -42,6 +42,9 @@ aliases:
 
 ### 3.1 多电脑 Obsidian Git 同步
 
+> 📄 **完整 setup / onboarding / 排错见 [`tools/scripts/SYNC.md`](scripts/SYNC.md)**：新机器接入两条命令、
+> 哪些仓库能自动同步（wiki/ops）哪些绝不能（flow-mvp/agents dev 仓库）、冲突安全三件套、深度分叉恢复。
+
 `scripts/obsidian-vault-git-sync.sh` 是团队共享的同步入口。每台电脑可以直接运行：
 
 ```bash
