@@ -16,7 +16,7 @@
 - 跨月 carry A 方案:row + 文件都 mv 到下月
 - 跨月跨人**总表** `报销/总表.md`(已结清/未结清 两表,主键 = 发票编号)
 - id8 隐藏到 HTML 注释,H3 只显示 description(`### 仟佳食品 餐饮 员工`)
-- `_drop/{人}/` 投递区(非邮件渠道发票拖进来,launchd 每分钟扫描搬到 `_inbox`)
+- `_drop/{人}/` 投递区 + **ops 跨仓库报销投递区**(v2.5.11:mby/pengman 在 `gengrowth-ops/inbox-{人}/报销/` 顺手放,drop-scan 一并扫;`.md`/`.gitkeep` 说明文件不搬)(非邮件渠道发票,launchd 每分钟扫搬到 `_inbox`)
 - 批量 `cli.py settle --month --reimburser --ids ... | --all`
 - `WATCH_ONLY=1 bash install.sh`(Lynne 本机只装 watch + drop,Mac Mini 独占 daily/monthly)
 
@@ -148,7 +148,7 @@ tail -f logs/launchd-{daily,watch,month-end,month-start}.log
 | `com.gengrowth.baoxiao-watch` | `StartInterval=2`,每 2 秒轮询 | `refresh-dashboard`:同步 dashboard + 自动填 settled_date + 刷总表(全部幂等不变不写盘) |
 | `com.gengrowth.baoxiao-month-end` | 每天 23:30 | wrapper 判断本月最后一天 → `month-end`(本月汇总,**不结转**) |
 | `com.gengrowth.baoxiao-month-start` | 每天 09:00 | wrapper 判断每月 1 号 → `month-start`(结转上月未结清 + 开新月) |
-| `com.gengrowth.baoxiao-drop` | `StartInterval=60`,每分钟 | `drop-scan`:扫 `_drop/{人}/` 搬到 `_inbox/{人}/`(非邮件渠道发票投递) |
+| `com.gengrowth.baoxiao-drop` | `StartInterval=60`,每分钟 | `drop-scan`:扫 **wiki `_drop/{人}/` + ops 报销投递区**(reimbursers.yaml 的 `ops_expense_drops`,如 mby/pengman)搬到 `_inbox/{人}/` |
 
 > **v2.5.10 两段式月度流程**:月末(`month-end`)只做本月汇总呈现给员工查验/结清,**不结转、不建下月**;下月第一天(`month-start`)等上月所有结清结束后,才把仍未结清的 carry 到本月并开启新月。这样员工有完整的「最后一天」窗口结清,结转集合到月初才冻结,下月文件夹不提前出现。
 >
