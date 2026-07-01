@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-06-30
+updated: 2026-07-01
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -94,3 +94,4 @@ updated: 2026-06-30
 | 2026-06-30 | PG-CELEB-011 | teyana-taylor-birth-chart | Teyana Taylor Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/teyana-taylor-birth-chart | published |
 | 2026-06-30 | PG-CELEB-012 | ben-shelton-zodiac-sign | Ben Shelton Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/ben-shelton-zodiac-sign | published |
 | 2026-06-30 | PG-WC-041 | morocco-world-cup-2026-astrology | Morocco World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology | published |
+| 2026-07-01 | PG-CELEB-013 | carlos-alcaraz-birth-chart | Carlos Alcaraz Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/carlos-alcaraz-birth-chart | published |

@@ -309,7 +309,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-012` ben shelton zodiac sign -> LIVE https://www.astrologywiki.com/en/wiki/ben-shelton-zodiac-sign （Libra；补全星座陈述；needs_hero）
 - [x] `PG-WC-041` morocco world cup 2026 astrology -> LIVE https://www.astrologywiki.com/en/wiki/morocco-world-cup-2026-astrology （队篇；木星双子→巨蟹/狮子修正；codex 5轮纠错赛事时机+东道主；needs_hero）
 
-- [ ] `PG-CELEB-013` Carlos Alcaraz Birth Chart
+- [x] `PG-CELEB-013` Carlos Alcaraz Birth Chart
 - [ ] `PG-UPRA-001` USA Pluto Return Astrology
 - [ ] `PG-CELEB-014` Cardi B Birth Chart
 - [ ] `PG-TSE2-001` Total Solar Eclipse 2026
