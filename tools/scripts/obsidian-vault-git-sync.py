@@ -298,24 +298,40 @@ def sync_repo(cfg: RepoConfig, dry_run: bool = False) -> SyncResult:
         pulled = ""
         pushed = False
 
-        if behind > 0:
-            if dry_run:
+        # dry-run 只报告意图，不改状态（保持原行为；behind 优先）。
+        if dry_run:
+            if behind > 0:
                 return SyncResult(name, True, f"{name}: {commit_summary}; would rebase {behind} remote commit(s)", True)
-            ok, pulled = pull_rebase(repo, branch)
-            if not ok:
-                return SyncResult(name, False, f"{name}: {pulled}")
-
-        ahead, behind = ahead_behind(repo, branch)
-        if behind > 0:
-            return SyncResult(name, False, f"{name}: rebase 后仍落后远端 {behind} 个提交，未推送")
-        if ahead > 0:
-            if dry_run:
+            if ahead > 0:
                 return SyncResult(name, True, f"{name}: {commit_summary}; would push {ahead} commit(s)", True)
+
+        # 多机/多人并发自动同步下，push 可能与别机的 push 撞车（non-fast-forward）。
+        # 整体 fetch→rebase→push 重试若干轮：后到者自动再 rebase 一次，而不是
+        # 失败后干等下一轮 cron。全程只用普通 push，绝不 --force/--force-with-lease。
+        last_detail = ""
+        for attempt in range(3):
+            ahead, behind = ahead_behind(repo, branch)
+            if behind > 0:
+                ok, pulled = pull_rebase(repo, branch)
+                if not ok:
+                    return SyncResult(name, False, f"{name}: {pulled}")
+                ahead, behind = ahead_behind(repo, branch)
+            if behind > 0:
+                return SyncResult(name, False, f"{name}: rebase 后仍落后远端 {behind} 个提交，未推送")
+            if ahead == 0:
+                break
             push = git(repo, "push", "origin", f"HEAD:{branch}")
-            if push.returncode != 0:
-                detail = push.stderr.strip() or push.stdout.strip() or "push failed"
-                return SyncResult(name, False, f"{name}: push 失败：{detail}")
-            pushed = True
+            if push.returncode == 0:
+                pushed = True
+                break
+            last_detail = push.stderr.strip() or push.stdout.strip() or "push failed"
+            # 大概率是别机刚 push 造成 non-fast-forward：重新 fetch，下一轮再 rebase+push。
+            fetched, fetch_detail = fetch_origin(repo, branch)
+            if not fetched:
+                return SyncResult(name, False, f"{name}: push 重试中 fetch 失败：{fetch_detail}")
+            time.sleep(1.5 * (attempt + 1))
+        else:
+            return SyncResult(name, False, f"{name}: push 失败（重试 3 次仍 non-fast-forward）：{last_detail}")
 
         if changed or pulled or pushed:
             bits = [commit_summary]

@@ -1465,5 +1465,45 @@ class MultilineNoteRoundTripTests(unittest.TestCase):
             self.assertNotIn("旧第二行", text)
 
 
+def _max_blank_run(text: str) -> int:
+    """标题/正文区连续空行的最大数量(regex 找 `\\n\\n+`,减 1 得空行数)。"""
+    import re
+    runs = re.findall(r"\n\n+", text)
+    return max((s.count("\n") - 1 for s in runs), default=0)
+
+
+class DashboardSpacingRegressionTests(unittest.TestCase):
+    """标题区↔汇总区之间空行不得累积;重复刷新必须逐字节幂等。"""
+
+    def test_refresh_dashboard_is_byte_idempotent(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "2026-06" / "Lynne.md"
+            ledger.append_row(p, _row(invoice_number="INV-IDEM"))
+            first = p.read_text(encoding="utf-8")
+            for _ in range(5):
+                ledger.refresh_dashboard(p)
+            self.assertEqual(p.read_text(encoding="utf-8"), first)
+
+    def test_no_blank_accumulation_after_refresh(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "2026-06" / "Lynne.md"
+            ledger.append_row(p, _row(invoice_number="INV-BLANK"))
+            ledger.refresh_dashboard(p)
+            self.assertLessEqual(_max_blank_run(p.read_text(encoding="utf-8")), 1)
+
+    def test_injected_blank_lines_collapsed_and_stable(self):
+        # 模拟历史脏数据:标题与首段之间被塞入多余空行,刷新后须收敛到 <=1 且此后不再变化
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "2026-06" / "Lynne.md"
+            ledger.append_row(p, _row(invoice_number="INV-DIRTY"))
+            dirty = p.read_text(encoding="utf-8").replace("\n\n###", "\n\n\n\n\n\n###", 1)
+            p.write_text(dirty, encoding="utf-8")
+            ledger.refresh_dashboard(p)
+            after = p.read_text(encoding="utf-8")
+            self.assertLessEqual(_max_blank_run(after), 1)
+            ledger.refresh_dashboard(p)
+            self.assertEqual(p.read_text(encoding="utf-8"), after)
+
+
 if __name__ == "__main__":
     unittest.main()

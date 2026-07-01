@@ -8,7 +8,37 @@
 #
 # gengrowth_sync_core 成功返回 0；vault-sync 失败返回 1（由调用方决定是否 exit）。
 
+# 可移植文件锁（macOS 无 flock 二进制，用 mkdir 原子锁）：串行化
+# frequent-sync 与 repos-sync，避免 wiki→ops 镜像的 rsync --delete 阶段交错。
+# py 引擎的 fcntl 锁只覆盖单次 python 进程，覆盖不到 shell 层的 rsync。
+# 锁被占用时优雅跳过本轮（return 0）；陈旧锁（>30min）自动接管，防止崩溃后死锁。
 gengrowth_sync_core() {
+  local lock_dir="${GENGROWTH_SYNC_SHELL_LOCK:-$HOME/.cache/gengrowth-sync-shell.lock.d}"
+  mkdir -p "$(dirname "$lock_dir")"
+  if ! mkdir "$lock_dir" 2>/dev/null; then
+    if find "$lock_dir" -maxdepth 0 -mmin +30 2>/dev/null | grep -q .; then
+      # 陈旧锁：用唯一名 mv 原子接管——只有 mv 成功者删旧锁，消除 TOCTOU 双持。
+      local stale="${lock_dir}.stale.$$"
+      if mv "$lock_dir" "$stale" 2>/dev/null; then
+        rmdir "$stale" 2>/dev/null
+        log "[lock] 接管陈旧同步锁（>30min）"
+        mkdir "$lock_dir" 2>/dev/null || { log "[lock] 抢锁失败，跳过本轮"; return 0; }
+      else
+        log "[lock] 另一进程已接管陈旧锁，跳过本轮"
+        return 0
+      fi
+    else
+      log "[lock] 另一个同步正在运行，跳过本轮"
+      return 0
+    fi
+  fi
+  _gengrowth_sync_core_body
+  local rc=$?
+  rmdir "$lock_dir" 2>/dev/null
+  return $rc
+}
+
+_gengrowth_sync_core_body() {
   # ── 1. 先同步真实 repo，避免 rsync 基于旧数据 ──────────────
   local REPO_ARGS=(--repo "$WIKI")
   [ -d "$OPS_REPO/.git" ] && REPO_ARGS+=(--repo "$OPS_REPO")
