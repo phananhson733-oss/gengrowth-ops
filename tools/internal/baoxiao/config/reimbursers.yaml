@@ -26,3 +26,11 @@ domestic_title: 广州进格智能科技有限公司
 
 # 海外 invoice 发票对象 = 员工个人(用报销人姓名),无需在此列举
 overseas_object: __reimburser__
+
+# ops 跨仓库报销投递区(v2.5.11):drop-scan 除了扫 wiki 的 _drop/{人}/,
+# 也扫这些 gengrowth-ops 里的目录(相对 $GENGROWTH_OPS,默认 ~/Code/gengrowth-ops),
+# 把 mby/pengman 在自己 ops 工作区顺手放的报销图片搬进流程 → ingest 去重入账。
+# 值 = 相对 ops 根的路径;key = 报销人(决定搬到 _inbox/{谁}/)。
+ops_expense_drops:
+  mby: inbox-mby/报销
+  pengman: inbox-pengman/报销
