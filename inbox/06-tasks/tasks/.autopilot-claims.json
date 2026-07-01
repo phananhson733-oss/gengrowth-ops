@@ -1830,15 +1830,17 @@
     "failedAt": "2026-07-01T14:07:36.733Z"
   },
   "PG-CELEB-018": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "elliot-page-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-018.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "80678",
-    "leaseUntil": "2026-07-01T15:22:28.110Z",
-    "updatedAt": "2026-07-01T14:22:28.110Z",
+    "leaseUntil": "2026-07-01T15:27:51.526Z",
+    "updatedAt": "2026-07-01T14:27:51.526Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
-    "branch": "seo/auto/2026-07-01-PG-CELEB-018"
+    "branch": "seo/auto/2026-07-01-PG-CELEB-018",
+    "pr": "https://github.com/xdawayer/oracle/pull/308",
+    "zh": false
   }
 }
