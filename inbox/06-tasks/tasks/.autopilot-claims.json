@@ -1828,5 +1828,17 @@
     "zh": false,
     "error": "review[links-seo] FAIL: Multiple internal links have anchor text that misrepresents their destination — both the in-body \"rising sign personality profiles\" link and the Related Reading \"companion celebrity birth chart profile in this series\" link resolve to the generic /en/wiki/how-to-read-birth-chart pillar page, not the rising-sign or celebrity-profile targets they promise.",
     "failedAt": "2026-07-01T14:07:36.733Z"
+  },
+  "PG-CELEB-018": {
+    "status": "active",
+    "slug": "elliot-page-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-018.md",
+    "stage": "convert",
+    "lockedBy": "80678",
+    "leaseUntil": "2026-07-01T15:22:28.110Z",
+    "updatedAt": "2026-07-01T14:22:28.110Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-018"
   }
 }
