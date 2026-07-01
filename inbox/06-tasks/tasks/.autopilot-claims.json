@@ -1830,7 +1830,7 @@
     "failedAt": "2026-07-01T14:07:36.733Z"
   },
   "PG-CELEB-018": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "elliot-page-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-018.md",
@@ -1841,6 +1841,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
     "branch": "seo/auto/2026-07-01-PG-CELEB-018",
     "pr": "https://github.com/xdawayer/oracle/pull/308",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: Several internal-link anchors describe targets that don't match the URL they point to — most clearly \"explainer on the Pisces Sun sign\" links to /en/wiki/12th-house-astrology, and the celebrity-profile and CTA anchors both point to the how-to-read-birth-chart pillar.",
+    "failedAt": "2026-07-01T14:30:46.809Z"
   }
 }
