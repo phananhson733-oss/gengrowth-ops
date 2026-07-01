@@ -10,6 +10,9 @@ email_to_name:
   xdawayer@gmail.com: wzb
   # mby 占位:等 wzb 给邮箱后填(发票邮件源识别);_drop/mby/ 已建好可投递。
   # mby_email@example.com: mby
+  # pengman 占位(2026-07-01 入职):等 pengman 提供 Gmail 后,取消下行注释填真实邮箱;
+  # _drop/pengman/ 已建好可投递。App Password 另填 .env 的 GMAIL_USER_4/APP_PASSWORD_4/REIMBURSER_4。
+  # pengman-gmail@gmail.com: pengman
   # 其余固定员工按此补全:
   # someone@gengrowth.ai: 张三
 

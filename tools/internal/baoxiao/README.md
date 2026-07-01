@@ -58,7 +58,7 @@ cd tools/internal/baoxiao && python3 -m unittest discover -s tests
         - dashboard 状态 + 类型同步
         - 文件名自动 rename(category 变化时)
      │
-     ▼  ⑥ launchd month-end 23:30(月最后一天) → 每人 summary(本月汇总,不结转)
+     ▼  ⑥ launchd month-end 23:30(月最后一天) → 刷新各人 dashboard + 跨月总表(本月汇总,不结转)
      │
      ▼  ⑦ launchd month-start 09:00(下月 1 号) → 上月未结清 carry-forward + 开新月
 ```
@@ -284,7 +284,7 @@ cowork extractor 必须从 PDF/PNG 上**肉眼可见的发票标题**抓 `普通
 | `mailbox.py` | Gmail IMAP 增量拉附件 → _inbox/{报销人}/ |
 | `ledger.py` | section + task + 底部 dashboard 读写;parse 兼容加粗 / 不加粗类型行 |
 | `transfer.py` | carry-forward(B 方案账本迁移) |
-| `summary.py` | 月度 markdown 汇总报告 |
+| `summary.py` | 跨月总表 `write_total`;per-人 `write_summary` 已废弃(v2.5.10 费用类型分布并进 dashboard) |
 | `sync.py` | inbox → 提取 → 分类 → 归档 → 写【开票月】账本 编排 |
 | `cli.py` | list-inbox / plan / ingest / fetch-mail / refresh-dashboard / monthly-close |
 | `config.py` | .env / yaml 读取 |
@@ -299,7 +299,7 @@ cowork extractor 必须从 PDF/PNG 上**肉眼可见的发票标题**抓 `普通
 | 运行时(本目录 .gitignore) | `_inbox/` / `_conflict/` / `logs/` / `*.lock` |
 | 发票存档(git) | `<wiki>/docs/05-governance/finance-payments/发票/{开票月}/{报销人}/*` |
 | 账本(git) | `<wiki>/docs/05-governance/finance-payments/报销/{YYYY-MM}/{报销人}.md` |
-| 月度汇总(git) | `<wiki>/docs/05-governance/finance-payments/报销/{YYYY-MM}/{报销人}-summary.md` |
+| 费用类型分布 | 账本底部 dashboard 内(实时刷新,v2.5.10 起取代独立 `-summary.md`) |
 
 ## 崩溃恢复
 

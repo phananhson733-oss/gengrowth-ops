@@ -642,17 +642,42 @@ def _render_summary(rows: List["LedgerRow"],
     ])
 
 
+def _render_category_breakdown(rows: List["LedgerRow"]) -> str:
+    """按费用类型分布(笔数 + 总额)。v2.5.10:从 -summary.md 迁来并进 dashboard 实时化
+    (砍掉独立 summary 文件,消除快照过时 + 文件噪音)。主账本单一 CNY 按原额聚合;
+    备用金多币种不调用(原币混加会错)。"""
+    agg = {}  # category -> [count, amount]
+    for r in rows:
+        c = r.category or "(未分类)"
+        if c not in agg:
+            agg[c] = [0, 0.0]
+        agg[c][0] += 1
+        agg[c][1] += (r.amount or 0)
+    if not agg:
+        return ""
+    lines = ["| 类型 | 笔数 | 总额 |", "|---|---:|---:|"]
+    for cat, (cnt, amt) in sorted(agg.items(), key=lambda kv: -kv[1][1]):
+        lines.append(f"| {cat} | {cnt} | ¥{_format_amount(amt)} |")
+    return "\n".join(lines)
+
+
 def _render_dashboard(rows: List["LedgerRow"],
                       ledger_type: str = LEDGER_TYPE_MAIN) -> str:
-    """渲染 dashboard 区:顶部 月度汇总(by 抬头×币种)+ 下方 全量发票表格。
-    备用金账本(petty)额外显示 人民币 + 付款证明 列。"""
+    """渲染 dashboard 区:顶部 月度汇总(by 抬头×币种)+ 按费用类型分布 + 下方 全量发票表格。
+    备用金账本(petty)额外显示 人民币 + 付款证明 列,且不渲染费用类型分布(多币种)。"""
     is_petty = ledger_type == LEDGER_TYPE_PETTY
     if not rows:
         empty_label = "_(暂无 invoice)_" if is_petty else "_(暂无发票)_"
         return f"{DASHBOARD_START}\n\n{empty_label}\n\n{DASHBOARD_END}"
     parts = [DASHBOARD_START, "", "## 📊 本月汇总", "",
-             _render_summary(rows, ledger_type), "",
-             ("## 📒 全部 invoice" if is_petty else "## 📒 全部发票"), ""]
+             _render_summary(rows, ledger_type), ""]
+    # v2.5.10:费用类型分布并入 dashboard(原 -summary.md 独有,现实时刷新)。
+    # 主账本才有意义(单一 CNY);备用金多币种跳过,避免原币混加。
+    if not is_petty:
+        _breakdown = _render_category_breakdown(rows)
+        if _breakdown:
+            parts += ["## 📊 按费用类型", "", _breakdown, ""]
+    parts += [("## 📒 全部 invoice" if is_petty else "## 📒 全部发票"), ""]
     if is_petty:
         parts += [
             "| 发票号 | 描述 | 类型 | 原币 | 人民币 | 付款证明 | 状态 |",

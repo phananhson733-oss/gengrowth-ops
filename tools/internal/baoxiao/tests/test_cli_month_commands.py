@@ -71,7 +71,9 @@ class MonthEndContractTests(unittest.TestCase):
             self.assertFalse((root / "2026-07").exists(), "month-end 不应创建下月目录")
             src = ledger.find_by_id8(root / "2026-06" / "Lynne.md", "aaaaaaaa")
             self.assertNotIn("↗", src.note or "", "month-end 不应 carry(源 row 不应被标 ↗)")
-            self.assertTrue((root / "2026-06" / "Lynne-summary.md").exists(), "month-end 应生成本月汇总")
+            self.assertTrue((root / "总表.md").exists(), "month-end 应刷新跨月总表")
+            self.assertFalse((root / "2026-06" / "Lynne-summary.md").exists(),
+                             "month-end 不再生成独立 -summary.md(v2.5.10 费用类型已并进 dashboard)")
 
 
 class MonthStartDefaultMonthTests(unittest.TestCase):

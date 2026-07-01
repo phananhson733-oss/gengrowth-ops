@@ -826,12 +826,10 @@ def _relocate_settled_both(ledger_root, archive_root, petty_root, overseas_root)
         ledger_root=petty_root, wiki_root=WIKI_ROOT, archive_root=overseas_root, dry_run=False))
 
 
-def _write_summaries_both(ledger_root, petty_root, month):
-    """两套账本各人 summary + 总表刷新。"""
-    for o in summary.write_summary(ledger_root, month):
-        print(f"主账本 summary: {o}")
-    for o in summary.write_summary(petty_root, month):
-        print(f"备用金 summary: {o}")
+def _write_summaries_both(ledger_root, petty_root, month=None):
+    """v2.5.10:不再生成每人 -summary.md —— 费用类型分布已并进账本底部 dashboard
+    (实时刷新);独立 summary 是会过时的快照 + 文件噪音,砍掉。这里只刷跨月总表。
+    (month 参数保留给调用方签名兼容,现已不用。)"""
     summary.write_total(ledger_root)
     summary.write_total(petty_root)
 

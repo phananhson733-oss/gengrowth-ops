@@ -108,7 +108,11 @@ def write_total(ledger_root) -> bool:
 
 
 def write_summary(ledger_root, month: str, *, reimburser: Optional[str] = None) -> List[Path]:
-    """生成 `{month}/{reimburser}-summary.md`。
+    """[DEPRECATED v2.5.10] per-人 summary 已废弃 —— 费用类型分布并进账本底部 dashboard
+    (实时刷新),独立 summary 是会过时的快照 + 文件噪音。函数 + 测试保留作契约;
+    月度流程(month-end/start/monthly-close)不再调用,不再生成 -summary.md 文件。
+
+    生成 `{month}/{reimburser}-summary.md`。
 
     - reimburser=None:扫该月所有报销人,各自生成一份
     - reimburser='Lynne':只生成 Lynne 的

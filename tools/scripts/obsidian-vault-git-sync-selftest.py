@@ -140,6 +140,69 @@ def test_dry_run_reports_intended_commit_without_dirty_blocker() -> None:
             raise AssertionError(f"expected dry-run intent, got {result.message!r}")
 
 
+def test_fetch_ref_lock_race_is_silent_when_refs_already_converged() -> None:
+    module = load_module()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        remote = root / "remote.git"
+        repo = root / "vault"
+
+        subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+        subprocess.run(["git", "init", str(repo)], check=True, capture_output=True)
+        configure_repo(repo)
+        run(repo, "branch", "-M", "main")
+        run(repo, "remote", "add", "origin", str(remote))
+        (repo / "base.md").write_text("base\n", encoding="utf-8")
+        run(repo, "add", "base.md")
+        run(repo, "commit", "-m", "initial")
+        run(repo, "push", "-u", "origin", "main")
+
+        real_git = module.git
+
+        def racing_git(repo_path: Path, *args: str, check: bool = False):
+            if args == ("fetch", "origin", "--prune"):
+                raise RuntimeError(
+                    "error: cannot lock ref 'refs/remotes/origin/main': is at abc but expected def\n"
+                    " ! def..abc  main       -> origin/main  (unable to update local ref)"
+                )
+            return real_git(repo_path, *args, check=check)
+
+        module.git = racing_git
+        try:
+            result = module.sync_repo(module.RepoConfig("test-vault", repo, "main"), dry_run=False)
+        finally:
+            module.git = real_git
+
+        if not result.ok:
+            raise AssertionError(result.message)
+        if result.changed:
+            raise AssertionError(f"ref-lock race should be silent when already synced: {result.message!r}")
+
+
+def test_secret_scan_allows_env_var_references_but_blocks_literals() -> None:
+    module = load_module()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        repo = Path(tmp)
+        env_ref = repo / "env-ref.mjs"
+        literal = repo / "literal.mjs"
+        env_ref.write_text(
+            "const apiKey = process.env.GG_TOPIC_REGISTER_GOOGLE_CSE_KEY || '';\n",
+            encoding="utf-8",
+        )
+        literal.write_text(
+            "const apiKey = 'abcdefghijklmnopqrstuvwxyz123456';\n",
+            encoding="utf-8",
+        )
+
+        flagged = module.suspicious_paths(repo, ["env-ref.mjs", "literal.mjs"])
+        if "env-ref.mjs" in flagged:
+            raise AssertionError(f"environment variable references should not be flagged: {flagged}")
+        if "literal.mjs" not in flagged:
+            raise AssertionError(f"hard-coded secret-like literals should be flagged: {flagged}")
+
+
 def test_discover_repos_checks_home_code_layout() -> None:
     module = load_module()
 
@@ -160,14 +223,37 @@ def test_discover_repos_checks_home_code_layout() -> None:
             raise AssertionError(f"expected to discover repo under ~/code: {code_repo}")
 
 
+def test_discover_repos_includes_flow_mvp_layout() -> None:
+    module = load_module()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        flow_repo = root / "gengrowth-flow-mvp"
+        flow_repo.mkdir()
+        subprocess.run(["git", "init", str(flow_repo)], check=True, capture_output=True)
+
+        original_home = module.HOME
+        try:
+            module.HOME = root
+            discovered = {cfg.path for cfg in module.discover_repos()}
+        finally:
+            module.HOME = original_home
+
+        if flow_repo.resolve() not in discovered:
+            raise AssertionError(f"expected to discover flow-mvp repo under $HOME: {flow_repo}")
+
+
 def test_repository_wrapper_entrypoint_exists() -> None:
     repo = SCRIPT.parents[2]
     wrapper = repo / "scripts" / "obsidian-vault-git-sync.sh"
 
     if not wrapper.exists():
         raise AssertionError(f"expected wrapper at {wrapper}")
-    if "obsidian-vault-git-sync.py" not in wrapper.read_text(encoding="utf-8"):
+    wrapper_text = wrapper.read_text(encoding="utf-8")
+    if "obsidian-vault-git-sync.py" not in wrapper_text:
         raise AssertionError(f"wrapper should call shared sync script: {wrapper}")
+    if "gengrowth-flow-mvp" not in wrapper_text:
+        raise AssertionError(f"wrapper should include gengrowth-flow-mvp discovery: {wrapper}")
     proc = subprocess.run(["bash", "-n", str(wrapper)], text=True, capture_output=True)
     if proc.returncode != 0:
         raise AssertionError(f"wrapper shell syntax failed\nstdout={proc.stdout}\nstderr={proc.stderr}")
@@ -177,6 +263,9 @@ if __name__ == "__main__":
     test_commit_pull_rebase_push()
     test_json_add_add_conflict_merges_keys()
     test_dry_run_reports_intended_commit_without_dirty_blocker()
+    test_fetch_ref_lock_race_is_silent_when_refs_already_converged()
+    test_secret_scan_allows_env_var_references_but_blocks_literals()
     test_discover_repos_checks_home_code_layout()
+    test_discover_repos_includes_flow_mvp_layout()
     test_repository_wrapper_entrypoint_exists()
     print("obsidian-vault-git-sync-selftest: ok")

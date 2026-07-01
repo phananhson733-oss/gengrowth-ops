@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable, List, NamedTuple
@@ -34,6 +35,7 @@ COMMON_REPO_NAMES = (
     "gengrowth-wiki",
     "GenGrowth-wiki",
     "gengrowth-ops",
+    "gengrowth-flow-mvp",
     "gengrowth-agents",
 )
 
@@ -50,8 +52,12 @@ SECRET_TEXT_RE = re.compile(
     r"sk-[A-Za-z0-9]{20,}|"
     r"xox[baprs]-[A-Za-z0-9-]{20,}|"
     r"-----BEGIN [A-Z ]*PRIVATE KEY-----|"
-    r"(api[_-]?key|secret|token|password)\s*[:=]\s*['\"]?[A-Za-z0-9_./+=-]{24,}",
+    r"(api[_-]?key|secret|token|password)\s*[:=]\s*['\"]?(?!(process|import|os|env)\.)[A-Za-z0-9_./+=-]{24,}",
     re.IGNORECASE,
+)
+REF_LOCK_RACE_RE = re.compile(
+    r"cannot lock ref 'refs/remotes/origin/(?P<branch>[^']+)'.*unable to update local ref",
+    re.DOTALL,
 )
 
 
@@ -123,6 +129,41 @@ def ahead_behind(repo: Path, branch: str) -> tuple[int, int]:
     proc = git(repo, "rev-list", "--left-right", "--count", f"HEAD...origin/{branch}", check=True)
     ahead, behind = proc.stdout.strip().split()
     return int(ahead), int(behind)
+
+
+def is_ref_lock_race(detail: str, branch: str) -> bool:
+    match = REF_LOCK_RACE_RE.search(detail)
+    return bool(match and match.group("branch") == branch)
+
+
+def refs_already_converged(repo: Path, branch: str) -> bool:
+    try:
+        return ahead_behind(repo, branch) == (0, 0)
+    except Exception:
+        return False
+
+
+def fetch_origin(repo: Path, branch: str) -> tuple[bool, str]:
+    last_detail = ""
+    for attempt in range(3):
+        try:
+            fetch = git(repo, "fetch", "origin", "--prune")
+            if fetch.returncode == 0:
+                return True, ""
+            last_detail = fetch.stderr.strip() or fetch.stdout.strip() or "git fetch origin --prune failed"
+        except RuntimeError as exc:
+            last_detail = str(exc)
+
+        if not is_ref_lock_race(last_detail, branch):
+            return False, last_detail
+        if refs_already_converged(repo, branch):
+            return True, "fetch raced; refs already converged"
+        if attempt < 2:
+            time.sleep(0.2)
+
+    if is_ref_lock_race(last_detail, branch) and refs_already_converged(repo, branch):
+        return True, "fetch raced; refs already converged"
+    return False, last_detail
 
 
 def has_secret_name(path: str) -> bool:
@@ -205,14 +246,14 @@ def auto_merge_json_conflicts(repo: Path) -> tuple[bool, str]:
 
 
 def pull_rebase(repo: Path, branch: str) -> tuple[bool, str]:
-    pull = git(repo, "pull", "--rebase", "origin", branch)
-    if pull.returncode == 0:
-        return True, "pulled/rebased"
+    rebase = git(repo, "rebase", f"origin/{branch}")
+    if rebase.returncode == 0:
+        return True, "rebased"
 
     merged, message = auto_merge_json_conflicts(repo)
     if not merged:
         abort_in_progress(repo)
-        detail = pull.stderr.strip() or pull.stdout.strip() or "pull --rebase failed"
+        detail = rebase.stderr.strip() or rebase.stdout.strip() or "rebase failed"
         return False, f"pull/rebase 冲突或失败，已中止：{detail}"
 
     cont = git(repo, "rebase", "--continue")
@@ -233,7 +274,9 @@ def sync_repo(cfg: RepoConfig, dry_run: bool = False) -> SyncResult:
         return SyncResult(name, False, f"{name}: 不是 git 仓库 {repo}")
 
     try:
-        git(repo, "fetch", "origin", "--prune", check=True)
+        fetched, fetch_detail = fetch_origin(repo, branch)
+        if not fetched:
+            return SyncResult(name, False, f"{name}: fetch 失败：{fetch_detail}")
 
         conflicts = unmerged_paths(repo)
         if conflicts:
