@@ -1800,7 +1800,7 @@
     "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "lebron-james-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-016.md",
@@ -1809,6 +1809,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
-    "zh": false
+    "zh": false,
+    "error": "review[links-seo] FAIL: Two descriptive Related Reading anchors — \"companion reading of another athlete's birth chart\" and \"explainer on stelliums in a natal chart\" — both resolve to the generic /en/wiki/how-to-read-birth-chart page, so the anchor text materially misrepresents the destination and the promised pages appear not to exist.",
+    "failedAt": "2026-07-01T13:54:10.305Z"
   }
 }
