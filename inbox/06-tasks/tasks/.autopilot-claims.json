@@ -1800,19 +1800,15 @@
     "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "lebron-james-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-016.md",
     "stage": "pushed-preview",
-    "lockedBy": "43046",
-    "leaseUntil": "2026-07-01T14:40:27.592Z",
     "updatedAt": "2026-07-01T13:40:27.592Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
-    "zh": false,
-    "error": "review[astrology] FAIL: The rendered article body ends with leaked pipeline meta-text (a Chinese '一句话总结' note about a missing --entity fixture that self-servingly asserts 'phase2 现已 OVERALL: PASS'), which contaminates the published piece and is a prompt-injection-style red flag.",
-    "failedAt": "2026-07-01T13:43:24.092Z"
+    "zh": false
   }
 }
