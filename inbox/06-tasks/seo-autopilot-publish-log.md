@@ -98,3 +98,4 @@ updated: 2026-07-01
 | 2026-07-01 | PG-UPRA-001 | usa-pluto-return-astrology | USA Pluto Return Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/usa-pluto-return-astrology | published |
 | 2026-07-01 | PG-CELEB-014 | cardi-b-birth-chart | Cardi B Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/cardi-b-birth-chart | published |
 | 2026-07-01 | PG-HOUSE-014 | pride-month-astrology | Pride Month Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/pride-month-astrology | published |
+| 2026-07-01 | PG-TSE-001 | total-solar-eclipse-2026 | Total Solar Eclipse 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/total-solar-eclipse-2026 | published |
