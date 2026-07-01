@@ -1814,15 +1814,17 @@
     "failedAt": "2026-07-01T13:54:10.305Z"
   },
   "PG-CELEB-017": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "thylane-blondeau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "49085",
-    "leaseUntil": "2026-07-01T15:03:44.324Z",
-    "updatedAt": "2026-07-01T14:03:44.324Z",
+    "leaseUntil": "2026-07-01T15:04:29.944Z",
+    "updatedAt": "2026-07-01T14:04:29.944Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
-    "branch": "seo/auto/2026-07-01-PG-CELEB-017"
+    "branch": "seo/auto/2026-07-01-PG-CELEB-017",
+    "pr": "https://github.com/xdawayer/oracle/pull/307",
+    "zh": false
   }
 }
