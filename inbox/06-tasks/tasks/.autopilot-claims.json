@@ -1707,7 +1707,7 @@
     "mergedAt": "2026-07-01T03:46:50.119Z"
   },
   "PG-UPRA-001": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "usa-pluto-return-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-UPRA-001.md",
@@ -1720,6 +1720,11 @@
     "pr": "https://github.com/xdawayer/oracle/pull/297",
     "zh": false,
     "retryEvidence": "fixed CTA anchor-target mismatch (aura-reading→how-to-read-birth-chart)",
-    "retryAt": "2026-07-01T03:57:04.552Z"
+    "retryAt": "2026-07-01T03:57:04.552Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-5e0706-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T04:01:01.324Z",
+    "headRefOid": "47c7fc0df0014bdb6cba30861fd082462e3555c4",
+    "mergedAt": "2026-07-01T04:01:06.602Z"
   }
 }
