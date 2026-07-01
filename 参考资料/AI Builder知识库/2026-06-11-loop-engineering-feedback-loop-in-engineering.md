@@ -1,7 +1,7 @@
 ---
 title: Loop Engineering详解：把反馈循环放进工程现场
 date: 2026-06-11
-updated: 2026-06-22
+updated: 2026-07-01
 type: knowledge-note
 source: https://mp.weixin.qq.com/s/hx7-BQ33JFOHHtJP30TkbA
 author: 若飞
@@ -187,6 +187,37 @@ aliases:
   - Florian.C 原帖：<https://x.com/FinnTsai88/status/2068536883454607595>
   - Miles.Ma 帖子：<https://x.com/ma_zhenyuan/status/2068517179923091828>
   - Miles.Ma X Article：<https://x.com/i/article/2068379052483006464>
+
+## 新增传播信号（2026-07-01）：Andrew Ng 的三层产品开发闭环
+
+- Andrew Ng 在 X 上把 loop 从“工程执行层”继续往上提了一层：不是只讲 coding agent 怎么持续写代码，而是把 0→1 产品开发拆成三种不同节奏的闭环。
+- 三个 loop 分别是：
+  1. **Agentic coding loop（分钟级）**：给定 product spec 和可选 evals，让 coding agent 写代码、测试、修复、继续迭代，直到达到规格。
+  2. **Developer feedback loop（几十分钟到小时级）**：开发者看当前产品，调整功能、UI、用户流程和 spec，不再主要做人肉 QA，而是负责高层产品判断。
+  3. **External feedback loop（小时到天/周级）**：通过朋友试用、alpha 用户、线上发布、A/B test 等方式拿到真实用户反馈，再反过来修正 developer vision。
+- 图里的箭头关系很清楚：==外部反馈塑造 developer vision，developer vision 再产出 product spec / evals，product spec / evals 再驱动 coding agent。==
+- 这和前文讲的 Loop Engineering 正好形成上下两层：前文更关注“一个工程 loop 怎么跑稳”，Andrew Ng 这条更关注“产品到底该围绕哪几层 loop 来组织”。
+- 他还补了一句很重要的话：很多人把这类高层判断叫“taste（品味）”，但他更愿意叫 ==context advantage（上下文优势）== —— 也就是人比 AI 更懂用户、场景、业务约束，所以这一步暂时不能完全自动化。
+
+> [!tip] 对 GenGrowth / Hermes 的启发
+> 现在最该设计的不是“更会写 prompt 的 Agent”，而是三层闭环怎么接起来：==底层用 agentic coding 跑执行，中层让 PM/Builder 高频改 spec，顶层用真实用户和渠道反馈修正方向。== 对 AI Builder、BotOps、增长产品、内部 Agent 平台都适用。
+
+### 为什么这条值得补进现有笔记
+
+1. 它把 Loop 从工程圈常说的“长任务自动迭代”扩展成完整产品开发方法。
+2. 它把“人还要不要在环里”回答得更清楚：人主要负责 vision 和 context，而不是重复点按钮找 bug。
+3. 它给了一个很实用的节奏框架：分钟级工程 loop、小时级开发者 loop、天/周级外部反馈 loop，适合直接拿来设计团队工作节奏。
+
+### 证据边界
+
+- 直接拿到的内容：Andrew Ng 这条 X 帖全文、配图结构、发布时间、互动数据，以及他指向的 The Batch 原文正文。
+- 高可信事实：三层 loop 的名称、层级关系、各自时间尺度、human context advantage 的表述，均可由 X 帖与 DeepLearning.AI 页面交叉验证。
+- 未进一步展开的部分：帖子里没有给出更细的落地模板（例如具体仪表盘或指标体系），这些需要结合团队自己的产品流程补充。
+
+### 关联链接
+
+- Andrew Ng X 帖：<https://x.com/AndrewYNg/status/2071988145667928442>
+- DeepLearning.AI / The Batch 原文：<https://www.deeplearning.ai/the-batch/issue-359>
 
 ## 相关链接
 
