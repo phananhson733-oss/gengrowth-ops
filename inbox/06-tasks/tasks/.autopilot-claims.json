@@ -1783,7 +1783,7 @@
     "mergedAt": "2026-07-01T06:35:00.410Z"
   },
   "PG-CELEB-015": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "maya-joint-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-015.md",
@@ -1792,9 +1792,7 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
     "branch": "seo/auto/2026-07-01-PG-CELEB-015",
     "pr": "https://github.com/xdawayer/oracle/pull/305",
-    "zh": false,
-    "error": "codex completed with codex FAIL —Cancer Ascendant public-database claim is unverifiable",
-    "failedAt": "2026-07-01T13:35:55.885Z"
+    "zh": false
   },
   "PG-CELEB-016": {
     "status": "pushed-preview",
