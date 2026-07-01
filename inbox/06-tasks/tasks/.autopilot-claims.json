@@ -1787,10 +1787,10 @@
     "slug": "maya-joint-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-015.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "37932",
-    "leaseUntil": "2026-07-01T14:07:07.222Z",
-    "updatedAt": "2026-07-01T13:07:07.222Z",
+    "leaseUntil": "2026-07-01T14:10:29.466Z",
+    "updatedAt": "2026-07-01T13:10:29.466Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
     "branch": "seo/auto/2026-07-01-PG-CELEB-015"
   }
