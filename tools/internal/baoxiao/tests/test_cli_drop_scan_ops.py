@@ -53,7 +53,7 @@ class ScanDropDirTests(unittest.TestCase):
             src.mkdir()
             (src / ".gitkeep").write_bytes(b"")
             (src / ".DS_Store").write_bytes(b"x")
-            (src / "README.md").write_bytes(b"# 报销投递区说明")  # 说明文件不该被搬
+            (src / "README.md").write_text("# 报销投递区说明", encoding="utf-8")  # 说明文件不该被搬
             (src / "sub").mkdir()
             inbox = Path(tmp) / "_inbox"
             n = cli._scan_drop_dir(src, "mby", inbox)
