@@ -101,3 +101,4 @@ updated: 2026-07-01
 | 2026-07-01 | PG-TSE-001 | total-solar-eclipse-2026 | Total Solar Eclipse 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/total-solar-eclipse-2026 | published |
 | 2026-07-01 | PG-CELEB-015 | maya-joint-birth-chart | Maya Joint Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/maya-joint-birth-chart | published |
 | 2026-07-01 | PG-CELEB-017 | thylane-blondeau-birth-chart | Thylane Blondeau Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/thylane-blondeau-birth-chart | published |
+| 2026-07-01 | PG-CELEB-018 | elliot-page-birth-chart | Elliot Page Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/elliot-page-birth-chart | published |
