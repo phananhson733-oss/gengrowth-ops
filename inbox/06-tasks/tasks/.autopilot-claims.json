@@ -1844,5 +1844,17 @@
     "zh": false,
     "error": "review[links-seo] FAIL: Several internal-link anchors describe targets that don't match the URL they point to — most clearly \"explainer on the Pisces Sun sign\" links to /en/wiki/12th-house-astrology, and the celebrity-profile and CTA anchors both point to the how-to-read-birth-chart pillar.",
     "failedAt": "2026-07-01T14:30:46.809Z"
+  },
+  "PG-CELEB-019": {
+    "status": "active",
+    "slug": "bella-hadid-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-019.md",
+    "stage": "convert",
+    "lockedBy": "85543",
+    "leaseUntil": "2026-07-01T15:44:44.008Z",
+    "updatedAt": "2026-07-01T14:44:44.008Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-019",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-019"
   }
 }
