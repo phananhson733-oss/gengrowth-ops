@@ -1810,8 +1810,8 @@
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
     "zh": false,
-    "error": "review[links-seo] FAIL: Two descriptive Related Reading anchors — \"companion reading of another athlete's birth chart\" and \"explainer on stelliums in a natal chart\" — both resolve to the generic /en/wiki/how-to-read-birth-chart page, so the anchor text materially misrepresents the destination and the promised pages appear not to exist.",
-    "failedAt": "2026-07-01T13:54:10.305Z"
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-07-01T14:57:14.686Z"
   },
   "PG-CELEB-017": {
     "status": "needs_human",
@@ -1819,15 +1819,13 @@
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
     "stage": "pushed-preview",
-    "lockedBy": "49085",
-    "leaseUntil": "2026-07-01T15:04:29.944Z",
     "updatedAt": "2026-07-01T14:04:29.944Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
     "branch": "seo/auto/2026-07-01-PG-CELEB-017",
     "pr": "https://github.com/xdawayer/oracle/pull/307",
     "zh": false,
-    "error": "review[links-seo] FAIL: Multiple internal links have anchor text that misrepresents their destination — both the in-body \"rising sign personality profiles\" link and the Related Reading \"companion celebrity birth chart profile in this series\" link resolve to the generic /en/wiki/how-to-read-birth-chart pillar page, not the rising-sign or celebrity-profile targets they promise.",
-    "failedAt": "2026-07-01T14:07:36.733Z"
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-07-01T14:57:31.488Z"
   },
   "PG-CELEB-018": {
     "status": "needs_human",
@@ -1835,30 +1833,24 @@
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-018.md",
     "stage": "pushed-preview",
-    "lockedBy": "80678",
-    "leaseUntil": "2026-07-01T15:27:51.526Z",
     "updatedAt": "2026-07-01T14:27:51.526Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
     "branch": "seo/auto/2026-07-01-PG-CELEB-018",
     "pr": "https://github.com/xdawayer/oracle/pull/308",
     "zh": false,
-    "error": "review[links-seo] FAIL: Several internal-link anchors describe targets that don't match the URL they point to — most clearly \"explainer on the Pisces Sun sign\" links to /en/wiki/12th-house-astrology, and the celebrity-profile and CTA anchors both point to the how-to-read-birth-chart pillar.",
-    "failedAt": "2026-07-01T14:30:46.809Z"
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-07-01T14:57:49.116Z"
   },
   "PG-CELEB-019": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "bella-hadid-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-019.md",
     "stage": "pushed-preview",
-    "lockedBy": "85543",
-    "leaseUntil": "2026-07-01T15:49:47.917Z",
     "updatedAt": "2026-07-01T14:49:47.917Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-019",
     "branch": "seo/auto/2026-07-01-PG-CELEB-019",
     "pr": "https://github.com/xdawayer/oracle/pull/309",
-    "zh": false,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-01T14:53:09.631Z"
+    "zh": false
   }
 }
