@@ -1812,5 +1812,17 @@
     "zh": false,
     "error": "review[links-seo] FAIL: Two descriptive Related Reading anchors — \"companion reading of another athlete's birth chart\" and \"explainer on stelliums in a natal chart\" — both resolve to the generic /en/wiki/how-to-read-birth-chart page, so the anchor text materially misrepresents the destination and the promised pages appear not to exist.",
     "failedAt": "2026-07-01T13:54:10.305Z"
+  },
+  "PG-CELEB-017": {
+    "status": "active",
+    "slug": "thylane-blondeau-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-017.md",
+    "stage": "convert",
+    "lockedBy": "49085",
+    "leaseUntil": "2026-07-01T14:59:13.894Z",
+    "updatedAt": "2026-07-01T13:59:13.894Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-017"
   }
 }
