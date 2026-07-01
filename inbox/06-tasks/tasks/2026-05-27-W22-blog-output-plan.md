@@ -315,4 +315,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TSE-001` Total Solar Eclipse 2026 -> LIVE https://www.astrologywiki.com/en/wiki/total-solar-eclipse-2026 （Aug 12 2026 Leo日全食;PID去数字改名;4内链映射node/moon/houses页;codex一次PASS→MERGED）
 - [x] `PG-HOUSE-014` Pride Month Astrology -> LIVE https://www.astrologywiki.com/en/wiki/pride-month-astrology （季节象征非身份标签;新模板0套话;codex纠夏至方向3拷贝→northernmost;MERGED）
 
+---
+## ⚪ 7月1日 (周三) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-CELEB-015` Maya Joint birth chart
+- [ ] `PG-CELEB-016` LeBron James birth chart
+- [ ] `PG-CELEB-017` Thylane Blondeau birth chart
+- [ ] `PG-CELEB-018` Elliot Page birth chart
+- [ ] `PG-CELEB-019` Bella Hadid birth chart
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
