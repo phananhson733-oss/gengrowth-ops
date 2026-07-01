@@ -1781,5 +1781,17 @@
     "verifiedAt": "2026-07-01T06:34:52.840Z",
     "headRefOid": "0c54ec8fe37ea01a111cde04f7613f28937ae80b",
     "mergedAt": "2026-07-01T06:35:00.410Z"
+  },
+  "PG-CELEB-015": {
+    "status": "active",
+    "slug": "maya-joint-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-015.md",
+    "stage": "convert",
+    "lockedBy": "37932",
+    "leaseUntil": "2026-07-01T14:07:07.222Z",
+    "updatedAt": "2026-07-01T13:07:07.222Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-015",
+    "branch": "seo/auto/2026-07-01-PG-CELEB-015"
   }
 }
