@@ -1747,19 +1747,15 @@
     "mergedAt": "2026-07-01T05:46:32.771Z"
   },
   "PG-HOUSE-014": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pride-month-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-HOUSE-014.md",
     "stage": "pushed-preview",
-    "lockedBy": "93680",
-    "leaseUntil": "2026-07-01T06:56:09.837Z",
     "updatedAt": "2026-07-01T05:56:09.837Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-HOUSE-014",
     "branch": "seo/auto/2026-07-01-PG-HOUSE-014",
     "pr": "https://github.com/xdawayer/oracle/pull/299",
-    "zh": false,
-    "error": "codex completed with codex FAIL —June solstice is described as “the Sun turns north,” but it is the Sun’s northernmost point before apparent motion turns south.",
-    "failedAt": "2026-07-01T05:59:27.325Z"
+    "zh": false
   }
 }
