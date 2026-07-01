@@ -1686,21 +1686,19 @@
     "mergedAt": "2026-06-30T13:30:44.346Z"
   },
   "PG-CELEB-013": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "carlos-alcaraz-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-PG-CELEB-013.md",
     "stage": "pushed-preview",
-    "lockedBy": "16718",
-    "leaseUntil": "2026-07-01T04:34:39.941Z",
-    "updatedAt": "2026-07-01T03:34:39.941Z",
+    "lockedBy": "52033",
+    "leaseUntil": "2026-07-01T04:41:48.432Z",
+    "updatedAt": "2026-07-01T03:41:48.432Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-013",
     "branch": "seo/auto/2026-07-01-PG-CELEB-013",
     "pr": "https://github.com/xdawayer/oracle/pull/296",
     "zh": false,
-    "retryEvidence": "naturalized mid-sentence exact-match keyword repetitions + CTA anchor (was flagged as stuffing); astrology already PASS",
-    "retryAt": "2026-07-01T03:34:39.941Z",
-    "error": "codex completed with codex FAIL —the claimed Cancer-vs-Gemini Moon source dispute is unverifiable",
-    "failedAt": "2026-07-01T03:40:24.132Z"
+    "retryEvidence": "removed unverifiable Cancer/Gemini Moon sources-dispute; Moon now honestly framed as undeterminable without verified birth time",
+    "retryAt": "2026-07-01T03:41:48.432Z"
   }
 }
