@@ -1747,7 +1747,7 @@
     "mergedAt": "2026-07-01T05:46:32.771Z"
   },
   "PG-HOUSE-014": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "pride-month-astrology",
     "owner": "autopilot",
     "plan": "one-plan-PG-HOUSE-014.md",
@@ -1756,6 +1756,11 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-HOUSE-014",
     "branch": "seo/auto/2026-07-01-PG-HOUSE-014",
     "pr": "https://github.com/xdawayer/oracle/pull/299",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-d3a794-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T06:22:05.611Z",
+    "headRefOid": "d1efb2bebc447b6916bee1b14a49f702e30b81bc",
+    "mergedAt": "2026-07-01T06:22:11.434Z"
   }
 }
