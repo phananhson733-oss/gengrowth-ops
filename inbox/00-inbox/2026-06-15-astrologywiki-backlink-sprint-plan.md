@@ -59,8 +59,8 @@ GSC数据显示首次曝光为2026年1月25日，当前处于第5个月：
 
 **均分DR查询方法：**
 ```
-ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow"数量
-均分DR = Ahrefs DR ÷ Dofollow referring domains数量
+ahrefs.com/backlink-checker → 输入域名 → 查看"Dofollow linked domains"数量
+均分DR = Ahrefs DR ÷ Dofollow linked domains数量
 ```
 
 ### 2.3 锚文本分布（每新增5条外链后重新核对比例）
