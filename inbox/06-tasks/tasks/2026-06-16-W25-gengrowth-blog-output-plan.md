@@ -122,5 +122,12 @@ updated: 2026-06-23
 - [x] `PG-SMS-001` tiktok seo tool  -> LIVE https://gengrowth.ai/en/blog/tiktok-seo-tool
 
 ---
+## ⚪ 7月1日 (周三) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-EOS-004` cheap seo
+- [ ] `PG-EOS-005` best cheap seo tools
+- [ ] `PG-CMP-004` affordable seo software
+- [ ] `PG-EOS-006` free seo company
+- [ ] `PG-EOS-007` organic seo service
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
