@@ -17,6 +17,7 @@ This folder stores reusable production workflows that should not be mixed into d
 
 ## Related Working Areas
 
+- Topic ideas and scripts: [[inbox-pengman/03-topic-ideas/README.md]]
 - Daily topic recommendations: [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
 - Daily content assistant SOP: [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
 - GSC exports: [[inbox-pengman/04-production/07-gsc-exports/README.md]]

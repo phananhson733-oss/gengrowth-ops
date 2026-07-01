@@ -7,13 +7,19 @@ project: astrologywiki
 type: topic-note
 status: 已发布
 source:
-  - - - inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md
-  - - - inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md
+  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+  - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+related:
+  - [[inbox-pengman/03-topic-ideas/README.md]]
+  - [[inbox-pengman/03-topic-ideas/2026-06-30-SEO选题调查.md]]
+  - [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
 ---
 
 # Lionel Messi’s Cancer Sun
 
 > 热点入口型选题：用 Messi 的现实比赛节点切入，再回到 Cancer Sun、占星解释与自我理解。
+
+相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]] / [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
 
 ## 1. 选题概览
 
@@ -70,4 +76,3 @@ Current event hook
 - 观察这类热点入口是否比纯基础解释更容易获得点击；
 - 如果有效，可以做成“sports moment as astrology hook”系列；
 - 如果无效，也保留为一次性测试，不要强行作为长期主线。
-

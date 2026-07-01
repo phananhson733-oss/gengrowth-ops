@@ -7,12 +7,18 @@ project: astrologywiki
 type: topic-idea
 status: 未发布
 source:
-  - - - inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md
-  - - - inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md
-  - - - inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md
+  - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
+  - [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+related:
+  - [[inbox-pengman/03-topic-ideas/README.md]]
+  - [[inbox-pengman/03-topic-ideas/2026-06-30-SEO选题调查.md]]
+  - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 ---
 
 # Don't Feel Like Your Sign?
+
+相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]] / [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
 
 ## Topic Card
 
