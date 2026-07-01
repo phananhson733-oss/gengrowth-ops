@@ -1854,7 +1854,7 @@
     "mergedAt": "2026-07-01T15:57:45.668Z"
   },
   "PG-CELEB-019": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "bella-hadid-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-019.md",
@@ -1863,6 +1863,10 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-019",
     "branch": "seo/auto/2026-07-01-PG-CELEB-019",
     "pr": "https://github.com/xdawayer/oracle/pull/309",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-01-pg-55a8af-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-01T16:04:06.160Z",
+    "headRefOid": "d7883f0d101a362d1a2cf0322151f95c72e1e622"
   }
 }
