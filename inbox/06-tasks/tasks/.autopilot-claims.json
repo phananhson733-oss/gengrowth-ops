@@ -1712,12 +1712,14 @@
     "owner": "autopilot",
     "plan": "one-plan-PG-UPRA-001.md",
     "stage": "pushed-preview",
-    "lockedBy": "77732",
-    "leaseUntil": "2026-07-01T04:53:44.919Z",
-    "updatedAt": "2026-07-01T03:53:44.919Z",
+    "lockedBy": "2573",
+    "leaseUntil": "2026-07-01T04:57:04.552Z",
+    "updatedAt": "2026-07-01T03:57:04.552Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-UPRA-001",
     "branch": "seo/auto/2026-07-01-PG-UPRA-001",
     "pr": "https://github.com/xdawayer/oracle/pull/297",
-    "zh": false
+    "zh": false,
+    "retryEvidence": "fixed CTA anchor-target mismatch (aura-reading→how-to-read-birth-chart)",
+    "retryAt": "2026-07-01T03:57:04.552Z"
   }
 }
