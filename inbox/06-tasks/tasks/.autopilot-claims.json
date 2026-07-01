@@ -1800,7 +1800,7 @@
     "mergedAt": "2026-07-01T13:49:06.774Z"
   },
   "PG-CELEB-016": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "lebron-james-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-016.md",
@@ -1809,12 +1809,10 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-016",
     "branch": "seo/auto/2026-07-01-PG-CELEB-016",
     "pr": "https://github.com/xdawayer/oracle/pull/306",
-    "zh": false,
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-07-01T14:57:14.686Z"
+    "zh": false
   },
   "PG-CELEB-017": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "thylane-blondeau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-017.md",
@@ -1823,12 +1821,10 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-017",
     "branch": "seo/auto/2026-07-01-PG-CELEB-017",
     "pr": "https://github.com/xdawayer/oracle/pull/307",
-    "zh": false,
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-07-01T14:57:31.488Z"
+    "zh": false
   },
   "PG-CELEB-018": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "elliot-page-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-018.md",
@@ -1837,9 +1833,7 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-01-PG-CELEB-018",
     "branch": "seo/auto/2026-07-01-PG-CELEB-018",
     "pr": "https://github.com/xdawayer/oracle/pull/308",
-    "zh": false,
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-07-01T14:57:49.116Z"
+    "zh": false
   },
   "PG-CELEB-019": {
     "status": "pushed-preview",
