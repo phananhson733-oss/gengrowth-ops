@@ -641,8 +641,9 @@ def _scan_drop_dir(src_dir, reimb, inbox) -> int:
     processed.mkdir(exist_ok=True)
     n = 0
     for src in sorted(src_dir.iterdir()):
-        if src.is_dir() or src.name.startswith(".") or src.name.endswith(".gitkeep"):
-            continue
+        if src.is_dir() or src.name.startswith(".") or src.name.endswith(".gitkeep") \
+                or src.suffix.lower() == ".md":
+            continue  # 跳过 隐藏 / .gitkeep / 说明 md(README 等),只搬报销凭证
         dst = target_inbox / src.name
         if dst.exists():
             print(f"  ⚠️ {dst} 已存在,skip")

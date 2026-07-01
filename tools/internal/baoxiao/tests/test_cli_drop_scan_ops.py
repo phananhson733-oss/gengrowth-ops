@@ -47,15 +47,19 @@ class ScanDropDirTests(unittest.TestCase):
             self.assertEqual(n, 0)
             self.assertEqual((inbox / "pengman" / "dup.png").read_bytes(), b"OLD")  # 没覆盖
 
-    def test_skips_gitkeep_and_hidden(self):
+    def test_skips_gitkeep_hidden_readme_and_dirs(self):
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp) / "报销"
             src.mkdir()
             (src / ".gitkeep").write_bytes(b"")
             (src / ".DS_Store").write_bytes(b"x")
+            (src / "README.md").write_bytes(b"# 报销投递区说明")  # 说明文件不该被搬
             (src / "sub").mkdir()
-            n = cli._scan_drop_dir(src, "mby", Path(tmp) / "_inbox")
+            inbox = Path(tmp) / "_inbox"
+            n = cli._scan_drop_dir(src, "mby", inbox)
             self.assertEqual(n, 0)
+            self.assertFalse((inbox / "mby" / "README.md").exists(), "README 说明不应被搬进 _inbox")
+            self.assertTrue((src / "README.md").exists(), "README 应留在投递区原位")
 
 
 class ResolveOpsExpenseDropsTests(unittest.TestCase):
