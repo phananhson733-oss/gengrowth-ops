@@ -130,4 +130,13 @@ updated: 2026-06-23
 - [x] `PG-EOS-006` free seo company  -> LIVE https://gengrowth.ai/en/blog/free-seo-company
 - [x] `PG-EOS-007` organic seo service  -> LIVE https://gengrowth.ai/en/blog/organic-seo-service
 
+---
+## ⚪ 7月2日 (周四) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-EOS-008` ethical seo services
+- [ ] `PG-ART-004` manual seo service
+- [ ] `PG-SFS-005` b2b saas seo
+- [ ] `PG-SFS-006` saas seo expert
+- [ ] `PG-WLS-005` integrated seo
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
