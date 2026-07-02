@@ -1894,5 +1894,17 @@
     "zh": false,
     "error": "codex factual review could not complete (codex exited 3) — required gate",
     "failedAt": "2026-07-02T13:06:44.628Z"
+  },
+  "PG-CELEB-022": {
+    "status": "active",
+    "slug": "vera-wang-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-022.md",
+    "stage": "convert",
+    "lockedBy": "31626",
+    "leaseUntil": "2026-07-02T14:18:24.458Z",
+    "updatedAt": "2026-07-02T13:18:24.458Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
+    "branch": "seo/auto/2026-07-02-PG-CELEB-022"
   }
 }
