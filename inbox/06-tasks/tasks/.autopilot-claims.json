@@ -1880,15 +1880,17 @@
     "failedAt": "2026-07-02T12:41:37.604Z"
   },
   "PG-CELEB-021": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "angela-nikolau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-021.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "94879",
-    "leaseUntil": "2026-07-02T14:00:21.715Z",
-    "updatedAt": "2026-07-02T13:00:21.715Z",
+    "leaseUntil": "2026-07-02T14:03:01.804Z",
+    "updatedAt": "2026-07-02T13:03:01.804Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-021",
-    "branch": "seo/auto/2026-07-02-PG-CELEB-021"
+    "branch": "seo/auto/2026-07-02-PG-CELEB-021",
+    "pr": "https://github.com/xdawayer/oracle/pull/312",
+    "zh": false
   }
 }
