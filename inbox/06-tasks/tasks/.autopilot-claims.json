@@ -1928,7 +1928,7 @@
     "reconciliationNote": "auto-reconciled from merged GitHub PR"
   },
   "PG-CELEB-024": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "coco-gauff-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-024.md",
@@ -1939,6 +1939,11 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-024",
     "branch": "seo/auto/2026-07-02-PG-CELEB-024",
     "pr": "https://github.com/xdawayer/oracle/pull/316",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-02-pg-ccb086-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-02T16:39:05.155Z",
+    "headRefOid": "431513a97b22101a24bd7d38fa86a1296a00ea80",
+    "mergedAt": "2026-07-02T16:39:10.570Z"
   }
 }
