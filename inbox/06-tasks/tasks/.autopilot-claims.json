@@ -1871,7 +1871,7 @@
     "mergedAt": "2026-07-01T16:04:11.771Z"
   },
   "PG-CELEB-021": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "angela-nikolau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-021.md",
@@ -1880,9 +1880,7 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-021",
     "branch": "seo/auto/2026-07-02-PG-CELEB-021",
     "pr": "https://github.com/xdawayer/oracle/pull/312",
-    "zh": false,
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-07-02T15:46:08.059Z"
+    "zh": false
   },
   "PG-CELEB-022": {
     "status": "done",
