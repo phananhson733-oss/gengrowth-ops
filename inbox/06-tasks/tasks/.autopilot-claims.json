@@ -1924,5 +1924,17 @@
     "failedAt": "2026-07-02T15:44:03.072Z",
     "mergedAt": "2026-07-02T15:45:30Z",
     "reconciliationNote": "auto-reconciled from merged GitHub PR"
+  },
+  "PG-CELEB-024": {
+    "status": "active",
+    "slug": "coco-gauff-birth-chart",
+    "owner": "autopilot",
+    "plan": "one-plan-024.md",
+    "stage": "convert",
+    "lockedBy": "30444",
+    "leaseUntil": "2026-07-02T17:29:35.900Z",
+    "updatedAt": "2026-07-02T16:29:35.900Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-024",
+    "branch": "seo/auto/2026-07-02-PG-CELEB-024"
   }
 }
