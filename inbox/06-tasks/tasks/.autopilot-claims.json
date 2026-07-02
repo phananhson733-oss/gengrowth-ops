@@ -1900,10 +1900,10 @@
     "slug": "vera-wang-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-022.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "31626",
-    "leaseUntil": "2026-07-02T14:18:24.458Z",
-    "updatedAt": "2026-07-02T13:18:24.458Z",
+    "leaseUntil": "2026-07-02T14:24:22.847Z",
+    "updatedAt": "2026-07-02T13:24:22.847Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
     "branch": "seo/auto/2026-07-02-PG-CELEB-022"
   }
