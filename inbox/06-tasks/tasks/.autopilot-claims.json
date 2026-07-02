@@ -1894,7 +1894,7 @@
     "failedAt": "2026-07-02T13:38:03.034Z"
   },
   "PG-CELEB-022": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "vera-wang-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-022.md",
@@ -1903,17 +1903,22 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
     "branch": "seo/auto/2026-07-02-PG-CELEB-022",
     "pr": "https://github.com/xdawayer/oracle/pull/313",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-02-pg-e710aa-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-02T13:56:04.300Z",
+    "headRefOid": "66f3a276b0b4045e3e511b3228df3f67601cc974",
+    "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
     "status": "active",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "96127",
-    "leaseUntil": "2026-07-02T14:51:24.610Z",
-    "updatedAt": "2026-07-02T13:51:24.610Z",
+    "leaseUntil": "2026-07-02T14:56:48.259Z",
+    "updatedAt": "2026-07-02T13:56:48.259Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
     "branch": "seo/auto/2026-07-02-PG-CELEB-023"
   }
