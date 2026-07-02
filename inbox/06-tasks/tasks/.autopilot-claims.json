@@ -1894,19 +1894,27 @@
     "failedAt": "2026-07-02T13:38:03.034Z"
   },
   "PG-CELEB-022": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "vera-wang-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-022.md",
     "stage": "pushed-preview",
-    "lockedBy": "31626",
-    "leaseUntil": "2026-07-02T14:27:13.305Z",
     "updatedAt": "2026-07-02T13:27:13.305Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
     "branch": "seo/auto/2026-07-02-PG-CELEB-022",
     "pr": "https://github.com/xdawayer/oracle/pull/313",
-    "zh": false,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-02T13:37:37.092Z"
+    "zh": false
+  },
+  "PG-CELEB-023": {
+    "status": "active",
+    "slug": "john-denver-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-023.md",
+    "stage": "convert",
+    "lockedBy": "96127",
+    "leaseUntil": "2026-07-02T14:51:24.610Z",
+    "updatedAt": "2026-07-02T13:51:24.610Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
+    "branch": "seo/auto/2026-07-02-PG-CELEB-023"
   }
 }
