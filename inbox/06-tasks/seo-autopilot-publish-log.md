@@ -104,3 +104,4 @@ updated: 2026-07-02
 | 2026-07-01 | PG-CELEB-018 | elliot-page-birth-chart | Elliot Page Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/elliot-page-birth-chart | published |
 | 2026-07-01 | PG-CELEB-019 | bella-hadid-birth-chart | Bella Hadid Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/bella-hadid-birth-chart | published |
 | 2026-07-02 | PG-CELEB-022 | vera-wang-birth-chart | Vera Wang Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/vera-wang-birth-chart | published |
+| 2026-07-02 | PG-CELEB-024 | coco-gauff-birth-chart | Coco Gauff Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-birth-chart | published |
