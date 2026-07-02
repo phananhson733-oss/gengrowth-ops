@@ -1,18 +1,22 @@
 ---
-title: Astrologywiki Reddit内容执行SOP
+title: GenGrowth Reddit增长通用SOP
 date: 2026-07-02
 status: active
-version: v1.0
+version: v1.1
 owner: 彭满
 ---
 
-# Astrologywiki Reddit 内容执行 SOP
+# GenGrowth Reddit 增长通用 SOP
+
+适用产品：astrologywiki.com、AI Store 及所有未来产品
 
 ## 一、为什么做Reddit
 
-1. **精准引荐流量**：占星用户高度集中在Reddit，r/astrology等板块即目标受众
-2. **品牌曝光**：高质量帖子被点赞/评论，形成口碑信号
-3. **外链辅助**：链接虽是nofollow，但优质帖子会被其他站引用，产生真实dofollow外链
+Reddit对GenGrowth旗下所有产品的价值是一致的：
+
+1. **精准社区流量**：Reddit按兴趣垂直分版块，每个niche都有高度集中的目标用户，比泛流量平台转化率高
+2. **品牌曝光与信任建立**：Reddit用户对推广高度敏感，真正有价值的帖子会形成口碑，比广告更可信
+3. **外链获取**：链接本身是nofollow，但高质量帖子会被博客、媒体、工具评测站引用，产生真实dofollow外链——这是Reddit外链价值的核心
 
 **核心限制：**
 - 大多数板块禁止正文直接发外链，违规会被filter自动删除
@@ -25,6 +29,8 @@ owner: 彭满
 
 ## 二、目标版块
 
+### Astrologywiki.com
+
 | 版块 | 订阅人数 | 内容方向 | 外链政策 |
 |---|---|---|---|
 | r/astrology | 1.2M | 星座解读、行星影响 | 正文禁链，评论区可放 |
@@ -32,6 +38,24 @@ owner: 彭满
 | r/spirituality | 600K | 灵性成长、能量 | 限制较松 |
 | r/zodiacsigns | 300K | 星座性格、兼容性 | 限制较松 |
 | r/AskAstrologers | 200K | 提问/解答形式 | 正文可附工具链接 |
+
+### AI Store 及 AI 工具类产品
+
+| 版块 | 订阅人数 | 内容方向 | 外链政策 |
+|---|---|---|---|
+| r/artificial | 400K | AI工具讨论、行业动态 | 限制较松 |
+| r/ChatGPT | 5M+ | AI使用技巧、工具对比 | 正文禁链，评论区可放 |
+| r/SideProject | 200K | 独立开发者产品展示 | 允许展示自己产品 |
+| r/webdev | 1M+ | 开发工具、资源推荐 | 限制较松 |
+| r/entrepreneur | 1M+ | 创业工具、增长经验 | 限制较松 |
+| r/AItools | 视具体版块 | AI工具测评、使用心得 | 多数允许工具链接 |
+
+### 新产品上线前：如何找目标版块
+
+1. 在Reddit搜索框输入产品核心关键词，筛选"Communities"标签
+2. 找订阅人数 > 50K 的相关版块
+3. 进版块查置顶帖/规则（About页面），确认外链政策
+4. 优先选"有人在问同类问题"的版块，而非"只有产品推广"的版块
 
 ---
 
@@ -70,6 +94,8 @@ karma达到100+后，开始在符合规则的版块放astrologywiki链接。
 ---
 
 ## 四、三类内容模板
+
+> 以下模板以 astrologywiki 为示例。其他产品执行时，替换版块、产品名称和内容领域即可，框架逻辑不变。
 
 ### 类型A：知识科普帖（最安全，最容易上热门）
 
@@ -229,4 +255,4 @@ Anyone else have a go-to?
 
 ---
 
-*版本：v1.0 | 2026-07-02 | owner: 彭满*
+*版本：v1.1 | 2026-07-02 | owner: 彭满*
