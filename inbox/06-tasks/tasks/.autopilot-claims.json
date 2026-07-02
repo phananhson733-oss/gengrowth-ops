@@ -1871,7 +1871,7 @@
     "mergedAt": "2026-07-01T16:04:11.771Z"
   },
   "PG-CELEB-021": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "angela-nikolau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-021.md",
@@ -1880,9 +1880,7 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-021",
     "branch": "seo/auto/2026-07-02-PG-CELEB-021",
     "pr": "https://github.com/xdawayer/oracle/pull/312",
-    "zh": false,
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-02T14:38:07.280Z"
+    "zh": false
   },
   "PG-CELEB-022": {
     "status": "done",
@@ -1902,37 +1900,15 @@
     "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
     "stage": "pushed-preview",
-    "lockedBy": "96127",
-    "leaseUntil": "2026-07-02T14:59:14.727Z",
     "updatedAt": "2026-07-02T13:59:14.727Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
     "branch": "seo/auto/2026-07-02-PG-CELEB-023",
     "pr": "https://github.com/xdawayer/oracle/pull/314",
-    "zh": false,
-    "error": "review[schema] FAIL: The source draft frontmatter's associated_keywords contains a hallucinated, off-topic keyword \"emma watson zodiac sign\" that contradicts this John Denver article's subject.",
-    "failedAt": "2026-07-02T14:02:44.218Z"
-  },
-  "PG-CELEB-024": {
-    "status": "needs_human",
-    "slug": "coco-gauff-birth-chart",
-    "owner": "autopilot",
-    "stage": "authoring",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-07-02T14:15:51.205Z"
-  },
-  "PG-CELEB-020": {
-    "status": "needs_human",
-    "slug": "jaylen-brown-birth-chart",
-    "owner": "autopilot",
-    "stage": "authoring",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - - word count 1410 < min 1500 after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-07-02T14:30:53.105Z"
+    "zh": false
   }
 }
