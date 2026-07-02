@@ -1947,7 +1947,7 @@
     "mergedAt": "2026-07-02T16:39:10.570Z"
   },
   "PG-CELEB-020": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "jaylen-brown-birth-chart",
     "owner": "autopilot",
     "plan": "one-plan-020.md",
@@ -1962,6 +1962,7 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-02-pg-422ba9-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-07-02T17:02:49.566Z",
-    "headRefOid": "08adb28b6a913a6010e84f96c482f4001a01a1aa"
+    "headRefOid": "08adb28b6a913a6010e84f96c482f4001a01a1aa",
+    "mergedAt": "2026-07-02T17:03:08.429Z"
   }
 }
