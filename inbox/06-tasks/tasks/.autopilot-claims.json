@@ -1902,7 +1902,7 @@
     "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
@@ -1911,6 +1911,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
     "branch": "seo/auto/2026-07-02-PG-CELEB-023",
     "pr": "https://github.com/xdawayer/oracle/pull/314",
-    "zh": false
+    "zh": false,
+    "previewUrl": "https://oracle-git-seo-auto2026-07-02-pg-79aea2-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-02T15:44:01.123Z",
+    "headRefOid": "75642a2e05d9386eae756a4ca6b7713a407bac6e",
+    "error": "merge failed: /auto/2026-07-02-PG-CELEB-023 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 75642a2e05d9386eae756a4ca6b7713a407bac6e GraphQL: Pull Request has merge conflicts (mergePullRequest)",
+    "failedAt": "2026-07-02T15:44:03.072Z"
   }
 }
