@@ -1880,7 +1880,7 @@
     "failedAt": "2026-07-02T12:41:37.604Z"
   },
   "PG-CELEB-021": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "angela-nikolau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-021.md",
@@ -1889,10 +1889,12 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-021",
     "branch": "seo/auto/2026-07-02-PG-CELEB-021",
     "pr": "https://github.com/xdawayer/oracle/pull/312",
-    "zh": false
+    "zh": false,
+    "error": "codex completed with codex FAIL —says Angela Nikolau’s birth date/place are not public, but public sources list 24 June 1993 in Moscow",
+    "failedAt": "2026-07-02T13:38:03.034Z"
   },
   "PG-CELEB-022": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "vera-wang-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-022.md",
@@ -1903,6 +1905,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
     "branch": "seo/auto/2026-07-02-PG-CELEB-022",
     "pr": "https://github.com/xdawayer/oracle/pull/313",
-    "zh": false
+    "zh": false,
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-02T13:37:37.092Z"
   }
 }
