@@ -10,11 +10,16 @@
 set -euo pipefail
 
 # --- cron 环境最小化，显式补齐 PATH / HOME ---
-export HOME="${HOME:-/Users/awayer_mini}"
+if [ -z "${HOME:-}" ]; then
+  export HOME="$(cd ~ && pwd)"
+else
+  export HOME
+fi
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 
-REPO="/Users/awayer_mini/gengrowth-wiki"
-MODEL="opus"   # 质量优先；要省成本改成 sonnet
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="${GENGROWTH_WIKI:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
+MODEL="${GENGROWTH_WEEKLY_NOTES_MODEL:-opus}"   # 质量优先；要省成本改成 sonnet
 LOG_DIR="$HOME/Library/Logs/wiki-notes-digest"
 mkdir -p "$LOG_DIR"
 STAMP="$(date +%Y-%m-%d_%H%M%S)"
@@ -52,4 +57,4 @@ echo "=== done $(date +%Y-%m-%d_%H%M%S) (exit $?) ===" | tee -a "$LOG"
 
 # --- 安装方法（一次性，见 README 路由）---
 # crontab 行（每周一 09:07 本地时间）：
-#   7 9 * * 1 /Users/awayer_mini/gengrowth-wiki/tools/scripts/weekly-notes-digest.sh
+#   7 9 * * 1 /path/to/gengrowth-wiki/tools/scripts/weekly-notes-digest.sh

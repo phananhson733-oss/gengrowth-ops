@@ -51,7 +51,7 @@ _gengrowth_sync_core_body() {
 
   # ── 2. gengrowth-agents -> wiki/docs/repo ──────────────────
   local AGENTS_DEST="$WIKI/docs/repo/gengrowth-agents"
-  if [ -d "$AGENTS_REPO" ]; then
+  if [ -d "$AGENTS_REPO/.git" ]; then
     mkdir -p "$AGENTS_DEST"
     rsync -a --delete "$AGENTS_REPO/docs/"    "$AGENTS_DEST/docs/"    >> "$LOG" 2>&1
     rsync -a --delete "$AGENTS_REPO/tasks/"   "$AGENTS_DEST/tasks/"   >> "$LOG" 2>&1

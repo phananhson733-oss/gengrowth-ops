@@ -4,16 +4,21 @@
 - 未执行 → 在 reminders.md 中写入提醒（去重）
 - 已执行 → 静默退出
 由 gengrowth-repos-sync.sh 在每周一调用。
+
+仓库路径默认从当前脚本位置自动推断，也可用 GENGROWTH_WIKI 覆盖。
 """
 import os
-import time
 import sys
+import time
+from pathlib import Path
 
-WIKI = "/Users/lynne/GenGrowth-wiki"
-STAMP = f"{WIKI}/ai-profile/audit-last-run.txt"
-REMINDERS = f"{WIKI}/ai-profile/reminders.md"
+WIKI = Path(os.environ.get("GENGROWTH_WIKI") or Path(__file__).resolve().parents[2])
+AI_PROFILE = WIKI / "ai-profile"
+STAMP = AI_PROFILE / "audit-last-run.txt"
+REMINDERS = AI_PROFILE / "reminders.md"
 REMINDER_MARKER = "文档审计提醒"
 REMINDER_LINE = '- [ ] 文档审计提醒：距上次审计已超过 7 天，请在对话中说"审计文档"触发\n'
+REMINDERS_TEMPLATE = "# 跨会话提醒\n\n## 待完成\n\n<!-- 暂无待办事项 -->\n"
 
 
 def audit_ran_recently(days=7):
@@ -24,14 +29,22 @@ def audit_ran_recently(days=7):
 
 
 def reminder_already_exists():
-    if not os.path.exists(REMINDERS):
+    if not REMINDERS.exists():
         return False
-    with open(REMINDERS, "r", encoding="utf-8") as f:
+    with REMINDERS.open("r", encoding="utf-8") as f:
         return REMINDER_MARKER in f.read()
 
 
+def ensure_reminders_file():
+    REMINDERS.parent.mkdir(parents=True, exist_ok=True)
+    if not REMINDERS.exists():
+        REMINDERS.write_text(REMINDERS_TEMPLATE, encoding="utf-8")
+
+
 def add_reminder():
-    with open(REMINDERS, "r", encoding="utf-8") as f:
+    ensure_reminders_file()
+
+    with REMINDERS.open("r", encoding="utf-8") as f:
         content = f.read()
 
     if "<!-- 暂无待办事项 -->" in content:
@@ -41,7 +54,7 @@ def add_reminder():
     else:
         content += f"\n{REMINDER_LINE}"
 
-    with open(REMINDERS, "w", encoding="utf-8") as f:
+    with REMINDERS.open("w", encoding="utf-8") as f:
         f.write(content)
     print("[audit-reminder] 已添加审计提醒到 reminders.md")
 
