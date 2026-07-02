@@ -41,7 +41,7 @@ When the user provides a product name or category, **first do a quick WebFetch o
 > - **分析模块**：默认全部（变现、增长、竞争定位、类型专项、技术、UX、GTM、合规、重点市场、综合评估）
 > - **重点市场**：[auto-detected: 美国 / 中国 / 两者皆含 / 其他]
 > - **时间范围**：默认最近 2 年
-> - **输出路径**：`/Users/lynne/GenGrowth-wiki/参考资料/产品分析/[产品名字]-分析报告.md`
+> - **输出路径**：`参考资料/产品分析/[产品名字]-分析报告.md`（相对当前仓库根目录）
 >
 > 需要校对的两点：
 > 1. 上述定位是否准确？（如不准确请给出更精确描述）
@@ -87,7 +87,7 @@ Generate the full report following the template in references/output-templates.m
 5. **综合评估与建议** — 5-dimension star rating + valuation reference + recommendations + risk matrix + scenario planning
 6. **参考来源** — all URLs
 
-Save the report to: `/Users/lynne/GenGrowth-wiki/参考资料/产品分析/[产品名字]-分析报告.md`（中文产品用中文名，英文产品用小写英文+连字符）
+Save the report to: `参考资料/产品分析/[产品名字]-分析报告.md`（相对当前仓库根目录；中文产品用中文名，英文产品用小写英文+连字符）
 
 ## Product Type System
 
@@ -111,7 +111,7 @@ See [references/output-templates.md](references/output-templates.md) for:
 After saving the report, run the validation script to check structure and depth compliance:
 
 ```bash
-python3 scripts/validate-report.py /Users/lynne/GenGrowth-wiki/参考资料/产品分析/[产品名字]-分析报告.md
+python3 scripts/validate-report.py ./参考资料/产品分析/[产品名字]-分析报告.md
 ```
 
 The script checks 47 items across 7 categories: file naming, header, sections, sub-sections, tables, depth metrics, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀).
