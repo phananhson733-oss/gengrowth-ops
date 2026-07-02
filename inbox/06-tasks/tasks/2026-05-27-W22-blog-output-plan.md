@@ -328,9 +328,9 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月2日 (周四) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [ ] `PG-CELEB-020` Jaylen Brown birth chart
-- [ ] `PG-CELEB-021` Angela Nikolau birth chart
+- [x] `PG-CELEB-021` Angela Nikolau birth chart
 - [x] `PG-CELEB-022` Vera Wang birth chart
-- [ ] `PG-CELEB-023` John Denver birth chart
+- [x] `PG-CELEB-023` John Denver birth chart
 - [ ] `PG-CELEB-024` Coco Gauff birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
