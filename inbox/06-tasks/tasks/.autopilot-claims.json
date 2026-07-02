@@ -1911,7 +1911,7 @@
     "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
@@ -1922,6 +1922,8 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
     "branch": "seo/auto/2026-07-02-PG-CELEB-023",
     "pr": "https://github.com/xdawayer/oracle/pull/314",
-    "zh": false
+    "zh": false,
+    "error": "review[schema] FAIL: The source draft frontmatter's associated_keywords contains a hallucinated, off-topic keyword \"emma watson zodiac sign\" that contradicts this John Denver article's subject.",
+    "failedAt": "2026-07-02T14:02:44.218Z"
   }
 }
