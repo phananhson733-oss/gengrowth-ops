@@ -1881,8 +1881,8 @@
     "branch": "seo/auto/2026-07-02-PG-CELEB-021",
     "pr": "https://github.com/xdawayer/oracle/pull/312",
     "zh": false,
-    "error": "codex completed with codex FAIL —inline visual says Aquarius despite the June 24/Cancer birth-date framing",
-    "failedAt": "2026-07-02T15:37:29.207Z"
+    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
+    "failedAt": "2026-07-02T15:46:08.059Z"
   },
   "PG-CELEB-022": {
     "status": "done",
@@ -1902,7 +1902,7 @@
     "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
@@ -1917,6 +1917,8 @@
     "verifiedAt": "2026-07-02T15:44:01.123Z",
     "headRefOid": "75642a2e05d9386eae756a4ca6b7713a407bac6e",
     "error": "merge failed: /auto/2026-07-02-PG-CELEB-023 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 75642a2e05d9386eae756a4ca6b7713a407bac6e GraphQL: Pull Request has merge conflicts (mergePullRequest)",
-    "failedAt": "2026-07-02T15:44:03.072Z"
+    "failedAt": "2026-07-02T15:44:03.072Z",
+    "mergedAt": "2026-07-02T15:45:30Z",
+    "reconciliationNote": "auto-reconciled from merged GitHub PR"
   }
 }
