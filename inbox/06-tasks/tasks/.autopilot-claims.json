@@ -1911,15 +1911,17 @@
     "mergedAt": "2026-07-02T13:56:11.391Z"
   },
   "PG-CELEB-023": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "john-denver-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-023.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "96127",
-    "leaseUntil": "2026-07-02T14:56:48.259Z",
-    "updatedAt": "2026-07-02T13:56:48.259Z",
+    "leaseUntil": "2026-07-02T14:59:14.727Z",
+    "updatedAt": "2026-07-02T13:59:14.727Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-023",
-    "branch": "seo/auto/2026-07-02-PG-CELEB-023"
+    "branch": "seo/auto/2026-07-02-PG-CELEB-023",
+    "pr": "https://github.com/xdawayer/oracle/pull/314",
+    "zh": false
   }
 }
