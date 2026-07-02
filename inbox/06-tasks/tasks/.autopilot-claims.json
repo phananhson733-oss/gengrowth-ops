@@ -1871,7 +1871,7 @@
     "mergedAt": "2026-07-01T16:04:11.771Z"
   },
   "PG-CELEB-021": {
-    "status": "needs_human",
+    "status": "done",
     "slug": "angela-nikolau-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-021.md",
@@ -1886,7 +1886,9 @@
     "verifiedAt": "2026-07-02T16:07:54.725Z",
     "headRefOid": "113c1d5a9ae130d6befe588497eef2dda7d40021",
     "error": "merge failed: /auto/2026-07-02-PG-CELEB-021 --repo xdawayer/oracle --merge --delete-branch --match-head-commit 113c1d5a9ae130d6befe588497eef2dda7d40021 GraphQL: Pull Request has merge conflicts (mergePullRequest)",
-    "failedAt": "2026-07-02T16:07:56.901Z"
+    "failedAt": "2026-07-02T16:07:56.901Z",
+    "mergedAt": "2026-07-02T16:08:44Z",
+    "reconciliationNote": "auto-reconciled from merged GitHub PR"
   },
   "PG-CELEB-022": {
     "status": "done",
