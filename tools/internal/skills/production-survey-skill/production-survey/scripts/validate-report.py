@@ -5,7 +5,7 @@
 
 用法：
   python3 validate-report.py <report.md>
-  python3 validate-report.py /Users/lynne/GenGrowth-wiki/参考资料/产品分析/brave-分析报告.md
+  python3 validate-report.py ./参考资料/产品分析/brave-分析报告.md
 """
 
 import re
@@ -613,7 +613,7 @@ def print_report(report: ValidationReport):
 def main():
     if len(sys.argv) < 2:
         print("用法: python3 validate-report.py <report.md>")
-        print("示例: python3 validate-report.py /Users/lynne/GenGrowth-wiki/参考资料/产品分析/brave-分析报告.md")
+        print("示例: python3 validate-report.py ./参考资料/产品分析/brave-分析报告.md")
         sys.exit(1)
 
     filepath = sys.argv[1]
