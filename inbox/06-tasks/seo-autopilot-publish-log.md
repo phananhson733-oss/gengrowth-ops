@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-01
+updated: 2026-07-02
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -103,3 +103,4 @@ updated: 2026-07-01
 | 2026-07-01 | PG-CELEB-017 | thylane-blondeau-birth-chart | Thylane Blondeau Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/thylane-blondeau-birth-chart | published |
 | 2026-07-01 | PG-CELEB-018 | elliot-page-birth-chart | Elliot Page Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/elliot-page-birth-chart | published |
 | 2026-07-01 | PG-CELEB-019 | bella-hadid-birth-chart | Bella Hadid Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/bella-hadid-birth-chart | published |
+| 2026-07-02 | PG-CELEB-022 | vera-wang-birth-chart | Vera Wang Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/vera-wang-birth-chart | published |
