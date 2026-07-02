@@ -1878,5 +1878,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-07-02T12:41:37.604Z"
+  },
+  "PG-CELEB-021": {
+    "status": "active",
+    "slug": "angela-nikolau-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-021.md",
+    "stage": "convert",
+    "lockedBy": "94879",
+    "leaseUntil": "2026-07-02T13:56:11.532Z",
+    "updatedAt": "2026-07-02T12:56:11.532Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-021",
+    "branch": "seo/auto/2026-07-02-PG-CELEB-021"
   }
 }
