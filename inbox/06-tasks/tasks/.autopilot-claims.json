@@ -1896,15 +1896,17 @@
     "failedAt": "2026-07-02T13:06:44.628Z"
   },
   "PG-CELEB-022": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "vera-wang-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-022.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "31626",
-    "leaseUntil": "2026-07-02T14:24:22.847Z",
-    "updatedAt": "2026-07-02T13:24:22.847Z",
+    "leaseUntil": "2026-07-02T14:27:13.305Z",
+    "updatedAt": "2026-07-02T13:27:13.305Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-022",
-    "branch": "seo/auto/2026-07-02-PG-CELEB-022"
+    "branch": "seo/auto/2026-07-02-PG-CELEB-022",
+    "pr": "https://github.com/xdawayer/oracle/pull/313",
+    "zh": false
   }
 }
