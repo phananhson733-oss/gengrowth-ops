@@ -1945,5 +1945,17 @@
     "verifiedAt": "2026-07-02T16:39:05.155Z",
     "headRefOid": "431513a97b22101a24bd7d38fa86a1296a00ea80",
     "mergedAt": "2026-07-02T16:39:10.570Z"
+  },
+  "PG-CELEB-020": {
+    "status": "active",
+    "slug": "jaylen-brown-birth-chart",
+    "owner": "autopilot",
+    "plan": "one-plan-020.md",
+    "stage": "convert",
+    "lockedBy": "93112",
+    "leaseUntil": "2026-07-02T17:52:36.066Z",
+    "updatedAt": "2026-07-02T16:52:36.066Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-02-PG-CELEB-020",
+    "branch": "seo/auto/2026-07-02-PG-CELEB-020"
   }
 }
