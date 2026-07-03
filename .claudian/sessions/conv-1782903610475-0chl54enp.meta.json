@@ -1,0 +1,25 @@
+{
+  "id": "conv-1782903610475-0chl54enp",
+  "providerId": "codex",
+  "title": "帮我看看彭满应该重点关注什么内容",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782903610475,
+  "updatedAt": 1782985047590,
+  "lastResponseAt": 1782903683030,
+  "sessionId": "019f1d56-3668-7181-86bb-f843a13deeb6",
+  "providerState": {
+    "threadId": "019f1d56-3668-7181-86bb-f843a13deeb6",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/01/rollout-2026-07-01T04-00-17-019f1d56-3668-7181-86bb-f843a13deeb6.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 32355,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 31616,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 32355,
+    "percentage": 13,
+    "model": "gpt-5.5"
+  }
+}
