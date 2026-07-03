@@ -107,3 +107,4 @@ updated: 2026-07-03
 | 2026-07-02 | PG-CELEB-024 | coco-gauff-birth-chart | Coco Gauff Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-birth-chart | published |
 | 2026-07-02 | PG-CELEB-020 | jaylen-brown-birth-chart | Jaylen Brown Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jaylen-brown-birth-chart | published |
 | 2026-07-03 | PG-CELEB-025 | tobey-maguire-birth-chart | Tobey Maguire Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/tobey-maguire-birth-chart | published |
+| 2026-07-03 | PG-CELEB-026 | pen-lope-cruz-birth-chart | Penélope Cruz Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/pen-lope-cruz-birth-chart | published |
