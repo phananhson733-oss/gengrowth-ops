@@ -1899,7 +1899,7 @@
     "failedAt": "2026-07-03T17:15:29.115Z"
   },
   "PG-CELEB-027": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "travis-kelce-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1911,6 +1911,11 @@
     "branch": "seo/auto/2026-07-03-PG-CELEB-027",
     "pr": "https://github.com/xdawayer/oracle/pull/324",
     "retryEvidence": "removed hallucinated associated_keyword from source draft; rerun full preview gate",
-    "retryAt": "2026-07-03T20:01:12.988Z"
+    "retryAt": "2026-07-03T20:01:12.988Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-03-pg-0d7050-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-03T20:03:22.918Z",
+    "headRefOid": "375f435219984dddbd547109770e9a3006d868b7",
+    "mergedAt": "2026-07-03T20:03:32.682Z"
   }
 }
