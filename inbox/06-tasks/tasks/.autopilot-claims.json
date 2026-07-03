@@ -1910,7 +1910,7 @@
     "mergedAt": "2026-07-03T20:03:32.682Z"
   },
   "PG-CELEB-028": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "diogo-jota-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1920,6 +1920,11 @@
     "updatedAt": "2026-07-03T20:16:46.913Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-028",
     "branch": "seo/auto/2026-07-03-PG-CELEB-028",
-    "pr": "https://github.com/xdawayer/oracle/pull/325"
+    "pr": "https://github.com/xdawayer/oracle/pull/325",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-03-pg-be0ae9-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-03T20:21:59.853Z",
+    "headRefOid": "10fdf3099dda8b56770a3a2217f9a9a5bbe409ae",
+    "mergedAt": "2026-07-03T20:22:09.860Z"
   }
 }
