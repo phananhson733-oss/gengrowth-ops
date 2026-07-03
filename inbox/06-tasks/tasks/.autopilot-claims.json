@@ -1865,15 +1865,16 @@
     "failedAt": "2026-07-03T13:11:35.953Z"
   },
   "PG-CELEB-025": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "88832",
-    "leaseUntil": "2026-07-03T15:42:36.080Z",
-    "updatedAt": "2026-07-03T14:42:36.080Z",
+    "leaseUntil": "2026-07-03T15:45:43.616Z",
+    "updatedAt": "2026-07-03T14:45:43.616Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
-    "branch": "seo/auto/2026-07-03-PG-CELEB-025"
+    "branch": "seo/auto/2026-07-03-PG-CELEB-025",
+    "pr": "https://github.com/xdawayer/oracle/pull/323"
   }
 }
