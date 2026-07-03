@@ -1850,21 +1850,19 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
     "stage": "pushed-preview",
-    "lockedBy": "46969",
-    "leaseUntil": "2026-07-03T16:53:15.047Z",
-    "updatedAt": "2026-07-03T15:53:15.047Z",
+    "lockedBy": "5356",
+    "leaseUntil": "2026-07-03T17:52:30.222Z",
+    "updatedAt": "2026-07-03T16:52:30.222Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
-    "retryEvidence": "codex transient exit-3 recovered (verified PASS on sibling); re-gate",
-    "retryAt": "2026-07-03T15:53:15.047Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T15:56:24.780Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-03T16:52:30.222Z"
   },
   "PG-CELEB-025": {
     "status": "needs_human",
@@ -1882,14 +1880,5 @@
     "retryAt": "2026-07-03T15:33:09.374Z",
     "error": "review[schema] FAIL: The source draft's associated_keywords list contains an off-topic, hallucinated keyword ('emma watson zodiac sign') that has nothing to do with Tobey Maguire and contradicts the article's visible subject.",
     "failedAt": "2026-07-03T16:09:04.011Z"
-  },
-  "PG-CELEB-027": {
-    "status": "needs_human",
-    "slug": "travis-kelce-birth-chart",
-    "owner": "autopilot",
-    "stage": "authoring",
-    "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-07-03T16:49:14.511Z"
   }
 }
