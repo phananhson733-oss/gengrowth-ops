@@ -1867,21 +1867,19 @@
     "failedAt": "2026-07-03T18:45:47.318Z"
   },
   "PG-CELEB-025": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "27666",
-    "leaseUntil": "2026-07-03T20:20:27.248Z",
-    "updatedAt": "2026-07-03T19:20:27.248Z",
+    "lockedBy": "27879",
+    "leaseUntil": "2026-07-03T20:21:46.248Z",
+    "updatedAt": "2026-07-03T19:21:46.248Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
-    "retryEvidence": "operator retry after codex review credit failure; rerun full preview gate",
-    "retryAt": "2026-07-03T19:20:27.248Z",
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-07-03T19:20:45.168Z"
+    "retryEvidence": "restored bypass secret; rerun full preview gate",
+    "retryAt": "2026-07-03T19:21:46.248Z"
   },
   "PG-CELEB-028": {
     "status": "needs_human",
