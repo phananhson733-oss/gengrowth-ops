@@ -1897,5 +1897,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - phase2 FAIL: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ | [phase2] loaded fixture: /Users/awayer_mini/gengrowth-flow-mvp/.gg-cache/prompts/PG-CELEB-028.v8-fixture.json | ERROR: draft has no H1; aborting after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-07-03T17:15:29.115Z"
+  },
+  "PG-CELEB-027": {
+    "status": "active",
+    "slug": "travis-kelce-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "31977",
+    "leaseUntil": "2026-07-03T20:47:50.162Z",
+    "updatedAt": "2026-07-03T19:47:50.162Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-027",
+    "branch": "seo/auto/2026-07-03-PG-CELEB-027"
   }
 }
