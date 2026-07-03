@@ -1850,21 +1850,19 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
     "stage": "pushed-preview",
-    "lockedBy": "40432",
-    "leaseUntil": "2026-07-03T16:33:09.433Z",
-    "updatedAt": "2026-07-03T15:33:09.433Z",
+    "lockedBy": "46969",
+    "leaseUntil": "2026-07-03T16:53:15.047Z",
+    "updatedAt": "2026-07-03T15:53:15.047Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
-    "retryEvidence": "review worker hit quota (exit1) at nightly; codex+claude recovered; re-gate",
-    "retryAt": "2026-07-03T15:33:09.433Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T15:40:48.148Z"
+    "retryEvidence": "codex transient exit-3 recovered (verified PASS on sibling); re-gate",
+    "retryAt": "2026-07-03T15:53:15.047Z"
   },
   "PG-CELEB-025": {
     "status": "pushed-preview",
