@@ -1899,7 +1899,7 @@
     "failedAt": "2026-07-03T17:15:29.115Z"
   },
   "PG-CELEB-027": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "travis-kelce-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1909,6 +1909,8 @@
     "updatedAt": "2026-07-03T19:52:09.042Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-027",
     "branch": "seo/auto/2026-07-03-PG-CELEB-027",
-    "pr": "https://github.com/xdawayer/oracle/pull/324"
+    "pr": "https://github.com/xdawayer/oracle/pull/324",
+    "error": "review[schema] FAIL: The source draft's associated_keywords frontmatter contains a hallucinated, off-topic keyword \"emma watson zodiac sign\" that contradicts an article entirely about Travis Kelce.",
+    "failedAt": "2026-07-03T19:55:46.083Z"
   }
 }
