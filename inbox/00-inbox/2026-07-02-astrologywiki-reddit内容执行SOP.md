@@ -3,7 +3,7 @@ title: GenGrowth Reddit增长通用SOP
 date: 2026-07-02
 status: active
 version: v1.1
-owner: 彭满
+owner: Ma Boyang
 ---
 
 # GenGrowth Reddit 增长通用 SOP
@@ -255,4 +255,4 @@ Anyone else have a go-to?
 
 ---
 
-*版本：v1.1 | 2026-07-02 | owner: 彭满*
+*版本：v1.1 | 2026-07-02 | owner: Ma Boyang*
