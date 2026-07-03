@@ -339,7 +339,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-WC-042` Lamine Yamal birth chart
 - [x] `PG-CELEB-025` Tobey Maguire birth chart
 - [x] `PG-CELEB-026` Penélope Cruz birth chart
-- [ ] `PG-CELEB-027` Travis Kelce birth chart
+- [x] `PG-CELEB-027` Travis Kelce birth chart
 - [ ] `PG-CELEB-028` Diogo Jota birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
