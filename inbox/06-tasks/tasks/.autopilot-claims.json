@@ -1850,33 +1850,33 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
     "stage": "pushed-preview",
-    "lockedBy": "66518",
-    "leaseUntil": "2026-07-03T14:09:08.635Z",
-    "updatedAt": "2026-07-03T13:09:08.635Z",
+    "lockedBy": "40432",
+    "leaseUntil": "2026-07-03T16:33:09.433Z",
+    "updatedAt": "2026-07-03T15:33:09.433Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
-    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
-    "failedAt": "2026-07-03T13:11:35.953Z"
+    "retryEvidence": "review worker hit quota (exit1) at nightly; codex+claude recovered; re-gate",
+    "retryAt": "2026-07-03T15:33:09.433Z"
   },
   "PG-CELEB-025": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "88832",
-    "leaseUntil": "2026-07-03T15:45:43.616Z",
-    "updatedAt": "2026-07-03T14:45:43.616Z",
+    "lockedBy": "40428",
+    "leaseUntil": "2026-07-03T16:33:09.374Z",
+    "updatedAt": "2026-07-03T15:33:09.374Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T14:51:23.490Z"
+    "retryEvidence": "codex usage window recovered (was exited-3 transient at 22:51); re-gate",
+    "retryAt": "2026-07-03T15:33:09.374Z"
   }
 }
