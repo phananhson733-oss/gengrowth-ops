@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-02
+updated: 2026-07-03
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -106,3 +106,4 @@ updated: 2026-07-02
 | 2026-07-02 | PG-CELEB-022 | vera-wang-birth-chart | Vera Wang Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/vera-wang-birth-chart | published |
 | 2026-07-02 | PG-CELEB-024 | coco-gauff-birth-chart | Coco Gauff Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-birth-chart | published |
 | 2026-07-02 | PG-CELEB-020 | jaylen-brown-birth-chart | Jaylen Brown Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jaylen-brown-birth-chart | published |
+| 2026-07-03 | PG-CELEB-025 | tobey-maguire-birth-chart | Tobey Maguire Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/tobey-maguire-birth-chart | published |

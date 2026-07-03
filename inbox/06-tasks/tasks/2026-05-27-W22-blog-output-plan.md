@@ -337,7 +337,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月3日 (周五) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [ ] `PG-WC-042` Lamine Yamal birth chart
-- [ ] `PG-CELEB-025` Tobey Maguire birth chart
+- [x] `PG-CELEB-025` Tobey Maguire birth chart
 - [ ] `PG-CELEB-026` Penélope Cruz birth chart
 - [ ] `PG-CELEB-027` Travis Kelce birth chart
 - [ ] `PG-CELEB-028` Diogo Jota birth chart
