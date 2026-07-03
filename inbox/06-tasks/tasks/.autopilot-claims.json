@@ -1868,7 +1868,7 @@
     "failedAt": "2026-07-03T12:52:42.788Z"
   },
   "PG-CELEB-026": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
@@ -1878,6 +1878,8 @@
     "updatedAt": "2026-07-03T13:09:08.635Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
-    "pr": "https://github.com/xdawayer/oracle/pull/322"
+    "pr": "https://github.com/xdawayer/oracle/pull/322",
+    "error": "review[astrology] SKIPPED: tooling: worker exited 1",
+    "failedAt": "2026-07-03T13:11:35.953Z"
   }
 }
