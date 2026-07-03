@@ -1867,7 +1867,7 @@
     "failedAt": "2026-07-03T16:54:21.268Z"
   },
   "PG-CELEB-025": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1879,6 +1879,8 @@
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
     "retryEvidence": "stripped hallucinated 'emma watson zodiac sign' from associated_keywords (celeb-batch sheet artifact); re-gate",
-    "retryAt": "2026-07-03T16:58:08.626Z"
+    "retryAt": "2026-07-03T16:58:08.626Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-03T17:00:33.561Z"
   }
 }
