@@ -1872,16 +1872,16 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "91983",
-    "leaseUntil": "2026-07-03T19:42:46.431Z",
-    "updatedAt": "2026-07-03T18:42:46.431Z",
+    "lockedBy": "27666",
+    "leaseUntil": "2026-07-03T20:20:27.248Z",
+    "updatedAt": "2026-07-03T19:20:27.248Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
-    "retryEvidence": "auto-retry transient park #2/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-03T18:42:46.431Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T19:13:30.928Z"
+    "retryEvidence": "operator retry after codex review credit failure; rerun full preview gate",
+    "retryAt": "2026-07-03T19:20:27.248Z",
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-07-03T19:20:45.168Z"
   },
   "PG-CELEB-028": {
     "status": "needs_human",
