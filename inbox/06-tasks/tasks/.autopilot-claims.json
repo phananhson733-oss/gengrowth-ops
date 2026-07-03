@@ -1865,7 +1865,7 @@
     "failedAt": "2026-07-03T13:11:35.953Z"
   },
   "PG-CELEB-025": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1875,6 +1875,8 @@
     "updatedAt": "2026-07-03T14:45:43.616Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
-    "pr": "https://github.com/xdawayer/oracle/pull/323"
+    "pr": "https://github.com/xdawayer/oracle/pull/323",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-03T14:51:23.490Z"
   }
 }
