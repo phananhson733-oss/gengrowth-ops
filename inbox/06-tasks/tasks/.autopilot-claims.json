@@ -1850,21 +1850,19 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
     "stage": "pushed-preview",
-    "lockedBy": "36533",
-    "leaseUntil": "2026-07-03T18:11:49.946Z",
-    "updatedAt": "2026-07-03T17:11:49.946Z",
+    "lockedBy": "40443",
+    "leaseUntil": "2026-07-03T18:46:49.629Z",
+    "updatedAt": "2026-07-03T17:46:49.629Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
-    "retryEvidence": "stripped hallucinated 'emma watson zodiac sign' keyword; re-gate",
-    "retryAt": "2026-07-03T17:11:49.946Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T17:21:42.854Z"
+    "retryEvidence": "auto-retry transient park #2/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-03T17:46:49.629Z"
   },
   "PG-CELEB-025": {
     "status": "pushed-preview",
