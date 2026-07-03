@@ -1,0 +1,145 @@
+---
+title: 2026-07-03 社媒内容数据阶段分析
+type: social-content-data-analysis
+project: AstrologyWiki
+owner: pengman
+updated: 2026-07-03
+data_scope: archived public metrics from 2026-W25 and 2026-W27, including Instagram public profile data and logged-in X profile data checked on 2026-07-03
+status: draft
+---
+
+# 2026-07-03 社媒内容数据阶段分析
+
+> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据。Instagram 数据为 2026-07-03 从公开 profile / web profile 接口读取；X 数据为 2026-075-03 登录后主页可见数据。  
+> 当前不包含后台 analytics：X impressions / link clicks、TikTok 完播率 / 主页访问 / 链接点击、YouTube Studio 留存 / shown in feed / 点击数据、站内 referral / PV 变化。  
+> 目标：判断哪些站外内容更可能支持 AstrologyWiki 的 SEO / PV / 站内主题页，而不是单纯比较粉丝增长。
+
+相关文档：
+
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-01-public-account-crawl-log.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/2026-06-29-content-direction-and-tools-research.md]]
+
+## 1. 阶段总览
+
+| 平台 | 已记录发布数量 | 总浏览/播放 | 总点赞 | 已知评论/回复 | 已知分享/转发 | 已知收藏/书签 | 已知公开互动 | 备注 |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| X / Twitter | 13 | 123 | 25 | 4 | 2 | 1 | 32 | 登录后主页可见数据；账号页显示 16 posts，当前已归档 13 条可见 status |
+| TikTok | 5 | 1150 | 15 | 0 | 0 | 1 | 16 | W27 photo post 触达最好；后台完播率和主页访问仍缺失 |
+| Instagram | 2 | 11 | 3 | 0 | 待补 | 待补 | 3 + 待补 | 公开账号 0 followers、0 following、2 posts；两条均为视频，数据还太早 |
+| YouTube Shorts | 3 | 779 | 15 | 待补 | 待补 | n/a | 15 + 待补 | Messi Shorts 单条贡献绝大多数 Shorts views |
+| YouTube Video | 1 | 1 | 1 | 待补 | 待补 | n/a | 1 + 待补 | Harry Kane 长视频刚发布，样本太小 |
+| **合计** | **24** | **2064** | **59** | **4 + YT待补** | **2 + IG/YT待补** | **2 + IG待补** | **67 + IG/YT待补** | 当前适合做方向判断，不适合做最终投放结论 |
+
+阶段结论：
+
+- 当前最有效的公开触达来自短视频 / 图文短内容，尤其是 YouTube Shorts 的 Messi 和 TikTok 的 Taylor / Haaland。
+- TikTok 在 W27 的稳定性更好：4 条内容合计 1150 播放，且前三条都过 175 播放。
+- Instagram 目前只是刚开始分发：2 条视频合计 11 views、3 likes，账号仍是 0 followers。
+- X 登录后补齐到 13 条可见 status，合计 123 views、25 likes；绝对触达仍低，但能更完整地看出 thread / follow-up 分发情况。
+- YouTube Shorts 有单条高峰，但波动大：Messi 772 views，Haaland 5 views，Harry Kane 2 views。
+- X 当前公开 view count 太低，适合做轻量分发和观点同步，不应作为首轮主制作平台。
+- 站内支持价值目前只能看“是否有明确 CTA / 目标页面”，还不能证明真实 PV 贡献；必须补 link clicks / referral / 页面 PV。
+
+## 2. Top 内容
+
+| 排名 | 内容 | 平台 | 浏览/播放 | 点赞 | 已知公开互动 | 判断 |
+|---:|---|---|---:|---:|---:|---|
+| 1 | Messi Cancer Sun / big night | YouTube Shorts | 772 | 11 | 11 + 待补 | 当前最强单条；体育热点 + 名人星座 + 站内文章 CTA 是优先复用模板 |
+| 2 | Taylor Swift + Travis Kelce 婚礼传闻 / Cancer season | TikTok | 573 | 2 | 3 | 名人娱乐热点能拿到较高触达，但点赞率不高，需要更强互动问题或评论钩子 |
+| 3 | Haaland World Cup / Cancer-Leo cusp | TikTok | 277 | 8 | 8 | 播放低于 Taylor，但点赞率更好，sports astrology 的受众质量可能更高 |
+| 4 | Haaland birth chart CTA | TikTok | 175 | 3 | 3 | 更贴近 SEO/PV 目标，因为文案直接导向站内 Haaland 页面 |
+| 5 | Cancer themes -> Leo shift | TikTok | 125 | 1 | 1 | evergreen transit 解释能跑，但当前弱于名人/体育热点 |
+
+## 3. 内容类型判断
+
+### 3.1 Sports astrology 是当前最值得继续测的主线
+
+证据：
+
+- Messi Shorts：772 views、11 likes，是当前最高单条。
+- Haaland TikTok photo：277 views、8 likes，点赞率明显高于 Taylor / Travis。
+- Haaland TikTok video：175 views、3 likes，并且直接导向站内 birth chart 页面。
+- Harry Kane 目前 YouTube 数据还太早，不能判定失败，但 Shorts / 长视频都需要 24-48 小时后台数据再看。
+
+建议：
+
+- 下一个 3-5 条短内容优先继续 sports astrology，但不要只重复球员姓名。
+- 模板用：`比赛 / 热点事件 -> 一个星盘特征 -> 对应站内页面`。
+- 每条都要明确目标页，例如 birth chart、zodiac sign、Sun sign、Moon sign 或 celebrity chart 页面。
+
+### 3.2 Celebrity entertainment 可以做流量钩子，但要补站内承接
+
+证据：
+
+- Taylor / Travis TikTok photo：573 views，是 TikTok 当前最高播放。
+- 同主题 X：9 views、3 likes、1 reply，X 触达弱但互动密度高。
+
+风险：
+
+- 娱乐传闻容易拿播放，但如果没有明确落到 Birth Chart / Moon Sign / Venus Sign / compatibility 页面，就很难证明对 PV 有帮助。
+
+建议：
+
+- 后续同类内容不要只停在 gossip 解读。
+- 结尾统一加一个轻 CTA：`Check your Moon / Venus / birth chart on AstrologyWiki`。
+- 适合做成 TikTok photo post + X 精简观点，不必每次都做长视频。
+
+### 3.3 Evergreen transit 适合补内容面，但不是当前最高优先级
+
+证据：
+
+- Cancer -> Leo shift TikTok：125 views、1 like。
+- 同主题 X：5 views、1 like。
+
+判断：
+
+- evergreen 解释有长期内容价值，但在当前账号冷启动阶段，公开触达弱于名人 / 体育事件。
+- 它更适合当作补充栏目，不适合占用首轮主要制作时间。
+
+建议：
+
+- 保留每周 1 条即可，用来承接季节性关键词和站内百科页面。
+- 主题必须具体化，例如 `What Leo season changes in your birth chart`，不要只讲抽象氛围。
+
+## 4. 平台判断
+
+| 平台 | 当前作用 | 继续策略 | 不建议做的事 |
+|---|---|---|---|
+| YouTube Shorts | P0 测试平台；有最高单条表现，也更接近搜索 / 长尾内容承接 | 继续首发 sports / birth chart / 页面录屏类 Shorts；重点补 Studio 数据 | 不要只看公开 views；没有留存和 shown-in-feed 前不要判定选题失败 |
+| TikTok | P1 复用与 Hook 测试平台；W27 触达更稳定 | 继续复用 Shorts 或做 photo post；观察完播率、主页访问、收藏 | 不要为 TikTok 单独开复杂制作线 |
+| Instagram | P2 复用分发位；当前账号刚启动，公开数据太早 | 先复用 birth chart / relationship astrology 短视频；重点看 profile visits、link clicks、saves | 不要为了 Instagram 单独开制作线，也不要用 0 粉冷启动数据否定主题 |
+| X / Twitter | 轻量分发、观点同步、thread / link follow-up 测试 | 保留同步，但文案要完整，避免只剩短链；link card follow-up 可以继续小测 | 不要把 X 当主增长平台；账号页显示 16 posts，目前仍有 3 条需继续核对 |
+| YouTube Video | 当前样本不足 | 只在已有 Shorts 脚本可自然扩展时同步发 | 不要为了长视频单独增加制作复杂度 |
+
+## 5. 对 AstrologyWiki PV 的支持价值
+
+当前最接近 PV 支持的内容：
+
+| 内容 | 目标页 / 方向 | 价值判断 | 下一步验证 |
+|---|---|---|---|
+| Messi Cancer Sun Shorts | `lionel-messi-zodiac-sign` | 公开触达最高，且描述导向站内文章 | 查 2026-06-17 前后该页面 PV / referral / YouTube 来源 |
+| Haaland birth chart TikTok / Shorts / X | `erling-haaland-birth-chart` | 多平台同步，主题和站内页强绑定；X 多条 follow-up 合计 55 views | 查 2026-06-29 至 2026-07-01 页面 PV、TikTok / X profile visits、link clicks |
+| Harry Kane Shorts / Video | `harry-kane-birth-chart` | 站内已有内容，但公开数据极早期 | 等 24-48 小时补 Studio，再决定是否 TikTok / X follow-up |
+| Taylor / Travis Cancer season | Moon sign / Venus sign / compatibility / celebrity astrology | 流量钩子强，但站内承接尚不够明确 | 下次明确 CTA 到 Birth Chart / Moon Sign / Venus Sign |
+| Instagram birth chart CTA | birth chart / short-link CTA | 已有 1 条明确导向 AstrologyWiki 短链的视频，公开 11 views、3 likes | 查 Instagram Insights 的 profile visits / link clicks；确认短链在 GA 里是否有访问 |
+
+## 6. 立即可执行建议
+
+1. 下一个制作批次按 `3 条 sports astrology + 1 条 celebrity entertainment + 1 条 evergreen transit` 分配。
+2. 每条内容都绑定一个站内目标页，不发没有承接页的热点。
+3. Shorts 继续作为主版本，TikTok / Instagram 复用或轻改；TikTok photo post 可以保留，因为 W27 表现稳定。
+4. Instagram 暂按 P2 处理：只复用已做素材，优先测 relationship astrology / birth chart CTA，不单独增加制作复杂度。
+5. X 只做同步分发：完整观点 + 站内 CTA，避免只放短链。
+6. 每周复盘时新增一个字段：`目标页 / CTA`，否则无法判断是否支持 SEO / PV。
+7. 补后台数据优先级：YouTube Studio -> TikTok / Instagram profile visits 与 link clicks -> X link clicks -> GA / GSC 目标页 PV。
+
+## 7. 待补数据清单
+
+- [ ] YouTube Studio：Messi / Haaland / Harry Kane Shorts 的 shown in feed、viewed vs swiped away、平均观看时长、comments、subscribers gained。
+- [ ] TikTok：每条内容的完播率、平均观看时长、主页访问、链接点击、关注转化。
+- [ ] Instagram：两条视频的 reach、plays、saves、shares、profile visits、link clicks。
+- [ ] X：已知单帖 impressions、profile visits、link clicks、视频观看时长；继续核对账号页显示 16 posts 中尚未归档的 3 条。
+- [ ] GA / GSC：`lionel-messi-zodiac-sign`、`erling-haaland-birth-chart`、`harry-kane-birth-chart` 在对应发布日期前后的 PV / referral / query 变化。
+- [ ] X 全量链接：登录后账号页显示 16 posts，当前已归档 13 条可见 status；剩余 3 条需要继续从 replies / media / analytics 导出核对。

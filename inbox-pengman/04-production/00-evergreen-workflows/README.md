@@ -14,6 +14,7 @@ This folder stores reusable production workflows that should not be mixed into d
 ## Current Workflows
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
+- [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md]]
 
 ## Related Working Areas
 

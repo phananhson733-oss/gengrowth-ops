@@ -7,7 +7,7 @@ project: astrologywiki
 type: topic-ideas
 status: draft
 source:
-  - [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+  - [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
   - [[inbox-pengman/02-conversation report/2026-06-16-astrologywiki-offsite-content-tools-and-next-steps.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
   - [[inbox-pengman/02-conversation report/current-context.md]]
@@ -26,7 +26,7 @@ source:
 - 先收灵感，再分主题包。
 - 先判断适不适合平台表达，再决定要不要进入生产。
 - 如果某个选题能自然对应到 [[inbox/00-inbox/topic-cluster-table.csv]] 里的 cluster，就顺手写上。
-- 如果后续要进入正式生产，可以再转到 [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 的实验节奏或选题记录里。
+- 如果后续要进入正式生产，可以再转到 [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]] 的实验节奏或选题记录里。
 - 优先顺序建议是：
 
 ```text
@@ -237,58 +237,7 @@ TikTok 首轮先复用 YouTube Shorts，不单独开制作线。这里优先记�
 - Archive: [[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]
 - Note: 这条 Kane 内容已在 2026-07-01 制作发布，后续不再作为“下一步首推”；只观察数据，或做差异化 follow-up。
 
-#### Shorts / TikTok 脚本
-
-Hook:
-
-```text
-England face DR Congo today, and Harry Kane's Leo Sun puts the captain's spotlight at the center of the story.
-```
-
-Script:
-
-```text
-England play DR Congo today in the World Cup Round of 32.
-
-For Harry Kane, the chart starts with one verified fact: he was born on July 28, 1993, with the Sun in Leo.
-
-For a football captain, Leo brings in the language of visibility, performance, and public responsibility.
-
-That matters on a day like this. Knockout football turns one player's role into a whole country's attention.
-
-So the question around Kane is simple: how do you carry the spotlight when the stakes get louder?
-```
-
-Visual structure:
-
-| Time | Visual | Text added in CapCut |
-|---|---|---|
-| 0-3s | England vs DR Congo match-card style background, stadium lights, no AI text | Today |
-| 3-8s | Kane photo if legally usable, otherwise England captain silhouette | Leo Sun under pressure |
-| 8-13s | Simple birth-data card background, Sun / Leo motif, no AI text | July 28, 1993 / Leo Sun |
-| 13-24s | Spotlight / captain / stadium pressure visuals | Captain / spotlight / pressure keywords |
-| 24-32s | Leadership / visibility symbolic card | Leadership. Visibility. Pressure. |
-| 32-35s | AstrologyWiki article screenshot or clean website mockup | Read Harry Kane's full birth chart on AstrologyWiki |
-
-Caption:
-
-```text
-England face DR Congo today, and Harry Kane's Leo Sun opens a story about leadership, visibility, and pressure. Read the full symbolic chart on AstrologyWiki.
-```
-
-Suggested hashtags:
-
-```text
-#HarryKane #WorldCup2026 #Astrology #BirthChart #Leo
-```
-
-#### Higgsfield / CapCut 制作备注
-
-- 用 Higgsfield 生成旁白、无文字竖屏图和少量轻动效；不要让 Higgsfield 生成可读文字。
-- 第一条样片建议走 Higgsfield 网页端，方便手动上传素材、挑声音和看效果。
-- 模板跑通后，可用 Codex 批量拆分镜、生成 prompt、调用 Higgsfield 并整理素材。
-- 最小制作包：1 条旁白 + 5-6 张竖屏图 + 2-3 条轻动效 + CapCut 字幕 / CTA。
-- CTA 推荐：`Read Harry Kane's full birth chart on AstrologyWiki`。
+完整脚本、视觉结构、Caption、发布链接和 follow-up 统一见：[[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]。
 
 ## 5. 初步风险提醒
 

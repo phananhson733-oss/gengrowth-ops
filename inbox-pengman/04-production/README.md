@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: draft
 owner: Pengman
-updated: 2026-06-30
+updated: 2026-07-03
 ---
 
 # 内容创作工作区入口
@@ -21,8 +21,8 @@ updated: 2026-06-30
    - 站外内容选题区入口：选题库、SEO 选题调查、单条脚本和已发布内容归档。
 4. [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
    - 每日内容推荐助手 SOP：如何用文章索引、GSC 数据和已发布记录选今天要发什么。
-5. [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
-   - 早期站外平台方案和 YouTube / Shorts / TikTok / Pinterest / X 的优先级判断。
+5. [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
+   - 最近一次 AI host 视频内容包：选题、脚本、素材、CapCut 和发布检查。
 
 ## 子目录分工
 
@@ -36,6 +36,14 @@ updated: 2026-06-30
 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 每周已发布内容合集、公开数据记录、复盘入口 |
 | [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] | 每日内容推荐输出 |
 | [[inbox-pengman/04-production/07-gsc-exports/README.md]] | GSC 手动导出数据，作为选题和推荐输入 |
+
+## 历史调研资料
+
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/海外营销内容平台以及思考.md]]
+
+这些文件保留早期判断和样本证据；当前执行口径优先看“先看哪几份”里的当前入口。
 
 ## 当前工具调研结论入口
 

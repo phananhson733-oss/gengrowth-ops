@@ -42,3 +42,22 @@ updated: 2026-07-03
   - Immediate template: `Today's key transit: [event]. [1-2 sentence psychological insight]. Which house/sign/placement does this activate in your chart? Generate your chart here: [tool link]`.
   - Suggested content mix: 40% timely transits + interaction questions, 30% free tool promotion, 20% Wiki article teasers, 10% brand/other.
   - Watchout: do not overuse technical traditional terms such as dignity, almuten, or house-system debates unless they directly help the user. AstrologyWiki should stay practical, psychological, and tool-driven.
+
+## Instagram
+
+- https://www.instagram.com/astrology.mn/
+  - Mongolian astrology visual-content reference account. Public Instagram access was limited during review, so this analysis is based mainly on screenshots provided by Pengman rather than a full feed scrape.
+  - Reference value: strong use of image-first astrology formats: big title, clear date or date range, decorative astrology visuals, and short scan-friendly points. The feed appears to include transit cards, long-cycle planet movement posts, monthly/weekly astrology notes, zodiac/sign explainers, and saveable infographic-style posts.
+  - Common content patterns seen from screenshots:
+    - `Transit / planet event` card: planet or aspect title + date/date range + 3-5 short effects or suggestions.
+    - `Monthly / weekly astrology` card: month or week marker + large title + several pill-shaped short notes.
+    - `Long-cycle planet` card: Uranus / Pluto-style transit period + concise bullets about life themes.
+    - `Single sign / simple explainer` card: sign name + one short interpretation block.
+    - `Diagram / mini infographic` card: pastel blocks, arrows, or relationship-style layouts for concepts that need more structure.
+  - Useful structure to borrow: information density and hierarchy, not visual style. A typical reusable structure is `label/date -> large title -> one-line meaning -> 3 concise action points -> handle`.
+  - AstrologyWiki fit: adapt the structure into a cleaner, more modern, psychological style. Keep AstrologyWiki's visual system closer to deep navy, cream, muted gold, pale blue, subtle stars/orbits/glyph accents, and lots of whitespace. Avoid copying the competitor's pastel clutter, handwritten-heavy typography, or localized visual language.
+  - Best use cases for AstrologyWiki:
+    - one-card transit posts such as `Venus trine Neptune`;
+    - short carousel explainers such as `Moon vs Venus`, `Sun / Moon / Rising`, or `How to read today's transit`;
+    - image posts that can be reused across Instagram, X, and Pinterest.
+  - Watchout: do not turn AstrologyWiki into a generic horoscope graphic account. Use the competitor for post structure and content volume, while preserving AstrologyWiki's differentiator: modern astrology + psychology + real astronomy + practical self-knowledge.

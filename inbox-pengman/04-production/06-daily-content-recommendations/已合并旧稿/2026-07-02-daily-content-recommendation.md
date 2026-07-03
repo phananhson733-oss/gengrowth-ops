@@ -214,7 +214,7 @@ Short, psychological, and beginner-friendly.
 
 - Reference accounts：[[inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md]]
 - 已发布去重：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
-- 今日调查：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02-daily-topic-research.md]]
+- 今日调查：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
 - 视频生产流程：[[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 - GSC CSV：`/Users/pengman/Downloads/astrologywiki.com-Performance-on-Search-2026-07-01/查询数.csv`
 - 外部信号：Mercury retrograde in Cancer 当前仍在进行，外部媒体正在讨论 emotional memory、past patterns、old feelings、retrograde introspection。

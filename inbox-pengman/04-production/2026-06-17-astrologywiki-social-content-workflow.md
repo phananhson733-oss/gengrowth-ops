@@ -69,7 +69,7 @@ source:
 
 当前选题主入口：
 
-[[AstrologyWiki 站外内容选题库]]
+[[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
 
 热点样例：
 
@@ -161,7 +161,7 @@ source:
 - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 - [[inbox-pengman/07-account-assets/2026-06-17-astrologywiki-account-assets.md]]
 - [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 工作要求：
 1. 优先从最近的选题、已发布内容和长期主题支柱里找下一步最适合做的题。

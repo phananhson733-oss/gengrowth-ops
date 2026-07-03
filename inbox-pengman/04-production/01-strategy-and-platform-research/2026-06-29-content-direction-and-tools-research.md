@@ -384,9 +384,9 @@ Golpo：先测快速成片能力
 
 ### 策略与平台
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0612 海外营销内容平台以及思考.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0615 各多媒体平台具体内容调研.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0616AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/海外营销内容平台以及思考.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 ### 视频 / 视觉工具
 

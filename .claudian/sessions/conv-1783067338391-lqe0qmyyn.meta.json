@@ -1,0 +1,26 @@
+{
+  "id": "conv-1783067338391-lqe0qmyyn",
+  "providerId": "codex",
+  "title": "把06-daily-content- recommendation里的0702的内容整合一下",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1783067338395,
+  "updatedAt": 1783067849485,
+  "lastResponseAt": 1783067849485,
+  "sessionId": "019f2718-80bb-7363-943b-b4c88590b325",
+  "providerState": {
+    "threadId": "019f2718-80bb-7363-943b-b4c88590b325",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/03/rollout-2026-07-03T01-29-05-019f2718-80bb-7363-943b-b4c88590b325.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02-daily-topic-research.md",
+  "usage": {
+    "inputTokens": 43403,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 34176,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 43403,
+    "percentage": 17,
+    "model": "gpt-5.5"
+  }
+}

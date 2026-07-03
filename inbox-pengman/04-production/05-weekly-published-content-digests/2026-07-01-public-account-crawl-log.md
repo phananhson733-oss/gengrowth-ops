@@ -3,7 +3,7 @@ title: 2026-07-01 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-01
+updated: 2026-07-03
 ---
 
 # 2026-07-01 公开账号抓取记录
@@ -13,6 +13,7 @@ updated: 2026-07-01
 - X: https://x.com/AstrologyWiki
 - YouTube: https://www.youtube.com/@AstrologyWiki
 - TikTok: https://www.tiktok.com/@astrologywiki
+- Instagram: https://www.instagram.com/astrologywiki_/
 
 ## 已补录内容
 
@@ -21,8 +22,18 @@ updated: 2026-07-01
 | 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/photo/7657187949590727950 | 新增 |
 | 2026-W27 | X | https://x.com/AstrologyWiki/status/2071956969045279011 | 用户补充链接后新增 |
 | 2026-W27 | X | https://x.com/AstrologyWiki/status/2071846176899379587 | 用户补充链接后刷新数据 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2072628748848083433 | 登录后新增 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2072304463671386523 | 登录后新增 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2071846177830555763 | 登录后新增 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2071802354911908252 | 登录后新增 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2071802356740632704 | 登录后新增 |
+| 2026-W27 | X | https://x.com/AstrologyWiki/status/2071536056323731464 | 登录后新增 |
+| 2026-W25 | X | https://x.com/AstrologyWiki/status/2067167154529800294 | 登录后新增 |
+| 2026-W25 | X | https://x.com/AstrologyWiki/status/2067183937655554078 | 登录后新增 |
 | 2026-W27 | YouTube Shorts | https://www.youtube.com/shorts/piNhQ8q2V4w | 新增 |
 | 2026-W27 | YouTube Video | https://www.youtube.com/watch?v=NxecDPhWeyA | 新增 |
+| 2026-W27 | Instagram | https://www.instagram.com/p/DaSXupwhi57/ | 新增 |
+| 2026-W27 | Instagram | https://www.instagram.com/p/DaUwtKjPvB5/ | 新增 |
 | 2026-W25 | TikTok | https://www.tiktok.com/@astrologywiki/video/7652268013520948493 | 新增 |
 | 2026-W27 / W25 | TikTok / YouTube | 已记录链接 | 刷新公开 views / likes / plays |
 
@@ -32,10 +43,11 @@ updated: 2026-07-01
 |---|---|---|
 | TikTok | 公开接口返回 5 条；已全部归档到 W25 / W27 | 后台完播率、主页访问、链接点击不可公开读取 |
 | YouTube | 频道公开页返回 3 条 Shorts + 1 条长视频；已全部归档到 W25 / W27 | 评论数、留存、shown in feed / viewed vs swiped away 需 YouTube Studio |
-| X | 主页公开结构显示账号有 13 tweets；未登录 timeline 请求返回空，仅能刷新已知单帖 | 如需全量 X，需登录态、X analytics 导出或手动提供剩余 tweet 链接 |
+| X | 登录后账号页显示 16 posts；主时间线滚动抓到 13 条可见 status，已分别归档到 W25 / W27，并刷新公开 views / likes / replies / reposts | 仍有 3 条需继续从 replies / media / analytics 导出核对；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
+| Instagram | 公开 profile meta 显示 0 followers、0 following、2 posts；web profile 接口返回 2 条 video post，已归档到 W27 | 后台 reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights；公开接口不稳定，后续需复查 |
 
 ## 结论
 
-- TikTok 和 YouTube 当前公开可见内容已经补齐。
-- X 还有潜在遗漏：公开主页能看到 tweet count，但未登录无法稳定列出所有 tweet id。
-- 下一步如果要补齐 X：请提供登录态可访问方式，或直接从 X 主页/analytics 导出剩余链接。
+- TikTok、YouTube 和 Instagram 当前公开可见内容已经补齐。
+- X 已通过登录态补录主时间线可见 status：账号页显示 16 posts，当前已归档 13 条。
+- 下一步如果要补齐 X 剩余 3 条和后台效果：继续检查 replies / media / analytics，或从 X analytics 导出 impressions、profile visits、link clicks、视频观看时长。

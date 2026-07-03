@@ -416,10 +416,10 @@ SEO 竞品分析、完整关键词研究、SERP 弱度判断、主题集群规�
 
 ### 我的学习和调研
 
-- [[inbox-pengman/00-inbox/0611_入职个人理解学习笔记.md]]
-- [[inbox-pengman/00-inbox/0611_Astrology Wiki体验.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0612 海外营销内容平台以及思考.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/0615 各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/06-tasks/入职与职责理解/入职个人理解学习笔记.md]]
+- [[inbox-pengman/06-tasks/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/海外营销内容平台以及思考.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/各多媒体平台具体内容调研.md]]
 
 ---
 

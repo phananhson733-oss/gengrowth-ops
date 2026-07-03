@@ -218,6 +218,34 @@ After publishing:
 
 ## Minimum Viable Production Package
 
+## AI Host Canary Package
+
+Use this package when testing a new AI host format before committing to a heavier avatar workflow.
+
+Recommended structure:
+
+1. Choose one topic and one backup topic.
+2. Write a 35-45 second English voiceover.
+3. Use one fixed host reference image.
+4. Generate only 3-5 supporting visuals.
+5. Build the final video in CapCut with subtitles, concept cards, CTA, and light music.
+6. Publish one canary version before scaling the host format.
+
+Host rules:
+
+- Keep the host stable across face, outfit, background, and tone.
+- Prefer calm educator movement over dramatic gestures.
+- If full talking-head generation looks unnatural, reduce host screen time and cover transitions with concept cards.
+- Put all readable text in CapCut, not inside AI-generated images.
+
+Quality bar:
+
+- 9:16 vertical video.
+- Clear voiceover and readable subtitles.
+- No deterministic predictions about relationships, health, or match results.
+- One simple comment prompt or CTA.
+- Published link and early metrics added to the weekly digest.
+
 For one short video, prepare:
 
 - One selected topic.
