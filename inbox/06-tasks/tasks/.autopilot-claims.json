@@ -1878,5 +1878,14 @@
     "pr": "https://github.com/xdawayer/oracle/pull/323",
     "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
     "retryAt": "2026-07-03T17:12:48.635Z"
+  },
+  "PG-CELEB-028": {
+    "status": "needs_human",
+    "slug": "diogo-jota-birth-chart",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: - phase2 FAIL: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ | [phase2] loaded fixture: /Users/awayer_mini/gengrowth-flow-mvp/.gg-cache/prompts/PG-CELEB-028.v8-fixture.json | ERROR: draft has no H1; aborting after 3 attempt(s) + deterministic repair",
+    "failedAt": "2026-07-03T17:15:29.115Z"
   }
 }
