@@ -8,7 +8,7 @@ updated: 2026-07-03
 
 # 📊 GenGrowth 运营周报 | 2026-W27
 
-**项目：** AstrologyWiki 增长实验 + 路径B新站启动 + 外链资源库自动化
+**项目：** AstrologyWiki 增长 + 路径B新站建设 + GenGrowth 方法论沉淀 + 客户竞调
 **周期：** 2026-06-29 → 2026-07-03
 **汇报人：** 马博洋
 
@@ -16,81 +16,134 @@ updated: 2026-07-03
 
 ## 一句话摘要
 
-本周没有大量新产出，重心在质量审核和方向校正：路径B选词通过 Ahrefs 截图验证发现 omegaverse quiz 流量锁死问题（降级放弃），确认 cursive generator 作为首站；域名注册暴露商标风险（googledocsresumetemplate.com 有 UDRP 隐患）；博客外链需求文档从 v0.1 审核到 v0.3 完成三轮修复，核心重构是删除"测试提交"模块——其逻辑与 autoComment 插件重复。
+本周是执行密度最高的一周：aistorygenerator.work 完成技术SEO全面落地（H结构重构、关键词蚕食修复、11个工具子页内容补充，6/30全部上线验收通过）；GenGrowth 产品立项框架形成并完成7月1日汇报；BRDECO 完成四站竞调，发现B2B内容SOP无法直接套用的根本矛盾；路径B自动化建站系统PRD产出，将"ai story generator漏掉SERP核查"的教训直接转化为系统设计；Reddit增长SOP和三站发帖文案同步完成。
 
 ---
 
 ## ✅ 本周产出文件总览
 
 | 日期 | 文件 | 类型 | 状态 |
-| --- | --- | --- | --- |
-| 06-29 | `03-content-briefs/2026-06-25-astrocartography-map-generator-moon-phase-today-landing-pages.md` 审计 | 落地页审核 | Final |
-| 06-29 | `02-keyword-research/2026-06-26-路径B选词汇报.md` SERP 数据修正 | 选词汇报 | Final（v2） |
+|---|---|---|---|
+| 06-29 | `03-content-briefs/2026-06-29-homepage-schema-implementation-brief.md` | 开发简报 | 已实施（含oracle架构修正） |
+| 06-29 | `06-tasks/2026-06-29-pathB-launch-action-plan.md` | 执行计划 | 执行中（技术项6/30已核查落地）|
+| 06-30 | `06-tasks/2026-06-30-aistorygenerator-heading-plan.md` | SEO优化方案 | ✅ 已全部上线验收通过 |
+| 07-01 | `00-inbox/2026-07-01-会议材料-产品立项与SEO增长.md` | 汇报材料 | ✅ 已汇报 |
+| 07-02 | `00-inbox/2026-07-02-brdeco竞品调研分析.md` | 竞调报告 | Final v2 |
+| 07-02 | `00-inbox/2026-07-02-astrologywiki-reddit内容执行SOP.md` | 运营SOP | Active v1.1 |
+| 07-02 | `00-inbox/2026-07-02-reddit-发帖文案.md` | 执行文案 | 备用（待账号预热后使用）|
+| 07-02 | `06-tasks/2026-07-02-路径B自动化建站系统-需求文档.md` | PRD | v0.1 待产研评估 |
 | 07-03 | `00-inbox/2026-07-03-博客外链资源库自动化系统-需求文档.md` | 需求文档 | v0.3 Final |
 
 ---
 
 ## ✅ 本周进展
 
-### 模块一：AstrologyWiki 落地页审计（moon-phase-today + astrocartography）
+### 模块一：aistorygenerator.work — 技术SEO全面落地（6/30，全部上线）
 
-两个页面 P-1 渲染 bug 已修复，内链已落实，结构基本达标。发现一个执行问题：内链集中出现在同一段落（2-3个同时出现），建议改为首次出现时植入、不重复链接。已同步修复方案。
+**这是本周最重量级的执行成果。** 从方案设计到线上验收，全部在6/30单日完成。
 
----
+**核心改动（已验收）：**
 
-### 模块二：路径B选词 SERP 修正 + 关键方向校正
+| 优先级 | 任务 | 状态 |
+|---|---|---|
+| P0 | `/ai-story-generator` 页面301重定向至首页（消除关键词蚕食） | ✅ 线上308验收通过 |
+| P0 | 首页内置真正的生成器，默认即AI Story Generator | ✅ |
+| P1 | 首页H1改为 `Free AI Story Generator`，H2结构全面改写（核心词密度提升） | ✅ |
+| P1 | 首页H3删除"AI Story Generator"、`AI NPC Generator`→`NPC Generator` | ✅ |
+| P2 | 全部11个RPG工具子页：补充What is/examples/Who for + Related tools横向内链 | ✅ 11/11 |
+| P2 | NPC子页H1→`NPC Generator for D&D and Tabletop RPGs`（命中 npc generator 2000量/KD3） | ✅ |
+| P3 | 新建 `/dnd-story-generator/`（250量/KD0，独立意图，已有页面无对应） | ✅ 200；接入nav/sitemap |
 
-**本周最重要的判断翻转：**
-
-初始 WebSearch 数据存在明显误差（DR 值错误，漏掉关键竞品），用 Ahrefs 截图重新验证后，发现两个关键结论：
-
-**结论1：omegaverse quiz 流量结构锁死，放弃。**
-Quotev 单页面独占 65,600/月搜索流量，SERP 第二名（专站）仅 460/月。这不是"竞争激烈"，而是流量结构性锁死——即使排名第 2，实际流量接近零。类似 Reddit/YouTube 独占的词型，不适合单站建设。降级为"不建议立项"。
-
-**结论2：cursive generator 确认首站，技术门槛几乎为零。**
-SERP 第7名（fontageneratorpro.com）DR 为 0，建站仅 7 个月（2025年11月），验证了该位置是纯内容+工具质量竞争，无权重壁垒。优先级确认为最高。
-
-**最终路径B建站优先级：**
-1. cursive generator（首站，建站素材已备好）
-2. hogwarts house quiz（待确认 Warner Bros IP 风险）
-3. ai story generator
-4. google docs resume template（域名商标风险待解决）
+**发现的关键词蚕食问题（值得记录）：** 原有 `/ai-story-generator` 子页与首页竞争同一个词，导致Google不知道该展示哪个页面。发现即修复，做了301重定向，权重全部归并首页。
 
 ---
 
-### 模块三：域名注册 + 商标风险
+### 模块二：AstrologyWiki 首页 Schema 实施（6/29）
 
-注册了 `aistorygenerator.work` 和 `googledocsresumetemplate.com`。
+产出首页 Organization / WebSite schema 实施简报，同步给前端工程团队。
 
-`googledocsresumetemplate.com` 存在 UDRP 风险——"Google Docs"是 Google 注册商标，Google 有向 ICANN 申请争议仲裁的惯例，域名可能被强制转移。已明确不在该域名上建站，需更换为不含商标词的替代方案（gdocsresumetemplate.com / resumetemplategdocs.com 等）。
-
----
-
-### 模块四：哥飞框架对齐
-
-将路径B选词策略与哥飞实战手册逐项比对，结论：核心框架（单站单词、Volume ≥30K、KD ≤29、KGR<0.25）执行一致；主要偏差是选了平稳词而非上升词。这是有意识的取舍——工具类词 CPC 偏低导致 SEO 主流不覆盖，形成结构性盲区，比哥飞框架偏好的"时间窗口竞争"更确定。
+实施过程中，oracle架构核查后发现原brief有两处需修正：(1) 首页schema并非"缺失"而是JS运行时注入，本次是提前到首字节；(2) Organization必须含 `sameAs` 社交账号（原文省略会丢知识面板信号）。已按修正版落地，447单测全绿。
 
 ---
 
-### 模块五：博客外链资源库需求文档 v0.1 → v0.3
+### 模块三：GenGrowth 产品立项框架 + 7月1日汇报（07-01）
 
-完成文档审核并修复6处问题（dofollow 漏判 rel=ugc、DR 配置矛盾、disappeared 无触发机制、AI 评论内容来源未说明等），同时根据 cloudhu2000 插件真实数据（blog_run_stats CSV）补充了外部链接数过滤（>2000 丢弃）和页面 AS 字段。
+完成产品立项与SEO增长汇报材料，核心框架沉淀如下：
 
-**最大的结构性修改：删除 Module 4（测试提交）。**
-原设计是本系统提交测试评论验证站点是否通过审核，但这与 autoComment 插件的功能完全重叠——同一个站点会被提交两次评论，一次用测试账号、一次用正式账号，逻辑冲突。修正后：本系统（Module 1-4）仅负责建库产出 CSV，autoComment 插件负责投放，投放结果回写数据库。
+**流量型产品适配度判断（"用户搜到真正用上需要几步"）：**
+- 网页工具站：1步，✅ 完全套用SOP
+- Web SaaS：2步，✅ 可套用，加注册转化优化
+- 手机App/桌面工具：4步，⚠️ SOP管落地页，管不了安装转化
+- B2B服务：5步+，❌ SEO是品牌背书，不是主获客渠道
+
+**沙盒期压缩杠杆：** 买老域名可直接跳过3-4个月沙盒期（$100-500），判断PMF时间从M6压缩到M3-M4——这个认知本周第一次系统化写入方法论文档。
+
+**当前两站阶段定位：**
+- astrologywiki.com：规模化期
+- aistorygenerator.work：PMF确认期（技术SEO已完成，等外链和GSC反馈）
+
+---
+
+### 模块四：BRDECO 四站竞品调研（07-02）
+
+为 GenGrowth 潜在B2B客户 BRDECO 完成四站竞调（brdecogroup.com / brdecomy.com / brdeco.jp / brdecosa.com），覆盖DR/关键词/流量渠道/社媒/转化漏斗/SOP适用性。
+
+**最关键的业务洞察：B2B内容SOP无法直接套用。**
+
+现有SOP对astrologywiki有效，根本原因是"内容无法被专业人士证伪"（星盘知识是解释型的）。BRDECO的目标读者是采购经理和建筑工程师，会核验λ值、防火等级、承载能力数字——写错一个专业参数，客户立刻失去信任。AI生成内容在这个场景的可行性只有10-40%，不同内容层级差异极大，必须加"技术数据注入层+SME审核"。这意味着如果GenGrowth服务B2B客户，产品形态和定价都需要重新设计。
+
+**数据矛盾发现（方法论价值）：** BRDECO的Ahrefs有机流量上升，但SimilarWeb总访问量腰斩。两个工具数据方向相反不是矛盾——Ahrefs只量有机搜索，SimilarWeb量全渠道。BRDECO跌的是直接流量（老客户流失），不是搜索流量。这个分析框架可以复用到其他客户竞调中。
+
+---
+
+### 模块五：路径B冷启动行动计划（6/29起执行）
+
+产出路径B两站（aistorygenerator.work / googledocsresumetemplate.com）上线后完整8任务执行计划，含Reddit发帖/HN Show HN/Product Hunt/GitHub Awesome List/工具目录/竞品外链抄作业/三层信息架构/GSC监控的逐步操作指引。
+
+其中，aistorygenerator.work 的信息架构规划在6/30 Ahrefs实测后做了**重大修正**：原计划批量建 `/dnd` `/rpg` `/npc` 三级子目录，实测发现多数三级页候选词搜索量为0，且现有11个扁平结构的 `/rpg-tools/` 页已覆盖所有有量词。**推翻原计划，保持扁平结构**，避免无效重构URL。
+
+---
+
+### 模块六：路径B自动化建站系统 PRD（07-02）
+
+将"ai story generator 建站时漏掉手动SERP核查"的执行教训转化为系统设计，产出5模块PRD：
+
+- **Module 1**：每2小时监控 Google Trends Trending Now，量≥5万自动触发
+- **Module 1.5**：人工场景分叉（≤5分钟）：占星角度→路径A astrologywiki写blog，工具化空间→路径B新站
+- **Module 2**：自动验证（Volume/KD/KGR/SERP构成/意图分类），10分钟内产出验证报告
+- **Module 3**：人工Go/No-Go（≤15分钟），只审核"⚠️待确认"词
+- **Module 4**：自动建站（域名注册+内容生成+Cloudflare部署），目标≤30分钟上线
+
+**核心设计原则：** 趋势词发现到上线≤48小时，否则竞争者涌入机会消失。
+
+---
+
+### 模块七：Reddit增长SOP + 三站发帖文案（07-02）
+
+**Reddit SOP（v1.1，通用化）：** 覆盖astrologywiki + AI工具站 + 未来所有产品，包括账号预热节奏（前2周只评论/karma<100不发帖）、目标版块矩阵（占星类/AI类分别列出）、3类内容模板（知识科普/热点结合/工具推荐）、执行规范（账号隔离/每天上限1帖/链接后置）。
+
+**三站发帖文案：** 覆盖 astrologywiki / aistorygenerator.work / googledocsresumetemplate.com 的 r/InternetIsBeautiful / r/DMAcademy / r/resumes 等核心版块，已写成非广告口吻的第一人称帖子，可直接交给素人账号发布。
+
+---
+
+### 模块八：博客外链资源库需求文档 v0.1→v0.3（07-03）
+
+审核并修复6处逻辑问题（dofollow检测漏判rel=ugc/sponsored、DR配置矛盾、disappeared状态无触发机制、AI评论来源未说明等），同时根据cloudhu2000插件真实运行数据补充外链数过滤和页面AS字段。
+
+**最重要的重构：删除 Module 4（测试提交）。** 原设计本系统提交测试评论后autoComment再次提交，同一站点被投放两次。修正后：本系统（Module 1-4）仅建库产出CSV，autoComment插件执行投放，投放结果回写数据库。
 
 ---
 
 ## ⚠️ 本周暴露的业务问题
 
-**1. SERP 数据不能用 WebSearch 验证，必须截图或 API。**
-本周 omegaverse quiz 的流量锁死结论，靠的是 Ahrefs 截图而非 WebSearch——后者给出的 DR 值系统性偏高（LingoJam 写 DR 72，实际 38；gdoc.io 写 DR 76，实际 47），会导致选词判断失真。选词汇报今后必须以 Ahrefs 截图或 DataForSEO 数据为准，不依赖搜索结果摘要。
+**1. 路径B的执行节奏有断层：选词决策快，建站启动慢。**
+cursive generator 资料收集上周就完成了，但本周没有推进到建站。aistorygenerator.work在工程同事手里推进很快（6/30单日完成大规模SEO落地），说明问题不在技术侧，而在我这边——选词之后没有及时输出结构方案交接给工程侧。路径B每多等一天，沙盒期就晚开始一天。
 
-**2. 路径B已有两个注册域名，但首站建设还未启动。**
-cursive generator 资料收集已在上周完成，域名 `aistorygenerator.work` 已注册，但 cursive generator 对应域名（cursivegenerator.co 或类似）还未注册，页面代码也未生成。域名注册和建站之间出现了断层——本质是"选词/研究"和"执行/上线"两个阶段之间缺乏推进机制，容易停在准备阶段。
+**2. BRDECO调研暴露了GenGrowth SOP的适用边界：B2B不是当前SOP能覆盖的形态。**
+如果GenGrowth下一阶段要扩展B2B客户，需要先把B2B版SOP设计清楚（技术数据注入+SME审核），而不是把现有工具搬过去。这是一个还没有答案的产品问题。
 
-**3. astrologywiki 常青词排名仍在 65-78 位，0 点击，外链效果未释放。**
-这个问题上周已记录，本周无新进展。当前唯一行动是等待7-9月权重释放窗口，但没有中间验证节点——如果8月底仍无改善，是追加外链还是转向其他词型，目前没有决策框架。
+**3. aistorygenerator.work 外链建设还没有启动。**
+技术SEO本周全部落地，下一个杠杆是DR——GSC点击数据要到M2-M3才有信号，但外链应该从D1就开始建，而不是等数据出来。Reddit冷启动、工具目录提交、HN Show HN这些动作还停留在计划阶段。
 
 ---
 
@@ -98,15 +151,15 @@ cursive generator 资料收集已在上周完成，域名 `aistorygenerator.work
 
 ### 本周计划中，能带来业绩的主要增长点是什么？
 
-**cursive generator 首站上线**是唯一有直接业绩价值的动作。其余事项（面包屑排期、外链系统开发启动）属于基础建设，不直接产生流量。
+**aistorygenerator.work 外链冷启动** 是唯一能推动后续排名的杠杆。技术SEO已经做完，等的就是DR积累和GSC数据。
 
-目标：W28 内完成 cursive generator 页面（HTML/CSS/JS），绑定域名，提交 GSC，完成首次站内测试。
+目标：W28完成 HN Show HN 发布（第一站）+ 工具目录提交前3个 + GitHub Awesome List 提PR（至少2个）。Reddit账号预热开始（前2周只评论不发帖，不急于这周带链接）。
 
 ### 有哪些新的想法待研究或待验证？
 
-1. **hogwarts house quiz 的 IP 风险边界是否可量化？** Warner Bros 的 UDRP/DMCA 执法历史是否涉及到工具/测试类页面，还是主要针对内容盗版？如果仅是名字使用而非版权内容，风险是否可控？需要查一个先例。
+1. **买老域名是否值得用在cursive generator上？** 老域名可直接绕过3-4个月沙盒期（$100-500），而cursive generator竞争对手有新站7个月就排到第7（DR 0）——说明这个词不需要DR积累，但沙盒期仍然是时间成本。需要查一下Expired Domain市场上有没有cursive/font相关的老域名，以及费用是否合理。
 
-2. **评论外链系统中 autoComment 插件的导入格式是否已知？** 如果格式已定义，本系统的数据库字段应现在就对齐，而不是开发完了再改。需要读插件源码或测试一次导入。
+2. **路径B PRD中，Module 1的Trending Now监控用PyTrends还是SerpAPI？** 官方API对自动化有限制，需要评估第三方方案的稳定性和成本，这是整个自动化系统的前置依赖，应该在产研评估前先有一个技术可行性结论。
 
 ---
 
@@ -117,22 +170,28 @@ cursive generator 资料收集已在上周完成，域名 `aistorygenerator.work
 - [ ] 跟进 elephantjournal.com 审核状态
 - [ ] Chakra/月亮仪式集群：GSC URL 逐一核实，未收录则重提交
 
-**路径B首站**
-- [ ] 注册 cursive generator 域名
-- [ ] 用 `2026-06-26-cursive-generator-资料收集.md` 生成 H1-H6 结构确认稿
-- [ ] 生成完整 HTML/CSS/JS 页面代码
-- [ ] 部署 Vercel，绑域名，提交 GSC
+**aistorygenerator.work 外链冷启动**
+- [ ] HN Show HN 发布（第一站）
+- [ ] 工具目录提交：There's An AI For That / Toolify.ai / Futurepedia（前3个）
+- [ ] GitHub Awesome List 提 PR（awesome-dnd / awesome-rpg，各1个）
+- [ ] Reddit 账号注册，开始评论预热（不带链接）
 
-**外链资源库**
-- [ ] 读 autoComment 源码，确认导入 CSV 字段格式，对齐数据库 schema
-- [ ] 确认是否启动开发，排期给同事
+**路径B首站（cursive generator）**
+- [ ] 注册域名
+- [ ] 查Expired Domain市场，评估老域名可行性
+- [ ] 用 `2026-06-26-cursive-generator-资料收集.md` 生成H1-H6结构确认稿
+- [ ] 生成完整 HTML/CSS/JS 页面，部署Vercel，提交GSC
+
+**路径B自动化系统**
+- [ ] PyTrends / SerpAPI 技术可行性确认（交产研）
+- [ ] 准备可复用的建站模板仓库（Nuxt.js或已有框架）
 
 **遗留问题**
-- [ ] googledocsresumetemplate.com 商标风险：确定替代域名
-- [ ] hogwarts house quiz IP 风险调研
+- [ ] googledocsresumetemplate.com 商标风险：确认替代域名
+- [ ] hogwarts house quiz Warner Bros IP风险：查先例，判断边界
 
 ---
 
-*本报告基于本周对话记录回溯整理（落地页审计 / 路径B SERP修正 / 域名策略讨论 / 哥飞框架对齐 / 外链需求文档 v0.1→v0.3）*
+*本报告基于本周inbox文件回溯整理（pathB-launch-action-plan / homepage-schema-brief / aistorygenerator-heading-plan / 会议材料-产品立项 / brdeco竞品调研 / reddit-SOP / reddit发帖文案 / 路径B自动化PRD / 博客外链需求文档v0.3）*
 *撰写日期：2026-07-03*
 *下次更新：W28（2026-07-10 前后）*
