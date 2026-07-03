@@ -1850,7 +1850,7 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
@@ -1862,7 +1862,12 @@
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
     "retryEvidence": "025 lane fixed and passed; rerun 026 full preview gate with restored bypass secret",
-    "retryAt": "2026-07-03T19:26:04.137Z"
+    "retryAt": "2026-07-03T19:26:04.137Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-03-pg-39b62e-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-03T19:29:52.033Z",
+    "headRefOid": "df292b0b872a1a0a83ce68dbaad7ebf429ac5e73",
+    "mergedAt": "2026-07-03T19:30:50.090Z"
   },
   "PG-CELEB-025": {
     "status": "done",
