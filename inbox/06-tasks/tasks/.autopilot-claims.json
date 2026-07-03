@@ -1866,5 +1866,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - orchestrator produced no draft after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-07-03T12:52:42.788Z"
+  },
+  "PG-CELEB-026": {
+    "status": "active",
+    "slug": "pen-lope-cruz-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-026.md",
+    "stage": "convert",
+    "lockedBy": "66518",
+    "leaseUntil": "2026-07-03T14:02:35.204Z",
+    "updatedAt": "2026-07-03T13:02:35.204Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
+    "branch": "seo/auto/2026-07-03-PG-CELEB-026"
   }
 }
