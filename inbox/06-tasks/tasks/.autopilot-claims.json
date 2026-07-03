@@ -1899,15 +1899,16 @@
     "failedAt": "2026-07-03T17:15:29.115Z"
   },
   "PG-CELEB-027": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "travis-kelce-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "31977",
-    "leaseUntil": "2026-07-03T20:51:27.645Z",
-    "updatedAt": "2026-07-03T19:51:27.645Z",
+    "leaseUntil": "2026-07-03T20:52:09.042Z",
+    "updatedAt": "2026-07-03T19:52:09.042Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-027",
-    "branch": "seo/auto/2026-07-03-PG-CELEB-027"
+    "branch": "seo/auto/2026-07-03-PG-CELEB-027",
+    "pr": "https://github.com/xdawayer/oracle/pull/324"
   }
 }
