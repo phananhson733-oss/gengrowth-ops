@@ -1867,7 +1867,7 @@
     "failedAt": "2026-07-03T18:45:47.318Z"
   },
   "PG-CELEB-025": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1879,7 +1879,12 @@
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
     "retryEvidence": "restored bypass secret; rerun full preview gate",
-    "retryAt": "2026-07-03T19:21:46.248Z"
+    "retryAt": "2026-07-03T19:21:46.248Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-03-pg-315cd2-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-03T19:24:49.030Z",
+    "headRefOid": "ec94fc7e704099d3773744be83b38acaa1df54c5",
+    "mergedAt": "2026-07-03T19:24:56.225Z"
   },
   "PG-CELEB-028": {
     "status": "needs_human",
