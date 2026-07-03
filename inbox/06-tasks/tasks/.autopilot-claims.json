@@ -1850,37 +1850,33 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
     "stage": "pushed-preview",
-    "lockedBy": "5356",
-    "leaseUntil": "2026-07-03T17:52:30.222Z",
-    "updatedAt": "2026-07-03T16:52:30.222Z",
+    "lockedBy": "36533",
+    "leaseUntil": "2026-07-03T18:11:49.946Z",
+    "updatedAt": "2026-07-03T17:11:49.946Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-026",
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
-    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-03T16:52:30.222Z",
-    "error": "review[schema] FAIL: The source draft's associated_keywords list contains a hallucinated off-topic keyword \"emma watson zodiac sign\" that contradicts an article wholly about Penélope Cruz.",
-    "failedAt": "2026-07-03T16:54:21.268Z"
+    "retryEvidence": "stripped hallucinated 'emma watson zodiac sign' keyword; re-gate",
+    "retryAt": "2026-07-03T17:11:49.946Z"
   },
   "PG-CELEB-025": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "tobey-maguire-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "6173",
-    "leaseUntil": "2026-07-03T17:58:08.626Z",
-    "updatedAt": "2026-07-03T16:58:08.626Z",
+    "lockedBy": "36819",
+    "leaseUntil": "2026-07-03T18:12:48.635Z",
+    "updatedAt": "2026-07-03T17:12:48.635Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
     "branch": "seo/auto/2026-07-03-PG-CELEB-025",
     "pr": "https://github.com/xdawayer/oracle/pull/323",
-    "retryEvidence": "stripped hallucinated 'emma watson zodiac sign' from associated_keywords (celeb-batch sheet artifact); re-gate",
-    "retryAt": "2026-07-03T16:58:08.626Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-03T17:00:33.561Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-03T17:12:48.635Z"
   }
 }
