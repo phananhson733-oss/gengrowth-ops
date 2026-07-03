@@ -1914,10 +1914,10 @@
     "slug": "diogo-jota-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "94776",
-    "leaseUntil": "2026-07-03T21:12:45.078Z",
-    "updatedAt": "2026-07-03T20:12:45.078Z",
+    "leaseUntil": "2026-07-03T21:16:05.579Z",
+    "updatedAt": "2026-07-03T20:16:05.579Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-028",
     "branch": "seo/auto/2026-07-03-PG-CELEB-028"
   }
