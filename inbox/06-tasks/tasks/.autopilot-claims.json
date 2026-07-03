@@ -1850,7 +1850,7 @@
     "mergedAt": "2026-07-02T17:03:08.429Z"
   },
   "PG-CELEB-026": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "pen-lope-cruz-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-026.md",
@@ -1862,7 +1862,9 @@
     "branch": "seo/auto/2026-07-03-PG-CELEB-026",
     "pr": "https://github.com/xdawayer/oracle/pull/322",
     "retryEvidence": "codex transient exit-3 recovered (verified PASS on sibling); re-gate",
-    "retryAt": "2026-07-03T15:53:15.047Z"
+    "retryAt": "2026-07-03T15:53:15.047Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-03T15:56:24.780Z"
   },
   "PG-CELEB-025": {
     "status": "pushed-preview",
