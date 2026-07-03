@@ -1863,5 +1863,17 @@
     "pr": "https://github.com/xdawayer/oracle/pull/322",
     "error": "review[astrology] SKIPPED: tooling: worker exited 1",
     "failedAt": "2026-07-03T13:11:35.953Z"
+  },
+  "PG-CELEB-025": {
+    "status": "active",
+    "slug": "tobey-maguire-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "88832",
+    "leaseUntil": "2026-07-03T15:38:18.423Z",
+    "updatedAt": "2026-07-03T14:38:18.423Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-03-PG-CELEB-025",
+    "branch": "seo/auto/2026-07-03-PG-CELEB-025"
   }
 }
