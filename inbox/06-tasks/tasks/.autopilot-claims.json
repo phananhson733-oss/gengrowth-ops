@@ -1983,9 +1983,11 @@
     "slug": "malia-obama-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-031.md",
-    "stage": "worktree",
+    "stage": "convert",
     "lockedBy": "79187",
-    "leaseUntil": "2026-07-05T15:13:25.088Z",
-    "updatedAt": "2026-07-05T14:13:25.088Z"
+    "leaseUntil": "2026-07-05T15:13:40.585Z",
+    "updatedAt": "2026-07-05T14:13:40.585Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-031",
+    "branch": "seo/auto/2026-07-05-PG-CELEB-031"
   }
 }
