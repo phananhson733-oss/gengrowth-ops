@@ -144,7 +144,7 @@ updated: 2026-06-23
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [ ] `PG-BBDM-001` beyoncé b'day marketing campaign strategy
 - [x] `PG-AIS-004` world cup 2026 content marketing ai
-- [ ] `PG-TSWB-001` taylor swift wedding brand economics 2026
+- [x] `PG-TSWB-001` taylor swift wedding brand economics 2026
 - [ ] `PG-SPPG-001` sony playstation physical games strategy 2026
 - [ ] `PG-AEWG-001` alex eala wimbledon growth story
 
