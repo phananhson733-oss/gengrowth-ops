@@ -44,15 +44,15 @@ updated: 2026-07-03
 
 **核心改动（已验收）：**
 
-| 优先级 | 任务 | 状态 |
-|---|---|---|
-| P0 | `/ai-story-generator` 页面301重定向至首页（消除关键词蚕食） | ✅ 线上308验收通过 |
-| P0 | 首页内置真正的生成器，默认即AI Story Generator | ✅ |
-| P1 | 首页H1改为 `Free AI Story Generator`，H2结构全面改写（核心词密度提升） | ✅ |
-| P1 | 首页H3删除"AI Story Generator"、`AI NPC Generator`→`NPC Generator` | ✅ |
-| P2 | 全部11个RPG工具子页：补充What is/examples/Who for + Related tools横向内链 | ✅ 11/11 |
-| P2 | NPC子页H1→`NPC Generator for D&D and Tabletop RPGs`（命中 npc generator 2000量/KD3） | ✅ |
-| P3 | 新建 `/dnd-story-generator/`（250量/KD0，独立意图，已有页面无对应） | ✅ 200；接入nav/sitemap |
+| 优先级 | 任务                                                                            | 状态                  |
+| --- | ----------------------------------------------------------------------------- | ------------------- |
+| P0  | `/ai-story-generator` 页面301重定向至首页（消除关键词蚕食）                                    | ✅ 线上308验收通过         |
+| P0  | 首页内置真正的生成器，默认即AI Story Generator                                              | ✅                   |
+| P1  | 首页H1改为 `Free AI Story Generator`，H2结构全面改写（核心词密度提升）                            | ✅                   |
+| P1  | 首页H3删除"AI Story Generator"、`AI NPC Generator`→`NPC Generator`                 | ✅                   |
+| P2  | 全部11个RPG工具子页：补充What is/examples/Who for + Related tools横向内链                   | ✅ 11/11             |
+| P2  | NPC子页H1→`NPC Generator for D&D and Tabletop RPGs`（命中 npc generator 2000量/KD3） | ✅                   |
+| P3  | 新建 `/dnd-story-generator/`（250量/KD0，独立意图，已有页面无对应）                             | ✅ 200；接入nav/sitemap |
 
 **发现的关键词蚕食问题（值得记录）：** 原有 `/ai-story-generator` 子页与首页竞争同一个词，导致Google不知道该展示哪个页面。发现即修复，做了301重定向，权重全部归并首页。
 
