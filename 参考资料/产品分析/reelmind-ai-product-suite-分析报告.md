@@ -25,6 +25,21 @@ aliases:
 
 ## 一、产品总览
 
+| 维度 | 详情 |
+|---|---|
+| **产品名** | ReelMind AI Product Suite：reelmind.ai、yiha.ai、nolanx.ai、mooca.ai。 |
+| **所属公司** | Not disclosed；公开页面未披露注册公司，terms/privacy/contact 多处复用 `contact@reelmind.ai`，RDAP 为隐私保护。[High] |
+| **创始人/核心团队** | 用户提供背景：同一位个人开发者起盘；公开网页未能交叉验证。[User-provided / Unverified] |
+| **产品形态** | Web App + AI 视频/图片/音乐生成 + 创作者社区 + 模型聚合 + 会员/积分付费 + 程序化 SEO 内容站。 |
+| **营收规模** | 用户提供：核心产品日流水过万美金；保守年化流水 > $3.65M。[User-provided / Unverified] |
+| **用户规模** | Semrush 估算 reelmind.ai 2026-05 访问约 167.26K；公开社区真实活跃用户未披露。[Medium] |
+| **定位证据**（hero copy / tagline） | `"Create, edit, remix, and share AI videos on ReelMind. Explore cinematic tools, creator templates, and community trends for AI content creation."` — 来源：ReelMind 官网。[High] |
+| **核心功能** | AI 视频生成、图像编辑、音乐/模型工具、社区分享、NolanX AI Director、Mooca full-canvas filmmaking workspace、credits/membership。 |
+| **主要市场** | 全球 AI 视频创作者；公开 Semrush 国家分布前列为美国、印度、印尼、墨西哥、巴西。[Medium] |
+| **商业模式** | Credits 积分包 + PRO 会员 + Enterprise custom pricing。[High] |
+| **融资历程** | Not disclosed。[High] |
+| **核心优势** | 内容爆款起盘、credits 付费闭环、多模型聚合、多域名入口、程序化 SEO 执行速度。 |
+
 ### 1.1 组合结论
 
 | 维度 | 详情 |
@@ -75,6 +90,15 @@ aliases:
 | 年化流水下限 | $10k × 365 | > $3.65M/year | 对个人开发者/小团队属于高价值案例。 |
 | 访问-收入关系 | $300k / 167.26k visits | 约 $1.79 revenue/visit | 若 Semrush 访问量接近真实，则说明转化率或客单价很高；也可能真实流量来自 TikTok/App/登录后/跨域/直接访问，Semrush 低估。 |
 | 积分包交易量反推 | $300k / $20 标准包 | 约 15,000 笔/月 | 若以 $50 包计算约 6,000 笔/月；以 $100 包计算约 3,000 笔/月。 |
+
+### 2.2 ARPU 分析
+
+| 指标 | 计算口径 | 结果 | 判断 |
+|---|---|---|---|
+| Revenue per visit | $300k 月流水下限 / 167.26K visits | 约 $1.79/visit | 若 Semrush 流量接近真实，说明付费转化或客单价高于普通内容站。 |
+| 单笔客单价情景 | 标准包 $20、Premium $50、Ultra $100 | $20-$100 | AI 视频 credits 消费可能呈现少数重度用户贡献收入。 |
+| 付费用户数情景 | $300k / $20-$100 | 3,000-15,000 笔/月 | 若用户月复购 1-2 次，月付费用户约 1,500-15,000。 |
+| ARPPU 情景 | 按月付费用户 3,000-10,000 估算 | $30-$100/月 | 对 AI 视频高试错场景合理，但需 Stripe 后台验证。 |
 
 > **核心洞察**：如果“日流水过万美金”属实，核心不是单纯 SEO，而是“短视频爆款带来的早期粉丝/信任资产 + AI 视频强需求 + 积分即时消费 + SEO 补长尾获客”。SEO 可能是第二增长曲线，不一定是第一收入来源。
 
@@ -288,7 +312,7 @@ aliases:
 
 ## 五、综合评估与建议
 
-### 5.1 综合评分
+### 综合评分
 
 | 维度 | 评分 | 说明 |
 |---|---:|---|
@@ -297,6 +321,16 @@ aliases:
 | 变现能力 | 4/5 | 若日流水 >$10k 属实，credits 模式已被验证；公开定价清晰。 |
 | 竞争壁垒 | 2.5/5 | 壁垒主要在分发和执行速度，不在基础模型；被原厂/大平台挤压风险高。 |
 | 市场前景 | 4/5 | AI 视频生成和影视工作流仍在高增长阶段，但竞争会快速商品化。 |
+
+### 估值参考
+
+| 方法 | 输入 | 结果 | 说明 |
+|---|---|---|---|
+| 收入倍数法 | 年化流水 > $3.65M；AI 创作者工具小团队按 2x-6x revenue 粗估 | $7.3M-$21.9M | 仅作独立产品价值参考，不等同融资估值。 |
+| 现金流法 | 若毛利 40%-70%，年毛利约 $1.46M-$2.56M | 对个人开发者非常有价值 | 生成成本、退款和平台费用会显著影响毛利。 |
+| 战略价值 | TikTok 内容资产 + SEO 资产 + credits 付费系统 + 多域名入口 | 高于单一工具站 | 前提是收入和复购真实。 |
+
+### 战略建议
 
 ### 5.2 对 GenGrowth 的关键启发
 
@@ -317,7 +351,7 @@ aliases:
 | 主体信息不透明 | 如果 GenGrowth 做 B2B 或高客单，信任会受影响。 | 明确公司主体、案例、退款、合规说明。 |
 | 只依赖第三方模型聚合 | API 成本和模型可用性受制于人。 | 把差异放在模板、工作流、数据、分发和行业 know-how。 |
 
-### 5.4 风险矩阵
+### 风险矩阵
 
 | 风险 | 可能性 | 影响 | 风险等级 | 缓解策略 |
 |---|---|---|---|---|
@@ -327,7 +361,7 @@ aliases:
 | 品牌分散 | M | M | 中 | 主站统一账号与支付，子域名/子品牌只服务明确意图。 |
 | 合规/版权 | M | H | 高 | 增加内容政策、商用授权说明、水印与举报机制。 |
 
-### 5.5 场景规划（2-3 年展望）
+### 场景规划（2-3 年展望）
 
 | 场景 | 概率 | 关键假设 | 用户规模 | 收入预测 | 估值/价值判断 |
 |---|---:|---|---|---|---|
@@ -379,28 +413,28 @@ aliases:
 
 ---
 
-## 七、参考来源
+## 参考来源
 
-- ReelMind 官网：https://reelmind.ai/
-- ReelMind membership：https://reelmind.ai/membership
-- ReelMind Mooca 页面：https://reelmind.ai/mooca
-- ReelMind NolanX 页面：https://reelmind.ai/nolanx
-- ReelMind robots：https://reelmind.ai/robots.txt
-- ReelMind sitemap：https://reelmind.ai/sitemap.xml
-- Yiha 官网：https://yiha.ai/
-- Yiha membership：https://yiha.ai/membership
-- Yiha sitemap：https://yiha.ai/sitemap.xml
-- NolanX 官网：https://nolanx.ai/
-- NolanX robots：https://nolanx.ai/robots.txt
-- Mooca 官网：https://mooca.ai/
-- Mooca membership：https://mooca.ai/membership
-- Mooca sitemap：https://mooca.ai/sitemap.xml
-- RDAP reelmind.ai：https://rdap.org/domain/reelmind.ai
-- RDAP yiha.ai：https://rdap.org/domain/yiha.ai
-- RDAP nolanx.ai：https://rdap.org/domain/nolanx.ai
-- RDAP mooca.ai：https://rdap.org/domain/mooca.ai
-- Semrush reelmind.ai overview：https://www.semrush.com/website/reelmind.ai/overview/
-- DuckDuckGo 搜索结果中可见 TikTok 账号视频入口：https://www.tiktok.com/@reelmind.ai/video/7658646677775011085
+- [ReelMind 官网](https://reelmind.ai/)
+- [ReelMind membership](https://reelmind.ai/membership)
+- [ReelMind Mooca 页面](https://reelmind.ai/mooca)
+- [ReelMind NolanX 页面](https://reelmind.ai/nolanx)
+- [ReelMind robots](https://reelmind.ai/robots.txt)
+- [ReelMind sitemap](https://reelmind.ai/sitemap.xml)
+- [Yiha 官网](https://yiha.ai/)
+- [Yiha membership](https://yiha.ai/membership)
+- [Yiha sitemap](https://yiha.ai/sitemap.xml)
+- [NolanX 官网](https://nolanx.ai/)
+- [NolanX robots](https://nolanx.ai/robots.txt)
+- [Mooca 官网](https://mooca.ai/)
+- [Mooca membership](https://mooca.ai/membership)
+- [Mooca sitemap](https://mooca.ai/sitemap.xml)
+- [RDAP reelmind.ai](https://rdap.org/domain/reelmind.ai)
+- [RDAP yiha.ai](https://rdap.org/domain/yiha.ai)
+- [RDAP nolanx.ai](https://rdap.org/domain/nolanx.ai)
+- [RDAP mooca.ai](https://rdap.org/domain/mooca.ai)
+- [Semrush reelmind.ai overview](https://www.semrush.com/website/reelmind.ai/overview/)
+- [TikTok @reelmind.ai 视频入口](https://www.tiktok.com/@reelmind.ai/video/7658646677775011085)
 
 ---
 
