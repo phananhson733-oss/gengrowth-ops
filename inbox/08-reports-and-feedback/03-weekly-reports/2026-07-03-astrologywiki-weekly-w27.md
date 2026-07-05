@@ -166,6 +166,9 @@ updated: 2026-07-03
 - [ ] P2 面包屑：给开发排期，模板级一次全站生效
 - [ ] 跟进 elephantjournal.com 审核状态
 - [ ] Chakra/月亮仪式集群：GSC URL 逐一核实，未收录则重提交
+- [ ] 产出工具落地页模板化设计规范 + SOP（覆盖结构、内链、FAQ、schema的标准化要求，供后续所有新落地页复用）
+- [ ] 基于设计规范对现有落地页进行审改（moon-phase-today、astrocartography 等已上线页面对齐标准）
+- [ ] 网站设计优化方向研究：通过页面结构/内容深度/交互设计提升用户停留时间（输出改进方案，交开发排期）
 
 **aistorygenerator.work 外链冷启动**
 - [ ] HN Show HN 发布（第一站）
