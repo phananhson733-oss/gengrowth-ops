@@ -349,6 +349,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-WC-044` Lamine Yamal birth chart
 - [ ] `PG-CELEB-029` Achraf Hakimi birth chart
 - [ ] `PG-CELEB-030` Rayan Cherki birth chart
-- [ ] `PG-CELEB-031` Malia Obama birth chart
+- [x] `PG-CELEB-031` Malia Obama birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
