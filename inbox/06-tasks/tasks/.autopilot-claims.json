@@ -1977,5 +1977,15 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - - word count 1396 < min 1500 after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-07-05T13:59:29.638Z"
+  },
+  "PG-CELEB-031": {
+    "status": "active",
+    "slug": "malia-obama-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-031.md",
+    "stage": "worktree",
+    "lockedBy": "79187",
+    "leaseUntil": "2026-07-05T15:13:25.088Z",
+    "updatedAt": "2026-07-05T14:13:25.088Z"
   }
 }
