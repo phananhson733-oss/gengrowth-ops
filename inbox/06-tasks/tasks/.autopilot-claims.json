@@ -1979,7 +1979,7 @@
     "failedAt": "2026-07-05T13:59:29.638Z"
   },
   "PG-CELEB-031": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "malia-obama-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-031.md",
@@ -1989,6 +1989,11 @@
     "updatedAt": "2026-07-05T14:22:04.720Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-031",
     "branch": "seo/auto/2026-07-05-PG-CELEB-031",
-    "pr": "https://github.com/xdawayer/oracle/pull/327"
+    "pr": "https://github.com/xdawayer/oracle/pull/327",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-05-pg-3e65e2-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-05T14:27:47.916Z",
+    "headRefOid": "a8a17a600455e9ac67961e1f79ed44284089e6a2",
+    "mergedAt": "2026-07-05T14:27:59.322Z"
   }
 }
