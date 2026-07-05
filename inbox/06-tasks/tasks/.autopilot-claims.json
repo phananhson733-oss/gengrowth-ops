@@ -1955,15 +1955,16 @@
     "failedAt": "2026-07-05T13:30:11.990Z"
   },
   "PG-CELEB-029": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "78583",
-    "leaseUntil": "2026-07-05T14:40:03.668Z",
-    "updatedAt": "2026-07-05T13:40:03.668Z",
+    "leaseUntil": "2026-07-05T14:44:13.423Z",
+    "updatedAt": "2026-07-05T13:44:13.423Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
-    "branch": "seo/auto/2026-07-05-PG-CELEB-029"
+    "branch": "seo/auto/2026-07-05-PG-CELEB-029",
+    "pr": "https://github.com/xdawayer/oracle/pull/326"
   }
 }
