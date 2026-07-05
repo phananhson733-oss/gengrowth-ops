@@ -141,11 +141,11 @@ updated: 2026-06-23
 
 ---
 ## ⚪ 7月5日 (周日) - 待写作
-**状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-BBDM-001` beyoncé b'day marketing campaign strategy
+**状态**：`已处理` (自动补充选题，共 5 篇；3 篇已发布，2 篇因模板错配关闭)
+- [x] `PG-BBDM-001` beyoncé b'day marketing campaign strategy — 关闭：模板错配，不进入 gengrowth SaaS/B2B lane
 - [x] `PG-AIS-004` world cup 2026 content marketing ai
 - [x] `PG-TSWB-001` taylor swift wedding brand economics 2026
 - [x] `PG-SPPG-001` sony playstation physical games strategy 2026
-- [ ] `PG-AEWG-001` alex eala wimbledon growth story
+- [x] `PG-AEWG-001` alex eala wimbledon growth story — 关闭：模板错配，不进入 gengrowth SaaS/B2B lane
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
