@@ -1979,15 +1979,16 @@
     "failedAt": "2026-07-05T13:59:29.638Z"
   },
   "PG-CELEB-031": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "malia-obama-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-031.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "79187",
-    "leaseUntil": "2026-07-05T15:18:24.381Z",
-    "updatedAt": "2026-07-05T14:18:24.381Z",
+    "leaseUntil": "2026-07-05T15:22:04.720Z",
+    "updatedAt": "2026-07-05T14:22:04.720Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-031",
-    "branch": "seo/auto/2026-07-05-PG-CELEB-031"
+    "branch": "seo/auto/2026-07-05-PG-CELEB-031",
+    "pr": "https://github.com/xdawayer/oracle/pull/327"
   }
 }
