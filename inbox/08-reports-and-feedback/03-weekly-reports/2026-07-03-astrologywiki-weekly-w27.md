@@ -179,6 +179,9 @@ updated: 2026-07-03
 - [ ] 用 `2026-06-26-cursive-generator-资料收集.md` 生成H1-H6结构确认稿
 - [ ] 生成完整 HTML/CSS/JS 页面，部署Vercel，提交GSC
 
+**路径B自动化系统**
+- [ ] 产研完成开发后，审核各模块验证逻辑是否合理：自动否决条件（超级平台/平均DR>70）是否会漏掉好词或放进坏词，误报/漏报标准是否与选词SOP一致
+
 **遗留问题**
 - [ ] googledocsresumetemplate.com 商标风险：确认替代域名
 - [ ] hogwarts house quiz Warner Bros IP风险：查先例，判断边界
