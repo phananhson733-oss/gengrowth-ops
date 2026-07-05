@@ -139,4 +139,13 @@ updated: 2026-06-23
 - [ ] `PG-SFS-006` saas seo expert
 - [ ] `PG-WLS-005` integrated seo
 
+---
+## ⚪ 7月5日 (周日) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-BBDM-001` beyoncé b'day marketing campaign strategy
+- [ ] `PG-AIS-004` world cup 2026 content marketing ai
+- [ ] `PG-TSWB-001` taylor swift wedding brand economics 2026
+- [ ] `PG-SPPG-001` sony playstation physical games strategy 2026
+- [ ] `PG-AEWG-001` alex eala wimbledon growth story
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
