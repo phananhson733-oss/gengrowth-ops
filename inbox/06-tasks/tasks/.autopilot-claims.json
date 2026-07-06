@@ -2036,10 +2036,10 @@
     "slug": "jessica-pegula-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-034.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "29401",
-    "leaseUntil": "2026-07-06T13:47:48.637Z",
-    "updatedAt": "2026-07-06T12:47:48.637Z",
+    "leaseUntil": "2026-07-06T13:51:44.584Z",
+    "updatedAt": "2026-07-06T12:51:44.584Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-034",
     "branch": "seo/auto/2026-07-06-PG-CELEB-034"
   }
