@@ -1980,10 +1980,10 @@
     "slug": "rayan-cherki-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "39769",
-    "leaseUntil": "2026-07-06T09:09:57.933Z",
-    "updatedAt": "2026-07-06T08:09:57.933Z",
+    "leaseUntil": "2026-07-06T09:13:57.058Z",
+    "updatedAt": "2026-07-06T08:13:57.058Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-030",
     "branch": "seo/auto/2026-07-06-PG-CELEB-030"
   }
