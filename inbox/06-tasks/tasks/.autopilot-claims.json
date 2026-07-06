@@ -1979,15 +1979,16 @@
     "pr": "https://github.com/xdawayer/oracle/pull/329"
   },
   "PG-CELEB-032": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "erling-haaland-girlfriend-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "39077",
-    "leaseUntil": "2026-07-06T09:59:07.999Z",
-    "updatedAt": "2026-07-06T08:59:07.999Z",
+    "leaseUntil": "2026-07-06T10:01:57.375Z",
+    "updatedAt": "2026-07-06T09:01:57.375Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-032",
-    "branch": "seo/auto/2026-07-06-PG-CELEB-032"
+    "branch": "seo/auto/2026-07-06-PG-CELEB-032",
+    "pr": "https://github.com/xdawayer/oracle/pull/330"
   }
 }
