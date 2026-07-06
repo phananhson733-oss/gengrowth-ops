@@ -1918,21 +1918,19 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
     "stage": "pushed-preview",
-    "lockedBy": "77284",
-    "leaseUntil": "2026-07-06T09:30:59.684Z",
-    "updatedAt": "2026-07-06T08:30:59.684Z",
+    "lockedBy": "39075",
+    "leaseUntil": "2026-07-06T09:54:02.595Z",
+    "updatedAt": "2026-07-06T08:54:02.595Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
-    "retryEvidence": "chrome-verify no-h1 likely transient preview timing; re-gate",
-    "retryAt": "2026-07-06T08:30:59.684Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T08:40:54.600Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T08:54:02.595Z"
   },
   "PG-CELEB-031": {
     "status": "done",
@@ -1980,16 +1978,16 @@
     "branch": "seo/auto/2026-07-06-PG-CELEB-030",
     "pr": "https://github.com/xdawayer/oracle/pull/329"
   },
-  "PG-CELEB-033": {
+  "PG-CELEB-032": {
     "status": "active",
-    "slug": "cole-palmer-birth-chart",
+    "slug": "erling-haaland-girlfriend-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
-    "lockedBy": "81877",
-    "leaseUntil": "2026-07-06T09:37:02.854Z",
-    "updatedAt": "2026-07-06T08:37:02.854Z",
-    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-033",
-    "branch": "seo/auto/2026-07-06-PG-CELEB-033"
+    "stage": "convert",
+    "lockedBy": "39077",
+    "leaseUntil": "2026-07-06T09:54:16.032Z",
+    "updatedAt": "2026-07-06T08:54:16.032Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-032",
+    "branch": "seo/auto/2026-07-06-PG-CELEB-032"
   }
 }
