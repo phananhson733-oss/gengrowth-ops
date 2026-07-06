@@ -114,3 +114,4 @@ updated: 2026-07-06
 | 2026-07-06 | PG-CELEB-032 | erling-haaland-girlfriend-birth-chart | Erling Haaland Girlfriend Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/erling-haaland-girlfriend-birth-chart | published |
 | 2026-07-06 | PG-CELEB-033 | cole-palmer-birth-chart | Cole Palmer Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/cole-palmer-birth-chart | published |
 | 2026-07-06 | PG-CELEB-034 | jessica-pegula-birth-chart | Jessica Pegula Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jessica-pegula-birth-chart | published |
+| 2026-07-06 | PG-HOUSE-015 | england-vs-norway-astrology | England Vs Norway Astrology | julian-thorne | https://www.astrologywiki.com/en/wiki/england-vs-norway-astrology | published |

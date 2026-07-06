@@ -360,6 +360,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [ ] `PG-WC-045` Mexico vs England astrology prediction
 - [x] `PG-CELEB-034` Jessica Pegula birth chart
-- [ ] `PG-HOUSE-015` England vs Norway astrology
+- [x] `PG-HOUSE-015` England vs Norway astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
