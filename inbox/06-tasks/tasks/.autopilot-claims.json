@@ -1970,21 +1970,19 @@
     "failedAt": "2026-07-06T19:24:21.130Z"
   },
   "PG-CELEB-030": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "rayan-cherki-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "68644",
-    "leaseUntil": "2026-07-06T19:26:20.963Z",
-    "updatedAt": "2026-07-06T18:26:20.963Z",
+    "lockedBy": "12814",
+    "leaseUntil": "2026-07-06T21:17:01.988Z",
+    "updatedAt": "2026-07-06T20:17:01.988Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-030",
     "branch": "seo/auto/2026-07-06-PG-CELEB-030",
     "pr": "https://github.com/xdawayer/oracle/pull/329",
-    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T18:26:20.963Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T19:51:55.496Z"
+    "retryEvidence": "auto-retry transient park #2/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T20:17:01.988Z"
   },
   "PG-CELEB-032": {
     "status": "done",
