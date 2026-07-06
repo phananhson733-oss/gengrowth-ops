@@ -2,7 +2,7 @@
 name: social-daily
 description: astrologywiki.com 社媒日更助手。给非 SEO 出身的内容运营同学用：每天以时效热点+爆款为主选题（关键词表只做灵感和落点参考）→ 刷近 7 天爆款提炼钩子 → 套模板批量出 10+ 条各平台内容（TikTok/IG/X/YouTube/Reddit/Pinterest）→ 每条挂对应工具页短链。当用户说"社媒日更""写今天的社媒""出10条内容""刷爆款""做本周社媒""社媒选题"时触发。
 metadata:
-  version: 1.0.0
+  version: 1.2.0
   site: astrologywiki.com
 ---
 
@@ -86,11 +86,17 @@ hook模式：  例「XX宫的人别刷走」= 点名+悬念
 
 - 视觉统一：蓝紫星空风 + 「免费无注册」标签 + 站点链接。工具：CapCut（视频）、Canva（图文）。
 - **CTA 话术**（固定）：「免费无注册，10秒生成 XX → astrologywiki.com」
-- **短链（红线 3，必做）· 不手工拼 UTM，用公司短链工具生成**：
-  1. 按 `CTA Map` tab 确定每条内容挂哪个工具页（土星回归→`/saturn-return`；合盘→`/synastry`；出生图→出生图页。**别丢首页**）。
-  2. 把「工具页 + 平台(utm_source) + 形式(utm_medium: video/carousel/pin/thread) + 母选题(utm_campaign)」填进**公司短链工具**，生成短链。
-  3. 短链贴回每条内容的 CTA / 主页链接位。
-  > ⚙️ 短链工具的名称/调用方式为**待配置项**（配好后写死进此步）：`{{SHORTLINK_TOOL}}`。在此之前，先用短链工具网页后台手动生成。
+- **短链（红线 3，必做）· 不手工拼 UTM，用外链生成工具**：工具在 `tools/internal/link-attribution/index.html`。
+  1. **双击用浏览器打开**（地址栏是 `file://…`，**别用 localhost**，否则 CORS 失败）。顶部页签切到 **AstrologyWiki**。
+  2. 填字段：
+     - **落地页** = 按 `CTA Map` tab 定的工具页（土星回归→`/saturn-return`；合盘→`/synastry`；出生图→出生图页。**别丢首页**）
+     - **utm_source** = 平台，小写：`tiktok / pinterest / x / reddit / youtube / instagram`
+     - **utm_medium** = `social`（KOL 合作才用 `kol`）
+     - **utm_campaign** = 该主题的 `cluster_id`（查 `主题集群表`，如 `CL-AW-05`）
+     - **utm_content** = 这条帖子的 `action_id`（登记在 `选题登记表`）
+  3. 点「生成链接」→ 复制**自有短链接**（`astrologywiki.com/<code>`）→ 贴回内容 CTA / 主页链接位。
+  4. 当天做完点底部「**导入Google**」，把本次所有短链备份进共享表（已导入的不会重复推）。
+  > 同一长链永远得同一短码；落地页只能填本站域名（防误指站外）。
 
 ### Step 5 · 排期 + 复盘（20 分钟）
 
@@ -147,4 +153,25 @@ hook模式：  例「XX宫的人别刷走」= 点名+悬念
 ## 边界（这个 skill 不做什么）
 - 不自动抓 TikTok/IG（反爬，靠人工刷 + 提炼）。要自动化爆款扫描，是后续 `/gg-trend-scan` 工具的事。
 - 不碰关键词建库、不按搜索量排产（那是 SEO 的事）。本 skill 只**读**关键词表的 `生产候选`/`趋势词`/`CTA Map`/`内容追踪` tab，且社媒选题以时效热点+爆款为主，表只做灵感和落点。
-- 不手工拼 UTM——用公司短链工具生成短链（`{{SHORTLINK_TOOL}}` 待配置）。
+- 不手工拼 UTM——用 `tools/internal/link-attribution/index.html`（file:// 打开，AstrologyWiki 页签）生成短链。
+
+---
+
+## 修改规范（治理模式 C：自由改 + 留痕）
+
+任何有仓库 push 权限的同事**都可以直接改这个 skill**，但每次改动**必须**：
+
+1. **改动内容** —— 直接编辑本文件。
+2. **升版本号** —— 更新 frontmatter 的 `metadata.version`（语义化：修红线/大改工作流 = 升次版本 `x.Y.0`；小修措辞/补例子 = 升修订号 `x.y.Z`）。
+3. **写一行 changelog** —— 在下方「修改记录」表**顶部**加一行：`版本 | 日期(YYYY-MM-DD) | 提交人 | 变更摘要`。提交人填 `git config user.name`。
+4. **动了红线要显眼标注** —— 若改动涉及三条红线（选题/事实/转化），changelog 摘要前加 `⚠️红线`，方便日后审计。
+
+> 不升版本 / 不写 changelog 的改动视为无效变更，下一个维护者可直接回退。
+
+## 修改记录
+
+| 版本 | 日期 | 提交人 | 变更摘要 |
+|---|---|---|---|
+| 1.2.0 | 2026-07-03 | Lynne Wang | 采用治理模式 C：新增「修改规范」+ 本修改记录区（版本/日期/提交人留痕）|
+| 1.1.0 | 2026-07-03 | Lynne Wang | ⚠️红线 选题松绑 SEO 关键词主表 → 改读 `生产候选`/`趋势词`/`CTA Map` tab，以时效热点+爆款为主；短链接入 `tools/internal/link-attribution`（AstrologyWiki 页签，utm_medium=social）；新增「skill 自动决定什么」一节 |
+| 1.0.0 | 2026-07-02 | Lynne Wang | 首版：5 步工作流、三条红线、爆款过滤条件、模板 A-D、四大支柱+每周日历 |
