@@ -12,6 +12,15 @@ This directory is Pengman's personal research and working-draft area inside the 
 ## Local Permissions
 
 - Agents may read and write files under `~/gengrowth-ops/inbox-pengman/**`.
+- For AstrologyWiki social-daily and daily-topic work, agents may read the related repo-local context needed for topic selection:
+  - `~/gengrowth-ops/inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md`
+  - `~/gengrowth-ops/inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
+  - `~/gengrowth-ops/inbox-pengman/04-production/03-reference-accounts/**`
+  - `~/gengrowth-ops/inbox-pengman/04-production/05-weekly-published-content-digests/**`
+  - `~/gengrowth-ops/inbox-pengman/04-production/06-daily-content-recommendations/**`
+  - `~/gengrowth-ops/inbox-pengman/03-topic-ideas/**`
+  - `~/gengrowth-ops/tools/internal/skills/social-daily/SKILL.md`
+- For AstrologyWiki social-daily and daily-topic work, agents may read GSC export CSV files under `~/Downloads/astrologywiki.com-Performance-on-Search-*/`. Treat Downloads access as read-only and limited to those AstrologyWiki GSC exports.
 - Agents may directly update research drafts, conversation handoffs, personal notes, and working plans in this directory when the user asks.
 - Do not treat files here as final synced docs unless the user explicitly says so.
 
@@ -22,6 +31,19 @@ This directory is Pengman's personal research and working-draft area inside the 
 - Do not access private accounts, credentials, paid dashboards, unpublished internal data, unrelated workspaces, or private social-media sessions unless Pengman explicitly asks and grants access.
 - For Route B timely hotspot topics, include the source links used for the trend/news/hotspot evidence.
 - For Route A life-first topics, live web research is optional unless needed to verify an AstrologyWiki article/page link.
+
+## Permission Gate for Daily Topic Documents
+
+- Before creating or updating a daily-topic recommendation document, agents must first confirm they can access the required local inputs and, for Route B, public web/trend sources.
+- For formal daily-topic recommendations, agents must include an `Evidence Preflight` section before recommendations, listing local files read, external sources checked, Route B source links, and unavailable/blocked inputs.
+- The `Evidence Preflight` must include at least 3 relevant local paths, at least 4 current public external sources checked for Route B, and at least 3 Route B source links across at least 2 distinct hotspot candidates. If this minimum is not met, stop and report the blocker in chat.
+- If any required input is blocked by permissions, missing, or unreadable, do not create a placeholder, conservative, or guessed daily-topic document.
+- In that case, reply in the conversation only with:
+  - which file/source/tool is blocked or missing
+  - why it matters
+  - what permission, file move, link, screenshot, or export Pengman can provide
+  - whether a chat-only provisional answer is possible
+- Only create the document after the required permissions or substitute inputs are available.
 
 ## Write Rules
 

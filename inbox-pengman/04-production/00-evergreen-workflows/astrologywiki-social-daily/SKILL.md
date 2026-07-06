@@ -1,10 +1,10 @@
 ---
 name: astrologywiki-social-daily
-description: Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: daily Route A life-first evergreen topics plus Route B timely hotspot topics, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tr5acking, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit.
+description: Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: daily Route A life-first evergreen topics plus Route B timely hotspot topics, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit.
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.4.0
+  version: 0.7.1
 ---
 
 # AstrologyWiki Social Daily
@@ -44,12 +44,65 @@ Also inspect recent `inbox-pengman/04-production/06-daily-content-recommendation
 
 ## Core Rules
 
+### Mandatory Evidence Preflight
+
+Do not generate daily topics, scripts, or a dated recommendation document until this preflight is complete.
+
+1. Read local files first. At minimum, inspect:
+   - this `SKILL.md`
+   - `daily-content-assistant-sop.md`
+   - recent files in `05-weekly-published-content-digests/`
+   - recent files in `06-daily-content-recommendations/`
+   - `03-reference-accounts/2026-06-29-reference-accounts.md`
+   - latest relevant GSC CSV if available
+2. Run external research for Route B. Use web/browser/search tools to gather current public evidence across multiple hotspot categories, such as entertainment, celebrity/public-figure coverage, relationships/dating discourse, workplace/money discourse, lifestyle/fashion/beauty trends, streaming/music releases, platform-native viral topics, Reddit debates, Google Trends/Google News-style sources, current astrology/transit sources, and major sports events.
+3. Before the recommendation, include an evidence preflight summary:
+
+```markdown
+## Evidence Preflight
+- Local files read:
+- External sources checked:
+- Route B source links:
+- Inputs unavailable or blocked:
+```
+
+Minimum pass condition:
+
+- `Local files read` must include at least 3 relevant local paths.
+- `External sources checked` must include at least 4 current public sources for Route B.
+- `Route B source links` must include at least 3 links across at least 2 distinct hotspot candidates.
+- If GSC is unavailable, explicitly say whether the plan can proceed without it and why.
+
+If these conditions are not met, stop. Do not produce the normal recommendation and do not write a document. Reply only with the blocked-input format in the Permission Gate section.
+
+### Permission Gate
+
+Before creating or updating a dated daily-topic recommendation document, verify access to required inputs:
+
+- this skill and the Daily Content Assistant SOP
+- recent published-content digests and recent daily recommendations for dedupe
+- reference accounts/context files
+- GSC export when the task depends on GSC evidence
+- public web/trend sources for Route B timely hotspot topics
+
+If any required input is blocked by permissions, missing, or unreadable, do not create a placeholder or "conservative version" document. Reply in the conversation only with:
+
+```text
+Blocked input:
+Why it matters:
+What Pengman can provide or authorize:
+Whether a chat-only provisional answer is possible:
+```
+
+Only create the daily-topic document after the required permissions or substitute inputs are available. If Pengman explicitly asks for a chat-only provisional answer despite missing inputs, clearly label it as provisional and do not write it to a file.
+
 ### Required Topic Routes
 
-Every daily recommendation must include both routes unless Pengman explicitly asks for only one:
+Every daily recommendation must include candidate pools for both routes unless Pengman explicitly asks for only one:
 
-- Route A, life-first evergreen: one mother topic rooted in a concrete human situation. It does not need a timely hotspot. If it maps to an existing AstrologyWiki article/tool/page, include the AstrologyWiki link.
-- Route B, timely hotspot: one mother topic rooted in a current event, social trend, celebrity story, sports narrative, news item, current X/TikTok/YouTube/Reddit conversation, or current astrology transit. It must include external source links for the news/trend/hotspot evidence.
+- Route A, life-first evergreen: provide 3-5 candidate mother topics rooted in concrete human situations. These do not need timely hotspots. For each candidate, include the AstrologyWiki article/tool/page link when available.
+- Route B, timely hotspot: provide 3-6 candidate mother topics rooted in current events, social trends, celebrity stories, entertainment releases, lifestyle/work/relationship discourse, news items, current X/TikTok/YouTube/Reddit conversations, current astrology transits, or major sports events. Each candidate must include external source links for the news/trend/hotspot evidence.
+- Mark 1 P0 recommendation from Route A and 1 P0 recommendation from Route B. If one route is clearly stronger for production today, say so, but still show the other route's candidates.
 
 Do not let the weekday calendar suppress either route. Monday/Tuesday/etc. cadence is only a weak inspiration source.
 
@@ -58,7 +111,8 @@ Do not let the weekday calendar suppress either route. Monday/Tuesday/etc. caden
 - Pick topics from real-life tensions + timely astrology/events/news + recent viral content + reference account patterns.
 - Start from what people are actually experiencing, then map it to AstrologyWiki. Do not start from an abstract astrology term unless it is already trending.
 - Life-first mother topics do not need a timely hotspot. They can come from evergreen human situations such as relationship confusion, career pressure, burnout, identity shifts, jealousy, family tension, or wanting a reset.
-- Timely hotspots are mainly for trend-driven or time-sensitive content: World Cup, breaking news, celebrity gossip, current X/TikTok conversations, full moons, retrogrades, and public events.
+- Timely hotspots are mainly for trend-driven or time-sensitive content: entertainment releases, celebrity gossip, relationship/dating discourse, workplace or money discourse, lifestyle/fashion/beauty trends, streaming/music moments, Reddit debates, Google Trends/Google News topics, current X/TikTok/YouTube conversations, current astrology transits, major sports events, and other public events.
+- Do not over-index on sports. World Cup is only one example inside the sports category. After any specific event cycle ends, replace it with whatever public conversation is currently active.
 - Social topics are driven by life relevance and format fit first. GSC/SEO data helps choose landing pages and phrase user intent, but should not override a stronger live hotspot when the goal is a trend-driven item.
 - Use GSC/SEO keywords as inspiration and landing-page evidence, not as a hard ranking table.
 - Always check recent published content and avoid repeating the same topic, person, hook, article, or format within 7-14 days unless the new angle is clearly different.
@@ -95,7 +149,9 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 
 ### Copy Style
 
-- Avoid obvious AI contrast formulas such as "not X, but Y", "this is not..., this is...", or forced positive/negative reversal.
+- Avoid obvious AI contrast formulas such as "not X, but Y", "this is not..., this is...", "it is...not...", "it is not...it is...", or forced positive/negative reversal.
+- Avoid defensive disclaimer phrasing in public copy, especially "without predicting...", "without making predictions...", "without saying...", "not to predict...", or similar lines that make the post sound like it is pre-emptively denying a problem.
+- Avoid generic framing like "the story is...", "this story shows...", or "the story behind..." unless it is a literal news/article summary and sounds natural.
 - Keep public copy natural, direct, and concise.
 - Avoid over-explaining brand values inside scripts.
 - Most content should not feel like an ad; use light CTA unless the user asks for direct conversion copy.
@@ -119,12 +175,23 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 
 ## Daily Workflow
 
+### Two-Stage Output Rule
+
+Default to a two-stage workflow:
+
+1. Stage 1, topic selection: after Evidence Preflight, give Pengman many Route A and Route B topic candidates, mark P0 picks, and stop for Pengman's choice.
+2. Stage 2, content package: only after Pengman selects one or more topics, create the multi-platform content package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders.
+
+Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", or "不用等我选".
+
 ### Step 1: Gather Life and Trend Signals
+
+This step is mandatory. Do not infer from memory alone.
 
 Collect:
 
 - Evergreen life tensions: relationships, work, money, burnout, family, identity, dating, ambition, jealousy, commitment, change, and self-understanding.
-- Trend-driven signals: astrology/transits, X/TikTok conversations, celebrity drama, sports narratives, news, and public events people are discussing now.
+- Trend-driven signals: astrology/transits, X/TikTok/YouTube conversations, celebrity drama, entertainment releases, relationship/dating discourse, workplace/money discourse, lifestyle/fashion/beauty trends, Reddit debates, Google Trends/Google News topics, major sports events, and public events people are discussing now.
 - Recent AstrologyWiki posts and performance notes.
 - Reference account formats worth borrowing structurally.
 - GSC queries/pages that suggest user intent.
@@ -132,18 +199,24 @@ Collect:
 
 Use both topic routes:
 
-- Route A, evergreen life-first: choose a life situation that feels broadly recognizable even without news. This route does not require live trend evidence.
-- Route B, timely hotspot: choose a current event or social conversation, then translate it into a safe astrology/life lens. This route requires current evidence.
+- Route A, evergreen life-first: build a candidate pool of life situations that feel broadly recognizable even without news. This route does not require live trend evidence.
+- Route B, timely hotspot: build a candidate pool of current events or social conversations, then translate each into a safe astrology/life lens. This route requires current evidence.
 
-For Route B live trend research, check accessible current sources before choosing topics:
+For Route B live trend research, check accessible current sources before choosing topics. Do not skip this for a formal daily recommendation:
 
 - X search/trends and recent posts, when accessible.
 - TikTok Creative Center, TikTok search, or user-supplied TikTok links/screenshots.
 - YouTube search/Shorts topics and recent high-view videos.
 - Instagram/Reels screenshots or reference-account posts, when available.
-- Reddit threads, Google Trends, Google News, People/PopCrave-style celebrity coverage, sports schedules/news, and other public trend sources.
+- Reddit threads, Google Trends, Google News, entertainment and streaming news, music release coverage, People/PopCrave-style celebrity coverage, dating/relationship discourse, workplace/money discourse, lifestyle/fashion/beauty trend coverage, major sports schedules/news, and other public trend sources.
 
-Prioritize sources from the last 7 days. For news/sports/celebrity topics, verify dates and facts before using the hook. If Route B research is blocked by login, rate limits, anti-scraping, or tool access, say so clearly and ask Pengman for any of these inputs:
+Route B category coverage:
+
+- Scan at least 3 distinct hotspot categories before choosing candidates.
+- Include no more than 2 sports-led candidates unless Pengman explicitly asks for sports.
+- Prefer a balanced Route B pool: entertainment/celebrity, social-platform discourse, lifestyle/work/relationship discourse, current astrology/transits, and sports/public events when relevant.
+
+Prioritize sources from the last 7 days. For news/sports/celebrity topics, verify dates and facts before using the hook. If Route B research is blocked by login, rate limits, anti-scraping, or tool access, say so clearly and ask Pengman for any of these inputs. Do not generate the dated recommendation document until one of these substitutes is available:
 
 - 1-3 TikTok/Reels/X links or screenshots that looked popular.
 - Notes on today's obvious astrology or pop-culture hotspot.
@@ -178,15 +251,17 @@ Prioritize these hook types:
 - Timely transit hook: "This week's astrology is bringing ___ back up"
 - Search-intent hook: "Everyone knows their Sun sign. Fewer people check ___"
 - Tool/demo hook: "I checked this placement in 10 seconds..."
-- News/celebrity/sports hook: "The reason people can't stop talking about ___ is actually about ___"
+- News/social/celebrity hook: "The reason people can't stop talking about ___ is actually about ___"
 - Contrarian insight hook, but avoid formulaic "not X, but Y" phrasing.
 
-### Step 4: Choose 1-2 Mother Topics
+### Step 4: Build Candidate Pools and Pick P0
 
 Default:
 
-- 1 Route A life-first mother topic.
-- 1 Route B timely hotspot mother topic.
+- 3-5 Route A life-first mother topic candidates.
+- 3-6 Route B timely hotspot mother topic candidates.
+- 1 P0 pick from Route A.
+- 1 P0 pick from Route B.
 
 Lynne's social-daily cadence is optional inspiration, not a rule:
 
@@ -212,14 +287,28 @@ Is there a specific page/tool/article to send them to?
 
 If the answer is no, rewrite the angle around a more concrete human situation.
 
+Score each candidate briefly:
+
+```text
+life relevance:
+timeliness:
+hook strength:
+AstrologyWiki landing fit:
+production ease:
+dedupe risk:
+```
+
+For Route B, compare multiple hotspots before choosing P0. Do not stop at the first news item found.
+
 ### Step 5: Create Output
 
 Choose output depth based on user ask:
 
-- If user asks "生成今日选题": produce a concise plan with primary topic, why, platforms, drafts, backups.
+- If user asks "生成今日选题": produce Stage 1 only: Evidence Preflight, Route A candidate pool, Route B candidate pool, P0 recommendations, and selection guidance. Stop there.
 - If user asks for social-daily / 10条内容: produce 8-10 items across platforms.
 - If user asks for X: produce X posts only.
 - If user asks for video: produce video brief/script direction only, unless asked for full script.
+- If Pengman has already selected a topic from the candidate pool, produce Stage 2: a content package for the selected topic across the requested platforms.
 
 Every publishable item must show its hook, format template, landing page, CTA, and shortlink placeholder.
 
@@ -228,10 +317,37 @@ Every publishable item must show its hook, format template, landing page, CTA, a
 Use this structure by default:
 
 ```markdown
+## Evidence Preflight
+- Local files read:
+- External sources checked:
+- Route B source links:
+- Inputs unavailable or blocked:
+
 ## 今日结论
-- Route A 生活化母选题：
-- Route B 时效热点母选题：
+- Route A P0 生活化母选题：
+- Route B P0 时效热点母选题：
 - 今天不做：
+
+## Route A 生活化候选池
+### A1
+- 生活问题：
+- Hook:
+- AstrologyWiki 承接链接：
+- 评分：
+
+### A2
+...
+
+## Route B 时效热点候选池
+### B1
+- 热点/新闻：
+- Hook:
+- 来源链接：
+- AstrologyWiki 承接链接：
+- 评分：
+
+### B2
+...
 
 ## 为什么
 - Route A 生活场景/人类问题：
@@ -247,6 +363,19 @@ Use this structure by default:
 - Hook 1:
 - Hook 2:
 - Hook 3:
+
+## 等待选择
+- 请 Pengman 选择 A/B 编号，或直接说“用 P0 展开内容包”。
+- 选择前不要生成完整脚本、分镜、Carousel 文案或多平台发布包。
+```
+
+After Pengman selects a topic, use this Stage 2 structure:
+
+```markdown
+## 已选选题
+- 编号：
+- 主题：
+- 选用原因：
 
 ## 内容包
 ### 1. TikTok / Shorts 主视频
