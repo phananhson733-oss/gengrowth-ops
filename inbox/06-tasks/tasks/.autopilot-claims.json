@@ -1918,21 +1918,19 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
     "stage": "pushed-preview",
-    "lockedBy": "9649",
-    "leaseUntil": "2026-07-06T11:06:33.726Z",
-    "updatedAt": "2026-07-06T10:06:33.726Z",
+    "lockedBy": "60584",
+    "leaseUntil": "2026-07-06T12:03:19.172Z",
+    "updatedAt": "2026-07-06T11:03:19.172Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
-    "retryEvidence": "auto-retry transient park #3/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T10:06:33.726Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T10:09:00.390Z"
+    "retryEvidence": "auto-retry transient park #4/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T11:03:19.172Z"
   },
   "PG-CELEB-031": {
     "status": "done",
@@ -1953,21 +1951,19 @@
     "mergedAt": "2026-07-05T14:27:59.322Z"
   },
   "PG-WC-043": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "94766",
-    "leaseUntil": "2026-07-06T09:37:26.163Z",
-    "updatedAt": "2026-07-06T08:37:26.163Z",
+    "lockedBy": "60584",
+    "leaseUntil": "2026-07-06T12:03:19.176Z",
+    "updatedAt": "2026-07-06T11:03:19.176Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-WC-043",
     "branch": "seo/auto/2026-07-06-PG-WC-043",
     "pr": "https://github.com/xdawayer/oracle/pull/328",
-    "retryEvidence": "dropped unsupported Purple Star Horse-in-Life-Palace assertion in .ts+SVG+plan (no birth time; 1998 is Tiger year); re-gate",
-    "retryAt": "2026-07-06T08:37:26.163Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T10:38:15.452Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T11:03:19.176Z"
   },
   "PG-CELEB-030": {
     "status": "pushed-preview",
