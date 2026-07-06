@@ -1918,7 +1918,7 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
@@ -1930,7 +1930,9 @@
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
     "retryEvidence": "chrome-verify no-h1 likely transient preview timing; re-gate",
-    "retryAt": "2026-07-06T08:30:59.684Z"
+    "retryAt": "2026-07-06T08:30:59.684Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-06T08:40:54.600Z"
   },
   "PG-CELEB-031": {
     "status": "done",
