@@ -2050,7 +2050,7 @@
     "mergedAt": "2026-07-06T13:00:19.201Z"
   },
   "PG-HOUSE-015": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "england-vs-norway-astrology",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-HOUSE-015.md",
@@ -2060,6 +2060,11 @@
     "updatedAt": "2026-07-06T13:25:55.588Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-HOUSE-015",
     "branch": "seo/auto/2026-07-06-PG-HOUSE-015",
-    "pr": "https://github.com/xdawayer/oracle/pull/333"
+    "pr": "https://github.com/xdawayer/oracle/pull/333",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-06-pg-4efae3-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-06T13:31:37.407Z",
+    "headRefOid": "bb3a947d0a2e78a97dd2f35b15bf591d40e4776f",
+    "mergedAt": "2026-07-06T13:31:47.369Z"
   }
 }
