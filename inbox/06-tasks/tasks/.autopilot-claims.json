@@ -1918,21 +1918,19 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
     "stage": "pushed-preview",
-    "lockedBy": "28827",
-    "leaseUntil": "2026-07-06T17:35:40.768Z",
-    "updatedAt": "2026-07-06T16:35:40.768Z",
+    "lockedBy": "73665",
+    "leaseUntil": "2026-07-06T19:54:02.075Z",
+    "updatedAt": "2026-07-06T18:54:02.075Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
-    "retryEvidence": "auto-retry transient park #10/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T16:35:40.768Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T16:38:18.546Z"
+    "retryEvidence": "auto-retry transient park #10(escalated,slow): codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T18:54:02.075Z"
   },
   "PG-CELEB-031": {
     "status": "done",
