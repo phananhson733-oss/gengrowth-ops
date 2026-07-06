@@ -1965,10 +1965,10 @@
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "23845",
-    "leaseUntil": "2026-07-06T08:34:57.346Z",
-    "updatedAt": "2026-07-06T07:34:57.346Z",
+    "leaseUntil": "2026-07-06T08:39:55.506Z",
+    "updatedAt": "2026-07-06T07:39:55.506Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-WC-043",
     "branch": "seo/auto/2026-07-06-PG-WC-043"
   }
