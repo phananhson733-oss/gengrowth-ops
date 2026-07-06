@@ -3,14 +3,14 @@ title: 2026-07-03 社媒内容数据阶段分析
 type: social-content-data-analysis
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-03
-data_scope: archived public metrics from 2026-W25 and 2026-W27, including Instagram public profile data and logged-in X profile data checked on 2026-07-03
+updated: 2026-07-05
+data_scope: archived public metrics from 2026-W25 and 2026-W27, including additional public account checks on 2026-07-05 for X, TikTok, Instagram, and YouTube
 status: draft
 ---
 
 # 2026-07-03 社媒内容数据阶段分析
 
-> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据。Instagram 数据为 2026-07-03 从公开 profile / web profile 接口读取；X 数据为 2026-075-03 登录后主页可见数据。  
+> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05 的公开账号级检查。Instagram 数据含 2026-07-05 公开 profile header；X 数据含 2026-07-05 公开 profile meta；TikTok 数据含 2026-07-05 公开 profile meta；YouTube 数据含 2026-07-05 `/shorts` 与 `/videos` 公开页检查。  
 > 当前不包含后台 analytics：X impressions / link clicks、TikTok 完播率 / 主页访问 / 链接点击、YouTube Studio 留存 / shown in feed / 点击数据、站内 referral / PV 变化。  
 > 目标：判断哪些站外内容更可能支持 AstrologyWiki 的 SEO / PV / 站内主题页，而不是单纯比较粉丝增长。
 
@@ -25,22 +25,23 @@ status: draft
 
 | 平台 | 已记录发布数量 | 总浏览/播放 | 总点赞 | 已知评论/回复 | 已知分享/转发 | 已知收藏/书签 | 已知公开互动 | 备注 |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
-| X / Twitter | 13 | 123 | 25 | 4 | 2 | 1 | 32 | 登录后主页可见数据；账号页显示 16 posts，当前已归档 13 条可见 status |
+| X / Twitter | 13 | 123 | 25 | 4 | 2 | 1 | 32 | 公开 profile meta 已更新到 20 posts / 3 followers / 9 following；当前只归档了 13 条可见 status |
 | TikTok | 5 | 1150 | 15 | 0 | 0 | 1 | 16 | W27 photo post 触达最好；后台完播率和主页访问仍缺失 |
-| Instagram | 2 | 11 | 3 | 0 | 待补 | 待补 | 3 + 待补 | 公开账号 0 followers、0 following、2 posts；两条均为视频，数据还太早 |
-| YouTube Shorts | 3 | 779 | 15 | 待补 | 待补 | n/a | 15 + 待补 | Messi Shorts 单条贡献绝大多数 Shorts views |
+| Instagram | 2 | 11 | 3 | 0 | 待补 | 待补 | 3 + 待补 | 当前只识别到 2 条链接；2026-07-05 公开账号已显示 0 followers、0 following、3 posts |
+| YouTube Shorts | 4 | 781 | 15 + 待补 | 待补 | 待补 | n/a | 15 + 待补 | 2026-07-05 新补录 1 条 2026-07-03 relationship astrology Shorts；旧 Shorts 仍有缺口 |
 | YouTube Video | 1 | 1 | 1 | 待补 | 待补 | n/a | 1 + 待补 | Harry Kane 长视频刚发布，样本太小 |
-| **合计** | **24** | **2064** | **59** | **4 + YT待补** | **2 + IG/YT待补** | **2 + IG待补** | **67 + IG/YT待补** | 当前适合做方向判断，不适合做最终投放结论 |
+| **合计** | **25** | **2066** | **59 + 待补** | **4 + YT待补** | **2 + IG/YT待补** | **2 + IG待补** | **67 + IG/YT待补** | 当前适合做方向判断，不适合做最终投放结论 |
 
 阶段结论：
 
 - 当前最有效的公开触达来自短视频 / 图文短内容，尤其是 YouTube Shorts 的 Messi 和 TikTok 的 Taylor / Haaland。
 - TikTok 在 W27 的稳定性更好：4 条内容合计 1150 播放，且前三条都过 175 播放。
-- Instagram 目前只是刚开始分发：2 条视频合计 11 views、3 likes，账号仍是 0 followers。
-- X 登录后补齐到 13 条可见 status，合计 123 views、25 likes；绝对触达仍低，但能更完整地看出 thread / follow-up 分发情况。
-- YouTube Shorts 有单条高峰，但波动大：Messi 772 views，Haaland 5 views，Harry Kane 2 views。
+- Instagram 目前只是刚开始分发：已识别 2 条视频合计 11 views、3 likes；2026-07-05 公开账号仍是 0 followers，但已显示 3 posts。
+- X 登录后补齐到 13 条可见 status，合计 123 views、25 likes；但 2026-07-05 公开账号级 meta 已到 20 posts，说明当前归档仍不完整。
+- YouTube Shorts 有单条高峰，但波动大：Messi 772 views，Haaland 5 views，Harry Kane 2 views，新补录 relationship astrology Shorts 2 views。
 - X 当前公开 view count 太低，适合做轻量分发和观点同步，不应作为首轮主制作平台。
 - 站内支持价值目前只能看“是否有明确 CTA / 目标页面”，还不能证明真实 PV 贡献；必须补 link clicks / referral / 页面 PV。
+- 2026-07-05 的账号级公开检查说明，当前更大的问题不是“平台完全没发”，而是本地归档仍落后于公开账号总量，后续复盘要先补档再下结论。
 
 ## 2. Top 内容
 
@@ -109,8 +110,8 @@ status: draft
 |---|---|---|---|
 | YouTube Shorts | P0 测试平台；有最高单条表现，也更接近搜索 / 长尾内容承接 | 继续首发 sports / birth chart / 页面录屏类 Shorts；重点补 Studio 数据 | 不要只看公开 views；没有留存和 shown-in-feed 前不要判定选题失败 |
 | TikTok | P1 复用与 Hook 测试平台；W27 触达更稳定 | 继续复用 Shorts 或做 photo post；观察完播率、主页访问、收藏 | 不要为 TikTok 单独开复杂制作线 |
-| Instagram | P2 复用分发位；当前账号刚启动，公开数据太早 | 先复用 birth chart / relationship astrology 短视频；重点看 profile visits、link clicks、saves | 不要为了 Instagram 单独开制作线，也不要用 0 粉冷启动数据否定主题 |
-| X / Twitter | 轻量分发、观点同步、thread / link follow-up 测试 | 保留同步，但文案要完整，避免只剩短链；link card follow-up 可以继续小测 | 不要把 X 当主增长平台；账号页显示 16 posts，目前仍有 3 条需继续核对 |
+| Instagram | P2 复用分发位；当前账号刚启动，公开数据太早 | 先复用 birth chart / relationship astrology 短视频；重点先补第三条帖文链接，再看 profile visits、link clicks、saves | 不要为了 Instagram 单独开制作线，也不要用 0 粉冷启动数据否定主题 |
+| X / Twitter | 轻量分发、观点同步、thread / link follow-up 测试 | 保留同步，但文案要完整，避免只剩短链；link card follow-up 可以继续小测 | 不要把 X 当主增长平台；2026-07-05 公开 profile meta 已到 20 posts，当前归档仍明显不全 |
 | YouTube Video | 当前样本不足 | 只在已有 Shorts 脚本可自然扩展时同步发 | 不要为了长视频单独增加制作复杂度 |
 
 ## 5. 对 AstrologyWiki PV 的支持价值
@@ -140,6 +141,9 @@ status: draft
 - [ ] YouTube Studio：Messi / Haaland / Harry Kane Shorts 的 shown in feed、viewed vs swiped away、平均观看时长、comments、subscribers gained。
 - [ ] TikTok：每条内容的完播率、平均观看时长、主页访问、链接点击、关注转化。
 - [ ] Instagram：两条视频的 reach、plays、saves、shares、profile visits、link clicks。
-- [ ] X：已知单帖 impressions、profile visits、link clicks、视频观看时长；继续核对账号页显示 16 posts 中尚未归档的 3 条。
+- [ ] X：已知单帖 impressions、profile visits、link clicks、视频观看时长。
 - [ ] GA / GSC：`lionel-messi-zodiac-sign`、`erling-haaland-birth-chart`、`harry-kane-birth-chart` 在对应发布日期前后的 PV / referral / query 变化。
-- [ ] X 全量链接：登录后账号页显示 16 posts，当前已归档 13 条可见 status；剩余 3 条需要继续从 replies / media / analytics 导出核对。
+- [ ] X：2026-07-05 公开 profile meta 已显示 20 posts；当前已归档 13 条可见 status，仍需继续从 replies / media / analytics 导出核对。
+- [ ] Instagram：2026-07-05 公开 profile header 显示 3 posts；第三条帖文链接、发布时间和公开指标待补。
+- [ ] TikTok：2026-07-05 公开 profile meta 显示 9 videos；当前仅识别到 5 条公开视频链接。
+- [ ] YouTube：2026-07-05 `/shorts` 公开页显示 6 个 Shorts 链接、`/videos` 公开页显示 2 个长视频链接；当前仍有 2 条 Shorts + 1 条长视频未归档。

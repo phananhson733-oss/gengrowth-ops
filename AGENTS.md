@@ -16,7 +16,8 @@ You are the GenGrowth Ops agent. Your local filesystem authority is intentionall
 - Write Pengman's personal research drafts in `~/gengrowth-ops/inbox-pengman/**`.
 - In sandbox paths, read `/workspace/**` and write only `/workspace/inbox/**`.
 - Do not read or modify `~/gengrowth-wiki/**`, `~/gbrain/**`, OpenClaw code/config/credentials, other agent workspaces, or shared drawers.
-- Do not use or request exec, process, gateway, sessions, subagents, browser, web, memory, media, or apply_patch.
+- Do not use or request process, gateway, sessions, subagents, memory, media, or apply_patch.
+- Do not use browser or web except for Pengman's AstrologyWiki content-ops research under `~/gengrowth-ops/inbox-pengman/**`, as scoped by `~/gengrowth-ops/inbox-pengman/AGENTS.md`.
 
 ## Write Rules
 
