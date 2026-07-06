@@ -22,15 +22,21 @@ updated: 2026-07-03
 
 ## 本周数据
 
-### 多产品 GSC 周对比（W26 vs W27）
+数据口径：GSC 自定义区间 6/29–7/5（W27 精确7天）；Analytics 最近7天（取同期）
 
-| 产品 | UV（GA） | 点击 W27 | 点击 W26 | 环比 | 曝光 W27 | 平均排名 W27 |
-|---|---|---|---|---|---|---|
-| astrologywiki.com | 待补 | 283 | 待补 | ↑趋势明显 | 1.95万 | 16.9 |
-| aistorygenerator.work | 0 | 0 | — | 新站，技术SEO6/30落地 | 0 | — |
-| googledocsresumetemplate.com | 0 | 0 | — | 新站 | 0 | — |
+### 多产品 GSC + Analytics 周报（W27）
 
-> astrologywiki 近2周点击+曝光均呈明显上翘，排名从30+收敛至16.9。**归因：趋势词blog驱动，而非工具页**。技术优化（schema/蚕食修复/互链）是长线动作，当前数据不归因给它。
+| 产品 | 活跃用户 UV | 新用户 | 点击 | 曝光 | CTR | 平均排名 | UV 环比 |
+|---|---|---|---|---|---|---|---|
+| astrologywiki.com | 76 | 138 | 195 | 1.11万 | 1.8% | **10.1** | ↑148% |
+| aistorygenerator.work | 27 | 27 | 8 | 187 | 4.3% | 44.9 | 新站 |
+| googledocsresumetemplate.com | 23 | 23 | 1 | 99 | 1% | 61.4 | 新站 |
+
+**关键解读：**
+- astrologywiki 排名10.1（W27精确值）远好于28天均值16.9，说明本周新发布内容质量更高，趋势词命中效果显著
+- astrologywiki UV ↑148%，新用户↑176%——增量主要来自趋势词blog引入的新访客，非回访用户
+- aistorygenerator.work 技术SEO 6/30落地，当周即有8次点击（排名44.9），冷启动已产生信号
+- googledocsresumetemplate.com 1次点击99次曝光，已被Google收录，排名61.4处于沙盒期正常范围
 
 ---
 
