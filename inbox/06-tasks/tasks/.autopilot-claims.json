@@ -1918,21 +1918,19 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
     "stage": "pushed-preview",
-    "lockedBy": "23779",
-    "leaseUntil": "2026-07-06T08:34:32.225Z",
-    "updatedAt": "2026-07-06T07:34:32.225Z",
+    "lockedBy": "77284",
+    "leaseUntil": "2026-07-06T09:30:59.684Z",
+    "updatedAt": "2026-07-06T08:30:59.684Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
-    "retryEvidence": "stripped emma watson keyword from draft + fixed sheet root cause; re-gate",
-    "retryAt": "2026-07-06T07:34:32.225Z",
-    "error": "chrome verify failed: [en] no <h1> on rendered page",
-    "failedAt": "2026-07-06T07:44:39.587Z"
+    "retryEvidence": "chrome-verify no-h1 likely transient preview timing; re-gate",
+    "retryAt": "2026-07-06T08:30:59.684Z"
   },
   "PG-CELEB-031": {
     "status": "done",
