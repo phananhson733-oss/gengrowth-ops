@@ -2001,7 +2001,7 @@
     "mergedAt": "2026-07-06T09:50:56.719Z"
   },
   "PG-CELEB-033": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "cole-palmer-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2013,6 +2013,11 @@
     "branch": "seo/auto/2026-07-06-PG-CELEB-033",
     "pr": "https://github.com/xdawayer/oracle/pull/331",
     "retryEvidence": "stripped hallucinated emma-watson keyword from draft (brief-gen artifact, root cause noted); re-gate",
-    "retryAt": "2026-07-06T09:48:09.036Z"
+    "retryAt": "2026-07-06T09:48:09.036Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-06-pg-789547-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-06T09:56:04.780Z",
+    "headRefOid": "9e2f51d07785ff1f2416001060f5e5fba5510fba",
+    "mergedAt": "2026-07-06T09:56:58.335Z"
   }
 }
