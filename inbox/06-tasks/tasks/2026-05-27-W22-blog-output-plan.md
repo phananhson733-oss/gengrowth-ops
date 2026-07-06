@@ -356,6 +356,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 2 篇)
 - [x] `PG-CELEB-032` erling haaland girlfriend birth chart
 
-- [ ] `PG-CELEB-033` Cole Palmer birth chart
+- [x] `PG-CELEB-033` Cole Palmer birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
