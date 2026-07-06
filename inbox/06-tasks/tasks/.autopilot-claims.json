@@ -1970,7 +1970,7 @@
     "failedAt": "2026-07-06T17:33:38.695Z"
   },
   "PG-CELEB-030": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "rayan-cherki-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1980,7 +1980,9 @@
     "updatedAt": "2026-07-06T08:19:30.218Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-030",
     "branch": "seo/auto/2026-07-06-PG-CELEB-030",
-    "pr": "https://github.com/xdawayer/oracle/pull/329"
+    "pr": "https://github.com/xdawayer/oracle/pull/329",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-06T18:01:13.402Z"
   },
   "PG-CELEB-032": {
     "status": "done",
