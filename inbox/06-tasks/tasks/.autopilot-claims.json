@@ -1918,21 +1918,19 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
     "stage": "pushed-preview",
-    "lockedBy": "83481",
-    "leaseUntil": "2026-07-06T15:45:03.403Z",
-    "updatedAt": "2026-07-06T14:45:03.403Z",
+    "lockedBy": "11933",
+    "leaseUntil": "2026-07-06T16:40:16.294Z",
+    "updatedAt": "2026-07-06T15:40:16.294Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-05-PG-CELEB-029",
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
-    "retryEvidence": "auto-retry transient park #8/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T14:45:03.403Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T14:47:30.719Z"
+    "retryEvidence": "auto-retry transient park #9/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T15:40:16.294Z"
   },
   "PG-CELEB-031": {
     "status": "done",
@@ -1953,21 +1951,19 @@
     "mergedAt": "2026-07-05T14:27:59.322Z"
   },
   "PG-WC-043": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "83481",
-    "leaseUntil": "2026-07-06T15:45:03.407Z",
-    "updatedAt": "2026-07-06T14:45:03.407Z",
+    "lockedBy": "11933",
+    "leaseUntil": "2026-07-06T16:40:16.298Z",
+    "updatedAt": "2026-07-06T15:40:16.298Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-WC-043",
     "branch": "seo/auto/2026-07-06-PG-WC-043",
     "pr": "https://github.com/xdawayer/oracle/pull/328",
-    "retryEvidence": "auto-retry transient park #5/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T14:45:03.407Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-06T15:15:11.981Z"
+    "retryEvidence": "auto-retry transient park #6/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-06T15:40:16.298Z"
   },
   "PG-CELEB-030": {
     "status": "pushed-preview",
