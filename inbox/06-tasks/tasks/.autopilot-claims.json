@@ -1951,19 +1951,19 @@
     "mergedAt": "2026-07-05T14:27:59.322Z"
   },
   "PG-WC-043": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "23845",
-    "leaseUntil": "2026-07-06T08:43:24.163Z",
-    "updatedAt": "2026-07-06T07:43:24.163Z",
+    "lockedBy": "94766",
+    "leaseUntil": "2026-07-06T09:37:26.163Z",
+    "updatedAt": "2026-07-06T08:37:26.163Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-WC-043",
     "branch": "seo/auto/2026-07-06-PG-WC-043",
     "pr": "https://github.com/xdawayer/oracle/pull/328",
-    "error": "review[astrology] FAIL: The piece asserts a specific Purple Star placement (\"flags the Horse in the Life Palace\") as fact, which both requires a birth time the article repeatedly says is unconfirmed and is dubious for a 1998 (Tiger-year) birth, contradicting its own central thesis.",
-    "failedAt": "2026-07-06T08:22:07.780Z"
+    "retryEvidence": "dropped unsupported Purple Star Horse-in-Life-Palace assertion in .ts+SVG+plan (no birth time; 1998 is Tiger year); re-gate",
+    "retryAt": "2026-07-06T08:37:26.163Z"
   },
   "PG-CELEB-030": {
     "status": "pushed-preview",
