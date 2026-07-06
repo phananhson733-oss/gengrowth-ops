@@ -1996,9 +1996,11 @@
     "slug": "cole-palmer-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "worktree",
+    "stage": "convert",
     "lockedBy": "54204",
-    "leaseUntil": "2026-07-06T10:31:19.387Z",
-    "updatedAt": "2026-07-06T09:31:19.387Z"
+    "leaseUntil": "2026-07-06T10:31:28.614Z",
+    "updatedAt": "2026-07-06T09:31:28.614Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-033",
+    "branch": "seo/auto/2026-07-06-PG-CELEB-033"
   }
 }
