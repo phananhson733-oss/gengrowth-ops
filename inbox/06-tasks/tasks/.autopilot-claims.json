@@ -1996,7 +1996,7 @@
     "failedAt": "2026-07-06T09:43:20.870Z"
   },
   "PG-CELEB-033": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "cole-palmer-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2006,6 +2006,8 @@
     "updatedAt": "2026-07-06T09:38:46.159Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-033",
     "branch": "seo/auto/2026-07-06-PG-CELEB-033",
-    "pr": "https://github.com/xdawayer/oracle/pull/331"
+    "pr": "https://github.com/xdawayer/oracle/pull/331",
+    "error": "review[schema] FAIL: The source draft's associated_keywords declares a hallucinated, off-topic keyword \"emma watson zodiac sign\" that contradicts this Cole Palmer article's content.",
+    "failedAt": "2026-07-06T09:44:45.396Z"
   }
 }
