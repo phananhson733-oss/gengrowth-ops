@@ -2030,7 +2030,7 @@
     "failedAt": "2026-07-06T12:29:12.548Z"
   },
   "PG-CELEB-034": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jessica-pegula-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-034.md",
@@ -2040,6 +2040,11 @@
     "updatedAt": "2026-07-06T12:55:09.581Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-034",
     "branch": "seo/auto/2026-07-06-PG-CELEB-034",
-    "pr": "https://github.com/xdawayer/oracle/pull/332"
+    "pr": "https://github.com/xdawayer/oracle/pull/332",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-06-pg-4b1237-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-06T13:00:09.553Z",
+    "headRefOid": "176a5eba6c01b196ce98c01d7236d1f9387e8410",
+    "mergedAt": "2026-07-06T13:00:19.201Z"
   }
 }
