@@ -1981,33 +1981,33 @@
     "pr": "https://github.com/xdawayer/oracle/pull/329"
   },
   "PG-CELEB-032": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "erling-haaland-girlfriend-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "39077",
-    "leaseUntil": "2026-07-06T10:01:57.375Z",
-    "updatedAt": "2026-07-06T09:01:57.375Z",
+    "lockedBy": "74008",
+    "leaseUntil": "2026-07-06T10:48:08.969Z",
+    "updatedAt": "2026-07-06T09:48:08.969Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-032",
     "branch": "seo/auto/2026-07-06-PG-CELEB-032",
     "pr": "https://github.com/xdawayer/oracle/pull/330",
-    "error": "review[schema] FAIL: The source draft's associated_keywords explicitly declares \"emma watson zodiac sign,\" a hallucinated keyword unrelated to and contradicting this Erling Haaland article.",
-    "failedAt": "2026-07-06T09:43:20.870Z"
+    "retryEvidence": "stripped hallucinated emma-watson keyword from draft (brief-gen artifact, root cause noted); re-gate",
+    "retryAt": "2026-07-06T09:48:08.969Z"
   },
   "PG-CELEB-033": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "cole-palmer-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "54204",
-    "leaseUntil": "2026-07-06T10:38:46.159Z",
-    "updatedAt": "2026-07-06T09:38:46.159Z",
+    "lockedBy": "74012",
+    "leaseUntil": "2026-07-06T10:48:09.036Z",
+    "updatedAt": "2026-07-06T09:48:09.036Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-033",
     "branch": "seo/auto/2026-07-06-PG-CELEB-033",
     "pr": "https://github.com/xdawayer/oracle/pull/331",
-    "error": "review[schema] FAIL: The source draft's associated_keywords declares a hallucinated, off-topic keyword \"emma watson zodiac sign\" that contradicts this Cole Palmer article's content.",
-    "failedAt": "2026-07-06T09:44:45.396Z"
+    "retryEvidence": "stripped hallucinated emma-watson keyword from draft (brief-gen artifact, root cause noted); re-gate",
+    "retryAt": "2026-07-06T09:48:09.036Z"
   }
 }
