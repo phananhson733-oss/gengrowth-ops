@@ -149,7 +149,20 @@ BRDECO竞调结论清晰，但留下了开放问题：如果GenGrowth要服务B2
 
 ## 下周目标（W28）
 
-**唯一核心杠杆：** aistorygenerator.work 外链冷启动。W28完成 HN Show HN + 前3个工具目录 + 2个GitHub Awesome List PR。
+### ⭐ W28 最高优先：gengrowth.ai/app/analysis 产品效果验证
+
+**目的：** 验证 analysis 功能是否能为用户产出可信、可执行的增长分析结论，判断当前产品形态是否达到可推广标准。
+**验证方式（待明确）：**
+- [ ] 定义"有效分析"的成功标准：用户完成一次完整分析后，输出内容是否包含可落地的行动建议？
+- [ ] 设计验证场景：用已知站点（astrologywiki / aistorygenerator）跑一次完整分析，对比AI输出与人工竞调结论的吻合度
+- [ ] 记录关键指标：分析完成率、输出质量（主观评分1-5）、用户是否有后续操作行为
+- [ ] 输出结论：继续迭代 / 可对外推广 / 需要重大改版
+
+> W28结束前需给出明确的Go/No-Go判断，不能只是"感觉还不错"。
+
+---
+
+**其他核心杠杆：** aistorygenerator.work 外链冷启动，W28完成 HN Show HN + 前3个工具目录 + 2个GitHub Awesome List PR。
 
 ### 行动项
 
