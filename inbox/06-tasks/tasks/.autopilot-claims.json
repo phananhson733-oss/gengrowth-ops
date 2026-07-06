@@ -1992,15 +1992,16 @@
     "pr": "https://github.com/xdawayer/oracle/pull/330"
   },
   "PG-CELEB-033": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "cole-palmer-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "54204",
-    "leaseUntil": "2026-07-06T10:35:42.047Z",
-    "updatedAt": "2026-07-06T09:35:42.047Z",
+    "leaseUntil": "2026-07-06T10:38:46.159Z",
+    "updatedAt": "2026-07-06T09:38:46.159Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-CELEB-033",
-    "branch": "seo/auto/2026-07-06-PG-CELEB-033"
+    "branch": "seo/auto/2026-07-06-PG-CELEB-033",
+    "pr": "https://github.com/xdawayer/oracle/pull/331"
   }
 }
