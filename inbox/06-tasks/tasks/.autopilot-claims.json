@@ -1953,7 +1953,7 @@
     "mergedAt": "2026-07-05T14:27:59.322Z"
   },
   "PG-WC-043": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1965,7 +1965,9 @@
     "branch": "seo/auto/2026-07-06-PG-WC-043",
     "pr": "https://github.com/xdawayer/oracle/pull/328",
     "retryEvidence": "auto-retry transient park #3/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-06T12:54:01.046Z"
+    "retryAt": "2026-07-06T12:54:01.046Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-06T13:24:33.475Z"
   },
   "PG-CELEB-030": {
     "status": "pushed-preview",
@@ -2048,15 +2050,16 @@
     "mergedAt": "2026-07-06T13:00:19.201Z"
   },
   "PG-HOUSE-015": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "england-vs-norway-astrology",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-HOUSE-015.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "51957",
-    "leaseUntil": "2026-07-06T14:22:28.556Z",
-    "updatedAt": "2026-07-06T13:22:28.556Z",
+    "leaseUntil": "2026-07-06T14:25:55.588Z",
+    "updatedAt": "2026-07-06T13:25:55.588Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-06-PG-HOUSE-015",
-    "branch": "seo/auto/2026-07-06-PG-HOUSE-015"
+    "branch": "seo/auto/2026-07-06-PG-HOUSE-015",
+    "pr": "https://github.com/xdawayer/oracle/pull/333"
   }
 }
