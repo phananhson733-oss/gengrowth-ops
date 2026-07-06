@@ -1981,7 +1981,7 @@
     "pr": "https://github.com/xdawayer/oracle/pull/329"
   },
   "PG-CELEB-032": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "erling-haaland-girlfriend-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1993,7 +1993,12 @@
     "branch": "seo/auto/2026-07-06-PG-CELEB-032",
     "pr": "https://github.com/xdawayer/oracle/pull/330",
     "retryEvidence": "stripped hallucinated emma-watson keyword from draft (brief-gen artifact, root cause noted); re-gate",
-    "retryAt": "2026-07-06T09:48:08.969Z"
+    "retryAt": "2026-07-06T09:48:08.969Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-06-pg-335a1d-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-06T09:50:50.328Z",
+    "headRefOid": "66cf35fae71a41941b7b76e86adbd99e0299ef39",
+    "mergedAt": "2026-07-06T09:50:56.719Z"
   },
   "PG-CELEB-033": {
     "status": "pushed-preview",
