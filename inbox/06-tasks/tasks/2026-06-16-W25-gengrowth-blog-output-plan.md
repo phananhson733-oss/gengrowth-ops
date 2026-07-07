@@ -133,11 +133,11 @@ updated: 2026-06-23
 ---
 ## ⚪ 7月2日 (周四) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-EOS-008` ethical seo services
-- [ ] `PG-ART-004` manual seo service
-- [ ] `PG-SFS-005` b2b saas seo
-- [ ] `PG-SFS-006` saas seo expert
-- [ ] `PG-WLS-005` integrated seo
+- [x] `PG-EOS-008` ethical seo services
+- [x] `PG-ART-004` manual seo service
+- [x] `PG-SFS-005` b2b saas seo
+- [x] `PG-SFS-006` saas seo expert
+- [x] `PG-WLS-005` integrated seo
 
 ---
 ## ⚪ 7月5日 (周日) - 待写作
