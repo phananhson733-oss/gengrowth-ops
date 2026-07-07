@@ -370,6 +370,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-037` arthur fery birth chart
 - [ ] `PG-CELEB-038` kai cenat zodiac sign
 - [x] `PG-CELEB-039` alexander zverev birth chart
-- [ ] `PG-WC-046` egypt world cup 2026 astrology
+- [x] `PG-WC-046` egypt world cup 2026 astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
