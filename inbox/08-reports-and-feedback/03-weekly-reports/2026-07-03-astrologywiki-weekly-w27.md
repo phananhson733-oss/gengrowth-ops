@@ -189,6 +189,30 @@ BRDECO竞调结论清晰，但留下了开放问题：如果GenGrowth要服务B2
 
 ---
 
+---
+
+### UV 增长机制与本周实验验证
+
+**W27已验证：趋势blog是astrologywiki当前最有效的UV来源**（世界杯内容贡献63%UV）。W28在此基础上运行两个新实验：
+
+**实验一：生日倒计时内容能否制造双峰流量**
+Lamine Yamal 生日为7月13日（W28末尾），计划在生日前发布星盘文章。假设：提前发布能在"世界杯搜索期"和"生日当天"各产生一次UV增量，形成双峰。若生日当天点击显著高于发布日，验证成功，这个"提前布局生日内容"的玩法可复制到其他球员/名人。
+
+**实验二：趋势blog能否在会话内转化为工具用户**
+W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部在文章内嵌入 birth chart calculator 内链。W28结束后用GA4路径探索查：从这5篇blog进入后，点击 `/en/birth-chart-calculator` 的比例是多少？这是第一次系统性测试"趋势内容→工具转化"漏斗。
+
+**本周UV增长来源预判：**
+- 主力：世界杯半决赛/决赛阶段相关球员星盘（Mbappé/Hakimi/Cherki）——热度延续
+- 定时spike：Yamal生日（7/13）
+- 新渠道：Reddit首批带链接帖（若账号karma达标）——预计贡献有限但开始建立基线
+
+**W28结束时需要回答的问题：**
+- 5篇blog合计带来多少UV？单篇均值是否接近W27世界杯内容水平（12-16UV/篇）？
+- Yamal生日当天流量是否出现明显spike？
+- 趋势blog→calculator的转化路径点击率是否>0？
+
+---
+
 **其他核心杠杆：** aistorygenerator.work 外链冷启动，W28完成 HN Show HN + 前3个工具目录 + 2个GitHub Awesome List PR。
 
 ### 行动项
