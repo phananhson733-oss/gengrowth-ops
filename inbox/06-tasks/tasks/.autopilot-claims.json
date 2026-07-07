@@ -1956,7 +1956,7 @@
     "mergedAt": "2026-07-05T14:27:59.322Z"
   },
   "PG-WC-043": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "kylian-mbapp-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -1968,7 +1968,11 @@
     "branch": "seo/auto/2026-07-06-PG-WC-043",
     "pr": "https://github.com/xdawayer/oracle/pull/328",
     "retryEvidence": "codex window recovered post-storm; clean serial re-gate",
-    "retryAt": "2026-07-07T05:03:54.964Z"
+    "retryAt": "2026-07-07T05:03:54.964Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-06-pg-wc-043-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-07T05:14:45.628Z",
+    "headRefOid": "6c410652483848891f7fd53b8ea034797670d9cf"
   },
   "PG-CELEB-030": {
     "status": "pushed-preview",
