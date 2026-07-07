@@ -2183,7 +2183,7 @@
     "mergedAt": "2026-07-07T15:13:42.343Z"
   },
   "PG-CELEB-038": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "kai-cenat-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2199,6 +2199,7 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-07-pg-cfe35b-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-07-07T15:17:09.045Z",
-    "headRefOid": "de62a72c26b3fa5f97b0d18100d31d0587cee34c"
+    "headRefOid": "de62a72c26b3fa5f97b0d18100d31d0587cee34c",
+    "mergedAt": "2026-07-07T15:18:09.372Z"
   }
 }
