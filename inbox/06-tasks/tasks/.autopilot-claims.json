@@ -2076,9 +2076,11 @@
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "worktree",
-    "lockedBy": "25844",
-    "leaseUntil": "2026-07-07T07:53:17.262Z",
-    "updatedAt": "2026-07-07T06:53:17.262Z"
+    "stage": "convert",
+    "lockedBy": "26280",
+    "leaseUntil": "2026-07-07T07:54:52.811Z",
+    "updatedAt": "2026-07-07T06:54:52.811Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
+    "branch": "seo/auto/2026-07-07-PG-WC-045"
   }
 }
