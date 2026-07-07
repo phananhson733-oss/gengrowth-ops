@@ -2089,15 +2089,16 @@
     "failedAt": "2026-07-07T07:13:22.037Z"
   },
   "PG-CELEB-035": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "kevin-de-bruyne-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "99816",
-    "leaseUntil": "2026-07-07T13:58:00.021Z",
-    "updatedAt": "2026-07-07T12:58:00.021Z",
+    "leaseUntil": "2026-07-07T13:58:53.380Z",
+    "updatedAt": "2026-07-07T12:58:53.380Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-035",
-    "branch": "seo/auto/2026-07-07-PG-CELEB-035"
+    "branch": "seo/auto/2026-07-07-PG-CELEB-035",
+    "pr": "https://github.com/xdawayer/oracle/pull/337"
   }
 }
