@@ -2123,5 +2123,17 @@
     "verifiedAt": "2026-07-07T13:15:10.009Z",
     "headRefOid": "d41b4af0ec6e3a70219435a442de3588cbc7f405",
     "mergedAt": "2026-07-07T13:18:30.729Z"
+  },
+  "PG-CELEB-037": {
+    "status": "active",
+    "slug": "arthur-fery-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-037.md",
+    "stage": "convert",
+    "lockedBy": "67413",
+    "leaseUntil": "2026-07-07T14:32:28.796Z",
+    "updatedAt": "2026-07-07T13:32:28.796Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-037",
+    "branch": "seo/auto/2026-07-07-PG-CELEB-037"
   }
 }
