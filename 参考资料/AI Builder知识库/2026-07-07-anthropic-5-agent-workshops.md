@@ -25,10 +25,11 @@ aliases:
 
 ## 来源
 
-- X 传播信号：<https://x.com/cyrilXBT/status/2074309927619924426?s=20>
-- 传播账号：CyrilXBT
+- X 传播信号 1：<https://x.com/cyrilXBT/status/2074309927619924426?s=20>
+- X 传播信号 2：<https://x.com/0xCodez/status/2074125653805277294?s=20>
+- 传播账号：CyrilXBT、Codez
 - 抓取时间：2026-07-07
-- 证据等级：tweet 本体为 direct-content；其指向的 workshop 包目前属于 **部分直接核实** —— 已直接核到 4 个可访问视频页面与描述，另 1 个主题只核到同主题公开视频，尚未完成精确一一映射。
+- 证据等级：两个 tweet 本体都属于 direct-content；其指向的 workshop 包目前属于 **部分直接核实** —— 已直接核到 4 个可访问视频页面与描述，另 1 个主题只核到同主题公开视频，尚未完成精确一一映射。`0xCodez` 这条额外指向一篇 X Article《Build self-improving agent system with Fable 5 in 14 steps : loops, dynamic workflows, routines》；该文章原始 X Article 正文未直接拿到，但已通过同标题第三方镜像拿到完整可读版本，因此正文层证据按“mirror-direct / origin-partial”处理。
 
 ## 一句话结论
 
@@ -74,6 +75,30 @@ tweet 中第 3 条标题写的是 **Make your agent autonomous**。当前公开�
 
 - 主题已被高可信 corroborate：Anthropic/Claude 体系确实在推进长时、托管、自治式 agent 工作流；
 - 但 tweet 列表中的这条标题，当前仍应视为 **partial-content / partial-mapping**，不能假装我已经拿到了它的完整官方页面。
+
+### 4. 新增传播信号：0xCodez 的 Fable 5 包装版本
+
+第二条传播信号不是简单复读，而是把同一批 Anthropic 能力重新包装成更强的 **Fable 5 实战叙事**：
+
+- 00:00 — Full guide to Fable 5
+- 19:02 — How Anthropic uses Fable 5 internally
+- 44:46 — How to build effective agents with Fable
+
+它同时把用户继续引向一篇 X Article：
+
+- 标题：**Build self-improving agent system with Fable 5 in 14 steps : loops, dynamic workflows, routines**
+- 原始载体：X Article（原文正文未直接抓到）
+- 当前可用正文来源：同标题第三方镜像  
+  <https://mer.vin/2026/06/claude-fable-5-self-improving-agents-14-step-loop-engineering-guide>
+
+这篇文章最值得记的，不是某个单点 prompt，而是它把 Anthropic 这套 agent 方法再压成了一个 **四层 compound stack**：
+
+1. **Primitives**：Fable 5、sub-agents、worktrees、tools
+2. **Orchestration**：`/goal`、Outcomes、Dynamic Workflows、Routines
+3. **Memory**：`STATE.md`、Skills、knowledge bases
+4. **Self-improvement**：vision checks、eval loops、rule distillation
+
+也就是说，`0xCodez` 这条传播信号提供了一个新价值：它说明 builder 圈已经不只是在转 Anthropic workshop，而是在主动把它翻译成一套“如何搭持续型 agent 系统”的可讲框架。
 
 ## 高可信事实
 
