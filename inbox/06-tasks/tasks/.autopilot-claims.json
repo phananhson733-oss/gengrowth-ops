@@ -2167,10 +2167,10 @@
     "slug": "egypt-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-WC-046.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "98963",
-    "leaseUntil": "2026-07-07T15:40:28.852Z",
-    "updatedAt": "2026-07-07T14:40:28.852Z",
+    "leaseUntil": "2026-07-07T15:44:43.292Z",
+    "updatedAt": "2026-07-07T14:44:43.292Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-046",
     "branch": "seo/auto/2026-07-07-PG-WC-046"
   }
