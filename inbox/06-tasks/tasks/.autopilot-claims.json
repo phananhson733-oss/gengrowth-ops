@@ -2072,7 +2072,7 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2082,6 +2082,8 @@
     "updatedAt": "2026-07-07T06:46:50.462Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
     "branch": "seo/auto/2026-07-07-PG-WC-045",
-    "pr": "https://github.com/xdawayer/oracle/pull/334"
+    "pr": "https://github.com/xdawayer/oracle/pull/334",
+    "error": "review[astrology] FAIL: The piece repeatedly anchors its one concrete astronomical claim on 'Jupiter in Gemini' as the shared World Cup 2026 transit, but Jupiter leaves Gemini in June 2025 and transits Cancer then Leo during the June–July 2026 tournament, so the central factual placement is wrong.",
+    "failedAt": "2026-07-07T06:50:03.283Z"
   }
 }
