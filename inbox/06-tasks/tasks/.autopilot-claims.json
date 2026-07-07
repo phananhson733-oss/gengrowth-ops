@@ -2072,18 +2072,20 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "71850",
-    "leaseUntil": "2026-07-07T08:11:01.212Z",
-    "updatedAt": "2026-07-07T07:11:01.212Z",
+    "lockedBy": "86597",
+    "leaseUntil": "2026-07-07T08:13:10.859Z",
+    "updatedAt": "2026-07-07T07:13:10.859Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
     "branch": "seo/auto/2026-07-07-PG-WC-045",
     "pr": "https://github.com/xdawayer/oracle/pull/334",
-    "retryEvidence": "astrology PASS (Jupiter fixed); chrome-verify no-h1 was transient preview timing; re-gate",
-    "retryAt": "2026-07-07T07:11:01.212Z"
+    "retryEvidence": "all real issues fixed (RL4/Jupiter/chrome); codex transient, clean single re-gate",
+    "retryAt": "2026-07-07T07:13:10.859Z",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-07T07:13:22.037Z"
   }
 }
