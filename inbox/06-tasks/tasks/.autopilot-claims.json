@@ -2085,7 +2085,7 @@
     "pr": "https://github.com/xdawayer/oracle/pull/334",
     "retryEvidence": "all real issues fixed (RL4/Jupiter/chrome); codex transient, clean single re-gate",
     "retryAt": "2026-07-07T07:13:10.859Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "error": "review[codex] FAIL: stale topic — Mexico vs England match already played 2026-07-06, pre-match prediction expired; DO NOT publish",
     "failedAt": "2026-07-07T07:13:22.037Z"
   }
 }
