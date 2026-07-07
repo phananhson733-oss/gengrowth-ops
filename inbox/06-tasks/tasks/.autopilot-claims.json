@@ -2125,20 +2125,18 @@
     "mergedAt": "2026-07-07T13:18:30.729Z"
   },
   "PG-CELEB-037": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "arthur-fery-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-037.md",
     "stage": "pushed-preview",
-    "lockedBy": "29093",
-    "leaseUntil": "2026-07-07T15:01:31.065Z",
-    "updatedAt": "2026-07-07T14:01:31.065Z",
+    "lockedBy": "49649",
+    "leaseUntil": "2026-07-07T15:03:56.420Z",
+    "updatedAt": "2026-07-07T14:03:56.420Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-037",
     "branch": "seo/auto/2026-07-07-PG-CELEB-037",
     "pr": "https://github.com/xdawayer/oracle/pull/339",
-    "retryEvidence": "operator rewrote Arthur Fery article with corrected tropical ephemeris evidence; local astrology/schema/links-seo reviews passed",
-    "retryAt": "2026-07-07T14:01:31.065Z",
-    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
-    "failedAt": "2026-07-07T14:02:57.996Z"
+    "retryEvidence": "operator rewrote Arthur Fery article and local review passed; rerun with Vercel bypass env loaded",
+    "retryAt": "2026-07-07T14:03:56.420Z"
   }
 }
