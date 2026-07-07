@@ -345,7 +345,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 7月5日 (周日) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-WC-043` Kylian Mbappé birth chart
+- [x] `PG-WC-043` Kylian Mbappé birth chart
 - [x] `PG-WC-044` Lamine Yamal birth chart
 - [x] `PG-CELEB-029` Achraf Hakimi birth chart
 - [ ] `PG-CELEB-030` Rayan Cherki birth chart
