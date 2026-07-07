@@ -2059,5 +2059,14 @@
     "verifiedAt": "2026-07-06T13:31:37.407Z",
     "headRefOid": "bb3a947d0a2e78a97dd2f35b15bf591d40e4776f",
     "mergedAt": "2026-07-06T13:31:47.369Z"
+  },
+  "PG-WC-045": {
+    "status": "needs_human",
+    "slug": "mexico-vs-england-astrology-prediction",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: - drifted sections: \"Common Misreadings\" (jaccard=0.000, shingle=0.000, target-recall=0.00); \"Common Questions About the Mexico–England Reading\" (jaccard=0.000, shingle=0.000, target-recall=0.00) (skipped 4 structural: \"The Mexico–England Reading at a Glance\", \"Reflection Prompts\", \"Related Reading\", \"Sources\") after 3 attempt(s) + deterministic repair",
+    "failedAt": "2026-07-07T04:41:39.101Z"
   }
 }
