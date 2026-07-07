@@ -120,3 +120,4 @@ updated: 2026-07-07
 | 2026-07-07 | PG-CELEB-030 | rayan-cherki-birth-chart | Rayan Cherki Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rayan-cherki-birth-chart | published |
 | 2026-07-07 | PG-CELEB-035 | kevin-de-bruyne-birth-chart | Kevin De Bruyne Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kevin-de-bruyne-birth-chart | published |
 | 2026-07-07 | PG-CELEB-036 | anne-hathaway-birth-chart | Anne Hathaway Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/anne-hathaway-birth-chart | published |
+| 2026-07-07 | PG-CELEB-037 | arthur-fery-birth-chart | What the Arthur Fery Birth Chart Shows Beyond His Cancer Sun | marcus-orion | https://www.astrologywiki.com/en/wiki/arthur-fery-birth-chart | published |
