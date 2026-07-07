@@ -26,16 +26,43 @@ updated: 2026-07-03
 
 ### 多产品 GSC + Analytics 周报（W27）
 
-| 产品 | UV（新用户数） | PV（浏览次数） | 点击 | 曝光 | CTR | 平均排名 | UV 环比 |
-|---|---|---|---|---|---|---|---|
-| astrologywiki.com | 138 | 131 | 195 | 1.11万 | 1.8% | **10.1** | ↑176% |
-| aistorygenerator.work | 27 | 42 | 8 | 187 | 4.3% | 44.9 | 新站 |
-| googledocsresumetemplate.com | 23 | 30 | 1 | 99 | 1% | 61.4 | 新站 |
+| 产品 | UV（活跃用户） | PV（浏览次数） | 新用户 | 点击 | 曝光 | CTR | 平均排名 | UV 环比 |
+|---|---|---|---|---|---|---|---|---|
+| astrologywiki.com | 76 | 131 | 138 | 195 | 1.11万 | 1.8% | **10.1** | ↑148% |
+| aistorygenerator.work | 27 | 42 | 27 | 8 | 187 | 4.3% | 44.9 | 新站 |
+| googledocsresumetemplate.com | 23 | 30 | 23 | 1 | 99 | 1% | 61.4 | 新站 |
 
 **关键解读：**
-- astrologywiki 排名10.1（W27精确值）远好于28天均值16.9，说明本周内容质量更高，趋势词命中效果显著
-- astrologywiki UV ↑176%，增量主要来自趋势词blog引入的新访客；PV（131）略低于UV（138），平均不到1页/用户，跳出率高，用户找到内容即离开，符合趋势词流量特征
-- aistorygenerator.work 技术SEO 6/30落地，当周即有8次点击（排名44.9），冷启动有信号
+
+**astrologywiki UV 76（↑148%）——增长来源与实验验证**
+
+按路径UV排序的Top页面（完整CSV数据，6/29–7/5）：
+
+| 页面 | PV | UV | 平均互动时长 |
+|---|---|---|---|
+| /en/wiki/vozinha-birth-chart | 0 ⚠️ | 16 | 51s |
+| / 首页 | 18 | 12 | 95s |
+| /en/wiki/erling-haaland-birth-chart | 2 ⚠️ | 12 | 55s |
+| /en/wiki/harry-kane-birth-chart | 6 | 12 | 122s |
+| /en/wiki/england-world-cup-2026-astrology | 0 ⚠️ | 8 | 179s |
+| /en/wiki（wiki目录页） | 21 | 6 | 16s |
+| /en/tools | 12 | 4 | 12s |
+| /en/birth-chart-calculator | 6 | 3 | 66s |
+
+**世界杯趋势blog是本周UV主力**：Vozinha(16) + Haaland(12) + Kane(12) + England WC(8) = 48 UV，占总UV 76的**63%**。工具页（tools/calculator合计约7UV）是次要来源。
+
+**内容质量信号**：Kane（122s）和England WC（179s）的平均互动时长显著高于工具页（10-16s），说明世界杯深度分析内容有真实阅读行为，不是跳出流量。
+
+**⚠️ 技术异常（需排查）**：Vozinha（0 PV/16 UV）、Haaland（2 PV/12 UV）、England WC（0 PV/8 UV）均出现PV远低于UV的情况，说明这三个页面的 `page_view` 事件未正常触发。用户已被GA计入活跃用户，但页面浏览事件丢失，可能是GA4 script加载时序问题，影响后续数据准确性。
+
+**目前仍不清楚的问题（W28需补充）：**
+- `page_view` 丢失的根本原因，是否影响其他页面？
+- 趋势blog能否在单次会话内转化为工具用户？（GA4路径探索：起点=趋势blog页面，看下一步到 `/en/birth-chart-calculator` 的比例）
+- 随着趋势blog累积，每周UV基线是否在抬高？（若是，趋势内容在持续扩大用户池；若每周UV完全随热点归零，说明无沉淀效应，需重新评估内容策略）
+- 首页12 UV的来源：品牌词直接搜索还是blog内链引导？
+
+**其他产品：**
+- aistorygenerator.work 技术SEO 6/30落地，当周即产生8次点击（排名44.9），冷启动有信号
 - googledocsresumetemplate.com 1次点击99次曝光，已被收录，排名61.4属沙盒期正常范围
 
 ---
@@ -159,6 +186,29 @@ BRDECO竞调结论清晰，但留下了开放问题：如果GenGrowth要服务B2
 - [ ] 输出结论：继续迭代 / 可对外推广 / 需要重大改版
 
 > W28结束前需给出明确的Go/No-Go判断，不能只是"感觉还不错"。
+
+---
+
+
+### UV 增长机制与本周实验验证
+
+**W27已验证：趋势blog是astrologywiki当前最有效的UV来源**（世界杯内容贡献63%UV）。W28在此基础上运行两个新实验：
+
+**实验一：生日倒计时内容能否制造双峰流量**
+Lamine Yamal 生日为7月13日（W28末尾），计划在生日前发布星盘文章。假设：提前发布能在"世界杯搜索期"和"生日当天"各产生一次UV增量，形成双峰。若生日当天点击显著高于发布日，验证成功，这个"提前布局生日内容"的玩法可复制到其他球员/名人。
+
+**实验二：趋势blog能否在会话内转化为工具用户**
+W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部在文章内嵌入 birth chart calculator 内链。W28结束后用GA4路径探索查：从这5篇blog进入后，点击 `/en/birth-chart-calculator` 的比例是多少？这是第一次系统性测试"趋势内容→工具转化"漏斗。
+
+**本周UV增长来源预判：**
+- 主力：世界杯半决赛/决赛阶段相关球员星盘（Mbappé/Hakimi/Cherki）——热度延续
+- 定时spike：Yamal生日（7/13）
+- 新渠道：Reddit首批带链接帖（若账号karma达标）——预计贡献有限但开始建立基线
+
+**W28结束时需要回答的问题：**
+- 5篇blog合计带来多少UV？单篇均值是否接近W27世界杯内容水平（12-16UV/篇）？
+- Yamal生日当天流量是否出现明显spike？
+- 趋势blog→calculator的转化路径点击率是否>0？
 
 ---
 
