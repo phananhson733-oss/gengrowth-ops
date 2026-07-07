@@ -2100,5 +2100,17 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-035",
     "branch": "seo/auto/2026-07-07-PG-CELEB-035",
     "pr": "https://github.com/xdawayer/oracle/pull/337"
+  },
+  "PG-CELEB-036": {
+    "status": "active",
+    "slug": "anne-hathaway-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-036.md",
+    "stage": "convert",
+    "lockedBy": "6932",
+    "leaseUntil": "2026-07-07T14:00:42.685Z",
+    "updatedAt": "2026-07-07T13:00:42.685Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-036",
+    "branch": "seo/auto/2026-07-07-PG-CELEB-036"
   }
 }
