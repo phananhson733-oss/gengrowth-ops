@@ -2145,15 +2145,16 @@
     "mergedAt": "2026-07-07T14:06:51.881Z"
   },
   "PG-CELEB-039": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "alexander-zverev-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-039.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "80362",
-    "leaseUntil": "2026-07-07T15:16:09.034Z",
-    "updatedAt": "2026-07-07T14:16:09.034Z",
+    "leaseUntil": "2026-07-07T15:18:51.941Z",
+    "updatedAt": "2026-07-07T14:18:51.941Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-039",
-    "branch": "seo/auto/2026-07-07-PG-CELEB-039"
+    "branch": "seo/auto/2026-07-07-PG-CELEB-039",
+    "pr": "https://github.com/xdawayer/oracle/pull/340"
   }
 }
