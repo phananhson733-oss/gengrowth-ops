@@ -2161,5 +2161,18 @@
     "verifiedAt": "2026-07-07T14:24:08.953Z",
     "headRefOid": "10bea78e380ec55d751be01d1746059660942cfa",
     "mergedAt": "2026-07-07T14:24:22.848Z"
+  },
+  "PG-WC-046": {
+    "status": "pushed-preview",
+    "slug": "egypt-world-cup-2026-astrology",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-WC-046.md",
+    "stage": "pushed-preview",
+    "lockedBy": "98963",
+    "leaseUntil": "2026-07-07T15:47:58.542Z",
+    "updatedAt": "2026-07-07T14:47:58.542Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-046",
+    "branch": "seo/auto/2026-07-07-PG-WC-046",
+    "pr": "https://github.com/xdawayer/oracle/pull/341"
   }
 }
