@@ -1918,7 +1918,7 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
@@ -1930,7 +1930,11 @@
     "branch": "seo/auto/2026-07-05-PG-CELEB-029",
     "pr": "https://github.com/xdawayer/oracle/pull/326",
     "retryEvidence": "codex window recovered post-storm; clean serial re-gate",
-    "retryAt": "2026-07-07T05:03:54.904Z"
+    "retryAt": "2026-07-07T05:03:54.904Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-05-pg-183107-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass-post-repair)",
+    "verifiedAt": "2026-07-07T05:10:35.807Z",
+    "headRefOid": "9d37fbbc0bbfd2876c3d483f490cbfc8d8b70c67"
   },
   "PG-CELEB-031": {
     "status": "done",
