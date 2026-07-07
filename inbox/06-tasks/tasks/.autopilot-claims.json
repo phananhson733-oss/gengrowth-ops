@@ -1918,7 +1918,7 @@
     "mergedAt": "2026-07-03T20:22:09.860Z"
   },
   "PG-CELEB-029": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "achraf-hakimi-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-029.md",
@@ -1934,7 +1934,8 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-05-pg-183107-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass-post-repair)",
     "verifiedAt": "2026-07-07T05:10:35.807Z",
-    "headRefOid": "9d37fbbc0bbfd2876c3d483f490cbfc8d8b70c67"
+    "headRefOid": "9d37fbbc0bbfd2876c3d483f490cbfc8d8b70c67",
+    "mergedAt": "2026-07-07T05:11:37.929Z"
   },
   "PG-CELEB-031": {
     "status": "done",
