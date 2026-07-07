@@ -2178,7 +2178,7 @@
     "failedAt": "2026-07-07T14:52:47.118Z"
   },
   "PG-CELEB-038": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kai-cenat-zodiac-sign",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2188,6 +2188,8 @@
     "updatedAt": "2026-07-07T14:57:28.578Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-038",
     "branch": "seo/auto/2026-07-07-PG-CELEB-038",
-    "pr": "https://github.com/xdawayer/oracle/pull/342"
+    "pr": "https://github.com/xdawayer/oracle/pull/342",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-07T15:02:01.885Z"
   }
 }
