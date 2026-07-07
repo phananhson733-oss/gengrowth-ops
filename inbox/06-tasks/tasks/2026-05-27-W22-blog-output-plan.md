@@ -368,7 +368,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-035` kevin de bruyne birth chart
 - [x] `PG-CELEB-036` anne hathaway birth chart
 - [x] `PG-CELEB-037` arthur fery birth chart
-- [ ] `PG-CELEB-038` kai cenat zodiac sign
+- [x] `PG-CELEB-038` kai cenat zodiac sign
 - [x] `PG-CELEB-039` alexander zverev birth chart
 - [x] `PG-WC-046` egypt world cup 2026 astrology
 
