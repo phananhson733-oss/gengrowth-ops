@@ -4,7 +4,7 @@ description: Use this when Pengman asks for AstrologyWiki daily social topics, s
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.7.1
+  version: 0.7.2
 ---
 
 # AstrologyWiki Social Daily
@@ -113,6 +113,8 @@ Do not let the weekday calendar suppress either route. Monday/Tuesday/etc. caden
 - Life-first mother topics do not need a timely hotspot. They can come from evergreen human situations such as relationship confusion, career pressure, burnout, identity shifts, jealousy, family tension, or wanting a reset.
 - Timely hotspots are mainly for trend-driven or time-sensitive content: entertainment releases, celebrity gossip, relationship/dating discourse, workplace or money discourse, lifestyle/fashion/beauty trends, streaming/music moments, Reddit debates, Google Trends/Google News topics, current X/TikTok/YouTube conversations, current astrology transits, major sports events, and other public events.
 - Do not over-index on sports. World Cup is only one example inside the sports category. After any specific event cycle ends, replace it with whatever public conversation is currently active.
+- For hotspot content, avoid making the public-facing angle sound like a classroom lesson or a generic explainer. Lead with the story, scene, person, emotional tension, or visual moment people already care about; let the astrology/tool insight enter as the second layer.
+- For Route B celebrity, sports, and entertainment topics, avoid question-heavy titles and covers unless the question is genuinely the viral hook. Prefer declarative, editorial, or narrative hooks that feel like a short video opening: a live tension, an observation, or a surprising framing.
 - Social topics are driven by life relevance and format fit first. GSC/SEO data helps choose landing pages and phrase user intent, but should not override a stronger live hotspot when the goal is a trend-driven item.
 - Use GSC/SEO keywords as inspiration and landing-page evidence, not as a hard ranking table.
 - Always check recent published content and avoid repeating the same topic, person, hook, article, or format within 7-14 days unless the new angle is clearly different.
@@ -152,6 +154,7 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 - Avoid obvious AI contrast formulas such as "not X, but Y", "this is not..., this is...", "it is...not...", "it is not...it is...", or forced positive/negative reversal.
 - Avoid defensive disclaimer phrasing in public copy, especially "without predicting...", "without making predictions...", "without saying...", "not to predict...", or similar lines that make the post sound like it is pre-emptively denying a problem.
 - Avoid generic framing like "the story is...", "this story shows...", or "the story behind..." unless it is a literal news/article summary and sounds natural.
+- For hotspot image posts and carousels, avoid over-teaching. Do not stack slides as "definition -> explanation -> CTA" unless the user asks for education. Make the carousel feel like an entertainment/editorial micro-story: strong cover, specific public moment, 2-3 short insight cards, then a light tool/page CTA.
 - Keep public copy natural, direct, and concise.
 - Avoid over-explaining brand values inside scripts.
 - Most content should not feel like an ad; use light CTA unless the user asks for direct conversion copy.
@@ -444,7 +447,7 @@ Avoid:
 
 Use for Instagram carousel or Pinterest-derived image posts.
 
-Structure:
+For evergreen education, use:
 
 ```text
 Slide 1: strong hook title
@@ -452,6 +455,16 @@ Slides 2-7: houses/aspects/placements or psychology-aware explanation
 Slides 8-9: AstrologyWiki page/tool screenshots
 Slide 10: CTA
 ```
+
+For Route B hotspot/celebrity/entertainment image posts, use fewer slides and a less instructional shape:
+
+```text
+Slide 1: specific story-led cover, usually not a question
+Slides 2-4: public moment -> emotional/social tension -> astrology lens in one short idea per slide
+Slide 5-6: soft CTA to the relevant AstrologyWiki article/tool/page
+```
+
+The best hotspot carousel should feel closer to a polished short-video narrative than a mini class. If the video concept is stronger, adapt that rhythm into the image post instead of turning it into a heavy explainer.
 
 Keep text editable in Canva. Do not generate text inside images.
 

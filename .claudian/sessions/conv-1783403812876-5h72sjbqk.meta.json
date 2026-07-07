@@ -1,0 +1,26 @@
+{
+  "id": "conv-1783403812876-5h72sjbqk",
+  "providerId": "codex",
+  "title": "从0:14～0:45，为我标注视频结构每段画面推荐的素材（从互联网上寻找，带上链接）或者画面要素以及...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1783403812876,
+  "updatedAt": 1783406627176,
+  "lastResponseAt": 1783406627176,
+  "sessionId": "019f3b26-b6b0-75c2-aace-fc5d752b5d91",
+  "providerState": {
+    "threadId": "019f3b26-b6b0-75c2-aace-fc5d752b5d91",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/06/rollout-2026-07-06T22-57-00-019f3b26-b6b0-75c2-aace-fc5d752b5d91.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 House of the Dragon Rhaenyra 视频制作方案.md",
+  "usage": {
+    "inputTokens": 86410,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 85888,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 86410,
+    "percentage": 33,
+    "model": "gpt-5.5"
+  }
+}

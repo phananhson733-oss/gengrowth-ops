@@ -3,7 +3,7 @@ title: 每周已发布内容合集入口
 type: workspace-index
 project: astrologywiki
 owner: pengman
-updated: 2026-07-03
+updated: 2026-07-06
 ---
 
 # 每周已发布内容合集入口
@@ -14,7 +14,8 @@ updated: 2026-07-03
 
 | 周次 | 日期范围 | 入口 | 备注 |
 |---|---|---|---|
-| 2026-W27 | 2026-06-29 to 2026-07-05 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]] | 本周进行中 |
+| 2026-W28 | 2026-07-06 to 2026-07-12 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]] | 本周新开，已补首条 YouTube Shorts |
+| 2026-W27 | 2026-06-29 to 2026-07-05 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]] | 已于 2026-07-06 做周一收口刷新 |
 | 2026-W25 | 2026-06-15 to 2026-06-21 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]] | 上上周补录 |
 
 ## 阶段数据分析

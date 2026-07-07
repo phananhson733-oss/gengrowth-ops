@@ -3,14 +3,14 @@ title: 2026-07-03 社媒内容数据阶段分析
 type: social-content-data-analysis
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-05
-data_scope: archived public metrics from 2026-W25 and 2026-W27, including additional public account checks on 2026-07-05 for X, TikTok, Instagram, and YouTube
+updated: 2026-07-07
+data_scope: archived public metrics from 2026-W25, 2026-W27, and early 2026-W28, including additional public account checks on 2026-07-05, 2026-07-06, and 2026-07-07 for X, TikTok, Instagram, and YouTube
 status: draft
 ---
 
 # 2026-07-03 社媒内容数据阶段分析
 
-> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05 的公开账号级检查。Instagram 数据含 2026-07-05 公开 profile header；X 数据含 2026-07-05 公开 profile meta；TikTok 数据含 2026-07-05 公开 profile meta；YouTube 数据含 2026-07-05 `/shorts` 与 `/videos` 公开页检查。  
+> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集`、`2026-W28 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05、2026-07-06、2026-07-07 的公开账号级检查。Instagram 数据含 2026-07-07 公开 web profile meta；X 数据含 2026-07-07 公开 profile；TikTok 数据含 2026-07-07 公开 profile JSON；YouTube 数据含 2026-07-07 公开 `shorts/videos` 列表页。  
 > 当前不包含后台 analytics：X impressions / link clicks、TikTok 完播率 / 主页访问 / 链接点击、YouTube Studio 留存 / shown in feed / 点击数据、站内 referral / PV 变化。  
 > 目标：判断哪些站外内容更可能支持 AstrologyWiki 的 SEO / PV / 站内主题页，而不是单纯比较粉丝增长。
 
@@ -18,10 +18,31 @@ status: draft
 
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-01-public-account-crawl-log.md]]
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/2026-06-29-content-direction-and-tools-research.md]]
 
+## 0. 2026-07-06 增量更新
+
+- YouTube：公开 RSS 现在是当前最稳定的公开补链来源。它一次性补齐了 W27 的 `Why You Don't Fully Feel Like Your Zodiac Sign` 长短视频、`Sports astrology without winner predictions.` Shorts，并确认 W28 新增 `Why Celebrity Birth Charts Get This Wrong So Often`。
+- Instagram：公开 web profile API 已从 `3 posts` 变成 `4 posts`，并能稳定拿到 4 条内容 metadata。W27 新补录的 `DacR6dKPD2Z` 说明 Instagram 已不只是简单复用 birth chart CTA，也开始测试 celebrity chart 方法论内容。
+- TikTok：账号级公开数从 `1 follower / 19 likes / 9 videos` 升到 `2 followers / 20 likes / 10 videos`，但内容级列表仍不稳定，说明 TikTok 适合看作“有发布但公开归档困难”的平台。
+- X：账号级公开数从 `20 posts` 升到 `24 posts`，但未登录时间线仍空白，当前归档缺口依然主要在 X。
+- 平台判断调整：
+  - `YouTube Shorts` 继续保持 P0，因为公开数据链路最稳，而且 sports astrology / celebrity chart / birth chart tools 三类都能在这里被持续追踪。
+  - `Instagram` 从“只有 2 条样本的极早期分发位”升级为“可稳定归档的轻量复用分发位”；仍不建议单独开复杂制作线，但值得持续纳入周报。
+  - `TikTok` 仍是 P1 触达测试位，但若没有人工补链，自动化很难做全量内容级复盘。
+
+## 0.1 2026-07-07 增量更新
+
+- 2026-07-07 北京时间这次刷新未发现新的稳定公开内容链接，W28 仍只新增 1 条 YouTube Shorts：`Why Celebrity Birth Charts Get This Wrong So Often`。
+- X / TikTok / Instagram 的账号级公开数字与 2026-07-06 一致，说明今天更像“确认无新增公开补链”的检查，而不是一轮新的平台扩量。
+- YouTube 公开 feed URL 当前返回 404，但 `@AstrologyWiki/shorts` 和 `/videos` 列表页仍可确认现有 7 个 Shorts ID 与 2 个长视频 ID；因此 YouTube 仍是最稳的 public-only 补链来源，只是抓取入口要改成列表页优先。
+- 这次更新不改变已有平台优先级判断：`YouTube Shorts` 仍是 P0，`TikTok` 仍是 P1 测试位，`Instagram` 仍是可稳定归档的轻量复用位，`X` 仍主要承担轻量同步分发。
+
 ## 1. 阶段总览
+
+> 说明：下表仍保留 2026-07-05 这一版阶段汇总基线，避免把每日自动化变成一次完整重算；2026-07-06 的新增账号级数字、补录链接和平台判断变化，以上一节 `2026-07-06 增量更新` 为准。
 
 | 平台 | 已记录发布数量 | 总浏览/播放 | 总点赞 | 已知评论/回复 | 已知分享/转发 | 已知收藏/书签 | 已知公开互动 | 备注 |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
