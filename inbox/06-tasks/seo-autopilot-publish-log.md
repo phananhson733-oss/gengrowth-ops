@@ -121,3 +121,4 @@ updated: 2026-07-07
 | 2026-07-07 | PG-CELEB-035 | kevin-de-bruyne-birth-chart | Kevin De Bruyne Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kevin-de-bruyne-birth-chart | published |
 | 2026-07-07 | PG-CELEB-036 | anne-hathaway-birth-chart | Anne Hathaway Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/anne-hathaway-birth-chart | published |
 | 2026-07-07 | PG-CELEB-037 | arthur-fery-birth-chart | What the Arthur Fery Birth Chart Shows Beyond His Cancer Sun | marcus-orion | https://www.astrologywiki.com/en/wiki/arthur-fery-birth-chart | published |
+| 2026-07-07 | PG-CELEB-039 | alexander-zverev-birth-chart | Alexander Zverev Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/alexander-zverev-birth-chart | published |
