@@ -38,6 +38,8 @@ YYYY-MM-DD 主题内容包.md
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host Video 2 制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 Celebrity Rising Sign 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md]]
 
 ## 已合并旧稿
 

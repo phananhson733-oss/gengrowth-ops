@@ -118,3 +118,9 @@ updated: 2026-07-07
 | 2026-07-07 | PG-CELEB-029 | achraf-hakimi-birth-chart | Achraf Hakimi Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/achraf-hakimi-birth-chart | published |
 | 2026-07-07 | PG-WC-043 | kylian-mbapp-birth-chart | Kylian Mbappé Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kylian-mbapp-birth-chart | published |
 | 2026-07-07 | PG-CELEB-030 | rayan-cherki-birth-chart | Rayan Cherki Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rayan-cherki-birth-chart | published |
+| 2026-07-07 | PG-CELEB-035 | kevin-de-bruyne-birth-chart | Kevin De Bruyne Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kevin-de-bruyne-birth-chart | published |
+| 2026-07-07 | PG-CELEB-036 | anne-hathaway-birth-chart | Anne Hathaway Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/anne-hathaway-birth-chart | published |
+| 2026-07-07 | PG-CELEB-037 | arthur-fery-birth-chart | What the Arthur Fery Birth Chart Shows Beyond His Cancer Sun | marcus-orion | https://www.astrologywiki.com/en/wiki/arthur-fery-birth-chart | published |
+| 2026-07-07 | PG-CELEB-039 | alexander-zverev-birth-chart | Alexander Zverev Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/alexander-zverev-birth-chart | published |
+| 2026-07-07 | PG-WC-046 | egypt-world-cup-2026-astrology | Egypt World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/egypt-world-cup-2026-astrology | published |
+| 2026-07-07 | PG-CELEB-038 | kai-cenat-zodiac-sign | Kai Cenat Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/kai-cenat-zodiac-sign | published |

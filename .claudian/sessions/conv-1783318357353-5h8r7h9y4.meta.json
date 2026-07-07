@@ -1,0 +1,25 @@
+{
+  "id": "conv-1783318357353-5h8r7h9y4",
+  "providerId": "codex",
+  "title": "如果要在视频做的上方加入一行文字一直放这段文字，类似标题一样的，可以放什么？主要是**Why Cel...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1783318357353,
+  "updatedAt": 1783403740899,
+  "lastResponseAt": 1783319503656,
+  "sessionId": "019f360e-be0a-7e01-8212-2445fd75cbcf",
+  "providerState": {
+    "threadId": "019f360e-be0a-7e01-8212-2445fd75cbcf",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/05/rollout-2026-07-05T23-12-43-019f360e-be0a-7e01-8212-2445fd75cbcf.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 36978,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 33664,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 36978,
+    "percentage": 14,
+    "model": "gpt-5.5"
+  }
+}
