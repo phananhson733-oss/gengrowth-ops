@@ -2093,10 +2093,10 @@
     "slug": "kevin-de-bruyne-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "99816",
-    "leaseUntil": "2026-07-07T13:53:50.202Z",
-    "updatedAt": "2026-07-07T12:53:50.202Z",
+    "leaseUntil": "2026-07-07T13:58:00.021Z",
+    "updatedAt": "2026-07-07T12:58:00.021Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-035",
     "branch": "seo/auto/2026-07-07-PG-CELEB-035"
   }
