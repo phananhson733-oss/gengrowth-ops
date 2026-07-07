@@ -2174,5 +2174,17 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-046",
     "branch": "seo/auto/2026-07-07-PG-WC-046",
     "pr": "https://github.com/xdawayer/oracle/pull/341"
+  },
+  "PG-CELEB-038": {
+    "status": "active",
+    "slug": "kai-cenat-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "5315",
+    "leaseUntil": "2026-07-07T15:49:54.342Z",
+    "updatedAt": "2026-07-07T14:49:54.342Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-038",
+    "branch": "seo/auto/2026-07-07-PG-CELEB-038"
   }
 }
