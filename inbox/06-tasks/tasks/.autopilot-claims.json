@@ -2072,7 +2072,7 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2082,6 +2082,8 @@
     "updatedAt": "2026-07-07T07:01:56.577Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
     "branch": "seo/auto/2026-07-07-PG-WC-045",
-    "pr": "https://github.com/xdawayer/oracle/pull/334"
+    "pr": "https://github.com/xdawayer/oracle/pull/334",
+    "error": "chrome verify failed: [en] no <h1> on rendered page",
+    "failedAt": "2026-07-07T07:09:22.740Z"
   }
 }
