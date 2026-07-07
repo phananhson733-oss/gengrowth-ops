@@ -36,17 +36,29 @@ updated: 2026-07-03
 
 **astrologywiki UV 76（↑148%）——增长来源与实验验证**
 
-GA分页面数据（W27期间共182个页面有流量，Top 10如下）显示UV由两类来源构成，并非单一趋势blog驱动：
+按路径UV排序的Top页面（完整CSV数据，6/29–7/5）：
 
-- **工具/计算器页（基础盘）**：Free Birth Chart Calculator、Today's Sky、Natal Chart等多个工具入口合计贡献约14UV，是稳定的基础流量来源
-- **趋势blog（增量spike）**：Erling Haaland Birth Chart（4UV）、World Cup Jupiter in Cancer（2UV）进入Top 10，验证了趋势词blog在发布后能产生可测量的UV增量
+| 页面 | PV | UV | 平均互动时长 |
+|---|---|---|---|
+| /en/wiki/vozinha-birth-chart | 0 ⚠️ | 16 | 51s |
+| / 首页 | 18 | 12 | 95s |
+| /en/wiki/erling-haaland-birth-chart | 2 ⚠️ | 12 | 55s |
+| /en/wiki/harry-kane-birth-chart | 6 | 12 | 122s |
+| /en/wiki/england-world-cup-2026-astrology | 0 ⚠️ | 8 | 179s |
+| /en/wiki（wiki目录页） | 21 | 6 | 16s |
+| /en/tools | 12 | 4 | 12s |
+| /en/birth-chart-calculator | 6 | 3 | 66s |
 
-本周核心实验验证结论：**趋势blog确实带来UV增量，但单篇贡献2-4UV，量级有限；工具页才是UV基础盘**。两类来源叠加构成本周148%的增长。
+**世界杯趋势blog是本周UV主力**：Vozinha(16) + Haaland(12) + Kane(12) + England WC(8) = 48 UV，占总UV 76的**63%**。工具页（tools/calculator合计约7UV）是次要来源。
+
+**内容质量信号**：Kane（122s）和England WC（179s）的平均互动时长显著高于工具页（10-16s），说明世界杯深度分析内容有真实阅读行为，不是跳出流量。
+
+**⚠️ 技术异常（需排查）**：Vozinha（0 PV/16 UV）、Haaland（2 PV/12 UV）、England WC（0 PV/8 UV）均出现PV远低于UV的情况，说明这三个页面的 `page_view` 事件未正常触发。用户已被GA计入活跃用户，但页面浏览事件丢失，可能是GA4 script加载时序问题，影响后续数据准确性。
 
 **目前仍不清楚的问题（W28需补充）：**
-- 工具页UV来自哪些关键词？是计算器类词还是品牌词？（影响下一步内链/SEO优先级判断）
-- 趋势blog退热后UV是否留存，还是一次性流量？（W28+对比新用户vs回访用户比例）
-- 182个页面中，趋势blog总计贡献多少UV？（当前只看到Top 10，需完整拆分）
+- `page_view` 丢失的根本原因，是否影响其他页面？
+- 趋势blog退热后UV是否留存？（W28+看回访用户比例）
+- 首页12 UV的来源：品牌词直接搜索还是blog内链引导？
 
 **其他产品：**
 - aistorygenerator.work 技术SEO 6/30落地，当周即产生8次点击（排名44.9），冷启动有信号
