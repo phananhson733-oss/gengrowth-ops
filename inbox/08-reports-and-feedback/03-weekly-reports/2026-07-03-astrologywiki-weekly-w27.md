@@ -36,7 +36,7 @@ updated: 2026-07-03
 
 **astrologywiki UV 76（↑148%）——增长来源与实验验证**
 
-GA分页面数据（共182个页面）显示UV由两类来源构成，并非单一趋势blog驱动：
+GA分页面数据（W27期间共182个页面有流量，Top 10如下）显示UV由两类来源构成，并非单一趋势blog驱动：
 
 - **工具/计算器页（基础盘）**：Free Birth Chart Calculator、Today's Sky、Natal Chart等多个工具入口合计贡献约14UV，是稳定的基础流量来源
 - **趋势blog（增量spike）**：Erling Haaland Birth Chart（4UV）、World Cup Jupiter in Cancer（2UV）进入Top 10，验证了趋势词blog在发布后能产生可测量的UV增量
