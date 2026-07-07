@@ -119,3 +119,4 @@ updated: 2026-07-07
 | 2026-07-07 | PG-WC-043 | kylian-mbapp-birth-chart | Kylian Mbappé Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kylian-mbapp-birth-chart | published |
 | 2026-07-07 | PG-CELEB-030 | rayan-cherki-birth-chart | Rayan Cherki Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rayan-cherki-birth-chart | published |
 | 2026-07-07 | PG-CELEB-035 | kevin-de-bruyne-birth-chart | Kevin De Bruyne Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kevin-de-bruyne-birth-chart | published |
+| 2026-07-07 | PG-CELEB-036 | anne-hathaway-birth-chart | Anne Hathaway Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/anne-hathaway-birth-chart | published |
