@@ -2107,7 +2107,7 @@
     "mergedAt": "2026-07-07T13:03:51.135Z"
   },
   "PG-CELEB-036": {
-    "status": "pushed-preview",
+    "status": "verified-preview",
     "slug": "anne-hathaway-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-036.md",
@@ -2117,6 +2117,10 @@
     "updatedAt": "2026-07-07T13:07:58.074Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-036",
     "branch": "seo/auto/2026-07-07-PG-CELEB-036",
-    "pr": "https://github.com/xdawayer/oracle/pull/338"
+    "pr": "https://github.com/xdawayer/oracle/pull/338",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-07-pg-965577-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-07T13:15:10.009Z",
+    "headRefOid": "d41b4af0ec6e3a70219435a442de3588cbc7f405"
   }
 }
