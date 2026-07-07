@@ -2145,7 +2145,7 @@
     "mergedAt": "2026-07-07T14:06:51.881Z"
   },
   "PG-CELEB-039": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "alexander-zverev-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-039.md",
@@ -2159,6 +2159,7 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-07-pg-abbefc-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-07-07T14:24:08.953Z",
-    "headRefOid": "10bea78e380ec55d751be01d1746059660942cfa"
+    "headRefOid": "10bea78e380ec55d751be01d1746059660942cfa",
+    "mergedAt": "2026-07-07T14:24:22.848Z"
   }
 }
