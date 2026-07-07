@@ -2125,18 +2125,18 @@
     "mergedAt": "2026-07-07T13:18:30.729Z"
   },
   "PG-CELEB-037": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "arthur-fery-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-037.md",
     "stage": "pushed-preview",
-    "lockedBy": "67413",
-    "leaseUntil": "2026-07-07T14:40:07.536Z",
-    "updatedAt": "2026-07-07T13:40:07.536Z",
+    "lockedBy": "29093",
+    "leaseUntil": "2026-07-07T15:01:31.065Z",
+    "updatedAt": "2026-07-07T14:01:31.065Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-CELEB-037",
     "branch": "seo/auto/2026-07-07-PG-CELEB-037",
     "pr": "https://github.com/xdawayer/oracle/pull/339",
-    "error": "review[astrology] FAIL: The article's central thesis — a Cancer stellium of Sun, Mercury, Jupiter, and Chiron — is factually wrong because on July 12, 2002 Jupiter was in late Gemini (it did not enter Cancer until ~August 1, 2002) and Chiron was in Capricorn (opposite Cancer), so at most only the Sun (and arguably Mercury, which had likely ingressed Leo by ~July 7) supports the claimed water emphasis.",
-    "failedAt": "2026-07-07T13:43:14.861Z"
+    "retryEvidence": "operator rewrote Arthur Fery article with corrected tropical ephemeris evidence; local astrology/schema/links-seo reviews passed",
+    "retryAt": "2026-07-07T14:01:31.065Z"
   }
 }
