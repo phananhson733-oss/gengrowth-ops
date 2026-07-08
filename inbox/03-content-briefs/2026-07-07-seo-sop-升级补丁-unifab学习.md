@@ -2,7 +2,7 @@
 title: SEO SOP 升级补丁 — unifab.ai 竞品学习
 date: 2026-07-07
 updated: 2026-07-08
-status: v3
+status: v5
 适用文件: seo-pipeline-sop-v2.3.md / blog优化更新规范-v1.0.md
 来源: unifab.ai 全站多页面爬取分析
 参考文档: inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md
@@ -11,6 +11,8 @@ status: v3
 # SEO SOP 升级补丁 — unifab.ai 竞品学习
 
 > 本文件不修改原 SOP，作为独立补丁使用。在原 SOP 执行过程中，遇到对应场景时参照本补丁执行。待下次 SOP 大版本更新时合并为 v2.4。
+>
+> 仅收录 AstrologyWiki **尚未执行**的项目。已执行项（首页 H2 规则、robots.txt、WebApplication schema、工具页无定价）不在此列。
 
 ---
 
@@ -18,15 +20,14 @@ status: v3
 
 | 场景分类           | 补丁编号 | 补丁名称               |
 | -------------- | ---- | ------------------ |
-| **一、网站技术端**    | 补丁七  | GEO 完整配置清单         |
-| **二、首页**       | 补丁一  | 首页 H 标签层级规则        |
-| **三、Blog 页面**  | 补丁二  | Blog 文章结构公式升级      |
+| **一、网站技术端**    | 补丁一  | GEO 完整配置清单         |
+| **二、Blog 页面**  | 补丁二  | Blog 文章结构公式升级      |
 |                | 补丁三  | 工具页内链硬性规则          |
 |                | 补丁四  | 竞品对比文章——新增高优先级内容类型 |
 |                | 补丁五  | 嵌入产品教程模块           |
 |                | 补丁六  | Blog 末尾注册弹窗        |
-| **四、产品/工具落地页** | 补丁八  | 工具页专项规则            |
-|                | 补丁九  | 工具落地页转化架构          |
+| **三、产品/工具落地页** | 补丁七  | 工具页专项规则            |
+|                | 补丁八  | 工具落地页转化架构          |
 
 ---
 
@@ -34,24 +35,12 @@ status: v3
 
 > 新站上线前执行一次，现有站点补齐缺项。
 
-### 补丁七：GEO 完整配置清单
+### 补丁一：GEO 完整配置清单
 
 **适用场景：** 新站点上线前 / 现有站点 GEO 配置检查。
 **数据来源：** unifab.ai curl 实测（2026-07-08 验证）
 
-#### 动作一：robots.txt 开放 AI 爬虫
-
-```
-GPTBot          → OpenAI / ChatGPT
-Anthropic-ai    → Claude
-Google-Extended → Gemini / AI Overview
-PerplexityBot   → Perplexity
-CCBot           → Common Crawl（AI 训练数据主要来源）
-```
-
-最简配置：`User-agent: * Allow: /`（unifab.ai 做法，完全开放）
-
-#### 动作二：H2 开头加直接答案句
+#### 动作一：H2 开头加直接答案句
 
 ```
 ❌ 弱 GEO 写法：
@@ -64,7 +53,7 @@ Water signs share Scorpio's emotional depth, while Virgo
 provides grounding stability."
 ```
 
-#### 动作三：Organization schema + sameAs（全站一次，写入 SSR HTML）
+#### 动作二：Organization schema + sameAs（首页 SSR，全站一次）
 
 unifab 实际使用的完整格式（已验证）：
 
@@ -90,9 +79,13 @@ unifab 实际使用的完整格式（已验证）：
 
 sameAs 的作用：让所有 AI 爬虫把网站和各社媒账号识别为同一个品牌实体，在 AI 知识库里形成清晰的实体节点。
 
-#### 动作四：Person（作者实体）schema — EEAT 信号
+#### 动作三：Person（作者实体）schema — EEAT 信号
 
-unifab 完整 Person schema 结构（已验证，需完整复制四个关键字段）：
+当前问题：作者页已存在（`/en/wiki/author/marcus-orion`），但有两处需修复：
+1. `"disambiguatingDescription": "Editorial persona of AstrologyWiki, not a real individual."` — 删除这行，主动声明非真实会直接削弱 EEAT
+2. 缺少四个关键字段
+
+unifab 完整 Person schema 结构（已验证）：
 
 ```json
 {
@@ -113,9 +106,9 @@ unifab 完整 Person schema 结构（已验证，需完整复制四个关键字�
 - `sameAs`：跨平台实体验证，证明作者真实存在
 - `worksFor`：把作者绑定到 Organization 实体，雇佣关系可核验
 
-每个作者必须有独立页面 `/author/[name].htm`，ProfilePage schema 包裹 Person schema。
+同时，博客文章的 `author` 字段当前指向 `"AstrologyWiki Editorial Team"（Organization 类型）`，需改为指向对应作者页的 Person 实体 `@id`。
 
-#### 动作五：HowTo schema（嵌入教程模块时添加）
+#### 动作四：HowTo schema（嵌入教程模块时添加）
 
 **unifab 的 Step 1/2/3/4 模块没有加这个标记——这是他们的漏洞，我们可以做到而他们没做。**
 
@@ -151,7 +144,7 @@ unifab 完整 Person schema 结构（已验证，需完整复制四个关键字�
 
 触发效果：SERP 步骤预览富文本、AI 引用操作类查询时优先选取。
 
-#### 动作六：第三方引用建设（持续执行）
+#### 动作五：第三方引用建设（持续执行）
 
 AI 系统的回答不只依赖自有网站内容，也大量引用第三方评测和目录。unifab 已建立的引用矩阵（已验证）：
 
@@ -163,15 +156,15 @@ AI 系统的回答不只依赖自有网站内容，也大量引用第三方评�
 | Reddit 版块 | r/UniFabCreators（自建）| r/astrology 话题参与 |
 | YouTube | @UniFabofficial | @astrologywiki |
 
-**执行原则：** 不需要全部覆盖，优先进入 AI 系统高频引用的平台。Trustpilot 和 Futurepedia 是最高优先级。
+**执行原则：** 优先进入 Trustpilot 和 Futurepedia——这两个是 AI 系统高频引用的平台。
 
-#### 动作七：Ask AI 主动引导模块（首页 + 工具页）
+#### 动作六：Ask AI 主动引导模块（首页 + 工具页）
 
 unifab 首页设有"Ask AI about UniFab"按钮，点击后直接跳转至 AI 工具并预填品牌查询。
 
 ```
-被动 GEO（动作一~六）：优化内容 → 等 AI 爬虫发现 → 期望被引用
-主动 GEO（动作七）  ：用户点击 → 跳转 AI → 产生品牌对话 → 强化 AI 关联
+被动 GEO（动作一~五）：优化内容 → 等 AI 爬虫发现 → 期望被引用
+主动 GEO（动作六）  ：用户点击 → 跳转 AI → 产生品牌对话 → 强化 AI 关联
 ```
 
 实现方式：
@@ -191,31 +184,7 @@ AstrologyWiki 示例：
 
 ---
 
-## 二、首页
-
-> 首页改版或新站首页搭建时执行。
-
-### 补丁一：首页 H 标签层级规则（新增）
-
-**适用场景：** 首页改版 / 新站点首页搭建。
-
-**核心原则：首页 H2 不放具体产品/工具关键词。**
-
-原因：首页 H2 如果放具体功能词（如"Birth Chart Calculator"、"Rising Sign Calculator"），会与对应工具落地页产生关键词自噬（Keyword Cannibalization）——首页和工具页互相竞争同一关键词，两者都排不好。
-
-**正确做法：**
-
-| 层级 | 内容类型 | 示例 |
-|---|---|---|
-| H1 | 品牌词 + 品类词 | "AstrologyWiki — Free Astrology Tools & Birth Chart Readings" |
-| H2 | 板块标签（情感语 / 中性描述）| "Explore Your Cosmic Blueprint" / "Trusted by Astrology Lovers" |
-| H3 | 具体功能/产品名称 | "Birth Chart Calculator" / "Rising Sign Calculator" |
-
-首页职责 = 排品牌词和品类词。每个工具页负责自己的具体关键词，互不干扰。
-
----
-
-## 三、Blog 页面
+## 二、Blog 页面
 
 > 每篇 T1/T2 文章创作时参照执行。
 
@@ -240,7 +209,7 @@ H1: [核心关键词] — [差异化主张] [年份]
    → H2 命名为"[功能]: The Bridge Between X and Y"或类似中立语气
    → 此处植入第一个 CTA（Free / Try Now）
 
-④ 嵌入产品教程模块 ← 核心转化机制，v1 未包含
+④ 嵌入产品教程模块 ← 核心转化机制
    → 见补丁五（详细规范）
 
 ⑤ FAQ（8–10 个问题，带 FAQPage schema）
@@ -276,6 +245,7 @@ H1: [核心关键词] — [差异化主张] [年份]
 | 数量 | 每篇 ≥2 条工具页内链 |
 | 锚文本 | 功能描述词，不用品牌词（"birth chart calculator" 而非 "AstrologyWiki"）|
 | 位置 | 正文中部一条 + 结尾一条，不要全堆在末尾 |
+| 链接目标 | 必须指向工具页本身（`/en/birth-chart-calculator`），不能指向"如何使用"类文章 |
 | 方向 | blog → 工具页（单向）；工具页也反向推荐相关 blog（底部 4 条）|
 
 **AstrologyWiki 可用内链目标：**
@@ -381,7 +351,7 @@ Step 3: 查看太阳星座、月亮星座和上升星座完整解读
 
 - 用户因搜索名人星盘词进入（冷流量，不知道 AstrologyWiki）
 - 教程模块将"我在看内容"转变为"我在操作工具"
-- Step 格式可触发 HowTo schema，在 SERP 显示步骤预览
+- Step 格式可触发补丁一动作四中的 HowTo schema，在 SERP 显示步骤预览
 - H3 文案本身（"How to Read Birth Chart"）覆盖 how-to 类长尾词
 
 **一篇文章同时命中三个搜索意图：**
@@ -439,22 +409,24 @@ Day 7: 限时优惠 → 付费转化
 
 ---
 
-## 四、产品/工具落地页
+## 三、产品/工具落地页
 
 > 工具页创建或改版时执行。
 
-### 补丁八：工具页专项规则（新增）
+### 补丁七：工具页专项规则
 
 **适用场景：** 工具落地页 / 产品页的创建和维护。
 
-#### 8.1 工具页 H2 策略（与首页相反）
+#### 7.1 工具页 H2 策略（与首页相反）
 
 | 页面类型 | H2 策略 |
 |---|---|
 | 首页 | H2 不放产品关键词（防自噬）|
 | 工具页 | H2 每个都含核心关键词（强化语义）|
 
-**AstrologyWiki 示例（Birth Chart Calculator 工具页）：**
+当前问题：Birth Chart Calculator 工具页的 H2 是"Natal chart foundation"、"Planet and angle inventory"等，均不含"birth chart calculator"关键词。
+
+**正确示例：**
 ```
 H1: Birth Chart Calculator — Free Natal Chart in Seconds
 H2: Birth Chart Calculator with 3 Interpretation Layers
@@ -463,34 +435,7 @@ H2: What's New in AstrologyWiki Birth Chart Calculator
 H2: What AstrologyWiki Users Say About Birth Chart Reading
 ```
 
-#### 8.2 工具页 Schema 类型选择规则
-
-Schema.org 的工具类型有两层：
-
-| @type | 适用场景 | 示例 |
-|---|---|---|
-| `SoftwareApplication` | 有可下载桌面版（Windows/macOS）的软件 | unifab（有安装包）|
-| `WebApplication` | 纯网页工具，无需下载 | AstrologyWiki 工具页 ✅ |
-
-`WebApplication` 是 `SoftwareApplication` 的子类型，纯网页工具用 `WebApplication` 在语义上更准确，不需要改成父类型。
-
-**AstrologyWiki 工具页正确写法（已有，保持不变）：**
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "AstrologyWiki Birth Chart Calculator",
-  "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "Web",
-  "url": "https://astrologywiki.com/en/birth-chart-calculator",
-  "publisher": {"@id": "https://astrologywiki.com/#organization"}
-}
-```
-
-AI 被问"最好的星盘计算器是什么"时，有 `WebApplication` schema 的工具同样会被识别为产品实体候选。
-
-#### 8.3 工具页"What's New"版本日志板块
+#### 7.2 工具页"What's New"版本日志板块
 
 工具页末部添加版本更新记录，每次产品更新追加一行，持续发送页面新鲜度信号：
 
@@ -501,7 +446,7 @@ July 2026: Added Whole Sign House System option
 May 2026:  Improved aspect orb accuracy for minor aspects
 ```
 
-#### 8.4 高价值竞品词建独立 .htm 页，不放 blog
+#### 7.3 高价值竞品词建独立 .htm 页，不放 blog
 
 对月搜索量 ≥500 的直接竞品对比词，建立根目录 `.htm` 格式对比页：
 
@@ -514,19 +459,11 @@ May 2026:  Improved aspect orb accuracy for minor aspects
 
 ---
 
-### 补丁九：工具落地页转化架构
+### 补丁八：工具落地页转化架构
 
 > 来源：unifab 工具页（/video-upscaler.htm）的实际转化设计，适用于所有有商业目标的工具落地页。
 
-#### 9.1 定价信息刻意缺席
-
-工具落地页**不展示价格**，只有"Free Trial"或"Get Started"按钮：
-
-- 先用功能和社会证明建立价值感，消除用户在了解产品前的价格抵触
-- 定价页（/pricing）独立存在，单独做 SEO 优化
-- 对比：如果第一屏就显示价格，未建立信任的用户直接流失
-
-#### 9.2 信任信号三层布局
+#### 8.1 信任信号三层布局
 
 ```
 顶部：媒体/平台背书（Guru99 / Trustpilot / WikiHow 等图标横幅）
@@ -540,51 +477,43 @@ May 2026:  Improved aspect orb accuracy for minor aspects
 ```
 
 **AstrologyWiki 对应落地：**
-- 顶部：可放产品被媒体提及的截图或权威 blog 引用
+- 顶部：产品被媒体提及的截图或权威 blog 引用
 - 中部：Free 版 vs 完整版功能对比（如月盘 vs 日盘 vs 全年盘）
 - 底部：真实用户的 birth chart 使用体验评语
 
-#### 9.3 主动暴露产品限制（建立信任的反直觉策略）
+#### 8.2 主动暴露产品限制（建立信任的反直觉策略）
 
-unifab 在工具页主动列出限制条件（例如本地版需要高端 GPU），而不是回避。
+unifab 在工具页主动列出限制条件，而不是回避。
 
-**设计逻辑：** 主动暴露限制反而建立信任，用户不会被"骗进来"，同时为门槛更低的替代版本（云版/轻量版）创造独立转化路径。
+**设计逻辑：** 主动暴露限制反而建立信任，用户不会被"骗进来"，同时为门槛更低的替代版本创造独立转化路径。
 
-| 版本 | 适合人群 | 限制条件 |
-|---|---|---|
-| 免费版 | 初次体验 | 仅基础星盘，无解读详情 |
-| 完整版 | 深度学习者 | — |
+凡是有免费/付费双版本的工具页，必须有版本对比表，不能只放付费版的功能。
 
-**执行规则：** 凡是有免费/付费双版本的工具页，必须有这个对比表，不能只放付费版的功能。
+#### 8.3 Hero 区信任横幅
 
-#### 9.4 Hero 区信任横幅设计
-
-工具页 Hero 区（H1 正下方）要解决用户的三个购买顾虑，用横幅一行解决：
+工具页 Hero 区（H1 正下方）一行解决三个顾虑：
 
 ```
 ✅ Free to Use  ·  ✅ No Account Required  ·  ✅ Privacy Protected
 ```
 
-每个信任点对应一个心理障碍：
 - "Free to Use" → 消除付费恐惧
 - "No Account Required" → 消除注册摩擦
-- "Privacy Protected" → 消除数据顾虑（星盘类产品尤其敏感，涉及生日）
+- "Privacy Protected" → 消除数据顾虑（星盘类产品涉及用户生日，尤其重要）
 
-#### 9.5 追加销售模块（Upsell）
+#### 8.4 追加销售模块（Upsell）
 
-单工具页底部放置"还在用什么"推荐模块，引导用户发现更多工具：
+单工具页底部放置相关工具推荐，引导用户发现工具矩阵：
 
 ```
-→ 还想深入了解？试试我们的 Transit Calculator / Solar Return Calculator
+→ 还想深入了解？试试 Transit Calculator / Solar Return Calculator
 ```
 
-unifab 等效写法：`Get UniFab All-In-One — One License, 20+ AI Tools`
+每个工具页底部推荐 2–3 个相关工具，形成工具矩阵的互相导流，同时提升内链密度。
 
-**对 AstrologyWiki 的价值：** 每个工具页底部推荐 2–3 个相关工具，形成工具矩阵的互相导流，提升工具页整体的页面价值和内链密度。
+#### 8.5 全页 CTA 布局（≥3 处）
 
-#### 9.6 全页 CTA 布局（≥3 处）
-
-工具落地页不是 blog，用户进来就是要用工具，CTA 密度应高于文章页：
+工具落地页用户进来就是要用工具，CTA 密度应高于文章页：
 
 | 位置 | CTA 类型 | 文案方向 |
 |---|---|---|
@@ -598,36 +527,33 @@ unifab 等效写法：`Get UniFab All-In-One — One License, 20+ AI Tools`
 
 | 场景 | 补丁 | 变化项 | 原规范 | 本补丁 |
 |---|---|---|---|---|
-| **网站技术端** | 七 | GEO robots.txt | 无明确规定 | 开放全部 AI 爬虫 |
-| | 七 | Organization schema | 基础配置 | 新增 sameAs 社媒实体绑定 |
-| | 七 | Person schema | 无 | 四字段作者实体（knowsAbout / alumniOf / sameAs / worksFor）|
-| | 七 | HowTo schema | 无 | Step 模块同步加入 HowTo 标记 |
-| | 七 | 第三方引用 | 无 | Trustpilot + Futurepedia 优先入驻 |
-| | 七 | 主动 GEO | 无 | 首页"Ask AI"按钮 → 预填品牌查询 |
-| **首页** | 一 | H2 规则 | 无明确规定 | H2 不放具体产品关键词，防自噬 |
+| **网站技术端** | 一 | H2 直接答案句 | 无规定 | H2 首句必须直接回答搜索意图 |
+| | 一 | Organization schema | 基础配置 | 首页 SSR 输出，新增 sameAs 社媒绑定 |
+| | 一 | Person schema | 无 | 四字段（knowsAbout / alumniOf / sameAs / worksFor），删除"not a real individual"声明 |
+| | 一 | HowTo schema | 无 | Step 模块同步加入 HowTo 标记 |
+| | 一 | 第三方引用 | 无 | Trustpilot + Futurepedia 优先入驻 |
+| | 一 | 主动 GEO | 无 | 首页"Ask AI"按钮 → 预填品牌查询跳转 AI 工具 |
 | **Blog 页面** | 二 | 文章结构 | 无标准公式 | 六段式结构 |
 | | 二 | FAQ 数量 | 按需 4–6 个 | 8–10 个 |
 | | 二 | CTA 频次 | 结尾 1 次 | 全文 3 次（桥接段 / 教程模块 / 结尾）|
 | | 二 | T1 字数 | 未明确 | 4,000–6,000 字 |
-| | 三 | 工具页内链 | Pillar/Spoke 规则 | 每篇 blog ≥2 条工具页内链 |
+| | 三 | 工具页内链 | Pillar/Spoke 规则 | 每篇 blog ≥2 条，必须指向工具页本身 |
 | | 三 | 工具页反向内链 | 无 | 工具页底部推荐 4 篇相关 blog |
 | | 四 | 竞品文章 | 无此类型 | 新增高优先级内容类型，统一 T1 |
-| | 五 | 产品教程模块 | 无 | 每篇 T1 文章必须嵌入 |
+| | 五 | 产品教程模块 | 无 | 每篇 T1 文章必须嵌入，含 Step 1/2/3 |
 | | 六 | 注册弹窗 | 无 | Blog 末尾 scroll-depth 触发，收 email |
-| **产品/工具落地页** | 八 | 工具页 H2 | 无规定 | 每个 H2 必须含核心关键词（与首页相反）|
-| | 八 | 工具页 schema | 无规定 | 纯网页工具用 WebApplication，有安装包用 SoftwareApplication |
-| | 八 | 工具页更新 | 无 | "What's New"版本日志持续追加 |
-| | 八 | 竞品对比页 | 全放 blog | 高价值竞品词（≥500搜索量）建独立 .htm 根目录页 |
-| | 九 | 落地页定价 | 无规定 | 工具页不展示价格，定价页独立 |
-| | 九 | 信任信号 | 无规定 | 三层布局：顶部媒体背书 / 中部对比表 / 底部用户评价 |
-| | 九 | 版本限制 | 回避限制 | 主动列出限制 + 双版本对比表 |
-| | 九 | Hero 信任横幅 | 无 | 三要素：免费 / 无需注册 / 隐私保护 |
-| | 九 | Upsell 模块 | 无 | 底部推荐 2–3 个相关工具 |
-| | 九 | 落地页 CTA | 结尾 1 次 | ≥3 处：Hero / 中部 / 底部 |
+| **产品/工具落地页** | 七 | 工具页 H2 | 无规定 | 每个 H2 必须含核心关键词（与首页相反）|
+| | 七 | 版本日志 | 无 | "What's New"板块持续追加 |
+| | 七 | 竞品对比页 | 全放 blog | 高价值竞品词（≥500搜索量）建独立 .htm 根目录页 |
+| | 八 | 信任信号 | 无规定 | 三层布局：顶部媒体背书 / 中部对比表 / 底部用户评价 |
+| | 八 | 版本限制 | 回避限制 | 主动列出限制 + 双版本对比表 |
+| | 八 | Hero 信任横幅 | 无 | 三要素：免费 / 无需注册 / 隐私保护 |
+| | 八 | Upsell 模块 | 无 | 底部推荐 2–3 个相关工具 |
+| | 八 | 落地页 CTA | 结尾 1 次 | ≥3 处：Hero / 中部 / 底部 |
 
 ---
 
 *文件：inbox/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md*
-*版本：v3 | 更新于 2026-07-08*
+*版本：v5 | 更新于 2026-07-08*
 *参考：inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
 *合并目标：下次 SOP 大版本更新时并入 v2.4*
