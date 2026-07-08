@@ -2272,15 +2272,16 @@
     "failedAt": "2026-07-08T15:15:49.770Z"
   },
   "PG-CELEB-042": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "mo-salah-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-042.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "70889",
-    "leaseUntil": "2026-07-08T16:30:11.443Z",
-    "updatedAt": "2026-07-08T15:30:11.443Z",
+    "leaseUntil": "2026-07-08T16:31:02.307Z",
+    "updatedAt": "2026-07-08T15:31:02.307Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-042",
-    "branch": "seo/auto/2026-07-08-PG-CELEB-042"
+    "branch": "seo/auto/2026-07-08-PG-CELEB-042",
+    "pr": "https://github.com/xdawayer/oracle/pull/347"
   }
 }
