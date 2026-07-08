@@ -2201,5 +2201,17 @@
     "verifiedAt": "2026-07-07T15:17:09.045Z",
     "headRefOid": "de62a72c26b3fa5f97b0d18100d31d0587cee34c",
     "mergedAt": "2026-07-07T15:18:09.372Z"
+  },
+  "PG-WC-047": {
+    "status": "active",
+    "slug": "lamine-yamal-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-WC-047.md",
+    "stage": "convert",
+    "lockedBy": "45314",
+    "leaseUntil": "2026-07-08T14:36:05.487Z",
+    "updatedAt": "2026-07-08T13:36:05.487Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-WC-047",
+    "branch": "seo/auto/2026-07-08-PG-WC-047"
   }
 }
