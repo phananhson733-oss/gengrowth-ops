@@ -379,34 +379,97 @@ unifab 在工具页主动展示"本地版 vs 云版"的功能差异，**包括�
 
 ## 十、GEO 配置
 
-| 配置项 | unifab 做法 |
-|---|---|
-| robots.txt | `User-agent: * Allow: /` 完全开放，包括所有 AI 爬虫 |
-| FAQ schema | 所有文章标配 FAQPage schema |
-| 内容写法 | 每个 H2 开头有直接答案句（可被 AI 直接引用）|
-| 对比表格 | 结构化数据，AI 系统最容易解析和引用 |
-| Organization schema | 未确认（静态抓取限制）|
-| **Ask AI 主动引导模块** | 首页设有"Ask AI about UniFab"按钮，点击后跳转至AI工具并预填品牌查询 |
+> 数据来源：curl 直接抓取 HTML + JSON-LD 解析（2026-07-08 验证）
 
-### Ask AI 主动引导模块（补充说明）
+### 10.1 已确认的 GEO 策略全览
 
-unifab 在首页设置了"Ask AI about UniFab"模块，点击后直接跳转到 Perplexity 或 ChatGPT 等 AI 工具，并预填写好关于 UniFab 的查询内容。
+| 配置项 | 状态 | 详情 |
+|---|---|---|
+| robots.txt 完全开放 | ✅ 确认 | `User-agent: * Allow: /`，所有 AI 爬虫可爬 |
+| FAQPage schema | ✅ 确认 | 评测类文章标配，10 个 Q&A，每答案 ≤300 字符 |
+| BlogPosting / Article schema | ✅ 确认 | 评测类用 BlogPosting，教程类用 Article |
+| BreadcrumbList schema | ✅ 确认 | 所有文章页均有，三级路径（Home > Resource > 文章）|
+| Organization schema + sameAs | ✅ 确认 | 见下方详细展开 |
+| Person（作者实体）schema | ✅ 确认 | 每篇文章有作者 @id，指向 `/author/harper.htm` |
+| ItemList schema | ✅ 确认 | 用于文章内编号列表 |
+| H2 开头直接答案句 | ✅ 确认 | 每个 H2 第一句直接给结论，可被 AI 直接引用 |
+| 结构化对比表格 | ✅ 确认 | AI 系统最容易解析的内容格式 |
+| Ask AI 主动引导按钮 | ✅ 确认 | 首页"Ask AI about UniFab"，跳转 AI 工具预填查询 |
+| 第三方引用建设 | ✅ 确认 | Trustpilot / FilterGrade / SoftwareTestingHelp / Futurepedia |
+| Reddit 自建版块 | ✅ 确认 | r/UniFabCreators，控制品牌在 Reddit 的话语权 |
+| **HowTo schema** | ❌ **缺失** | Step 1/2/3/4 模块只是视觉 HTML，未加结构化标记 |
 
-**这是一个主动 GEO 策略，与被动 GEO（让 AI 爬虫自然发现）完全不同：**
+### 10.2 Organization Schema sameAs（品牌实体锚定）
+
+```json
+{
+  "@type": "Organization",
+  "name": "UniFab",
+  "legalName": "UniFab Software Limited",
+  "url": "https://unifab.ai/",
+  "sameAs": [
+    "https://www.youtube.com/@UniFabofficial",
+    "https://community.unifab.ai/",
+    "https://x.com/UniFabAI",
+    "https://www.reddit.com/r/UniFabCreators/"
+  ]
+}
+```
+
+sameAs 的作用：告诉所有 AI 爬虫"这四个账号和这个网站是同一个品牌实体"，让品牌在 AI 知识库里形成一个清晰的实体节点，而不是几个孤立的信号。
+
+### 10.3 Person（作者实体）schema — EEAT 信号
+
+每篇文章的 BlogPosting schema 里包含：
+
+```json
+{
+  "@type": "BlogPosting",
+  "author": {
+    "@id": "https://unifab.ai/author/harper.htm#person"
+  },
+  "datePublished": "2025-01-20"
+}
+```
+
+作者有独立页面（`/author/harper.htm`），有自己的 Person schema。这是 Google EEAT（Experience, Expertise, Authoritativeness, Trustworthiness）要求的标准做法——让 AI 系统知道内容是真实的人写的，而不是匿名机器生成。
+
+### 10.4 第三方引用建设
+
+AI 系统回答"什么是 UniFab"时，依赖的不只是 unifab.ai 自己的内容。以下第三方引用都是 AI 的训练信号来源：
+
+| 平台 | 类型 | GEO 价值 |
+|---|---|---|
+| Trustpilot | 用户评分平台 | AI 频繁引用 Trustpilot 数据评估产品可信度 |
+| FilterGrade | 专业软件评测站 | 权威媒体背书，AI 优先引用 |
+| SoftwareTestingHelp | 软件评测站 | 同上 |
+| Futurepedia | AI 工具目录 | AI 工具专属索引，Perplexity 等常引用 |
+| r/UniFabCreators | Reddit 自建版块 | Reddit 内容是 AI 训练数据的重要来源，自建版块控制话语权 |
+
+### 10.5 Ask AI 主动引导模块
+
+unifab 在首页设置了"Ask AI about UniFab"按钮，点击后直接跳转至 Perplexity 或 ChatGPT，并预填品牌查询内容。
+
+**主动 GEO vs 被动 GEO：**
 
 ```
-被动 GEO：
-优化内容 → 等待 AI 爬虫发现 → 期望被引用
-
-主动 GEO（unifab 做法）：
-用户在网站上点击按钮 → 直接跳转 AI 工具 → 预填品牌查询
-→ 用户产生真实 AI 对话 → AI 系统学习到品牌关联 → 后续 AI 搜索更容易推荐 UniFab
+被动 GEO（动作一~四）：优化内容 → 等 AI 爬虫发现 → 期望被引用
+主动 GEO（本模块）   ：用户点击 → 跳转 AI → 产生品牌对话 → 强化 AI 关联
 ```
 
 **三重效果：**
-1. **当下转化**：跳转至 AI 工具的用户，会在 AI 的回答中看到 UniFab 被推荐，强化品牌认知
-2. **AI 训练信号**：大量用户在 AI 工具中查询 UniFab，增加品牌在 AI 训练数据中的曝光频次
-3. **捕获 AI 原生用户**：习惯用 AI 搜索而非 Google 的用户，被这个入口直接截获
+1. 用户在 AI 工具中看到 UniFab 被推荐 → 强化品牌认知
+2. 累积 AI 查询量 → 增加品牌在 AI 训练信号中的权重
+3. 捕获习惯用 AI 而非 Google 搜索的用户
+
+### 10.6 已发现的 GEO 漏洞
+
+**HowTo schema 缺失：** Step 1/2/3/4 嵌入教程模块是视觉 HTML，没有加 `@type: HowTo` 结构化标记。如果加上，可以：
+- 让 AI 系统更精准地解析操作步骤
+- 在 SERP 中触发步骤预览富文本结果
+- 成为"How to upscale video"类查询的首选 AI 引用来源
+
+这是 unifab 自身的优化空白，也是我们在 AstrologyWiki 可以做到而它没做的地方。
 
 ---
 

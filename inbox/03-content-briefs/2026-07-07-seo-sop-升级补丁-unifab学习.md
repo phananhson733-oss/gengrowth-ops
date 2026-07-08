@@ -254,11 +254,12 @@ Day 7: 限时优惠 → 付费转化
 
 ---
 
-## 补丁七：GEO 四动作（新建页面时执行一次）
+## 补丁七：GEO 完整配置清单（新站点上线前执行一次）
 
 **适用场景：** 新站点上线前 / 现有站点 GEO 配置检查。
+**数据来源：** unifab.ai curl 实测（2026-07-08 验证）
 
-好的 SEO 是 GEO（被 ChatGPT/Gemini/Perplexity 引用）的基础，以下四个动作是额外配置，非独立系统。
+---
 
 ### 动作一：robots.txt 开放 AI 爬虫
 
@@ -270,9 +271,11 @@ PerplexityBot   → Perplexity
 CCBot           → Common Crawl（AI 训练数据主要来源）
 ```
 
-unifab.ai 配置：`User-agent: * Allow: /`，完全开放。
+最简配置：`User-agent: * Allow: /`（unifab.ai 做法，完全开放）
 
-### 动作二：每个 H2 开头加直接答案句
+---
+
+### 动作二：H2 开头加直接答案句
 
 ```
 ❌ 弱 GEO 写法：
@@ -285,55 +288,131 @@ Water signs share Scorpio's emotional depth, while Virgo
 provides grounding stability."
 ```
 
-### 动作三：Organization Schema（全站一次）
+---
+
+### 动作三：Organization schema + sameAs（全站一次，写入 SSR HTML）
+
+unifab 实际使用的完整格式（已验证）：
 
 ```json
 {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AstrologyWiki",
+  "legalName": "AstrologyWiki Ltd",
   "url": "https://astrologywiki.com",
-  "description": "Free astrology tools and birth chart readings",
-  "sameAs": ["https://twitter.com/astrologywiki"]
+  "sameAs": [
+    "https://www.youtube.com/@astrologywiki",
+    "https://x.com/astrologywiki",
+    "https://www.reddit.com/r/AstrologyWiki/"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@astrologywiki.com",
+    "contactType": "customer support"
+  }
 }
 ```
 
-### 动作四：Ask AI 主动引导模块（首页 + 工具页）
+sameAs 的作用：让所有 AI 爬虫把网站和各社媒账号识别为同一个品牌实体，在 AI 知识库里形成清晰的实体节点。
 
-unifab.ai 首页设有"Ask AI about UniFab"按钮，点击后直接跳转至 Perplexity 或 ChatGPT，并预填写好品牌查询内容。
+---
 
-这是**主动 GEO**，与前三个动作的被动等待爬取逻辑不同：
+### 动作四：Person（作者实体）schema — EEAT 信号
+
+unifab 每篇文章都有署名作者，并配有独立的作者页面和 Person schema（已验证）：
+
+```json
+{
+  "@type": "BlogPosting",
+  "author": {
+    "@id": "https://astrologywiki.com/author/[作者名].htm#person"
+  },
+  "datePublished": "2026-07-08"
+}
+```
+
+**为什么重要：** Google EEAT 要求证明内容由真实专业人士创作。AI 系统引用内容时，有作者实体的文章权重更高。每个作者需要一个独立页面（含简介、专业背景、其他发表内容链接）。
+
+---
+
+### 动作五：HowTo schema（嵌入教程模块时添加）
+
+**unifab 的 Step 1/2/3/4 模块没有加这个标记——这是他们的漏洞，我们可以做到而他们没做。**
+
+在 Step 1/2/3 教程模块的 HTML 里加入 HowTo schema：
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Read Your Birth Chart on AstrologyWiki",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "打开 Birth Chart Calculator",
+      "text": "前往 AstrologyWiki Birth Chart Calculator 页面"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "输入出生信息",
+      "text": "填入出生日期、时间和地点"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "查看解读结果",
+      "text": "获取太阳、月亮、上升星座的完整解读"
+    }
+  ]
+}
+```
+
+触发效果：SERP 步骤预览富文本、AI 引用操作类查询时优先选取。
+
+---
+
+### 动作六：第三方引用建设（持续执行）
+
+AI 系统的回答不只依赖自有网站内容，也大量引用第三方评测和目录。unifab 已建立的引用矩阵（已验证）：
+
+| 平台类型 | unifab 已入驻 | AstrologyWiki 对应目标 |
+|---|---|---|
+| 用户评分平台 | Trustpilot | Trustpilot |
+| 专业评测站 | FilterGrade、SoftwareTestingHelp | 占星/工具类评测博客 |
+| AI 工具目录 | Futurepedia | Futurepedia、There's An AI For That |
+| Reddit 版块 | r/UniFabCreators（自建）| r/astrology 话题参与 |
+| YouTube | @UniFabofficial | @astrologywiki |
+
+**执行原则：** 不需要全部覆盖，优先进入 AI 系统高频引用的平台。Trustpilot 和 Futurepedia 是最高优先级。
+
+---
+
+### 动作七：Ask AI 主动引导模块（首页 + 工具页）
+
+unifab 首页设有"Ask AI about UniFab"按钮，点击后直接跳转至 AI 工具并预填品牌查询。
 
 ```
-被动 GEO（动作一~三）：优化内容 → 等 AI 爬虫发现 → 期望被引用
-主动 GEO（动作四）  ：用户点击 → 跳转 AI → 预填查询 → 产生品牌对话
+被动 GEO（动作一~六）：优化内容 → 等 AI 爬虫发现 → 期望被引用
+主动 GEO（动作七）  ：用户点击 → 跳转 AI → 产生品牌对话 → 强化 AI 关联
 ```
 
 **实现方式：**
 
-在首页或工具页加入一个按钮，链接格式：
-
 ```
-Perplexity：
-https://www.perplexity.ai/?q=[预填查询内容，URL编码]
-
-ChatGPT：
-https://chatgpt.com/?q=[预填查询内容，URL编码]
+Perplexity：https://www.perplexity.ai/?q=[预填查询，URL编码]
+ChatGPT：  https://chatgpt.com/?q=[预填查询，URL编码]
 ```
 
-**AstrologyWiki 适配示例：**
-
+**AstrologyWiki 示例：**
 ```
 按钮文案：Ask AI about AstrologyWiki
 跳转链接：https://www.perplexity.ai/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work
 ```
 
-**三重效果：**
-1. 当下用户看到 AI 推荐 AstrologyWiki，强化品牌认知
-2. 累积 AI 查询量，增加品牌在 AI 训练信号中的权重
-3. 捕获习惯用 AI 搜索的用户（正在快速增长的人群）
-
-**执行红线：** 预填查询内容必须自然，不能关键词堆砌，否则 AI 工具会给出差评式回答，反而损害品牌。
+**执行红线：** 预填查询必须自然，不能堆砌关键词，否则 AI 给出差评式回答反而损害品牌。
 
 ---
 
@@ -351,7 +430,7 @@ https://chatgpt.com/?q=[预填查询内容，URL编码]
 | 四 | 竞品文章 | 无此类型 | 新增高优先级内容类型，统一 T1 | 选题决策 |
 | 五 | 产品教程模块 | 无 | 每篇 T1 文章必须嵌入 | T1 创作 |
 | 六 | 注册弹窗 | 无 | Blog 末尾 scroll-depth 触发 | Blog 页面 |
-| 七 | GEO 被动配置 | 无 | robots.txt + 直接答案 + Organization schema | 站点配置 |
+| 七 | GEO 被动配置 | robots.txt + Organization schema | 新增 Person schema + HowTo schema + 第三方引用矩阵 | 站点配置 |
 | 七 | GEO 主动引导 | 无 | 首页"Ask AI"按钮 → 预填品牌查询跳转 AI 工具 | 首页 / 工具页 |
 
 ---
