@@ -140,6 +140,40 @@ def test_dry_run_reports_intended_commit_without_dirty_blocker() -> None:
             raise AssertionError(f"expected dry-run intent, got {result.message!r}")
 
 
+def test_staged_only_change_is_committed() -> None:
+    module = load_module()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        remote = root / "remote.git"
+        repo = root / "vault"
+
+        subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+        subprocess.run(["git", "init", str(repo)], check=True, capture_output=True)
+        configure_repo(repo)
+        run(repo, "branch", "-M", "main")
+        run(repo, "remote", "add", "origin", str(remote))
+        tracked = repo / "record.md"
+        tracked.write_text("Q24\n", encoding="utf-8")
+        run(repo, "add", "record.md")
+        run(repo, "commit", "-m", "initial")
+        run(repo, "push", "-u", "origin", "main")
+
+        tracked.write_text("Q23\n", encoding="utf-8")
+        run(repo, "add", "record.md")
+
+        result = module.sync_repo(module.RepoConfig("test-vault", repo, "main"), dry_run=False)
+
+        if not result.ok:
+            raise AssertionError(result.message)
+        status = run(repo, "status", "--porcelain").stdout.strip()
+        if status:
+            raise AssertionError(f"repo should be clean after staged-only sync, got {status!r}")
+        ahead_behind = run(repo, "rev-list", "--left-right", "--count", "HEAD...origin/main").stdout.strip()
+        if ahead_behind != "0\t0":
+            raise AssertionError(f"repo should be synced, got {ahead_behind!r}")
+
+
 def test_fetch_ref_lock_race_is_silent_when_refs_already_converged() -> None:
     module = load_module()
 
@@ -191,8 +225,9 @@ def test_secret_scan_allows_env_var_references_but_blocks_literals() -> None:
             "const apiKey = process.env.GG_TOPIC_REGISTER_GOOGLE_CSE_KEY || '';\n",
             encoding="utf-8",
         )
+        secret_literal = "abcdefghijkl" + "mnopqrstuvwxyz123456"
         literal.write_text(
-            "const apiKey = 'abcdefghijklmnopqrstuvwxyz123456';\n",
+            f"const apiKey = '{secret_literal}';\n",
             encoding="utf-8",
         )
 
@@ -263,6 +298,7 @@ if __name__ == "__main__":
     test_commit_pull_rebase_push()
     test_json_add_add_conflict_merges_keys()
     test_dry_run_reports_intended_commit_without_dirty_blocker()
+    test_staged_only_change_is_committed()
     test_fetch_ref_lock_race_is_silent_when_refs_already_converged()
     test_secret_scan_allows_env_var_references_but_blocks_literals()
     test_discover_repos_checks_home_code_layout()

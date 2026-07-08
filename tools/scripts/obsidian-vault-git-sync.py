@@ -114,7 +114,7 @@ def discover_repos() -> List[RepoConfig]:
 
 def dirty_paths(repo: Path) -> List[str]:
     tracked = git_paths(repo, "ls-files", "-m", "-d", "-o", "--exclude-standard", "-z")
-    return sorted(set(tracked))
+    return sorted(set(tracked + staged_paths(repo)))
 
 
 def staged_paths(repo: Path) -> List[str]:
