@@ -2270,5 +2270,17 @@
     "pr": "https://github.com/xdawayer/oracle/pull/346",
     "error": "codex completed with codex FAIL —Coco Gauff's birthplace is Boca Raton, Florida, not Delray Beach, Florida",
     "failedAt": "2026-07-08T15:15:49.770Z"
+  },
+  "PG-CELEB-042": {
+    "status": "active",
+    "slug": "mo-salah-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-042.md",
+    "stage": "convert",
+    "lockedBy": "70889",
+    "leaseUntil": "2026-07-08T16:26:10.743Z",
+    "updatedAt": "2026-07-08T15:26:10.743Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-042",
+    "branch": "seo/auto/2026-07-08-PG-CELEB-042"
   }
 }
