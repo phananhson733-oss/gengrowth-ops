@@ -2219,5 +2219,17 @@
     "verifiedAt": "2026-07-08T13:48:34.643Z",
     "headRefOid": "8f325395c6522f4891456be71c55cd583c77f2b8",
     "mergedAt": "2026-07-08T13:48:42.602Z"
+  },
+  "PG-WC-048": {
+    "status": "active",
+    "slug": "kylian-mbappe-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-WC-048.md",
+    "stage": "convert",
+    "lockedBy": "17765",
+    "leaseUntil": "2026-07-08T15:08:06.178Z",
+    "updatedAt": "2026-07-08T14:08:06.178Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-WC-048",
+    "branch": "seo/auto/2026-07-08-PG-WC-048"
   }
 }

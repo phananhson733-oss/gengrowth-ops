@@ -148,4 +148,14 @@ updated: 2026-06-23
 - [x] `PG-SPPG-001` sony playstation physical games strategy 2026
 - [x] `PG-AEWG-001` alex eala wimbledon growth story — 关闭：模板错配，不进入 gengrowth SaaS/B2B lane
 
+---
+## ⚪ 7月8日 (周三) - 待写作
+**状态**：`等待输出` (自动补充选题，共 6 篇)
+- [ ] `PG-ART-005` generative engine optimization
+- [ ] `PG-ART-006` ai search visibility
+- [ ] `PG-WLS-006` gpt 5.6 seo
+- [ ] `PG-GJ2U-001` google july 2026 update
+- [ ] `PG-AIS-005` ai seo audit
+- [ ] `PG-WHS-001` website health score
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
