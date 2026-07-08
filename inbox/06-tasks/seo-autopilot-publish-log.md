@@ -128,3 +128,4 @@ updated: 2026-07-08
 | 2026-07-08 | PG-WC-048 | kylian-mbappe-birth-chart | Kylian Mbappe Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kylian-mbappe-birth-chart | published |
 | 2026-07-08 | PG-CELEB-040 | novak-djokovic-zodiac-sign | Novak Djokovic Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/novak-djokovic-zodiac-sign | published |
 | 2026-07-08 | PG-CELEB-042 | mo-salah-zodiac-sign | Mo Salah Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/mo-salah-zodiac-sign | published |
+| 2026-07-08 | PG-CELEB-041 | coco-gauff-zodiac-sign | Coco Gauff Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-zodiac-sign | published |

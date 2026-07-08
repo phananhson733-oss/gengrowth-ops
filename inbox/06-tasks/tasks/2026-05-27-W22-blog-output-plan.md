@@ -378,7 +378,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-WC-047` lamine yamal zodiac sign
 - [x] `PG-WC-048` kylian mbappe birth chart
 - [x] `PG-CELEB-040` novak djokovic zodiac sign
-- [ ] `PG-CELEB-041` coco gauff zodiac sign
+- [x] `PG-CELEB-041` coco gauff zodiac sign
 - [x] `PG-CELEB-042` mo salah zodiac sign
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
