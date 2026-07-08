@@ -2237,5 +2237,17 @@
     "verifiedAt": "2026-07-08T14:16:45.514Z",
     "headRefOid": "fac41cd19f967b653d3aab378b01b9c9f3007f42",
     "mergedAt": "2026-07-08T14:16:53.441Z"
+  },
+  "PG-CELEB-040": {
+    "status": "active",
+    "slug": "novak-djokovic-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-040.md",
+    "stage": "convert",
+    "lockedBy": "64571",
+    "leaseUntil": "2026-07-08T15:33:34.284Z",
+    "updatedAt": "2026-07-08T14:33:34.284Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-040",
+    "branch": "seo/auto/2026-07-08-PG-CELEB-040"
   }
 }
