@@ -2221,7 +2221,7 @@
     "mergedAt": "2026-07-08T13:48:42.602Z"
   },
   "PG-WC-048": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "kylian-mbappe-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-WC-048.md",
@@ -2231,6 +2231,11 @@
     "updatedAt": "2026-07-08T14:12:50.851Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-WC-048",
     "branch": "seo/auto/2026-07-08-PG-WC-048",
-    "pr": "https://github.com/xdawayer/oracle/pull/344"
+    "pr": "https://github.com/xdawayer/oracle/pull/344",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-08-pg-wc-048-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-08T14:16:45.514Z",
+    "headRefOid": "fac41cd19f967b653d3aab378b01b9c9f3007f42",
+    "mergedAt": "2026-07-08T14:16:53.441Z"
   }
 }
