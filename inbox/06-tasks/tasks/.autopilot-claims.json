@@ -2239,15 +2239,16 @@
     "mergedAt": "2026-07-08T14:16:53.441Z"
   },
   "PG-CELEB-040": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "novak-djokovic-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-040.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "64571",
-    "leaseUntil": "2026-07-08T15:37:25.416Z",
-    "updatedAt": "2026-07-08T14:37:25.416Z",
+    "leaseUntil": "2026-07-08T15:38:15.729Z",
+    "updatedAt": "2026-07-08T14:38:15.729Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-040",
-    "branch": "seo/auto/2026-07-08-PG-CELEB-040"
+    "branch": "seo/auto/2026-07-08-PG-CELEB-040",
+    "pr": "https://github.com/xdawayer/oracle/pull/345"
   }
 }
