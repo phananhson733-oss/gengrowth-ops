@@ -2276,10 +2276,10 @@
     "slug": "mo-salah-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-042.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "70889",
-    "leaseUntil": "2026-07-08T16:26:10.743Z",
-    "updatedAt": "2026-07-08T15:26:10.743Z",
+    "leaseUntil": "2026-07-08T16:30:11.443Z",
+    "updatedAt": "2026-07-08T15:30:11.443Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-042",
     "branch": "seo/auto/2026-07-08-PG-CELEB-042"
   }
