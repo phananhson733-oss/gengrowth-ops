@@ -2257,7 +2257,7 @@
     "mergedAt": "2026-07-08T14:43:48.256Z"
   },
   "PG-CELEB-041": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "coco-gauff-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-041.md",
@@ -2269,7 +2269,12 @@
     "branch": "seo/auto/2026-07-08-PG-CELEB-041",
     "pr": "https://github.com/xdawayer/oracle/pull/346",
     "retryEvidence": "fixed Coco Gauff birthplace copy to Boca Raton with Delray Beach context",
-    "retryAt": "2026-07-08T16:07:56.163Z"
+    "retryAt": "2026-07-08T16:07:56.163Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-08-pg-932521-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "playwright preview passed; inline astrology/schema/links reviewers passed; codex skipped tooling missing CLI",
+    "verifiedAt": "2026-07-08T16:13:23.206Z",
+    "headRefOid": "2e62643803236ea4d4e9692255ab94209ba141a8",
+    "mergedAt": "2026-07-08T16:14:33.968Z"
   },
   "PG-CELEB-042": {
     "status": "done",
