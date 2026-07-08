@@ -125,3 +125,4 @@ updated: 2026-07-08
 | 2026-07-07 | PG-WC-046 | egypt-world-cup-2026-astrology | Egypt World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/egypt-world-cup-2026-astrology | published |
 | 2026-07-07 | PG-CELEB-038 | kai-cenat-zodiac-sign | Kai Cenat Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/kai-cenat-zodiac-sign | published |
 | 2026-07-08 | PG-WC-047 | lamine-yamal-zodiac-sign | Lamine Yamal Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/lamine-yamal-zodiac-sign | published |
+| 2026-07-08 | PG-WC-048 | kylian-mbappe-birth-chart | Kylian Mbappe Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kylian-mbappe-birth-chart | published |
