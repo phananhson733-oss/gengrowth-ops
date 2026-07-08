@@ -114,6 +114,7 @@ version: 2.3
 2. **结构化内链**：
    * **[Pillar 页面]**：必须插入一个导航网格或列表，向下辐射到已知的 Spoke。
    * **[Spoke 页面]**：正文前 30% 必须包含一条自然语境的文本链接，指回对应的 Pillar。
+   * **[所有 Blog 页面通用规则]**：每篇 blog 正文必须包含 **≥2 条指向工具页/产品页的内链**，锚文本使用功能描述而非品牌词（如"birth chart calculator"而非"AstrologyWiki"）。这是 blog 流量转化为工具页权重的唯一路径——趋势词带来的流量不会自动传递给工具页，必须靠内链主动导流。
 3. **CTA 核验**：最后确认一次转化按钮逻辑畅通无阻。
 
 ### STEP 6：生命周期复盘与调优 (Day 14/30/60)
@@ -137,7 +138,138 @@ version: 2.3
 
 ---
 
-## 🔄 第五部分：Changelog
+---
+
+## 📐 第五部分：文章结构公式（unifab.ai 实证）
+
+> 来源：对 unifab.ai 600+ 页面的结构分析，该站在竞争激烈的 AI 工具赛道月有机流量持续增长，内容结构高度可复用。
+
+### 标准 Blog 文章公式
+
+```
+H1: [核心关键词] — [差异化主张] [年份]
+
+① 教育段（建立可信度，不提产品）
+   → 直接回答搜索意图（首段必须有 Direct Answer Block）
+   → 对比表 / 规格表 / 步骤编号（至少一个结构化视觉元素）
+
+② 决策框架（帮用户做选择）
+   → "Which Should You Choose?" 类型的场景分流
+   → 不同需求 → 不同答案，避免"两者都好"的无效结论
+
+③ 产品桥接（自然过渡，不硬广）
+   → "AI upscaling bridges the gap" 类型的功能引入
+   → 此处植入第一个 CTA（Free Download / Try Now）
+
+④ 教程/演示段（用产品解决上文提到的问题）
+   → 带截图的步骤式操作
+   → 此处植入第二个 CTA
+
+⑤ FAQ（8–10 个问题，带 FAQPage schema）
+   → 覆盖 PAA（People Also Ask）问题
+   → 每个答案 ≤ 300 字符
+
+⑥ 结论 + 第三个 CTA
+   → 明确的推荐语句："Choose [产品] if you need X"
+```
+
+**字数目标：T1 文章 4,000–6,000 字，T2 文章 2,000–3,000 字**
+
+---
+
+### 竞品对比文章生产指南（高优先级内容类型）
+
+**为什么要做：** 搜索竞品名称的用户处于购买决策阶段，转化率是普通信息词的 3–5 倍。unifab.ai 42% 的 blog 是竞品评测/对比文章，这是他们最重要的流量来源之一。
+
+**适用于 AstrologyWiki 的竞品词示例：**
+- "Co-Star vs AstrologyWiki"
+- "Cafe Astrology vs AstrologyWiki"
+- "Pattern app alternative"
+- "The Pattern astrology app review"
+
+**适用于 brdeco 类 B2B 客户的竞品词示例：**
+- "Kingspan vs BRDECO rockwool panel"
+- "ROCKWOOL vs brdeco sandwich panel"
+- "EPS vs PU vs PIR vs rockwool insulation comparison"
+
+**竞品文章结构公式：**
+
+```
+H1: [竞品名] Review [年份]: Features, Pricing & Best Alternative
+
+① 快速结论（30秒让用户知道答案）
+② 竞品介绍（中立，不攻击）
+③ 真实测试 / 对比数据（具体数值，可截图）
+④ 定价对比（将竞品定位为"有限制的选项"）
+⑤ 优缺点表格（缺点用具体场景描述，不用笼统批评）
+⑥ 功能差异矩阵：竞品有的 / 双方都有（我方更好）/ 我方独有
+⑦ 结论：明确写 "Choose [我方产品] if..." 和 "Choose [竞品] if..."
+⑧ FAQ（8–10 个，带 schema）
+```
+
+**注意：** 竞品文章需要基于真实测试或公开数据，不能捏造竞品缺陷。描述痛点时使用"部分用户反映"或引用真实评论。
+
+---
+
+## 🌐 第六部分：GEO 配置三动作
+
+> GEO（Generative Engine Optimization）= 优化内容被 ChatGPT/Gemini/Perplexity 引用的概率。好的 SEO 是 GEO 的基础，以下三个动作是额外补充，非独立系统。
+
+### 动作一：robots.txt 开放 AI 爬虫
+
+检查网站 robots.txt，确认以下 AI 爬虫未被 Disallow：
+
+```
+# 必须允许的 AI 爬虫
+GPTBot（OpenAI）
+Anthropic-ai（Claude）
+Google-Extended（Gemini/AI Overview）
+PerplexityBot
+CCBot（Common Crawl，AI训练数据来源）
+```
+
+如果有 `Disallow: /` 规则，AI 系统无法爬取任何页面，GEO 效果归零。unifab.ai 的配置是 `User-agent: * Allow: /`，完全开放。
+
+### 动作二：内容写法加"直接答案段落"
+
+每篇文章每个 H2 章节的开头，用一到两句话直接给出结论，不铺垫。
+
+```
+❌ SEO写法（合格但GEO弱）：
+"When it comes to comparing 4K and 8K resolution, there are many 
+factors to consider, including..."
+
+✅ GEO写法（AI可直接引用）：
+"4K (3840×2160) is sufficient for screens under 85 inches viewed 
+at normal distance. 8K adds visible benefit only on 100+ inch 
+screens or in professional production workflows."
+```
+
+AI 引用的是"可以直接粘贴进答案"的句子，不引用铺垫段落。
+
+### 动作三：Organization Schema（只需做一次）
+
+在网站根层级 `<head>` 中加入 Organization schema，告诉 AI 系统这个网站是谁：
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AstrologyWiki",
+  "url": "https://astrologywiki.com",
+  "description": "Free astrology tools and birth chart analysis",
+  "sameAs": [
+    "https://twitter.com/astrologywiki",
+    "https://instagram.com/astrologywiki"
+  ]
+}
+```
+
+这个 schema 帮助 AI 建立"网站身份"的实体认知，是 AI 引用时出现品牌名的基础。
+
+---
+
+## 🔄 第七部分：Changelog
 *   **v2.3 (2026-05-20)**: 
     *   **流程重构**：重组为极速落地的“建卡->搜证->组装->QA->部署->复盘”六步线性流程。
     *   **QA 独立**：重写了更具实操性的“5秒 QA”标准（首段直答/CTA/Friction/决策结构/视觉）。
