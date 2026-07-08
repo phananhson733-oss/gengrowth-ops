@@ -2243,10 +2243,10 @@
     "slug": "novak-djokovic-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-040.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "64571",
-    "leaseUntil": "2026-07-08T15:33:34.284Z",
-    "updatedAt": "2026-07-08T14:33:34.284Z",
+    "leaseUntil": "2026-07-08T15:37:25.416Z",
+    "updatedAt": "2026-07-08T14:37:25.416Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-040",
     "branch": "seo/auto/2026-07-08-PG-CELEB-040"
   }
