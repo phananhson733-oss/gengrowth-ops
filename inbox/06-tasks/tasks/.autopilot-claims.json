@@ -2257,15 +2257,16 @@
     "mergedAt": "2026-07-08T14:43:48.256Z"
   },
   "PG-CELEB-041": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "coco-gauff-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-041.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "9149",
-    "leaseUntil": "2026-07-08T16:04:48.645Z",
-    "updatedAt": "2026-07-08T15:04:48.645Z",
+    "leaseUntil": "2026-07-08T16:05:38.291Z",
+    "updatedAt": "2026-07-08T15:05:38.291Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-041",
-    "branch": "seo/auto/2026-07-08-PG-CELEB-041"
+    "branch": "seo/auto/2026-07-08-PG-CELEB-041",
+    "pr": "https://github.com/xdawayer/oracle/pull/346"
   }
 }
