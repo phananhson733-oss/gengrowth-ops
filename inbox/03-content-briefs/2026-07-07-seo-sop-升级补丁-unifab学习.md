@@ -320,19 +320,28 @@ sameAs 的作用：让所有 AI 爬虫把网站和各社媒账号识别为同一
 
 ### 动作四：Person（作者实体）schema — EEAT 信号
 
-unifab 每篇文章都有署名作者，并配有独立的作者页面和 Person schema（已验证）：
+unifab 完整 Person schema 结构（已验证，需完整复制四个关键字段）：
 
 ```json
 {
-  "@type": "BlogPosting",
-  "author": {
-    "@id": "https://astrologywiki.com/author/[作者名].htm#person"
-  },
-  "datePublished": "2026-07-08"
+  "@type": "Person",
+  "name": "[作者名]",
+  "jobTitle": "AstrologyWiki Editor",
+  "description": "[作者简介，含专业背景]",
+  "worksFor": {"@id": "https://astrologywiki.com/#organization"},
+  "sameAs": ["https://x.com/[作者Twitter]"],
+  "knowsAbout": ["Astrology", "Birth Chart Reading", "Zodiac Analysis"],
+  "alumniOf": [{"@type": "EducationalOrganization", "name": "[学校名]"}]
 }
 ```
 
-**为什么重要：** Google EEAT 要求证明内容由真实专业人士创作。AI 系统引用内容时，有作者实体的文章权重更高。每个作者需要一个独立页面（含简介、专业背景、其他发表内容链接）。
+**四个字段缺一不可：**
+- `knowsAbout`：直接声明专业领域，Google 用于评估 Expertise
+- `alumniOf`：学历背书，增强 Trustworthiness
+- `sameAs`：跨平台实体验证，证明作者真实存在
+- `worksFor`：把作者绑定到 Organization 实体，雇佣关系可核验
+
+每个作者必须有独立页面 `/author/[name].htm`，ProfilePage schema 包裹 Person schema。
 
 ---
 
@@ -416,6 +425,66 @@ ChatGPT：  https://chatgpt.com/?q=[预填查询，URL编码]
 
 ---
 
+## 补丁八：工具页专项规则（新增）
+
+**适用场景：** 工具落地页 / 产品页的创建和维护。
+
+### 8.1 工具页 H2 策略（与首页相反）
+
+| 页面类型 | H2 策略 |
+|---|---|
+| 首页 | H2 不放产品关键词（防自噬）|
+| 工具页 | H2 每个都含核心关键词（强化语义）|
+
+**AstrologyWiki 示例（Birth Chart Calculator 工具页）：**
+```
+H1: Birth Chart Calculator — Free Natal Chart in Seconds
+H2: Birth Chart Calculator with 3 Interpretation Layers
+H2: Generate Your Full Birth Chart Online — No Signup Required
+H2: What's New in AstrologyWiki Birth Chart Calculator
+H2: What AstrologyWiki Users Say About Birth Chart Reading
+```
+
+### 8.2 SoftwareApplication Schema（工具页必加）
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AstrologyWiki Birth Chart Calculator",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "url": "https://astrologywiki.com/birth-chart-calculator",
+  "publisher": {"@id": "https://astrologywiki.com/#organization"}
+}
+```
+
+AI 被问"最好的星盘计算器是什么"时，有 SoftwareApplication schema 的工具才会被识别为产品实体候选。
+
+### 8.3 工具页"What's New"版本日志板块
+
+工具页末部添加版本更新记录，每次产品更新追加一行，持续发送页面新鲜度信号：
+
+```
+## What's New in AstrologyWiki Birth Chart Calculator
+
+July 2026: Added Whole Sign House System option
+May 2026:  Improved aspect orb accuracy for minor aspects
+```
+
+### 8.4 高价值竞品词建独立 .htm 页，不放 blog
+
+对月搜索量 ≥500 的直接竞品对比词，建立根目录 `.htm` 格式对比页：
+
+```
+✅ /co-star-vs-astrologywiki.htm   ← 根目录，权重最高，转化导向
+❌ /resource/co-star-vs-astrologywiki  ← 二级路径，权重较低
+```
+
+信息型竞品文章（比较多个产品）仍放 `/resource/` blog。
+
+---
+
 ## 变化对照总表
 
 | 补丁 | 变化项 | 原规范 | 本补丁 | 适用场景 |
@@ -432,6 +501,10 @@ ChatGPT：  https://chatgpt.com/?q=[预填查询，URL编码]
 | 六 | 注册弹窗 | 无 | Blog 末尾 scroll-depth 触发 | Blog 页面 |
 | 七 | GEO 被动配置 | robots.txt + Organization schema | 新增 Person schema + HowTo schema + 第三方引用矩阵 | 站点配置 |
 | 七 | GEO 主动引导 | 无 | 首页"Ask AI"按钮 → 预填品牌查询跳转 AI 工具 | 首页 / 工具页 |
+| 八 | 工具页 H2 | 无规定 | 工具页 H2 必须含核心关键词（与首页相反）| 工具落地页 |
+| 八 | 工具页 schema | 无 | SoftwareApplication schema 必加 | 工具落地页 |
+| 八 | 工具页更新 | 无 | "What's New"版本日志持续追加 | 工具落地页 |
+| 八 | 竞品对比页 | 全放 blog | 高价值竞品词建独立 .htm 根目录页 | 竞品选题 |
 
 ---
 

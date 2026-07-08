@@ -390,16 +390,46 @@ unifab 在工具页主动展示"本地版 vs 云版"的功能差异，**包括�
 | BlogPosting / Article schema | ✅ 确认 | 评测类用 BlogPosting，教程类用 Article |
 | BreadcrumbList schema | ✅ 确认 | 所有文章页均有，三级路径（Home > Resource > 文章）|
 | Organization schema + sameAs | ✅ 确认 | 见下方详细展开 |
-| Person（作者实体）schema | ✅ 确认 | 每篇文章有作者 @id，指向 `/author/harper.htm` |
+| Person（作者实体）schema | ✅ 确认 | 含 knowsAbout + alumniOf + sameAs，见 10.3 |
+| ProfilePage schema | ✅ 确认 | 每个作者有独立页面 `/author/[name].htm` |
+| **SoftwareApplication schema** | ✅ 确认 | 所有工具页标配，含 applicationCategory + operatingSystem + downloadUrl |
 | ItemList schema | ✅ 确认 | 用于文章内编号列表 |
 | H2 开头直接答案句 | ✅ 确认 | 每个 H2 第一句直接给结论，可被 AI 直接引用 |
 | 结构化对比表格 | ✅ 确认 | AI 系统最容易解析的内容格式 |
 | Ask AI 主动引导按钮 | ✅ 确认 | 首页"Ask AI about UniFab"，跳转 AI 工具预填查询 |
 | 第三方引用建设 | ✅ 确认 | Trustpilot / FilterGrade / SoftwareTestingHelp / Futurepedia |
 | Reddit 自建版块 | ✅ 确认 | r/UniFabCreators，控制品牌在 Reddit 的话语权 |
+| 本地化作者团队 | ✅ 确认 | 各语言站有独立作者，日语用日文名（Chiharu/Yume/Aoi）|
+| 工具页 "What's New" 版本日志 | ✅ 确认 | 保持工具页内容持续更新，新鲜度信号 |
+| 独立竞品对比页（.htm）| ✅ 确认 | `/compare-unifab-and-topaz.htm`，产品级别不是 blog |
 | **HowTo schema** | ❌ **缺失** | Step 1/2/3/4 模块只是视觉 HTML，未加结构化标记 |
 
-### 10.2 Organization Schema sameAs（品牌实体锚定）
+### 10.2 工具页 H 标签规律（与首页相反）
+
+工具页 H2 策略与首页 H2 策略**完全相反**：
+
+| 页面类型 | H2 策略 | 原因 |
+|---|---|---|
+| 首页 | H2 不放产品关键词 | 避免抢占工具页的关键词排名 |
+| 工具页 | H2 每个都含核心关键词 | 这里就是要排名的页面，重复强化语义 |
+
+**video-upscaler.htm 的 H2 实例：**
+```
+AI Video Upscaler with 4 Specialized Models for Every Video Type
+AI Video Upscaling Online — Browser-Based, Instant Output
+AI Upscale Video Resolution up to 16K in Crystal-Clear Detail
+Video Upscaler AI: Spec Sheet of Each AI Model
+What's New in UniFab AI Video Upscaler        ← 版本更新日志
+Video Upscaler AI vs Video Upscaler AI FabCloud ← 内部版本对比
+What UniFab Users Say About AI Video Upscaling  ← 社会证明
+Get UniFab All-In-One — One License, 20+ AI Tools ← 追加销售
+```
+
+"What's New"版本日志是工具页特有的板块：每次产品更新都可以追加内容，持续向 Google 发送"页面有新鲜内容"的信号，而不需要重写整页。
+
+---
+
+### 10.3 Organization Schema sameAs（品牌实体锚定）
 
 ```json
 {
@@ -418,21 +448,74 @@ unifab 在工具页主动展示"本地版 vs 云版"的功能差异，**包括�
 
 sameAs 的作用：告诉所有 AI 爬虫"这四个账号和这个网站是同一个品牌实体"，让品牌在 AI 知识库里形成一个清晰的实体节点，而不是几个孤立的信号。
 
-### 10.3 Person（作者实体）schema — EEAT 信号
+### 10.4 Person（作者实体）schema — EEAT 信号
 
-每篇文章的 BlogPosting schema 里包含：
+unifab 作者页 Person schema 完整结构（已验证）：
 
 ```json
 {
-  "@type": "BlogPosting",
-  "author": {
-    "@id": "https://unifab.ai/author/harper.htm#person"
-  },
-  "datePublished": "2025-01-20"
+  "@type": "Person",
+  "name": "Harper Seven",
+  "jobTitle": "UniFab Editor",
+  "description": "Harper joined the UniFab team in 2024...",
+  "worksFor": {"@id": "https://unifab.ai/#organization"},
+  "sameAs": ["https://x.com/HarperSeve39276"],
+  "knowsAbout": ["Video Technology", "Software Reviews", "Easy Tutorials"],
+  "alumniOf": [{"@type": "EducationalOrganization", "name": "University of Southern California"}]
 }
 ```
 
-作者有独立页面（`/author/harper.htm`），有自己的 Person schema。这是 Google EEAT（Experience, Expertise, Authoritativeness, Trustworthiness）要求的标准做法——让 AI 系统知道内容是真实的人写的，而不是匿名机器生成。
+**四个关键字段解析：**
+
+| 字段 | 内容 | EEAT 作用 |
+|---|---|---|
+| `knowsAbout` | Video Technology, Software Reviews | 直接声明专业领域，Google 用于评估 Expertise |
+| `alumniOf` | University of Southern California | 学历背书，增强 Trustworthiness |
+| `sameAs` | Twitter/X 账号 | 跨平台实体验证，证明作者真实存在 |
+| `worksFor` | 链接到 Organization 实体 | 把作者绑定到品牌，雇佣关系可核验 |
+
+**本地化作者团队策略：** unifab 为每种语言配置了独立作者：
+- 英语：Harper Seven、Ethan、Chloe、Uyu、Echo
+- 日语：Chiharu、Yume、Aoi（使用日文风格名字）
+- 德语：Noah、Sammi
+
+→ 每个语言市场的读者看到的是有本地文化背景的作者，EEAT 信号在本地市场更可信。
+
+### 10.5 SoftwareApplication Schema（工具页产品实体）
+
+工具页标配的 schema（已验证）：
+
+```json
+{
+  "@type": "SoftwareApplication",
+  "name": "UniFab Video Upscaler AI",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Windows, macOS, Web",
+  "downloadUrl": "https://download.unifab.ai/...",
+  "publisher": {"@id": "https://unifab.ai/#organization"}
+}
+```
+
+**为什么这对 GEO 至关重要：** 当 AI 系统被问到"最好的视频超分辨率软件是什么"时，它会在训练数据中寻找 `@type: SoftwareApplication` 的实体节点。有这个 schema，UniFab 就在 AI 的产品知识图谱里有了明确的位置；没有这个 schema，AI 只能靠文本推断。
+
+**与 Organization schema 的联动：** `publisher` 字段指向 Organization 实体 ID，把产品、公司、作者三个实体连成一张图，AI 系统可以完整解析"谁做了什么产品"。
+
+### 10.6 独立竞品对比页（产品级，非 blog）
+
+sitemap 中发现：`/compare-unifab-and-topaz.htm`
+
+这不是 `/resource/` 下的 blog 文章，而是 `.htm` 格式的产品级竞品对比页，与工具页同级。
+
+**与竞品 blog 文章的区别：**
+
+| 维度 | 竞品 blog 文章（/resource/）| 独立对比页（.htm）|
+|---|---|---|
+| URL 权重 | 二级路径，权重较低 | 根目录，权重最高 |
+| 内容深度 | 内容型，侧重信息 | 产品型，侧重转化 |
+| 更新频率 | 按新闻/更新追加 | 产品发布时同步更新 |
+| CTA | 文章内自然植入 | 全页转化导向 |
+
+→ 对于高价值竞品词（如"Topaz vs UniFab"），放在 `.htm` 产品页比放在 blog 更有 SEO 权重，且页面设计可以完全为转化优化。
 
 ### 10.4 第三方引用建设
 
