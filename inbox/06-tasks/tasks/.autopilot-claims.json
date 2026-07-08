@@ -2257,19 +2257,19 @@
     "mergedAt": "2026-07-08T14:43:48.256Z"
   },
   "PG-CELEB-041": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "coco-gauff-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-041.md",
     "stage": "pushed-preview",
-    "lockedBy": "9149",
-    "leaseUntil": "2026-07-08T16:05:38.291Z",
-    "updatedAt": "2026-07-08T15:05:38.291Z",
+    "lockedBy": "42347",
+    "leaseUntil": "2026-07-08T17:07:56.163Z",
+    "updatedAt": "2026-07-08T16:07:56.163Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-041",
     "branch": "seo/auto/2026-07-08-PG-CELEB-041",
     "pr": "https://github.com/xdawayer/oracle/pull/346",
-    "error": "codex completed with codex FAIL —Coco Gauff's birthplace is Boca Raton, Florida, not Delray Beach, Florida",
-    "failedAt": "2026-07-08T15:15:49.770Z"
+    "retryEvidence": "fixed Coco Gauff birthplace copy to Boca Raton with Delray Beach context",
+    "retryAt": "2026-07-08T16:07:56.163Z"
   },
   "PG-CELEB-042": {
     "status": "done",
