@@ -2261,10 +2261,10 @@
     "slug": "coco-gauff-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-041.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "9149",
-    "leaseUntil": "2026-07-08T16:00:09.374Z",
-    "updatedAt": "2026-07-08T15:00:09.374Z",
+    "leaseUntil": "2026-07-08T16:04:48.645Z",
+    "updatedAt": "2026-07-08T15:04:48.645Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-041",
     "branch": "seo/auto/2026-07-08-PG-CELEB-041"
   }
