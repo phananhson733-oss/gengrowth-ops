@@ -2255,5 +2255,17 @@
     "verifiedAt": "2026-07-08T14:43:40.186Z",
     "headRefOid": "3cf3b8aa2a3734f4def857c3c30750aa939c2b62",
     "mergedAt": "2026-07-08T14:43:48.256Z"
+  },
+  "PG-CELEB-041": {
+    "status": "active",
+    "slug": "coco-gauff-zodiac-sign",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-041.md",
+    "stage": "convert",
+    "lockedBy": "9149",
+    "leaseUntil": "2026-07-08T16:00:09.374Z",
+    "updatedAt": "2026-07-08T15:00:09.374Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-CELEB-041",
+    "branch": "seo/auto/2026-07-08-PG-CELEB-041"
   }
 }
