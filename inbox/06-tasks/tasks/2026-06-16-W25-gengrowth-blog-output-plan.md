@@ -152,7 +152,7 @@ updated: 2026-06-23
 ## ⚪ 7月8日 (周三) - 待写作
 **状态**：`等待输出` (自动补充选题，共 6 篇)
 - [x] `PG-ART-005` generative engine optimization
-- [ ] `PG-ART-006` ai search visibility
+- [x] `PG-ART-006` ai search visibility
 - [ ] `PG-WLS-006` gpt 5.6 seo
 - [ ] `PG-GJ2U-001` google july 2026 update
 - [ ] `PG-AIS-005` ai seo audit
