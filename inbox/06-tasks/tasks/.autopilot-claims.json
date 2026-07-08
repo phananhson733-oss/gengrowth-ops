@@ -2203,7 +2203,7 @@
     "mergedAt": "2026-07-07T15:18:09.372Z"
   },
   "PG-WC-047": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "lamine-yamal-zodiac-sign",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-WC-047.md",
@@ -2213,6 +2213,11 @@
     "updatedAt": "2026-07-08T13:41:11.785Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-08-PG-WC-047",
     "branch": "seo/auto/2026-07-08-PG-WC-047",
-    "pr": "https://github.com/xdawayer/oracle/pull/343"
+    "pr": "https://github.com/xdawayer/oracle/pull/343",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-08-pg-wc-047-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass-post-repair)",
+    "verifiedAt": "2026-07-08T13:48:34.643Z",
+    "headRefOid": "8f325395c6522f4891456be71c55cd583c77f2b8",
+    "mergedAt": "2026-07-08T13:48:42.602Z"
   }
 }
