@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brdeco SEO+GEO 需求评估</title>
+<style>
+  :root {
+    --ground: #F6F8F9;
+    --surface: #FFFFFF;
+    --ink: #17242C;
+    --muted: #5D7280;
+    --accent: #0D6E8C;
+    --accent-soft: #E3F0F5;
+    --ok: #2E7D5B;
+    --ok-soft: #E4F1EB;
+    --warn: #A66A08;
+    --warn-soft: #F7EEDC;
+    --danger: #B04036;
+    --danger-soft: #F6E6E4;
+    --line: #DCE4E8;
+    --code-bg: #EEF3F5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0E1519;
+      --surface: #152026;
+      --ink: #E4ECF0;
+      --muted: #8FA3AE;
+      --accent: #4FB3D4;
+      --accent-soft: #163542;
+      --ok: #5CBD93;
+      --ok-soft: #143327;
+      --warn: #D9A44A;
+      --warn-soft: #3A2E14;
+      --danger: #E08A80;
+      --danger-soft: #3D211E;
+      --line: #24323A;
+      --code-bg: #1B2930;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0E1519; --surface: #152026; --ink: #E4ECF0; --muted: #8FA3AE;
+    --accent: #4FB3D4; --accent-soft: #163542; --ok: #5CBD93; --ok-soft: #143327;
+    --warn: #D9A44A; --warn-soft: #3A2E14; --danger: #E08A80; --danger-soft: #3D211E;
+    --line: #24323A; --code-bg: #1B2930;
+  }
+  :root[data-theme="light"] {
+    --ground: #F6F8F9; --surface: #FFFFFF; --ink: #17242C; --muted: #5D7280;
+    --accent: #0D6E8C; --accent-soft: #E3F0F5; --ok: #2E7D5B; --ok-soft: #E4F1EB;
+    --warn: #A66A08; --warn-soft: #F7EEDC; --danger: #B04036; --danger-soft: #F6E6E4;
+    --line: #DCE4E8; --code-bg: #EEF3F5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    font-size: 15px; line-height: 1.75; margin: 0; padding: 0;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px 96px; }
+  header.hero { padding: 56px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  h1 { font-size: 34px; line-height: 1.25; margin: 0 0 10px; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+  .sub { color: var(--muted); font-size: 15px; max-width: 46em; }
+  h2 { font-size: 23px; margin: 56px 0 6px; font-weight: 700; letter-spacing: -.005em; }
+  h2 .no { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 10px; }
+  h3 { font-size: 17px; margin: 30px 0 6px; font-weight: 650; }
+  p { margin: 10px 0; max-width: 62em; }
+  .lede { color: var(--muted); margin: 0 0 18px; max-width: 60em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86em; background: var(--code-bg); padding: 1px 6px; border-radius: 4px; }
+  .verdict {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch;
+    margin: 26px 0 8px;
+  }
+  .verdict-main {
+    flex: 2 1 380px; background: var(--surface); border: 1px solid var(--line);
+    border-left: 4px solid var(--warn); border-radius: 10px; padding: 18px 22px;
+  }
+  .verdict-main .tag { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--warn); font-weight: 700; }
+  .verdict-main .big { font-size: 21px; font-weight: 700; margin: 4px 0 6px; }
+  .verdict-main p { font-size: 14px; color: var(--muted); margin: 0; }
+  .scores { flex: 3 1 420px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; }
+  .score {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .score .k { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+  .score .v { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.3; }
+  .score .v small { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .tablewrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; letter-spacing: .05em; color: var(--muted); font-weight: 650; white-space: nowrap; background: color-mix(in srgb, var(--ground) 60%, var(--surface)); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .chip { display: inline-block; padding: 1px 9px; border-radius: 20px; font-size: 12px; font-weight: 650; white-space: nowrap; }
+  .chip.ok { background: var(--ok-soft); color: var(--ok); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .chip.danger { background: var(--danger-soft); color: var(--danger); }
+  .chip.info { background: var(--accent-soft); color: var(--accent); }
+  .callout { border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--surface); border-radius: 8px; padding: 12px 18px; margin: 16px 0; font-size: 14px; }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.danger { border-left-color: var(--danger); }
+  .callout b.cap { display: block; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+  .callout.warn b.cap { color: var(--warn); }
+  .callout.danger b.cap { color: var(--danger); }
+  .callout b.cap.acc { color: var(--accent); }
+  ul, ol { margin: 8px 0; padding-left: 24px; max-width: 60em; }
+  li { margin: 5px 0; }
+  li::marker { color: var(--muted); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; }
+  .card h4 { margin: 0 0 8px; font-size: 15px; }
+  .card .price { font-size: 20px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .card.rec { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .card .badge { float: right; font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--accent); }
+  .card ul { padding-left: 18px; font-size: 13.5px; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0; margin: 14px 0; }
+  summary { cursor: pointer; padding: 13px 18px; font-weight: 650; font-size: 14.5px; }
+  details[open] summary { border-bottom: 1px solid var(--line); }
+  details .inner { padding: 6px 20px 16px; }
+  pre.verbatim { white-space: pre-wrap; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; line-height: 1.65; background: var(--code-bg); border-radius: 8px; padding: 16px 18px; overflow-x: auto; margin: 12px 0; }
+  .src { font-size: 12.5px; color: var(--muted); }
+  .foot { margin-top: 64px; border-top: 1px solid var(--line); padding-top: 16px; font-size: 12.5px; color: var(--muted); }
+  @media (max-width: 640px) { h1 { font-size: 26px; } .wrap { padding: 0 16px 64px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">GenGrowth · 商机评估 · 2026-07-08</div>
+  <h1>Brdeco SEO+GEO 增长系统需求评估</h1>
+  <p class="sub">对客户《brdeco geo.docx》需求文档的落地评估：结合 gengrowth-agents / gengrowth-geo / gengrowth-flow 三个代码库的实际能力盘点、KPI 承诺风险分析、分阶段交付方案与报价参考。评估方法：7 个并行分析 agent（64 万 token）+ Codex 独立第二意见（40 万 token）+ Ahrefs 独立数据交叉验证。</p>
+</header>
+
+<div class="verdict">
+  <div class="verdict-main">
+    <span class="tag">总体判断</span>
+    <div class="big">可以接，但必须重构合同再签</div>
+    <p>两套独立评估（Claude fan-out 与 Codex）结论一致：以「120 天付费试点」形式承接，KPI 表中 4 项必须签约前重构（AI 可见度、Authority Score、反链总数、C 类站绝对值），外链/声量/多语审校拆为单列服务项，拒绝纯抽成模式。</p>
+  </div>
+  <div class="scores">
+    <div class="score"><span class="k">现有代码覆盖（可用口径）</span><span class="v">25–30%</span></div>
+    <div class="score"><span class="k">全量工作量 P50</span><span class="v">125 <small>人日</small></span></div>
+    <div class="score"><span class="k">MVP 工作量</span><span class="v">60–70 <small>人日</small></span></div>
+    <div class="score"><span class="k">推荐档 120 天总价</span><span class="v">¥22–32<small>万</small></span></div>
+    <div class="score"><span class="k">后续月费（推荐档）</span><span class="v">¥2.5–4<small>万/月</small></span></div>
+    <div class="score"><span class="k">工具硬成本（客户担）</span><span class="v">$1.1–1.6k<small>/月</small></span></div>
+  </div>
+</div>
+
+<h2><span class="no">01</span>需求解读</h2>
+<p class="lede">客户 Brdeco（宝润达）：冷库板 / 制冷设备 / 洁净室板材 B2B 出口商，站群含 brdecogroup.com（A 类总站）、brdecomy.com（马来西亚）、brdecosa.com（沙特，阿语主站）、myarteco.com（C 类新站）+ 未建的美国站。团队 7 月 2 日已做过该客户的四站竞品调研（gengrowth-ops 仓库），当时口径还包含 brdeco.jp 日本站——签约前需与客户确认站点清单。</p>
+<p>需求本质是一套「SEO + GEO 增长系统」，四个核心问题：<b>① 市场在搜什么</b>（趋势词/上涨词/竞品新增词）→ <b>② 客户还会怎么搜</b>（从核心词扩展 10 类衍生词矩阵）→ <b>③ 网站覆盖了吗</b>（页面存在性/质量/AI 引用适配）→ <b>④ 怎么让 AI 引用我们</b>（关键词变成页面/FAQ/案例/选型指南 + 结构化数据）。考核完全锚定 Semrush 指标，启动日冻结基线、按 60/120 天百分比增长验收，另加 16 条补充需求（多数据源验证、询盘归因、WordPress 发布闭环、多语言、竞品监控、人工审核等）。</p>
+<div class="callout warn"><b class="cap">文档里没写但决定成败的一点</b>需求通篇用「系统需要……」的措辞，把<b>外链建设、外部声量（LinkedIn/YouTube/新闻稿）、多语言母语审校、内容人工审核</b>等纯人力服务也包装成了软件功能。若按软件报价整体承接，等于用软件的钱交付 agency 的人天——这是本单最大的商业陷阱。</div>
+
+<h2><span class="no">02</span>基线核查：三源数据对不上</h2>
+<p class="lede">客户 docx 附的 Semrush 截图（2026-07-07，Trial 账号）与我们用 Ahrefs、以及 7 月 2 日调研中的 SimilarWeb 数据存在系统性差异，直接影响 KPI 口径设计。</p>
+<div class="tablewrap"><table>
+<tr><th>站点</th><th>层级</th><th class="num">Semrush 流量/月</th><th class="num">Ahrefs 流量/月</th><th class="num">Semrush 关键词</th><th class="num">Ahrefs 关键词</th><th class="num">AS / DR</th><th class="num">反链 (S/A)</th><th class="num">AI 可见度</th></tr>
+<tr><td>brdecogroup.com</td><td>A 成熟</td><td class="num">1.2K (−7.3%)</td><td class="num">518</td><td class="num">855</td><td class="num">220</td><td class="num">15 / 33</td><td class="num">999 / 5,946</td><td class="num">14（提及 2）</td></tr>
+<tr><td>brdecomy.com</td><td>B 成长</td><td class="num">754 (+12%)</td><td class="num">522</td><td class="num">934</td><td class="num">251</td><td class="num">11 / 30</td><td class="num">396 / 2,809</td><td class="num">14（提及 5）</td></tr>
+<tr><td>brdecosa.com</td><td>B 成长</td><td class="num">104</td><td class="num">52</td><td class="num">171</td><td class="num">22</td><td class="num">10 / 26</td><td class="num">747 / 5,043</td><td class="num">14（提及 1）</td></tr>
+<tr><td>myarteco.com</td><td>C 新站</td><td class="num">不可用</td><td class="num">0</td><td class="num">不可用</td><td class="num">0</td><td class="num">2 / 4.9</td><td class="num">239 / 1,899</td><td class="num">0（全零）</td></tr>
+</table></div>
+<div class="callout danger"><b class="cap">红旗 · 疑似历史垃圾外链</b>myarteco.com 有 <b>1,899 条反链、277 个引荐域名，但自然关键词为 0</b>；brdecosa.com 5,043 条反链却只有 22 个词有排名。这是「买过廉价外链包」的典型特征。含义：① C 类站可能带着链接污染的历史包袱，120 天反链 KPI 更不能按数量承诺；② 合同必须写明「甲方自行购买链接导致处罚的，乙方 KPI 义务中止」；③ 启动时应做一次外链风险审计（我们有 backlink 风险监测代码，正好是卖点）。</div>
+<ul>
+<li><b>Semrush 与 Ahrefs 的流量/词量差 2–4 倍</b>（855 vs 220 词）：验收若只认 Semrush 单源，我们暴露在其数据库更新的系统性波动下。必须双源、以 GSC 为主考核源。</li>
+<li><b>AI 指标是统计噪声级基线</b>：三个站 AI 可见度都是 14 分、提及 1–5 条。在这个量级上「提升 150–300%」= 从 2 条到 5 条，一次模型改版就能翻倍或归零。</li>
+<li><b>7 月 2 日调研的 SimilarWeb 数据显示全渠道流量 6 个月下滑</b>（brdecogroup −50.5%），与 Ahrefs 有机上行并存——说明客户痛的是总盘子，SEO 只是入口，预期管理要提前做。</li>
+<li><b>客户 Semrush 是 Trial 账号</b>：试用到期数据灭失，基线证据不复存在。必须转付费并约定账号归属（详见第 07 节条款 2）。</li>
+</ul>
+
+<h2><span class="no">03</span>我们手里有什么：三库能力盘点</h2>
+<p class="lede">诚实口径：区分「生产级可用」「有代码但 flag 关闭/未验证」「仅 spec」。这决定哪些能力可以对客承诺。</p>
+<div class="grid2">
+<div class="card"><h4>gengrowth-agents（主产品，Next.js + Supabase）</h4>
+<ul>
+<li><span class="chip ok">生产级</span> GSC/GA4 OAuth 接入与夜间同步、17 模块技术诊断（含 hreflang）、DataForSEO/Semrush/Trends 取数管道、周度竞品监控 cron、确定性内容质量门禁 + 双人工审核卡口、RBAC/RLS 多产品架构、AI 四平台探测 + Module H 31 项 GEO 审计</li>
+<li><span class="chip warn">代码在但未生产验证</span> Content Engine v1 全链路（证据包→引用合同→质量门→WordPress 发布）<code>flag OFF</code>，生产环境<b>零篇真实发布</b>（F-0a 未达成）；SV2 关键词宇宙（6 源+聚类）flag OFF，聚类优先级有已知缺陷 F-0b/F-1</li>
+<li><span class="chip danger">缺失</span> 跨站聚合看板（现架构单产品单看板）、Semrush KPI 基线冻结系统、询盘级归因</li>
+</ul></div>
+<div class="card"><h4>gengrowth-geo（GEO 研究库）+ specs</h4>
+<ul>
+<li><span class="chip ok">已实跑</span> DataForSEO LLM Responses 采样管道（两个目标 276 条真实采样）、AI-Readiness 评分卡 + R1–R9 修复工单、No-Mock 事实核查（抓到过真实编造案例）、基线/噪声带/溯源纪律完整</li>
+<li><span class="chip warn">方法论未闭环</span> M1 受控实验从未锁定（降级为观察性 Track B）——<b>「能否把 AI 可见度提升 X%」这个因果问题我们自己都没回答</b>，研究纪律只允许记录 candidate lift。这是拒绝 AI 可见度百分比承诺的最硬依据。</li>
+<li><span class="chip info">战略已定调</span> 2026-06-03 市场调研结论：GenGrowth 不应以 GEO SaaS 切入，正确形态是<b>服务化交付（GEO Audit → 30 天 Sprint → 月度复盘）+ 软件做内部生产力</b>——与本单的推荐交付形态完全一致。</li>
+</ul></div>
+</div>
+
+<h2><span class="no">04</span>差距矩阵：按客户需求逐条对照</h2>
+<p class="lede">工作量假设：1 名资深工程师 + AI 辅助编码。覆盖度口径：已有 = 生产级可配置使用；部分 = 有代码需改造/开 flag/未验证；缺失 = 无代码（spec 只加速设计）。</p>
+<div class="tablewrap"><table>
+<tr><th>#</th><th>需求项</th><th>现有覆盖</th><th>覆盖度</th><th class="num">人日</th><th>外部依赖</th></tr>
+<tr><td>核1</td><td>趋势词发现</td><td>Trends/DataForSEO 取数管道可用，无趋势词模块</td><td><span class="chip warn">部分</span></td><td class="num">7</td><td>DataForSEO Labs</td></tr>
+<tr><td>核2</td><td>关键词矩阵扩展 + 商业意图识别（补3）+ 聚类去重（补5）</td><td>SV2 六源关键词宇宙 + 聚类 builders 真实存在，需开 flag、修 F-0b/F-1、行业语料适配、导出视图</td><td><span class="chip warn">部分</span></td><td class="num">13</td><td>DataForSEO / Semrush 可选</td></tr>
+<tr><td>核3</td><td>站点覆盖判断（词簇×页面映射）+ 多站差异化（补15）</td><td>单站爬虫/GSC 索引数据有；<b>全部代码以单站为单元，跨站分配/防蚕食无</b></td><td><span class="chip danger">缺失</span></td><td class="num">15</td><td>GSC 免费</td></tr>
+<tr><td>核4</td><td>内容生成 + 页面类型路由（补4）+ 结构化数据</td><td>Content Engine v1 全链路已写但 flag OFF 零发布；模板缺 FAQ/产品页；生成无语言参数</td><td><span class="chip warn">部分</span></td><td class="num">17</td><td>LLM API 按量</td></tr>
+<tr><td>KPI</td><td>指标体系 + 多站集团看板 + 基线冻结（补13）</td><td>measurement lib/归因/显著性检验可用；<b>跨站聚合看板任何仓库均无</b>；geo-repo 基线纪律可移植</td><td><span class="chip danger">缺失</span></td><td class="num">18</td><td>GSC/GA4 免费</td></tr>
+<tr><td>补1</td><td>多数据源验证（GSC/GA4/WP/表单/WhatsApp）</td><td>GSC/GA4 生产级；表单/WhatsApp 事件需 GTM 埋点方案</td><td><span class="chip warn">部分</span></td><td class="num">5</td><td>需客户配合埋点</td></tr>
+<tr><td>补2</td><td>询盘归因</td><td>UTM/多触点归因 lib 有；<b>询盘级归因无代码</b>，WhatsApp 会话内不可归因（技术上限）</td><td><span class="chip danger">缺失→降级</span></td><td class="num">8</td><td>GA4/GTM</td></tr>
+<tr><td>补6</td><td>多语言（EN/AR/MS/TH）</td><td>UI 仅 en/zh；生成 prompt 无语言参数；质量门禁不覆盖阿语 RTL/马来语/泰语</td><td><span class="chip warn">部分</span></td><td class="num">10</td><td>母语审校人力（服务项）</td></tr>
+<tr><td>补7</td><td>竞品监控</td><td>周度 competitor-monitor cron + 关键词重叠管道 + GEO 竞品对比——生产级</td><td><span class="chip ok">已有</span></td><td class="num">3</td><td>复用 DataForSEO</td></tr>
+<tr><td>补8+9</td><td>内容质量评分 + 人工审核流程</td><td>确定性硬门禁 + 双人工卡口 + DB 触发器强制——生产级；需加建材参数校验规则</td><td><span class="chip ok">已有</span></td><td class="num">7</td><td>无</td></tr>
+<tr><td>补10</td><td>WordPress 发布闭环</td><td>WP REST provider + publish-draft 写回代码在，<b>生产零验证</b>；4 站 CMS 栈未确认</td><td><span class="chip warn">部分</span></td><td class="num">6</td><td>WP REST 免费；非 WP 站 +5–8 人日/种</td></tr>
+<tr><td>补11</td><td>白帽安全边界</td><td>backlink 风险监测引擎 + 白帽政策条款化</td><td><span class="chip ok">已有</span></td><td class="num">2</td><td>无</td></tr>
+<tr><td>补12</td><td>数据异常预警</td><td>weekly-signals 衰减检测有；告警通知渠道未接</td><td><span class="chip warn">部分</span></td><td class="num">4</td><td>Resend ~$20/月</td></tr>
+<tr><td>补14</td><td>任务优先级排序</td><td>确定性打分引擎 + backlog kanban 生产级；coder PRD V0 spec 加速</td><td><span class="chip warn">部分</span></td><td class="num">6</td><td>无</td></tr>
+<tr><td>补16</td><td>外部声量建设</td><td><b>纯服务项</b>（LinkedIn 运营/YouTube/新闻稿是人力+采购），软件仅做提及跟踪</td><td><span class="chip danger">服务项</span></td><td class="num">—</td><td>通稿按篇实报</td></tr>
+<tr><td colspan="3"><b>合计（软件部分）</b></td><td></td><td class="num"><b>~121</b></td><td class="src">P50 ≈ 125 人日（约 25 人周）；P90 ≈ 185 人日</td></tr>
+</table></div>
+<p><b>MVP 可裁剪到 60–70 人日</b>：核2/核4 + 跨站看板 + 基线冻结 + WP 发布 + GSC/排名/GEO 监测 + 技术诊断，先跑通「矩阵 → 生成 → 审核 → 发布 → 基线对比」最小闭环。首期裁掉：完整询盘归因（降级为 GA4 事件代理指标）、马来语/泰语（先 EN，阿语视 brdecosa 优先级）、趋势词模块、Google AI Mode 测量适配器。</p>
+<div class="callout"><b class="cap acc">对工作量分歧的说明</b>Claude fan-out 基于逐文件盘库得出 P50 125 人日（复用现有底座）；Codex 估 MVP 22–36 人周（110–180 人日）、全量 80–140 人周——Codex 按「产品级从头打磨」口径且含客户接入杂项。给报价用 125/185 人日（P50/P90）做成本底，把 Codex 口径当产品化天花板参考。</div>
+
+<h2><span class="no">05</span>KPI 承诺风险：哪些能签、哪些必须重构</h2>
+<p class="lede">客户 60/120 天百分比目标表<b>不能照签</b>。逐项分级（依据指标行为规律 + 我们自己的实测数据）：</p>
+<div class="tablewrap"><table>
+<tr><th>指标</th><th>分级</th><th>核心理由与重构方案</th></tr>
+<tr><td>AI 可见度</td><td><span class="chip danger">拒绝/重构</span></td><td>基线 14 分、提及 2 条是统计噪声；Semrush 计分黑盒且快速迭代；<b>我们自己的 M1 实验未锁定，研究纪律禁止因果承诺</b>。重构为：citation-ready 改造页数（可验收）+ 固定 prompt bank 周度复测 + 方向性目标（期末 ≥1 平台 ≥1 prompt 簇连续 2 周期稳定提及）</td></tr>
+<tr><td>AI 提及次数</td><td><span class="chip danger">拒绝/重构</span></td><td>从 2 到 4 就是「翻倍」；模型行为第三方决定。重构为 prompt 簇覆盖数（分母我方可控），取期末两个采样周期均值</td></tr>
+<tr><td>AI 引用页面</td><td><span class="chip warn">有条件（A/B 站）</span></td><td>A/B 站可承诺「120 天 ≥1–3 页进入 ChatGPT/Perplexity 引用」，绑定改造上线+审核不超时；<b>C 类站拒绝</b>（页面未稳定收录谈引用为时过早）</td></tr>
+<tr><td>Authority Score</td><td><span class="chip danger">仅监测不考核</span></td><td>Semrush 黑盒复合指标，定期重校准会全网漂移，低分段 +2 分可能纯噪声。替代口径：带质量门槛的新增引荐域名数</td></tr>
+<tr><td>自然流量</td><td><span class="chip warn">有条件（120 天）</span></td><td>必须锁死 <b>GSC 点击</b>为考核源（Semrush 估算与 GSC 可差 2–5 倍）；60 天基本是收录周期，60 天目标降级为过程验收；绑定审核 SLA + 无基线重置事件</td></tr>
+<tr><td>自然关键词 / Top100</td><td><span class="chip warn">有条件</span></td><td>相对最可控（新内容数周进长尾 Top100），但 Semrush 数据库更新单次可 ±10–20%，需写免责 + 期末两次抓取均值。<b>若客户实际要 Top10/Top3，整体重新分级</b></td></tr>
+<tr><td>引荐域名</td><td><span class="chip warn">有条件→服务项</span></td><td>外链是人力服务不是软件产出。白帽现实速度：每月 4–8 个 DR≥20、可索引、非目录域名，前提外链预算单列</td></tr>
+<tr><td>反向链接总数</td><td><span class="chip danger">拒绝</span></td><td>最易操纵最危险的指标——承诺数量等于合同性激励黑帽，且暴露于负面 SEO（第三方灌垃圾链接「帮」达标再触发处罚）。删除，并入引荐域名+质量门槛</td></tr>
+<tr><td>C 类站绝对值目标</td><td><span class="chip danger">拒绝→阶梯里程碑</span></td><td>新站收录+信任期使 120 天绝对流量/词量承诺 = 承诺 Google 的调度。重构：60 天=技术合格+收录率≥80%；120 天=曝光爬升+长尾 Top100 ≥N 词；绝对值 180 天复核再谈。<b>叠加内部风险：C 站最依赖批量内容，而我们内容引擎生产零验证</b></td></tr>
+<tr><td>自然询盘转化</td><td><span class="chip warn">有条件（重定义）</span></td><td>合同定义收窄为：GA4 自然来源表单提交事件 + WhatsApp 按钮点击。会话内行为/Alibaba 站内询盘/线下成交/跨设备明确写为不可归因</td></tr>
+</table></div>
+
+<h2><span class="no">06</span>软件 vs 服务边界（报价的分水岭）</h2>
+<div class="grid2">
+<div class="card"><h4>软件交付物（现有能力可支撑）</h4>
+<ul>
+<li>关键词发现/扩展/聚类（六源管道）</li>
+<li>SERP/竞品/GEO 周期监测与审计报告（R1–R9 工单是<b>最能立刻交付的差异化产出</b>）</li>
+<li>GSC/GA4 接入、看板与周报</li>
+<li>内容质量门禁 + 审核工作流 + WP 发布通道</li>
+<li>异常信号检测、任务优先级队列</li>
+</ul></div>
+<div class="card"><h4>伪装成「系统功能」的服务项（必须单列计价）</h4>
+<ul>
+<li><b>外链建设</b>：100% 人力（外联/素材/谈判）→ 按引荐域名计件或包月</li>
+<li><b>内容人工审核</b>：客户 SME 时间 + 我方编辑轮次，系统只提供工作流</li>
+<li><b>外部声量</b>：LinkedIn/YouTube/新闻稿 = 运营 + 通稿采购，按篇实报</li>
+<li><b>多语言质量</b>：机器生成 + 母语审校（阿/泰按词计价），不承诺「系统保证质量」</li>
+<li><b>第三方引用源建设</b>（GEO earned citation）= PR 工作</li>
+</ul></div>
+</div>
+
+<h2><span class="no">07</span>交付方案</h2>
+<p class="lede">推荐形态：<b>服务合同为主体的 Hybrid</b>——月度服务费买「审计 → 双周 Sprint → 月度复盘」，软件作为内部生产力工具 + 客户只读看板，不合同化承诺任何未生产验证的自动化功能。这与我们 6 月 3 日市场调研定的路线完全一致，本单就是第一个种子客户的机会。</p>
+<div class="tablewrap"><table>
+<tr><th>阶段</th><th>窗口</th><th class="num">人日</th><th>内容</th><th>验收</th></tr>
+<tr><td><b>P0 启动与基线</b></td><td>W1–W2</td><td class="num">~10</td><td>双签《基线快照》（GSC/GA4 导出+Semrush PDF）；4 站权限接入与《发布通道技术验收清单》逐站实测；Semrush 转付费；技术诊断批量跑 + 外链风险审计；<b>内部并行：F-0a 首次真实发布跑通、修 F-0b/F-1</b></td><td>通道验收不过的站时间线顺延</td></tr>
+<tr><td><b>P1 · 60 天窗口</b></td><td>W3–W9</td><td class="num">40–45</td><td>A/B 站 quick wins：技术修复 + citation-ready 改造（FAQ/定义块/表格/JSON-LD）；SV2 开 flag + 行业语料矩阵；英语内容管道跑通（生成→门禁→双审→WP 发布→收录验证）；排名/GEO 采样上线；C 站地基并行（收录提交+首批长尾）</td><td><b>过程验收</b>：发布量/收录量/修复上线数/改造页数，不验收流量结果</td></tr>
+<tr><td><b>P2 · 120 天窗口</b></td><td>W10–W17</td><td class="num">45–50</td><td>多语言扩展（阿语 RTL 门禁+母语审校流程）；跨站词簇分配 + 集团聚合看板；KPI 汇总按站分解 + 告警通道；四平台 GEO 采样入看板；GA4 询盘代理指标；衰减→刷新闭环</td><td>A/B 站结果指标（有条件承诺项）+ C 站阶梯里程碑</td></tr>
+<tr><td><b>P3 持续运营</b></td><td>120 天后</td><td class="num">retainer</td><td>外链/声量服务包执行、月产内容节奏、月度复盘与 KPI 重校准、C 站绝对值 180 天复核</td><td>月度服务量 + 季度结果复盘</td></tr>
+</table></div>
+<h3>人力配置</h3>
+<p>资深全栈 ×1（全程，AI 辅助）+ SEO/GEO 策略运营 ×0.5 + 内容编辑 ×0.3–0.5（P1 起）+ 母语审校（阿语外包按篇）+ 项目负责人 ×0.2。<b>产能红线</b>：客户 SME 并发审核容量 &lt;3 篇/周时，月产 20 篇的管道第 3 周堵死——签约前书面确认审核容量，按容量定发布节奏。</p>
+<h3>客户承担/配合清单（合同前置条件）</h3>
+<ul>
+<li>Semrush Business 付费订阅（客户付费；我方管理权限、客户只读；<b>试用账号数据不作验收依据</b>）+ AI Toolkit 按域名订阅</li>
+<li>4 站 WordPress 管理员权限 + REST/应用密码可用 + 每日备份；GSC ×4 property、GA4、GTM 部署许可；DNS/主机权限</li>
+<li>产品技术资料（防火等级/认证/规格/案例）——内容管道的原料，缺失则停摆</li>
+<li>SME 审核 SLA 5 个工作日（逾期视为批准或考核期顺延）；外链/声量预算单列确认；基线冻结承诺（不删页/改版/换域名/改 robots）</li>
+</ul>
+<h3>合同保护条款（8 条要点）</h3>
+<ol>
+<li><b>双源考核</b>：流量/词量以 GSC 为主考核源，Semrush 仅趋势参考；所有 KPI 取期末两个完整周期均值，不以单日数值验收</li>
+<li><b>基线冻结与账号归属</b>：生效 7 日内双签基线快照；Semrush 转付费、归属与费用写明；甲方大规模改版则基线重置顺延</li>
+<li><b>外链与声量单列</b>：按「新增引荐域名（去重/可索引/质量门槛）」验收，不用反链总数；甲方自购链接致处罚则乙方 KPI 义务中止</li>
+<li><b>审核 SLA 与时钟暂停</b>：5 个工作日，每篇修改 ≤2 轮，周报显性记录「等待客户审核天数」</li>
+<li><b>算法与平台不可抗力</b>：Google 核心更新/Semrush 改版/AI 平台策略变更 → 30 天 KPI 重校准窗口</li>
+<li><b>C 类站阶梯验收</b>：独立核算，不并入总表；绝对值目标 180 天复核</li>
+<li><b>归因口径上限</b>：询盘 = GA4 自然来源表单事件 + WhatsApp 点击；会话内/站内/线下明确不可归因</li>
+<li><b>权限交付时限</b>：任一权限逾期 7 个工作日，对应站点时间线自动顺延</li>
+</ol>
+
+<h2><span class="no">08</span>报价参考</h2>
+<p class="lede">市场锚点（fan-out 联网调研，全部带来源）：国内外贸 B2B 谷歌 SEO 代运营正规区间 <b>¥8–20 万/年</b>（单站），本案规模（4–5 站 × 4 国 + GEO + 硬 KPI）合理带 <b>¥25–60 万/年</b>；国际口径 $3–8K/月/市场 × 4 市场 = $12–32K/月；GEO 服务单独 +$2–2.5K/月起；效果付费市场仅 ~6% 代理提供纯效果制，主流是「小底薪 + 里程碑奖金」。国内可比对标：Kiwimore 公开报价 ¥10,000/月 + 订单 2–5% 分成。</p>
+<div class="grid2">
+<div class="card"><h4>A · 精简试点 <span class="badge">保底线</span></h4>
+<div class="price">¥15–22 万 / 120 天</div>
+<ul>
+<li>启动费 ¥5–8 万 + ¥2.5–3.5 万/月 ×4</li>
+<li>2 站深耕（A 站 + brdecomy）+ 4 站监测看板</li>
+<li>MVP 软件闭环 + 月产 8–12 篇（英语）</li>
+<li>外链/声量/多语审校全部另计</li>
+</ul></div>
+<div class="card rec"><h4>B · 推荐档 <span class="badge">RECOMMENDED</span></h4>
+<div class="price">¥22–32 万 / 120 天</div>
+<ul>
+<li>启动费 ¥8–12 万 + ¥3.5–5 万/月 ×4</li>
+<li>4 站全接入 + 集团看板 + P0–P2 全量</li>
+<li>月产 12–20 篇（英语 + 阿语起步）+ 周度竞品/GEO 采样</li>
+<li>外链按件单列（¥1,500–4,000/优质域名，对标国际 $360–510/条）</li>
+<li>后续 retainer ¥2.5–4 万/月</li>
+</ul></div>
+<div class="card"><h4>C · 全需求档</h4>
+<div class="price">¥32–50 万 / 120 天</div>
+<ul>
+<li>启动费 ¥12–18 万 + ¥5–8 万/月 ×4</li>
+<li>16 条全量 + EN/AR/MS/TH 四语 + 声量服务包 + 美国站建站支持</li>
+<li>只在客户明确要全部 16 条 + 多语 + 声量时报</li>
+</ul></div>
+</div>
+<h3>抽成/效果付费怎么谈</h3>
+<ul>
+<li><b>拒绝纯抽成</b>（两套评估一致）：我们不控制客户的销售响应、报价、产品力和成单环节；纯效果制在市场上仅 ~6% 且是黑帽温床。</li>
+<li><b>可接受的混合结构</b>：底薪不低于 <b>¥2.5 万/月</b>（低于工具+人力硬成本即亏本/劣质信号）+ 60/120 天 Semrush/GSC 里程碑奖金每档 <b>¥5K–2 万</b> + 可选询盘提成：<b>2–5% 订单分成</b>（对标 Kiwimore）或 <b>¥1,000–1,500/合格询盘</b>（对标制造业 CPL $165）。询盘定义必须用第 07 节第 7 条的收窄口径。</li>
+<li><b>奖金只挂可干净测量的指标</b>：GSC 非品牌点击、Top100 词净增；不挂 Authority Score、反链数、AI 可见度。</li>
+</ul>
+<h3>工具硬成本（转嫁或单列）</h3>
+<div class="tablewrap"><table>
+<tr><th>项目</th><th class="num">月成本</th><th>说明</th></tr>
+<tr><td>Semrush Business（API 前提）</td><td class="num">$499.95（年付 $416.66）</td><td>API units 另购 ≈$0.01/unit；Trial 不可作验收基础</td></tr>
+<tr><td>Semrush AI Visibility Toolkit</td><td class="num">$99 × 4–5 域名</td><td>客户指定的考核工具，按域名计费</td></tr>
+<tr><td>DataForSEO（SERP/LLM 采样）</td><td class="num">$250–590</td><td>按量：SERP ~$0.002–0.003/查询，LLM $0.004–0.07/次</td></tr>
+<tr><td>LLM 生成 + Resend 等</td><td class="num">$50–200</td><td>按量</td></tr>
+<tr><td><b>合计</b></td><td class="num"><b>≈ $1,100–1,600/月</b></td><td>约 ¥8–11.5K/月，建议客户直付或实报实销</td></tr>
+</table></div>
+<div class="callout"><b class="cap acc">跨模型分歧说明</b>Codex 按国际市场开价：精简 $65–91K、推荐 $109–161K、全量 $200–300K（120 天总价）。Fan-out 的中国市场调研显示客户的心理锚点大概率在国内代运营区间（¥8–20 万/年）。我们的三档定价取中国成本结构 + 国际结构设计（底薪+里程碑+服务单列），推荐档 ¥22–32 万/120 天约为 Codex 推荐档的 1/3——如果客户有国际比价背景（曾询价海外代理），报价上限可以显著上移。</div>
+
+<h2><span class="no">09</span>Codex 独立第二意见（原文）</h2>
+<p class="lede">OpenAI Codex 在 read-only 沙箱中自主探索了两个代码库后的完整回答（406,165 tokens，medium reasoning）。以下为逐字原文（英文）：</p>
+<details><summary>CODEX SAYS — 展开完整原文（Coverage / Hardest Problems / Effort / Contract Danger / Pricing / Verdict）</summary><div class="inner">
+<pre class="verbatim">**1. Coverage**
+
+Brutal answer: existing GenGrowth covers about **25-30% of the client's requirement as working product**, and maybe **40-45% as architecture/spec/scaffolding**. It is not yet a Brdeco-ready SEO+GEO operating system.
+
+What exists in meaningful form:
+
+- **Growth diagnostics / audit foundation:** site audit model, rule catalog, technical/search/content/GEO/compliance/link scoring surfaces.
+- **GSC/GA4-style measurement foundation:** data connection tables, sync routes, GA4/GSC storage, UTM attribution columns, measurement UI and statistical helpers.
+- **Search visibility / keyword opportunity machinery:** deterministic search visibility v2, keyword source ingestion, clustering/priority concepts in the codebase/spec.
+- **Growth Actions workbench:** deterministic action generation/ranking from product analysis and evidence.
+- **Content engine v1 vertical slice:** evidence packet, cited-claim prompt contract, quality gate, lifecycle, WordPress/webhook CMS provider, publish flow. It is feature-flagged and closer to pilot infrastructure than mature production.
+- **GEO research repo:** real work on AI visibility measurement, prompt banks, DataForSEO LLM Responses, citation/mention scoring, citability audits, intervention experiments. But it is sandbox/research, not a client multi-site dashboard.
+- **Backlink foundation:** schemas, snapshots/edges, risk-event concepts, API read paths. But not a full outreach/acquisition machine.
+
+Biggest missing subsystems:
+
+- **Semrush KPI ingestion + frozen baseline system** matching the client's exact metrics.
+- **Group-level multi-site management** for 4-5 domains with portfolio rollups, tier targets, per-site pacing, and versioned baselines.
+- **Reliable AI visibility measurement productization** across ChatGPT/Gemini/Perplexity/Google AIO with repeatable prompt banks, sampling windows, confidence bands, and cost controls.
+- **Inquiry attribution to keyword/page/country/content type** across forms, WhatsApp clicks, email clicks, CRM/export flows, and multi-touch GA4.
+- **WordPress reality layer:** every Brdeco site may have different WP plugins, builders, taxonomies, language setup, auth, schema plugins, caching, indexing behavior.
+- **B2B refrigeration domain review workflow:** human approval for specs, certifications, selection advice, construction claims, case studies.
+- **Multilingual quality loop** for EN/AR/MS/TH, especially Arabic/Thai terminology and local search intent.
+- **Competitor monitoring loop** for new pages, new keywords, backlinks, AI appearances, and catch-up task generation.
+- **External presence / backlink service operations:** LinkedIn, YouTube, directories, partner sites, PR, trade-show pages. That is not software alone.
+
+**2. Hardest 5 Technical Problems**
+
+1. **AI visibility measurement reliability**
+
+   This is the hardest. AI answers are volatile by prompt wording, geography, model version, browsing state, provider, and sampling date. `gengrowth-geo` correctly treats measurement as an instrument, not the moat. You can measure directional movement, but promising "AI visibility +X%" as a hard KPI is dangerous.
+
+2. **Inquiry attribution to keyword/page/country/content type**
+
+   Organic B2B inquiries usually arrive through messy paths: Google organic landing page, later direct visit, WhatsApp click, email, form, salesperson follow-up. Keyword-level attribution is often unavailable because Google hides query data. You can attribute to **landing page / GSC query set / country / content type / assisted path**, but exact keyword-to-lead attribution will be probabilistic unless the traffic comes through controlled UTMs or search ads.
+
+3. **Multilingual refrigeration content quality**
+
+   EN/AR/MS/TH is not just translation. Cold-room panels, PU/PIR specs, fire rating, insulation thickness, compressor/refrigeration system terms, halal/food/pharma cold chain scenarios, Saudi/Malaysia/Thailand procurement language, and local standards all need expert review. AI can draft, but unsupervised publishing can create commercial and legal risk.
+
+4. **Semrush dependency, API cost, and metric drift**
+
+   The client's KPI framework depends on Semrush metrics. Semrush API access requires a high-tier paid plan and separate API units; Semrush says API units are purchased after upgrading, and usage is unit-metered. Current Semrush SEO+AI pricing shows the advanced/API tier around **$455.67/mo annually or $549/mo monthly**, and third-party pricing summaries still put classic Business/API access around **$499.95/mo monthly / $416.66 annually**. API units are extra and endpoint-dependent.
+
+5. **WordPress heterogeneity + indexing/ranking re-check loop**
+
+   "Draft -> review -> publish -> re-check indexing/ranking" sounds simple. In practice: different WP themes, page builders, SEO plugins, schema plugins, canonical behavior, multilingual plugins, sitemap plugins, cache/CDN, permissions, image libraries, slug rules, and editorial workflows. This needs a connector plus per-site integration testing, not a generic REST publish call.
+
+**3. Realistic Effort**
+
+For a credible Brdeco MVP, assuming **1-2 strong devs using AI-assisted coding**:
+
+- **MVP software:** **18-28 person-weeks**
+- **Client onboarding / data cleanup / WP integration / measurement setup:** **4-8 person-weeks**
+- **Total credible pilot:** **22-36 person-weeks**
+
+Calendar time: **2 devs:** 8-12 weeks for a usable pilot. **1 dev:** 14-20 weeks, with high delivery risk.
+
+For the full 16-requirement system: **Full software + workflows:** **80-140 person-weeks**. Plus ongoing SEO/content/link ops: not a build project; it is a service team.
+
+What to cut from v1: hard KPI automation; full EN/AR/MS/TH scale (start English + one priority market language); automated backlink building; full competitor monitoring (start weekly snapshots); full inquiry keyword attribution (start landing-page/content-type/country); multi-CMS support (WordPress only); automatic publishing (keep human approval); all 4-5 sites at full depth immediately (start A-site + one B-site).
+
+Minimum MVP I would sell: frozen baseline dashboard for 4 domains; weekly Semrush/GSC/GA4/DataForSEO/AI visibility snapshots; keyword universe + clustering + page coverage gap; content brief generator with commercial-intent classification and page-type routing; evidence-grounded draft generator; human review workflow; WordPress draft publishing; post-publish checklist; group dashboard with site tier and priority queue; manual service process for backlinks/external presence.
+
+**4. Contract Danger**
+
+Do **not** accept the KPI commitments as written.
+
+Refuse or reframe: organic traffic +40-180% in 120 days (too dependent on Google); keyword count +70-250% (easy to inflate with junk, Semrush estimates aren't ground truth); Authority Score targets (proprietary, third-party-controlled); referring domains / backlink counts (guaranteeing 60-120 RD / 500-1000 backlinks for a new C-tier site in 120 days invites spam); AI visibility / mentions / cited pages (volatile, sampled, provider-dependent — treat as directional); organic inquiry conversions (you can't guarantee inquiry volume without controlling PMF, pricing, sales response); percentage growth on tiny baselines (myarteco has zeros — percent targets are statistically silly).
+
+Counter-proposed acceptance criteria: implementation acceptance (baseline frozen with exported evidence, data sources healthy, dashboards live, WP publishing tested, review workflow live, white-hat policy enforced); activity acceptance (X approved briefs/month, Y reviewed/published pages/month, Z technical fixes/month, weekly competitor snapshot, monthly link opportunity list); measurement acceptance (GSC by page group and country, Semrush as third-party estimates, AI visibility with fixed prompt bank/platforms/regions and confidence notes, inquiry attribution as landing page/content type/country — not exact keyword truth); outcome framing (target ranges as non-binding goals; performance bonus only on clean metrics with minimum baselines; absolute targets for zero baselines, never percentages).
+
+**5. Pricing**
+
+Use **base + service retainer + optional performance bonus**. Do not do pure revenue share. You will not control their sales team, close rate, pricing, lead handling, trade-show activity, or product competitiveness.
+
+The client being on a **Semrush Trial** is a red flag. They pay for Semrush, API units, DataForSEO/Ahrefs/hosting/translation/review tools, or they reimburse at cost with markup.
+
+**Option A: Lean Pilot** — one-time $25k-35k (¥170k-238k); retainer $10k-14k/mo (¥68k-95k/mo); 120-day total **$65k-91k** (¥442k-619k). 2 sites deep, 4-site reporting, 8-12 assets/month.
+
+**Option B: Proper 4-Site Pilot (recommended minimum)** — one-time $45k-65k (¥306k-442k); retainer $16k-24k/mo (¥109k-163k/mo); 120-day total **$109k-161k** (¥741k-1.095M). Full pipeline, weekly competitor snapshots, 12-20 assets/month.
+
+**Option C: Aggressive Full-Requirement Program** — one-time $80k-120k; retainer $30k-45k/mo; 120-day total **$200k-300k** (¥1.36M-2.04M). Only if they expect all 16 requirements, 4-5 sites, multilingual, attribution, external presence.
+
+Ongoing monthly after 120 days: software/reporting only $4k-8k/mo; managed SEO+GEO ops $12k-25k/mo; full program $25k-40k/mo.
+
+Performance bonus: modest and bounded — $5k-15k quarterly only if agreed non-branded GSC clicks or qualified organic inquiries exceed frozen baseline by a threshold, with minimum sample size. Do not bonus on Semrush Authority Score, raw backlinks, or AI visibility alone.
+
+Tool cost clause: client pays directly or reimburses — Semrush API-capable plan ~$455-549/mo + API units; DataForSEO usage-based ($300-1,500/mo pilot sampling); Ahrefs if required; translation/refrigeration expert review; PR/distribution/directory fees; WordPress plugin licenses.
+
+**6. One-Line Verdict**
+
+**Renegotiate.** Take it only as a paid 120-day pilot with implementation/activity acceptance criteria, client-funded tool costs, human review obligations, and KPI targets reframed as directional goals rather than guarantees.</pre>
+</div></details>
+<p><b>跨模型一致点</b>：重谈判后承接；拒签原 KPI 表（同样点名 4 项）；拒绝纯抽成；服务+软件混合形态；MVP 裁剪清单几乎逐条一致；Semrush Trial 是红旗；客户审核瓶颈是头号进度风险。<b>分歧点</b>：报价水位（国际 vs 中国锚点，约 3 倍差）与全量工作量口径（80–140 人周 vs 125–185 人日，产品级 vs 复用底座）。</p>
+
+<h2><span class="no">10</span>下一步行动</h2>
+<ol>
+<li><b>签约前必须澄清的 5 个问题</b>：① 站点清单（brdeco.jp 在不在范围？美国站建站算谁的）② 4 站 CMS 是否都是 WordPress ③ 客户 SME 审核容量（几篇/周）④ 目标表里 Top10/Top3 是否为硬指标 ⑤ 外链预算是否接受单列</li>
+<li><b>内部前置（不依赖签约）</b>：跑通 F-0a 首次生产发布、修 F-0b/F-1 聚类缺陷——两条主链路生产零验证是我们最大的交付风险，先自证再对客</li>
+<li><b>报价策略</b>：先探客户预算带（国内锚 vs 国际锚），推荐档 B 起谈；把「AI 可见度审计 + R1–R9 修复工单」做成首次提案的免费/低价钩子（这是我们现成的差异化能力）</li>
+<li><b>合同模板</b>：按第 07 节 8 条保护条款 + 第 05 节重构口径起草，KPI 表改为三层验收（服务量硬承诺 / 有条件结果承诺 / 仅监测）</li>
+</ol>
+
+<div class="foot">
+评估方法：Claude Fable 5 fan-out 工作流（7 agents：3 代码库读取 + 报价联网调研 + 差距矩阵 + 风险分析 + 交付合成，641K tokens）· OpenAI Codex 独立探库咨询（406K tokens）· Ahrefs batch-analysis 交叉验证 · 输入：~/Downloads/brdeco geo.docx（4 张 Semrush 截图 + 16 条需求）、gengrowth-agents / gengrowth-geo / gengrowth-flow、gengrowth-ops 2026-07-02 竞品调研。报价调研来源：知乎 / 千寻盘 / Kiwimore / 外贸老船长 / Backlinko / SE Ranking 2025 / WebFX / RevvGrowth / Semrush 官方定价 / BuzzStream / uSERP / Belkins 等（详见工作流 pricingResearch 原文）。
+</div>
+</div>
+
+</body>
+</html>
