@@ -445,21 +445,32 @@ H2: What's New in AstrologyWiki Birth Chart Calculator
 H2: What AstrologyWiki Users Say About Birth Chart Reading
 ```
 
-### 8.2 SoftwareApplication Schema（工具页必加）
+### 8.2 工具页 Schema 类型选择规则
+
+Schema.org 的工具类型有两层：
+
+| @type | 适用场景 | 示例 |
+|---|---|---|
+| `SoftwareApplication` | 有可下载桌面版（Windows/macOS）的软件 | unifab（有安装包）|
+| `WebApplication` | 纯网页工具，无需下载 | AstrologyWiki 工具页 ✅ |
+
+`WebApplication` 是 `SoftwareApplication` 的子类型，纯网页工具用 `WebApplication` 在语义上更准确，不需要改成父类型。
+
+**AstrologyWiki 工具页正确写法（已有，保持不变）：**
 
 ```json
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "AstrologyWiki Birth Chart Calculator",
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "Web",
-  "url": "https://astrologywiki.com/birth-chart-calculator",
+  "url": "https://astrologywiki.com/en/birth-chart-calculator",
   "publisher": {"@id": "https://astrologywiki.com/#organization"}
 }
 ```
 
-AI 被问"最好的星盘计算器是什么"时，有 SoftwareApplication schema 的工具才会被识别为产品实体候选。
+AI 被问"最好的星盘计算器是什么"时，有 `WebApplication` schema 的工具同样会被识别为产品实体候选。
 
 ### 8.3 工具页"What's New"版本日志板块
 
@@ -502,7 +513,7 @@ May 2026:  Improved aspect orb accuracy for minor aspects
 | 七 | GEO 被动配置 | robots.txt + Organization schema | 新增 Person schema + HowTo schema + 第三方引用矩阵 | 站点配置 |
 | 七 | GEO 主动引导 | 无 | 首页"Ask AI"按钮 → 预填品牌查询跳转 AI 工具 | 首页 / 工具页 |
 | 八 | 工具页 H2 | 无规定 | 工具页 H2 必须含核心关键词（与首页相反）| 工具落地页 |
-| 八 | 工具页 schema | 无 | SoftwareApplication schema 必加 | 工具落地页 |
+| 八 | 工具页 schema 选型 | 无规定 | 有下载版用 SoftwareApplication，纯网页用 WebApplication | 工具落地页 |
 | 八 | 工具页更新 | 无 | "What's New"版本日志持续追加 | 工具落地页 |
 | 八 | 竞品对比页 | 全放 blog | 高价值竞品词建独立 .htm 根目录页 | 竞品选题 |
 
