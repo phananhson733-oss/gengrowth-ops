@@ -1,27 +1,49 @@
 ---
 title: SEO SOP 升级补丁 — unifab.ai 竞品学习
 date: 2026-07-07
-status: v1
+updated: 2026-07-08
+status: v2
 适用文件: seo-pipeline-sop-v2.3.md / blog优化更新规范-v1.0.md
-来源: 对 unifab.ai 600+ 页面的结构分析（2026-07-07）
+来源: unifab.ai 全站多页面爬取分析
+参考文档: inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md
 ---
 
 # SEO SOP 升级补丁 — unifab.ai 竞品学习
 
-> 本文件不修改原 SOP，作为独立补丁使用。在原 SOP 执行过程中，遇到对应场景时参照本补丁执行。待下次 SOP 大版本更新时合并。
+> 本文件不修改原 SOP，作为独立补丁使用。在原 SOP 执行过程中，遇到对应场景时参照本补丁执行。待下次 SOP 大版本更新时合并为 v2.4。
 
 ---
 
-## 补丁一：文章结构公式升级
+## 补丁一：首页 H 标签层级规则（新增）
+
+**适用场景：** 首页改版 / 新站点首页搭建。
+
+**核心原则：首页 H2 不放具体产品/工具关键词。**
+
+原因：首页 H2 如果放具体功能词（如"Birth Chart Calculator"、"Rising Sign Calculator"），会与对应工具落地页产生关键词自噬（Keyword Cannibalization）——首页和工具页互相竞争同一关键词，两者都排不好。
+
+**正确做法：**
+
+| 层级 | 内容类型 | 示例 |
+|---|---|---|
+| H1 | 品牌词 + 品类词 | "AstrologyWiki — Free Astrology Tools & Birth Chart Readings" |
+| H2 | 板块标签（情感语 / 中性描述）| "Explore Your Cosmic Blueprint" / "Trusted by Astrology Lovers" |
+| H3 | 具体功能/产品名称 | "Birth Chart Calculator" / "Rising Sign Calculator" |
+
+首页职责 = 排品牌词和品类词。每个工具页负责自己的具体关键词，互不干扰。
+
+---
+
+## 补丁二：Blog 文章结构公式升级
 
 **适用场景：** v2.3 STEP 3（AI 组装）阶段，T1/T2 文章的结构搭建。
 
-unifab.ai 所有高流量文章遵循以下六段结构，字数和 CTA 密度是关键：
+unifab.ai 所有高流量文章遵循以下完整结构：
 
 ```
 H1: [核心关键词] — [差异化主张] [年份]
 
-① 教育段（建立可信度，不提产品）
+① 教育段（建立可信度，此处不提产品）
    → 首句必须直接回答搜索意图（Direct Answer Block）
    → 至少一个结构化视觉元素：对比表 / 规格表 / 步骤编号
 
@@ -30,12 +52,11 @@ H1: [核心关键词] — [差异化主张] [年份]
    → 不同需求给不同答案，禁止"两者都好"的无效结论
 
 ③ 产品桥接（自然过渡，不硬广）
-   → 用功能描述引出产品，而非直接推销
-   → 此处植入第一个 CTA
+   → H2 命名为"[功能]: The Bridge Between X and Y"或类似中立语气
+   → 此处植入第一个 CTA（Free / Try Now）
 
-④ 教程/演示段（用产品解决上文问题）
-   → 步骤式操作，可配截图
-   → 此处植入第二个 CTA
+④ 嵌入产品教程模块 ← 核心转化机制，v1 未包含
+   → 见补丁五（详细规范）
 
 ⑤ FAQ（8–10 个问题，带 FAQPage schema）
    → 覆盖 PAA（People Also Ask）真实问题
@@ -43,6 +64,7 @@ H1: [核心关键词] — [差异化主张] [年份]
 
 ⑥ 结论 + 第三个 CTA
    → 明确推荐句式："Use [产品] if you need X"
+   → 相关阅读推荐（4 篇，含工具页和其他 blog）
 ```
 
 **字数目标：**
@@ -51,11 +73,12 @@ H1: [核心关键词] — [差异化主张] [年份]
 
 **对现有 SOP 的变化：**
 - FAQ 数量从"按需 4–6 个"升级为"T1/T2 文章 8–10 个"
-- CTA 从"1 次结尾"升级为"全文 3 次（中部两次 + 结尾一次）"
+- CTA 从"1 次结尾"升级为"全文 3 次（桥接段 / 教程模块 / 结尾）"
+- 新增④嵌入产品教程模块（见补丁五）
 
 ---
 
-## 补丁二：工具页内链硬性规则
+## 补丁三：工具页内链硬性规则
 
 **适用场景：** v2.3 STEP 5（部署与内链连线），所有 blog 类型页面。
 
@@ -66,9 +89,9 @@ H1: [核心关键词] — [差异化主张] [年份]
 | 规则项 | 要求 |
 |---|---|
 | 数量 | 每篇 ≥2 条工具页内链 |
-| 锚文本 | 功能描述词，不用品牌词（"birth chart calculator" 而非 "AstrologyWiki"） |
-| 位置 | 分布在正文中部和结尾，不要全堆在末尾 |
-| 方向 | blog → 工具页（单向），工具页不需要回链 blog |
+| 锚文本 | 功能描述词，不用品牌词（"birth chart calculator" 而非 "AstrologyWiki"）|
+| 位置 | 正文中部一条 + 结尾一条，不要全堆在末尾 |
+| 方向 | blog → 工具页（单向）；工具页也反向推荐相关 blog（底部 4 条）|
 
 **AstrologyWiki 可用内链目标：**
 - Birth Chart Calculator
@@ -77,11 +100,11 @@ H1: [核心关键词] — [差异化主张] [年份]
 - Chinese Zodiac Calculator
 - Saturn Return Calculator
 
-**原因：** 趋势词带来的流量不会自动传递给工具页，内链是唯一路径。unifab.ai 每篇 blog 固定 2 条产品页内链，是其工具页持续获得权重积累的核心机制。
+**工具页反向内链（补充）：** 工具落地页底部同样应推荐 4 条相关 blog 文章（操作教程类锚文本），形成双向流量循环。
 
 ---
 
-## 补丁三：竞品对比文章——新增高优先级内容类型
+## 补丁四：竞品对比文章——新增高优先级内容类型
 
 **适用场景：** v2.3 STEP 1（建卡）阶段，内容选题决策。
 
@@ -96,7 +119,7 @@ H1: [核心关键词] — [差异化主张] [年份]
 | AstrologyWiki | "Co-Star vs AstrologyWiki"、"Cafe Astrology alternative"、"The Pattern app review" |
 | brdeco 类 B2B | "Kingspan vs BRDECO"、"ROCKWOOL sandwich panel alternative"、"EPS vs PIR vs rockwool" |
 
-### 竞品文章结构公式
+### 竞品文章完整结构
 
 ```
 H1: [竞品名] Review [年份]: Features, Pricing & Best Alternative
@@ -104,38 +127,140 @@ H1: [竞品名] Review [年份]: Features, Pricing & Best Alternative
 ① 快速结论（让用户 30 秒内知道答案）
 ② 竞品介绍（中立语气，不攻击）
 ③ 真实测试 / 对比数据（具体数值，有截图更好）
-④ 定价对比（竞品定位为"有限制的选项"）
+④ 定价对比（将竞品定位为"有限制的选项"）
 ⑤ 优缺点表格（缺点用具体场景描述，不用笼统批评）
 ⑥ 功能差异矩阵
-   - 竞品有但我方没有的（诚实列出）
-   - 双方都有，我方更好的
-   - 我方独有的
-⑦ 结论：明确写两个句子
+   - 竞品有但我方没有（诚实列出，建立信任）
+   - 双方都有，我方更好
+   - 我方独有
+⑦ 嵌入产品教程模块 ← 关键，此处转化率最高
+   （见补丁五）
+⑧ 结论：明确写两个句子
    "Choose [竞品] if you need X"
    "Choose [我方] if you need Y"
-⑧ FAQ（8–10 个，带 FAQPage schema）
+⑨ FAQ（8–10 个，带 FAQPage schema）
 ```
 
-**执行红线：** 所有竞品缺陷描述必须基于真实测试或公开用户评论，不能捏造。描述时用"部分用户反映 X"或引用 Reddit/App Store 真实评论。
+**执行红线：** 竞品缺陷描述必须基于真实测试或公开用户评论，不能捏造。描述时用"部分用户反映 X"或引用 Reddit/App Store 真实评论。
 
-### 在 v2.3 选题登记表中的定级
-
-竞品对比文章统一定为 **T1**，因为：
-- 目标用户处于高意图决策阶段，内容质量直接影响转化
-- 需要真实测试数据，不能靠 AI 全自动生成
-- 一旦排名建立，长期贡献高转化流量
+**选题登记表定级：** 竞品对比文章统一定为 **T1**。
 
 ---
 
-## 补丁四：GEO 三动作（新建页面时执行一次）
+## 补丁五：嵌入产品教程模块（新增）
+
+**适用场景：** 所有 T1 文章的④段（产品桥接后），以及竞品文章的⑦段。
+
+这是 unifab.ai blog 最核心的转化设计，将信息型流量直接转化为产品体验。
+
+### 模块结构
+
+```
+[H3] How to [解决用户在文章中遇到的问题] With [产品名]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[主 CTA 区]
+[免费试用 / 免费开始] 按钮
+[说明文案]：30-day Free Trial with full feature access!
+
+[设备分支按钮]（如有多端）
+[ 网页版 ]  适用所有设备
+[ 移动端 ]  iOS / Android
+
+[信任背书文案]（每个按钮旁）
+100% Free to Start / No Signup Required
+
+Step 1: [第一步操作，一句话]
+Step 2: [第二步操作，一句话]
+Step 3: [第三步操作，一句话]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### AstrologyWiki 适配示例
+
+文章：「Harry Kane Birth Chart」
+
+```
+[H3] How to Read Harry Kane's Full Birth Chart on AstrologyWiki
+━━━━━━━━━━━━━━━━━━━
+[ 免费生成星盘 ]
+No signup required
+
+Step 1: 打开 AstrologyWiki Birth Chart Calculator
+Step 2: 输入 Harry Kane 的出生日期（1993年7月28日）
+Step 3: 查看太阳星座、月亮星座和上升星座完整解读
+━━━━━━━━━━━━━━━━━━━
+```
+
+### 设计逻辑
+
+- 用户因搜索名人星盘词进入（冷流量，不知道 AstrologyWiki）
+- 教程模块将"我在看内容"转变为"我在操作工具"
+- Step 格式可触发 HowTo schema，在 SERP 显示步骤预览
+- H3 文案本身（"How to Read Birth Chart"）覆盖 how-to 类长尾词
+
+**一篇文章同时命中三个搜索意图：**
+1. "[名人] birth chart"（星盘查询）
+2. "[名人] zodiac sign"（星座查询）
+3. "How to read birth chart"（操作教程）
+
+---
+
+## 补丁六：Blog 末尾注册弹窗（新增）
+
+**适用场景：** 所有 blog 页面的转化兜底机制。
+
+### 触发条件
+
+| 触发方式 | 时机 | 优先级 |
+|---|---|---|
+| Scroll-depth | 用户滚动至文章 80–90% 位置 | 首选 |
+| Exit-intent | 鼠标移出页面顶部边缘 | 备选 |
+
+### 弹窗内容
+
+收集 email 注册，**不是直接推购买**。原因：
+
+```
+Blog 访客 = 冷流量，购买意图低
+        ↓
+直接推付费：转化率 <1%
+先获取 email：转化率 5–15%
+        ↓
+Email 序列（7–14天）
+Day 1: 欢迎 + 功能介绍
+Day 3: 使用教程
+Day 7: 限时优惠 → 付费转化
+```
+
+### AstrologyWiki 适配
+
+弹窗内容建议：
+```
+[弹窗标题] Get Your Weekly Cosmic Update
+[副标题]   Personalized horoscopes delivered every Monday
+[输入框]   Your email address
+[CTA]      Send My Horoscope →
+[小字]     No spam. Unsubscribe anytime.
+```
+
+用每周星盘运势作为 email 钩子，对占星用户吸引力高，后续序列可推付费星盘报告或工具升级。
+
+### 实现要求
+
+- **不在工具页和首页触发**，仅限 blog 文章页
+- 同一用户 30 天内只触发一次（cookie 控制）
+- 弹窗不覆盖全屏，使用底部滑入或角落卡片形式（避免 Google 侵入式弹窗惩罚）
+
+---
+
+## 补丁七：GEO 三动作（新建页面时执行一次）
 
 **适用场景：** 新站点上线前 / 现有站点 GEO 配置检查。
 
 好的 SEO 是 GEO（被 ChatGPT/Gemini/Perplexity 引用）的基础，以下三个动作是额外配置，非独立系统。
 
 ### 动作一：robots.txt 开放 AI 爬虫
-
-检查 robots.txt，确认以下爬虫未被 Disallow：
 
 ```
 GPTBot          → OpenAI / ChatGPT
@@ -145,26 +270,22 @@ PerplexityBot   → Perplexity
 CCBot           → Common Crawl（AI 训练数据主要来源）
 ```
 
-unifab.ai 配置：`User-agent: * Allow: /`，完全开放。AstrologyWiki 需确认同等配置。
+unifab.ai 配置：`User-agent: * Allow: /`，完全开放。
 
-### 动作二：内容写法——每个 H2 开头加直接答案句
+### 动作二：每个 H2 开头加直接答案句
 
 ```
 ❌ 弱 GEO 写法：
-"When it comes to Scorpio compatibility, there are many aspects 
+"When it comes to Scorpio compatibility, there are many aspects
 to consider, including..."
 
 ✅ 强 GEO 写法：
-"Scorpio is most compatible with Cancer, Pisces, and Virgo. 
-Water signs share Scorpio's emotional depth, while Virgo 
+"Scorpio is most compatible with Cancer, Pisces, and Virgo.
+Water signs share Scorpio's emotional depth, while Virgo
 provides grounding stability."
 ```
 
-AI 引用"可以直接粘贴进答案"的句子，不引用铺垫段落。每篇文章的每个 H2 章节开头都应有这样一句话。
-
-### 动作三：Organization Schema（全站做一次）
-
-在网站 `<head>` 加入 Organization schema，帮助 AI 系统建立网站实体认知：
+### 动作三：Organization Schema（全站一次）
 
 ```json
 {
@@ -173,30 +294,31 @@ AI 引用"可以直接粘贴进答案"的句子，不引用铺垫段落。每篇
   "name": "AstrologyWiki",
   "url": "https://astrologywiki.com",
   "description": "Free astrology tools and birth chart readings",
-  "sameAs": [
-    "https://twitter.com/astrologywiki"
-  ]
+  "sameAs": ["https://twitter.com/astrologywiki"]
 }
 ```
 
-AstrologyWiki 当前已有 FAQPage schema，Organization schema 是补充项，只需实现一次。
-
 ---
 
-## 对现有 SOP 文件的变化对照
+## 变化对照总表
 
-| 变化项 | 原规范 | 本补丁 | 适用文件 |
-|---|---|---|---|
-| FAQ 数量（T1/T2） | 按需 4–6 个 | 8–10 个 | v2.3 + blog优化规范 |
-| 工具页内链 | Pillar/Spoke 规则 | 每篇 blog ≥2 条工具页内链 | v2.3 |
-| CTA 频次 | 结尾 1 次 | 全文 3 次（中部 ×2 + 结尾 ×1） | v2.3 |
-| 竞品文章 | 无 | 新增高优先级内容类型，统一 T1 | v2.3 |
-| GEO 配置 | 无 | robots.txt + 直接答案写法 + Organization schema | 新建/现有站 |
-| T1 字数目标 | 未明确 | 4,000–6,000 字 | v2.3 |
+| 补丁 | 变化项 | 原规范 | 本补丁 | 适用场景 |
+|---|---|---|---|---|
+| 一 | 首页 H2 规则 | 无明确规定 | H2 不放具体产品关键词 | 首页改版 |
+| 二 | 文章结构 | 无标准公式 | 六段式结构 | T1/T2 创作 |
+| 二 | FAQ 数量 | 按需 4–6 个 | 8–10 个 | T1/T2 创作 |
+| 二 | CTA 频次 | 结尾 1 次 | 全文 3 次 | T1/T2 创作 |
+| 二 | T1 字数 | 未明确 | 4,000–6,000 字 | T1 创作 |
+| 三 | 工具页内链 | Pillar/Spoke 规则 | 每篇 blog ≥2 条工具页内链 | 所有 blog |
+| 三 | 工具页反向内链 | 无 | 工具页底部推荐 4 篇相关 blog | 工具落地页 |
+| 四 | 竞品文章 | 无此类型 | 新增高优先级内容类型，统一 T1 | 选题决策 |
+| 五 | 产品教程模块 | 无 | 每篇 T1 文章必须嵌入 | T1 创作 |
+| 六 | 注册弹窗 | 无 | Blog 末尾 scroll-depth 触发 | Blog 页面 |
+| 七 | GEO 配置 | 无 | robots.txt + 直接答案 + Organization schema | 站点配置 |
 
 ---
 
 *文件：inbox/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md*
-*版本：v1 | 2026-07-07*
-*来源站点：unifab.ai（2026-07-07 爬取分析）*
+*版本：v2 | 更新于 2026-07-08*
+*参考：inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
 *合并目标：下次 SOP 大版本更新时并入 v2.4*
