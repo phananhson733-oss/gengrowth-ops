@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-08
+updated: 2026-07-09
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -129,3 +129,4 @@ updated: 2026-07-08
 | 2026-07-08 | PG-CELEB-040 | novak-djokovic-zodiac-sign | Novak Djokovic Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/novak-djokovic-zodiac-sign | published |
 | 2026-07-08 | PG-CELEB-042 | mo-salah-zodiac-sign | Mo Salah Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/mo-salah-zodiac-sign | published |
 | 2026-07-08 | PG-CELEB-041 | coco-gauff-zodiac-sign | Coco Gauff Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-zodiac-sign | published |
+| 2026-07-09 | PG-CELEB-044 | jack-antonoff-birth-chart | Jack Antonoff Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jack-antonoff-birth-chart | published |

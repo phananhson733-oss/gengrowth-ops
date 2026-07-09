@@ -385,6 +385,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月9日 (周四) - 待写作
 **状态**：`等待输出` (自动补充选题，共 2 篇)
 - [ ] `PG-CELEB-043` justin verlander birth chart
-- [ ] `PG-CELEB-044` jack antonoff birth chart
+- [x] `PG-CELEB-044` jack antonoff birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
