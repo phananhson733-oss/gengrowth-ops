@@ -2331,5 +2331,17 @@
     "verifiedAt": "2026-07-09T11:05:02.963Z",
     "headRefOid": "cf401a393fa49fbb907997b7554fb7afd3c084c1",
     "mergedAt": "2026-07-09T11:05:21.877Z"
+  },
+  "PG-CELEB-045": {
+    "status": "active",
+    "slug": "kate-upton-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-045.md",
+    "stage": "convert",
+    "lockedBy": "22450",
+    "leaseUntil": "2026-07-09T13:51:19.881Z",
+    "updatedAt": "2026-07-09T12:51:19.881Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-045",
+    "branch": "seo/auto/2026-07-09-PG-CELEB-045"
   }
 }
