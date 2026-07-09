@@ -16,6 +16,8 @@ This folder stores reusable production workflows that should not be mixed into d
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]]
+- [[inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md]]
+  - 社媒账号从零起号养号流程（IP/手机/账号配置、养号操作、异常处理）。整理自 2026-07-09 外部运营沟通。
 
 ## Related Working Areas
 

@@ -362,7 +362,7 @@ CTA：
 ## 6. 使用依据
 
 - Skill: `tools/internal/skills/social-daily/SKILL.md`
-- Reference accounts: [[inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md]]
+- Reference accounts: [[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md]]
 - 已发布去重: [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 - 当前推荐: [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
 - GSC CSV: `/Users/pengman/Downloads/astrologywiki.com-Performance-on-Search-2026-07-01/查询数.csv`

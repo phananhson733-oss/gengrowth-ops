@@ -311,7 +311,7 @@ Summarize them as possible X post angles for AstrologyWiki.
 | Canva | 做 X 图文卡片 | 继续作为图文主工具。 |
 | Buffer | 定时发布 X / 其他平台内容 | 可选，用免费版测试即可。 |
 
-详细调研见：[[inbox-pengman/04-production/04-text-and-social-tool-research/2026-06-29-perplexity-tavily-x-content-workflow-research.md]]
+详细调研见：[[inbox-pengman/04-production/04-text-and-social-tool-research/perplexity-tavily-x-content-workflow-research.md]]
 
 ### 4.3 视频 / 视觉工具对比
 
@@ -349,10 +349,10 @@ Golpo：先测快速成片能力
 
 详细调研：
 
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/golpo-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/remotion-video-template-research.md]]
 
 ---
 
@@ -390,14 +390,14 @@ Golpo：先测快速成片能力
 
 ### 视频 / 视觉工具
 
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/golpo-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/remotion-video-template-research.md]]
 
 ### 文字 / 社媒工具
 
-- [[inbox-pengman/04-production/04-text-and-social-tool-research/2026-06-29-perplexity-tavily-x-content-workflow-research.md]]
+- [[inbox-pengman/04-production/04-text-and-social-tool-research/perplexity-tavily-x-content-workflow-research.md]]
 
 
 ### 平台公开资料

@@ -13,7 +13,7 @@ updated: 2026-07-03
 
 ## 主要入口
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/2026-06-29-content-direction-and-tools-research.md]]：当前内容方向、平台方向、内容形式和工具判断总览。
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]：当前内容方向、平台方向、内容形式和工具判断总览。
 
 ## 历史调研资料
 

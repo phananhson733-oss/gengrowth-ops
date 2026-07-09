@@ -14,7 +14,7 @@ related:
   - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-03-topic-to-ai-host-video-production-process]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]
-  - [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research]]
+  - [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research]]
 ---
 
 # 2026-07-03 AI Host Video 2 制作方案

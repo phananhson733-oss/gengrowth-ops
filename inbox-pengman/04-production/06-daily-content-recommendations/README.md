@@ -39,7 +39,11 @@ YYYY-MM-DD 主题内容包.md
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host Video 2 制作方案.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 Celebrity Rising Sign 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 House of the Dragon Rhaenyra 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Venus enters Virgo 内容包.md]]
 
 ## 已合并旧稿
 

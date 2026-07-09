@@ -7,7 +7,7 @@ project: astrologywiki
 type: conversation-report
 status: draft
 related:
-  - inbox-pengman/07-account-assets/2026-06-17-astrologywiki-account-assets.md
+  - inbox-pengman/07-account-assets/astrologywiki-account-assets.md
   - inbox-pengman/06-tasks/2026-06-16-astrologywiki-weekly-todo.md
   - inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md
 ---

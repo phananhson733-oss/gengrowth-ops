@@ -3,7 +3,7 @@ title: 每周已发布内容合集入口
 type: workspace-index
 project: astrologywiki
 owner: pengman
-updated: 2026-07-06
+updated: 2026-07-07
 ---
 
 # 每周已发布内容合集入口
@@ -20,6 +20,7 @@ updated: 2026-07-06
 
 ## 阶段数据分析
 
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-06-social-content-data-analysis.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis.md]]
 
 ## 单次发布复盘
@@ -39,6 +40,6 @@ updated: 2026-07-06
 ## 相关选题归档
 
 - [[inbox-pengman/03-topic-ideas/Lionel Messi’s Cancer Sun.md]]
-- [[inbox-pengman/03-topic-ideas/2026-07-01-haaland视频脚本.md]]
-- [[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]
-- [[inbox-pengman/03-topic-ideas/2026-06-30-SEO选题调查.md]]
+- [[inbox-pengman/03-topic-ideas/haaland视频脚本.md]]
+- [[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]
+- [[inbox-pengman/03-topic-ideas/SEO选题调查.md]]

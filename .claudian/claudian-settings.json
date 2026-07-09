@@ -14,6 +14,7 @@
   "sharedEnvironmentVariables": "",
   "envSnippets": [],
   "customContextLimits": {},
+  "customModelAliases": {},
   "keyboardNavigation": {
     "scrollUpKey": "w",
     "scrollDownKey": "s",
@@ -85,7 +86,7 @@
   },
   "savedProviderEffort": {
     "claude": "high",
-    "codex": "high"
+    "codex": "medium"
   },
   "savedProviderServiceTier": {
     "codex": "default"
@@ -101,6 +102,5 @@
   "enableAutoScroll": true,
   "deferMathRenderingDuringStreaming": true,
   "chatViewPlacement": "right-sidebar",
-  "hiddenProviderCommands": {},
-  "customModelAliases": {}
+  "hiddenProviderCommands": {}
 }

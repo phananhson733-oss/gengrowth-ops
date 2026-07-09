@@ -8,8 +8,8 @@ updated: 2026-07-03
 related:
   - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
-  - [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
-  - [[inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md]]
+  - [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
   - [[tools/internal/skills/social-daily/SKILL.md]]
@@ -83,7 +83,7 @@ Before generating the Instagram image content, the AI assistant should reference
    - Check what has already been posted recently.
    - Avoid repeating the same person, transit, hook, article, or exact angle within 7-14 days unless it is a clearly different follow-up.
 
-4. `inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md`
+4. `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
    - Use reference accounts for structure and format, not for copying visual style or wording.
    - For X, `satyastrology` is a reference for short transit insight + open chart question.
    - For image posts, reference account screenshots can inspire information density: big title, date, short insight, 3 concise action points.
@@ -226,7 +226,7 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 - tools/internal/skills/social-daily/SKILL.md
 - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
-- inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md
+- inbox-pengman/04-production/03-reference-accounts/reference-accounts.md
 - inbox-pengman/04-production/06-daily-content-recommendations/ 最近的 daily recommendation / production process
 
 目标：

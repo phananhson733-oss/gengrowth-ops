@@ -1,4 +1,4 @@
----
+5---
 name: astrologywiki-social-daily
 description: Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: daily Route A life-first evergreen topics plus Route B timely hotspot topics, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit.
 metadata:
@@ -36,8 +36,8 @@ Read these files first when available:
 
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/` recent weekly digest files
-- `inbox-pengman/04-production/03-reference-accounts/2026-06-29-reference-accounts.md`
-- `inbox-pengman/03-topic-ideas/2026-06-30-SEO选题调查.md`
+- `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
+- `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - Latest GSC CSV, if available or explicitly authorized by Pengman
 
 Also inspect recent `inbox-pengman/04-production/06-daily-content-recommendations/` notes to avoid repeating yesterday's topic.
@@ -53,7 +53,7 @@ Do not generate daily topics, scripts, or a dated recommendation document until 
    - `daily-content-assistant-sop.md`
    - recent files in `05-weekly-published-content-digests/`
    - recent files in `06-daily-content-recommendations/`
-   - `03-reference-accounts/2026-06-29-reference-accounts.md`
+   - `03-reference-accounts/reference-accounts.md`
    - latest relevant GSC CSV if available
 2. Run external research for Route B. Use web/browser/search tools to gather current public evidence across multiple hotspot categories, such as entertainment, celebrity/public-figure coverage, relationships/dating discourse, workplace/money discourse, lifestyle/fashion/beauty trends, streaming/music releases, platform-native viral topics, Reddit debates, Google Trends/Google News-style sources, current astrology/transit sources, and major sports events.
 3. Before the recommendation, include an evidence preflight summary:
@@ -145,16 +145,19 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 
 ### Brand Safety
 
-- No fortune-telling, deterministic claims, fear hooks, medical/psychological diagnosis, or match-result predictions.
+- No fortune-telling about specific future events, dates, match outcomes ("you will get back together", "your ex is coming back"), medical/psychological diagnosis, or luck/wealth predictions ("this placement makes you rich").
+- Call-out style content is explicitly allowed and encouraged: "toxic traits," "shadow self," "dark side," personality archetypes, and relatable character labels are all legitimate hooks. Lines like "Moon in Scorpio: you never forget, you just wait" are resonance and self-recognition tools, not fortune-telling — use them freely.
+- Fear hooks are allowed when they name a relatable internal state ("the dark side of your Moon sign", "why you self-sabotage in relationships") — not when they make claims about external outcomes.
 - For astrology facts such as retrograde dates, full moons, Saturn return age, houses, or transit meaning, verify from AstrologyWiki or current reliable sources.
 - Keep AstrologyWiki positioned as modern, explanatory, psychology-aware astrology grounded in real astronomy.
 
 ### Copy Style
 
-- Avoid obvious AI contrast formulas such as "not X, but Y", "this is not..., this is...", "it is...not...", "it is not...it is...", or forced positive/negative reversal.
-- Avoid defensive disclaimer phrasing in public copy, especially "without predicting...", "without making predictions...", "without saying...", "not to predict...", or similar lines that make the post sound like it is pre-emptively denying a problem.
-- Avoid generic framing like "the story is...", "this story shows...", or "the story behind..." unless it is a literal news/article summary and sounds natural.
-- For hotspot image posts and carousels, avoid over-teaching. Do not stack slides as "definition -> explanation -> CTA" unless the user asks for education. Make the carousel feel like an entertainment/editorial micro-story: strong cover, specific public moment, 2-3 short insight cards, then a light tool/page CTA.
+- Contrast and reversal structures are allowed and often the most powerful hooks. "Your Sun sign is who you want to be, but your Moon sign is who you actually are" is a good hook — use it. "Not X, but Y" is only bad when it sounds like a corporate press release; it is fine when it sounds like a TikTok creator talking.
+- Direct call-out is the default TikTok voice. Write like you are naming someone to their face, not explaining a concept to a class. "Moon in Scorpio: you don't forgive, you just wait" is better than "Scorpio Moon individuals tend to hold onto emotions."
+- Avoid defensive disclaimer phrasing in public copy, especially "without predicting...", "without making predictions...", "not to predict..." — these kill credibility and social energy instantly.
+- Avoid generic framing like "the story is...", "this story shows..." unless it is a literal news summary and sounds natural.
+- For hotspot image posts and carousels, avoid over-teaching. Make the carousel feel like an entertainment/editorial micro-story: strong cover, specific public moment, 2-3 short insight cards, then a light tool/page CTA.
 - Keep public copy natural, direct, and concise.
 - Avoid over-explaining brand values inside scripts.
 - Most content should not feel like an ad; use light CTA unless the user asks for direct conversion copy.
@@ -185,7 +188,9 @@ Default to a two-stage workflow:
 1. Stage 1, topic selection: after Evidence Preflight, give Pengman many Route A and Route B topic candidates, mark P0 picks, and stop for Pengman's choice.
 2. Stage 2, content package: only after Pengman selects one or more topics, create the multi-platform content package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders.
 
-Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", or "不用等我选".
+Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", "不用等我选", or "hook优先".
+
+**Script-first shortcut:** If Pengman says "给我一个爆款脚本", "直接写脚本", "hook优先", or provides a specific topic and asks for a script — skip Stage 1 entirely. Go straight to a ready-to-use short video script with: one punchy hook line (front 3 seconds), 4-6 tight body lines, and a one-line CTA. Do not pad with evidence preflight or candidate pools unless Pengman asks.
 
 ### Step 1: Gather Life and Trend Signals
 
@@ -247,15 +252,22 @@ why it worked:
 how AstrologyWiki can adapt it:
 ```
 
-Prioritize these hook types:
+Four proven hook types from AstrologyWiki's own video research (see `astrology-short-video-format-analysis.md`):
+
+1. **Interest hook** (Sample A pattern): transit + date window + personal consequence in money/love/identity. Formula: `[Transit] is active [dates], and it changes [love/money/standards] for [audience].` This opens with outcome, not definition.
+2. **Psychological diagnosis hook** (Sample B pattern): name an internal fog/confusion state first, then reveal the astrology as explanation. Formula: `If everything feels [foggy/stuck/obsessive] right now, [transit] may be exposing where you have been lying to yourself.`
+3. **Identity callout hook** (Sample C pattern): name the specific placement/sign directly in the first 2 seconds. Formula: `[Sign] Sun, Moon, Rising: this [transit] is about [specific change].` Short and precise beats long and warm.
+4. **Personality entertainment hook** (Sample D pattern): point at the sign, describe a surprising trait or emotional contradiction, let the audience verify or tag someone. Formula: `[Sign], don't move. You have [surprising trait], and people never know which version of you they are getting.`
+
+Also use:
 
 - Direct identity hook: "If you have ___ in your chart..."
 - Life-stage pain hook: "Why ___ suddenly feels heavier around age ___"
-- Timely transit hook: "This week's astrology is bringing ___ back up"
 - Search-intent hook: "Everyone knows their Sun sign. Fewer people check ___"
 - Tool/demo hook: "I checked this placement in 10 seconds..."
 - News/social/celebrity hook: "The reason people can't stop talking about ___ is actually about ___"
-- Contrarian insight hook, but avoid formulaic "not X, but Y" phrasing.
+
+Hook quality test: would this opening line make a TikTok user who does not follow @astrologywiki stop scrolling? If not, rewrite it before producing the script.
 
 ### Step 4: Build Candidate Pools and Pick P0
 
@@ -408,6 +420,29 @@ After Pengman selects a topic, use this Stage 2 structure:
 
 For Pengman, prefer Chinese explanations with English publishable copy where useful.
 
+## Reference Account Patterns
+
+From AstrologyWiki's competitor research (see `reference-accounts.md`):
+
+**Co-Star** (`@costarastrology`, ~354K followers): Best non-interview content is ultra-short, cold, and identity-based — `leo venuses rise`, `let go`, placement mood cards. Structure: placement label + strong emotional state + meme-style visual. No teaching, no definition, just "I was seen." AstrologyWiki can borrow the low-production mood post format, but must add a tool/page CTA that Co-Star skips.
+
+**The Pattern** (`@thepattern`, ~86K followers): Closest to AstrologyWiki's direction. Transit-based content without real people or interviews. Formula: `date + event → emotional theme → which house/sign to check → App CTA`. Top video: 2.6M views on "Pluto enters Aquarius." Lesson: big sky events + psychological meaning + personal activation question can perform very strongly.
+
+**AstroWhispers** (`@astrowhispers8`): AI visuals + personality pain-point hooks. Titles like `Cancer always loves the wrong people`, `Scorpio attracts broken people, right? But why?` drive comments and tags. AstrologyWiki can borrow the call-out title structure, but should add a second layer: `This isn't just your Sun sign. Check your Moon, Venus, and 7th house.`
+
+**maxcartexofficial / promentalityx / terryhales1**: All use fixed AI podcast persona + large captions + high-emotion hooks. Strong for `Five things Leo hates`, `The Psychology of a Leo Moon`, `The biggest problem with Leo is they hide their pain`. AstrologyWiki fit: use the AI host format with psychology-aware framing, and always connect back to a specific placement or tool.
+
+**Shawty Herbs** (`@shawtyherbs`): "asteroid / degree theory / obscure placement cold knowledge" format. Hook is "you didn't know this existed in your chart, and it explains everything." Example: `This asteroid in your birth chart reveals what people secretly envy about you`. AstrologyWiki can borrow this for lesser-known placements, asteroids, or chart factors — routes people directly to the birth chart tool.
+
+**Sanctuary** (`@sanctuarywrld`): App-brand astrology, light tone, young demographic, daily emotional companion energy. POV format works well here: `POV: you are a Scorpio Moon pretending you are fine`. Good model for low-production-cost daily content.
+
+**Other useful reference accounts** (pending Pengman's own review): `@chani.app` for brand aesthetic, `@moonomens` for visual style, `@alizakelly` for celebrity chart tie-ins, `@astrotwins` for content pillar structure, `@marenaltman` for strong opinion / financial astrology angle.
+
+**The core formula that works across all these accounts:**
+Strong hook + astrology knowledge point + light edge + comment engagement prompt. Not "here is what Venus in Scorpio means." Instead: `If you have Venus in Scorpio, this is why love feels like war.`
+
+**Pattern from all accounts:** The non-interview content that performs best is not educational — it is identity-based (you feel seen) or entertainment-based (you tag someone). Teaching comes second, or is hidden inside the feeling of being exposed.
+
 ## Platform Patterns
 
 ### Template A: Short Video
@@ -434,6 +469,37 @@ Hook: "28 and suddenly questioning your whole career?"
 Visual: AstrologyWiki Saturn Return page or calculator screenshot
 Explain: "Saturn Return is a cycle people often use to understand pressure, responsibility, and life restructuring."
 CTA: "Free, no sign-up. Check your Saturn Return on AstrologyWiki."
+```
+
+Hook library — use these as tone references, not templates to copy:
+
+```text
+// Call-out / identity hook
+"Your toxic trait, according to your Moon sign..."
+"Moon in Scorpio: you don't forgive. You just wait for the right time."
+"If your Rising sign is Scorpio, people have been reading you wrong your whole life."
+"Don't scroll if you have Pisces anywhere in your big three."
+
+// Contrast / reversal hook
+"Your Sun sign is who you want to be. Your Moon sign is who you actually are."
+"Everyone talks about their Sun sign. Almost no one checks the placement that actually runs their love life."
+"Astrology doesn't predict your future. It explains why you keep repeating the same patterns."
+
+// Timely / transit hook
+"Venus enters Virgo today, and some of you are about to realize you've been explaining away red flags for months."
+"Mercury retrograde doesn't ruin your life. It just makes you deal with what you've been avoiding."
+
+// Placement cold knowledge (Shawty Herbs pattern)
+"This asteroid in your birth chart reveals what people secretly envy about you."
+"Most people never check this placement. It explains why you attract the people you do."
+
+// Light edge + call-out (GPT-supplied examples, high comment potential)
+"Your toxic trait, according to your Moon sign..."
+"The zodiac placement that makes you impossible to forget."
+"If you have Venus in Scorpio, this is why love feels like war."
+"The 3 Moon signs that forgive you... but never forget."
+"Celebrities with the same Moon sign as you."
+"Haaland's birth chart explains his quiet killer energy."
 ```
 
 Avoid:

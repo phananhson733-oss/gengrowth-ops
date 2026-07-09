@@ -234,10 +234,10 @@ TikTok 首轮先复用 YouTube Shorts，不单独开制作线。这里优先记�
 - Natural Next Step: Harry Kane birth chart article / AstrologyWiki birth chart page
 - Risk: 不做比赛预测；不暗示星盘决定表现；人物照片和赛事素材需注意版权。
 - Status: Published / monitor data
-- Archive: [[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]
+- Archive: [[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]
 - Note: 这条 Kane 内容已在 2026-07-01 制作发布，后续不再作为“下一步首推”；只观察数据，或做差异化 follow-up。
 
-完整脚本、视觉结构、Caption、发布链接和 follow-up 统一见：[[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]。
+完整脚本、视觉结构、Caption、发布链接和 follow-up 统一见：[[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]。
 
 ## 5. 初步风险提醒
 

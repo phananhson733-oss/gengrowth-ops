@@ -9,8 +9,8 @@ status: active
 related:
   - [[inbox-pengman/03-topic-ideas/README.md]]
   - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
-  - [[inbox-pengman/03-topic-ideas/2026-07-01-haaland视频脚本.md]]
-  - [[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]
+  - [[inbox-pengman/03-topic-ideas/haaland视频脚本.md]]
+  - [[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]
   - [[inbox-pengman/03-topic-ideas/Lionel Messi’s Cancer Sun.md]]
   - [[inbox-pengman/03-topic-ideas/Birth Chart.md]]
 ---
@@ -19,8 +19,8 @@ related:
 
 ## 已转成单条文档
 
-- Haaland: [[inbox-pengman/03-topic-ideas/2026-07-01-haaland视频脚本.md]]
-- Harry Kane: [[inbox-pengman/03-topic-ideas/2026-07-01-harry-kane-birth-chart-script.md]]
+- Haaland: [[inbox-pengman/03-topic-ideas/haaland视频脚本.md]]
+- Harry Kane: [[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]
 - Messi: [[inbox-pengman/03-topic-ideas/Lionel Messi’s Cancer Sun.md]]
 - Birth Chart 入门: [[inbox-pengman/03-topic-ideas/Birth Chart.md]]
 - 已发布内容复盘：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]

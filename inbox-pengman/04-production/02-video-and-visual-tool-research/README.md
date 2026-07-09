@@ -13,7 +13,7 @@ updated: 2026-06-29
 
 ## 当前工具调研
 
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]：Higgsfield + 时间戳图片 + CapCut 的自动化视频路线。
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]：真人数字人 / AI Avatar 路线。
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]：Golpo 白板 / 解释型视频工具。
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]：Remotion 代码化视频模板系统。
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]：Higgsfield + 时间戳图片 + CapCut 的自动化视频路线。
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]：真人数字人 / AI Avatar 路线。
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/golpo-video-workflow-research.md]]：Golpo 白板 / 解释型视频工具。
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/remotion-video-template-research.md]]：Remotion 代码化视频模板系统。

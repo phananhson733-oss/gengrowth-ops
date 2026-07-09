@@ -4,7 +4,7 @@ project: astrologywiki
 type: reference-account-list
 status: draft
 owner: Pengman
-updated: 2026-07-07
+updated: 2026-07-09
 ---
 
 # 内容创作参考账号
@@ -66,6 +66,18 @@ updated: 2026-07-07
     - Relationship transit：`Venus in [sign] may show you where your relationship pattern wants to shift.`
     - Long-cycle explainer：`Why [outer planet] in [sign] matters for more than your horoscope.`
   - AstrologyWiki 不建议借鉴：不要照搬 The Pattern 的 App 品牌话术；不要把 `personalized insight` 包装成绝对预测；不要过度使用 `destiny / fated / manifest` 这类难验证表达。制作上也不必一开始做 90-150 秒长解释，优先测试 20-35 秒短版，看完播、收藏、主页访问和工具点击，再决定是否做长版系列。
+- https://www.tiktok.com/@astrowhispers8
+  - 调研时间：2026-07-07。来源为 TikTok 公开主页和公开视频页抽查。未登录后台，未使用私密数据。公开视频页可见多条内容标记为 `创作者已标记为由 AI 生成`。
+  - 账号定位：`AstroWhispers`，TikTok 主页可见约 19.5K 粉丝、143.2K 赞；bio 为 `Learn about yourself, by your zodiac sign!`。整体不是专业工具型账号，而是 `AI visual astrology / zodiac personality / emotional pain-point` 账号。
+  - 内容做法：核心是 AI 视觉短片 + 星座人格痛点 + 大字标题。画面包括 AI 播客人像、幻想/暗黑星座场景、星座符号和强情绪字幕；常用标题结构是 `right? But why?`、`guess which zodiac sign...`、`[sign] always...`、`[sign] attracts...`。
+  - 代表样本：
+    - `Scorpio attracts broken people, right? But why?`，约 78 秒，首屏为 AI 播客人像解释型。
+    - `I walk away without looking back, guess which zodiac sign am I?`，公开页显示约 229 赞、81 评论，约 79 秒，AI 生成标记。
+    - `Cancer always loves the wrong people`，公开页显示约 434 赞、48 评论，约 85 秒，AI 生成标记。
+    - 其他可见标题包括 `Scorpio and their intelligence`、`Can you guess the most vengeful zodiac sign?`、`Pisces vs the other 11 signs; who wins?`、`Virgo personality fully explained`。
+  - 热门/互动规律：它靠专业度取胜的证据不强，主要靠身份认同、情绪共鸣和评论诱导。有效机制是让用户代入自己的星座、前任或熟人，再通过 `guess / who wins / right but why` 触发评论。
+  - AstrologyWiki 可借鉴：借标题抓力和 AI 视觉冲击，不借过度绝对化。可测试 `Why Scorpio attracts emotionally intense people`、`Why Cancer keeps trying to save people`、`Why Aquarius walks away when they stop feeling understood`、`Why Gemini anger is often overstimulation`、`Why Pisces absorbs other people's emotions`。
+  - AstrologyWiki 不建议借鉴：不要停留在太阳星座标签；不要使用 `always loves the wrong people`、`most vengeful sign` 这类绝对化判断作为主品牌表达。每条应补一句更可信的落点，如 `This is not just your Sun sign. Check your Moon, Venus, and 7th house too.`，并承接到 birth chart / moon / Venus / house 工具页。
 - https://www.tiktok.com/@maxcartexofficial
   - AI podcast / talking-head format. Uses a fixed male podcast-style avatar, large captions, and high-emotion hooks around psychology, women, behavior, and zodiac signs.
   - Reference value: strong listicle hooks such as `Five things Leo hates` and `The most dangerous zodiac sign...`; useful for testing identity-based astrology hooks.
@@ -82,6 +94,83 @@ updated: 2026-07-07
   - Single-video reference: `The Psychology of a Leo Personality`.
   - Reference value: 56s AI podcast clip; public page showed strong saves/shares, suggesting astrology + psychology + self-awareness has repeatable short-video potential.
   - AstrologyWiki fit: use as a direct template for `The Psychology of [Sign/Placement]` videos.
+
+- https://www.tiktok.com/@sanctuarywrld
+  - 账号定位：Sanctuary 官方 TikTok，App 型占星品牌，内容偏轻量、年轻化、日常感。主打"占星 + 情绪陪伴"，语气不严肃，适合快速滑动消费。
+  - 适合模仿的方向：品牌感轻、内容感强；用"今日星象 + 情绪状态"做日常推送；CTA 不硬广，而是轻引导到 App / birth chart。
+  - AstrologyWiki 可借鉴：`占星 + 情绪陪伴 + 轻 CTA` 结构；适合日常内容补量，测试 `Today's sky feels like [emotion]` 类轻推送。
+  - 优先级：很适合，参考其年轻化语气和日常感，不必等完整调研。
+- https://www.tiktok.com/@chani.app
+  - 账号定位：CHANI 官方 TikTok，品牌审美成熟，语气温和、专业，内容涵盖 birth chart、daily horoscope、moon phases 等完整内容体系。
+  - 适合模仿的方向：品牌叙事风格、内容栏目化设计、每个主题有完整的工具承接。
+  - AstrologyWiki 可借鉴：内容体系的栏目化逻辑（moon phase 系列、transit 系列、birth chart 系列）；不适合在冷启动期完全照搬，因为 CHANI 的品牌成熟度需要积累。
+  - 优先级：中期参考，适合内容体系规划，不适合初期起号模仿。
+- https://www.tiktok.com/@moonomens
+  - 账号定位：Moon Omens，视觉风格强烈，偏神秘、宇宙、月相、能量提醒。有稳定的粉丝群体和视觉识别度。
+  - 适合模仿的方向：月相内容的视觉处理方式；神秘感 + 实用建议结合的文案结构。
+  - AstrologyWiki 可借鉴：视觉风格参考，尤其是 moon phase 主题内容的画面质感；文案上不要过度"能量/宇宙"用语，保持可验证落点。
+  - 优先级：视觉参考，适合 moon phase 系列视频制作前的风格调研。
+- https://www.tiktok.com/@alizakelly
+  - 账号定位：Aliza Kelly，专业占星师，擅长结合名人/流行文化切入占星解读，有个人品牌权威感。
+  - 适合模仿的方向：名人星盘解读格式；`占星知识 + 流行文化事件` 的内容钩子。
+  - AstrologyWiki 可借鉴：`名人星盘 + 性格/事件解释` 短视频格式；比如"Haaland 的星盘解释他的冷静杀手气场"这类话题拆法。
+  - 优先级：很适合，尤其是已有 Haaland、Messi 等选题时，可直接借鉴此格式。
+- https://www.tiktok.com/@marenaltman
+  - 账号定位：Maren Altman，事件预测、金融占星、强个人观点，曾是 TikTok 上影响力较大的占星内容创作者。
+  - 适合模仿的方向：强观点结构；预测型钩子（`X is about to happen and here is why astrology saw it coming`）。
+  - AstrologyWiki 可借鉴：观点型结构参考；不要照搬金融占星或预测性表达，容易引发信任风险；重点学"强主张 + 星象依据"的表达方式。
+  - 优先级：可参考，但保守使用，避免绝对预测语气。
+- https://www.tiktok.com/@shawtyherbs
+  - 账号定位：Shawty Herbs，擅长"一个神秘小知识/星盘技巧"的爆款短视频，常涉及 asteroid、degree theory、Arabic parts 等小众星盘知识点。
+  - 适合模仿的方向：`星盘冷知识 + 你可能不知道` 的钩子结构，容易引发截图和分享。
+  - 代表公式：`This asteroid in your birth chart reveals what people secretly envy about you`；`If you have [degree] on your [point], this is what it means`。
+  - AstrologyWiki 可借鉴：短视频选题库的重要来源；适合做高传播的星盘小知识内容，每条对应一个可查询的 AstrologyWiki 工具页。
+  - 优先级：很适合，短视频选题和批量生产优先参考。
+- https://www.tiktok.com/@astrologybro
+  - 账号定位：Astrology Bro，内容以星座刻板印象、榜单、强观点为主，例如"最难搞的星座孩子"、星座排名等互动型内容。
+  - 适合模仿的方向：评论区引导性强；榜单结构和"猜猜这是哪个星座"诱导互动。
+  - 代表公式：`The 3 Moon signs that forgive you... but never forget`；`Ranked: which sign holds the longest grudge`。
+  - AstrologyWiki 可借鉴：互动型、可 tag 朋友的内容格式；做日常破圈和评论区活跃的补充内容。
+  - 优先级：适合，用于补充轻互动内容，不作为主线风格。
+- https://www.tiktok.com/@astrotwins
+  - 账号定位：The AstroTwins，老牌占星内容品牌，SEO、horoscope、love/career 内容成熟，内容栏目化程度高。
+  - 适合模仿的方向：内容栏目化逻辑；love / career / money 分主题系列；evergreen horoscope 内容格式。
+  - AstrologyWiki 可借鉴：内容栏目规划参考；每个 transit 的多维度拆分方式（爱情版、事业版、金钱版）。
+  - 优先级：中期内容体系规划参考，适合做内容矩阵设计时调研。
+
+## AstrologyWiki TikTok 模仿优先级（2026-07-09 建议）
+
+> 综合账号分析和用户反馈，以下是当前阶段推荐的重点模仿方向。
+
+### 5 个重点模仿账号
+
+| 账号 | 模仿重点 | 代表公式 |
+| --- | --- | --- |
+| Co-Star | 短句钩子，冷幽默，placement 身份标签 | `Your Moon sign exposes the part of you that never really moved on` |
+| Sanctuary | 年轻化表达，日常情绪陪伴 | `POV: you are a Scorpio Moon pretending you are fine` |
+| The Pattern | 关系类内容，心理诊断，天象情绪命题 | `Your Venus sign shows how you ruin your own love life` |
+| Shawty Herbs | 星盘冷知识、小技巧，截图传播 | `This asteroid in your birth chart reveals what people secretly envy about you` |
+| Astrology Bro | 榜单和争议感，评论互动 | `The 3 Moon signs that forgive you... but never forget` |
+
+### AstrologyWiki 推荐内容打法
+
+核心公式：**强 hook + 星盘知识点 + 轻微毒舌 + 评论区引导**
+
+初期不适合模仿 CHANI 那种成熟品牌叙事（制作成本高，需要积累）。适合做：
+
+- `Your toxic trait, according to your Moon sign`
+- `The zodiac placement that makes you impossible to forget`
+- `If you have Venus in Scorpio, this is why love feels like war`
+- `Celebrities with the same Moon sign as you`（对接 Haaland、Messi 等已有选题）
+- `Haaland's birth chart explains his quiet killer energy`
+
+### 为什么这套打法适合 TikTok 起号
+
+TikTok FYP 重点信号为观看时长、点赞、关注，因此要优先模仿：
+
+1. **前 2 秒强钩子**：Co-Star、Sanctuary、Shawty Herbs 是最好的钩子参考。
+2. **评论区可参与**：Astrology Bro、The Pattern 的内容天然引发"这说的是我吗"和 tag 朋友。
+3. 画面好看不等于流量好，重点放在钩子和互动，而不是高制作成本的视觉。
 
 ## X
 

@@ -3,14 +3,14 @@ title: 2026-07-03 社媒内容数据阶段分析
 type: social-content-data-analysis
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-07
-data_scope: archived public metrics from 2026-W25, 2026-W27, and early 2026-W28, including additional public account checks on 2026-07-05, 2026-07-06, and 2026-07-07 for X, TikTok, Instagram, and YouTube
+updated: 2026-07-08
+data_scope: archived public metrics from 2026-W25, 2026-W27, and early 2026-W28, including additional public account checks on 2026-07-05, 2026-07-06, 2026-07-07, and 2026-07-08 for X, TikTok, Instagram, and YouTube
 status: draft
 ---
 
 # 2026-07-03 社媒内容数据阶段分析
 
-> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集`、`2026-W28 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05、2026-07-06、2026-07-07 的公开账号级检查。Instagram 数据含 2026-07-07 公开 web profile meta；X 数据含 2026-07-07 公开 profile；TikTok 数据含 2026-07-07 公开 profile JSON；YouTube 数据含 2026-07-07 公开 `shorts/videos` 列表页。  
+> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集`、`2026-W28 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05、2026-07-06、2026-07-07、2026-07-08 的公开账号级检查。Instagram 数据含 2026-07-08 公开 web profile meta；X 数据以 2026-07-08 公开 page 可达性检查为最新；TikTok 数据含 2026-07-08 公开 profile JSON；YouTube 数据含 2026-07-08 公开 `shorts/videos` 列表页与新增 Shorts 单条公开页。  
 > 当前不包含后台 analytics：X impressions / link clicks、TikTok 完播率 / 主页访问 / 链接点击、YouTube Studio 留存 / shown in feed / 点击数据、站内 referral / PV 变化。  
 > 目标：判断哪些站外内容更可能支持 AstrologyWiki 的 SEO / PV / 站内主题页，而不是单纯比较粉丝增长。
 
@@ -20,7 +20,7 @@ status: draft
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-01-public-account-crawl-log.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/2026-06-29-content-direction-and-tools-research.md]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
 
 ## 0. 2026-07-06 增量更新
 
@@ -39,6 +39,15 @@ status: draft
 - X / TikTok / Instagram 的账号级公开数字与 2026-07-06 一致，说明今天更像“确认无新增公开补链”的检查，而不是一轮新的平台扩量。
 - YouTube 公开 feed URL 当前返回 404，但 `@AstrologyWiki/shorts` 和 `/videos` 列表页仍可确认现有 7 个 Shorts ID 与 2 个长视频 ID；因此 YouTube 仍是最稳的 public-only 补链来源，只是抓取入口要改成列表页优先。
 - 这次更新不改变已有平台优先级判断：`YouTube Shorts` 仍是 P0，`TikTok` 仍是 P1 测试位，`Instagram` 仍是可稳定归档的轻量复用位，`X` 仍主要承担轻量同步分发。
+
+## 0.2 2026-07-08 增量更新
+
+- YouTube：W28 新补到 `Rhaenyra’s Fight for Power, Explained by Astrology`（`93ONQqwnsn8`）。这条公开页显示 `Jul 7, 2026 / No views / 0 likes`，描述里直接放了 AstrologyWiki 短链，说明当前 Shorts 不只在做 celebrity birth chart，也开始测试角色/剧情切口导回站内。
+- YouTube：`@AstrologyWiki/shorts` 列表页本次还浮出 `CHSfnHbuYtE`，但单条页显示约 `7 days ago`，更像历史漏档而不是 W28 新增。判断上应把它看成归档缺口，而不是平台今天新发很多条。
+- TikTok：公开 profile 已从 `20 likes / 10 videos` 升到 `28 likes / 11 videos`。这说明 TikTok 本周仍有内容活动，但自动化当前仍拿不到稳定内容级链接，因此只能确认“有新增”，暂不能做内容级比较。
+- Instagram：公开 profile 已从 `4 posts` 升到 `5 posts`。这说明 Instagram 本周也有新增分发，但本次仍未稳定补出第 5 帖 shortcode。
+- X：本次仅确认公开页面仍可访问，但结构化计数和内容级链接未稳定返回，因此不据此改写已有数量判断。
+- 平台判断不变，但“公开链路稳定度”差距进一步拉大：YouTube 仍是唯一能稳定补到内容级链接的平台；TikTok / Instagram 目前只能稳定拿到账号级增量；X 仍最不稳定。
 
 ## 1. 阶段总览
 

@@ -13,9 +13,9 @@ updated: 2026-07-03
 
 ## 先看哪几份
 
-1. [[inbox-pengman/04-production/01-strategy-and-platform-research/2026-06-29-content-direction-and-tools-research.md]]
+1. [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
    - 当前内容方向、平台方向、内容形式和工具判断总览。
-2. [[inbox-pengman/04-production/2026-06-17-astrologywiki-social-content-workflow.md]]
+2. [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
    - 长期可复用的选题、脚本、制作、发布、复盘流程。
 3. [[inbox-pengman/03-topic-ideas/README.md]]
    - 站外内容选题区入口：选题库、SEO 选题调查、单条脚本和已发布内容归档。
@@ -47,10 +47,10 @@ updated: 2026-07-03
 
 ## 当前工具调研结论入口
 
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-golpo-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-06-29-remotion-video-template-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/golpo-video-workflow-research.md]]
+- [[inbox-pengman/04-production/02-video-and-visual-tool-research/remotion-video-template-research.md]]
 
 ## 临时规则
 

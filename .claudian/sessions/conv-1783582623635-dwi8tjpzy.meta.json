@@ -1,0 +1,25 @@
+{
+  "id": "conv-1783582623635-dwi8tjpzy",
+  "providerId": "codex",
+  "title": "目前是这样的，我们打算在美国那边运营数个账号，已经买了五台美国iPhone，现在搞到了买gmail和...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1783582623636,
+  "updatedAt": 1783582749314,
+  "lastResponseAt": 1783582749314,
+  "sessionId": "019f45cf-22ff-7130-aa13-b74106f7f9bd",
+  "providerState": {
+    "threadId": "019f45cf-22ff-7130-aa13-b74106f7f9bd",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/09/rollout-2026-07-09T00-37-10-019f45cf-22ff-7130-aa13-b74106f7f9bd.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 27761,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 22400,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 27761,
+    "percentage": 11,
+    "model": "gpt-5.5"
+  }
+}

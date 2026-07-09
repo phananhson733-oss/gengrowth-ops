@@ -13,7 +13,7 @@
 | **03** | `03-topic-ideas`          | 站外内容选题库、单条选题草稿、主题包灵感。入口：[[inbox-pengman/03-topic-ideas/README.md]] |
 | **04** | `04-production`           | 内容创作工作区：平台/内容方向、图文视频工具调研、生产工作流、已发布内容复盘。 |
 | **06** | `06-tasks`                | 任务管理、周计划、执行跟踪、职责边界文档。          |
-| **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。           |
+| **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。入口：[[inbox-pengman/07-account-assets/README.md]] |
 
 
 ### 🎬 04 内容创作工作区细分
