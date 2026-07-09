@@ -2333,15 +2333,16 @@
     "mergedAt": "2026-07-09T11:05:21.877Z"
   },
   "PG-CELEB-045": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "kate-upton-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "22450",
-    "leaseUntil": "2026-07-09T13:51:19.881Z",
-    "updatedAt": "2026-07-09T12:51:19.881Z",
+    "leaseUntil": "2026-07-09T13:55:44.441Z",
+    "updatedAt": "2026-07-09T12:55:44.441Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-045",
-    "branch": "seo/auto/2026-07-09-PG-CELEB-045"
+    "branch": "seo/auto/2026-07-09-PG-CELEB-045",
+    "pr": "https://github.com/xdawayer/oracle/pull/351"
   }
 }
