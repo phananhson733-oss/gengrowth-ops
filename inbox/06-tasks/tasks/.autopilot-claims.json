@@ -2333,7 +2333,7 @@
     "mergedAt": "2026-07-09T11:05:21.877Z"
   },
   "PG-CELEB-045": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "kate-upton-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
@@ -2345,7 +2345,9 @@
     "branch": "seo/auto/2026-07-09-PG-CELEB-045",
     "pr": "https://github.com/xdawayer/oracle/pull/351",
     "retryEvidence": "removed unverified Kate Upton Moon/Rising labels from article assets",
-    "retryAt": "2026-07-09T13:59:33.855Z"
+    "retryAt": "2026-07-09T13:59:33.855Z",
+    "error": "review[schema] FAIL: The module's declared H2 headings, table, and FAQ block hallucinate a 'Gemini–Libra–Virgo' three-sign signature that directly contradicts the article body's core claim that Moon and Rising are unverified without a reliable birth time.",
+    "failedAt": "2026-07-09T14:02:43.270Z"
   },
   "PG-CELEB-046": {
     "status": "done",
