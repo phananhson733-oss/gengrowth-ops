@@ -387,7 +387,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-043` justin verlander birth chart
 - [x] `PG-CELEB-044` jack antonoff birth chart
 
-- [ ] `PG-CELEB-045` kate upton birth chart
+- [x] `PG-CELEB-045` kate upton birth chart
 - [x] `PG-CELEB-046` Ayo Edebiri birth chart
 - [ ] `PG-VEDIC-005` Zendaya birth chart
 
