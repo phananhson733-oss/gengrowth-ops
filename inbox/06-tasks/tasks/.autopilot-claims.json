@@ -2333,21 +2333,19 @@
     "mergedAt": "2026-07-09T11:05:21.877Z"
   },
   "PG-CELEB-045": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kate-upton-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
     "stage": "pushed-preview",
-    "lockedBy": "87275",
-    "leaseUntil": "2026-07-09T14:52:06.095Z",
-    "updatedAt": "2026-07-09T13:52:06.095Z",
+    "lockedBy": "93214",
+    "leaseUntil": "2026-07-09T14:59:33.855Z",
+    "updatedAt": "2026-07-09T13:59:33.855Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-045",
     "branch": "seo/auto/2026-07-09-PG-CELEB-045",
     "pr": "https://github.com/xdawayer/oracle/pull/351",
-    "retryEvidence": "retry after loading gg env for preview verify",
-    "retryAt": "2026-07-09T13:52:06.095Z",
-    "error": "codex completed with codex FAIL —the diff asserts Kate Upton has Libra Moon/Virgo Rising despite no reliable public birth time",
-    "failedAt": "2026-07-09T13:56:54.489Z"
+    "retryEvidence": "removed unverified Kate Upton Moon/Rising labels from article assets",
+    "retryAt": "2026-07-09T13:59:33.855Z"
   },
   "PG-CELEB-046": {
     "status": "done",
