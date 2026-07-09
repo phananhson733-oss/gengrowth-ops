@@ -2310,7 +2310,7 @@
     "failedAt": "2026-07-09T10:36:00.902Z"
   },
   "PG-CELEB-044": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "jack-antonoff-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-044.md",
@@ -2320,6 +2320,11 @@
     "updatedAt": "2026-07-09T10:55:42.103Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-044",
     "branch": "seo/auto/2026-07-09-PG-CELEB-044",
-    "pr": "https://github.com/xdawayer/oracle/pull/350"
+    "pr": "https://github.com/xdawayer/oracle/pull/350",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-09-pg-dfaa37-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass-post-repair)",
+    "verifiedAt": "2026-07-09T11:05:02.963Z",
+    "headRefOid": "cf401a393fa49fbb907997b7554fb7afd3c084c1",
+    "mergedAt": "2026-07-09T11:05:21.877Z"
   }
 }
