@@ -154,7 +154,7 @@ updated: 2026-06-23
 - [x] `PG-ART-005` generative engine optimization
 - [x] `PG-ART-006` ai search visibility
 - [x] `PG-WLS-006` gpt 5.6 seo
-- [ ] `PG-GJ2U-001` google july 2026 update
+- [x] `PG-GJ2U-001` google july 2026 update
 - [ ] `PG-AIS-005` ai seo audit
 - [x] `PG-WHS-001` website health score
 
