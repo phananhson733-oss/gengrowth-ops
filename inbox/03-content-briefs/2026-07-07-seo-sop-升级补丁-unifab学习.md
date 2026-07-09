@@ -1,5 +1,5 @@
 ---
-title: SEO SOP 升级补丁 — unifab.ai 竞品学习
+title: SEO SOP 升级补丁 — unifab.ai 学习
 date: 2026-07-07
 updated: 2026-07-08
 status: v5
