@@ -2371,20 +2371,18 @@
     "mergedAt": "2026-07-09T13:33:11.761Z"
   },
   "PG-VEDIC-005": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "30127",
-    "leaseUntil": "2026-07-09T17:17:00.720Z",
-    "updatedAt": "2026-07-09T16:17:00.720Z",
+    "lockedBy": "32696",
+    "leaseUntil": "2026-07-09T17:30:36.341Z",
+    "updatedAt": "2026-07-09T16:30:36.341Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
     "branch": "seo/auto/2026-07-09-PG-VEDIC-005",
     "pr": "https://github.com/xdawayer/oracle/pull/353",
-    "retryEvidence": "phase2-passing Zendaya draft regenerated; loaded Vercel automation bypass secret for preview verification",
-    "retryAt": "2026-07-09T16:17:00.720Z",
-    "error": "codex completed with codex FAIL —Zendaya’s birth time is publicly listed as 6:01 PM, not unconfirmed",
-    "failedAt": "2026-07-09T16:25:29.600Z"
+    "retryEvidence": "updated Zendaya article to use public 6:01 PM birth time, patched supporting visuals, committed and pushed 8f0d4f4",
+    "retryAt": "2026-07-09T16:30:36.341Z"
   }
 }
