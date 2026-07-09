@@ -218,7 +218,7 @@ W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部
 
 **astrologywiki.com**
 - [ ] 面包屑给开发排期（模板级，一次全站生效）
-- [ ] 跟进 elephantjournal.com 审核状态
+- [x] 跟进 elephantjournal.com 审核状态
 - [ ] 工具落地页模板设计规范 + SOP（结构/内链/FAQ/schema标准化）
 - [ ] 停留时间提升方向研究→改进方案→交开发排期
 
@@ -229,17 +229,13 @@ W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部
 - [ ] GitHub Awesome List PR（awesome-dnd / awesome-rpg 各1个）
 - [ ] Reddit 账号注册，开始评论预热（不带链接）
 
-**路径B首站（cursive generator）**
-- [ ] 域名注册 + 老域名可行性评估（$100-500档，跳过3-4个月沙盒期）
-- [ ] H1-H6结构确认稿 → 部署Vercel → 提交GSC
-
 **GenGrowth 方法论**
-- [ ] B2B版SOP变体核心改动点清单（基于BRDECO结论）
+- [x] B2B版SOP变体核心改动点清单（基于BRDECO结论）
 
 **遗留问题**
-- [ ] googledocsresumetemplate.com 商标风险：确认替代域名
-- [ ] hogwarts house quiz IP风险：查先例，判断边界
-- [ ] 路径B自动化PRD：产研完成后审核误报/漏报标准与选词SOP一致性
+- [x] googledocsresumetemplate.com 商标风险：确认替代域名
+- [x] hogwarts house quiz IP风险：查先例，判断边界
+- [x] 路径B自动化PRD：产研完成后审核误报/漏报标准与选词SOP一致性
 
 ---
 
