@@ -2333,19 +2333,19 @@
     "mergedAt": "2026-07-09T11:05:21.877Z"
   },
   "PG-CELEB-045": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "kate-upton-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
     "stage": "pushed-preview",
-    "lockedBy": "22450",
-    "leaseUntil": "2026-07-09T13:55:44.441Z",
-    "updatedAt": "2026-07-09T12:55:44.441Z",
+    "lockedBy": "86353",
+    "leaseUntil": "2026-07-09T14:50:13.758Z",
+    "updatedAt": "2026-07-09T13:50:13.758Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-045",
     "branch": "seo/auto/2026-07-09-PG-CELEB-045",
     "pr": "https://github.com/xdawayer/oracle/pull/351",
-    "error": "codex completed with codex FAIL —“Virgo Rising commonly attributed to Kate Upton” is clearly unverifiable without a reliable public birth time",
-    "failedAt": "2026-07-09T13:04:55.735Z"
+    "retryEvidence": "removed unverifiable Virgo Rising claim; Moon/Rising now treated as birth-time-dependent unknowns",
+    "retryAt": "2026-07-09T13:50:13.757Z"
   },
   "PG-CELEB-046": {
     "status": "done",
