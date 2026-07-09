@@ -2371,20 +2371,18 @@
     "mergedAt": "2026-07-09T13:33:11.761Z"
   },
   "PG-VEDIC-005": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "33718",
-    "leaseUntil": "2026-07-09T17:34:18.505Z",
-    "updatedAt": "2026-07-09T16:34:18.505Z",
+    "lockedBy": "34992",
+    "leaseUntil": "2026-07-09T17:39:01.667Z",
+    "updatedAt": "2026-07-09T16:39:01.667Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
     "branch": "seo/auto/2026-07-09-PG-VEDIC-005",
     "pr": "https://github.com/xdawayer/oracle/pull/353",
-    "retryEvidence": "corrected early-Virgo vs late-Virgo sidereal wording and pushed 019a76f",
-    "retryAt": "2026-07-09T16:34:18.505Z",
-    "error": "review[links-seo] FAIL: The published .ts renders a fabricated in-body outbound link — the 'Take Action' CTA anchors 'free astrology birth chart calculator' to https://astrologywiki.com/en/wiki/aura-reading, an unrelated aura-reading page that does not match the anchor's stated calculator intent.",
-    "failedAt": "2026-07-09T16:37:54.652Z"
+    "retryEvidence": "draft CTA now matches repaired article copy; no fabricated calculator link remains",
+    "retryAt": "2026-07-09T16:39:01.667Z"
   }
 }
