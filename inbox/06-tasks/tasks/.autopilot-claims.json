@@ -2314,10 +2314,10 @@
     "slug": "jack-antonoff-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-044.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "21739",
-    "leaseUntil": "2026-07-09T11:50:30.101Z",
-    "updatedAt": "2026-07-09T10:50:30.101Z",
+    "leaseUntil": "2026-07-09T11:54:52.173Z",
+    "updatedAt": "2026-07-09T10:54:52.173Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-044",
     "branch": "seo/auto/2026-07-09-PG-CELEB-044"
   }
