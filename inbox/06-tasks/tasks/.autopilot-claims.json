@@ -2372,10 +2372,10 @@
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "5855",
-    "leaseUntil": "2026-07-09T17:03:49.909Z",
-    "updatedAt": "2026-07-09T16:03:49.909Z",
+    "leaseUntil": "2026-07-09T17:07:46.732Z",
+    "updatedAt": "2026-07-09T16:07:46.732Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
     "branch": "seo/auto/2026-07-09-PG-VEDIC-005"
   }
