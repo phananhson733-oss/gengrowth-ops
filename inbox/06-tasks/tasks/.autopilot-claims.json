@@ -2371,7 +2371,7 @@
     "mergedAt": "2026-07-09T13:33:11.761Z"
   },
   "PG-VEDIC-005": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2387,6 +2387,7 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-09-pg-c7679c-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-07-09T16:43:36.187Z",
-    "headRefOid": "760edb5931dc9b7b6ea71ceea9d69ba950b42904"
+    "headRefOid": "760edb5931dc9b7b6ea71ceea9d69ba950b42904",
+    "mergedAt": "2026-07-09T16:44:44.290Z"
   }
 }
