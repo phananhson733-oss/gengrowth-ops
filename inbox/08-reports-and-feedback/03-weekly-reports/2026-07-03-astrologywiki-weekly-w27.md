@@ -219,7 +219,7 @@ W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部
 **astrologywiki.com**
 - [ ] 面包屑给开发排期（模板级，一次全站生效）
 - [x] 跟进 elephantjournal.com 审核状态
-- [ ] 工具落地页模板设计规范 + SOP（结构/内链/FAQ/schema标准化）
+- [x] 工具落地页模板设计规范 + SOP（结构/内链/FAQ/schema标准化）
 - [ ] 停留时间提升方向研究→改进方案→交开发排期
 
 **aistorygenerator.work 外链冷启动**
