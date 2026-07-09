@@ -2348,15 +2348,16 @@
     "failedAt": "2026-07-09T13:04:55.735Z"
   },
   "PG-CELEB-046": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "ayo-edebiri-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-046.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "70990",
-    "leaseUntil": "2026-07-09T14:23:33.042Z",
-    "updatedAt": "2026-07-09T13:23:33.042Z",
+    "leaseUntil": "2026-07-09T14:29:03.351Z",
+    "updatedAt": "2026-07-09T13:29:03.351Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-046",
-    "branch": "seo/auto/2026-07-09-PG-CELEB-046"
+    "branch": "seo/auto/2026-07-09-PG-CELEB-046",
+    "pr": "https://github.com/xdawayer/oracle/pull/352"
   }
 }
