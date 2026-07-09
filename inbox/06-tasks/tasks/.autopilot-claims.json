@@ -2308,5 +2308,17 @@
     "pr": "https://github.com/xdawayer/oracle/pull/349",
     "error": "review[astrology] FAIL: The .ts module claims Verlander's Sun is in the 'early degrees of Pisces' while a Feb 20, 1983 birth places the Sun at the very END of Pisces (~0–1° from the Aquarius cusp on the entry side), and the whole 'Aquarius cusp' framing is astronomically backwards.",
     "failedAt": "2026-07-09T10:36:00.902Z"
+  },
+  "PG-CELEB-044": {
+    "status": "active",
+    "slug": "jack-antonoff-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-044.md",
+    "stage": "convert",
+    "lockedBy": "21739",
+    "leaseUntil": "2026-07-09T11:50:30.101Z",
+    "updatedAt": "2026-07-09T10:50:30.101Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-044",
+    "branch": "seo/auto/2026-07-09-PG-CELEB-044"
   }
 }
