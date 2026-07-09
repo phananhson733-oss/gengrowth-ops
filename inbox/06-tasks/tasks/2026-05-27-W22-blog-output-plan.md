@@ -388,7 +388,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-044` jack antonoff birth chart
 
 - [ ] `PG-CELEB-045` kate upton birth chart
-- [ ] `PG-CELEB-046` Ayo Edebiri birth chart
+- [x] `PG-CELEB-046` Ayo Edebiri birth chart
 - [ ] `PG-VEDIC-005` Zendaya birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*

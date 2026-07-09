@@ -131,3 +131,4 @@ updated: 2026-07-09
 | 2026-07-08 | PG-CELEB-041 | coco-gauff-zodiac-sign | Coco Gauff Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/coco-gauff-zodiac-sign | published |
 | 2026-07-09 | PG-CELEB-044 | jack-antonoff-birth-chart | Jack Antonoff Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jack-antonoff-birth-chart | published |
 | 2026-07-09 | PG-CELEB-043 | justin-verlander-birth-chart | Justin Verlander Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/justin-verlander-birth-chart | published |
+| 2026-07-09 | PG-CELEB-046 | ayo-edebiri-birth-chart | Ayo Edebiri Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/ayo-edebiri-birth-chart | published |
