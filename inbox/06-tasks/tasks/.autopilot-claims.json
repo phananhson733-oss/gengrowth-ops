@@ -2293,5 +2293,17 @@
     "verifiedAt": "2026-07-08T15:37:42.270Z",
     "headRefOid": "a7c958f526cfb4651e85dca478dc626e2923875c",
     "mergedAt": "2026-07-08T15:37:50.088Z"
+  },
+  "PG-CELEB-043": {
+    "status": "active",
+    "slug": "justin-verlander-birth-chart",
+    "owner": "autopilot",
+    "plan": "nightly-plan-PG-CELEB-043.md",
+    "stage": "convert",
+    "lockedBy": "80238",
+    "leaseUntil": "2026-07-09T11:27:38.386Z",
+    "updatedAt": "2026-07-09T10:27:38.386Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-043",
+    "branch": "seo/auto/2026-07-09-PG-CELEB-043"
   }
 }
