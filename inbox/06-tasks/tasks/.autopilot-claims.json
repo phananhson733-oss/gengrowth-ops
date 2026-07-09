@@ -2295,7 +2295,7 @@
     "mergedAt": "2026-07-08T15:37:50.088Z"
   },
   "PG-CELEB-043": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "justin-verlander-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-043.md",
@@ -2307,7 +2307,12 @@
     "branch": "seo/auto/2026-07-09-PG-CELEB-043",
     "pr": "https://github.com/xdawayer/oracle/pull/349",
     "retryEvidence": "autonomous Codex+Claude recovery: replaced unsupported cusp framing with early Pisces Sun reading; 3-dim review PASS; build PASS",
-    "retryAt": "2026-07-09T11:22:46.431Z"
+    "retryAt": "2026-07-09T11:22:46.431Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-09-pg-1808ed-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-09T11:26:52.253Z",
+    "headRefOid": "89c09fdd5056465a2f41c475843ac079cd18c65f",
+    "mergedAt": "2026-07-09T11:27:52.674Z"
   },
   "PG-CELEB-044": {
     "status": "done",
