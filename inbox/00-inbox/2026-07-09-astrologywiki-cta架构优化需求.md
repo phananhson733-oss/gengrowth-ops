@@ -1,0 +1,337 @@
+---
+title: AstrologyWiki CTA 架构优化需求
+date: 2026-07-09
+version: v1.0
+status: 待开发排期
+owner: Ma Boyang
+优先级: P0（影响实验二数据有效性）
+依据文件: inbox/00-inbox/2026-07-09-工具站内容转化设计洞察.md
+---
+
+# AstrologyWiki CTA 架构优化需求 | v1.0
+
+---
+
+## 一、背景与目标
+
+**现状问题：**
+- AstrologyWiki 工具页平均互动时长仅 10-16s，Blog 页 55-180s，两者之间没有有效的转化路径
+- W28 实验二（趋势 blog → 工具转化漏斗）因 Haaland/Mbappé/Hakimi 内链指向错误页面，实验数据目前无效
+- 当前全站没有持续可见的工具入口，用户需要主动导航才能找到 `/en/birth-chart-calculator`
+
+**优化目标：**
+- 在用户阅读任意页面时，始终存在至少 1 个指向 birth chart calculator 的可见入口
+- Blog 文章页的工具转化点击率从 0 提升到可测量水平（≥1% 作为 W28 实验二基础目标）
+- 工具页用户停留时长从 10-16s 提升至 ≥45s
+
+**与 UniFab 架构的核心差异：**
+AstrologyWiki 没有付费产品，转化目标不是"购买"而是"使用工具"。因此：
+- 不使用促销折扣作为驱动力
+- 使用**个性化（Personalization）**和**好奇心（Curiosity）**替代"折扣"的紧迫感
+- 核心文案逻辑：从"你正在看别人的星盘" → "看看你自己的"
+
+---
+
+## 二、CTA 模块需求（共 6 个模块）
+
+> 对应头部工具站 7 层架构，根据 AstrologyWiki 实际情况做了合并和适配。
+
+---
+
+### 模块 A：Nav 固定 CTA 按钮
+
+**对应原架构：层② — 顶部 Nav 始终可见按钮**
+
+**需求描述：**
+在全站顶部导航栏右侧（Login 按钮左侧）增加一个固定 CTA 按钮，任何页面、任何滚动位置始终可见。
+
+**位置：** 全站所有页面，顶部导航栏右侧
+
+**按钮文案：** `Get Free Birth Chart`
+
+**按钮样式：**
+- 背景色：品牌主色（实心填充，与导航背景形成对比）
+- 文字：白色
+- 边框：无
+- 状态：hover 时背景色加深 10%
+
+**链接目标：** `/en/birth-chart-calculator`
+
+**移动端：** 折叠入汉堡菜单内部，作为菜单第一项显示，文案改为 `✦ Free Birth Chart Calculator`
+
+**优先级：** P0
+
+---
+
+### 模块 B：Scroll 触发 Sticky 工具入口
+
+**对应原架构：层③ — 滚动触发的 Sticky Nav**
+
+**需求描述：**
+用户在 Blog 文章页向下滚动超过 400px 后，页面顶部出现一条 Sticky 工具引导条，固定在顶部，直到用户返回页面顶部时消失。
+
+**触发条件：**
+- 页面类型：仅 Blog 文章页（`/en/wiki/*`）
+- 触发时机：向下滚动距离 ≥ 400px
+- 消失时机：回滚至页面顶部 ≤ 100px
+
+**Sticky 条内容：**
+
+场景一（有明确 celebrity 名字的页面，如 `/en/wiki/erling-haaland-birth-chart`）：
+```
+[星盘图标] Curious about YOUR birth chart?  [Get Mine Free →]
+```
+
+场景二（其他 Blog 页面）：
+```
+[星盘图标] Discover your cosmic blueprint — free & instant  [Calculate Now →]
+```
+
+**实现方式：**
+- 从 URL slug 中提取 celebrity 名（如 `erling-haaland`）→ 判断为 celebrity 页面 → 使用场景一文案
+- 非 celebrity 页面（无法匹配人名）→ 使用场景二文案
+- 如技术成本高，初版可统一使用场景二文案，后续迭代
+
+**样式：**
+- 高度：48px
+- 背景色：品牌主色（深色）
+- 文字：白色
+- CTA 按钮：反白实心按钮
+- 动画：从顶部滑入（200ms ease-in），不遮挡已有的固定导航栏（在其下方）
+
+**链接目标：** `/en/birth-chart-calculator`
+
+**移动端：** 同样触发，Sticky 条宽度全屏，CTA 按钮占右侧 1/3
+
+**优先级：** P0
+
+---
+
+### 模块 C：Blog 文章顶部工具推荐卡
+
+**对应原架构：层⑤ — 文章正文前的产品推荐卡**
+
+**需求描述：**
+在每篇 Blog 文章的 H1 标题之后、正文第一段之前，插入一张工具推荐卡片。这是用户进入文章后看到的第一个转化入口。
+
+**位置：** Blog 文章页（`/en/wiki/*`），H1 之后，正文之前
+
+**卡片内容（celebrity 星盘文章）：**
+
+```
+┌─────────────────────────────────────────────────────┐
+│  ✦  You're reading [Name]'s birth chart.            │
+│     What does YOUR chart reveal?                    │
+│                                                     │
+│  [ Get Your Free Birth Chart → ]  [ How to Read It ]│
+│  Free · No sign-up · Instant results               │
+└─────────────────────────────────────────────────────┘
+```
+
+**卡片内容（非 celebrity 文章）：**
+
+```
+┌─────────────────────────────────────────────────────┐
+│  ✦  Discover your complete natal chart — free       │
+│     Planet positions · House placements · Readings  │
+│                                                     │
+│  [ Calculate My Birth Chart → ]                     │
+│  Free · No sign-up · Instant results               │
+└─────────────────────────────────────────────────────┘
+```
+
+**样式：**
+- 背景：浅色（品牌色 10% opacity 或 #F8F4FF 等浅紫色）
+- 边框：品牌色 1px
+- 圆角：8px
+- 内边距：16px 20px
+- 主 CTA 按钮：品牌主色实心
+- 副 CTA 按钮：透明背景 + 品牌色文字 + 品牌色边框
+
+**主 CTA 链接目标：** `/en/birth-chart-calculator`
+**副 CTA 链接目标：** `/en/wiki/how-to-read-birth-chart`（注意：这里副 CTA 指向教程是正确的，主 CTA 才必须指向工具页）
+
+**[Name] 动态插入逻辑：**
+- 优先取文章 frontmatter 中的 `celebrity_name` 字段（如有）
+- 其次从 slug 解析（`erling-haaland-birth-chart` → `Erling Haaland`）
+- 若两者均无法获取，退回通用文案
+
+**移动端：** 副 CTA 按钮在移动端隐藏，只显示主 CTA
+
+**优先级：** P0（直接影响实验二数据）
+
+---
+
+### 模块 D：文章中段内联 CTA 区块
+
+**对应原架构：层⑥ — 文章 40-50% 位置的内联 CTA**
+
+**需求描述：**
+在 Blog 文章正文约 40-50% 处自动插入一个独立的 CTA 区块（视觉上与正文区分）。用户读到文章中段、对内容产生兴趣时，是点击转化的最佳时机。
+
+**位置：** Blog 文章页（`/en/wiki/*`），文章正文约 40-50% 处
+- 实现方式 A（精确）：计算正文总字数，在 50% 字数处插入
+- 实现方式 B（简便）：在文章第 4 个 `<h2>` 或 `<h3>` 标签之后插入
+
+**区块内容：**
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Want to see how YOUR planets compare?              │
+│  Generate your free birth chart — takes 30 seconds  │
+│                                                     │
+│  [ ✦ Get My Free Birth Chart → ]                    │
+│  Free · No sign-up required · Instant results      │
+└─────────────────────────────────────────────────────┘
+```
+
+**样式：**
+- 与正文之间有明显分隔（上下各 24px margin）
+- 背景：与模块 C 保持统一的浅品牌色
+- CTA 按钮：品牌主色实心，宽度 ≥200px，padding 12px 24px
+
+**链接目标：** `/en/birth-chart-calculator`
+
+**移动端：** 按钮宽度 100%（全宽）
+
+**优先级：** P1（P0 模块上线后排）
+
+---
+
+### 模块 E：工具页结果区追加转化
+
+**对应原架构：层⑦ — 工具页底部的追加转化（适配免费工具场景）**
+
+**需求描述：**
+用户在 `/en/birth-chart-calculator` 生成星盘后，在结果区域下方追加 3 个延伸转化入口，把单次工具使用转化为更多行为。
+
+**触发条件：** 用户完成星盘生成，结果已渲染完毕
+
+**3 个延伸入口：**
+
+**入口 1：分享**
+```
+[ ↗ Share My Birth Chart ]
+```
+- 功能：生成可分享链接（或截图功能）
+- 目的：用户分享 = 自然传播 + 回访
+
+**入口 2：横向工具转化**
+```
+[ ♡ Check Your Compatibility ]
+```
+- 链接目标：`/en/compatibility-calculator`（若已上线）
+- 目的：工具页横向导流
+
+**入口 3：Newsletter / 返访钩**
+```
+[ ✉ Get Weekly Insights for Your Chart ]
+Email: ____________  [ Subscribe Free ]
+```
+- 功能：邮件订阅，基于用户星盘推送每周内容
+- 目的：把一次性用户转化为回访用户
+- 注意：此功能需后端支持，如暂不具备，可先用"Save My Chart Results"（本地存储或截图引导）替代
+
+**优先级：** P2（结构性功能，与工具页改版一起做）
+
+---
+
+### 模块 F：全站底部 Sticky 常态入口条
+
+**对应原架构：层① — 全站底部固定横条**
+
+**需求描述：**
+在页面底部添加一条始终可见的细长横条，作为全站兜底的工具入口。
+
+**位置：** 全站所有页面，固定在浏览器视口底部（position: fixed, bottom: 0）
+
+**内容：**
+```
+✦ Free Birth Chart Calculator — Your planets, your story  [ Try Free → ]
+```
+
+**样式：**
+- 高度：44px
+- 背景：深色（与页面形成对比，不与 Footer 混淆）
+- 文字：白色，字号 14px
+- CTA 按钮：品牌主色 pill 按钮
+- 关闭按钮：右侧 × 图标，点击后本次会话内隐藏（localStorage 记录，不每次都弹）
+
+**链接目标：** `/en/birth-chart-calculator`
+
+**移动端：** 仅显示 CTA 按钮和极短文案：`✦ Free Birth Chart [ Try → ]`
+
+**注意：** 底部横条与模块 B（Sticky Nav）同时存在时，需确保两者不重叠。建议底部横条仅在非文章页（首页、工具页）显示，文章页的 Sticky Nav（模块 B）优先级更高。
+
+**优先级：** P2
+
+---
+
+## 三、文案设计原则
+
+AstrologyWiki 的 CTA 文案与付费软件不同，不用折扣驱动，而用以下三种心理机制：
+
+| 机制 | 逻辑 | 示例文案 |
+|---|---|---|
+| **个性化好奇心** | "你正在看别人的，你自己的呢？" | "You're reading [Name]'s chart — what does YOURS say?" |
+| **零摩擦承诺** | 消除"需要注册/很麻烦"的顾虑 | "Free · No sign-up · Takes 30 seconds" |
+| **即时满足** | 强调结果是立刻可得的 | "Instant results · Generate now" |
+
+**禁止文案类型：**
+- "Click here" / "Learn more"（无关键词，无价值主张）
+- "Our birth chart tool"（"Our"削弱用户代入感，用"Your"替代）
+- 任何带有"Buy"/"Purchase"的文案（免费工具不应出现付费暗示）
+
+---
+
+## 四、各模块优先级汇总
+
+| 模块 | 内容 | 优先级 | 理由 |
+|---|---|---|---|
+| A：Nav 固定按钮 | 全站 Nav CTA | **P0** | 成本最低，全站覆盖 |
+| B：Scroll Sticky Nav | 文章页滚动触发 | **P0** | 直接影响实验二 CTR 可测性 |
+| C：文章顶部工具卡 | 正文前推荐卡 | **P0** | 直接影响实验二转化路径 |
+| D：文章中段 CTA | 正文 ~50% 处 | **P1** | P0 模块上线稳定后跟进 |
+| E：工具页结果区 | 星盘生成后的延伸转化 | **P2** | 依赖工具页改版，一起做 |
+| F：底部 Sticky 条 | 全站兜底入口 | **P2** | 补充覆盖，非核心路径 |
+
+---
+
+## 五、验收标准
+
+**P0 模块上线后，W28 结束时需要验证：**
+
+| 指标 | 当前状态 | 目标值 | 数据来源 |
+|---|---|---|---|
+| Blog 页 → `/en/birth-chart-calculator` 点击率 | ~0%（内链错误）| ≥1% | GA4 路径探索 |
+| `/en/birth-chart-calculator` 周 UV | 3（W27）| ≥8 | GA4 |
+| 工具页平均互动时长 | 10-16s | ≥45s | GA4 |
+| 5 篇 W28 Blog 的工具转化路径 | 无数据 | 至少有路径数据 | GA4 路径探索 |
+
+**P0 上线前置条件：**
+- [ ] Haaland/Mbappé/Hakimi 内链 bug 已修复（`/how-to-read-birth-chart` → `/birth-chart-calculator`）
+- [ ] 工具页 P-1 渲染 bug 已修复（工具可正常加载）
+- [ ] 以上两项不修复，CTA 模块上线无意义（点击了工具无法使用）
+
+---
+
+## 六、开发说明
+
+**模块 A/B/F（纯前端）：**
+- 新增 CSS 组件 + JavaScript 滚动监听
+- 模块 B 的 celebrity 名称解析可先硬编码常见 slug 列表，后续做自动化
+
+**模块 C/D（内容注入）：**
+- 在文章渲染模板中插入固定位置的 HTML 组件
+- [Name] 动态内容：优先用 frontmatter 字段，其次 slug 解析，兜底用通用文案
+- 建议作为全局模板改动，一次性覆盖所有 `/en/wiki/*` 页面
+
+**模块 E（功能性）：**
+- 分享功能：最小版本用 URL 参数传递出生数据，生成可分享 URL
+- Newsletter：需要邮件服务接入，初版可用 Mailchimp / ConvertKit 嵌入表单
+
+---
+
+*文件：inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md*
+*版本：v1.0 | 2026-07-09*
+*下次更新：P0 模块上线后，根据 GA4 数据调整文案和触发逻辑*
