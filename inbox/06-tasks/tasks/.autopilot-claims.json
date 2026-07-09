@@ -2371,20 +2371,18 @@
     "mergedAt": "2026-07-09T13:33:11.761Z"
   },
   "PG-VEDIC-005": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "32696",
-    "leaseUntil": "2026-07-09T17:30:36.341Z",
-    "updatedAt": "2026-07-09T16:30:36.341Z",
+    "lockedBy": "33718",
+    "leaseUntil": "2026-07-09T17:34:18.505Z",
+    "updatedAt": "2026-07-09T16:34:18.505Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
     "branch": "seo/auto/2026-07-09-PG-VEDIC-005",
     "pr": "https://github.com/xdawayer/oracle/pull/353",
-    "retryEvidence": "updated Zendaya article to use public 6:01 PM birth time, patched supporting visuals, committed and pushed 8f0d4f4",
-    "retryAt": "2026-07-09T16:30:36.341Z",
-    "error": "review[astrology] FAIL: The core tropical-vs-sidereal section states a ~24° ayanamsa \"shifts a late-Virgo Sun back into Leo,\" which is mathematically wrong (a late-Virgo Sun minus 24° stays in Virgo; only an early-Virgo Sun crosses into Leo) and misdescribes Zendaya's own early-Virgo Sun (Sept 1 ≈ 9° Virgo).",
-    "failedAt": "2026-07-09T16:33:31.509Z"
+    "retryEvidence": "corrected early-Virgo vs late-Virgo sidereal wording and pushed 019a76f",
+    "retryAt": "2026-07-09T16:34:18.505Z"
   }
 }
