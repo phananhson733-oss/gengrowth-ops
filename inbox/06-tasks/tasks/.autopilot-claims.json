@@ -2295,7 +2295,7 @@
     "mergedAt": "2026-07-08T15:37:50.088Z"
   },
   "PG-CELEB-043": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "justin-verlander-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-043.md",
@@ -2305,6 +2305,8 @@
     "updatedAt": "2026-07-09T10:32:53.418Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-043",
     "branch": "seo/auto/2026-07-09-PG-CELEB-043",
-    "pr": "https://github.com/xdawayer/oracle/pull/349"
+    "pr": "https://github.com/xdawayer/oracle/pull/349",
+    "error": "review[astrology] FAIL: The .ts module claims Verlander's Sun is in the 'early degrees of Pisces' while a Feb 20, 1983 birth places the Sun at the very END of Pisces (~0–1° from the Aquarius cusp on the entry side), and the whole 'Aquarius cusp' framing is astronomically backwards.",
+    "failedAt": "2026-07-09T10:36:00.902Z"
   }
 }
