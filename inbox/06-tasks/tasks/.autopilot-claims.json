@@ -2333,7 +2333,7 @@
     "mergedAt": "2026-07-09T11:05:21.877Z"
   },
   "PG-CELEB-045": {
-    "status": "verified-preview",
+    "status": "done",
     "slug": "kate-upton-birth-chart",
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
@@ -2349,7 +2349,8 @@
     "previewUrl": "https://oracle-git-seo-auto2026-07-09-pg-7f3534-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
     "verifiedAt": "2026-07-09T16:15:10.833Z",
-    "headRefOid": "6513fd77d9d5bc2a6ec474581fc3721a0331affb"
+    "headRefOid": "6513fd77d9d5bc2a6ec474581fc3721a0331affb",
+    "mergedAt": "2026-07-09T16:16:14.686Z"
   },
   "PG-CELEB-046": {
     "status": "done",
@@ -2375,11 +2376,13 @@
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "5855",
-    "leaseUntil": "2026-07-09T17:08:37.487Z",
-    "updatedAt": "2026-07-09T16:08:37.487Z",
+    "lockedBy": "30127",
+    "leaseUntil": "2026-07-09T17:17:00.720Z",
+    "updatedAt": "2026-07-09T16:17:00.720Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
     "branch": "seo/auto/2026-07-09-PG-VEDIC-005",
-    "pr": "https://github.com/xdawayer/oracle/pull/353"
+    "pr": "https://github.com/xdawayer/oracle/pull/353",
+    "retryEvidence": "phase2-passing Zendaya draft regenerated; loaded Vercel automation bypass secret for preview verification",
+    "retryAt": "2026-07-09T16:17:00.720Z"
   }
 }
