@@ -2338,16 +2338,16 @@
     "owner": "autopilot",
     "plan": "nightly-plan-PG-CELEB-045.md",
     "stage": "pushed-preview",
-    "lockedBy": "93214",
-    "leaseUntil": "2026-07-09T14:59:33.855Z",
-    "updatedAt": "2026-07-09T13:59:33.855Z",
+    "lockedBy": "1850",
+    "leaseUntil": "2026-07-09T17:03:13.210Z",
+    "updatedAt": "2026-07-09T16:03:13.210Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-CELEB-045",
     "branch": "seo/auto/2026-07-09-PG-CELEB-045",
     "pr": "https://github.com/xdawayer/oracle/pull/351",
-    "retryEvidence": "removed unverified Kate Upton Moon/Rising labels from article assets",
-    "retryAt": "2026-07-09T13:59:33.855Z",
-    "error": "review[schema] FAIL: The module's declared H2 headings, table, and FAQ block hallucinate a 'Gemini–Libra–Virgo' three-sign signature that directly contradicts the article body's core claim that Moon and Rising are unverified without a reliable birth time.",
-    "failedAt": "2026-07-09T14:02:43.270Z"
+    "retryEvidence": "local build regenerated the corrected Kate Upton static page; schema now uses date-verified wording only",
+    "retryAt": "2026-07-09T16:03:13.210Z",
+    "error": "chrome verify failed: no VERCEL_AUTOMATION_BYPASS_SECRET in _gg.env (verification cannot run; park needs_human)",
+    "failedAt": "2026-07-09T16:03:44.994Z"
   },
   "PG-CELEB-046": {
     "status": "done",
@@ -2368,12 +2368,15 @@
     "mergedAt": "2026-07-09T13:33:11.761Z"
   },
   "PG-VEDIC-005": {
-    "status": "needs_human",
+    "status": "active",
     "slug": "zendaya-birth-chart",
     "owner": "autopilot",
-    "stage": "authoring",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "error": "authoring: - drifted sections: \"Common Misreadings\" (jaccard=0.048, shingle=0.000, target-recall=0.33); \"Related Reading\" (jaccard=0.000, shingle=0.000, target-recall=0.00); \"Take Action\" (jaccard=0.000, shingle=0.000, target-recall=0.00) (skipped 3 structural: \"Zendaya's Birth Chart at a Glance\", \"Reflection Prompts\", \"Sources\") | - author banned token(s) matched: \"sun sign\", \"rising sign\" after 3 attempt(s) + deterministic repair",
-    "failedAt": "2026-07-09T13:46:59.114Z"
+    "stage": "convert",
+    "lockedBy": "5855",
+    "leaseUntil": "2026-07-09T17:03:49.909Z",
+    "updatedAt": "2026-07-09T16:03:49.909Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-09-PG-VEDIC-005",
+    "branch": "seo/auto/2026-07-09-PG-VEDIC-005"
   }
 }
