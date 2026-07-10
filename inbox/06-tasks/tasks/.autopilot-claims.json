@@ -2389,5 +2389,13 @@
     "verifiedAt": "2026-07-09T16:43:36.187Z",
     "headRefOid": "760edb5931dc9b7b6ea71ceea9d69ba950b42904",
     "mergedAt": "2026-07-09T16:44:44.290Z"
+  },
+  "PG-CELEB-047": {
+    "status": "needs_human",
+    "owner": "autopilot",
+    "stage": "authoring",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "error": "authoring: CTA Map gap — CTA Map has 37 duplicate (page_role, track) pairs — first row wins:",
+    "failedAt": "2026-07-10T13:15:48.475Z"
   }
 }
