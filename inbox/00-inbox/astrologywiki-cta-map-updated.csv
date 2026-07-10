@@ -1,0 +1,46 @@
+cta_id,page_role,cta_文案,target_url,ga4_event_name,track
+cta_tool_pillar,Pillar,探索你的星盘 / aura,https://astrologywiki.com/en/wiki/how-to-read-birth-chart,tool_click,量产线
+cta_tool_series,Series,查你的对应落座,https://astrologywiki.com/en/wiki/how-to-read-birth-chart,tool_click,量产线
+cta_tool_support,Support,用工具验证,https://astrologywiki.com/en/wiki/how-to-read-birth-chart,tool_click,量产线
+cta_tool_use,Tool,输入信息生成结果,https://astrologywiki.com/en/wiki/vedic-birth-chart-calculator,tool_use,量产线
+cta_tool_wiki,Wiki,测一测你的 aura,https://astrologywiki.com/en/wiki/aura-reading,tool_click,量产线
+cta_news_b,Series,订阅获取每周 journal prompts,（newsletter URL，待搭建）,newsletter_signup,精修线
+cta_chart_pillar_b,Pillar,生成你的星盘，读懂太阳回归这一年,https://astrologywiki.com/en/wiki/how-to-read-birth-chart,tool_click,精修线
+url_tool_birth_chart,Tool_Page,Birth Chart Calculator — 所有CTA的主目标URL（模块A/B/C/D/F/G/J-3）,https://astrologywiki.com/en/birth-chart-calculator,page_view,url_registry
+url_tool_rising_sign,Tool_Page,Rising Sign Calculator,https://astrologywiki.com/en/rising-sign-calculator,page_view,url_registry
+url_tool_moon_sign,Tool_Page,Moon Sign Calculator,https://astrologywiki.com/en/moon-sign-calculator,page_view,url_registry
+url_tool_saturn_return,Tool_Page,Saturn Return Calculator,https://astrologywiki.com/en/saturn-return-calculator,page_view,url_registry
+url_tool_chinese_zodiac,Tool_Page,Chinese Zodiac Calculator,https://astrologywiki.com/en/chinese-zodiac-calculator,page_view,url_registry
+url_tool_compatibility,Tool_Page,Compatibility Calculator（待确认是否上线）,https://astrologywiki.com/en/compatibility-calculator,page_view,url_registry
+url_page_homepage,Homepage,首页 — 模块A/F/J/K出现,https://astrologywiki.com/,page_view,url_registry
+url_page_tools_hub,Tool_Hub,工具汇总页,https://astrologywiki.com/en/tools,page_view,url_registry
+url_page_blog_index,Blog_Index,Blog列表页,https://astrologywiki.com/en/wiki,page_view,url_registry
+url_page_dashboard,User_Page,用户仪表板（登录后）,https://astrologywiki.com/dashboard,page_view,url_registry
+url_page_onboarding,User_Page,新用户引导页,https://astrologywiki.com/onboarding,page_view,url_registry
+url_page_forecast,Feature_Page,运势预测页,https://astrologywiki.com/forecast,page_view,url_registry
+url_page_energy_timeline,Feature_Page,能量时间线,https://astrologywiki.com/en/energy-timeline,page_view,url_registry
+url_blog_how_to_read,Blog_Article,How to Read Birth Chart — 教程文章（副CTA目标，非主CTA目标）,https://astrologywiki.com/en/wiki/how-to-read-birth-chart,page_view,url_registry
+url_blog_solar_return,Blog_Article,Solar Return,https://astrologywiki.com/en/wiki/solar-return,page_view,url_registry
+url_blog_conjunction,Blog_Article,Conjunction,https://astrologywiki.com/en/wiki/conjunction,page_view,url_registry
+url_blog_aura_reading,Blog_Article,Aura Reading,https://astrologywiki.com/en/wiki/aura-reading,page_view,url_registry
+url_blog_vedic_calc,Blog_Article,Vedic Birth Chart Calculator,https://astrologywiki.com/en/wiki/vedic-birth-chart-calculator,page_view,url_registry
+url_blog_haaland,Blog_Article,Erling Haaland Birth Chart,https://astrologywiki.com/en/wiki/erling-haaland-birth-chart,page_view,url_registry
+url_blog_haaland_gf,Blog_Article,Erling Haaland Girlfriend Birth Chart,https://astrologywiki.com/en/wiki/erling-haaland-girlfriend-birth-chart,page_view,url_registry
+url_blog_vozinha,Blog_Article,Vozinha Birth Chart,https://astrologywiki.com/en/wiki/vozinha-birth-chart,page_view,url_registry
+url_blog_england_norway,Blog_Article,England vs Norway Astrology,https://astrologywiki.com/en/wiki/england-vs-norway-astrology,page_view,url_registry
+url_blog_arthur_fery,Blog_Article,Arthur Fery Birth Chart,https://astrologywiki.com/en/wiki/arthur-fery-birth-chart,page_view,url_registry
+url_blog_messi,Blog_Article,Messi Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/messi-birth-chart,page_view,url_registry
+url_blog_ronaldo,Blog_Article,Ronaldo Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/ronaldo-birth-chart,page_view,url_registry
+url_blog_harry_kane,Blog_Article,Harry Kane Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/harry-kane-birth-chart,page_view,url_registry
+url_blog_vinicius,Blog_Article,Vinicius Jr Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/vinicius-jr-birth-chart,page_view,url_registry
+url_blog_doku,Blog_Article,Doku Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/doku-birth-chart,page_view,url_registry
+url_blog_yamal,Blog_Article,Lamine Yamal Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/lamine-yamal-birth-chart,page_view,url_registry
+url_blog_mbappe,Blog_Article,Kylian Mbappé Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/kylian-mbappe-birth-chart,page_view,url_registry
+url_blog_hakimi,Blog_Article,Achraf Hakimi Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/achraf-hakimi-birth-chart,page_view,url_registry
+url_blog_malia_obama,Blog_Article,Malia Obama Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/malia-obama-birth-chart,page_view,url_registry
+url_blog_cherki,Blog_Article,Rayan Cherki Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/rayan-cherki-birth-chart,page_view,url_registry
+url_ext_ai_chatgpt,External_AI,ChatGPT — Ask about AstrologyWiki（模块K）,https://chatgpt.com/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
+url_ext_ai_perplexity,External_AI,Perplexity — Ask about AstrologyWiki（模块K）,https://www.perplexity.ai/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
+url_ext_ai_claude,External_AI,Claude — Ask about AstrologyWiki（模块K）,https://claude.ai/new?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
+url_ext_ai_gemini,External_AI,Gemini — Ask about AstrologyWiki（模块K）,https://gemini.google.com/app?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
+url_ext_ai_grok,External_AI,Grok — Ask about AstrologyWiki（模块K）,https://x.com/i/grok?text=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
