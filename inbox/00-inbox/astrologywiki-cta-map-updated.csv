@@ -1,9 +1,9 @@
 cta_id,page_role,cta_文案,target_url,ga4_event_name,track
-cta_tool_pillar,Pillar,Explore Your Birth Chart,https://astrologywiki.com/en/birth-chart-calculator,tool_click,量产线
-cta_tool_series,Series,See Your Planetary Placements,https://astrologywiki.com/en/birth-chart-calculator,tool_click,量产线
-cta_tool_support,Support,Try It with the Calculator,https://astrologywiki.com/en/birth-chart-calculator,tool_click,量产线
-cta_tool_use,Tool,Enter Your Info & Generate Results,https://astrologywiki.com/en/birth-chart-calculator,tool_use,量产线
-cta_tool_wiki,Wiki,Discover Your Aura,https://www.astrologywiki.com/en/wiki,tool_click,量产线
+cta_tool_pillar,Pillar,Explore Your Birth Chart,https://www.astrologywiki.com/dashboard,tool_click,量产线
+cta_tool_series,Series,See Your Planetary Placements,https://www.astrologywiki.com/forecast,tool_click,量产线
+cta_tool_support,Support,Try It with the Calculator,https://www.astrologywiki.com/en/tools,tool_click,量产线
+cta_tool_use,Tool,Enter Your Info & Generate Results,https://www.astrologywiki.com/dashboard,tool_use,量产线
+cta_tool_wiki,Wiki,Discover Your Aura,https://www.astrologywiki.com/oracle,tool_click,量产线
 cta_news_b,Series,Subscribe for Weekly Journal Prompts,（newsletter URL，待搭建）,newsletter_signup,精修线
 cta_chart_pillar_b,Pillar,Generate Your Birth Chart — Read Your Solar Return Year,https://astrologywiki.com/en/birth-chart-calculator,tool_click,精修线
 url_tool_birth_chart,Tool_Page,Birth Chart Calculator — 所有CTA的主目标URL（模块A/B/C/D/F/G/J-3）,https://astrologywiki.com/en/birth-chart-calculator,page_view,url_registry
@@ -13,6 +13,14 @@ url_tool_saturn_return,Tool_Page,Saturn Return Calculator,https://astrologywiki.
 url_tool_chinese_zodiac,Tool_Page,Chinese Zodiac Calculator,https://astrologywiki.com/en/chinese-zodiac-calculator,page_view,url_registry
 url_tool_compatibility,Tool_Page,Compatibility Calculator（待确认是否上线）,https://astrologywiki.com/en/compatibility-calculator,page_view,url_registry
 url_page_homepage,Homepage,首页 — 模块A/F/J/K出现,https://astrologywiki.com/,page_view,url_registry
+url_tab_birth,Nav_Tab,Birth Tab — 星盘主功能（页头第1个Tab）,https://www.astrologywiki.com/dashboard,page_view,url_registry
+url_tab_transit,Nav_Tab,Transit Tab — 行星过境（页头第2个Tab）,https://www.astrologywiki.com/forecast,page_view,url_registry
+url_tab_timeline,Nav_Tab,Timeline Tab — 时间线（页头第3个Tab）,https://www.astrologywiki.com/timeline,page_view,url_registry
+url_tab_synastry,Nav_Tab,Synastry Tab — 合盘（页头第4个Tab）,https://www.astrologywiki.com/us,page_view,url_registry
+url_tab_ask,Nav_Tab,Ask Tab — Oracle问答（页头第5个Tab）,https://www.astrologywiki.com/oracle,page_view,url_registry
+url_tab_journal,Nav_Tab,Journal Tab — 日记功能（页头第6个Tab）,https://www.astrologywiki.com/journal,page_view,url_registry
+url_tab_wiki,Nav_Tab,Wiki Tab — Blog内容库（页头第7个Tab）,https://www.astrologywiki.com/en/wiki,page_view,url_registry
+url_tab_tools,Nav_Tab,Tools Tab — 工具汇总（页头第8个Tab）,https://www.astrologywiki.com/en/tools,page_view,url_registry
 url_page_tools_hub,Tool_Hub,工具汇总页,https://astrologywiki.com/en/tools,page_view,url_registry
 url_page_blog_index,Blog_Index,Blog列表页,https://astrologywiki.com/en/wiki,page_view,url_registry
 url_page_dashboard,User_Page,用户仪表板（登录后）,https://astrologywiki.com/dashboard,page_view,url_registry
