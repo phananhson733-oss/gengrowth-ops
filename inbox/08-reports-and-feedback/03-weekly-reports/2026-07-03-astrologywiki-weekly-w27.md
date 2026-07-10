@@ -217,17 +217,17 @@ W28新发布的5篇趋势blog（Mbappé/Yamal/Hakimi/Cherki/Malia Obama）全部
 ### 行动项
 
 **astrologywiki.com**
-- [ ] 面包屑给开发排期（模板级，一次全站生效）
+- [x] 面包屑给开发排期（模板级，一次全站生效）
 - [x] 跟进 elephantjournal.com 审核状态
 - [x] 工具落地页模板设计规范 + SOP（结构/内链/FAQ/schema标准化）
-- [ ] 停留时间提升方向研究→改进方案→交开发排期
+- [x] 停留时间提升方向研究→改进方案→交开发排期
 
 **aistorygenerator.work 外链冷启动**
 - [ ] **锁定4周后外链评估判断标准（DR阈值+链接存活率），存档当周周报**
-- [ ] HN Show HN 发布
-- [ ] 工具目录提交：There's An AI For That / Toolify.ai / Futurepedia（前3个）
-- [ ] GitHub Awesome List PR（awesome-dnd / awesome-rpg 各1个）
-- [ ] Reddit 账号注册，开始评论预热（不带链接）
+- [x] HN Show HN 发布
+- [x] 工具目录提交：There's An AI For That / Toolify.ai / Futurepedia（前3个）
+- [x] GitHub Awesome List PR（awesome-dnd / awesome-rpg 各1个）
+- [x] Reddit 账号注册，开始评论预热（不带链接）
 
 **GenGrowth 方法论**
 - [x] B2B版SOP变体核心改动点清单（基于BRDECO结论）
