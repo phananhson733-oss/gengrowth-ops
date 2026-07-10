@@ -1,11 +1,5 @@
 cta_id,page_role,cta_文案,target_url,ga4_event_name,track
-cta_tool_pillar,Pillar,Explore Your Birth Chart,https://www.astrologywiki.com/dashboard,tool_click,量产线
-cta_tool_series,Series,See Your Planetary Placements,https://www.astrologywiki.com/forecast,tool_click,量产线
-cta_tool_support,Support,Try It with the Calculator,https://www.astrologywiki.com/en/tools,tool_click,量产线
-cta_tool_use,Tool,Enter Your Info & Generate Results,https://www.astrologywiki.com/dashboard,tool_use,量产线
-cta_tool_wiki,Wiki,Discover Your Aura,https://www.astrologywiki.com/oracle,tool_click,量产线
 cta_news_b,Series,Subscribe for Weekly Journal Prompts,（newsletter URL，待搭建）,newsletter_signup,精修线
-cta_chart_pillar_b,Pillar,Generate Your Birth Chart — Read Your Solar Return Year,https://astrologywiki.com/en/birth-chart-calculator,tool_click,精修线
 url_tool_birth_chart,Tool_Page,Birth Chart Calculator — 所有CTA的主目标URL（模块A/B/C/D/F/G/J-3）,https://astrologywiki.com/en/birth-chart-calculator,page_view,url_registry
 url_tool_rising_sign,Tool_Page,Rising Sign Calculator,https://astrologywiki.com/en/rising-sign-calculator,page_view,url_registry
 url_tool_moon_sign,Tool_Page,Moon Sign Calculator,https://astrologywiki.com/en/moon-sign-calculator,page_view,url_registry
@@ -37,16 +31,16 @@ url_blog_haaland_gf,Blog_Article,Erling Haaland Girlfriend Birth Chart,https://a
 url_blog_vozinha,Blog_Article,Vozinha Birth Chart,https://astrologywiki.com/en/wiki/vozinha-birth-chart,page_view,url_registry
 url_blog_england_norway,Blog_Article,England vs Norway Astrology,https://astrologywiki.com/en/wiki/england-vs-norway-astrology,page_view,url_registry
 url_blog_arthur_fery,Blog_Article,Arthur Fery Birth Chart,https://astrologywiki.com/en/wiki/arthur-fery-birth-chart,page_view,url_registry
-url_blog_messi,Blog_Article,Messi Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/messi-birth-chart,page_view,url_registry
-url_blog_ronaldo,Blog_Article,Ronaldo Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/ronaldo-birth-chart,page_view,url_registry
-url_blog_harry_kane,Blog_Article,Harry Kane Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/harry-kane-birth-chart,page_view,url_registry
-url_blog_vinicius,Blog_Article,Vinicius Jr Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/vinicius-jr-birth-chart,page_view,url_registry
-url_blog_doku,Blog_Article,Doku Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/doku-birth-chart,page_view,url_registry
-url_blog_yamal,Blog_Article,Lamine Yamal Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/lamine-yamal-birth-chart,page_view,url_registry
-url_blog_mbappe,Blog_Article,Kylian Mbappé Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/kylian-mbappe-birth-chart,page_view,url_registry
-url_blog_hakimi,Blog_Article,Achraf Hakimi Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/achraf-hakimi-birth-chart,page_view,url_registry
-url_blog_malia_obama,Blog_Article,Malia Obama Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/malia-obama-birth-chart,page_view,url_registry
-url_blog_cherki,Blog_Article,Rayan Cherki Birth Chart（待确认slug）,https://astrologywiki.com/en/wiki/rayan-cherki-birth-chart,page_view,url_registry
+url_blog_messi,Blog_Article,Messi Birth Chart,https://astrologywiki.com/en/wiki/messi-birth-chart,page_view,url_registry
+url_blog_ronaldo,Blog_Article,Ronaldo Birth Chart,https://astrologywiki.com/en/wiki/ronaldo-birth-chart,page_view,url_registry
+url_blog_harry_kane,Blog_Article,Harry Kane Birth Chart,https://astrologywiki.com/en/wiki/harry-kane-birth-chart,page_view,url_registry
+url_blog_vinicius,Blog_Article,Vinicius Jr Birth Chart,https://astrologywiki.com/en/wiki/vinicius-jr-birth-chart,page_view,url_registry
+url_blog_doku,Blog_Article,Doku Birth Chart,https://astrologywiki.com/en/wiki/doku-birth-chart,page_view,url_registry
+url_blog_yamal,Blog_Article,Lamine Yamal Birth Chart,https://astrologywiki.com/en/wiki/lamine-yamal-birth-chart,page_view,url_registry
+url_blog_mbappe,Blog_Article,Kylian Mbappé Birth Chart,https://astrologywiki.com/en/wiki/kylian-mbappe-birth-chart,page_view,url_registry
+url_blog_hakimi,Blog_Article,Achraf Hakimi Birth Chart,https://astrologywiki.com/en/wiki/achraf-hakimi-birth-chart,page_view,url_registry
+url_blog_malia_obama,Blog_Article,Malia Obama Birth Chart,https://astrologywiki.com/en/wiki/malia-obama-birth-chart,page_view,url_registry
+url_blog_cherki,Blog_Article,Rayan Cherki Birth Chart,https://astrologywiki.com/en/wiki/rayan-cherki-birth-chart,page_view,url_registry
 url_ext_ai_chatgpt,External_AI,ChatGPT — Ask about AstrologyWiki（模块K）,https://chatgpt.com/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
 url_ext_ai_perplexity,External_AI,Perplexity — Ask about AstrologyWiki（模块K）,https://www.perplexity.ai/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
 url_ext_ai_claude,External_AI,Claude — Ask about AstrologyWiki（模块K）,https://claude.ai/new?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work,ask_ai_click,geo
