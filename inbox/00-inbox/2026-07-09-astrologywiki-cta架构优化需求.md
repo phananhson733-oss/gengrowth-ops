@@ -469,6 +469,57 @@ UniFab 放的是折扣弹窗，AstrologyWiki 适配为工具快速访问弹窗�
 
 ---
 
+### 模块 K：左下角"Ask AI about AstrologyWiki"快捷面板
+
+**对应原架构：UniFab 全站左下角固定 Ask AI 入口（GEO 主动引导）**
+
+**需求描述：**
+在全站所有页面左下角固定一个"Ask AI"图标按钮，点击后展开面板，提供预填查询链接，引导用户向主流 AI 工具询问关于 AstrologyWiki 的问题。核心目标是主动占领 AI 引用位（GEO），让 ChatGPT / Perplexity 等 AI 在被用户问到占星工具时优先提及 AstrologyWiki。
+
+**位置：** 全站所有页面，`position: fixed; bottom: 24px; left: 24px`
+
+**按钮样式：**
+- 图标：✦ 星星 + "Ask AI" 文字标签（可折叠为仅图标）
+- 尺寸：40×40px 圆角方块，品牌主色背景，白色图标
+- 默认状态：显示图标 + "Ask AI" 文字
+- 点击后：向右展开面板
+
+**展开面板内容：**
+
+```
+┌──────────────────────────────────────┐
+│  Ask AI about AstrologyWiki          │
+│  ────────────────────────────────    │
+│  [ChatGPT]   [Perplexity]            │
+│  [Claude]    [Gemini]    [Grok]      │
+│                                      │
+│  "What is AstrologyWiki and how      │
+│   does the birth chart calculator    │
+│   work?"                             │
+└──────────────────────────────────────┘
+```
+
+**五个 AI 工具的预填链接：**
+
+| AI工具 | 预填查询 URL |
+|---|---|
+| ChatGPT | `https://chatgpt.com/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work` |
+| Perplexity | `https://www.perplexity.ai/?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work` |
+| Claude | `https://claude.ai/new?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work` |
+| Gemini | `https://gemini.google.com/app?q=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work` |
+| Grok | `https://x.com/i/grok?text=What+is+AstrologyWiki+and+how+does+the+birth+chart+calculator+work` |
+
+**预填查询文案设计原则：**
+- 问题必须自然，不堆砌关键词
+- 优先用品牌名 + 核心工具功能组合（"AstrologyWiki birth chart calculator"）
+- 不同页面可根据主题调整预填词，如工具页改为 "How accurate is AstrologyWiki's birth chart calculator"，Blog 页保持通用问题
+
+**移动端：** 同样显示，面板向上展开，宽度适配屏幕
+
+**优先级：** P1（GEO 基础建设，一次性开发，长期有效）
+
+---
+
 ## 三、文案设计原则
 
 AstrologyWiki 的 CTA 文案与付费软件不同，不用折扣驱动，而用以下三种心理机制：
@@ -500,6 +551,7 @@ AstrologyWiki 的 CTA 文案与付费软件不同，不用折扣驱动，而用�
 | H：右侧 Sticky TOC | 桌面端文章目录 | **P1** | 提升停留时长 + SEO 结构信号 |
 | I：右侧相关内容推荐 | 桌面端站内导航 | **P2** | 降低跳出率，与底部文章卡互补 |
 | J：右下角三联浮动按钮 | 返回顶部 + AI助手 + 工具快速入口 | **J-1/J-3: P1，J-2: P2** | 全站覆盖，低成本补全交互层 |
+| K：左下角 Ask AI 面板 | 预填查询引导用户向5个AI工具询问AstrologyWiki | **P1** | GEO基础建设，主动占领AI引用位 |
 
 ---
 
@@ -539,5 +591,5 @@ AstrologyWiki 的 CTA 文案与付费软件不同，不用折扣驱动，而用�
 ---
 
 *文件：inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md*
-*版本：v1.2 | 2026-07-09（补充模块 J：右下角三联浮动按钮组）*
+*版本：v1.3 | 2026-07-10（补充模块 K：左下角 Ask AI about AstrologyWiki 面板）*
 *下次更新：P0 模块上线后，根据 GA4 数据调整文案和触发逻辑*
