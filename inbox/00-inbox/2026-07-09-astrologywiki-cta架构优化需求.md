@@ -261,7 +261,7 @@ Email: ____________  [ Subscribe Free ]
 
 **移动端：** 仅显示 CTA 按钮和极短文案：`✦ Free Birth Chart [ Try → ]`
 
-**注意：** 底部横条与模块 B（Sticky Nav）同时存在时，需确保两者不重叠。建议底部横条仅在非文章页（首页、工具页）显示，文章页的 Sticky Nav（模块 B）优先级更高。
+**注意：** 底部横条**仅在首页和工具落地页显示，Blog 文章页（`/en/wiki/*`）不显示**。Blog 文章页由模块 B（Scroll Sticky Nav）承担持续引导职责，两者不共存，避免视觉干扰叠加。
 
 **优先级：** P2
 
@@ -382,7 +382,7 @@ Table of Contents
 **样式：**
 - 板块标题："You Might Also Like" 或 "More Birth Charts"
 - 每篇：小封面图 + 标题 + 阅读时长估算
-- 显示 3-4 篇，不超过 4 篇
+- 显示 **5 篇**，与 UniFab New Resource 侧边栏保持一致
 
 **移动端：** 不显示（移动端相关文章由文章底部卡片区覆盖）
 
