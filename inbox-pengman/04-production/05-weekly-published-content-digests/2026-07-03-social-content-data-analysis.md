@@ -10,7 +10,7 @@ status: draft
 
 # 2026-07-03 社媒内容数据阶段分析
 
-> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集`、`2026-W28 本周已发布内容合集` 和 `2026-07-01 公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05、2026-07-06、2026-07-07、2026-07-08 的公开账号级检查。Instagram 数据含 2026-07-08 公开 web profile meta；X 数据以 2026-07-08 公开 page 可达性检查为最新；TikTok 数据含 2026-07-08 公开 profile JSON；YouTube 数据含 2026-07-08 公开 `shorts/videos` 列表页与新增 Shorts 单条公开页。  
+> 口径：基于 `2026-W25 已发布内容合集`、`2026-W27 本周已发布内容合集`、`2026-W28 本周已发布内容合集` 和 `公开账号抓取记录` 中已经归档的公开可见数据，并补入 2026-07-05、2026-07-06、2026-07-07、2026-07-08 的公开账号级检查。Instagram 数据含 2026-07-08 公开 web profile meta；X 数据以 2026-07-08 公开 page 可达性检查为最新；TikTok 数据含 2026-07-08 公开 profile JSON；YouTube 数据含 2026-07-08 公开 `shorts/videos` 列表页与新增 Shorts 单条公开页。  
 > 当前不包含后台 analytics：X impressions / link clicks、TikTok 完播率 / 主页访问 / 链接点击、YouTube Studio 留存 / shown in feed / 点击数据、站内 referral / PV 变化。  
 > 目标：判断哪些站外内容更可能支持 AstrologyWiki 的 SEO / PV / 站内主题页，而不是单纯比较粉丝增长。
 
@@ -19,7 +19,7 @@ status: draft
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-01-public-account-crawl-log.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md]]
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
 
 ## 0. 2026-07-06 增量更新

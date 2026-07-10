@@ -35,7 +35,7 @@ updated: 2026-07-07
 
 ## 抓取记录
 
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-01-public-account-crawl-log.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md]]
 
 ## 相关选题归档
 

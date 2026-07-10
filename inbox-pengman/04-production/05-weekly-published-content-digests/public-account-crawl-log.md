@@ -1,12 +1,64 @@
 ---
-title: 2026-07-01 公开账号抓取记录
+title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-08
+updated: 2026-07-10
 ---
 
-# 2026-07-01 公开账号抓取记录
+# 公开账号抓取记录
+
+## 2026-07-10 TikTok 修复重抓
+
+- 检查范围：TikTok 公开 profile、`https://www.tiktok.com/embed/@astrologywiki`、以及单条公开页；并回看现有 W27/W28 周报中的已记录链接。
+- 新确认内容：
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7659399399533055246`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7660401338701974798`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7660473423038041358`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7657544067898772749`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7657873666830503182`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7658301493862272270`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7658533089202670862`
+- 内容级公开刷新：
+  - TikTok `embed` 页本次稳定暴露最近 `10` 条内容 ID：`7657187949590727950`、`7657544067898772749`、`7657873666830503182`、`7658301493862272270`、`7658533089202670862`、`7659399399533055246`、`7659748708950609165`、`7659773834345647374`、`7660401338701974798`、`7660473423038041358`
+  - TikTok：`7659399399533055246` 现可见 `110 plays / 1 like / 0 comments / 0 shares`
+  - TikTok：`7659773834345647374` 现可见 `302 plays / 4 likes / 0 comments / 0 shares`
+  - TikTok：`7659748708950609165` 现可见 `311 plays / 2 likes / 0 comments / 1 share`
+  - TikTok：`7660401338701974798` 现可见 `301 plays / 13 likes / 0 comments / 0 shares / 3 collects`
+  - TikTok：`7660473423038041358` 现可见 `280 plays / 3 likes / 1 comment / 0 shares`
+  - TikTok：`7657544067898772749` 现可见 `169 plays / 0 likes`
+  - TikTok：`7657873666830503182` 现可见 `112 plays / 2 likes / 1 collect`
+  - TikTok：`7658301493862272270` 现可见 `107 plays / 0 likes`
+  - TikTok：`7658533089202670862` 现可见 `111 plays / 0 likes`
+- 账号级公开变化：
+  - TikTok：公开 profile 仍可见 `2 followers / 0 following / 46 likes / 12 videos`
+- 限制说明：
+  - TikTok 公开 profile `itemList` 仍为空，不能再只靠 profile 页归档内容。
+  - 本次改用公开 `creator embed` 页补出最近 `10` 条内容，再结合本地旧直链，当前总共已确认 `14` 条历史可达帖文；这些帖文点赞数相加正好等于账号级公开 `46 likes`。
+  - 但 TikTok profile 仍只显示 `12 videos`，与当前可直达历史帖文数存在口径冲突；暂不推断删帖或隐藏，统一记 `待确认`，需要 Pengman 提供后台发布列表或截图核对。
+
+## 2026-07-09 本次补抓
+
+- 检查范围：X、TikTok、Instagram、YouTube 公开账号页/公开视频页。
+- 新确认内容：
+  - YouTube Shorts：`https://www.youtube.com/shorts/ntnz_7FVvck`
+- 内容级公开刷新：
+  - YouTube Shorts：`https://www.youtube.com/shorts/ntnz_7FVvck` 当前在公开 `shorts` 列表页显示 `Haaland and Isabel's synastry💗 / 18 views`
+  - YouTube Shorts：`https://www.youtube.com/shorts/93ONQqwnsn8` 当前在公开 `shorts` 列表页显示 `Rhaenyra’s Fight for Power, Explained by Astrology / 2 views`
+  - YouTube Shorts：`https://www.youtube.com/shorts/EFK0KPtyS4M` 当前在公开 `shorts` 列表页显示 `Why Celebrity Birth Charts Get This Wrong So Often / 1 view`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7659773834345647374` 现可见 `302 plays / 4 likes / 0 comments / 0 shares`
+  - TikTok：`https://www.tiktok.com/@astrologywiki/video/7659748708950609165` 现可见 `311 plays / 2 likes / 0 comments / 1 share`
+- 账号级公开变化：
+  - TikTok：公开 profile 已可见 `2 followers / 0 following / 46 likes / 12 videos`，较上一轮多 `16 likes + 1 video`；但 `itemList` 仍为空。
+  - Instagram：公开 `og:description` 仍可见 `0 Followers, 0 Following, 5 Posts`。
+  - YouTube：公开 `@AstrologyWiki/shorts` 列表页本轮可稳定确认当前可见 `9` 条 Shorts：`zOXKoYuHJnE`、`CHSfnHbuYtE`、`piNhQ8q2V4w`、`M_qy0N-agFA`、`NtnkAVHBrwc`、`uHVola7E3-A`、`EFK0KPtyS4M`、`93ONQqwnsn8`、`ntnz_7FVvck`；`/videos` 列表页仍只看到 `2` 条长视频 ID：`NQvlUn_XpHI`、`NxecDPhWeyA`。
+  - X：公开 profile 今天仍可访问 title / about，但未再稳定吐出账号级 count；当前沿用最近一次已确认的 `25 posts / 3 followers / 9 following`，记 `待确认`。
+- 限制说明：
+  - TikTok profile `itemList` 继续为空，因此虽然账号级能确认新增第 `12` 条内容，但自动化仍无法直接补出新增链接。
+  - X 公开页今天连账号级 count 都未稳定暴露，更无法可靠补内容级 `status` 链接。
+  - Instagram 今天仍只稳定给账号级 meta，不稳定给第 5 帖 shortcode。
+  - YouTube Shorts 当前最稳的是 `列表页补链 + views`；likes、comments、retention 仍需 Studio。
+  - 这轮重抓已按“最新发布 + 之前仍公开可见的历史内容”重新过一遍 YouTube 当前全量可见列表，因此旧内容的播放数也同步刷新了一次。
 
 ## 2026-07-08 本次补抓
 
@@ -114,16 +166,24 @@ updated: 2026-07-08
 
 | 周次 | 平台 | 链接 | 动作 |
 |---|---|---|---|
+| 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/ntnz_7FVvck | 2026-07-09 公开列表页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/EFK0KPtyS4M | 2026-07-06 RSS 新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/93ONQqwnsn8 | 2026-07-08 公开列表页 + 单条页新增 |
+| 2026-W28 | TikTok | https://www.tiktok.com/@astrologywiki/video/7659399399533055246 | 2026-07-10 embed + 单条页补录新增 |
 | 2026-W28 | TikTok | https://www.tiktok.com/@astrologywiki/video/7659773834345647374 | 用户补充链接后新增 |
 | 2026-W28 | TikTok | https://www.tiktok.com/@astrologywiki/video/7659748708950609165 | 用户补充链接后新增 |
+| 2026-W28 | TikTok | https://www.tiktok.com/@astrologywiki/video/7660401338701974798 | 2026-07-10 embed + 单条页补录新增 |
+| 2026-W28 | TikTok | https://www.tiktok.com/@astrologywiki/video/7660473423038041358 | 2026-07-10 embed + 单条页补录新增 |
 | 2026-W27 | Instagram | https://www.instagram.com/p/DacR6dKPD2Z/ | 2026-07-06 API 补录新增 |
 | 2026-W27 | Instagram | https://www.instagram.com/p/DaU8gleFI-2/ | 2026-07-06 API 补录新增 |
 | 2026-W27 | YouTube Shorts | https://www.youtube.com/shorts/uHVola7E3-A | 2026-07-06 RSS 补录新增 |
 | 2026-W27 | YouTube Shorts | https://www.youtube.com/shorts/M_qy0N-agFA | 2026-07-06 RSS 补录新增 |
 | 2026-W27 | YouTube Video | https://www.youtube.com/watch?v=NQvlUn_XpHI | 2026-07-06 RSS 补录新增 |
 | 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/photo/7657187949590727950 | 新增 |
+| 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/video/7657544067898772749 | 2026-07-10 embed + 单条页补录新增 |
+| 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/video/7657873666830503182 | 2026-07-10 embed + 单条页补录新增 |
+| 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/video/7658301493862272270 | 2026-07-10 embed + 单条页补录新增 |
+| 2026-W27 | TikTok | https://www.tiktok.com/@astrologywiki/video/7658533089202670862 | 2026-07-10 embed + 单条页补录新增 |
 | 2026-W27 | X | https://x.com/AstrologyWiki/status/2071956969045279011 | 用户补充链接后新增 |
 | 2026-W27 | X | https://x.com/AstrologyWiki/status/2071846176899379587 | 用户补充链接后刷新数据 |
 | 2026-W27 | X | https://x.com/AstrologyWiki/status/2072628748848083433 | 登录后新增 |
@@ -147,14 +207,15 @@ updated: 2026-07-08
 
 | 平台 | 抓取结果 | 限制 |
 |---|---|---|
-| TikTok | 2026-07-08/09 公开 profile 已可见 `2 followers / 0 following / 30 likes / 11 videos`；2 条 W28 直链可刷新到 `294 plays / 4 likes` 与 `233 plays / 2 likes / 1 share` | 公开页内容级列表仍未稳定暴露；后台完播率、主页访问、链接点击不可公开读取 |
-| YouTube | 2026-07-08/09 公开 `shorts/videos` 列表仍可确认至少 `9 Shorts + 2 长视频`；未再补到新的稳定 W28 链接 | comments、留存、shown in feed / viewed vs swiped away 需 YouTube Studio；当前 Shorts 单条页不适合稳定抓公开播放/点赞 |
-| X | 2026-07-08/09 公开 profile meta 仍可确认 `25 posts / 3 followers / 9 following`，但未登录 timeline 仍为空 | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
-| Instagram | 2026-07-08/09 公开 profile meta 仍可见 `0 followers / 0 following / 5 posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
+| TikTok | 2026-07-10 已用公开 `embed + 单条页` 修复重抓，当前可确认最近 `10` 条 embed 帖文和总计 `14` 条历史可达帖文；W28 现能补到 `5` 条、W27 现能补到 `8` 条 | profile `itemList` 仍为空；profile `12 videos` 与当前可直达帖文数存在口径冲突；后台完播率、主页访问、链接点击不可公开读取 |
+| YouTube | 2026-07-09/10 公开 `shorts` 列表页已重抓当前全部可见历史 Shorts，共确认 `9 Shorts + 2 长视频`；其中最新可见 W28 Shorts 为 `ntnz_7FVvck` | likes、comments、留存、shown in feed / viewed vs swiped away 仍需 YouTube Studio |
+| X | 2026-07-09 公开 profile title / about 可访问，但 count 未稳定暴露；沿用最近一次已确认 `25 posts / 3 followers / 9 following` | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
+| Instagram | 2026-07-09 `og:description` 仍可见 `0 Followers / 0 Following / 5 Posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
 
 ## 结论
 
-- 本地归档在 YouTube / Instagram 上已明显补齐，但 X / TikTok 仍不是全量。
-- 2026-07-08/09 的新增信息主要是：TikTok 账号级总赞继续上涨到 `30`，并且两条 W28 直链都已能刷新到新的公开播放数；其余平台仍以账号级增量为主。
-- YouTube 依然是当前最稳的公开补链来源，而且已验证 `列表页 + 单条页` 可以覆盖 feed 失效的情况。
-- 如果要继续补缺口，优先顺序应为：Instagram 第 5 帖 shortcode -> TikTok 剩余新视频链接 -> X 剩余帖文 -> YouTube Studio / 后台点击与引流数据补证。
+- 2026-07-10 的最重要修复是：TikTok 不再只剩“2 条已知直链”，而是已经通过公开 `embed + 单条页` 补到 `14` 条历史可达帖文，其中 W27 新增补录 `4` 条、W28 新增补录 `3` 条。
+- 当前 W28 已确认内容更新为 `3 条 YouTube Shorts + 5 条 TikTok 内容`；其中 `Haaland and Isabel's synastry`、`Rhaenyra`、`Venus in Virgo is receipt season` 都进入本周公开播放/互动第一梯队。
+- TikTok 账号级 `46 likes` 目前已经能被这些历史可达帖文的内容级点赞数相互印证，但 profile `12 videos` 与直达帖文数仍冲突，不能直接当作完整发布总表。
+- 这轮 YouTube 已按当前公开可见顺序把“最新 + 之前内容”重新核过一遍，旧条目里可确认上升的包括：`zOXKoYuHJnE` 到 `777 views`、`CHSfnHbuYtE` 到 `42 views`、`piNhQ8q2V4w` 到 `222 views`、`uHVola7E3-A` 到 `11 views`、`NtnkAVHBrwc` 到 `5 views`、`M_qy0N-agFA` 到 `4 views`。
+- 如果要继续补缺口，优先顺序仍应是：TikTok profile `12 videos` 口径核对 -> Instagram 第 5 帖 permalink -> X 第 25 帖 status 链接 -> YouTube Studio / 后台点击与引流数据补证。

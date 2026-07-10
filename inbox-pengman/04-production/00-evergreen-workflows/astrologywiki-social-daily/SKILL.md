@@ -1,4 +1,4 @@
-5---
+---
 name: astrologywiki-social-daily
 description: Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: daily Route A life-first evergreen topics plus Route B timely hotspot topics, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit.
 metadata:
@@ -37,6 +37,7 @@ Read these files first when available:
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/` recent weekly digest files
 - `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
+- `inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md`
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - Latest GSC CSV, if available or explicitly authorized by Pengman
 
@@ -98,11 +99,12 @@ Only create the daily-topic document after the required permissions or substitut
 
 ### Required Topic Routes
 
-Every daily recommendation must include candidate pools for both routes unless Pengman explicitly asks for only one:
+Every daily recommendation must include candidate pools for all three routes unless Pengman explicitly asks for only one:
 
 - Route A, life-first evergreen: provide 3-5 candidate mother topics rooted in concrete human situations. These do not need timely hotspots. For each candidate, include the AstrologyWiki article/tool/page link when available.
 - Route B, timely hotspot: provide 3-6 candidate mother topics rooted in current events, social trends, celebrity stories, entertainment releases, lifestyle/work/relationship discourse, news items, current X/TikTok/YouTube/Reddit conversations, current astrology transits, or major sports events. Each candidate must include external source links for the news/trend/hotspot evidence.
-- Mark 1 P0 recommendation from Route A and 1 P0 recommendation from Route B. If one route is clearly stronger for production today, say so, but still show the other route's candidates.
+- Route C, placement identity callout: provide 2-4 candidate topics built around a specific chart placement, sign, or combination — framed as "you were called out" or "this describes you." No news required, no life-situation framing required. Goal is comments, tags, and "this is exactly me" reactions. Hook leads directly with the placement and the trait: `Your toxic trait, according to your Moon sign` / `If you have Venus in Scorpio, this is why love feels like war` / `The 3 Moon signs that forgive but never forget`. Each candidate must include the placement being targeted and a landing page on AstrologyWiki.
+- Mark 1 P0 recommendation from Route A, 1 from Route B, and 1 from Route C. If one route is clearly stronger for production today, say so, but still show the other routes' candidates.
 
 Do not let the weekday calendar suppress either route. Monday/Tuesday/etc. cadence is only a weak inspiration source.
 
@@ -210,6 +212,12 @@ Use both topic routes:
 - Route A, evergreen life-first: build a candidate pool of life situations that feel broadly recognizable even without news. This route does not require live trend evidence.
 - Route B, timely hotspot: build a candidate pool of current events or social conversations, then translate each into a safe astrology/life lens. This route requires current evidence.
 
+Before building any route candidate pool, check AstrologyWiki itself:
+
+- Fetch `https://www.astrologywiki.com/en/tools` to see current available tools and identify which ones have not been featured recently.
+- Fetch recent wiki articles from `https://www.astrologywiki.com/en/wiki` or the site's blog/news section to identify newly published or updated content that could anchor a topic.
+- Use these as landing page candidates and content angle triggers, not just as CTA destinations. A newly published article or an underused tool is a valid starting point for any route.
+
 For Route B live trend research, check accessible current sources before choosing topics. Do not skip this for a formal daily recommendation:
 
 - X search/trends and recent posts, when accessible.
@@ -275,8 +283,8 @@ Default:
 
 - 3-5 Route A life-first mother topic candidates.
 - 3-6 Route B timely hotspot mother topic candidates.
-- 1 P0 pick from Route A.
-- 1 P0 pick from Route B.
+- 2-4 Route C placement identity callout candidates.
+- 1 P0 pick from each route.
 
 Lynne's social-daily cadence is optional inspiration, not a rule:
 
@@ -307,11 +315,13 @@ Score each candidate briefly:
 ```text
 life relevance:
 timeliness:
-hook strength:
+hook strength: would this opening line make a stranger stop scrolling on TikTok FYP? (yes / needs rewrite)
 AstrologyWiki landing fit:
 production ease:
 dedupe risk:
 ```
+
+If hook strength is "needs rewrite", rewrite the hook before marking it P0.
 
 For Route B, compare multiple hotspots before choosing P0. Do not stop at the first news item found.
 
@@ -319,7 +329,7 @@ For Route B, compare multiple hotspots before choosing P0. Do not stop at the fi
 
 Choose output depth based on user ask:
 
-- If user asks "生成今日选题": produce Stage 1 only: Evidence Preflight, Route A candidate pool, Route B candidate pool, P0 recommendations, and selection guidance. Stop there.
+- If user asks "生成今日选题": produce Stage 1 only: Evidence Preflight, Route A candidate pool, Route B candidate pool, Route C candidate pool, P0 recommendations, and selection guidance. Stop there.
 - If user asks for social-daily / 10条内容: produce 8-10 items across platforms.
 - If user asks for X: produce X posts only.
 - If user asks for video: produce video brief/script direction only, unless asked for full script.
@@ -341,6 +351,7 @@ Use this structure by default:
 ## 今日结论
 - Route A P0 生活化母选题：
 - Route B P0 时效热点母选题：
+- Route C P0 星盘人格母选题：
 - 今天不做：
 
 ## Route A 生活化候选池
@@ -362,6 +373,17 @@ Use this structure by default:
 - 评分：
 
 ### B2
+...
+
+## Route C 星盘人格候选池
+### C1
+- 目标配置/星座：
+- Hook:
+- 为什么会互动（评论/tag/共鸣机制）：
+- AstrologyWiki 承接链接：
+- 评分：
+
+### C2
 ...
 
 ## 为什么
