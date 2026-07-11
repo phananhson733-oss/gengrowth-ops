@@ -2492,21 +2492,19 @@
     "mergedAt": "2026-07-11T09:20:07.950Z"
   },
   "PG-SVZW-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "99457",
-    "leaseUntil": "2026-07-11T16:06:46.352Z",
-    "updatedAt": "2026-07-11T15:06:46.352Z",
+    "lockedBy": "18386",
+    "leaseUntil": "2026-07-11T17:01:55.287Z",
+    "updatedAt": "2026-07-11T16:01:55.287Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-SVZW-001",
     "branch": "seo/auto/2026-07-11-PG-SVZW-001",
     "pr": "https://github.com/xdawayer/oracle/pull/361",
-    "retryEvidence": "auto-retry transient park #3/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-11T15:06:46.352Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-11T15:09:11.542Z"
+    "retryEvidence": "auto-retry transient park #4/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-11T16:01:55.287Z"
   },
   "PG-CELEB-051": {
     "status": "needs_human",
