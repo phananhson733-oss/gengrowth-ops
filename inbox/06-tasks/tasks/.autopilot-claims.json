@@ -2492,21 +2492,19 @@
     "mergedAt": "2026-07-11T09:20:07.950Z"
   },
   "PG-SVZW-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "64601",
-    "leaseUntil": "2026-07-11T14:46:32.092Z",
-    "updatedAt": "2026-07-11T13:46:32.092Z",
+    "lockedBy": "83535",
+    "leaseUntil": "2026-07-11T15:26:57.587Z",
+    "updatedAt": "2026-07-11T14:26:57.587Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-SVZW-001",
     "branch": "seo/auto/2026-07-11-PG-SVZW-001",
     "pr": "https://github.com/xdawayer/oracle/pull/361",
-    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-11T13:46:32.092Z",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-11T14:01:52.828Z"
+    "retryEvidence": "auto-retry transient park #2/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-11T14:26:57.587Z"
   },
   "PG-CELEB-051": {
     "status": "pushed-preview",
@@ -2520,5 +2518,17 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-051",
     "branch": "seo/auto/2026-07-11-PG-CELEB-051",
     "pr": "https://github.com/xdawayer/oracle/pull/362"
+  },
+  "PG-WC-049": {
+    "status": "active",
+    "slug": "spain-vs-france-world-cup-2026-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "83537",
+    "leaseUntil": "2026-07-11T15:27:07.602Z",
+    "updatedAt": "2026-07-11T14:27:07.602Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-WC-049",
+    "branch": "seo/auto/2026-07-11-PG-WC-049"
   }
 }
