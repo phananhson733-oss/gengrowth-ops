@@ -2072,7 +2072,7 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2084,7 +2084,12 @@
     "branch": "seo/auto/2026-07-07-PG-WC-045",
     "pr": "https://github.com/xdawayer/oracle/pull/334",
     "retryEvidence": "normalized the score to the official Mexico 2–3 England notation; rerun full gate",
-    "retryAt": "2026-07-11T11:29:02.074Z"
+    "retryAt": "2026-07-11T11:29:02.074Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-07-pg-wc-045-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T11:33:07.696Z",
+    "headRefOid": "76983a824e75dce01ae0e6048d9ee90effce884e",
+    "mergedAt": "2026-07-11T11:33:17.421Z"
   },
   "PG-CELEB-035": {
     "status": "done",
