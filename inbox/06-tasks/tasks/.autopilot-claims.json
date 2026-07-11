@@ -2512,7 +2512,7 @@
     "mergedAt": "2026-07-11T16:21:47.259Z"
   },
   "PG-CELEB-051": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mikel-merino-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2524,7 +2524,13 @@
     "branch": "seo/auto/2026-07-11-PG-CELEB-051",
     "pr": "https://github.com/xdawayer/oracle/pull/362",
     "retryEvidence": "restored all intended internal links with live destinations; rerun full gate",
-    "retryAt": "2026-07-11T17:26:59.092Z"
+    "retryAt": "2026-07-11T17:26:59.092Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-468d8e-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T17:30:05.963Z",
+    "headRefOid": "1d54def6ce3d5137571d2cc8bcad91e0f7a93db6",
+    "error": "merge failed: ING — attempting union self-heal [autopilot] ERROR: union-rebase seo/auto/2026-07-11-PG-CELEB-051: origin tip ? != reviewed head 1d54def6 — refusing self-heal (branch moved since verify → unreviewed)",
+    "failedAt": "2026-07-11T17:30:11.631Z"
   },
   "PG-WC-049": {
     "status": "done",
