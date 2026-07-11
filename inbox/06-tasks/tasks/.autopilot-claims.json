@@ -2527,7 +2527,7 @@
     "failedAt": "2026-07-11T15:36:51.226Z"
   },
   "PG-WC-049": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "spain-vs-france-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2539,6 +2539,12 @@
     "branch": "seo/auto/2026-07-11-PG-WC-049",
     "pr": "https://github.com/xdawayer/oracle/pull/363",
     "retryEvidence": "corrected Jupiter-in-Cancer symbolism and restored real related links; rerun full gate",
-    "retryAt": "2026-07-11T16:57:28.412Z"
+    "retryAt": "2026-07-11T16:57:28.412Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-wc-049-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T17:01:19.361Z",
+    "headRefOid": "873fc2f33c14888f8b0bf6ed0d7c001c18fa855a",
+    "error": "merge failed: ICTING — attempting union self-heal [autopilot] ERROR: union-rebase seo/auto/2026-07-11-PG-WC-049: origin tip ? != reviewed head 873fc2f3 — refusing self-heal (branch moved since verify → unreviewed)",
+    "failedAt": "2026-07-11T17:01:21.476Z"
   }
 }
