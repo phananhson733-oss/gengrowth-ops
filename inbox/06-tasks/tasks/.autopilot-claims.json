@@ -2429,19 +2429,19 @@
     "mergedAt": "2026-07-11T06:27:10.173Z"
   },
   "PG-CELEB-049": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "antoine-griezmann-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "38632",
-    "leaseUntil": "2026-07-11T06:49:27.638Z",
-    "updatedAt": "2026-07-11T05:49:27.638Z",
+    "lockedBy": "77346",
+    "leaseUntil": "2026-07-11T08:21:01.754Z",
+    "updatedAt": "2026-07-11T07:21:01.754Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-049",
     "branch": "seo/auto/2026-07-11-PG-CELEB-049",
     "pr": "https://github.com/xdawayer/oracle/pull/356",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-11T06:55:57.661Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-11T07:21:01.754Z"
   },
   "PG-CELEB-050": {
     "status": "pushed-preview",
