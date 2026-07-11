@@ -2449,7 +2449,7 @@
     "failedAt": "2026-07-11T08:56:03.669Z"
   },
   "PG-CELEB-047": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "karolina-muchova-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2459,7 +2459,9 @@
     "updatedAt": "2026-07-11T08:54:12.535Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-047",
     "branch": "seo/auto/2026-07-11-PG-CELEB-047",
-    "pr": "https://github.com/xdawayer/oracle/pull/358"
+    "pr": "https://github.com/xdawayer/oracle/pull/358",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-11T09:15:03.178Z"
   },
   "PG-VEDIC-006": {
     "status": "pushed-preview",
