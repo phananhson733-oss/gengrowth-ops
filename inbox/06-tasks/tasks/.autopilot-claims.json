@@ -2511,10 +2511,10 @@
     "slug": "mikel-merino-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "64603",
-    "leaseUntil": "2026-07-11T14:46:39.223Z",
-    "updatedAt": "2026-07-11T13:46:39.223Z",
+    "leaseUntil": "2026-07-11T14:48:53.684Z",
+    "updatedAt": "2026-07-11T13:48:53.684Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-051",
     "branch": "seo/auto/2026-07-11-PG-CELEB-051"
   }
