@@ -2446,7 +2446,7 @@
     "failedAt": "2026-07-11T07:23:44.925Z"
   },
   "PG-CELEB-050": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "quinta-brunson-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2456,6 +2456,8 @@
     "updatedAt": "2026-07-11T06:23:50.731Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-050",
     "branch": "seo/auto/2026-07-11-PG-CELEB-050",
-    "pr": "https://github.com/xdawayer/oracle/pull/357"
+    "pr": "https://github.com/xdawayer/oracle/pull/357",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-11T07:52:06.486Z"
   }
 }
