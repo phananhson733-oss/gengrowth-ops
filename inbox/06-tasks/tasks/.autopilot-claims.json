@@ -2409,7 +2409,7 @@
     "failedAt": "2026-07-10T15:21:53.463Z"
   },
   "PG-CELEB-048": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "priyanka-chopra-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2419,6 +2419,8 @@
     "updatedAt": "2026-07-11T05:08:48.854Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-048",
     "branch": "seo/auto/2026-07-11-PG-CELEB-048",
-    "pr": "https://github.com/xdawayer/oracle/pull/355"
+    "pr": "https://github.com/xdawayer/oracle/pull/355",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-11T05:12:48.972Z"
   }
 }
