@@ -2072,21 +2072,19 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "1364",
-    "leaseUntil": "2026-07-11T12:17:26.255Z",
-    "updatedAt": "2026-07-11T11:17:26.255Z",
+    "lockedBy": "3928",
+    "leaseUntil": "2026-07-11T12:29:02.074Z",
+    "updatedAt": "2026-07-11T11:29:02.074Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
     "branch": "seo/auto/2026-07-07-PG-WC-045",
     "pr": "https://github.com/xdawayer/oracle/pull/334",
-    "retryEvidence": "new replacement PR #360 created after the stale original PR was closed; rerun preview gate against new PR",
-    "retryAt": "2026-07-11T11:17:26.255Z",
-    "error": "review[astrology] FAIL: The rendered page states 'England beat Mexico 3–2' while its own Sources section and description cite the official record as 'Mexico 2–3 England,' an internal contradiction of the match's astrological case-study anchor.",
-    "failedAt": "2026-07-11T11:18:52.674Z"
+    "retryEvidence": "normalized the score to the official Mexico 2–3 England notation; rerun full gate",
+    "retryAt": "2026-07-11T11:29:02.074Z"
   },
   "PG-CELEB-035": {
     "status": "done",
