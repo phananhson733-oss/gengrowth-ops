@@ -2428,7 +2428,7 @@
     "failedAt": "2026-07-11T08:53:14.368Z"
   },
   "PG-CELEB-050": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "quinta-brunson-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2443,8 +2443,10 @@
     "retryAt": "2026-07-11T08:52:00.995Z",
     "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-a03cbf-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-07-11T08:41:28.628Z",
-    "headRefOid": "701d636a99fcfa044f99556e0ea2fd5969c6996d"
+    "verifiedAt": "2026-07-11T08:56:01.164Z",
+    "headRefOid": "701d636a99fcfa044f99556e0ea2fd5969c6996d",
+    "error": "merge failed: ING — attempting union self-heal [autopilot] ERROR: union-rebase seo/auto/2026-07-11-PG-CELEB-050: origin tip ? != reviewed head 701d636a — refusing self-heal (branch moved since verify → unreviewed)",
+    "failedAt": "2026-07-11T08:56:03.669Z"
   },
   "PG-CELEB-047": {
     "status": "pushed-preview",
@@ -2460,15 +2462,16 @@
     "pr": "https://github.com/xdawayer/oracle/pull/358"
   },
   "PG-VEDIC-006": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "rodri-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "pushed-preview",
     "lockedBy": "15373",
-    "leaseUntil": "2026-07-11T09:54:13.316Z",
-    "updatedAt": "2026-07-11T08:54:13.316Z",
+    "leaseUntil": "2026-07-11T09:57:06.576Z",
+    "updatedAt": "2026-07-11T08:57:06.576Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-VEDIC-006",
-    "branch": "seo/auto/2026-07-11-PG-VEDIC-006"
+    "branch": "seo/auto/2026-07-11-PG-VEDIC-006",
+    "pr": "https://github.com/xdawayer/oracle/pull/359"
   }
 }
