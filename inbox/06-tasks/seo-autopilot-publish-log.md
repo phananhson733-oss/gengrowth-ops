@@ -138,3 +138,4 @@ updated: 2026-07-11
 | 2026-07-11 | PG-VEDIC-006 | rodri-birth-chart | Rodri Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rodri-birth-chart | published |
 | 2026-07-11 | PG-CELEB-050 | quinta-brunson-birth-chart | Quinta Brunson Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/quinta-brunson-birth-chart | published |
 | 2026-07-11 | PG-CELEB-047 | karolina-muchova-birth-chart | Karolína Muchová Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/karolina-muchova-birth-chart | published |
+| 2026-07-11 | PG-CELEB-049 | antoine-griezmann-birth-chart | Antoine Griezmann Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/antoine-griezmann-birth-chart | published |
