@@ -2512,19 +2512,19 @@
     "mergedAt": "2026-07-11T16:21:47.259Z"
   },
   "PG-CELEB-051": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mikel-merino-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "64603",
-    "leaseUntil": "2026-07-11T14:58:34.774Z",
-    "updatedAt": "2026-07-11T13:58:34.774Z",
+    "lockedBy": "52886",
+    "leaseUntil": "2026-07-11T18:26:59.092Z",
+    "updatedAt": "2026-07-11T17:26:59.092Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-051",
     "branch": "seo/auto/2026-07-11-PG-CELEB-051",
     "pr": "https://github.com/xdawayer/oracle/pull/362",
-    "error": "review[links-seo] FAIL: Four of the five intended internal wiki-links rendered as plain italic text with no href, so the Related Reading hub contains zero navigable internal links and the page ships with only a single working internal link.",
-    "failedAt": "2026-07-11T15:36:51.226Z"
+    "retryEvidence": "restored all intended internal links with live destinations; rerun full gate",
+    "retryAt": "2026-07-11T17:26:59.092Z"
   },
   "PG-WC-049": {
     "status": "done",
