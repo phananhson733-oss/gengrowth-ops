@@ -2437,5 +2437,17 @@
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-049",
     "branch": "seo/auto/2026-07-11-PG-CELEB-049",
     "pr": "https://github.com/xdawayer/oracle/pull/356"
+  },
+  "PG-CELEB-050": {
+    "status": "active",
+    "slug": "quinta-brunson-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "54995",
+    "leaseUntil": "2026-07-11T07:17:49.753Z",
+    "updatedAt": "2026-07-11T06:17:49.753Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-050",
+    "branch": "seo/auto/2026-07-11-PG-CELEB-050"
   }
 }
