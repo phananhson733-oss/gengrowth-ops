@@ -2490,5 +2490,15 @@
     "verifiedAt": "2026-07-11T09:20:01.175Z",
     "headRefOid": "f4539e02067afb3edacd88ae0d7e3bccda784edc",
     "mergedAt": "2026-07-11T09:20:07.950Z"
+  },
+  "PG-SVZW-001": {
+    "status": "active",
+    "slug": "sinner-vs-zverev-wimbledon-final-astrology",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "worktree",
+    "lockedBy": "52758",
+    "leaseUntil": "2026-07-11T14:05:06.987Z",
+    "updatedAt": "2026-07-11T13:05:06.987Z"
   }
 }
