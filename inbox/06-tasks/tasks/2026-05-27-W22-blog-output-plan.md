@@ -394,7 +394,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 7月10日 (周五) - 待写作
 **状态**：`等待输出` (自动补充选题，共 5 篇)
-- [ ] `PG-CELEB-047` Karolína Muchová birth chart
+- [x] `PG-CELEB-047` Karolína Muchová birth chart
 - [x] `PG-CELEB-048` Priyanka Chopra birth chart
 - [x] `PG-VEDIC-006` Rodri birth chart
 - [ ] `PG-CELEB-049` Antoine Griezmann birth chart
