@@ -2072,21 +2072,19 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "86755",
-    "leaseUntil": "2026-07-11T11:48:22.723Z",
-    "updatedAt": "2026-07-11T10:48:22.723Z",
+    "lockedBy": "91092",
+    "leaseUntil": "2026-07-11T12:00:49.089Z",
+    "updatedAt": "2026-07-11T11:00:49.089Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-07-PG-WC-045",
     "branch": "seo/auto/2026-07-07-PG-WC-045",
     "pr": "https://github.com/xdawayer/oracle/pull/334",
-    "retryEvidence": "converted from expired pre-match prediction to source-backed post-match case study and rebased onto current main",
-    "retryAt": "2026-07-11T10:48:22.723Z",
-    "error": "preview-wait failed: timeout",
-    "failedAt": "2026-07-11T10:58:24.124Z"
+    "retryEvidence": "auto-retry transient park #1/10: preview-wait failed: timeout",
+    "retryAt": "2026-07-11T11:00:49.089Z"
   },
   "PG-CELEB-035": {
     "status": "done",
