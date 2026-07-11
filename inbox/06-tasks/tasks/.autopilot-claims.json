@@ -2512,7 +2512,7 @@
     "mergedAt": "2026-07-11T16:21:47.259Z"
   },
   "PG-CELEB-051": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "mikel-merino-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2527,8 +2527,9 @@
     "retryAt": "2026-07-11T17:45:10.104Z",
     "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-468d8e-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-07-11T17:30:05.963Z",
-    "headRefOid": "1d54def6ce3d5137571d2cc8bcad91e0f7a93db6"
+    "verifiedAt": "2026-07-11T17:49:33.679Z",
+    "headRefOid": "3d969236b6a9a2847f1ba62e72c751f7f0ca34f2",
+    "mergedAt": "2026-07-11T17:49:43.457Z"
   },
   "PG-WC-049": {
     "status": "done",
