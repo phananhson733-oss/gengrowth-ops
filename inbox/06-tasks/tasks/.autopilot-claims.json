@@ -2492,15 +2492,16 @@
     "mergedAt": "2026-07-11T09:20:07.950Z"
   },
   "PG-SVZW-001": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "52758",
-    "leaseUntil": "2026-07-11T14:07:46.626Z",
-    "updatedAt": "2026-07-11T13:07:46.626Z",
+    "leaseUntil": "2026-07-11T14:17:37.160Z",
+    "updatedAt": "2026-07-11T13:17:37.160Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-SVZW-001",
-    "branch": "seo/auto/2026-07-11-PG-SVZW-001"
+    "branch": "seo/auto/2026-07-11-PG-SVZW-001",
+    "pr": "https://github.com/xdawayer/oracle/pull/361"
   }
 }
