@@ -2411,7 +2411,7 @@
     "mergedAt": "2026-07-11T06:27:10.173Z"
   },
   "PG-CELEB-049": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "antoine-griezmann-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2423,7 +2423,12 @@
     "branch": "seo/auto/2026-07-11-PG-CELEB-049",
     "pr": "https://github.com/xdawayer/oracle/pull/356",
     "retryEvidence": "rebased onto current main and removed the unverified node claim; rerun full gate",
-    "retryAt": "2026-07-11T10:30:33.501Z"
+    "retryAt": "2026-07-11T10:30:33.501Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-0c3c1b-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T10:35:31.030Z",
+    "headRefOid": "ba109f63577fa691d727d7938721996d08aad64d",
+    "mergedAt": "2026-07-11T10:35:40.859Z"
   },
   "PG-CELEB-050": {
     "status": "done",
