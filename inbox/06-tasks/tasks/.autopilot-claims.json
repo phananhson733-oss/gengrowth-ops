@@ -2527,18 +2527,18 @@
     "failedAt": "2026-07-11T15:36:51.226Z"
   },
   "PG-WC-049": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "spain-vs-france-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "83537",
-    "leaseUntil": "2026-07-11T15:39:28.190Z",
-    "updatedAt": "2026-07-11T14:39:28.190Z",
+    "lockedBy": "37909",
+    "leaseUntil": "2026-07-11T17:57:28.412Z",
+    "updatedAt": "2026-07-11T16:57:28.412Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-WC-049",
     "branch": "seo/auto/2026-07-11-PG-WC-049",
     "pr": "https://github.com/xdawayer/oracle/pull/363",
-    "error": "review[astrology] FAIL: The rendered article places Jupiter in Cancer for 2026 but repeatedly interprets it as 'quickness, exchange, and youth' — those are Gemini/Mercurial keywords, so the sign and its ascribed meaning materially contradict each other.",
-    "failedAt": "2026-07-11T16:32:24.379Z"
+    "retryEvidence": "corrected Jupiter-in-Cancer symbolism and restored real related links; rerun full gate",
+    "retryAt": "2026-07-11T16:57:28.412Z"
   }
 }
