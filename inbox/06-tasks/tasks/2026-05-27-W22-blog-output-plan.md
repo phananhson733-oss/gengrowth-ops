@@ -358,7 +358,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [x] `PG-CELEB-033` Cole Palmer birth chart
 
-- [ ] `PG-WC-045` Mexico vs England astrology prediction
+- [x] `PG-WC-045` Mexico vs England astrology prediction
 - [x] `PG-CELEB-034` Jessica Pegula birth chart
 - [x] `PG-HOUSE-015` England vs Norway astrology
 
