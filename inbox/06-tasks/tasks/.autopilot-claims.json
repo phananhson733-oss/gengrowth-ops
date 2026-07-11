@@ -2429,7 +2429,7 @@
     "mergedAt": "2026-07-11T06:27:10.173Z"
   },
   "PG-CELEB-049": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "antoine-griezmann-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2439,7 +2439,9 @@
     "updatedAt": "2026-07-11T05:49:27.638Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-049",
     "branch": "seo/auto/2026-07-11-PG-CELEB-049",
-    "pr": "https://github.com/xdawayer/oracle/pull/356"
+    "pr": "https://github.com/xdawayer/oracle/pull/356",
+    "error": "codex factual review could not complete (codex exited 3) — required gate",
+    "failedAt": "2026-07-11T06:55:57.661Z"
   },
   "PG-CELEB-050": {
     "status": "pushed-preview",
