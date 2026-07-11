@@ -405,6 +405,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 3 篇)
 - [x] `PG-SVZW-001` Sinner vs Zverev Wimbledon Final astrology
 - [ ] `PG-CELEB-051` Mikel Merino birth chart
-- [ ] `PG-WC-049` Spain vs France World Cup 2026 astrology
+- [x] `PG-WC-049` Spain vs France World Cup 2026 astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
