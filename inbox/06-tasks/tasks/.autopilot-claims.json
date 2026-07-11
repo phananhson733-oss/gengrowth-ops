@@ -2496,10 +2496,10 @@
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "convert",
+    "stage": "build-gate",
     "lockedBy": "52758",
-    "leaseUntil": "2026-07-11T14:05:17.205Z",
-    "updatedAt": "2026-07-11T13:05:17.205Z",
+    "leaseUntil": "2026-07-11T14:07:46.626Z",
+    "updatedAt": "2026-07-11T13:07:46.626Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-SVZW-001",
     "branch": "seo/auto/2026-07-11-PG-SVZW-001"
   }
