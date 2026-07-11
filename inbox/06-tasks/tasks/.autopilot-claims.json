@@ -2527,7 +2527,7 @@
     "failedAt": "2026-07-11T15:36:51.226Z"
   },
   "PG-WC-049": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "spain-vs-france-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2542,7 +2542,8 @@
     "retryAt": "2026-07-11T17:20:17.950Z",
     "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-wc-049-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-07-11T17:01:19.361Z",
-    "headRefOid": "873fc2f33c14888f8b0bf6ed0d7c001c18fa855a"
+    "verifiedAt": "2026-07-11T17:23:24.857Z",
+    "headRefOid": "c90c81b1fc6e5285c6c549ba211d1ca04fc3d522",
+    "mergedAt": "2026-07-11T17:23:35.788Z"
   }
 }
