@@ -2407,5 +2407,17 @@
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "error": "authoring: - - word count 1479 < min 1500 | - author banned token(s) matched: \"sun sign\", \"rising sign\" after 3 attempt(s) + deterministic repair",
     "failedAt": "2026-07-10T15:21:53.463Z"
+  },
+  "PG-CELEB-048": {
+    "status": "active",
+    "slug": "priyanka-chopra-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "19517",
+    "leaseUntil": "2026-07-11T05:49:47.954Z",
+    "updatedAt": "2026-07-11T04:49:47.954Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-048",
+    "branch": "seo/auto/2026-07-11-PG-CELEB-048"
   }
 }
