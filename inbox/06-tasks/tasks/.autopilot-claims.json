@@ -2448,7 +2448,7 @@
     "mergedAt": "2026-07-11T09:50:46.189Z"
   },
   "PG-CELEB-047": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "karolina-muchova-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2463,8 +2463,9 @@
     "retryAt": "2026-07-11T10:08:34.166Z",
     "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-40f99f-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-07-11T09:54:47.721Z",
-    "headRefOid": "f6ec5981aee567b9fe3c9bdcb578ffdcaf6da059"
+    "verifiedAt": "2026-07-11T10:13:05.499Z",
+    "headRefOid": "76f134849e06697dcb7118ed48cd326a3c38281c",
+    "mergedAt": "2026-07-11T10:13:12.180Z"
   },
   "PG-VEDIC-006": {
     "status": "done",
