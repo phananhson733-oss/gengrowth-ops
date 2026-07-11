@@ -2424,15 +2424,16 @@
     "retryAt": "2026-07-11T05:37:52.392Z"
   },
   "PG-CELEB-049": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "antoine-griezmann-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "pushed-preview",
     "lockedBy": "38632",
-    "leaseUntil": "2026-07-11T06:40:09.564Z",
-    "updatedAt": "2026-07-11T05:40:09.564Z",
+    "leaseUntil": "2026-07-11T06:49:27.638Z",
+    "updatedAt": "2026-07-11T05:49:27.638Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-049",
-    "branch": "seo/auto/2026-07-11-PG-CELEB-049"
+    "branch": "seo/auto/2026-07-11-PG-CELEB-049",
+    "pr": "https://github.com/xdawayer/oracle/pull/356"
   }
 }
