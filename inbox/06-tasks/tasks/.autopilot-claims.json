@@ -2492,7 +2492,7 @@
     "mergedAt": "2026-07-11T09:20:07.950Z"
   },
   "PG-SVZW-001": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2504,7 +2504,12 @@
     "branch": "seo/auto/2026-07-11-PG-SVZW-001",
     "pr": "https://github.com/xdawayer/oracle/pull/361",
     "retryEvidence": "codex completion was transient; rerun full preview and required factual gate",
-    "retryAt": "2026-07-11T16:19:03.788Z"
+    "retryAt": "2026-07-11T16:19:03.788Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-2f5586-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T16:21:40.841Z",
+    "headRefOid": "21658b2e0e3ecc1fb942a149d611a7af2e3777d5",
+    "mergedAt": "2026-07-11T16:21:47.259Z"
   },
   "PG-CELEB-051": {
     "status": "needs_human",
