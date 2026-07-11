@@ -2409,7 +2409,7 @@
     "failedAt": "2026-07-10T15:21:53.463Z"
   },
   "PG-CELEB-048": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "priyanka-chopra-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2421,7 +2421,9 @@
     "branch": "seo/auto/2026-07-11-PG-CELEB-048",
     "pr": "https://github.com/xdawayer/oracle/pull/355",
     "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
-    "retryAt": "2026-07-11T05:37:52.392Z"
+    "retryAt": "2026-07-11T05:37:52.392Z",
+    "error": "review[links-seo] FAIL: The published page left three intended internal links unresolved — rendered as dangling italic anchor text with no href ('guide to the meaning of a Cancer Sun' inline, plus 'Serena Williams's birth chart' and 'north and south nodes' in Related Reading) — so the Related Reading block is 2/3 dead text and internal-linking fundamentals are violated.",
+    "failedAt": "2026-07-11T05:52:34.305Z"
   },
   "PG-CELEB-049": {
     "status": "pushed-preview",
