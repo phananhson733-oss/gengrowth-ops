@@ -2492,18 +2492,30 @@
     "mergedAt": "2026-07-11T09:20:07.950Z"
   },
   "PG-SVZW-001": {
-    "status": "needs_human",
+    "status": "pushed-preview",
     "slug": "sinner-vs-zverev-wimbledon-final-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
     "stage": "pushed-preview",
-    "lockedBy": "52758",
-    "leaseUntil": "2026-07-11T14:17:37.160Z",
-    "updatedAt": "2026-07-11T13:17:37.160Z",
+    "lockedBy": "64601",
+    "leaseUntil": "2026-07-11T14:46:32.092Z",
+    "updatedAt": "2026-07-11T13:46:32.092Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-SVZW-001",
     "branch": "seo/auto/2026-07-11-PG-SVZW-001",
     "pr": "https://github.com/xdawayer/oracle/pull/361",
-    "error": "codex factual review could not complete (codex exited 3) — required gate",
-    "failedAt": "2026-07-11T13:21:27.866Z"
+    "retryEvidence": "auto-retry transient park #1/10: codex factual review could not complete (codex exited 3) — r",
+    "retryAt": "2026-07-11T13:46:32.092Z"
+  },
+  "PG-CELEB-051": {
+    "status": "active",
+    "slug": "mikel-merino-birth-chart",
+    "owner": "autopilot",
+    "plan": "2026-05-27-W22-blog-output-plan.md",
+    "stage": "convert",
+    "lockedBy": "64603",
+    "leaseUntil": "2026-07-11T14:46:39.223Z",
+    "updatedAt": "2026-07-11T13:46:39.223Z",
+    "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-CELEB-051",
+    "branch": "seo/auto/2026-07-11-PG-CELEB-051"
   }
 }
