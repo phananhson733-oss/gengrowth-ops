@@ -2524,10 +2524,10 @@
     "slug": "spain-vs-france-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "build-gate",
+    "stage": "push",
     "lockedBy": "83537",
-    "leaseUntil": "2026-07-11T15:29:48.595Z",
-    "updatedAt": "2026-07-11T14:29:48.595Z",
+    "leaseUntil": "2026-07-11T15:39:20.890Z",
+    "updatedAt": "2026-07-11T14:39:20.890Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-WC-049",
     "branch": "seo/auto/2026-07-11-PG-WC-049"
   }
