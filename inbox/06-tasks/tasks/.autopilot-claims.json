@@ -2072,7 +2072,7 @@
     "mergedAt": "2026-07-06T13:31:47.369Z"
   },
   "PG-WC-045": {
-    "status": "pushed-preview",
+    "status": "needs_human",
     "slug": "mexico-vs-england-astrology-prediction",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2084,7 +2084,9 @@
     "branch": "seo/auto/2026-07-07-PG-WC-045",
     "pr": "https://github.com/xdawayer/oracle/pull/334",
     "retryEvidence": "new replacement PR #360 created after the stale original PR was closed; rerun preview gate against new PR",
-    "retryAt": "2026-07-11T11:17:26.255Z"
+    "retryAt": "2026-07-11T11:17:26.255Z",
+    "error": "review[astrology] FAIL: The rendered page states 'England beat Mexico 3–2' while its own Sources section and description cite the official record as 'Mexico 2–3 England,' an internal contradiction of the match's astrological case-study anchor.",
+    "failedAt": "2026-07-11T11:18:52.674Z"
   },
   "PG-CELEB-035": {
     "status": "done",
