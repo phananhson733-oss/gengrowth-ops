@@ -2520,15 +2520,16 @@
     "pr": "https://github.com/xdawayer/oracle/pull/362"
   },
   "PG-WC-049": {
-    "status": "active",
+    "status": "pushed-preview",
     "slug": "spain-vs-france-world-cup-2026-astrology",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
-    "stage": "push",
+    "stage": "pushed-preview",
     "lockedBy": "83537",
-    "leaseUntil": "2026-07-11T15:39:20.890Z",
-    "updatedAt": "2026-07-11T14:39:20.890Z",
+    "leaseUntil": "2026-07-11T15:39:28.190Z",
+    "updatedAt": "2026-07-11T14:39:28.190Z",
     "worktree": "/Users/awayer_mini/oracle-worktrees/seo-autopilot/seo__auto__2026-07-11-PG-WC-049",
-    "branch": "seo/auto/2026-07-11-PG-WC-049"
+    "branch": "seo/auto/2026-07-11-PG-WC-049",
+    "pr": "https://github.com/xdawayer/oracle/pull/363"
   }
 }
