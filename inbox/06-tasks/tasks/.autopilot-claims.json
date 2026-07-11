@@ -2428,7 +2428,7 @@
     "failedAt": "2026-07-11T08:53:14.368Z"
   },
   "PG-CELEB-050": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "quinta-brunson-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2443,8 +2443,9 @@
     "retryAt": "2026-07-11T09:41:14.144Z",
     "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-a03cbf-wzbs-projects-39a68c1d.vercel.app",
     "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
-    "verifiedAt": "2026-07-11T08:56:01.164Z",
-    "headRefOid": "701d636a99fcfa044f99556e0ea2fd5969c6996d"
+    "verifiedAt": "2026-07-11T09:50:36.631Z",
+    "headRefOid": "d340accb23f70682a43cac5649dd41e4c16c22b0",
+    "mergedAt": "2026-07-11T09:50:46.189Z"
   },
   "PG-CELEB-047": {
     "status": "needs_human",
