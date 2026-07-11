@@ -2409,7 +2409,7 @@
     "failedAt": "2026-07-10T15:21:53.463Z"
   },
   "PG-CELEB-048": {
-    "status": "pushed-preview",
+    "status": "done",
     "slug": "priyanka-chopra-birth-chart",
     "owner": "autopilot",
     "plan": "2026-05-27-W22-blog-output-plan.md",
@@ -2421,7 +2421,12 @@
     "branch": "seo/auto/2026-07-11-PG-CELEB-048",
     "pr": "https://github.com/xdawayer/oracle/pull/355",
     "retryEvidence": "verified live Cancer, Serena Williams, and North Node pages; restored their three exact internal links; phase2 validation and local build passed",
-    "retryAt": "2026-07-11T06:21:45.516Z"
+    "retryAt": "2026-07-11T06:21:45.516Z",
+    "previewUrl": "https://oracle-git-seo-auto2026-07-11-pg-5f59fe-wzbs-projects-39a68c1d.vercel.app",
+    "verificationEvidence": "chrome preview + 3-dimension review panel passed (codex: ran-pass)",
+    "verifiedAt": "2026-07-11T06:27:00.257Z",
+    "headRefOid": "b19598833d67ee4ca4d5dfcf02d1e0a86d26bb9e",
+    "mergedAt": "2026-07-11T06:27:10.173Z"
   },
   "PG-CELEB-049": {
     "status": "pushed-preview",
