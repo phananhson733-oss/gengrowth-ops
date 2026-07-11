@@ -135,3 +135,4 @@ updated: 2026-07-11
 | 2026-07-09 | PG-CELEB-045 | kate-upton-birth-chart | Kate Upton Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/kate-upton-birth-chart | published |
 | 2026-07-09 | PG-VEDIC-005 | zendaya-birth-chart | Zendaya Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/zendaya-birth-chart | published |
 | 2026-07-11 | PG-CELEB-048 | priyanka-chopra-birth-chart | Priyanka Chopra Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/priyanka-chopra-birth-chart | published |
+| 2026-07-11 | PG-VEDIC-006 | rodri-birth-chart | Rodri Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rodri-birth-chart | published |
