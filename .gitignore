@@ -17,3 +17,9 @@ node_modules/
 *.swp
 *~
 .gstack/
+
+# autopilot / flow-driver 机器运行时状态文件（自动生成的"机器人流水账"，
+# 频繁变动且无需人工阅读，停止同步以避免反复的合并冲突弹窗）
+**/.autopilot-claims.json
+**/.autopilot-claims.json.bak*
+**/.flow-driver-*.json
