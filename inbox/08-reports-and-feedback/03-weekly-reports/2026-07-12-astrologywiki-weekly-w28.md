@@ -64,7 +64,7 @@ updated: 2026-07-12
 | angela-nikolau-birth-chart | 11 | 187 | 5.9% | 6.3 |
 | folarin-balogun-birth-chart | 10 | 135 | 9.3% | 6.6 |
 | messi-world-cup-record-astrology | 7 | 68 | 10.3% | 8.1 |
-| 第10位（待确认 URL） | 6 | 983 | 0.6% | 6.3 |
+| lionel-messi-zodiac-sign | 6 | 983 | 0.6% | 6.3 |
 
 **关键解读：**
 
@@ -72,7 +72,7 @@ updated: 2026-07-12
 
 **Haaland 曝光 2,918 居全站首位，但点击率仅 1.3%**：排名 9.8（第一页底部）是核心瓶颈——曝光量充足，但点击阈值未到。需优化标题 + 摘要，或通过内链/外链推动排名进入前 5。
 
-**第 10 位（983 曝光 / 0.6% CTR）**：曝光量高但点击率极低，疑似 lamine-yamal 相关页面；待 GSC 全 URL 列表核实。
+**lionel-messi-zodiac-sign（983 曝光 / 0.6% CTR）**：曝光量高但点击率极低，排名 6.3 处于第一页中下位置。曝光量说明 Messi 相关搜索需求持续存在，但 CTR 0.6% 意味着标题/摘要吸引力严重不足，是优化优先级较高的页面。
 
 **其他产品：**（数据待补充）
 - aistorygenerator.work：外链冷启动观察期，待 W28 结束 GSC 数据更新后补入
