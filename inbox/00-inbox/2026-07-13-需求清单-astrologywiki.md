@@ -129,7 +129,7 @@ export function Analytics() {
 
 ### P0 上线前置条件（必须先完成）
 
-- [ ] **内链 bug 修复**：Haaland / Mbappé / Hakimi 三篇文章中，将所有链接目标从 `/en/wiki/how-to-read-birth-chart` 改为 `/en/birth-chart-calculator`
+- [x] **内链 bug 修复**：Haaland / Mbappé / Hakimi 三篇文章中，将所有链接目标从 `/en/wiki/how-to-read-birth-chart` 改为 `/en/birth-chart-calculator`
 - [ ] **工具页 P-1 渲染 bug 修复**：birth chart calculator 工具无法正常初始化加载，CTA 上线后用户点击到损坏的工具页，实验数据无效
 
 ### GA4 埋点要求（P0 上线时同步完成）
