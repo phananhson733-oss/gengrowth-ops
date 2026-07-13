@@ -136,7 +136,7 @@ When generating the daily recommendation, Codex should:
     - ① AstrologyWiki 官方：The Pattern 模式，天象 + 心理/关系落点 + 非真人 + 工具承接，栏目化。
     - ② AI 占星师人设：占星 × 心理机制解读，固定 AI 主播，收敛绝对化。
     - ③ 热点占星测试：明星/情侣/事件蹭热点，用星盘解释而非预测。
-    - ④ 普通占星爱好者：slideshow/榜单/冷知识/日常，铺量 + 破圈 + 测选题。
+    - ④ 普通占星爱好者：低成本测试号，星座梗/评论互动/trend 音频/图文测标题，快速测 hook/星座/关系话题/评论问题，素人口吻不品牌化。
 
 ## Daily Output Format
 

@@ -118,13 +118,13 @@ Every daily recommendation must produce a four-account distribution plan. Routes
 | ① AstrologyWiki 官方 | 品牌账号，栏目化 | The Pattern 模式：天象事件 + 心理/关系落点 + 非真人 + 工具承接 | Route B 时效 transit / Route A evergreen | 三栏目 `Today's Sky` / `Transit Explainer` / `Check Your Chart`；非真人星空月相视觉 + 常驻标题字卡 + 工具 CTA |
 | ② AI 占星师人设 | 可信的占星 × 心理分析师 | 心理机制解读，不做泛星座标签 | Route C 星盘人格 + 心理诊断钩子 | 固定 AI 虚拟主播 + 大字幕，15-56 秒；结尾升级到 Moon/Venus/Rising/宫位 |
 | ③ 热点占星测试 | 明星 / 情侣 / 事件流量 | 蹭正在发生的热点，用星盘"解释"为什么 | Route B 名人 / 情侣 / 事件 | 名人图 + 星盘截图，或情侣合盘 synastry；15-25 秒，事件 24-48h 内出片 |
-| ④ 普通占星爱好者 | 杂食铺量 + 破圈 + 测选题 | slideshow + 冷知识 + 榜单 + 日常 check | Route C 星盘人格 + slideshow 铺量 | 图文 slideshow 为主（滑到自己星座揭晓）；冷知识 / 榜单 / POV，固定模板铺量 |
+| ④ 普通占星爱好者 | 低成本测试号，不追求"专业" | 快速测 hook / 星座 / 关系话题 / 评论问题 | Route C 星盘人格 + 星座梗 + 评论互动 | 5-20 秒手机自拍 + CapCut 字幕 + trend 音频；图文测标题；口语化像素人，不品牌化 |
 
 Distribution rules:
 
 - Each daily output must explicitly state, for all four accounts, either what to post today or that the account skips today. Never silently drop an account.
-- Do not force one mother topic into all four accounts. Assign by fit. A strong topic can go four-way: ① deep transit explainer, ② psychological-mechanism version, ③ a celebrity/event currently living out that transit, ④ a 12-sign slideshow + ranking.
-- ④ is the topic-探测器: whatever slideshow/ranking overperforms on ④ feeds back into ①/②/③ for deeper treatment.
+- Do not force one mother topic into all four accounts. Assign by fit. A strong topic can go four-way: ① deep transit explainer, ② psychological-mechanism version, ③ a celebrity/event currently living out that transit, ④ a quick 星座梗 / 评论互动 test.
+- ④ is the topic-探测器: whatever hook/angle overperforms on ④ feeds back into ①/②/③ for deeper treatment. Keep ④ low-cost, phone-selfie, casual, non-branded — its job is speed and testing, not polish.
 - Keep each account inside its fixed format and red lines from the playbook: ② no profanity / no baseless "most toxic sign" rankings; ③ explain, don't predict; ① no absolute prediction, light tool CTA.
 - Every assigned item still needs its hook, format template, landing page, and shortlink placeholder.
 
@@ -378,7 +378,7 @@ Use this structure by default:
 - ① AstrologyWiki 官方：<发什么 / 用哪个栏目 / hook / 承接链接 或 今天不发>
 - ② AI 占星师人设：<发什么 / hook / 承接链接 或 今天不发>
 - ③ 热点占星测试：<发什么名人/情侣/事件 / hook / 来源链接 / 承接链接 或 今天不发>
-- ④ 普通占星爱好者：<slideshow/榜单/冷知识/日常 / hook / 承接链接 或 今天不发>
+- ④ 普通占星爱好者：<星座梗 / 评论互动 / trend 音频 / 图文测标题 / hook 或 今天不发>（低成本素人口吻）
 
 ## Route A 生活化候选池
 ### A1

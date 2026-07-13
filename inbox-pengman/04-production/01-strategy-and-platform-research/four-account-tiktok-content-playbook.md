@@ -26,7 +26,7 @@ sources:
 | The Pattern | 天象事件 + 心理/关系落点 + 非真人视觉 + App 承接 | **官方账号首选模板**，不依赖真人 |
 | CHANI | 创始人作者驱动，wellness 向，栏目化成熟 | 中期栏目化参考，冷启动期不照搬 |
 | Sanctuary | 真人占星师 chat；内容年轻化、日常情绪陪伴 | 学年轻化语气和轻 CTA |
-| Astroscope | **多语言矩阵 + 图文 slideshow**，250M+ 播放、月播 70M | 4 号铺量与跨语言放大的最优模板 |
+| Astroscope | **多语言矩阵 + 图文 slideshow**，250M+ 播放、月播 70M | 跨语言矩阵放量参考（格式跑通后再复制） |
 | Starcrossed | 创始人/AI 占星师出镜 + zodiac 文字叠加 + 心理钩子，130M 播放 | 2 号与 3 号的情侣/心理钩子模板 |
 | @spiritualbossy / @lunar.coded | Astrologer + Psychotherapist 人设，占星×心理 | 2 号 AI 占星师人设的可信参照 |
 
@@ -162,52 +162,59 @@ listicle 向（对标 @maxcartexofficial）：
 
 ---
 
-## 4 号｜普通占星爱好者（什么都发）
+## 4 号｜普通占星爱好者（低成本测试号）
 
 ### 定位
-低门槛、高传播、杂食铺量号。职责是**铺量 + 破圈 + 测选题**——哪条爆了，就反哺给 0/2/3 号做深做透。
+低成本测试号，**不追求"专业"**。核心价值是快速试出哪些 hook、星座、关系话题、评论问题能跑起来。像一个普通占星爱好者本人在发，不要太品牌化。跑通的选题/钩子反哺 0/2/3 号做深做透。
 
 ### 参考账号
-- @shawtyherbs —— 星盘冷知识 / 小技巧，截图传播。
+- @sanctuarywrld —— 年轻化、日常情绪陪伴、轻 CTA。
 - @astrologybro —— 榜单 / 刻板印象，评论区互动。
-- @sanctuarywrld —— 日常情绪陪伴，轻 CTA。
-- **Astroscope** —— 图文 slideshow，250M+ 播放，月播 70M。
+- @shawtyherbs —— 星盘冷知识（当选题灵感来源，弱化专业感）。
 
-### 具体打法
-**主推图文 slideshow**：2026 最易规模化的爆款格式，制作成本近乎零、完播率高、可批量翻译。核心机制是"滑到自己星座才揭晓"。搭配冷知识、榜单、星座梗、日常星象 check 杂发测试。
+### 内容方向
+- **星座梗**：`signs that act cold when they care too much`
+- **评论互动**：`drop your Moon sign, I'll tell you your emotional pattern`
+- **trend 音频 + 星座字幕**：蹭当下热门音频，配星座梗字幕
+- **图文 / photo post**：低成本测试标题，看哪个标题跑得动
+- **"我刚发现一个占星工具"式自然分享**：像素人安利，不像官方推广
 
 ### 表现形式
-- 图文 slideshow：静态多图 + 文字叠加 + trending 音乐；固定字体/配色/排版建立识别度。
-- 短视频：15-30 秒星座梗 / 冷知识口播。
-- 日常 check：30-60 秒"今日星象 + 一句行动建议"。
+- 5-20 秒。
+- 手机自拍视频、CapCut 字幕、简单 B-roll。
+- 口语化，像普通用户在发，不要太品牌化、不要高制作感。
+- 图文 photo post 同样用于低成本测标题。
 
 ### 具体内容（选题库）
-冷知识（对标 @shawtyherbs，易截图分享）：
-- `This asteroid in your chart reveals what people secretly envy about you`
-- `If you have [degree] on your [point], this is what it means`
+星座梗：
+- `signs that act cold when they actually care too much`
+- `no because why is every Virgo like this`
+- `POV: you're a Scorpio pretending you don't care`
 
-榜单（评论量约 2.5 倍，对标 @astrologybro）：
-- `The 3 Moon signs that forgive you but never forget`
-- `Ranked: which sign holds the longest grudge`
-- `Signs most likely to ghost you — ranked`
+评论互动（诱导评论/tag）：
+- `drop your Moon sign, I'll tell you your emotional pattern`
+- `comment your Venus sign and I'll guess your love language`
+- `which sign is this? 👇`
 
-slideshow（对标 Astroscope）：
-- `Swipe to your sign 👉 your 2026 toxic trait`
-- `Your red flag by zodiac sign`
-- `Which sign you're most compatible with (swipe to find yours)`
+trend 音频 + 星座字幕：
+- 蹭当下热门音频，叠加"the signs as…" / "when your [sign] friend…"类字幕
 
-日常（对标 @sanctuarywrld）：
-- `Today's sky feels like [emotion]. Do NOT text your ex.`
-- `Work astro check / Love astro check`
+图文 / photo post（测标题）：
+- 同一张图配不同标题快速 A/B，看哪个跑
+
+自然分享式：
+- `I just found an astrology tool that shows [X] in 10 seconds`（像素人发现，不打广告腔）
 
 ### 钩子公式
-- `This [chart placement] reveals [surprising thing] about you`
-- `The 3 [signs/placements] that [relatable behavior]`
-- `Swipe to your sign 👉 [payoff]`
-- `POV: you're a [sign] and [relatable scenario]`
+- `signs that [relatable behavior] when they [emotional trigger]`
+- `drop your [placement], I'll tell you your [pattern]`（评论诱导）
+- `no because why is every [sign] like this`
+- `I just found an astrology tool that [does X]`（自然安利式）
 
-### 红线
-不追求单条精致，追求**输出量和一致模板**。冷知识每条尽量对应一个可查询的 AstrologyWiki 工具页，避免纯娱乐无承接。
+### 打法提醒 / 红线
+- 不追求精致和专业，追求**测试速度和数量**。一个 hook 多个变体快速试，跑赢的再放大。
+- 保持素人口吻，不要广告腔；工具分享要像自然发现。
+- 爆了的选题 / hook / 星座话题第一时间反哺 0/2/3 号。
 
 ---
 
@@ -221,7 +228,7 @@ slideshow（对标 Astroscope）：
 - 0 号做深度 Transit Explainer；
 - 2 号做该星象的心理机制解读；
 - 3 号找一个正在应验该星象的名人/事件；
-- 4 号拆成 12 星座 slideshow + 冷知识。
+- 4 号用星座梗 / 评论钩子快速测哪个角度能跑。
 
 ### 3. 账号间反哺
 4 号是"选题探测器"：哪条 slideshow / 榜单爆了，就反哺 0 号做工具承接、2 号做心理深挖、3 号找热点落点。
