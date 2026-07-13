@@ -2,11 +2,14 @@
 title: AstrologyWiki 需求清单
 date: 2026-07-13
 owner: Ma Boyang
-status: 已完成
+status: 已完成并上线
 completed: 2026-07-13
+deployed: 2026-07-13
+deployment_environment: Vercel Production
+deployment_url: https://www.astrologywiki.com
 implementation_repo: xdawayer/oracle
-implementation_branch: codex/manual-pro-trial-activation
-implementation_commit: 44efd353
+implementation_branch: main
+implementation_commit: f1d6d446
 ---
 
 # AstrologyWiki 需求清单 | 2026-07-13
@@ -15,20 +18,24 @@ implementation_commit: 44efd353
 
 ## 落地状态
 
-**总体状态：✅ 已完成并推送；生产环境 GA4 实时报告待部署后确认。**
+**总体状态：✅ 已完成并部署至 Vercel Production；线上功能冒烟测试通过，GA4 后台实时报告待人工确认。**
 
 | 范围 | 状态 | 落地说明 |
 |---|---|---|
 | 需求一：SPA 路由 GA4 修复 | ✅ 已完成 | 已实现同意门控、首次授权后单次补发、SPA 路由 `page_view` 及 `home` / `wiki` / `tool` 页面分类；已有授权不会重复补发。 |
 | 需求二：CTA 架构实施 | ✅ P0 已完成 | 模块 A/B/C 与文章底部 CTA 已上线到代码，统一发送可归因的 `tool_click`；中英文路由、桌面滚动和 390px 移动端均有 E2E 覆盖。 |
 | 需求三：首页优化 | ✅ 已完成 | 已完成短 Title、含目标关键词的 H1、千词以上静态内容、可见 FAQ 与 FAQPage / Organization / WebSite Schema。 |
-| 验证 | ✅ 已完成 | TypeScript、486 个 Vitest 测试、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。 |
+| 验证 | ✅ 已完成 | TypeScript、前端 573 个 Vitest、后端 785 个 Vitest、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。 |
+| 生产部署 | ✅ 已上线 | `main` 已更新至 `f1d6d446`；Vercel Production 部署 `dpl_7iFmeB4pyj5bwarzpmmWvZEHUDo6` 状态为 Ready，并已绑定 `www.astrologywiki.com`。 |
 
-**实现位置**：`xdawayer/oracle` → `codex/manual-pro-trial-activation` → `44efd353`。
+**实现位置**：`xdawayer/oracle` → `main` → `f1d6d446`。
+
+**生产地址**：<https://www.astrologywiki.com>。
 
 **范围与验收说明**：
 
-- 生产环境部署后的 GA4「实时」验证仍需按本文验收步骤执行；本次已在本地浏览器中验证 consent → Wiki page view → CTA click → tool page view 的完整事件顺序。
+- 生产域名已验证：首页新版 Title/H1、6 个 FAQ、Organization 联系信息、Haaland Wiki 页面、文章 CTA 与 Birth Chart Calculator 目标页均可正常访问；CTA 点击可从 Wiki 页面进入 `/en/birth-chart-calculator`。
+- GA4「实时」后台仍需按本文验收步骤人工确认；自动化已验证 consent → Wiki page view → CTA click → tool page view 的完整事件顺序。
 - Haaland 与 Mbappé 的中英文工具内链已修正；当前代码库不存在 Hakimi 文章，因此没有虚构文章或链接。
 - Birth Chart Calculator 未复现初始化损坏，已通过直接访问、城市选择、API 请求载荷和结果渲染 E2E 验证。
 - 作者 Schema 保留真实的编辑团队 / Organization 身份与披露，没有把编辑人格伪装为真实 Person；缺少可核验资料的学历和社媒字段未伪造。
@@ -39,7 +46,7 @@ implementation_commit: 44efd353
 ## 需求一：SPA 路由 GA4 修复
 **估时：半天 | 优先级：P0 | 负责方：前端**
 
-**完成状态：✅ 已完成；本地事件链路与自动化测试通过，待部署后执行 GA4 实时报告验收。**
+**完成状态：✅ 已完成并上线；自动化事件链路通过，待在 GA4 后台执行实时报告人工验收。**
 
 ### 背景
 
