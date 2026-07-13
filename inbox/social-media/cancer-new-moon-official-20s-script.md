@@ -38,6 +38,8 @@
 
 ## Caption
 
+> **July 14, 2026 · Cancer New Moon**
+>
 > What no longer feels like home?
 >
 > Check where Cancer lands in your birth chart.
