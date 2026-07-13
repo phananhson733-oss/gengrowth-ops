@@ -2,17 +2,44 @@
 title: AstrologyWiki 需求清单
 date: 2026-07-13
 owner: Ma Boyang
-status: 待排期
+status: 已完成
+completed: 2026-07-13
+implementation_repo: xdawayer/oracle
+implementation_branch: codex/manual-pro-trial-activation
+implementation_commit: 44efd353
 ---
 
 # AstrologyWiki 需求清单 | 2026-07-13
 
 > 三项需求按优先级排序。需求一（SPA修复）和需求二（CTA）有直接的实验数据依赖关系，建议优先处理。
 
+## 落地状态
+
+**总体状态：✅ 已完成并推送；生产环境 GA4 实时报告待部署后确认。**
+
+| 范围 | 状态 | 落地说明 |
+|---|---|---|
+| 需求一：SPA 路由 GA4 修复 | ✅ 已完成 | 已实现同意门控、首次授权后单次补发、SPA 路由 `page_view` 及 `home` / `wiki` / `tool` 页面分类；已有授权不会重复补发。 |
+| 需求二：CTA 架构实施 | ✅ P0 已完成 | 模块 A/B/C 与文章底部 CTA 已上线到代码，统一发送可归因的 `tool_click`；中英文路由、桌面滚动和 390px 移动端均有 E2E 覆盖。 |
+| 需求三：首页优化 | ✅ 已完成 | 已完成短 Title、含目标关键词的 H1、千词以上静态内容、可见 FAQ 与 FAQPage / Organization / WebSite Schema。 |
+| 验证 | ✅ 已完成 | TypeScript、486 个 Vitest 测试、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。 |
+
+**实现位置**：`xdawayer/oracle` → `codex/manual-pro-trial-activation` → `44efd353`。
+
+**范围与验收说明**：
+
+- 生产环境部署后的 GA4「实时」验证仍需按本文验收步骤执行；本次已在本地浏览器中验证 consent → Wiki page view → CTA click → tool page view 的完整事件顺序。
+- Haaland 与 Mbappé 的中英文工具内链已修正；当前代码库不存在 Hakimi 文章，因此没有虚构文章或链接。
+- Birth Chart Calculator 未复现初始化损坏，已通过直接访问、城市选择、API 请求载荷和结果渲染 E2E 验证。
+- 作者 Schema 保留真实的编辑团队 / Organization 身份与披露，没有把编辑人格伪装为真实 Person；缺少可核验资料的学历和社媒字段未伪造。
+- 模块 D/G/H/J/K 仍属于本文定义的 P1 后续排期，不计入本次 P0 完成范围。
+
 ---
 
 ## 需求一：SPA 路由 GA4 修复
 **估时：半天 | 优先级：P0 | 负责方：前端**
+
+**完成状态：✅ 已完成；本地事件链路与自动化测试通过，待部署后执行 GA4 实时报告验收。**
 
 ### 背景
 
@@ -76,6 +103,8 @@ export function Analytics() {
 ## 需求二：CTA 架构实施
 **估时：P0 约3天，P1 另排 | 优先级：P0（A/B/C模块）先上 | 负责方：前端**
 
+**完成状态：✅ P0 已完成；P1 模块继续按后续排期处理。**
+
 ### 背景
 
 全站当前无任何有效 CTA 指向工具页，127篇 Blog 文章工具转化率为0。实验二（W29目标：Blog→工具转化率 ≥3%）依赖 CTA 先上线才能有可测数据。
@@ -129,8 +158,8 @@ export function Analytics() {
 
 ### P0 上线前置条件（必须先完成）
 
-- [x] **内链 bug 修复**：Haaland / Mbappé / Hakimi 三篇文章中，将所有链接目标从 `/en/wiki/how-to-read-birth-chart` 改为 `/en/birth-chart-calculator`
-- [ ] **工具页 P-1 渲染 bug 修复**：birth chart calculator 工具无法正常初始化加载，CTA 上线后用户点击到损坏的工具页，实验数据无效
+- [x] **内链 bug 修复**：Haaland / Mbappé 现有中英文文章的主工具 CTA 已改为对应语言的 `/birth-chart-calculator`；当前代码库不存在 Hakimi 文章，未虚构补建。
+- [x] **工具页 P-1 渲染验证**：birth chart calculator 未复现初始化损坏，直接访问、表单输入、城市选择、API 请求及 Sun/Moon 结果渲染 E2E 均通过。
 
 ### GA4 埋点要求（P0 上线时同步完成）
 
@@ -163,6 +192,8 @@ P1 各模块完整规格同见：`inbox/00-inbox/2026-07-09-astrologywiki-cta架
 
 ## 需求三：首页优化
 **估时：2-3天 | 优先级：P1 | 负责方：前端 + 内容配合**
+
+**完成状态：✅ 已完成；Schema 中涉及人物身份的部分采用真实 Organization 作者方案，未使用不可核验的 Person 资料。**
 
 ### 背景
 
@@ -213,6 +244,8 @@ P1 各模块完整规格同见：`inbox/00-inbox/2026-07-09-astrologywiki-cta架
 ```
 
 ### 3.2 作者页 Person Schema 修复（`/en/wiki/author/marcus-orion`）
+
+> **落地决策**：本项未按原文把编辑人格声明为真实 Person。实现继续使用可核验的编辑团队 / Organization 作者身份与透明披露；在没有真实学历、公开社媒及身份资料时，不补写 `alumniOf`、`sameAs` 或虚构 Person 实体。
 
 当前作者页 Schema 有两处问题需修复：
 
@@ -291,8 +324,8 @@ P1 各模块完整规格同见：`inbox/00-inbox/2026-07-09-astrologywiki-cta架
 
 ---
 
-*文件：inbox/00-inbox/2026-07-13-后端需求清单-astrologywiki.md*
-*版本：v1.0 | 2026-07-13*
+*文件：inbox/00-inbox/2026-07-13-需求清单-astrologywiki.md*
+*版本：v1.1（完成状态回填） | 2026-07-13*
 *参考规格文档：*
 *  - inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md（CTA完整规格）*
 *  - inbox/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md（Schema参考）*
