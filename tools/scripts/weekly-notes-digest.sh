@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # weekly-notes-digest.sh
 # 每周一次，无头跑 claude 消化本地 Obsidian vault 的 Notes/Clippings。
-# 由 crontab 调用（见文件底部注释）。结果由 obsidian-git 插件自动备份，本脚本不做 git 操作。
+# 由 macOS LaunchAgent 调用（见文件底部注释）。结果由 obsidian-git 插件自动备份，本脚本不做 git 操作。
 #
-# 改频次 -> 改 crontab（crontab -e）
+# 改频次 -> 改 LaunchAgent 的 StartCalendarInterval
 # 改模型 -> 改下方 MODEL 变量
 # 看运行日志 -> ~/Library/Logs/wiki-notes-digest/
 
@@ -55,6 +55,5 @@ claude -p "$PROMPT" \
 
 echo "=== done $(date +%Y-%m-%d_%H%M%S) (exit $?) ===" | tee -a "$LOG"
 
-# --- 安装方法（一次性，见 README 路由）---
-# crontab 行（每周一 09:07 本地时间）：
-#   7 9 * * 1 /path/to/gengrowth-wiki/tools/scripts/weekly-notes-digest.sh
+# --- 调度配置（一次性，见 tools/launchd/com.gengrowth.wiki-notes-digest.plist）---
+# 当前频次：每周一 09:07（当前登录用户的本地时区）。
