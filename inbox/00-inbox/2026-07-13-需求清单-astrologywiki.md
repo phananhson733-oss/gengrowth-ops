@@ -9,7 +9,7 @@ deployment_environment: Vercel Production
 deployment_url: https://www.astrologywiki.com
 implementation_repo: xdawayer/oracle
 implementation_branch: main
-implementation_commit: f1d6d446
+implementation_commit: 937c927a
 ---
 
 # AstrologyWiki 需求清单 | 2026-07-13
@@ -26,15 +26,15 @@ implementation_commit: f1d6d446
 | 需求二：CTA 架构实施 | ✅ P0 已完成 | 模块 A/B/C 与文章底部 CTA 已上线到代码，统一发送可归因的 `tool_click`；中英文路由、桌面滚动和 390px 移动端均有 E2E 覆盖。 |
 | 需求三：首页优化 | ✅ 已完成 | 已完成短 Title、含目标关键词的 H1、千词以上静态内容、可见 FAQ 与 FAQPage / Organization / WebSite Schema。 |
 | 验证 | ✅ 已完成 | TypeScript、前端 573 个 Vitest、后端 785 个 Vitest、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。 |
-| 生产部署 | ✅ 已上线 | `main` 已更新至 `f1d6d446`；Vercel Production 部署 `dpl_7iFmeB4pyj5bwarzpmmWvZEHUDo6` 状态为 Ready，并已绑定 `www.astrologywiki.com`。 |
+| 生产部署 | ✅ 已上线 | `main` 已更新至 `937c927a`；Vercel Production 部署 `dpl_EWo4ZuUsjCU62KuQCWAYawkke5gr` 状态为 Ready，并已绑定 `www.astrologywiki.com`。 |
 
-**实现位置**：`xdawayer/oracle` → `main` → `f1d6d446`。
+**实现位置**：`xdawayer/oracle` → `main` → `937c927a`。
 
 **生产地址**：<https://www.astrologywiki.com>。
 
 **范围与验收说明**：
 
-- 生产域名已验证：首页新版 Title/H1、6 个 FAQ、Organization 联系信息、Haaland Wiki 页面、文章 CTA 与 Birth Chart Calculator 目标页均可正常访问；CTA 点击可从 Wiki 页面进入 `/en/birth-chart-calculator`。
+- 生产域名已验证：首页新版 Title/H1、6 个 FAQ、Organization 联系信息、Haaland Wiki 页面、文章 CTA 与 Birth Chart Calculator 目标页均可正常访问；CTA 点击可从 Wiki 页面进入 `/en/birth-chart-calculator`；`/health` 与 `/api/region` 均返回 200。
 - GA4「实时」后台仍需按本文验收步骤人工确认；自动化已验证 consent → Wiki page view → CTA click → tool page view 的完整事件顺序。
 - Haaland 与 Mbappé 的中英文工具内链已修正；当前代码库不存在 Hakimi 文章，因此没有虚构文章或链接。
 - Birth Chart Calculator 未复现初始化损坏，已通过直接访问、城市选择、API 请求载荷和结果渲染 E2E 验证。
