@@ -409,7 +409,12 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月13日 (周一) - 待写作
-**状态**：`等待输出` (自动补充选题，共 1 篇)
+**状态**：`等待输出` (自动补充选题，共 5 篇)
 - [x] `PG-CELEB-052` Sam Neill birth chart
+
+- [ ] `PG-CELEB-053` jeff bezos birth chart
+- [ ] `PG-CELEB-054` paige bueckers birth chart
+- [ ] `PG-WC-050` france vs spain world cup 2026 astrology prediction
+- [ ] `PG-WC-051` england vs argentina world cup 2026 astrology prediction
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
