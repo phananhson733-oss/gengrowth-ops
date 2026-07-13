@@ -20,13 +20,13 @@ implementation_commit: 937c927a
 
 **总体状态：✅ 已完成并部署至 Vercel Production；线上功能冒烟测试通过，GA4 后台实时报告待人工确认。**
 
-| 范围 | 状态 | 落地说明 |
-|---|---|---|
-| 需求一：SPA 路由 GA4 修复 | ✅ 已完成 | 已实现同意门控、首次授权后单次补发、SPA 路由 `page_view` 及 `home` / `wiki` / `tool` 页面分类；已有授权不会重复补发。 |
-| 需求二：CTA 架构实施 | ✅ P0 已完成 | 模块 A/B/C 与文章底部 CTA 已上线到代码，统一发送可归因的 `tool_click`；中英文路由、桌面滚动和 390px 移动端均有 E2E 覆盖。 |
-| 需求三：首页优化 | ✅ 已完成 | 已完成短 Title、含目标关键词的 H1、千词以上静态内容、可见 FAQ 与 FAQPage / Organization / WebSite Schema。 |
-| 验证 | ✅ 已完成 | TypeScript、前端 573 个 Vitest、后端 785 个 Vitest、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。 |
-| 生产部署 | ✅ 已上线 | `main` 已更新至 `937c927a`；Vercel Production 部署 `dpl_EWo4ZuUsjCU62KuQCWAYawkke5gr` 状态为 Ready，并已绑定 `www.astrologywiki.com`。 |
+| 范围                | 状态       | 落地说明                                                                                                                   |
+| ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 需求一：SPA 路由 GA4 修复 | ✅ 已完成    | 已实现同意门控、首次授权后单次补发、SPA 路由 `page_view` 及 `home` / `wiki` / `tool` 页面分类；已有授权不会重复补发。                                       |
+| 需求二：CTA 架构实施      | ✅ P0 已完成 | 模块 A/B/C 与文章底部 CTA 已上线到代码，统一发送可归因的 `tool_click`；中英文路由、桌面滚动和 390px 移动端均有 E2E 覆盖。                                        |
+| 需求三：首页优化          | ✅ 已完成    | 已完成短 Title、含目标关键词的 H1、千词以上静态内容、可见 FAQ 与 FAQPage / Organization / WebSite Schema。                                       |
+| 验证                | ✅ 已完成    | TypeScript、前端 573 个 Vitest、后端 785 个 Vitest、5 个增长漏斗 E2E、内部链接检查、Vite 生产构建及 `git diff --check` 均通过。                       |
+| 生产部署              | ✅ 已上线    | `main` 已更新至 `937c927a`；Vercel Production 部署 `dpl_EWo4ZuUsjCU62KuQCWAYawkke5gr` 状态为 Ready，并已绑定 `www.astrologywiki.com`。 |
 
 **实现位置**：`xdawayer/oracle` → `main` → `937c927a`。
 
