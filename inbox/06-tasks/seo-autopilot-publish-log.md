@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-11
+updated: 2026-07-13
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -143,3 +143,4 @@ updated: 2026-07-11
 | 2026-07-11 | PG-SVZW-001 | sinner-vs-zverev-wimbledon-final-astrology | Sinner Vs Zverev Wimbledon Final Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/sinner-vs-zverev-wimbledon-final-astrology | published |
 | 2026-07-11 | PG-WC-049 | spain-vs-france-world-cup-2026-astrology | Spain Vs France World Cup 2026 Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/spain-vs-france-world-cup-2026-astrology | published |
 | 2026-07-11 | PG-CELEB-051 | mikel-merino-birth-chart | Mikel Merino Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/mikel-merino-birth-chart | published |
+| 2026-07-13 | PG-CELEB-052 | sam-neill-birth-chart | Sam Neill Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/sam-neill-birth-chart | published |
