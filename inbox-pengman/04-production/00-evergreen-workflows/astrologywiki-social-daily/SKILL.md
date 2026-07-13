@@ -38,6 +38,7 @@ Read these files first when available:
 - `inbox-pengman/04-production/05-weekly-published-content-digests/` recent weekly digest files
 - `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
 - `inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md`
+- `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - Latest GSC CSV, if available or explicitly authorized by Pengman
 
@@ -107,6 +108,25 @@ Every daily recommendation must include candidate pools for all three routes unl
 - Mark 1 P0 recommendation from Route A, 1 from Route B, and 1 from Route C. If one route is clearly stronger for production today, say so, but still show the other routes' candidates.
 
 Do not let the weekday calendar suppress either route. Monday/Tuesday/etc. cadence is only a weak inspiration source.
+
+### Account Matrix (4-Account Distribution)
+
+Every daily recommendation must produce a four-account distribution plan. Routes A/B/C decide *what topics* to make; the account matrix decides *which account publishes what*. Full playbook: `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`.
+
+| 账号 | 定位 | 主方向 | 匹配 Route/钩子 | 固定表现形式 |
+| --- | --- | --- | --- | --- |
+| ① AstrologyWiki 官方 | 品牌账号，栏目化 | The Pattern 模式：天象事件 + 心理/关系落点 + 非真人 + 工具承接 | Route B 时效 transit / Route A evergreen | 三栏目 `Today's Sky` / `Transit Explainer` / `Check Your Chart`；非真人星空月相视觉 + 常驻标题字卡 + 工具 CTA |
+| ② AI 占星师人设 | 可信的占星 × 心理分析师 | 心理机制解读，不做泛星座标签 | Route C 星盘人格 + 心理诊断钩子 | 固定 AI 虚拟主播 + 大字幕，15-56 秒；结尾升级到 Moon/Venus/Rising/宫位 |
+| ③ 热点占星测试 | 明星 / 情侣 / 事件流量 | 蹭正在发生的热点，用星盘"解释"为什么 | Route B 名人 / 情侣 / 事件 | 名人图 + 星盘截图，或情侣合盘 synastry；15-25 秒，事件 24-48h 内出片 |
+| ④ 普通占星爱好者 | 杂食铺量 + 破圈 + 测选题 | slideshow + 冷知识 + 榜单 + 日常 check | Route C 星盘人格 + slideshow 铺量 | 图文 slideshow 为主（滑到自己星座揭晓）；冷知识 / 榜单 / POV，固定模板铺量 |
+
+Distribution rules:
+
+- Each daily output must explicitly state, for all four accounts, either what to post today or that the account skips today. Never silently drop an account.
+- Do not force one mother topic into all four accounts. Assign by fit. A strong topic can go four-way: ① deep transit explainer, ② psychological-mechanism version, ③ a celebrity/event currently living out that transit, ④ a 12-sign slideshow + ranking.
+- ④ is the topic-探测器: whatever slideshow/ranking overperforms on ④ feeds back into ①/②/③ for deeper treatment.
+- Keep each account inside its fixed format and red lines from the playbook: ② no profanity / no baseless "most toxic sign" rankings; ③ explain, don't predict; ① no absolute prediction, light tool CTA.
+- Every assigned item still needs its hook, format template, landing page, and shortlink placeholder.
 
 ### Topic Rules
 
@@ -353,6 +373,12 @@ Use this structure by default:
 - Route B P0 时效热点母选题：
 - Route C P0 星盘人格母选题：
 - 今天不做：
+
+## 四账号分发建议
+- ① AstrologyWiki 官方：<发什么 / 用哪个栏目 / hook / 承接链接 或 今天不发>
+- ② AI 占星师人设：<发什么 / hook / 承接链接 或 今天不发>
+- ③ 热点占星测试：<发什么名人/情侣/事件 / hook / 来源链接 / 承接链接 或 今天不发>
+- ④ 普通占星爱好者：<slideshow/榜单/冷知识/日常 / hook / 承接链接 或 今天不发>
 
 ## Route A 生活化候选池
 ### A1

@@ -6,12 +6,12 @@
 
 ## 样本概览
 
-| 编号 | 本地文件 | 时长 | 形式 | 主题 |
-| --- | --- | ---: | --- | --- |
-| A | `/Users/pengman/Desktop/录屏2026-07-08 23.10.39.mov` | 4:10 | 9:16 录屏，812x1430，无音轨 | Venus enters Virgo，7月9日-8月6日 |
-| B | `/Users/pengman/Downloads/v15044gf0000d96mm57og65mh2lvm51g.mp4` | 3:03 | 9:16 TikTok，576x1024，有音轨 | Neptune retrograde in Aries，2026年7月7日-12月12日 |
-| C | `/Users/pengman/Downloads/v12044gd0000d97h2cfog65l2e143pi0.mp4` | 0:23 | 9:16 TikTok，576x1024，有音轨 | Venus in Virgo，面向 Virgo Sun/Moon/Rising |
-| D | `/Users/pengman/Downloads/v15044gf0000d93ns2nog65vfbo2uthg.mp4` | 0:57 | 9:16 TikTok，576x1024，有音轨 | Aries 人格/关系梗 |
+| 编号  | 本地文件                                                            |   时长 | 形式                       | 主题                                           |
+| --- | --------------------------------------------------------------- | ---: | ------------------------ | -------------------------------------------- |
+| A   | `/Users/pengman/Desktop/录屏2026-07-08 23.10.39.mov`              | 4:10 | 9:16 录屏，812x1430，无音轨     | Venus enters Virgo，7月9日-8月6日                 |
+| B   | `/Users/pengman/Downloads/v15044gf0000d96mm57og65mh2lvm51g.mp4` | 3:03 | 9:16 TikTok，576x1024，有音轨 | Neptune retrograde in Aries，2026年7月7日-12月12日 |
+| C   | `/Users/pengman/Downloads/v12044gd0000d97h2cfog65l2e143pi0.mp4` | 0:23 | 9:16 TikTok，576x1024，有音轨 | Venus in Virgo，面向 Virgo Sun/Moon/Rising      |
+| D   | `/Users/pengman/Downloads/v15044gf0000d93ns2nog65vfbo2uthg.mp4` | 0:57 | 9:16 TikTok，576x1024，有音轨 | Aries 人格/关系梗                                 |
 
 抽帧证据保存在：
 

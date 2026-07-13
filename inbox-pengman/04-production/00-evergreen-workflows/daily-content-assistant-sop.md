@@ -132,6 +132,11 @@ When generating the daily recommendation, Codex should:
 12. When using sports, event, or launch timing, verify the date and time from current sources and convert it internally to Chicago time (CT/CDT); do not put the exact time into public-facing copy unless it improves the post.
 13. For hotspot, celebrity, sports, and entertainment content, avoid question-heavy titles and classroom-style explainers by default. Lead with the public moment, emotional tension, or visual story people already care about, then add the AstrologyWiki lens or tool CTA lightly.
 14. For TikTok/Instagram image posts, do not turn every carousel into a lesson. Prefer fewer slides and a short editorial/story rhythm, especially when the matching video angle already works better than a pure explainer.
+15. Always produce a four-account distribution plan. For each daily recommendation, map today's topics onto the 4 accounts and state, for every account, what to post or that it skips today. Never silently drop an account. Account definitions and formats: `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`.
+    - ① AstrologyWiki 官方：The Pattern 模式，天象 + 心理/关系落点 + 非真人 + 工具承接，栏目化。
+    - ② AI 占星师人设：占星 × 心理机制解读，固定 AI 主播，收敛绝对化。
+    - ③ 热点占星测试：明星/情侣/事件蹭热点，用星盘解释而非预测。
+    - ④ 普通占星爱好者：slideshow/榜单/冷知识/日常，铺量 + 破圈 + 测选题。
 
 ## Daily Output Format
 
@@ -145,6 +150,15 @@ Each daily note should include:
 - Linked AstrologyWiki article:
 - Related GSC query/page:
 - Why this is the best choice today:
+
+### 1b. Four-Account Distribution
+
+For each account, give today's post or mark it as skipped:
+
+- ① AstrologyWiki 官方：
+- ② AI 占星师人设：
+- ③ 热点占星测试：
+- ④ 普通占星爱好者：
 
 ### 2. Ready-To-Post Draft
 
@@ -211,6 +225,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 热点、名人、体育、影视娱乐类内容不要默认写成提问式标题或强科普口吻。先抓住正在发生的故事、画面、人物关系或情绪张力，再轻轻带入 AstrologyWiki 的占星视角或工具 CTA。
 - TikTok 图文和 Instagram carousel 不要每次都做成课堂式解释。优先少页数、短句、故事感/娱乐感强的图文节奏；如果视频角度更吸引人，就把视频的叙事节奏改成图文，而不是改成重科普。
 - 如果使用比赛、发布、直播、节日等时间信息，必须先核对当前来源，并在内部统一换算成芝加哥时区 CT/CDT；除非对发布效果有帮助，不要默认把具体时间写进对外文案。
+- 必须给出四账号分发建议：把今天的选题分配到 ① 官方（The Pattern 模式天象+心理+工具）② AI 占星师（占星×心理机制）③ 热点占星测试（明星/情侣/事件）④ 普通占星爱好者（slideshow/榜单/冷知识/日常）。每个账号都要说明今天发什么或今天不发，不要漏掉任何一个账号。账号定位与形式见 inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md。
 
 请按以下格式输出：
 
@@ -221,6 +236,12 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 关联文章：
 - 关联 GSC 数据：
 - 为什么今天适合发：
+
+## 四账号分发
+- ① AstrologyWiki 官方：
+- ② AI 占星师人设：
+- ③ 热点占星测试：
+- ④ 普通占星爱好者：
 
 ## 可直接发布的草稿
 - 文案或脚本：

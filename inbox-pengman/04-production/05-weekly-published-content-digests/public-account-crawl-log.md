@@ -3,10 +3,36 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-10
+updated: 2026-07-13
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-13 周一收口与 W29 新开
+
+- 检查范围：YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、TikTok 公开 profile / `https://www.tiktok.com/embed/@astrologywiki` / 新单条页、Instagram 公开 profile meta、X 公开 profile meta。
+- 新确认内容：
+  - TikTok W29：`https://www.tiktok.com/@astrologywiki/video/7660826807507094798`
+- 内容级公开刷新：
+  - TikTok `embed` 页本次稳定暴露最近 `10` 条内容 ID：`7660826807507094798`、`7660473423038041358`、`7660401338701974798`、`7659748708950609165`、`7659773834345647374`、`7659399399533055246`、`7658533089202670862`、`7658301493862272270`、`7657873666830503182`、`7657544067898772749`
+  - TikTok：`7660826807507094798` 现可见 `153 plays / 8 likes / 0 comments / 0 shares`，`yt-dlp` 抽到上传日期 `2026-07-10`
+  - TikTok：`7660473423038041358` 现可见 `294 plays`
+  - TikTok：`7660401338701974798` 现可见 `310 plays`
+  - TikTok：`7659748708950609165` 现可见 `373 plays`
+  - TikTok：`7659773834345647374` 现可见 `320 plays`
+  - TikTok：`7659399399533055246` 现可见 `113 plays`
+  - YouTube Shorts：公开列表仍为已知 9 条；W28 相关 `ntnz_7FVvck` 现为 `29 views`、`93ONQqwnsn8` 仍为 `2 views`、`EFK0KPtyS4M` 仍为 `1 view`
+  - YouTube Video：公开列表仍只有 `NQvlUn_XpHI`、`NxecDPhWeyA`；`NxecDPhWeyA` 现为 `20 views`，`NQvlUn_XpHI` 仍为 `1 view`
+- 账号级公开变化：
+  - TikTok：公开 profile 当前可见 `1 follower / 0 following / 64 likes / 12 videos`
+  - Instagram：公开 profile meta 仍可见 `0 Followers / 0 Following / 5 Posts`
+  - X：公开 profile meta 可见 `25 posts / 3 followers / 9 following`
+- 限制说明：
+  - TikTok profile `12 videos` 与公开 `embed` 可见的内容序列仍有口径冲突；followers 从 2 到 1 也可能是公开页口径波动或真实变化，需后台核对。
+  - TikTok 新条目 `7660826807507094798` 的公开上传日期为 `2026-07-10`，但本次作为 W29 新发现内容先归入 W29；需要后台或人工发布时间确认最终周归属。
+  - Instagram 仍未稳定暴露第 5 帖 shortcode。
+  - X 未登录 timeline 仍不吐内容级 status。
+  - YouTube 频道 RSS 的旧 channel_id 返回 404；本次改用公开频道页 + `yt-dlp --flat-playlist` 抽取列表。
 
 ## 2026-07-10 TikTok 修复重抓
 
@@ -166,6 +192,7 @@ updated: 2026-07-10
 
 | 周次 | 平台 | 链接 | 动作 |
 |---|---|---|---|
+| 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7660826807507094798 | 2026-07-13 公开 embed + 单条页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/ntnz_7FVvck | 2026-07-09 公开列表页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/EFK0KPtyS4M | 2026-07-06 RSS 新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/93ONQqwnsn8 | 2026-07-08 公开列表页 + 单条页新增 |
@@ -207,10 +234,10 @@ updated: 2026-07-10
 
 | 平台 | 抓取结果 | 限制 |
 |---|---|---|
-| TikTok | 2026-07-10 已用公开 `embed + 单条页` 修复重抓，当前可确认最近 `10` 条 embed 帖文和总计 `14` 条历史可达帖文；W28 现能补到 `5` 条、W27 现能补到 `8` 条 | profile `itemList` 仍为空；profile `12 videos` 与当前可直达帖文数存在口径冲突；后台完播率、主页访问、链接点击不可公开读取 |
-| YouTube | 2026-07-09/10 公开 `shorts` 列表页已重抓当前全部可见历史 Shorts，共确认 `9 Shorts + 2 长视频`；其中最新可见 W28 Shorts 为 `ntnz_7FVvck` | likes、comments、留存、shown in feed / viewed vs swiped away 仍需 YouTube Studio |
-| X | 2026-07-09 公开 profile title / about 可访问，但 count 未稳定暴露；沿用最近一次已确认 `25 posts / 3 followers / 9 following` | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
-| Instagram | 2026-07-09 `og:description` 仍可见 `0 Followers / 0 Following / 5 Posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
+| TikTok | 2026-07-13 公开 `embed + 单条页` 新确认 1 条 W29 内容，并刷新 W28 5 条播放数；profile 当前 `1 follower / 64 likes / 12 videos` | profile `itemList` 仍为空；profile `12 videos` 与当前可直达帖文数存在口径冲突；后台完播率、主页访问、链接点击不可公开读取 |
+| YouTube | 2026-07-13 公开频道页仍确认 `9 Shorts + 2 长视频`；未发现 W29 新视频 | likes、comments、留存、shown in feed / viewed vs swiped away 仍需 YouTube Studio |
+| X | 2026-07-13 公开 profile meta 可见 `25 posts / 3 followers / 9 following` | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
+| Instagram | 2026-07-13 `og:description` 仍可见 `0 Followers / 0 Following / 5 Posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
 
 ## 结论
 

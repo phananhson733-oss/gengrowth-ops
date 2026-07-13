@@ -3,8 +3,8 @@ title: 2026-07-06 起社媒内容数据分析
 type: social-content-data-analysis
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-10
-data_scope: 2026-W28 public checks from 2026-07-06 to 2026-07-10 Beijing time, based on local weekly digest plus public YouTube, Instagram, TikTok, and X pages
+updated: 2026-07-13
+data_scope: 2026-W28 public checks from 2026-07-06 to 2026-07-13 Beijing time, based on local weekly digest plus public YouTube, Instagram, TikTok, and X pages
 status: draft
 ---
 
@@ -16,18 +16,19 @@ status: draft
 
 ## 0. 本次更新说明
 
-- 更新时间：2026-07-10 PDT / 北京时间 2026-07-10。
+- 更新时间：PDT 2026-07-12 / 北京时间 2026-07-13。
 - 周范围：`2026-W28`，即 `2026-07-06` 到 `2026-07-12`。
 - 本次实际重抓到的公开增量：
-  - YouTube Shorts 新增 `https://www.youtube.com/shorts/ntnz_7FVvck`，标题 `Haaland and Isabel's synastry💗`，列表页显示 `18 views`
+  - YouTube Shorts `https://www.youtube.com/shorts/ntnz_7FVvck`，标题 `Haaland and Isabel's synastry💗`，列表页从 `18 views` 到 `29 views`
   - YouTube Shorts `Rhaenyra’s Fight for Power, Explained by Astrology` 列表页显示 `2 views`
   - YouTube Shorts `Why Celebrity Birth Charts Get This Wrong So Often` 列表页现为 `1 view`
-  - TikTok 账号级从 `30 likes / 11 videos` 升到 `46 likes / 12 videos`
+  - TikTok 账号级当前为 `1 follower / 0 following / 64 likes / 12 videos`，与上一轮 `2 followers / 46 likes / 12 videos` 存在 followers 下降但 likes 上升的口径变化
   - TikTok 本次通过公开 `embed + 单条页` 新补到 `2026-07-06`、`2026-07-08`、`2026-07-09` 三条 W28 内容，以及 `2026-07-01` 到 `2026-07-03` 四条 W27 遗漏内容
-  - TikTok `Rhaenyra` 直链刷新到 `302 plays / 4 likes / 0 comments / 0 shares`
-  - TikTok `Haaland and Isabel's synastry` 直链刷新到 `311 plays / 2 likes / 0 comments / 1 share`
-  - TikTok `Venus in Virgo is receipt season` 当前 `301 plays / 13 likes / 3 collects`
-  - TikTok `Your toxic trait according to your Moon sign` 当前 `280 plays / 3 likes / 1 comment`
+  - TikTok `Rhaenyra` 公开播放刷新到 `320 plays`
+  - TikTok `Haaland and Isabel's synastry` 公开播放刷新到 `373 plays`
+  - TikTok `Venus in Virgo is receipt season` 公开播放刷新到 `310 plays`
+  - TikTok `Your toxic trait according to your Moon sign` 公开播放刷新到 `294 plays`
+  - TikTok 另有 W29 新确认 `Fire Moon signs, did we get you?`，当前 `153 plays / 8 likes / 0 comments / 0 shares`，已另开 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md]]
   - Instagram 账号级仍可见 `0 followers / 0 following / 5 posts`
 - 本次仍未稳定补出的内容：
   - TikTok profile `12 videos` 与当前公开直达历史帖文数的口径核对
@@ -51,10 +52,11 @@ status: draft
 - `Why Celebrity Birth Charts Get This Wrong So Often` 依旧最直接服务 AstrologyWiki 工具页承接，因为主题本身就在解释 celebrity chart 常见误区。
 - `Rhaenyra’s Fight for Power, Explained by Astrology` 更偏娱乐 IP 的切口，但描述里直接挂了 AstrologyWiki 短链，所以仍值得看是否能给站内人物/角色解读页带回流量。
 - `Haaland and Isabel's synastry` 今天在 YouTube 与 TikTok 同时被确认，说明 `relationship chart / synastry` 已不只是一次单平台试投，而是在向跨平台复用靠拢。
-- TikTok 账号级今天从 `11 videos / 30 likes` 跳到 `12 videos / 46 likes`，而且本次内容级点赞数已经能和账号级 `46 likes` 对上；说明“抓不到内容”问题本轮基本修复到了可用状态。
-- 仅在当前公开可见的内容级数据里，TikTok `Haaland and Isabel's synastry` 仍以 `311 plays / 1 share` 小幅领先，`Rhaenyra` 为 `302 plays`，`Venus in Virgo is receipt season` 为 `301 plays / 13 likes / 3 collects`；这三条构成目前最值得继续跟踪的一组。
+- TikTok 账号级当前为 `1 follower / 64 likes / 12 videos`，但 followers 与上一轮 `2 followers` 不一致；更稳的判断仍是内容级 `embed + 单条页` 已可用于追踪播放变化，账号级小数字需要人工后台核对。
+- 仅在当前公开可见的内容级数据里，TikTok `Haaland and Isabel's synastry` 仍以 `373 plays / 1 share` 领先，`Rhaenyra` 为 `320 plays`，`Venus in Virgo is receipt season` 为 `310 plays / 13 likes / 3 collects`；这三条构成 W28 最值得继续跟踪的一组。
 - `Celebrity birth chart` 与 `Rising sign` 工具承接现在已经能确认在 YouTube Shorts + TikTok 同日复用，说明这类工具误区题并不只是单平台试投。
 - `Your toxic trait according to your Moon sign` 虽然播放不低，但公开页 CTA 指向 `astrology.com`，不是明确的 AstrologyWiki 导流内容，当前不能把它算作 SEO / PV 支持强项。
+- W29 新条 `Fire Moon signs` 已把 CTA 改回 AstrologyWiki 短链；这说明 Moon sign hook 可以继续测，但后续判断要优先看短链点击和 Moon report / birth chart 落地页访问，而不是只看播放。
 
 ## 3. 本周相对值得跟的内容
 
@@ -77,21 +79,21 @@ status: draft
 
 - 平台：TikTok
 - 链接：`https://www.tiktok.com/@astrologywiki/video/7659773834345647374`
-- 当前公开数据：`302 plays / 4 likes / 0 comments / 0 shares`
+- 当前公开数据：`320 plays / 4 likes / 0 comments / 0 shares`
 - 价值：同主题 TikTok 目前仍是本周公开播放第二高条目，适合继续和对应 YouTube Shorts 对比平台差异。
 
 ### 3.4 Haaland and Isabel synastry
 
 - 平台：TikTok
 - 链接：`https://www.tiktok.com/@astrologywiki/video/7659748708950609165`
-- 当前公开数据：`311 plays / 2 likes / 0 comments / 1 share`
+- 当前公开数据：`373 plays / 2 likes / 0 comments / 1 share`
 - 价值：直接承接 relationship chart / synastry 工具，而且当前已经出现公开分享。
 
 ### 3.5 Haaland and Isabel synastry Shorts
 
 - 平台：YouTube Shorts
 - 链接：`https://www.youtube.com/shorts/ntnz_7FVvck`
-- 当前公开数据：列表页 `18 views`
+- 当前公开数据：列表页 `29 views`
 - 价值：今天新确认的跨平台复用证据，说明 `relationship chart / synastry` 已进入 YouTube Shorts 测试。
 - 现在缺口：发布时间、likes、comments、retention、短链点击。
 
@@ -99,7 +101,7 @@ status: draft
 
 - 平台：TikTok
 - 链接：`https://www.tiktok.com/@astrologywiki/video/7660401338701974798`
-- 当前公开数据：`301 plays / 13 likes / 0 comments / 0 shares / 3 collects`
+- 当前公开数据：`310 plays / 13 likes / 0 comments / 0 shares / 3 collects`
 - 价值：当前公开点赞和收藏表现都更强，说明“给一个可观察框架”的 transit 内容更值得继续系列化。
 
 ## 4. 平台判断
