@@ -1,11 +1,11 @@
 ---
-title: AstrologyWiki 后端需求清单
+title: AstrologyWiki 需求清单
 date: 2026-07-13
 owner: Ma Boyang
 status: 待排期
 ---
 
-# AstrologyWiki 后端需求清单 | 2026-07-13
+# AstrologyWiki 需求清单 | 2026-07-13
 
 > 三项需求按优先级排序。需求一（SPA修复）和需求二（CTA）有直接的实验数据依赖关系，建议优先处理。
 
