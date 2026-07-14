@@ -424,7 +424,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-WAIA-001` why am i afraid of commitment
 - [x] `PG-WAIA-002` why am i still single
 - [x] `PG-NODE-012` what is my life purpose
-- [ ] `PG-WDIF-001` why do i feel stuck in my career
+- [x] `PG-WDIF-001` why do i feel stuck in my career
 - [x] `PG-CELEB-055` linda noskova birth chart
 - [x] `PG-NODE-013` north node in aquarius 2026
 
