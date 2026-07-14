@@ -1,7 +1,7 @@
 ---
-title: 2026-07-14 Cancer New Moon 视频制作方案
+title: 2026-07-13 Cancer New Moon 视频制作方案
 type: video-production-guide
-date: 2026-07-14
+date: 2026-07-13
 owner: Pengman
 project: AstrologyWiki
 status: draft

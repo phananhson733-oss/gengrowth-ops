@@ -1,7 +1,7 @@
 ---
-title: 2026-07-14 Dreaming About Your Ex 视频制作方案
+title: 2026-07-13 Dreaming About Your Ex 视频制作方案
 type: video-production-guide
-date: 2026-07-14
+date: 2026-07-13
 owner: Pengman
 project: AstrologyWiki
 status: draft
