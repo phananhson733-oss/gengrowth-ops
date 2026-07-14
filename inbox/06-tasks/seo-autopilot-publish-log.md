@@ -153,3 +153,4 @@ updated: 2026-07-14
 | 2026-07-14 | PG-WAIA-002 | why-am-i-still-single | Why Am I Still Single | marcus-orion | https://www.astrologywiki.com/en/wiki/why-am-i-still-single | published |
 | 2026-07-14 | PG-CELEB-055 | linda-noskova-birth-chart | Linda Noskova Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/linda-noskova-birth-chart | published |
 | 2026-07-14 | PG-NODE-013 | north-node-in-aquarius-2026 | North Node In Aquarius 2026 | julian-thorne | https://www.astrologywiki.com/en/wiki/north-node-in-aquarius-2026 | published |
+| 2026-07-14 | PG-WAIA-001 | why-am-i-afraid-of-commitment | Why Am I Afraid Of Commitment | marcus-orion | https://www.astrologywiki.com/en/wiki/why-am-i-afraid-of-commitment | published |
