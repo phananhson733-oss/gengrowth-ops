@@ -422,7 +422,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 7 篇)
 - [x] `PG-WDIA-001` why do i attract toxic people
 - [ ] `PG-WAIA-001` why am i afraid of commitment
-- [ ] `PG-WAIA-002` why am i still single
+- [x] `PG-WAIA-002` why am i still single
 - [x] `PG-NODE-012` what is my life purpose
 - [ ] `PG-WDIF-001` why do i feel stuck in my career
 - [ ] `PG-CELEB-055` linda noskova birth chart
