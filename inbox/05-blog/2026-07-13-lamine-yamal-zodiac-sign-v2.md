@@ -41,7 +41,7 @@ This page unpacks what that double Cancer configuration means in practice, why 2
 
 ---
 
-## ① What Lamine Yamal's Zodiac Sign Actually Confirms
+## What Lamine Yamal's Zodiac Sign Actually Confirms
 
 Lamine Yamal was born on **July 13, 2007**, in Esplugues de Llobregat, Barcelona, Spain. That date places his Sun in Cancer. The Moon's position on July 13, 2007 was also in Cancer. Both luminaries in the same sign.
 
@@ -58,7 +58,7 @@ The frame is interpretive. It correlates sign placement with observable traits u
 
 ---
 
-## ② Double Cancer: What Happens When Both Luminaries Share a Sign
+## Double Cancer: What Happens When Both Luminaries Share a Sign
 
 Most Cancer Sun athletes carry a counterweight Moon sign that modulates how the Cancer frequency actually operates.
 
@@ -79,7 +79,7 @@ The double Cancer configuration doesn't amplify raw talent. It concentrates the 
 
 ---
 
-## ③ The 2026 Window: Why This Year, Not Next
+## The 2026 Window: Why This Year, Not Next
 
 Not every Cancer placement year operates the same way. The transit context is what makes 2026 specific.
 
@@ -101,7 +101,7 @@ A solar return doesn't predict what happens in a football match. What it marks, 
 
 ---
 
-## ④ Which Cancer Reading Is Right for What You're Looking For
+## Which Cancer Reading Is Right for What You're Looking For
 
 Readers arrive at a page like this with different questions. The framework answers some of them and stops short of others.
 
@@ -119,7 +119,7 @@ If the last row is where you're headed, the chart tool is the next step rather t
 
 ---
 
-## ⑤ How to Read Lamine Yamal's Birth Chart on AstrologyWiki
+## How to Read Lamine Yamal's Birth Chart on AstrologyWiki
 
 The birth chart calculator generates Yamal's confirmed Cancer placements from his date and location. You can also run a side-by-side with your own data.
 
@@ -145,7 +145,7 @@ For a deeper breakdown of Yamal's confirmed placements, aspect patterns between 
 
 ---
 
-## ⑥ FAQ
+## FAQ
 
 **What is Lamine Yamal's zodiac sign?**
 Lamine Yamal's zodiac sign is Cancer. He was born July 13, 2007, in Esplugues de Llobregat, Barcelona, Spain, placing his Sun at approximately 20° Cancer.
@@ -179,7 +179,7 @@ Your Sun sign is readable from your birth date. Moon sign, Rising sign, and hous
 
 ---
 
-## ⑦ The Bigger Picture and What to Read Next
+## The Bigger Picture and What to Read Next
 
 Lamine Yamal's zodiac sign gives you one thread in a larger pattern. Double Cancer concentrates the attunement frequency. Jupiter-in-Cancer amplifies it at the 2026 World Cup window. The solar return on July 13 opens his 19th year at maximum activation — the day before Spain's semifinal.
 
