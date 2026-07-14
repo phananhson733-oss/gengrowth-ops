@@ -554,22 +554,22 @@ X 更适合：
 
 每条内容至少记录：
 
-| 字段 | 说明 |
-| --- | --- |
-| 平台 | TikTok / YouTube / IG / X / Pinterest 等 |
-| 账号 | 哪个账号矩阵 |
-| URL | 发布链接 |
-| 主题 | 内容主题 |
-| 内容类型 | 视频 / 图文 / carousel / thread / 录屏等 |
-| 发布时间 | 日期和时区 |
-| Hook | 前 3 秒或主标题 |
-| Landing page | 承接页面 |
-| Views / Impressions | 曝光或播放 |
-| Likes / Comments / Shares / Saves | 互动 |
-| Profile visits / Link clicks | 有则记录 |
-| 站内同步数据 | GA4 / GSC / shortlink 点击等，有则记录 |
-| 结果判断 | 复用 / 改写 / 暂停 / 放弃 |
-| 备注 | 数据缺失、异常、账号问题等 |
+| 字段                                | 说明                                      |
+| --------------------------------- | --------------------------------------- |
+| 平台                                | TikTok / YouTube / IG / X / Pinterest 等 |
+| 账号                                | 哪个账号矩阵                                  |
+| URL                               | 发布链接                                    |
+| 主题                                | 内容主题                                    |
+| 内容类型                              | 视频 / 图文 / carousel / thread / 录屏等       |
+| 发布时间                              | 日期和时区                                   |
+| Hook                              | 前 3 秒或主标题                               |
+| Landing page                      | 承接页面                                    |
+| Views / Impressions               | 曝光或播放                                   |
+| Likes / Comments / Shares / Saves | 互动                                      |
+| Profile visits / Link clicks      | 有则记录                                    |
+| 站内同步数据                            | GA4 / GSC / shortlink 点击等，有则记录          |
+| 结果判断                              | 复用 / 改写 / 暂停 / 放弃                       |
+| 备注                                | 数据缺失、异常、账号问题等                           |
 
 ### 8.3 当前数据抓取现实
 
