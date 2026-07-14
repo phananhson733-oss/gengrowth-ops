@@ -417,4 +417,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-WC-050` france vs spain world cup 2026 astrology prediction
 - [x] `PG-WC-051` england vs argentina world cup 2026 astrology prediction
 
+---
+## ⚪ 7月14日 (周二) - 待写作
+**状态**：`等待输出` (自动补充选题，共 7 篇)
+- [ ] `PG-WDIA-001` why do i attract toxic people
+- [ ] `PG-WAIA-001` why am i afraid of commitment
+- [ ] `PG-WAIA-002` why am i still single
+- [ ] `PG-NODE-012` what is my life purpose
+- [ ] `PG-WDIF-001` why do i feel stuck in my career
+- [ ] `PG-CELEB-055` linda noskova birth chart
+- [ ] `PG-NODE-013` north node in aquarius 2026
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
