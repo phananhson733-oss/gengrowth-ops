@@ -420,7 +420,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 7月14日 (周二) - 待写作
 **状态**：`等待输出` (自动补充选题，共 7 篇)
-- [ ] `PG-WDIA-001` why do i attract toxic people
+- [x] `PG-WDIA-001` why do i attract toxic people
 - [ ] `PG-WAIA-001` why am i afraid of commitment
 - [ ] `PG-WAIA-002` why am i still single
 - [ ] `PG-NODE-012` what is my life purpose
