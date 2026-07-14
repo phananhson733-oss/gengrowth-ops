@@ -145,3 +145,4 @@ updated: 2026-07-14
 | 2026-07-11 | PG-CELEB-051 | mikel-merino-birth-chart | Mikel Merino Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/mikel-merino-birth-chart | published |
 | 2026-07-13 | PG-CELEB-052 | sam-neill-birth-chart | Sam Neill Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/sam-neill-birth-chart | published |
 | 2026-07-14 | PG-CELEB-053 | jeff-bezos-birth-chart | Jeff Bezos Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jeff-bezos-birth-chart | published |
+| 2026-07-14 | PG-CELEB-054 | paige-bueckers-birth-chart | Paige Bueckers Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/paige-bueckers-birth-chart | published |
