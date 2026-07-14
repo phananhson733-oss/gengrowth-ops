@@ -128,14 +128,14 @@ https://docs.google.com/spreadsheets/d/1zJJqSxRxRH9s5PeiT25RP4sRgXpl3tKqfB5nSdrU
 
 每个新产品至少整理以下信息：
 
-| 字段 | 说明 |
-| --- | --- |
-| Product | 产品名称、URL、核心功能 |
-| Audience | 目标用户、地区、语言、使用场景 |
-| Core value | 用户为什么需要这个产品 |
-| SEO assets | 已有文章、工具页、专题页、关键词表 |
-| Conversion assets | 可承接的页面、工具、注册入口、短链 |
-| Brand boundary | 可以怎么说、不能怎么说 |
+| 字段                  | 说明                      |
+| ------------------- | ----------------------- |
+| Product             | 产品名称、URL、核心功能           |
+| Audience            | 目标用户、地区、语言、使用场景         |
+| Core value          | 用户为什么需要这个产品             |
+| SEO assets          | 已有文章、工具页、专题页、关键词表       |
+| Conversion assets   | 可承接的页面、工具、注册入口、短链       |
+| Brand boundary      | 可以怎么说、不能怎么说             |
 | Current growth goal | PV、工具使用、注册、品牌认知、用户问题收集等 |
 
 ### 3.3 AstrologyWiki 当前案例
