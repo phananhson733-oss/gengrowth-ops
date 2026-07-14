@@ -42,6 +42,27 @@ Read these files first when available:
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - Latest GSC CSV, if available or explicitly authorized by Pengman
 
+### Live Competitor Research Data (Google Sheet)
+
+Before building candidate pools, fetch the latest competitor account and video analysis data from the live Google Sheet via these commands:
+
+```bash
+# 获取所有 sheet 数据（account_links, account_analysis, video_links, video_analysis）
+curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getAllData"
+
+# 或获取单个 sheet：
+curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=account_analysis"
+curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=video_analysis"
+curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=video_links"
+curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=account_links"
+```
+
+Use this data to:
+- Identify recent viral hooks and formats from competitor videos
+- Check which reference accounts have new content worth borrowing structurally
+- Inform Route C placement/identity hooks based on what performed well
+- Avoid repeating hooks or angles already analyzed in video_analysis
+
 Also inspect recent `inbox-pengman/04-production/06-daily-content-recommendations/` notes to avoid repeating yesterday's topic.
 
 ## Core Rules

@@ -80,13 +80,13 @@ Capricorn Moon 的情绪表达是所有 Moon sign 中最受压制的之一。月
 
 ### 17 秒完整分镜
 
-| 时间 | 画面 | 文字 |
-|---|---|---|
-| 0-2s | 金色星盘轮 / 全 12 星座轮，深蓝或黑色星空背景 | 顶部大字：**Your toxic trait, according to your Earth Moon sign... 🪨** |
-| 2-6s | Taurus 星座连线图：白色发光星点连成金牛座，深蓝星空背景 | 顶部：**Moon in Taurus:**<br>底部黑色半透明圆角框：**The comfort addict. You call it stability, but you're really just terrified of anything that makes you feel uncertain.** |
-| 6-10s | Virgo 星座连线图：白色发光星点连成处女座，深蓝星空背景 | 顶部：**Moon in Virgo:**<br>底部黑色半透明圆角框：**The fixer who won't be fixed. You'll solve everyone's problems to avoid sitting with your own feelings for five minutes.** |
-| 10-14s | Capricorn 星座连线图：白色发光星点连成摩羯座，深蓝星空背景 | 顶部：**Moon in Capricorn:**<br>底部黑色半透明圆角框：**The emotional fortress. You convinced yourself you don't need anyone — but really you're just scared to need and be left.** |
-| 14-17s | AstrologyWiki 工具截图，建议用 Moon / Element Balance / Birth Chart 页面，保留真实产品界面 | 大字：**Is your Moon sign here?**<br>副标题：**Get your full Moon report** |
+| 时间     | 画面                                                                      | 文字                                                                                                                                                                    |
+| ------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0-2s   | 金色星盘轮 / 全 12 星座轮，深蓝或黑色星空背景                                              | 顶部大字：**Your toxic trait, according to your Earth Moon sign... 🪨**                                                                                                    |
+| 2-6s   | Taurus 星座连线图：白色发光星点连成金牛座，深蓝星空背景                                         | 顶部：**Moon in Taurus:**<br>底部黑色半透明圆角框：**The comfort addict. You call it stability, but you're really just terrified of anything that makes you feel uncertain.**       |
+| 6-10s  | Virgo 星座连线图：白色发光星点连成处女座，深蓝星空背景                                          | 顶部：**Moon in Virgo:**<br>底部黑色半透明圆角框：**The fixer who won't be fixed. You'll solve everyone's problems to avoid sitting with your own feelings for five minutes.**      |
+| 10-14s | Capricorn 星座连线图：白色发光星点连成摩羯座，深蓝星空背景                                      | 顶部：**Moon in Capricorn:**<br>底部黑色半透明圆角框：**The emotional fortress. You convinced yourself you don't need anyone — but really you're just scared to need and be left.** |
+| 14-17s | AstrologyWiki 工具截图，建议用 Moon / Element Balance / Birth Chart 页面，保留真实产品界面 | 大字：**Is your Moon sign here?**<br>副标题：**Get your full Moon report**                                                                                                   |
 
 ---
 

@@ -3,7 +3,7 @@ title: 每周已发布内容合集入口
 type: workspace-index
 project: astrologywiki
 owner: pengman
-updated: 2026-07-13
+updated: 2026-08-16
 ---
 
 # 每周已发布内容合集入口
@@ -14,7 +14,8 @@ updated: 2026-07-13
 
 | 周次 | 日期范围 | 入口 | 备注 |
 |---|---|---|---|
-| 2026-W29 | 2026-07-13 to 2026-07-19 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md]] | 周一新开；已补 1 条 TikTok |
+| 2026-W33 | 2026-08-10 to 2026-08-16 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W33 本周已发布内容合集.md]] | 按 2026-08-16 任务日期新建；当前未确认本周新发 |
+| 2026-W29 | 2026-07-13 to 2026-07-19 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md]] | 已补 2 条 TikTok；其余平台先做账号级检查 |
 | 2026-W28 | 2026-07-06 to 2026-07-12 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]] | 已于 2026-07-13 做周一收口刷新 |
 | 2026-W27 | 2026-06-29 to 2026-07-05 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]] | 已于 2026-07-06 做周一收口刷新 |
 | 2026-W25 | 2026-06-15 to 2026-06-21 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]] | 上上周补录 |
@@ -23,6 +24,7 @@ updated: 2026-07-13
 
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-06-social-content-data-analysis.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis.md]]
+- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-08-16-social-content-data-analysis.md]]
 
 ## 单次发布复盘
 
