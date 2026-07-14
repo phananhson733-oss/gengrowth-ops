@@ -426,6 +426,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-NODE-012` what is my life purpose
 - [ ] `PG-WDIF-001` why do i feel stuck in my career
 - [x] `PG-CELEB-055` linda noskova birth chart
-- [ ] `PG-NODE-013` north node in aquarius 2026
+- [x] `PG-NODE-013` north node in aquarius 2026
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
