@@ -267,14 +267,14 @@ https://www.tiktok.com/@xxx/video/xxx
 
 调研结束后不要只停留在 Sheet，应沉淀成以下资产：
 
-| 资产 | 用途 |
-| --- | --- |
-| reference account list | 长期追踪账号库 |
-| video format analysis | 爆款视频结构拆解 |
-| platform playbook | 平台机制和发布建议 |
-| account matrix playbook | 多账号定位和分工 |
+| 资产                       | 用途                 |
+| ------------------------ | ------------------ |
+| reference account list   | 长期追踪账号库            |
+| video format analysis    | 爆款视频结构拆解           |
+| platform playbook        | 平台机制和发布建议          |
+| account matrix playbook  | 多账号定位和分工           |
 | content generation skill | 把调研结论变成可复用 AI 生产规则 |
-| topic library | 可持续生产的选题库 |
+| topic library            | 可持续生产的选题库          |
 
 AstrologyWiki 当前对应文件包括：
 
