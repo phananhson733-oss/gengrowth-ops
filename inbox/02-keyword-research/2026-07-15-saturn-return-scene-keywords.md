@@ -16,15 +16,15 @@ date: 2026-07-15
 
 ## 维度一：年龄段关键词
 
-| 关键词 | 场景 | 预期 KD | 内容类型 |
-|---|---|---|---|
-| `saturn return age 27` | 最多人搜，27 岁是焦虑高发年龄 | 预期 < 15 | 短文（crawl-bait）|
-| `saturn return age 28` | 过渡期，第一回归进行中 | 预期 < 15 | 短文 |
-| `saturn return age 29` | 土星回归最常被提到的年龄 | 预期 < 15 | 短文 |
-| `saturn return age 30` | 「30岁危机」和土星回归高度重叠 | 预期 < 15 | 短文 |
-| `second saturn return` | 56-60岁，第二回归关注者多 | 预期 < 20 | 深度指南 |
-| `second saturn return age` | 具体年龄查询 | 预期 < 15 | 短文 |
-| `when does saturn return end` | 回归什么时候结束，用户焦虑型查询 | 预期 < 20 | 短文 |
+| 关键词                           | 场景               | 预期 KD   | 内容类型           |
+| ----------------------------- | ---------------- | ------- | -------------- |
+| `saturn return age 27`        | 最多人搜，27 岁是焦虑高发年龄 | 预期 < 15 | 短文（crawl-bait） |
+| `saturn return age 28`        | 过渡期，第一回归进行中      | 预期 < 15 | 短文             |
+| `saturn return age 29`        | 土星回归最常被提到的年龄     | 预期 < 15 | 短文             |
+| `saturn return age 30`        | 「30岁危机」和土星回归高度重叠 | 预期 < 15 | 短文             |
+| `second saturn return`        | 56-60岁，第二回归关注者多  | 预期 < 20 | 深度指南           |
+| `second saturn return age`    | 具体年龄查询           | 预期 < 15 | 短文             |
+| `when does saturn return end` | 回归什么时候结束，用户焦虑型查询 | 预期 < 20 | 短文             |
 
 **内容方向示例：**
 - 「Saturn Return at 27: What to Expect in Your First Year」
