@@ -428,4 +428,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-CELEB-055` linda noskova birth chart
 - [x] `PG-NODE-013` north node in aquarius 2026
 
+---
+## ⚪ 7月15日 (周三) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-TRANS-014` saturn return guide
+- [ ] `PG-TRANS-015` saturn return in scorpio
+- [ ] `PG-TRANS-016` saturn return age 29
+- [ ] `PG-TRANS-017` second saturn return
+- [ ] `PG-TRANS-018` saturn return in capricorn
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
