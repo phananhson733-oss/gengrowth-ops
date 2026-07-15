@@ -1,170 +1,222 @@
 ---
 title: Saturn Return Calculator — 工具页内容升级方案
 date: 2026-07-15
+version: v2.0
 负责: 彪哥（前端实现）
 优先级: P0
 对应实验: 实验三（Saturn Return 内容矩阵）
 当前页面: https://www.astrologywiki.com/en/saturn-return-calculator
+参照标准: inbox/03-content-briefs/2026-06-25-astrocartography-moon-phase-landing-pages-内容简版.md
 状态: 待实现
 ---
 
-# 工具页内容升级方案
+# 工具页内容升级方案（v2.0）
 
 ## 改动说明
 
 | 改动项 | 原因 |
 |---|---|
-| FAQ 从 schema-only 改为页面可见文字 | 用户看不到，Google 可能忽略该 schema 标记 |
-| 新增「按星座」场景段 | 承接从 saturn-return-[sign] blog 进来的用户 |
-| 新增「按年龄」场景段 | 承接从 saturn-return-age-[N] blog 进来的用户 |
-| 新增「Saturn Return 常见人生场景」段 | 承接从 career/relationships/anxiety 类 blog 进来的用户 |
-| 扩充 FAQ 至 8 条 | 覆盖 PAA 问题，增加 SERP 富文本机会 |
+| FAQ 从 schema-only 改为页面可见文字（4条，不扩充）| 用户和 Google 都看不到；schema 条数与可见文字须逐字一致 |
+| 新增「按星座/按年龄」一句话定向 + 外链到 blog | 深度内容归 blog，工具页只做引导，不重复内容 |
+| 补充 Meta title / Meta description | 当前缺失 |
+| 补充 BreadcrumbList 面包屑 | 现有16个工具页均缺失 |
 
 ---
 
-## 完整页面内容（可直接替换现有 article 区域）
+## Meta 信息
+
+**Meta title**（≤60字符）：
+```
+Saturn Return Calculator – Free Saturn Return Dates | AstrologyWiki
+```
+
+**Meta description**（120-155字符）：
+```
+Calculate when your Saturn Return happens. Enter your birth date to discover your personal return window — first, second, and third returns included. Free, no sign-up.
+```
 
 ---
 
-### H1（保持不变）
-Saturn Return Calculator — Free Saturn Return Dates
-
-### 简介段（保持不变）
-Calculate when your Saturn Return happens. Enter your birth date to discover your Saturn Return dates, meaning, and how this major life transit affects you.
+## 页面内容（可直接替换现有 article 区域）
 
 ---
 
-### H2: What Is a Saturn Return?
+**H1**：Saturn Return Calculator — Free Saturn Return Dates
 
-Saturn takes approximately 29.5 years to complete one full orbit of the Sun. When it returns to the exact degree it occupied at the moment of your birth, astrologers call this a Saturn Return. Most people experience three in a lifetime:
+**H1 下方副标题（非标题）**：Enter your birth date to calculate your personal Saturn Return window — when it starts, peaks, and ends.
 
-- **First return:** ages 27–30
-- **Second return:** ages 56–60
-- **Third return:** ages 85–90
+**[计算器工具区域]**
+
+---
+
+**H2：What Is a Saturn Return?**
+
+Saturn takes approximately 29.5 years to orbit the Sun. When it returns to the exact degree it occupied at the moment of your birth, astrologers call this a Saturn Return. Most people experience three in a lifetime:
+
+- First return: ages 27–30
+- Second return: ages 56–60
+- Third return: ages 85–90
 
 Each return marks a threshold — the close of one life chapter and the structural beginning of the next.
 
 ---
 
-### H2: How to Use This Calculator
+**H2：How to Use This Calculator**
 
-1. Enter your birth date in the calculator above
-2. Your personal Saturn Return window appears — the date range from when Saturn first enters its natal position to when it finally clears it
-3. No birth time required. Saturn moves slowly enough that date-only windows are accurate to within a few weeks
-
-If you know your birth time and want house placements alongside your return dates, pair this with the [free birth chart calculator](/en/birth-chart-calculator).
+Enter your birth date above. The calculator returns your personal Saturn Return window — the date range from when Saturn first enters its natal position through to when it finally clears it. No birth time is required. For house placements alongside your return dates, pair this with the [birth chart calculator](/en/birth-chart-calculator).
 
 ---
 
-### H2: How Long Does a Saturn Return Last?
+**H2：How Long Does a Saturn Return Last?**
 
-A Saturn Return is not a single day. It unfolds over roughly **two to three years**, because Saturn often retrogrades — moving forward, then backward, then forward again across the same natal point. This is why the calculator returns a date range rather than one date.
-
-Most people feel the transit most intensely in the year Saturn is exactly conjunct its natal position. The years immediately before and after are the approach and departure phases.
+A Saturn Return is not a single day. Saturn often retrogrades across its natal point more than once, so the return unfolds over roughly two to three years. The intensity peaks when Saturn is exactly conjunct its natal position. The years immediately before and after are the approach and departure phases.
 
 ---
 
-### H2: What Happens During a Saturn Return?
+**H2：What Happens During a Saturn Return?**
 
-In psychological astrology, the Saturn Return tends to surface questions you've been deferring:
-
-- **Career:** Are you building something real, or moving by default?
-- **Relationships:** Which structures are genuinely working, and which have you been maintaining out of habit?
-- **Identity:** Who are you now — distinct from who you were told to be at 22?
-
-It is not a punishment or a guaranteed crisis. For people who have been honest with themselves, the return often feels like consolidation rather than collapse. The difficulty scales with the gap between how you're living and what you actually value.
+In psychological astrology, the Saturn Return tends to surface questions about career, relationships, and identity — a developmental checkpoint where the gap between how you're living and what you actually value becomes hard to ignore. It is not a fixed prediction of what will happen. Treat it as timing context for reflection and decisions.
 
 ---
 
-### H2: Saturn Return by Zodiac Sign
+**H2：Saturn Return by Sign and Age**
 
-Your experience varies depending on which sign Saturn occupies in your natal chart. The sign shapes the *domain* in which the return plays out:
+Your experience varies by which zodiac sign Saturn occupies in your natal chart, and which return you're in. For in-depth guides by sign and age, see:
 
-| Saturn Sign | Return Themes |
-|---|---|
-| Aries | Identity, self-direction, breaking inherited patterns |
-| Taurus | Financial structures, values, material security |
-| Gemini | Communication, learning frameworks, mental commitments |
-| Cancer | Family, home, emotional foundations |
-| Leo | Creative output, recognition, self-expression under pressure |
-| Virgo | Health, daily structure, work integrity |
-| Libra | Partnership, fairness, relational commitments |
-| Scorpio | Power, transformation, what you've been avoiding |
-| Sagittarius | Belief systems, direction, philosophical rebuilding |
-| Capricorn | Career structure, authority, long-term ambition |
-| Aquarius | Community, independence, systemic thinking |
-| Pisces | Boundaries, spirituality, what you need to release |
+- [Saturn Return in Scorpio →](/en/wiki/saturn-return-in-scorpio) *(待发布)*
+- [Saturn Return in Capricorn →](/en/wiki/saturn-return-in-capricorn) *(待发布)*
+- [Saturn Return at Age 29 →](/en/wiki/saturn-return-age-29) *(待发布)*
+- [Second Saturn Return →](/en/wiki/second-saturn-return) *(待发布)*
 
-→ For a deeper reading of your specific sign, see the Saturn Return guides in the wiki.
+> **彪哥注**：上方链接为实验三 blog 内容上线后激活。上线前可替换为「Coming soon」或暂时隐藏该段。
 
 ---
 
-### H2: Saturn Return by Age
-
-**First Saturn Return (ages 27–30)**
-The first return is typically the most disruptive, because it often coincides with the first major life audit — career choices made at 22 are tested, relationships formed in early adulthood are examined, and the scaffolding of your 20s either holds or needs rebuilding.
-
-**Second Saturn Return (ages 56–60)**
-The second return surfaces questions about legacy, authenticity, and what you want the second half of your life to look like. Mid-career shifts, relationship reassessments, and questions about meaning are common themes.
-
-**Third Saturn Return (ages 85–90)**
-Less commonly discussed, but present in long-lived individuals as a period of final integration and letting go.
-
----
-
-### H2: Frequently Asked Questions
+**H2：Frequently Asked Questions**
 
 **Can I calculate my Saturn Return without a birth time?**
-Yes. Saturn moves slowly enough that a date-based window is accurate. A birth time adds house placements for a fuller chart reading, but is not required to find your return dates.
+Yes. Saturn moves slowly enough that a date-based window is accurate. An exact birth time mainly helps place Saturn in houses for a fuller chart reading.
 
-**How many Saturn Returns does this calculator show?**
-The calculator shows your first, second, and third returns — falling approximately at ages 27–30, 56–60, and 85–90.
+**How many Saturn Returns are included?**
+The calculator shows your first, second, and third Saturn Returns — typically falling around ages 27–30, 56–60, and 85–90.
 
-**Why does my Saturn Return show a date range instead of one specific day?**
-Saturn retrogrades — it moves forward, then backward, then forward again across the same natal degree. This means it can cross your natal Saturn position two or three times, which is why the return appears as a window rather than a single date.
+**Why does a Saturn Return cover a date range?**
+Saturn can pass the same area more than once because of retrograde motion, so the return is better shown as a window rather than one isolated day.
 
-**What if I'm already past my first Saturn Return?**
-The calculator shows all three returns. If you're in your 50s, your second return at ages 56–60 is the relevant window. The themes are different from the first — less about building from scratch, more about reassessing what you've built.
-
-**Is a Saturn Return always difficult?**
-Not by default. The difficulty comes from the gap between how you're living and what you actually value. People who've been honest with themselves often experience the return as consolidation rather than disruption.
-
-**How should I use these dates?**
-Use them as timing context for reflection and intentional decisions — not as fixed predictions of what will happen. The dates tell you when the transit is active; what you do with that window is your own.
-
-**Does the calculator work for the second and third Saturn Returns too?**
-Yes. Enter your birth date and the calculator returns all three return windows in your lifetime.
-
-**What's the difference between Saturn Return and other Saturn transits?**
-Saturn transits happen continuously as Saturn moves through each sign of the zodiac. A Saturn Return is specifically when Saturn returns to the same sign and degree it held at your birth — it's personal, not universal, and only happens three times in a lifetime.
+**How should I use Saturn Return dates?**
+Use the dates as timing context for reflection and planning, then pair them with your full birth chart for more detail. They are not fixed predictions.
 
 ---
 
-### 结尾 CTA（保持现有风格）
+**结尾 CTA**
 
-For a deeper reading, pair your Saturn Return dates with your full birth chart. The birth chart shows which house your natal Saturn occupies — the domain where your return plays out most directly.
+Your Saturn Return dates show the *when*. Your full birth chart shows the *where* — which house your natal Saturn occupies and the domain of life where the return plays out most directly.
 
 **[Generate your free birth chart →](/en/birth-chart-calculator)**
 
 ---
 
+## 内链规划
+
+| 链接目标 | 锚文本（嵌入句子，不裸放关键词）| 位置 |
+|---|---|---|
+| `/en/birth-chart-calculator` | "pair this with the birth chart calculator" | How to Use 段 |
+| `/en/birth-chart-calculator` | "Generate your free birth chart →" | 结尾 CTA |
+| `/en/wiki/saturn-return-in-scorpio` | "Saturn Return in Scorpio →" | By Sign 段（待激活）|
+| `/en/wiki/saturn-return-in-capricorn` | "Saturn Return in Capricorn →" | By Sign 段（待激活）|
+| `/en/wiki/saturn-return-age-29` | "Saturn Return at Age 29 →" | By Sign 段（待激活）|
+| `/en/wiki/second-saturn-return` | "Second Saturn Return →" | By Sign 段（待激活）|
+
+**面包屑**：Home > Tools > Saturn Return Calculator
+
+---
+
 ## Schema 更新说明（给彪哥）
 
-现有 FAQPage schema 中的 4 条 Q&A 需要扩充至 8 条，与上方可见 FAQ 文字完全对齐。
+### FAQPage schema（4条，与上方可见文字逐字一致）
 
-扩充后的 8 个问题：
-1. Can I calculate my Saturn Return without a birth time?
-2. How many Saturn Returns does this calculator show?
-3. Why does my Saturn Return show a date range instead of one specific day?
-4. What if I'm already past my first Saturn Return?
-5. Is a Saturn Return always difficult?
-6. How should I use these dates?
-7. Does the calculator work for the second and third Saturn Returns too?
-8. What's the difference between Saturn Return and other Saturn transits?
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I calculate my Saturn Return without a birth time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Saturn moves slowly enough that a date-based window is accurate. An exact birth time mainly helps place Saturn in houses for a fuller chart reading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many Saturn Returns are included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator shows your first, second, and third Saturn Returns — typically falling around ages 27–30, 56–60, and 85–90."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does a Saturn Return cover a date range?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Saturn can pass the same area more than once because of retrograde motion, so the return is better shown as a window rather than one isolated day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I use Saturn Return dates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the dates as timing context for reflection and planning, then pair them with your full birth chart for more detail. They are not fixed predictions."
+      }
+    }
+  ]
+}
+```
 
-> **重要**：FAQ schema 内容必须与页面可见文字完全一致，不能只有 schema 没有可见文字。
+### BreadcrumbList schema（新增）
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.astrologywiki.com/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://www.astrologywiki.com/en/tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Saturn Return Calculator",
+      "item": "https://www.astrologywiki.com/en/saturn-return-calculator"
+    }
+  ]
+}
+```
+
+---
+
+## 上线验收清单（给彪哥）
+
+- [ ] 浏览器打开页面，JS 加载完成后，肉眼能看到全部 H2 段落和 FAQ 4条文字
+- [ ] FAQ schema 中的问题文本与页面可见文字**逐字一致**
+- [ ] BreadcrumbList schema 已加入 `<head>`
+- [ ] GSC「网址检查」→「已抓取页面」确认 Google 渲染引擎与浏览器显示一致
 
 ---
 
 *文件：inbox/03-content-briefs/2026-07-15-saturn-return-calculator-page-content.md*
-*更新于：2026-07-15*
+*版本：v2.0 | 2026-07-15*
+*关联：2026-07-15-saturn-return-scene-keywords.md*
