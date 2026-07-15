@@ -160,7 +160,11 @@ updated: 2026-06-23
 
 ---
 ## ⚪ 7月15日 (周三) - 待写作
-**状态**：`等待输出` (自动补充选题，共 1 篇)
+**状态**：`等待输出` (自动补充选题，共 4 篇)
 - [ ] `PG-WLS-007` chatgpt seo
+
+- [ ] `PG-SDS-004` meta business agent
+- [ ] `PG-ART-007` generative engine optimization
+- [ ] `PG-AIS-006` AI agents for sales
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
