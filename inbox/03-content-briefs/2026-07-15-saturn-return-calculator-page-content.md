@@ -99,9 +99,13 @@ Common second return themes: early retirement consideration, career reinvention,
 
 The third return is a period of final integration. Less disruptive in the structural sense, it tends to bring reflection on what was built and what can now be released. Saturn asks: what is the through-line of your life?
 
+Common third return themes: releasing long-held roles or identities, reconciling past decisions, a deepened sense of what was genuinely meaningful versus what was pursued out of obligation.
+
 **H3: Your Saturn Return Window — Start and End Dates**
 
 The window represents the full duration of the transit. Most people feel the effects begin before the exact peak date and taper off in the months after. Planning major decisions for the window's midpoint — rather than its edges — gives the most accurate timing context.
+
+The start date marks when Saturn first enters within a few degrees of its natal position. The end date marks when Saturn has moved sufficiently past that point for the transit to lose its concentrated pressure. Between those two dates, the return is considered active — even if the most intense experiences tend to cluster around the peak.
 
 **H3: Saturn Return by Zodiac Sign**
 
@@ -122,11 +126,13 @@ Your natal Saturn sign shapes the *domain* where the return plays out. Each sign
 | Aquarius | Community, independence, systemic thinking |
 | Pisces | Boundaries, spirituality, what needs releasing |
 
-For in-depth guides by sign, see the [Saturn Return wiki series →](/en/wiki/saturn-return-in-scorpio) *(link activates as articles publish)*
+The table above is a quick reference. Each sign's return themes, typical timelines, and what to watch for are explored in full in the Saturn Return by Sign guides — see the [Saturn Return wiki series →](/en/wiki/saturn-return-in-scorpio) *(link activates as articles publish)*
 
 **H3: Saturn Return Retrograde Periods**
 
 During a Saturn Return, Saturn typically retrogrades at least once across its natal position. This creates multiple passes: a direct pass, a retrograde pass, and a final direct pass. The retrograde period often brings internalization — what felt clear on the direct pass becomes more nuanced. The final direct pass usually brings resolution.
+
+This three-pass structure is why many people experience the Saturn Return as having distinct phases: an initial disruption, a period of reconsideration, and a final consolidation. If you notice the calculator shows a wide date range, a retrograde is almost always the reason.
 
 **H3: Reading the Peak Conjunction Date**
 
@@ -332,6 +338,22 @@ Find your natal Moon sign and understand how it shapes your emotional patterns a
         "@type": "Answer",
         "text": "Saturn transits happen continuously as Saturn moves through each sign — everyone born in a given year experiences the same general Saturn transits. A Saturn Return is personal: it only occurs when Saturn returns to the exact degree it held at your birth, which happens approximately every 29.5 years. That personalization is why it carries a different weight than generalized transits."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do during a Saturn Return?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the dates as a framework for intentional reflection rather than a forecast of what will happen. The return tends to surface structural questions — about what you're building, who you're building it with, and whether the direction still fits. Decisions made during this window often carry long-term weight, so the return is a useful time for deliberate planning rather than reactive pivoting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a Saturn Return affect me before the exact window dates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Most people report feeling a build-up 6–12 months before Saturn's first exact conjunction. The approach phase (Saturn moving toward its natal position) often brings the initial surfacing of the return's themes, before the peak date confirms them."
+      }
     }
   ]
 }
@@ -425,8 +447,8 @@ Find your natal Moon sign and understand how it shapes your emotional patterns a
 - [ ] 面包屑导航可见（Home > Tools > Saturn Return Calculator）
 
 **FAQ 层**
-- [ ] FAQ 条数：8条 ✅
-- [ ] 覆盖工具使用型（2条）/ 结果解读型（3条）/ 信任建立型（2条）/ 场景延伸型（1条）
+- [ ] FAQ 条数：10条 ✅
+- [ ] 覆盖工具使用型（2条）/ 结果解读型（3条）/ 信任建立型（2条）/ 场景延伸型（3条）
 - [ ] 每条答案 ≥40词
 
 **Schema 层**
@@ -445,5 +467,5 @@ Find your natal Moon sign and understand how it shapes your emotional patterns a
 ---
 
 *文件：inbox/03-content-briefs/2026-07-15-saturn-return-calculator-page-content.md*
-*版本：v3.0 | 2026-07-15（严格按 SOP v1.0 八区块结构重写）*
+*版本：v3.1 | 2026-07-15（修复：FAQPage schema 补齐至10条；验收清单条数更正；区块4各H3补充内容约150词至2000词以上；星座表加引导语）*
 *关联：2026-07-15-saturn-return-scene-keywords.md*
