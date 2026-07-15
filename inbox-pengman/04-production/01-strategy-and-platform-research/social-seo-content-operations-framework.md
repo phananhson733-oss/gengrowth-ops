@@ -5,7 +5,7 @@ product_case: AstrologyWiki
 type: operations-sop
 status: draft
 owner: Pengman
-updated: 2026-07-13
+updated: 2026-07-15
 sources:
   - inbox-pengman/04-production/astrologywiki-social-content-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
@@ -26,6 +26,8 @@ sources:
 > 这份 SOP 用来描述一个产品从 0 到 1 建立站外社媒内容体系的完整流程。  
 > 它不是只给 AstrologyWiki 使用，但当前案例和落地细节以 AstrologyWiki 为主。  
 > 核心目标不是泛泛涨粉，而是让社媒内容服务产品认知、搜索需求验证、站内 SEO/PV、工具使用和后续内容生产。
+>
+> 鱼骨流程索引：[[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
 
 ---
 

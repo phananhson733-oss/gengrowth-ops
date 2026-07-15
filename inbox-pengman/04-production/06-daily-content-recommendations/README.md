@@ -2,7 +2,7 @@
 title: 每日内容包
 type: output-folder
 status: active
-updated: 2026-07-03
+updated: 2026-07-15
 owner: Pengman
 ---
 
@@ -51,6 +51,7 @@ YYYY-MM-DD 主题内容包.md
 
 ## Related Areas
 
+- Social SEO fishbone map: [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
 - Topic archive: [[inbox-pengman/03-topic-ideas/README.md]]
 - GSC exports: [[inbox-pengman/04-production/07-gsc-exports/README.md]]
 - Published content digests: [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]

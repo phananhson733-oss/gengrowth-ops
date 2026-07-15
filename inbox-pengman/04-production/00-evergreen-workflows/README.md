@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow-index
 status: active
 owner: Pengman
-updated: 2026-07-01
+updated: 2026-07-15
 ---
 
 # Evergreen Production Workflows
@@ -21,6 +21,7 @@ This folder stores reusable production workflows that should not be mixed into d
 
 ## Related Working Areas
 
+- Social SEO fishbone map: [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
 - Topic ideas and scripts: [[inbox-pengman/03-topic-ideas/README.md]]
 - Daily topic recommendations: [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
 - Daily content assistant SOP: [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]

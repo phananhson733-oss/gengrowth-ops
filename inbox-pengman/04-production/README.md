@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: draft
 owner: Pengman
-updated: 2026-07-03
+updated: 2026-07-15
 ---
 
 # 内容创作工作区入口
@@ -13,15 +13,17 @@ updated: 2026-07-03
 
 ## 先看哪几份
 
-1. [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
+1. [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
+   - Social SEO 鱼骨流程索引：把策略、账号矩阵、日选题、生产 workflow、内容包和周复盘串起来。
+2. [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
    - 当前内容方向、平台方向、内容形式和工具判断总览。
-2. [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
+3. [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
    - 长期可复用的选题、脚本、制作、发布、复盘流程。
-3. [[inbox-pengman/03-topic-ideas/README.md]]
+4. [[inbox-pengman/03-topic-ideas/README.md]]
    - 站外内容选题区入口：选题库、SEO 选题调查、单条脚本和已发布内容归档。
-4. [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
+5. [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
    - 每日内容推荐助手 SOP：如何用文章索引、GSC 数据和已发布记录选今天要发什么。
-5. [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
+6. [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
    - 最近一次 AI host 视频内容包：选题、脚本、素材、CapCut 和发布检查。
 
 ## 子目录分工

@@ -3,58 +3,33 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-08-16
+updated: 2026-07-14
 ---
 
 # 公开账号抓取记录
 
-## 2026-08-16 本次检查
+## 2026-07-14 自动化补核
 
-- 检查范围：YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、TikTok 公开 profile `yt-dlp --flat-playlist` / `https://www.tiktok.com/embed/@astrologywiki`、Instagram 公开 profile meta、X 公开 profile meta。
+- 检查范围：YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、TikTok 公开 profile `yt-dlp --flat-playlist` 与 `https://www.tiktok.com/embed/@astrologywiki`、Instagram 公开 profile meta、X 公开 profile SSR / meta。
 - 新确认内容：
-  - 本次未新增 W33 内容级链接；当前最近一次新确认内容仍是 W29 TikTok `https://www.tiktok.com/@astrologywiki/video/7661912847693188365`
+  - TikTok W29：`https://www.tiktok.com/@astrologywiki/video/7662283840634866957`
 - 内容级公开刷新：
-  - TikTok profile `yt-dlp` 本次稳定暴露 `9` 条内容，最新序列为 `7661912847693188365`、`7660826807507094798`、`7660473423038041358`、`7660401338701974798`、`7659748708950609165`、`7659773834345647374`、`7657074482648993037`、`7657029619991825678`、`7656756635062390029`
-  - TikTok：最新条 `7661912847693188365` 当前仍为 `486 plays / 12 likes / 0 comments / 0 reposts / 0 saves`，时间戳折算为北京时间 `2026-07-13 23:30`
-  - TikTok：`7660401338701974798` 当前 `347 plays / 19 likes / 1 comment / 0 reposts / 4 saves`
-  - TikTok：`7659773834345647374` 当前 `355 plays / 14 likes / 0 comments / 0 reposts`
-  - TikTok：`7659748708950609165` 当前 `398 plays / 3 likes / 0 comments / 1 repost`
-  - YouTube Shorts：公开列表仍为已知 `9` 条；最新 3 条当前为 `ntnz_7FVvck = 30 views`、`93ONQqwnsn8 = 2 views`、`EFK0KPtyS4M = 1 view`
-  - YouTube Video：公开列表仍只有 `NQvlUn_XpHI = 1 view`、`NxecDPhWeyA = 25 views`
-- 账号级公开变化：
-  - Instagram：公开 profile meta 仍可见 `0 Followers / 0 Following / 5 Posts`
-  - X：公开 profile 页仍可访问 bio，但本次未稳定抽出 `posts / followers / following`
-- 限制说明：
-  - 本次最关键的公开结果是：截至 `2026-08-16`，未从公开来源补到 W30-W33 新链接；这不能替代后台发布记录。
-  - TikTok 当前公开 profile 列表只稳定给出 `9` 条内容，且最新时间戳仍在 7 月中旬；若后台确有后续发布，需要 Pengman 提供发布列表或直链。
-  - Instagram 仍未稳定暴露第 5 帖 shortcode。
-  - X 仍无法稳定补内容级 `status` 链接与账号级 counts。
-  - YouTube 当前仍适合做“有无新 ID + 基础 views”检查，不适合在自动化里稳定抓 likes、comments、retention。
-
-## 2026-07-16 本次检查
-
-- 检查范围：YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、TikTok 公开 profile / `https://www.tiktok.com/embed/@astrologywiki` / 单条公开页、Instagram 公开 profile meta、X 公开 profile 页可达性检查。
-- 新确认内容：
-  - TikTok W29：`https://www.tiktok.com/@astrologywiki/video/7661912847693188365`
-- 内容级公开刷新：
-  - TikTok `embed` 页本次稳定暴露 `9` 条内容 ID：`7661912847693188365`、`7660826807507094798`、`7660473423038041358`、`7660401338701974798`、`7659748708950609165`、`7659773834345647374`、`7657074482648993037`、`7657029619991825678`、`7656756635062390029`
-  - TikTok：`7661912847693188365` 现可见 `486 plays / 12 likes / 0 comments / 0 shares`，`yt-dlp` 抽到上传日期 `2026-07-13`
-  - TikTok：`7660826807507094798` 现可见 `153 plays / 8 likes / 0 comments / 0 shares / 1 save`
-  - TikTok：`7660473423038041358` 现可见 `298 plays / 5 likes / 1 comment / 0 shares`
-  - TikTok：`7659773834345647374` 现可见 `355 plays / 14 likes / 0 comments / 0 shares`
-  - YouTube Shorts：公开列表仍为已知 `9` 条；前 5 条当前为 `ntnz_7FVvck = 30 views`、`93ONQqwnsn8 = 2 views`、`EFK0KPtyS4M = 1 view`、`uHVola7E3-A = 13 views`、`NtnkAVHBrwc = 5 views`
+  - TikTok profile `yt-dlp` 本次稳定暴露 `10` 条内容，最新序列为 `7662283840634866957`、`7661912847693188365`、`7660826807507094798`、`7660473423038041358`、`7660401338701974798`、`7659748708950609165`、`7659773834345647374`、`7657074482648993037`、`7657029619991825678`、`7656756635062390029`
+  - TikTok：`7662283840634866957` 当前可见 `134 plays / 1 like / 0 comments / 0 reposts`，北京时间约 `2026-07-14 23:50`
+  - TikTok：`7661912847693188365` 当前可见 `884 plays / 14 likes / 0 comments / 0 reposts`，北京时间约 `2026-07-13 23:30`
+  - TikTok：`7660826807507094798` 当前仍为 `153 plays / 8 likes / 0 comments / 0 reposts`，北京时间约 `2026-07-11 01:00`
+  - YouTube Shorts：公开列表仍为已知 `9` 条；本次能稳定确认“无新 ID”，但进一步内容级 views 抓取被 bot check 阻断
   - YouTube Video：公开列表仍只有 `NQvlUn_XpHI`、`NxecDPhWeyA`
 - 账号级公开变化：
-  - TikTok：公开 profile HTML 本次抽到 `2 followers / 0 following / 86 likes / 5 videos`
+  - TikTok：公开 `embed` / profile 当前能稳定抽到 `3 followers / 0 following / 89 likes`
   - Instagram：公开 profile meta 仍可见 `0 Followers / 0 Following / 5 Posts`
-  - X：公开 profile 页本次仍可访问；页面初始化数据与 meta 仍可确认最近一次账号级口径为 `25 posts / 3 followers / 9 following`
+  - X：公开 profile SSR / meta 仍可确认 `25 posts / 3 followers / 9 following`
 - 限制说明：
-  - TikTok 本轮公开 profile 的 `5 videos` 与同轮 `embed` 可见 `9` 条内容、以及 2026-07-13 记录的 `12 videos` 明显冲突；不能把任一单一来源当成完整发布总表。
-  - `7660826807507094798` 的 `yt-dlp` upload_date 继续是 `2026-07-10`，因此现在改记为 W28/W29 边界冲突，不再直接算作 W29 新发布。
-  - TikTok 新条 `7661912847693188365` 的标题正文里含 `July 14, 2026 · Cancer New Moon`，但 `yt-dlp` upload_date 为 `2026-07-13`；如需精确落北京时间，仍需后台发布时间或人工核对。
+  - `7662283840634866957` 当前只稳定拿到播放、点赞和时间戳；收藏/书签、完播率、观看时长、点击仍需后台。
+  - YouTube 本轮仅适合做“有无新 ID”检查；详细 views / likes / comments 在当前公开环境下被 bot check 阻断。
+  - TikTok 账号级 `followers / likes / videos` 与此前几轮公开口径仍有波动，不能替代后台发布列表。
   - Instagram 仍未稳定暴露第 5 帖 shortcode。
-  - X 公开 profile 可达，但内容级 `status` 仍无法公开补齐。
-  - YouTube 当前仍适合做“有无新 ID + 基础 views”检查，不适合在自动化里稳定抓 likes、comments、retention。
+  - X 仍无法稳定补内容级 `status` 链接。
 
 ## 2026-07-13 周一收口与 W29 新开
 
@@ -241,6 +216,7 @@ updated: 2026-08-16
 | 周次 | 平台 | 链接 | 动作 |
 |---|---|---|---|
 | 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7661912847693188365 | 2026-07-15 公开 embed + 单条页新增 |
+| 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7662283840634866957 | 2026-07-14 公开 profile + embed 新增 |
 | 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7660826807507094798 | 2026-07-13 公开 embed + 单条页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/ntnz_7FVvck | 2026-07-09 公开列表页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/EFK0KPtyS4M | 2026-07-06 RSS 新增 |
@@ -283,14 +259,14 @@ updated: 2026-08-16
 
 | 平台 | 抓取结果 | 限制 |
 |---|---|---|
-| TikTok | 2026-08-16 公开 profile `yt-dlp` 仍只稳定给出 `9` 条内容，最新确认内容仍停在 W29 `7661912847693188365` | 当前无法从公开源确认 W30-W33 新内容；后台完播率、主页访问、链接点击不可公开读取 |
-| YouTube | 2026-08-16 公开频道页仍确认 `9 Shorts + 2 长视频`；未发现 W30-W33 新视频 | likes、comments、留存、shown in feed / viewed vs swiped away 仍需 YouTube Studio |
-| X | 2026-08-16 公开 profile 页可达，但账号级数字与内容级链接都未稳定抽出 | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
-| Instagram | 2026-08-16 `og:description` 仍可见 `0 Followers / 0 Following / 5 Posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
+| TikTok | 2026-07-14 公开 profile `yt-dlp` 与 embed 稳定给出 `10` 条内容，最新确认内容为 W29 `7662283840634866957` | 后台完播率、主页访问、链接点击不可公开读取 |
+| YouTube | 2026-07-14 公开频道页仍确认 `9 Shorts + 2 长视频`；未发现 W29 新视频 | likes、comments、留存、shown in feed / viewed vs swiped away 仍需 YouTube Studio |
+| X | 2026-07-14 公开 profile 页仍可确认 `25 posts / 3 followers / 9 following` | 内容级链接仍不稳定；后台 impressions、profile visits、link clicks、视频观看时长需 X analytics |
+| Instagram | 2026-07-14 `og:description` 仍可见 `0 Followers / 0 Following / 5 Posts` | 第 5 帖 shortcode 仍未稳定提取；reach、plays、saves、shares、profile visits、link clicks 需 Instagram Insights |
 
 ## 结论
 
-- 截至 2026-08-16，公开来源没有补出 W30-W33 的新链接；当前最近一次稳定确认的新内容仍停在 W29 的 TikTok `Cancer New Moon`。
+- 截至 2026-07-14，公开来源当前能稳定补到的最新内容是 W29 的两条 TikTok：`Cancer New Moon` 和 `Earth Moon signs`。
 - 当前公开层面最有价值的平台仍是 TikTok，因为它还能给内容级播放和互动；但如果后台在 7 月中旬后仍有发布，现有公开链路已经不足以覆盖完整发布总表。
 - YouTube 仍停在 `9 Shorts + 2 长视频` 的旧列表，说明公开视频层面没有新的可归档增量。
 - Instagram 和 X 这轮继续只能做账号级或可达性检查，不能可靠补内容级链接。

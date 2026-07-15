@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: draft
 owner: Pengman
-updated: 2026-06-29
+updated: 2026-07-15
 ---
 
 # 参考账号索引
@@ -13,6 +13,8 @@ updated: 2026-06-29
 
 ## 当前入口
 
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
+  - Social SEO 鱼骨流程索引；本目录主要挂在“平台和竞品调研”节点下。
 - [[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md]]
   - 包含 TikTok 账号调研：@birthchart.com、@angelic_oracle、@costarastrology、@thepattern、@astrowhispers8（调研时间 2026-07-07）
 - [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md]]
