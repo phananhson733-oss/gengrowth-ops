@@ -434,7 +434,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-014` saturn return guide
 - [x] `PG-TRANS-015` saturn return in scorpio
 - [ ] `PG-TRANS-016` saturn return age 29
-- [ ] `PG-TRANS-017` second saturn return
+- [x] `PG-TRANS-017` second saturn return
 - [ ] `PG-TRANS-018` saturn return in capricorn
 
 - [ ] `PG-CELEB-056` cody bellinger birth chart

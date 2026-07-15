@@ -157,3 +157,4 @@ updated: 2026-07-15
 | 2026-07-14 | PG-WDIF-001 | why-do-i-feel-stuck-in-my-career | Why Do I Feel Stuck In My Career | marcus-orion | https://www.astrologywiki.com/en/wiki/why-do-i-feel-stuck-in-my-career | published |
 | 2026-07-15 | PG-TRANS-014 | saturn-return-guide | Saturn Return Guide | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-guide | published |
 | 2026-07-15 | PG-TRANS-015 | saturn-return-in-scorpio | Saturn Return In Scorpio | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-scorpio | published |
+| 2026-07-15 | PG-TRANS-017 | second-saturn-return | Second Saturn Return | marcus-orion | https://www.astrologywiki.com/en/wiki/second-saturn-return | published |
