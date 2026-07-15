@@ -156,3 +156,4 @@ updated: 2026-07-15
 | 2026-07-14 | PG-WAIA-001 | why-am-i-afraid-of-commitment | Why Am I Afraid Of Commitment | marcus-orion | https://www.astrologywiki.com/en/wiki/why-am-i-afraid-of-commitment | published |
 | 2026-07-14 | PG-WDIF-001 | why-do-i-feel-stuck-in-my-career | Why Do I Feel Stuck In My Career | marcus-orion | https://www.astrologywiki.com/en/wiki/why-do-i-feel-stuck-in-my-career | published |
 | 2026-07-15 | PG-TRANS-014 | saturn-return-guide | Saturn Return Guide | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-guide | published |
+| 2026-07-15 | PG-TRANS-015 | saturn-return-in-scorpio | Saturn Return In Scorpio | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-scorpio | published |
