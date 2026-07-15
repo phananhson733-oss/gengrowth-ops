@@ -161,7 +161,7 @@ updated: 2026-06-23
 ---
 ## ⚪ 7月15日 (周三) - 待写作
 **状态**：`等待输出` (自动补充选题，共 4 篇)
-- [ ] `PG-WLS-007` chatgpt seo
+- [x] `PG-WLS-007` chatgpt seo
 
 - [ ] `PG-SDS-004` meta business agent
 - [ ] `PG-ART-007` generative engine optimization
