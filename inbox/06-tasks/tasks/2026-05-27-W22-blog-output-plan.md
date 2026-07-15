@@ -430,11 +430,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月15日 (周三) - 待写作
-**状态**：`等待输出` (自动补充选题，共 5 篇)
+**状态**：`等待输出` (自动补充选题，共 8 篇)
 - [x] `PG-TRANS-014` saturn return guide
 - [x] `PG-TRANS-015` saturn return in scorpio
 - [ ] `PG-TRANS-016` saturn return age 29
 - [ ] `PG-TRANS-017` second saturn return
 - [ ] `PG-TRANS-018` saturn return in capricorn
+
+- [ ] `PG-CELEB-056` cody bellinger birth chart
+- [ ] `PG-CELEB-057` caitlin clark birth chart
+- [ ] `PG-CELEB-058` brad pitt birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
