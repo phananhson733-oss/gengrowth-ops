@@ -164,3 +164,4 @@ updated: 2026-07-16
 | 2026-07-16 | PG-TRANS-019 | saturn-return-age-30 | Saturn Return Age 30 | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-age-30 | published |
 | 2026-07-16 | PG-TRANS-020 | saturn-return-in-cancer-meaning | Saturn Return In Cancer Meaning | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer-meaning | published |
 | 2026-07-16 | PG-CELEB-057 | caitlin-clark-birth-chart | Caitlin Clark Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/caitlin-clark-birth-chart | published |
+| 2026-07-16 | PG-CELEB-058 | brad-pitt-birth-chart | Brad Pitt Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/brad-pitt-birth-chart | published |
