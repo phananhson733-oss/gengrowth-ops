@@ -162,3 +162,4 @@ updated: 2026-07-16
 | 2026-07-15 | PG-TRANS-018 | saturn-return-in-capricorn | Saturn Return In Capricorn | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-capricorn | published |
 | 2026-07-15 | PG-TRANS-016 | saturn-return-age-29 | Saturn Return Age 29 | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-age-29 | published |
 | 2026-07-16 | PG-TRANS-019 | saturn-return-age-30 | Saturn Return Age 30 | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-age-30 | published |
+| 2026-07-16 | PG-TRANS-020 | saturn-return-in-cancer-meaning | Saturn Return In Cancer Meaning | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer-meaning | published |
