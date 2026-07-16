@@ -231,13 +231,13 @@ W28 共发布 32 篇文章，覆盖温网、世界杯、Emmy 三条内容线。A
 
 ### ⭐ 最高优先：SPA 路由修复
 
-- [ ] 开发排期确认：Next.js `router.events` 监听 + 手动触发 `page_view`，修复后实验二立即重启
-- [ ] Vozinha 页面排查：确认 GA4 script 是否未加载（Console 报错检查）
+- [x] 开发排期确认：Next.js `router.events` 监听 + 手动触发 `page_view`，修复后实验二立即重启
+- [x] Vozinha 页面排查：确认 GA4 script 是否未加载（Console 报错检查）
 
 ### 内容
 
-- [ ] Emmy cluster 启动：Ayo Edebiri（生日 7/18 + Emmy 提名）——生日前发布倒计时内容
-- [ ] 世界杯 SF 跟进：Norway/England vs Argentina/Switzerland 半决赛（7/15）相关球员/赛事内容
+- [x] Emmy cluster 启动：Ayo Edebiri（生日 7/18 + Emmy 提名）——生日前发布倒计时内容
+- [x] 世界杯 SF 跟进：Norway/England vs Argentina/Switzerland 半决赛（7/15）相关球员/赛事内容
 - [ ] Messi zodiac sign 标题优化：983 曝光 / 0.6% CTR，改标题/摘要可释放约 30–40 次/周点击增量
 
 ### 实验
@@ -256,8 +256,8 @@ W28 共发布 32 篇文章，覆盖温网、世界杯、Emmy 三条内容线。A
 
 ### 内链与排名提升
 
-- [ ] Haaland 文章补充内链，推动排名从 9.8 进入前 5，突破 1.3% CTR 瓶颈（2,918 曝光待释放）
-- [ ] Yamal 页面：从 Haaland / Kane 文章加内链，推动重新进入有效排名
+- [x] Haaland 文章补充内链，推动排名从 9.8 进入前 5，突破 1.3% CTR 瓶颈（2,918 曝光待释放）
+- [x] Yamal 页面：从 Haaland / Kane 文章加内链，推动重新进入有效排名
 - [ ] Mbappé 重复文章：确认是否合并，保留权重较高的 slug，另一篇 301 重定向
 
 ### 其他
