@@ -114,7 +114,7 @@ After saving the report, run the validation script to check structure and depth 
 python3 scripts/validate-report.py ./参考资料/产品分析/[产品名字]-分析报告.md
 ```
 
-The script checks structure and depth across 8 categories: file naming, header, sections, sub-sections, tables, depth metrics, **data-rigor lints (R1 caliber note / R2 AI visibility-vs-referral / overclaim language)**, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀).
+The script checks 47 items across 7 categories: file naming, header, sections, sub-sections, tables, depth metrics, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀).
 
 If validation fails, fix the failing items before finalizing.
 
@@ -140,46 +140,3 @@ If validation fails, fix the failing items before finalizing.
   - `[Low]` — single aggregator (Growjo / Owler / SimilarWeb), industry analogy, or recent estimate inference
   - **No source at all → must write `[Unverified]` or omit, NEVER `[Medium]` or `[Low]`**. Inflating confidence is the #1 fabrication vector.
 - **Cross-source verification for parent-company attribution**: When attributing a brand to a parent company (especially Chinese cross-border DTC where ownership is often obscured), require ≥2 independent sources (e.g. Baidu Baike + company prospectus + brand directory). Never rely on a single PR-distribution site (IssueWire, PRNewswire-paid, etc.) — these are paid placements, not editorial.
-
-### 数据严谨性红线（Data Rigor Rules — 必读，见 references/data-rigor-rules.md 详解）
-
-These five rules exist because reports repeatedly over-claimed: presenting third-party estimates as proven facts, conflating metrics, and single-signal causal leaps. Enforce them on every report.
-
-- **R1 · 多工具口径纪律（caliber discipline）**: SimilarWeb / Ahrefs / SEMrush measure different things (visit-behavior model vs keyword-ranking model). **Never write "互为交叉验证 / cross-validated" unless the numbers actually reconcile.** When two tools diverge >~2×, flag it explicitly, **do NOT average**, and use only for directional judgment. Every traffic number must name its tool AND module (e.g. SimilarWeb「总访问量」module vs「渠道概况」module can differ for the same site/month — label it, don't call it an error). If a tool is named in scope but not actually used (e.g. SEMrush), state "未使用 X" rather than implying triangulation.
-- **R2 · AI 可见度 / AI 引流 / AI 转化 三层分离**: In any GEO/AI-search analysis, never conflate **(1) AI visibility** (brand cited/mentioned in AI answers, e.g. Ahrefs AI-index Responses) with **(2) AI referral** (users clicking through from an AI tool, e.g. SimilarWeb「生成式 AI」channel) with **(3) AI conversion**. A site can have hundreds of AI-visibility responses while AI-referral ≈ 0 — both true simultaneously. **Banned**: "GEO 全空白" when visibility exists; and — critically for any partnership/attribution framing — **never claim "any AI/traffic growth is attributable to us"**; performance splits may only be tied to **isolable, trackable** referral increments (dedicated UTM / URL group / GA4 channel).
-- **R3 · 禁止单一指标下强因果结论（no single-signal causal leaps）**: Each of these is a leap that needs corroboration or a `[Low]`/「待验证假设」tag — never stated as fact:
-  - high non-branded share ⇏ "brand assets weak" (could be good SEO coverage, big category demand, brand search absorbed by Amazon, or incomplete brand-term detection)
-  - low DR ⇏ "ranking fragile / will retract" (needs page/keyword concentration, ranking volatility, SERP competition, Google-update deltas)
-  - high Direct traffic ⇏ "Amazon spillover" (also: no-referrer email/app, privacy-stripped referrers, returning users, bookmarks, cross-domain tracking loss, paid misattribution)
-  - higher website traffic ⇏ disproving a competitor's "#1 sales" claim (sales/units/revenue/coverage are different denominators than web visits). Soften "打脸/证伪" to "此口径不支持…；其统计口径待确认".
-- **R4 · GMV 分层建模，拒绝伪精确（layered GMV, no false precision）**: Do NOT drop a single pulled-from-air全渠道 GMV. Build a **reproducible independent-site GMV scenario table** (`annual visits × CVR × AOV`, conservative/base/optimistic) with caveats (traffic is 3rd-party est.; CVR & AOV are industry assumptions; excludes Amazon/retail/other geos; magnitude only). Any全渠道/whole-company GMV requires SKU-level sell-through (Helium 10 / Jungle Scout / Keepa) + retail sell-through, else label it **"内部待验证假设 / unverified internal hypothesis"** and show the formula for what's missing.
-- **R5 · SAM 按业务线拆分 + 指标定义核对**: For multi-brand / multi-category subjects, split SAM per business line with an explicit formula (`品类美国市场规模 × 覆盖价格带比例 × 可售渠道覆盖比例`); mark 「待补」rather than forcing one blurred composite. Keep SOM ≠ estimated GMV (separate current-revenue estimate from 3-yr achievable share). And **before drawing any conclusion from a composite/share metric, verify what it actually measures** — e.g. SimilarWeb「组流量份额细分」is "how a country's traffic splits AMONG the domains", NOT "what share of a brand's own traffic comes from that country". Misreading composite metrics is a top error.
-- **R6 · 全文一致性（cross-section consistency）**: A claim's hedge/confidence must be **uniform across the whole report**. The classic bug: the body flags "Amazon 主渠道" as `[Low]` 推断 or "独立站高毛利" as 未验证假设, but §竞品对比 / SWOT / 综合评分 / 情景规划 / 执行摘要 later restate it as fact. **Before finalizing, grep your own recurring claims** (main channel, GMV, margin, "brand weak", growth fragility) and make every mention carry the same qualifier. A retracted or hedged claim must never reappear unhedged — especially in summary/scoring/scenario sections where claims get casually restated.
-- **R7 · 成品语气，无过程叙述（finished-artifact voice）**: The report is a deliverable, not a draft log. **Never narrate the drafting or revision process**: ban 「已按证据强度收紧」「纠正上一版误读」「原数字已撤」「此前…应理解为」「待归档以便复核」「正式提案前应…」「补齐前只写…」 and similar. State the final conclusion directly; if something is uncertain, hedge the claim itself, don't explain the report's history. (Enforced by validate_data_rigor.)
-- **R8 · 指标概念卫生（metric hygiene）**: Never conflate distinct metrics; label each by exactly what it measures. Common conflations to avoid: **公开售价区间 ≠ AOV（客单价）** (call it 「公开产品价格带」, keep AOV as an explicit model assumption); web traffic ≠ sales (R3); AI visibility ≠ referral ≠ conversion (R2); SimilarWeb 总访问模块 ≠ 渠道模块 (R1).
-- **R9 · 数据化措辞，少用标签（data-language over loaded labels）**: Replace evaluative/loaded labels with measured, data-anchored phrasing. 「落后者」→「自然流量在同组中最低」; 「品牌力弱」→「品牌搜索与第三方内容资产仍有提升空间」; 「最烧钱」→「付费搜索占比较高」; 「护城河薄 / 货架白牌 / 白牌红海 / 贴身肉搏」→「品牌资产在建设期 / 同价位竞争密集」. The number should carry the judgment, not an adjective.
-- **R10 · 公开数据不能证实内部事实（public data ≠ internal facts）**: Public/third-party data **cannot** confirm internal or organizational facts — net margin, channel sales split, org coordination ("各自为战"), whether two brands share a supply chain, whether SEO/GEO is an internal priority. Either scope-limit explicitly ("从独立站公开指标看…", "无法从公开信息确认") or omit. Same-address / shared-phone ⇏ shared supply chain or single operating entity.
-- **Scoring transparency**: Any rating (stars, scores) MUST state its rubric/口径 (e.g. "公开数据覆盖 + 竞品相对位置 + 近期趋势 三维综合") or use qualitative labels (较强/中等/待提升). Opaque star ratings read as subjective.
-- **Evidence-boundary block (推荐)**: For decision/BD-oriented reports, open with a short block listing what the data **can** support (`[Medium]`) vs what it **cannot yet** support and is only a working assumption (`[Low]`/「待补」). Replace "数据已证明 / proven" language with "数据支持的外部假设 / data-supported external hypothesis" throughout.
-
-## 对外版输出（Outreach / external-facing variant）
-
-By default this skill produces an **internal** report (BD/decision-oriented, may contain commercial strategy). When the deliverable will be **shown to the subject of the research** (or any external party) — e.g. sending a brand's own founder a study of their sites to open a conversation — you MUST derive a separate **对外版 (outreach version)**. Never send the internal report as-is. Full spec: **[references/outreach-version.md](references/outreach-version.md)**.
-
-**Goal of the 对外版**: read as *an independent, public-data business observation that demonstrates research capability and opens dialogue* — balanced (shows strengths AND gaps), rigorous about its own evidence limits, **without offending the subject or exposing the analyst's commercial strategy**. It is NOT a proposal and contains no sell.
-
-**Derive it by SUBTRACTION from the internal report (keep the analytical depth), removing/transforming three classes:**
-
-1. **底牌 — the analyst's cards (REMOVE entirely)**: pricing, revenue-share %, engagement/pilot plan, "which brand to pilot", "sell capability not labor", anti-freeride tactics ("don't hand over the playbook"), the risk matrix that frames the subject as a target-to-manage, "should we pursue this client" verdicts, deal-outcome scenario planning, any "GenGrowth/我们该怎么做" framing. These aren't offensive — they're strategically self-defeating to reveal.
-2. **冒犯 — face-losing framing (NEUTRALIZE)**: loaded labels (白牌/护城河薄/落后者 → R9 data-language); emphasizing the subject's recalls/complaints/negative reviews; challenging the subject's own claims ("打脸 No.1" → "此口径不支持…，口径待确认"); ownership-digging that reads as invasive; internal-org judgments (R10).
-3. **内部痕迹 — process narration (REMOVE, R7)**: no "已收紧/纠正上一版/原数字已撤/待归档/正式提案前…". Finished-artifact voice only.
-
-**Extra constraints vs internal version:**
-- **Evidence discipline is stricter**: apply R1–R10 with zero tolerance; every over-reach scope-limited ("从公开指标看…"), fact vs scenario-model separated, no single-metric causal leaps, public data never used to assert internal facts.
-- **Tone**: 不卑不亢, low-sell, no CTA in the document. Any invitation to talk goes in the **accompanying human message** (warm, peer-level), never baked into the doc as filler.
-- **Do NOT self-praise** speed or skill in the doc ("几小时跑完/我们的 skill") — the breadth of coverage (multi-site, multi-channel, competitor, SEO, GEO, confidence tags) demonstrates capability on its own. Speed/skill framing belongs only in the accompanying message.
-- **Balance is credibility**: keep the gaps, competitor deltas, weaknesses and risks — a pure puff piece is less credible, not more.
-- **Structure**: lead with an **执行摘要** (business structure / growth characteristics / main strengths / main risks & to-verify); consolidate scattered `[Low]` caveats into ONE 「关键假设与数据局限」section instead of re-explaining per paragraph; use qualitative judgments over opaque stars (Scoring transparency).
-- **Sourcing**: high-weight claims that recur in exec summary / final judgment (e.g. "畅销多国", supply-chain self-development, parent-company attribution) need a direct source or an explicit "行业媒体口径 / 据公开信息推断" tag.
-
-**Output format**: export a **self-contained HTML** via `tools/scripts/export-html.sh <file>.md` (TOC sidebar, confidence-tag coloring, print-to-PDF friendly, offline single file). Before handing off: **strip frontmatter / internal metadata** (the exporter already removes frontmatter; never leave an `audience: 外发版` or similar marker in the body or filename). Name the file without any "外发版/internal" marker.
