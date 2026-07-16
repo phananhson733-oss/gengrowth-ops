@@ -1,7 +1,7 @@
 ---
 title: AstrologyWiki 站外内容选题库
 date: 2026-06-16
-updated: 2026-07-01
+updated: 2026-07-15
 owner: Pengman
 project: astrologywiki
 type: topic-ideas
@@ -20,6 +20,8 @@ source:
 > 这里优先收录“适合站外内容表达”的主题、Hook、用户问题和可转入后续生产的候选选题。  
 > 原则上，单条内容不必死绑站内页面；但每个主题包应知道大致承接方向。
 > 当前主线是：先围绕 AstrologyWiki 站内主要功能和基础内容做站外内容，再穿插 SEO 需要引用的 Wiki 文章，最后根据高流量内容和 30-50 名关键词继续提排名。
+>
+> 2026-07-15 整理口径：本文件保留为早期长期主题种子和历史参考，不再作为每日生产入口。新的每日选题池、内容包和制作方案统一进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]。
 
 ## 1. 这个文件怎么用
 
@@ -234,10 +236,10 @@ TikTok 首轮先复用 YouTube Shorts，不单独开制作线。这里优先记�
 - Natural Next Step: Harry Kane birth chart article / AstrologyWiki birth chart page
 - Risk: 不做比赛预测；不暗示星盘决定表现；人物照片和赛事素材需注意版权。
 - Status: Published / monitor data
-- Archive: [[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]
+- Archive: [[inbox-pengman/03-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]
 - Note: 这条 Kane 内容已在 2026-07-01 制作发布，后续不再作为“下一步首推”；只观察数据，或做差异化 follow-up。
 
-完整脚本、视觉结构、Caption、发布链接和 follow-up 统一见：[[inbox-pengman/03-topic-ideas/harry-kane-birth-chart-script.md]]。
+完整脚本、视觉结构、Caption、发布链接和 follow-up 统一见：[[inbox-pengman/03-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]。
 
 ## 5. 初步风险提醒
 

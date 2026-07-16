@@ -16,6 +16,8 @@ source:
 
 # AstrologyWiki 站外内容长期工作流
 
+> 历史总览：本文保留早期流程和工具选择背景，不再作为当前执行规范。当前入口见 [[inbox-pengman/04-production/00-evergreen-workflows/README.md]]；规则冲突时，以 [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]] 指定的唯一来源为准。
+>
 > 这份文档只记录长期会重复发生的内容工作：怎么找题、怎么做内容、怎么发、怎么复盘、怎么把结果沉淀成下一轮输入。  
 > 一次性的注册、账号资产、养号说明，已单独放在其他文档，不在这里重复。
 
@@ -73,7 +75,7 @@ source:
 
 热点样例：
 
-[[inbox-pengman/03-topic-ideas/Lionel Messi’s Cancer Sun.md]]
+[[inbox-pengman/03-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
 
 ### 2.2 选题筛选逻辑
 
@@ -170,7 +172,7 @@ source:
 4. 先判断最适合的平台，再分别给出 X / YouTube Shorts / TikTok 版本中最合适的一个或两个。
 5. 文案要简洁、自然、像真人写的，不要太 AI 化。
 6. 如果是 X 帖子，避免过度否定句、避免堆砌免责声明、避免太长。
-7. 避免使用 “is...not...” / “不是...而是...” 这类对照句式；需要表达边界时，优先改成正向表达，比如 “Use it as...”, “Think of it as...”, “It works best as...”。
+7. 公共表达规则以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md#Copy Style]] 为准；自然反差可以使用，但不要连续套用成明显的 AI 模板。
 8. 如果是视频脚本，控制在适合短视频或轻量解释视频的长度。
 9. 如果涉及链接，请优先放可自然承接的 AstrologyWiki 页面或主页。
 
@@ -317,14 +319,23 @@ birth chart 截图
 
 ---
 
-## 8. 当前待补的工作流节点
+## 8. 当前工作流状态
 
-- [ ] 账号内容标签体系建立
-- [ ] 平台分析字段标准化
-- [ ] 周报 / 复盘节奏固定化
-- [ ] 选题库与发布记录之间建立统一 ID
-- [ ] 形成稳定的系列栏目命名方式
-- [ ] 明确哪些内容适合长期复用，哪些只做一次性热点测试
+> 本节只记录建设状态，不重复维护具体规则。当前执行口径以 [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]]、[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]]、[[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]] 和对应生产模板为准。
+
+### 已投入使用
+
+- [x] 使用 `content_id` 连接 Brief、生产记录、发布和复盘；
+- [x] 周报作为发布数据、`decision` 和 `next_test` 的事实来源；
+- [x] 使用账号 Playbook 完成账号、平台和形式路由；
+- [x] 使用 `decision / next_test` 区分复用、调整、观察、暂停和淘汰；
+- [x] 使用统一模型实验包完成 Claude / GPT 独立候选、Pengman 选择和 Codex 写回。
+
+### 部分完成
+
+- [~] Brief 的平台和生产字段已统一；通用平台调研字段尚未完全标准化；
+- [~] 单条记录已使用 `series`；跨系列统一命名词表暂不作为生产阻塞项；
+- [~] 账号与内容形式路由已建立；只有出现真实检索或自动化需求时，再补统一标签词表。
 
 ---
 

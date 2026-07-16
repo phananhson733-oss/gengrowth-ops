@@ -18,13 +18,13 @@ updated: 2026-07-15
 2. [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
    - 当前内容方向、平台方向、内容形式和工具判断总览。
 3. [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
-   - 长期可复用的选题、脚本、制作、发布、复盘流程。
-4. [[inbox-pengman/03-topic-ideas/README.md]]
-   - 站外内容选题区入口：选题库、SEO 选题调查、单条脚本和已发布内容归档。
+   - 早期工作流总览和历史决策背景；当前执行口径以 `00-evergreen-workflows` 中的 Skill、路由说明和模板为准。
+4. [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+   - 当前每日选题池、内容包和制作方案主入口。
 5. [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
    - 每日内容推荐助手 SOP：如何用文章索引、GSC 数据和已发布记录选今天要发什么。
-6. [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
-   - 最近一次 AI host 视频内容包：选题、脚本、素材、CapCut 和发布检查。
+6. [[inbox-pengman/03-topic-ideas/README.md]]
+   - 长期主题种子、SEO/GSC 选题参考和历史单条选题归档。
 
 ## 子目录分工
 
@@ -58,5 +58,5 @@ updated: 2026-07-15
 
 - 新的内容创作/工具调研，如果还没分类，先放 `inbox-pengman/00-inbox/`。
 - 已经能归类的内容创作资料，优先放到本目录的对应子目录。
-- 真正进入执行的单条内容，继续放在 [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]] 或本目录的工作流文档中承接。
+- 真正进入执行的单条内容，统一放在 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]。`03-topic-ideas` 只保留长期主题种子、SEO/GSC 选题参考和历史单条归档。
 - 单次发布复盘、已发布链接和公开数据记录，放到 [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]，不再单独维护 `05-media report`。

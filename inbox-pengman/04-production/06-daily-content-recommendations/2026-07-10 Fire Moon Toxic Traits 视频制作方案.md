@@ -4,7 +4,16 @@ type: video-production-guide
 date: 2026-07-10
 owner: Pengman
 project: AstrologyWiki
-status: ready-to-produce
+status: draft
+content_id: aw-moon-toxic-traits-02
+account: ① AstrologyWiki 官方
+content_format: 9:16 纯字幕短视频
+content_stage: 已发布
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
+decision: 待观察
+next_test: 先确认后台发布时间和周归属，再与同系列的 Hook 和 CTA 表现比较
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7660826807507094798"
 topic: "Your toxic trait, according to your Fire Moon sign"
 series: Moon Sign Toxic Traits 系列第 2 集
 platform:
@@ -26,6 +35,8 @@ related:
 ---
 
 # 2026-07-10 Fire Moon Toxic Traits 视频制作方案
+
+> **状态：已发布。** 当前周归属仍待后台确认；发布数据以对应周报为唯一事实来源。
 
 > **系列说明：** 本条是 Moon Sign Toxic Traits 系列第 2 集，接续昨日（07-09）Scorpio / Gemini / Pisces 版。昨日视频流量表现较好，今日直接复刻其高留存格式：17 秒、无口播、真实星座连线图、底部黑色半透明圆角字幕框、结尾 AstrologyWiki 工具截图 CTA。
 
@@ -250,10 +261,14 @@ Part 1 was Scorpio / Gemini / Pisces 🌙 Which Moon signs should be next?
 
 | 项目 | 记录 |
 |---|---|
-| 发布日期 | 待发布（2026-07-10） |
-| 发布平台 | TikTok @astrologywiki，YouTube Shorts 同步 |
-| 发布结果 | 待补充 |
-| 具体数据 | 待补充（播放量 / 完播率 / 点赞 / 评论 / 粉丝增长） |
-| 复盘结论 | 待补充 |
+| 发布日期 | 已发布；公开时间戳折算为北京时间 2026-07-11 01:00，准确后台时间待确认 |
+| 发布平台 | TikTok @astrologywiki；YouTube Shorts 是否同步待确认 |
+| 发布链接 | https://www.tiktok.com/@astrologywiki/video/7660826807507094798 |
+| 周报 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]（W28/W29 边界项） |
+| 发布结果 | 已发布；具体数据只在周报维护 |
+| decision | 待观察 |
+| next_test | 先确认后台发布时间和周归属，再与同系列的 Hook 和 CTA 表现比较 |
+| 具体数据 | 见 `weekly_digest`，不在本文件重复回填 |
+| 复盘结论 | 见周报 `decision / next_test` |
 
 > 建议发布后 48-72 小时内回填具体数据，与第 1 集对比判断系列是否值得继续做土象 / 水象 / 风象完整版。

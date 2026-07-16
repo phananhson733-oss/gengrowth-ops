@@ -10,6 +10,14 @@ owner: Pengman
 
 这里放每天的内容推荐、可发布文案、短视频脚本、制作 brief 和必要复盘。一个日期尽量收敛成一份内容包；原始过程稿可以放入 `已合并旧稿/`。
 
+当前口径：这里是日常内容生产主入口。`03-topic-ideas` 只保留长期主题种子、SEO/GSC 参考和历史单条归档；不要再把新的日更选题池或制作方案写回 03。
+
+统一入口：
+
+- Brief：[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]
+- 路由：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
+- 人工修改学习：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
+
 建议命名：
 
 ```text
@@ -28,22 +36,40 @@ YYYY-MM-DD 主题内容包.md
 
 ## 写作规则
 
-- 面向发布的脚本、caption、X 文案和屏幕大字，避免明显 AI 味的对照句式，尤其不要写成 `X is not..., it is...` / `This is not..., this is...` / `不是...而是...`。
-- 需要表达边界时，优先用正向表达：`Use it as...`、`Think of it as...`、`On AstrologyWiki, we use it to...`、`Try a better question...`。
-- 可以在内部说明和 checklist 里写禁忌，但对外文案要自然、直接，不要靠先否定再反转来制造观点。
+- 公共表达、品牌安全和 CTA 以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md#Copy Style]] 为唯一来源；本 README 不维护第二套文风规则。
+- 自然、像创作者说话的反差可以使用；避免连续套用、企业文案感或明显 AI 模板感的反转。
 
 ## 当前内容包
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-01-daily-content-recommendation.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host Video 2 制作方案.md]]
+### 每日选题池
+
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md]]
+
+### 制作方案
+
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — 本条不再返工 A3 或新增图片；暗黑气质建议已记为系列候选视觉规则，H1 Prompt 保留
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Cancer New Moon 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Dreaming About Your Ex 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 Celebrity Rising Sign 视频制作方案.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 House of the Dragon Rhaenyra 视频制作方案.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host Video 2 制作方案.md]]
+
+### 早期内容包
+
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Venus enters Virgo 内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-01-daily-content-recommendation.md]]
 
 ## 已合并旧稿
 
@@ -52,7 +78,7 @@ YYYY-MM-DD 主题内容包.md
 ## Related Areas
 
 - Social SEO fishbone map: [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
-- Topic archive: [[inbox-pengman/03-topic-ideas/README.md]]
+- Long-term topic seeds and old topic archive: [[inbox-pengman/03-topic-ideas/README.md]]
 - GSC exports: [[inbox-pengman/04-production/07-gsc-exports/README.md]]
 - Published content digests: [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
 - Daily assistant SOP: [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]

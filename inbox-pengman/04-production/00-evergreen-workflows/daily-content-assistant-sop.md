@@ -2,7 +2,7 @@
 title: Daily Content Assistant SOP
 type: workflow
 status: draft
-updated: 2026-07-01
+updated: 2026-07-16
 owner: Pengman
 ---
 
@@ -20,9 +20,10 @@ This first version is semi-automatic.
 
 Pengman provides or maintains:
 
-- An AstrologyWiki article index.
+- AstrologyWiki live article list; use a local index only when the file actually exists.
 - A recent Google Search Console CSV export.
-- Recent publishing records from the weekly published content digests.
+- Recent publishing records from the weekly published content digests, including relevant `decision / next_test`.
+- Selected competitor rows from the live Google Sheet; do not use stale local CSV snapshots as current facts.
 - Optional notes about current priorities, launches, or topics to avoid.
 
 Codex reads those materials and produces one daily recommendation note.
@@ -32,7 +33,7 @@ Codex reads those materials and produces one daily recommendation note.
 Suggested working files:
 
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
-- `inbox-pengman/astrologywiki-article-index.csv`
+- `https://www.astrologywiki.com/en/wiki?tab=articles`；仅在本地索引实际存在时使用本地文件
 - `inbox-pengman/04-production/07-gsc-exports/`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/`
 - `inbox-pengman/04-production/06-daily-content-recommendations/`
@@ -45,7 +46,7 @@ Primary source:
 
 - `https://www.astrologywiki.com/en/wiki?tab=articles`
 
-The daily workflow should use AstrologyWiki articles as the content anchor. For the MVP, do not depend on live website reading every day. Keep a local article index and refresh it when the articles page changes or when the user asks for a refresh.
+The daily workflow should use AstrologyWiki articles as the content anchor. 当前仓库没有 `inbox-pengman/astrologywiki-article-index.csv`，因此不得把该路径当作已存在输入；默认读取公开文章列表。以后若建立本地索引，它只能是带刷新日期的缓存，并链接回公开来源。
 
 Preferred columns:
 
@@ -114,6 +115,13 @@ Optional simple index format:
 
 The assistant should avoid repeating the same topic, hook, named person, or article angle too often, especially within the last 7-14 days.
 
+## Input 4: Competitor Research and Prior Decisions
+
+- 竞品事实源：Google Sheet `astrologywiki reference account video`。
+- Obsidian 只保存被选中的 URL、借鉴机制、证据强度和风险，不复制整表。
+- 下一轮写稿前必须读取同系列最近周报的 `decision / next_test`；不能只读取最终稿。
+- 若没有可用的 `decision / next_test`，明确写“待确认”，不要从播放量单独推导长期规则。
+
 ## Daily Decision Rules
 
 When generating the daily recommendation, Codex should:
@@ -128,7 +136,7 @@ When generating the daily recommendation, Codex should:
 8. Keep recommendations executable by one person.
 9. If evidence is weak or missing, clearly say that the recommendation is based on article fit rather than GSC data.
 10. Before recommending a topic, check recent weekly published digests and exclude already-used topics unless the recommendation is a clearly different follow-up.
-11. Avoid obvious AI-style contrast patterns in public-facing copy, especially sentence pairs like "X is not..., it is..." or "This is not..., this is..."; write with natural transitions instead.
+11. Public copy style follows the `Copy Style` section of [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] as the single source of truth. Natural creator-style contrast is allowed; avoid repetitive, corporate or obviously templated AI reversals.
 12. When using sports, event, or launch timing, verify the date and time from current sources and convert it internally to Chicago time (CT/CDT); do not put the exact time into public-facing copy unless it improves the post.
 13. For hotspot, celebrity, sports, and entertainment content, avoid question-heavy titles and classroom-style explainers by default. Lead with the public moment, emotional tension, or visual story people already care about, then add the AstrologyWiki lens or tool CTA lightly.
 14. For TikTok/Instagram image posts, do not turn every carousel into a lesson. Prefer fewer slides and a short editorial/story rhythm, especially when the matching video angle already works better than a pure explainer.
@@ -160,20 +168,20 @@ For each account, give today's post or mark it as skipped:
 - ③ 热点占星测试：
 - ④ 普通占星爱好者：
 
-### 2. Ready-To-Post Draft
+### 2. Stage 1 Candidate Directions
 
-For X or text/image post:
+默认只给可供 Pengman 选择的候选方向，不在这一阶段生成 Ready-To-Post Draft。每个候选至少包含：
 
-- Draft post:
-- Optional image idea:
-- Suggested hashtags:
+- Route A / B / C：
+- 选题角度：
+- 目标账号：
+- 平台和形式：
+- Hook 方向：
+- 证据和去重结论：
+- Landing page / CTA 方向：
+- 风险或待确认：
 
-For short video:
-
-- Hook:
-- 20-40 second script:
-- Visual structure:
-- Caption:
+Pengman 选择后才进入 Stage 2：建立统一 Brief，并按需要生成单模型初稿或启动 Claude / GPT 双模型内容实验。若 Pengman 明确要求“直接展开内容包”“直接生成脚本”“不用等我选”或“hook 优先”，才可跳过等待。
 
 ### 3. Backup Ideas
 
@@ -210,7 +218,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 输出要可直接执行，适合一个人当天完成。
 
 请读取并参考：
-- https://www.astrologywiki.com/en/wiki?tab=articles 作为文章来源；优先使用本地文章索引 inbox-pengman/astrologywiki-article-index.csv
+- https://www.astrologywiki.com/en/wiki?tab=articles 作为文章来源；仅在 `inbox-pengman/astrologywiki-article-index.csv` 实际存在且日期可用时优先使用
 - inbox-pengman/04-production/07-gsc-exports/ 中最新或我指定的 CSV
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 中最近的已发布内容合集
 - 任何我在本次对话里补充的临时优先级
@@ -221,7 +229,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 避免重复最近 7-14 天已经发过的主题、角度、人物、文章或案例；已做过的选题不再作为今日首推。
 - 大多数内容不要像广告，必要时只轻 CTA 到相关文章。
 - 如果数据不足，请明确说明依据来自文章主题匹配，而不是 GSC 证据。
-- 面向发布的文案要避免明显 AI 味的对照句式，尤其不要写成“不是...而是...” / “这不是...这是...” / “肯定句接否定句再反转”的模板感表达；用自然、直接的过渡。
+- 公共表达规则以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] 的 `Copy Style` 为唯一来源：自然、像创作者说话的反差可以使用；连续套用或明显 AI 模板感的反转不用。
 - 热点、名人、体育、影视娱乐类内容不要默认写成提问式标题或强科普口吻。先抓住正在发生的故事、画面、人物关系或情绪张力，再轻轻带入 AstrologyWiki 的占星视角或工具 CTA。
 - TikTok 图文和 Instagram carousel 不要每次都做成课堂式解释。优先少页数、短句、故事感/娱乐感强的图文节奏；如果视频角度更吸引人，就把视频的叙事节奏改成图文，而不是改成重科普。
 - 如果使用比赛、发布、直播、节日等时间信息，必须先核对当前来源，并在内部统一换算成芝加哥时区 CT/CDT；除非对发布效果有帮助，不要默认把具体时间写进对外文案。
@@ -243,11 +251,15 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - ③ 热点占星测试：
 - ④ 普通占星爱好者：
 
-## 可直接发布的草稿
-- 文案或脚本：
-- 视觉建议：
-- 可选标题/开头：
-- Hashtags：
+## 候选方向
+- Route A / B / C：
+- 选题角度：
+- 目标账号：
+- 平台和形式：
+- Hook 方向：
+- 证据和去重结论：
+- Landing page / CTA 方向：
+- 风险或待确认：
 
 ## 备选 2-3 个
 - 主题：
@@ -261,7 +273,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 最近发布记录：
 
 ## 需要我确认的事
-- 只列真正影响发布的问题。
+- 请 Pengman 选择候选，或明确要求直接展开内容包；只列真正影响选择的问题。
 ```
 
 ## First Setup Checklist

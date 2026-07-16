@@ -5,6 +5,14 @@ date: 2026-07-13
 owner: Pengman
 project: AstrologyWiki
 status: draft
+content_id: aw-cancer-new-moon-20260714
+content_format: 9:16 非真人天象解释短视频
+content_stage: 已发布
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
+decision: 待观察
+next_test: 再测试一条同等时效的天象提问式 Hook，确认优势不是单一事件造成
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7661912847693188365"
 topic: Cancer New Moon conjunct Mercury Retrograde
 platform:
   - TikTok
@@ -23,6 +31,8 @@ related:
 ---
 
 # 2026-07-14 Cancer New Moon 视频制作方案
+
+> **状态：已发布。** 生产记录不重复维护播放数据；以 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]] 为准。
 
 ## 0. 选题定位
 
@@ -182,3 +192,10 @@ Ambient / Healing / Lo-fi 热度榜音乐，音量 5-10%，不抢字幕。
 | 主页访问 | > 3% |
 | Bio 链接点击 | > 1% |
 | 收藏 | 有收藏行为（说明内容有"回头看"价值） |
+
+## 9. 发布与复盘链接
+
+- 发布链接：https://www.tiktok.com/@astrologywiki/video/7661912847693188365
+- 周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
+- `decision`：待观察
+- `next_test`：再测试一条同等时效的天象提问式 Hook，确认优势不是单一事件造成。

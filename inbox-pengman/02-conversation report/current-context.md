@@ -1,7 +1,7 @@
 ---
 title: Pengman 当前协作上下文
 date: 2026-06-15
-updated: 2026-06-16
+updated: 2026-07-16
 owner: Pengman
 type: conversation-context
 status: active
@@ -18,7 +18,7 @@ status: active
 - **协作方式**：可参与部分主题词调研，并把平台反馈回传给 SEO / 内容同事。
 - **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 PV、CTA、GSC 等站内数据维护。
 - **整体目标**：从站外内容和用户触达侧支持 AstrologyWiki 日 PV 5,000 的项目目标。
-- **当前重点**：YouTube 已确定必做；完成平台调研后形成 YouTube 核心方案及其他平台组合，再依次注册、养号和初步测试。
+- **当前重点**：已进入真实内容生产与复盘阶段；P0 正把竞品研究、统一 Brief、AI 初稿、人工润色、周报 decision/next_test 串成可追溯闭环。
 - **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
 ---
@@ -116,3 +116,16 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-16：当前仍处于调研阶段，暂不进入脚本生产。下一步可继续补充 Birth Chart Shorts 的真实链接、播放量、评论和 CTA，或切到 Houses / Saturn Return 等下一个 SEO/YouTube 主题。
 - 2026-06-16：运营方案初稿已进一步修正为 **PV 增长 / 站内导流导向**：YouTube、Shorts、Pinterest、X 等站外内容的核心目标不是账号涨粉，而是为 astrologywiki.com 的公开工具页、Wiki 页面和重点 SEO 页面带来直接或间接访问。后续评估需记录目标页面、CTA、站外指标和由同事同步的站内 PV / referral / 工具启动等指标。
 - 2026-06-16：新增视频制作现实约束：Pengman 当前不适合真人出镜、复杂动画或 20–30 分钟长课。YouTube 方案已调整为低成本 MVP：优先知识卡片型 Shorts、工具/页面录屏型 Shorts，以及 3–6 分钟轻量视频；目标是尽快验证“站外 → 站内 PV / 工具启动”路径，而不是追求高制作质量或账号涨粉。
+
+## 7. 2026-07-16 P0 内容学习闭环
+
+- 当前生产入口：[[inbox-pengman/04-production/06-daily-content-recommendations/README]]
+- 统一 Brief：[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]
+- 路由与唯一公共表达规则：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
+- 人工润色学习模板：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
+- 当前周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
+- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；本条因时间限制不再修改 A3 Prompt 或新增图片；“Toxic Traits 后续应测试稍偏暗黑风格”已记录为系列候选视觉规则；H1 微动效 Prompt 保留待外部工作区试生成。
+- 竞品事实源为在线 Google Sheet；本地 `sheets-export` 只作历史快照。
+- 已发布内容的真实阶段统一写 `content_stage: 已发布`；仓库 `status` 保持 dispatch 语义。
+- 下一轮生成前必须读取上一轮 `decision / next_test`。没有人工润色证据时，不产生候选偏好，不更新长期 Skill。
+- `04-production` 批量瘦身尚未执行，迁移提案见 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]]。

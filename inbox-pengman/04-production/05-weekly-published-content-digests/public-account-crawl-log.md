@@ -3,10 +3,32 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-14
+updated: 2026-07-16
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-16 自动化补核
+
+- 检查范围：TikTok 公开 profile `yt-dlp --flat-playlist`、TikTok 单条公开页、TikTok `https://www.tiktok.com/embed/@astrologywiki`、YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、Instagram 公开 profile meta、X 公开 profile SSR / meta。
+- 新确认内容：
+  - 本次未发现比既有 W29 记录更晚的新稳定链接。
+- 内容级公开刷新：
+  - TikTok profile `yt-dlp` 本次仍稳定暴露最近 `10` 条内容，最新序列未变，仍以 `7662283840634866957`、`7661912847693188365`、`7660826807507094798` 开头。
+  - TikTok：`7661912847693188365` 当前可见 `935 plays / 14 likes / 0 comments / 0 reposts`，北京时间约 `2026-07-13 23:30`
+  - TikTok：`7662283840634866957` 当前可见 `139 plays / 1 like / 0 comments / 0 reposts`，北京时间约 `2026-07-14 23:50`
+  - YouTube Shorts：公开列表仍为已知 `9` 条，最新仍是 `ntnz_7FVvck`；本次能稳定确认“无新 ID”
+  - YouTube Video：公开列表仍只有 `NQvlUn_XpHI`、`NxecDPhWeyA`
+- 账号级公开变化：
+  - TikTok：公开 `embed` / profile 当前继续稳定可见 `3 followers / 0 following / 89 likes`
+  - Instagram：公开 profile meta 仍可见 `0 Followers / 0 Following / 5 Posts`
+  - X：公开 profile SSR / meta 仍可确认 `25 posts / 3 followers / 9 following`
+- 限制说明：
+  - TikTok 本次只刷新到两条 W29 直链的播放/点赞；收藏/书签、完播率、观看时长、点击仍需后台。
+  - TikTok `embed` 本次没稳定给出 `videoCount`，因此账号级视频总数继续只记历史公开波动，待后台确认。
+  - YouTube 本轮仍只适合做“有无新 ID”检查；详细 views / likes / comments 在当前公开环境下没有比上一轮更稳定的补法。
+  - Instagram 仍未稳定暴露第 5 帖 shortcode。
+  - X 仍无法稳定补内容级 `status` 链接，timeline 公开页继续显示 `@AstrologyWiki hasn’t posted`。
 
 ## 2026-07-14 自动化补核
 

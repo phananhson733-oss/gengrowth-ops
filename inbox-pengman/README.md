@@ -10,8 +10,8 @@
 | :----- | :------------------------ | :------------------------------ |
 | **00** | `00-inbox`                | 临时输入、灵感草稿、未分类数据。                |
 | **02** | `02-conversation report`  | 跨对话协作上下文、已确认决定、职责边界和待确认事项。 |
-| **03** | `03-topic-ideas`          | 站外内容选题库、单条选题草稿、主题包灵感。入口：[[inbox-pengman/03-topic-ideas/README.md]] |
-| **04** | `04-production`           | 内容创作工作区：平台/内容方向、图文视频工具调研、生产工作流、已发布内容复盘。 |
+| **03** | `03-topic-ideas`          | 长期主题种子、SEO/GSC 选题参考、历史单条选题归档；不再作为每日内容生产入口。入口：[[inbox-pengman/03-topic-ideas/README.md]] |
+| **04** | `04-production`           | 内容创作工作区：平台/内容方向、每日选题与内容包、图文视频工具调研、生产工作流、已发布内容复盘。入口：[[inbox-pengman/04-production/README.md]] |
 | **06** | `06-tasks`                | 任务管理、周计划、执行跟踪、职责边界文档。          |
 | **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。入口：[[inbox-pengman/07-account-assets/README.md]] |
 | **08** | `08-requirements`         | 需求文档、工具需求、自动化需求和待交付给同事的 PRD。 |
@@ -25,6 +25,8 @@
 - `06-daily-content-recommendations`: 每日内容推荐输出。
 - `07-gsc-exports`: 手动导出的 GSC 数据，只作为每日推荐和选题判断输入。
 - 入口文档：[[inbox-pengman/04-production/README.md]]
+
+当前日常内容生产默认走 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]；`03-topic-ideas` 只保留长期主题和历史资料。
 
 
 ### 🧹 已精简的复制型目录
@@ -111,4 +113,4 @@ node scripts/brand-wrap.js --scan inbox-pengman/ --apply
 修复后在 Obsidian 里改完，按 F5 重新提交即可。
 
 ---
-*最后更新：2026-06-10*
+*最后更新：2026-07-15*

@@ -4,11 +4,11 @@ project: astrologywiki
 type: content-strategy-playbook
 status: draft
 owner: Pengman
-updated: 2026-07-12
+updated: 2026-07-16
 sources:
   - inbox-pengman/04-production/03-reference-accounts/reference-accounts.md
   - inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md
-  - Google Sheet「astrologywiki reference account video」（19 个竞品账号）
+  - Google Sheet「astrologywiki reference account video」（2026-07-16：26 条账号分析，25 个唯一 handle）
   - 2026-07-12 竞品与趋势补充搜索（Astroscope / Starcrossed / 2026 TikTok 占星趋势）
 ---
 

@@ -4,7 +4,16 @@ type: video-production-guide
 date: 2026-07-09
 owner: Pengman
 project: AstrologyWiki
-status: published
+status: draft
+content_id: aw-moon-toxic-traits-01
+account: ① AstrologyWiki 官方
+content_format: 9:16 纯字幕短视频
+content_stage: 已发布
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集]]"
+decision: 待观察
+next_test: 修正 CTA 归属后，再比较行为式或提问式 Hook 与元素合集 Hook
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7660473423038041358"
 published_result: 已发布，流量表现较好
 topic: Your toxic trait, according to your Moon sign
 platform:
@@ -21,7 +30,7 @@ tags:
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池]]"
   - "[[inbox-pengman/04-production/03-reference-accounts/reference-accounts]]"
-  - "[[inbox-pengman/04-production/02-video-and-visual-tool-research/2026-07-09-astrology-short-video-format-analysis]]"
+  - "[[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis]]"
 ---
 
 # 2026-07-09 Moon Sign Toxic Traits 视频制作方案
@@ -75,7 +84,7 @@ related:
 
 ### 钩子结构来源
 
-本条使用"样本 A + 样本 C"混合打法（参考 `2026-07-09-astrology-short-video-format-analysis`）：
+本条使用"样本 A + 样本 C"混合打法（参考 [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis]]）：
 
 - 开头：身份命中型钩子（Moon sign 点名）
 - 中段：多星座分段，制造"等自己的星座"留存
@@ -217,8 +226,12 @@ Your [placement] holds your deepest secret — here's what it reveals about [emo
 |---|---|
 | 发布日期 | 2026-07-09 |
 | 发布平台 | TikTok @astrologywiki |
+| 发布链接 | https://www.tiktok.com/@astrologywiki/video/7660473423038041358 |
+| 周报 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集]] |
+| decision | 待观察 |
+| next_test | 修正 CTA 归属后，再比较行为式或提问式 Hook 与元素合集 Hook |
 | 发布结果 | 流量表现较好 |
-| 具体数据 | 待补充（播放量 / 完播率 / 点赞 / 评论 / 粉丝增长） |
-| 复盘结论 | 待补充 |
+| 具体数据 | 见 `weekly_digest`，不在本文件重复回填 |
+| 复盘结论 | 见周报 `decision / next_test` |
 
 > 建议发布后 48-72 小时内回填具体数据，判断是否值得做月亮星座系列续集。

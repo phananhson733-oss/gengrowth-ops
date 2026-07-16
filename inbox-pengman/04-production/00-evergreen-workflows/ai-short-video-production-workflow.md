@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-01
+updated: 2026-07-16
 ---
 
 # AI Short Video Production Workflow
@@ -32,6 +32,8 @@ Use the daily content assistant workflow to choose the topic.
 
 Inputs:
 
+- Completed [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]].
+- Relevant prior weekly `decision / next_test`.
 - AstrologyWiki article reference: `https://www.astrologywiki.com/en/wiki?tab=articles`
 - Google Search Console CSV, if available.
 - Recent published content digests, to avoid repeating topics.
@@ -74,7 +76,7 @@ Output should include:
 Writing rules:
 
 - Keep the script short enough for the target format.
-- Avoid obvious AI-style contrast patterns, such as "not X, but Y" or "this is not..., this is...".
+- Follow the canonical `Copy Style` in [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]]: natural creator-style contrast is allowed; repetitive or corporate-sounding AI contrast templates are not.
 - Do not over-explain brand values inside the script.
 - Do not turn astrology into match prediction, medical/psychological diagnosis, or deterministic claims.
 - Keep CTA light and natural.
@@ -126,6 +128,25 @@ Output:
 - Source links or generation prompts.
 - Local asset filenames.
 - Notes for CapCut placement.
+
+### 视觉信息存放规则
+
+默认采用“一条内容一个状态与最终决策事实来源”：
+
+- 单条短视频只有一个拟生产版本时，最终视觉选择、实验假设、逐秒画面、素材链接、生成 Prompt、字幕与动效要求、授权状态都直接写入该内容生产记录。
+- 通用视觉调研，例如竞品常见形式、AI 图片与图库素材的比较、跨视频剪辑规律和阶段性实验结论，写入对应的竞品研究、平台研究或长期方法记录；单条生产记录只链接来源并摘录本次实际采用的结论。
+- 飞书 Social 负责提供或整理可观看的竞品账号、视频链接和结构化画面观察，补足 Google Sheet 与 TikTok 证据；它是研究输入方，不负责最终方案建议。Codex 负责核验原视频、证据强度、重复来源和适配风险。
+- 只有出现大量素材、多个仍需比较的视觉版本、复杂 Prompt 组、长逐镜脚本或多人协作交付时，才在主生产记录旁拆出独立视觉制作方案。
+- 拆分后，主生产记录仍唯一拥有 `content_stage`、脚本确认状态、最终视觉选择、发布链接和复盘入口；视觉子文档使用同一 `content_id`，并增加 `parent_content` wikilink 和独立的 `visual_status`。子文档不得维护第二份总体状态或发布数据。
+- 主生产记录链接视觉子文档；视觉子文档反向链接主生产记录。周报和发布记录始终链接主生产记录，不直接把视觉子文档当作内容事实来源。
+
+#### 视觉决策分工
+
+- 飞书 Social 负责补充可观看的竞品账号、视频链接和结构化画面证据，是研究输入方，不直接决定方案。
+- Codex 负责核验原始证据、识别重复来源和推断，结合仓库历史表现、品牌一致性、版权、成本与实验价值，给出一个有置信度的默认建议，并在确认后转化为执行方案。
+- Pengman 只确认品牌审美、实际制作投入和是否愿意让当前内容承担实验；低成本可逆 canary 不要求 Pengman 重新完成研究。
+- 默认不使用第三个 AI 投票。事实冲突优先回看原视频或后台数据；审美分歧由 Pengman 确认。只有关键事实无法核验、遗漏重大风险、需要专门样稿比较，或两个方案都高成本且难回退时，才考虑第三方专项分析。
+- 每条内容的主生产记录是综合建议、最终选择、执行和发布状态的事实来源；原始研究报告保留原位并链接，不复制全文。
 
 ## 5. CapCut Editing
 

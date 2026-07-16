@@ -4,7 +4,16 @@ type: video-production-guide
 date: 2026-07-14
 owner: Pengman
 project: AstrologyWiki
-status: ready-to-produce
+status: draft
+content_id: aw-moon-toxic-traits-03
+account: ① AstrologyWiki 官方
+content_format: 9:16 纯字幕短视频
+content_stage: 已发布
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
+decision: 调整后复用
+next_test: 保留系列视觉和 Moon report CTA，改测行为问题式或单一身份 Hook
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7662283840634866957"
 topic: "Your toxic trait, according to your Earth Moon sign"
 series: Moon Sign Toxic Traits 系列第 3 集
 platform:
@@ -27,6 +36,8 @@ related:
 ---
 
 # 2026-07-14 Earth Moon Toxic Traits 视频制作方案
+
+> **状态：已发布。** 生产记录不重复维护播放数据；以 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]] 为准。
 
 > **系列说明：** 本条是 Moon Sign Toxic Traits 系列第 3 集，接续 07-09（Scorpio / Gemini / Pisces）和 07-10（Aries / Leo / Sagittarius）。前两期格式已验证：17 秒、无口播、真实星座连线图、底部黑色半透明圆角字幕框、结尾 AstrologyWiki 工具截图 CTA。本集覆盖 Earth Moon 三星座。
 >
@@ -256,7 +267,7 @@ Which element hit hardest? 👇
 |---|---|---|
 | 第 1 集 | Scorpio / Gemini / Pisces（水+风混合） | ✅ 已发布，流量较好 |
 | 第 2 集 | Aries / Leo / Sagittarius（火象） | ✅ 已发布 |
-| **第 3 集** | **Taurus / Virgo / Capricorn（土象）** | **本条 — ready to produce** |
+| **第 3 集** | **Taurus / Virgo / Capricorn（土象）** | **✅ 已发布** |
 | 第 4 集 | Cancer / Libra / Aquarius（剩余 3 个） | 待规划 |
 
 > 第 4 集可做"水象深度版"（Cancer / Scorpio / Pisces 重拍深度版）或"剩余三星座合集"（Cancer / Libra / Aquarius），取决于前三集数据对比。
@@ -267,11 +278,15 @@ Which element hit hardest? 👇
 
 | 项目 | 记录 |
 |---|---|
-| 发布日期 | 待发布（2026-07-14） |
-| 发布平台 | TikTok @astrologywiki，YouTube Shorts 同步 |
-| 发布结果 | 待补充 |
-| 具体数据 | 待补充（播放量 / 完播率 / 点赞 / 评论 / 粉丝增长） |
-| 与前两集对比 | 待补充 |
-| 复盘结论 | 待补充 |
+| 发布日期 | 2026-07-14 |
+| 发布平台 | TikTok @astrologywiki；YouTube Shorts 是否同步待确认 |
+| 发布链接 | https://www.tiktok.com/@astrologywiki/video/7662283840634866957 |
+| 周报 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]] |
+| 发布结果 | 已发布；具体数据只在周报维护 |
+| decision | 调整后复用 |
+| next_test | 保留系列视觉和 Moon report CTA，改测行为问题式或单一身份 Hook |
+| 具体数据 | 见 `weekly_digest`，不在本文件重复回填 |
+| 与前两集对比 | 见对应周报；当前仅作初步比较 |
+| 复盘结论 | 见周报 `decision / next_test` |
 
 > 建议发布后 48-72 小时内回填具体数据，与第 1、2 集对比判断系列完成度和是否做第 4 集。

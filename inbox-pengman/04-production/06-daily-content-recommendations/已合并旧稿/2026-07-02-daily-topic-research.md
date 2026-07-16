@@ -9,7 +9,7 @@ updated: 2026-07-03
 related:
   - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
-  - [[inbox-pengman/03-topic-ideas/Birth Chart.md]]
+  - [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 ---
@@ -53,7 +53,7 @@ related:
 
 修正原因：
 
-- Birth Chart 入门已经进入独立生产稿，见 [[inbox-pengman/03-topic-ideas/Birth Chart.md]] 的 `2026-07-02 Production Draft: What Is a Birth Chart?`。
+- Birth Chart 入门已经进入独立生产稿，见 [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]] 的 `2026-07-02 Production Draft: What Is a Birth Chart?`。
 - 0702 日更需要避免继续重复 `birth chart beginner explainer`。
 - Mercury retrograde in Cancer 仍是当下天象，可连接 emotional memory / old conversations / family patterns。
 - Reference accounts 方向显示，**single AI host + astrology psychology + emotional hook** 适合作为新形式测试。
@@ -206,7 +206,7 @@ Your Moon sign shows what makes you feel emotionally safe.
 
 - 仍是最稳的长期 SEO/PV 承接主题。
 - 可承接 celebrity / athlete birth chart 内容带来的入门兴趣。
-- 已经在 [[inbox-pengman/03-topic-ideas/Birth Chart.md]] 形成完整 production draft：英文 VO、timestamp image plan、CapCut structure、视觉红线。
+- 已经在 [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]] 形成完整 production draft：英文 VO、timestamp image plan、CapCut structure、视觉红线。
 
 0702 不继续主推的原因：
 
@@ -247,11 +247,11 @@ Your Moon sign shows what makes you feel emotionally safe.
 - 本整合页：0702 决策脉络与最终收敛。
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]：最终日更推荐与可直接交给 3号 的 brief。
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]：按 social-daily skill 拆出来的多平台执行包。
-- [[inbox-pengman/03-topic-ideas/Birth Chart.md]]：Birth Chart 入门 evergreen 视频生产稿。
+- [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]]：Birth Chart 入门 evergreen 视频生产稿。
 
 ## 10. 待补 / 待确认
 
 - [ ] 发布前补短链：Mercury video / Mercury thread / Moon sign thread。
 - [ ] 如果做视频，确认 3号 输出的是脚本与视觉段落，不是直接生成素材。
 - [ ] 若 Mercury 视频发布，后续在 weekly digest 里补 TikTok / Shorts / X 数据。
-- [ ] 若 Birth Chart 入门视频继续制作，按 evergreen video asset 进入 [[inbox-pengman/03-topic-ideas/Birth Chart.md]]，不要和 0702 日更主线混在一起。
+- [ ] 若 Birth Chart 入门视频继续制作，按 evergreen video asset 进入 [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]]，不要和 0702 日更主线混在一起。

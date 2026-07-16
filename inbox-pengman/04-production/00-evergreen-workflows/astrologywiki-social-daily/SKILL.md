@@ -1,10 +1,11 @@
 ---
 name: astrologywiki-social-daily
-description: Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: daily Route A life-first evergreen topics plus Route B timely hotspot topics, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit.
+description: "Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: Route A life-first evergreen topics, Route B timely hotspot topics, Route C placement identity callouts, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit."
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.7.2
+  version: 0.9.0
+  updated: 2026-07-16
 ---
 
 # AstrologyWiki Social Daily
@@ -39,22 +40,24 @@ Read these files first when available:
 - `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
 - `inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md`
 - `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`
+- `inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md` when Pengman requests a Claude / GPT content experiment
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - Latest GSC CSV, if available or explicitly authorized by Pengman
 
 ### Live Competitor Research Data (Google Sheet)
 
-Before building candidate pools, fetch the latest competitor account and video analysis data from the live Google Sheet via these commands:
+The live Google Sheet is the single source of truth:
+
+- `https://docs.google.com/spreadsheets/d/1zJJqSxRxRH9s5PeiT25RP4sRgXpl3tKqfB5nSdrU0bA/edit`
+- Prefer the Google Drive / Sheets connector and read metadata before bounded ranges.
+- If the connector is unavailable, use the existing read-only Apps Script endpoint.
+- Do not treat `03-reference-accounts/sheets-export/` as current data; those files are historical snapshots only.
+- Put only the selected source URL, reusable mechanism, evidence strength and risk into a content Brief. Never copy the whole table into a new Obsidian dataset.
+
+Read-only fallback:
 
 ```bash
-# 获取所有 sheet 数据（account_links, account_analysis, video_links, video_analysis）
 curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getAllData"
-
-# 或获取单个 sheet：
-curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=account_analysis"
-curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=video_analysis"
-curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=video_links"
-curl -sL "https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec?action=getData&sheet=account_links"
 ```
 
 Use this data to:
@@ -62,6 +65,7 @@ Use this data to:
 - Check which reference accounts have new content worth borrowing structurally
 - Inform Route C placement/identity hooks based on what performed well
 - Avoid repeating hooks or angles already analyzed in video_analysis
+- Read the relevant prior `decision / next_test` before generating the next Brief
 
 Also inspect recent `inbox-pengman/04-production/06-daily-content-recommendations/` notes to avoid repeating yesterday's topic.
 
@@ -194,6 +198,8 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 - For astrology facts such as retrograde dates, full moons, Saturn return age, houses, or transit meaning, verify from AstrologyWiki or current reliable sources.
 - Keep AstrologyWiki positioned as modern, explanatory, psychology-aware astrology grounded in real astronomy.
 
+> **Canonical public-expression source:** this `Copy Style` section is the single source of truth for shared wording rules. Other SOPs may link here and keep only workflow-specific constraints; they should not maintain parallel style rules.
+
 ### Copy Style
 
 - Contrast and reversal structures are allowed and often the most powerful hooks. "Your Sun sign is who you want to be, but your Moon sign is who you actually are" is a good hook — use it. "Not X, but Y" is only bad when it sounds like a corporate press release; it is fine when it sounds like a TikTok creator talking.
@@ -204,6 +210,14 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 - Keep public copy natural, direct, and concise.
 - Avoid over-explaining brand values inside scripts.
 - Most content should not feel like an ad; use light CTA unless the user asks for direct conversion copy.
+
+### Rule Governance
+
+- One human edit: keep it as a candidate preference in that content record.
+- Two similar edits: mark it as a rule to validate and link both sources.
+- Stable across 2–3 different pieces: propose a Skill or Playbook update.
+- Facts, one-platform constraints and one-off requests do not become personality rules.
+- Every accepted long-term change must preserve source content, old rule, new rule, reason and date.
 
 ### Timing
 
@@ -228,12 +242,24 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 
 Default to a two-stage workflow:
 
-1. Stage 1, topic selection: after Evidence Preflight, give Pengman many Route A and Route B topic candidates, mark P0 picks, and stop for Pengman's choice.
+1. Stage 1, topic selection: after Evidence Preflight, give Pengman Route A, Route B and Route C topic candidates, mark P0 picks, and stop for Pengman's choice.
 2. Stage 2, content package: only after Pengman selects one or more topics, create the multi-platform content package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders.
 
 Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", "不用等我选", or "hook优先".
 
 **Script-first shortcut:** If Pengman says "给我一个爆款脚本", "直接写脚本", "hook优先", or provides a specific topic and asks for a script — skip Stage 1 entirely. Go straight to a ready-to-use short video script with: one punchy hook line (front 3 seconds), 4-6 tight body lines, and a one-line CTA. Do not pad with evidence preflight or candidate pools unless Pengman asks.
+
+### Dual-Model Content Experiment Boundary
+
+When Pengman requests a Claude / GPT content experiment:
+
+1. Codex completes research, deduplication, routing and the Unified Brief first.
+2. Stop for Pengman's confirmation of the topic, account, platform, format, audience, content promise and hard constraints.
+3. Freeze one model experiment package with one `experiment_id` and `package_version`.
+4. Give Claude and GPT exactly the same frozen package in separate contexts. Neither model may receive or infer the other model's current answer.
+5. Both outputs are candidates, never final copy. Keep model objections separate from generated content.
+6. Pengman selects, combines, edits or rejects the candidates. Codex is the only model that writes the result back to the main Obsidian production record.
+7. One selection or edit does not update this Skill. Apply the evidence threshold in `Rule Governance` and the unique workflow in `Pengman 与 AI 内容润色协作说明.md`.
 
 ### Step 1: Gather Life and Trend Signals
 
@@ -666,3 +692,7 @@ If user asks for full social-daily:
 - deliver 8-10 items, but mark which 3 are P0.
 
 Never bury the best recommendation under a huge list.
+
+## Change Log
+
+- 2026-07-16 · v0.8.0 · 来源：P0 内容学习闭环与在线竞品表核验。理由：把 Google Sheet 定为竞品唯一事实来源、将本 Skill 的 `Copy Style` 定为公共表达唯一来源，并增加候选偏好的验证门槛；未把任何单次人工修改写入长期表达规则。
