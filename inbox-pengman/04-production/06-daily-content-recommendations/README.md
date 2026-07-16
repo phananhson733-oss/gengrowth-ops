@@ -51,7 +51,7 @@ YYYY-MM-DD 主题内容包.md
 
 ### 制作方案
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — 本条不再返工 A3 或新增图片；暗黑气质建议已记为系列候选视觉规则，H1 Prompt 保留
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — 已制作；待发布；预约 2026-07-16 07:45 PDT 在 TikTok · AstrologyWiki 官方账号发布
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Cancer New Moon 视频制作方案.md]]

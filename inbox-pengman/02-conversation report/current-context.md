@@ -124,7 +124,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 路由与唯一公共表达规则：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
 - 人工润色学习模板：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
 - 当前周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
-- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；本条因时间限制不再修改 A3 Prompt 或新增图片；“Toxic Traits 后续应测试稍偏暗黑风格”已记录为系列候选视觉规则；H1 微动效 Prompt 保留待外部工作区试生成。
+- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；视频已制作，`content_stage: 待发布`，已预约 2026-07-16 07:45 PDT（Seattle）在 TikTok 的 AstrologyWiki 官方账号发布；北京时间为 22:45，发布链接待发出后回填。
 - 竞品事实源为在线 Google Sheet；本地 `sheets-export` 只作历史快照。
 - 已发布内容的真实阶段统一写 `content_stage: 已发布`；仓库 `status` 保持 dispatch 语义。
 - 下一轮生成前必须读取上一轮 `decision / next_test`。没有人工润色证据时，不产生候选偏好，不更新长期 Skill。
