@@ -7,7 +7,12 @@ version: v3.0
 对应实验: 实验三（Saturn Return 内容矩阵）
 当前页面: https://www.astrologywiki.com/en/saturn-return-calculator
 依据规范: inbox/00-inbox/2026-07-09-工具落地页设计规范-sop-v1.0.md
-状态: 待实现
+状态: 已上线
+上线时间: 2026-07-16 11:40 Asia/Shanghai
+生产 URL: https://www.astrologywiki.com/en/saturn-return-calculator
+发布 PR: https://github.com/xdawayer/oracle/pull/382
+合并提交: 9b1727929dd02e28f8bf6f307cf3a9b5a46b30b1
+线上验收: 通过（HTTP 200；Meta/H1、5 个 H2、15 个 H3、10 个 FAQ、面包屑、指定内链与 WebApplication/FAQPage/BreadcrumbList/HowTo JSON-LD 均已核对；计算器实际计算通过，页面可交互 3.36 秒，无控制台错误或失败请求）
 ---
 
 # 工具页内容升级方案（v3.0）
