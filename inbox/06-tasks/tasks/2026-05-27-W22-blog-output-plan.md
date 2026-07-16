@@ -439,7 +439,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [x] `PG-CELEB-056` cody bellinger birth chart
 - [x] `PG-CELEB-057` caitlin clark birth chart
-- [ ] `PG-CELEB-058` brad pitt birth chart
+- [x] `PG-CELEB-058` brad pitt birth chart
 
 ---
 ## ⚪ 7月16日 (周四) - 待写作
