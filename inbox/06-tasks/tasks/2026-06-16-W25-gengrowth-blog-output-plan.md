@@ -164,7 +164,7 @@ updated: 2026-06-23
 - [x] `PG-WLS-007` chatgpt seo
 
 - [ ] `PG-SDS-004` meta business agent
-- [ ] `PG-ART-007` generative engine optimization
+- [x] `PG-ART-007` generative engine optimization
 - [x] `PG-AIS-006` AI agents for sales
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
