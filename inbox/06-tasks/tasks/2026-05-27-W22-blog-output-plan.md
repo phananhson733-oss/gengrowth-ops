@@ -441,4 +441,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-CELEB-057` caitlin clark birth chart
 - [ ] `PG-CELEB-058` brad pitt birth chart
 
+---
+## ⚪ 7月16日 (周四) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-TRANS-019` saturn return age 30
+- [ ] `PG-TRANS-020` saturn return in cancer meaning
+- [ ] `PG-WDIF-002` what is my love language
+- [ ] `PG-TRANS-021` how long does saturn return last
+- [ ] `PG-WDIN-001` what do i need to let go of
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
