@@ -460,6 +460,52 @@ def validate_table_widths(content: str, report: ValidationReport):
                     f"{detail}（应拆分为主要竞品 + 次要竞品）")
 
 
+def validate_data_rigor(content: str, report: ValidationReport):
+    """数据严谨性红线 lint（对应 SKILL.md R1/R2 + 过强语言纪律）。
+    廉价启发式，宁可漏报不误伤：禁用短语在否定/元讨论语境中跳过。"""
+
+    # 否定/元讨论白名单：若禁用短语附近出现这些词，视为"规则陈述/纠正回顾"，跳过
+    negation = re.compile(r'(?:不能|不应|不要|勿|避免|别|禁止|纪律|误|错|修正|上一版|「|」|"|")')
+
+    def flag_near(pattern):
+        hits = []
+        for m in re.finditer(pattern, content):
+            ctx = content[max(0, m.start() - 30): m.end() + 30]
+            if not negation.search(ctx):
+                hits.append(m.group(0))
+        return hits
+
+    # 1) 过强语言：打脸 / 归因独占
+    banned = flag_near(r'打脸') + flag_near(r'任何[^，。\n]{0,8}(?:增长|流量)[^，。\n]{0,8}(?:都|皆)[^，。\n]{0,10}(?:我们|归我们)')
+    if banned:
+        report.add("数据严谨 - 过强语言", False,
+                    f"出现未加限定的过强表述: {banned[:3]} — 改为'数据支持的假设'/'可隔离追踪的增量'")
+    else:
+        report.add("数据严谨 - 过强语言", True, "无未限定的过强/独占归因表述")
+
+    # 2) R1 多工具口径纪律：出现 ≥2 个流量工具则必须标口径
+    tools = [t for t in ("SimilarWeb", "Ahrefs", "SEMrush", "Semrush") if t in content]
+    if len({t.lower() for t in tools}) >= 2:
+        if re.search(r'口径', content):
+            report.add("数据严谨 - 多工具口径(R1)", True,
+                        f"混用 {sorted(set(t.lower() for t in tools))} 且已标注口径")
+        else:
+            report.add("数据严谨 - 多工具口径(R1)", False,
+                        "同时引用多个流量工具但未见'口径'说明 — 需注明各数来自哪个工具/模块、差距大时不取平均")
+    else:
+        report.add("数据严谨 - 多工具口径(R1)", True, "未混用多流量工具(无需口径注解)")
+
+    # 3) R2 AI 可见度/引流分离：涉及 AI 搜索则需同时出现"可见度"与"引流"
+    if re.search(r'AI\s*Overview|生成式\s*AI|GEO|AI\s*搜索|ChatGPT|Perplexity', content, re.IGNORECASE):
+        if re.search(r'可见度', content) and re.search(r'引流', content):
+            report.add("数据严谨 - AI可见度/引流分离(R2)", True)
+        else:
+            report.add("数据严谨 - AI可见度/引流分离(R2)", False,
+                        "涉及 AI/GEO 但未区分'AI 可见度(被引用)'与'AI 引流(点击进站)' — 二者不可混用，尤其合同归因")
+    else:
+        report.add("数据严谨 - AI可见度/引流分离(R2)", True, "不涉及 AI/GEO(无需区分)")
+
+
 def validate_advanced_frameworks(content: str, report: ValidationReport):
     """验证投资级分析框架。"""
     # TAM/SAM/SOM
@@ -551,6 +597,7 @@ def validate(filepath: str) -> ValidationReport:
     validate_positioning_evidence(content, report)
     validate_hard_facts_sourcing(content, report)
     validate_table_widths(content, report)
+    validate_data_rigor(content, report)
     validate_advanced_frameworks(content, report)
 
     return report
