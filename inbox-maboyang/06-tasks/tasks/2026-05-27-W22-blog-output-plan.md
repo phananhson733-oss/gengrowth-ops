@@ -450,6 +450,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-021` how long does saturn return last
 - [x] `PG-WDIN-001` what do i need to let go of
 
+---
+## ⚪ 7月17日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-TRANS-022` saturn return age 27
+- [ ] `PG-TRANS-023` saturn return in cancer
+- [ ] `PG-NODE-014` am i on the right path
+- [ ] `PG-WC-052` venus in gemini
+- [ ] `PG-NAKSH-020` moon in capricorn
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
 ---
