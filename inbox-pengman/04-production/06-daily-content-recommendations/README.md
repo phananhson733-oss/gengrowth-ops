@@ -8,14 +8,26 @@ owner: Pengman
 
 # 每日选题与内容包入口
 
-这里仅保存“今天考虑做什么”的日级输出：每日选题池、每日内容推荐和每日内容包。选中某一条后形成的 Brief、脚本、制作方案、内容生产记录和模型实验附件，统一进入 [[inbox-pengman/04-production/07-content-production/README.md]]。
+这里仅保存“今天各账号考虑做什么”的日级输出：每日选题池、多账号生产组合和每日内容包。Pengman 每天可以一次选中 1–4 条，不限于唯一首推。每个可独立发布的账号版本都要在 [[inbox-pengman/04-production/07-content-production/README.md]] 分别建立 Brief、`content_id` 和唯一主生产记录。
+
+## Pengman 默认操作界面
+
+AI 在聊天中默认只先展示一屏“今日生产卡”：账号、选题、形式、现在做的理由、P0/P1/P2、S/M/L 成本和快速/实验通道。完整 Evidence Preflight、Route A/B/C 候选和来源仍保存在日级文档中，不在默认聊天首屏全部展开。
+
+Pengman 可直接回复：
+
+```text
+做 A1 和 C2，先做 C2。
+```
+
+AI 对低风险 `S/M` 内容走快速通道，一次生成简版 Brief、脚本和制作卡；双模型、新形式、重要品牌内容或 `L` 级内容才走完整实验通道。
 
 ## AI 最小读取路径
 
 1. 先读本 README。
 2. 默认只打开最新一份或用户指定日期的每日选题池／内容包。
 3. 去重时再读最近 7–14 天的日级文件和对应周报；不要扫描单条生产记录。
-4. 用户已经选中具体内容后，停止在本目录继续扩写，改到 `07-content-production` 建立或更新唯一主生产记录。
+4. 用户已经选中一个或多个具体内容后，停止在本目录继续扩写，改到 `07-content-production` 为每个可独立发布的版本分别建立或更新唯一主生产记录。
 
 ## 当前日级输出
 
@@ -26,8 +38,8 @@ owner: Pengman
 
 | 类型 | 常用 `type` | 边界 |
 |---|---|---|
-| 每日选题池 | `daily-topic-pool` | 多个候选方向、P0、证据和去重结论 |
-| 每日内容推荐 | `daily-content-recommendation` | 当日推荐与候选，不维护制作状态 |
+| 每日选题池 | `daily-topic-pool` | 多个候选方向、各账号匹配、P0/P1/P2、证据和去重结论 |
+| 每日内容推荐 | `daily-content-recommendation` | 当日 1–4 条建议生产组合、顺序、工作量和候选，不维护制作状态 |
 | 每日内容包 | `daily-content-package` | 日级汇总，可以链接已选内容，但不维护单条内容的最终稿和发布状态 |
 | 已合并日级旧稿 | 同上或历史研究类型 | 只在 [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/README.md]] 中追溯，默认不读 |
 

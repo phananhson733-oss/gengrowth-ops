@@ -4,7 +4,7 @@ project: astrologywiki
 type: content-brief-template
 status: active
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-07-17
 ---
 
 # 统一内容 Brief 模板

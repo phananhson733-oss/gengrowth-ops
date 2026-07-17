@@ -2,7 +2,7 @@
 title: Daily Content Assistant SOP
 type: workflow
 status: draft
-updated: 2026-07-16
+updated: 2026-07-17
 owner: Pengman
 ---
 
@@ -12,7 +12,7 @@ owner: Pengman
 
 Use Codex as a weekday assistant for choosing what AstrologyWiki should post today.
 
-The assistant should recommend practical offsite content ideas that earn qualified reach, drive relevant AstrologyWiki article/tool discovery, and preserve a trackable social→tool use/registration/purchase path. It should not act like a generic social media content generator.
+The assistant should recommend a practical daily content slate across the active account matrix that earns qualified reach, drives relevant AstrologyWiki article/tool discovery, and preserves a trackable social→tool use/registration/purchase path. It should not assume that Pengman produces only one topic per day, and it should not act like a generic social media content generator.
 
 Q3 alignment: the team North Star is sustained post-share revenue of $1,000/day. This SOP controls the social leading indicators: reach, conversion-path quality, assisted qualified UV, growth-point discovery, and reusable SOP learning. PV remains a page/product diagnostic, not the traffic-layer KPI.
 
@@ -28,7 +28,7 @@ Pengman provides or maintains:
 - Selected competitor rows from the live Google Sheet; do not use stale local CSV snapshots as current facts.
 - Optional notes about current priorities, launches, or topics to avoid.
 
-Codex reads those materials and produces one daily recommendation note.
+Codex reads those materials and produces one daily recommendation note containing a ranked multi-account production slate.
 
 Storage boundary:
 
@@ -137,14 +137,54 @@ When generating the daily recommendation, Codex should:
     - ② AI 占星师人设：占星 × 心理机制解读，固定 AI 主播，收敛绝对化。
     - ③ 热点占星测试：明星/情侣/事件蹭热点，用星盘解释而非预测。
     - ④ 普通占星爱好者：低成本测试号，星座梗/评论互动/trend 音频/图文测标题，快速测 hook/星座/关系话题/评论问题，素人口吻不品牌化。
+15. Treat the result as a daily account portfolio, not one universal winning topic. Pengman may select 1–4 independent topics in one day, often one for each suitable account. Rank them by `P0 / P1 / P2`, estimate production effort, and identify which items share research or assets.
+16. A topic assigned to more than one account may share a mother-topic source, but each independently publishable account version must receive its own `content_id`, Brief, script confirmation and production state. Do not merge multiple account versions into one status record.
+17. Before writing each selected item, read 1–3 relevant historical samples with Pengman edits when available, the latest same-series `decision / next_test`, and only the selected competitor mechanisms. Record what was learned and what must not be copied in that item's main production record.
+
+## Capacity and Effort Gate
+
+Before ranking the daily slate, use Pengman's available production time when they provide it. If no capacity is provided, do not stop to ask; label capacity as `待确认` and use a conservative default slate of at most `1 条 M + 1 条 S`.
+
+| 成本 | 参考工作量 | 常见内容 |
+|---|---|---|
+| `S` | 15–30 分钟 | 文字视频、简单 photo post、低成本 Hook 测试 |
+| `M` | 30–90 分钟 | AI 口播、普通短视频、轻量 Carousel |
+| `L` | 90 分钟以上 | 复杂调研、多版本视觉、双模型实验、重制作内容 |
+
+P0 表示“今天优先做”，不代表“必须把四个账号做满”。时效窗口、上轮 `next_test`、账号缺口和制作成本共同决定顺序。
 
 ## Daily Output Format
 
-Each daily note should include:
+The formal daily note keeps the full evidence and candidate details, but Pengman's default reading surface is the one-screen production card below. Put detailed Route A/B/C evidence after the card.
 
-### 1. Today Recommendation
+### 0. One-Screen Production Card
 
-- Primary topic:
+| 优先级 | 编号 | 账号 | 今天做什么 | 形式 | 为什么现在做 | 成本 | 通道 |
+|---|---|---|---|---|---|---|---|
+| P0 |  |  |  |  |  | S/M/L | 快速/实验 |
+
+- 今日建议总工作量：
+- 建议制作顺序：
+- 可共用的调研/素材：
+- 今日明确不做：
+
+Pengman 只需回复“做 A1 和 C2，先做 C2”。AI 再展开被选内容，不要在首屏展开所有证据和候选解释。
+
+Each daily note should then include:
+
+### 1. Today Production Slate
+
+- Recommended number of items today:
+- P0 items:
+- P1 items if capacity remains:
+- Shared research/assets:
+- Suggested production order:
+- Capacity or timing risk:
+
+For every recommended item:
+
+- Topic:
+- Target account:
 - Recommended format:
 - Recommended platform:
 - Linked AstrologyWiki article:
@@ -181,7 +221,36 @@ For each account, give today's post or mark it as skipped:
 - 本条要验证的增长点：
 - 风险或待确认：
 
-Pengman 选择后才进入 Stage 2：建立统一 Brief，并按需要生成单模型初稿或启动 Claude / GPT 双模型内容实验。若 Pengman 明确要求“直接展开内容包”“直接生成脚本”“不用等我选”或“hook 优先”，才可跳过等待。
+Pengman 可以一次选择 1–4 个候选。选择后才进入 Stage 2：每个可独立生产/发布的内容分别建立统一 Brief 和主生产记录，并按需要生成单模型初稿或启动 Claude / GPT 双模型内容实验。若 Pengman 明确要求“直接展开内容包”“直接生成脚本”“不用等我选”或“hook 优先”，才可跳过等待。
+
+### 2b. Two Execution Lanes
+
+#### 快速通道
+
+适用于事实可核验、品牌风险低、方向已成熟、不需要双模型比较的 `S/M` 内容。
+
+```text
+Pengman 选中
+→ AI 一次性建立简版 Brief + 脚本 + 制作卡
+→ Pengman 一次确认或修改
+→ 待制作
+```
+
+快速通道仍要保留 `content_id`、核心事实、脚本版本、人工反馈和发布回链，但不要为了填满模板而增加确认轮次。
+
+#### 实验通道
+
+用于双模型比较、新账号/新形式、重要品牌内容、`L` 级制作、关键事实或角度仍有争议，以及 L4/L5 变更。
+
+```text
+研究与完整 Brief
+→ Pengman 确认核心承诺
+→ 单/双模型候选
+→ Pengman 选择
+→ 正式制作
+```
+
+AI 在生产卡中先建议通道，Pengman 可以随时要求升级或降级。
 
 ### 3. Backup Ideas
 
@@ -214,8 +283,9 @@ Use this prompt when asking Codex to generate the daily recommendation:
 目标：
 - 获取目标用户 reach，并通过相关 AstrologyWiki 文章/工具承接，保障可追踪的 social→工具使用/注册/购买路径；记录 assisted qualified UV。PV 只作页面承接诊断，不是主 KPI。
 - 优先参考 AstrologyWiki 公开文章/工具页、SEO 主题参考、最近发布记录。
-- 给出今天最值得发的 1 个首推选题，以及 2-3 个备选。
+- 根据四账号定位和 Pengman 的产能，给出今天建议生产的 1–4 条内容组合，标记 P0/P1/P2、制作顺序和 2–3 个备选。
 - 输出要可直接执行，适合一个人当天完成。
+- 如果 Pengman 没有说今天可用时间，不要因追问而阻塞；默认最多安排 `1 条 M + 1 条 S`，并标记产能待确认。
 
 请读取并参考：
 - https://www.astrologywiki.com/en/wiki?tab=articles 作为文章来源；仅在 `inbox-pengman/astrologywiki-article-index.csv` 实际存在且日期可用时优先使用
@@ -226,7 +296,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 判断规则：
 - 优先选择能支撑 AstrologyWiki 文章访问的主题。
 - 结合公开文章/工具页、当前业务重点和 SEO 主题参考选择站内承接；不要推断未提供的搜索表现。
-- 避免重复最近 7-14 天已经发过的主题、角度、人物、文章或案例；已做过的选题不再作为今日首推。
+- 避免重复最近 7-14 天已经发过的主题、角度、人物、文章或案例；已做过的选题不再作为今日 P0，除非是明确不同的后续测试。
 - 大多数内容不要像广告，必要时只轻 CTA 到相关文章。
 - 如果证据不足，请明确区分文章主题匹配、当前公开证据和待确认假设。
 - 公共表达规则以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] 的 `Copy Style` 为唯一来源：自然、像创作者说话的反差可以使用；连续套用或明显 AI 模板感的反转不用。
@@ -237,13 +307,15 @@ Use this prompt when asking Codex to generate the daily recommendation:
 
 请按以下格式输出：
 
-## 今日首推
-- 主题：
-- 形式：
-- 平台：
-- 关联文章：
-- 关联站内页面 / SEO 主题：
-- 为什么今天适合发：
+## 今日生产卡
+| 优先级 | 编号 | 账号 | 今天做什么 | 形式 | 为什么现在做 | 成本 | 通道 |
+|---|---|---|---|---|---|---|---|
+| P0 |  |  |  |  |  | S/M/L | 快速/实验 |
+
+- 建议总工作量：
+- 建议制作顺序：
+- 可共用的调研/素材：
+- 今日不做：
 
 ## 四账号分发
 - ① AstrologyWiki 官方：
@@ -277,7 +349,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 最近发布记录：
 
 ## 需要我确认的事
-- 请 Pengman 选择候选，或明确要求直接展开内容包；只列真正影响选择的问题。
+- 请 Pengman 一次选择 1–4 个候选，或明确要求按 P0 组合直接展开；只列真正影响选择的问题。
 ```
 
 ## First Setup Checklist

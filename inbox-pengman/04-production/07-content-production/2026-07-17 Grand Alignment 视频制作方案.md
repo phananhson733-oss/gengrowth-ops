@@ -9,7 +9,7 @@ content_format: 9:16 非真人天象解释短视频（The Pattern 模式）
 series: This Week's Sky
 script_status: 已确认
 confirmed_script_version: Claude V1，经 Pengman 确认
-content_stage: 已预约
+content_stage: 待发布
 scheduled_publish_at: "2026-07-18T06:00:00-07:00"
 status: draft
 owner: Pengman

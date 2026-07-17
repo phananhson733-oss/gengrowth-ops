@@ -3,7 +3,7 @@ title: 每周已发布内容合集入口
 type: workspace-index
 project: astrologywiki
 owner: pengman
-updated: 2026-07-16
+updated: 2026-07-17
 ---
 
 # 每周已发布内容合集入口
@@ -35,6 +35,7 @@ updated: 2026-07-16
 - 平台 / 发布数量 / reach（主控）/ impressions 或 views（诊断）/ 总互动 / 主页访问 / 短链或链接点击 / assisted qualified UV / 工具使用、注册、购买。
 - 单条内容：发布时间、平台、主题、链接、内容形式、公开数据、待补后台数据、备注。
 - 复盘：Top 内容、表现一般内容、reach 与转化路径、assisted qualified UV、增长点判断、decision / next_test、需要写回 SOP 的学习。
+- 学习回流：本周新增候选偏好、待验证规则、建议升级的长期规则；每条链接对应生产记录和人工修改证据。无证据时写“无”，不从单条播放量直接升级规则。
 
 ## 抓取记录
 

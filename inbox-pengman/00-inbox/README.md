@@ -21,4 +21,5 @@ updated: 2026-07-16
 
 ## Pengman 个人参考
 
+- [[inbox-pengman/00-inbox/Pengman 日常内容生产与 AI 协作操作卡.md]] — 日常生成新选题、选择多账号内容、修改脚本、进入制作和发布复盘的最简操作说明。
 - [[inbox-pengman/00-inbox/Pengman 双模型内容实验操作卡.md]] — 只用于快速查看“什么时候把什么发给哪个 AI”；正式规则以文中链接的 Evergreen Workflow 为准。

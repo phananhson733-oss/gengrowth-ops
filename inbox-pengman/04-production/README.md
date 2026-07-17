@@ -22,6 +22,16 @@ A、B 批次已将平台策略、工具研究、竞品研究、历史调研和�
 | 发布与复盘 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 发布链接、公开数据、`decision / next_test` 的事实来源 |
 | 生产 SOP / 模板 | [[inbox-pengman/04-production/00-evergreen-workflows/README.md]] | Brief、路由、人工润色、模型实验和制作流程 |
 
+## Pengman 日常最简操作
+
+Pengman 不需要记住后台全部 SOP，日常只需三步：
+
+1. `给我今天的多账号生产卡，我今天有 2 小时。`
+2. `做 A1 和 C2，先做 C2。`
+3. `A1 开头太慢，第二段保留，不要 CTA。`
+
+AI 负责在后台完成证据检查、去重、账号路由、S/M/L 成本估算、快速/实验通道选择、历史稿学习、反馈结构化和状态回写。聊天中默认先展示一屏“今日生产卡”，完整证据留在对应日级文档中。
+
 > GSC 输入自 2026-07-16 起暂停。AI 不读取或索取 GSC 文件，也不因缺少 GSC 阻塞候选、Brief 或制作；历史生产记录中的既有 GSC 证据不回写。
 
 工作区级当前背景先看 [[inbox-pengman/02-conversation report/current-context.md]]。`03-topic-ideas` 已退役待清理，不再作为人工或 AI 的读取入口。

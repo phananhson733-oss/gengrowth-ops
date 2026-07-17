@@ -4,7 +4,7 @@ description: "Use this when Pengman asks for AstrologyWiki daily social topics, 
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.9.4
+  version: 0.11.0
   updated: 2026-07-17
 ---
 
@@ -18,7 +18,7 @@ Highest priority:
 real-life tension > timely hotspot for trend-driven items > recent viral structure > brand-safe astrology > trackable conversion > realistic volume
 ```
 
-Prefer 3-5 strong items over 10 weak items when Pengman's production capacity is limited.
+Prefer a ranked daily slate of 1–4 account-fit items over one forced universal topic or 10 weak items. The number produced depends on Pengman's capacity and the active accounts that have a credible topic that day.
 
 ## When This Skill Triggers
 
@@ -246,12 +246,44 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 
 Default to a two-stage workflow:
 
-1. Stage 1, topic selection: after Evidence Preflight, give Pengman Route A, Route B and Route C topic candidates, mark P0 picks, and stop for Pengman's choice.
-2. Stage 2, selected-topic production package: only after Pengman selects one or more topics, create the multi-platform package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders. Save this selected-topic record under `07-content-production/`, not the daily recommendation folder.
+1. Stage 1, account portfolio selection: after Evidence Preflight, give Pengman Route A, Route B and Route C topic candidates, map them to all four accounts, rank a realistic daily slate as `P0 / P1 / P2`, and stop for Pengman's multi-selection.
+2. Stage 2, selected-topic production: after Pengman selects 1–4 topics, create one independent Brief and main production record for every independently publishable account item. Each item gets its own `content_id`, script confirmation and `content_stage`, even when several items share one mother topic or research package. Save all selected-topic records under `07-content-production/`, not the daily recommendation folder.
 
 Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", "不用等我选", or "hook优先".
 
 **Script-first shortcut:** If Pengman says "给我一个爆款脚本", "直接写脚本", "hook优先", or provides a specific topic and asks for a script — skip Stage 1 entirely. Go straight to a ready-to-use short video script with: one punchy hook line (front 3 seconds), 4-6 tight body lines, and a one-line CTA. Do not pad with evidence preflight or candidate pools unless Pengman asks.
+
+### Capacity Gate and Effort
+
+- Use Pengman's stated available time when provided.
+- If capacity is not provided, do not block on a question. Mark it `待确认` and default to at most `1 条 M + 1 条 S`.
+- `S`: 15–30 minutes; simple text video, photo post or low-cost hook test.
+- `M`: 30–90 minutes; AI host video, normal short video or light carousel.
+- `L`: more than 90 minutes; heavy research, complex visual work, multiple visual variants or dual-model experiment.
+- P0 means "do first today," not "fill every account." Do not recommend more work than one person can plausibly finish.
+
+### Fast and Experiment Lanes
+
+Use the **fast lane** for verified, low-risk, familiar `S/M` content that does not need model comparison:
+
+```text
+Pengman selects
+→ Codex creates concise Brief + script + production card in one pass
+→ Pengman confirms or edits once
+→ ready for production
+```
+
+Use the **experiment lane** for dual-model comparison, a new account/format, important brand content, `L` work, disputed facts/angle, or L4/L5 changes:
+
+```text
+research + full Brief
+→ Pengman confirms the promise
+→ candidate generation/comparison
+→ Pengman selects
+→ production
+```
+
+The daily production card must recommend one lane per item. Pengman may override it.
 
 ### Dual-Model Content Experiment Boundary
 
@@ -264,6 +296,18 @@ When Pengman requests a Claude / GPT content experiment:
 5. Both outputs are candidates, never final copy. Keep model objections separate from generated content.
 6. Pengman selects, combines, edits or rejects the candidates. Codex is the only model that writes the result back to the main Obsidian production record.
 7. One selection or edit does not update this Skill. Apply the evidence threshold in `Rule Governance` and the unique workflow in `Pengman 与 AI 内容润色协作说明.md`.
+
+### Historical Learning Pass
+
+Before generating the first draft for each selected account item:
+
+1. Read the latest same-series `decision / next_test`.
+2. Select 1–3 historical samples in this priority order: same account + same format + published result; Pengman-edited draft; same series with a clear decision; otherwise a nearby unpublished draft.
+3. Extract only explicit evidence: what Pengman kept, removed, rewrote or confirmed. If no human-edit evidence exists, say so instead of inferring a preference from the final copy.
+4. Read only the competitor rows or source videos actually selected for this item. Extract hook type, structure, pacing, visual mechanism and interaction pattern; do not copy wording, people, footage or unsupported claims.
+5. Record the learning sources, reusable mechanisms, prohibited copying and current `next_test` in the main production record before drafting.
+
+This pass improves the current draft but does not automatically change long-term rules. One edit stays in the current record; two similar edits become a preference to validate; a stable pattern across 2–3 different pieces may be proposed for Skill/Playbook promotion only after Pengman confirms it.
 
 ### Step 1: Gather Life and Trend Signals
 
@@ -400,11 +444,11 @@ For Route B, compare multiple hotspots before choosing P0. Do not stop at the fi
 
 Choose output depth based on user ask:
 
-- If user asks "生成今日选题": produce Stage 1 only: Evidence Preflight, Route A candidate pool, Route B candidate pool, Route C candidate pool, P0 recommendations, and selection guidance. Stop there.
+- If user asks "生成今日选题": in chat, lead with the one-screen production card and stop for selection. If a formal daily note is requested, it must start with the required Evidence Preflight, then show the same production card, followed by the detailed Route A/B/C evidence.
 - If user asks for social-daily / 10条内容: produce 8-10 items across platforms.
 - If user asks for X: produce X posts only.
 - If user asks for video: produce video brief/script direction only, unless asked for full script.
-- If Pengman has already selected a topic from the candidate pool, produce Stage 2: a content package for the selected topic across the requested platforms.
+- If Pengman has already selected one or more topics from the candidate pool, produce Stage 2 for all selected items in the agreed priority order. Do not combine their production state into one record.
 
 Every publishable item must show its hook, format template, landing page, CTA, and shortlink placeholder.
 
@@ -418,6 +462,16 @@ Use this structure by default:
 - External sources checked:
 - Route B source links:
 - Inputs unavailable or blocked:
+
+## 今日生产卡
+| 优先级 | 编号 | 账号 | 今天做什么 | 形式 | 为什么现在做 | 成本 | 通道 |
+|---|---|---|---|---|---|---|---|
+| P0 |  |  |  |  |  | S/M/L | 快速/实验 |
+
+- 建议总工作量：
+- 建议制作顺序：
+- 可共用调研/素材：
+- 今日不做：
 
 ## 今日结论
 - Route A P0 生活化母选题：
@@ -486,17 +540,20 @@ Use this structure by default:
 - Hook 3:
 
 ## 等待选择
-- 请 Pengman 选择 A/B 编号，或直接说“用 P0 展开内容包”。
+- Pengman 只需回复类似“做 A1 和 C2，先做 C2”，也可直接说“按今日 P0 组合展开”。
+- AI 要同时给出建议生产顺序、预估工作量和可共用的调研/素材，但不强迫四个账号每天都发。
 - 选择前不要生成完整脚本、分镜、Carousel 文案或多平台发布包。
 ```
 
-After Pengman selects a topic, use this Stage 2 structure:
+After Pengman selects one or more topics, repeat this Stage 2 structure for each independently publishable item:
 
 ```markdown
 ## 已选选题
 - 编号：
 - 主题：
 - 选用原因：
+- 成本：S / M / L
+- 执行通道：快速 / 实验
 
 ## 内容包
 ### 1. TikTok / Shorts 主视频
@@ -521,6 +578,9 @@ After Pengman selects a topic, use this Stage 2 structure:
 
 ## 使用依据
 - 本地文件：
+- 历史人工修改样本：
+- 上一轮 decision / next_test：
+- 竞品可借鉴机制与不应照抄：
 - 外部来源：
 ```
 
@@ -696,7 +756,9 @@ Use the most specific available page:
 
 If Pengman is producing alone:
 
-- default deliverable: 1 short video idea + 2-3 X posts + 1 optional graphic
+- default Stage 1 deliverable: a ranked 1–4 item daily slate across the four accounts, with effort and shared-asset notes
+- default Stage 2 execution order: finish all P0 scripts/Briefs first, then expand P1 items only if Pengman confirms capacity
+- never assume one item must serve every account; never assume every account must publish every day
 
 If user asks for full social-daily:
 
@@ -706,6 +768,8 @@ Never bury the best recommendation under a huge list.
 
 ## Change Log
 
+- 2026-07-17 · v0.11.0 · 来源：Pengman 确认当前流程过于复杂。理由：将默认交互压缩为一屏“今日生产卡”，增加 S/M/L 产能闸门和快速/实验双通道；完整证据仍保留在正式日级记录中，不占用 Pengman 的默认阅读界面。
+- 2026-07-17 · v0.10.0 · 来源：Pengman 确认每日可按多账号并行生产多个选题，并要求 AI 持续学习历史稿、人工修改、竞品机制和复盘结论。理由：把每日唯一首推改为 1–4 条账号组合；每个可独立发布版本拥有独立 `content_id` 和主生产记录；写稿前引用 1–3 条相关历史样本，但仍按证据门槛升级长期规则。
 - 2026-07-17 · v0.9.4 · 来源：Pengman 决定停止使用 `03-topic-ideas`。理由：移除该目录及 SEO 选题调查的默认读取依赖；如需 SEO 主题参考，只使用 Pengman 在当前任务明确提供的输入。
 - 2026-07-17 · v0.9.3 · 来源：Pengman 要求每日推荐与详细生产分离。理由：`06` 只保存日级候选/内容包，选中后的 Brief、脚本、生产记录和实验附件统一写入 `07-content-production/`。
 - 2026-07-16 · v0.9.2 · 来源：Pengman 明确暂停 GSC。理由：移除 GSC 的读取、权限检查和证据门槛，改用公开 AstrologyWiki 页面、SEO 主题参考、周报与当前优先级；历史证据不回写。

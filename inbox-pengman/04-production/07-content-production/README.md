@@ -17,7 +17,7 @@ updated: 2026-07-17
 
 | 主生产记录 | 当前状态 | 下一步 |
 |---|---|---|
-| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: 已预约` | 按排期发布，发布后回填链接并纳入周报 |
+| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: 待发布`；已排期 | 按排期发布，发布后回填链接并纳入周报 |
 
 ### 状态待确认
 
