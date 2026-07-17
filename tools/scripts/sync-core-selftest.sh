@@ -27,7 +27,7 @@ test_syncs_wiki_tools_into_ops_tools() {
   local vault_log="$TMP_ROOT/vault-sync.log"
   local log_file="$TMP_ROOT/sync.log"
 
-  mkdir -p "$wiki/.git" "$ops/.git" "$ops/inbox" "$ops/onboarding"
+  mkdir -p "$wiki/.git" "$ops/.git" "$ops/inbox-maboyang" "$ops/onboarding"
   mkdir -p "$wiki/tools/internal/sample-tool" "$ops/tools/old-tool"
   printf 'tool payload\n' > "$wiki/tools/internal/sample-tool/run.sh"
   printf 'stale\n' > "$ops/tools/old-tool/old.txt"
