@@ -70,9 +70,14 @@ SEO autopilot 全链路硬编码了 `~/gengrowth-ops/inbox/06-tasks/tasks/` 作�
 2. gitleaks（Secret Scan）**扫全历史，第一天就发现了并一直报红** —— 但它同时被自测假密钥常年触发，**红灯变成常态后就没人看了**，真信号被淹没。
 
 ### 已做（本次）
-- **止血**：从公开仓库移除该 .pem（实测匿名下载已变 HTTP 404）。**原件保留在私有的 wiki**——重新打包扩展要靠它保持扩展 ID 一致，不能弄丢。
-- **堵管道**：`_sync-core.sh` 的 wiki→ops 镜像加 `--exclude`（pem/key/p12/pfx/crt/cer/.env*）。rsync dry-run 对照验证：不加时该 .pem 会被推回公网，加了之后不再传输（wiki commit `aff251b03`）。
+- **止血**：从公开仓库移除该 .pem。**原件保留在私有的 wiki 及本地工作区**——重新打包扩展要靠它保持扩展 ID 一致，不能弄丢。
+- **堵管道（第一层）**：`_sync-core.sh` 的 wiki→ops 镜像加 `--exclude`（pem/key/p12/pfx/crt/cer/.env*）。rsync dry-run 对照验证：不加时该 .pem 会被推回公网，加了之后不再传输（wiki commit `aff251b03`）。
+- **堵管道（第二层，关键）**：`ops/.gitignore` 按类型拦截凭证文件（commit `0c4e986`）。
 - **修报警器**：自测假密钥加进 `.gitleaks.toml` allowlist。告警从 3 个降到 **1 个，且是真问题**。
+- 最终验证：跑完整同步周期后，本地 git 未跟踪、远端 API 404、**匿名 curl HTTP 404**。
+
+> ⚠️ **第一次修复失败了，教训值得记**：只做了「rsync --exclude + 删文件」之后，**另一台机器**（vault backup 时间戳 `01:41`，与本机 `16:41` 差时区）用**尚未更新的旧脚本**又把 .pem rsync 回来并提交上公网（`5718bef`），实测私钥一度恢复匿名可下载。
+> **脚本层的防护只在已拉到新脚本的机器上生效，多机传播有延迟；`.gitignore` 随 git 走，所有机器立即生效。** 多机环境下必须以 .gitignore 为可靠防线，rsync exclude 只是辅助。
 
 ### 待办：轮换（需要人工）
 **Secret Scan 仍会红**，因为 .pem 还在 git 历史里（commit `5edc426f`）。**在轮换之前，这个红灯是正确的**——它在报一个真实未解决的问题，别急着 allowlist 掉。
