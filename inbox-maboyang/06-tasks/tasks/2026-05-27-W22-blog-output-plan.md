@@ -465,6 +465,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月17日（强制写作队列）
 **状态**：`等待输出`（用户指定，补齐选题登记后入队）
 - [x] `PG-MYTH-005` elvis birth chart
-- [ ] `PG-TERM-010` birth chart interpretation
+- [x] `PG-TERM-010` birth chart interpretation
 
 > `PG-WDIF-002` what is my love language 已在本轮标准队列完成 author、预览、三维审核、Codex 审核并合并，不重复 author。
