@@ -447,7 +447,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-019` saturn return age 30
 - [x] `PG-TRANS-020` saturn return in cancer meaning
 - [ ] `PG-WDIF-002` what is my love language
-- [ ] `PG-TRANS-021` how long does saturn return last
+- [x] `PG-TRANS-021` how long does saturn return last
 - [ ] `PG-WDIN-001` what do i need to let go of
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
