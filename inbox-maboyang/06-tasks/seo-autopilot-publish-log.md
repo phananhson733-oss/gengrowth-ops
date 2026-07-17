@@ -172,3 +172,4 @@ updated: 2026-07-17
 | 2026-07-17 | PG-TERM-010 | birth-chart-interpretation | Birth Chart Interpretation | marcus-orion | https://www.astrologywiki.com/en/wiki/birth-chart-interpretation | published |
 | 2026-07-17 | PG-NODE-014 | am-i-on-the-right-path | Am I On The Right Path | julian-thorne | https://www.astrologywiki.com/en/wiki/am-i-on-the-right-path | published |
 | 2026-07-17 | PG-TRANS-022 | saturn-return-age-27 | Saturn Return Age 27 | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-age-27 | published |
+| 2026-07-17 | PG-TRANS-023 | saturn-return-in-cancer | Saturn Return In Cancer | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer | published |
