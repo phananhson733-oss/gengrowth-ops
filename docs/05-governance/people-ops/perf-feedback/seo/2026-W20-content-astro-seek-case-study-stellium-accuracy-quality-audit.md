@@ -190,7 +190,7 @@ aliases:
 - **文件命名**：`Astro_Seek_Case_Study_Stellium_Accuracy.md`——下划线分隔，SEO 偏好连字符（`astro-seek-case-study-stellium-accuracy.md`）
 - **段落长度**：英文 SEO 建议 2-4 句/段，本文 § "The 3-Degree Rule" 第二段（line 23-24）单句段落 + § "How it Works" 多个 1 句段（line 92）—— 节奏偏短促
 - **Sources 无访问日期**：见 P1.1 出站链接缺失，重叠列
-- **位置在 inbox**：`gengrowth-ops/inbox-maboyang/内容创作/blog/`—— inbox 是草稿区，正式发布前需迁移到 publication-ready 目录（参考 v0.18 SOP § 五 Step 5 发布流程）
+- **位置在 inbox-maboyang**：`gengrowth-ops/inbox-maboyang/内容创作/blog/`—— inbox-maboyang 是草稿区，正式发布前需迁移到 publication-ready 目录（参考 v0.18 SOP § 五 Step 5 发布流程）
 - **没有 keyword-master CSV 行号关联**：见 ❓ 2
 
 ---
@@ -204,7 +204,7 @@ aliases:
 5. **重写 § "How it Works Under the Hood"**（P1.2 冗余）：删除或与前文合并
 6. **改用单一主模板**（P1.4）：选定 Case Study 为主模板，§ "Step-by-Step" 拆出或转附录
 7. **将 H2 嵌入主关键词 "Astro-Seek"**（P1.3）：把至少 2 个 H2 改成含主词的形态
-8. **改文件名为连字符 + 迁出 inbox**（P2）
+8. **改文件名为连字符 + 迁出 inbox-maboyang**（P2）
 
 ---
 

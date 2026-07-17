@@ -145,8 +145,8 @@ scripts/run_tests.sh tests/gateway/test_gengrowth_role_guard.py tests/tools/test
 
 中等影响：
 - Ops profile 已配置 allowlist；如果后续给 Ops 开启文件工具，文件访问会被限制在配置根目录内。
-- 当前 write allowlist 包含整个 `/Users/awayer_mini/gengrowth-ops`，比 `gengrowth-ops/AGENTS.md` 中“只写 inbox”更宽。若要严格执行 Ops 工作区规则，建议后续把 write allowlist 收窄为：
-  - `/Users/awayer_mini/gengrowth-ops/inbox`
+- 当前 write allowlist 包含整个 `/Users/awayer_mini/gengrowth-ops`，比 `gengrowth-ops/AGENTS.md` 中“只写 inbox-maboyang”更宽。若要严格执行 Ops 工作区规则，建议后续把 write allowlist 收窄为：
+  - `/Users/awayer_mini/gengrowth-ops/inbox-maboyang`
   - `/Users/awayer_mini/.hermes/profiles/ops/workspace`
 
 高风险：
@@ -155,7 +155,7 @@ scripts/run_tests.sh tests/gateway/test_gengrowth_role_guard.py tests/tools/test
 
 ## 建议后续动作
 
-1. 若要完全符合 Ops 工作区 `AGENTS.md`，建议将 Ops 写 allowlist 从整个 `gengrowth-ops` 收窄到 `gengrowth-ops/inbox`。
+1. 若要完全符合 Ops 工作区 `AGENTS.md`，建议将 Ops 写 allowlist 从整个 `gengrowth-ops` 收窄到 `gengrowth-ops/inbox-maboyang`。
 2. 若未来给 Ops profile 开启文件工具，应先确认 write allowlist 是否已收窄。
 3. 高权限 profile 的 toolset 与 Slack 频道配置如需进一步收敛，应单独做一次配置审计，不和本次 guard 改动混在一起。
 

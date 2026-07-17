@@ -209,7 +209,7 @@ synced_to_ops: null
 - **P2.1 Reddit 占比方法不明确**：怎么算？前 10 SERP 中 Reddit 出现次数 / 10？还是 Google 自动 Discussion module？建议明确公式
 - **P2.1 Friction 未要求附 URL + 抓取时间**：用户痛点话术需可回溯
 - **P2.2 SOP 自身 frontmatter 缺规范**：作为 SOP 文档，缺 `status` / `version` / `author` / `last_review` 字段
-- **P2.2 位置在 inbox**：v0.18 已稳定，应升正式 SOP 区 `docs/03-marketing/03-seo/`；inbox 是草稿区
+- **P2.2 位置在 inbox-maboyang**：v0.18 已稳定，应升正式 SOP 区 `docs/03-marketing/03-seo/`；inbox-maboyang 是草稿区
 
 ---
 

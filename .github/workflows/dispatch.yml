@@ -14,7 +14,7 @@ permissions:
   issues: write
 
 # 防止多次 push 导致并发冲突
-# cancel-in-progress: true — Letty 用 Obsidian Git 高频自动 push 时, 旧 run 的 inbox 状态已过时, 取消它们让最新状态生效
+# cancel-in-progress: true — Letty 用 Obsidian Git 高频自动 push 时, 旧 run 的 inbox-maboyang 状态已过时, 取消它们让最新状态生效
 concurrency:
   group: dispatch-inbox
   cancel-in-progress: true
@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: 找出 inbox 里变化的文件
+      - name: 找出 inbox-maboyang 里变化的文件
         id: changed
         run: |
           # push event 提供 before/after SHA。第一次 push / 强制 push / 分支创建时 before 可能是 zeros。

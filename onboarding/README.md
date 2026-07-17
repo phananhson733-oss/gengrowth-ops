@@ -30,7 +30,7 @@
 | 选项 | 值 |
 |---|---|
 | 新建笔记的默认位置 | **"在指定文件夹中"**(In the folder specified below) |
-| 文件夹位置 | `inbox` |
+| 文件夹位置 | `inbox-maboyang` |
 
 > 作用：保证从模板新建的文件**永远落到 `inbox-maboyang/`**。机器人(`.github/workflows/dispatch.yml`)只监听 `inbox-maboyang/**` 路径，**文件不在 inbox-maboyang/ 下，target frontmatter 写得再对也不会被搬走**。
 

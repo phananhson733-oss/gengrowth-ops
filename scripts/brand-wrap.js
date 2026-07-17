@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * brand-wrap: inbox 文件「品牌规范化」后处理脚本
+ * brand-wrap: inbox-maboyang 文件「品牌规范化」后处理脚本
  *
- * Letty 用任何 AI 工具 (Gemini/Claude/ChatGPT) 生成内容粘到 inbox 之后, 跑这个脚本:
- *   1. 补全 frontmatter (project/type/status/owner/updated) — type 从 inbox 子目录推断
+ * Letty 用任何 AI 工具 (Gemini/Claude/ChatGPT) 生成内容粘到 inbox-maboyang 之后, 跑这个脚本:
+ *   1. 补全 frontmatter (project/type/status/owner/updated) — type 从 inbox-maboyang 子目录推断
  *   2. 文件名规范化为 YYYY-MM-DD-slug.md (slug 来自 H1 标题, 中英文都支持)
  *   3. 扫描 AI 标志词警告 (SEO 降权风险)
  *   4. 末尾追加品牌 CTA (如果文章里还没引用 astrologywiki.com)
@@ -14,7 +14,7 @@
  * 用法:
  *   node scripts/brand-wrap.js <file.md>             预览单个文件
  *   node scripts/brand-wrap.js <file.md> --apply     应用规范化
- *   node scripts/brand-wrap.js --scan inbox-maboyang/         扫描 inbox 列出待规范化文件
+ *   node scripts/brand-wrap.js --scan inbox-maboyang/         扫描 inbox-maboyang 列出待规范化文件
  *   node scripts/brand-wrap.js --scan inbox-maboyang/ --apply 扫描 + 批量应用
  */
 
@@ -29,7 +29,7 @@ const path = require("path");
 const DEFAULT_OWNER = "Letty";
 const DEFAULT_PROJECT = "astrologywiki";
 
-// 从 inbox 子目录推断 type (顺序敏感, 更具体的在前)
+// 从 inbox-maboyang 子目录推断 type (顺序敏感, 更具体的在前)
 const TYPE_BY_PATH = [
   ["inbox-maboyang/08-reports-and-feedback/01-product-feedback", "product-feedback"],
   ["inbox-maboyang/08-reports-and-feedback/02-standard-feedback", "standard-feedback"],

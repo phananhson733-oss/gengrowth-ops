@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * inbox 入口校验 + 通知脚本
+ * inbox-maboyang 入口校验 + 通知脚本
  *
  * 触发: GitHub Actions (.github/workflows/dispatch.yml) 在 inbox-maboyang/ 有变化时调用。
  *
@@ -53,18 +53,18 @@ const ISSUE_NOTIFY = (process.env.ISSUE_NOTIFY_USERS || "")
 // 真正可写的只有 onboarding/ 和 templates/ (运营工作区, 非 wiki 同步)。
 const ALLOWED_TARGETS = ["onboarding/", "templates/"];
 
-// inbox 自动归档专用 target (status=archived 时强制使用此目录)
+// inbox-maboyang 自动归档专用 target (status=archived 时强制使用此目录)
 const ARCHIVE_TARGET = "inbox-maboyang/09-archive/";
 
 // status 语义映射: 把现实中 Letty 已经在用的值映射到 4 个标准动作。
-// 标准动作: keep (留 inbox)、review (开 PR)、move (直推)、archive (归档)
+// 标准动作: keep (留 inbox-maboyang)、review (开 PR)、move (直推)、archive (归档)
 const STATUS_ACTIONS = {
-  // 留在 inbox, 不动
+  // 留在 inbox-maboyang, 不动
   draft: "keep",
   active: "keep",
   final: "keep", // 已完成但留在工作台自查
   "in-progress": "keep",
-  // Tasks 插件常用的任务状态 (inbox-maboyang/06-tasks/), 一律留 inbox
+  // Tasks 插件常用的任务状态 (inbox-maboyang/06-tasks/), 一律留 inbox-maboyang
   todo: "keep",
   doing: "keep",
   done: "keep",
@@ -80,7 +80,7 @@ const STATUS_ACTIONS = {
   archive: "archive",
 };
 
-// 这些 inbox 内文件 / 目录不参与校验
+// 这些 inbox-maboyang 内文件 / 目录不参与校验
 const IGNORE_EXACT = new Set(["inbox-maboyang/README.md", "inbox-maboyang/.gitkeep"]);
 const IGNORE_PREFIXES = [
   "inbox-maboyang/09-archive/", // 归档区不再处理
@@ -204,7 +204,7 @@ function validateFile(file) {
   const errors = [];
   const warnings = [];
 
-  // 1. 必须是文件 (避免目录路径进来). 读不到只 warn, 不阻塞 — inbox 是工作台。
+  // 1. 必须是文件 (避免目录路径进来). 读不到只 warn, 不阻塞 — inbox-maboyang 是工作台。
   let stat;
   try {
     stat = fs.statSync(file);
@@ -229,8 +229,8 @@ function validateFile(file) {
   const isRouting =
     action === "review" || action === "move" || action === "archive";
 
-  // 4. 非流程状态 (draft / keep / 无 frontmatter / 无法识别) -> 一律留 inbox, 只 advisory。
-  //    inbox 是 Ops 专属工作台, Obsidian 自动备份不该被阻塞或开 issue。
+  // 4. 非流程状态 (draft / keep / 无 frontmatter / 无法识别) -> 一律留 inbox-maboyang, 只 advisory。
+  //    inbox-maboyang 是 Ops 专属工作台, Obsidian 自动备份不该被阻塞或开 issue。
   if (!isRouting) {
     if (hasFrontmatter && frontmatter.status && !action) {
       warnings.push(
@@ -342,11 +342,11 @@ function createIssueOnFailure(report) {
   const mentions = ISSUE_NOTIFY.length
     ? ISSUE_NOTIFY.map((u) => `@${u}`).join(" ")
     : "";
-  const title = `[inbox 校验失败] ${new Date().toISOString().slice(0, 10)} (run ${RUN_ID})`;
+  const title = `[inbox-maboyang 校验失败] ${new Date().toISOString().slice(0, 10)} (run ${RUN_ID})`;
   const body = [
     mentions,
     "",
-    "inbox 自动校验脚本发现以下问题。提交者请在 Obsidian 里修复后重新按 F5 提交。",
+    "inbox-maboyang 自动校验脚本发现以下问题。提交者请在 Obsidian 里修复后重新按 F5 提交。",
     "",
     "## 问题清单",
     "",
@@ -376,7 +376,7 @@ function createIssueOnFailure(report) {
           "--color",
           "FBCA04",
           "--description",
-          "inbox 文件校验失败",
+          "inbox-maboyang 文件校验失败",
         ],
         { stdio: "pipe" },
       );
@@ -418,7 +418,7 @@ function main() {
 
   if (changed.length === 0) {
     log("inbox-maboyang/ 没有需要处理的变化, 跳过。");
-    summaryAppend("✅ inbox 校验通过 (无需要处理的文件)");
+    summaryAppend("✅ inbox-maboyang 校验通过 (无需要处理的文件)");
     return;
   }
 
@@ -453,7 +453,7 @@ function main() {
     log("❌ 校验失败:");
     log(report);
 
-    summaryAppend("## ❌ inbox 校验失败\n\n" + report);
+    summaryAppend("## ❌ inbox-maboyang 校验失败\n\n" + report);
     summaryAppend(
       "\n> 已自动开 issue 通知, 请在 Obsidian 里修复后重新提交。\n",
     );
@@ -471,7 +471,7 @@ function main() {
 
   // 没有需要搬运的, 直接结束
   if (toMove.length === 0) {
-    log("✅ 校验通过, 无需搬运 (所有文件 status=draft 或留在 inbox)");
+    log("✅ 校验通过, 无需搬运 (所有文件 status=draft 或留在 inbox-maboyang)");
     summaryAppend("\n✅ 校验通过");
     return;
   }
@@ -501,7 +501,7 @@ function main() {
   const summary = toMove
     .map((m) => `- ${m.from} -> ${m.to} (${m.review})`)
     .join("\n");
-  const commitMsg = `chore(dispatch): 自动分拣 inbox 文件\n\n${summary}`;
+  const commitMsg = `chore(dispatch): 自动分拣 inbox-maboyang 文件\n\n${summary}`;
 
   const needPR = toMove.some((m) => m.review === "required");
 
@@ -511,7 +511,7 @@ function main() {
     git("commit", "-m", commitMsg);
     git("push", "origin", branch);
 
-    const title = `[自动分拣] inbox 文件待审批 (${new Date().toISOString().slice(0, 10)})`;
+    const title = `[自动分拣] inbox-maboyang 文件待审批 (${new Date().toISOString().slice(0, 10)})`;
     const body = `自动分拣结果:\n\n${summary}\n\n> 本 PR 由 dispatch-inbox.js 自动创建。`;
 
     const prUrl = gh(

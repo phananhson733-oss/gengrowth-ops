@@ -255,7 +255,7 @@ synced_to_ops: null
 - **P2.6 截图 / 图表**：0 张 → 加 ≥ 3 张
 - **P2.7 CTA 转化路径**：缺失 → 加（订阅 / 注册 / 下一步阅读）
 - **文件命名**：下划线分隔（应改连字符）
-- **位置在 inbox**：发布前需迁移到 publication-ready 区
+- **位置在 inbox-maboyang**：发布前需迁移到 publication-ready 区
 
 ---
 

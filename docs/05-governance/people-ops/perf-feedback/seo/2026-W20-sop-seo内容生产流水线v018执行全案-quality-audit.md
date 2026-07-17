@@ -126,7 +126,7 @@ handshake: perf-audit-seo-v0.2
 - **Reddit 占比 > 30% 判定方法不明确**：是看前 10 个结果还是前 100 个？是否包括 Quora / 论坛？无量化口径会导致 Tier 定级主观化（`L45`）。
 - **Friction 来源未要求 URL + 抓取时间**：Step 3 强调严禁填形容词，但没要求附"`https://reddit.com/r/.../comments/...`" + 抓取时间，6 个月后无法回溯（`L97-105`）。
 - **SOP 自身 frontmatter 缺规范**：文件没有 obsidian YAML frontmatter（`title:` / `date:` / `updated:` / `type: sop` / `version: v0.18` / `status:`）。compared to `keyword-research-sop.md` / `day0-diagnosis-sop.md` 都有完整 frontmatter，v0.18 缺。
-- **P2.2 规范合规性**（简评，doc-audit 兜底）：文件名含 `_v0.18_` 体现版本管理 ✅；但文件位于 `docs/repo/gengrowth-ops/inbox-maboyang/内容创作/`，是"inbox"非正式区，未来若升为正式 SOP 需迁到 `docs/03-marketing/03-seo/` 与同级 SOP 并列。
+- **P2.2 规范合规性**（简评，doc-audit 兜底）：文件名含 `_v0.18_` 体现版本管理 ✅；但文件位于 `docs/repo/gengrowth-ops/inbox-maboyang/内容创作/`，是"inbox-maboyang"非正式区，未来若升为正式 SOP 需迁到 `docs/03-marketing/03-seo/` 与同级 SOP 并列。
 
 ---
 

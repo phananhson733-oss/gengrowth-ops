@@ -37,7 +37,7 @@ jobs:
           ASSIGNEES: "xdawayer"
         run: |
           # 确保 label 存在 (幂等)
-          gh label create weekly-digest --repo "$REPO" --color "0E8A16" --description "每周 inbox 改动摘要" 2>/dev/null || true
+          gh label create weekly-digest --repo "$REPO" --color "0E8A16" --description "每周 inbox-maboyang 改动摘要" 2>/dev/null || true
           gh issue create \
             --repo "$REPO" \
             --title "[周报摘要] inbox-maboyang/ 周变化 ${WEEK_START} → ${WEEK_END}" \

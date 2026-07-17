@@ -25,7 +25,7 @@
 
 1. **命名规范**：`YYYY-MM-DD-主题-用途.md`。`Untitled.md` / `未命名.md` 等占位名只会收到 advisory 提示（不阻塞），但**走流程**（`ready_*` / `archived`）时会被拒绝。
 2. **元数据要求**：`.md` 文件头部建议包含 `project`, `type`, `status`, `owner`, `updated` 字段；草稿可以不写，**走流程时这 5 个字段必填**。
-3. **Owner**：Ma Boyang。inbox 是 Ops 专属工作台，其他人请勿直接修改（CODEOWNERS 已指定 inbox 由 Ops 审批）。
+3. **Owner**：Ma Boyang。inbox-maboyang 是 Ops 专属工作台，其他人请勿直接修改（CODEOWNERS 已指定 inbox-maboyang 由 Ops 审批）。
 4. **清理规则**：正式 SOP 确定后应提交至 `docs/`；已发布的 Blog 初稿定期归档至内容资产库。
 
 ## 🔄 status 字段语义（决定 dispatch 行为）
@@ -70,7 +70,7 @@ updated: 2026-05-18
 
 ## 🛠️ 写文章的辅助工具：`brand-wrap`
 
-用任何 AI（Gemini / Claude / ChatGPT）生成文章粘到 inbox 之后，跑一下规范化脚本：
+用任何 AI（Gemini / Claude / ChatGPT）生成文章粘到 inbox-maboyang 之后，跑一下规范化脚本：
 
 ```bash
 # 预览（不改文件）
@@ -85,7 +85,7 @@ node scripts/brand-wrap.js --scan inbox-maboyang/ --apply
 
 脚本会自动做：
 
-1. **补 frontmatter**：`project/type/status/owner/updated`（type 从 inbox 子目录推断）
+1. **补 frontmatter**：`project/type/status/owner/updated`（type 从 inbox-maboyang 子目录推断）
 2. **文件名加日期前缀**：`my-blog.md` → `2026-05-18-my-blog.md`
 3. **AI 标志词扫描**：发现 `delve/crucial/robust/landscape/...` 等词 ≥ 3 个时警告，提示 SEO 降权风险
 4. **品牌 CTA**：blog-draft 类型文章末尾自动追加 AstrologyWiki 链接（已有的不重复加）

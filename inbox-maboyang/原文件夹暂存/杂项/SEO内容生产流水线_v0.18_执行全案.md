@@ -109,7 +109,7 @@
 ### STEP 4：AI 组装生产 (自动化执行)
 > **SEO 价值**：通过结构化的指令包，强制 AI 输出高密度、低废话的内容。
 
-1.  **发送燃料包**：先发送[系统提示词](obsidian://open?vault=gengrowth-ops&file=inbox%2F%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C%2FSEO%E5%86%85%E5%AE%B9%E7%94%9F%E4%BA%A7%E6%8F%90%E7%A4%BA%E8%AF%8D_v0.18)，再发送变量包：
+1.  **发送燃料包**：先发送[系统提示词](obsidian://open?vault=gengrowth-ops&file=inbox-maboyang%2F%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C%2FSEO%E5%86%85%E5%AE%B9%E7%94%9F%E4%BA%A7%E6%8F%90%E7%A4%BA%E8%AF%8D_v0.18)，再发送变量包：
     ```markdown
     # Assembly v0.18
     Keyword: {Keyword} | Intent: {Intent} | Template: {Template}

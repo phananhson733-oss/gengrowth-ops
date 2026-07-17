@@ -38,4 +38,4 @@ inbox-maboyang/06-tasks/
 - 看板入口：`inbox-maboyang/06-tasks/task-board.md`
 - 新任务模板：`inbox-maboyang/06-tasks/templates/task-template.md`
 
-> 注意：本目录在 inbox 下，按约定归 Ops 专属。其他人若要看任务，看这里即可；但不要在本地直接编辑（保持单一写手，零冲突）。
+> 注意：本目录在 inbox-maboyang 下，按约定归 Ops 专属。其他人若要看任务，看这里即可；但不要在本地直接编辑（保持单一写手，零冲突）。
