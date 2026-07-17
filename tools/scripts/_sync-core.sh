@@ -66,7 +66,7 @@ _gengrowth_sync_core_body() {
   local OPS_DEST="$WIKI/docs/repo/gengrowth-ops"
   if [ -d "$OPS_REPO" ]; then
     mkdir -p "$OPS_DEST"
-    rsync -a --delete "$OPS_REPO/inbox/"      "$OPS_DEST/inbox/"      >> "$LOG" 2>&1
+    rsync -a --delete "$OPS_REPO/inbox-maboyang/" "$OPS_DEST/inbox-maboyang/" >> "$LOG" 2>&1
     rsync -a --delete "$OPS_REPO/onboarding/" "$OPS_DEST/onboarding/" >> "$LOG" 2>&1
     log "[ops] done"
   fi
