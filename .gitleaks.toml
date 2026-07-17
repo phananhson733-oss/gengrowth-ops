@@ -13,7 +13,11 @@ description = "Global allowlist"
 paths = [
   '''onboarding/examples/.*''',
   '''templates/.*''',
-  '''.*\.md$'''
+  '''.*\.md$''',
+  # 同步引擎自测里的固定假密钥（'abcdefghijklmnopqrstuvwxyz123456'），
+  # 用于验证密钥拦截逻辑本身，不是真凭证。留着它会让 Secret Scan 长期常红，
+  # 红灯一旦变成常态就没人看了——2026-06-23 那个真私钥正是这样被淹没 24 天的。
+  '''tools/scripts/obsidian-vault-git-sync-selftest\.py$'''
 ]
 
 # API Key / Token
