@@ -170,3 +170,4 @@ updated: 2026-07-17
 | 2026-07-17 | PG-WDIN-001 | what-do-i-need-to-let-go-of | What Do I Need To Let Go Of | marcus-orion | https://www.astrologywiki.com/en/wiki/what-do-i-need-to-let-go-of | published |
 | 2026-07-17 | PG-MYTH-005 | elvis-birth-chart | Elvis Birth Chart | elena-vane | https://www.astrologywiki.com/en/wiki/elvis-birth-chart | published |
 | 2026-07-17 | PG-TERM-010 | birth-chart-interpretation | Birth Chart Interpretation | marcus-orion | https://www.astrologywiki.com/en/wiki/birth-chart-interpretation | published |
+| 2026-07-17 | PG-NODE-014 | am-i-on-the-right-path | Am I On The Right Path | julian-thorne | https://www.astrologywiki.com/en/wiki/am-i-on-the-right-path | published |
