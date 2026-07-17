@@ -446,7 +446,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [x] `PG-TRANS-019` saturn return age 30
 - [x] `PG-TRANS-020` saturn return in cancer meaning
-- [ ] `PG-WDIF-002` what is my love language
+- [x] `PG-WDIF-002` what is my love language
 - [x] `PG-TRANS-021` how long does saturn return last
 - [ ] `PG-WDIN-001` what do i need to let go of
 
