@@ -452,12 +452,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月17日 (周五) - 待写作
-**状态**：`等待输出` (自动补充选题，共 5 篇)
+**状态**：`等待输出` (自动补充选题，共 7 篇)
 - [x] `PG-TRANS-022` saturn return age 27
 - [ ] `PG-TRANS-023` saturn return in cancer
 - [x] `PG-NODE-014` am i on the right path
 - [ ] `PG-WC-052` venus in gemini
 - [ ] `PG-NAKSH-020` moon in capricorn
+
+- [ ] `PG-WC-053` argentina vs spain world cup final astrology 2026
+- [ ] `PG-WC-054` messi vs yamal astrology
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
