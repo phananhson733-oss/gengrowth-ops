@@ -166,3 +166,4 @@ updated: 2026-07-17
 | 2026-07-16 | PG-CELEB-057 | caitlin-clark-birth-chart | Caitlin Clark Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/caitlin-clark-birth-chart | published |
 | 2026-07-16 | PG-CELEB-058 | brad-pitt-birth-chart | Brad Pitt Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/brad-pitt-birth-chart | published |
 | 2026-07-17 | PG-TRANS-021 | how-long-does-saturn-return-last | How Long Does Saturn Return Last | marcus-orion | https://www.astrologywiki.com/en/wiki/how-long-does-saturn-return-last | published |
+| 2026-07-17 | PG-WDIF-002 | what-is-my-love-language | What Is My Love Language | marcus-orion | https://www.astrologywiki.com/en/wiki/what-is-my-love-language | published |
