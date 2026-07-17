@@ -19,7 +19,7 @@ canonical: false
 阶段二：建立并确认 Brief → Claude / GPT 双模型独立写稿
 ```
 
-不是让 Codex 随机生成一大堆题，再让 Pengman 从头研究。Codex 会先读取网站、GSC/SEO、热点、竞品、旧稿和周报，完成去重与证据判断，并标出少量 P0 方向。Pengman 日常优先比较每条 Route 的 P0，不需要逐条研究所有备选。
+不是让 Codex 随机生成一大堆题，再让 Pengman 从头研究。Codex 会先读取网站、SEO 主题参考、热点、竞品、旧稿和周报，完成去重与证据判断，并标出少量 P0 方向。Pengman 日常优先比较每条 Route 的 P0，不需要逐条研究所有备选。
 
 双模型实验只比较“同一个已确认选题怎么写”，不负责从大量题目中替 Pengman 重新选题。
 
@@ -48,7 +48,7 @@ canonical: false
 
 ### 2. Codex 研究并给出候选
 
-Codex 会读取网站、SEO/GSC、热点、竞品、历史旧稿、最近发布记录及 `decision / next_test`，然后输出：
+Codex 会读取网站、SEO 主题参考、热点、竞品、历史旧稿、最近发布记录及 `decision / next_test`，然后输出：
 
 - Route A：生活问题或长期内容；
 - Route B：当前热点；

@@ -6,8 +6,8 @@ status: draft
 owner: Pengman
 updated: 2026-07-16
 sources:
-  - inbox-pengman/04-production/03-reference-accounts/reference-accounts.md
-  - inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md
+  - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
+  - inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md
   - Google Sheet「astrologywiki reference account video」（2026-07-16：26 条账号分析，25 个唯一 handle）
   - 2026-07-12 竞品与趋势补充搜索（Astroscope / Starcrossed / 2026 TikTok 占星趋势）
 ---
@@ -17,6 +17,8 @@ sources:
 > 面向 4 个账号矩阵：① AstrologyWiki 官方 ② AI 占星师人设 ③ 热点占星测试 ④ 普通占星爱好者。
 > 每个账号给出：定位、参考账号、内容方向、表现形式、钩子公式与选题库、红线。
 > 本文档为 draft，落地前建议先跑小规模测试再定量放大。
+
+竞品数据边界：在线 Google Sheet `astrologywiki reference account video` 是当前事实来源；`05-调研资料/竞品研究/` 中的 Markdown 只保存已选研究背景，`旧快照/2026-07-07/` 不参与当前路由判断。
 
 ## 竞品格局速览（2026）
 

@@ -2,16 +2,36 @@
 title: 04-production 瘦身迁移提案
 project: astrologywiki
 type: workspace-reorganization-proposal
-status: draft
+status: in-progress
 owner: Pengman
 updated: 2026-07-16
 ---
 
 # 04-production 瘦身迁移提案
 
-> 一句话结论：`04-production` 的主要问题是生产、SOP、策略、调研、历史资料共用入口，以及状态索引不完整；当前总量只有约 1.01 MiB，没有媒体大文件，因此不是明显的 Git 上传负担。
+> 一句话结论：`04-production` 的主要问题是生产、SOP、策略、调研、历史资料共用入口，以及状态索引不完整；审查基线约 1.01 MiB，A、B 批次后约 770 KB，始终没有媒体大文件，因此不是明显的 Git 上传负担。
 
-> 执行边界：本轮完成盘点、入口优化和提案更新；没有批量移动、重命名、合并或删除，没有修改根 `.gitignore`，没有触碰现有未提交的 Messi × Yamal 生产记录。
+> 执行状态：2026-07-16 已获 Pengman 批准并完成 A、B 批次迁移；没有删除、正文合并或修改根 `.gitignore`，C、D 批次仍等待确认。
+
+## A 批次执行记录（2026-07-16）
+
+- 已建立 `inbox-pengman/05-调研资料/` 及平台与策略、方法论、工具调研、历史调研、历史流程五个入口。
+- 已迁移视频与视觉工具调研、文字与社媒工具调研、三份历史调研、内容方向总览、通用运营框架、鱼骨图和根旧工作流，共 16 个原有文件。
+- 已更新 `inbox-pengman` 内受影响的 wikilink 和硬编码路径；A 批次当时没有移动 `03-reference-accounts`，也没有修改 `AGENTS.md`。
+- 仓库权限不允许创建 `.git/index.lock`，因此无法使用 `git mv`；实际使用文件系统移动，Git 可在差异阶段识别删除/新增或重命名。
+- A 批次后 `04-production` 为 70 个文件、约 844.5 KB（其中 4 个为已忽略 `.DS_Store`）；迁移前为 86 个文件、1,055,213 B，当前生产区减少 16 个文件和约 20% 体积。
+- 新 `05-调研资料` 为 21 个文件、224,054 B，其中 16 个为迁移文件、5 个为新建索引。仓库总体积没有因移动而下降，索引说明使文本量小幅增加。
+- 迁移前完整目录树和数字继续保留为审查基线；当前结构以 `04-production/README.md` 和 `05-调研资料/README.md` 为准。
+
+## B 批次执行记录（2026-07-16）
+
+- 已把原 `04-production/03-reference-accounts/` 整体迁到 `05-调研资料/竞品研究/`，共 9 个原有文件，其中 1 个 `.DS_Store` 已被 Git 忽略。
+- 4 个 CSV 保留并迁到 `05-调研资料/竞品研究/旧快照/2026-07-07/`；没有删除历史数据。
+- 已新增旧快照两级 README，明确这些 CSV 不参与新 Brief、候选生成或当前数据判断。
+- 已同步更新 `inbox-pengman/AGENTS.md`、Social Daily Skill、Daily SOP、四账号 Playbook、工作区 README、current-context 和所有竞品路径引用。
+- B 批次先把 Social Daily Skill 升级为 `v0.9.1`，只更新研究路径和旧快照边界；Pengman 随后确认暂停 GSC，Skill 再升级为 `v0.9.2`，移除 GSC 的读取、权限检查和证据门槛。
+- `04-production` 当前为 60 个文件、约 770 KB；Pengman 已确认同期删除的 GSC reports/README 不恢复，后续暂不读取 GSC。
+- `05-调研资料` 当前为 32 个文件、约 303 KB；在线 Google Sheet 继续作为竞品数据唯一事实来源。
 
 ## 1. 审查范围与方法
 
@@ -27,7 +47,7 @@ updated: 2026-07-16
 
 盘点使用工作区文件、文件类型、大小、Git 跟踪状态、内容哈希、README 索引、wikilink 目标和路径引用检查。以下体积是 2026-07-16 低风险文档调整前的审查基线。
 
-## 2. 当前完整目录树
+## 2. 迁移前完整目录树（审查基线）
 
 ```text
 04-production/
@@ -254,10 +274,10 @@ updated: 2026-07-16
 | 发布链接、周数据、`decision / next_test` | 对应 weekly digest | 生产记录不维护第二套周级数据 |
 | 公共表达、品牌安全、CTA | `astrologywiki-social-daily/SKILL.md` | Daily SOP、旧工作流不再复制文风 |
 | 账号定位与形式路由 | `four-account-tiktok-content-playbook.md` | 策略总览只解释背景 |
-| 选题输入、GSC、去重 | Daily SOP + Skill 强制执行边界 | Daily SOP 的旧可复用 Prompt 后续删除或改为链接 |
+| 选题输入、站内承接、去重 | Daily SOP + Skill 强制执行边界 | Daily SOP 的旧可复用 Prompt 后续删除或改为链接 |
 | 双模型实验、人工反馈、L1–L5 | `Pengman 与 AI 内容润色协作说明.md` | Skill 只保留边界，生产模板只定义字段 |
 | 竞品数据 | 在线 Google Sheet | 本地 CSV 与研究稿只作历史证据 |
-| GSC | Pengman 指定的原始导出 | Brief 只记录实际使用行 |
+| GSC | 暂停，不设当前事实来源 | 不读取、不索取、不因缺失阻塞；历史记录不回写 |
 
 ## 7. `04-production` 的建议范围
 
@@ -268,7 +288,7 @@ updated: 2026-07-16
 - 当前周报、发布链接、公开数据和 `decision / next_test`；
 - 统一 Brief、生产记录模板、人工润色协作、已验证制作 SOP；
 - Social Daily Skill 与四账号内容路由 Playbook；
-- 当前生产直接使用的 GSC 输入说明和原始导出。
+- 当前生产直接使用的公开 AstrologyWiki 页面、SEO 主题参考和业务优先级入口。
 
 ### 应迁出或降权
 
@@ -288,7 +308,7 @@ updated: 2026-07-16
 | 根 `astrologywiki-social-content-workflow.md` | 早期端到端流程 | 归档，不直接合并 | `05-调研资料/历史流程/` | 已被根 README 定义为历史背景 | 中 | 9 个引用文件；迁移时加旧路径映射 |
 | `00-evergreen-workflows/` | SOP、模板、Skill | 保留 | 原路径，第一阶段不改名 | 43 个引用文件，直接控制生产 | 高 | README、AGENTS、主生产记录和 current-context |
 | `00/.../social-account-warmup-and-launch-workflow.md` | 账号启动/养号 | 迁移 | `07-account-assets/账号运营SOP/` | 不属于单条内容生产 | 中 | 00 README 及可能的任务文档 |
-| `00/.../daily-content-assistant-sop.md` | 输入、GSC、去重、旧 Prompt | 合并/降权 | 仍在 `00`；删去已被 Skill 替代的 Prompt 前需确认 | 决策逻辑仍有用，但执行说明重复 | 高 | Skill、README、AGENTS |
+| `00/.../daily-content-assistant-sop.md` | 输入、站内承接、去重、旧 Prompt | 合并/降权 | 仍在 `00`；删去已被 Skill 替代的 Prompt 前需确认 | 决策逻辑仍有用，但执行说明重复 | 高 | Skill、README、AGENTS |
 | `01.../four-account-tiktok-content-playbook.md` | 四账号路由 | 保留并迁入 SOP | `00-evergreen-workflows/` | 生产时直接调用的唯一账号路由 | 高 | Skill、路由说明、制作记录 |
 | `01.../content-direction-and-tools-research.md` | 平台/工具综合研究 | 迁移 | `05-调研资料/平台与策略/` | 决策证据，不是当前生产状态 | 中 | 04 README、鱼骨图、任务文档 |
 | `01.../social-seo-content-operations-framework.md` | 通用端到端运营框架 | 迁移并降权 | `05-调研资料/方法论/` | `status: draft`，与现行 Skill/SOP 重叠 | 中高 | 26 个路径引用集合中的一部分 |
@@ -302,7 +322,7 @@ updated: 2026-07-16
 | `06-daily-content-recommendations/` | 当前与历史生产记录 | 保留并按状态整理 | 原路径下新增 `当前制作/待发布/已发布/历史生产记录/` | 当前生产主入口 | 高 | 49 个引用文件；移动需逐批修链接 |
 | `06.../已合并旧稿/` | 合并后的过程稿 | 保留但默认不读 | `06.../历史生产记录/已合并旧稿/` | 仍有来源追溯价值 | 中 | README 和旧稿互链 |
 | Messi × Yamal Prompt/候选 | 双模型过程附件 | 合并索引，不删 | 主记录同名附件子目录，或继续同层但由 README 降权 | 候选不重复维护状态 | 中 | 主记录中的 3 个附件引用 |
-| `07-gsc-exports/` | GSC 数据输入 | 保留 | 原路径，第一阶段不改名 | 当前生产直接输入 | 中 | 12 个引用文件 |
+| `07-gsc-exports/` | 已删除的 GSC 数据入口 | 不恢复；暂停 | 无 | Pengman 已确认暂不看 GSC；当前规则已移除路径依赖 | 低 | 当前入口已修复；历史引用保留 |
 | `.DS_Store` | macOS 元数据 | 本地清理可选，不进 Git | 不保留 | 已正确忽略，对仓库无影响 | 低 | 无 |
 | 4 个 `.gitkeep` | 空目录占位 | 删除前确认 | 目录已有真实文件时不需要 | 只减少文件数，不减体积 | 低 | 无 |
 
@@ -323,7 +343,6 @@ inbox-pengman/
 │   │   ├── 已发布/
 │   │   └── 历史生产记录/
 │   │       └── 已合并旧稿/
-│   └── 07-gsc-exports/                       # 直接数据输入
 ├── 05-调研资料/
 │   ├── README.md
 │   ├── 平台与策略/
@@ -340,7 +359,7 @@ inbox-pengman/
     └── 账号运营SOP/
 ```
 
-第一阶段保留 `00/05/06/07` 现有高引用路径，只把非生产资料迁出，并用 README 显示中文用途。这能避免一次性修改 43–50 个引用文件。
+第一阶段保留 `00/05/06` 现有高引用路径，只把非生产资料迁出，并用 README 显示中文用途。GSC 入口不恢复；当前规则引用已经收口，历史生产记录仍保留原始证据说明。
 
 ### 9.2 单条内容的文件粒度
 
@@ -403,17 +422,17 @@ inbox-pengman/
 
 ### A. 推荐先确认：低路径风险迁出
 
-- [ ] 建立 `05-调研资料/` 及唯一 README。
-- [ ] 整体迁移 `02-video-and-visual-tool-research/`。
-- [ ] 整体迁移 `04-text-and-social-tool-research/`。
-- [ ] 迁移 `01/.../历史调研资料/`、`content-direction-and-tools-research.md`、通用框架和鱼骨图。
-- [ ] 将根旧工作流移到 `05-调研资料/历史流程/`，不合并正文。
+- [x] 建立 `05-调研资料/` 及唯一 README。
+- [x] 整体迁移 `02-video-and-visual-tool-research/`。
+- [x] 整体迁移 `04-text-and-social-tool-research/`。
+- [x] 迁移 `01/.../历史调研资料/`、`content-direction-and-tools-research.md`、通用框架和鱼骨图。
+- [x] 将根旧工作流移到 `05-调研资料/历史流程/`，不合并正文。
 
 ### B. 需同步改规则：竞品目录
 
-- [ ] 把 `03-reference-accounts/` 迁到 `05-调研资料/竞品研究/`。
-- [ ] 同批更新 `inbox-pengman/AGENTS.md`、Social Daily Skill、Daily SOP、Playbook 和所有 wikilink。
-- [ ] 将 `sheets-export` 明确命名为 `旧快照/2026-07-07/`；决定保留还是删除。
+- [x] 把 `03-reference-accounts/` 迁到 `05-调研资料/竞品研究/`。
+- [x] 同批更新 `inbox-pengman/AGENTS.md`、Social Daily Skill、Daily SOP、Playbook 和所有 wikilink。
+- [x] 将 `sheets-export` 明确命名为 `旧快照/2026-07-07/`；本轮决定保留，不删除。
 
 ### C. 高引用生产路径：建议二期
 
@@ -433,12 +452,11 @@ inbox-pengman/
 
 ## 14. 建议执行顺序与验证门
 
-1. 先确认 A 批次；创建 `05-调研资料/README.md` 和路径映射表。
-2. 每次只移动一个低风险目录，使用 Git move，随后检查全部 wikilink、Markdown 本地链接和硬编码路径。
-3. 再执行 B 批次，确保 `AGENTS.md` 与 Skill 在同一次变更中更新，避免 AI 权限/入口断裂。
-4. C 批次按状态分组，不按日期猜测。已有未提交改动的文件必须先由 Pengman确认处理方式。
-5. 每批迁移独立提交，验证 README 能从根入口到达全部当前文件；默认扫描清单不再包含研究和历史目录。
-6. 最后才讨论删除、正文合并或根 `.gitignore`。
+1. A 批次已完成；验证 `05-调研资料/README.md`、路径映射、wikilink 和硬编码路径。
+2. B 批次已完成；`AGENTS.md`、Skill、Daily SOP、Playbook 和路径引用已同步更新。
+3. 下一步若批准 C 批次，按状态分组，不按日期猜测。已有未提交改动的文件必须先由 Pengman确认处理方式。
+4. 每批迁移独立验证 README 能从根入口到达全部当前文件；默认扫描清单不再包含研究和历史目录。
+5. 最后才讨论删除、正文合并或根 `.gitignore`。
 
 ## 15. 验收标准
 

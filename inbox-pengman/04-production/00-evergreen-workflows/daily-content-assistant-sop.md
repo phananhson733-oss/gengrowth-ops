@@ -12,7 +12,9 @@ owner: Pengman
 
 Use Codex as a weekday assistant for choosing what AstrologyWiki should post today.
 
-The assistant should recommend practical offsite content ideas that support AstrologyWiki traffic, SEO visibility, and article discovery. It should not act like a generic social media content generator.
+The assistant should recommend practical offsite content ideas that earn qualified reach, drive relevant AstrologyWiki article/tool discovery, and preserve a trackable social→tool use/registration/purchase path. It should not act like a generic social media content generator.
+
+Q3 alignment: the team North Star is sustained post-share revenue of $1,000/day. This SOP controls the social leading indicators: reach, conversion-path quality, assisted qualified UV, growth-point discovery, and reusable SOP learning. PV remains a page/product diagnostic, not the traffic-layer KPI.
 
 ## Current MVP
 
@@ -21,7 +23,7 @@ This first version is semi-automatic.
 Pengman provides or maintains:
 
 - AstrologyWiki live article list; use a local index only when the file actually exists.
-- A recent Google Search Console CSV export.
+- Current site/SEO priorities or approved topic references when available.
 - Recent publishing records from the weekly published content digests, including relevant `decision / next_test`.
 - Selected competitor rows from the live Google Sheet; do not use stale local CSV snapshots as current facts.
 - Optional notes about current priorities, launches, or topics to avoid.
@@ -34,11 +36,11 @@ Suggested working files:
 
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
 - `https://www.astrologywiki.com/en/wiki?tab=articles`；仅在本地索引实际存在时使用本地文件
-- `inbox-pengman/04-production/07-gsc-exports/`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/`
 - `inbox-pengman/04-production/06-daily-content-recommendations/`
+- `inbox-pengman/05-调研资料/竞品研究/README.md`；在线 Google Sheet 是事实源，本地文件只提供已选中的研究背景
 
-If the folders do not exist yet, create them later when the first CSV/export is ready.
+GSC input is paused as of 2026-07-16. Do not recreate its folder, read or request exports, or block production because GSC is absent. Historical notes that already cite GSC remain historical evidence only.
 
 ## Input 1: AstrologyWiki Article Index
 
@@ -63,34 +65,16 @@ Preferred columns:
 
 This index does not need to be perfect at first. Even 20-50 important articles are enough for the MVP.
 
-## Input 2: Google Search Console CSV
+## Input 2: Current Site and SEO Context
 
-Manual export is preferred for the first version.
+Use only inputs that are currently available and approved:
 
-Put exported CSV files under:
+- Public AstrologyWiki article and tool pages.
+- Current business priorities or landing pages Pengman provides.
+- [[inbox-pengman/03-topic-ideas/SEO选题调查.md]] as a topic-reference note; its existing GSC sections are historical, not current performance data.
+- Recent weekly `decision / next_test` and platform-visible performance.
 
-- `inbox-pengman/04-production/07-gsc-exports/`
-
-Do not read GSC CSV files from Downloads or other folders during the Ops workflow. If the file is outside `gengrowth-ops`, move or copy it into `inbox-pengman/04-production/07-gsc-exports/` first.
-
-Useful columns:
-
-| column | meaning |
-| --- | --- |
-| query | Search query |
-| page | Landing page |
-| clicks | Clicks in selected date range |
-| impressions | Impressions in selected date range |
-| ctr | Click-through rate |
-| position | Average position |
-| date_range | Export date range, if not already in the file name |
-
-Recommended export views:
-
-- Queries by page for AstrologyWiki article URLs.
-- Queries with high impressions but low CTR.
-- Queries ranking around positions 8-30.
-- Pages with impressions but not enough clicks.
+Do not infer search performance, rankings, impressions, clicks or CTR from these inputs. Mark missing site/SEO direction as `待确认` only when it materially changes the recommendation; it is not a permission blocker.
 
 ## Input 3: Published Records
 
@@ -118,6 +102,8 @@ The assistant should avoid repeating the same topic, hook, named person, or arti
 ## Input 4: Competitor Research and Prior Decisions
 
 - 竞品事实源：Google Sheet `astrologywiki reference account video`。
+- 本地竞品研究入口：[[inbox-pengman/05-调研资料/竞品研究/README.md]]；只在需要解释已采用的账号、视频机制或历史分析时读取。
+- `inbox-pengman/05-调研资料/竞品研究/旧快照/2026-07-07/` 是停用历史快照，不参与新 Brief、候选生成或当前数据判断。
 - Obsidian 只保存被选中的 URL、借鉴机制、证据强度和风险，不复制整表。
 - 下一轮写稿前必须读取同系列最近周报的 `decision / next_test`；不能只读取最终稿。
 - 若没有可用的 `decision / next_test`，明确写“待确认”，不要从播放量单独推导长期规则。
@@ -126,21 +112,20 @@ The assistant should avoid repeating the same topic, hook, named person, or arti
 
 When generating the daily recommendation, Codex should:
 
-1. Prioritize topics that support AstrologyWiki article discovery.
-2. Prefer pages or queries with real GSC evidence when CSV data is available.
-3. Look for keywords with high impressions, weak CTR, or rankings close to page one.
-4. Use AstrologyWiki articles as the content anchor whenever possible.
-5. Avoid making the post feel like an ad unless the user explicitly asks for a CTA-heavy post.
-6. Prefer reusable formats: X post, short-video script, simple image prompt, or carousel outline.
-7. Avoid repeating recently used hooks, examples, or angles.
-8. Keep recommendations executable by one person.
-9. If evidence is weak or missing, clearly say that the recommendation is based on article fit rather than GSC data.
-10. Before recommending a topic, check recent weekly published digests and exclude already-used topics unless the recommendation is a clearly different follow-up.
-11. Public copy style follows the `Copy Style` section of [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] as the single source of truth. Natural creator-style contrast is allowed; avoid repetitive, corporate or obviously templated AI reversals.
-12. When using sports, event, or launch timing, verify the date and time from current sources and convert it internally to Chicago time (CT/CDT); do not put the exact time into public-facing copy unless it improves the post.
-13. For hotspot, celebrity, sports, and entertainment content, avoid question-heavy titles and classroom-style explainers by default. Lead with the public moment, emotional tension, or visual story people already care about, then add the AstrologyWiki lens or tool CTA lightly.
-14. For TikTok/Instagram image posts, do not turn every carousel into a lesson. Prefer fewer slides and a short editorial/story rhythm, especially when the matching video angle already works better than a pure explainer.
-15. Always produce a four-account distribution plan. For each daily recommendation, map today's topics onto the 4 accounts and state, for every account, what to post or that it skips today. Never silently drop an account. Account definitions and formats: `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`.
+1. Prioritize topics that can earn qualified reach and support relevant AstrologyWiki article/tool discovery.
+2. Use current public AstrologyWiki pages, approved SEO topic references and Pengman's priorities to choose landing pages and phrase user intent.
+3. Use AstrologyWiki articles as the content anchor whenever possible.
+4. Avoid making the post feel like an ad unless the user explicitly asks for a CTA-heavy post.
+5. Prefer reusable formats: X post, short-video script, simple image prompt, or carousel outline.
+6. Avoid repeating recently used hooks, examples, or angles.
+7. Keep recommendations executable by one person.
+8. If evidence is weak or missing, distinguish article fit, current public evidence and assumptions; do not invent search-performance claims.
+9. Before recommending a topic, check recent weekly published digests and exclude already-used topics unless the recommendation is a clearly different follow-up.
+10. Public copy style follows the `Copy Style` section of [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] as the single source of truth. Natural creator-style contrast is allowed; avoid repetitive, corporate or obviously templated AI reversals.
+11. When using sports, event, or launch timing, verify the date and time from current sources and convert it internally to Chicago time (CT/CDT); do not put the exact time into public-facing copy unless it improves the post.
+12. For hotspot, celebrity, sports, and entertainment content, avoid question-heavy titles and classroom-style explainers by default. Lead with the public moment, emotional tension, or visual story people already care about, then add the AstrologyWiki lens or tool CTA lightly.
+13. For TikTok/Instagram image posts, do not turn every carousel into a lesson. Prefer fewer slides and a short editorial/story rhythm, especially when the matching video angle already works better than a pure explainer.
+14. Always produce a four-account distribution plan. For each daily recommendation, map today's topics onto the 4 accounts and state, for every account, what to post or that it skips today. Never silently drop an account. Account definitions and formats: `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`.
     - ① AstrologyWiki 官方：The Pattern 模式，天象 + 心理/关系落点 + 非真人 + 工具承接，栏目化。
     - ② AI 占星师人设：占星 × 心理机制解读，固定 AI 主播，收敛绝对化。
     - ③ 热点占星测试：明星/情侣/事件蹭热点，用星盘解释而非预测。
@@ -156,7 +141,11 @@ Each daily note should include:
 - Recommended format:
 - Recommended platform:
 - Linked AstrologyWiki article:
-- Related GSC query/page:
+- Related site/SEO topic or landing page:
+- Target audience / reach mechanism:
+- Primary conversion event:
+- Assisted qualified UV attribution path:
+- Growth point to test:
 - Why this is the best choice today:
 
 ### 1b. Four-Account Distribution
@@ -179,6 +168,10 @@ For each account, give today's post or mark it as skipped:
 - Hook 方向：
 - 证据和去重结论：
 - Landing page / CTA 方向：
+- 目标用户 / reach 机制：
+- 预期转化事件：
+- assisted qualified UV 归因路径：
+- 本条要验证的增长点：
 - 风险或待确认：
 
 Pengman 选择后才进入 Stage 2：建立统一 Brief，并按需要生成单模型初稿或启动 Claude / GPT 双模型内容实验。若 Pengman 明确要求“直接展开内容包”“直接生成脚本”“不用等我选”或“hook 优先”，才可跳过等待。
@@ -197,7 +190,7 @@ Provide 2-3 backups:
 List the specific inputs used:
 
 - Article index rows or article URLs.
-- GSC queries/pages, if available.
+- Approved SEO topic references or current priorities, if used.
 - Publishing log notes, if relevant.
 
 ### 5. Open Questions
@@ -212,23 +205,23 @@ Use this prompt when asking Codex to generate the daily recommendation:
 请作为 AstrologyWiki 的每日站外内容选题助手，帮我生成今天适合发布的图文或短视频建议。
 
 目标：
-- 支持 AstrologyWiki 的 SEO/PV 和文章发现，而不是泛泛做社媒涨粉。
-- 优先参考 AstrologyWiki 文章索引、GSC CSV、最近发布记录。
+- 获取目标用户 reach，并通过相关 AstrologyWiki 文章/工具承接，保障可追踪的 social→工具使用/注册/购买路径；记录 assisted qualified UV。PV 只作页面承接诊断，不是主 KPI。
+- 优先参考 AstrologyWiki 公开文章/工具页、SEO 主题参考、最近发布记录。
 - 给出今天最值得发的 1 个首推选题，以及 2-3 个备选。
 - 输出要可直接执行，适合一个人当天完成。
 
 请读取并参考：
 - https://www.astrologywiki.com/en/wiki?tab=articles 作为文章来源；仅在 `inbox-pengman/astrologywiki-article-index.csv` 实际存在且日期可用时优先使用
-- inbox-pengman/04-production/07-gsc-exports/ 中最新或我指定的 CSV
+- inbox-pengman/03-topic-ideas/SEO选题调查.md（仅作主题参考；其中既有 GSC 内容是历史背景）
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 中最近的已发布内容合集
 - 任何我在本次对话里补充的临时优先级
 
 判断规则：
 - 优先选择能支撑 AstrologyWiki 文章访问的主题。
-- 如果 GSC 有数据，优先关注高 impressions、低 CTR、排名 8-30、或已有点击但需要加强站外表达的 query/page。
+- 结合公开文章/工具页、当前业务重点和 SEO 主题参考选择站内承接；不要推断未提供的搜索表现。
 - 避免重复最近 7-14 天已经发过的主题、角度、人物、文章或案例；已做过的选题不再作为今日首推。
 - 大多数内容不要像广告，必要时只轻 CTA 到相关文章。
-- 如果数据不足，请明确说明依据来自文章主题匹配，而不是 GSC 证据。
+- 如果证据不足，请明确区分文章主题匹配、当前公开证据和待确认假设。
 - 公共表达规则以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] 的 `Copy Style` 为唯一来源：自然、像创作者说话的反差可以使用；连续套用或明显 AI 模板感的反转不用。
 - 热点、名人、体育、影视娱乐类内容不要默认写成提问式标题或强科普口吻。先抓住正在发生的故事、画面、人物关系或情绪张力，再轻轻带入 AstrologyWiki 的占星视角或工具 CTA。
 - TikTok 图文和 Instagram carousel 不要每次都做成课堂式解释。优先少页数、短句、故事感/娱乐感强的图文节奏；如果视频角度更吸引人，就把视频的叙事节奏改成图文，而不是改成重科普。
@@ -242,7 +235,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - 形式：
 - 平台：
 - 关联文章：
-- 关联 GSC 数据：
+- 关联站内页面 / SEO 主题：
 - 为什么今天适合发：
 
 ## 四账号分发
@@ -259,6 +252,10 @@ Use this prompt when asking Codex to generate the daily recommendation:
 - Hook 方向：
 - 证据和去重结论：
 - Landing page / CTA 方向：
+- 目标用户 / reach 机制：
+- 预期转化事件：
+- assisted qualified UV 归因路径：
+- 本条要验证的增长点：
 - 风险或待确认：
 
 ## 备选 2-3 个
@@ -269,7 +266,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 
 ## 使用依据
 - 文章：
-- GSC：
+- SEO 主题参考 / 当前优先级：
 - 最近发布记录：
 
 ## 需要我确认的事
@@ -279,7 +276,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 ## First Setup Checklist
 
 - [ ] Create or provide the first article index.
-- [ ] Move or copy the first GSC CSV into `inbox-pengman/04-production/07-gsc-exports/`.
+- [x] Record that GSC is paused and must not be requested or treated as a blocker.
 - [ ] Use weekly published content digests as the published record.
 - [ ] Run the prompt manually once.
 - [ ] Adjust the output format after 3-5 real uses.
@@ -290,7 +287,5 @@ Use this prompt when asking Codex to generate the daily recommendation:
 After the MVP works, possible upgrades:
 
 - Weekday reminder that asks Codex to generate the note.
-- Automatic selection of the newest GSC CSV.
 - Weekly summary of which recommendations were used.
 - Formal Codex skill for the workflow.
-- Optional Google Search Console API connection if manual CSV export becomes annoying.

@@ -158,12 +158,12 @@ source:
 
 必须参考的上下文：
 - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
-- [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
+- [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 - [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]]
 - [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 工作要求：
 1. 优先从最近的选题、已发布内容和长期主题支柱里找下一步最适合做的题。

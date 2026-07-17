@@ -35,7 +35,7 @@ Inputs:
 - Completed [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]].
 - Relevant prior weekly `decision / next_test`.
 - AstrologyWiki article reference: `https://www.astrologywiki.com/en/wiki?tab=articles`
-- Google Search Console CSV, if available.
+- Current public AstrologyWiki article/tool pages and approved SEO topic references.
 - Recent published content digests, to avoid repeating topics.
 - External platform and internet signals, including YouTube, X, TikTok, news, and trend pages when useful.
 - Current priorities from Pengman.
@@ -45,17 +45,18 @@ Output:
 - One primary topic.
 - 2-3 backup ideas.
 - Linked AstrologyWiki article or topic page.
-- Evidence: GSC query/page, article source, trend/source links, and recently excluded topics.
+- Evidence: article/tool source, approved SEO topic reference when used, trend/source links, and recently excluded topics.
 
 Current related files:
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
-- [[inbox-pengman/04-production/07-gsc-exports/README.md]]
+
+GSC input is paused as of 2026-07-16. Do not request it or block production because it is absent.
 
 Rules:
 
-- Support AstrologyWiki SEO/PV and article discovery.
+- Earn qualified reach, use relevant AstrologyWiki article/tool landing pages, preserve a trackable social→tool use/registration/purchase path, and record assisted qualified UV; treat PV as a page diagnostic, not the KPI.
 - Avoid recently published topics unless the angle is clearly different.
 - Verify dates and event timing internally, using Chicago time as the operational reference when timing matters.
 - Do not default to writing exact event times into public copy unless it helps the post.

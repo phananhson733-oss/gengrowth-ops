@@ -212,7 +212,7 @@ Short, psychological, and beginner-friendly.
 
 ## 使用依据
 
-- Reference accounts：[[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md]]
+- Reference accounts：[[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md]]
 - 已发布去重：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 - 今日调查：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
 - 视频生产流程：[[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]

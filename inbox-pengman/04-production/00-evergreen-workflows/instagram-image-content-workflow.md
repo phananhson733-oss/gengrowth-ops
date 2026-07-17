@@ -4,12 +4,12 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-03
+updated: 2026-07-16
 related:
   - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
-  - [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
-  - [[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md]]
+  - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
   - [[tools/internal/skills/social-daily/SKILL.md]]
@@ -77,13 +77,13 @@ Before generating the Instagram image content, the AI assistant should reference
    - Use its rules: timely topics first, no made-up facts, conversion must have a real landing page, content should be practical and non-mystical.
 
 2. `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
-   - Use its rules: support SEO/PV and article discovery, check recent published topics, avoid repeated angles, prefer executable outputs.
+   - Use its rules: earn qualified reach, use relevant article/tool landing pages, preserve trackable social conversion, check recent published topics, avoid repeated angles, and prefer executable outputs.
 
 3. `inbox-pengman/04-production/05-weekly-published-content-digests/`
    - Check what has already been posted recently.
    - Avoid repeating the same person, transit, hook, article, or exact angle within 7-14 days unless it is a clearly different follow-up.
 
-4. `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
+4. `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
    - Use reference accounts for structure and format, not for copying visual style or wording.
    - For X, `satyastrology` is a reference for short transit insight + open chart question.
    - For image posts, reference account screenshots can inspire information density: big title, date, short insight, 3 concise action points.
@@ -226,11 +226,11 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 - tools/internal/skills/social-daily/SKILL.md
 - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
-- inbox-pengman/04-production/03-reference-accounts/reference-accounts.md
+- inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
 - inbox-pengman/04-production/06-daily-content-recommendations/ 最近的 daily recommendation / production process
 
 目标：
-- 支持 AstrologyWiki 的 SEO/PV 和文章发现，不做泛泛星座娱乐号。
+- 获取目标用户 reach，并通过 AstrologyWiki 相关文章/工具承接，保障可追踪的 social→工具使用/注册/购买路径；记录 assisted qualified UV。PV 只作页面诊断，不做主 KPI。
 - 内容要现代、干净、心理学、自我认知、grounded in real astronomy。
 - 可以参考其他账号的信息量和排版结构，但不要照搬视觉风格或文案。
 - 单图文字必须少，适合一眼扫完；carousel 也要一页一个重点。长解释放 caption。

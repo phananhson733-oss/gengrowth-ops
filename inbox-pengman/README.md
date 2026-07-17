@@ -10,8 +10,9 @@
 | :----- | :------------------------ | :------------------------------ |
 | **00** | `00-inbox`                | 临时输入、灵感草稿、未分类数据。                |
 | **02** | `02-conversation report`  | 跨对话协作上下文、已确认决定、职责边界和待确认事项。 |
-| **03** | `03-topic-ideas`          | 长期主题种子、SEO/GSC 选题参考、历史单条选题归档；不再作为每日内容生产入口。入口：[[inbox-pengman/03-topic-ideas/README.md]] |
-| **04** | `04-production`           | 内容生产闭环：当前制作、待发布、发布复盘、生产 SOP 与直接数据输入。平台/工具/竞品/历史调研仍暂存其中，待迁移确认；AI 默认不扫描。入口：[[inbox-pengman/04-production/README.md]] |
+| **03** | `03-topic-ideas`          | 长期主题种子、SEO 主题参考、历史单条选题归档；不再作为每日内容生产入口。入口：[[inbox-pengman/03-topic-ideas/README.md]] |
+| **04** | `04-production`           | 内容生产闭环：当前制作、待发布、发布复盘、生产 SOP 与四账号路由。入口：[[inbox-pengman/04-production/README.md]] |
+| **05** | `05-调研资料`             | 平台策略、方法论、工具研究、竞品研究、历史调研和历史流程；只在查证依据时读取，不维护当前生产状态。入口：[[inbox-pengman/05-调研资料/README.md]] |
 | **06** | `06-tasks`                | 任务管理、周计划、执行跟踪、职责边界文档。          |
 | **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。入口：[[inbox-pengman/07-account-assets/README.md]] |
 | **08** | `08-requirements`         | 需求文档、工具需求、自动化需求和待交付给同事的 PRD。 |
@@ -21,11 +22,14 @@
 - `00-evergreen-workflows`: 生产 SOP、统一 Brief、人工润色和模型实验规范。
 - `05-weekly-published-content-digests`: 已发布内容合集、公开数据记录、单次发布复盘。
 - `06-daily-content-recommendations`: 每日内容推荐输出。
-- `07-gsc-exports`: 手动导出的 GSC 数据，只作为每日推荐和选题判断输入。
-- `01-strategy-and-platform-research`、`02-video-and-visual-tool-research`、`03-reference-accounts`、`04-text-and-social-tool-research`: 迁移确认前暂存的策略、工具和竞品研究；除四账号 Playbook 外，不是每日生产默认入口。
+- `01-strategy-and-platform-research`: 当前只保留四账号内容路由 Playbook。
 - 入口文档：[[inbox-pengman/04-production/README.md]]
 
+平台、工具、竞品和历史研究统一从 [[inbox-pengman/05-调研资料/README.md]] 进入，AI 默认不扫描。
+
 当前日常内容生产默认走 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]；`03-topic-ideas` 只保留长期主题和历史资料。
+
+> 2026-07-16 起 GSC 输入暂停：不读取、不索取，也不因缺少 GSC 阻塞内容生产；历史笔记中的 GSC 证据保持原样。
 
 
 ### 🧹 已精简的复制型目录
@@ -112,4 +116,4 @@ node scripts/brand-wrap.js --scan inbox-pengman/ --apply
 修复后在 Obsidian 里改完，按 F5 重新提交即可。
 
 ---
-*最后更新：2026-07-15*
+*最后更新：2026-07-16*

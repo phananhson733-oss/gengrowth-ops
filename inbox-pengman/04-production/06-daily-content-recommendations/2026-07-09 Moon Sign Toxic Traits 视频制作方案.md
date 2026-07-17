@@ -29,8 +29,8 @@ tags:
   - shadow-self
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池]]"
-  - "[[inbox-pengman/04-production/03-reference-accounts/reference-accounts]]"
-  - "[[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis]]"
+  - "[[inbox-pengman/05-调研资料/竞品研究/reference-accounts]]"
+  - "[[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis]]"
 ---
 
 # 2026-07-09 Moon Sign Toxic Traits 视频制作方案
@@ -84,7 +84,7 @@ related:
 
 ### 钩子结构来源
 
-本条使用"样本 A + 样本 C"混合打法（参考 [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis]]）：
+本条使用"样本 A + 样本 C"混合打法（参考 [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis]]）：
 
 - 开头：身份命中型钩子（Moon sign 点名）
 - 中段：多星座分段，制造"等自己的星座"留存

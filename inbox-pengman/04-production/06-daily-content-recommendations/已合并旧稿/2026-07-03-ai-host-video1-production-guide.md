@@ -11,8 +11,8 @@ tools:
   - Higgsfield
 related:
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
-  - [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]
-  - [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]
+  - [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research.md]]
+  - [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-avatar-video-research.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis.md]]
 ---
 

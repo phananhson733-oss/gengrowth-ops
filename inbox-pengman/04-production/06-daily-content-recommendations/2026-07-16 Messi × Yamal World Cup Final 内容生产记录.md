@@ -16,7 +16,7 @@ user_problem: Why does this World Cup final feel like a generational full-circle
 content_promise: Show the verified 2007-to-2026 Messi/Yamal connection, then add a compact comparative chart reading that goes beyond Sun signs where placements or transit facts can be verified, without predicting the result
 source_competitors:
   - https://www.tiktok.com/@shirley527105/photo/7662341959507332383
-  - "[[inbox-pengman/04-production/03-reference-accounts/reference-accounts]]"
+  - "[[inbox-pengman/05-调研资料/竞品研究/reference-accounts]]"
 source_old_drafts:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池]]"
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
@@ -40,10 +40,10 @@ constraints:
   - Candidate outputs from Claude and GPT remain candidates and may not alter confirmed facts
 script_status: 已确认
 confirmed_script_version: Claude-based compressed v2，经 Pengman 确认
-content_stage: 待发布
-weekly_digest:
-decision:
-next_test: Test whether a specific full-circle public story plus light astrology produces stronger completion, comments and article interest than a method-led sports astrology explainer
+content_stage: 已发布
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
+decision: 待观察
+next_test: Compare the correctly published photo post after 24–48 hours with the mistakenly published video version; treat format mismatch as a hypothesis until both links, timestamps and comparable metrics are available
 status: draft
 owner: Pengman
 updated: 2026-07-16
@@ -511,6 +511,26 @@ Read both profiles via our bio.
 - 与决赛窗口关系：世界杯决赛为 2026-07-19；本条在决赛前约 3 天发布，承担第一波 full-circle story 预热。
 - 发布后待补：TikTok permalink、准确发布时间、plays、likes、comments、favorites、shares、profile visits、bio / shortlink clicks。
 - 发布后写回：发布链接和公开数据进入本记录；周级发布数据与 `decision / next_test` 进入对应 weekly digest。
+
+### 实际发布记录与重发说明
+
+- 首次发布：原计划为 2026-07-16 08:00 Seattle time；实际不小心发布成 video，而不是预定的 TikTok photo post。
+- 首次版本表现：Pengman 反馈效果不好；原视频链接、准确发布时间和具体数据待补。
+- 当前判断：`视频形式导致效果不好` 只记录为合理假设，不能在缺少两版可比数据时写成已验证结论。
+- 处理动作：已重新以 photo post 形式发布。
+- 正式观察链接：https://www.tiktok.com/@filestarsx/photo/7663333677438438686
+- 重发时间：TikTok ID 时间戳推算为 2026-07-17 03:28:32 UTC，即：
+  - 2026-07-16 20:28:32 Seattle time（PDT）；
+  - 2026-07-16 22:28:32 Chicago time（CDT）；
+  - 2026-07-17 11:28:32 北京时间（CST）。
+- 时间口径说明：以上为内容 ID 推算时间，待 TikTok 页面或后台发布时间确认。
+- 公开核验：链接路径为 `/photo/`，可确认是 photo post；本次公开页面未稳定返回 caption、页数和互动计数。
+- 正式发布状态：`已发布`；周报归档到 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]。
+- 当前 `decision`：`待观察`。
+- 当前 `next_test`：重发后 24–48 小时补 photo post 数据，并与首次误发 video 在相同观察窗口比较；重点看 views、完成率 / 平均滑动页数、favorites、shares、profile visits 和 bio / shortlink clicks。
+- 归因边界：
+  - 若 photo post 显著优于 video，只能初步支持“形式匹配更好”，仍需考虑发布时间从早上变为晚间、二次发布、封面和初始流量等混杂变量。
+  - 若 photo post 仍弱，不应直接淘汰内容；需分别检查账号基础、封面停留、caption、首两页信息、发布时间和赛事窗口。
 
 ### 视觉调研输入
 

@@ -12,14 +12,14 @@ source:
 related:
   - [[inbox-pengman/03-topic-ideas/README.md]]
   - [[inbox-pengman/03-topic-ideas/SEO选题调查.md]]
-  - [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 ---
 
 # Lionel Messi’s Cancer Sun
 
 > 热点入口型选题：用 Messi 的现实比赛节点切入，再回到 Cancer Sun、占星解释与自我理解。
 
-相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]] / [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
+相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]] / [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 
 ## 1. 选题概览
 

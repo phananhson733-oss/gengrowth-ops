@@ -17,7 +17,7 @@ related:
 
 这批 SEO 数据里最明显的机会不是泛 astrology，而是 **World Cup / footballer birth chart / zodiac sign / Cancer-Leo cusp / birth chart 新手入口**。总量上，`birth chart` 相关查询约 1,238 impressions，`zodiac` 约 614 impressions，Haaland 相关约 2,017 impressions，Messi 约 387 impressions，但 CTR 很低，很多关键词排名在 7-12 名，适合用社媒内容做“兴趣唤起 + 站内点击承接”。
 
-> 2026-07-15 整理口径：本文件继续作为每日选题和站内承接的 SEO/GSC 参考输入；具体每日选题池、内容包和制作方案不再写在 03，统一进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]。
+> 2026-07-16 整理口径：本文件继续作为每日选题和站内承接的 SEO 主题参考；其中既有 GSC 内容仅作历史背景，不刷新、不读取为当前数据。具体每日选题池、内容包和制作方案不再写在 03，统一进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]。
 
 ## 已转成单条文档
 

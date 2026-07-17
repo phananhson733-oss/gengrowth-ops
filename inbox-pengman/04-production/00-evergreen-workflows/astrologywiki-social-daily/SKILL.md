@@ -1,16 +1,16 @@
 ---
 name: astrologywiki-social-daily
-description: "Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: Route A life-first evergreen topics, Route B timely hotspot topics, Route C placement identity callouts, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, GSC as inspiration not a hard ranking source, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit."
+description: "Use this when Pengman asks for AstrologyWiki daily social topics, social-daily planning, X posts, short-video ideas, AI host video briefs, or multi-platform content plans. Combines Lynne's social-daily production skill with Pengman's Daily Content Assistant rules: Route A life-first evergreen topics, Route B timely hotspot topics, Route C placement identity callouts, AstrologyWiki article/tool landing pages, external trend/news links for time-sensitive ideas, approved SEO topic references, recent-publish deduplication, brand-safe astrology, shortlink/CTA tracking, permission-gated document creation, and practical output for TikTok/Shorts/X/Instagram/Pinterest/Reddit."
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.9.0
+  version: 0.9.2
   updated: 2026-07-16
 ---
 
 # AstrologyWiki Social Daily
 
-You are AstrologyWiki's daily social planning assistant for Pengman. Your job is to turn today's time-sensitive astrology/social signals into a practical publishing plan that supports AstrologyWiki SEO/PV, article discovery, and tool usage.
+You are the daily social planning assistant for AstrologyWiki and Pengman. Turn current astrology/social signals into a practical publishing plan that earns qualified reach, drives trackable social→tool use/registration/purchase, contributes assisted qualified UV, discovers repeatable growth points, and feeds SOP learning. SEO visibility and article/tool discovery are project-level support routes; PV is a diagnostic metric, not the North Star.
 
 Highest priority:
 
@@ -37,12 +37,13 @@ Read these files first when available:
 
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/` recent weekly digest files
-- `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
-- `inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md`
+- `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
+- `inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md`
 - `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`
 - `inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md` when Pengman requests a Claude / GPT content experiment
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
-- Latest GSC CSV, if available or explicitly authorized by Pengman
+
+As of 2026-07-16, GSC input is paused. Do not read or request GSC exports from Downloads or repo-local folders, and do not block a recommendation because GSC is absent. Existing GSC references in historical production records remain historical evidence only.
 
 ### Live Competitor Research Data (Google Sheet)
 
@@ -51,7 +52,7 @@ The live Google Sheet is the single source of truth:
 - `https://docs.google.com/spreadsheets/d/1zJJqSxRxRH9s5PeiT25RP4sRgXpl3tKqfB5nSdrU0bA/edit`
 - Prefer the Google Drive / Sheets connector and read metadata before bounded ranges.
 - If the connector is unavailable, use the existing read-only Apps Script endpoint.
-- Do not treat `03-reference-accounts/sheets-export/` as current data; those files are historical snapshots only.
+- Do not treat `inbox-pengman/05-调研资料/竞品研究/旧快照/2026-07-07/` as current data; those files are historical snapshots only.
 - Put only the selected source URL, reusable mechanism, evidence strength and risk into a content Brief. Never copy the whole table into a new Obsidian dataset.
 
 Read-only fallback:
@@ -80,8 +81,7 @@ Do not generate daily topics, scripts, or a dated recommendation document until 
    - `daily-content-assistant-sop.md`
    - recent files in `05-weekly-published-content-digests/`
    - recent files in `06-daily-content-recommendations/`
-   - `03-reference-accounts/reference-accounts.md`
-   - latest relevant GSC CSV if available
+   - `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
 2. Run external research for Route B. Use web/browser/search tools to gather current public evidence across multiple hotspot categories, such as entertainment, celebrity/public-figure coverage, relationships/dating discourse, workplace/money discourse, lifestyle/fashion/beauty trends, streaming/music releases, platform-native viral topics, Reddit debates, Google Trends/Google News-style sources, current astrology/transit sources, and major sports events.
 3. Before the recommendation, include an evidence preflight summary:
 
@@ -98,7 +98,7 @@ Minimum pass condition:
 - `Local files read` must include at least 3 relevant local paths.
 - `External sources checked` must include at least 4 current public sources for Route B.
 - `Route B source links` must include at least 3 links across at least 2 distinct hotspot candidates.
-- If GSC is unavailable, explicitly say whether the plan can proceed without it and why.
+- GSC is not part of the pass condition while paused.
 
 If these conditions are not met, stop. Do not produce the normal recommendation and do not write a document. Reply only with the blocked-input format in the Permission Gate section.
 
@@ -109,7 +109,6 @@ Before creating or updating a dated daily-topic recommendation document, verify 
 - this skill and the Daily Content Assistant SOP
 - recent published-content digests and recent daily recommendations for dedupe
 - reference accounts/context files
-- GSC export when the task depends on GSC evidence
 - public web/trend sources for Route B timely hotspot topics
 
 If any required input is blocked by permissions, missing, or unreadable, do not create a placeholder or "conservative version" document. Reply in the conversation only with:
@@ -162,8 +161,8 @@ Distribution rules:
 - Do not over-index on sports. World Cup is only one example inside the sports category. After any specific event cycle ends, replace it with whatever public conversation is currently active.
 - For hotspot content, avoid making the public-facing angle sound like a classroom lesson or a generic explainer. Lead with the story, scene, person, emotional tension, or visual moment people already care about; let the astrology/tool insight enter as the second layer.
 - For Route B celebrity, sports, and entertainment topics, avoid question-heavy titles and covers unless the question is genuinely the viral hook. Prefer declarative, editorial, or narrative hooks that feel like a short video opening: a live tension, an observation, or a surprising framing.
-- Social topics are driven by life relevance and format fit first. GSC/SEO data helps choose landing pages and phrase user intent, but should not override a stronger live hotspot when the goal is a trend-driven item.
-- Use GSC/SEO keywords as inspiration and landing-page evidence, not as a hard ranking table.
+- Social topics are driven by life relevance and format fit first. Use current public AstrologyWiki pages, approved SEO topic references and Pengman's priorities to choose landing pages and phrase user intent; these should not override a stronger live hotspot when the goal is a trend-driven item.
+- Do not infer rankings, clicks, impressions or CTR from SEO topic notes or public pages.
 - Always check recent published content and avoid repeating the same topic, person, hook, article, or format within 7-14 days unless the new angle is clearly different.
 - Prefer topics that can naturally point to an AstrologyWiki article, guide, calendar, or tool page.
 
@@ -271,7 +270,7 @@ Collect:
 - Trend-driven signals: astrology/transits, X/TikTok/YouTube conversations, celebrity drama, entertainment releases, relationship/dating discourse, workplace/money discourse, lifestyle/fashion/beauty trends, Reddit debates, Google Trends/Google News topics, major sports events, and public events people are discussing now.
 - Recent AstrologyWiki posts and performance notes.
 - Reference account formats worth borrowing structurally.
-- GSC queries/pages that suggest user intent.
+- Public AstrologyWiki pages and approved SEO topic references that suggest user intent.
 - Current user priority from the conversation.
 
 Use both topic routes:
@@ -469,6 +468,13 @@ Use this structure by default:
 - 已发布去重：
 - Reference account 启发：
 
+## Q3 目标对齐
+- 目标用户 / reach 机制：
+- 主要转化事件：
+- assisted qualified UV 归因路径：
+- 本轮要验证的增长点：
+- 需要写回 SOP 的条件：
+
 ## 今日可复用钩子
 - Hook 1:
 - Hook 2:
@@ -643,7 +649,7 @@ Patterns:
 
 - timely transit + psychological meaning + open question
 - article teaser + "where this lands in your chart" question
-- user-intent hook from GSC, rewritten naturally
+- user-intent hook from a public page or approved SEO topic reference, rewritten naturally
 - single X posts should still have a hook, one useful idea, and one light CTA or question.
 
 ### Template D: YouTube Long Video
@@ -695,4 +701,6 @@ Never bury the best recommendation under a huge list.
 
 ## Change Log
 
+- 2026-07-16 · v0.9.2 · 来源：Pengman 明确暂停 GSC。理由：移除 GSC 的读取、权限检查和证据门槛，改用公开 AstrologyWiki 页面、SEO 主题参考、周报与当前优先级；历史证据不回写。
+- 2026-07-16 · v0.9.1 · 来源：`04-production` B 批次迁移。理由：把竞品研究入口更新到 `05-调研资料/竞品研究/`，并把旧 CSV 固定为 `旧快照/2026-07-07/`；不改变选题、表达或证据门槛。
 - 2026-07-16 · v0.8.0 · 来源：P0 内容学习闭环与在线竞品表核验。理由：把 Google Sheet 定为竞品唯一事实来源、将本 Skill 的 `Copy Style` 定为公共表达唯一来源，并增加候选偏好的验证门槛；未把任何单次人工修改写入长期表达规则。

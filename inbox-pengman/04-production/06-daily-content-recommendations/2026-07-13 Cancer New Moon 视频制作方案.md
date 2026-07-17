@@ -27,7 +27,7 @@ tags:
   - balsamic-moon
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池]]"
-  - "[[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis]]"
+  - "[[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis]]"
 ---
 
 # 2026-07-14 Cancer New Moon 视频制作方案

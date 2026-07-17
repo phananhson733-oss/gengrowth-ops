@@ -16,9 +16,11 @@ status: active
 - **当前角色**：AstrologyWiki 海外内容运营 / 营销执行。
 - **主要工作**：从零搭建海外账号，调研平台与用户，策划、发布和复盘站外内容。
 - **协作方式**：可参与部分主题词调研，并把平台反馈回传给 SEO / 内容同事。
-- **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 PV、CTA、GSC 等站内数据维护。
-- **整体目标**：从站外内容和用户触达侧支持 AstrologyWiki 日 PV 5,000 的项目目标。
+- **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 GA4/GSC 埋点和产品侧商业化指标维护；但需负责社媒 CTA、短链及 social→工具使用/注册/购买的转化路径与结果追踪。
+- **团队北极星**：Q3 分成后日流水持续达到 $1,000/天；流量层以导向优先变现产品的 qualified UV 为主口径，不以 PV 考核。
+- **Pengman 社媒目标**：以 reach 为主控，保障 social→工具使用/注册/购买的转化路径，记录 assisted qualified UV，探索增长点并沉淀 SOP。
 - **当前重点**：已进入真实内容生产与复盘阶段；P0 正把竞品研究、统一 Brief、AI 初稿、人工润色、周报 decision/next_test 串成可追溯闭环。
+- **当前数据决定**：Pengman 已于 2026-07-16 删除 GSC reports 并暂停使用；当前日更、Brief、证据预检和权限检查均不读取或索取 GSC，缺少 GSC 不构成阻塞。
 - **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
 ---
@@ -30,7 +32,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 调研海外平台、竞品账号、用户讨论和内容趋势。
 - 从零搭建并运营选定的平台账号。
 - 规划、创作、发布和复盘站外内容。
-- 通过平台内容扩大曝光、触达潜在用户，并为 AstrologyWiki 的 PV 增长提供站外支持。
+- 通过平台内容扩大目标用户 reach，为当前优先变现产品带来 assisted qualified UV，并保障 social→工具使用/注册/购买的可追踪转化；AstrologyWiki 是当前主要项目。
 - 将用户问题、平台反馈和有效主题回传给 SEO / 内容同事。
 
 当前任务主文档：
@@ -39,8 +41,8 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 
 相关个人调研：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/海外营销内容平台以及思考.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/05-调研资料/历史调研/海外营销内容平台以及思考.md]]
+- [[inbox-pengman/05-调研资料/历史调研/各多媒体平台具体内容调研.md]]
 - [[inbox-pengman/06-tasks/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
 
 ## 2. 已确认的职责边界
@@ -51,7 +53,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 用户问题、平台趋势及部分主题词调研。
 - 账号定位、内容栏目、发布节奏和平台运营。
 - 站外内容创作、分发、互动与平台侧复盘。
-- 记录平台发布量、曝光、观看、互动、收藏、分享、评论、用户原话及平台可见的链接点击。
+- 记录各平台 reach（主控）、impressions/views（诊断）、互动、收藏、分享、评论、主页访问、短链/链接点击、用户原话，以及可取得的 social conversion 与 assisted qualified UV。
 
 ### 其他同事主要负责
 
@@ -59,7 +61,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 主题集群规划及关键词主表等 SEO 工作表维护。
 - 站内 SEO 内容的主要生产、审核、发布和 Day 14/30/60 复盘。
 - 系统性的 SEO 外链建设，包括竞品外链分析、机会筛选、外联、提交和收录跟踪。
-- GSC、PV、美国 PV、CTA、工具使用、注册等站内数据的维护和汇总。
+- GA4/GSC 埋点、PV/UV、留存、产品转化率、RPM/ARPU 等产品侧数据的维护和汇总。
 
 ### 协作交界
 
@@ -67,11 +69,11 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - SEO 团队确定的主题词、主题集群和重点页面，是账号运营内容的重要选题来源；Pengman 将其按平台特点改造成视频、短帖、图文或社区内容。
 - 平台反馈和新出现的用户问题再回传给 SEO / 内容同事，形成站内与站外双向协作。
 - Pengman 发布的平台内容若包含 AstrologyWiki 链接，属于内容分发产生的自然外部链接和引荐流量；不等同于系统性的 SEO 外链建设。
-- 站内数据由相关同事按需同步，Pengman 使用摘要判断站外内容效果，但不负责维护这些数据。
+- 站内基础数据由相关同事维护；Pengman 不负责埋点和产品侧指标维护，但必须定义社媒归因所需字段、推动取得结果，并把 reach、短链点击、social conversion 与 assisted qualified UV 写入复盘。
 
 ## 3. 当前已知决定
 
-- 项目整体目标是冲刺 AstrologyWiki  PV 5,000、美国流量为主；这是整体目标，不应直接视为 Pengman 单独负责的数据 KPI。
+- Q3 团队北极星是分成后日流水持续达到 $1,000/天；流量层主口径是导向优先变现产品的 qualified UV，不是 PV。Pengman 社媒线以 reach 为主控，并对社媒引流转化路径、assisted UV、增长点探索和 SOP 沉淀负责。
 - 当前了解到 AstrologyWiki 的平台账号可能都需要从零建立。
 - 注册前仍应确认是否存在未交接的历史账号，避免重复注册。
 - 当前工作顺序：调研 → 制定方案并确定平台与平台内容 → 注册账号 → 养号 → 初步测试。
@@ -85,8 +87,8 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 
 1. 除 YouTube 外，是否有必须做、不能做或需要优先考虑的平台。
 2. 方案确定后，各账号的注册邮箱、Owner、审核人、恢复方式和 2FA。
-3. Pengman 的直接绩效指标与发布频率。
-4. 哪位同事以什么频率同步 PV、CTA 和 SEO 结果摘要。
+3. reach 的验收口径：以季末最后几天日均约 2 万，还是以月累计 50 万为准；各平台 reach 是否直接相加。
+4. 哪位同事以什么频率同步 GA4 qualified UV、assisted conversion、工具使用、注册/购买和产品侧转化摘要。
 5. 可使用的公司工具、账号和预算。
 6. 是否需要把平台实验记录整理给创始人账号或 GenGrowth 官网。
 
@@ -105,7 +107,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-15：将任务从泛化的“SEO / 内容增长执行”收窄为“海外内容运营 / 营销执行”。
 - 2026-06-15：确认完整 SEO、系统外链建设及站内数据维护不属于 Pengman 的主要职责。
 - 2026-06-15：当前按平台账号从零搭建处理，但注册前需核查历史账号。
-- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档现在作为早期 YouTube、Shorts、平台优先级和首轮实验方案的历史调研资料。
+- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档现在作为早期 YouTube、Shorts、平台优先级和首轮实验方案的历史调研资料。
 - 2026-06-16：确认 Reddit 优先级应拆分：**用户研究 P0，内容分发 / 宣传 P3**。Reddit 适合收集真实问题、社区语言和 FAQ，不应作为首轮主发布或导流渠道。文档中已将其定位为“Research radar, not distribution channel / 调研雷达，不是扩音器”。
 - 2026-06-16：确认站外选题应与 SEO 关键词/主题集群关联：可以、也应该从 SEO 关键词里选题，但不能把关键词原样变成社媒标题；需要按平台语境改写，并绑定对应 Wiki / Article / Tool 页面。
 - 2026-06-16：完成 Birth Chart / Natal Chart YouTube 长视频第一轮调研，已记录 3 个样本：The Astrology Podcast、The Gem Goddess、Mastering the Zodiac。当前判断：Birth Chart 应进入 YouTube P0 首批内容，作为频道“基建视频”。首发视频建议以 Mastering the Zodiac 的“剥洋葱”结构为主要母版，融合 The Gem Goddess 的反宿命/free will 口径和 The Astrology Podcast 的专业克制。
@@ -114,8 +116,9 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-16：Birth Chart Shorts 目前识别出几类适合 AstrologyWiki 的形式：反常识/辟谣型、焦虑缓解型、解盘公式型、知识卡片型、AI 工具工作流型。需避免单一配置判词、宿命化“隐藏钥匙”、心理诊断化表达。
 - 2026-06-16：新增 Shorts 样本和方向：`Your Birth Chart Explained` 代表 7 秒知识卡片/cheat sheet 型内容，适合做 AstrologyWiki Knowledge Cards；`ChatGPT natal chart analysis` 代表 AI-assisted chart reading 型内容，可启发“AI 辅助自我探索”，但必须强调 AI 是 reflection assistant，不是 fortune teller，且需要避免 AI 读图/转录错误和宿命式提问。
 - 2026-06-16：当前仍处于调研阶段，暂不进入脚本生产。下一步可继续补充 Birth Chart Shorts 的真实链接、播放量、评论和 CTA，或切到 Houses / Saturn Return 等下一个 SEO/YouTube 主题。
-- 2026-06-16：运营方案初稿已进一步修正为 **PV 增长 / 站内导流导向**：YouTube、Shorts、Pinterest、X 等站外内容的核心目标不是账号涨粉，而是为 astrologywiki.com 的公开工具页、Wiki 页面和重点 SEO 页面带来直接或间接访问。后续评估需记录目标页面、CTA、站外指标和由同事同步的站内 PV / referral / 工具启动等指标。
-- 2026-06-16：新增视频制作现实约束：Pengman 当前不适合真人出镜、复杂动画或 20–30 分钟长课。YouTube 方案已调整为低成本 MVP：优先知识卡片型 Shorts、工具/页面录屏型 Shorts，以及 3–6 分钟轻量视频；目标是尽快验证“站外 → 站内 PV / 工具启动”路径，而不是追求高制作质量或账号涨粉。
+- 2026-06-16：当时运营方案按旧口径修正为 **PV 增长 / 站内导流导向**；此条保留为历史记录，已被 2026-07-16 的 Q3 流水 / qualified UV / 社媒 reach 与转化口径替代。
+- 2026-06-16：新增视频制作现实约束：Pengman 当前不适合真人出镜、复杂动画或 20–30 分钟长课。YouTube 方案已调整为低成本 MVP：优先知识卡片型 Shorts、工具/页面录屏型 Shorts，以及 3–6 分钟轻量视频；当时按“站外 → 站内 PV / 工具启动”验证路径记录，当前改按“reach → 点击/assisted qualified UV → 工具使用/注册/购买”评估。
+- 2026-07-16：目标口径更新：团队北极星为分成后日流水持续达到 $1,000/天；Pengman 社媒线以 reach 为主控，以转化路径和 assisted qualified UV 作质量保障，并继续承担增长点探索与 SOP 沉淀。
 
 ## 7. 2026-07-16 P0 内容学习闭环
 
@@ -124,8 +127,8 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 路由与唯一公共表达规则：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
 - 人工润色学习模板：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
 - 当前周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
-- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；视频已制作，`content_stage: 待发布`，已预约 2026-07-16 07:45 PDT（Seattle）在 TikTok 的 AstrologyWiki 官方账号发布；北京时间为 22:45，发布链接待发出后回填。
-- 竞品事实源为在线 Google Sheet；本地 `sheets-export` 只作历史快照。
+- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；已于 2026-07-16 07:45 PDT（Seattle）发布到 TikTok 的 AstrologyWiki 官方账号，`content_stage: 已发布`；发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798；W29 周报继续记录公开数据与后续复盘。
+- 竞品事实源为在线 Google Sheet；本地 [[inbox-pengman/05-调研资料/竞品研究/旧快照/2026-07-07/README.md]] 只作历史追溯，不参与新 Brief 或当前数据判断。
 - 已发布内容的真实阶段统一写 `content_stage: 已发布`；仓库 `status` 保持 dispatch 语义。
 - 下一轮生成前必须读取上一轮 `decision / next_test`。没有人工润色证据时，不产生候选偏好，不更新长期 Skill。
-- `04-production` 批量瘦身尚未执行，迁移提案见 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]]。
+- `04-production` 瘦身的 A、B 批次已执行；C、D 批次仍待确认。进度见 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]]。

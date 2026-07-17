@@ -8,9 +8,9 @@ updated: 2026-07-16
 
 # 每周已发布内容合集入口
 
-这里放 AstrologyWiki 站外内容每周发布合集、公开数据记录和复盘。重点看内容是否支持 SEO / PV / 站内主题页，而不是只看粉丝增长。
+这里放 AstrologyWiki 站外内容每周发布合集、公开数据记录和复盘。Q3 复盘主线是 qualified reach → 短链/链接点击 → assisted qualified UV → 工具使用/注册/购买，并记录增长点与 SOP 学习；SEO、文章发现和 PV 只作为承接与诊断信息，不把粉丝或播放当最终目标。
 
-鱼骨流程位置：[[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md|Social SEO 鱼骨流程索引]] 的“发布记录和复盘”节点。
+历史流程参考：[[inbox-pengman/05-调研资料/历史流程/social-seo-fishbone-map.md|Social SEO 鱼骨流程索引]] 的“发布记录和复盘”节点。当前复盘口径以本 README 和对应周报为准。
 
 ## 已有周报
 
@@ -32,9 +32,9 @@ updated: 2026-07-16
 
 ## 后续每周模板字段
 
-- 平台 / 发布数量 / 总浏览播放 / 总互动 / 总点击引流。
+- 平台 / 发布数量 / reach（主控）/ impressions 或 views（诊断）/ 总互动 / 主页访问 / 短链或链接点击 / assisted qualified UV / 工具使用、注册、购买。
 - 单条内容：发布时间、平台、主题、链接、内容形式、公开数据、待补后台数据、备注。
-- 复盘：Top 内容、表现一般内容、对 AstrologyWiki 站内页面支持价值、下周可延续选题。
+- 复盘：Top 内容、表现一般内容、reach 与转化路径、assisted qualified UV、增长点判断、decision / next_test、需要写回 SOP 的学习。
 
 ## 抓取记录
 

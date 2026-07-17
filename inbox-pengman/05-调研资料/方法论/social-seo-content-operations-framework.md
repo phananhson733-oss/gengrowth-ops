@@ -5,17 +5,17 @@ product_case: AstrologyWiki
 type: operations-sop
 status: draft
 owner: Pengman
-updated: 2026-07-15
+updated: 2026-07-16
 sources:
-  - inbox-pengman/04-production/astrologywiki-social-content-workflow.md
+  - inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
   - inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md
-  - inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md
+  - inbox-pengman/05-调研资料/平台与策略/content-direction-and-tools-research.md
   - inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md
-  - inbox-pengman/04-production/03-reference-accounts/reference-accounts.md
-  - inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md
+  - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
+  - inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md
   - inbox-pengman/04-production/05-weekly-published-content-digests/
   - inbox-pengman/04-production/06-daily-content-recommendations/
   - Google Sheet: social robot account_analysis / video_analysis
@@ -25,9 +25,9 @@ sources:
 
 > 这份 SOP 用来描述一个产品从 0 到 1 建立站外社媒内容体系的完整流程。  
 > 它不是只给 AstrologyWiki 使用，但当前案例和落地细节以 AstrologyWiki 为主。  
-> 核心目标不是泛泛涨粉，而是让社媒内容服务产品认知、搜索需求验证、站内 SEO/PV、工具使用和后续内容生产。
+> 核心目标不是泛泛涨粉，而是为优先变现产品获取 qualified reach，保障 social→工具使用/注册/购买的转化路径，贡献 assisted qualified UV，并把增长实验沉淀为可复用 SOP。SEO/文章发现是承接路径，PV 只作页面与产品诊断。
 >
-> 鱼骨流程索引：[[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
+> 鱼骨流程索引：[[inbox-pengman/05-调研资料/历史流程/social-seo-fishbone-map.md]]
 
 ---
 
@@ -59,7 +59,7 @@ sources:
 适用于以下场景：
 
 - 新产品需要建立 TikTok / YouTube Shorts / Instagram / X / Pinterest 等站外内容渠道。
-- 产品已有 SEO 或内容页，希望用社媒内容支持 PV、工具使用或文章发现。
+- 产品已有 SEO、内容页或工具页，希望用社媒内容获取 qualified reach、带来 assisted qualified UV，并验证工具使用、注册或购买。
 - 需要调研竞品账号和爆款视频，并把它们转成可执行的内容模板。
 - 需要多账号矩阵：官方号、专家/AI 人设号、热点号、普通创作者/测试号等。
 - 需要把人工调研、AI 总结、Google Sheet、飞书机器人、Codex skill 串成可复用工作流。
@@ -138,7 +138,7 @@ https://docs.google.com/spreadsheets/d/1zJJqSxRxRH9s5PeiT25RP4sRgXpl3tKqfB5nSdrU
 | SEO assets          | 已有文章、工具页、专题页、关键词表       |
 | Conversion assets   | 可承接的页面、工具、注册入口、短链       |
 | Brand boundary      | 可以怎么说、不能怎么说             |
-| Current growth goal | PV、工具使用、注册、品牌认知、用户问题收集等 |
+| Current growth goal | reach、assisted qualified UV、social→工具使用/注册/购买、增长点探索与 SOP 沉淀 |
 
 ### 3.3 AstrologyWiki 当前案例
 
@@ -146,7 +146,7 @@ AstrologyWiki 当前社媒内容不是泛星座娱乐号，核心是支持：
 
 - AstrologyWiki 文章发现。
 - Birth chart / transit / astrology calendar 等工具使用。
-- 美国用户 PV 增长。
+- 美国目标用户 qualified UV 增长。
 - 用户真实问题和平台表达回流到 SEO。
 - 现代、解释型、心理学、自我认知、grounded in real astronomy 的品牌边界。
 
@@ -280,8 +280,8 @@ https://www.tiktok.com/@xxx/video/xxx
 
 AstrologyWiki 当前对应文件包括：
 
-- `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
-- `inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md`
+- `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
+- `inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md`
 - `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`
 - `inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md`
 
@@ -581,9 +581,9 @@ X 更适合：
 
 | 层级 | 数据来源 | 处理方式 |
 | --- | --- | --- |
-| P0 必填 | 人工可见的平台链接、发布时间、主题、格式 | 必须记录 |
-| P1 尽量抓 | 播放、赞、评、转、收藏、caption | 抓不到标 `待补数据 / 待确认` |
-| P2 可选 | 主页访问、链接点击、站内 PV、工具使用 | 需要后台或短链数据支持 |
+| P0 内容记录 | 平台链接、发布时间、主题、格式、landing page、CTA/短链 | 必须记录 |
+| P0 目标追踪 | reach、主页访问、短链/链接点击、social→工具使用/注册/购买、assisted qualified UV | 需要后台、短链或 GA4；拿不到必须标 `待补数据 / 待确认`，不得省略字段 |
+| P1 诊断 | impressions/views、播放、赞、评、转、收藏、完播率、caption | 用于解释 reach 与转化差异，不能替代主指标 |
 
 不要因为自动抓取失败就停止复盘。抓不到的数据要明确标记，先保留人工判断。
 
@@ -700,7 +700,7 @@ AstrologyWiki 当前复盘入口：
 
 - [ ] 产品核心功能和目标用户已整理。
 - [ ] 已列出可承接页面 / 工具 / 文章。
-- [ ] 已明确社媒目标：PV、工具使用、品牌认知、用户问题收集等。
+- [ ] 已明确社媒目标：reach、social conversion、assisted qualified UV、增长点探索和 SOP 沉淀。
 - [ ] 已明确品牌边界和禁用表达。
 - [ ] 已选定首轮 1-3 个平台。
 - [ ] 已决定账号数量和账号定位。
@@ -802,6 +802,6 @@ AstrologyWiki 已经具备：
 → 反哺 SEO、页面、工具和下一轮内容
 ```
 
-对 AstrologyWiki 来说，社媒内容的主目标是支持站内 PV、工具使用、文章发现和用户问题收集。粉丝和播放是过程指标，不是唯一目标。
+对 AstrologyWiki 来说，社媒内容的主目标是获取目标用户 reach，保障 social→工具使用/注册/购买的转化路径，贡献 assisted qualified UV，并通过实验找到可复制增长点。文章发现、用户问题收集和 SEO 回流是重要支持路径；PV、粉丝和播放是诊断或过程指标，不是主 KPI。
 
 当前最大短板不是没有想法，而是需要把账号 / 视频拆解、内容生产、发布记录、数据复盘、SEO 回流这几步连接得更稳定。自动抓取暂时不稳定，所以 SOP 中必须保留人工记录和 `待补数据 / 待确认` 口径。

@@ -50,16 +50,19 @@ decision_owner: Pengman
 decision_status: 视觉方案已确认
 decision_confirmed_at: 2026-07-16
 production_status: 已制作
-schedule_status: 已预约
+schedule_status: 已发布
 scheduled_publish_at: "2026-07-16T07:45:00-07:00"
 scheduled_timezone: America/Los_Angeles
 scheduled_publish_at_beijing: "2026-07-16T22:45:00+08:00"
 scheduled_platform: TikTok
 scheduled_account: AstrologyWiki 官方账号
-content_stage: 待发布
-published_urls: []
-weekly_digest:
-decision:
+content_stage: 已发布
+published_at: "2026-07-16T07:45:00-07:00"
+published_at_beijing: "2026-07-16T22:45:00+08:00"
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7663039564482710798"
+weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
+decision: 待观察
 next_test: 在不改变 “Your toxic trait” 系列承诺的前提下，测试剩余三星座的共鸣度并继续使用 Moon report CTA
 status: draft
 owner: Pengman
@@ -220,7 +223,7 @@ Full Moon report in bio.
 - 确认人：Pengman
 - 确认结果：采用“AI 第二版（经 Pengman 确认）”的脚本与 Caption。
 - 脚本状态：`已确认`
-- 当前阶段：`待发布`；视频已制作完成，并预约于 2026-07-16 07:45 Seattle time 发布。
+- 当前阶段：`已发布`；视频已于 2026-07-16 07:45 PDT（Seattle）发布到 AstrologyWiki 官方 TikTok。
 - 版本边界：原 AI 初稿继续保留；第二版不是 Pengman 亲自撰写的人工稿。
 
 ## 人工润色稿
@@ -279,9 +282,10 @@ Pengman 明确指出原稿选题方向偏离系列承诺。这是 L4 内容角�
 ### 当前状态
 
 - 脚本：已确认，采用 AI 第二版。
-- `content_stage`：`待发布`。
+- `content_stage`：`已发布`。
 - 制作状态：视频已制作完成。
-- 预约状态：已预约于 2026-07-16 07:45 PDT（Seattle / `America/Los_Angeles`）发布；北京时间为 2026-07-16 22:45。
+- 发布状态：已于 2026-07-16 07:45 PDT（Seattle / `America/Los_Angeles`）发布；北京时间为 2026-07-16 22:45。
+- 发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798
 - 发布平台：TikTok。
 - 发布账号：AstrologyWiki 官方账号。
 - 最终视觉方案：A3 visual canary 已确认；本条不再返工 Prompt 或新增图片。
@@ -469,13 +473,13 @@ Use the shared A3 art direction. Create an adult Aquarius Moon woman with medium
 ## 发布与复盘
 
 - 制作状态：已制作。
-- 预约状态：已预约。
-- 预约发布时间：2026-07-16 07:45 PDT（Seattle / `America/Los_Angeles`）；北京时间 2026-07-16 22:45。
+- 发布状态：已发布。
+- 实际发布时间：2026-07-16 07:45 PDT（Seattle / `America/Los_Angeles`）；北京时间 2026-07-16 22:45。
 - 发布平台：TikTok。
 - 发布账号：AstrologyWiki 官方账号。
-- `content_stage`：`待发布`。
-- 发布链接：实际发出后回填。
-- `weekly_digest`：发布后链接对应周报；周报继续作为发布数据唯一事实来源。
-- `decision`：发布后由周报填写。
+- `content_stage`：`已发布`。
+- 发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798
+- `weekly_digest`：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]；周报继续作为发布数据唯一事实来源。
+- `decision`：`待观察`；等待 24 小时、72 小时及后台数据后再形成更强结论。
 - `next_test`：在不改变 “Your toxic trait” 系列承诺的前提下，测试剩余三星座的共鸣度并继续使用 Moon report CTA。
 - 下一条 Brief：只有周报形成 `decision / next_test` 后再建立。

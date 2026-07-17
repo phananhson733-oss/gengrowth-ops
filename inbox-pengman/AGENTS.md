@@ -2,7 +2,7 @@
 title: Pengman Inbox Agent Rules
 type: agent-ops
 agent: ops
-updated: 2026-06-16
+updated: 2026-07-16
 ---
 
 # AGENTS.md - Pengman Inbox
@@ -15,12 +15,12 @@ This directory is Pengman's personal research and working-draft area inside the 
 - For AstrologyWiki social-daily and daily-topic work, agents may read the related repo-local context needed for topic selection:
   - `~/gengrowth-ops/inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md`
   - `~/gengrowth-ops/inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
-  - `~/gengrowth-ops/inbox-pengman/04-production/03-reference-accounts/**`
+  - `~/gengrowth-ops/inbox-pengman/05-调研资料/竞品研究/**`
   - `~/gengrowth-ops/inbox-pengman/04-production/05-weekly-published-content-digests/**`
   - `~/gengrowth-ops/inbox-pengman/04-production/06-daily-content-recommendations/**`
   - `~/gengrowth-ops/inbox-pengman/03-topic-ideas/**`
   - `~/gengrowth-ops/tools/internal/skills/social-daily/SKILL.md`
-- For AstrologyWiki social-daily and daily-topic work, agents may read GSC export CSV files under `~/Downloads/astrologywiki.com-Performance-on-Search-*/`. Treat Downloads access as read-only and limited to those AstrologyWiki GSC exports.
+- As of 2026-07-16, GSC input is paused. Do not read or request GSC exports from Downloads or repo-local folders unless Pengman explicitly re-enables this input in a later instruction.
 - Agents may directly update research drafts, conversation handoffs, personal notes, and working plans in this directory when the user asks.
 - Do not treat files here as final synced docs unless the user explicitly says so.
 

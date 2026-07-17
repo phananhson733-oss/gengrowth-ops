@@ -10,7 +10,7 @@ owner: Pengman
 
 这里是日常内容生产主入口。先看“当前队列”，再打开对应的**主生产记录**；不要按日期遍历整个目录。
 
-`03-topic-ideas` 只保留长期主题种子、SEO/GSC 参考和历史单条归档，不再接收新的日更选题池或制作方案。
+`03-topic-ideas` 只保留长期主题种子、SEO 主题参考和历史单条归档，不再接收新的日更选题池或制作方案。GSC 当前暂停，不作为日更输入。
 
 ## 当前队列
 
@@ -21,7 +21,6 @@ owner: Pengman
 | 内容 | 当前状态 | 下一步 |
 |---|---|---|
 | [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]] | `content_stage: 待发布`；脚本已确认；计划 2026-07-16 08:00 PDT 发布到 `filestarsx` | 发布后回填 permalink，并写入 W29 周报 |
-| [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] | `content_stage: 待发布`；已制作；原记录计划 2026-07-16 07:45 PDT 发布到 AstrologyWiki 官方 TikTok | 先核对是否已实际发布；未核对前不改成“已发布” |
 
 ### 待选择 / 状态待确认
 
@@ -32,6 +31,7 @@ owner: Pengman
 
 ### 已发布，等待周报继续闭环
 
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — `content_stage: 已发布`；[TikTok](https://www.tiktok.com/@astrologywiki/video/7663039564482710798)；`decision: 待观察`，周报：W29。
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]] — `decision: 调整后复用`，周报：W29。
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Cancer New Moon 视频制作方案.md]] — `decision: 待观察`，周报：W29。
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md]] — `decision: 待观察`，周报：W29。

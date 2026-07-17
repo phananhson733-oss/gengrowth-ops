@@ -18,7 +18,7 @@ This folder stores reusable production workflows that should not be mixed into d
 - [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]] — 人工反馈、双模型内容实验、版本选择、L1–L5 和规则升级的唯一详细规范
 - [[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板.md]] — 主生产记录结构；不单独维护另一份状态
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]] — 当前每日内容执行与公共表达的唯一来源
-- [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]] — 输入选择、GSC 和去重逻辑；其中可复用 Prompt 是历史 MVP，实际执行以 Skill 为准
+- [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]] — 网站承接、近期发布、竞品和去重逻辑；其中可复用 Prompt 是历史 MVP，实际执行以 Skill 为准
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]] — 只在短视频进入制作时读取
 - [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md]] — 只在图文/Carousel 进入制作时读取
 - [[inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md]]
@@ -28,10 +28,9 @@ This folder stores reusable production workflows that should not be mixed into d
 
 ## Related Working Areas
 
-- Social SEO fishbone map: [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
+- Historical Social SEO fishbone map: [[inbox-pengman/05-调研资料/历史流程/social-seo-fishbone-map.md]]
 - Topic ideas and scripts: [[inbox-pengman/03-topic-ideas/README.md]]
 - Daily topic recommendations: [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
 - Daily content assistant SOP: [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
-- GSC exports: [[inbox-pengman/04-production/07-gsc-exports/README.md]]
-- Video and visual tool research: [[inbox-pengman/04-production/02-video-and-visual-tool-research/README.md]]
+- Video and visual tool research: [[inbox-pengman/05-调研资料/工具调研/视频与视觉/README.md]]
 - Weekly published content digests: [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]

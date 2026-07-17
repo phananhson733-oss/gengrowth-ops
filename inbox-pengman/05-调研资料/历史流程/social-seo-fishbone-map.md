@@ -10,7 +10,7 @@ updated: 2026-07-15
 # Social SEO 鱼骨流程索引
 
 > 这份 map 用来把 `inbox-pengman` 里已经存在的 AstrologyWiki 社媒 SEO 内容运营资料串起来。  
-> 主骨架沿用 [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]，每根鱼刺链接到现有 SOP、skill、playbook、内容包和复盘入口。
+> 主骨架沿用 [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]，每根鱼刺链接到现有 SOP、skill、playbook、内容包和复盘入口。
 
 ## 0. 主骨
 
@@ -26,7 +26,7 @@ updated: 2026-07-15
 
 主文档：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]
+- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]
 - [[inbox-pengman/04-production/README.md|内容创作工作区入口]]
 
 ## 1. 产品和 SEO 资产
@@ -51,11 +51,11 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md|内容方向与工具调研总览]]
-- [[inbox-pengman/04-production/03-reference-accounts/reference-accounts.md|内容创作参考账号]]
-- [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md|占星短视频形式与钩子分析]]
-- [[inbox-pengman/04-production/04-text-and-social-tool-research/perplexity-tavily-x-content-workflow-research.md|Perplexity / Tavily + X 内容生产工作流调研]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md|AstrologyWiki 站外内容平台调研与首轮运营方案初稿]]
+- [[inbox-pengman/05-调研资料/平台与策略/content-direction-and-tools-research.md|内容方向与工具调研总览]]
+- [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md|内容创作参考账号]]
+- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md|占星短视频形式与钩子分析]]
+- [[inbox-pengman/05-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md|Perplexity / Tavily + X 内容生产工作流调研]]
+- [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md|AstrologyWiki 站外内容平台调研与首轮运营方案初稿]]
 
 输出到：
 
@@ -133,7 +133,7 @@ updated: 2026-07-15
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md|AstrologyWiki Social Daily Skill]]
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
+- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
 
 ## 7. SEO / skill / 模板回流
 
@@ -141,10 +141,10 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md#6. Stage 4：把调研链接转成内容生成 skill / SOP / 模板|Stage 4：生成 skill / SOP / 模板]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
-- [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md#可复用钩子公式|可复用钩子公式]]
-- [[inbox-pengman/04-production/03-reference-accounts/astrology-short-video-format-analysis.md#脚本模板|脚本模板]]
+- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#6. Stage 4：把调研链接转成内容生成 skill / SOP / 模板|Stage 4：生成 skill / SOP / 模板]]
+- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
+- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md#可复用钩子公式|可复用钩子公式]]
+- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md#脚本模板|脚本模板]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/README.md|Evergreen Production Workflows]]
 
 回流判断：

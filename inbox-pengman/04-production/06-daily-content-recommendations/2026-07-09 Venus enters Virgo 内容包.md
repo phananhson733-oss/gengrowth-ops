@@ -19,7 +19,7 @@ route: Route B timely astrology + TikTok trend signal
 - `inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md`
 - `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
 - `inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md`
-- `inbox-pengman/04-production/03-reference-accounts/reference-accounts.md`
+- `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
 - `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 - `inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md`
 - `inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md`

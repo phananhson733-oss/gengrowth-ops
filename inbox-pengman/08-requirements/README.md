@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: draft
 owner: Pengman
-updated: 2026-07-10
+updated: 2026-07-16
 ---
 
 # 需求文档入口
@@ -13,4 +13,4 @@ updated: 2026-07-10
 
 ## 当前文件
 
-- [[inbox-pengman/08-requirements/社媒竞品账号与视频链接分析工具需求文档.md]]：第一版只聚焦“给账号链接出账号分析，给视频链接出视频分析”的半自动工具需求。
+- [[inbox-pengman/08-requirements/社媒竞品账号与视频链接分析工具需求文档.md]]：v0.5 聚焦账号、普通视频和 TikTok Photo 链接分析，并增加主风格标签与四账号适配建议。

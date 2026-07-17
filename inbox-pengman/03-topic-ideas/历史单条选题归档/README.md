@@ -17,7 +17,7 @@ updated: 2026-07-15
 
 | 主题 | 文档 | 状态 | 关联复盘 / 来源 |
 |---|---|---|---|
-| Birth Chart 入门 | [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]] | evergreen 生产资产 | [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]] |
+| Birth Chart 入门 | [[inbox-pengman/03-topic-ideas/历史单条选题归档/Birth Chart.md]] | evergreen 生产资产 | [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]] |
 | Messi / Cancer Sun | [[inbox-pengman/03-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]] | 已发布测试 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]] |
 | Haaland birth chart | [[inbox-pengman/03-topic-ideas/历史单条选题归档/haaland视频脚本.md]] | 已制作参考 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]] |
 | Harry Kane birth chart | [[inbox-pengman/03-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]] | 已发布 / 观察数据 | [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]] |
