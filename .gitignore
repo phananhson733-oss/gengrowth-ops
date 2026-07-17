@@ -23,3 +23,18 @@ node_modules/
 **/.autopilot-claims.json
 **/.autopilot-claims.json.bak*
 **/.flow-driver-*.json
+
+# 凭证类文件：本仓库是 PUBLIC 仓库，任何提交进来的密钥都会立即对全网公开。
+# wiki/tools 每 60s 自动 rsync 进 ops/tools，2026-06-23 一个 Chrome 扩展打包
+# 私钥就这样被公开了 24 天(commit 5edc426)。
+# 为什么必须在这里挡：_sync-core.sh 的 rsync --exclude 只在拉到新脚本的机器上
+# 生效，多机环境下传播有延迟——2026-07-17 就是另一台机器用旧脚本把该 .pem
+# 又提交了回来(5718bef)。.gitignore 随 git 走，所有机器立即生效，是可靠防线。
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+.env
+.env.*
