@@ -455,7 +455,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 5 篇)
 - [ ] `PG-TRANS-022` saturn return age 27
 - [ ] `PG-TRANS-023` saturn return in cancer
-- [ ] `PG-NODE-014` am i on the right path
+- [x] `PG-NODE-014` am i on the right path
 - [ ] `PG-WC-052` venus in gemini
 - [ ] `PG-NAKSH-020` moon in capricorn
 
