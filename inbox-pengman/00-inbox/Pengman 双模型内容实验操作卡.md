@@ -4,7 +4,7 @@ project: astrologywiki
 type: personal-reference
 status: reference
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-07-17
 canonical: false
 ---
 
@@ -22,6 +22,8 @@ canonical: false
 不是让 Codex 随机生成一大堆题，再让 Pengman 从头研究。Codex 会先读取网站、SEO 主题参考、热点、竞品、旧稿和周报，完成去重与证据判断，并标出少量 P0 方向。Pengman 日常优先比较每条 Route 的 P0，不需要逐条研究所有备选。
 
 双模型实验只比较“同一个已确认选题怎么写”，不负责从大量题目中替 Pengman 重新选题。
+
+文件位置：阶段一的每日候选放在 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]；选中后建立的 Brief、主生产记录和双模型附件统一放在 [[inbox-pengman/04-production/07-content-production/README.md]]。
 
 ## 阶段一：先选题
 

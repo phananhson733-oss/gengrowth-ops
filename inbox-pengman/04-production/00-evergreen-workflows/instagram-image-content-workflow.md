@@ -12,6 +12,7 @@ related:
   - [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+  - [[inbox-pengman/04-production/07-content-production/README.md]]
   - [[tools/internal/skills/social-daily/SKILL.md]]
 ---
 
@@ -88,8 +89,9 @@ Before generating the Instagram image content, the AI assistant should reference
    - For X, `satyastrology` is a reference for short transit insight + open chart question.
    - For image posts, reference account screenshots can inspire information density: big title, date, short insight, 3 concise action points.
 
-5. Latest daily recommendation / production process notes in:
+5. Latest daily recommendation and the selected topic's production record:
    - `inbox-pengman/04-production/06-daily-content-recommendations/`
+   - `inbox-pengman/04-production/07-content-production/`
 
 6. AstrologyWiki brand direction:
    - modern
@@ -227,7 +229,8 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
 - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
-- inbox-pengman/04-production/06-daily-content-recommendations/ 最近的 daily recommendation / production process
+- inbox-pengman/04-production/06-daily-content-recommendations/ 最近的 daily recommendation
+- inbox-pengman/04-production/07-content-production/ 当前选中主题的主生产记录
 
 目标：
 - 获取目标用户 reach，并通过 AstrologyWiki 相关文章/工具承接，保障可追踪的 social→工具使用/注册/购买路径；记录 assisted qualified UV。PV 只作页面诊断，不做主 KPI。

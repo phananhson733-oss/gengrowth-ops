@@ -19,9 +19,4 @@ updated: 2026-07-03
   - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-02-daily-content-recommendation.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-02-social-daily-skill-plan.md]]
 
-## 0703
-
-- 主入口：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
-- 旧稿：
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-03-topic-to-ai-host-video-production-process.md]]
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-03-ai-host-video1-production-guide.md]]
+0703 的单条内容包和生产旧稿已整体迁到 [[inbox-pengman/04-production/07-content-production/README.md]]，不再属于本日级旧稿目录。

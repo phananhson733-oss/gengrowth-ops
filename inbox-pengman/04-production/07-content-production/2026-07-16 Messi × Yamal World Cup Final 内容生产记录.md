@@ -19,7 +19,7 @@ source_competitors:
   - "[[inbox-pengman/05-调研资料/竞品研究/reference-accounts]]"
 source_old_drafts:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
 core_insight: Messi met Yamal as a baby in 2007; nineteen years later they lead Argentina and Spain into the 2026 World Cup final, and both public AstrologyWiki pages identify them as Cancer Suns
 hook_direction: Lead with the 2007 photo becoming the 2026 final; reveal the shared Cancer symbolism only after the public story is clear
 cta: Read Messi's zodiac profile and Lamine Yamal's birth-chart article through one owned shortlink or bio landing flow
@@ -169,7 +169,7 @@ updated: 2026-07-16
 #### 本地依据
 
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
 - `~/Downloads/astrologywiki.com-Performance-on-Search-2026-07-01/查询数.csv`
@@ -213,7 +213,7 @@ updated: 2026-07-16
 - Pengman 已于 2026-07-16 确认 Unified Brief。
 - `package_version: v1` 已冻结。Claude 与 GPT 必须在独立上下文中收到下方完全相同的实验包正文，不得读取对方本轮答案。
 - 可复制 Prompt：
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final 双模型实验 Prompt]]
+  - [[inbox-pengman/04-production/07-content-production/2026-07-16 Messi × Yamal World Cup Final 双模型实验 Prompt]]
 - 建议候选文件名：
   - `2026-07-16 Messi × Yamal World Cup Final Claude Candidate.md`
   - `2026-07-16 Messi × Yamal World Cup Final GPT Candidate.md`
@@ -259,7 +259,7 @@ competitor_references:
     do_not_copy: "Do not copy its fixed 7-page count, exact white text boxes, wording, photos, unqualified Moon claims, or placement-to-performance causality"
 old_draft_references:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
 series_constraints:
   - "Story first, astrology second"
   - "Start with the 2007 photo becoming the 2026 final; do not open with an astrology lesson, question, or disclaimer"

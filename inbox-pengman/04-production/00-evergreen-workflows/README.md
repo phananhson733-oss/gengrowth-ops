@@ -29,8 +29,8 @@ This folder stores reusable production workflows that should not be mixed into d
 ## Related Working Areas
 
 - Historical Social SEO fishbone map: [[inbox-pengman/05-调研资料/历史流程/social-seo-fishbone-map.md]]
-- Topic ideas and scripts: [[inbox-pengman/03-topic-ideas/README.md]]
 - Daily topic recommendations: [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+- Selected-topic production records: [[inbox-pengman/04-production/07-content-production/README.md]]
 - Daily content assistant SOP: [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
 - Video and visual tool research: [[inbox-pengman/05-调研资料/工具调研/视频与视觉/README.md]]
 - Weekly published content digests: [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]

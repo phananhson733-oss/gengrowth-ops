@@ -51,6 +51,7 @@ Current related files:
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+- [[inbox-pengman/04-production/07-content-production/README.md]]
 
 GSC input is paused as of 2026-07-16. Do not request it or block production because it is absent.
 

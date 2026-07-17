@@ -31,8 +31,8 @@ tags:
   - shadow-self
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Moon Sign Toxic Traits 视频制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案]]"
 ---
 
 # 2026-07-14 Earth Moon Toxic Traits 视频制作方案

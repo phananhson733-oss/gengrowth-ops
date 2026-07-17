@@ -86,7 +86,7 @@ competitor_references:
     do_not_copy: "Do not copy its fixed 7-page count, exact white text boxes, wording, photos, unqualified Moon claims, or placement-to-performance causality"
 old_draft_references:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案]]"
 series_constraints:
   - "Story first, astrology second"
   - "Start with the 2007 photo becoming the 2026 final; do not open with an astrology lesson, question, or disclaimer"

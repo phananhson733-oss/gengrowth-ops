@@ -1,7 +1,7 @@
 ---
 title: Pengman 当前协作上下文
 date: 2026-06-15
-updated: 2026-07-16
+updated: 2026-07-17
 owner: Pengman
 type: conversation-context
 status: active
@@ -19,7 +19,7 @@ status: active
 - **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 GA4/GSC 埋点和产品侧商业化指标维护；但需负责社媒 CTA、短链及 social→工具使用/注册/购买的转化路径与结果追踪。
 - **团队北极星**：Q3 分成后日流水持续达到 $1,000/天；流量层以导向优先变现产品的 qualified UV 为主口径，不以 PV 考核。
 - **Pengman 社媒目标**：以 reach 为主控，保障 social→工具使用/注册/购买的转化路径，记录 assisted qualified UV，探索增长点并沉淀 SOP。
-- **当前重点**：已进入真实内容生产与复盘阶段；P0 正把竞品研究、统一 Brief、AI 初稿、人工润色、周报 decision/next_test 串成可追溯闭环。
+- **当前重点**：已进入真实内容生产与复盘阶段；P0 正把竞品研究、统一 Brief、AI 初稿、人工润色、周报 decision/next_test 串成可追溯闭环。2026-07-17 正在账号②测试“强 Hook + AI 口播”的流量表现，第二条 Scorpio Psychology 已确认 Claude V1 并进入制作。
 - **当前数据决定**：Pengman 已于 2026-07-16 删除 GSC reports 并暂停使用；当前日更、Brief、证据预检和权限检查均不读取或索取 GSC，缺少 GSC 不构成阻塞。
 - **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
@@ -122,13 +122,15 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 
 ## 7. 2026-07-16 P0 内容学习闭环
 
-- 当前生产入口：[[inbox-pengman/04-production/06-daily-content-recommendations/README]]
+- 每日选题入口：[[inbox-pengman/04-production/06-daily-content-recommendations/README]]
+- 单条内容生产入口：[[inbox-pengman/04-production/07-content-production/README]]
 - 统一 Brief：[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]
 - 路由与唯一公共表达规则：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
 - 人工润色学习模板：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
 - 当前周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
-- 试点内容：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；已于 2026-07-16 07:45 PDT（Seattle）发布到 TikTok 的 AstrologyWiki 官方账号，`content_stage: 已发布`；发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798；W29 周报继续记录公开数据与后续复盘。
+- 试点内容：[[inbox-pengman/04-production/07-content-production/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；已于 2026-07-16 07:45 PDT（Seattle）发布到 TikTok 的 AstrologyWiki 官方账号，`content_stage: 已发布`；发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798；W29 周报继续记录公开数据与后续复盘。
 - 竞品事实源为在线 Google Sheet；本地 [[inbox-pengman/05-调研资料/竞品研究/旧快照/2026-07-07/README.md]] 只作历史追溯，不参与新 Brief 或当前数据判断。
 - 已发布内容的真实阶段统一写 `content_stage: 已发布`；仓库 `status` 保持 dispatch 语义。
 - 下一轮生成前必须读取上一轮 `decision / next_test`。没有人工润色证据时，不产生候选偏好，不更新长期 Skill。
+- 2026-07-17：Pengman 确认当前阶段要测试账号②的“强 Hook + AI 口播”流量表现；[[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录]] 已采用 Claude V1 进入制作。第一、二条用于建立该账号与形式的初始基线，单条结果只作方向性信号，不直接更新长期 Skill。
 - `04-production` 瘦身的 A、B 批次已执行；C、D 批次仍待确认。进度见 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]]。

@@ -16,9 +16,9 @@ source_competitors:
   - "https://www.tiktok.com/@knoxstellar.official/video/7660155126576975135"
   - "https://www.tiktok.com/@promentalityx/video/7654674644355550478"
 source_old_drafts:
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Moon Sign Toxic Traits 视频制作方案]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
-  - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
+  - "[[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案]]"
 research_sources:
   - "inbox-maboyang/social-media/moon-sign-toxic-traits-part4-visual-decision.md"
   - "Codex 完整调研由 Pengman 于 2026-07-16 粘贴到当前任务；综合判断沉淀于本文件的视觉方案综合决策，不另建重复报告"
@@ -127,7 +127,7 @@ Check your Moon sign and get your full Moon report in bio.
 
 ## 上一期系列结构核对
 
-来源：[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案]]
+来源：[[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案]]
 
 | 项目 | 上一期实际采用 |
 |---|---|

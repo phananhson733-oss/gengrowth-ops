@@ -18,7 +18,7 @@ This directory is Pengman's personal research and working-draft area inside the 
   - `~/gengrowth-ops/inbox-pengman/05-调研资料/竞品研究/**`
   - `~/gengrowth-ops/inbox-pengman/04-production/05-weekly-published-content-digests/**`
   - `~/gengrowth-ops/inbox-pengman/04-production/06-daily-content-recommendations/**`
-  - `~/gengrowth-ops/inbox-pengman/03-topic-ideas/**`
+  - `~/gengrowth-ops/inbox-pengman/04-production/07-content-production/**`
   - `~/gengrowth-ops/tools/internal/skills/social-daily/SKILL.md`
 - As of 2026-07-16, GSC input is paused. Do not read or request GSC exports from Downloads or repo-local folders unless Pengman explicitly re-enables this input in a later instruction.
 - Agents may directly update research drafts, conversation handoffs, personal notes, and working plans in this directory when the user asks.

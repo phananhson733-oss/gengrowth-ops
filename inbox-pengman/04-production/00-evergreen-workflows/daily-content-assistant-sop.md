@@ -30,6 +30,12 @@ Pengman provides or maintains:
 
 Codex reads those materials and produces one daily recommendation note.
 
+Storage boundary:
+
+- Daily candidate pools, recommendations and day-level content packages: `06-daily-content-recommendations/`.
+- A selected topic's Unified Brief, script, production guide, production record and model attachments: `07-content-production/`.
+- The daily note links the selected production record; it does not maintain a second `content_stage` or final draft.
+
 ## Recommended Folder Structure
 
 Suggested working files:
@@ -38,6 +44,7 @@ Suggested working files:
 - `https://www.astrologywiki.com/en/wiki?tab=articles`；仅在本地索引实际存在时使用本地文件
 - `inbox-pengman/04-production/05-weekly-published-content-digests/`
 - `inbox-pengman/04-production/06-daily-content-recommendations/`
+- `inbox-pengman/04-production/07-content-production/`；只在候选被选中后建立单条主生产记录
 - `inbox-pengman/05-调研资料/竞品研究/README.md`；在线 Google Sheet 是事实源，本地文件只提供已选中的研究背景
 
 GSC input is paused as of 2026-07-16. Do not recreate its folder, read or request exports, or block production because GSC is absent. Historical notes that already cite GSC remain historical evidence only.
@@ -71,7 +78,7 @@ Use only inputs that are currently available and approved:
 
 - Public AstrologyWiki article and tool pages.
 - Current business priorities or landing pages Pengman provides.
-- [[inbox-pengman/03-topic-ideas/SEO选题调查.md]] as a topic-reference note; its existing GSC sections are historical, not current performance data.
+- SEO topic references explicitly provided by Pengman for the current task, if any.
 - Recent weekly `decision / next_test` and platform-visible performance.
 
 Do not infer search performance, rankings, impressions, clicks or CTR from these inputs. Mark missing site/SEO direction as `待确认` only when it materially changes the recommendation; it is not a permission blocker.
@@ -212,7 +219,7 @@ Use this prompt when asking Codex to generate the daily recommendation:
 
 请读取并参考：
 - https://www.astrologywiki.com/en/wiki?tab=articles 作为文章来源；仅在 `inbox-pengman/astrologywiki-article-index.csv` 实际存在且日期可用时优先使用
-- inbox-pengman/03-topic-ideas/SEO选题调查.md（仅作主题参考；其中既有 GSC 内容是历史背景）
+- Pengman 在本次任务明确提供的 SEO 主题或站内优先级（如无则不补读历史选题目录）
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 中最近的已发布内容合集
 - 任何我在本次对话里补充的临时优先级
 

@@ -4,8 +4,8 @@ description: "Use this when Pengman asks for AstrologyWiki daily social topics, 
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 0.9.2
-  updated: 2026-07-16
+  version: 0.9.4
+  updated: 2026-07-17
 ---
 
 # AstrologyWiki Social Daily
@@ -41,7 +41,6 @@ Read these files first when available:
 - `inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md`
 - `inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md`
 - `inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md` when Pengman requests a Claude / GPT content experiment
-- `inbox-pengman/03-topic-ideas/SEO选题调查.md`
 
 As of 2026-07-16, GSC input is paused. Do not read or request GSC exports from Downloads or repo-local folders, and do not block a recommendation because GSC is absent. Existing GSC references in historical production records remain historical evidence only.
 
@@ -69,6 +68,12 @@ Use this data to:
 - Read the relevant prior `decision / next_test` before generating the next Brief
 
 Also inspect recent `inbox-pengman/04-production/06-daily-content-recommendations/` notes to avoid repeating yesterday's topic.
+
+Output boundary:
+
+- Stage 1 daily candidate pools and day-level packages go in `06-daily-content-recommendations/`.
+- Once Pengman selects a specific topic, its Unified Brief, script, production record and experiment attachments go in `07-content-production/`.
+- Never create or continue a single-topic production record in `06`; link the daily source from the `07` main record instead.
 
 ## Core Rules
 
@@ -242,7 +247,7 @@ Avoid outputs that read like encyclopedia titles. Prefer human hooks:
 Default to a two-stage workflow:
 
 1. Stage 1, topic selection: after Evidence Preflight, give Pengman Route A, Route B and Route C topic candidates, mark P0 picks, and stop for Pengman's choice.
-2. Stage 2, content package: only after Pengman selects one or more topics, create the multi-platform content package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders.
+2. Stage 2, selected-topic production package: only after Pengman selects one or more topics, create the multi-platform package with video, X posts, carousel/image ideas, CTA, landing links, and shortlink placeholders. Save this selected-topic record under `07-content-production/`, not the daily recommendation folder.
 
 Do not generate the full content package in Stage 1 unless Pengman explicitly asks for "直接展开内容包", "直接生成脚本", "不用等我选", or "hook优先".
 
@@ -701,6 +706,8 @@ Never bury the best recommendation under a huge list.
 
 ## Change Log
 
+- 2026-07-17 · v0.9.4 · 来源：Pengman 决定停止使用 `03-topic-ideas`。理由：移除该目录及 SEO 选题调查的默认读取依赖；如需 SEO 主题参考，只使用 Pengman 在当前任务明确提供的输入。
+- 2026-07-17 · v0.9.3 · 来源：Pengman 要求每日推荐与详细生产分离。理由：`06` 只保存日级候选/内容包，选中后的 Brief、脚本、生产记录和实验附件统一写入 `07-content-production/`。
 - 2026-07-16 · v0.9.2 · 来源：Pengman 明确暂停 GSC。理由：移除 GSC 的读取、权限检查和证据门槛，改用公开 AstrologyWiki 页面、SEO 主题参考、周报与当前优先级；历史证据不回写。
 - 2026-07-16 · v0.9.1 · 来源：`04-production` B 批次迁移。理由：把竞品研究入口更新到 `05-调研资料/竞品研究/`，并把旧 CSV 固定为 `旧快照/2026-07-07/`；不改变选题、表达或证据门槛。
 - 2026-07-16 · v0.8.0 · 来源：P0 内容学习闭环与在线竞品表核验。理由：把 Google Sheet 定为竞品唯一事实来源、将本 Skill 的 `Copy Style` 定为公共表达唯一来源，并增加候选偏好的验证门槛；未把任何单次人工修改写入长期表达规则。

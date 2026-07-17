@@ -21,7 +21,7 @@ source:
 > 原则上，单条内容不必死绑站内页面；但每个主题包应知道大致承接方向。
 > 当前主线是：先围绕 AstrologyWiki 站内主要功能和基础内容做站外内容，再穿插 SEO 需要引用的 Wiki 文章，最后根据高流量内容和 30-50 名关键词继续提排名。
 >
-> 2026-07-15 整理口径：本文件保留为早期长期主题种子和历史参考，不再作为每日生产入口。新的每日选题池、内容包和制作方案统一进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]。
+> 2026-07-17 整理口径：本文件保留为早期长期主题种子和历史参考，不再作为每日生产入口。新的每日选题池和内容包进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]；选中后的制作方案进入 [[inbox-pengman/04-production/07-content-production/README.md|单条内容生产]]。
 
 ## 1. 这个文件怎么用
 

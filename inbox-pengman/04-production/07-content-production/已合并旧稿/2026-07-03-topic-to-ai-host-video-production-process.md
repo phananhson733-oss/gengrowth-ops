@@ -7,7 +7,7 @@ project: AstrologyWiki
 status: draft
 topic: Moon + Venus at the July 4 Weekend
 related:
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
+  - [[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host 视频内容包.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]

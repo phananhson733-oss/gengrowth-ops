@@ -15,7 +15,7 @@ updated: 2026-07-16
 
 1. 新输入先记录来源、日期和下一步。
 2. 能进入生产的内容，使用 [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]] 建立 Brief。
-3. 已进入生产的记录放到 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]。
+3. 每日候选和内容包放到 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]；已选中并进入生产的记录放到 [[inbox-pengman/04-production/07-content-production/README]]。
 4. 竞品事实留在在线 Google Sheet；Obsidian 只记录被选中的来源链接、可借鉴机制和证据强度。
 5. 每周清一次：归类、合并或确认无需保留。不要把临时输入长期堆在这里。
 

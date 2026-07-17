@@ -5,7 +5,7 @@ date: 2026-07-14
 owner: Pengman
 project: AstrologyWiki
 status: ready-to-produce
-topic: "France vs Spain — but make it astrology"
+topic: France vs Spain — but make it astrology
 platform:
   - TikTok
   - Instagram
@@ -21,6 +21,10 @@ tags:
   - france-vs-spain
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池]]"
+content_stage: 已发布
+scheduled_platform: TikTok
+published_date: 2026-07-15
+updated: 2026-07-17
 ---
 
 # 2026-07-14 France vs Spain Astrology Slideshow 制作方案

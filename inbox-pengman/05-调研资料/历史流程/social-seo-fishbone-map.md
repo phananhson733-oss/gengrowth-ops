@@ -105,12 +105,12 @@ updated: 2026-07-15
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md|AI Short Video Production Workflow]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md|Instagram Image Content Workflow]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md|2026-07-14 Earth Moon Toxic Traits 视频制作方案]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md|2026-07-14 France vs Spain Astrology Slideshow 制作方案]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Cancer New Moon 视频制作方案.md|2026-07-13 Cancer New Moon 视频制作方案]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Dreaming About Your Ex 视频制作方案.md|2026-07-13 Dreaming About Your Ex 视频制作方案]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md|2026-07-10 Fire Moon Toxic Traits 视频制作方案]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md|2026-07-09 Moon Sign Toxic Traits 视频制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md|2026-07-14 Earth Moon Toxic Traits 视频制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md|2026-07-14 France vs Spain Astrology Slideshow 制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-13 Cancer New Moon 视频制作方案.md|2026-07-13 Cancer New Moon 视频制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-13 Dreaming About Your Ex 视频制作方案.md|2026-07-13 Dreaming About Your Ex 视频制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md|2026-07-10 Fire Moon Toxic Traits 视频制作方案]]
+- [[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md|2026-07-09 Moon Sign Toxic Traits 视频制作方案]]
 
 输出到：
 

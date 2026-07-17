@@ -1,68 +1,44 @@
 ---
-title: 当前内容生产入口
+title: 每日选题与内容包入口
 type: output-folder
 status: active
-updated: 2026-07-16
+updated: 2026-07-17
 owner: Pengman
 ---
 
-# 当前内容生产入口
+# 每日选题与内容包入口
 
-这里是日常内容生产主入口。先看“当前队列”，再打开对应的**主生产记录**；不要按日期遍历整个目录。
+这里仅保存“今天考虑做什么”的日级输出：每日选题池、每日内容推荐和每日内容包。选中某一条后形成的 Brief、脚本、制作方案、内容生产记录和模型实验附件，统一进入 [[inbox-pengman/04-production/07-content-production/README.md]]。
 
-`03-topic-ideas` 只保留长期主题种子、SEO 主题参考和历史单条归档，不再接收新的日更选题池或制作方案。GSC 当前暂停，不作为日更输入。
+## AI 最小读取路径
 
-## 当前队列
+1. 先读本 README。
+2. 默认只打开最新一份或用户指定日期的每日选题池／内容包。
+3. 去重时再读最近 7–14 天的日级文件和对应周报；不要扫描单条生产记录。
+4. 用户已经选中具体内容后，停止在本目录继续扩写，改到 `07-content-production` 建立或更新唯一主生产记录。
 
-以下状态依据文件中的 `content_stage` 或明确记录整理；没有 `content_stage` 的旧文件不会自动视为当前任务。
+## 当前日级输出
 
-### 待发布
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 每日选题池.md]] — 最新综合候选池；文件名与正文日期存在差异，使用前先确认日期。
+- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池.md]] — 指定热点的候选池，`status: awaiting-selection`。
 
-| 内容 | 当前状态 | 下一步 |
+## 本目录允许的文件
+
+| 类型 | 常用 `type` | 边界 |
 |---|---|---|
-| [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]] | `content_stage: 待发布`；脚本已确认；计划 2026-07-16 08:00 PDT 发布到 `filestarsx` | 发布后回填 permalink，并写入 W29 周报 |
+| 每日选题池 | `daily-topic-pool` | 多个候选方向、P0、证据和去重结论 |
+| 每日内容推荐 | `daily-content-recommendation` | 当日推荐与候选，不维护制作状态 |
+| 每日内容包 | `daily-content-package` | 日级汇总，可以链接已选内容，但不维护单条内容的最终稿和发布状态 |
+| 已合并日级旧稿 | 同上或历史研究类型 | 只在 [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/README.md]] 中追溯，默认不读 |
 
-### 待选择 / 状态待确认
+以下内容不得新建在本目录：
 
-| 内容 | 当前状态 | 说明 |
-|---|---|---|
-| [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池.md]] | `status: awaiting-selection`，缺 `content_stage` | 仍需 Pengman 选择；不要直接生成正式稿 |
-| [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md]] | `status: ready-to-produce`，缺 `content_stage` | 旧状态口径；先确认是否已制作、发布或暂停 |
+- 单条 Unified Brief、正式脚本和视觉制作方案；
+- `video-production-guide`、主生产记录或带 `content_stage` 的文件；
+- Claude/GPT 候选、共享 Prompt、素材附件；
+- 已发布链接、单条最终决策和制作进度。
 
-### 已发布，等待周报继续闭环
-
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — `content_stage: 已发布`；[TikTok](https://www.tiktok.com/@astrologywiki/video/7663039564482710798)；`decision: 待观察`，周报：W29。
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]] — `decision: 调整后复用`，周报：W29。
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Cancer New Moon 视频制作方案.md]] — `decision: 待观察`，周报：W29。
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md]] — `decision: 待观察`，周报：W29。
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md]] — `decision: 待观察`，周报：W28。
-
-发布事实和周级数据统一以 [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] 为准。
-
-## 生产规则入口
-
-- Brief：[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]]
-- 路由与规则来源：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]]
-- 双模型实验与人工润色：[[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]]
-- 生产记录结构：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板.md]]
-
-公共表达、品牌安全和 CTA 以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md#Copy Style]] 为唯一来源，本 README 不维护第二套文风规则。
-
-## 主记录与附件
-
-- 一条内容只允许一份主生产记录；当前状态、最终确认稿、制作选择和发布回链写在主记录。
-- 共享 Prompt、Claude/GPT 候选、素材清单等是过程附件，不是平行事实来源。
-- 默认只读主记录。只有用户要求比较候选、追溯实验或复核素材时，才读附件。
-- 当前 Messi × Yamal 实验的主记录是 [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]]；以下附件不进入默认读取：
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final 双模型实验 Prompt.md]]
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final Claude Candidate.md]]
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 Messi × Yamal World Cup Final GPT Candidate.md]]
-
-## 历史内容
-
-2026-07-14 及以前的每日选题池、早期内容包和未在“当前队列”列出的制作方案，默认按历史生产记录处理。需要复用时，先核对是否已有发布记录、`decision / next_test` 和更近的同系列稿。
-
-### 历史生产记录索引（默认不读）
+## 历史日级输出
 
 每日选题池：
 
@@ -72,27 +48,13 @@ owner: Pengman
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md]]
 
-早期内容包：
+每日内容包／推荐：
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 Venus enters Virgo 内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-07 每日内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-02 每日内容包.md]]
 - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-01-daily-content-recommendation.md]]
 
-旧制作方案，状态仍需逐条确认：
+早期“每日内容包”可能同时包含已展开脚本，这是历史混合格式，保留原文但不作为新建范式。以后日级文件只保留候选、选择理由和到单条主生产记录的链接。
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 Dreaming About Your Ex 视频制作方案.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 House of the Dragon Rhaenyra 视频制作方案.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 Celebrity Rising Sign 视频制作方案.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host Video 2 制作方案.md]]
-
-已明确合并的过程稿见 [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/README.md]]；AI 默认不扫描该目录。
-
-## 状态口径
-
-- 仓库 `status` 只服务 dispatch，普通生产文件保持 `draft` 即可。
-- 内容阶段统一使用：`Brief` → `AI 初稿` → `等待人工润色` → `待制作` → `待发布` → `已发布` → `复盘中` → `已复盘`，或 `暂停`。
-- 只有发布时间排期而没有 permalink，不等于已经发布。
-- README 只做队列索引；若 README 与主生产记录冲突，以主生产记录为准，并修正 README。
+历史日级过程稿见 [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/README.md]]。GSC 当前暂停，不作为日更输入。

@@ -10,8 +10,8 @@ tools:
   - CapCut
   - Higgsfield
 related:
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-03 AI Host 视频内容包]]
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/2026-07-03-topic-to-ai-host-video-production-process]]
+  - [[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host 视频内容包]]
+  - [[inbox-pengman/04-production/07-content-production/已合并旧稿/2026-07-03-topic-to-ai-host-video-production-process]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]
   - [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research]]

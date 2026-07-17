@@ -2,18 +2,20 @@
 title: 长期主题与历史选题入口
 project: astrologywiki
 type: workspace-index
-status: active
+status: deprecated
 owner: Pengman
 updated: 2026-07-16
 ---
 
 # 长期主题与历史选题入口
 
+> 2026-07-17：本目录已退役、待确认清理。人工和 AI 均不再把这里作为入口；当前候选使用 `06-daily-content-recommendations`，单条生产使用 `07-content-production`。删除或迁移前保留本页仅用于影响核对。
+
 这里现在不再作为每日内容生产入口。
 
 当前分工：
 
-- 每日选题池、内容包、制作方案：进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]。
+- 每日选题池、内容包：进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]；选中后的制作方案进入 [[inbox-pengman/04-production/07-content-production/README.md|单条内容生产]]。
 - 长期主题种子、SEO 选题调查、早期选题库：保留在本目录。
 - 已经制作、发布或降级为 evergreen 资产的单条旧选题：进入 [[inbox-pengman/03-topic-ideas/历史单条选题归档/README.md|历史单条选题归档]]。
 
@@ -41,7 +43,7 @@ updated: 2026-07-16
 | 内容类型 | 放置位置 |
 |---|---|
 | 今天发什么、今日候选池、Route A/B/C | [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] |
-| 某条视频的脚本、分镜、Caption、发布设置 | [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] |
+| 某条视频的脚本、分镜、Caption、发布设置 | [[inbox-pengman/04-production/07-content-production/README.md]] |
 | 已发布链接、公开数据、周复盘 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] |
 | 长期 SOP、AI 生产流程、图文流程 | [[inbox-pengman/04-production/00-evergreen-workflows/README.md]] |
 | 竞品账号、爆款结构、可复用模板 | [[inbox-pengman/05-调研资料/竞品研究/README.md]] |
