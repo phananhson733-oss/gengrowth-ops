@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-16
+updated: 2026-07-17
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -165,3 +165,4 @@ updated: 2026-07-16
 | 2026-07-16 | PG-TRANS-020 | saturn-return-in-cancer-meaning | Saturn Return In Cancer Meaning | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer-meaning | published |
 | 2026-07-16 | PG-CELEB-057 | caitlin-clark-birth-chart | Caitlin Clark Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/caitlin-clark-birth-chart | published |
 | 2026-07-16 | PG-CELEB-058 | brad-pitt-birth-chart | Brad Pitt Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/brad-pitt-birth-chart | published |
+| 2026-07-17 | PG-TRANS-021 | how-long-does-saturn-return-last | How Long Does Saturn Return Last | marcus-orion | https://www.astrologywiki.com/en/wiki/how-long-does-saturn-return-last | published |
