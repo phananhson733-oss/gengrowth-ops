@@ -8,6 +8,29 @@ updated: 2026-07-16
 
 # 公开账号抓取记录
 
+## 2026-07-16 自动化补核（二次刷新）
+
+- 检查范围：TikTok 公开 `embed/@astrologywiki`、TikTok 新单条页 `7663039564482710798`、既有 W29 单条页、TikTok profile / `yt-dlp --dump-single-json`、YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、Instagram 公开 profile meta、X 公开 profile SSR / timeline。
+- 新确认内容：
+  - TikTok W29：`https://www.tiktok.com/@astrologywiki/video/7663039564482710798`
+- 内容级公开刷新：
+  - TikTok `embed` 本次最近 `10` 条内容序列已变为 `7663039564482710798`、`7662283840634866957`、`7661912847693188365`、`7660826807507094798`、`7660473423038041358`、`7660401338701974798`、`7659748708950609165`、`7659773834345647374`、`7657074482648993037`、`7657029619991825678`
+  - TikTok：`7663039564482710798` 当前可见 `152 plays / 2 likes / 0 comments / 0 reposts / 0 saves`，`yt-dlp` 公开时间戳为 `2026-07-16 07:45 PDT / 2026-07-16 22:45 北京时间`
+  - TikTok：`7661912847693188365` 当前可见 `956 plays / 14 likes / 0 comments / 0 reposts`
+  - TikTok：`7662283840634866957` 当前可见 `141 plays / 1 like / 0 comments / 0 reposts`
+  - YouTube Shorts：公开列表仍为已知 `9` 条，最新仍是 `ntnz_7FVvck`；本次仍只稳定确认“无新 ID”
+  - YouTube Video：公开列表仍只有 `NQvlUn_XpHI`、`NxecDPhWeyA`
+- 账号级公开变化：
+  - TikTok：公开 profile 当前稳定可见 `3 followers / 0 following / 91 likes / 10 videos`
+  - Instagram：公开 profile meta 仍可见 `0 Followers / 0 Following / 5 Posts`
+  - X：公开 profile / SSR 仍可确认 `25 posts / 3 followers / 9 following`，timeline 公开页仍显示 `@AstrologyWiki hasn’t posted`
+- 限制说明：
+  - TikTok 新条目 `7663039564482710798` 当前已能稳定拿到公开时间戳和基础互动，但完播率、平均观看时长、主页访问、点击仍需后台。
+  - TikTok profile `likes / videos` 历史波动仍明显；本轮是 `91 likes / 10 videos`，不能替代后台发布列表。
+  - YouTube 本轮仍只适合做“有无新 ID”检查；详细 views / likes / comments 公开抓取依旧不稳定。
+  - Instagram 仍未稳定暴露第 5 帖 shortcode。
+  - X 仍无法稳定补内容级 `status` 链接。
+
 ## 2026-07-16 自动化补核
 
 - 检查范围：TikTok 公开 profile `yt-dlp --flat-playlist`、TikTok 单条公开页、TikTok `https://www.tiktok.com/embed/@astrologywiki`、YouTube 公开 `@AstrologyWiki/shorts` / `/videos` 列表、Instagram 公开 profile meta、X 公开 profile SSR / meta。
@@ -239,6 +262,7 @@ updated: 2026-07-16
 |---|---|---|---|
 | 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7661912847693188365 | 2026-07-15 公开 embed + 单条页新增 |
 | 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7662283840634866957 | 2026-07-14 公开 profile + embed 新增 |
+| 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7663039564482710798 | 2026-07-16 公开 embed + `yt-dlp` 新增 |
 | 2026-W29 | TikTok | https://www.tiktok.com/@astrologywiki/video/7660826807507094798 | 2026-07-13 公开 embed + 单条页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/ntnz_7FVvck | 2026-07-09 公开列表页新增 |
 | 2026-W28 | YouTube Shorts | https://www.youtube.com/shorts/EFK0KPtyS4M | 2026-07-06 RSS 新增 |

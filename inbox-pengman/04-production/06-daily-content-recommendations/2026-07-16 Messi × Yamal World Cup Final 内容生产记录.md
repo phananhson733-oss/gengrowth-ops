@@ -40,7 +40,7 @@ constraints:
   - Candidate outputs from Claude and GPT remain candidates and may not alter confirmed facts
 script_status: 已确认
 confirmed_script_version: Claude-based compressed v2，经 Pengman 确认
-content_stage: 待制作
+content_stage: 待发布
 weekly_digest:
 decision:
 next_test: Test whether a specific full-circle public story plus light astrology produces stronger completion, comments and article interest than a method-led sports astrology explainer
@@ -487,7 +487,7 @@ Read both profiles via our bio.
 - `selected_variant`: `claude`。
 - 当前工作版本：`Claude-based compressed v2`。
 - `script_status`: `已确认`。
-- `content_stage`: `待制作`。
+- `content_stage`: `待发布`。
 - `confirmed_script_version`: `Claude-based compressed v2，经 Pengman 确认`。
 
 ## 视觉方案与制作准备
@@ -497,8 +497,20 @@ Read both profiles via our bio.
 - Pengman 已确认：`Claude-based compressed v2`。
 - `script_status`: `已确认`。
 - `confirmed_script_version`: `Claude-based compressed v2，经 Pengman 确认`。
-- `content_stage`: `待制作`。
+- `content_stage`: `待发布`。
 - 最终形式：5 页 TikTok photo slideshow；Instagram 可在不改变信息顺序的前提下适配。
+
+### 制作完成与发布排期
+
+- 制作状态：内容已完成。
+- 计划发布账号：`filestarsx`。
+- 计划发布平台：TikTok photo slideshow。
+- 计划发布时间：2026-07-16 08:00，Seattle time（PDT / UTC−7）。
+- 对应 Chicago time：2026-07-16 10:00（CDT / UTC−5）。
+- 对应北京时间：2026-07-16 23:00（CST / UTC+8）。
+- 与决赛窗口关系：世界杯决赛为 2026-07-19；本条在决赛前约 3 天发布，承担第一波 full-circle story 预热。
+- 发布后待补：TikTok permalink、准确发布时间、plays、likes、comments、favorites、shares、profile visits、bio / shortlink clicks。
+- 发布后写回：发布链接和公开数据进入本记录；周级发布数据与 `decision / next_test` 进入对应 weekly digest。
 
 ### 视觉调研输入
 

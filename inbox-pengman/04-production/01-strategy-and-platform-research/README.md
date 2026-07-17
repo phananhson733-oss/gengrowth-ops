@@ -16,6 +16,9 @@ updated: 2026-07-15
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]：Social SEO 鱼骨流程索引，把现有策略、账号、选题、生产、发布复盘和回流入口串起来。
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]：当前内容方向、平台方向、内容形式和工具判断总览。
 - [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-content-operations-framework.md]]：通用社媒 SEO 内容运营 SOP，覆盖产品理解、竞品/平台调研、账号矩阵、飞书机器人拆解、内容生产、发布复盘和 SEO 回流。
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md]]：四账号定位与内容路由；这是本目录中唯一需要在日常生产阶段直接调用的文件。
+
+除四账号 Playbook 外，本目录默认只在策略复核或证据追溯时读取，不作为每日生产入口。当前生产入口见 [[inbox-pengman/04-production/README.md]]。
 
 ## 历史调研资料
 

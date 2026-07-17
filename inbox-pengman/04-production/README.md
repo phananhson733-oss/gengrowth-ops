@@ -1,62 +1,79 @@
 ---
-title: 内容创作工作区入口
+title: 内容生产工作区入口
 project: astrologywiki
 type: workspace-index
-status: draft
+status: active
 owner: Pengman
-updated: 2026-07-15
+updated: 2026-07-16
 ---
 
-# 内容创作工作区入口
+# 内容生产工作区入口
 
-这个目录现在作为 AstrologyWiki 站外内容创作的主要工作区：从内容方向、平台调研、工具调研，到实际生产工作流都放在这里。
+`04-production` 的职责是承载 AstrologyWiki 站外内容的生产闭环：当前制作、待发布、发布与复盘、生产模板、已验证生产 SOP，以及当前生产直接使用的数据入口。
 
-## 先看哪几份
+平台策略、工具调研、竞品研究和历史资料目前仍暂存在本目录，等待 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]] 确认后批量迁出。迁移前它们是按需查证资料，**不是 AI 默认读取入口**。
 
-1. [[inbox-pengman/04-production/01-strategy-and-platform-research/social-seo-fishbone-map.md]]
-   - Social SEO 鱼骨流程索引：把策略、账号矩阵、日选题、生产 workflow、内容包和周复盘串起来。
-2. [[inbox-pengman/04-production/01-strategy-and-platform-research/content-direction-and-tools-research.md]]
-   - 当前内容方向、平台方向、内容形式和工具判断总览。
-3. [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]]
-   - 早期工作流总览和历史决策背景；当前执行口径以 `00-evergreen-workflows` 中的 Skill、路由说明和模板为准。
-4. [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
-   - 当前每日选题池、内容包和制作方案主入口。
-5. [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
-   - 每日内容推荐助手 SOP：如何用文章索引、GSC 数据和已发布记录选今天要发什么。
-6. [[inbox-pengman/03-topic-ideas/README.md]]
-   - 长期主题种子、SEO/GSC 选题参考和历史单条选题归档。
+## 四个主入口
 
-## 子目录分工
+| 要做的事 | 先读 | 说明 |
+|---|---|---|
+| 当前制作 / 待发布 | [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] | 当前队列、主生产记录和状态入口 |
+| 发布与复盘 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 发布链接、公开数据、`decision / next_test` 的事实来源 |
+| 生产 SOP / 模板 | [[inbox-pengman/04-production/00-evergreen-workflows/README.md]] | Brief、路由、人工润色、模型实验和制作流程 |
+| 当前数据输入 | [[inbox-pengman/04-production/07-gsc-exports/README.md]] | GSC 原始导出入口；空目录不等于数据为 0 |
 
-| 子目录 | 用途 |
-|---|---|
-| [[inbox-pengman/04-production/00-evergreen-workflows/README.md]] | 长期可复用生产 SOP，不和日期型调研/日报混放 |
-| [[inbox-pengman/04-production/01-strategy-and-platform-research/README.md]] | 内容方向、平台机制、平台样本、首轮运营方案 |
-| [[inbox-pengman/04-production/02-video-and-visual-tool-research/README.md]] | 视频、图文、动画、自动化工具调研 |
-| [[inbox-pengman/04-production/03-reference-accounts/README.md]] | 可学习账号、内容样式、竞品账号 |
-| [[inbox-pengman/04-production/04-text-and-social-tool-research/README.md]] | 文本内容、X 工作流、搜索/调研工具 |
-| [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 每周已发布内容合集、公开数据记录、复盘入口 |
-| [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] | 每日内容推荐输出 |
-| [[inbox-pengman/04-production/07-gsc-exports/README.md]] | GSC 手动导出数据，作为选题和推荐输入 |
+工作区级当前背景先看 [[inbox-pengman/02-conversation report/current-context.md]]；长期主题种子和历史单条选题看 [[inbox-pengman/03-topic-ideas/README.md]]。
 
-## 历史调研资料
+## AI 最小读取路径
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/各多媒体平台具体内容调研.md]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/历史调研资料/海外营销内容平台以及思考.md]]
+先读本 README，再按任务只打开对应集合；不要遍历整个 `04-production`。
 
-这些文件保留早期判断和样本证据；当前执行口径优先看“先看哪几份”里的当前入口。
+| 任务 | 最小文件集合 | 只有何时才扩读 |
+|---|---|---|
+| 查看今天正在做什么 | 本 README + [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] + 被 README 标为当前的主生产记录 | 用户要求追溯候选、素材或旧版本时 |
+| 生成每日候选 / Brief | [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]] + [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]] + 最近周报 + 当前可用 GSC README/CSV | 需要竞品机制时读取在线竞品表中被选中的行；不默认读本地旧快照 |
+| 路由账号与形式 | [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]] + [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md]] | 只有要追溯策略依据时读平台调研 |
+| 启动双模型实验 / 人工润色 | 主生产记录 + [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]] + [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]] + [[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板.md]] | 用户要求比较原始候选时才读候选附件 |
+| 制作短视频 / 图文 | 已确认主生产记录 + 对应的 [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]] 或 [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md]] | 需要验证工具选择时才读工具调研 |
+| 发布和复盘 | 主生产记录 + 当前周报 + [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 需要阶段趋势时读历史周报或数据分析 |
 
-## 当前工具调研结论入口
+## 唯一事实来源
 
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/golpo-video-workflow-research.md]]
-- [[inbox-pengman/04-production/02-video-and-visual-tool-research/remotion-video-template-research.md]]
+| 信息 | 唯一或主要来源 | 其他文件的边界 |
+|---|---|---|
+| 当前内容状态、最终确认稿、制作记录 | 单条主生产记录 | 候选和 Prompt 只作过程证据 |
+| 发布链接、周级数据、`decision / next_test` | 对应 weekly digest | 主生产记录只回链，不维护第二套周级数据 |
+| 公共表达、品牌安全、CTA | Social Daily Skill | README、制作稿只链接或记录本条例外 |
+| 账号定位与形式路由 | 四账号 TikTok Playbook | 单条 Brief 只记录本次选择 |
+| 双模型实验、人工反馈、L1–L5 | Pengman 与 AI 内容润色协作说明 | Skill 只保留强制边界，模板只定义记录字段 |
+| 竞品账号与视频数据 | 在线 Google Sheet | `03-reference-accounts/sheets-export/` 是停用旧快照，不参与生成 |
+| GSC 指标 | 当前明确提供的原始导出 | Brief 只摘录实际使用行和日期范围 |
 
-## 临时规则
+`status` 只服务仓库 dispatch；内容真实进度统一使用 `content_stage`。旧稿中只有 `status: ready-to-produce / awaiting-selection / consolidated` 而没有 `content_stage` 时，一律视为“状态待确认”，不得自动判断为当前任务。
 
-- 新的内容创作/工具调研，如果还没分类，先放 `inbox-pengman/00-inbox/`。
-- 已经能归类的内容创作资料，优先放到本目录的对应子目录。
-- 真正进入执行的单条内容，统一放在 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]。`03-topic-ideas` 只保留长期主题种子、SEO/GSC 选题参考和历史单条归档。
-- 单次发布复盘、已发布链接和公开数据记录，放到 [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]，不再单独维护 `05-media report`。
+## 默认不扫描
+
+除非任务明确要求追溯、调研或迁移，AI 默认不读取：
+
+- `01-strategy-and-platform-research/历史调研资料/`；
+- `02-video-and-visual-tool-research/`；
+- `03-reference-accounts/sheets-export/`；
+- `04-text-and-social-tool-research/`；
+- `06-daily-content-recommendations/已合并旧稿/`；
+- 已关闭周报、早期数据分析和单次历史复盘；
+- 双模型候选、共享 Prompt 等附件，除非主生产记录明确要求比较。
+
+## 当前物理目录与迁移前口径
+
+| 当前目录 | 当前口径 | 默认读取 |
+|---|---|---:|
+| [[inbox-pengman/04-production/00-evergreen-workflows/README.md]] | 当前生产 SOP 和模板 | 是，按任务读取 |
+| [[inbox-pengman/04-production/01-strategy-and-platform-research/README.md]] | 策略调研；仅四账号 Playbook 直接参与生产 | 否 |
+| [[inbox-pengman/04-production/02-video-and-visual-tool-research/README.md]] | 视频和视觉工具研究 | 否 |
+| [[inbox-pengman/04-production/03-reference-accounts/README.md]] | 竞品研究索引；在线表为事实源 | 否 |
+| [[inbox-pengman/04-production/04-text-and-social-tool-research/README.md]] | 文本与社媒工具研究 | 否 |
+| [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]] | 发布与复盘 | 是，读取当前周或指定周 |
+| [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] | 当前生产队列 | 是 |
+| [[inbox-pengman/04-production/07-gsc-exports/README.md]] | 当前生产数据输入 | 有数据或任务需要时 |
+
+根目录的 [[inbox-pengman/04-production/astrologywiki-social-content-workflow.md]] 是早期工作流和决策背景，不是当前执行规则；当前口径以本 README、`00-evergreen-workflows` 的唯一来源文件、单条主生产记录和对应周报为准。
