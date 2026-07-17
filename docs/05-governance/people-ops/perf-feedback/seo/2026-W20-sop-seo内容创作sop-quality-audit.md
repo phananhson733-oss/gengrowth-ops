@@ -4,7 +4,7 @@ date: 2026-05-14
 type: perf-feedback
 status: tentative
 period: 2026-W20
-target_path: docs/repo/gengrowth-ops/inbox/内容创作/SEO内容创作SOP.md
+target_path: docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容创作SOP.md
 doc_type: sop
 product_tier: core
 product_name: core

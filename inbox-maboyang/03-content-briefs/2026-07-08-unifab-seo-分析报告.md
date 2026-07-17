@@ -575,7 +575,7 @@ unifab 在首页设置了"Ask AI about UniFab"按钮，点击后直接跳转至 
 
 ---
 
-*文件：inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
+*文件：inbox-maboyang/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
 *版本：v1 | 2026-07-08*
 *数据来源：unifab.ai 多页面爬取（首页 / 工具落地页 / Blog 文章 / 分类页 / 定价页）*
 *下一步：根据本报告更新 2026-07-07-seo-sop-升级补丁-unifab学习.md*

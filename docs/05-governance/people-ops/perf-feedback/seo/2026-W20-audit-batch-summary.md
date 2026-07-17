@@ -25,13 +25,13 @@ aliases:
 
 | # | 对象 | 报告 | 评级 | STATUS | 待跟进 |
 |---|---|---|---|---|---|
-| 1 | `docs/repo/gengrowth-ops/inbox/内容创作/SEO内容创作SOP.md`（旧版） | [2026-W20-seo-content-sop-quality-audit.md](./2026-W20-seo-content-sop-quality-audit.md) | 合格 | DONE（codex 写于 2026-05-11，v0.2 agent 出之前） | 已记入 rubric 演进 |
-| 2 | `docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md`（新版 v0.18） | [2026-W20-sop-seo内容生产流水线v018执行全案-quality-audit.md](./2026-W20-sop-seo内容生产流水线v018执行全案-quality-audit.md) | **待确认** | DONE_WITH_CONCERNS | 4 项 ❓ 待 SEO 回应 + anchor 待 wzb 审 |
-| 3 | `gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（英文 blog/case-study） | [2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit.md](./2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit.md) | **待确认** | DONE_WITH_CONCERNS | **5 项 ❓**（含战略归属、占星术是否在业务范围）+ **P0.3 AI 搬运已确立**（首个真 P0） |
+| 1 | `docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容创作SOP.md`（旧版） | [2026-W20-seo-content-sop-quality-audit.md](./2026-W20-seo-content-sop-quality-audit.md) | 合格 | DONE（codex 写于 2026-05-11，v0.2 agent 出之前） | 已记入 rubric 演进 |
+| 2 | `docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md`（新版 v0.18） | [2026-W20-sop-seo内容生产流水线v018执行全案-quality-audit.md](./2026-W20-sop-seo内容生产流水线v018执行全案-quality-audit.md) | **待确认** | DONE_WITH_CONCERNS | 4 项 ❓ 待 SEO 回应 + anchor 待 wzb 审 |
+| 3 | `gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（英文 blog/case-study） | [2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit.md](./2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit.md) | **待确认** | DONE_WITH_CONCERNS | **5 项 ❓**（含战略归属、占星术是否在业务范围）+ **P0.3 AI 搬运已确立**（首个真 P0） |
 
 ## 待 wzb 跟进项（按优先级）
 
-- [ ] **优先级 1（阻断 2 项）**：回答**占星术是否在 GenGrowth 业务范围**（对象 3 的 ❓ 1）。这条直接决定整个 inbox/内容创作/blog/ 目录走向——是 BOFU 转化内容还是错放/跑题
+- [ ] **优先级 1（阻断 2 项）**：回答**占星术是否在 GenGrowth 业务范围**（对象 3 的 ❓ 1）。这条直接决定整个 inbox-maboyang/内容创作/blog/ 目录走向——是 BOFU 转化内容还是错放/跑题
 - [ ] **优先级 2**：审核 + 补全 `docs/05-governance/strategic-anchors/gengrowth-capability-anchor.md` v0.1 draft（影响对象 2 + 对象 3 的战略匹配判定，特别是 § 一"订阅产品形态"要写明白以决定占星归属）
 - [ ] **优先级 3**：把对象 2 的 4 项 ❓ + 对象 3 的 5 项 ❓ 发给 SEO 同事（合计 9 项）；对象 3 的 P0.3 AI 搬运是无需 ❓ 答复可直接判定的项，需要 SEO 看完整改清单
 - [ ] **优先级 4**：SEO 同事回应后分别跑 `/perf-audit-seo --promote` 把对象 2 + 对象 3 的 tentative 转 final
@@ -209,7 +209,7 @@ v0.3 引入：
 ## 下一步
 
 - **wzb 阻断项**（按上方优先级 1-2）：
-  1. 占星术是否在业务范围？（直接决定本批次对象 3 + inbox/blog/ 目录命运）
+  1. 占星术是否在业务范围？（直接决定本批次对象 3 + inbox-maboyang/blog/ 目录命运）
   2. 审 + 补 anchor v0.1-draft
 - **SEO 同事**：等 wzb 决定 1 + 2 之后，统一一次性回 9 项 ❓
 - **agent 工具下一步**：

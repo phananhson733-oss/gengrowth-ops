@@ -16,12 +16,12 @@ aliases:
   - SEO SOP质量评审
   - 2026-W20 SEO质量审计
 source:
-  - docs/repo/gengrowth-ops/inbox/内容创作/SEO内容创作SOP.md
+  - docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容创作SOP.md
 ---
 
 # SEO 输出质量评审 — SEO内容创作SOP
 
-**评审对象**：`docs/repo/gengrowth-ops/inbox/内容创作/SEO内容创作SOP.md`  
+**评审对象**：`docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容创作SOP.md`  
 **评审视角**：SEO 专家 + 执行 SOP 有效性  
 **评审依据**：
 - `docs/05-governance/people-ops/policies/2026-05-10-seo-perf-evaluation-system.md`

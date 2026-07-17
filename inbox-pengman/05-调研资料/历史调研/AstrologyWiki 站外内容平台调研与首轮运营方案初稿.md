@@ -12,7 +12,7 @@ source:
   - inbox-pengman/05-调研资料/历史调研/海外营销内容平台以及思考.md
   - docs/03-marketing/02-social-media/social-media-operations.md
   - docs/03-marketing/2026-05-15-gengrowth-internal-growth-mvp-prd-v0.8.md
-  - inbox/00-inbox/2026-06-14-astrologywiki-growth-report-day23.md
+  - inbox-maboyang/00-inbox/2026-06-14-astrologywiki-growth-report-day23.md
   - docs/03-marketing/03-seo/2026-05-08-astrology-seo-strategy.md
 ---
 

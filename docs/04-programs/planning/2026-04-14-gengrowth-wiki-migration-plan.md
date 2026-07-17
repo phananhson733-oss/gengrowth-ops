@@ -90,7 +90,7 @@ aliases:
 
 ```text
 工作台/
-├── inbox/
+├── inbox-maboyang/
 ├── content/
 │   └── wechat/
 ├── people-ops/
@@ -352,7 +352,7 @@ tools/
 
 1. 迁移 `公司公共文档/`
 2. 迁移 `内容资产草稿/`
-3. 迁移 Vertex AI 临时笔记到 `工作台/inbox/2026-04-14-vertex-ai-aio-notes.md`
+3. 迁移 Vertex AI 临时笔记到 `工作台/inbox-maboyang/2026-04-14-vertex-ai-aio-notes.md`
 
 ### 第三轮
 

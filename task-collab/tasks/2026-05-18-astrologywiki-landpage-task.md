@@ -10,7 +10,7 @@ requester: Ma Boyang
 reviewer: wzb
 owner: wzb
 project: astrologywiki
-source: /Users/wzb/code/gengrowth-ops/inbox/08-reports-and-feedback/01-product-feedback/2026-05-14-astrologywiki-product-feedback.md
+source: /Users/wzb/code/gengrowth-ops/inbox-maboyang/08-reports-and-feedback/01-product-feedback/2026-05-14-astrologywiki-product-feedback.md
 source_vault: gengrowth-ops
 tags:
   - task
@@ -95,7 +95,7 @@ aliases:
 
 ## 来源链接
 
-- 产品反馈原文（gengrowth-ops vault）：`/Users/wzb/code/gengrowth-ops/inbox/08-reports-and-feedback/01-product-feedback/2026-05-14-astrologywiki-product-feedback.md` — 需求 #3
+- 产品反馈原文（gengrowth-ops vault）：`/Users/wzb/code/gengrowth-ops/inbox-maboyang/08-reports-and-feedback/01-product-feedback/2026-05-14-astrologywiki-product-feedback.md` — 需求 #3
 - 评审决议：上述反馈文档「💡 评审反馈」段
 - 关联任务（本 vault）：[[2026-05-18-birth-chart-calculator-task]]（Hero CTA 目标）、[[2026-05-18-cms-simple-version-task]]（Featured Articles 数据源）
 - UI 规范：oracle `COLOR_SYSTEM_GUIDE.md`

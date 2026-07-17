@@ -141,7 +141,7 @@
 
 ## 7. 放哪（归档建议）
 
-- **本评估文件**：就放在这里 —— `gengrowth-ops/inbox/08-reports-and-feedback/01-product-feedback/2026-06-02-astrologywiki-seo-mvp-doc-evaluation.md`（与 5 份同类前序文件同目录同命名）。它是**外部文档评估**，不是产品代码，**不进 oracle 仓库**。
+- **本评估文件**：就放在这里 —— `gengrowth-ops/inbox-maboyang/08-reports-and-feedback/01-product-feedback/2026-06-02-astrologywiki-seo-mvp-doc-evaluation.md`（与 5 份同类前序文件同目录同命名）。它是**外部文档评估**，不是产品代码，**不进 oracle 仓库**。
 - **原 Google Doc**：定位为"关键词机会素材库"，**不要**当执行计划归档；它的价值是 §1 的关键词地图，已被本评估吸收 + 纠偏。
 - **唯一应进 oracle 仓库的**：是批准后的实际修复（§6），且须遵守 PRD 同步规则（新路由/schema/页面/sitemap 变更触 docs/PRD.md 判定清单）。
 

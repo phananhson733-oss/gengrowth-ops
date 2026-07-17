@@ -56,4 +56,4 @@
 
 ---
 **汇报人**：letty / Gemini CLI  
-**文件存档**：`gengrowth-ops/inbox/周报/`
+**文件存档**：`gengrowth-ops/inbox-maboyang/周报/`

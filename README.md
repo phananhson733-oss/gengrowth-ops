@@ -25,13 +25,13 @@
 
 | 目录 | 用途 |
 |---|---|
-| `inbox/` | **所有写入的唯一入口**，提交后机器人自动分拣 |
+| `inbox-maboyang/` | **所有写入的唯一入口**，提交后机器人自动分拣 |
 | `onboarding/` | 入职引导文档 |
 | `templates/` | Obsidian 模板（自动生成 frontmatter） |
 
 ## 提交流程
 
-1. 打开 Obsidian → 用模板新建文件（写到 `inbox/`）
+1. 打开 Obsidian → 用模板新建文件（写到 `inbox-maboyang/`）
 2. 写完按 **F5** 提交
 3. 机器人自动搬运到目标目录（或开 PR 等审批）
 
@@ -54,5 +54,5 @@ bash scripts/obsidian-vault-git-sync.sh --verbose
 
 ## 注意
 
-- **只往 inbox/ 写文件**，不要直接改同步过来的目录
+- **只往 inbox-maboyang/ 写文件**，不要直接改同步过来的目录
 - 遇到同步冲突截图找 wzb

@@ -21,7 +21,7 @@ aliases:
 # 2026 Q3 增长目标拆解
 
 > **用途**：把 Q3 团队目标从上到下讲清楚，方便向马博洋、彭满、产研直接传递——大家知道**为什么这个目标、自己那截该做什么、怎么算达成**。
-> **关联**：`2026-06-16-growth-team-roles-and-division`（SSOT，谁负责哪条线）、`SEO 运营绩效评估体系`、路径 B 选词立项标准 `docs/repo/gengrowth-ops/inbox/02-keyword-research/2026-06-26-路径B选词汇报`。
+> **关联**：`2026-06-16-growth-team-roles-and-division`（SSOT，谁负责哪条线）、`SEO 运营绩效评估体系`、路径 B 选词立项标准 `docs/repo/gengrowth-ops/inbox-maboyang/02-keyword-research/2026-06-26-路径B选词汇报`。
 > **设计原则**：**顶层一个数字焊死，下层全部弹性可调**。因为现在很多数据模型（每访客值多少钱、转化率）还不确定，硬设精确的下层数字是假精确。顶层固定给方向和士气，下层"找增长点、随数据按月调"。
 
 ---

@@ -2,7 +2,7 @@
 
 本目录为**彭满的个人工作区（加工区）**，遵循主管提出的"生产与发布分离"原则。所有正式沉淀规则需在评审后迁移至 `docs/`（由 wiki 同步，单向只读）。
 
-> 本工作台与 Ops（`inbox/`）共用同一个 `gengrowth-ops` 仓库，但各自独立：彭满只在 `inbox-pengman/` 下作业，dispatch 自动化对两个工作台分别处理、互不干扰。
+> 本工作台与 Ops（`inbox-maboyang/`）共用同一个 `gengrowth-ops` 仓库，但各自独立：彭满只在 `inbox-pengman/` 下作业，dispatch 自动化对两个工作台分别处理、互不干扰。
 
 ## 📂 目录索引与用途
 

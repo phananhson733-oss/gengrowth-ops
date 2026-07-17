@@ -4,7 +4,7 @@ date: 2026-05-12
 updated: 2026-05-12
 type: perf-audit
 period: 2026-W20
-target_path: /Users/wzb/Documents/gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md
+target_path: /Users/wzb/Documents/gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md
 doc_type: content-piece
 agent_version: seo-quality-audit v0.2 (inline，doc_type=content-piece 未原生支持)
 anchor_version: gengrowth-capability-anchor v0.1-draft（status: draft-by-claude-awaiting-wzb-review）
@@ -27,7 +27,7 @@ aliases:
 
 # SEO 输出质量评审 — Astro-Seek Case Study: Precision Data vs. The "Pretty Chart" Trap
 
-**评审对象**：`gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（115 行英文 blog / case-study）
+**评审对象**：`gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（115 行英文 blog / case-study）
 **评审依据版本**：rubric v0.1（2026-05-11）+ anchor v0.1-draft（2026-05-12）+ 价值观 v1.0（2026-04-27）
 **评级**：**待确认**
 **STATUS**：DONE_WITH_CONCERNS
@@ -190,7 +190,7 @@ aliases:
 - **文件命名**：`Astro_Seek_Case_Study_Stellium_Accuracy.md`——下划线分隔，SEO 偏好连字符（`astro-seek-case-study-stellium-accuracy.md`）
 - **段落长度**：英文 SEO 建议 2-4 句/段，本文 § "The 3-Degree Rule" 第二段（line 23-24）单句段落 + § "How it Works" 多个 1 句段（line 92）—— 节奏偏短促
 - **Sources 无访问日期**：见 P1.1 出站链接缺失，重叠列
-- **位置在 inbox**：`gengrowth-ops/inbox/内容创作/blog/`—— inbox 是草稿区，正式发布前需迁移到 publication-ready 目录（参考 v0.18 SOP § 五 Step 5 发布流程）
+- **位置在 inbox**：`gengrowth-ops/inbox-maboyang/内容创作/blog/`—— inbox 是草稿区，正式发布前需迁移到 publication-ready 目录（参考 v0.18 SOP § 五 Step 5 发布流程）
 - **没有 keyword-master CSV 行号关联**：见 ❓ 2
 
 ---
@@ -254,10 +254,10 @@ aliases:
 
 ## 关联文件
 
-- 评审对象：`gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`
+- 评审对象：`gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`
 - 评审标尺：`docs/05-governance/people-ops/policies/2026-05-11-seo-output-quality-rubric.md` v0.1
 - 战略锚点：`docs/05-governance/strategic-anchors/gengrowth-capability-anchor.md` v0.1-draft（待审）
 - 公司价值观：`docs/01-company/公司价值观.md` v1.0
-- v0.18 内容创作 SOP（对照参考）：`gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md`
+- v0.18 内容创作 SOP（对照参考）：`gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md`
 - 批次摘要：`docs/05-governance/people-ops/perf-feedback/seo/2026-W20-audit-batch-summary.md`
 - 上一份审计（同周）：`docs/05-governance/people-ops/perf-feedback/seo/2026-W20-sop-seo内容生产流水线v018执行全案-quality-audit.md`

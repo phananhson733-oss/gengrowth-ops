@@ -6,7 +6,7 @@ type: perf-feedback
 author: wzb
 reviewer: wzb
 reviewee: Ma Boyang
-artifact: inbox/03-content-briefs/2026-05-14-seo-cluster-prompts.md
+artifact: inbox-maboyang/03-content-briefs/2026-05-14-seo-cluster-prompts.md
 status: review-complete
 tags:
   - seo
@@ -20,7 +20,7 @@ aliases:
 
 ## TL;DR
 
-5 个独立评审视角（4 个 subagent + GPT-5.2 via Codex MCP），对 `inbox/03-content-briefs/2026-05-14-seo-cluster-prompts.md`（v0.19 Cluster Edition，110 行）做了平行盲评。
+5 个独立评审视角（4 个 subagent + GPT-5.2 via Codex MCP），对 `inbox-maboyang/03-content-briefs/2026-05-14-seo-cluster-prompts.md`（v0.19 Cluster Edition，110 行）做了平行盲评。
 
 **总评**：方向对，3 个设计亮点值得保留，但 **5/5 视角一致认为不能 ship as-is**——存在 1 个 P0 幻觉雷 + 1 个 prompt 内部矛盾。最稳的路径是把 3 个亮点 backport 到现有 v8 pipeline，而不是用 v0.19 替换 v8。
 
@@ -194,7 +194,7 @@ aliases:
 
 ## 引用
 
-- v0.19 prompt: `inbox/03-content-briefs/2026-05-14-seo-cluster-prompts.md`
+- v0.19 prompt: `inbox-maboyang/03-content-briefs/2026-05-14-seo-cluster-prompts.md`
 - v8 Definition template: `gengrowth-flow-mvp/tools/scripts/lib/content-draft-templates/definition.prompt.md`
 - v8 Pillar template: `gengrowth-flow-mvp/tools/scripts/lib/content-draft-templates/pillar.prompt.md`
 - v8 Phase 2 validator: `gengrowth-flow-mvp/tools/scripts/_phase2-validate.mjs`

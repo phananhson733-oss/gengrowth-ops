@@ -175,4 +175,4 @@ scripts/run_tests.sh tests/gateway/test_gengrowth_role_guard.py tests/tools/test
 - `/Users/awayer_mini/.hermes/profiles/ops/.env`
 
 报告文件：
-- `/Users/awayer_mini/gengrowth-ops/inbox/2026-05-09-Hermes-Ops低权限路径Guard审计报告.md`
+- `/Users/awayer_mini/gengrowth-ops/inbox-maboyang/2026-05-09-Hermes-Ops低权限路径Guard审计报告.md`

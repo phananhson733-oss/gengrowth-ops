@@ -102,7 +102,7 @@ aliases:
 | `内容资产草稿/` | 内容草稿与生成过程材料 | 并入工作台 | `工作台/content/` |
 | `公司公共文档/` | 品牌素材与公司证照混合 | 拆分 | `docs/06-shared/assets/` + `实例库/corporate/` |
 | `Clippings/` 下文档 | 自动剪藏原始内容 | 保留为系统入口 | 原位 |
-| `工作台/inbox/2026-04-14-vertex-ai-aio-notes.md` | 临时工作台笔记 | 已并入工作台 | 原位 |
+| `工作台/inbox-maboyang/2026-04-14-vertex-ai-aio-notes.md` | 临时工作台笔记 | 已并入工作台 | 原位 |
 | `Clippings/` 以外根目录零散 markdown | 需逐个判断 | 归入正式/工作台/参考 | 待定 |
 
 ## 五、`docs/` 的目标内部结构
@@ -190,7 +190,7 @@ docs/05-governance/
 
 ```text
 工作台/
-├── inbox/
+├── inbox-maboyang/
 ├── content/
 │   └── wechat/
 ├── people-ops/

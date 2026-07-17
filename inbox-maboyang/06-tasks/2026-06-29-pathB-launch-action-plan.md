@@ -268,7 +268,7 @@ googledocsresumetemplate.com 评论参考：
 
 **第三步：联系**
 - 邮件模板：说明你的工具，请求加入对方的推荐列表
-- 走现有外联 SOP（参考 `inbox/03-content-briefs/2026-06-05-backlink-outreach-sop-v1.1.md`）
+- 走现有外联 SOP（参考 `inbox-maboyang/03-content-briefs/2026-06-05-backlink-outreach-sop-v1.1.md`）
 
 ---
 
@@ -560,6 +560,6 @@ curl -I https://googledocsresumetemplate.com/
 
 ## 文件关联
 
-- 关键词选词汇报：`inbox/02-keyword-research/2026-06-26-路径B选词汇报.md`
-- 外联 SOP：`inbox/03-content-briefs/2026-06-05-backlink-outreach-sop-v1.1.md`
+- 关键词选词汇报：`inbox-maboyang/02-keyword-research/2026-06-26-路径B选词汇报.md`
+- 外联 SOP：`inbox-maboyang/03-content-briefs/2026-06-05-backlink-outreach-sop-v1.1.md`
 - 哥飞方法论参考：海外工具站SEO完全手册 + 月访问1M迷你游戏案例（用户归档）

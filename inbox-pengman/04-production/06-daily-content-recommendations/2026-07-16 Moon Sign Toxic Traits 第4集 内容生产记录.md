@@ -20,7 +20,7 @@ source_old_drafts:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 Earth Moon Toxic Traits 视频制作方案]]"
 research_sources:
-  - "inbox/social-media/moon-sign-toxic-traits-part4-visual-decision.md"
+  - "inbox-maboyang/social-media/moon-sign-toxic-traits-part4-visual-decision.md"
   - "Codex 完整调研由 Pengman 于 2026-07-16 粘贴到当前任务；综合判断沉淀于本文件的视觉方案综合决策，不另建重复报告"
 core_insight: 本集分别聚焦 Cancer Moon 反复回放受伤时刻、Libra Moon 回避冲突后暗自记账、Aquarius Moon 把感受理论化并抽离这三种 toxic trait
 hook_direction: 延续 “Your toxic trait, according to your Moon sign...” 句式，按 Cancer、Libra、Aquarius 三段快速点名
@@ -296,7 +296,7 @@ Pengman 明确指出原稿选题方向偏离系列承诺。这是 L4 内容角�
 
 #### 调研来源与去重
 
-1. 飞书原始报告：`inbox/social-media/moon-sign-toxic-traits-part4-visual-decision.md`。保持原位，不修改、不复制全文。
+1. 飞书原始报告：`inbox-maboyang/social-media/moon-sign-toxic-traits-part4-visual-decision.md`。保持原位，不修改、不复制全文。
 2. Codex 完整报告：由 Pengman 于 2026-07-16 粘贴到当前任务；其非重复证据、比较和综合结论沉淀在本节，不再创建独立长报告。
 3. 两份报告引用同一 TikTok 视频、Google Sheet 或周报时，只计为同一份原始证据，不按“两票”加权。
 

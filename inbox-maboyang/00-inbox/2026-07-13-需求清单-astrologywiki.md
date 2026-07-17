@@ -116,7 +116,7 @@ export function Analytics() {
 
 全站当前无任何有效 CTA 指向工具页，127篇 Blog 文章工具转化率为0。实验二（W29目标：Blog→工具转化率 ≥3%）依赖 CTA 先上线才能有可测数据。
 
-**完整规格文档**：`inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md`
+**完整规格文档**：`inbox-maboyang/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md`
 （含每个模块的 HTML 结构、样式规格、文案、链接目标、移动端处理）
 
 ### P0：本期实施（三个模块）
@@ -193,7 +193,7 @@ window.gtag('event', 'tool_click', {
 | J-3 | 右下角工具快速入口浮窗 | 全站 |
 | K | 左下角 Ask AI 面板（GEO引导，预填跳转至 ChatGPT/Perplexity 等）| 全站 |
 
-P1 各模块完整规格同见：`inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md`
+P1 各模块完整规格同见：`inbox-maboyang/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md`
 
 ---
 
@@ -331,9 +331,9 @@ P1 各模块完整规格同见：`inbox/00-inbox/2026-07-09-astrologywiki-cta架
 
 ---
 
-*文件：inbox/00-inbox/2026-07-13-需求清单-astrologywiki.md*
+*文件：inbox-maboyang/00-inbox/2026-07-13-需求清单-astrologywiki.md*
 *版本：v1.1（完成状态回填） | 2026-07-13*
 *参考规格文档：*
-*  - inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md（CTA完整规格）*
-*  - inbox/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md（Schema参考）*
-*  - inbox/00-inbox/2026-07-13-各页面标准统一规范.md（页面标准参考）*
+*  - inbox-maboyang/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md（CTA完整规格）*
+*  - inbox-maboyang/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md（Schema参考）*
+*  - inbox-maboyang/00-inbox/2026-07-13-各页面标准统一规范.md（页面标准参考）*

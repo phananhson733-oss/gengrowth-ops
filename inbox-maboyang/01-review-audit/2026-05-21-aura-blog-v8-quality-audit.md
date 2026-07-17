@@ -4,7 +4,7 @@ date: 2026-05-21
 type: review-audit
 author: wzb
 pipeline_version: v8
-scope: inbox/05-blog/2026-05-18-*-aura-*.md
+scope: inbox-maboyang/05-blog/2026-05-18-*-aura-*.md
 verdict: 4/4 needs-rewrite
 tags:
   - review
@@ -19,7 +19,7 @@ aliases:
 
 ## TL;DR
 
-把 `inbox/05-blog/` 下 4 篇 2026-05-18 的 aura 文章（blue / purple / yellow / aura-colors pillar）放进 `gengrowth-flow-mvp` v8 pipeline 的质量门槛跑了一遍。结论：**4/4 needs-rewrite**。
+把 `inbox-maboyang/05-blog/` 下 4 篇 2026-05-18 的 aura 文章（blue / purple / yellow / aura-colors pillar）放进 `gengrowth-flow-mvp` v8 pipeline 的质量门槛跑了一遍。结论：**4/4 needs-rewrite**。
 
 原因不是单点 bug，是这一批稿子写的时候 v8 标准还不存在，所以同步存在 5 个共性问题：
 
@@ -226,7 +226,7 @@ aliases:
 推荐 **A**，理由：
 - 3 篇 definition 走 v8 已验证管线，cost 低
 - Pillar 是更大工作（要起新 template），值得另起 task block
-- 不重生成 = ops repo `inbox/05-blog/` 里这 4 篇会成为后续批量 ship 的"反例锚"，新作者会学到 v8 之前的范式
+- 不重生成 = ops repo `inbox-maboyang/05-blog/` 里这 4 篇会成为后续批量 ship 的"反例锚"，新作者会学到 v8 之前的范式
 
 ---
 

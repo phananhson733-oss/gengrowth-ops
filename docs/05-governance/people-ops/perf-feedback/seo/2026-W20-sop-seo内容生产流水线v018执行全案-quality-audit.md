@@ -14,7 +14,7 @@ tags:
 aliases:
   - SEO内容生产流水线v0.18 评审
 source:
-  - docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md
+  - docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md
 period: 2026-W20
 doc_type: sop
 handshake: perf-audit-seo-v0.2
@@ -22,7 +22,7 @@ handshake: perf-audit-seo-v0.2
 
 # SEO 输出质量评审 — SEO 内容生产流水线 v0.18 执行全案
 
-**评审对象**：`docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md`
+**评审对象**：`docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md`
 **文档类型**：sop
 **评审周期**：2026-W20
 **Shadow run**：是，本报告不作为正式绩效依据（v0.2 阶段首份 shadow，配套 agent 与 anchor 都在 draft）
@@ -48,16 +48,16 @@ handshake: perf-audit-seo-v0.2
 
 > 此区块永远存在。当前 4 项 → 评级强制"待确认"，凌驾 P0/P1。
 
-- **疑问 1**：[选题登记表 Google Sheets](docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md:7) 链接是否仍可访问？该 sheet 字段是否与 SOP § 一 12 字段一致？
+- **疑问 1**：[选题登记表 Google Sheets](docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md:7) 链接是否仍可访问？该 sheet 字段是否与 SOP § 一 12 字段一致？
   - **原文**：`第一部分：基础设施 - [选题登记表](https://docs.google.com/spreadsheets/d/1JDaPu2llI9SOzISi2YsmkUELI0ArnZewFv_frQ_Wkfs/edit?usp=sharing)`
   - **触发依据**：rubric § P0.1 求真——SOP 引用外部 Sheet 作为基础设施，但 agent 无法访问 Google Sheets；如果 sheet 字段已演进而 SOP 没更新，会导致执行偏差。
   - **期待作者回应**：sheet 当前字段截图或导出 CSV header，确认与 SOP § 一一致。
 
-- **疑问 2**：Step 4 `[系统提示词](obsidian://open?vault=gengrowth-ops&file=...)` 是 obsidian 内部链接 ([原文](docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md:112))，是否在所有团队成员的 vault 都能解析？提示词文件 `SEO内容生产提示词_v0.18.md` 是否同步到所有人？
+- **疑问 2**：Step 4 `[系统提示词](obsidian://open?vault=gengrowth-ops&file=...)` 是 obsidian 内部链接 ([原文](docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md:112))，是否在所有团队成员的 vault 都能解析？提示词文件 `SEO内容生产提示词_v0.18.md` 是否同步到所有人？
   - **触发依据**：rubric § P1.1 框架完整性——若团队成员 vault 配置不一致，Step 4 实际不可执行。
   - **期待作者回应**：确认提示词文件路径在团队 vault 里 100% 解析，或改用 raw markdown 链接 + 提示词正文嵌入。
 
-- **疑问 3**：SOP 定级 Tier 1 的判定依据"商业价值高"（[原文 L45-47](docs/repo/gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md:45)）——这个"商业价值"是否对齐 anchor § 五"订阅付费意图词 ≥ 30%"？还是另一个内部维度？
+- **疑问 3**：SOP 定级 Tier 1 的判定依据"商业价值高"（[原文 L45-47](docs/repo/gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md:45)）——这个"商业价值"是否对齐 anchor § 五"订阅付费意图词 ≥ 30%"？还是另一个内部维度？
   - **触发依据**：rubric § P0.2 战略匹配度 + anchor § 五——"商业价值"未定义会让 Tier 1 投资源跑到与 GenGrowth 订阅付费战略无关的词上。
   - **期待作者回应**：明确"商业价值"判定规则（如：BOFU / Compare 意图 + 订阅产品相关性双过滤）。
 
@@ -126,7 +126,7 @@ handshake: perf-audit-seo-v0.2
 - **Reddit 占比 > 30% 判定方法不明确**：是看前 10 个结果还是前 100 个？是否包括 Quora / 论坛？无量化口径会导致 Tier 定级主观化（`L45`）。
 - **Friction 来源未要求 URL + 抓取时间**：Step 3 强调严禁填形容词，但没要求附"`https://reddit.com/r/.../comments/...`" + 抓取时间，6 个月后无法回溯（`L97-105`）。
 - **SOP 自身 frontmatter 缺规范**：文件没有 obsidian YAML frontmatter（`title:` / `date:` / `updated:` / `type: sop` / `version: v0.18` / `status:`）。compared to `keyword-research-sop.md` / `day0-diagnosis-sop.md` 都有完整 frontmatter，v0.18 缺。
-- **P2.2 规范合规性**（简评，doc-audit 兜底）：文件名含 `_v0.18_` 体现版本管理 ✅；但文件位于 `docs/repo/gengrowth-ops/inbox/内容创作/`，是"inbox"非正式区，未来若升为正式 SOP 需迁到 `docs/03-marketing/03-seo/` 与同级 SOP 并列。
+- **P2.2 规范合规性**（简评，doc-audit 兜底）：文件名含 `_v0.18_` 体现版本管理 ✅；但文件位于 `docs/repo/gengrowth-ops/inbox-maboyang/内容创作/`，是"inbox"非正式区，未来若升为正式 SOP 需迁到 `docs/03-marketing/03-seo/` 与同级 SOP 并列。
 
 ---
 

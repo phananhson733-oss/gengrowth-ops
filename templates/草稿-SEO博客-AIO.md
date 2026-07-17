@@ -26,7 +26,7 @@ keywords:
   - <% focusKw %>
   - 
   - 
-target: inbox/04-production/
+target: inbox-maboyang/04-production/
 review: pending
 tags:
   - draft

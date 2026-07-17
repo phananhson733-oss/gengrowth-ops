@@ -25,8 +25,8 @@ aliases:
 
 | # | 对象 | 类型 | tier |
 |---|---|---|---|
-| A | `gengrowth-ops/inbox/内容创作/SEO内容生产流水线_v0.18_执行全案.md` | sop | core |
-| B | `gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md` | content-piece | experimental:astrologywiki.com |
+| A | `gengrowth-ops/inbox-maboyang/内容创作/SEO内容生产流水线_v0.18_执行全案.md` | sop | core |
+| B | `gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md` | content-piece | experimental:astrologywiki.com |
 
 ---
 

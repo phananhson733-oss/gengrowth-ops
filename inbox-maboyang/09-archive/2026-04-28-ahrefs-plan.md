@@ -61,5 +61,5 @@ updated: 2026-05-14
 2.  **自动化演进**：当单月项目数超过 3 个时，必须启动 DataForSEO 的 Apps Script 集成，将研究成本降低 95% 以上。
 
 ---
-**文档位置**：`gengrowth-ops/inbox/杂项/Ahrefs积分消耗优化与DataForSEO集成方案.md`
+**文档位置**：`gengrowth-ops/inbox-maboyang/杂项/Ahrefs积分消耗优化与DataForSEO集成方案.md`
 **更新日期**：2026-05-14

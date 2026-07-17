@@ -75,6 +75,6 @@ tags:
 
 ## 同源副本
 
-这 6 篇也在 `gengrowth-ops/inbox/05-blog/2026-05-2{1,2}-*-v8-claude.md`
+这 6 篇也在 `gengrowth-ops/inbox-maboyang/05-blog/2026-05-2{1,2}-*-v8-claude.md`
 （手动 cp 过去的初稿副本，保留不删）。本目录是 **wiki 单一权威源**——以本
 目录为准，inbox 副本仅作历史归档。

@@ -14,8 +14,8 @@
  * 用法:
  *   node scripts/brand-wrap.js <file.md>             预览单个文件
  *   node scripts/brand-wrap.js <file.md> --apply     应用规范化
- *   node scripts/brand-wrap.js --scan inbox/         扫描 inbox 列出待规范化文件
- *   node scripts/brand-wrap.js --scan inbox/ --apply 扫描 + 批量应用
+ *   node scripts/brand-wrap.js --scan inbox-maboyang/         扫描 inbox 列出待规范化文件
+ *   node scripts/brand-wrap.js --scan inbox-maboyang/ --apply 扫描 + 批量应用
  */
 
 "use strict";
@@ -31,14 +31,14 @@ const DEFAULT_PROJECT = "astrologywiki";
 
 // 从 inbox 子目录推断 type (顺序敏感, 更具体的在前)
 const TYPE_BY_PATH = [
-  ["inbox/08-reports-and-feedback/01-product-feedback", "product-feedback"],
-  ["inbox/08-reports-and-feedback/02-standard-feedback", "standard-feedback"],
-  ["inbox/08-reports-and-feedback/03-weekly-reports", "weekly-report"],
-  ["inbox/01-keyword-research", "keyword-research"],
-  ["inbox/03-content-briefs", "content-brief"],
-  ["inbox/04-production", "blog-draft"],
-  ["inbox/06-review-audit", "audit-report"],
-  ["inbox/09-archive", "archive"],
+  ["inbox-maboyang/08-reports-and-feedback/01-product-feedback", "product-feedback"],
+  ["inbox-maboyang/08-reports-and-feedback/02-standard-feedback", "standard-feedback"],
+  ["inbox-maboyang/08-reports-and-feedback/03-weekly-reports", "weekly-report"],
+  ["inbox-maboyang/01-keyword-research", "keyword-research"],
+  ["inbox-maboyang/03-content-briefs", "content-brief"],
+  ["inbox-maboyang/04-production", "blog-draft"],
+  ["inbox-maboyang/06-review-audit", "audit-report"],
+  ["inbox-maboyang/09-archive", "archive"],
 ];
 
 // AI 高频痕迹词 (命中 >= AI_THRESHOLD 警告)

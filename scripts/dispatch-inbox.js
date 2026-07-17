@@ -3,20 +3,20 @@
 /**
  * inbox 入口校验 + 通知脚本
  *
- * 触发: GitHub Actions (.github/workflows/dispatch.yml) 在 inbox/ 有变化时调用。
+ * 触发: GitHub Actions (.github/workflows/dispatch.yml) 在 inbox-maboyang/ 有变化时调用。
  *
  * 设计原则:
- *   1. inbox/ 是 Ops (Letty) 专属个人工作台 (per inbox/README.md), 允许草稿/空笔记/随手存。
+ *   1. inbox-maboyang/ 是 Ops (Letty) 专属个人工作台 (per inbox-maboyang/README.md), 允许草稿/空笔记/随手存。
  *      Obsidian Git 高频自动备份会触发本脚本, 因此默认绝不阻塞、不开 issue, 只发 advisory 警告。
  *   2. 只有当作者显式声明 status=ready_for_review / ready_to_move / archived 时,
  *      才进入严格校验 + 搬运/开 PR 流程 (这才是 Ops 主动"提交点东西给别人看")。
  *   3. 仅严格流程校验失败时才开 GitHub Issue, 这样 Letty 在 Obsidian/GitHub Mobile 也能看见。
  *
  * status 语义:
- *   draft / active / final / in-progress / 无 frontmatter / 无法识别 -> 留在 inbox/, 仅 advisory 警告
+ *   draft / active / final / in-progress / 无 frontmatter / 无法识别 -> 留在 inbox-maboyang/, 仅 advisory 警告
  *   ready_for_review          -> 严格校验 (5 必填字段 + target + 非空非占位), 开 PR
  *   ready_to_move             -> 严格校验, 直接搬运
- *   archived                  -> 严格校验, 自动搬到 inbox/09-archive/
+ *   archived                  -> 严格校验, 自动搬到 inbox-maboyang/09-archive/
  *
  * 环境变量:
  *   CHANGED_FILES      换行分隔的变更文件列表 (由 Action 提供)
@@ -54,7 +54,7 @@ const ISSUE_NOTIFY = (process.env.ISSUE_NOTIFY_USERS || "")
 const ALLOWED_TARGETS = ["onboarding/", "templates/"];
 
 // inbox 自动归档专用 target (status=archived 时强制使用此目录)
-const ARCHIVE_TARGET = "inbox/09-archive/";
+const ARCHIVE_TARGET = "inbox-maboyang/09-archive/";
 
 // status 语义映射: 把现实中 Letty 已经在用的值映射到 4 个标准动作。
 // 标准动作: keep (留 inbox)、review (开 PR)、move (直推)、archive (归档)
@@ -64,7 +64,7 @@ const STATUS_ACTIONS = {
   active: "keep",
   final: "keep", // 已完成但留在工作台自查
   "in-progress": "keep",
-  // Tasks 插件常用的任务状态 (inbox/06-tasks/), 一律留 inbox
+  // Tasks 插件常用的任务状态 (inbox-maboyang/06-tasks/), 一律留 inbox
   todo: "keep",
   doing: "keep",
   done: "keep",
@@ -81,13 +81,13 @@ const STATUS_ACTIONS = {
 };
 
 // 这些 inbox 内文件 / 目录不参与校验
-const IGNORE_EXACT = new Set(["inbox/README.md", "inbox/.gitkeep"]);
+const IGNORE_EXACT = new Set(["inbox-maboyang/README.md", "inbox-maboyang/.gitkeep"]);
 const IGNORE_PREFIXES = [
-  "inbox/09-archive/", // 归档区不再处理
-  "inbox/原文件夹暂存/", // 历史归集区
+  "inbox-maboyang/09-archive/", // 归档区不再处理
+  "inbox-maboyang/原文件夹暂存/", // 历史归集区
 ];
 
-// inbox/README.md 强制要求的 5 必填字段
+// inbox-maboyang/README.md 强制要求的 5 必填字段
 const REQUIRED_FIELDS = ["project", "type", "status", "owner", "updated"];
 
 // 拒绝的占位文件名 (Obsidian/Templater 未填模板)
@@ -414,10 +414,10 @@ function main() {
 
   const changed = process.env.CHANGED_FILES.split(/\r?\n/)
     .map((s) => s.trim())
-    .filter((f) => f && f.startsWith("inbox/") && !shouldIgnore(f));
+    .filter((f) => f && f.startsWith("inbox-maboyang/") && !shouldIgnore(f));
 
   if (changed.length === 0) {
-    log("inbox/ 没有需要处理的变化, 跳过。");
+    log("inbox-maboyang/ 没有需要处理的变化, 跳过。");
     summaryAppend("✅ inbox 校验通过 (无需要处理的文件)");
     return;
   }

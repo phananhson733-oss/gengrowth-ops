@@ -34,10 +34,10 @@
 
 | status | 行为 | 适用场景 |
 |---|---|---|
-| `draft` / `active` / `final` / `in-progress` / 无 frontmatter / 无法识别 | **留在 inbox/**，不动，仅 advisory 提示 | 草稿、半成品、思考记录。脚本不会骚扰。 |
+| `draft` / `active` / `final` / `in-progress` / 无 frontmatter / 无法识别 | **留在 inbox-maboyang/**，不动，仅 advisory 提示 | 草稿、半成品、思考记录。脚本不会骚扰。 |
 | `ready_for_review` | 严格校验后**开 PR** 等审批 | 完成的内容，需要他人 review |
 | `ready_to_move` | 严格校验后**直接搬运** 到 target | 已确认无需 review 的内容 |
-| `archived` | 严格校验后**自动归档** 到 `inbox/09-archive/` | 老版本、废弃文件 |
+| `archived` | 严格校验后**自动归档** 到 `inbox-maboyang/09-archive/` | 老版本、废弃文件 |
 
 > 只有 `ready_for_review` / `ready_to_move` / `archived` 会触发校验失败开 issue；草稿状态永远静默。
 > 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
@@ -74,13 +74,13 @@ updated: 2026-05-18
 
 ```bash
 # 预览（不改文件）
-node scripts/brand-wrap.js inbox/04-production/my-new-blog.md
+node scripts/brand-wrap.js inbox-maboyang/04-production/my-new-blog.md
 
 # 应用规范化（补 frontmatter + 加日期前缀 + AI 词警告 + blog 末尾追加品牌 CTA）
-node scripts/brand-wrap.js inbox/04-production/my-new-blog.md --apply
+node scripts/brand-wrap.js inbox-maboyang/04-production/my-new-blog.md --apply
 
-# 扫描整个 inbox/，批量规范化所有缺 frontmatter 的文件
-node scripts/brand-wrap.js --scan inbox/ --apply
+# 扫描整个 inbox-maboyang/，批量规范化所有缺 frontmatter 的文件
+node scripts/brand-wrap.js --scan inbox-maboyang/ --apply
 ```
 
 脚本会自动做：

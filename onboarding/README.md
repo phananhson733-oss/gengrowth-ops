@@ -21,7 +21,7 @@
 
 设置 → **Templater** → **Template folder location** 填 `templates`
 
-### 3.2 (关键) 新建笔记默认落到 inbox/
+### 3.2 (关键) 新建笔记默认落到 inbox-maboyang/
 
 新文件位置不在 Templater 里设，而是在 Obsidian 全局：
 
@@ -32,7 +32,7 @@
 | 新建笔记的默认位置 | **"在指定文件夹中"**(In the folder specified below) |
 | 文件夹位置 | `inbox` |
 
-> 作用：保证从模板新建的文件**永远落到 `inbox/`**。机器人(`.github/workflows/dispatch.yml`)只监听 `inbox/**` 路径，**文件不在 inbox/ 下，target frontmatter 写得再对也不会被搬走**。
+> 作用：保证从模板新建的文件**永远落到 `inbox-maboyang/`**。机器人(`.github/workflows/dispatch.yml`)只监听 `inbox-maboyang/**` 路径，**文件不在 inbox-maboyang/ 下，target frontmatter 写得再对也不会被搬走**。
 
 顺便建议：
 
@@ -74,7 +74,7 @@
 
 ### 4.3 验证 F5 能用
 
-1. 在 inbox/ 随便新建一个文件，写两个字
+1. 在 inbox-maboyang/ 随便新建一个文件，写两个字
 2. 按 **F5**
 3. 通知栏弹出 "Committed and pushed" 即成功
 4. 去 GitHub `xdawayer/gengrowth-ops` 看是否出现新文件

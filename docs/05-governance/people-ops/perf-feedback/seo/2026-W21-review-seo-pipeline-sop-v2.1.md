@@ -17,7 +17,7 @@ aliases:
   - SEO Pipeline SOP v2.1 复评
   - 内容生产流水线 v2.1 复评
 评审对象:
-  - docs/repo/gengrowth-ops/inbox/03-content-briefs/2026-05-18-seo-pipeline-sop-v2.1.md
+  - docs/repo/gengrowth-ops/inbox-maboyang/03-content-briefs/2026-05-18-seo-pipeline-sop-v2.1.md
 评审依据:
   - docs/05-governance/people-ops/perf-feedback/seo/2026-W21-review-astrologywiki-cluster-and-pipeline-v2.md
   - docs/03-marketing/2026-05-15-gengrowth-internal-growth-mvp-prd-v0.7.md

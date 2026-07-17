@@ -16,8 +16,8 @@ tags:
 aliases:
   - astrologywiki 关键词集群与内容流水线v2.0 评审
 评审对象:
-  - docs/repo/gengrowth-ops/inbox/01-keyword-research/2026-05-14-astrologywiki-keyword-cluster.md
-  - docs/repo/gengrowth-ops/inbox/03-content-briefs/2026-05-14-seo-pipeline-sop-v2.md
+  - docs/repo/gengrowth-ops/inbox-maboyang/01-keyword-research/2026-05-14-astrologywiki-keyword-cluster.md
+  - docs/repo/gengrowth-ops/inbox-maboyang/03-content-briefs/2026-05-14-seo-pipeline-sop-v2.md
 评审依据:
   - docs/02-product/01-prd/2026-05-15-gengrowth-internal-growth-mvp-prd-v0.7.md
 ---

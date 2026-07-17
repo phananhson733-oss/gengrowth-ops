@@ -1,6 +1,6 @@
 name: Weekly Inbox Digest
 
-# 作用: 每周一早上 9 点 (北京时间), 列出过去 7 天 inbox/ 的新增和修改文件,
+# 作用: 每周一早上 9 点 (北京时间), 列出过去 7 天 inbox-maboyang/ 的新增和修改文件,
 # 开成一个 issue 通知 CEO/PM, 让 ta 在 GitHub Mobile 也能看到 Ops 的产出, 决定哪些上行收编到 wiki。
 
 on:
@@ -40,7 +40,7 @@ jobs:
           gh label create weekly-digest --repo "$REPO" --color "0E8A16" --description "每周 inbox 改动摘要" 2>/dev/null || true
           gh issue create \
             --repo "$REPO" \
-            --title "[周报摘要] inbox/ 周变化 ${WEEK_START} → ${WEEK_END}" \
+            --title "[周报摘要] inbox-maboyang/ 周变化 ${WEEK_START} → ${WEEK_END}" \
             --body-file /tmp/digest-body.md \
             --label "weekly-digest" \
             --assignee "$ASSIGNEES"

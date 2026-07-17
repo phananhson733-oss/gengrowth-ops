@@ -4,7 +4,7 @@ date: 2026-05-12
 updated: 2026-05-12
 type: rectification
 period: 2026-W20
-audit_target: "/Users/wzb/Documents/gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md"
+audit_target: "/Users/wzb/Documents/gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md"
 based_on:
   - "2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit-v2.md (claude v0.3.3)"
   - "codex MCP thread 019e1bcd-884a-7e93-bc7a-d5beeac7a7ed"
@@ -207,7 +207,7 @@ keyword_master_row: {keyword-master/2026-W20.csv 行号}
 ## P2 次要改进项（合并 claude × codex）
 
 - 文件命名：`Astro_Seek_Case_Study_Stellium_Accuracy.md` → `astro-seek-case-study-stellium-accuracy.md`（下划线改连字符）
-- 位置迁移：完成 6 项必改 + 4 项 ❓ 后，从 `inbox/内容创作/blog/` 迁到正式发布区
+- 位置迁移：完成 6 项必改 + 4 项 ❓ 后，从 `inbox-maboyang/内容创作/blog/` 迁到正式发布区
 - 删除偏主观措辞："spreadsheet from 2008"（line 37）→ 客观化描述
 - "Generic Apps (Aesthetic)" 表格（line 79-84）→ 点名具体 app（Co-Star / Pattern / Costar 等）或删
 

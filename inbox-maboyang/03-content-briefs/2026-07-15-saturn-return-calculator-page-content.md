@@ -6,7 +6,7 @@ version: v3.0
 优先级: P0
 对应实验: 实验三（Saturn Return 内容矩阵）
 当前页面: https://www.astrologywiki.com/en/saturn-return-calculator
-依据规范: inbox/00-inbox/2026-07-09-工具落地页设计规范-sop-v1.0.md
+依据规范: inbox-maboyang/00-inbox/2026-07-09-工具落地页设计规范-sop-v1.0.md
 状态: 已上线
 上线时间: 2026-07-16 11:40 Asia/Shanghai
 生产 URL: https://www.astrologywiki.com/en/saturn-return-calculator
@@ -471,6 +471,6 @@ Find your natal Moon sign and understand how it shapes your emotional patterns a
 
 ---
 
-*文件：inbox/03-content-briefs/2026-07-15-saturn-return-calculator-page-content.md*
+*文件：inbox-maboyang/03-content-briefs/2026-07-15-saturn-return-calculator-page-content.md*
 *版本：v3.1 | 2026-07-15（修复：FAQPage schema 补齐至10条；验收清单条数更正；区块4各H3补充内容约150词至2000词以上；星座表加引导语）*
 *关联：2026-07-15-saturn-return-scene-keywords.md*

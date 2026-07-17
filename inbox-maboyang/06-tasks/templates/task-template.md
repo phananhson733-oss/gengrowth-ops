@@ -16,7 +16,7 @@ aliases:
 
 ## 用法
 
-1. 复制本文件到 `inbox/06-tasks/tasks/`。
+1. 复制本文件到 `inbox-maboyang/06-tasks/tasks/`。
 2. 按 `YYYY-MM-DD-<topic>-task.md` 重命名。
 3. 填写一条主任务和下面各字段。
 

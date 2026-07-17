@@ -1,11 +1,11 @@
 name: Dispatch Inbox
 
-# 什么时候触发：只要 main 分支的 inbox/ 目录有变化就跑
+# 什么时候触发：只要 main 分支的 inbox-maboyang/ 目录有变化就跑
 on:
   push:
     branches: [main]
     paths:
-      - "inbox/**"
+      - "inbox-maboyang/**"
 
 # 给这个 Action 的权限（最小化）
 permissions:
@@ -42,9 +42,9 @@ jobs:
           ZEROS='0000000000000000000000000000000000000000'
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "$ZEROS" ]; then
             # 第一次 push 或无法 diff: 退到看最近一个 commit 的变更
-            FILES=$(git diff --name-only HEAD~1 HEAD -- 'inbox/' 2>/dev/null || git ls-files 'inbox/')
+            FILES=$(git diff --name-only HEAD~1 HEAD -- 'inbox-maboyang/' 2>/dev/null || git ls-files 'inbox-maboyang/')
           else
-            FILES=$(git diff --name-only "$BEFORE" "$AFTER" -- 'inbox/' 2>/dev/null || echo "")
+            FILES=$(git diff --name-only "$BEFORE" "$AFTER" -- 'inbox-maboyang/' 2>/dev/null || echo "")
           fi
           echo "files<<EOF" >> $GITHUB_OUTPUT
           echo "$FILES" >> $GITHUB_OUTPUT

@@ -5,7 +5,7 @@ version: v1.0
 status: 待开发排期
 owner: Ma Boyang
 优先级: P0（影响实验二数据有效性）
-依据文件: inbox/00-inbox/2026-07-09-工具站内容转化设计洞察.md
+依据文件: inbox-maboyang/00-inbox/2026-07-09-工具站内容转化设计洞察.md
 ---
 
 # AstrologyWiki CTA 架构优化需求 | v1.0
@@ -590,6 +590,6 @@ AstrologyWiki 的 CTA 文案与付费软件不同，不用折扣驱动，而用�
 
 ---
 
-*文件：inbox/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md*
+*文件：inbox-maboyang/00-inbox/2026-07-09-astrologywiki-cta架构优化需求.md*
 *版本：v1.3 | 2026-07-10（补充模块 K：左下角 Ask AI about AstrologyWiki 面板）*
 *下次更新：P0 模块上线后，根据 GA4 数据调整文案和触发逻辑*

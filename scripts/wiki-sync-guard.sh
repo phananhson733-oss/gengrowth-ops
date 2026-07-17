@@ -69,12 +69,12 @@ RUN="${GITHUB_RUN_ID:-unknown}"
   echo "## 怎么办"
   echo
   echo "- 如果这些修改重要 → **去 \`xdawayer/gengrowth-wiki\` 提 PR**, 让改动从源头流过来"
-  echo "- 如果是临时草稿 → 移到 \`inbox/\` 下保留, 或直接放弃"
+  echo "- 如果是临时草稿 → 移到 \`inbox-maboyang/\` 下保留, 或直接放弃"
   echo "- 如果是 ops 独有内容 → 放在非同步目录 (\`onboarding/\`, \`templates/\`)"
   echo
   echo "## 设计原则"
   echo
-  echo "ops 是运营视图, **wiki 是真相源**。inbox/ 之外的内容以 wiki 为准。"
+  echo "ops 是运营视图, **wiki 是真相源**。inbox-maboyang/ 之外的内容以 wiki 为准。"
   echo
   echo "> Run: https://github.com/${REPO}/actions/runs/${RUN}"
 } > "$OUT"

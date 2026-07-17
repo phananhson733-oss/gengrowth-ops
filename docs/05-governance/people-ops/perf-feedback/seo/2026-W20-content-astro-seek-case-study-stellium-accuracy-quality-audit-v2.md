@@ -17,7 +17,7 @@ tags:
 aliases:
   - 2026-W20 Astro-Seek 双轨重审
 source:
-  - "/Users/wzb/Documents/gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md"
+  - "/Users/wzb/Documents/gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md"
 period: 2026-W20
 doc_type: content-piece
 product_tier: experimental
@@ -41,7 +41,7 @@ synced_to_ops: null
 
 # SEO 输出质量评审 — Astro-Seek Case Study: Precision Data vs. The "Pretty Chart" Trap
 
-**评审对象**：`gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（115 行英文 blog/case-study）
+**评审对象**：`gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`（115 行英文 blog/case-study）
 **评审依据版本**：rubric v0.1 + anchor **v0.2-part-clarified** + 价值观 v1.0
 **Agent 版本**：v0.3.3（inline）
 **模式**：Lite
@@ -287,7 +287,7 @@ cross_check_request:
   ask_second_llm:
     llm: codex
     prompt_hint: "独立按 v0.3 rubric 评 Astro_Seek blog，重点验证：P0.3 AI 搬运 6 类信号扫描；P0.2 experimental tier 规则应用；❓ 项数 vs codex 视角差异。不参考 claude 结论。"
-    target_path: gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md
+    target_path: gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md
   background_task: b2gyq2zo5
 ```
 
@@ -335,7 +335,7 @@ cross_check_request:
 
 ## 关联文件
 
-- 评审对象：`/Users/wzb/Documents/gengrowth-ops/inbox/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`
+- 评审对象：`/Users/wzb/Documents/gengrowth-ops/inbox-maboyang/内容创作/blog/Astro_Seek_Case_Study_Stellium_Accuracy.md`
 - 评审标尺：`docs/05-governance/people-ops/policies/2026-05-11-seo-output-quality-rubric.md` v0.1
 - 战略锚点：`docs/05-governance/strategic-anchors/gengrowth-capability-anchor.md` v0.2-part-clarified
 - 上次评审（v0.2 模板，已澄清 ❓ 1）：`docs/05-governance/people-ops/perf-feedback/seo/2026-W20-content-astro-seek-case-study-stellium-accuracy-quality-audit.md`

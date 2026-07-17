@@ -5,7 +5,7 @@ updated: 2026-07-08
 status: v5
 适用文件: seo-pipeline-sop-v2.3.md / blog优化更新规范-v1.0.md
 来源: unifab.ai 全站多页面爬取分析
-参考文档: inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md
+参考文档: inbox-maboyang/03-content-briefs/2026-07-08-unifab-seo-分析报告.md
 ---
 
 # SEO SOP 升级补丁 — unifab.ai 竞品学习
@@ -553,7 +553,7 @@ unifab 在工具页主动列出限制条件，而不是回避。
 
 ---
 
-*文件：inbox/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md*
+*文件：inbox-maboyang/03-content-briefs/2026-07-07-seo-sop-升级补丁-unifab学习.md*
 *版本：v5 | 更新于 2026-07-08*
-*参考：inbox/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
+*参考：inbox-maboyang/03-content-briefs/2026-07-08-unifab-seo-分析报告.md*
 *合并目标：下次 SOP 大版本更新时并入 v2.4*

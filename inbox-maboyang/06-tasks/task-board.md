@@ -17,8 +17,8 @@ aliases:
 
 # Task 协同看板
 
-> 本看板聚合 `inbox/06-tasks/tasks/` 下的所有任务。
-> （v2.0：从只读镜像目录 `task-collab/` 迁入 `inbox/`，避免 wiki sync 覆盖导致的冲突。）
+> 本看板聚合 `inbox-maboyang/06-tasks/tasks/` 下的所有任务。
+> （v2.0：从只读镜像目录 `task-collab/` 迁入 `inbox-maboyang/`，避免 wiki sync 覆盖导致的冲突。）
 
 ## 状态约定
 
@@ -30,7 +30,7 @@ aliases:
 ## 待开始
 
 ```tasks
-folder includes inbox/06-tasks/tasks
+folder includes inbox-maboyang/06-tasks/tasks
 status.type is TODO
 sort by due
 sort by priority reverse
@@ -39,7 +39,7 @@ sort by priority reverse
 ## 进行中
 
 ```tasks
-folder includes inbox/06-tasks/tasks
+folder includes inbox-maboyang/06-tasks/tasks
 status.type is IN_PROGRESS
 sort by due
 ```
@@ -47,7 +47,7 @@ sort by due
 ## 已逾期
 
 ```tasks
-folder includes inbox/06-tasks/tasks
+folder includes inbox-maboyang/06-tasks/tasks
 not done
 due before today
 sort by due
@@ -56,7 +56,7 @@ sort by due
 ## 未来 7 天到期
 
 ```tasks
-folder includes inbox/06-tasks/tasks
+folder includes inbox-maboyang/06-tasks/tasks
 not done
 due before in 7 days
 sort by due
@@ -65,7 +65,7 @@ sort by due
 ## 本周完成
 
 ```tasks
-folder includes inbox/06-tasks/tasks
+folder includes inbox-maboyang/06-tasks/tasks
 done
 done after start of this week
 sort by done reverse

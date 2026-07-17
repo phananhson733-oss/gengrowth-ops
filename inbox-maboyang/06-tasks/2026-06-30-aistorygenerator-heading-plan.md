@@ -175,7 +175,7 @@ H2: Related tools（横向内链至同类工具，见下方说明）
 
 ---
 
-*文件关联：inbox/06-tasks/2026-06-29-pathB-launch-action-plan.md*
+*文件关联：inbox-maboyang/06-tasks/2026-06-29-pathB-launch-action-plan.md*
 *关键词数据来源：aistorygenerator.work - 工作表1.csv（下载文件夹）*
 
 ---
