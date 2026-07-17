@@ -169,3 +169,4 @@ updated: 2026-07-17
 | 2026-07-17 | PG-WDIF-002 | what-is-my-love-language | What Is My Love Language | marcus-orion | https://www.astrologywiki.com/en/wiki/what-is-my-love-language | published |
 | 2026-07-17 | PG-WDIN-001 | what-do-i-need-to-let-go-of | What Do I Need To Let Go Of | marcus-orion | https://www.astrologywiki.com/en/wiki/what-do-i-need-to-let-go-of | published |
 | 2026-07-17 | PG-MYTH-005 | elvis-birth-chart | Elvis Birth Chart | elena-vane | https://www.astrologywiki.com/en/wiki/elvis-birth-chart | published |
+| 2026-07-17 | PG-TERM-010 | birth-chart-interpretation | Birth Chart Interpretation | marcus-orion | https://www.astrologywiki.com/en/wiki/birth-chart-interpretation | published |
