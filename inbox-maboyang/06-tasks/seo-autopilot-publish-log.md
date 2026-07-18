@@ -181,3 +181,4 @@ updated: 2026-07-18
 | 2026-07-18 | PG-NAKSH-021 | moon-in-cancer | Moon In Cancer | aditi-sharma | https://www.astrologywiki.com/en/wiki/moon-in-cancer | published |
 | 2026-07-18 | PG-TRANS-024 | saturn-return-in-aries | Saturn Return In Aries | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-aries | published |
 | 2026-07-18 | PG-HEAL-006 | jupiter-in-cancer | Jupiter In Cancer | julian-thorne | https://www.astrologywiki.com/en/wiki/jupiter-in-cancer | published |
+| 2026-07-18 | PG-TRANS-025 | saturn-return-in-taurus | Saturn Return In Taurus | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-taurus | published |
