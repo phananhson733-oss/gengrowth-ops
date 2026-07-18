@@ -464,13 +464,15 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月18日 (周六) - 待写作
-**状态**：`等待输出` (自动补充选题，共 6 篇)
+**状态**：`等待输出` (自动补充选题，共 7 篇)
 - [ ] `PG-TRANS-024` saturn return in aries
 - [ ] `PG-TRANS-025` saturn return in taurus
 - [ ] `PG-MOON-009` how do i stop burnout
 - [ ] `PG-NAKSH-021` moon in cancer
 - [ ] `PG-HEAL-006` jupiter in cancer
 - [x] `PG-CELEB-059` Tom Brady birth chart
+
+- [ ] `PG-FE3P-001` france england 3rd place match astrology prediction
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
