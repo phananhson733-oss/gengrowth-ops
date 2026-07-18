@@ -467,7 +467,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 7 篇)
 - [ ] `PG-TRANS-024` saturn return in aries
 - [ ] `PG-TRANS-025` saturn return in taurus
-- [ ] `PG-MOON-009` how do i stop burnout
+- [x] `PG-MOON-009` how do i stop burnout
 - [ ] `PG-NAKSH-021` moon in cancer
 - [ ] `PG-HEAL-006` jupiter in cancer
 - [x] `PG-CELEB-059` Tom Brady birth chart
