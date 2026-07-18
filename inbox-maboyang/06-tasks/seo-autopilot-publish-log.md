@@ -175,3 +175,4 @@ updated: 2026-07-18
 | 2026-07-17 | PG-TRANS-023 | saturn-return-in-cancer | Saturn Return In Cancer | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer | published |
 | 2026-07-17 | PG-WC-052 | venus-in-gemini | Venus In Gemini | marcus-orion | https://www.astrologywiki.com/en/wiki/venus-in-gemini | published |
 | 2026-07-18 | PG-CELEB-059 | tom-brady-birth-chart | Tom Brady Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/tom-brady-birth-chart | published |
+| 2026-07-18 | PG-MOON-009 | how-do-i-stop-burnout | How Do I Stop Burnout | marcus-orion | https://www.astrologywiki.com/en/wiki/how-do-i-stop-burnout | published |
