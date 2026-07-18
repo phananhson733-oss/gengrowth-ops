@@ -466,7 +466,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月18日 (周六) - 待写作
 **状态**：`等待输出` (自动补充选题，共 7 篇)
 - [x] `PG-TRANS-024` saturn return in aries
-- [ ] `PG-TRANS-025` saturn return in taurus
+- [x] `PG-TRANS-025` saturn return in taurus
 - [x] `PG-MOON-009` how do i stop burnout
 - [x] `PG-NAKSH-021` moon in cancer
 - [x] `PG-HEAL-006` jupiter in cancer
