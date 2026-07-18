@@ -469,7 +469,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-TRANS-025` saturn return in taurus
 - [x] `PG-MOON-009` how do i stop burnout
 - [x] `PG-NAKSH-021` moon in cancer
-- [ ] `PG-HEAL-006` jupiter in cancer
+- [x] `PG-HEAL-006` jupiter in cancer
 - [x] `PG-CELEB-059` Tom Brady birth chart
 
 - [x] `PG-FE3P-001` france england 3rd place match astrology prediction
