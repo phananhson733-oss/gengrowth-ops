@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-17
+updated: 2026-07-18
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -174,3 +174,4 @@ updated: 2026-07-17
 | 2026-07-17 | PG-TRANS-022 | saturn-return-age-27 | Saturn Return Age 27 | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-age-27 | published |
 | 2026-07-17 | PG-TRANS-023 | saturn-return-in-cancer | Saturn Return In Cancer | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-in-cancer | published |
 | 2026-07-17 | PG-WC-052 | venus-in-gemini | Venus In Gemini | marcus-orion | https://www.astrologywiki.com/en/wiki/venus-in-gemini | published |
+| 2026-07-18 | PG-CELEB-059 | tom-brady-birth-chart | Tom Brady Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/tom-brady-birth-chart | published |
