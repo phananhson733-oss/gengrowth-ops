@@ -470,7 +470,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-MOON-009` how do i stop burnout
 - [ ] `PG-NAKSH-021` moon in cancer
 - [ ] `PG-HEAL-006` jupiter in cancer
-- [ ] `PG-CELEB-059` Tom Brady birth chart
+- [x] `PG-CELEB-059` Tom Brady birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
