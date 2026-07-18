@@ -178,3 +178,4 @@ updated: 2026-07-18
 | 2026-07-18 | PG-MOON-009 | how-do-i-stop-burnout | How Do I Stop Burnout | marcus-orion | https://www.astrologywiki.com/en/wiki/how-do-i-stop-burnout | published |
 | 2026-07-18 | PG-FE3P-001 | france-england-3rd-place-match-astrology-prediction | France England 3rd Place Match Astrology Prediction | marcus-orion | https://www.astrologywiki.com/en/wiki/france-england-3rd-place-match-astrology-prediction | published |
 | 2026-07-18 | PG-NAKSH-020 | moon-in-capricorn | Moon In Capricorn | aditi-sharma | https://www.astrologywiki.com/en/wiki/moon-in-capricorn | published |
+| 2026-07-18 | PG-NAKSH-021 | moon-in-cancer | Moon In Cancer | aditi-sharma | https://www.astrologywiki.com/en/wiki/moon-in-cancer | published |
