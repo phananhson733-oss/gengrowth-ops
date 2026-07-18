@@ -457,7 +457,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-023` saturn return in cancer
 - [x] `PG-NODE-014` am i on the right path
 - [x] `PG-WC-052` venus in gemini
-- [ ] `PG-NAKSH-020` moon in capricorn
+- [x] `PG-NAKSH-020` moon in capricorn
 
 - [ ] `PG-WC-053` argentina vs spain world cup final astrology 2026
 - [ ] `PG-WC-054` messi vs yamal astrology
