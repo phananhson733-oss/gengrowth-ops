@@ -186,3 +186,4 @@ updated: 2026-07-20
 | 2026-07-20 | PG-AIMB-001 | am-i-meant-to-be-my-own-boss | Am I Meant To Be My Own Boss | marcus-orion | https://www.astrologywiki.com/en/wiki/am-i-meant-to-be-my-own-boss | published |
 | 2026-07-20 | PG-CELEB-061 | leandro-paredes-birth-chart | Leandro Paredes Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/leandro-paredes-birth-chart | published |
 | 2026-07-20 | PG-CELEB-060 | ferran-torres-birth-chart | Ferran Torres Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/ferran-torres-birth-chart | published |
+| 2026-07-20 | PG-NODE-015 | mars-in-scorpio | Mars In Scorpio | julian-thorne | https://www.astrologywiki.com/en/wiki/mars-in-scorpio | published |
