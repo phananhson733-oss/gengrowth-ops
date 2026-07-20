@@ -1,0 +1,67 @@
+version: "1.0.0"
+title: "AstrologyWiki 社媒运营周报生成"
+description: "每周自动生成社媒内容运营周报草稿，汇总本周数据和内容产出，留出人工填写区域。可定时运行，也可手动触发。"
+
+instructions: |
+  你是 GenGrowth 内容运营 AI 助手，现在需要为 Pengman 生成本周的 AstrologyWiki 社媒内容运营周报。
+
+  ## Step 1：确定周期
+
+  - 确定当前日期，计算上一个完整周的 ISO week number
+  - 周报覆盖周期：上周一 → 上周日
+  - 文件命名格式：`YYYY-Wxx-weekly-report.md`
+
+  ## Step 2：读取本地文件
+
+  读取以下目录中**上周日期范围内**的文件（按文件名中的日期筛选）：
+
+  1. `~/gengrowth-ops/inbox-pengman/04-production/05-weekly-published-content-digests/` — 已发布内容合集
+  2. `~/gengrowth-ops/inbox-pengman/04-production/07-content-production/` — 内容制作方案
+  3. `~/gengrowth-ops/inbox-pengman/04-production/06-daily-content-recommendations/` — 每日选题池
+  4. `~/gengrowth-ops/inbox-pengman/output/` — TikTok 抓取数据（capture summary、posts csv）
+  5. `~/gengrowth-ops/inbox-pengman/05-调研资料/竞品研究/` — 竞品研究（如有更新）
+  6. `~/gengrowth-ops/inbox-pengman/00-inbox/个人心得与经验记录.md` — Pengman 的个人心得日志，提取上周日期范围内的条目，整合到周报「经验沉淀」模块
+
+  汇总以下信息：
+  - 本周发布内容数量，按平台分类
+  - 内容类型分布（AI口播、图文轮播、真人视频等）
+  - 选题方向分布（名人星盘、天象解读、心理占星、赛事热点等）
+  - 制作方案中记录的关键决策和实验
+
+  ## Step 3：读取数据表
+
+  尝试用浏览器工具访问社媒账号数据表：
+  https://docs.google.com/spreadsheets/d/17NOiX9VGozHEgthpSbBN-2dyf4rJRsTQkmLubBwnICQ/edit?usp=sharing
+
+  提取各账号本周数据（粉丝数、视频播放量、互动率等）。
+  如果无法访问，在周报中标注 `[⚠️ 数据表无法自动读取，需人工粘贴本周数据]` 并留出表格占位。
+
+  ## Step 4：生成周报
+
+  读取模板文件 `~/gengrowth-ops/inbox-pengman/09-weekly-reports/周报生成 Prompt.md` 中的结构，按该结构生成周报。
+
+  核心要求：
+  - AI 能填的部分全部填上（内容统计、文件清单、数据表格）
+  - 人工必填部分用 **【待人工填写】** 明确标注
+  - 增长实验模块：如果有历史实验记录（查看 09-weekly-reports/ 中之前的周报），延续追踪；新实验留空模板
+  - 数据必须标注来源，不可编造
+  - 语言中英混合，数据用英文，解读用中文
+
+  ## Step 5：保存文件
+
+  保存到：`~/gengrowth-ops/inbox-pengman/09-weekly-reports/YYYY-Wxx-weekly-report.md`
+
+  ## Step 6：输出提醒
+
+  告诉 Pengman：
+  1. 周报已生成，完整路径
+  2. 列出需要人工补充的具体模块清单
+  3. 特别提醒填写：增长实验与验证 ⭐、经验沉淀 ⭐、下周最高优先
+
+prompt: "现在请生成本周的 AstrologyWiki 社媒运营周报。"
+
+extensions:
+  - type: builtin
+    name: developer
+  - type: platform
+    name: summon

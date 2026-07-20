@@ -1,7 +1,7 @@
 ---
 content_id: aw-scorpio-psychology-ai-host-03
 experiment_id: aw-scorpio-psychology-ai-host-03-exp-01
-experiment_status: selected_confirmed
+experiment_status: closed
 model_channel: claude_single
 project: astrologywiki
 type: content-production
@@ -12,7 +12,13 @@ content_format: 9:16 AI 口播视频（沿用现有 AI 主播 + 深色背景 + �
 series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude v1，经 Pengman 确认采用，无异议
-content_stage: 待制作
+content_stage: 已排期
+production_status: 已制作完成
+scheduled_at: "2026-07-20T07:30:00-07:00"
+scheduled_timezone: America/Los_Angeles
+scheduled_location: Seattle
+scheduled_at_beijing: "2026-07-20T22:30:00+08:00"
+published_url: 待实际发布后回填
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W30 本周已发布内容合集]]"
 decision: 待发布后观察
 next_test: 保持主播、时长、画面和字幕体系基本不变，只测试 access / boundary Hook；与前两条在相同 24/72 小时窗口比较播放、留存、完播、评论和分享
@@ -108,7 +114,19 @@ They didn't leave. They just stopped letting you in.
 - `experiment_id`：`aw-scorpio-psychology-ai-host-03-exp-01`。
 - `package_version`：`v1`。
 - Claude v1 候选已确认采用，Pengman 无异议。
-- `script_status: 已确认`；`content_stage: 待制作`。
+- Pengman 于 2026-07-20 确认视频已制作完成，并定时在西雅图时间 `2026-07-20 07:30 PDT` 发布；内部换算为北京时间 `2026-07-20 22:30`。
+- `script_status: 已确认`；`content_stage: 已排期`；`production_status: 已制作完成`。
+- 排期不等于实际发布；拿到 TikTok permalink 前不标记“已发布”，也不计入 W30 发布数量。
 - 候选 Prompt 存档：
   - [[inbox-pengman/04-production/07-content-production/2026-07-20 Scorpio Psychology AI口播 第三条 Claude Prompt]]
 
+## 排期记录
+
+| 字段 | 当前值 |
+|---|---|
+| 制作状态 | 已制作完成 |
+| 排期平台 | TikTok / `@miraaastrology` |
+| 西雅图时间 | 2026-07-20 07:30 PDT |
+| 北京时间 | 2026-07-20 22:30 CST |
+| 实际发布直链 | 待实际发布后回填 |
+| 周报处理 | 暂不计入发布数量；获取 permalink 后同步 W30 |
