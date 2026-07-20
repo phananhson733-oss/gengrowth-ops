@@ -483,7 +483,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-AIMB-001` am i meant to be my own boss
 - [ ] `PG-NODE-015` mars in scorpio
 - [ ] `PG-MAHADASHA-007` venus in taurus
-- [ ] `PG-CELEB-061` leandro paredes birth chart
+- [x] `PG-CELEB-061` leandro paredes birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
