@@ -494,14 +494,3 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TERM-010` birth chart interpretation
 
 > `PG-WDIF-002` what is my love language 已在本轮标准队列完成 author、预览、三维审核、Codex 审核并合并，不重复 author。
-
----
-## ⚪ 7月20日（强制写作队列）
-**状态**：`等待输出`（选题登记已补齐 7 行；新增 cluster：`am_i_my_own_boss`）
-- [ ] `PG-CELEB-060` Ferran Torres birth chart
-- [ ] `PG-TRANS-026` saturn return career change
-- [ ] `PG-TRANS-027` surviving saturn return
-- [ ] `PG-AIMB-001` am i meant to be my own boss
-- [ ] `PG-NODE-015` mars in scorpio
-- [ ] `PG-MAHADASHA-007` venus in taurus
-- [ ] `PG-CELEB-061` leandro paredes birth chart
