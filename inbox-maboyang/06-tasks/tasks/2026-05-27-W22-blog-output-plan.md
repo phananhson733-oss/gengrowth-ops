@@ -481,7 +481,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-TRANS-026` saturn return career change
 - [ ] `PG-TRANS-027` surviving saturn return
 - [x] `PG-AIMB-001` am i meant to be my own boss
-- [ ] `PG-NODE-015` mars in scorpio
+- [x] `PG-NODE-015` mars in scorpio
 - [ ] `PG-MAHADASHA-007` venus in taurus
 - [x] `PG-CELEB-061` leandro paredes birth chart
 
