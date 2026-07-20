@@ -114,16 +114,16 @@ Check your Moon sign and get your full Moon report in bio.
 
 ## 反馈分类与 Brief 回退
 
-| 判断项 | 结论 |
-|---|---|
-| 反馈级别 | **L4 内容角度纠偏** |
-| 为什么不是普通润色 | 原稿把内容承诺从“直接指出 toxic trait”改成“解释自我保护方式”，改变了用户问题、核心洞察和 Hook 方向 |
-| 是否退回 Brief | 是；已修订 `user_problem / content_goal / content_promise / core_insight / hook_direction / constraints / next_test` |
-| 是否沿用 `content_id` | 是，继续使用 `aw-moon-toxic-traits-04` |
-| 沿用理由 | 仍是同一系列第 4 集、同样三个 Moon Sign；新版本直接替换尚未生产发布的错误方向，两个版本不会分别生产或发布 |
-| 规则归属 | Moon Sign Toxic Traits 系列定位和内容承诺 |
-| 是否为个人表达偏好 | 否 |
-| 是否进入个人风格库 | 否 |
+| 判断项               | 结论                                                                                                              |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- |
+| 反馈级别              | **L4 内容角度纠偏**                                                                                                   |
+| 为什么不是普通润色         | 原稿把内容承诺从“直接指出 toxic trait”改成“解释自我保护方式”，改变了用户问题、核心洞察和 Hook 方向                                                    |
+| 是否退回 Brief        | 是；已修订 `user_problem / content_goal / content_promise / core_insight / hook_direction / constraints / next_test` |
+| 是否沿用 `content_id` | 是，继续使用 `aw-moon-toxic-traits-04`                                                                                |
+| 沿用理由              | 仍是同一系列第 4 集、同样三个 Moon Sign；新版本直接替换尚未生产发布的错误方向，两个版本不会分别生产或发布                                                     |
+| 规则归属              | Moon Sign Toxic Traits 系列定位和内容承诺                                                                                |
+| 是否为个人表达偏好         | 否                                                                                                               |
+| 是否进入个人风格库         | 否                                                                                                               |
 
 ## 上一期系列结构核对
 
