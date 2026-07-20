@@ -1,0 +1,3 @@
+# Local TikTok capture outputs; never commit generated data.
+*
+!.gitignore

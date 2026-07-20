@@ -1,6 +1,6 @@
 {
-  "run_id": "813c2073-5a5c-4496-bb6e-1e7b5336f747",
-  "captured_at": "2026-07-20T06:37:10.383Z",
+  "run_id": "e72153ae-e5ba-48cf-8d55-a573880a9544",
+  "captured_at": "2026-07-20T06:48:58.046Z",
   "capture_date": "2026-07-20",
   "accounts_requested": [
     "astrologywiki",
@@ -22,16 +22,16 @@
     "miraaastrology": 3,
     "filestarsx": 3
   },
-  "detail_complete_posts": 18,
-  "partial_posts": 2,
+  "detail_complete_posts": 20,
+  "partial_posts": 0,
   "errors": [],
   "local_history": {
-    "run_id": "813c2073-5a5c-4496-bb6e-1e7b5336f747",
+    "run_id": "e72153ae-e5ba-48cf-8d55-a573880a9544",
     "database_path": "/Users/pengman/gengrowth-ops/inbox-pengman/output/tiktok_metrics.sqlite",
     "account_snapshot_rows_for_date": 4,
     "post_snapshot_rows_for_date": 20,
     "unique_posts_total": 20,
-    "partial_count": 2,
+    "partial_count": 0,
     "failed_count": 0
   },
   "google_sheets": {
