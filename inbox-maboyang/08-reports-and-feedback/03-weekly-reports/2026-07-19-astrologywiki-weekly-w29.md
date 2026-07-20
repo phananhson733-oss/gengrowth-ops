@@ -233,12 +233,30 @@ aistorygenerator.work 外链冷启动实验进入第 3 周，M1 正式评估节�
 
 ### 模块四：选题研究与趋势词
 
-W29 完成 7/17 当日趋势词研究，三词推荐：
-- `christopher nolan birth chart`（The Odyssey 7/17 上映，Leo，10万+趋势）
-- `caitlin clark birth chart`（Aquarius，WNBA 2万+趋势）
-- `jackson suber birth chart`（英国公开赛领先，Libra，10万+趋势）
+**世界杯赛事线（已验证跑通）**
 
-世界杯决赛线另推荐 `ferran torres birth chart` 作为 W30 即发词。
+W29 世界杯内容线共输出 4 篇赛事占星文，两篇半决赛预测文本周进入 GA4 Top Pages（Spain vs France / England vs Argentina），验证了"赛前24h发布 + 赛事占星预测角度"的选题策略有效性。
+
+| 文章 | 角色 | 结果 |
+|------|------|------|
+| Spain vs France astrology | 半决赛预测文 | GA4 Top 1，GSC 9 点击 / 9.1% CTR |
+| England vs Argentina astrology prediction | 半决赛预测文 | GA4 Top 2，GSC 4 点击 / 13.9% CTR |
+| Argentina vs Spain world cup final astrology | 决赛文 | 7/19 发布，待观测 |
+| Messi vs Yamal astrology | 决赛 Cancer vs Cancer 角度 | 7/19 发布，待观测 |
+
+**7/17 趋势词研究（读取 CSV + 网络搜证 + 选题登记表去重）**
+
+读取 `trending_US_1d_20260717-0508.csv`（332条趋势），逐一比对选题登记表（296条，248已发布），完成去重后输出三个可执行关键词：
+
+| 关键词 | 热度 | 星座钩子 | 时效窗口 |
+|--------|------|---------|---------|
+| `christopher nolan birth chart` | 10万+（The Odyssey 7/17上映，96% RT）| Leo ☀️ 1970/7/30 | 7/17–7/21 |
+| `caitlin clark birth chart` | 2万+（WNBA/奥运话题持续）| Aquarius ☀️ 2002/1/22 | 持续 |
+| `jackson suber birth chart` | 10万+（英国公开赛 Day1 领跑）| Libra ☀️ 1999/10/18 | 7/17–7/20 |
+
+**决赛后即发词（7/19 西班牙 1-0 夺冠）**
+
+`ferran torres birth chart`：2000年2月29日 = Pisces ♓，替补入球决定世界杯的闰年鱼座叙事，当前竞争近零，时效窗口 24–48h。
 
 ---
 
@@ -282,12 +300,12 @@ W29 完成 7/17 当日趋势词研究，三词推荐：
 ### ⭐ 最高优先：两件卡点必须推进
 
 - [ ] **内链 P0 Bug 修复**：192 篇文章 CTA 目标从 `/en/wiki/how-to-read-birth-chart` → `/en/birth-chart-calculator`，批量替换，工作量极小但影响全站转化
-- [ ] **GA4 tool_cta_click + oracle_cta_click 埋点上线**：实验三/四 Week 0 前置条件，SPA 路由已修复，埋点是现在唯一阻塞实验验收的技术项
+- [x] **GA4 tool_cta_click + oracle_cta_click 埋点上线**：实验三/四 Week 0 前置条件，SPA 路由已修复，埋点是现在唯一阻塞实验验收的技术项
 
 ### 内容
 
 - [ ] **Lamine Yamal zodiac sign Title/Description 优化**：1,547 曝光 / 0.1% CTR，优先于任何新文章生产，目标 CTR ≥ 3%
-- [ ] **Ferran Torres birth chart（立即发）**：替补决定世界杯的 Pisces，竞争接近于零，决赛结束 24h 内是流量峰值窗口
+- [x] **Ferran Torres birth chart（立即发）**：替补决定世界杯的 Pisces，竞争接近于零，决赛结束 24h 内是流量峰值窗口
 - [ ] **Argentina vs Spain / Messi vs Yamal 两篇决赛文章**：时效窗口今明两天，W30 第一天即发
 - [ ] **内容执行表 7/20–7/26**：实验三 / 实验四 / 实验五 / Oracle 矩阵持续滚动（约 35 篇）
 - [ ] **实验二-B 验收**：`lionel messi zodiac sign` 优化已于 7/7 上线，W30 读取 GSC 数据对比优化前基线（1,445 曝光 / 0.9% CTR），目标 CTR ≥ 1.35%
