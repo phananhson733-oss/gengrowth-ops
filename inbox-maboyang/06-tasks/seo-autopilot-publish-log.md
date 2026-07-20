@@ -187,3 +187,4 @@ updated: 2026-07-20
 | 2026-07-20 | PG-CELEB-061 | leandro-paredes-birth-chart | Leandro Paredes Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/leandro-paredes-birth-chart | published |
 | 2026-07-20 | PG-CELEB-060 | ferran-torres-birth-chart | Ferran Torres Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/ferran-torres-birth-chart | published |
 | 2026-07-20 | PG-NODE-015 | mars-in-scorpio | Mars In Scorpio | julian-thorne | https://www.astrologywiki.com/en/wiki/mars-in-scorpio | published |
+| 2026-07-20 | PG-TRANS-027 | surviving-saturn-return | Surviving Saturn Return | marcus-orion | https://www.astrologywiki.com/en/wiki/surviving-saturn-return | published |
