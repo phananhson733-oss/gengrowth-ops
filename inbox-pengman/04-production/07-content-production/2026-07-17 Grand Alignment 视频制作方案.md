@@ -9,11 +9,15 @@ content_format: 9:16 非真人天象解释短视频（The Pattern 模式）
 series: This Week's Sky
 script_status: 已确认
 confirmed_script_version: Claude V1，经 Pengman 确认
-content_stage: 待发布
+content_stage: 已发布
 scheduled_publish_at: "2026-07-18T06:00:00-07:00"
+published_at: "2026-07-18T06:00:00-07:00"
+published_at_beijing: "2026-07-18T21:00:00+08:00"
+published_urls:
+  - "https://www.tiktok.com/@astrologywiki/video/7663445797949721869"
 status: draft
 owner: Pengman
-updated: 2026-07-17
+updated: 2026-07-18
 ---
 
 # Grand Alignment · July 19 — 视频制作方案
@@ -29,7 +33,7 @@ updated: 2026-07-17
 - **CTA**：无 CTA；落地页仅备用：https://www.astrologywiki.com/en/birth-chart
 - **参考**：https://www.tiktok.com/@thepattern/video/7213447863840410922；[[inbox-pengman/04-production/07-content-production/2026-07-13 Cancer New Moon 视频制作方案]]。
 - **约束**：不做预测，不暗示天象决定世界事件；只描述天文事实与占星社区的理解；非真人星空视觉，时长不超过 20 秒。
-- **制作与发布**：Claude 单模型；已制作；计划于 `2026-07-18 06:00` 美国西海岸时间发布到 `@astrologywiki`。
+- **制作与发布**：Claude 单模型；已制作，并于 `2026-07-18 06:00` 美国西海岸时间发布到 `@astrologywiki`。
 
 ## 天象事实（已核实）
 

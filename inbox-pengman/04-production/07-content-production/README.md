@@ -4,7 +4,7 @@ project: astrologywiki
 type: production-index
 status: active
 owner: Pengman
-updated: 2026-07-17
+updated: 2026-07-18
 ---
 
 # 单条内容生产入口
@@ -17,7 +17,7 @@ updated: 2026-07-17
 
 | 主生产记录 | 当前状态 | 下一步 |
 |---|---|---|
-| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: 待发布`；已排期 | 按排期发布，发布后回填链接并纳入周报 |
+| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: 已发布`；周报 W29 | 继续刷新 24/48 小时公开数据，判断天象断言式 hook 的早期互动与站内承接 |
 
 ### 状态待确认
 
@@ -30,6 +30,7 @@ updated: 2026-07-17
 
 - [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 内容生产记录.md]] — `content_stage: 已发布`，周报 W29；发布链接和表现数据待补。
 - [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录.md]] — `content_stage: 已发布`，周报 W29；精确发布时间、链接和表现数据待补。
+- [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] — `content_stage: 已发布`，周报 W29；公开链接已补，继续观察 24/48 小时数据。
 - [[inbox-pengman/04-production/07-content-production/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]] — `content_stage: 已发布`，周报 W29。
 - [[inbox-pengman/04-production/07-content-production/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — `content_stage: 已发布`，周报 W29。
 - [[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]] — 已发布，周报 W29。

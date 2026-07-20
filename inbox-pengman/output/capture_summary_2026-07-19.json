@@ -1,0 +1,33 @@
+{
+  "captured_at": "2026-07-20T04:00:46.040Z",
+  "capture_date": "2026-07-19",
+  "accounts_requested": [
+    "astrologywiki",
+    "shirley527146",
+    "miraaastrology",
+    "filestarsx"
+  ],
+  "accounts_successful": [
+    "astrologywiki",
+    "shirley527146",
+    "miraaastrology",
+    "filestarsx"
+  ],
+  "account_count": 4,
+  "post_count": 19,
+  "posts_by_account": {
+    "astrologywiki": 10,
+    "shirley527146": 4,
+    "miraaastrology": 3,
+    "filestarsx": 2
+  },
+  "detail_complete_posts": 17,
+  "partial_posts": 2,
+  "errors": [],
+  "files": {
+    "xlsx": "/Users/pengman/gengrowth-ops/inbox-pengman/output/tiktok_account_data_2026-07-19.xlsx",
+    "accounts_csv": "/Users/pengman/gengrowth-ops/inbox-pengman/output/accounts_2026-07-19.csv",
+    "posts_csv": "/Users/pengman/gengrowth-ops/inbox-pengman/output/posts_2026-07-19.csv",
+    "raw_dir": "/Users/pengman/gengrowth-ops/inbox-pengman/output/raw/tiktok_2026-07-19"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "run_id": "813c2073-5a5c-4496-bb6e-1e7b5336f747",
+  "captured_at": "2026-07-20T06:37:10.383Z",
+  "capture_date": "2026-07-20",
+  "accounts_requested": [
+    "astrologywiki",
+    "shirley527146",
+    "miraaastrology",
+    "filestarsx"
+  ],
+  "accounts_successful": [
+    "astrologywiki",
+    "shirley527146",
+    "miraaastrology",
+    "filestarsx"
+  ],
+  "account_count": 4,
+  "post_count": 20,
+  "posts_by_account": {
+    "astrologywiki": 10,
+    "shirley527146": 4,
+    "miraaastrology": 3,
+    "filestarsx": 3
+  },
+  "detail_complete_posts": 18,
+  "partial_posts": 2,
+  "errors": [],
+  "local_history": {
+    "run_id": "813c2073-5a5c-4496-bb6e-1e7b5336f747",
+    "database_path": "/Users/pengman/gengrowth-ops/inbox-pengman/output/tiktok_metrics.sqlite",
+    "account_snapshot_rows_for_date": 4,
+    "post_snapshot_rows_for_date": 20,
+    "unique_posts_total": 20,
+    "partial_count": 2,
+    "failed_count": 0
+  },
+  "google_sheets": {
+    "status": "success",
+    "spreadsheet_id": "17NOiX9VGozHEgthpSbBN-2dyf4rJRsTQkmLubBwnICQ",
+    "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17NOiX9VGozHEgthpSbBN-2dyf4rJRsTQkmLubBwnICQ"
+  },
+  "files": {
+    "xlsx": "/Users/pengman/gengrowth-ops/inbox-pengman/output/tiktok_account_data_2026-07-20.xlsx",
+    "accounts_csv": "/Users/pengman/gengrowth-ops/inbox-pengman/output/accounts_2026-07-20.csv",
+    "posts_csv": "/Users/pengman/gengrowth-ops/inbox-pengman/output/posts_2026-07-20.csv",
+    "raw_dir": "/Users/pengman/gengrowth-ops/inbox-pengman/output/raw/tiktok_2026-07-20",
+    "sqlite": "/Users/pengman/gengrowth-ops/inbox-pengman/output/tiktok_metrics.sqlite"
+  }
+}

@@ -4,8 +4,8 @@
   "title": "视频格式分析（来自截图）",
   "titleGenerationStatus": "failed",
   "createdAt": 1783672705331,
-  "updatedAt": 1783672977104,
-  "lastResponseAt": 1783672977104,
+  "updatedAt": 1784513304821,
+  "lastResponseAt": 1784513304821,
   "sessionId": "019f4b2d-aef6-73a2-bdeb-8cfec050a711",
   "providerState": {
     "threadId": "019f4b2d-aef6-73a2-bdeb-8cfec050a711",
@@ -14,12 +14,12 @@
   },
   "currentNote": "inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md",
   "usage": {
-    "inputTokens": 28405,
+    "inputTokens": 28808,
     "cacheCreationInputTokens": 0,
-    "cacheReadInputTokens": 22400,
+    "cacheReadInputTokens": 2432,
     "contextWindow": 258400,
     "contextWindowIsAuthoritative": true,
-    "contextTokens": 28405,
+    "contextTokens": 28808,
     "percentage": 11,
     "model": "gpt-5.5"
   }

@@ -1,0 +1,25 @@
+{
+  "id": "conv-1784513497146-ytfy1h2wv",
+  "providerId": "codex",
+  "title": "如何把moon in aries的特质说的更委婉",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1784513497147,
+  "updatedAt": 1784514174246,
+  "lastResponseAt": 1784513517800,
+  "sessionId": "019f7d4b-2336-7f42-a7e9-621c792a0a91",
+  "providerState": {
+    "threadId": "019f7d4b-2336-7f42-a7e9-621c792a0a91",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/19/rollout-2026-07-19T19-11-44-019f7d4b-2336-7f42-a7e9-621c792a0a91.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "usage": {
+    "inputTokens": 18286,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 2432,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 18286,
+    "percentage": 7,
+    "model": "gpt-5.5"
+  }
+}

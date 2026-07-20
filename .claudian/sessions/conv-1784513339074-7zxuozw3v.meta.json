@@ -1,0 +1,26 @@
+{
+  "id": "conv-1784513339074-7zxuozw3v",
+  "providerId": "codex",
+  "title": "有人在这个视频底下评论：still waiting for something to happen我...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1784513339077,
+  "updatedAt": 1784513520601,
+  "lastResponseAt": 1784513395223,
+  "sessionId": "019f7d48-b838-7421-b754-f5079ce0f411",
+  "providerState": {
+    "threadId": "019f7d48-b838-7421-b754-f5079ce0f411",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/19/rollout-2026-07-19T19-09-05-019f7d48-b838-7421-b754-f5079ce0f411.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md",
+  "usage": {
+    "inputTokens": 19440,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 18816,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 19440,
+    "percentage": 8,
+    "model": "gpt-5.5"
+  }
+}

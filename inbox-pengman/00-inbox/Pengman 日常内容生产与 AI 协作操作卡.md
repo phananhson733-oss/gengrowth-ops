@@ -4,7 +4,7 @@ project: astrologywiki
 type: personal-reference
 status: draft
 owner: Pengman
-updated: 2026-07-17
+updated: 2026-07-19
 ---
 
 # Pengman 日常内容生产与 AI 协作操作卡
@@ -18,7 +18,7 @@ updated: 2026-07-17
 3. 用自然语言说明哪里要修改。
 4. 确认最终稿，制作并发布，再把链接或数据告诉 AI。
 
-AI 负责调查、去重、选题、账号路由、历史稿学习、写稿、修改、状态记录和发布复盘。
+AI 负责调查、去重、选题、账号路由、历史稿学习、写稿、修改、状态记录和发布复盘。当使用 Claude 出稿时，固定分工是：**Claude 负责生成和改稿；Codex 负责建档、保留旧稿、记录反馈和累积后续学习。**
 
 ## 第一步：生成今天的新选题
 
@@ -70,6 +70,41 @@ AI 会为每个可独立发布的账号版本分别建立 `content_id`、Brief �
 用于双模型比较、新账号/新形式、重要品牌内容、`L` 级制作或核心角度仍有争议的内容。
 
 AI 会先给完整 Brief，Pengman 确认核心角度后，再生成单模型或 Claude/GPT 候选。
+
+## 使用 Claude 生成具体选题或初稿
+
+如果 Pengman 希望让 Claude 生成具体选题、Hook 或初稿，不需要自己重写一大段 Prompt。选中生产卡中的内容后，只需对 Codex 说：
+
+```text
+做 A1，走 Claude 通道。
+```
+
+Codex 应自动：
+
+- 为该内容建立 `content_id`、Brief 和主生产记录；
+- 读取相关历史稿、Pengman 修改记录和上一轮 `decision / next_test`；
+- 生成一份可以直接复制给 Claude 的完整任务包；
+- 在任务包中要求 Claude 保留 v1、记录 Pengman 原始反馈、生成 v2/v3，并在确认后输出 Codex 回传包。
+
+Pengman 把任务包复制给 Claude 时，只需说：
+
+```text
+按这个任务包生成 Claude v1。
+```
+
+改稿时直接用自然语言说意见，不需要重复提醒 Claude 记录。满意后对 Claude 说：
+
+```text
+采用这版，生成 Codex 回传包。
+```
+
+将 Claude 输出的回传包粘贴给 Codex，只需说：
+
+```text
+记录并执行，进入制作。
+```
+
+Codex 负责把 Claude v1、Pengman 的原始反馈、修改版和修改差异写回同一份主生产记录。Claude 聊天不是长期事实来源；后续 AI 学习以主生产记录为准。
 
 ## 第三步：给 AI 修改意见
 
@@ -150,7 +185,9 @@ AI 将整理 `decision / next_test`，并判断是否出现新的候选偏好或
 请检查去重和历史学习样本，然后按快速通道启动生产。
 ```
 
-## 最短版：只记住五句话
+## 最短版
+
+### Codex 直接写稿时：只记住五句话
 
 ```text
 1. 给我今天的多账号生产卡，我有 2 小时。
@@ -161,3 +198,16 @@ AI 将整理 `decision / next_test`，并判断是否出现新的候选偏好或
 ```
 
 Pengman 负责选择、审美、确认和发布；AI 负责调查、组织、写稿、修改、记录和复盘。
+
+### Claude 出稿时：只记住这六句
+
+```text
+1. 给我今天的选题生产卡。
+2. 做 A1，走 Claude 通道。
+3. 按这个任务包生成 Claude v1。
+4. 【直接说修改意见】
+5. 采用这版，生成 Codex 回传包。
+6. 记录并执行，进入制作。
+```
+
+第 1、2、6 句对 Codex 说；第 3、4、5 句对 Claude 说。长任务包由 Codex 生成，Pengman 只需复制粘贴，不需要每次重写 Prompt。
