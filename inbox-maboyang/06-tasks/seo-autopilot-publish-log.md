@@ -185,3 +185,4 @@ updated: 2026-07-20
 | 2026-07-18 | PG-WC-054 | messi-vs-yamal-astrology | Messi Vs Yamal Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/messi-vs-yamal-astrology | published |
 | 2026-07-20 | PG-AIMB-001 | am-i-meant-to-be-my-own-boss | Am I Meant To Be My Own Boss | marcus-orion | https://www.astrologywiki.com/en/wiki/am-i-meant-to-be-my-own-boss | published |
 | 2026-07-20 | PG-CELEB-061 | leandro-paredes-birth-chart | Leandro Paredes Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/leandro-paredes-birth-chart | published |
+| 2026-07-20 | PG-CELEB-060 | ferran-torres-birth-chart | Ferran Torres Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/ferran-torres-birth-chart | published |
