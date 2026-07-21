@@ -487,7 +487,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月21日 (周二) - 待写作
-**状态**：`等待输出` (自动补充选题，共 10 篇)
+**状态**：`等待输出` (自动补充选题，共 11 篇)
 - [ ] `PG-TRANS-028` saturn return in gemini
 - [ ] `PG-TRANS-029` saturn return in leo
 - [x] `PG-SOLAR-003` what is my theme for this year
@@ -499,6 +499,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
 - [ ] `PG-WC-055` Thor zodiac sign
 - [ ] `PG-CELEB-063` Jennifer Lopez birth chart
+
+- [ ] `PG-CELEB-064` jang wonyoung birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
