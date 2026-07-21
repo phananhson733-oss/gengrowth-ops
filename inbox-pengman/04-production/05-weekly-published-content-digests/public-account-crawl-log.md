@@ -3,10 +3,24 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-19
+updated: 2026-07-21
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-21 自动化补核
+
+- 检查时间：北京时间 `2026-07-21 02:30` / PDT `2026-07-20 11:30`；周次为 `2026-W30`。
+- 检查范围：仓库内 `2026-07-20` TikTok 抓取 CSV/JSON、TikTok `@astrologywiki` / `@miraaastrology` / `@filestarsx` 公开列表、YouTube `@AstrologyWiki/shorts` / `/videos`、Instagram `@astrologywiki_` profile meta、X `@AstrologyWiki` profile SSR。
+- 新确认内容：
+  - `https://www.tiktok.com/@filestarsx/video/7664487396867656991`：Spain 世界杯夺冠庆祝帖，北京时间 `2026-07-20 14:06`，当前 `99 plays / 3 likes / 0 comments / 0 shares / 0 saves`。
+  - `https://www.tiktok.com/@miraaastrology/video/7664501951190600973`：Scorpio Psychology 第三条，北京时间 `2026-07-20 22:38`，当前 `216 plays / 20 likes / 1 comment / 3 shares / 4 saves`。
+- 主账号与平台刷新：
+  - TikTok `@astrologywiki` 未发现 W30 新 ID；最新仍为 `7663445797949721869`，现为 `606 plays / 21 likes / 1 comment / 1 repost / 8 saves`。
+  - YouTube 仍为 `9 Shorts + 2 videos`，未发现 W30 新 ID；最新 Shorts `ntnz_7FVvck` 当前公开 `44 views`。
+  - Instagram meta 仍为 `0 Followers / 0 Following / 5 Posts`。
+  - X SSR 仍为 `25 posts / 3 followers / 9 following`，公开 timeline 仍显示未发布。
+- 限制说明：TikTok 本轮可补公开播放与互动，但不能替代后台 reach、留存、主页访问和点击；Instagram 未补到新 shortcode；X 未吐出内容级 status；两条 W30 新内容均无 CTA，无法据此判断 SEO/PV 承接。
 
 ## 2026-07-20 自动化开周 + W29 收口
 

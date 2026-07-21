@@ -4,7 +4,7 @@ project: astrologywiki
 type: production-index
 status: active
 owner: Pengman
-updated: 2026-07-18
+updated: 2026-07-21
 ---
 
 # 单条内容生产入口
@@ -28,6 +28,8 @@ updated: 2026-07-18
 
 ### 已发布，等待周报闭环
 
+- [[inbox-pengman/04-production/07-content-production/2026-07-20 Scorpio Psychology AI口播 第三条 内容生产记录.md]] — `content_stage: 已发布`，周报 W30；公开直链和早期指标已补，继续观察 24/72 小时。
+- [[inbox-pengman/04-production/07-content-production/2026-07-20 Spain 世界杯夺冠庆祝帖 内容生产记录.md]] — `content_stage: 已发布`，周报 W30；公开直链已补入周报，发布形式待后台确认。
 - [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 内容生产记录.md]] — `content_stage: 已发布`，周报 W29；发布链接和表现数据待补。
 - [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录.md]] — `content_stage: 已发布`，周报 W29；精确发布时间、链接和表现数据待补。
 - [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] — `content_stage: 已发布`，周报 W29；公开链接已补，继续观察 24/48 小时数据。
