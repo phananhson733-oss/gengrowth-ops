@@ -485,6 +485,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-MAHADASHA-007` venus in taurus
 - [x] `PG-CELEB-061` leandro paredes birth chart
 
+---
+## ⚪ 7月21日 (周二) - 待写作
+**状态**：`等待输出` (自动补充选题，共 7 篇)
+- [ ] `PG-TRANS-028` saturn return in gemini
+- [ ] `PG-TRANS-029` saturn return in leo
+- [ ] `PG-SOLAR-003` what is my theme for this year
+- [ ] `PG-RISE-009` mercury in virgo
+- [ ] `PG-HEAL-007` mars in aries
+- [ ] `PG-NODE-016` Scorpio MBTI type
+- [ ] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
 ---
