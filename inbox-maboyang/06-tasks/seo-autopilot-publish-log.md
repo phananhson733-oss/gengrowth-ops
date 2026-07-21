@@ -189,3 +189,4 @@ updated: 2026-07-21
 | 2026-07-20 | PG-NODE-015 | mars-in-scorpio | Mars In Scorpio | julian-thorne | https://www.astrologywiki.com/en/wiki/mars-in-scorpio | published |
 | 2026-07-20 | PG-TRANS-027 | surviving-saturn-return | Surviving Saturn Return | marcus-orion | https://www.astrologywiki.com/en/wiki/surviving-saturn-return | published |
 | 2026-07-21 | PG-MCMT-001 | the-most-common-mbti-types-for-each-zodiac-sign | The Most Common MBTI Types For Each Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/the-most-common-mbti-types-for-each-zodiac-sign | published |
+| 2026-07-21 | PG-SOLAR-003 | what-is-my-theme-for-this-year | What Is My Theme For This Year | marcus-orion | https://www.astrologywiki.com/en/wiki/what-is-my-theme-for-this-year | published |
