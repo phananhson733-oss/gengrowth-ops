@@ -459,7 +459,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-WC-052` venus in gemini
 - [x] `PG-NAKSH-020` moon in capricorn
 
-- [ ] `PG-WC-053` argentina vs spain world cup final astrology 2026
+> `PG-WC-053` 已隔离为历史 `needs_human` 事项（决赛事实与星象审核基线冲突），不参与后续 author 队列。
 - [x] `PG-WC-054` messi vs yamal astrology
 
 ---
