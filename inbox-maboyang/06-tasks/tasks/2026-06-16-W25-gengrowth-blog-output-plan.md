@@ -167,4 +167,13 @@ updated: 2026-06-23
 - [x] `PG-ART-007` generative engine optimization
 - [x] `PG-AIS-006` AI agents for sales
 
+---
+## ⚪ 7月21日 (周二) - 待写作
+**状态**：`等待输出` (自动补充选题，共 5 篇)
+- [ ] `PG-SMS-002` Google AI search agents 2026
+- [ ] `PG-AIS-007` agentic AI marketing automation
+- [ ] `PG-YASA-001` YouTube AI search authority 2026
+- [ ] `PG-YASA-002` AI agent trends business 2026
+- [ ] `PG-FPDA-001` first party data AI personalization
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-06-16-W25-gengrowth-blog-output-plan.md*
