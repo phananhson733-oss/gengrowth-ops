@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-20
+updated: 2026-07-21
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -188,3 +188,4 @@ updated: 2026-07-20
 | 2026-07-20 | PG-CELEB-060 | ferran-torres-birth-chart | Ferran Torres Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/ferran-torres-birth-chart | published |
 | 2026-07-20 | PG-NODE-015 | mars-in-scorpio | Mars In Scorpio | julian-thorne | https://www.astrologywiki.com/en/wiki/mars-in-scorpio | published |
 | 2026-07-20 | PG-TRANS-027 | surviving-saturn-return | Surviving Saturn Return | marcus-orion | https://www.astrologywiki.com/en/wiki/surviving-saturn-return | published |
+| 2026-07-21 | PG-MCMT-001 | the-most-common-mbti-types-for-each-zodiac-sign | The Most Common MBTI Types For Each Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/the-most-common-mbti-types-for-each-zodiac-sign | published |
