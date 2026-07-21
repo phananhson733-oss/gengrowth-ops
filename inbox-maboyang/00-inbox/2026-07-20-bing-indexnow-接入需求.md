@@ -4,9 +4,21 @@ date: 2026-07-20
 author: 马博洋
 recipients: 彪哥（开发）
 priority: P1
+status: 已完成
+completed_date: 2026-07-21
+completed_by: 彪哥（开发）
 ---
 
 # Bing Webmaster Tools + IndexNow 接入需求
+
+> **✅ 已完成 — 2026-07-21（彪哥 / 开发侧）**
+>
+> - **需求 1（Bing 站点验证 + Sitemap 提交）**：站点已通过 Google Search Console 一键导入 Bing Webmaster Tools，所有权自动验证；Sitemap `https://www.astrologywiki.com/sitemap.xml` 已手动提交。
+>   - 注：生产实际域名为 **www 子域**（裸域 `astrologywiki.com` 307 跳转至 `www.`），验证与 sitemap 均以 www 为准。
+> - **需求 2（IndexNow 协议接入）**：**在本需求文档发出前即已在生产运行**，本次净新增开发工作量为 0。
+>   - `scripts/ping-indexnow.mjs` 已接入 build 链，`INDEXNOW_KEY` 已配 Vercel Production；每次部署自动向 `https://api.indexnow.org/indexnow` 提交当天变更 URL，一次覆盖 Bing / Yandex / DuckDuckGo。
+>   - 触发机制为「构建期扫 sitemap 中 `lastmod=当天` 的 URL 批量提交」，而非「CMS 发布时逐条触发」——对静态生成站更稳健，效果等价。
+> - **后续跟进项（不阻塞本需求）**：Bing 首页提示「部分近期发布页未经 IndexNow 提交」，初步定位为近期新增内容尚未进入 `sitemap.xml`（故 IndexNow 未提交），属**内容发布流程**范畴，另行跟进。
 
 ## 一、背景
 
@@ -23,7 +35,7 @@ astrologywiki.com 目前全部搜索流量来自 Google。Bing 占全球搜索�
 
 ## 二、需求说明
 
-### 需求 1：Bing Webmaster Tools 站点验证 + Sitemap 提交
+### ✅ 需求 1：Bing Webmaster Tools 站点验证 + Sitemap 提交（已完成 2026-07-21）
 
 **执行方**：彪哥（开发侧）+ 马博洋（账号侧）
 
@@ -40,7 +52,7 @@ astrologywiki.com 目前全部搜索流量来自 Google。Bing 占全球搜索�
 
 ---
 
-### 需求 2：IndexNow 协议接入
+### ✅ 需求 2：IndexNow 协议接入（本需求文档发出前即已在生产运行）
 
 **执行方**：彪哥（开发侧）
 
