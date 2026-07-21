@@ -4,9 +4,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
-  discoverCompetitorOpportunities,
-  discoverKeywordOpportunities,
-  enrichWithDomainRatings,
+  discoverSearxngCompetitorOpportunities,
+  discoverSearxngKeywordOpportunities,
 } from './src/providers.mjs';
 import { syncGoogleSheet } from './src/google-sheet.mjs';
 import { inspectCandidatePages } from './src/page-inspector.mjs';
@@ -17,8 +16,9 @@ const MAX_BODY_BYTES = 250_000;
 
 function getConfig() {
   return {
-    serpApiKey: process.env.SERPAPI_API_KEY ?? '',
-    ahrefsApiKey: process.env.AHREFS_API_KEY ?? '',
+    searxngBaseUrl: process.env.SEARXNG_BASE_URL ?? 'http://127.0.0.1:8080',
+    firecrawlBaseUrl: process.env.FIRECRAWL_BASE_URL ?? '',
+    firecrawlApiKey: process.env.FIRECRAWL_API_KEY ?? '',
     googleSheetWebAppUrl: process.env.GOOGLE_SHEET_WEBAPP_URL ?? '',
     googleSheetSharedSecret: process.env.GOOGLE_SHEET_SHARED_SECRET ?? '',
     dataDirectory: process.env.BACKLINK_DATA_DIR || join(APP_DIRECTORY, 'data'),
@@ -27,8 +27,9 @@ function getConfig() {
 
 function capabilities(config) {
   return {
-    keyword_discovery: Boolean(config.serpApiKey),
-    competitor_discovery: Boolean(config.ahrefsApiKey),
+    keyword_discovery: Boolean(String(config.searxngBaseUrl ?? '').trim()),
+    competitor_discovery: Boolean(String(config.searxngBaseUrl ?? '').trim()),
+    firecrawl_fallback: Boolean(String(config.firecrawlBaseUrl ?? '').trim()),
     google_sheet_sync: Boolean(config.googleSheetWebAppUrl && config.googleSheetSharedSecret),
   };
 }
@@ -98,10 +99,12 @@ async function serveIndex(response) {
 
 function defaultServices(config) {
   return {
-    discoverKeyword: (input) => discoverKeywordOpportunities({ ...input, apiKey: config.serpApiKey }),
-    discoverCompetitor: (input) => discoverCompetitorOpportunities({ ...input, apiKey: config.ahrefsApiKey }),
-    inspectPages: ({ records }) => inspectCandidatePages(records),
-    enrichDomainRatings: ({ records }) => enrichWithDomainRatings({ records, apiKey: config.ahrefsApiKey }),
+    discoverKeyword: (input) => discoverSearxngKeywordOpportunities({ ...input, baseUrl: config.searxngBaseUrl }),
+    discoverCompetitor: (input) => discoverSearxngCompetitorOpportunities({ ...input, baseUrl: config.searxngBaseUrl }),
+    inspectPages: ({ records }) => inspectCandidatePages(records, {
+      firecrawlBaseUrl: config.firecrawlBaseUrl,
+      firecrawlApiKey: config.firecrawlApiKey,
+    }),
     syncGoogleSheet: ({ url, sharedSecret, records, runs }) => syncGoogleSheet({ url, sharedSecret, records, runs }),
   };
 }
@@ -144,8 +147,8 @@ export function createBacklinkServer({ config = getConfig(), services = defaultS
           json(response, 400, { error: 'keyword is required' });
           return;
         }
-        if (!config.serpApiKey) {
-          json(response, 409, { error: 'SERPAPI_API_KEY is not configured' });
+        if (!String(config.searxngBaseUrl ?? '').trim()) {
+          json(response, 409, { error: 'SEARXNG_BASE_URL is not configured' });
           return;
         }
         const records = await services.discoverKeyword({
@@ -155,8 +158,7 @@ export function createBacklinkServer({ config = getConfig(), services = defaultS
           limit: normaliseLimit(input.limit, 50),
         });
         const inspected = await services.inspectPages({ records });
-        const enriched = config.ahrefsApiKey ? await services.enrichDomainRatings({ records: inspected }) : inspected;
-        const result = await storeRun({ repository, mode: 'keyword', input: keyword, records: enriched });
+        const result = await storeRun({ repository, mode: 'keyword', input: keyword, records: inspected });
         json(response, 200, result);
         return;
       }
@@ -167,8 +169,8 @@ export function createBacklinkServer({ config = getConfig(), services = defaultS
           json(response, 400, { error: 'competitorDomain must be a domain or URL' });
           return;
         }
-        if (!config.ahrefsApiKey) {
-          json(response, 409, { error: 'AHREFS_API_KEY is not configured' });
+        if (!String(config.searxngBaseUrl ?? '').trim()) {
+          json(response, 409, { error: 'SEARXNG_BASE_URL is not configured' });
           return;
         }
         const records = await services.discoverCompetitor({
@@ -176,8 +178,7 @@ export function createBacklinkServer({ config = getConfig(), services = defaultS
           limit: normaliseLimit(input.limit, 100),
         });
         const inspected = await services.inspectPages({ records });
-        const enriched = await services.enrichDomainRatings({ records: inspected });
-        const result = await storeRun({ repository, mode: 'competitor', input: competitorDomain, records: enriched });
+        const result = await storeRun({ repository, mode: 'competitor_search', input: competitorDomain, records: inspected });
         json(response, 200, result);
         return;
       }
@@ -207,7 +208,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const config = getConfig();
   if (process.argv.includes('--check')) {
     process.stdout.write(`${JSON.stringify({ capabilities: capabilities(config) })}\n`);
-    process.exitCode = config.serpApiKey || config.ahrefsApiKey ? 0 : 1;
+    process.exitCode = String(config.searxngBaseUrl ?? '').trim() ? 0 : 1;
   } else {
     const port = Number(process.env.PORT || 4318);
     createBacklinkServer({ config }).listen(port, '127.0.0.1', () => {

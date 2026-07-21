@@ -61,14 +61,14 @@
     <main>
       <header>
         <h1>外链机会发现工具</h1>
-        <p class="intro">用关键词或竞品域名建立广义外链机会库。工具只输出经过自动筛选的候选机会；最终是否联系或提交，仍由人工决定。</p>
+        <p class="intro">以本地 SearXNG 搜索和页面抓取建立广义外链机会库。工具只输出经过自动筛选的候选机会；最终是否联系或提交，仍由人工决定。</p>
       </header>
 
       <p class="notice" id="capability-note">正在读取本地服务配置…</p>
 
       <div class="tabs" role="tablist" aria-label="发现方式">
         <button class="tab" type="button" data-mode="keyword" role="tab" aria-selected="true">关键词发现</button>
-        <button class="tab" type="button" data-mode="competitor" role="tab" aria-selected="false">竞品反查</button>
+        <button class="tab" type="button" data-mode="competitor" role="tab" aria-selected="false">竞品搜索线索</button>
       </div>
 
       <section class="panel">
@@ -76,7 +76,7 @@
           <div class="field-grid">
             <label class="full">关键词
               <input id="keyword" name="keyword" required placeholder="例如：AI writing tools">
-              <span class="helper">会组合 Guest Post、资源页、工具目录和博客评论等搜索足迹。</span>
+              <span class="helper">SearXNG 会组合 Guest Post、资源页、工具目录和博客评论等搜索足迹；命中后再由本地抓取检查黄赌毒等风险。</span>
             </label>
             <label>语言
               <select id="keyword-language" name="language"><option value="en">英语</option><option value="zh-CN">中文</option><option value="ja">日语</option></select>
@@ -97,11 +97,11 @@
               <input id="competitor-domain" name="competitorDomain" required placeholder="例如：competitor.com 或 https://competitor.com/product">
               <span class="helper">请填写已确认的官网域名或 URL；产品名称本身容易重名，不作为本期输入。</span>
             </label>
-            <label>最多抓取反链
+            <label>最多保留线索
               <select id="competitor-limit" name="limit"><option value="50">50</option><option value="100" selected>100</option><option value="200">200</option><option value="500">500</option></select>
             </label>
           </div>
-          <div class="actions"><button type="submit">发现竞品外链机会</button></div>
+          <div class="actions"><button type="submit">发现竞品搜索线索</button></div>
         </form>
         <div class="actions"><button class="secondary" type="button" id="sync-sheet">同步到 Google Sheet</button><span id="status" role="status"></span></div>
       </section>
@@ -152,7 +152,8 @@
           const source = (record.sources || []).map((item) => escapeHtml(item.input)).join('<br>');
           const reason = record.exclude_reason ? `<br><small>${escapeHtml(record.exclude_reason)}</small>` : '';
           const link = escapeHtml(record.referring_page_url);
-          return `<tr><td><span class="pill ${status}">${status}</span>${reason}</td><td>${source}</td><td><a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(record.page_title || link)}</a><br><small>${escapeHtml(record.referring_domain)}</small></td><td>${escapeHtml(record.opportunity_type)}</td><td>${record.domain_dr == null ? '—' : escapeHtml(record.domain_dr)}</td><td>${escapeHtml(record.safety_category || 'passed')}</td><td>${escapeHtml(record.quality_priority)}</td></tr>`;
+          const qualityMetric = record.domain_dr == null ? '未提供' : escapeHtml(record.domain_dr);
+          return `<tr><td><span class="pill ${status}">${status}</span>${reason}</td><td>${source}</td><td><a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(record.page_title || link)}</a><br><small>${escapeHtml(record.referring_domain)}</small></td><td>${escapeHtml(record.opportunity_type)}</td><td>${qualityMetric}</td><td>${escapeHtml(record.safety_category || 'passed')}</td><td>${escapeHtml(record.quality_priority)}</td></tr>`;
         }).join('');
         tableWrap.innerHTML = `<table><thead><tr><th>状态</th><th>发现来源</th><th>来源页面</th><th>机会类型</th><th>DR</th><th>安全</th><th>优先级</th></tr></thead><tbody>${rows}</tbody></table>`;
       }
@@ -185,7 +186,7 @@
         try {
           const body = await request('/api/health');
           const capabilities = body.capabilities;
-          capabilityNote.textContent = `当前能力：关键词发现 ${capabilities.keyword_discovery ? '已配置' : '待配置'}；竞品反查与 DR ${capabilities.competitor_discovery ? '已配置' : '待配置'}；Google Sheet 同步 ${capabilities.google_sheet_sync ? '已配置' : '待配置'}。`;
+          capabilityNote.textContent = `当前能力：SearXNG 关键词发现 ${capabilities.keyword_discovery ? '已配置' : '待配置'}；竞品搜索线索 ${capabilities.competitor_discovery ? '已配置' : '待配置'}；Firecrawl JS 页面兜底 ${capabilities.firecrawl_fallback ? '已配置' : '未启用'}；Google Sheet 同步 ${capabilities.google_sheet_sync ? '已配置' : '待配置'}。DR 不由免费链路提供。`;
         } catch (error) {
           capabilityNote.textContent = `无法连接本地服务：${error.message}`;
         }

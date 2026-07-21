@@ -6,6 +6,7 @@ import {
   classifyOpportunity,
   evaluateSafety,
   fromAhrefsBacklink,
+  fromCompetitorSearchResult,
   fromSerpResult,
   mergeOpportunities,
   parseCsv,
@@ -67,6 +68,8 @@ test('fromSerpResult creates a keyword-sourced candidate with an auditable sourc
   assert.equal(result.sources[0].input, 'AI writing tools');
   assert.equal(result.opportunity_type, 'tool_directory');
   assert.equal(result.machine_status, 'qualified');
+  assert.equal(result.domain_dr, null);
+  assert.equal(result.dr_source, 'unknown');
 });
 
 test('fromAhrefsBacklink retains the competitor target page, anchor text, and link relation', () => {
@@ -90,6 +93,24 @@ test('fromAhrefsBacklink retains the competitor target page, anchor text, and li
   assert.equal(result.anchor_text, 'Competitor Product');
   assert.equal(result.link_attribute, 'dofollow');
   assert.equal(result.external_link_count, 22);
+});
+
+test('fromCompetitorSearchResult keeps competitor search evidence without inventing link metrics', () => {
+  const result = fromCompetitorSearchResult(
+    {
+      url: 'https://publisher.example.com/best-ai-tools?utm_source=searxng',
+      title: 'Best AI tools for teams',
+      content: 'A comparison that mentions Competitor Product.',
+    },
+    { competitorDomain: 'competitor.example.com', provider: 'searxng' }
+  );
+
+  assert.equal(result.source_mode, 'competitor_search');
+  assert.equal(result.competitor_domain, 'competitor.example.com');
+  assert.equal(result.domain_dr, null);
+  assert.equal(result.dr_source, 'unknown');
+  assert.equal(result.sources[0].provider, 'searxng');
+  assert.equal(result.referring_page_url, 'https://publisher.example.com/best-ai-tools');
 });
 
 test('mergeOpportunities keeps one page record and preserves all discovery sources', () => {

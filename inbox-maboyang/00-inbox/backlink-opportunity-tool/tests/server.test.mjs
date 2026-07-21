@@ -21,6 +21,9 @@ function makeOptions() {
     config: {
       serpApiKey: 'serp-secret-must-never-reach-browser',
       ahrefsApiKey: 'ahrefs-secret-must-never-reach-browser',
+      searxngBaseUrl: 'http://searxng.test',
+      firecrawlBaseUrl: '',
+      firecrawlApiKey: 'firecrawl-secret-must-never-reach-browser',
       googleSheetWebAppUrl: '',
       googleSheetSharedSecret: '',
     },
@@ -50,11 +53,67 @@ test('health endpoint reports configured capabilities but never raw API secrets'
     assert.deepEqual(body.capabilities, {
       keyword_discovery: true,
       competitor_discovery: true,
+      firecrawl_fallback: false,
       google_sheet_sync: false,
     });
     assert.equal(serialized.includes('serp-secret-must-never-reach-browser'), false);
     assert.equal(serialized.includes('ahrefs-secret-must-never-reach-browser'), false);
+    assert.equal(serialized.includes('firecrawl-secret-must-never-reach-browser'), false);
   });
+});
+
+test('keyword discovery uses the free SearXNG route without requiring a paid-provider key', async () => {
+  const options = makeOptions();
+  options.config.serpApiKey = '';
+  options.config.ahrefsApiKey = '';
+  let discoveryInput;
+  let enrichmentCalled = false;
+  options.services.discoverKeyword = async (input) => {
+    discoveryInput = input;
+    return [{ id: 'lead-1', machine_status: 'qualified' }];
+  };
+  options.services.enrichDomainRatings = async () => {
+    enrichmentCalled = true;
+    return [];
+  };
+
+  await withServer(options, async (baseUrl) => {
+    const response = await fetch(`${baseUrl}/api/discover/keyword`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ keyword: 'AI writing tools', language: 'en', region: 'us', limit: 50 }),
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).received, 1);
+  });
+
+  assert.equal(discoveryInput.keyword, 'AI writing tools');
+  assert.equal(enrichmentCalled, false);
+});
+
+test('competitor discovery uses the free SearXNG route and keeps unverified evidence for local inspection', async () => {
+  const options = makeOptions();
+  options.config.serpApiKey = '';
+  options.config.ahrefsApiKey = '';
+  let discoveryInput;
+  options.services.discoverCompetitor = async (input) => {
+    discoveryInput = input;
+    return [{ id: 'lead-1', machine_status: 'review' }];
+  };
+
+  await withServer(options, async (baseUrl) => {
+    const response = await fetch(`${baseUrl}/api/discover/competitor`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ competitorDomain: 'competitor.example.com', limit: 50 }),
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).received, 1);
+  });
+
+  assert.equal(discoveryInput.competitorDomain, 'competitor.example.com');
 });
 
 test('root endpoint serves a local interface with keyword and competitor input modes', async () => {
@@ -67,6 +126,9 @@ test('root endpoint serves a local interface with keyword and competitor input m
     assert.match(html, /data-mode="competitor"/);
     assert.match(html, /id="keyword"/);
     assert.match(html, /id="competitor-domain"/);
+    assert.match(html, /SearXNG/);
+    assert.match(html, /竞品搜索线索/);
+    assert.equal(html.includes('竞品反查'), false);
     assert.equal(html.includes('SERPAPI_API_KEY'), false);
     assert.equal(html.includes('AHREFS_API_KEY'), false);
   });

@@ -129,22 +129,26 @@ function linkAttribute(backlink) {
   return 'dofollow';
 }
 
-function sourceForKeyword({ keyword, language = '', region = '' }) {
-  return {
+function sourceForKeyword({ keyword, language = '', region = '', provider = '' }) {
+  const source = {
     mode: 'keyword',
     input: asText(keyword),
     language: asText(language),
     region: asText(region),
   };
+  if (asText(provider)) source.provider = asText(provider);
+  return source;
 }
 
-function sourceForCompetitor({ competitorDomain }) {
-  return {
-    mode: 'competitor',
+function sourceForCompetitor({ competitorDomain, provider = '', mode = 'competitor' }) {
+  const source = {
+    mode,
     input: asText(competitorDomain).toLowerCase(),
     language: '',
     region: '',
   };
+  if (asText(provider)) source.provider = asText(provider);
+  return source;
 }
 
 function buildRecord({
@@ -177,7 +181,7 @@ function buildRecord({
     link_attribute: linkAttributeValue,
     external_link_count: Number.isFinite(Number(externalLinkCount)) && externalLinkCount !== '' ? Number(externalLinkCount) : null,
     domain_dr: null,
-    dr_source: '',
+    dr_source: 'unknown',
     spam_score: null,
     opportunity_type: classifyOpportunity({ url: referringPageUrl, title, snippet }),
     topic_relevance: 'unknown',
@@ -221,6 +225,20 @@ export function fromAhrefsBacklink(backlink, context) {
     linkAttributeValue: linkAttribute(backlink),
     externalLinkCount: backlink.links_external ?? backlink.page_from_external_links,
   });
+}
+
+export function fromCompetitorSearchResult(result, context) {
+  const source = sourceForCompetitor({ ...context, mode: 'competitor_search' });
+  const record = buildRecord({
+    sourceMode: 'competitor_search',
+    sourceInput: source.input,
+    source,
+    url: result.link ?? result.url,
+    title: result.title,
+    snippet: result.snippet ?? result.content ?? result.description,
+    competitorDomain: source.input,
+  });
+  return { ...record, dr_source: 'unknown' };
 }
 
 function sourceKey(source) {

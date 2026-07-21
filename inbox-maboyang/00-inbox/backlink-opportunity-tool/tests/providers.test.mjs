@@ -4,6 +4,8 @@ import { test } from 'node:test';
 import {
   discoverCompetitorOpportunities,
   discoverKeywordOpportunities,
+  discoverSearxngCompetitorOpportunities,
+  discoverSearxngKeywordOpportunities,
   enrichWithDomainRatings,
 } from '../src/providers.mjs';
 
@@ -42,6 +44,66 @@ test('discoverKeywordOpportunities uses a keyword footprint and normalises the S
   assert.equal(requests[0].searchParams.get('api_key'), 'serp-secret');
   assert.equal(opportunities[0].referring_page_url, 'https://directory.example.com/submit-tool');
   assert.equal(opportunities[0].opportunity_type, 'tool_directory');
+});
+
+test('discoverSearxngKeywordOpportunities requests all footprints without an API key and normalises JSON results', async () => {
+  const requests = [];
+  const opportunities = await discoverSearxngKeywordOpportunities({
+    keyword: 'AI writing tools',
+    language: 'en',
+    region: 'us',
+    limit: 10,
+    baseUrl: 'http://searxng.test',
+    fetchFn: async (url) => {
+      requests.push(new URL(url));
+      return jsonResponse({
+        results: [
+          {
+            url: 'https://directory.example.com/submit-tool?utm_source=searxng',
+            title: 'Submit your tool',
+            content: 'Add a product to our curated directory.',
+          },
+        ],
+      });
+    },
+  });
+
+  assert.equal(requests.length, 5);
+  assert.equal(requests[0].origin, 'http://searxng.test');
+  assert.equal(requests[0].pathname, '/search');
+  assert.equal(requests[0].searchParams.get('format'), 'json');
+  assert.match(requests[0].searchParams.get('q'), /AI writing tools/);
+  assert.equal(requests.some((request) => request.searchParams.has('api_key')), false);
+  assert.equal(opportunities[0].referring_page_url, 'https://directory.example.com/submit-tool');
+  assert.equal(opportunities[0].opportunity_type, 'tool_directory');
+  assert.equal(opportunities[0].sources[0].provider, 'searxng');
+});
+
+test('discoverSearxngCompetitorOpportunities returns verifiable competitor-search leads without an API key', async () => {
+  const requests = [];
+  const opportunities = await discoverSearxngCompetitorOpportunities({
+    competitorDomain: 'competitor.example.com',
+    limit: 10,
+    baseUrl: 'http://searxng.test',
+    fetchFn: async (url) => {
+      requests.push(new URL(url));
+      return jsonResponse({
+        results: [{
+          url: 'https://publisher.example.com/roundup?utm_source=searxng',
+          title: 'AI product roundup',
+          content: 'A list that includes Competitor Product.',
+        }],
+      });
+    },
+  });
+
+  assert.equal(requests.length, 4);
+  assert.equal(requests[0].searchParams.get('format'), 'json');
+  assert.match(requests[0].searchParams.get('q'), /competitor\.example\.com/);
+  assert.equal(opportunities[0].source_mode, 'competitor_search');
+  assert.equal(opportunities[0].competitor_domain, 'competitor.example.com');
+  assert.equal(opportunities[0].domain_dr, null);
+  assert.equal(opportunities[0].dr_source, 'unknown');
 });
 
 test('discoverCompetitorOpportunities sends credentials server-side and retains backlink evidence', async () => {
