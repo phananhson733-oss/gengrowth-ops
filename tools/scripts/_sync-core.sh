@@ -66,15 +66,22 @@ _gengrowth_sync_core_body() {
   local OPS_DEST="$WIKI/docs/repo/gengrowth-ops"
   if [ -d "$OPS_REPO" ]; then
     mkdir -p "$OPS_DEST"
-    rsync -a --delete "$OPS_REPO/inbox/"      "$OPS_DEST/inbox/"      >> "$LOG" 2>&1
+    rsync -a --delete "$OPS_REPO/inbox-maboyang/" "$OPS_DEST/inbox-maboyang/" >> "$LOG" 2>&1
     rsync -a --delete "$OPS_REPO/onboarding/" "$OPS_DEST/onboarding/" >> "$LOG" 2>&1
     log "[ops] done"
   fi
 
   # ── 4. wiki/tools -> gengrowth-ops/tools ───────────────────
+  # 安全边界：wiki 是私有仓库，gengrowth-ops 是 PUBLIC 仓库。这条镜像会把
+  # wiki/tools 的一切自动搬上公网，60s 一次，无人工确认。2026-06-23 一个
+  # Chrome 扩展打包私钥就是这样被公开的（24 天后才发现）。
+  # 凭证类文件一律排除：放在私有的 wiki 里没问题，但绝不能流到公开的 ops。
   if [ -d "$OPS_REPO" ] && [ -d "$WIKI/tools" ]; then
     mkdir -p "$OPS_REPO/tools"
-    rsync -a --delete "$WIKI/tools/" "$OPS_REPO/tools/" >> "$LOG" 2>&1
+    rsync -a --delete \
+      --exclude='*.pem' --exclude='*.key' --exclude='*.p12' --exclude='*.pfx' \
+      --exclude='*.crt' --exclude='*.cer' --exclude='.env' --exclude='.env.*' \
+      "$WIKI/tools/" "$OPS_REPO/tools/" >> "$LOG" 2>&1
     log "[wiki-tools->ops] done"
 
     if [ -d "$OPS_REPO/.git" ]; then
