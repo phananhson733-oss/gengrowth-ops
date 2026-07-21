@@ -487,7 +487,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月21日 (周二) - 待写作
-**状态**：`等待输出` (自动补充选题，共 7 篇)
+**状态**：`等待输出` (自动补充选题，共 10 篇)
 - [ ] `PG-TRANS-028` saturn return in gemini
 - [ ] `PG-TRANS-029` saturn return in leo
 - [ ] `PG-SOLAR-003` what is my theme for this year
@@ -495,6 +495,10 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-HEAL-007` mars in aries
 - [ ] `PG-NODE-016` Scorpio MBTI type
 - [ ] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
+
+- [ ] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
+- [ ] `PG-WC-055` Thor zodiac sign
+- [ ] `PG-CELEB-063` Jennifer Lopez birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
