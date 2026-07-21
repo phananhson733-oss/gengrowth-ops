@@ -505,14 +505,3 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TERM-010` birth chart interpretation
 
 > `PG-WDIF-002` what is my love language 已在本轮标准队列完成 author、预览、三维审核、Codex 审核并合并，不重复 author。
-
----
-## ⚪ 7月20日（新增写作队列）
-**状态**：`等待输出`（选题登记已补齐 7 行；新增 cluster：`the_most_common_mbti_types_for_each_zodiac_sign`）
-- [ ] `PG-TRANS-028` saturn return in gemini
-- [ ] `PG-TRANS-029` saturn return in leo
-- [ ] `PG-SOLAR-003` what is my theme for this year
-- [ ] `PG-RISE-009` mercury in virgo
-- [ ] `PG-HEAL-007` mars in aries
-- [ ] `PG-NODE-016` Scorpio MBTI type
-- [ ] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
