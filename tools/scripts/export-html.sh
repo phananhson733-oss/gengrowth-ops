@@ -206,7 +206,7 @@ TPL_EOF
 
 # ── 生成 HTML ───────────────────────────────────────────────
 pandoc "$CLEAN" \
-  --from gfm-tex_math_dollars \
+  --from gfm \
   --to html5 \
   --standalone \
   --toc --toc-depth=3 \
