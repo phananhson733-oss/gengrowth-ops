@@ -490,7 +490,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 **状态**：`等待输出` (自动补充选题，共 10 篇)
 - [ ] `PG-TRANS-028` saturn return in gemini
 - [ ] `PG-TRANS-029` saturn return in leo
-- [ ] `PG-SOLAR-003` what is my theme for this year
+- [x] `PG-SOLAR-003` what is my theme for this year
 - [ ] `PG-RISE-010` mercury in virgo
 - [ ] `PG-HEAL-007` mars in aries
 - [ ] `PG-NODE-016` Scorpio MBTI type
