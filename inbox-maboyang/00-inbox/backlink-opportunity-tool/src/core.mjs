@@ -33,6 +33,8 @@ export const CSV_COLUMNS = [
   'machine_status',
   'human_status',
   'quality_priority',
+  'inspection_status',
+  'inspection_note',
   'discovered_at',
   'last_checked_at',
 ];
@@ -185,6 +187,8 @@ function buildRecord({
     machine_status: safety.status === 'rejected' ? 'rejected' : 'qualified',
     human_status: 'pending',
     quality_priority: safety.status === 'rejected' ? 'excluded' : 'normal',
+    inspection_status: safety.status === 'rejected' ? 'skipped' : 'not_checked',
+    inspection_note: safety.status === 'rejected' ? 'rejected_from_search_data' : '',
     discovered_at: '',
     last_checked_at: '',
   };

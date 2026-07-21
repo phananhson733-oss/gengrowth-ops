@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>外链机会发现工具</title>
+    <style>
+      :root {
+        --bg: #f5f7f5;
+        --surface: #fff;
+        --line: #d9dfda;
+        --text: #1d2720;
+        --muted: #647168;
+        --brand: #246a52;
+        --brand-soft: #e7f1ec;
+        --danger: #a84134;
+        --warn: #a66a19;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      main { width: min(1240px, calc(100vw - 32px)); margin: 0 auto; padding: 30px 0 48px; }
+      h1 { margin: 0; font-size: 28px; line-height: 1.2; }
+      h2 { margin: 0; font-size: 16px; }
+      .intro { margin: 8px 0 0; color: var(--muted); max-width: 880px; }
+      .notice { margin: 16px 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfb; color: var(--muted); }
+      .tabs { display: flex; gap: 8px; margin: 24px 0 0; border-bottom: 1px solid var(--line); }
+      .tab { appearance: none; border: 1px solid var(--line); border-bottom: 0; border-radius: 8px 8px 0 0; padding: 9px 15px; color: var(--muted); background: #edf1ee; cursor: pointer; font: inherit; font-weight: 700; }
+      .tab[aria-selected="true"] { background: var(--surface); color: var(--brand); }
+      .panel, .results { background: var(--surface); border: 1px solid var(--line); border-radius: 0 0 10px 10px; }
+      .panel { padding: 20px; }
+      .mode-panel[hidden] { display: none; }
+      .field-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      label { display: grid; gap: 6px; color: var(--muted); font-weight: 650; }
+      label.full { grid-column: 1 / -1; }
+      input, select { width: 100%; min-height: 40px; padding: 9px 10px; color: var(--text); border: 1px solid var(--line); border-radius: 7px; background: #fff; font: inherit; }
+      .helper { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 18px; }
+      button { min-height: 38px; padding: 8px 13px; border: 1px solid transparent; border-radius: 7px; background: var(--brand); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+      button.secondary { border-color: var(--line); background: #fff; color: var(--brand); }
+      button:disabled { opacity: .55; cursor: not-allowed; }
+      #status { color: var(--muted); }
+      #status.error { color: var(--danger); }
+      #status.success { color: var(--brand); }
+      .results { margin-top: 18px; border-radius: 10px; overflow: hidden; }
+      .results-head { display: flex; gap: 14px; justify-content: space-between; align-items: center; padding: 14px 16px; background: #f0f4f1; border-bottom: 1px solid var(--line); }
+      .results-meta { color: var(--muted); font-size: 13px; }
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; min-width: 940px; border-collapse: collapse; }
+      th, td { padding: 11px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid #edf0ee; }
+      th { color: var(--muted); background: #fbfcfb; font-size: 12px; font-weight: 750; white-space: nowrap; }
+      td a { color: var(--brand); word-break: break-word; }
+      .pill { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: 12px; font-weight: 700; }
+      .qualified { color: #1d694e; background: #e6f3ec; }
+      .rejected { color: #9f372b; background: #f8e7e4; }
+      .review { color: #8b5711; background: #fbf0db; }
+      .empty { padding: 28px 16px; color: var(--muted); }
+      @media (max-width: 700px) { main { width: min(100% - 24px, 1240px); padding-top: 20px; } .field-grid { grid-template-columns: 1fr; } h1 { font-size: 24px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>外链机会发现工具</h1>
+        <p class="intro">用关键词或竞品域名建立广义外链机会库。工具只输出经过自动筛选的候选机会；最终是否联系或提交，仍由人工决定。</p>
+      </header>
+
+      <p class="notice" id="capability-note">正在读取本地服务配置…</p>
+
+      <div class="tabs" role="tablist" aria-label="发现方式">
+        <button class="tab" type="button" data-mode="keyword" role="tab" aria-selected="true">关键词发现</button>
+        <button class="tab" type="button" data-mode="competitor" role="tab" aria-selected="false">竞品反查</button>
+      </div>
+
+      <section class="panel">
+        <form class="mode-panel" id="keyword-panel">
+          <div class="field-grid">
+            <label class="full">关键词
+              <input id="keyword" name="keyword" required placeholder="例如：AI writing tools">
+              <span class="helper">会组合 Guest Post、资源页、工具目录和博客评论等搜索足迹。</span>
+            </label>
+            <label>语言
+              <select id="keyword-language" name="language"><option value="en">英语</option><option value="zh-CN">中文</option><option value="ja">日语</option></select>
+            </label>
+            <label>地区
+              <select id="keyword-region" name="region"><option value="us">美国</option><option value="gb">英国</option><option value="global">全球</option><option value="jp">日本</option></select>
+            </label>
+            <label>最多保留结果
+              <select id="keyword-limit" name="limit"><option value="50">50</option><option value="100" selected>100</option><option value="200">200</option></select>
+            </label>
+          </div>
+          <div class="actions"><button type="submit">发现关键词机会</button></div>
+        </form>
+
+        <form class="mode-panel" id="competitor-panel" hidden>
+          <div class="field-grid">
+            <label class="full">竞品域名或产品 URL
+              <input id="competitor-domain" name="competitorDomain" required placeholder="例如：competitor.com 或 https://competitor.com/product">
+              <span class="helper">请填写已确认的官网域名或 URL；产品名称本身容易重名，不作为本期输入。</span>
+            </label>
+            <label>最多抓取反链
+              <select id="competitor-limit" name="limit"><option value="50">50</option><option value="100" selected>100</option><option value="200">200</option><option value="500">500</option></select>
+            </label>
+          </div>
+          <div class="actions"><button type="submit">发现竞品外链机会</button></div>
+        </form>
+        <div class="actions"><button class="secondary" type="button" id="sync-sheet">同步到 Google Sheet</button><span id="status" role="status"></span></div>
+      </section>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="results-head"><h2 id="results-title">本地外链资源库</h2><span class="results-meta" id="result-count">加载中…</span></div>
+        <div class="table-wrap" id="table-wrap"></div>
+      </section>
+    </main>
+    <script>
+      const statusNode = document.getElementById('status');
+      const capabilityNote = document.getElementById('capability-note');
+      const tableWrap = document.getElementById('table-wrap');
+      const resultCount = document.getElementById('result-count');
+      const panels = { keyword: document.getElementById('keyword-panel'), competitor: document.getElementById('competitor-panel') };
+      const tabs = [...document.querySelectorAll('[data-mode]')];
+
+      function setStatus(message, kind = '') {
+        statusNode.textContent = message;
+        statusNode.className = kind;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+      }
+
+      function setMode(mode) {
+        for (const [name, panel] of Object.entries(panels)) panel.hidden = name !== mode;
+        for (const tab of tabs) tab.setAttribute('aria-selected', String(tab.dataset.mode === mode));
+        setStatus('');
+      }
+
+      async function request(path, options = {}) {
+        const response = await fetch(path, options);
+        const body = await response.json();
+        if (!response.ok) throw new Error(body.error || '请求失败');
+        return body;
+      }
+
+      function renderRecords(records) {
+        resultCount.textContent = `本地已保存 ${records.length} 条`;
+        if (!records.length) {
+          tableWrap.innerHTML = '<p class="empty">尚未保存候选机会。输入关键词或竞品域名后开始发现。</p>';
+          return;
+        }
+        const rows = records.map((record) => {
+          const status = escapeHtml(record.machine_status || 'review');
+          const source = (record.sources || []).map((item) => escapeHtml(item.input)).join('<br>');
+          const reason = record.exclude_reason ? `<br><small>${escapeHtml(record.exclude_reason)}</small>` : '';
+          const link = escapeHtml(record.referring_page_url);
+          return `<tr><td><span class="pill ${status}">${status}</span>${reason}</td><td>${source}</td><td><a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(record.page_title || link)}</a><br><small>${escapeHtml(record.referring_domain)}</small></td><td>${escapeHtml(record.opportunity_type)}</td><td>${record.domain_dr == null ? '—' : escapeHtml(record.domain_dr)}</td><td>${escapeHtml(record.safety_category || 'passed')}</td><td>${escapeHtml(record.quality_priority)}</td></tr>`;
+        }).join('');
+        tableWrap.innerHTML = `<table><thead><tr><th>状态</th><th>发现来源</th><th>来源页面</th><th>机会类型</th><th>DR</th><th>安全</th><th>优先级</th></tr></thead><tbody>${rows}</tbody></table>`;
+      }
+
+      async function loadRecords() {
+        const body = await request('/api/opportunities');
+        renderRecords(body.records);
+      }
+
+      async function submitDiscovery(event, mode) {
+        event.preventDefault();
+        const button = event.currentTarget.querySelector('button[type="submit"]');
+        button.disabled = true;
+        setStatus('正在发现并保存候选机会…');
+        try {
+          const payload = mode === 'keyword'
+            ? { keyword: document.getElementById('keyword').value, language: document.getElementById('keyword-language').value, region: document.getElementById('keyword-region').value, limit: document.getElementById('keyword-limit').value }
+            : { competitorDomain: document.getElementById('competitor-domain').value, limit: document.getElementById('competitor-limit').value };
+          const result = await request(`/api/discover/${mode}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+          setStatus(`已处理 ${result.received} 条：合格 ${result.qualified}，排除 ${result.rejected}；本地新增 ${result.created} 条。`, 'success');
+          await loadRecords();
+        } catch (error) {
+          setStatus(error.message, 'error');
+        } finally {
+          button.disabled = false;
+        }
+      }
+
+      async function loadCapabilities() {
+        try {
+          const body = await request('/api/health');
+          const capabilities = body.capabilities;
+          capabilityNote.textContent = `当前能力：关键词发现 ${capabilities.keyword_discovery ? '已配置' : '待配置'}；竞品反查与 DR ${capabilities.competitor_discovery ? '已配置' : '待配置'}；Google Sheet 同步 ${capabilities.google_sheet_sync ? '已配置' : '待配置'}。`;
+        } catch (error) {
+          capabilityNote.textContent = `无法连接本地服务：${error.message}`;
+        }
+      }
+
+      tabs.forEach((tab) => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
+      panels.keyword.addEventListener('submit', (event) => submitDiscovery(event, 'keyword'));
+      panels.competitor.addEventListener('submit', (event) => submitDiscovery(event, 'competitor'));
+      document.getElementById('sync-sheet').addEventListener('click', async (event) => {
+        event.currentTarget.disabled = true;
+        setStatus('正在同步到 Google Sheet…');
+        try {
+          const result = await request('/api/sync/google-sheet', { method: 'POST' });
+          setStatus(`已同步 ${result.inserted ?? 0} 条记录到 Google Sheet。`, 'success');
+        } catch (error) {
+          setStatus(error.message, 'error');
+        } finally {
+          event.currentTarget.disabled = false;
+        }
+      });
+      Promise.all([loadCapabilities(), loadRecords()]).catch((error) => setStatus(error.message, 'error'));
+    </script>
+  </body>
+</html>
