@@ -4,7 +4,7 @@ project: astrologywiki
 type: content-strategy-playbook
 status: draft
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-07-20
 sources:
   - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
   - inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md
@@ -17,6 +17,7 @@ sources:
 > 面向 4 个账号矩阵：① AstrologyWiki 官方 ② AI 占星师人设 ③ 热点占星测试 ④ 普通占星爱好者。
 > 每个账号给出：定位、参考账号、内容方向、表现形式、钩子公式与选题库、红线。
 > 本文档为 draft，落地前建议先跑小规模测试再定量放大。
+> 本文只定义账号定位、栏目、形式和红线；周度配额、内容池、Batch、WIP 与热点插入统一以 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]] 为准，不在本 Playbook 重复维护。
 
 竞品数据边界：在线 Google Sheet `astrologywiki reference account video` 是当前事实来源；`05-调研资料/竞品研究/` 中的 Markdown 只保存已选研究背景，`旧快照/2026-07-07/` 不参与当前路由判断。
 

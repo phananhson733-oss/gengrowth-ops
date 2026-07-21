@@ -1,0 +1,26 @@
+{
+  "id": "conv-1784613673034-qaofqkivf",
+  "providerId": "codex",
+  "title": "有人在这个视频底下评论：november 4th，大概意思是想我给他生成一段分析。请帮我看看根据这个...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1784613673040,
+  "updatedAt": 1784613855651,
+  "lastResponseAt": 1784613727134,
+  "sessionId": "019f8343-b403-7303-8285-7a270ea5a027",
+  "providerState": {
+    "threadId": "019f8343-b403-7303-8285-7a270ea5a027",
+    "sessionFilePath": "/Users/pengman/.codex/sessions/2026/07/20/rollout-2026-07-20T23-01-20-019f8343-b403-7303-8285-7a270ea5a027.jsonl",
+    "transcriptRootPath": "/Users/pengman/.codex/sessions"
+  },
+  "currentNote": "inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录.md",
+  "usage": {
+    "inputTokens": 31833,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 18816,
+    "contextWindow": 258400,
+    "contextWindowIsAuthoritative": true,
+    "contextTokens": 31833,
+    "percentage": 12,
+    "model": "gpt-5.5"
+  }
+}

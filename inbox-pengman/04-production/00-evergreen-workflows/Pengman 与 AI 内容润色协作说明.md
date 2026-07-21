@@ -4,7 +4,7 @@ project: astrologywiki
 type: human-ai-content-workflow
 status: active
 owner: Pengman
-updated: 2026-07-17
+updated: 2026-07-20
 ---
 
 # Pengman 与 AI 内容选择、润色与学习协作说明
@@ -52,7 +52,7 @@ topic:
 target_audience:
 account:
 platform:
-content_format:
+format:
 content_goal:
 user_problem:
 evidence: []
@@ -130,12 +130,12 @@ Pengman 可以：
 
 | 实验阶段 | `content_stage` | `experiment_status` |
 |---|---|---|
-| 实验包已冻结 | `Brief` | `ready` |
-| 两个模型生成中 | `AI 初稿` | `generating` |
-| 等待 Pengman 比较 | `AI 初稿` | `awaiting_comparison` |
-| 已选择但组合稿待确认 | `等待人工润色` | `selected_pending_confirmation` |
-| Pengman 明确确认最终稿 | `待制作` | `closed` |
-| 两个版本均否决 | `Brief` | `rejected_returned_to_brief` |
+| 实验包已冻结 | `brief` | `ready` |
+| 两个模型生成中 | `brief` | `generating` |
+| 等待 Pengman 比较 | `brief` | `awaiting_comparison` |
+| 已选择但组合稿待确认 | `brief` | `selected_pending_confirmation` |
+| Pengman 明确确认最终稿 | `scripted` | `closed` |
+| 两个版本均否决 | `brief` | `rejected_returned_to_brief` |
 
 Pengman 完整选择一个候选时，只有在明确说“确认采用”后，才填写 `script_status: 已确认`。若只是要求 Codex 组合或修改，组合稿仍等待 Pengman 确认。
 
@@ -236,7 +236,7 @@ AI 不得要求 Pengman 重新按模板填写已经用自然语言表达清楚�
 - Pengman 的原话进入“Pengman 原始反馈”。
 - AI 根据建议生成的版本进入“AI 根据人工建议生成的第二版”，不能伪装成“人工润色稿”。
 - “人工润色稿”只保存 Pengman 实际写出的完整版本；Pengman 若确认采用 AI 版本，应标记为“AI 第 N 版，经 Pengman 确认”，不得伪装成人工撰写。
-- Pengman 明确确认采用 AI 版本后，记录 `script_status: 已确认` 和 `confirmed_script_version`；即使没有完整人工稿，也可进入 `content_stage: 待制作`。
+- Pengman 明确确认采用 AI 版本后，记录 `script_status: 已确认` 和 `confirmed_script_version`；即使没有完整人工稿，也可进入 `content_stage: scripted`。
 - “不喜欢但暂时说不清”是当前稿弱信号，不自动成为候选偏好。
 
 ## 修改尺度：L1–L5
@@ -261,7 +261,7 @@ L3 与 L4 的判断标准：用户问题、内容承诺或账号/形式路由只
 6. 修订受影响的 Brief 字段。
 7. 生成独立的“AI 根据人工建议生成的第二版”。
 8. 区分当前内容要求、系列规则、账号/平台规则和个人表达偏好。
-9. 没有 Pengman 完整人工稿且 Pengman 尚未确认任何 AI 版本时，保持 `content_stage: 等待人工润色`；若已明确确认采用 AI 版本，则标记 `script_status: 已确认`，记录确认版本并进入 `content_stage: 待制作`。
+9. 没有 Pengman 完整人工稿且 Pengman 尚未确认任何 AI 版本时，保持 `content_stage: brief` 且 `script_status: 待确认`；若已明确确认采用 AI 版本，则标记 `script_status: 已确认`，记录确认版本并进入 `content_stage: scripted`。
 10. 单次反馈不直接修改长期 Skill。
 
 ## content_id 边界
@@ -281,7 +281,7 @@ L3 与 L4 的判断标准：用户问题、内容承诺或账号/形式路由只
 - 需要作为 A/B 两个资产分别跟踪；
 - 已从 L4 升级为新的独立选题，或属于 L5。
 
-尚未发布而暂时不做的原稿使用 `content_stage: 暂停` 并记录原因，不删除。`decision: 淘汰` 优先用于已经发布并经周报复盘后的结论，不能把“这次不想做”误写成永久偏好。
+尚未发布而暂时不做的原稿使用 `content_stage: hold` 并记录原因和复查日期，不删除。`decision: 淘汰` 优先用于已经发布并经周报复盘后的结论，不能把“这次不想做”误写成永久偏好。
 
 ## 反馈类型与沉淀位置
 
