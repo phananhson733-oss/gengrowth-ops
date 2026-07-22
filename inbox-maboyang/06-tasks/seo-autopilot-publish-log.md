@@ -193,3 +193,4 @@ updated: 2026-07-22
 | 2026-07-22 | PG-WC-053 | argentina-vs-spain-world-cup-final-astrology-2026 | Argentina Vs Spain World Cup Final Astrology 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/argentina-vs-spain-world-cup-final-astrology-2026 | published |
 | 2026-07-22 | PG-CELEB-064 | jang-wonyoung-birth-chart | Jang Wonyoung Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jang-wonyoung-birth-chart | published |
 | 2026-07-22 | PG-HEAL-007 | mars-in-aries | Mars In Aries | marcus-orion | https://www.astrologywiki.com/en/wiki/mars-in-aries | published |
+| 2026-07-22 | PG-CELEB-062 | taylor-swift-travis-kelce-wedding-astrology | Taylor Swift Travis Kelce Wedding Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/taylor-swift-travis-kelce-wedding-astrology | published |
