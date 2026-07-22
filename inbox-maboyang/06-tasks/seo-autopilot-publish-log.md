@@ -191,3 +191,4 @@ updated: 2026-07-22
 | 2026-07-21 | PG-MCMT-001 | the-most-common-mbti-types-for-each-zodiac-sign | The Most Common MBTI Types For Each Zodiac Sign | marcus-orion | https://www.astrologywiki.com/en/wiki/the-most-common-mbti-types-for-each-zodiac-sign | published |
 | 2026-07-21 | PG-SOLAR-003 | what-is-my-theme-for-this-year | What Is My Theme For This Year | marcus-orion | https://www.astrologywiki.com/en/wiki/what-is-my-theme-for-this-year | published |
 | 2026-07-22 | PG-WC-053 | argentina-vs-spain-world-cup-final-astrology-2026 | Argentina Vs Spain World Cup Final Astrology 2026 | marcus-orion | https://www.astrologywiki.com/en/wiki/argentina-vs-spain-world-cup-final-astrology-2026 | published |
+| 2026-07-22 | PG-CELEB-064 | jang-wonyoung-birth-chart | Jang Wonyoung Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jang-wonyoung-birth-chart | published |
