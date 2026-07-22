@@ -495,7 +495,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-NODE-016` Scorpio MBTI type
 - [x] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
 
-- [ ] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
+- [x] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
 - [ ] `PG-WC-055` Thor zodiac sign
 - [ ] `PG-CELEB-063` Jennifer Lopez birth chart
 
