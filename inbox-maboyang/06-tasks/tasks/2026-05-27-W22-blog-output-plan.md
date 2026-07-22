@@ -499,7 +499,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-WC-055` Thor zodiac sign
 - [ ] `PG-CELEB-063` Jennifer Lopez birth chart
 
-- [ ] `PG-CELEB-064` jang wonyoung birth chart
+- [x] `PG-CELEB-064` jang wonyoung birth chart
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
