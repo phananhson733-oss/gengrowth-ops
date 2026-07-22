@@ -521,6 +521,69 @@ def validate_data_rigor(content: str, report: ValidationReport):
         report.add("数据严谨 - 成品语气(R7)", True, "无草稿/修订过程叙述")
 
 
+def validate_model_coherence(content: str, report: ValidationReport):
+    """模型自洽性 lint — 补结构校验查不到的「结构齐但逻辑软」错误。
+    针对三类高频且可机械检出的失误，廉价启发式，宁漏勿误伤：
+      ① 占比/配比：份额列用区间无法相加 / 单值合计须 ≈100%
+      ② SOM 应是可实现份额(%)，不是收入金额
+      ③ 收入模型：出现"加上续订/run-rate"却无中间系数（未建模就并入存量）"""
+
+    # ── ① 占比合计 ──
+    share_issue = None
+    for tbl in re.finditer(r'((?:\|[^\n]*\|[ \t]*\n){3,})', content):
+        lines = [l for l in tbl.group(1).strip().split('\n') if l.strip().startswith('|')]
+        if len(lines) < 3:
+            continue
+        cols = [c.strip() for c in lines[0].strip('|').split('|')]
+        share_idx = next((i for i, c in enumerate(cols)
+                          if re.search(r'占比|配比|份额|share', c, re.IGNORECASE)), None)
+        if share_idx is None:
+            continue
+        vals, has_range = [], False
+        for row in lines[2:]:  # 跳过表头 + 分隔行
+            cells = [c.strip() for c in row.strip('|').split('|')]
+            if share_idx >= len(cells):
+                continue
+            if re.search(r'合计|总计|小计|total', cells[0], re.IGNORECASE):
+                continue
+            val = cells[share_idx]
+            if re.search(r'\d+\s*[–\-~〜]\s*\d+\s*%|[~约]\s*\d+\s*%', val):
+                has_range = True
+            nums = re.findall(r'(\d+(?:\.\d+)?)\s*%', val)
+            if len(nums) == 1:
+                vals.append(float(nums[0]))
+            elif len(nums) >= 2:
+                has_range = True
+        if has_range:
+            share_issue = "份额/占比列用区间表示 — 区间无法相加成有效配比，应给归一化到 100% 的单一情景"
+            break
+        if len(vals) >= 3 and not (95 <= sum(vals) <= 105):
+            share_issue = f"份额/占比列单值合计 ≈ {sum(vals):.0f}%（应 ≈100%）— 非有效配比模型"
+            break
+    report.add("模型自洽 - 占比配比", share_issue is None, share_issue or "未见占比表 / 配比自洽")
+
+    # ── ② SOM 口径（份额% 而非收入金额）──
+    som_issue = None
+    for m in re.finditer(r'SOM[^\n]{0,120}', content):
+        seg = m.group(0)
+        has_money = re.search(r'\$\s*\d|\d+\s*(?:万|亿)\s*(?:美元|美金|元|USD|RMB)', seg)
+        # 金额若是"年化X ÷ SAM ≈ Y%"这类推导则合规；仅当整段无 % 才判为把 SOM 写成收入
+        if has_money and not re.search(r'%|百分', seg):
+            som_issue = f"SOM 处出现金额而无份额% — SOM 应是可实现市场份额(%)，非收入估算：…{seg[:45].strip()}…"
+            break
+    report.add("模型自洽 - SOM 口径", som_issue is None, som_issue or "SOM 未误写成收入金额")
+
+    # ── ③ 收入续订跳变（未建模就并入存量）──
+    rev_sec = extract_between(content, '变现与收入', 'TAM') \
+        or extract_between(content, '4.1', '4.2') or ""
+    jump_issue = None
+    if re.search(r'加上\s*(?:存量)?续订|并入存量|run[-\s]?rate|存量续订', rev_sec, re.IGNORECASE):
+        if not re.search(r'系数|留存率|续订率|cohort|队列|放大|权重|k\s*[≈=]', rev_sec, re.IGNORECASE):
+            jump_issue = "收入从新客小计跳入含续订口径，但未见续订系数/留存率建模 — 补中间系数，或显式标注'未建模、仅新客口径'"
+    report.add("模型自洽 - 收入续订建模", jump_issue is None,
+               jump_issue or "收入模型未见未建模的续订跳变")
+
+
 def validate_advanced_frameworks(content: str, report: ValidationReport):
     """验证投资级分析框架。"""
     # TAM/SAM/SOM
@@ -613,6 +676,7 @@ def validate(filepath: str) -> ValidationReport:
     validate_hard_facts_sourcing(content, report)
     validate_table_widths(content, report)
     validate_data_rigor(content, report)
+    validate_model_coherence(content, report)
     validate_advanced_frameworks(content, report)
 
     return report

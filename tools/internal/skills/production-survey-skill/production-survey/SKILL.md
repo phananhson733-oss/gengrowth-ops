@@ -33,6 +33,7 @@ When the user provides a product name or category, **first do a quick WebFetch o
 > - **主导航类目**：列出全部 nav 类目（如 NEW IN / Top luxury / Resort Dresses / Coats & Jackets ...）
 > - **可见 occasion / 场景标签**：列出站点显式标注的所有 use case（如 daily / vacation / wedding / party / work），按出现频次排序
 > - **品牌实质归属**：母公司 / 注册地 / 上市状态（如可查）
+> - **变现模型（据商店/站点自身标签逐字核对，不得臆断）**：App 须核对 App Store / Google Play 的 **"Contains Ads / 包含广告"** 标签、**In-App Purchases** 列表、以及评论中「看广告解锁」类信号，据此判定「订阅 / 广告 / 混合 / 一次性买断」——**严禁在未核对广告标签的情况下写「无广告 / 纯订阅」**（这是把有利假设当事实的高频错误）；Web 产品核对定价页/结账流。判定不清时写「待核对」。
 >
 > 基于以上证据：
 > - **调研对象**：[product name]
@@ -114,7 +115,7 @@ After saving the report, run the validation script to check structure and depth 
 python3 scripts/validate-report.py ./参考资料/产品分析/[产品名字]-分析报告.md
 ```
 
-The script checks structure and depth across 8 categories: file naming, header, sections, sub-sections, tables, depth metrics, **data-rigor lints (R1 caliber / R2 AI visibility-vs-referral / R7 finished-voice / overclaim)**, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀).
+The script checks structure and depth across these categories: file naming, header, sections, sub-sections, tables, depth metrics, **data-rigor lints (R1 caliber / R2 AI visibility-vs-referral / R7 finished-voice / overclaim)**, **model-coherence lints (share columns must sum ≈100% and not use ranges / SOM must be a share % not a revenue figure / no un-modeled renewal jump in the revenue model)**, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀). Note: a structural pass is necessary but NOT sufficient — it confirms the scaffolding, not that the numbers are internally coherent or decision-grade.
 
 If validation fails, fix the failing items before finalizing.
 
@@ -159,8 +160,9 @@ These rules exist because reports repeatedly over-claimed: presenting third-part
 - **R8 · 指标概念卫生（metric hygiene）**: Never conflate distinct metrics; label each by exactly what it measures. Common conflations to avoid: **公开售价区间 ≠ AOV（客单价）** (call it 「公开产品价格带」, keep AOV as an explicit model assumption); web traffic ≠ sales (R3); AI visibility ≠ referral ≠ conversion (R2); SimilarWeb 总访问模块 ≠ 渠道模块 (R1).
 - **R9 · 数据化措辞，少用标签（data-language over loaded labels）**: Replace evaluative/loaded labels with measured, data-anchored phrasing. 「落后者」→「自然流量在同组中最低」; 「品牌力弱」→「品牌搜索与第三方内容资产仍有提升空间」; 「最烧钱」→「付费搜索占比较高」; 「护城河薄 / 货架白牌 / 白牌红海 / 贴身肉搏」→「品牌资产在建设期 / 同价位竞争密集」. The number should carry the judgment, not an adjective.
 - **R10 · 公开数据不能证实内部事实（public data ≠ internal facts）**: Public/third-party data **cannot** confirm internal or organizational facts — net margin, channel sales split, org coordination ("各自为战"), whether two brands share a supply chain, whether SEO/GEO is an internal priority. Either scope-limit explicitly ("从独立站公开指标看…", "无法从公开信息确认") or omit. Same-address / shared-phone ⇏ shared supply chain or single operating entity.
-- **Scoring transparency**: Any rating (stars, scores) MUST state its rubric/口径 (e.g. "公开数据覆盖 + 竞品相对位置 + 近期趋势 三维综合") or use qualitative labels (较强/中等/待提升). Opaque star ratings read as subjective.
-- **Evidence-boundary block (推荐)**: For decision/BD-oriented reports, open with a short block listing what the data **can** support (`[Medium]`) vs what it **cannot yet** support and is only a working assumption (`[Low]`/「待补」). Replace "数据已证明 / proven" language with "数据支持的外部假设 / data-supported external hypothesis" throughout.
+- **Scoring transparency**: Any rating (stars, scores) MUST state its rubric/口径 (e.g. "公开数据覆盖 + 竞品相对位置 + 近期趋势 三维综合"). **When a dimension's judgment rests on `[Low]` evidence, use qualitative labels (较强/中等/待提升) instead of stars/scores, and tag each dimension with the weakest evidence grade it depends on** — never dress a `[Low]`-backed judgment as a precise star rating. Opaque star ratings read as subjective.
+- **用途限界 banner (default, required for any report with modeled revenue/CAC/valuation)**: Open the report with a one-line ⚠️ banner stating that everything beyond store/site hard facts is assumption-driven `[Low]` modeling, is directional, and **must not be used directly for investment/budget/growth decisions** without replacing the models with internal data (App Store Connect / RevenueCat / MMP attribution). This is not optional decoration — a 56/56 structural pass does NOT make a report decision-grade; the banner sets honest expectations.
+- **Evidence-boundary block (default for decision/BD-oriented reports)**: Open with a short block listing what the data **can** support (`[Medium]`) vs what it **cannot yet** support and is only a working assumption (`[Low]`/「待补」). Replace "数据已证明 / proven" language with "数据支持的外部假设 / data-supported external hypothesis" throughout.
 
 ## 对外版输出（Outreach / external-facing variant）
 
