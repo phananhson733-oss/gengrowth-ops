@@ -8,7 +8,7 @@
 ## 1. 架构（设计如此，不是 bug）
 
 - 多台电脑 / 多人，同时存在 **wiki** 和 **ops** 两个 Obsidian 库，都自动 git 同步。
-- **wiki → ops 单向镜像**：`wiki/tools` 覆盖到 `ops/tools`；`ops/inbox`、`ops/onboarding`
+- **wiki → ops 单向镜像**：`wiki/tools` 覆盖到 `ops/tools`；`ops/inbox-maboyang`、`ops/onboarding`
   与 `agents` 内容镜像进 `wiki/docs/repo/`（这些是**镜像目标，别手改**，会被 `rsync --delete` 吞）。
 - 所有机器推同一个 `origin/main`。冲突安全靠三件套（见第 5 节），不是靠"只让一台推"。
 
