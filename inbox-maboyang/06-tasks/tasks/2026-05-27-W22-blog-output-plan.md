@@ -477,7 +477,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ## ⚪ 7月20日 (周一) - 待写作
 **状态**：`等待输出` (自动补充选题，共 7 篇)
 - [x] `PG-CELEB-060` Ferran Torres birth chart
-- [ ] `PG-TRANS-026` saturn return career change
+- [x] `PG-TRANS-026` saturn return career change
 - [x] `PG-TRANS-027` surviving saturn return
 - [x] `PG-AIMB-001` am i meant to be my own boss
 - [x] `PG-NODE-015` mars in scorpio
