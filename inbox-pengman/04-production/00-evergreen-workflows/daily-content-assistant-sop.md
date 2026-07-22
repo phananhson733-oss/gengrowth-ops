@@ -3,7 +3,7 @@ title: Daily Content Assistant SOP
 project: astrologywiki
 type: workflow
 status: active
-updated: 2026-07-20
+updated: 2026-07-21
 owner: Pengman
 ---
 
@@ -136,11 +136,14 @@ Daily Assistant 只给出评分、推荐动作和受影响 `content_id`；把 Id
 
 - 检查最近 7–14 天发布去重。
 - 读取相关 `decision / next_test`。
-- 对时效、明星、体育、影视和天象事实进行当前核验。
+- 先读取固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`，记录读取状态、`checked_at` 和本轮采用的账号；若不可读，停止生成正式候选。
+- 尝试访问 Apps Script Library：`https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3`，如需登录则明确记录“未读取内部内容”，不得假装已参考。
+- 对每轮所有新候选（包括 Evergreen）核验至少 2 个与目标账号/选题直接相关的当前公开来源；固定账号索引不能替代查看当前内容。
+- 对时效、明星、体育、影视和天象事实进行当前核验；Hot 继续执行更严格的 4 来源/3 直接链接门槛。
 - 使用公开 AstrologyWiki 页面/工具和已批准优先级；不推断未提供的搜索表现。
-- 保留四账号 Playbook 与 Social Daily Skill 的表达/品牌边界。
+- 保留四账号 Playbook 与 Social Daily Skill 的表达/品牌边界，原有参考项不得因新增两个入口而省略。
 
-热点或正式周一候选研究的证据记录应包含：本地文件、当前公开来源、关键链接、不可用输入和待确认事实。普通日常执行卡不需要为既定内容重复制作证据报告。
+所有新候选研究的证据记录应包含：本地文件、固定 CSV 的状态与检查时间、Library 页面状态、当前公开来源、候选直接链接、不可用输入和待确认事实。普通日常执行卡不需要为既定内容重复制作证据报告。
 
 ## 6. Daily Output
 

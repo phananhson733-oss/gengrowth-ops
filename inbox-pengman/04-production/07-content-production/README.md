@@ -4,7 +4,7 @@ project: astrologywiki
 type: production-index
 status: active
 owner: Pengman
-updated: 2026-07-20
+updated: 2026-07-21
 ---
 
 # 单条内容生产入口
@@ -13,36 +13,36 @@ updated: 2026-07-20
 
 ## 当前队列
 
-> 本索引现有条目是迁移前快照。下一个周一按 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop#10-旧内容迁移与首周启动]] 核对主记录后，才把真实 WIP 纳入 `Publishing This Week` 或 `Producing for Next Week`。不要根据文件名日期或旧 `status` 自动推进。
+> 本索引现有条目是迁移前快照。下一个周一按 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop#10-旧内容迁移与首周启动]] 核对主记录后，才把真实 WIP 纳入 `Publishing This Week` 或 `Producing for Next Week`。不要根据文件名日期或 `status` 自动推进。
 
 ### 当前行动项
 
 | 主生产记录 | 当前记录状态 | 下一步 |
 |---|---|---|
-| [[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录.md]] | `content_stage: brief`；W30 AI Host Script Batch | Pengman 确认 Hook/承诺后写完整脚本并进入 `scripted` |
-| [[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Moon Saving People AI口播 内容生产记录.md]] | `content_stage: brief`；W30 跨星座对照 | 今天只确认 Brief；Scorpio 脚本确认后再展开 |
-| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: 已发布`；周报 W29 | 按旧阶段映射核对真实直链与复盘字段；不是“制作中” |
+| [[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录.md]] | `content_stage: brief`；W30 AI Host Script Batch | Hook方向已确认；下一步写完整脚本，确认后进入 `scripted` |
+| [[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录.md]] | `content_stage: brief`；W30 Cancer Sun 对照 | 方向已确认；Scorpio 完整脚本后再展开本条脚本 |
+| [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] | `content_stage: published`；周报 W29 | 真实直链已核对；补 `decision / next_test` 后才能进入 `reviewed` |
 
 ### 状态待确认
 
-- [[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md]] — `status: ready-to-produce`，缺 `content_stage`；先确认真实阶段。
+- [[inbox-pengman/04-production/07-content-production/2026-07-14 France vs Spain Astrology Slideshow 制作方案.md]] — `content_stage: hold`；旧记录称已发布但无真实直链，补链后才可改为 `published`。
+- [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 内容生产记录.md]] — `content_stage: hold`；有旧发布声明但直链待补，暂不视为已验证 `published`。
+- [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录.md]] — `content_stage: hold`；有旧发布声明但直链和精确时间待补，暂不视为已验证 `published`。
 - [[inbox-pengman/04-production/07-content-production/2026-07-09 Venus enters Virgo 内容包.md]] — 早期单条完整内容包；核对是否仍会在未来两周推进，再决定 `selected / hold / idea`。
 - [[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host 视频内容包.md]] — 早期单条完整内容包；核对是否仍会在未来两周推进，再决定 `selected / hold / idea`。
 - 其余未在当前行动项或已发布列表中的早期制作方案，默认按历史／状态待确认处理，不自动推进。
 
 ### 已发布，等待周报闭环
 
-- [[inbox-pengman/04-production/07-content-production/2026-07-20 Scorpio Psychology AI口播 第三条 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W30；公开直链和早期指标已补，继续观察 24/72 小时。
-- [[inbox-pengman/04-production/07-content-production/2026-07-20 Spain 世界杯夺冠庆祝帖 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W30；公开直链已补入周报，发布形式待后台确认。
-- [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W29；发布链接和表现数据待补。
-- [[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W29；精确发布时间、链接和表现数据待补。
-- [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] — 旧 `content_stage: 已发布`，周报 W29；公开链接已补，继续观察 24/48 小时数据。
-- [[inbox-pengman/04-production/07-content-production/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W29。
-- [[inbox-pengman/04-production/07-content-production/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — 旧 `content_stage: 已发布`，周报 W29。
-- [[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]] — 已发布，周报 W29。
-- [[inbox-pengman/04-production/07-content-production/2026-07-13 Cancer New Moon 视频制作方案.md]] — 已发布，周报 W29。
-- [[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md]] — 已发布，周归属待确认。
-- [[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md]] — 已发布，周报 W28。
+- [[inbox-pengman/04-production/07-content-production/2026-07-20 Scorpio Psychology AI口播 第三条 内容生产记录.md]] — `content_stage: published`，周报 W30；公开直链和后台指标已补。
+- [[inbox-pengman/04-production/07-content-production/2026-07-20 Spain 世界杯夺冠庆祝帖 内容生产记录.md]] — `content_stage: published`，周报 W30；真实直链已补，发布形式待后台确认。
+- [[inbox-pengman/04-production/07-content-production/2026-07-17 Grand Alignment 视频制作方案.md]] — `content_stage: published`，周报 W29；真实直链已补。
+- [[inbox-pengman/04-production/07-content-production/2026-07-16 Messi × Yamal World Cup Final 内容生产记录.md]] — `content_stage: published`，周报 W29；真实直链已补。
+- [[inbox-pengman/04-production/07-content-production/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录.md]] — `content_stage: published`，周报 W29；真实直链已补。
+- [[inbox-pengman/04-production/07-content-production/2026-07-14 Earth Moon Toxic Traits 视频制作方案.md]] — `content_stage: published`，周报 W29。
+- [[inbox-pengman/04-production/07-content-production/2026-07-13 Cancer New Moon 视频制作方案.md]] — `content_stage: published`，周报 W29。
+- [[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案.md]] — `content_stage: published`，周归属待确认。
+- [[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案.md]] — `content_stage: published`，周报 W28。
 
 发布链接、周级数据和最终 `decision / next_test` 仍以 [[inbox-pengman/04-production/05-weekly-published-content-digests/README]] 为事实来源。
 

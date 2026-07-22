@@ -9,7 +9,11 @@ topic: Why We Can't Stop Watching Rhaenyra Fight for Legitimacy
 tools:
   - CapCut
 related:
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包]]
+  - - - inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包
+content_stage: 已发布
+scheduled_platform: TikTok
+published_date: 2026-07-06
+updated: 2026-07-21
 ---
 
 # 2026-07-06 House of the Dragon Rhaenyra 视频制作方案

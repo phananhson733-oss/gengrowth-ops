@@ -1,120 +1,51 @@
-# 📥 GenGrowth SEO 工作台 (彭满)
+# GenGrowth 内容运营工作台（Pengman）
 
-本目录为**彭满的个人工作区（加工区）**，遵循主管提出的"生产与发布分离"原则。所有正式沉淀规则需在评审后迁移至 `docs/`（由 wiki 同步，单向只读）。
+本目录是 Pengman 的个人研究、计划与内容生产工作区。当前内容生产采用滚动周机制；正式执行入口是 [[inbox-pengman/04-production/README]]。
 
-> 本工作台与 Ops（`inbox-maboyang/`）共用同一个 `gengrowth-ops` 仓库，但各自独立：彭满只在 `inbox-pengman/` 下作业，dispatch 自动化对两个工作台分别处理、互不干扰。
+> 当前唯一默认节奏：本周发布上周库存，本周生产下周内容；周一锁定产能、选题、账号、形式、排期与 Batch；周二至周四批量生产；周五排期、库存检查和复盘；每天只执行既定计划并有限检查热点。
 
-## 📂 目录索引与用途
+## 目录索引
 
-| 目录编号   | 目录名称                      | 核心用途                            |
-| :----- | :------------------------ | :------------------------------ |
-| **00** | `00-inbox`                | 临时输入、灵感草稿、未分类数据。                |
-| **02** | `02-conversation report`  | 跨对话协作上下文、已确认决定、职责边界和待确认事项。 |
-| **03** | `03-topic-ideas`          | 已退役、待确认清理；不再作为人工或 AI 入口。 |
-| **04** | `04-production`           | 内容生产闭环：当前制作、待发布、发布复盘、生产 SOP 与四账号路由。入口：[[inbox-pengman/04-production/README.md]] |
-| **05** | `05-调研资料`             | 平台策略、方法论、工具研究、竞品研究、历史调研和历史流程；只在查证依据时读取，不维护当前生产状态。入口：[[inbox-pengman/05-调研资料/README.md]] |
-| **06** | `06-tasks`                | 任务管理、周计划、执行跟踪、职责边界文档。          |
-| **07** | `07-account-assets`       | 账号资料、头像、banner、品牌展示资产。入口：[[inbox-pengman/07-account-assets/README.md]] |
-| **08** | `08-requirements`         | 需求文档、工具需求、自动化需求和待交付给同事的 PRD。 |
+| 目录 | 当前用途 |
+|---|---|
+| `00-inbox` | 临时输入与个人操作卡，不维护正式状态 |
+| `01-conversation report` | 当前协作上下文与历史交接 |
+| `02-topic-ideas` | 已退役的长期主题与旧脚本，只作历史参考 |
+| `04-production` | 周计划、单条生产、发布复盘和现行 SOP |
+| `05-调研资料` | 竞品、平台、工具和历史方法资料；按需读取 |
+| `06-tasks` | 任务与职责记录，不代替内容周计划 |
+| `07-account-assets` | 账号与品牌资产 |
+| `08-requirements` | 需求文档和迁移提案 |
+| `09-reports` | 策略分析与运营周报 |
+| `output` | 抓取输出和数据文件 |
 
+## 内容生产入口
 
-### 🎬 04 内容创作工作区细分
-- `00-evergreen-workflows`: 生产 SOP、统一 Brief、人工润色和模型实验规范。
-- `05-weekly-published-content-digests`: 已发布内容合集、公开数据记录、单次发布复盘。
-- `06-daily-content-recommendations`: 每日内容推荐输出。
-- `07-content-production`: 已选中单条内容的 Brief、脚本、制作方案、主生产记录和实验附件。
-- `01-strategy-and-platform-research`: 当前只保留四账号内容路由 Playbook。
-- 入口文档：[[inbox-pengman/04-production/README.md]]
+| 要做的事 | 入口 |
+|---|---|
+| 建立或执行本周计划 | [[inbox-pengman/04-production/04-weekly-content-plans/README]] |
+| 查看周度规则、配额、内容池、Batch 与 WIP | [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]] |
+| 获取今天的既定执行卡 | [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop]] |
+| 周一候选研究、Hot 评估或明确重排 | [[inbox-pengman/04-production/06-daily-content-recommendations/README]] |
+| 推进已选中的单条内容 | [[inbox-pengman/04-production/07-content-production/README]] |
+| 发布数据与复盘 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README]] |
 
-平台、工具、竞品和历史研究统一从 [[inbox-pengman/05-调研资料/README.md]] 进入，AI 默认不扫描。
+`06-daily-content-recommendations` 的目录名保留以兼容旧链接，但它不再是每日默认入口。Idea 只有经 Pengman 确认并进入未来两周产能后，才能成为 `selected`。
 
-每日候选从 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]] 进入；选中后转到 [[inbox-pengman/04-production/07-content-production/README.md]] 继续制作。`03-topic-ideas` 已退役待清理，默认不读取。
+## 状态口径
 
-> 2026-07-16 起 GSC 输入暂停：不读取、不索取，也不因缺少 GSC 阻塞内容生产；历史笔记中的 GSC 证据保持原样。
+- 仓库 `status` 只服务 dispatch 和文件管理。
+- 内容生命周期只使用 `content_stage`：
+  `idea → selected → brief → scripted → assets_ready → producing → edited → scheduled → published → reviewed`，补充 `hold / cancelled`。
+- 没有真实 `published_url` 不得标记 `published`；没有 `decision` 和 `next_test` 不得标记 `reviewed`。
+- 周计划显示组合与排期；单条主生产记录保存真实阶段；周报保存发布数据和复盘结论。
 
+## 文件管理边界
 
-### 🧹 已精简的复制型目录
+1. 日期型周计划、周报、发布记录和单次研究保留日期；长期 SOP 使用稳定名称。
+2. 当前规则只在 `04-production/00-evergreen-workflows` 的现行文件维护，不在历史稿中复制。
+3. 历史日级候选、旧流程和已发布记录保留原始证据，不因流程升级追溯性改写。
+4. GSC 自 2026-07-16 起暂停，不读取、不索取，也不因缺少 GSC 阻塞内容生产。
+5. `status: ready_for_review / ready_to_move` 仍仅用于仓库 dispatch；不得代替 `content_stage`。
 
-以下目录目前没有实际内容或已合并到 04 内容创作工作区，已先删除：`01-review-audit`、`05-media report`、`08-reports-and-feedback`、`09-archive`。如果后续真的需要审计、汇报反馈或独立归档，再按实际用法新建即可。
-
-## 🛠️ 文件管理规范
-
-1. **命名规范**：以人能快速查阅为主。日报、周报、抓取记录、单次复盘建议保留日期；长期 SOP、选题库、资产台账、职责理解、历史调研可以用中文标题。`Untitled.md` / `未命名.md` 等占位名只会收到 advisory 提示（不阻塞），但**走流程**（`ready_*`）时会被拒绝。
-2. **元数据要求**：`.md` 文件头部建议包含 `project`, `type`, `status`, `owner`, `updated` 字段；草稿可以不写，**走流程时这 5 个字段必填**。
-3. **Owner**：彭满。`inbox-pengman/` 是彭满专属工作台，其他人请勿直接修改。
-4. **清理规则**：正式 SOP 确定后应提交至 `docs/`；已发布的 Blog 初稿定期归档至内容资产库。
-
-## 🔄 status 字段语义（决定 dispatch 行为）
-
-`scripts/dispatch-inbox.js` 根据 frontmatter 里的 `status` 字段决定怎么处理一个文件。**默认（非流程状态）只发提示、绝不阻塞、不开 issue** —— Obsidian Git 自动备份不会被骚扰。只有显式声明流程状态时，才会严格校验并搬运：
-
-| status | 行为 | 适用场景 |
-|---|---|---|
-| `draft` / `active` / `final` / `in-progress` / 无 frontmatter / 无法识别 | **留在 inbox-pengman/**，不动，仅 advisory 提示 | 草稿、半成品、思考记录。脚本不会骚扰。 |
-| `ready_for_review` | 严格校验后**开 PR** 等审批 | 完成的内容，需要他人 review |
-| `ready_to_move` | 严格校验后**直接搬运** 到 target | 已确认无需 review 的内容 |
-
-> 只有 `ready_for_review` / `ready_to_move` 会触发校验失败开 issue；草稿状态永远静默。
-> 写 `ready_for_review` / `ready_to_move` 时必须同时写 `target` 字段（允许值：`onboarding/`, `templates/`）。
-> 所有 wiki 同步目录（`docs/`、`✍️ 内容资产/`、`参考资料/`、`每日日报/`、`task-collab/`）都是单向 rsync 镜像**只读**，dispatch 不能往里搬；要更新这些内容请改 wiki repo。
-
-### Frontmatter 示例
-
-```yaml
----
-project: astrologywiki
-type: blog-draft
-status: draft           # 草稿阶段：脚本会忽略
-owner: 彭满
-updated: 2026-06-10
----
-```
-
-完成后改成 ready 状态再触发 dispatch：
-
-```yaml
----
-project: astrologywiki
-type: sop
-status: ready_for_review
-target: onboarding/
-owner: 彭满
-updated: 2026-06-10
----
-```
-
-## 🛠️ 写文章的辅助工具：`brand-wrap`
-
-用任何 AI（Gemini / Claude / ChatGPT）生成文章粘到工作台之后，跑一下规范化脚本：
-
-```bash
-# 预览（不改文件）
-node scripts/brand-wrap.js inbox-pengman/04-production/my-new-blog.md
-
-# 应用规范化（补 frontmatter + 加日期前缀 + AI 词警告 + blog 末尾追加品牌 CTA）
-node scripts/brand-wrap.js inbox-pengman/04-production/my-new-blog.md --apply
-
-# 扫描整个 inbox-pengman/，批量规范化所有缺 frontmatter 的文件
-node scripts/brand-wrap.js --scan inbox-pengman/ --apply
-```
-
-脚本会自动做：
-
-1. **补 frontmatter**：`project/type/status/owner/updated`（type 从子目录推断）
-2. **文件名加日期前缀**：`my-blog.md` → `2026-06-10-my-blog.md`
-3. **AI 标志词扫描**：发现 `delve/crucial/robust/landscape/...` 等词 ≥ 3 个时警告，提示 SEO 降权风险
-4. **品牌 CTA**：blog-draft 类型文章末尾自动追加 AstrologyWiki 链接（已有的不重复加）
-
-> AI 警告是 advisory，不阻塞；frontmatter 缺失/文件名错误才会阻塞 dispatch。
-
-## 🚨 校验失败怎么办
-
-如果 dispatch 脚本拒绝了某个文件，会自动开一个 GitHub Issue 通知作者。在 Issue 里能看到：
-
-- 哪个文件出了什么问题
-- 怎么修
-
-修复后在 Obsidian 里改完，按 F5 重新提交即可。
-
----
-*最后更新：2026-07-17*
+*最后更新：2026-07-21*

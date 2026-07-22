@@ -15,7 +15,7 @@ status: active
 
 新对话开始或处理延续性任务时，优先读取：
 
-- [[inbox-pengman/02-conversation report/current-context.md]]
+- [[inbox-pengman/01-conversation report/current-context.md]]
 
 主上下文只记录：
 

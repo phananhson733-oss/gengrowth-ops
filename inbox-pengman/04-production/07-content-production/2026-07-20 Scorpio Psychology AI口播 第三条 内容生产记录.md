@@ -8,11 +8,15 @@ type: content-production
 account: ② AI 占星师人设
 platform:
   - TikTok
-content_format: 9:16 AI 口播视频（沿用现有 AI 主播 + 深色背景 + 大字幕）
+pool: Evergreen
+pillar: Scorpio psychology / access and boundary
+format: 9:16 AI 口播视频（沿用现有 AI 主播 + 深色背景 + 大字幕）
+priority: P0
+effort: M
 series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude v1，经 Pengman 确认采用，无异议
-content_stage: 已发布
+content_stage: published
 production_status: 已制作完成
 scheduled_at: "2026-07-20T07:30:00-07:00"
 scheduled_timezone: America/Los_Angeles
@@ -20,8 +24,8 @@ scheduled_location: Seattle
 scheduled_at_beijing: "2026-07-20T22:30:00+08:00"
 published_url: "https://www.tiktok.com/@miraaastrology/video/7664501951190600973"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W30 本周已发布内容合集]]"
-decision: 待观察
-next_test: 保持主播、时长、画面和字幕体系基本不变，只测试 access / boundary Hook；与前两条在相同 24/72 小时窗口比较播放、留存、完播、评论和分享
+decision: 继续受控验证；第三条带来 7 个新关注，但样本量仍不足以改变账号定位
+next_test: 保持主播、声音、时长、背景、字幕和无口播 CTA；下一批做 Scorpio #4 + Cancer Sun #1，使用匹配 24/72 小时窗口区分题材红利与形式红利
 status: draft
 owner: Pengman
 updated: 2026-07-21
@@ -115,10 +119,26 @@ They didn't leave. They just stopped letting you in.
 - `package_version`：`v1`。
 - Claude v1 候选已确认采用，Pengman 无异议。
 - Pengman 于 2026-07-20 确认视频已制作完成，并定时在西雅图时间 `2026-07-20 07:30 PDT` 发布；内部换算为北京时间 `2026-07-20 22:30`。
-- `script_status: 已确认`；`content_stage: 已发布`；`production_status: 已制作完成`。
+- `script_status: 已确认`；`content_stage: published`；`production_status: 已制作完成`。
 - 本轮公开抓取已确认实际发布直链；北京时间 `2026-07-21 02:30` 可见 `216 plays / 20 likes / 1 comment / 3 shares / 4 saves`，已同步计入 W30。
 - 候选 Prompt 存档：
   - [[inbox-pengman/04-production/07-content-production/2026-07-20 Scorpio Psychology AI口播 第三条 Claude Prompt]]
+
+
+## 后台表现补充（Pengman 提供）
+
+| 指标 | 数值 |
+|---|---:|
+| Video views | 525 |
+| Total play time | 3h 45m 35s |
+| Average watch time | 26.2s |
+| Watched full video | 17.25% |
+| New followers | 7 |
+
+- 以周报记录的实际 42 秒成片估算，平均观看时长约为视频长度的 62%；完整观看率为 17.25%。
+- 新关注转化约为 `7 / 525 = 1.33%`。
+- 这些是后台观看/关注指标；点赞、评论、收藏和分享来自其他公开快照时，不与本组数据强行计算同一时点互动率。
+- 当前信号支持继续小批量验证，但不能单独证明 Scorpio 已是账号永久题材。
 
 ## 排期记录
 

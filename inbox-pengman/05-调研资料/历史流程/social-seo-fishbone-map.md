@@ -36,9 +36,9 @@ updated: 2026-07-15
 已有关联：
 
 - [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md|AstrologyWiki 内容运营与增长任务梳理]]
-- [[inbox-pengman/02-conversation report/current-context.md|current-context]]
-- [[inbox-pengman/03-topic-ideas/SEO选题调查.md|SEO 选题调查]]
-- [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md|AstrologyWiki 站外内容选题库]]
+- [[inbox-pengman/01-conversation report/current-context.md|current-context]]
+- [[inbox-pengman/02-topic-ideas/SEO选题调查.md|SEO 选题调查]]
+- [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 
 输出到：
 
@@ -151,7 +151,7 @@ updated: 2026-07-15
 
 - 表现好的主题，先回到 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]] 和 [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md|周复盘]]。
 - 能重复 2-3 次的结构，再写回 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md|skill]] 或 [[inbox-pengman/04-production/00-evergreen-workflows/README.md|evergreen workflow]]。
-- 能支撑站内页面或工具说明的用户问题，再回到 [[inbox-pengman/03-topic-ideas/SEO选题调查.md|SEO 选题调查]] 或对应站内内容需求。
+- 能支撑站内页面或工具说明的用户问题，再回到 [[inbox-pengman/02-topic-ideas/SEO选题调查.md|SEO 选题调查]] 或对应站内内容需求。
 
 ## 8. 当前最短执行路径
 

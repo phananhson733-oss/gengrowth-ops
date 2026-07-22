@@ -7,7 +7,7 @@ type: conversation-handoff
 status: active
 related:
   - inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
-  - inbox-pengman/02-conversation report/current-context.md
+  - inbox-pengman/01-conversation report/current-context.md
 ---
 
 # AstrologyWiki YouTube 调研与运营方案交接摘要

@@ -7,7 +7,8 @@ project: AstrologyWiki
 status: draft
 content_id: aw-cancer-new-moon-20260714
 content_format: 9:16 非真人天象解释短视频
-content_stage: 已发布
+content_stage: published
+published_url: "https://www.tiktok.com/@astrologywiki/video/7661912847693188365"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 decision: 待观察
 next_test: 再测试一条同等时效的天象提问式 Hook，确认优势不是单一事件造成

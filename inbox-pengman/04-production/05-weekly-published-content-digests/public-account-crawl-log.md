@@ -3,10 +3,19 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-21
+updated: 2026-07-22
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-22 自动化增量检查
+
+- 检查时间：北京时间 `2026-07-22 02:34` / PDT `2026-07-21 11:34`；周次为 `2026-W30`。
+- 本地新增发布记录：`@miraaastrology` 的 `Scorpio and Cancer: both go silent` 已在生产记录标记 `content_stage: 已发布`、`published_date: 2026-07-21`；未保存 permalink，准确发布时间与全部指标均为 `待补数据/待确认`。
+- 公开检查：尝试 TikTok 账号/内容搜索、YouTube Shorts/Videos、Instagram profile 与 X profile；TikTok 搜索受 robots 限制，其余公开页本轮未稳定返回可核验的新链接或计数。
+- 沿用最近可确认快照（非本轮确认）：TikTok 主账号最新 ID `7663445797949721869`；YouTube `9 Shorts + 2 videos`；Instagram `0 Followers / 0 Following / 5 Posts`；X `25 posts / 3 followers / 9 following`。
+- 本轮新增稳定 permalink：`0`。既有 W30 两条 permalink 保持不变。
+- 限制说明：不使用登录态或后台；新增配对内容的 permalink、views/reach、留存、观看时长、互动、主页访问、链接点击、新关注，以及短链/GA4 qualified UV/assisted UV 均需 Pengman 补充。
 
 ## 2026-07-21 自动化补核
 

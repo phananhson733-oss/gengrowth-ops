@@ -56,7 +56,8 @@ scheduled_timezone: America/Los_Angeles
 scheduled_publish_at_beijing: "2026-07-16T22:45:00+08:00"
 scheduled_platform: TikTok
 scheduled_account: AstrologyWiki 官方账号
-content_stage: 已发布
+content_stage: published
+published_url: "https://www.tiktok.com/@astrologywiki/video/7663039564482710798"
 published_at: "2026-07-16T07:45:00-07:00"
 published_at_beijing: "2026-07-16T22:45:00+08:00"
 published_urls:

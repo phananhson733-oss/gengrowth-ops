@@ -8,7 +8,8 @@ status: draft
 content_id: aw-moon-toxic-traits-03
 account: ① AstrologyWiki 官方
 content_format: 9:16 纯字幕短视频
-content_stage: 已发布
+content_stage: published
+published_url: "https://www.tiktok.com/@astrologywiki/video/7662283840634866957"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 decision: 调整后复用
 next_test: 保留系列视觉和 Moon report CTA，改测行为问题式或单一身份 Hook

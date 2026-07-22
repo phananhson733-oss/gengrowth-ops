@@ -9,10 +9,14 @@ topic: Why Celebrity Birth Charts Get This Wrong So Often
 tools:
   - CapCut
 related:
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包]]
-  - [[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host 视频内容包]]
-  - [[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host Video 2 制作方案]]
-  - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]
+  - - - inbox-pengman/04-production/06-daily-content-recommendations/2026-07-06 每日内容推荐与内容包
+  - - - inbox-pengman/04-production/07-content-production/2026-07-03 AI Host 视频内容包
+  - - - inbox-pengman/04-production/07-content-production/2026-07-03 AI Host Video 2 制作方案
+  - - - inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow
+content_stage: 已发布
+scheduled_platform: TikTok
+published_date: 2026-07-06
+updated: 2026-07-21
 ---
 
 # 2026-07-06 Celebrity Rising Sign 视频制作方案

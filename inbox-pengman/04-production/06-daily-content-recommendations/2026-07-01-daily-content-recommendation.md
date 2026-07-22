@@ -9,6 +9,10 @@ status: draft
 
 # 2026-07-01 Daily Content Recommendation
 
+> [!warning] 历史日级候选快照
+> 本文件保留当时的研究、选题和证据，不再作为当前执行入口，也不能把其中 Idea 自动提升为 `selected`。当前执行请读取周计划；需要重启某条内容时，按滚动周 SOP 重新评估账号、Pool、成本、时效和未来两周产能。
+
+
 ## 今日首推
 
 - 主题：Harry Kane Birth Chart: Leo Leadership Under Pressure
@@ -95,7 +99,7 @@ For a captain, Leo brings visibility under pressure: being watched, expected, an
 
 - 已排除近期已发：Messi / Cancer Sun、Haaland / birth chart / Cancer-Leo cusp、Taylor Swift + Travis Kelce / Cancer season、Jupiter in Leo。
 - GSC CSV：`/Users/pengman/Downloads/astrologywiki.com-Performance-on-Search-2026-07-01/查询数.csv`
-- 本地参考：`inbox-pengman/03-topic-ideas/SEO选题调查.md`
+- 本地参考：`inbox-pengman/02-topic-ideas/SEO选题调查.md`
 - 外部实时信号：2026-07-01 World Cup Round of 32 schedule includes England vs DR Congo and USA vs Bosnia. Match timing was checked before drafting; public-facing copy does not need to state the exact time by default.
 
 ## 需要确认的事

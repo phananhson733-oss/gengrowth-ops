@@ -23,6 +23,11 @@ related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池]]"
   - "[[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host Video 2 制作方案]]"
   - "[[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]"
+content_stage: 已发布
+scheduled_platform: TikTok
+scheduled_account: ② AI 占星师人设
+published_date: 2026-07-21
+updated: 2026-07-21
 ---
 
 # 2026-07-14 Dreaming About Your Ex 视频制作方案

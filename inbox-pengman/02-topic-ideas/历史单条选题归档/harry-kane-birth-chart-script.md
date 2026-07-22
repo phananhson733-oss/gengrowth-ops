@@ -10,16 +10,16 @@ source:
   - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-01-daily-content-recommendation.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 related:
-  - [[inbox-pengman/03-topic-ideas/README.md]]
-  - [[inbox-pengman/03-topic-ideas/SEO选题调查.md]]
+  - [[inbox-pengman/02-topic-ideas/README.md]]
+  - [[inbox-pengman/02-topic-ideas/SEO选题调查.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 ---
 
 # Harry Kane Birth Chart Script
 
-> 归档 2026-07-01 已制作的 Harry Kane / Leo Sun 内容。源推荐文档保留在每日推荐目录；这里作为 03-topic-ideas 下的单条选题脚本备份。
+> 归档 2026-07-01 已制作的 Harry Kane / Leo Sun 内容。源推荐文档保留在每日推荐目录；这里作为当前 `02-topic-ideas` 归档中的单条脚本备份。
 
-相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/03-topic-ideas/SEO选题调查.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+相关入口：[[inbox-pengman/02-topic-ideas/README.md]] / [[inbox-pengman/02-topic-ideas/SEO选题调查.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
 
 ## Topic Card
 

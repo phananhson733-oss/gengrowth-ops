@@ -22,9 +22,11 @@ tags:
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池]]"
 content_stage: 已发布
+published_url: ""
+legacy_publish_claim: 2026-07-15；旧记录称已发布，但尚无真实直链，补链后才可改为 published
 scheduled_platform: TikTok
 published_date: 2026-07-15
-updated: 2026-07-17
+updated: 2026-07-21
 ---
 
 # 2026-07-14 France vs Spain Astrology Slideshow 制作方案

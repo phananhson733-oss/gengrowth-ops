@@ -49,7 +49,7 @@ AI 不每天重新生成四账号选题，不擅自把 Idea 提升到 `selected`
 
 > GSC 自 2026-07-16 起暂停。AI 不读取或索取 GSC，也不因缺少 GSC 阻塞计划、Brief 或制作。
 
-工作区级背景先看 [[inbox-pengman/02-conversation report/current-context]]。`03-topic-ideas` 已退役，不再作为人工或 AI 的读取入口。
+工作区级背景先看 [[inbox-pengman/01-conversation report/current-context]]。`02-topic-ideas` 已退役，不再作为人工或 AI 的读取入口。
 
 ## AI 最小读取路径
 

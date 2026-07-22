@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-07-21
 related:
   - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
@@ -13,7 +13,7 @@ related:
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
   - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
   - [[inbox-pengman/04-production/07-content-production/README.md]]
-  - [[tools/internal/skills/social-daily/SKILL.md]]
+  - [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md]]
 ---
 
 # Instagram Image Content Workflow
@@ -43,10 +43,10 @@ The goal is not to generate generic astrology graphics. The output should suppor
 
 ## 1. Where This Fits
 
-This workflow sits between daily topic selection and visual production:
+This workflow starts after an image item has been selected in the active weekly plan:
 
 ```text
-social-daily / daily assistant topic selection
+weekly plan selected item + confirmed Brief
 → image content brief
 → compressed Canva AI prompt
 → Canva design
@@ -74,11 +74,11 @@ Do not use it for:
 
 Before generating the Instagram image content, the AI assistant should reference these sources when available:
 
-1. `tools/internal/skills/social-daily/SKILL.md`
-   - Use its rules: timely topics first, no made-up facts, conversion must have a real landing page, content should be practical and non-mystical.
+1. Current weekly plan and the selected item's main production record.
+   - Confirm `content_id`, account, pool, format, deadline, `batch_id`, approved Hook direction and `content_stage`.
 
-2. `inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md`
-   - Use its rules: earn qualified reach, use relevant article/tool landing pages, preserve trackable social conversion, check recent published topics, avoid repeated angles, and prefer executable outputs.
+2. `weekly-rolling-content-production-sop.md` and the Social Planning Skill.
+   - Use current capacity, evidence, account-routing, public-expression and hotspot boundaries.
 
 3. `inbox-pengman/04-production/05-weekly-published-content-digests/`
    - Check what has already been posted recently.
@@ -89,9 +89,9 @@ Before generating the Instagram image content, the AI assistant should reference
    - For X, `satyastrology` is a reference for short transit insight + open chart question.
    - For image posts, reference account screenshots can inspire information density: big title, date, short insight, 3 concise action points.
 
-5. Latest daily recommendation and the selected topic's production record:
-   - `inbox-pengman/04-production/06-daily-content-recommendations/`
+5. The selected topic's main production record:
    - `inbox-pengman/04-production/07-content-production/`
+   - Read `06-daily-content-recommendations/` only when the main record links a specific candidate/Hot evidence note.
 
 6. AstrologyWiki brand direction:
    - modern
@@ -222,15 +222,15 @@ Do not ask Canva AI to write long paragraphs or invent facts.
 Use this prompt when asking an AI assistant to generate Instagram image content and a Canva prompt.
 
 ```text
-你是 AstrologyWiki 的 Instagram 图文内容策划助手。请帮我基于今天的主题，生成适合 Canva 制作的 Instagram 图片内容方案。图片数量由内容决定：如果主题只需要一眼扫完，做 single image；如果需要解释框架或步骤，做 carousel。
+你是 AstrologyWiki 的 Instagram 图文内容策划助手。请基于本周计划中已选中的主题和主生产记录，生成适合 Canva 制作的 Instagram 图片内容方案。图片数量由内容决定：如果主题只需要一眼扫完，做 single image；如果需要解释框架或步骤，做 carousel。
 
 必须先参考以下规则和资料：
-- tools/internal/skills/social-daily/SKILL.md
-- inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
+- inbox-pengman/04-production/04-weekly-content-plans/ 当前周计划
+- inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md
+- inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
 - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
-- inbox-pengman/04-production/06-daily-content-recommendations/ 最近的 daily recommendation
-- inbox-pengman/04-production/07-content-production/ 当前选中主题的主生产记录
+- inbox-pengman/04-production/07-content-production/ 当前已选主题的主生产记录
 
 目标：
 - 获取目标用户 reach，并通过 AstrologyWiki 相关文章/工具承接，保障可追踪的 social→工具使用/注册/购买路径；记录 assisted qualified UV。PV 只作页面诊断，不做主 KPI。

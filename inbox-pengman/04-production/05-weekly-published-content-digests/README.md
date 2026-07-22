@@ -45,7 +45,7 @@ updated: 2026-07-21
 
 ## 相关选题归档
 
-- [[inbox-pengman/03-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
-- [[inbox-pengman/03-topic-ideas/历史单条选题归档/haaland视频脚本.md]]
-- [[inbox-pengman/03-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]
-- [[inbox-pengman/03-topic-ideas/SEO选题调查.md]]
+- [[inbox-pengman/02-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
+- [[inbox-pengman/02-topic-ideas/历史单条选题归档/haaland视频脚本.md]]
+- [[inbox-pengman/02-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]
+- [[inbox-pengman/02-topic-ideas/SEO选题调查.md]]

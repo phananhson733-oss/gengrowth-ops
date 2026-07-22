@@ -11,7 +11,7 @@ updated: 2026-07-16
 
 > 一句话结论：`04-production` 的主要问题是生产、SOP、策略、调研、历史资料共用入口，以及状态索引不完整；审查基线约 1.01 MiB，A、B 批次后约 770 KB，始终没有媒体大文件，因此不是明显的 Git 上传负担。
 
-> 执行状态：A、B 批次已完成；2026-07-17 根据 Pengman 最新口径完成 C1“每日候选与单条生产分离”。没有删除、正文合并或修改根 `.gitignore`；其余状态归档和 D 批次仍待确认。
+> 执行状态：A、B、C1 已完成。C1 当时采用“每日候选与单条生产分离”；该日级候选口径已在 2026-07-20 被滚动周机制替代。当前候选目录只用于周一研究、合格 Hot、确认补库或明确重排；其余状态归档和 D 批次仍待确认。
 
 ## A 批次执行记录（2026-07-16）
 
@@ -35,15 +35,15 @@ updated: 2026-07-16
 
 ## C1 批次执行记录（2026-07-17）
 
-- `06-daily-content-recommendations/` 重新定义为日级候选入口，只保留每日选题池、每日内容推荐、每日内容包及其日级旧稿。
+- `06-daily-content-recommendations/` 当时被收窄为日级候选入口；自 2026-07-20 起，该口径被滚动周机制替代。当前只用于周一候选研究、合格 Hot、确认补库或明确重排，历史日级文件保留为快照。
 - 新建 `07-content-production/`，迁入 9 份单条制作方案、4 份主生产记录、3 份 Messi × Yamal 实验附件、2 份已合并生产过程稿，以及 2 份名称虽为“内容包”但实际包含完整脚本/素材/发布设置的单条生产资产，共 20 个原文件；没有删除或合并正文。
 - C1 完成后，`06` 为 17 个文件、211,809 B；`07` 为 22 个文件、325,080 B，其中 2 个是新建索引。整个 `04-production` 为 65 个文件、809,236 B；拆分主要改善职责和读取范围，不减少仓库总体积。
 - 已同步更新工作区 README、AGENTS、current-context、主题入口、SOP、周报和迁移文件之间的路径引用。
 - 本批次不按文件日期猜测状态，也不建立 `当前制作/待发布/已发布` 物理子目录；当前队列仅由 `07/README.md` 索引，缺 `content_stage` 的旧制作方案继续标为待确认。
 
-## `03-topic-ideas` 退役与删除影响（2026-07-17）
+## 原 `03-topic-ideas`（现 `02-topic-ideas`）退役与删除影响（2026-07-17）
 
-- Pengman 已确认不再把 `03-topic-ideas` 作为人工入口；当前 AGENTS、Social Daily Skill、Daily SOP 和生产 README 已移除默认读取依赖，目录标记为 `deprecated`。
+- Pengman 已确认不再把原 `03-topic-ideas`（现 `02-topic-ideas`）作为人工入口；当前 AGENTS、Social Daily Skill、Daily SOP 和生产 README 已移除默认读取依赖，目录标记为 `deprecated`。
 - 目录现有 29 个文件、18,009,367 B；其中 27 个被 Git 跟踪。18 张 Birth Chart 分镜 PNG 合计 17,936,445 B，占目录约 99.6%，且在 `inbox-pengman` 中没有相同哈希副本。
 - 8 个 Markdown 合计仅 60,626 B，包括两份历史研究/选题库、Birth Chart 完整生产稿，以及 Messi、Haaland、Harry Kane 三份历史脚本/记录。
 - `inbox-pengman` 外部仍有 19 个 Markdown 文件引用该目录，包括周报索引、历史周报、旧每日内容包和历史流程；物理删除前必须同批修复链接。
@@ -56,7 +56,7 @@ updated: 2026-07-16
 
 - `inbox-pengman/AGENTS.md`；
 - `inbox-pengman/README.md`；
-- `inbox-pengman/02-conversation report/current-context.md`；
+- `inbox-pengman/01-conversation report/current-context.md`；
 - `inbox-pengman/04-production/README.md`；
 - `inbox-pengman/04-production/00-evergreen-workflows/**`；
 - 各一级子目录 README；
@@ -336,7 +336,7 @@ updated: 2026-07-16
 | `03.../sheets-export/` | 2026-07-07 左右旧 CSV | 归档，不参与生成 | `05-调研资料/竞品研究/旧快照/2026-07-07/` | 仅 22.2 KiB；保留追溯比删除更稳妥 | 中 | README 需明确停用；无直接 wikilink |
 | `04-text-and-social-tool-research/` | 文本/X/搜索工具研究 | 整体迁移 | `05-调研资料/工具调研/文字与社媒/` | 与 02 同类 | 低 | 5 个引用文件 |
 | `05-weekly-published-content-digests/` | 发布、数据、复盘 | 保留 | 原路径，第一阶段不改名 | 发布事实来源 | 高 | 50 个引用文件 |
-| `06-daily-content-recommendations/` | 每日选题池、每日推荐、每日内容包 | 保留并已收窄 | 原路径 | 日级候选入口不再混入单条制作状态 | 高，已完成 | 已同步更新入口与生产路径 |
+| `06-daily-content-recommendations/` | 历史日级候选；当前周一候选/Hot/重排证据 | 保留但再次收窄 | 原路径 | 不作为普通日执行入口，不维护单条状态 | 高，已完成 | 现行规则以 Weekly Rolling SOP 为准 |
 | `06.../已合并旧稿/` | 已合并的日级过程稿 | 保留但默认不读 | 原路径 | 仍有来源追溯价值，且与日级内容包同类 | 低 | README 已收口 |
 | `07-content-production/` | 单条 Brief、脚本、制作方案、主生产记录和实验附件 | 新建并已迁入 | 当前路径 | 被选中内容需要独立于每日候选继续流转 | 高，已完成 C1 | 周报、SOP、AGENTS、主题入口和内部互链已更新 |
 | Messi × Yamal Prompt/候选 | 双模型过程附件 | 随主记录迁移，不删 | `07-content-production/`，由 README 降权 | 候选不重复维护状态 | 中，已完成 | 主记录中的 3 个附件引用已更新 |
@@ -354,7 +354,7 @@ inbox-pengman/
 │   ├── README.md
 │   ├── 00-evergreen-workflows/              # 生产 SOP、模板、Skill、四账号 Playbook
 │   ├── 05-weekly-published-content-digests/  # 发布与复盘
-│   ├── 06-daily-content-recommendations/     # 每日选题池、推荐和日级内容包
+│   ├── 06-daily-content-recommendations/     # 周一候选、Hot/重排证据；日级旧稿为历史
 │   │   ├── README.md
 │   │   └── 已合并旧稿/                      # 只放日级过程稿
 │   └── 07-content-production/               # 被选中后的单条内容生产
@@ -394,7 +394,7 @@ inbox-pengman/
 | 当前使用 | `content_stage` 为 Brief/初稿/等待润色/待制作 | 当前制作 | 读取主记录 |
 | 待确认 | 缺 `content_stage`，或旧自定义 `status` | 状态待确认 | 不自动推进 |
 | 待发布 | `content_stage: 待发布`，可有排期但未回填 permalink | 待发布 | 核对是否实际发布 |
-| 已发布 | 有平台 permalink，`content_stage: 已发布` | 已发布 / 等待复盘 | 读取对应周报 |
+| 已发布 | 有平台 permalink，`content_stage: published` | 已发布 / 等待复盘 | 读取对应周报 |
 | 历史归档 | 已复盘、已合并或明确只供追溯 | 历史生产记录 | 默认不读 |
 | 已废弃 | 明确 `暂停` 或已复盘 `decision: 淘汰` | 已废弃/暂停及原因 | 不删除；用户要求时追溯 |
 
@@ -428,7 +428,7 @@ inbox-pengman/
 ## 12. 本轮已完成的低风险调整
 
 1. 更新 `04-production/README.md`：改成四个主入口、任务路由、AI 最小读取路径、唯一事实来源和默认不扫描清单。
-2. 更新 `06-daily-content-recommendations/README.md`：仅保留每日选题池／内容包索引和边界；当前制作队列移至 `07-content-production/README.md`。
+2. 已更新 `06-daily-content-recommendations/README.md`：当前只保留周一候选、Hot/重排证据入口；普通日执行改读当前周计划，制作队列仍在 `07-content-production/README.md`。
 3. 更新 `00-evergreen-workflows/README.md`：标明各 SOP 的调用条件，明确 Skill 与 Daily SOP 的分工。
 4. 更新 `01-strategy-and-platform-research/README.md`：补上四账号 Playbook，并标明其余研究不是每日生产入口。
 5. 更新 `inbox-pengman/README.md`：把 04 的口径收窄为生产闭环，标明研究目录待迁移且默认不扫描。

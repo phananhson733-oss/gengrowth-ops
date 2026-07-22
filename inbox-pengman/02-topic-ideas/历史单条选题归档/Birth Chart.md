@@ -7,18 +7,18 @@ project: astrologywiki
 type: topic-idea
 status: 未发布
 source:
-  - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
+  - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
   - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 related:
-  - [[inbox-pengman/03-topic-ideas/README.md]]
-  - [[inbox-pengman/03-topic-ideas/SEO选题调查.md]]
+  - [[inbox-pengman/02-topic-ideas/README.md]]
+  - [[inbox-pengman/02-topic-ideas/SEO选题调查.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 ---
 
 # Don't Feel Like Your Sign?
 
-相关入口：[[inbox-pengman/03-topic-ideas/README.md]] / [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]] / [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+相关入口：[[inbox-pengman/02-topic-ideas/README.md]] / [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]] / [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 
 ## Topic Card
 
@@ -240,7 +240,7 @@ Clean, minimal hand-drawn storyboard illustration. Professional simple explainer
 
 Generated storyboard asset folder:
 
-- [[inbox-pengman/03-topic-ideas/attachments/birth-chart-beginner-storyboard]]
+- [[inbox-pengman/02-topic-ideas/attachments/birth-chart-beginner-storyboard]]
 - Note: the generated `01-24-guide-placeholder.png` is only a placeholder. Replace it with a real AstrologyWiki screenshot before final editing.
 
 AI-generated assets:

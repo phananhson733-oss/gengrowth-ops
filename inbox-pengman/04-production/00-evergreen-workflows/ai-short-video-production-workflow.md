@@ -4,20 +4,20 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-07-21
 ---
 
 # AI Short Video Production Workflow
 
 This is the stable working pipeline for turning AstrologyWiki topic signals into publishable short videos.
 
-It should stay separate from dated daily recommendation notes, weekly digests, and one-off tool research files.
+It is the format-specific production SOP for short videos that are already locked in the active weekly plan. It does not choose new daily topics or maintain a second queue.
 
 ## Workflow Summary
 
 ```text
-AI topic selection
-→ AI script generation
+weekly plan selected item + confirmed Brief
+→ batched script generation
 → Higgsfield voice generation
 → material sourcing / Higgsfield dynamic material / GPT2 image generation
 → CapCut editing
@@ -26,9 +26,9 @@ AI topic selection
 → Buffer distribution
 ```
 
-## 1. AI Topic Selection
+## 1. Weekly Plan Handoff
 
-Use the daily content assistant workflow to choose the topic.
+Only start this workflow for an item already listed in `Producing for Next Week`, an approved publish-ready inventory refill, or a confirmed Hot insertion. The weekly plan supplies the topic, account, pool, effort, deadline, format and `batch_id`; the main production record supplies the Brief and true `content_stage`.
 
 Inputs:
 
@@ -42,15 +42,15 @@ Inputs:
 
 Output:
 
-- One primary topic.
-- 2-3 backup ideas.
-- Linked AstrologyWiki article or topic page.
-- Evidence: article/tool source, approved SEO topic reference when used, trend/source links, and recently excluded topics.
+- One locked `content_id` and confirmed account/format.
+- Completed Brief with evidence, Hook direction, deadline and CTA decision.
+- `batch_id` shared with genuinely similar production work.
+- Any backup ideas remain `idea` in candidate research; they do not enter this production workflow.
 
 Current related files:
 
-- [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+- [[inbox-pengman/04-production/04-weekly-content-plans/README.md]]
+- [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md]]
 - [[inbox-pengman/04-production/07-content-production/README.md]]
 
 GSC input is paused as of 2026-07-16. Do not request it or block production because it is absent.
@@ -235,9 +235,10 @@ Before publishing:
 
 After publishing:
 
-- Add the published link to the relevant weekly published content digest.
+- Write the real permalink to `published_url` before setting `content_stage: published`.
+- Add the item to the relevant weekly published-content digest.
 - Record early visible metrics when available.
-- Note whether the topic supported an AstrologyWiki page or article.
+- After review, fill `decision` and `next_test` before setting `content_stage: reviewed`.
 
 ## Minimum Viable Production Package
 

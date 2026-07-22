@@ -124,12 +124,12 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 ### 2.3 结论：阶段性专注，但必须准备扩展
 
-**判断：继续1条Scorpio，并在同一批次启动Cancer Moon对照**
+**判断：继续1条Scorpio，并在同一批次启动Cancer Sun对照**
 
 **理由：**
 1. Scorpio系列已有正向信号，仍需要一个延续样本
 2. 但4条样本不足以形成长期策略，需要立刻验证其他星座/placement
-3. 用同一制作规格测试 Cancer Moon，才能区分 Scorpio 题材红利和 AI 心理口播形式红利
+3. 用同一制作规格测试 Cancer Sun，才能区分 Scorpio 题材红利和 AI 心理口播形式红利
 
 ---
 
@@ -137,7 +137,7 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 ### 3.1 扩展策略：三阶段路径
 
-#### 阶段一：Scorpio延续 + Cancer Moon最小对照（2条）
+#### 阶段一：Scorpio延续 + Cancer Sun最小对照（2条）
 
 **目标：** 在冻结制作变量的情况下，增加1条Scorpio延续样本，并完成第一个跨星座/placement对照
 
@@ -145,8 +145,8 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 1. **Scorpio延续样本**
    - "Why Scorpio asks questions they already know the answer to"（truth verification）
-2. **Cancer Moon对照样本**
-   - "Why Cancer Moon keeps trying to save people who hurt them"（care / repair pattern）
+2. **Cancer Sun对照样本**
+   - "Why Cancer forgives before the other person has changed"（care / repair pattern）
 
 2. **避免的方向：**
    - ❌ 不做"Scorpio最狠毒" / "Scorpio报复"等负面刻板印象
@@ -155,11 +155,11 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 **成功判断：**
 - 使用匹配的24/72小时 plays/reach、完播、观看时长、收藏、分享、评论和关注转化。
-- Cancer Moon关键质量信号达到Scorpio匹配窗口约70%，并出现身份认同评论，即可继续Pisces。
+- Cancer Sun关键质量信号达到Scorpio匹配窗口约70%，并出现身份认同评论，即可继续Pisces。
 
 **风险控制：**
 - 不同时改变AI主播、声音、背景、字幕、时长或口播CTA。
-- 若Cancer Moon偏弱，先检查Hook和Moon placement理解门槛，不从单条直接否定跨星座方向。
+- 若Cancer Sun偏弱，先检查Hook和心理机制，不从单条直接否定跨星座方向。
 
 ---
 
@@ -171,9 +171,9 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 | 星座 | 选择理由 | 测试选题 | 预期互动率 |
 |------|---------|---------|-----------|
-| **Cancer Moon** | 同为水象，情绪敏感，关系话题强 | "Why Cancer keeps trying to save people who hurt them" | 8-12% |
+| **Cancer Sun** | 同为水象且与Scorpio保持Sun Sign认知门槛一致 | "Why Cancer forgives before the other person has changed" | 观察项，不作预估 |
 | **Pisces** | 同为水象，共情能力，边界模糊 | "Why Pisces absorbs everyone else's emotions" | 7-11% |
-| **Capricorn** | 基本宫土象，可作为更远的题材对照，优先级低于 Cancer Moon/Pisces | "Why Capricorn doesn't share the plan until it's done" | 观察项，不作预估 |
+| **Capricorn** | 基本宫土象，可作为更远的题材对照，优先级低于 Cancer Sun/Pisces Sun | "Why Capricorn doesn't share the plan until it's done" | 观察项，不作预估 |
 
 **为什么不立即跳到火象/风象：**
 - 水象星座用户对"心理分析"接受度更高
@@ -187,12 +187,12 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 - 只改变星座和心理机制
 
 **成功指标：**
-- Cancer/Pisces单条互动率 ≥ 7%（Scorpio平均的70%）
+- Cancer Sun/Pisces Sun 使用匹配窗口比较，不设未经验证的绝对互动率门槛
 - 评论区出现对应星座用户的身份认同
 - 新星座内容不拉低账号整体互动率
 
 **如果阶段二失败：**
-- 现象：Cancer/Pisces互动率 < 5%
+- 现象：Cancer Sun/Pisces Sun 的匹配窗口质量信号明显弱于Scorpio
 - 判断：可能是Scorpio题材红利，不是形式红利
 - 对策：回归Scorpio深挖，或转型为"Scorpio专门账号"
 
@@ -200,7 +200,7 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 #### 阶段三：关系组合内容（5-10条）
 
-**前置条件：** 阶段二验证成功，至少2个非Scorpio星座互动率 ≥ 7%
+**前置条件：** 阶段二验证成功，至少2个非Scorpio Sun Sign 通过匹配窗口验证
 
 **扩展方向：**
 
@@ -362,12 +362,12 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 **下一批两条：**
 - Scorpio #4："Why Scorpio asks questions they already know the answer to"。
-- Cancer Moon #1："Why Cancer Moon keeps trying to save people who hurt them"。
+- Cancer Sun #1："Why Cancer forgives before the other person has changed"。
 - 两条使用同一AI形象、声音、时长、背景、字幕和无口播CTA。
 - 发布顺序由制作完成度决定，但数据必须使用匹配的24/72小时窗口。
 
 **两周内：**
-- 根据Cancer Moon对照决定是否进入Pisces。
+- 根据Cancer Sun对照决定是否进入Pisces。
 - 不在对照完成前新增主播、品牌片头或新的CTA变量。
 
 ### 5.2 中期策略（1-2个月）
@@ -489,7 +489,7 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 3. **必须在"Scorpio标签固化"前启动扩展测试**
    - 继续1条Scorpio建立延续样本
-   - 同批测试1条Cancer Moon作为对照；Pisces等待结果
+   - 同批测试1条Cancer Sun作为对照；Pisces等待结果
    - 根据数据决定长期路径
 
 4. **AI形象当前表现良好，暂不更换**
@@ -501,7 +501,7 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 **本周（2026-W30）：**
 - [ ] 制作第5条Scorpio视频并发布
-- [ ] 准备Cancer Moon脚本（备用）
+- [ ] 准备Cancer Sun脚本（备用）
 - [ ] 补齐TikTok后台数据（完播率、主页访问）
 
 **下周（2026-W31）：**
@@ -516,7 +516,7 @@ analysis_scope: 账号表现、内容主题、扩展方向、AI形象评估
 
 ### 最终建议
 
-**推荐路径：保留Scorpio优势，同时用同形式的Cancer Moon最小对照验证可迁移性；保持AI形象，关注质量而非数量**
+**推荐路径：保留Scorpio优势，同时用同形式、同认知门槛的Cancer Sun最小对照验证可迁移性；保持AI形象，关注质量而非数量**
 
 这个策略平衡了：
 - ✅ 利用Scorpio已验证的成功
@@ -562,14 +562,14 @@ Scorpio 是已经取得正向信号的首个题材，不应过早等同于账号
 下周不继续连发 2–3 条 Scorpio 后才扩展，改为一个最小对照批次：
 
 1. **Scorpio #4**：`Why Scorpio asks questions they already know the answer to`。
-2. **Cancer Moon #1**：`Why Cancer Moon keeps trying to save people who hurt them`。
+2. **Cancer Sun #1**：`Why Cancer forgives before the other person has changed`。
 
 两条保持相同 AI 主播、声音、55–60 秒范围、深色背景、大字幕和无口播 CTA。只改变 sign/placement 与心理机制，避免把题材、形象、声音、背景和转化同时改动。
 
 - 暂不增加 3 秒品牌片头；它会直接占用首屏 Hook。
 - 暂不为不同星座更换不同主播；这会增加制作成本并破坏对照。
 - 暂不同时测试口播 CTA；先完成跨题材验证，再单独测试轻 CTA。
-- Pisces 保持 `idea`，待 Cancer Moon 的匹配窗口数据后决定。
+- Pisces 保持 `idea`，待 Cancer Sun 的匹配窗口数据后决定。
 
 ### 9.4 判断口径
 
@@ -580,11 +580,39 @@ Scorpio 是已经取得正向信号的首个题材，不应过早等同于账号
 - 收藏、分享、评论和关注转化。
 - 评论中身份认同与经历分享的质量。
 
-Cancer Moon 若达到 Scorpio 匹配窗口关键质量信号约 70%，且出现明确身份认同评论，再进入 Pisces；若未达到，先检查 Hook 和 Moon placement 理解门槛，不立即把失败归因于整个跨星座方向。
+Cancer Sun 若达到 Scorpio 匹配窗口关键质量信号约 70%，且出现明确身份认同评论，再进入 Pisces；若未达到，先检查 Hook 和心理机制，不立即把失败归因于整个跨星座方向。
 
 ### 9.5 当前执行入口
 
 - 本周计划：[[inbox-pengman/04-production/04-weekly-content-plans/2026-W30 周度内容计划]]
 - Scorpio #4：[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]]
-- Cancer Moon #1：[[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Moon Saving People AI口播 内容生产记录]]
+- Cancer Sun #1：[[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]
+
+### 9.6 受众认知门槛校正
+
+Pengman 接受 Claude 提出的实验异议：`Scorpio → Cancer Moon` 不是真正的单变量对照，因为它同时改变了：
+
+1. 星座题材：Scorpio → Cancer。
+2. placement 认知门槛：大众熟悉的 Sun Sign → 需要排盘认知的 Moon Sign。
+
+因此首个对照正式改为 **Cancer Sun**。公开 Hook 直接使用 `Cancer`，继续服务低门槛身份代入；Moon Sign 退回 `idea`，不占 W30/W31 产能。
+
+Moon Sign 不设置未经验证的“500–1000粉”硬门槛。重新评估条件改为：miraa 已形成至少 15–20 条稳定断言式样本，或评论/搜索证据持续出现 Moon Sign 需求。Moon Sign 科普优先由 AstrologyWiki 官方账号承担；miraa 以后即使使用 Moon Sign，也维持断言式心理内容，不切成课堂式科普。
+
+### 9.7 Scorpio 第三条后台数据补充
+
+Pengman 提供：
+
+| 指标 | 数值 |
+|---|---:|
+| Video views | 525 |
+| Total play time | 3h 45m 35s |
+| Average watch time | 26.2s |
+| Watched full video | 17.25% |
+| New followers | 7 |
+
+- 以记录中的 42 秒成片估算，平均观看时长约为视频长度的 62%。
+- 新关注转化约为 `1.33%`。
+- 这组后台数据与报告表格中的公开互动数不是同一抓取时点，不能混合重算统一互动率。
+- 信号支持继续相同制作体系，但仍应通过 Scorpio #4 + Cancer Sun #1 判断题材是否可迁移。
 

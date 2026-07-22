@@ -10,11 +10,18 @@ series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude 第二版，经 Pengman 确认
 content_stage: 已发布
-published_at: "2026-07-17T08:01:00-07:00"
+published_url: ""
+legacy_publish_claim: 2026-07-17T08:01:00-07:00；旧记录称已发布，但尚无真实直链，补链后才可改为 published
+published_at: 2026-07-17T08:01:00-07:00
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 status: draft
 owner: Pengman
-updated: 2026-07-17
+updated: 2026-07-21
+scheduled_platform: TikTok
+scheduled_account: ② AI 占星师人设
+scheduled_at: 2026-07-17T08:01
+scheduled_timezone: America/Los_Angeles
+published_date: 2026-07-17
 ---
 
 # Scorpio Psychology AI 口播 — 统一 Brief

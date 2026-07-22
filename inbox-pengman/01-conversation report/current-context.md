@@ -1,7 +1,7 @@
 ---
 title: Pengman 当前协作上下文
 date: 2026-06-15
-updated: 2026-07-17
+updated: 2026-07-21
 owner: Pengman
 type: conversation-context
 status: active
@@ -19,7 +19,7 @@ status: active
 - **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 GA4/GSC 埋点和产品侧商业化指标维护；但需负责社媒 CTA、短链及 social→工具使用/注册/购买的转化路径与结果追踪。
 - **团队北极星**：Q3 分成后日流水持续达到 $1,000/天；流量层以导向优先变现产品的 qualified UV 为主口径，不以 PV 考核。
 - **Pengman 社媒目标**：以 reach 为主控，保障 social→工具使用/注册/购买的转化路径，记录 assisted qualified UV，探索增长点并沉淀 SOP。
-- **当前重点**：已进入真实内容生产与复盘阶段；P0 正把竞品研究、统一 Brief、AI 初稿、人工润色、周报 decision/next_test 串成可追溯闭环。2026-07-17 正在账号②测试“强 Hook + AI 口播”的流量表现，第二条 Scorpio Psychology 已确认 Claude V1 并进入制作。
+- **当前重点**：已切换为滚动周机制。本周主要发布上周库存，本周生产下周内容；2026-W30 从周二试跑，当前聚焦 @miraaastrology 的同形式 Sun Sign 对照：Scorpio #4 与 Cancer Sun #1。
 - **当前数据决定**：Pengman 已于 2026-07-16 删除 GSC reports 并暂停使用；当前日更、Brief、证据预检和权限检查均不读取或索取 GSC，缺少 GSC 不构成阻塞。
 - **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
@@ -120,17 +120,16 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-16：新增视频制作现实约束：Pengman 当前不适合真人出镜、复杂动画或 20–30 分钟长课。YouTube 方案已调整为低成本 MVP：优先知识卡片型 Shorts、工具/页面录屏型 Shorts，以及 3–6 分钟轻量视频；当时按“站外 → 站内 PV / 工具启动”验证路径记录，当前改按“reach → 点击/assisted qualified UV → 工具使用/注册/购买”评估。
 - 2026-07-16：目标口径更新：团队北极星为分成后日流水持续达到 $1,000/天；Pengman 社媒线以 reach 为主控，以转化路径和 assisted qualified UV 作质量保障，并继续承担增长点探索与 SOP 沉淀。
 
-## 7. 2026-07-16 P0 内容学习闭环
+## 7. 2026-07-21 当前内容生产机制
 
-- 每日选题入口：[[inbox-pengman/04-production/06-daily-content-recommendations/README]]
-- 单条内容生产入口：[[inbox-pengman/04-production/07-content-production/README]]
-- 统一 Brief：[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]
-- 路由与唯一公共表达规则：[[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]]
-- 人工润色学习模板：[[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]
-- 当前周报：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]
-- 试点内容：[[inbox-pengman/04-production/07-content-production/2026-07-16 Moon Sign Toxic Traits 第4集 内容生产记录]]；已于 2026-07-16 07:45 PDT（Seattle）发布到 TikTok 的 AstrologyWiki 官方账号，`content_stage: 已发布`；发布链接：https://www.tiktok.com/@astrologywiki/video/7663039564482710798；W29 周报继续记录公开数据与后续复盘。
-- 竞品事实源为在线 Google Sheet；本地 [[inbox-pengman/05-调研资料/竞品研究/旧快照/2026-07-07/README.md]] 只作历史追溯，不参与新 Brief 或当前数据判断。
-- 已发布内容的真实阶段统一写 `content_stage: 已发布`；仓库 `status` 保持 dispatch 语义。
-- 下一轮生成前必须读取上一轮 `decision / next_test`。没有人工润色证据时，不产生候选偏好，不更新长期 Skill。
-- 2026-07-17：Pengman 确认当前阶段要测试账号②的“强 Hook + AI 口播”流量表现；[[inbox-pengman/04-production/07-content-production/2026-07-17 Scorpio Psychology AI口播 第二条 内容生产记录]] 已采用 Claude V1 进入制作。第一、二条用于建立该账号与形式的初始基线，单条结果只作方向性信号，不直接更新长期 Skill。
-- `04-production` 瘦身的 A、B 批次已执行；C、D 批次仍待确认。进度见 [[inbox-pengman/08-requirements/04-production 瘦身迁移提案]]。
+- 周度权威：[[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]。
+- 当前计划：[[inbox-pengman/04-production/04-weekly-content-plans/2026-W30 周度内容计划]]。
+- 日常 AI 只读取周计划、推进既定内容、检查阻塞/过期/库存并有限检查热点；不再每天从零生成四账号选题。
+- 周一候选、合格 Hot 或明确重排证据进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]；Pengman 确认进入未来两周产能后，才在 [[inbox-pengman/04-production/07-content-production/README]] 建立主记录并设为 `selected`。
+- 内容生命周期唯一使用 `content_stage`：`idea → selected → brief → scripted → assets_ready → producing → edited → scheduled → published → reviewed`，补充 `hold / cancelled`。仓库 `status` 不代表生产阶段。
+- 当前 @miraaastrology 定位保持“AI 占星师 × 单一 Sun Sign/placement × 具体关系行为 × 深层心理解释”；Scorpio 是首个方向性验证题材，不把账号锁死成 Scorpio-only。
+- Scorpio #3 后台快照：525 views、3h45m35s total play time、26.2s average watch、17.25% full watch、7 new followers；样本积极但不足以形成永久账号结论。
+- 下一轮最小对照：[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]] 与 [[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]。固定 AI 主播、voice、深色背景、字幕、约 55–60 秒、无 3 秒品牌 intro、无 spoken CTA；主要只改变 Sun Sign 和心理机制。
+- Cancer Moon 不再作为本轮对照，因为会同时改变星座与 placement 认知门槛。Moon Sign 科普优先放官方账号；miraa 以后只有在形成稳定断言式样本或持续出现用户需求后再评估。
+- 没有真实 `published_url` 不得进入 `published`；没有 `decision` 和 `next_test` 不得进入 `reviewed`。
+- 竞品事实优先读在线来源或本轮直接核验；本地旧快照和旧日级候选只作历史证据。

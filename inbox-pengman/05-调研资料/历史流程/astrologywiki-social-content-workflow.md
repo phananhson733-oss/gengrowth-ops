@@ -9,9 +9,9 @@ status: draft
 source:
   - [[inbox-pengman/06-tasks/2026-06-16-astrologywiki-weekly-todo.md]]
   - [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]]
-  - [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+  - [[inbox-pengman/01-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
   - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-  - [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
+  - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 ---
 
 # AstrologyWiki 站外内容长期工作流
@@ -71,11 +71,11 @@ source:
 
 当前选题主入口：
 
-[[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
+[[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 
 热点样例：
 
-[[inbox-pengman/03-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
+[[inbox-pengman/02-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
 
 ### 2.2 选题筛选逻辑
 
@@ -157,10 +157,10 @@ source:
 你是 AstrologyWiki 的站外内容策划与文案助手。请先阅读并只基于以下文档，帮我生成下一个可执行的选题，并写出对应的英文脚本 / 帖子文案。
 
 必须参考的上下文：
-- [[inbox-pengman/03-topic-ideas/AstrologyWiki 站外内容选题库.md]]
+- [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-- [[inbox-pengman/02-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+- [[inbox-pengman/01-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 - [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]]
 - [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 - [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]

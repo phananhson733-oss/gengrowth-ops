@@ -4,7 +4,7 @@ project: astrologywiki
 type: weekly-content-plan-template
 status: active
 owner: Pengman
-updated: 2026-07-20
+updated: 2026-07-21
 ---
 
 # YYYY-Www 周度内容计划
@@ -24,6 +24,11 @@ updated: 2026-07-20
 - L 对 S 的产能替换记录：
 - 上周周计划：
 - 最近周报：
+- 固定参考账号 CSV 状态与 checked_at：
+- Apps Script Library 状态（accessible / login_required / blocked）：
+- 本轮当前公开来源：
+- 候选采用的直接链接：
+- 不可用输入或访问限制：
 - 本周主要目标：
 
 ## 1. Publishing This Week

@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-20
+updated: 2026-07-21
 ---
 
 # Weekly Rolling Content Production SOP
@@ -25,6 +25,15 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 - 一个母题可以共享研究或素材，但每个可独立发布的账号版本必须有独立 `content_id`、Brief、脚本确认和 `content_stage`。
 - `content_stage` 是唯一生命周期真相源；仓库 `status` 只服务 dispatch。
 - 周计划负责组合、容量、Batch 和排期；单条主生产记录负责最终稿、真实阶段和发布回链。两者冲突时以单条主生产记录为准，并修正周计划。
+
+### 1.1 生成选题前的互联网调研门槛
+
+所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、四账号 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
+
+- 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`
+- Apps Script Library：`https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3`
+
+固定 CSV 必须成功读取；Library 若需要登录，记录限制即可继续，但不得声称已读取内部内容。每轮还须核验至少 2 个与目标账号/候选直接相关的当前公开来源；Hot 使用更严格的 4 来源/3 直接链接门槛。
 
 ## 2. 集中配置：试运行基线
 
@@ -82,17 +91,19 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 - 当前单条生产队列及真实 `content_stage`。
 - 未来 6–8 周天象/可预测事件日历。
 - 四账号 Playbook、当前业务优先级和本周可用时间。
+- 本轮实时互联网调研结果，包括固定参考账号 CSV 的读取状态、Apps Script Library 的访问状态、相关账号/话题的当前公开内容和直接链接。
 
 **操作**
 
 1. 先确认 `Publishing This Week` 是否全部有可发布资产；缺口优先从发布级库存补，不从零临时生产。
 2. 计算本周 S/M/L 可执行产能；`selected` 总量不得超过未来两周产能。
 3. 检查未来 6–8 周 Predictable 事件，为临近两周的事件确定 Brief/生产截止时间。
-4. 从 `Evergreen / Predictable / Hot` 生成候选，检查最近 7–14 天去重和上一轮 `decision / next_test`。
-5. 按账号定位筛选；每条明确账号、形式、优先级、成本、发布日期、截止日和过期日。
-6. 锁定本周要生产的下周组合；仅对正式承诺制作的内容设置 `content_stage: selected`。
-7. 按形式、制作环节、模板/工具和时效划分 Batch，填写 `batch_id`。
-8. 建立初步排期并保留 ③ 号热点/机动槽。
+4. 在生成任何新候选前，执行 Social Daily Skill 的 Mandatory Internet Research Gate：成功读取固定参考账号 CSV，尝试访问 Apps Script Library，并核验至少 2 个与目标账号/选题直接相关的当前公开来源；Hot 继续使用更严格的来源门槛。
+5. 从 `Evergreen / Predictable / Hot` 生成候选，检查最近 7–14 天去重和上一轮 `decision / next_test`。
+6. 按账号定位筛选；每条明确账号、形式、优先级、成本、发布日期、截止日和过期日。
+7. 锁定本周要生产的下周组合；仅对正式承诺制作的内容设置 `content_stage: selected`。
+8. 按形式、制作环节、模板/工具和时效划分 Batch，填写 `batch_id`。
+9. 建立初步排期并保留 ③ 号热点/机动槽。
 
 **输出**
 
@@ -104,6 +115,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 - 每条已选内容都有独立 `content_id` 或明确的建档动作。
 - 账号、形式、`pool`、`effort`、计划日期、截止日、过期日、`batch_id` 已确定。
+- 每条新候选都有本轮 Evidence Preflight、可追溯直接链接和调研时间；固定 CSV 不可读时没有生成正式候选，Library 需要登录时已明确披露未读取内部内容。
 - 周一没有把所有候选自动提升为 `selected`，也没有要求当天写完全部脚本。
 
 ### 周二：Brief、脚本、核验和确认
