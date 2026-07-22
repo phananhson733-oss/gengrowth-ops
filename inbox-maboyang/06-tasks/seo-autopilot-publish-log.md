@@ -196,3 +196,4 @@ updated: 2026-07-22
 | 2026-07-22 | PG-CELEB-062 | taylor-swift-travis-kelce-wedding-astrology | Taylor Swift Travis Kelce Wedding Astrology | marcus-orion | https://www.astrologywiki.com/en/wiki/taylor-swift-travis-kelce-wedding-astrology | published |
 | 2026-07-22 | PG-CELEB-063 | jennifer-lopez-birth-chart | Jennifer Lopez Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jennifer-lopez-birth-chart | published |
 | 2026-07-22 | PG-NODE-016 | scorpio-mbti-type | Scorpio MBTI Type | marcus-orion | https://www.astrologywiki.com/en/wiki/scorpio-mbti-type | published |
+| 2026-07-22 | PG-TRANS-026 | saturn-return-career-change | Saturn Return Career Change | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-career-change | published |
