@@ -491,7 +491,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-TRANS-029` saturn return in leo
 - [x] `PG-SOLAR-003` what is my theme for this year
 - [ ] `PG-RISE-010` mercury in virgo
-- [ ] `PG-HEAL-007` mars in aries
+- [x] `PG-HEAL-007` mars in aries
 - [ ] `PG-NODE-016` Scorpio MBTI type
 - [x] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
 
