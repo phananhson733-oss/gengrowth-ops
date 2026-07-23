@@ -26,18 +26,19 @@ constraints:
   - No birth-time-dependent claims presented as confirmed without separate verification
   - Keep each page mobile-readable with one clear job per page
 script_status: 已确认
-content_stage: 已预约
+content_stage: 已发布
 decision: 待观察
 next_test: 发布后 48h 观察互动数据，对比运动员星盘帖同期表现
 scheduled_time: 2026-07-22 07:30 PDT (Seattle time)
 status: scheduled
 owner: Pengman
-updated: 2026-07-22
+updated: 2026-07-23
 scheduled_platform: TikTok
 scheduled_account: ③ 热点占星测试 / filestarsx
 scheduled_at: 2026-07-22T07:32
 scheduled_timezone: America/Los_Angeles
 performance_notes: 待确认
+published_date: 2026-07-23
 ---
 
 # 2026-07-22 IShowSpeed Birth Chart Slideshow 内容生产记录

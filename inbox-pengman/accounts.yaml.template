@@ -1,0 +1,97 @@
+# AstrologyWiki 账号矩阵配置
+# 位置: 04-production/00-config/accounts.yaml
+# 新增/删除账号只需修改此文件
+
+accounts:
+  - id: astrologywiki-official
+    handle: "@astrologywiki"
+    platform: tiktok
+    role: 品牌、天象、工具承接
+    weekly_quota: 2
+    content_fit:
+      - Predictable transit
+      - 可靠解释
+      - 工具演示
+    boundaries:
+      - 非宿命
+      - 事实准确
+      - 轻 CTA
+    min_inventory: 2
+    status: active
+
+  - id: ai-astrologer
+    handle: "@ai.astrologer"
+    platform: tiktok
+    role: 占星 × 心理机制
+    weekly_quota: 2
+    content_fit:
+      - 单一 sign/placement + 具体关系
+      - 人格行为
+    boundaries:
+      - 固定人设和形式
+      - 不做无依据排行
+    min_inventory: 2
+    status: active
+
+  - id: hot-astro-test
+    handle: "@hotastrotest"
+    platform: tiktok
+    role: 事件流量测试
+    weekly_quota: 1
+    is_hot_slot: true
+    content_fit:
+      - 明星、情侣、影视、体育
+      - 突发讨论
+    boundaries:
+      - 解释而不预测
+      - 24-48h 时效优先
+    min_inventory: 2
+    status: active
+
+  - id: casual-astro-lover
+    handle: "@casualastro"
+    platform: tiktok
+    role: 低成本 Hook 探测
+    weekly_quota: 3
+    content_fit:
+      - Sun Sign
+      - 关系梗
+      - slideshow/photo
+    boundaries:
+      - 口语化
+      - 快速
+      - 不过度品牌化
+    min_inventory: 3
+    status: active
+
+# 未来新增账号示例（暂时 inactive）
+  # - id: astrowiki-ig
+  #   handle: "@astrowiki.ig"
+  #   platform: instagram
+  #   role: Carousel 教育内容
+  #   weekly_quota: 2
+  #   content_fit:
+  #     - 多图解释
+  #     - 天象解读
+  #   min_inventory: 2
+  #   status: inactive  # 设为 inactive 时不计入周配额
+
+# 全局配置
+global:
+  # total_weekly_quota 自动计算：sum(accounts[status=active].weekly_quota)
+  # 当前 = 2 + 2 + 1 + 3 = 8
+
+  extra_inventory_target: 2  # 每周额外完成的发布级机动库存
+  max_producing_parallel: 3  # 同时在制上限
+  max_edited_inventory_weeks: 2  # 已剪辑成片库存上限（未来 N 周）
+
+  pool_ratio_reference:  # 只是排期参考，不强制凑满
+    hot: 0.15
+    predictable: 0.25
+    evergreen: 0.60
+
+# 使用说明
+# 1. 新增账号：添加新的 account 条目，设 status: active
+# 2. 删除账号：设 status: inactive（保留历史记录）或直接删除条目
+# 3. 调整配额：修改 weekly_quota，总配额自动重新计算
+# 4. 修改后运行：./scripts/sync-quota-snapshot.sh 同步到 SOP

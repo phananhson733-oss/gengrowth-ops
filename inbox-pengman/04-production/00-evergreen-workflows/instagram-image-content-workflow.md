@@ -227,7 +227,7 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 必须先参考以下规则和资料：
 - inbox-pengman/04-production/04-weekly-content-plans/ 当前周计划
 - inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md
-- inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md
+- inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md
 - inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
 - inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
 - inbox-pengman/04-production/07-content-production/ 当前已选主题的主生产记录

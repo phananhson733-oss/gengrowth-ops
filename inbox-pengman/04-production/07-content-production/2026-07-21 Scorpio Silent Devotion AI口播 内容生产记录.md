@@ -1,6 +1,6 @@
 ---
 content_id: aw-scorpio-psychology-ai-host-05
-title: "Scorpio won't tell you they love you every day — they'll just quietly fix what's hurting you"
+title: Scorpio won't tell you they love you every day — they'll just quietly fix what's hurting you
 project: astrologywiki
 type: content-production
 account: ② AI 占星师人设 / @miraaastrology
@@ -11,11 +11,11 @@ pillar: Scorpio psychology / silent devotion / action-based loyalty
 format: AI Host
 effort: M
 priority: P0
-content_stage: brief
+content_stage: 已发布
 script_status: humanized
-publish_date: 2026-W31 待排（排在 Scorpio×Cancer #1 之后）
+publish_date: 2026-W31 待排（排在 Scorpio×Cancer
 deadline: 2026-07-25
-hook: "Scorpio won't say 'I love you' on a loop. But they'll bring up something you mentioned in passing three months ago, and you'll realize the thing that was bothering you just stopped being a problem. They handled it. Never said a word."
+hook: Scorpio won't say 'I love you' on a loop. But they'll bring up something you mentioned in passing three months ago, and you'll realize the thing that was bothering you just stopped being a problem. They handled it. Never said a word.
 source_evidence:
   - "[[inbox-pengman/09-reports/miraaastrology-strategic-analysis-report]]"
   - "[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]]"
@@ -27,7 +27,11 @@ decision: Pengman 确认从防御维度切换到忠诚/保护维度
 next_test: 冻结主播、声音、时长、背景、字幕和无口播 CTA，测试"正向忠诚行为"是否获得与"防御行为"同等或更高互动
 status: draft
 owner: Pengman
-updated: 2026-07-21
+updated: 2026-07-23
+scheduled_platform: TikTok
+scheduled_account: ② AI 占星师人设 / @miraaastrology
+published_date: 2026-07-23
+performance_notes: Pengman 确认从防御维度切换到忠诚/保护维度
 ---
 
 # Scorpio Psychology AI 口播第五条 — 统一 Brief 与脚本

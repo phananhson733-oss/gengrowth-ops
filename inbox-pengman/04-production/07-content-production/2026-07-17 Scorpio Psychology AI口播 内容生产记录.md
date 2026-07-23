@@ -44,7 +44,7 @@ published_date: 2026-07-17
 - **本次调用的 Playbook / SOP / Skill**：
   - [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md]]（2 号定位和红线）
   - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]（选题规则）
-  - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]]（Copy Style）
+  - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]]（Copy Style）
 - **读取的上一轮 decision / next_test**：
   - `aw-moon-toxic-traits-04`（W29）：decision = 待观察；next_test = "在不改变 'Your toxic trait' 系列承诺的前提下，观察 A3 女性星座角色视觉和剩余三星座组合的表现"
   - `aw-moon-toxic-traits-03`（W29）：decision = 调整后复用；next_test = "保留系列视觉和 Moon report CTA，改测行为问题式或单一身份 Hook"

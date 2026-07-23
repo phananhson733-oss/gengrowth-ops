@@ -20,7 +20,7 @@ updated: 2026-07-20
 - [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]] — 单条字段、独立 `content_id` 和新 `content_stage` 口径
 - [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明]] — 人工反馈、双模型实验、L1–L5 和规则升级唯一详细规范
 - [[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]] — 主生产记录结构；不另建状态
-- [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] — 公共表达、品牌安全、CTA 和周一/Hot 候选研究规则
+- [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] — 公共表达、品牌安全、CTA 和周一/Hot 候选研究规则
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]] — 短视频进入制作时读取
 - [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow]] — 图文/Carousel 进入制作时读取
 - [[inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow]] — 起号养号，不是单条内容必读

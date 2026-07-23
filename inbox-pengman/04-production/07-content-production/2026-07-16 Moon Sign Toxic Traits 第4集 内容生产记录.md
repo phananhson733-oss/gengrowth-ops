@@ -78,7 +78,7 @@ updated: 2026-07-16
 - **形式判断**：继续使用 17–18 秒纯字幕短视频，沿用前三集的星座连线图、字幕节奏和工具截图 CTA，不改 Canva / CapCut / Buffer 流程。
 - **内容承诺**：直接指出 Cancer、Libra、Aquarius Moon 各自最典型的 toxic trait；心理解释只能支撑尖锐行为描述，不能取代 toxic trait 主题。
 - **上一轮回流**：虽然 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]] 提供了 Hook 测试信号，但本条首先是已建立系列的第 4 集。Pengman 已明确纠偏：应延续上一期 “Your toxic trait” 的内容承诺，而不是改成 “Ways to protect yourself”。
-- **规则来源**：公共表达以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL]] 为准；账号路由读取 [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]；制作读取 [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]。
+- **规则来源**：公共表达以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] 为准；账号路由读取 [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]；制作读取 [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]。
 
 ## 竞品证据与边界
 

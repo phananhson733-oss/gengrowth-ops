@@ -21,5 +21,5 @@ updated: 2026-07-21
 
 ## 个人操作卡
 
-- [[inbox-pengman/00-inbox/Pengman 日常内容生产与 AI 协作操作卡]] — 周一建计划、平日执行、热点插入和发布回写。
+- [[inbox-pengman/00-inbox/系统使用说明]] — 周一建计划、平日执行、热点插入和发布回写。
 - [[inbox-pengman/00-inbox/Pengman 双模型内容实验操作卡]] — 已选内容如何冻结 Brief、并行生成和人工确认。

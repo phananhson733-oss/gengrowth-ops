@@ -199,7 +199,7 @@ updated: 2026-07-16
 
 - 账号/平台/形式判断：Pengman 明确指定 `filestarsx` 第二账号，并提供该账号 France vs Spain photo post 作为自有学习样本；定位仍属于明星 / 事件热点，强调解释而非预测。
 - 本次调用的 Playbook / SOP / Skill：
-  - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL#Daily Workflow]]
+  - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL#Daily Workflow]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明#双模型内容实验]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]
 - 读取的上一轮 `decision / next_test`：sports astrology 当前为待观察；先补点击数据，有点击再扩展 athlete birth-chart 主题。当前没有足够证据把 Haaland 单条结果升级为长期规则。

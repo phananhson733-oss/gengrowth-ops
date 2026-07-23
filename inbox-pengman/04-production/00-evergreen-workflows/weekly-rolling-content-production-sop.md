@@ -28,7 +28,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 ### 1.1 生成选题前的互联网调研门槛
 
-所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-daily/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、四账号 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
+所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、四账号 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
 
 - 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`
 - Apps Script Library：`https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3`

@@ -3,10 +3,19 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-22
+updated: 2026-07-23
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-23 自动化增量检查
+
+- 检查时间：北京时间 `2026-07-23 02:30` / PDT `2026-07-22 11:30`；周次为 `2026-W30`。
+- 本地新增发布记录：AstrologyWiki 官方的 `Sun Enters Leo · July 22` 已在生产记录标记 `content_stage: 已发布`、`published_date: 2026-07-22`；未保存 permalink，准确发布时间与全部指标均为 `待补数据/待确认`。
+- 公开检查：尝试 TikTok、YouTube、Instagram、X 的无登录公开搜索；TikTok 受 robots 限制，其他结果未返回可归属于目标账号的新内容或稳定计数。
+- 沿用最近可确认快照（非本轮确认）：TikTok 主账号上一个已确认 ID `7663445797949721869`；YouTube `9 Shorts + 2 videos`；Instagram `0 Followers / 0 Following / 5 Posts`；X `25 posts / 3 followers / 9 following`。
+- 本轮新增稳定 permalink：`0`。W30 本地记录现为 `4` 条，其中 `Sun Enters Leo` 与 Scorpio × Cancer 两条仍缺直链和指标。
+- 限制说明：不使用登录态或后台；需 Pengman 补充两条缺链内容的 permalink、准确发布时间和 24/72h 指标，并补 profile visits、link clicks、留存及 GA4 qualified UV / assisted UV，才能评价 SEO/PV 承接。
 
 ## 2026-07-22 自动化增量检查
 
