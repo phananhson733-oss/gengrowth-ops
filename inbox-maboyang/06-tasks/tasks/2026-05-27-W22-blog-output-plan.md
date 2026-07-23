@@ -503,7 +503,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月23日 (周四) - 待写作
-**状态**：`等待输出` (自动补充选题，共 20 篇)
+**状态**：`等待输出` (自动补充选题，共 30 篇)
 - [ ] `PG-TRANS-030` saturn return in virgo
 - [ ] `PG-TRANS-031` saturn return relationships
 - [ ] `PG-TRANS-032` saturn return breakup
@@ -525,6 +525,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-TRANS-039` how to calculate saturn return
 - [ ] `PG-TRANS-040` saturn return without birth time
 - [ ] `PG-TRANS-041` second saturn return age
+
+- [ ] `PG-TRANS-042` saturn return retrograde
+- [ ] `PG-TRANS-043` saturn return dates 2026
+- [ ] `PG-TRANS-044` saturn return job loss
+- [ ] `PG-TRANS-045` saturn return anxiety
+- [ ] `PG-TRANS-046` when does saturn return end
+- [ ] `PG-RISE-011` scorpio rising
+- [ ] `PG-RISE-012` leo rising
+- [ ] `PG-RISE-013` libra rising
+- [ ] `PG-RISE-014` aquarius rising
+- [ ] `PG-RISE-015` capricorn rising
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
