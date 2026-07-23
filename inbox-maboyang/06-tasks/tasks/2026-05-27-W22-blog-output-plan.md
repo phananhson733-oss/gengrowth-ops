@@ -503,7 +503,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月23日 (周四) - 待写作
-**状态**：`等待输出` (自动补充选题，共 30 篇)
+**状态**：`等待输出` (自动补充选题，共 40 篇)
 - [ ] `PG-TRANS-030` saturn return in virgo
 - [ ] `PG-TRANS-031` saturn return relationships
 - [ ] `PG-TRANS-032` saturn return breakup
@@ -536,6 +536,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-RISE-013` libra rising
 - [ ] `PG-RISE-014` aquarius rising
 - [ ] `PG-RISE-015` capricorn rising
+
+- [ ] `PG-RISE-016` aries rising
+- [ ] `PG-RISE-017` pisces rising
+- [ ] `PG-RISE-018` sagittarius rising
+- [ ] `PG-RISE-019` taurus rising
+- [ ] `PG-RISE-020` taurus rising appearance
+- [ ] `PG-MZ-002` zodiac signs as MBTI types
+- [ ] `PG-MZ-003` what MBTI is each zodiac sign
+- [ ] `PG-MZ-004` MBTI zodiac compatibility
+- [ ] `PG-MZ-005` MBTI and zodiac sign compatibility
+- [ ] `PG-MZ-006` MBTI zodiac sign quiz
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
