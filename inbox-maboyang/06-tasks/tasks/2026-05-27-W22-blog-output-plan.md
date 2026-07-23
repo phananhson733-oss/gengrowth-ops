@@ -501,6 +501,20 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [x] `PG-CELEB-064` jang wonyoung birth chart
 
+---
+## ⚪ 7月23日 (周四) - 待写作
+**状态**：`等待输出` (自动补充选题，共 10 篇)
+- [ ] `PG-TRANS-030` saturn return in virgo
+- [ ] `PG-TRANS-031` saturn return relationships
+- [ ] `PG-TRANS-032` saturn return breakup
+- [ ] `PG-HEAL-008` mercury in gemini
+- [ ] `PG-HEAL-009` jupiter in sagittarius
+- [ ] `PG-MZ-001` INTJ zodiac sign
+- [ ] `PG-KB-001` BTS members zodiac signs
+- [ ] `PG-KB-002` Jungkook birth chart
+- [ ] `PG-FH-001` Harry Potter characters zodiac signs
+- [ ] `PG-VEDIC-007` Beyoncé birth chart
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
 ---
