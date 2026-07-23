@@ -12,7 +12,7 @@ status: v6
 
 > 本文件不修改原 SOP，作为独立补丁使用。在原 SOP 执行过程中，遇到对应场景时参照本补丁执行。待下次 SOP 大版本更新时合并为 v2.4。
 >
-> 仅收录 AstrologyWiki **尚未执行**的项目。已执行项（首页 H2 规则、robots.txt、WebApplication schema、工具页无定价）不在此列。
+> 仅收录 AstrologyWiki **尚未执行**的项目。已执行项（首页 H2 规则、robots.txt、WebApplication schema、工具页无定价、Organization schema + sameAs、核心工具页点击深度 ≤3 层）不在此列。
 
 ---
 
@@ -62,33 +62,7 @@ Water signs share Scorpio's emotional depth, while Virgo
 provides grounding stability."
 ```
 
-#### 动作二：Organization schema + sameAs（首页 SSR，全站一次）
-
-unifab 实际使用的完整格式（已验证）：
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AstrologyWiki",
-  "legalName": "AstrologyWiki Ltd",
-  "url": "https://astrologywiki.com",
-  "sameAs": [
-    "https://www.youtube.com/@astrologywiki",
-    "https://x.com/astrologywiki",
-    "https://www.reddit.com/r/AstrologyWiki/"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "support@astrologywiki.com",
-    "contactType": "customer support"
-  }
-}
-```
-
-sameAs 的作用：让所有 AI 爬虫把网站和各社媒账号识别为同一个品牌实体，在 AI 知识库里形成清晰的实体节点。
-
-#### 动作三：Person（作者实体）schema — EEAT 信号
+#### 动作二：Person（作者实体）schema — EEAT 信号
 
 当前问题：作者页已存在（`/en/wiki/author/marcus-orion`），但有两处需修复：
 1. `"disambiguatingDescription": "Editorial persona of AstrologyWiki, not a real individual."` — 删除这行，主动声明非真实会直接削弱 EEAT
@@ -117,7 +91,7 @@ unifab 完整 Person schema 结构（已验证）：
 
 同时，博客文章的 `author` 字段当前指向 `"AstrologyWiki Editorial Team"（Organization 类型）`，需改为指向对应作者页的 Person 实体 `@id`。
 
-#### 动作四：HowTo schema（嵌入教程模块时添加）
+#### 动作三：HowTo schema（嵌入教程模块时添加）
 
 **unifab 的 Step 1/2/3/4 模块没有加这个标记——这是他们的漏洞，我们可以做到而他们没做。**
 
@@ -153,7 +127,7 @@ unifab 完整 Person schema 结构（已验证）：
 
 触发效果：SERP 步骤预览富文本、AI 引用操作类查询时优先选取。
 
-#### 动作五：第三方引用建设（持续执行）
+#### 动作四：第三方引用建设（持续执行）
 
 AI 系统的回答不只依赖自有网站内容，也大量引用第三方评测和目录。unifab 已建立的引用矩阵（已验证）：
 
@@ -167,7 +141,7 @@ AI 系统的回答不只依赖自有网站内容，也大量引用第三方评�
 
 **执行原则：** 优先进入 Trustpilot 和 Futurepedia——这两个是 AI 系统高频引用的平台。
 
-#### 动作六：Ask AI 主动引导模块（首页 + 工具页）
+#### 动作五：Ask AI 主动引导模块（首页 + 工具页）
 
 unifab 首页设有"Ask AI about UniFab"按钮，点击后直接跳转至 AI 工具并预填品牌查询。
 
@@ -606,7 +580,7 @@ nofollow 内链对 SEO 有两种效果，必须分开处理：
 | 策略 A | 低价值页面：noindex + 减少内链双拳组合 | ⬇️ 本补丁新增 |
 | 策略 B | 新内容发布后主动加内链加速收录 | ✅ 已有——见 `inbox-maboyang/00-inbox/2026-07-21-内链结构优化需求文档.md`（Smart Backfill 章节）|
 | 策略 C | 避免内链指向 301 重定向链条 | ⬇️ 本补丁新增 |
-| 策略 D | 核心页面点击深度 ≤ 3 层 | ⬇️ 本补丁新增 |
+| 策略 D | 核心页面点击深度 ≤ 3 层 | ✅ 已完成——首页直接链接 birth-chart-calculator 和 saturn-return-calculator，≤2 次点击可达（2026-07-22 审计确认）|
 
 ---
 
@@ -623,12 +597,6 @@ nofollow 内链对 SEO 有两种效果，必须分开处理：
 - 重定向跳转消耗额外爬取资源
 - 权重在跳转过程中有一定损耗
 - 建议每季度用 Screaming Frog 扫描「内链指向 3xx 重定向」的情况，纳入季度内链审计
-
-**策略 D：核心页面点击深度 ≤ 3 层**
-
-从首页出发，点击次数到达核心目标页面不超过 3 次。超过 3 层的页面被爬取和排名的概率大幅下降。
-
-AstrologyWiki 需验证：工具页（如 `/en/birth-chart-calculator`）从首页能否在 2–3 次点击内到达？Pillar 文章（如 `saturn-return-guide`）是否有从首页或分类页的直接入口？
 
 ---
 
@@ -743,7 +711,6 @@ Google 核心网页指标（Core Web Vitals）是当前实际使用的排名因�
 | 场景 | 补丁 | 变化项 | 原规范 | 本补丁 |
 |---|---|---|---|---|
 | **网站技术端** | 一 | H2 直接答案句 | 无规定 | H2 首句必须直接回答搜索意图 |
-| | 一 | Organization schema | 基础配置 | 首页 SSR 输出，新增 sameAs 社媒绑定 |
 | | 一 | Person schema | 无 | 四字段（knowsAbout / alumniOf / sameAs / worksFor），删除"not a real individual"声明 |
 | | 一 | HowTo schema | 无 | Step 模块同步加入 HowTo 标记 |
 | | 一 | 第三方引用 | 无 | Trustpilot + Futurepedia 优先入驻 |
