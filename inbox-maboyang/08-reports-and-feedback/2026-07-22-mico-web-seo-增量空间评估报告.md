@@ -10,21 +10,21 @@ status: 完稿
 
 **评估日期**：2026-07-22
 **评估对象**：unbinghk.com / Mico - Widget & Live Wallpaper
-**评估结论**：Web SEO 不具备作为独立增长渠道的条件
+**评估结论**：Web SEO 存在小规模教程内容机会，但量级不支撑作为独立增长渠道
 
 ---
 
 ## 一、产品基本信息
 
-| 项目 | 数据 | 来源 |
-|------|------|------|
-| 产品名称 | Mico - Widget & Live Wallpaper | App Store |
-| 开发商 | Unbing International Limited | App Store |
-| 累计下载量（iOS） | 1,500万 | AppBrain |
-| iOS评分 | 4.71★ / 91,000条评论 | App Store |
-| 上线时间 | 2022年9月 | App Store |
-| 最近更新 | 2026年7月（iOS v12.7.0 / Android v1.64.0） | App Store / Google Play |
-| 主要功能 | 主屏/锁屏Widget、动态壁纸、主题、图标包 | 官网 |
+| 项目         | 数据                                     | 来源                      |
+| ---------- | -------------------------------------- | ----------------------- |
+| 产品名称       | Mico - Widget & Live Wallpaper         | App Store               |
+| 开发商        | Unbing International Limited           | App Store               |
+| 累计下载量（iOS） | 1,500万                                 | AppBrain                |
+| iOS评分      | 4.71★ / 91,000条评论                      | App Store               |
+| 上线时间       | 2022年9月                                | App Store               |
+| 最近更新       | 2026年7月（iOS v12.7.0 / Android v1.64.0） | App Store / Google Play |
+| 主要功能       | 主屏/锁屏Widget、动态壁纸、主题、图标包                | 官网                      |
 
 ---
 
@@ -46,12 +46,54 @@ unbinghk.com 目前仅排名品牌词，无任何非品牌词排名。
 
 ## 三、目标关键词实际体量
 
-| 关键词 | KD | 月搜索量 |
-|--------|-----|---------|
-| home screen widget | 22 | 70 |
-| aesthetic widget iPhone | 6 | 19 |
+数据来源：Ahrefs，美国市场，2026-07-22。共查询 38 个词，有效数据 35 个。
 
-Google 侧对该品类的搜索需求极小，不存在可规模化的非品牌 SEO 机会。
+**Traffic Potential 说明**：Ahrefs 显示的是当前该词排名第一的页面实际获得的月总流量（含所有关联长尾词），比单个词的搜索量更能反映真实机会上限。
+
+### 可进入词（低 KD，与 Mico 产品相关）
+
+| 关键词 | KD | 月搜索量(US) | 全球月搜索量 | Traffic Potential |
+|--------|-----|------------|------------|------------------|
+| live wallpaper iphone | 15 | 6,500 | 15,000 | 3,300 |
+| how to change app icons iphone | 0 | 3,100 | 6,300 | 12,000 |
+| how to customize iphone home screen | 10 | 2,000 | 2,300 | 12,000 |
+| customize iphone home screen | 7 | 800 | 1,000 | 12,000 |
+| iphone home screen ideas | 0 | 600 | 2,400 | 2,400 |
+| aesthetic home screen | 0 | 500 | 1,200 | 500 |
+| aesthetic lock screen | 0 | 250 | 600 | 400 |
+| home screen aesthetic | 0 | 200 | 350 | 500 |
+| aesthetic widget | 0 | 150 | 700 | 1,100 |
+| cute widget | 0 | 150 | 350 | 800 |
+| how to add widgets iphone | 3 | 100 | 250 | 4,000 |
+| lock screen customization | 12 | 80 | 200 | 5,300 |
+| lock screen widget | 11 | 60 | 250 | 700 |
+| icon pack iphone | 3 | 30 | 250 | 2,900 |
+
+**合计**：美国月搜索量约 14,520，全球约 29,900。
+
+### 竞争壁垒过高（KD ≥ 40，不建议进入）
+
+| 关键词 | KD | 月搜索量(US) |
+|--------|-----|------------|
+| live wallpaper app | 54 | 600 |
+| widget app | 58 | 350 |
+| widget maker | 53 | 250 |
+| widget creator | 51 | 80 |
+| best widget app iphone | 45 | 20 |
+
+### 搜索量可忽略（< 20次/月，不纳入分析）
+
+y2k home screen、aesthetic wallpaper app、widgetsmith alternative、dark mode widget、anime widget iphone、theme app iphone、widget app like widgetsmith 等 13 个词月搜索量均在 10 次或以下。
+
+### 结论修正
+
+与初版评估"体量极小"的结论相比，本次关键词审计揭示了两个修正点：
+
+1. **教程类词存在真实机会**：KD 普遍为 0-15，"how to change app icons iphone"（3,100次/月）、"live wallpaper iphone"（6,500次/月）等词门槛低、与产品直接相关；
+
+2. **Traffic Potential 远大于表面量级**：教程类词第一名页面实际月流量可达 12,000 次，因为它同时覆盖大量相关长尾词；
+
+3. **但量级仍然有限**：14,520 次美国月搜索量即使全部拿下，按 10% CTR 到首页、5-8% 的下载转化计算，净增下载量约 70-120 次/月。与 Mico 当前 ASO 渠道体量不在同一量级。
 
 ---
 
