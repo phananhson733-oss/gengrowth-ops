@@ -1,14 +1,30 @@
 ---
 title: AstrologyWiki 内链系统需求文档
 date: 2026-07-19
+updated: 2026-07-23
+type: prd
 version: v1.0
-status: 待排期
+status: 部分实施（集群回填基础已交付）
 owner: Ma Boyang
 priority: P0（Req 1）/ P1（Req 2-4）/ P2（Req 5）
 依据数据: 2026-07-19 实时爬取，276 篇已发布 blog
+tags:
+  - astrologywiki
+  - internal-linking
+  - seo
+aliases:
+  - 内链系统需求
 ---
 
 # AstrologyWiki 内链系统需求文档 | v1.0
+
+---
+
+## 关联实施状态（2026-07-23）
+
+本文 Req 4 的“集群链接”数据与发布后回填基础，已由 [[2026-07-21-内链结构优化需求文档]] 落地：OPS 手填 Cluster、受管内链规则、每日审核 PR 与一次存量回填 PR 已就绪。当前交付为 [Oracle PR #428](https://github.com/xdawayer/oracle/pull/428)，Preview 已通过，待人工审核合并。
+
+本文其余需求保持原状态：Req 1/2 的全站静态工具链接修复、Req 3 的组件路由验收、Req 4 的 3–4 张可视化相关文章卡与 GA4 事件、Req 5 的双周健康度扫描，均**不**因本次集群回填而视为完成。
 
 ---
 
