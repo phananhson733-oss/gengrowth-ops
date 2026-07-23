@@ -503,7 +503,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月23日 (周四) - 待写作
-**状态**：`等待输出` (自动补充选题，共 10 篇)
+**状态**：`等待输出` (自动补充选题，共 20 篇)
 - [ ] `PG-TRANS-030` saturn return in virgo
 - [ ] `PG-TRANS-031` saturn return relationships
 - [ ] `PG-TRANS-032` saturn return breakup
@@ -514,6 +514,17 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-KB-002` Jungkook birth chart
 - [ ] `PG-FH-001` Harry Potter characters zodiac signs
 - [ ] `PG-VEDIC-007` Beyoncé birth chart
+
+- [ ] `PG-VEDIC-008` ishowspeed birth chart
+- [ ] `PG-TRANS-033` saturn return in libra
+- [ ] `PG-TRANS-034` saturn return in sagittarius
+- [ ] `PG-TRANS-035` saturn return in aquarius
+- [ ] `PG-TRANS-036` saturn return in pisces
+- [ ] `PG-TRANS-037` saturn return age 28
+- [ ] `PG-TRANS-038` saturn return self discovery
+- [ ] `PG-TRANS-039` how to calculate saturn return
+- [ ] `PG-TRANS-040` saturn return without birth time
+- [ ] `PG-TRANS-041` second saturn return age
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
