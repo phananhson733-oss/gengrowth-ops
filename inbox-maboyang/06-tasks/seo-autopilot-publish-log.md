@@ -1,7 +1,7 @@
 ---
 title: SEO Autopilot 发布登记
 type: log
-updated: 2026-07-22
+updated: 2026-07-24
 ---
 
 # 📝 SEO Autopilot 发布登记（自动维护）
@@ -197,3 +197,4 @@ updated: 2026-07-22
 | 2026-07-22 | PG-CELEB-063 | jennifer-lopez-birth-chart | Jennifer Lopez Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jennifer-lopez-birth-chart | published |
 | 2026-07-22 | PG-NODE-016 | scorpio-mbti-type | Scorpio MBTI Type | marcus-orion | https://www.astrologywiki.com/en/wiki/scorpio-mbti-type | published |
 | 2026-07-22 | PG-TRANS-026 | saturn-return-career-change | Saturn Return Career Change | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-career-change | published |
+| 2026-07-24 | PG-MAHADASHA-007 | venus-in-taurus | Venus In Taurus | marcus-orion | https://www.astrologywiki.com/en/wiki/venus-in-taurus | published |
