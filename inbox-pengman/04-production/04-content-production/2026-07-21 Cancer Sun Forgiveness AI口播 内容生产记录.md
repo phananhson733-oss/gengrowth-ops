@@ -108,12 +108,12 @@ performance_notes: Pengman 已确认将首个跨星座对照从 Cancer Moon 改�
 
 | 时间 | 画面 | 口播 | 字幕强调词 |
 |---|---|---|---|
-| 0–5s | 黑屏 → 大字 Hook | Cancer doesn't forgive because they forgot what you did. They forgive because they've already imagined a version of you that wouldn't do it again. | **imagined a version of you** |
-| 5–14s | AI 主播出现，近景 | And that's the part no one talks about. They're not being naive. They're running a whole future in their head where you finally get it. Where you show up the way they always believed you could. | **running a whole future in their head** |
-| 14–26s | 轻推中景 | So they let you back in. Not because you earned it. But because the version of you they built in their mind already did. They're responding to someone who doesn't exist yet. | **responding to someone who doesn't exist yet** |
-| 26–38s | 主播近景 + 极轻 Cancer glyph | And every time reality doesn't match that image, it doesn't make them angry. It makes them try harder. Because if they just love you a little more clearly, maybe this time you'll become the person they already forgave. | **maybe this time** |
-| 38–50s | 深色抽象月光水面 | That's why it looks like they have no boundaries. They do. They just keep moving them — to make room for a version of you that keeps disappointing them. | **keep moving them** |
-| 50–57s | 回到主播，停顿后收束 | They're not forgiving you. They're forgiving who they wish you were. | **forgiving who they wish you were** |
+| 0–5s | AI 主播，大字 Hook 叠加 | Cancer doesn't forgive because they forgot what you did. They forgive because they've already imagined a version of you that wouldn't do it again. | **imagined a version of you** |
+| 5–14s | AI 主播持续出镜 | And that's the part no one talks about. They're not being naive. They're running a whole future in their head where you finally get it. Where you show up the way they always believed you could. | **running a whole future in their head** |
+| 14–26s | AI 主播持续出镜 | So they let you back in. Not because you earned it. But because the version of you they built in their mind already did. They're responding to someone who doesn't exist yet. | **responding to someone who doesn't exist yet** |
+| 26–38s | AI 主播持续出镜 | And every time reality doesn't match that image, it doesn't make them angry. It makes them try harder. Because if they just love you a little more clearly, maybe this time you'll become the person they already forgave. | **maybe this time** |
+| 38–50s | AI 主播持续出镜 | That's why it looks like they have no boundaries. They do. They just keep moving them — to make room for a version of you that keeps disappointing them. | **keep moving them** |
+| 50–57s | AI 主播，停顿后收束 | They're not forgiving you. They're forgiving who they wish you were. | **forgiving who they wish you were** |
 
 ### 纯文本配音稿
 

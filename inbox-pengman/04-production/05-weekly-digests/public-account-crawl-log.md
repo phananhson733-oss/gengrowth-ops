@@ -3,10 +3,26 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-23
+updated: 2026-07-24
 ---
 
 # 公开账号抓取记录
+
+## 2026-07-24 自动化增量检查
+
+- 检查时间：北京时间 `2026-07-24 02:33` / PDT `2026-07-23 11:33`；周次为 `2026-W30`。
+- 本地来源：读取 `inbox-pengman/output/capture_summary_2026-07-23.json`、`posts_2026-07-23.csv` 与 `accounts_2026-07-23.csv`。该公开抓取在北京时间 `2026-07-23 10:04` 完成，覆盖 4 个 TikTok 账号、24 条内容，`partial=0`、`errors=[]`。
+- 本轮新增确认 W30 permalink `5`：
+  - `@astrologywiki` Sun Enters Leo：https://www.tiktok.com/@astrologywiki/video/7664956765871574285
+  - `@miraaastrology` Scorpio × Cancer：https://www.tiktok.com/@miraaastrology/video/7664915039442226445
+  - `@miraaastrology` Scorpio #4：https://www.tiktok.com/@miraaastrology/video/7665176558616759566
+  - `@miraaastrology` Scorpio #5：https://www.tiktok.com/@miraaastrology/video/7665328458356149518
+  - `@filestarsx` IShowSpeed Birth Chart：https://www.tiktok.com/@filestarsx/photo/7665275833275157790
+- 内容级刷新：W30 现确认 7 条，公开合计 `3,667 views / 331 likes / 29 comments / 49 shares / 53 favorites`。Scorpio #4 以 `1,263 views / 142 likes / 10 comments / 26 shares / 16 favorites` 暂时领先。
+- 冲突说明：Scorpio #4、#5 与 IShowSpeed 的生产记录写 `published_date: 2026-07-23`，公开抓取时间戳换算后均落在北京时间 `2026-07-22`；未覆盖人工记录，周合集同时保留公开时间和待确认说明。
+- 账号级公开快照：`@astrologywiki 6 followers / 1 following / 137 likes / 10 posts`；`@miraaastrology 45 / 6 / 398 / 3`；`@filestarsx 2 / 0 / 81 / 3`。账号 `total_posts` 与抓取到的内容条数可能存在 TikTok 公开口径差异，不作后台发布总数。
+- 本轮补充公开搜索：TikTok 受 robots 限制；YouTube、Instagram、X 搜索未返回目标账号可核验的新内容或稳定新计数，因此没有用搜索结果覆盖本地公开抓取。
+- 限制说明：公开数据不含 reach、留存、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified UV / assisted UV。需要 Pengman 提供后台或导出，才能评价 SEO/PV 承接。
 
 ## 2026-07-23 自动化增量检查
 
