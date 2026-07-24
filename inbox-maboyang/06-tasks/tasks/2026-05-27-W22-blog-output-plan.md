@@ -548,6 +548,20 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-MZ-005` MBTI and zodiac sign compatibility
 - [ ] `PG-MZ-006` MBTI zodiac sign quiz
 
+---
+## ⚪ 7月24日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 10 篇)
+- [ ] `PG-MZ-007` which zodiac sign is most INTJ
+- [ ] `PG-MZ-008` INFJ zodiac sign
+- [ ] `PG-MZ-009` INFP zodiac sign
+- [ ] `PG-MZ-010` ENFP zodiac sign
+- [ ] `PG-MZ-011` INTP zodiac sign
+- [ ] `PG-MZ-012` ENTJ zodiac sign
+- [ ] `PG-MZ-013` ENFJ zodiac sign
+- [ ] `PG-MZ-014` ISFJ zodiac sign
+- [ ] `PG-MZ-015` ISFP zodiac sign
+- [ ] `PG-MZ-016` ISTP zodiac sign
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
 ---
