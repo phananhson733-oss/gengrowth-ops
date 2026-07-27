@@ -42,16 +42,27 @@ aliases:
 
 ### 阶段 B：今日主页面
 
-- [ ] `PG-POP-001` Rihanna birth chart
-- [ ] `PG-POP-002` Selena Gomez birth chart
+- [ ] `page_rihanna_birth_chart` Rihanna birth chart（原计划 ID：`PG-POP-001`）
+- [ ] `page_selena_gomez_birth_chart` Selena Gomez birth chart（原计划 ID：`PG-POP-002`）
 
 ### 阶段 C：Pillar 已上线后再发布 Spoke
 
 - [ ] `PG-KB-007` Suga BTS birth chart
 - [ ] `PG-KB-008` RM BTS birth chart
 - [ ] `PG-KB-020` Jisoo birth chart
-- [ ] `PG-FH-002` Severus Snape zodiac sign
-- [ ] `PG-FH-003` Dumbledore zodiac sign
+- [ ] `page_severus_snape_zodiac_sign` Severus Snape zodiac sign（原计划 ID：`PG-FH-002`）
+- [ ] `page_dumbledore_zodiac_sign` Dumbledore zodiac sign（原计划 ID：`PG-FH-003`）
+
+### Page ID 对齐（2026-07-27）
+
+恢复计划最初沿用了早期 `PG-POP-*` / `PG-FH-*` 编号；生产 Sheet 的权威 `page_id` 已迁移为下列规范值。执行、bridge、claim、发布日志和验收均以当前 Sheet ID 为准，括号内旧 ID 只保留作审计追溯，不能再传给生产脚本。
+
+| 旧计划 ID | 当前 Sheet `page_id` | 关键词 |
+| --- | --- | --- |
+| `PG-POP-001` | `page_rihanna_birth_chart` | Rihanna birth chart |
+| `PG-POP-002` | `page_selena_gomez_birth_chart` | Selena Gomez birth chart |
+| `PG-FH-002` | `page_severus_snape_zodiac_sign` | Severus Snape zodiac sign |
+| `PG-FH-003` | `page_dumbledore_zodiac_sign` | Dumbledore zodiac sign |
 
 ## 强制质量与时序约束
 
