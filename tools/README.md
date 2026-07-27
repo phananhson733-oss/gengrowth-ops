@@ -1,7 +1,7 @@
 ---
 title: 工具区
 date: 2026-04-14
-updated: 2026-04-16
+updated: 2026-07-22
 type: index
 tags:
   - tools
@@ -37,8 +37,9 @@ aliases:
 1. `browser-extensions/x-writer-extension/`：X Writer 浏览器扩展源码、图标与打包文件。
 2. `internal/hr-doc-export/`：HR 文档导出脚本、命令与样式依赖。
 3. `internal/skills/`：技能包、`web-clipper` 代码与相关脚本。
-4. `external/wechat-cli/`：外部 `wechat-cli` 仓库正文与其自带说明文档。
-5. `scripts/obsidian-vault-git-sync.sh` / `tools/scripts/obsidian-vault-git-sync.py`：多人多电脑 Obsidian vault 同步入口，执行安全的 `commit -> pull --rebase -> push`。
+4. `internal/backlink-opportunity-tool/`：本地外链机会发现工具；默认自托管 SearXNG + 本地页面抓取，可选 Firecrawl JS 抓取兜底，并同步到 Google Sheet。
+5. `external/wechat-cli/`：外部 `wechat-cli` 仓库正文与其自带说明文档。
+6. `scripts/obsidian-vault-git-sync.sh` / `tools/scripts/obsidian-vault-git-sync.py`：多人多电脑 Obsidian vault 同步入口，执行安全的 `commit -> pull --rebase -> push`。
 
 ### 3.1 多电脑 Obsidian Git 同步
 
