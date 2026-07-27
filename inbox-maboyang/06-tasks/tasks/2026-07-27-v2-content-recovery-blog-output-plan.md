@@ -3,8 +3,8 @@ title: 2026-07-27 v2 内容生产恢复队列
 date: 2026-07-27
 updated: 2026-07-27
 type: plan
-version: v1.0
-status: active
+version: v1.1
+status: completed
 owner: wzb
 tags:
   - astrologywiki
@@ -32,26 +32,26 @@ aliases:
 
 ## 2026-07-27（恢复批次，10 篇）
 
-**状态**：`等待输出`（严格上限：10 篇）
+**状态**：`已完成并上线`（严格上限：10 篇；生产验收于 2026-07-27 完成）
 
 ### 阶段 A：先发布集群 Pillar
 
-- [ ] `PG-KB-001` BTS members zodiac signs
-- [ ] `PG-KB-013` BLACKPINK zodiac signs
-- [ ] `PG-FH-001` Harry Potter characters zodiac signs
+- [x] `PG-KB-001` BTS members zodiac signs
+- [x] `PG-KB-013` BLACKPINK zodiac signs
+- [x] `PG-FH-001` Harry Potter characters zodiac signs
 
 ### 阶段 B：今日主页面
 
-- [ ] `page_rihanna_birth_chart` Rihanna birth chart（原计划 ID：`PG-POP-001`）
-- [ ] `page_selena_gomez_birth_chart` Selena Gomez birth chart（原计划 ID：`PG-POP-002`）
+- [x] `page_rihanna_birth_chart` Rihanna birth chart（原计划 ID：`PG-POP-001`）
+- [x] `page_selena_gomez_birth_chart` Selena Gomez birth chart（原计划 ID：`PG-POP-002`）
 
 ### 阶段 C：Pillar 已上线后再发布 Spoke
 
-- [ ] `PG-KB-007` Suga BTS birth chart
-- [ ] `PG-KB-008` RM BTS birth chart
-- [ ] `PG-KB-020` Jisoo birth chart
-- [ ] `page_severus_snape_zodiac_sign` Severus Snape zodiac sign（原计划 ID：`PG-FH-002`）
-- [ ] `page_dumbledore_zodiac_sign` Dumbledore zodiac sign（原计划 ID：`PG-FH-003`）
+- [x] `PG-KB-007` Suga BTS birth chart
+- [x] `PG-KB-008` RM BTS birth chart
+- [x] `PG-KB-020` Jisoo birth chart
+- [x] `page_severus_snape_zodiac_sign` Severus Snape zodiac sign（原计划 ID：`PG-FH-002`）
+- [x] `page_dumbledore_zodiac_sign` Dumbledore zodiac sign（原计划 ID：`PG-FH-003`）
 
 ### Page ID 对齐（2026-07-27）
 
@@ -79,7 +79,24 @@ aliases:
 
 ## 验收
 
-- [ ] 10 个任务均能在选题登记表精确匹配，且 cluster_id、page_role、slug 与内链需求文档一致。
-- [ ] 每篇通过 author、Phase 2、预览门与事实审核；无 `needs_human` 未处理 park。
-- [ ] 10 篇均有生产 URL 与 publish log 记录；Pillar 在 24 小时内获得对应 Spoke 的 Smart Backfill。
-- [ ] 每篇有通过 Hero QA 的 16:9 本地 FLUX Hero，或有可追溯的 `needs_hero` 记录。
+- [x] 10 个任务均能在选题登记表精确匹配，且 cluster_id、page_role、slug 与内链需求文档一致。
+- [x] 每篇通过 author、Phase 2、预览门与事实审核；无 `needs_human` 未处理 park。
+- [x] 10 篇均有生产 URL 与 publish log 记录；Pillar 在 24 小时内获得对应 Spoke 的 Smart Backfill。
+- [x] 每篇有通过 Hero QA 的 16:9 本地 FLUX Hero，或有可追溯的 `needs_hero` 记录。
+
+## 发布记录（2026-07-27）
+
+生产域名：`https://www.astrologywiki.com`。最终部署：`dpl_5AQVEVvp79gdRRnD3VGXeTHqMK35`；生产 sitemap 为 461 条 URL。10 个页面均实测为 HTTP 200，具备正确的标题、canonical、`Article` JSON-LD 与 Birth Chart Calculator CTA。五个 Spoke 均已在正文中回链到其对应 Pillar。
+
+| 阶段 | 页面 | 生产 URL |
+| --- | --- | --- |
+| A | BTS members zodiac signs | https://www.astrologywiki.com/en/wiki/bts-members-zodiac-signs |
+| A | BLACKPINK zodiac signs | https://www.astrologywiki.com/en/wiki/blackpink-zodiac-signs |
+| A | Harry Potter characters zodiac signs | https://www.astrologywiki.com/en/wiki/harry-potter-characters-zodiac-signs |
+| B | Rihanna birth chart | https://www.astrologywiki.com/en/wiki/rihanna-birth-chart |
+| B | Selena Gomez birth chart | https://www.astrologywiki.com/en/wiki/selena-gomez-birth-chart |
+| C | Suga BTS birth chart | https://www.astrologywiki.com/en/wiki/suga-bts-birth-chart |
+| C | RM BTS birth chart | https://www.astrologywiki.com/en/wiki/rm-bts-birth-chart |
+| C | Jisoo birth chart | https://www.astrologywiki.com/en/wiki/jisoo-birth-chart |
+| C | Severus Snape zodiac sign | https://www.astrologywiki.com/en/wiki/severus-snape-zodiac-sign |
+| C | Dumbledore zodiac sign | https://www.astrologywiki.com/en/wiki/dumbledore-zodiac-sign |

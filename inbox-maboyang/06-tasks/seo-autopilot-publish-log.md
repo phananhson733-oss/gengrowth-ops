@@ -197,3 +197,13 @@ updated: 2026-07-22
 | 2026-07-22 | PG-CELEB-063 | jennifer-lopez-birth-chart | Jennifer Lopez Birth Chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jennifer-lopez-birth-chart | published |
 | 2026-07-22 | PG-NODE-016 | scorpio-mbti-type | Scorpio MBTI Type | marcus-orion | https://www.astrologywiki.com/en/wiki/scorpio-mbti-type | published |
 | 2026-07-22 | PG-TRANS-026 | saturn-return-career-change | Saturn Return Career Change | marcus-orion | https://www.astrologywiki.com/en/wiki/saturn-return-career-change | published |
+| 2026-07-27 | PG-KB-001 | bts-members-zodiac-signs | BTS members zodiac signs | marcus-orion | https://www.astrologywiki.com/en/wiki/bts-members-zodiac-signs | published |
+| 2026-07-27 | PG-KB-013 | blackpink-zodiac-signs | BLACKPINK zodiac signs | marcus-orion | https://www.astrologywiki.com/en/wiki/blackpink-zodiac-signs | published |
+| 2026-07-27 | PG-FH-001 | harry-potter-characters-zodiac-signs | Harry Potter characters zodiac signs | marcus-orion | https://www.astrologywiki.com/en/wiki/harry-potter-characters-zodiac-signs | published |
+| 2026-07-27 | page_rihanna_birth_chart | rihanna-birth-chart | Rihanna birth chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rihanna-birth-chart | published |
+| 2026-07-27 | page_selena_gomez_birth_chart | selena-gomez-birth-chart | Selena Gomez birth chart | marcus-orion | https://www.astrologywiki.com/en/wiki/selena-gomez-birth-chart | published |
+| 2026-07-27 | PG-KB-007 | suga-bts-birth-chart | Suga BTS birth chart | marcus-orion | https://www.astrologywiki.com/en/wiki/suga-bts-birth-chart | published |
+| 2026-07-27 | PG-KB-008 | rm-bts-birth-chart | RM BTS birth chart | marcus-orion | https://www.astrologywiki.com/en/wiki/rm-bts-birth-chart | published |
+| 2026-07-27 | PG-KB-020 | jisoo-birth-chart | Jisoo birth chart | marcus-orion | https://www.astrologywiki.com/en/wiki/jisoo-birth-chart | published |
+| 2026-07-27 | page_severus_snape_zodiac_sign | severus-snape-zodiac-sign | Severus Snape zodiac sign | marcus-orion | https://www.astrologywiki.com/en/wiki/severus-snape-zodiac-sign | published |
+| 2026-07-27 | page_dumbledore_zodiac_sign | dumbledore-zodiac-sign | Dumbledore zodiac sign | marcus-orion | https://www.astrologywiki.com/en/wiki/dumbledore-zodiac-sign | published |
