@@ -37,7 +37,7 @@ aliases:
 ### 阶段 A：先发布集群 Pillar
 
 - [ ] `PG-KB-001` BTS members zodiac signs
-- [ ] `PG-KP-001` BLACKPINK zodiac signs
+- [ ] `PG-KB-013` BLACKPINK zodiac signs
 - [ ] `PG-FH-001` Harry Potter characters zodiac signs
 
 ### 阶段 B：今日主页面
@@ -47,9 +47,9 @@ aliases:
 
 ### 阶段 C：Pillar 已上线后再发布 Spoke
 
-- [ ] `PG-KB-003` Suga BTS birth chart
-- [ ] `PG-KB-004` RM BTS birth chart
-- [ ] `PG-KP-002` Jisoo birth chart
+- [ ] `PG-KB-007` Suga BTS birth chart
+- [ ] `PG-KB-008` RM BTS birth chart
+- [ ] `PG-KB-020` Jisoo birth chart
 - [ ] `PG-FH-002` Severus Snape zodiac sign
 - [ ] `PG-FH-003` Dumbledore zodiac sign
 
@@ -72,4 +72,3 @@ aliases:
 - [ ] 每篇通过 author、Phase 2、预览门与事实审核；无 `needs_human` 未处理 park。
 - [ ] 10 篇均有生产 URL 与 publish log 记录；Pillar 在 24 小时内获得对应 Spoke 的 Smart Backfill。
 - [ ] 每篇有通过 Hero QA 的 16:9 本地 FLUX Hero，或有可追溯的 `needs_hero` 记录。
-
