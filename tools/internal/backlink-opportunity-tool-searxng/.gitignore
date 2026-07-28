@@ -1,0 +1,6 @@
+# Runtime configuration may contain service secrets and must remain local.
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
