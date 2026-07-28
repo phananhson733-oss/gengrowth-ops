@@ -667,9 +667,18 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月28日 (周二) - 待写作
-**状态**：`等待输出` (自动补充选题，共 2 篇)
+**状态**：`等待输出` (自动补充选题，共 10 篇)
 - [ ] `PG-VEDIC-009` Selena Gomez zodiac sign
 - [ ] `PG-VEDIC-010` Ariana Grande zodiac sign
+
+- [ ] `PG-FD-002` Tanjiro zodiac sign
+- [ ] `PG-FJ-001` Jujutsu Kaisen zodiac signs
+- [ ] `PG-FJ-002` Gojo Satoru zodiac sign
+- [ ] `PG-FM-001` My Hero Academia zodiac signs
+- [ ] `PG-FM-002` Deku zodiac sign
+- [ ] `PG-FN-001` Naruto characters zodiac signs
+- [ ] `PG-FN-002` Naruto Uzumaki zodiac sign
+- [ ] `PG-FS-001` Stranger Things zodiac signs
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
