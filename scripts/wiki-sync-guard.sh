@@ -68,7 +68,7 @@ RUN="${GITHUB_RUN_ID:-unknown}"
   echo
   echo "## 怎么办"
   echo
-  echo "- 如果这些修改重要 → **去 \`xdawayer/gengrowth-wiki\` 提 PR**, 让改动从源头流过来"
+  echo "- 如果这些修改重要 → **去 \`phananhson733-oss/gengrowth-wiki\` 提 PR**, 让改动从源头流过来"
   echo "- 如果是临时草稿 → 移到 \`inbox-maboyang/\` 下保留, 或直接放弃"
   echo "- 如果是 ops 独有内容 → 放在非同步目录 (\`onboarding/\`, \`templates/\`)"
   echo

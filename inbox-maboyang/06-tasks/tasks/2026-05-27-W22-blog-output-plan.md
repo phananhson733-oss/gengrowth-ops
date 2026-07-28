@@ -481,7 +481,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-TRANS-027` surviving saturn return
 - [x] `PG-AIMB-001` am i meant to be my own boss
 - [x] `PG-NODE-015` mars in scorpio
-- [ ] `PG-MAHADASHA-007` venus in taurus
+- [x] `PG-MAHADASHA-007` venus in taurus
 - [x] `PG-CELEB-061` leandro paredes birth chart
 
 ---
@@ -510,9 +510,9 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-HEAL-008` mercury in gemini
 - [ ] `PG-HEAL-009` jupiter in sagittarius
 - [ ] `PG-MZ-001` INTJ zodiac sign
-- [ ] `PG-KB-001` BTS members zodiac signs
+- [x] `PG-KB-001` BTS members zodiac signs
 - [ ] `PG-KB-002` Jungkook birth chart
-- [ ] `PG-FH-001` Harry Potter characters zodiac signs
+- [x] `PG-FH-001` Harry Potter characters zodiac signs
 - [ ] `PG-VEDIC-007` Beyoncé birth chart
 
 - [ ] `PG-VEDIC-008` ishowspeed birth chart
@@ -547,6 +547,123 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-MZ-004` MBTI zodiac compatibility
 - [ ] `PG-MZ-005` MBTI and zodiac sign compatibility
 - [ ] `PG-MZ-006` MBTI zodiac sign quiz
+
+---
+## ⚪ 7月24日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 40 篇)
+- [ ] `PG-MZ-007` which zodiac sign is most INTJ
+- [ ] `PG-MZ-008` INFJ zodiac sign
+- [ ] `PG-MZ-009` INFP zodiac sign
+- [ ] `PG-MZ-010` ENFP zodiac sign
+- [ ] `PG-MZ-011` INTP zodiac sign
+- [ ] `PG-MZ-012` ENTJ zodiac sign
+- [ ] `PG-MZ-013` ENFJ zodiac sign
+- [ ] `PG-MZ-014` ISFJ zodiac sign
+- [ ] `PG-MZ-015` ISFP zodiac sign
+- [ ] `PG-MZ-016` ISTP zodiac sign
+
+- [ ] `PG-MZ-017` ESTJ zodiac sign
+- [ ] `PG-MZ-018` ESFJ zodiac sign
+- [ ] `PG-MZ-019` ESFP zodiac sign
+- [ ] `PG-MZ-020` ESTP zodiac sign
+- [ ] `PG-MZ-021` ISTJ zodiac sign
+- [ ] `PG-MZ-022` Scorpio MBTI
+- [ ] `PG-MZ-023` Virgo MBTI
+- [ ] `PG-MZ-024` Aquarius MBTI
+- [ ] `PG-MZ-025` Pisces MBTI
+- [ ] `PG-MZ-026` Gemini MBTI
+
+- [ ] `PG-MZ-027` Sagittarius MBTI
+- [ ] `PG-MZ-028` Leo MBTI
+- [ ] `PG-MZ-029` Cancer MBTI
+- [ ] `PG-MZ-030` Aries MBTI
+- [ ] `PG-MZ-031` Libra MBTI
+- [ ] `PG-MZ-032` Taurus MBTI
+- [ ] `PG-MZ-033` Capricorn MBTI
+- [ ] `PG-MZ-034` INTJ Scorpio
+- [ ] `PG-MZ-035` INFJ Pisces
+- [ ] `PG-MZ-036` INFJ Scorpio
+
+- [ ] `PG-MZ-037` INTJ Virgo
+- [ ] `PG-MZ-038` ENFP Gemini
+- [ ] `PG-MZ-039` INFP Pisces
+- [ ] `PG-MZ-040` ENTP Aquarius
+- [ ] `PG-MZ-041` ESFP Sagittarius
+- [ ] `PG-MZ-042` INTP Aquarius
+- [ ] `PG-MZ-043` ENTJ Leo
+- [ ] `PG-MZ-044` ESFJ Cancer
+- [ ] `PG-MZ-045` ESTJ Capricorn
+- [ ] `PG-KB-003` Jungkook zodiac sign
+
+---
+## ⚪ 7月26日 (周日) - 待写作
+**状态**：`等待输出` (自动补充选题，共 32 篇)
+- [ ] `PG-KB-004` V BTS birth chart
+- [ ] `PG-KB-005` Taehyung zodiac sign
+- [ ] `PG-KB-006` Jimin birth chart
+- [x] `PG-KB-007` Suga BTS birth chart
+- [x] `PG-KB-008` RM BTS birth chart
+- [ ] `PG-KB-009` Jin BTS zodiac sign
+- [ ] `PG-KB-010` J-Hope birth chart
+- [ ] `PG-KB-011` J-Hope zodiac sign
+- [ ] `PG-KB-012` BTS compatibility zodiac
+- [x] `PG-KB-013` BLACKPINK zodiac signs
+
+- [ ] `PG-KB-014` Lisa birth chart
+- [ ] `PG-KB-015` Lisa zodiac sign
+- [ ] `PG-KB-016` Jennie birth chart
+- [ ] `PG-KB-017` Jennie zodiac sign
+- [ ] `PG-KB-018` Rosé birth chart
+- [ ] `PG-KB-019` Rose zodiac sign
+- [x] `PG-KB-020` Jisoo birth chart
+- [ ] `PG-KB-021` Jisoo zodiac sign
+
+- [ ] `PG-KB-022` BLACKPINK compatibility zodiac
+- [ ] `PG-KS-001` Stray Kids zodiac signs
+- [ ] `PG-KS-002` Stray Kids Bang Chan birth chart
+- [ ] `PG-KS-003` Stray Kids Felix birth chart
+- [ ] `PG-KS-004` Stray Kids Lee Know birth chart
+- [ ] `PG-KS-005` Stray Kids Han birth chart
+- [ ] `PG-KS-006` Stray Kids Hyunjin birth chart
+
+- [ ] `PG-KA-001` aespa members zodiac signs
+- [ ] `PG-KA-002` aespa Karina birth chart
+- [ ] `PG-KA-003` aespa Winter birth chart
+- [ ] `PG-KA-004` aespa Giselle birth chart
+- [ ] `PG-KA-005` aespa NingNing birth chart
+- [ ] `PG-KN-001` NewJeans members zodiac signs
+- [ ] `PG-KN-002` NewJeans Hanni birth chart
+
+---
+## ⚪ 7月27日 (周一) - 待写作
+**状态**：`等待输出` (自动补充选题，共 24 篇)
+- [ ] `PG-KN-003` NewJeans Minji birth chart
+- [ ] `PG-KN-004` NewJeans Danielle birth chart
+- [ ] `PG-KN-005` NewJeans Hyein birth chart
+- [ ] `PG-KN-006` NewJeans Haerin birth chart
+- [ ] `PG-KI-001` IVE members zodiac signs
+- [ ] `PG-KI-002` IVE Jang Wonyoung birth chart
+- [ ] `PG-KI-003` IVE Rei birth chart
+
+- [ ] `PG-KS-007` SEVENTEEN zodiac signs
+- [ ] `PG-KS-008` SEVENTEEN S.Coups birth chart
+- [ ] `PG-KS-009` SEVENTEEN Woozi birth chart
+- [ ] `PG-KS-010` SEVENTEEN Mingyu birth chart
+- [ ] `PG-FH-002` Hermione Granger zodiac sign
+- [ ] `PG-FH-003` Draco Malfoy zodiac sign
+- [ ] `PG-FH-004` Harry Potter zodiac sign
+
+- [ ] `PG-FH-005` Ron Weasley zodiac sign
+- [ ] `PG-FH-006` Luna Lovegood zodiac sign
+- [ ] `PG-WC-056` Marvel characters zodiac signs
+
+- [ ] `PG-WC-057` Spider-Man zodiac sign
+- [ ] `PG-WC-058` Tony Stark zodiac sign
+- [ ] `PG-WC-059` Wanda Maximoff zodiac sign
+- [ ] `PG-WC-060` Black Widow zodiac sign
+- [ ] `PG-FA-001` Attack on Titan characters zodiac signs
+- [ ] `PG-FA-002` Eren Yeager zodiac sign
+- [ ] `PG-FD-001` Demon Slayer characters zodiac signs
 
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 

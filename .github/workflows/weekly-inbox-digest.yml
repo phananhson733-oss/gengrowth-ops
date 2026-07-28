@@ -34,7 +34,7 @@ jobs:
           WEEK_START: ${{ steps.gen.outputs.week_start }}
           WEEK_END: ${{ steps.gen.outputs.week_end }}
           # CEO/PM 收件人 (周报 issue 自动 assign 给 ta)
-          ASSIGNEES: "xdawayer"
+          ASSIGNEES: "phananhson733-oss"
         run: |
           # 确保 label 存在 (幂等)
           gh label create weekly-digest --repo "$REPO" --color "0E8A16" --description "每周 inbox-maboyang 改动摘要" 2>/dev/null || true
