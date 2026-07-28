@@ -665,6 +665,12 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-FA-002` Eren Yeager zodiac sign
 - [ ] `PG-FD-001` Demon Slayer characters zodiac signs
 
+---
+## ⚪ 7月28日 (周二) - 待写作
+**状态**：`等待输出` (自动补充选题，共 2 篇)
+- [ ] `PG-VEDIC-009` Selena Gomez zodiac sign
+- [ ] `PG-VEDIC-010` Ariana Grande zodiac sign
+
 *生成的计划文件路径：/Users/letty/gengrowth-ops/inbox-maboyang/06-tasks/tasks/2026-05-27-W22-blog-output-plan.md*
 
 ---
