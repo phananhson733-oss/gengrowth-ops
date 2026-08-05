@@ -24,8 +24,9 @@ def load_rules(path):
 def classify(hint, rules):
     if not isinstance(hint, str) or not hint.strip():
         return UNKNOWN
+    normalized_hint = hint.casefold()
     for rule in rules:
         for kw in rule.get("keywords", []):
-            if kw and kw in hint:
+            if kw and str(kw).casefold() in normalized_hint:
                 return rule["category"]
     return UNKNOWN

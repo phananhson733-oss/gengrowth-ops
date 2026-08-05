@@ -16,12 +16,14 @@ mailbox 默认全部下到 _inbox/Lynne/)。
 
 import datetime
 import os
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
 import archive
+import archive_index
 import classify
 import identity
 import ledger
@@ -77,7 +79,8 @@ def _quarantine(src, subdir_name: str) -> Path:
 
 
 def _process_one(src, reimburser, *, archive_root, ledger_root, wiki_root, extractor, rules,
-                 submit_ts_ms, overseas_archive_root=None, petty_ledger_root=None):
+                 submit_ts_ms, overseas_archive_root=None, petty_ledger_root=None,
+                 archive_index_mode=False):
     # v2.5.8 软去重根:同时查主账本和备用金账本,防过渡期存量主账本中遗留海外 invoice 被重复写入
     dedup_roots = [ledger_root]
     if petty_ledger_root:
@@ -104,11 +107,16 @@ def _process_one(src, reimburser, *, archive_root, ledger_root, wiki_root, extra
     # 财务规则:receipt(付款收据)**不能作报销凭证**,只有 invoice/发票才能入账。
     # 同笔交易 receipt + invoice 同时存在 → 留 invoice,扔 receipt。
     # extractor 显式标 is_receipt=true 的 → 移到 _conflict/skipped-receipts/ + 不入账。
-    if getattr(fields, "is_receipt", False):
+    if getattr(fields, "is_receipt", False) and not getattr(fields, "allow_receipt", False):
         _quarantine(src, "skipped-receipts")
         return Outcome(src, reimburser, "skipped", "receipt_not_voucher",
                        "receipt 跳过(不能作报销凭证)")
-    is_overseas = fields.invoice_type == "invoice"
+    is_personal_domestic = (
+        fields.invoice_type in ("普票", "专票", "domestic")
+        and bool((fields.billed_to or "").strip())
+        and fields.billed_to.strip() != ledger.DOMESTIC_TITLE
+    )
+    is_petty_cash = fields.invoice_type == "invoice" or is_personal_domestic
 
     dup = ledger.find_by_invoice_number(dedup_roots, fields.invoice_number or "")
     if dup is not None:
@@ -147,7 +155,7 @@ def _process_one(src, reimburser, *, archive_root, ledger_root, wiki_root, extra
     # 当未配置 overseas_archive_root 时回落到 archive_root(向后兼容)。
     target_root = (
         Path(overseas_archive_root)
-        if overseas_archive_root and is_overseas
+        if overseas_archive_root and is_petty_cash
         else archive_root
     )
     ar = archive.archive_invoice(
@@ -213,7 +221,12 @@ def _process_one(src, reimburser, *, archive_root, ledger_root, wiki_root, extra
         description=fields.description,
         needs_review=needs_review,
         # 多 note 合并:near-dup + cross-val 都会触发,用 ` · ` 分隔保留全部信号
-        note=" · ".join(n for n in (near_dup_note, cross_val_note) if n),
+        note=" · ".join(
+            n for n in (
+                near_dup_note, cross_val_note,
+                getattr(fields, "backfill_note", ""),
+            ) if n
+        ),
         invoice_type=fields.invoice_type,
         billed_to=fields.billed_to,
         invoice_date=fields.invoice_date,
@@ -221,11 +234,19 @@ def _process_one(src, reimburser, *, archive_root, ledger_root, wiki_root, extra
         source_sha256=ar.content_hash,
         pdf_text_sha256=txt_sha_input,
     )
+    settled_month = getattr(fields, "settled_month", "")
+    if re.fullmatch(r"\d{4}-\d{2}", settled_month or ""):
+        row.settled = ledger.SETTLED_OK
+        row.settled_date = settled_month
 
     # v2.5.8 双账本路由:海外 invoice → 备用金账本,其他 → 主账本
-    write_root = petty_ledger_root if (is_overseas and petty_ledger_root) else ledger_root
-    ledger_path = ledger.ledger_path_for(ledger_month, write_root, reimburser=reimburser)
-    added = ledger.append_row(ledger_path, row)
+    write_root = petty_ledger_root if (is_petty_cash and petty_ledger_root) else ledger_root
+    if archive_index_mode:
+        ledger_path = archive_index.index_path(write_root)
+        added = archive_index.append_row(write_root, row)
+    else:
+        ledger_path = ledger.ledger_path_for(ledger_month, write_root, reimburser=reimburser)
+        added = ledger.append_row(ledger_path, row)
     action = "created" if added else "skipped"
     detail = ar.reason + (" 账本已有同 id8,跳过 append" if not added else "")
     return Outcome(src, reimburser, "synced", action, detail)
@@ -454,7 +475,8 @@ def _process_one_payment(src: Path, *, reimburser: str,
 
 
 def process_inbox(inbox_dir, *, archive_root, ledger_root, wiki_root, extractor, rules,
-                  submit_ts_ms, overseas_archive_root=None, petty_ledger_root=None):
+                  submit_ts_ms, overseas_archive_root=None, petty_ledger_root=None,
+                  archive_index_mode=False):
     inbox_dir = Path(inbox_dir)
     archive_root = Path(archive_root)
     ledger_root = Path(ledger_root)
@@ -470,7 +492,8 @@ def process_inbox(inbox_dir, *, archive_root, ledger_root, wiki_root, extractor,
                              wiki_root=wiki_root,
                              extractor=extractor, rules=rules, submit_ts_ms=submit_ts_ms,
                              overseas_archive_root=overseas_archive_root,
-                             petty_ledger_root=petty_ledger_root)
+                             petty_ledger_root=petty_ledger_root,
+                             archive_index_mode=archive_index_mode)
         except Exception as e:  # noqa: BLE001 — 瞬时失败留 inbox 重试
             o = Outcome(src, reimburser, "error", None, str(e))
             outcomes.append(o)

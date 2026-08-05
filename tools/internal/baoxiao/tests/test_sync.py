@@ -49,6 +49,25 @@ def _ledger_files(ledger_root):
 
 
 class SyncHappyPathTests(unittest.TestCase):
+    def test_archive_index_mode_writes_only_root_read_only_index(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            src = _drop(root / "_inbox", "Lynne", "a.pdf", b"INV-A")
+            outcomes = sync.process_inbox(
+                root / "_inbox", archive_root=root / "发票",
+                ledger_root=root / "报销", wiki_root=root,
+                extractor=_fixed_extractor(_fields()), rules=RULES,
+                submit_ts_ms=1700000000000, archive_index_mode=True)
+            self.assertEqual(outcomes[0].status, "synced")
+            self.assertFalse(src.exists())
+            index = root / "报销" / "归档索引.md"
+            self.assertTrue(index.exists())
+            self.assertEqual(len(ledger.parse_ledger(index)), 1)
+            self.assertFalse((root / "报销" / "2023-11").exists())
+            text = index.read_text(encoding="utf-8")
+            self.assertNotIn("已结清", text)
+            self.assertNotIn("DASHBOARD", text)
+
     def test_synced_then_inbox_deleted(self):
         with tempfile.TemporaryDirectory() as tmp:
             src = _drop(Path(tmp) / "_inbox", "王玲", "a.pdf", b"INV-A")
@@ -558,6 +577,29 @@ class SyncOverseasRoutingTests(unittest.TestCase):
             self.assertEqual(len(list(main_ledger.rglob("*.md"))), 1)
             self.assertEqual(list(petty_ledger.rglob("*.md")), [])
 
+    def test_personal_domestic_invoice_routes_to_petty_cash(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            wiki_root = Path(tmp)
+            _drop(wiki_root / "_inbox", "Lynne", "a.pdf", b"PERSONAL-DOM")
+            fields = _fields(
+                invoice_type="普票", billed_to="王玲",
+                invoice_number="PERSONAL-1")
+            sync.process_inbox(
+                wiki_root / "_inbox",
+                archive_root=wiki_root / "发票",
+                ledger_root=wiki_root / "报销",
+                wiki_root=wiki_root,
+                extractor=_fixed_extractor(fields),
+                rules=RULES,
+                submit_ts_ms=1700000000000,
+                overseas_archive_root=wiki_root / "invoice",
+                petty_ledger_root=wiki_root / "备用金",
+            )
+            self.assertFalse(list((wiki_root / "发票").rglob("*.pdf")))
+            self.assertEqual(len(list((wiki_root / "invoice").rglob("*.pdf"))), 1)
+            self.assertFalse(list((wiki_root / "报销").rglob("*.md")))
+            self.assertEqual(len(list((wiki_root / "备用金").rglob("*.md"))), 1)
+
     def test_overseas_root_unset_falls_back_to_archive_root(self):
         """向后兼容:不传 overseas_archive_root → 所有票都进 archive_root。"""
         with tempfile.TemporaryDirectory() as tmp:
@@ -595,6 +637,22 @@ class SyncReceiptSkipTests(unittest.TestCase):
             outcomes, inbox, archive_root, ledger_root = _run(tmp, _fields(is_receipt=False))
             self.assertEqual(outcomes[0].status, "synced")
             self.assertTrue(any(Path(archive_root).rglob("*.pdf")))
+
+    def test_explicitly_approved_historical_receipt_is_synced_as_settled(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _drop(Path(tmp) / "_inbox", "Lynne", "receipt.pdf", b"APPROVED-RECEIPT")
+            fields = _fields(
+                is_receipt=True,
+                allow_receipt=True,
+                settled_month="2026-02",
+                backfill_note="Receipt，非正式发票；已按员工报销提报并打款",
+            )
+            outcomes, _, _, ledger_root = _run(tmp, fields)
+            self.assertEqual(outcomes[0].status, "synced")
+            row = ledger.parse_ledger(_ledger_files(ledger_root)[0])[0]
+            self.assertEqual(row.settled, ledger.SETTLED_OK)
+            self.assertEqual(row.settled_date, "2026-02")
+            self.assertIn("Receipt", row.note)
 
 
 class SyncInvoiceNumberSoftDedupTests(unittest.TestCase):

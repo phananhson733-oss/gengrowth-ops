@@ -51,6 +51,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import classify  # noqa: E402
 import config  # noqa: E402
 import extract  # noqa: E402
+import feishu_sync  # noqa: E402
 import identity  # noqa: E402
 import ledger  # noqa: E402
 import mailbox  # noqa: E402
@@ -264,17 +265,66 @@ def cmd_ingest(args):
             extractor=extractor, rules=rules, submit_ts_ms=submit_ts_ms,
             overseas_archive_root=overseas_root,
             petty_ledger_root=petty_root,
+            archive_index_mode=True,
         )
     for o in outcomes:
         print(f"[{o.status}] {o.reimburser or '?'} {Path(o.path).name} {o.action or ''} {o.detail}".rstrip())
     n_ok = sum(1 for o in outcomes if o.status == "synced")
     print(f"--- {n_ok}/{len(outcomes)} synced ---")
-    # v2.5.8:invoice 已直接写到备用金账本,无需 view 投影刷新
+    if n_ok:
+        try:
+            _sync_feishu(apply=True, env_path=getattr(args, "env", DEFAULT_ENV))
+        except Exception as exc:  # 本地已归档+索引，可安全重试飞书同步
+            print(f"⚠️ 飞书同步失败（本地归档已完成，可运行 sync-feishu 重试）:{exc}")
+
+
+def _fx_for_feishu(currency, invoice_date):
+    digits = re.sub(r"\D", "", str(invoice_date or ""))
+    rate = ledger.lookup_fx_rate(currency, digits)
+    if rate is None:
+        raise RuntimeError(f"不支持币种:{currency}")
+    return rate
+
+
+def _sync_feishu(*, apply, env_path=DEFAULT_ENV, target_url=None):
+    env = config.load_env(env_path)
+    target = feishu_sync.parse_target_url(
+        target_url or config.require(env, "FEISHU_TARGET_URL"))
+    client = feishu_sync.FeishuClient(
+        config.require(env, "FEISHU_APP_ID"),
+        config.require(env, "FEISHU_APP_SECRET"))
+    app_token = (target.app_token
+                 or client.resolve_wiki_node(target.wiki_node_token))
+    if not app_token:
+        raise RuntimeError("无法从飞书知识库节点解析多维表格 app_token")
+    summary_id = None
+    for table in client.list_tables(app_token):
+        if table.get("name") == "月度汇总":
+            summary_id = table.get("table_id")
+            break
+    syncer = feishu_sync.FeishuSyncer(
+        client, app_token=app_token, detail_table_id=target.table_id,
+        summary_table_id=summary_id, fx=_fx_for_feishu)
+    result = (syncer.apply if apply else syncer.plan)(
+        DEFAULT_LEDGER_ROOT, DEFAULT_PETTY_LEDGER_ROOT)
+    return result
+
+
+def cmd_sync_feishu(args):
+    result = _sync_feishu(
+        apply=args.apply, env_path=args.env, target_url=args.target_url)
+    details = result.get("details", [])
+    summary_rows = result.get("summary", [])
+    creates = sum(1 for item in details if item["action"] == "create")
+    updates = len(details) - creates
+    verb = "已执行" if args.apply else "预演"
+    print(f"{verb}:飞书明细 create={creates},update={updates},"
+          f"月度汇总={len(summary_rows)},warnings={len(result.get('warnings', []))}")
 
 
 _KNOWN_CATEGORIES = {
-    "差旅费", "交通费", "业务招待费", "商务送礼",
-    "福利费", "研发费用", "办公费", "营销", "其他费用",
+    "差旅费", "交通费", "商务招待",
+    "福利费", "研发费用", "设备费用", "办公费", "营销", "其他费用",
 }
 _KNOWN_CURRENCIES = {"CNY", "USD", "HKD", "EUR", "GBP", "JPY"}
 
@@ -1021,6 +1071,14 @@ def main(argv=None):
     sp.add_argument("--petty-ledger-root", default=None,
                     help="备用金账本(海外 invoice)目录(默认 docs/.../备用金/)")
     sp.set_defaults(func=cmd_ingest)
+
+    sp = sub.add_parser("sync-feishu", help="从只读归档索引同步到飞书业务主库")
+    sp.add_argument("--env", default=DEFAULT_ENV)
+    sp.add_argument("--target-url", default=None,
+                    help="默认读取 .env 的 FEISHU_TARGET_URL")
+    sp.add_argument("--apply", action="store_true",
+                    help="真写飞书；默认只预演")
+    sp.set_defaults(func=cmd_sync_feishu)
 
     sp = sub.add_parser("audit-mail",
                         help="v2.5.8 阶段 C:扫 IMAP 近 N 天 vs ledger,输出疑似漏 fetch/ingest 清单")
