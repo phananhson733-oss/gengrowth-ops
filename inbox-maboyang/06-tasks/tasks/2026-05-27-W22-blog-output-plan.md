@@ -496,6 +496,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
 
 - [x] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
+- [ ] `PG-WC-055` Thor zodiac sign
 - [x] `PG-WC-055` Thor zodiac sign
 - [x] `PG-CELEB-063` Jennifer Lopez birth chart
 
@@ -510,6 +511,9 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-HEAL-008` mercury in gemini
 - [ ] `PG-HEAL-009` jupiter in sagittarius
 - [ ] `PG-MZ-001` INTJ zodiac sign
+- [ ] `PG-KB-001` BTS members zodiac signs
+- [ ] `PG-KB-002` Jungkook birth chart
+- [ ] `PG-FH-001` Harry Potter characters zodiac signs
 - [x] `PG-KB-001` BTS members zodiac signs
 - [ ] `PG-KB-002` Jungkook birth chart
 - [x] `PG-FH-001` Harry Potter characters zodiac signs
@@ -550,11 +554,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月24日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 30 篇)
 **状态**：`等待输出` (自动补充选题，共 40 篇)
 - [ ] `PG-MZ-007` which zodiac sign is most INTJ
 - [ ] `PG-MZ-008` INFJ zodiac sign
 - [ ] `PG-MZ-009` INFP zodiac sign
 - [ ] `PG-MZ-010` ENFP zodiac sign
+- [ ] `PG-MZ-011` INTP zodiac sign
 - [x] `PG-MZ-011` INTP zodiac sign
 - [ ] `PG-MZ-012` ENTJ zodiac sign
 - [ ] `PG-MZ-013` ENFJ zodiac sign
@@ -564,6 +570,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [ ] `PG-MZ-017` ESTJ zodiac sign
 - [ ] `PG-MZ-018` ESFJ zodiac sign
+- [ ] `PG-MZ-019` ESFP zodiac sign
 - [x] `PG-MZ-019` ESFP zodiac sign
 - [ ] `PG-MZ-020` ESTP zodiac sign
 - [ ] `PG-MZ-021` ISTJ zodiac sign
