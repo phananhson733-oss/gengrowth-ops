@@ -40,6 +40,7 @@ COMMON_REPO_NAMES = (
 )
 
 AUTO_MERGE_JSON_PATHS = {
+    "inbox/06-tasks/tasks/.autopilot-claims.json",
     "inbox-maboyang/06-tasks/tasks/.autopilot-claims.json",
 }
 

@@ -81,6 +81,7 @@ def test_json_add_add_conflict_merges_keys() -> None:
         remote = root / "remote.git"
         repo = root / "vault"
         peer = root / "peer"
+        rel = Path("inbox/06-tasks/tasks/.autopilot-claims.json")
         rel = Path("inbox-maboyang/06-tasks/tasks/.autopilot-claims.json")
 
         subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)

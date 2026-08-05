@@ -3,6 +3,7 @@
 # 生成过去 7 天 inbox-maboyang/ 改动摘要, 写到 /tmp/digest-body.md, 并设置 GITHUB_OUTPUT。
 #
 # 环境变量:
+#   GITHUB_REPOSITORY  例如 xdawayer/gengrowth-ops
 #   GITHUB_REPOSITORY  例如 phananhson733-oss/gengrowth-ops
 #   GITHUB_OUTPUT      Actions 写步骤输出的目标 (自动设置)
 
@@ -75,6 +76,7 @@ OUT=/tmp/digest-body.md
   echo
   echo "## 怎么处理"
   echo
+  echo "- **值得收编到 wiki 的 SOP / 反馈结论** → 去 \`xdawayer/gengrowth-wiki\` 提 PR"
   echo "- **值得收编到 wiki 的 SOP / 反馈结论** → 去 \`phananhson733-oss/gengrowth-wiki\` 提 PR"
   echo "- **只是过程记录** → 留在 inbox-maboyang/ 即可, 或归档到 \`inbox-maboyang/09-archive/\`"
   echo "- **status: ready_for_review 的内容** → 应该已经触发 dispatch 开过 PR, 检查 PR 列表"
