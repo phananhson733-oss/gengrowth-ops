@@ -49,13 +49,13 @@ Series（PG-KOD-002）正文前 30% 必须回链已上线的 Pillar，所以 Pil
 
 ### 阶段 A：先发集群 Pillar
 
-- [ ] `PG-KOD-001` how to find low hanging fruit keywords
-- [ ] `PG-SPD-001` striking distance keywords
+- [x] `PG-KOD-001` how to find low hanging fruit keywords
+- [x] `PG-SPD-001` striking distance keywords
 
 ### 阶段 B：Pillar 上线后再发 Series / Support
 
-- [ ] `PG-KOD-002` zero search volume keywords
-- [ ] `PG-ILA-001` pagerank sculpting
+- [x] `PG-KOD-002` zero search volume keywords
+- [x] `PG-ILA-001` pagerank sculpting
 
 ## 验收
 
