@@ -24,13 +24,20 @@ PYTHON="${PYTHON:-/usr/bin/python3}"
 #   watch       StartInterval=2 轮询刷 dashboard / settled_date / 总表
 #   drop        StartInterval=60 扫 _drop 投递区 cp 到 _inbox
 #
-# WATCH_ONLY=1:Lynne / 第二台机器场景 —— 只装 watch + drop(本机刷新自己看到的 dashboard),
-# 不装 daily / month-end / month-start(让 Mac Mini 独占,避免双拉邮件 / 双结转冲突)。
-if [ "${WATCH_ONLY:-0}" = "1" ]; then
-    LABELS=("watch" "drop")
-    echo "WATCH_ONLY mode: 只装 watch + drop(本机刷新 dashboard,不拉邮件 / 不做月度结转)"
-else
+# v3 默认只装邮件拉取 + drop；业务状态和月度汇总已迁至飞书，不再运行 Markdown
+# dashboard/watch/month-end/month-start。LEGACY_LEDGER=1 仅供回滚旧账本时使用。
+# DROP_ONLY=1:Lynne / 第二台机器只装 drop。
+if [ "${DROP_ONLY:-0}" = "1" ]; then
+    LABELS=("drop")
+    echo "DROP_ONLY mode: 只装 drop(_drop → _inbox)"
+elif [ "${LEGACY_LEDGER:-0}" = "1" ]; then
     LABELS=("daily" "month-end" "month-start" "watch" "drop")
+    echo "LEGACY_LEDGER mode: 安装旧 Markdown 账本全部任务"
+elif [ "${WATCH_ONLY:-0}" = "1" ]; then
+    LABELS=("watch" "drop")
+    echo "WATCH_ONLY 已废弃，仅用于兼容旧账本；建议改用 DROP_ONLY=1"
+else
+    LABELS=("daily" "drop")
 fi
 ACTION="${1:-install}"
 
@@ -67,6 +74,19 @@ if [ -f "$_OLD_MONTHLY" ]; then
     launchctl unload "$_OLD_MONTHLY" 2>/dev/null || true
     rm -f "$_OLD_MONTHLY"
     echo "migrated: 卸载并删除旧 monthly plist(已被 month-end + month-start 取代)"
+fi
+
+# v3:飞书接管业务状态后，普通安装主动清理旧 Markdown 账本任务，避免它们继续
+# 改写历史只读快照。LEGACY_LEDGER=1 明确回滚时才保留。
+if [ "${LEGACY_LEDGER:-0}" != "1" ]; then
+    for obsolete in watch month-end month-start; do
+        obsolete_dst="${LAUNCH_AGENTS}/com.gengrowth.baoxiao-${obsolete}.plist"
+        if [ -f "$obsolete_dst" ]; then
+            launchctl unload "$obsolete_dst" 2>/dev/null || true
+            rm -f "$obsolete_dst"
+            echo "v3 migrated: removed obsolete ${obsolete} task"
+        fi
+    done
 fi
 
 if [ "$ACTION" = "uninstall" ]; then

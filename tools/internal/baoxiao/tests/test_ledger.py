@@ -918,7 +918,7 @@ class PettyCashFieldsTests(unittest.TestCase):
 
 
 class EstimateCnyTests(unittest.TestCase):
-    """v2.5.7:三级 fallback — 本地缓存 → 在线 API → 硬编码近期均值。"""
+    """官方中间价：本地缓存 → SAFE/CFETS → 用户指定备用估值。"""
 
     def setUp(self):
         # 默认 mock 在线 fetcher 返回 None,强制 fallback 路径(避免测试触网)
@@ -938,14 +938,10 @@ class EstimateCnyTests(unittest.TestCase):
         self.assertEqual(ledger.estimate_cny(100, "CNY"), 100.0)
 
     def test_usd_fallback_when_no_date_and_no_online(self):
-        v = ledger.estimate_cny(100, "USD")
-        self.assertIsNotNone(v)
-        self.assertGreater(v, 600)   # ~7.18 fallback → ~718
+        self.assertEqual(ledger.estimate_cny(100, "USD"), 680.0)
 
     def test_hkd_fallback(self):
-        v = ledger.estimate_cny(100, "HKD")
-        self.assertIsNotNone(v)
-        self.assertLess(v, 100)      # ~0.92 fallback → ~92
+        self.assertEqual(ledger.estimate_cny(100, "HKD"), 88.0)
 
     def test_unknown_currency_returns_none(self):
         self.assertIsNone(ledger.estimate_cny(100, "BTC"))
@@ -962,9 +958,9 @@ class EstimateCnyTests(unittest.TestCase):
     def test_online_failure_falls_back_to_hardcoded(self):
         """API 失败(返回 None)→ fallback 到硬编码均值。"""
         ledger._fetch_fx_rate_online = lambda c, d: None
-        v = ledger.estimate_cny(100, "USD", invoice_date="20260605")
-        self.assertIsNotNone(v)
-        self.assertGreater(v, 600)   # fallback 7.18 → 718
+        self.assertEqual(
+            ledger.estimate_cny(100, "USD", invoice_date="20260605"),
+            680.0)
 
     def test_cache_persists_and_takes_precedence(self):
         """缓存命中 → 不调 API。"""
@@ -1157,23 +1153,22 @@ class FxFiniteValidationTests(unittest.TestCase):
     def test_nan_falls_back(self):
         ledger._fetch_fx_rate_online = lambda c, d: float("nan")
         v = ledger.estimate_cny(100, "USD", invoice_date="20260605")
-        # 应该 fallback 到 _FX_TO_CNY_FALLBACK["USD"] = 7.18 → 718
-        self.assertEqual(v, 718.0)
+        self.assertEqual(v, 680.0)
 
     def test_inf_falls_back(self):
         ledger._fetch_fx_rate_online = lambda c, d: float("inf")
         v = ledger.estimate_cny(100, "USD", invoice_date="20260605")
-        self.assertEqual(v, 718.0)
+        self.assertEqual(v, 680.0)
 
     def test_zero_rate_falls_back(self):
         ledger._fetch_fx_rate_online = lambda c, d: 0.0
         v = ledger.estimate_cny(100, "USD", invoice_date="20260605")
-        self.assertEqual(v, 718.0)
+        self.assertEqual(v, 680.0)
 
     def test_negative_rate_falls_back(self):
         ledger._fetch_fx_rate_online = lambda c, d: -7.5
         v = ledger.estimate_cny(100, "USD", invoice_date="20260605")
-        self.assertEqual(v, 718.0)
+        self.assertEqual(v, 680.0)
 
 
 class CurrencyRenderTests(unittest.TestCase):

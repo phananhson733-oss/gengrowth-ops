@@ -1,8 +1,10 @@
 # baoxiao —— 报销流程自动化(v2.5)
 
-内部工具:Lynne 邮箱收发票 → 自动拉附件 → 提取字段 → 命名归档进 git → wiki 月度账本自动追加 section → Lynne 在 Obsidian 点 task / 改类型 → 文件名 / dashboard 自动同步。
+内部工具:Lynne 邮箱收发票 → 自动拉附件 → 提取字段与查重 → 命名归档进 git → 写只读归档索引 → 同步飞书发票明细。
 
-单一事实源 = git 仓库;无飞书表依赖。
+v3 单一业务事实源 = 飞书发票明细。Git 保存 PDF/图片原件、双 SHA 查重信息和只读灾备索引；打款方式、状态、时间、备注与人工分类只在飞书维护。
+
+> `报销/`、`备用金/` 下历史月份文件是 v2 只读快照，不再追加、月结或跨月结转。新记录统一追加到各目录根部的 `归档索引.md`。
 
 ## 状态(2026-06-02 v2.5)
 
@@ -16,7 +18,6 @@
 - 跨月 carry A 方案:row + 文件都 mv 到下月
 - 跨月跨人**总表** `报销/总表.md`(已结清/未结清 两表,主键 = 发票编号)
 - id8 隐藏到 HTML 注释,H3 只显示 description(`### 仟佳食品 餐饮 员工`)
-- `_drop/{人}/` 投递区 + **ops 跨仓库报销投递区**(v2.5.11:mby/pengman 在各自 ops 工作区的 `报销/` 子目录放(mby=`inbox/报销`、pengman=`inbox-pengman/报销`,见 reimbursers.yaml `ops_expense_drops`),drop-scan 一并扫;`.md`/`.gitkeep` 说明文件不搬)(非邮件渠道发票,launchd 每分钟扫搬到 `_inbox`)
 - `_drop/{人}/` 投递区 + **ops 跨仓库报销投递区**(v2.5.11:mby/pengman 在各自 ops 工作区的 `报销/` 子目录放(mby=`inbox-maboyang/报销`、pengman=`inbox-pengman/报销`,见 reimbursers.yaml `ops_expense_drops`),drop-scan 一并扫;`.md`/`.gitkeep` 说明文件不搬)(非邮件渠道发票,launchd 每分钟扫搬到 `_inbox`)
 - 批量 `cli.py settle --month --reimburser --ids ... | --all`
 - `WATCH_ONLY=1 bash install.sh`(Lynne 本机只装 watch + drop,Mac Mini 独占 daily/monthly)

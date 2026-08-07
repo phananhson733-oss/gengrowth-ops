@@ -26,6 +26,11 @@ class ClassifyTests(unittest.TestCase):
     def test_matches_marketing(self):
         self.assertEqual(classify.classify("微信广告投放费", RULES), "营销")
 
+    def test_matching_is_case_insensitive(self):
+        rules = [{"category": "研发费用", "keywords": ["OpenAI", "MacBook"]}]
+        self.assertEqual(classify.classify("openai subscription", rules), "研发费用")
+        self.assertEqual(classify.classify("macbookair", rules), "研发费用")
+
     def test_first_rule_wins_on_multimatch(self):
         # 同时含"机票"(差旅)和"广告"(营销),差旅规则在前
         self.assertEqual(classify.classify("机票广告套餐", RULES), "差旅费")
@@ -41,6 +46,29 @@ class ClassifyTests(unittest.TestCase):
 
 
 class LoadRulesTests(unittest.TestCase):
+    def test_production_rules_classify_hardware_and_repairs_as_equipment(self):
+        rules_path = Path(__file__).resolve().parents[1] / "config" / "category-map.yaml"
+        rules = classify.load_rules(rules_path)
+        cases = [
+            "MacBook Pro 公司电脑",
+            "iPhone 8 工作机",
+            "办公-iphone-729",
+            "Apple Mac Mini 电脑设备",
+            "研发-macbookair-3529",
+            "移动硬盘2TB 办公存储",
+            "MacBook 主板维修 信息系统服务费",
+        ]
+        self.assertTrue(all(
+            classify.classify(case, rules) == "设备费用" for case in cases))
+        self.assertEqual(
+            classify.classify("广州俊树科技 信息系统服务费", rules),
+            "研发费用")
+        self.assertEqual(classify.classify("微信小程序认证服务费", rules), "研发费用")
+        self.assertEqual(classify.classify("BOSS 网络招聘费", rules), "办公费")
+        self.assertEqual(classify.classify("机票退票费", rules), "差旅费")
+        self.assertEqual(classify.classify("客户商务招待", rules), "商务招待")
+        self.assertEqual(classify.classify("花篮商务送礼", rules), "商务招待")
+
     def test_loads_rules_list_from_yaml(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / "category-map.yaml"

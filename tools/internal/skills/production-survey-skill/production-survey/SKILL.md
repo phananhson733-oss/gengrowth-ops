@@ -116,7 +116,6 @@ python3 scripts/validate-report.py ./参考资料/产品分析/[产品名字]-�
 ```
 
 The script checks structure and depth across these categories: file naming, header, sections, sub-sections, tables, depth metrics, **data-rigor lints (R1 caliber / R2 AI visibility-vs-referral / R7 finished-voice / overclaim)**, **model-coherence lints (share columns must sum ≈100% and not use ranges / SOM must be a share % not a revenue figure / no un-modeled renewal jump in the revenue model)**, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀). Note: a structural pass is necessary but NOT sufficient — it confirms the scaffolding, not that the numbers are internally coherent or decision-grade.
-The script checks 47 items across 7 categories: file naming, header, sections, sub-sections, tables, depth metrics, and advanced frameworks. Target: ≥90% pass rate (🟢 优秀).
 
 If validation fails, fix the failing items before finalizing.
 
