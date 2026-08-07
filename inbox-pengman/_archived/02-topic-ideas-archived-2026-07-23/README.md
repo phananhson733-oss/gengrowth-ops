@@ -14,10 +14,10 @@ updated: 2026-07-21
 
 ## 当前使用方式
 
-- 周度计划：[[inbox-pengman/04-production/04-weekly-content-plans/README]]
-- 周一候选研究、合格 Hot 或明确重排：[[inbox-pengman/04-production/06-daily-content-recommendations/README]]
+- 周度计划：[[inbox-pengman/04-production/03-weekly-content-plans/README]]
+- 周一候选研究、合格 Hot 或明确重排：[[inbox-pengman/02-调研资料/候选与热点研究/历史日级候选/README]]
 - 已确认进入产能的单条内容：[[inbox-pengman/04-production/07-content-production/README]]
-- 发布链接、数据和复盘：[[inbox-pengman/04-production/05-weekly-published-content-digests/README]]
+- 发布链接、数据和复盘：[[inbox-pengman/07-reports/历史发布记录/README]]
 
 本目录中的 SEO 调查、长期题库和早期脚本只在 Pengman 明确要求追溯旧方向、复用旧稿或迁移某条内容时读取。GSC 相关内容只代表当时快照，不是当前输入。
 

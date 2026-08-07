@@ -420,7 +420,7 @@ SEO 竞品分析、完整关键词研究、SERP 弱度判断、主题集群规�
 ### 我的学习和调研
 
 - [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/入职与职责理解/入职个人理解学习笔记.md]]
-- [[inbox-pengman/02-调研资料/产品体验与反馈/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
+- [[inbox-pengman/02-调研资料/方法论/产品体验与反馈/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
 - [[inbox-pengman/02-调研资料/历史调研/海外营销内容平台以及思考.md]]
 - [[inbox-pengman/02-调研资料/历史调研/各多媒体平台具体内容调研.md]]
 

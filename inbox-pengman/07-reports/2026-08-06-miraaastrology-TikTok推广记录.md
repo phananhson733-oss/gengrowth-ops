@@ -33,7 +33,7 @@ source: Pengman 提供的 TikTok Promote 后台数据
 
 | 视频 | content_id | 主生产记录 | TikTok 链接 |
 |---|---|---|---|
-| They knew the answer but still ask | `aw-scorpio-psychology-ai-host-04` | [[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]] | https://www.tiktok.com/@miraaastrology/video/7665176558616759566 |
+| They knew the answer but still ask | `aw-scorpio-psychology-ai-host-04` | [[inbox-pengman/04-production/07-content-production/历史记录/迁移前旧格式/2026-07-21 Scorpio Questions AI口播 内容生产记录]] | https://www.tiktok.com/@miraaastrology/video/7665176558616759566 |
 | They love from the wound | `aw-scorpio-cancer-pair-02` | [[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-cancer-pair-02]] | https://www.tiktok.com/@miraaastrology/video/7667514308733013262 |
 
 ## 二、推广结果

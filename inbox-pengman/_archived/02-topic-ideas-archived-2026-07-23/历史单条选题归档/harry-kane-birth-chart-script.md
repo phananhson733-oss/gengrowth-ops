@@ -7,11 +7,11 @@ project: astrologywiki
 type: topic-script
 status: published
 source:
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-01-daily-content-recommendation.md]]
-  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+  - [[inbox-pengman/02-调研资料/候选与热点研究/历史日级候选/已合并旧稿/2026-07-01-daily-content-recommendation.md]]
+  - [[inbox-pengman/07-reports/历史发布记录/2026-W27 本周已发布内容合集.md]]
 related:
-  - [[inbox-pengman/02-topic-ideas/README.md]]
-  - [[inbox-pengman/02-topic-ideas/SEO选题调查.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/SEO选题调查.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
 ---
 
@@ -19,7 +19,7 @@ related:
 
 > 归档 2026-07-01 已制作的 Harry Kane / Leo Sun 内容。源推荐文档保留在每日推荐目录；这里作为当前 `02-topic-ideas` 归档中的单条脚本备份。
 
-相关入口：[[inbox-pengman/02-topic-ideas/README.md]] / [[inbox-pengman/02-topic-ideas/SEO选题调查.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+相关入口：[[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README.md]] / [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/SEO选题调查.md]] / [[inbox-pengman/07-reports/历史发布记录/2026-W27 本周已发布内容合集.md]]
 
 ## Topic Card
 

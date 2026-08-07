@@ -2,7 +2,7 @@
 title: Pengman Inbox Agent Rules
 type: agent-ops
 agent: ops
-updated: 2026-08-04
+updated: 2026-08-07
 ---
 
 # AGENTS.md - Pengman Inbox
@@ -33,7 +33,7 @@ updated: 2026-08-04
 2. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
 3. 当前文件：`04-production/03-weekly-content-plans/YYYY-Www 周度内容计划.md`
 4. 涉及内容的 `04-production/07-content-production` 单条主生产记录
-5. 对应周的 `04-production/05-weekly-digests` 和 `07-reports`
+5. 对应周的 `07-reports` 周报或专项复盘
 6. 当前账号定位与内容路由 Playbook 和专项制作 SOP
 
 更具体、更近期、离执行现场更近的来源优先。当前周计划说明本周计划；单条主生产记录说明内容的实时阶段。二者冲突时，指出冲突并以单条主记录的 `content_stage` 判断当前阶段，不建立平行状态。
@@ -70,7 +70,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - Pengman 确认补充发布库存；
 - 需要评估一个可能达到门槛的 Hot 项目。
 
-文件进入 `04-production/02-daily-content-recommendations/`，但该目录名仅为兼容旧链接；不再作为每日默认入口。
+文件进入 `02-调研资料/候选与热点研究/`；该目录只承接获准的候选证据，不是每日默认入口。
 
 ### Evidence Preflight
 
@@ -108,7 +108,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - 当前规则冲突时，合并到一个权威文件；不要通过不断增加“覆盖条款”维持两套同时生效的规则。
 - `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件/dispatch。
 - 新建或重新进入当前队列的记录只使用 `selected / producing / ready / published`，例外使用 `hold / cancelled`；历史阶段按现行周度 SOP 的兼容表读取，不追溯改写历史证据。
-- 候选证据在 `04-production/02-daily-content-recommendations`，已选内容在 `04-production/07-content-production`，周度组合在 `04-production/03-weekly-content-plans`，发布数据和复盘在 `04-production/05-weekly-digests` 与 `07-reports`。
+- 候选证据在 `02-调研资料/候选与热点研究`，已选内容在 `04-production/07-content-production`，周度组合在 `04-production/03-weekly-content-plans`，发布数据和复盘统一在 `07-reports`。
 
 ## Operating Style
 

@@ -80,7 +80,7 @@ Output should include:
 Writing rules:
 
 - Keep the script short enough for the target format.
-- Follow the canonical `Copy Style` in [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]]: natural creator-style contrast is allowed; repetitive or corporate-sounding AI contrast templates are not.
+- Follow the canonical `Copy Style` in [[inbox-pengman/skills/astrologywiki-social-workflow/SKILL]]: natural creator-style contrast is allowed; repetitive or corporate-sounding AI contrast templates are not.
 - Do not over-explain brand values inside the script.
 - Do not turn astrology into match prediction, medical/psychological diagnosis, or deterministic claims.
 - Keep CTA light and natural.

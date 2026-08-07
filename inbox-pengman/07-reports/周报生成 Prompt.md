@@ -95,13 +95,13 @@ updated: 2026-08-04
 ## 数据来源优先级
 
 1. 当前周计划：`inbox-pengman/04-production/03-weekly-content-plans/YYYY-Www 周度内容计划.md`
-2. 最近已确认的业务重点、策略记录或 `inbox-pengman/01-conversation report/current-context.md`
-3. 本周发布 digest：`inbox-pengman/04-production/05-weekly-digests/`
+2. 最近已确认的业务重点、策略记录或 `inbox-pengman/04-production/00-evergreen-workflows/ai-advisor/当前状态与决策记录.md`
+3. 本周发布 digest：`inbox-pengman/07-reports/`
 4. 单条主生产记录：`inbox-pengman/04-production/07-content-production/`
 5. 社媒账号数据表：https://docs.google.com/spreadsheets/d/17NOiX9VGozHEgthpSbBN-2dyf4rJRsTQkmLubBwnICQ/edit
 6. TikTok 抓取数据：`inbox-pengman/output/` 中本周 capture summary 和 posts CSV
 7. 最近两期周报：只用于追踪同一假设、decision、next_test 和趋势，不作为本周执行证据
-8. 本周实际使用的候选证据：`inbox-pengman/04-production/02-daily-content-recommendations/`；只有当前周计划或主记录链接时才读取
+8. 本周实际使用的候选证据：`inbox-pengman/02-调研资料/候选与热点研究/`；只有当前周计划或主记录链接时才读取
 9. 本周明确使用的竞品来源；不扫描整个研究目录
 
 历史日级选题池、旧脚本和旧流程不作为当前执行证据。GSC 仍暂停。若路径中的旧文档链接与当前实际目录不一致，以当前实际文件为准，不创建第二套平行目录。

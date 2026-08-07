@@ -19,7 +19,7 @@ canonical: false
 阶段二：建立并确认 Brief → Claude / GPT 使用同一冻结包独立写稿
 ```
 
-候选研究只在周一、明确重排、确认补库或合格 Hot 时发生。候选证据可放在 [[inbox-pengman/04-production/02-daily-content-recommendations/README]]；选中后必须在 [[inbox-pengman/04-production/07-content-production/README]] 建立独立 `content_id` 和主生产记录。
+候选研究只在周一、明确重排、确认补库或合格 Hot 时发生。候选证据可放在 [[inbox-pengman/02-调研资料/候选与热点研究/README]]；选中后必须在 [[inbox-pengman/04-production/07-content-production/README]] 建立独立 `content_id` 和主生产记录。
 
 ## 1. 从周计划选中内容
 

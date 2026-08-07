@@ -623,7 +623,7 @@ Pillow
 - FFmpeg 功能和工具：<https://ffmpeg.org/doxygen/6.1/md_README.html>
 - FFmpeg 许可：<https://www.ffmpeg.org/legal.html>
 - AstrologyWiki 当前 AI 短视频流程：[[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]
-- AstrologyWiki 四账号打法：[[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]]
+- AstrologyWiki 四账号打法：[[inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook]]
 - W30 周度计划：[[inbox-pengman/04-production/03-weekly-content-plans/2026-W30 周度内容计划]]
-- Sun enters Leo 当前制作方案：[[inbox-pengman/04-production/04-content-production/2026-07-21 Sun Enters Leo 视频制作方案]]
+- Sun enters Leo 当前制作方案：[[inbox-pengman/04-production/07-content-production/历史记录/迁移前旧格式/2026-07-21 Sun Enters Leo 视频制作方案]]
 - 对照参考：[[inbox-pengman/02-调研资料/工具调研/视频与视觉/Codex 自动化剪辑用于 AI 口播调研报告]]

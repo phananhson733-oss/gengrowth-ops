@@ -9,14 +9,14 @@ status: draft
 source:
   - [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/2026-06-16-astrologywiki-weekly-todo.md]]
   - [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md]]
-  - [[inbox-pengman/01-conversation report/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
-  - [[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-  - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
+  - [[inbox-pengman/_archived/已退役入口/01-conversation-report-retired-2026-08-07/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+  - [[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 ---
 
 # AstrologyWiki 站外内容长期工作流
 
-> **历史证据，不作为当前执行入口**；本文保留早期流程和工具选择背景。当前入口见 [[inbox-pengman/04-production/00-evergreen-workflows/README.md]]；规则冲突时，以 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]、[[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] 和单条主生产记录为准。
+> **历史证据，不作为当前执行入口**；本文保留早期流程和工具选择背景。当前入口见 [[inbox-pengman/04-production/00-evergreen-workflows/README.md]]；规则冲突时，以 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]、[[inbox-pengman/skills/astrologywiki-social-workflow/SKILL]] 和单条主生产记录为准。
 >
 > 这份文档只记录长期会重复发生的内容工作：怎么找题、怎么做内容、怎么发、怎么复盘、怎么把结果沉淀成下一轮输入。  
 > 一次性的注册、账号资产、养号说明，已单独放在其他文档，不在这里重复。
@@ -71,11 +71,11 @@ source:
 
 当前选题主入口：
 
-[[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
+[[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 
 热点样例：
 
-[[inbox-pengman/02-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
+[[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
 
 ### 2.2 选题筛选逻辑
 
@@ -157,10 +157,10 @@ source:
 你是 AstrologyWiki 的站外内容策划与文案助手。请先阅读并只基于以下文档，帮我生成下一个可执行的选题，并写出对应的英文脚本 / 帖子文案。
 
 必须参考的上下文：
-- [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
+- [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 - [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
-- [[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-- [[inbox-pengman/01-conversation report/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+- [[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+- [[inbox-pengman/_archived/已退役入口/01-conversation-report-retired-2026-08-07/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 - [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md]]
 - [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 - [[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
@@ -172,7 +172,7 @@ source:
 4. 先判断最适合的平台，再分别给出 X / YouTube Shorts / TikTok 版本中最合适的一个或两个。
 5. 文案要简洁、自然、像真人写的，不要太 AI 化。
 6. 如果是 X 帖子，避免过度否定句、避免堆砌免责声明、避免太长。
-7. 公共表达规则以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md#Copy Style]] 为准；自然反差可以使用，但不要连续套用成明显的 AI 模板。
+7. 公共表达规则以 [[inbox-pengman/skills/astrologywiki-social-workflow/SKILL.md#Copy Style]] 为准；自然反差可以使用，但不要连续套用成明显的 AI 模板。
 8. 如果是视频脚本，控制在适合短视频或轻量解释视频的长度。
 9. 如果涉及链接，请优先放可自然承接的 AstrologyWiki 页面或主页。
 
@@ -241,7 +241,7 @@ D. Suggested CTA
 
 当前主要复盘文档：
 
-[[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+[[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ### 5.2 复盘要记录什么
 

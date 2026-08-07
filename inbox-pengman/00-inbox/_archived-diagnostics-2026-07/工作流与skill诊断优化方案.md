@@ -185,7 +185,7 @@ graph TD
 
 | 行动 | 具体操作 |
 |------|---------|
-| 合并 `tiktok-strategist` | 1. 把 Hook 评估框架复制到 `gengrowth-social/references/short-form-video.md`<br>2. 在 `gengrowth-social/SKILL.md` 顶部加交叉引用<br>3. 删除 `skills-staging/gengrowth-tiktok-strategist/` |
+| 合并 `tiktok-strategist` | 1. 把 Hook 评估框架复制到 `gengrowth-social/references/short-form-video.md`<br>2. 在 `gengrowth-social/SKILL.md` 顶部加交叉引用<br>3. 删除 `skills/gengrowth-tiktok-strategist/` |
 | 明确 Skill 边界 | 在 `gengrowth-social` 和 `social-media-analyzer` 各自 SKILL.md 顶部加一句边界说明 |
 
 ### 第 2 步：优化配置管理（下周，可选）
@@ -417,7 +417,7 @@ graph TD
 ```
 
 **产出**：
-- 周计划文件：`04-production/04-weekly-content-plans/2026-W30 周度内容计划.md`
+- 周计划文件：`04-production/03-weekly-content-plans/2026-W30 周度内容计划.md`
 - 包含 Publishing This Week 和 Producing for Next Week 两个清单
 
 ---

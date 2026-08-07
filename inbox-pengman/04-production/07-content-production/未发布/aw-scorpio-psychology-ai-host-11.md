@@ -10,7 +10,7 @@ pillar: Scorpio / emotional support asymmetry / hidden burden
 format: AI Host
 priority: P0
 effort: M
-content_stage: "selected"
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "GPT-5.6 v1，经 Pengman 于 2026-08-05 确认"
 publish_date: 2026-08-05
@@ -20,10 +20,12 @@ batch_id: 2026-W32-aihost-02
 status: draft
 owner: Pengman
 updated: "2026-08-05"
+published_evidence_status: user_confirmed_url_pending
+actual_credits_approx: 20
 source_evidence:
   - "[[inbox-pengman/00-inbox/Scorpio-has-zero-friends-脚本调研]]"
-  - "[[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]]"
-  - "[[inbox-pengman/04-production/07-content-production/未发布/aw-scorpio-psychology-ai-host-07]]"
+  - "[[inbox-pengman/04-production/07-content-production/历史记录/迁移前旧格式/2026-07-21 Scorpio Questions AI口播 内容生产记录]]"
+  - "[[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-psychology-ai-host-07]]"
 ---
 
 # Scorpio Psychology AI Host #11：内容生产记录
@@ -35,15 +37,15 @@ source_evidence:
 - 执行通道：快速
 - 建议制作顺序：确认稿后直接进入 HeyGen 生成、剪辑、QA、发布
 - 可共用调研/素材：沿用 miraa 固定女性 AI Host、深色背景和大字幕；不增加无关特效
-- 当前一个人类动作：开始 HeyGen 生成；实际开始生成后将 `content_stage` 更新为 `producing`
+- 当前一个人类动作：补真实发布链接、平台 ID 与实际发布时间，完成发布证据核验
 
 ## AI Host 生产资源
 
 - 当前工具：HeyGen 网页端
-- 当前 credits 余额：待 Pengman 在制作前读取
-- 执行要求：生成前后记录实际 credits 余额和本条实际消耗，不用历史平均值代替
+- 本条实际消耗：约 20 credits（Pengman 于 2026-08-07 汇总确认）
+- 折算成本：按 `$29 / 600 credits` 与 2026-08-06 汇率 `$1 = ¥6.7491`，约 `¥6.52 / 条`
 - 视觉约束：固定 Host、深色背景、大字幕；避免 Video Chat Agent 自动添加的无关特效
-- 阶段说明：脚本已确认但尚未收到实际开始生成的证据，因此当前保持 `selected`
+- 阶段说明：Pengman 确认本条已发布，因此 `content_stage` 更新为 `published`；真实 URL、平台 ID 与实际发布时间仍待自动采集或人工补齐，不表述为完整核验发布
 
 ## 统一 Brief
 
@@ -74,7 +76,7 @@ source_evidence:
 
 ### 待确认项
 
-- HeyGen 实际 credits 消耗、成片时长、声音自然度和是否出现无关特效。
+- 成片时长、声音自然度和是否出现无关特效；credits 已按 Pengman 汇总记录为约 20。
 - 发布后的真实 URL、平台 ID、实际发布时间、24h/72h views、shares、favorites 和后台留存。
 
 ### 系列去重
@@ -201,6 +203,7 @@ The strongest person in the room still needs someone to notice them.
 ## 发布与复盘
 
 - 发布链接：
+- 发布证据：Pengman 于 2026-08-07 确认已发布；真实 permalink、平台 ID 与实际发布时间待补
 - `weekly_digest`：
 - `decision`：
 - `next_test`：

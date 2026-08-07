@@ -112,8 +112,8 @@ content_id：【ID】
 |--------|------|
 | **本周计划** | `04-production/03-weekly-content-plans/2026-Wxx 周度内容计划.md` |
 | **单条内容记录** | `04-production/07-content-production/未发布/<content_id>.md` 或 `已发布/<content_id>.md` |
-| **账号定位** | `04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md` |
-| **数据复盘** | `04-production/05-weekly-digests/2026-Wxx.md` |
+| **账号定位** | `04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook.md` |
+| **数据复盘** | `07-reports/2026-Wxx.md` |
 | **竞品数据** | Google Sheet `post_history` 表 |
 | **完整规则** | `04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md` |
 
@@ -142,7 +142,7 @@ content_id：【ID】
         
     - `04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md`
         
-    - `04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md`
+    - `skills/astrologywiki-social-workflow/SKILL.md`
         
     - 当前周次对应的周度内容计划
         
@@ -156,7 +156,7 @@ content_id：【ID】
         
 5. 如今天涉及发布，再读取当前周 digest：
     
-    - `04-production/05-weekly-digests/`
+    - `07-reports/`
         
 
 如果文档中的旧路径与仓库实际路径不一致，以当前真实存在的文件为准，并在输出中说明。找不到当前周计划时，不得假设计划内容。

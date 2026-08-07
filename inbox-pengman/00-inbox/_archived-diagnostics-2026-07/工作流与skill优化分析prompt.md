@@ -45,7 +45,7 @@ purpose: 为 GenGrowth 社媒内容运营工作流梳理冗余、填补空白、
 
 ### 已安装的 Skills
 
-**通用社媒 Skills（位于 `~/gengrowth-ops/inbox-pengman/skills-staging/`）：**
+**通用社媒 Skills（位于 `~/gengrowth-ops/inbox-pengman/skills/`）：**
 1. `gengrowth-social` - 多平台内容策略、内容支柱、日历、Social Listening、竞品拆解
 2. `gengrowth-tiktok-strategist` - TikTok 平台原生化审查、Hook 优化、趋势参与
 3. `gengrowth-social-media-analyzer` - 帖子/账号表现分析、指标计算、Benchmark 比对
@@ -91,7 +91,7 @@ purpose: 为 GenGrowth 社媒内容运营工作流梳理冗余、填补空白、
 
 - **工作文件根目录**: `~/gengrowth-ops/inbox-pengman/`
 - **历史参考**: `~/gengrowth-ops/inbox-pengman/00-inbox/近期 TikTok 视频思路与数据整理.md`
-- **调研资料**: `~/gengrowth-ops/inbox-pengman/05-调研资料/`
+- **调研资料**: `~/gengrowth-ops/inbox-pengman/02-调研资料/`
 
 ## 分析维度
 
@@ -150,7 +150,7 @@ purpose: 为 GenGrowth 社媒内容运营工作流梳理冗余、填补空白、
 ## 约束条件
 
 1. **不破坏现有生产**：AstrologyWiki 的四账号矩阵正在运行，任何改动不能打断当前周度生产
-2. **遵循单一源原则**：canonical source 在 `~/gengrowth-ops/inbox-pengman/skills-staging/`，不复制业务逻辑
+2. **遵循单一源原则**：canonical source 在 `~/gengrowth-ops/inbox-pengman/skills/`，不复制业务逻辑
 3. **保持产品无关**：通用 skill 不包含产品信息，产品差异通过运行时 context 输入
 4. **写权限边界**：只能写入 `~/gengrowth-ops/inbox-pengman/**`，正式迁移到 `~/gengrowth-ops/tools/internal/skills/` 需要 CEO 批准
 5. **数据质量边界**：`posts_latest` 有截断问题，分析必须用 `post_history`；`account_history` 目前只有单日快照，不能判断增长趋势

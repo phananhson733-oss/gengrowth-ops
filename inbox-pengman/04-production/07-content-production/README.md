@@ -4,7 +4,7 @@ project: astrologywiki
 type: production-index
 status: active
 owner: Pengman
-updated: 2026-08-04
+updated: 2026-08-07
 ---
 
 # 单条主生产记录入口
@@ -53,4 +53,6 @@ selected → producing → ready → published
 - [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]
 
-`04-production/04-content-production/` 保存迁移前的历史记录和旧格式，不再作为新主记录入口。
+`04-production/07-content-production/历史记录/迁移前旧格式/` 保存迁移前的历史记录和旧格式，不再作为新主记录入口。
+
+自动化和日常队列扫描必须排除 `历史记录/`。同一 `content_id` 只允许在 `未发布/` 或 `已发布/` 中保留一份当前主记录；被替代版本移入 `_archived/`，不得继续维护第二份状态。

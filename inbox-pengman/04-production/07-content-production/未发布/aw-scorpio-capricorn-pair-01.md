@@ -22,7 +22,7 @@ source_evidence:
   - "[[inbox-pengman/07-reports/miraaastrology-strategic-analysis-report]]"
   - "[[inbox-pengman/04-production/07-content-production/未发布/aw-scorpio-taurus-pair-01]]"
   - "[[inbox-pengman/04-production/07-content-production/未发布/aw-scorpio-psychology-ai-host-11]]"
-  - "[[inbox-pengman/04-production/07-content-production/未发布/aw-scorpio-virgo-pair-01]]"
+  - "[[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-virgo-pair-01]]"
 status: draft
 owner: Pengman
 updated: 2026-08-06

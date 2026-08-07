@@ -8,16 +8,16 @@ owner: Pengman
 updated: 2026-07-16
 sources:
   - inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md
-  - inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md
+  - inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md
   - inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow.md
   - inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md
   - inbox-pengman/02-调研资料/平台与策略/content-direction-and-tools-research.md
-  - inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md
+  - inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook.md
   - inbox-pengman/02-调研资料/竞品研究/reference-accounts.md
   - inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md
-  - inbox-pengman/04-production/05-weekly-digests/
-  - inbox-pengman/04-production/02-daily-content-recommendations/
+  - inbox-pengman/07-reports/
+  - inbox-pengman/02-调研资料/候选与热点研究/
   - Google Sheet: social robot account_analysis / video_analysis
 ---
 
@@ -284,8 +284,8 @@ AstrologyWiki 当前对应文件包括：
 
 - `inbox-pengman/02-调研资料/竞品研究/reference-accounts.md`
 - `inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md`
-- `inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md`
-- `inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md`
+- `inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook.md`
+- `inbox-pengman/skills/astrologywiki-social-workflow/SKILL.md`
 
 ---
 
@@ -346,7 +346,7 @@ AstrologyWiki 当前对应文件包括：
 | ③ 热点占星测试 | 明星 / 情侣 / 事件流量 | 名人图、星盘截图、热点事件解释，不做预测 |
 | ④ 普通占星爱好者 | 低成本测试号 | slideshow、榜单、星座梗、评论互动、trend 音频 |
 
-自 2026-08-04 起，当前只启用 `@astrologywiki` 与 `@miraaastrology`；热点号暂停，普通爱好者号退役。实时账号角色和未来启用门以 [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]] 为准。
+自 2026-08-04 起，当前只启用 `@astrologywiki` 与 `@miraaastrology`；热点号暂停，普通爱好者号退役。实时账号角色和未来启用门以 [[inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook]] 为准。
 
 ### 5.5 内容输出频率
 
@@ -624,8 +624,8 @@ X 更适合：
 
 AstrologyWiki 当前复盘入口：
 
-- `inbox-pengman/04-production/05-weekly-digests/`
-- `inbox-pengman/04-production/05-weekly-digests/public-account-crawl-log.md`
+- `inbox-pengman/07-reports/`
+- `inbox-pengman/07-reports/历史发布记录/public-account-crawl-log.md`
 
 ---
 

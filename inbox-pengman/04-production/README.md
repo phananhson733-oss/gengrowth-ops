@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: active
 owner: Pengman
-updated: 2026-08-04
+updated: 2026-08-07
 ---
 
 # 内容生产工作区入口
@@ -53,23 +53,23 @@ updated: 2026-08-04
 | 场景 | 只需再读 |
 |---|---|
 | 第一次接手或星期中途替班 | [[inbox-pengman/04-production/00-evergreen-workflows/社媒内容生产接手指南|社媒内容生产接手指南]] |
-| 判断账号、账号启停或未来新账号 | [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook|账号定位与内容路由 Playbook]]；当前只启用官号与 Miraa |
+| 判断账号、账号启停或未来新账号 | [[inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook|账号定位与内容路由 Playbook]]；当前只启用官号与 Miraa |
 | 建立周计划、查容量或 Hot 插入 | Weekly Rolling SOP + 当前周计划 + 最近周报 |
-| 新候选研究 | [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL|AstrologyWiki Social Workflow]]；仅在权限门允许时执行 |
+| 新候选研究 | [[inbox-pengman/skills/astrologywiki-social-workflow/SKILL|AstrologyWiki Social Workflow]]；仅在权限门允许时执行 |
 | AI 调研、写稿与人工确认 | [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明|Pengman 与 AI 内容协作说明]] |
 | AI Host / 短视频制作 | [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow|AI Short Video Production Workflow]] |
 | 图文 / Carousel 制作 | [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow|Instagram Image Content Workflow]] |
-| 发布数据和复盘 | [[inbox-pengman/04-production/05-weekly-digests/README|每周已发布内容合集入口]] + `07-reports/` 对应周报 |
-| 当前自动化证据 | [[inbox-pengman/04-production/00-evergreen-workflows/tiktok-public-capture/README|TikTok Public Capture]]；其他工具按“文档 / 试验 / 部署 / 运行证据”区分 |
+| 发布数据和复盘 | [[inbox-pengman/07-reports/README|报告与复盘入口]] → 对应周报或专项复盘 |
+| 当前自动化证据 | [[inbox-pengman/tools/tiktok-public-capture/README|TikTok Public Capture]]；其他工具按“文档 / 试验 / 部署 / 运行证据”区分 |
 
 ## 文件位置
 
 | 内容 | 当前目录 | 不再使用的旧入口 |
 |---|---|---|
 | 周计划 | `03-weekly-content-plans/` | `04-weekly-content-plans/` |
-| 候选与 Hot 证据 | `02-daily-content-recommendations/` | `06-daily-content-recommendations/` |
-| 单条主记录 | `07-content-production/未发布/` 与 `07-content-production/已发布/` | `04-content-production/` 仅保留历史记录 |
-| 发布合集 | `05-weekly-digests/` | `05-weekly-published-content-digests/` |
+| 候选与 Hot 证据 | `../02-调研资料/候选与热点研究/` | `02-daily-content-recommendations/`、`06-daily-content-recommendations/` |
+| 单条主记录 | `07-content-production/未发布/` 与 `07-content-production/已发布/` | `07-content-production/历史记录/迁移前旧格式/` 仅保留历史记录 |
+| 发布数据与复盘 | `../07-reports/` | `05-weekly-digests/`、`05-weekly-published-content-digests/` |
 
 ## 不需要做的事
 

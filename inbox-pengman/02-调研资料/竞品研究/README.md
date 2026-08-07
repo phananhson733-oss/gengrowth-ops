@@ -13,11 +13,11 @@ updated: 2026-07-16
 
 ## 当前入口
 
-- [[inbox-pengman/05-调研资料/历史流程/social-seo-fishbone-map.md]]
+- [[inbox-pengman/02-调研资料/历史流程/social-seo-fishbone-map.md]]
   - 历史 Social SEO 鱼骨流程索引；只用于追溯，本目录当前事实来源见下方在线竞品表。
-- [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md]]
+- [[inbox-pengman/02-调研资料/竞品研究/reference-accounts.md]]
   - 包含 TikTok 账号调研：@birthchart.com、@angelic_oracle、@costarastrology、@thepattern、@astrowhispers8（调研时间 2026-07-07）
-- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md]]
+- [[inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md]]
   - 4 条竞品视频的形式、钩子公式、留存机制逐条拆解，含 AstrologyWiki 可复用模板（2026-07-09）
 
 ## 在线竞品表（唯一事实来源）
@@ -26,7 +26,7 @@ updated: 2026-07-16
 - 2026-07-16 只读核验：`account_links` 18 条、`account_analysis` 26 条、`video_links` 20 条、`video_analysis` 37 条。
 - 平台覆盖：账号入口为 TikTok 16 / X 1 / Instagram 1；视频研究当前 37 条全部为 TikTok。
 - 数据质量：`account_analysis` 有 25 个唯一 handle（`astrologeelover68` 重复一行）；`video_analysis` 有 35 个唯一 URL，两条视频重复分析。37 条视频中 32 条有 views、24 条有 likes、20 条有 comments 数、24 条有 shares、20 条有 publish date。
-- [[inbox-pengman/05-调研资料/竞品研究/旧快照/README.md]] 中的 `2026-07-07` CSV 已经落后：账号分析仅 17 条、视频分析仅 19 条。保留用于历史追溯，但不参与新 Brief 和生成。
+- [[inbox-pengman/02-调研资料/竞品研究/旧快照/README.md]] 中的 `2026-07-07` CSV 已经落后：账号分析仅 17 条、视频分析仅 19 条。保留用于历史追溯，但不参与新 Brief 和生成。
 
 ### 进入 Obsidian 的方式
 

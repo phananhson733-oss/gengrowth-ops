@@ -15,11 +15,11 @@ instructions: |
 
   读取以下目录中**上周日期范围内**的文件（按文件名中的日期筛选）：
 
-  1. `~/gengrowth-ops/inbox-pengman/04-production/05-weekly-published-content-digests/` — 已发布内容合集
+  1. `~/gengrowth-ops/inbox-pengman/07-reports/历史发布记录/` — 已发布内容合集
   2. `~/gengrowth-ops/inbox-pengman/04-production/07-content-production/` — 内容制作方案
-  3. `~/gengrowth-ops/inbox-pengman/04-production/06-daily-content-recommendations/` — 每日选题池
+  3. `~/gengrowth-ops/inbox-pengman/02-调研资料/候选与热点研究/历史日级候选/` — 每日选题池
   4. `~/gengrowth-ops/inbox-pengman/output/` — TikTok 抓取数据（capture summary、posts csv）
-  5. `~/gengrowth-ops/inbox-pengman/05-调研资料/竞品研究/` — 竞品研究（如有更新）
+  5. `~/gengrowth-ops/inbox-pengman/02-调研资料/竞品研究/` — 竞品研究（如有更新）
   6. `~/gengrowth-ops/inbox-pengman/00-inbox/个人心得与经验记录.md` — Pengman 的个人心得日志，提取上周日期范围内的条目，整合到周报「经验沉淀」模块
 
   汇总以下信息：

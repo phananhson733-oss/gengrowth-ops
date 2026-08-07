@@ -9,7 +9,7 @@ updated: 2026-08-04
 
 # Weekly Rolling Content Production SOP
 
-> 本文件是 AstrologyWiki 当前启用社媒账号的周度产能、内容池、Batch、热点插入和迁移规则唯一来源。账号启停与定位以 [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]] 为准；当前只启用 `@astrologywiki` 与 `@miraaastrology`，未来账号未通过启用门前不进入周计划。
+> 本文件是 AstrologyWiki 当前启用社媒账号的周度产能、内容池、Batch、热点插入和迁移规则唯一来源。账号启停与定位以 [[inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook]] 为准；当前只启用 `@astrologywiki` 与 `@miraaastrology`，未来账号未通过启用门前不进入周计划。
 
 ## 1. 滚动周原则
 
@@ -28,7 +28,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 ### 1.1 生成选题前的互联网调研门槛
 
-所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、账号定位与路由 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
+所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/skills/astrologywiki-social-workflow/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、账号定位与路由 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
 
 - 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`
 - Apps Script Library：`https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3`

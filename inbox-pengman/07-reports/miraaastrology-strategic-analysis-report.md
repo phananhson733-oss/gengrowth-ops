@@ -585,8 +585,8 @@ Cancer Sun 若达到 Scorpio 匹配窗口关键质量信号约 70%，且出现�
 ### 9.5 当前执行入口
 
 - 本周计划：[[inbox-pengman/04-production/03-weekly-content-plans/2026-W30 周度内容计划]]
-- Scorpio #4：[[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]]
-- Cancer Sun #1：[[inbox-pengman/04-production/04-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]
+- Scorpio #4：[[inbox-pengman/04-production/07-content-production/历史记录/迁移前旧格式/2026-07-21 Scorpio Questions AI口播 内容生产记录]]
+- Cancer Sun #1：[[inbox-pengman/04-production/07-content-production/历史记录/迁移前旧格式/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]
 
 ### 9.6 受众认知门槛校正
 

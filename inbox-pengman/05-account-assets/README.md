@@ -21,7 +21,7 @@ updated: 2026-07-09
 ## 相关 Workflow
 
 - 从零起号养号完整流程（IP 配置、养号操作、异常处理）：[[inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md]]
-- 三个系列账号的已发布高表现脚本与典型内容机制：[[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 系列账号典型视频脚本存档]]
+- 三个系列账号的已发布高表现脚本与典型内容机制：[[inbox-pengman/02-调研资料/竞品研究/已发布内容案例/AstrologyWiki 系列账号典型视频脚本存档]]
 
 ## 静态素材
 

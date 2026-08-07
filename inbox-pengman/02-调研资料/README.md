@@ -4,7 +4,7 @@ project: astrologywiki
 type: workspace-index
 status: active
 owner: Pengman
-updated: 2026-07-16
+updated: 2026-08-07
 ---
 
 # 调研资料入口
@@ -19,14 +19,15 @@ updated: 2026-07-16
 | [[inbox-pengman/02-调研资料/方法论/README.md]] | 通用运营框架和方法论底稿 | 否 |
 | [[inbox-pengman/02-调研资料/工具调研/README.md]] | 视频、视觉、文本、搜索和社媒工具研究 | 否 |
 | [[inbox-pengman/02-调研资料/竞品研究/README.md]] | 竞品账号、视频机制和停用旧快照；在线表为事实源 | 否 |
+| [[inbox-pengman/02-调研资料/候选与热点研究/README.md]] | 仅在权限门允许时保存周一候选、Hot、补库或明确重排证据 | 否 |
 | [[inbox-pengman/02-调研资料/历史调研/README.md]] | 首轮方案、平台样本和早期思考 | 否 |
 | [[inbox-pengman/02-调研资料/历史流程/README.md]] | 已被当前 README / Skill / SOP 取代的旧总流程和鱼骨图 | 否 |
 
 ## 事实来源边界
 
 - 当前内容状态和最终稿：单条主生产记录。
-- 发布数据和 `decision / next_test`：对应 weekly digest。
-- 当前公共表达和日更执行规则：Social Daily Skill。
+- 发布数据和 `decision / next_test`：`07-reports/` 的对应周报或专项复盘。
+- 当前公共表达和候选研究规则：`skills/astrologywiki-social-workflow/SKILL.md`。
 - 竞品账号与视频数据：在线 Google Sheet；本地旧快照只作历史证据。
 - 本目录文件可以解释“为什么曾经这样判断”，不能覆盖当前生产入口中的明确规则。
 

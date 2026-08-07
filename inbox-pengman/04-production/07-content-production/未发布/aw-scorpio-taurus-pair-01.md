@@ -10,22 +10,28 @@ pillar: Compatibility / loyalty vs flexibility / fixed-sign stalemate
 format: AI Host
 priority: P0
 effort: M
-content_stage: selected
-script_status: 待确认
+content_stage: ready
+script_status: 已确认
+confirmed_script_version: "GPT-5.6 v1，Pengman 已制作成片并于 2026-08-07 确认定时"
 hook: "Scorpio and Taurus don't leave easily — even when staying becomes the fight."
 cta: 无口播 CTA；caption 无链接
-batch_id: 待 W33 周计划确认
-deadline: 待 W33 周计划确认
+batch_id: 2026-W32-aihost-03
+publish_date: 2026-08-07
+scheduled_at: "2026-08-07T11:30:00-05:00"
+scheduled_timezone: America/Chicago
+scheduled_at_beijing: "2026-08-08T00:30:00+08:00"
+deadline: 2026-08-07
+actual_credits_approx: 20
 source_evidence:
   - "[[inbox-pengman/04-production/03-weekly-content-plans/2026-W32 周度内容计划]]"
   - "[[inbox-pengman/07-reports/2026-W31-weekly-report]]"
   - "[[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-cancer-pair-02]]"
   - "[[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-leo-pair-01]]"
-  - "[[inbox-pengman/04-production/07-content-production/未发布/aw-scorpio-virgo-pair-01]]"
+  - "[[inbox-pengman/04-production/07-content-production/已发布/aw-scorpio-virgo-pair-01]]"
   - "https://www.tiktok.com/@fernandocarlos99"
 status: draft
 owner: Pengman
-updated: 2026-08-05
+updated: 2026-08-07
 ---
 
 # Scorpio × Taurus：内容生产记录
@@ -34,18 +40,19 @@ updated: 2026-08-05
 
 - 优先级：P0
 - 预估成本：M
-- 执行通道：W33 Miraa 非时效库存候选
+- 执行通道：W32 加速恢复周追加内容
 - 建议制作形式：沿用固定女性 AI Host、声音、深色背景和大字幕
-- 当前一个人类动作：确认英文稿与 caption；确认后进入 HeyGen 生成
-- 当前阶段说明：Pengman 已明确选择本题，因此建立主记录并设为 `selected`；尚未开始生成、剪辑或组装，不进入 `producing`
+- 当前一个人类动作：等待定时发布；公开后核验真实链接、平台 ID 与实际发布时间
+- 当前阶段说明：已完成制作并定时至芝加哥时间 2026-08-07 11:30，对应北京时间 2026-08-08 00:30；当前为 `ready`
+- 本条实际消耗：约 20 credits，按 `$29 / 600 credits` 与 2026-08-06 汇率折算约 `¥6.52`
 
 ## 选择依据与产能边界
 
 - Pengman 于 2026-08-05 明确选择 `Scorpio × Taurus：忠诚如何变成僵局`。
 - W31 的 Scorpio × Cancer 在 views、shares、favorites 上领先，支持继续补双星座关系投射样本；该结论仍为小样本方向性信号。
-- W32 已锁定 4 条 Miraa AI Host，本条不替换或挤占 W32 P0，只进入 W33 待排期队列。
+- Pengman 在原 4 条 Miraa 计划之外追加本条与职业题材，使 W32 实际完成 6 条 Mira AI Host 成片。
 - W32 周中公开抽样记录显示，`@fernandocarlos99` 在统一 Host 下持续覆盖 Taurus，单条播放仍有明显波动；因此本条只把 Taurus 视为值得测试的受众身份，不把竞品账号的播放差异归因于星座题材。
-- W33 尚未建立正式周计划，`publish_date / deadline / batch_id` 均等待 W33 产能锁定后回写，不预造排期。
+- 本条已进入 W32 追加 Batch，并设置真实定时时间；不再作为仅等待 W33 计划的候选。
 
 ## 继承的 Evidence Preflight
 
@@ -106,7 +113,7 @@ Scorpio and Taurus don't leave easily — even when staying becomes the fight.
 - **相关旧稿或人工修改记录**：延续 × Cancer 的双视角公平结构与 × Virgo 的具体行为要求；避免 × Leo 的“power struggle”写法，内部工作标题虽使用 `standoff`，正式脚本不得退回泛化权力争夺。
 - **上一轮 `decision / next_test`**：W31 决定继续保留双星座关系投射；W32 测试 × Leo 与 × Virgo，并要求保持同一 Host、字幕密度和相近时长。正式起稿前需带入两条内容的统一 24h/72h 数据；若数据仍缺失，明确标记 `待补数据`，不据此淘汰本题。
 - **约束和禁止声明**：必须公平解释双方；不使用 `toxic / narcissist / manipulative / codependent / trauma bond`；不写“Scorpio 控制、Taurus 固执”的单向标签；不宣称天生一对或注定失败；不加入财富、性、嫉妒或背叛等未冻结副题。
-- **制作或实验说明**：建议沿用 Miraa 固定女性 AI Host、声音、深色背景、大字幕和相近时长；具体时长、CTA、发布时间和 Batch 在 W33 周计划锁定。脚本初稿完成后必须经过 Humanization Gate 和 Pengman 人工确认，确认前保持 `script_status: 待确认`、`content_stage: selected`。
+- **制作或实验说明**：已沿用 Miraa 固定女性 AI Host、声音、深色背景和大字幕完成成片，并纳入 `2026-W32-aihost-03`；Pengman 已确认脚本与成片并设置定时，当前为 `ready`。
 
 ## 脚本起草输入边界
 
@@ -177,12 +184,10 @@ They both call it loyalty. Neither notices when it turns into a standoff. ♏️
 
 - 当前环境没有可调用的 `/humanizer` Skill；未伪称运行。
 - 已由总控模型完成替代审查：删去占星术语和课堂式解释；拆短长句；保证每句能自然口播；避免重复 `not X, but Y` 模板；结尾不使用企业式总结或建议。
-- 当前仍需 Pengman 人工确认。确认前保持 `script_status: 待确认`、`content_stage: selected`。
+- Pengman 已采用本版本完成成片并设置定时；当前 `script_status: 已确认`、`content_stage: ready`。
 
 ## 下一步
 
-1. Pengman 确认或修改 `GPT-5.6 v1` 英文稿与 caption。
-2. 确认后写入 `script_status: 已确认` 和 `confirmed_script_version`；`content_stage` 仍保持 `selected`。
-3. W33 周计划锁定产能后补 `publish_date / deadline / batch_id`。
-4. 实际开始 HeyGen 生成、剪辑或组装时，把 `content_stage` 更新为 `producing`。
-5. 成片 QA 核对首屏、自动特效、字幕断句、口播稿与 caption；未经确认不临时追加 CTA。
+1. 等待芝加哥时间 2026-08-07 11:30 定时发布。
+2. 公开后补 `published_url / platform_post_id / published_at`，再进入 `published`。
+3. 记录统一 24h/72h views、观看质量、shares、favorites 与增粉。

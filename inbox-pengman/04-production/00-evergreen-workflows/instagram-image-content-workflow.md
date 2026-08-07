@@ -9,8 +9,8 @@ related:
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
   - [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
   - [[inbox-pengman/02-调研资料/竞品研究/reference-accounts.md]]
-  - [[inbox-pengman/04-production/05-weekly-digests/README.md]]
-  - [[inbox-pengman/04-production/02-daily-content-recommendations/README.md]]
+  - [[inbox-pengman/07-reports/README.md]]
+  - [[inbox-pengman/02-调研资料/候选与热点研究/README.md]]
   - [[inbox-pengman/04-production/07-content-production/README.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md]]
 ---
@@ -79,7 +79,7 @@ Before generating the Instagram image content, the AI assistant should reference
 2. `weekly-rolling-content-production-sop.md` and the Social Planning Skill.
    - Use current capacity, evidence, account-routing, public-expression and hotspot boundaries.
 
-3. `inbox-pengman/04-production/05-weekly-digests/`
+3. `inbox-pengman/07-reports/`
    - Check what has already been posted recently.
    - Avoid repeating the same person, transit, hook, article, or exact angle within 7-14 days unless it is a clearly different follow-up.
 
@@ -226,8 +226,8 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 必须先参考以下规则和资料：
 - inbox-pengman/04-production/03-weekly-content-plans/ 当前周计划
 - inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md
-- inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md
-- inbox-pengman/04-production/05-weekly-digests/ 最近已发布内容
+- inbox-pengman/skills/astrologywiki-social-workflow/SKILL.md
+- inbox-pengman/07-reports/ 最近已发布内容
 - inbox-pengman/02-调研资料/竞品研究/reference-accounts.md
 - inbox-pengman/04-production/07-content-production/ 当前已选主题的主生产记录
 
