@@ -45,6 +45,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 ### 所有工作区对话的公共规则
 
 - `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件或 dispatch。
+- Pengman 提供发布或定时时间但未注明时区时，默认按 `America/Chicago` 解释；周计划、工作日和 ISO 周判断仍使用北京时间 `Asia/Shanghai`。
 - 当前生命周期只使用 `selected → producing → ready → published`；`hold / cancelled` 仅用于例外。脚本确认写入 `script_status`，定时信息写入 `scheduled_at / publish_date`，复盘写入 `decision / next_test`，不得再为这些动作另建生命周期阶段。候选在被人工选中前留在候选池，不写 `content_stage: idea`。
 - 缺少真实 `published_url`、平台 ID 或实际发布时间时，不把 `published` 表述为完整核验发布；应明确写成“主记录标记 published，发布证据待补”。
 - `tools/internal/skills/social-daily/SKILL.md` 是旧版每日批量生产流程，不再是当前执行入口；不得用它覆盖滚动周 SOP。

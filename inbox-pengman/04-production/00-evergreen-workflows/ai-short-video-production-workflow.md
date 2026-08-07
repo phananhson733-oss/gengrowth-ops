@@ -100,6 +100,13 @@ Output:
 - HeyGen AI Host video or voice/avatar output required by the locked format.
 - Credits balance before generation, actual credits consumed, and balance after generation recorded in the main production record.
 
+Current cost reference, confirmed by Pengman on 2026-08-07:
+
+- The stable standard HeyGen path is approximately `20 credits / video`.
+- With the current package price of `$29 / 600 credits`, this is about `$0.97 / video`; using the 2026-08-06 reference rate of `$1 = ¥6.7491`, the allocated cost is about `¥6.52 / video`.
+- The Scorpio × Virgo Video Chat Agent trial consumed `30 credits` and added unnecessary effects; keep it as an exception sample rather than the standard cost baseline.
+- Six standard-path videos are approximately `120 credits / $5.80 / ¥39.15`; actual cash outlay remains the subscription/package price, so this is an allocated credit cost rather than a new per-video charge.
+
 Checks:
 
 - Pronunciation of names.
