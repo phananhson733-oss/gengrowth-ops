@@ -2,7 +2,7 @@
 
 基于现有公开 TikTok 采集器增加本地历史、Google Sheets 同步、生产记录状态回写和 macOS 每日运行。采集器仍然使用公开 profile、creator embed 与单条公开页，不使用付费 API、代理或验证码绕过。
 
-本工具位于 `inbox-pengman/tools/`，因为它是可运行的本地自动化，不属于 Evergreen SOP。运行输出继续写入 `inbox-pengman/output/`；生产记录同步只扫描当前 `07-content-production/`，明确排除 `历史记录/`。
+本工具位于 `inbox-pengman/tools/`，因为它是可运行的本地自动化，不属于 Evergreen SOP。运行输出继续写入 `inbox-pengman/output/`；生产记录同步只扫描当前 `04-production/02-content-production/`，明确排除 `历史记录/`。
 
 ## 最近一次迁移验证
 

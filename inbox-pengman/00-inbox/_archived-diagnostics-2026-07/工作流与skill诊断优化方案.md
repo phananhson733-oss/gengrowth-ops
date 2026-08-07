@@ -417,7 +417,7 @@ graph TD
 ```
 
 **产出**：
-- 周计划文件：`04-production/03-weekly-content-plans/2026-W30 周度内容计划.md`
+- 周计划文件：`04-production/04-weekly-content-plans/2026-W30 周度内容计划.md`
 - 包含 Publishing This Week 和 Producing for Next Week 两个清单
 
 ---

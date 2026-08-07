@@ -30,17 +30,17 @@ updated: 2026-08-07
 按以下顺序判断：
 
 1. 当前 `inbox-pengman/AGENTS.md`
-2. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
-3. 当前文件：`04-production/03-weekly-content-plans/YYYY-Www 周度内容计划.md`
-4. 涉及内容的 `04-production/07-content-production` 单条主生产记录
-5. 对应周的 `07-reports` 周报或专项复盘
-6. 当前账号定位与内容路由 Playbook 和专项制作 SOP
+2. [[inbox-pengman/02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop]]
+3. 当前文件：`02-生产/04-weekly-content-plans/YYYY-Www 周度内容计划.md`
+4. 涉及内容的 `02-生产/02-content-production` 单条主生产记录
+5. 对应周的 `02-生产/03-data-review` 周报或专项复盘
+6. `02-生产/01-reference` 的当前账号分工与内容发布指南和专项制作流程
 
 更具体、更近期、离执行现场更近的来源优先。当前周计划说明本周计划；单条主生产记录说明内容的实时阶段。二者冲突时，指出冲突并以单条主记录的 `content_stage` 判断当前阶段，不建立平行状态。
 
 默认机制是：本周发布上周库存，本周生产下周内容。周一锁定产能、选题、账号、形式、排期和 Batch；周二至周四批量生产；周五质检、排期、库存和复盘；每天只执行计划并有限检查热点。
 
-W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时例外，证据位于 `04-production/03-weekly-content-plans/2026-W32 周度内容计划.md`；不得将其自动固化为后续标准周规则。
+W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时例外，证据位于 `02-生产/04-weekly-content-plans/2026-W32 周度内容计划.md`；不得将其自动固化为后续标准周规则。
 
 ### 所有工作区对话的公共规则
 
@@ -70,7 +70,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - Pengman 确认补充发布库存；
 - 需要评估一个可能达到门槛的 Hot 项目。
 
-文件进入 `02-调研资料/候选与热点研究/`；该目录只承接获准的候选证据，不是每日默认入口。
+文件进入 `01-调研资料/候选与热点研究/`；该目录只承接获准的候选证据，不是每日默认入口。
 
 ### Evidence Preflight
 
@@ -79,7 +79,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - Weekly Rolling SOP 和当前周计划；
 - 最近发布周报；
 - 当前生产队列；
-- 当前账号定位与内容路由 Playbook；
+- 当前账号分工与内容发布指南；
 - 与本次候选相关的竞品/来源文件；
 - Hot 或时效候选所需的当前公开来源；
 - 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`；
@@ -108,7 +108,8 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - 当前规则冲突时，合并到一个权威文件；不要通过不断增加“覆盖条款”维持两套同时生效的规则。
 - `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件/dispatch。
 - 新建或重新进入当前队列的记录只使用 `selected / producing / ready / published`，例外使用 `hold / cancelled`；历史阶段按现行周度 SOP 的兼容表读取，不追溯改写历史证据。
-- 候选证据在 `02-调研资料/候选与热点研究`，已选内容在 `04-production/07-content-production`，周度组合在 `04-production/03-weekly-content-plans`，发布数据和复盘统一在 `07-reports`。
+- 候选证据在 `01-调研资料/候选与热点研究`，生产参考在 `02-生产/01-reference`，已选内容在 `02-生产/02-content-production`，发布数据和复盘在 `02-生产/03-data-review`，周度组合在 `02-生产/04-weekly-content-plans`。
+- 当前主生产记录使用稳定的 `product / account / account_handle / platform` 属性；账号和平台只作为筛选维度，不按账号建立平行生产目录。
 
 ## Operating Style
 

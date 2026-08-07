@@ -212,10 +212,10 @@ AstrologyWiki 仅作为使用案例，**不写入 Skill 本体**。
 
 调用这三个 Skill 处理 AstrologyWiki 内容时，必须先读取以下权威文件：
 
-1. 当前周计划：`inbox-pengman/04-production/03-weekly-content-plans/`
-2. 单条内容主生产记录：`inbox-pengman/04-production/07-content-production/`
-3. 最近发布合集：`inbox-pengman/07-reports/`
-4. 当前账号定位与内容路由 Playbook（当前只启用官号与 Miraa）
+1. 当前周计划：`inbox-pengman/04-production/04-weekly-content-plans/`
+2. 单条内容主生产记录：`inbox-pengman/04-production/02-content-production/`
+3. 最近发布合集：`inbox-pengman/04-production/03-data-review/`
+4. 当前账号分工与内容发布指南（当前只启用官号与 Miraa）
 5. 当前有效的 AstrologyWiki 社媒 Skill/SOP（`astrologywiki-social-workflow` 与滚动周 SOP）
 6. TikTok 抓取数据和实际后台数据
 7. 当前公开来源和竞品证据

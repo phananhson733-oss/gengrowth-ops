@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const DEFAULT_TIMEZONE = "America/Los_Angeles";
 const PRODUCTION_DIRS = [
-  "04-production/07-content-production",
+  "04-production/02-content-production",
 ];
 const IGNORE_NAME = /(README|Candidate|Prompt|候选|共享|已合并旧稿)/i;
 const STOPWORDS = new Set([
@@ -64,12 +64,12 @@ function usernameFromUrl(value) {
 
 function accountUsername(frontmatter) {
   const directUrl = scalar(frontmatter, "published_url");
-  const directHandle = `${scalar(frontmatter, "account")} ${scalar(frontmatter, "scheduled_account")}`
+  const directHandle = `${scalar(frontmatter, "account_handle")} ${scalar(frontmatter, "account")} ${scalar(frontmatter, "scheduled_account")}`
     .match(/@([a-z0-9._]+)/i)?.[1]?.toLowerCase();
   if (directHandle) return directHandle;
   const fromUrl = usernameFromUrl(directUrl);
   if (fromUrl) return fromUrl;
-  const text = `${scalar(frontmatter, "account")} ${scalar(frontmatter, "scheduled_account")}`.toLowerCase();
+  const text = `${scalar(frontmatter, "account_handle")} ${scalar(frontmatter, "account")} ${scalar(frontmatter, "scheduled_account")}`.toLowerCase();
   if (/astrologywiki|①|官方/.test(text)) return "astrologywiki";
   if (/miraaastrology|②|ai 占星师/.test(text)) return "miraaastrology";
   if (/filestarsx|③|热点占星/.test(text)) return "filestarsx";
