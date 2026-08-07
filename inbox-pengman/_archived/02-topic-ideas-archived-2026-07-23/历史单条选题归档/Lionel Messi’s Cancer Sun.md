@@ -7,19 +7,19 @@ project: astrologywiki
 type: topic-note
 status: 已发布
 source:
-  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-  - [[inbox-pengman/01-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+  - [[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+  - [[inbox-pengman/_archived/已退役入口/01-conversation-report-retired-2026-08-07/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
 related:
-  - [[inbox-pengman/02-topic-ideas/README.md]]
-  - [[inbox-pengman/02-topic-ideas/SEO选题调查.md]]
-  - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/SEO选题调查.md]]
+  - [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 ---
 
 # Lionel Messi’s Cancer Sun
 
 > 热点入口型选题：用 Messi 的现实比赛节点切入，再回到 Cancer Sun、占星解释与自我理解。
 
-相关入口：[[inbox-pengman/02-topic-ideas/README.md]] / [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]] / [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+相关入口：[[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README.md]] / [[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]] / [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
 
 ## 1. 选题概览
 
@@ -49,7 +49,7 @@ related:
 - 视频正文已完成；
 - 最终制作工具：VEED；
 - 脚本初稿由 Pictory 辅助，后续由 GPT 完善；
-- 相关报告见：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+- 相关报告见：[[inbox-pengman/07-reports/专项复盘/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ## 4. 可复用模板
 

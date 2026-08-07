@@ -7,25 +7,25 @@ project: astrologywiki
 type: topic-research
 status: active
 related:
-  - [[inbox-pengman/02-topic-ideas/README.md]]
-  - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
-  - [[inbox-pengman/02-topic-ideas/历史单条选题归档/haaland视频脚本.md]]
-  - [[inbox-pengman/02-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]
-  - [[inbox-pengman/02-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
-  - [[inbox-pengman/02-topic-ideas/历史单条选题归档/Birth Chart.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/haaland视频脚本.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/harry-kane-birth-chart-script.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
+  - [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/Birth Chart.md]]
 ---
 
 这批 SEO 数据里最明显的机会不是泛 astrology，而是 **World Cup / footballer birth chart / zodiac sign / Cancer-Leo cusp / birth chart 新手入口**。总量上，`birth chart` 相关查询约 1,238 impressions，`zodiac` 约 614 impressions，Haaland 相关约 2,017 impressions，Messi 约 387 impressions，但 CTR 很低，很多关键词排名在 7-12 名，适合用社媒内容做“兴趣唤起 + 站内点击承接”。
 
-> 2026-07-17 整理口径：本文件继续作为每日选题和站内承接的 SEO 主题参考；其中既有 GSC 内容仅作历史背景，不刷新、不读取为当前数据。每日选题池和内容包进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]；选中后的制作方案进入 [[inbox-pengman/04-production/07-content-production/README.md|单条内容生产]]。
+> 2026-07-17 整理口径：本文件继续作为每日选题和站内承接的 SEO 主题参考；其中既有 GSC 内容仅作历史背景，不刷新、不读取为当前数据。每日选题池和内容包进入 [[inbox-pengman/02-调研资料/候选与热点研究/历史日级候选/README.md|每日内容包]]；选中后的制作方案进入 [[inbox-pengman/04-production/07-content-production/README.md|单条内容生产]]。
 
 ## 已转成单条文档
 
-- Haaland: [[inbox-pengman/02-topic-ideas/历史单条选题归档/haaland视频脚本.md]]
-- Harry Kane: [[inbox-pengman/02-topic-ideas/历史单条选题归档/harry-kane-birth-chart-script.md]]
-- Messi: [[inbox-pengman/02-topic-ideas/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
-- Birth Chart 入门: [[inbox-pengman/02-topic-ideas/历史单条选题归档/Birth Chart.md]]
-- 已发布内容复盘：[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
+- Haaland: [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/haaland视频脚本.md]]
+- Harry Kane: [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/harry-kane-birth-chart-script.md]]
+- Messi: [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/Lionel Messi’s Cancer Sun.md]]
+- Birth Chart 入门: [[inbox-pengman/_archived/02-topic-ideas-archived-2026-07-23/历史单条选题归档/Birth Chart.md]]
+- 已发布内容复盘：[[inbox-pengman/07-reports/历史发布记录/2026-W27 本周已发布内容合集.md]]
 
 |#|英文标题|中文解释|类型|热点/时效性|站内已有|对应文章/概念/SEO 页面|SEO 表格参考依据|SEO/PV 增长价值|平台|形式|Hook|来源|
 |---|---|---|---|---|---|---|---|---|---|---|---|---|

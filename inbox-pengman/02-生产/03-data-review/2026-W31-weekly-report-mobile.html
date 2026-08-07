@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#17152b">
+  <title>AstrologyWiki W31 周报｜Lynne 移动版</title>
+  <style>
+    :root {
+      --ink: #25233a;
+      --muted: #6f6b80;
+      --line: #e8e4ef;
+      --paper: #fff;
+      --wash: #f7f5fb;
+      --deep: #17152b;
+      --violet: #6d4aff;
+      --violet-soft: #eee9ff;
+      --green: #16795b;
+      --green-soft: #e9f7f1;
+      --amber: #93610b;
+      --amber-soft: #fff5dc;
+      --red: #a53d54;
+      --shadow: 0 10px 30px rgba(33, 25, 61, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--deep); }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--wash);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--violet); text-underline-offset: 3px; }
+
+    .page {
+      width: min(100%, 720px);
+      margin: 0 auto;
+      background: var(--wash);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: calc(26px + env(safe-area-inset-top)) 20px 28px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(155, 126, 255, .72), transparent 34%),
+        linear-gradient(145deg, #17152b 10%, #302260 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #cfc4ff;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(27px, 8vw, 38px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .period {
+      margin: 10px 0 0;
+      color: #dcd7ee;
+      font-size: 14px;
+    }
+
+    main { padding: 18px 14px 40px; }
+
+    section, details {
+      margin: 0 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    section { padding: 18px; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: -.015em;
+    }
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    p { margin: 0; }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      margin-bottom: 10px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .summary {
+      border-color: #dcd4ff;
+      background: linear-gradient(150deg, #fff 20%, #f2eeff 100%);
+    }
+
+    .summary p { font-size: 17px; line-height: 1.7; }
+
+    .summary strong { color: #4c30c9; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .metric .value {
+      display: block;
+      color: var(--deep);
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.035em;
+    }
+
+    .metric .name {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .capacity-note {
+      padding: 13px 14px;
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      background: var(--amber-soft);
+      color: #62440d;
+      font-size: 14px;
+    }
+
+    .judgement {
+      padding: 15px;
+      border-radius: 14px;
+      color: #fff;
+      background: var(--deep);
+    }
+
+    .judgement strong { color: #c9baff; }
+
+    .signal-grid { display: grid; gap: 10px; }
+
+    .signal {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fcfbfe;
+    }
+
+    .signal .role {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: var(--violet);
+      background: var(--violet-soft);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .signal p { color: var(--muted); font-size: 14px; }
+    .signal b { color: var(--ink); }
+
+    .caveat {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .actions, .support {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .actions li, .support li {
+      position: relative;
+      padding: 11px 0 11px 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .actions li:first-child, .support li:first-child {
+      padding-top: 2px;
+      border-top: 0;
+    }
+
+    .actions li::before {
+      content: counter(item);
+      position: absolute;
+      left: 0;
+      top: 12px;
+      display: grid;
+      width: 20px;
+      height: 20px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--violet);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .actions { counter-reset: item; }
+    .actions li { counter-increment: item; }
+    .actions li:first-child::before { top: 3px; }
+
+    .support li::before {
+      content: "✓";
+      position: absolute;
+      left: 1px;
+      top: 12px;
+      color: var(--green);
+      font-weight: 850;
+    }
+
+    .support li:first-child::before { top: 3px; }
+    .support b { display: block; }
+
+    details { overflow: hidden; }
+
+    summary {
+      position: relative;
+      padding: 16px 48px 16px 18px;
+      cursor: pointer;
+      font-weight: 750;
+      list-style: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      color: var(--violet);
+      font-size: 25px;
+      font-weight: 400;
+      transform: translateY(-52%);
+    }
+
+    details[open] summary::after { content: "−"; }
+    details[open] summary { border-bottom: 1px solid var(--line); }
+    .detail-body { padding: 16px 18px 18px; }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mini-list li {
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--wash);
+    }
+
+    .mini-list b { display: block; margin-bottom: 3px; }
+    .mini-list span { color: var(--muted); font-size: 14px; }
+
+    .post {
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .post:first-child { padding-top: 0; border-top: 0; }
+
+    .post-title {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .post-title a { font-weight: 750; }
+
+    .views {
+      flex: 0 0 auto;
+      color: var(--deep);
+      font-weight: 800;
+    }
+
+    .post-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 12px;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      display: inline-block;
+      margin-bottom: 9px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      color: var(--red);
+      background: #fff0f3;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .data-note { color: var(--muted); font-size: 14px; }
+
+    footer {
+      padding: 4px 18px calc(28px + env(safe-area-inset-bottom));
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (min-width: 620px) {
+      main { padding: 24px 20px 48px; }
+      section { padding: 22px; }
+      .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media print {
+      html, body, .page { background: #fff; }
+      .page { width: 100%; }
+      header { padding-top: 24px; }
+      section, details { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">For Lynne · Mobile Brief</p>
+      <h1>AstrologyWiki<br>社媒运营周报</h1>
+      <p class="period">2026-W31 · 7月27日—8月2日</p>
+    </header>
+
+    <main>
+      <section class="summary">
+        <span class="label">管理摘要</span>
+        <p>W31 的有效样本来自一个实际工作日。真正值得继续验证的是：<strong>双星座关系内容偏传播与保存，单星座心理内容偏增粉</strong>。官方号只有 1 条图文，暂不能判断形式。前期最高优先级改为<strong>按内容形式沉淀可重复工作流</strong>，不再把发布完成率当作主要成果。</p>
+      </section>
+
+      <section>
+        <h2>本周核心事实</h2>
+        <div class="metrics" aria-label="本周核心数据">
+          <div class="metric"><span class="value">3 条</span><span class="name">真实发布</span></div>
+          <div class="metric"><span class="value">3,182</span><span class="name">合计播放</span></div>
+          <div class="metric"><span class="value">75</span><span class="name">@miraa 周末粉丝</span></div>
+          <div class="metric"><span class="value">+18</span><span class="name">@miraa 公开快照净增</span></div>
+        </div>
+        <p class="capacity-note"><b>样本边界：</b>Pengman 本周因健康原因仅周二实际工作。发布数量只说明样本量，不用于判断正常周产能或完整 Batch 效率。</p>
+      </section>
+
+      <section>
+        <h2>三个业务判断</h2>
+        <div class="signal-grid">
+          <article class="signal">
+            <span class="role">数字人账号 · continue</span>
+            <h3>保留两条内容线</h3>
+            <p>× Cancer 负责传播和保存；单星座 #6 的每千播放增粉更高。样本只有 2 条，不做单线化。</p>
+          </article>
+          <article class="signal">
+            <span class="role">官方账号 · inconclusive</span>
+            <h3>继续验证不同形式</h3>
+            <p>本周图文仅 1 条且关键观看/转化数据缺失。继续由官方号验证图文、录屏剪辑和轻视频。</p>
+          </article>
+          <article class="signal">
+            <span class="role">工作流 · adjust</span>
+            <h3>按形式拆分小闭环</h3>
+            <p>3 个 Batch 各完成 1 条，没有完整 Batch 通过验证。先跑通数字人、图文/录屏和竞品发现流程。</p>
+          </article>
+          <article class="signal">
+            <span class="role">X 养号 · pause</span>
+            <h3>先确认账号状态</h3>
+            <p>本周没有可核验发布或数据；确认手机账号可用后，再开始低成本持续发布。</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>内容信号</h2>
+        <div class="signal-grid">
+          <article class="signal">
+            <span class="role">扩大传播</span>
+            <h3>Scorpio × Cancer</h3>
+            <p><b>1,867 views</b> · 27 shares · 41 favorites · 18.99% full watch · 4 new followers</p>
+          </article>
+          <article class="signal">
+            <span class="role">关注转化</span>
+            <h3>Scorpio 单星座 #6</h3>
+            <p><b>10 new followers</b> · 748 views · 13.77% engagement · 约 13.4 follows / 1,000 views</p>
+          </article>
+        </div>
+        <p class="caveat">方向性信号：两条内容结构和 CTA 条件不同，不能做因果归因。UV 转化尚未进入可验证阶段。</p>
+      </section>
+
+      <section>
+        <h2>下周直接执行</h2>
+        <ol class="actions">
+          <li><b>数字人继续两条线。</b>保持 AI Host 规格，在统一 24h/72h 窗口读取观看、分享、收藏、主页访问和每千播放增粉。</li>
+          <li><b>官方号继续做形式 canary。</b>用图文和录屏/轻视频获取“曝光 × 制作成本 × 可复制性”的可解释样本。</li>
+          <li><b>工作流按形式拆分。</b>先跑一个完整数字人小 Batch，再把真实卡点转成模板、检查表或小工具。</li>
+          <li><b>CTA 测试重建干净分组。</b>W31 结果保持 inconclusive；发布前同时核对口播、画面文字和 caption。</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>工作流沉淀状态</h2>
+        <ul class="mini-list">
+          <li><b>数字人流程：待验证</b><span>已完成 2 条发布，但没有完整 Batch 和稳定耗时记录；下一步记录 credits、重试、人工确认点和总耗时。</span></li>
+          <li><b>图文/录屏流程：待验证</b><span>图文只有 1 条，录屏未执行；由官方号分别跑最小 canary。</span></li>
+          <li><b>Social 竞品发现：部分可用</b><span>公开采集有运行证据，但尚未跑通“发现链接 → 结构化观察 → 进入 Brief”的完整闭环。</span></li>
+          <li><b>与彪哥协同小工具：待制作</b><span>先从一个真实痛点做 canary，目标是临时有事或周末也能快速生产发布。</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>需要 Lynne 决策 / 支持</h2>
+        <p class="judgement"><strong>本周无需要 Lynne 决策的事项。</strong>当前没有方向调整、明确资源冲突、较大新增预算或权限阻塞。普通选题、排期、库存、CTA、流程修正和小工具 canary 由 Pengman 自主决定并同步。</p>
+      </section>
+
+      <details>
+        <summary>查看 3 条内容表现</summary>
+        <div class="detail-body">
+          <article class="post">
+            <div class="post-title"><a href="https://www.tiktok.com/@miraaastrology/video/7667514308733013262">Scorpio × Cancer</a><span class="views">1,867</span></div>
+            <div class="post-meta"><span>Avg watch 16.9s</span><span>Full watch 18.99%</span><span>Engagement 10.39%</span><span>New followers 4</span></div>
+          </article>
+          <article class="post">
+            <div class="post-title"><a href="https://www.tiktok.com/@miraaastrology/video/7667476837844454669">Scorpio doesn't do halfway</a><span class="views">748</span></div>
+            <div class="post-meta"><span>Avg watch 17.2s</span><span>Full watch 14.66%</span><span>Engagement 13.77%</span><span>New followers 10</span></div>
+          </article>
+          <article class="post">
+            <div class="post-title"><a href="https://www.tiktok.com/@astrologywiki/photo/7667531650326105357">August 2026: Two eclipses</a><span class="views">567</span></div>
+            <div class="post-meta"><span>Avg watch 待补</span><span>Full watch 待补</span><span>Engagement 2.47%</span><span>New followers 待补</span></div>
+          </article>
+        </div>
+      </details>
+
+      <details>
+        <summary>查看计划差异</summary>
+        <div class="detail-body">
+          <ul class="mini-list">
+            <li><b>Publishing：3 / 19</b><span>只有 3 条具备真实 permalink；差异主要来自实际只工作周二。</span></li>
+            <li><b>Producing for Next Week：0 / 4</b><span>原定周末执行，当时处于请假状态；没有对应主生产记录。</span></li>
+            <li><b>发布级库存：0 / 4</b><span>没有达到 edited + inventory_ready 的未发布内容。</span></li>
+            <li><b>Hot 插入：0</b><span>没有合格 Hot 或新 permalink。</span></li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>查看实验与数据口径</summary>
+        <div class="detail-body">
+          <span class="status">CTA 实验：inconclusive</span>
+          <p class="data-note">Scorpio #6 的线上 caption 含 “Follow me”，原分组被污染；且本周软 CTA 组为 0。公开账号净增与单帖后台增粉窗口不同，不直接相加。Engagement 以 views 为分母，仅用于本周同口径诊断。</p>
+        </div>
+      </details>
+    </main>
+
+    <footer>
+      数据快照：2026-08-03 02:05 UTC / 2026-08-02 19:05 PDT<br>
+      已核验事实、用户确认与运营推断均来自 W31 完整周报。
+    </footer>
+  </div>
+</body>
+</html>
