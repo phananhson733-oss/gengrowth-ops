@@ -17,8 +17,8 @@ metadata:
 执行顺序：
 
 1. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
-2. 当前周计划：`04-production/03-weekly-content-plans/`
-3. 涉及内容的 `07-content-production` 主生产记录
+2. 当前周计划：`04-production/04-weekly-content-plans/`
+3. 涉及内容的 `02-content-production` 主生产记录
 4. 最近发布周报和 `decision / next_test`
 5. 本 Skill 的研究、路由和表达规则
 
@@ -80,8 +80,8 @@ metadata:
 候选研究或 Hot 评估再读取：
 
 - 最近 7–14 天发布 digest；
-- `07-content-production/README` 当前队列；
-- [[inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook]]；
+- `02-content-production/README` 当前队列；
+- [[inbox-pengman/02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南]]；
 - 与候选直接相关的竞品来源和上一轮 `decision / next_test`；
 - 当前公开 AstrologyWiki 页面/工具；
 - Hot/Predictable 所需的当前外部来源；
@@ -276,7 +276,7 @@ Hot 使用正式 10 分制，不另造评分。
 - 不将 `content_stage` 设为 `selected`；
 - 不超过未来两周产能。
 
-确认后，在 `07-content-production` 为每个独立版本建立主记录并设为 `selected`；Brief、脚本确认和素材准备都留在该阶段，实际开始生成、剪辑或组装时才进入 `producing`。
+确认后，在 `02-content-production` 为每个独立版本建立主记录并设为 `selected`；Brief、脚本确认和素材准备都留在该阶段，实际开始生成、剪辑或组装时才进入 `producing`。
 
 ## 10. Output Formats
 
@@ -375,10 +375,10 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 
 ## 13. File Routing
 
-- 当前周组合：`03-weekly-content-plans/`
+- 当前周组合：`04-weekly-content-plans/`
 - 周一候选研究、Hot 证据、明确重排：`02-daily-content-recommendations/`
-- 已选 Brief、脚本、制作与发布回链：`07-content-production/`
-- 发布数据和周级复盘：`05-weekly-digests/` 与 `07-reports/`
+- 已选 Brief、脚本、制作与发布回链：`02-content-production/`
+- 发布数据和周级复盘：`05-weekly-digests/` 与 `04-production/03-data-review/`
 - 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log

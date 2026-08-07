@@ -1,7 +1,7 @@
 # 每日工作驾驶舱
 
 > **目的**：打开后立即知道今天该做什么、怎么做  
-> **完整说明**：详细的系统使用指南见 `00-inbox/系统使用说明.md`
+> **完整规则**：见 `04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md`；首次接手或病假交接见 `04-production/00-evergreen-workflows/社媒内容生产接手指南.md`
 
 ---
 
@@ -110,10 +110,10 @@ content_id：【ID】
 
 | 我要找 | 位置 |
 |--------|------|
-| **本周计划** | `04-production/03-weekly-content-plans/2026-Wxx 周度内容计划.md` |
-| **单条内容记录** | `04-production/07-content-production/未发布/<content_id>.md` 或 `已发布/<content_id>.md` |
-| **账号定位** | `04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook.md` |
-| **数据复盘** | `07-reports/2026-Wxx.md` |
+| **本周计划** | `04-production/04-weekly-content-plans/2026-Wxx 周度内容计划.md` |
+| **单条内容记录** | `04-production/02-content-production/未发布/<content_id>.md` 或 `已发布/<content_id>.md` |
+| **账号分工** | `02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md` |
+| **数据复盘** | `04-production/03-data-review/2026-Wxx.md` |
 | **竞品数据** | Google Sheet `post_history` 表 |
 | **完整规则** | `04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md` |
 
@@ -148,15 +148,15 @@ content_id：【ID】
         
 3. 当前实际周计划目录优先检查：
     
-    - `04-production/03-weekly-content-plans/`
+    - `04-production/04-weekly-content-plans/`
         
 4. 再读取今天涉及的单条主生产记录：
     
-    - `04-production/07-content-production/`
+    - `04-production/02-content-production/`
         
 5. 如今天涉及发布，再读取当前周 digest：
     
-    - `07-reports/`
+    - `04-production/03-data-review/`
         
 
 如果文档中的旧路径与仓库实际路径不一致，以当前真实存在的文件为准，并在输出中说明。找不到当前周计划时，不得假设计划内容。
@@ -260,7 +260,7 @@ content_id：【ID】
 
 ### Q: 新产品要做社媒，从零开始？
 
-**A:** 不在每日流程，查看 `00-inbox/系统使用说明.md` 的"新产品启动"章节
+**A:** 当前没有独立的新产品启动流程。先读取 `02-生产/README.md` 和账号分工与内容发布指南，再由负责人确认产品目标、账号和产能；不要套用每日执行流程自行开新项目。
 
 ---
 
@@ -269,7 +269,7 @@ content_id：【ID】
 | 操作 | 怎么做 | 耗时 |
 |------|--------|------|
 | **查竞品爆款** | 打开 Google Sheet → 按 views 降序 | 2 分钟 |
-| **去重检查** | 在 `04-production/07-content-production/` 搜索关键词 | 10 秒 |
+| **去重检查** | 在 `04-production/02-content-production/` 搜索关键词 | 10 秒 |
 | **获取数据** | 运行 curl 命令复制数据 | 2 分钟 |
 
 ---
@@ -296,4 +296,4 @@ content_id：【ID】
 ---
 
 *最后更新: 2026-07-23*  
-*提示: 这是快速入口，详细说明见 `00-inbox/系统使用说明.md`*
+*提示：这是快速入口；正式规则以滚动周 SOP、当前周计划和单条主生产记录为准。*

@@ -1,6 +1,6 @@
 ---
 name: weekly-content-plan
-description: Generate the weekly content plan for AstrologyWiki social accounts. Reads SOP, last week's plan/report, account playbook, competitor data, and produces a new week plan file. Use when the user says "建本周计划", "build weekly plan", or similar.
+description: Generate the weekly content plan for AstrologyWiki social accounts. Reads SOP, last week's plan/report, the account responsibilities guide, competitor data, and produces a new week plan file. Use when the user says "建本周计划", "build weekly plan", or similar.
 argument-hint: "[hours] [must-publish] [direction] [manager-notes]"
 disable-model-invocation: true
 user-invocable: true
@@ -42,14 +42,14 @@ Calculate the current ISO week (YYYY-Www) based on today's date.
 You MUST read ALL of the following before generating any content. Do not skip or summarize from memory.
 
 1. `inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md`
-2. Previous week plan: `inbox-pengman/04-production/03-weekly-content-plans/` (latest file)
-3. `inbox-pengman/04-production/00-evergreen-workflows/AstrologyWiki 社媒账号定位与内容路由 Playbook.md`
+2. Previous week plan: `inbox-pengman/04-production/04-weekly-content-plans/` (latest file)
+3. `inbox-pengman/02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md`
 4. `inbox-pengman/05-account-assets/astrologywiki-account-assets.md`
-5. Latest weekly report: `inbox-pengman/07-reports/` (latest `*weekly-report.md`)
-6. Current production queue: scan `inbox-pengman/04-production/07-content-production/` for files with `content_stage` not yet `published`
-7. Weekly published digest: `inbox-pengman/07-reports/` (latest)
+5. Latest weekly report: `inbox-pengman/04-production/03-data-review/` (latest `*weekly-report.md`)
+6. Current production queue: scan `inbox-pengman/04-production/02-content-production/` for files with `content_stage` not yet `published`
+7. Weekly published digest: `inbox-pengman/04-production/03-data-review/` (latest)
 
-From the account routing Playbook, extract the current `active_accounts` before allocating any content. Do not create quotas, Hot slots, candidates, or inventory tasks for paused, retired, or not-yet-activated accounts.
+From the account responsibilities and publishing guide, extract the current `active_accounts` before allocating any content. Do not create quotas, Hot slots, candidates, or inventory tasks for paused, retired, or not-yet-activated accounts.
 
 ### Step 2: Internet Research Gate
 
@@ -93,7 +93,7 @@ Incorporate:
 
 Write the complete plan to:
 ```
-inbox-pengman/04-production/03-weekly-content-plans/YYYY-Www 周度内容计划.md
+inbox-pengman/04-production/04-weekly-content-plans/YYYY-Www 周度内容计划.md
 ```
 
 Use the format from the previous week's plan file. Do NOT output the plan in conversation — write it to file only.

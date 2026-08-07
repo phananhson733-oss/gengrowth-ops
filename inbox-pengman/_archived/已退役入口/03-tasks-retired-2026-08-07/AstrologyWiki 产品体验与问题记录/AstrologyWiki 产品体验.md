@@ -8,23 +8,23 @@ created:
 ## 目前已发现问题
 
 1. Chrome 浏览器 切换成中文浏览的时候会有部分中文乱码
-![[attachments/截屏2026-06-10 23.46.38.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-10 23.46.38.png]]
 
 2. 无法保存星盘？
-![[attachments/截屏2026-06-11 00.31.44.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-11 00.31.44.png]]
 
 3. 从百科--文章点进作者会自动切到英文界面（from zh to en) 
-![[attachments/截屏2026-06-11 01.08.20.png]]
-![[attachments/截屏2026-06-11 01.08.25.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-11 01.08.20.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-11 01.08.25.png]]
 
 4. 合盘的growth focus以下的内容都会显示: ai report unavailable
-![[attachments/截屏2026-06-11 01.26.38.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-11 01.26.38.png]]
 
 5. 部分内容切换成中文后还是没有翻译
-   ![[attachments/截屏2026-06-11 01.30.31.png]]
+   ![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/截屏2026-06-11 01.30.31.png]]
 
 6. 日记无法生成后续分析
-![[attachments/Pasted image 20260612171033.png]]
+![[_archived/已退役入口/03-tasks-retired-2026-08-07/AstrologyWiki 产品体验与问题记录/attachments/Pasted image 20260612171033.png]]
 ## 个人体验流程
 1. 进入 wiki
 2. 看到try free birth chart 进行登陆，体验
