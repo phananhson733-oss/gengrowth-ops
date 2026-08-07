@@ -8,7 +8,7 @@ status: draft
 content_id: aw-moon-toxic-traits-03
 account: ① AstrologyWiki 官方
 content_format: 9:16 纯字幕短视频
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7662283840634866957"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 decision: 调整后复用
@@ -34,6 +34,13 @@ related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池]]"
   - "[[inbox-pengman/04-production/07-content-production/2026-07-10 Fire Moon Toxic Traits 视频制作方案]]"
   - "[[inbox-pengman/04-production/07-content-production/2026-07-09 Moon Sign Toxic Traits 视频制作方案]]"
+platform_post_id: "7662283840634866957"
+published_at: "2026-07-14T15:50:00.000Z"
+published_date: "2026-07-14"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
+updated: "2026-07-24"
 ---
 
 # 2026-07-14 Earth Moon Toxic Traits 视频制作方案

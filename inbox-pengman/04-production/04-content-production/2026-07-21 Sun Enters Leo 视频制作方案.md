@@ -8,7 +8,7 @@ platform:
 content_format: 9:16 非真人天象短视频（This Week's Sky）
 series: This Week's Sky
 script_status: 待确认
-content_stage: 已发布
+content_stage: "published"
 pool: Predictable
 effort: S
 batch_id: 2026-W30-astrologywiki-transit-01
@@ -16,11 +16,17 @@ planned_publish: 2026-07-22
 expiry_date: 2026-07-29
 status: draft
 owner: Pengman
-updated: 2026-07-22
+updated: "2026-08-02"
 style_reference: "@curatedastrology — casual transit discussion + community participation"
 scheduled_platform: TikTok
 scheduled_account: ① AstrologyWiki 官方
-published_date: 2026-07-22
+published_date: "2026-07-21"
+published_url: "https://www.tiktok.com/@astrologywiki/video/7664956765871574285"
+platform_post_id: "7664956765871574285"
+published_at: "2026-07-21T15:00:00.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Sun Enters Leo · July 22 — 视频制作方案

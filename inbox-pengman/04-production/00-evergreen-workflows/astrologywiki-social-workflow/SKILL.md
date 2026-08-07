@@ -4,8 +4,8 @@ description: "Use for AstrologyWiki weekly candidate research, qualified Hot ass
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 1.1.0
-  updated: 2026-07-21
+  version: 1.2.0
+  updated: 2026-08-04
 ---
 
 # AstrologyWiki Weekly Social Planning and Hot Response
@@ -17,7 +17,7 @@ metadata:
 执行顺序：
 
 1. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
-2. 当前周计划：`04-production/04-weekly-content-plans/`
+2. 当前周计划：`04-production/03-weekly-content-plans/`
 3. 涉及内容的 `07-content-production` 主生产记录
 4. 最近发布周报和 `decision / next_test`
 5. 本 Skill 的研究、路由和表达规则
@@ -26,7 +26,7 @@ metadata:
 
 - 自动把 Idea 提升到 `selected`；
 - 修改周一锁定的产能、排期或 Batch；
-- 强迫四个账号每天都发；
+- 强迫所有历史账号每天都发，或自行恢复暂停账号；
 - 在没有合格热点时重做整周选题；
 - 为了填满数量而突破未来两周产能。
 
@@ -45,7 +45,7 @@ metadata:
 - 即将过期或阻塞项；
 - 发布级库存缺口；
 - 有限热点检查结论；
-- 四账号的 publish / advance / wait / skip。
+- 当前 active 账号的 publish / advance / wait / skip。
 
 不生成新的 Route A/B/C 候选池，不重复网页研究，不创建日级选题文档。
 
@@ -81,7 +81,7 @@ metadata:
 
 - 最近 7–14 天发布 digest；
 - `07-content-production/README` 当前队列；
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]；
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]]；
 - 与候选直接相关的竞品来源和上一轮 `decision / next_test`；
 - 当前公开 AstrologyWiki 页面/工具；
 - Hot/Predictable 所需的当前外部来源；
@@ -153,17 +153,16 @@ Route 只是研究来源，不是生产状态，也不要求每周平均分配�
 
 选题阶段按账号定位判断；生产阶段按视频形式、制作环节、模板/工具和时效优先级分 Batch。
 
-| 账号 | 主要任务 | 适合内容 | 固定边界 |
+| 账号 | 当前状态 | 主要任务 | 固定边界 |
 |---|---|---|---|
-| AstrologyWiki 官方 | 品牌、天象、工具承接 | Predictable transit、可靠解释、工具演示 | 非宿命，事实准确，轻 CTA |
-| AI 占星师 | 占星 × 心理机制 | 单一 sign/placement + 具体关系或人格行为 | 固定人设和形式，不做无依据排行 |
-| 热点占星测试 | 事件流量测试 | 明星、情侣、影视、体育和突发讨论 | 解释而不预测，24–48h 时效优先 |
-| 普通占星爱好者 | 低成本 Hook 探测 | Sun Sign、关系梗、评论问题、slideshow/photo | 口语化、快速、不过度品牌化 |
+| `@astrologywiki` | active | 可信天象、知识解释、工具或页面承接 | 非宿命，事实准确，不复制 Miraa 心理口播 |
+| `@miraaastrology` | active / 当前增长重点 | 单一 sign/placement、具体关系行为、心理机制 | 固定核心人设和形式，不做病理化标签或无依据排行 |
+| 历史热点号、普通爱好者号及未来账号 | paused / retired / not activated | 当前不分配候选和产能 | 只有 Pengman 通过账号 Playbook 的启用门并写入周计划后才能恢复 |
 
 规则：
 
-- 不把一个母题强行拆给四个账号。
-- 只给匹配账号分配；其他账号明确写 skip。
+- 不把一个母题强行拆给两个 active 账号。
+- 只给匹配的 active 账号分配；暂停、退役和未启用账号不进入候选路由。
 - 每个独立发布版本拥有独立 `content_id`。
 - 账号配额来自 Weekly Rolling SOP，不在本 Skill 复制数字。
 - `batch_id` 按形式/环节/工具/时效建立，不按“人格日、明星日、天象日”机械分组。
@@ -230,7 +229,7 @@ Hook 检查：
 - 本周可用时间和 S/M/L 容量；
 - Publishing This Week；
 - Producing for Next Week；
-- 四账号配额缺口；
+- 当前 active 账号的真实内容或库存缺口；
 - 三个内容池缺口；
 - 发布级库存；
 - 已占用的热点槽和 Batch。
@@ -277,7 +276,7 @@ Hot 使用正式 10 分制，不另造评分。
 - 不将 `content_stage` 设为 `selected`；
 - 不超过未来两周产能。
 
-确认后，在 `07-content-production` 为每个独立版本建立主记录，并按 Brief → scripted → assets_ready 推进。
+确认后，在 `07-content-production` 为每个独立版本建立主记录并设为 `selected`；Brief、脚本确认和素材准备都留在该阶段，实际开始生成、剪辑或组装时才进入 `producing`。
 
 ## 10. Output Formats
 
@@ -287,11 +286,10 @@ Hot 使用正式 10 分制，不另造评分。
 ## 今日既定动作
 | 顺序 | content_id | 账号 | 动作 | 目标阶段/发布 | Batch | 预计时间 |
 
-## 四账号状态
-- 官方：
-- AI 占星师：
-- 热点号：
-- 普通爱好者号：
+## 当前账号状态
+- `@astrologywiki`：publish / advance / wait / skip
+- `@miraaastrology`：publish / advance / wait / skip
+- 暂停、退役或未启用账号：默认不进入执行卡；若被提议恢复，单列“待 Pengman 确认”
 
 ## 阻塞、过期与库存
 - 24–48h 风险：
@@ -350,7 +348,23 @@ Hot 使用正式 10 分制，不另造评分。
 - 被替换内容及是否已顺延过：
 ```
 
-## 11. Production and Learning Boundary
+## 11. Script Humanization Gate
+
+AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚本）在生成 script 后、写入 `script_status: 已确认` 前，必须完成人类口语自然度审查。若当前环境存在并可读取 `/humanizer` skill，可以调用；若不存在，必须如实记录“未调用 /humanizer”，改由总控模型按同一检查表审稿并由 Pengman 人工确认，不能假装 Skill 已运行。
+
+规则：
+- 适用范围：所有 AI 口播 / voiceover / talking-head 脚本
+- 不适用：纯图文 caption、slideshow 文案、短 Hook 测试（≤3 句）
+- 执行时机：script 初稿完成后，人工确认前
+- 目的：去除 AI 写作痕迹，让口播听起来像真人创作者说话
+
+流程：
+1. 生成 script 初稿
+2. 调用可用的 `/humanizer`，或由总控模型检查：开头是否直接、句子能否自然说出口、是否有重复对照模板、抽象名词堆叠、过长从句和不自然的 AI 总结句
+3. 输出润色后版本供 Pengman 确认
+4. 确认后写 `script_status: 已确认` 和 `confirmed_script_version`；`content_stage` 保持 `selected`
+
+## 12. Production and Learning Boundary
 
 - 写稿前读取 1–3 条最相关历史样本，优先同账号、同形式、已发布且有 `decision / next_test` 的记录。
 - 只提取明确的人工作改动与验证结论；不从最终稿反推 Pengman 偏好。
@@ -359,15 +373,16 @@ Hot 使用正式 10 分制，不另造评分。
 - 当前阶段只写入单条主生产记录；附件不得维护第二个总体状态。
 - 每日结束回写真实 `content_stage`、阻塞、库存变化和真实发布链接。
 
-## 12. File Routing
+## 13. File Routing
 
-- 当前周组合：`04-weekly-content-plans/`
-- 周一候选研究、Hot 证据、明确重排：`06-daily-content-recommendations/`
+- 当前周组合：`03-weekly-content-plans/`
+- 周一候选研究、Hot 证据、明确重排：`02-daily-content-recommendations/`
 - 已选 Brief、脚本、制作与发布回链：`07-content-production/`
-- 发布数据和周级复盘：`05-weekly-published-content-digests/`
-- 历史题库：`02-topic-ideas/`，只在明确追溯时读取
+- 发布数据和周级复盘：`05-weekly-digests/` 与 `07-reports/`
+- 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log
 
+- 2026-08-04 · v1.2.0 · 修正迁移后的 `02 / 03 / 05 / 07` 当前路径；将不可用时会阻断流程的 `/humanizer` 硬依赖改为可核验 Skill 或总控审稿 + Pengman 确认的等价门槛。
 - 2026-07-21 · v1.1.0 · 将实时互联网调研设为所有新候选的硬性前置条件；新增固定参考账号 CSV 与 Apps Script Library 访问检查，保留原有本地参考项，并区分公开读取成功、登录限制和阻塞。
 - 2026-07-21 · v1.0.0 · 删除“每日强制生成 Route A/B/C、四账号分发和今日多账号生产卡”的旧默认；把日常职责改为执行周计划，把候选研究限定在周一/重排/补库/合格 Hot，并统一内容池、产能、账号路由、对照实验和写回边界。

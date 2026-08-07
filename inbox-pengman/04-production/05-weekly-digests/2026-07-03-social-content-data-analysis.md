@@ -16,11 +16,11 @@ status: draft
 
 相关文档：
 
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W25 已发布内容合集.md]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md]]
-- [[inbox-pengman/05-调研资料/平台与策略/content-direction-and-tools-research.md]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W25 已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W27 本周已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W28 本周已发布内容合集.md]]
+- [[inbox-pengman/04-production/05-weekly-digests/public-account-crawl-log.md]]
+- [[inbox-pengman/02-调研资料/平台与策略/content-direction-and-tools-research.md]]
 
 ## 0. 2026-07-06 增量更新
 

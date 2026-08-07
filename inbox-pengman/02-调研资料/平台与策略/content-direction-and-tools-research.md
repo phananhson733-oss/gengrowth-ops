@@ -311,7 +311,7 @@ Summarize them as possible X post angles for AstrologyWiki.
 | Canva | 做 X 图文卡片 | 继续作为图文主工具。 |
 | Buffer | 定时发布 X / 其他平台内容 | 可选，用免费版测试即可。 |
 
-详细调研见：[[inbox-pengman/05-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]
+详细调研见：[[inbox-pengman/02-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]
 
 ### 4.3 视频 / 视觉工具对比
 
@@ -349,10 +349,10 @@ Golpo：先测快速成片能力
 
 详细调研：
 
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/golpo-video-workflow-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/remotion-video-template-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/golpo-video-workflow-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/remotion-video-template-research.md]]
 
 ---
 
@@ -384,20 +384,20 @@ Golpo：先测快速成片能力
 
 ### 策略与平台
 
-- [[inbox-pengman/05-调研资料/历史调研/海外营销内容平台以及思考.md]]
-- [[inbox-pengman/05-调研资料/历史调研/各多媒体平台具体内容调研.md]]
-- [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/02-调研资料/历史调研/海外营销内容平台以及思考.md]]
+- [[inbox-pengman/02-调研资料/历史调研/各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 ### 视频 / 视觉工具
 
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/higgsfield-avatar-video-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/golpo-video-workflow-research.md]]
-- [[inbox-pengman/05-调研资料/工具调研/视频与视觉/remotion-video-template-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/higgsfield-video-workflow-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/higgsfield-avatar-video-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/golpo-video-workflow-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/视频与视觉/remotion-video-template-research.md]]
 
 ### 文字 / 社媒工具
 
-- [[inbox-pengman/05-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]
+- [[inbox-pengman/02-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]
 
 
 ### 平台公开资料

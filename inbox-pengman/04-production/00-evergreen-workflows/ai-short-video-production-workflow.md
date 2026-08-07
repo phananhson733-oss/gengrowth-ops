@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-21
+updated: 2026-08-04
 ---
 
 # AI Short Video Production Workflow
@@ -17,13 +17,13 @@ It is the format-specific production SOP for short videos that are already locke
 
 ```text
 weekly plan selected item + confirmed Brief
-→ batched script generation
-→ Higgsfield voice generation
+→ evidence review + confirmed script
+→ AI Host format: HeyGen web avatar/voice generation
 → material sourcing / Higgsfield dynamic material / GPT2 image generation
 → CapCut editing
 → Codex SRT generation
 → export
-→ Buffer distribution
+→ platform scheduling / publishing
 ```
 
 ## 1. Weekly Plan Handoff
@@ -45,11 +45,11 @@ Output:
 - One locked `content_id` and confirmed account/format.
 - Completed Brief with evidence, Hook direction, deadline and CTA decision.
 - `batch_id` shared with genuinely similar production work.
-- Any backup ideas remain `idea` in candidate research; they do not enter this production workflow.
+- Any backup ideas remain in candidate research without a `content_stage`; they do not enter this production workflow.
 
 Current related files:
 
-- [[inbox-pengman/04-production/04-weekly-content-plans/README.md]]
+- [[inbox-pengman/04-production/03-weekly-content-plans/README.md]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md]]
 - [[inbox-pengman/04-production/07-content-production/README.md]]
 
@@ -65,6 +65,8 @@ Rules:
 ## 2. AI Script Generation
 
 Turn the selected topic into a short-video script.
+
+When the topic needs external evidence or community-language research, use [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明#调研驱动的单稿流程]] before production. Perplexity / Gemini provide research inputs; the controller freezes one direction; Claude writes from that frozen package; Pengman confirms the script. Do not pass unreviewed research directly into production.
 
 Output should include:
 
@@ -83,9 +85,9 @@ Writing rules:
 - Do not turn astrology into match prediction, medical/psychological diagnosis, or deterministic claims.
 - Keep CTA light and natural.
 
-## 3. Higgsfield Voice Generation
+## 3. AI Host / Voice Generation
 
-Use Higgsfield to generate the voiceover from the final script.
+For content whose locked format is `AI Host`, the current production tool is **HeyGen web**. Higgsfield is not the current AI Host balance or avatar-generation source; it may still be used separately for optional supporting visuals where appropriate.
 
 Input:
 
@@ -95,7 +97,8 @@ Input:
 
 Output:
 
-- Voice audio file.
+- HeyGen AI Host video or voice/avatar output required by the locked format.
+- Credits balance before generation, actual credits consumed, and balance after generation recorded in the main production record.
 
 Checks:
 
@@ -215,11 +218,11 @@ Output:
 - Final SRT, if used separately.
 - Thumbnail or cover frame, if needed.
 
-## 8. Buffer Distribution
+## 8. Scheduling and Publishing
 
-Use Buffer to distribute or schedule the finished content.
+Use the platform's current confirmed publishing path to distribute or schedule the finished content. TikTok web/app scheduling and manual publishing are valid current paths. Use Buffer only after its account connection and current operation have been verified; the existence of this SOP is not deployment evidence.
 
-Recommended use:
+Possible destinations:
 
 - YouTube Shorts.
 - TikTok.
@@ -238,7 +241,7 @@ After publishing:
 - Write the real permalink to `published_url` before setting `content_stage: published`.
 - Add the item to the relevant weekly published-content digest.
 - Record early visible metrics when available.
-- After review, fill `decision` and `next_test` before setting `content_stage: reviewed`.
+- After review, fill `decision` and `next_test`; keep `content_stage: published`.
 
 ## Minimum Viable Production Package
 
@@ -279,11 +282,12 @@ For one short video, prepare:
 - 1 edited CapCut project.
 - 1 final MP4.
 - 1 SRT file if subtitles are not burned in.
-- 1 Buffer-ready caption.
+- 1 platform-ready caption.
 
 ## Current Open Questions
 
-- Which Higgsfield voice should become the default?
+- Which HeyGen avatar and voice should become the stable default for each account?
+- When should Higgsfield be used only for optional supporting visuals?
 - When should GPT2 images be preferred over Higgsfield visuals?
 - Which asset sources are acceptable for sports and celebrity content?
 - Should each finished video get its own production folder, or only a weekly folder?

@@ -11,7 +11,7 @@ pillar: Scorpio psychology / silent devotion / action-based loyalty
 format: AI Host
 effort: M
 priority: P0
-content_stage: 已发布
+content_stage: "published"
 script_status: humanized
 publish_date: 2026-W31 待排（排在 Scorpio×Cancer
 deadline: 2026-07-25
@@ -27,11 +27,17 @@ decision: Pengman 确认从防御维度切换到忠诚/保护维度
 next_test: 冻结主播、声音、时长、背景、字幕和无口播 CTA，测试"正向忠诚行为"是否获得与"防御行为"同等或更高互动
 status: draft
 owner: Pengman
-updated: 2026-07-23
+updated: "2026-07-24"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设 / @miraaastrology
-published_date: 2026-07-23
+published_date: "2026-07-22"
 performance_notes: Pengman 确认从防御维度切换到忠诚/保护维度
+published_url: "https://www.tiktok.com/@miraaastrology/video/7665328458356149518"
+platform_post_id: "7665328458356149518"
+published_at: "2026-07-22T15:07:00.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播第五条 — 统一 Brief 与脚本

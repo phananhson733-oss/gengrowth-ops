@@ -11,7 +11,7 @@ status: draft
 # 2026-07-13 起社媒内容数据分析
 
 > 这份文档只看 `2026-07-13` 起算的 `W29` 内容，不和 `2026-07-06` 的 W28 分析混写。  
-> 口径：以 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md]] 和 [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md]] 为主，公开来源仅补内容链接和账号级数字；后台 analytics 仍统一记 `待补数据`。  
+> 口径：以 [[inbox-pengman/04-production/05-weekly-digests/2026-W29 本周已发布内容合集.md]] 和 [[inbox-pengman/04-production/05-weekly-digests/public-account-crawl-log.md]] 为主，公开来源仅补内容链接和账号级数字；后台 analytics 仍统一记 `待补数据`。  
 > 当前结论只服务 AstrologyWiki 的 SEO / PV / 站内工具/主题页承接，不作为完整社媒投放复盘。
 
 ## 0. 本次更新说明

@@ -3,10 +3,87 @@ title: 公开账号抓取记录
 type: crawl-log
 project: AstrologyWiki
 owner: pengman
-updated: 2026-07-24
+updated: 2026-08-02
 ---
 
 # 公开账号抓取记录
+
+## 2026-08-02 自动化完整刷新
+
+- 检查时间：北京时间 `2026-08-02 13:31` / PDT `2026-08-01 22:31`；当前周次为 `2026-W31`。
+- 本地公开抓取：读取 `capture_summary_2026-08-02.json`、`posts_2026-08-02.csv`、`accounts_2026-08-02.csv` 与 `publish_sync_2026-08-02.json`。覆盖 4 个 TikTok 账号、28 条内容，`partial=0`、`errors=[]`；生产同步扫描 29 条、匹配 22 条、本轮变更 3 条（既有旧内容字段回写），另有 1 条 ambiguous。
+- W31 新增确认 permalink `0`；仍为 3 条已确认内容。公开快照升至 `3,061 views / 208 likes / 5 comments / 31 shares / 57 favorites`。
+- 相对表现：Scorpio × Cancer 以 `1,789 views / 25 shares / 41 favorites` 继续领先播放、分享与收藏，且本轮分享增加 7；Scorpio doesn’t do halfway 为 `743 views / 78 likes / 3 comments`，增长趋缓。August eclipse 图文为 `529 views / 10 likes / 1 comment / 0 shares / 0 favorites`，虽与 SEO 搜索承接最直接，但仍没有公开转化证据。
+- 账号级快照：`@astrologywiki 8 followers / 1 following / 245 likes / 15 posts`；`@miraaastrology 75 / 6 / 916 / 10`；`@filestarsx 2 / 0 / 106 / 3`；`@shirley527146 0 / 1 / 4 / 2`。`total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 其他平台：无登录公开搜索未返回可归属于目标账号的 YouTube、Instagram、X 新内容或稳定新计数；TikTok 网页搜索受 robots 限制，因此没有用搜索结果覆盖仓库内完整抓取。
+- 限制说明：公开数据不含 reach、retention、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出后才能评价 SEO/PV 承接。
+
+## 2026-08-01 自动化完整刷新
+
+- 检查时间：北京时间 `2026-08-01 10:22` / PDT `2026-07-31 19:22`；当前周次为 `2026-W31`。
+- 本地公开抓取：读取 `capture_summary_2026-08-01.json`、`posts_2026-08-01.csv`、`accounts_2026-08-01.csv` 与 `publish_sync_2026-08-01.json`。覆盖 4 个 TikTok 账号、28 条内容，`partial=0`、`errors=[]`；生产同步扫描 29 条、匹配 22 条、本轮变更 1 条（既有旧内容字段回写），另有 1 条 ambiguous。
+- W31 新增确认 permalink `0`；仍为 3 条已确认内容。公开快照升至 `2,893 views / 199 likes / 4 comments / 24 shares / 57 favorites`。
+- 相对表现：Scorpio × Cancer 以 `1,669 views / 18 shares / 41 favorites` 继续领先播放、分享与收藏；Scorpio doesn’t do halfway 为 `730 views / 77 likes / 3 comments`，增长趋缓。August eclipse 图文为 `494 views / 9 likes / 0 shares / 0 favorites`，虽与 SEO 搜索承接最直接，但仍没有公开转化证据。
+- 账号级快照：`@astrologywiki 8 followers / 1 following / 243 likes / 15 posts`；`@miraaastrology 75 / 6 / 900 / 10`；`@filestarsx 2 / 0 / 106 / 3`；`@shirley527146 0 / 1 / 4 / 2`。`total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 其他平台：无登录公开搜索未返回可归属于目标账号的 YouTube、Instagram、X 新内容或稳定新计数；TikTok 网页搜索受 robots 限制，因此没有用搜索结果覆盖仓库内完整抓取。
+- 限制说明：公开数据不含 reach、retention、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出后才能评价 SEO/PV 承接。
+
+## 2026-07-31 自动化完整刷新
+
+- 检查时间：北京时间 `2026-07-31 10:04` / PDT `2026-07-30 19:04`；当前周次为 `2026-W31`。
+- 本地公开抓取：读取 `capture_summary_2026-07-31.json`、`posts_2026-07-31.csv`、`accounts_2026-07-31.csv` 与 `publish_sync_2026-07-31.json`。覆盖 4 个 TikTok 账号、28 条内容，`partial=0`、`errors=[]`；生产同步扫描 29 条、匹配 22 条、本轮变更 0 条，另有 1 条 ambiguous。
+- W31 新增确认 permalink `0`；仍为 3 条已确认内容。公开快照升至 `2,468 views / 173 likes / 4 comments / 21 shares / 50 favorites`。
+- 相对表现：Scorpio × Cancer 以 `1,349 views / 15 shares / 34 favorites` 同时领先播放、分享与收藏；Scorpio doesn't do halfway 为 `714 views / 74 likes / 3 comments`，互动质量仍较强。August eclipse 图文为 `405 views / 6 likes / 0 shares / 0 favorites`，虽与 SEO 搜索承接最直接，但当前没有公开转化证据。
+- 账号级快照：`@astrologywiki 6 followers / 1 following / 240 likes / 14 posts`；`@miraaastrology 74 / 6 / 869 / 10`；`@filestarsx 2 / 0 / 106 / 3`；`@shirley527146 0 / 1 / 4 / 2`。`total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 其他平台：无登录公开搜索未返回可归属于目标账号的 YouTube、Instagram、X 新内容或稳定新计数；TikTok 网页搜索受 robots 限制，因此没有用搜索结果覆盖仓库内完整抓取。
+- 限制说明：公开数据不含 reach、retention、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出后才能评价 SEO/PV 承接。
+
+## 2026-07-30 自动化完整刷新
+
+- 检查时间：北京时间 `2026-07-30 10:00` / PDT `2026-07-29 19:00`；当前周次为 `2026-W31`。
+- 本地公开抓取：读取 `capture_summary_2026-07-30.json`、`posts_2026-07-30.csv`、`accounts_2026-07-30.csv` 与 `publish_sync_2026-07-30.json`。覆盖 4 个 TikTok 账号、28 条内容，`partial=0`、`errors=[]`；生产同步扫描 29 条、匹配 22 条、本轮变更 0 条，另有 1 条 ambiguous。
+- W31 新增确认 permalink `0`；仍为 3 条已确认内容。公开快照升至 `1,749 views / 134 likes / 4 comments / 12 shares / 30 favorites`。
+- 相对表现：Scorpio × Cancer 以 723 views 暂列播放第一；Scorpio doesn't do halfway 以 73 likes / 16 favorites 居互动绝对值第一。August eclipse 图文为 368 views / 5 likes / 0 shares / 0 favorites，虽与 SEO 搜索承接最直接，但当前没有公开转化证据。
+- 账号级快照：`@astrologywiki 6 followers / 1 following / 217 likes / 14 posts`；`@miraaastrology 71 / 6 / 819 / 10`；`@filestarsx 2 / 0 / 106 / 3`；`@shirley527146 0 / 1 / 4 / 2`。`total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 其他平台：公开搜索未返回可归属于目标账号的 YouTube、Instagram、X 新内容或稳定新计数；TikTok 网页搜索受 robots 限制，因此没有用搜索结果覆盖仓库内完整抓取。
+- 限制说明：公开数据不含 reach、retention、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出后才能评价 SEO/PV 承接。
+
+## 2026-07-29 自动化完整刷新
+
+- 检查时间：北京时间 `2026-07-29 10:10` / PDT `2026-07-28 19:10`；当前周次为 `2026-W31`。
+- 本地公开抓取：读取 `capture_summary_2026-07-29.json`、`posts_2026-07-29.csv`、`accounts_2026-07-29.csv` 与 `publish_sync_2026-07-29.json`。覆盖 4 个 TikTok 账号、28 条内容，`partial=0`、`errors=[]`；生产同步扫描 29 条、匹配 22 条、本轮变更 3 条，另有 1 条 ambiguous。
+- W31 新增确认 permalink `3`：
+  - August 2026 eclipse photo：https://www.tiktok.com/@astrologywiki/photo/7667531650326105357
+  - Scorpio doesn't do halfway：https://www.tiktok.com/@miraaastrology/video/7667476837844454669
+  - Scorpio × Cancer love from the wound：https://www.tiktok.com/@miraaastrology/video/7667514308733013262
+- W31 当前公开快照：3 条，`809 views / 38 likes / 0 comments / 4 shares / 6 favorites`。August 2026 图文以 325 views 暂列播放第一；Scorpio all-or-nothing 以 26 likes / 3 shares / 4 favorites 显示更强早期互动质量。
+- 账号级快照：`@astrologywiki 6 followers / 1 following / 215 likes / 14 posts`；`@miraaastrology 60 / 6 / 706 / 9`；`@filestarsx 2 / 0 / 101 / 3`；`@shirley527146 0 / 1 / 4 / 2`。`total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 日期冲突：August 2026 图文与 Scorpio all-or-nothing 的生产排期写 7 月 29 日，公开时间换算为北京时间 7 月 28 日；未覆盖生产记录，保留待人工确认。
+- 其他平台：本轮仓库内没有 YouTube、Instagram、X 新发布证据或稳定新 permalink，继续标 `待确认`。
+- 限制说明：公开数据不含 reach、retention、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出后才能评价 SEO/PV 承接。
+
+## 2026-07-29 自动化增量复核
+
+- 检查时间：北京时间 `2026-07-29 02:40` / PDT `2026-07-28 11:40`；当前周次为 `2026-W31`。
+- 本地记录：最新完整公开抓取仍是北京时间 `2026-07-28 10:58` 的 4 个 TikTok 账号、26 条内容快照。其后仓库新增 3 条计划于 7 月 29 日发布的 W31 生产记录，但均尚无 `content_stage: 已发布` 或 permalink，不作为已发布内容计入。
+- 公开搜索：YouTube、Instagram、X 未返回可归属于目标账号的新内容或稳定新计数；TikTok 公开页面受 robots 限制。本轮新增稳定 permalink `0`，W31 仍确认 `0` 条。
+- 数据处理：未覆盖 7 月 28 日完整快照，也未改写 W30 已收口数据。当前无 W31 内容级公开指标，无法可靠判断本周表现较好内容。
+- 限制说明：如 7 月 28–29 已实际发布，需要 Pengman 补 permalink 或后台发布列表；reach、retention、profile visits、link clicks、slideshow completion 与 GA4 qualified/assisted UV 继续标为 `待补数据/待确认`。
+
+## 2026-07-28 自动化增量检查
+
+- 检查时间：北京时间 `2026-07-28 11:06` / PDT `2026-07-27 20:06`；当前周次为 `2026-W31`，并按周一规则完成 `2026-W30` 收口。
+- 本地公开抓取：读取 `inbox-pengman/output/capture_summary_2026-07-28.json`、`posts_2026-07-28.csv`、`accounts_2026-07-28.csv` 与 `publish_sync_2026-07-28.json`。抓取时间为北京时间 `2026-07-28 10:58`，覆盖 4 个 TikTok 账号、26 条内容，`partial=0`、`errors=[]`。
+- W30 新增确认 permalink `3`：
+  - Scorpio #6：https://www.tiktok.com/@miraaastrology/video/7665662953739324686
+  - Cancer Sun forgiveness（归属待人工确认）：https://www.tiktok.com/@miraaastrology/video/7666041301833403662
+  - Saturn Retrograde：https://www.tiktok.com/@astrologywiki/video/7665989928840367374
+- W30 最终公开快照：10 条，`8,602 views / 676 likes / 49 comments / 92 shares / 121 favorites`。Scorpio #4 以 `2,346 views / 206 likes / 19 comments / 35 shares / 29 favorites` 领先；Scorpio × Cancer 以 `33 favorites` 为全周收藏最高。
+- W31 增量：本次抓取没有公开时间落在 2026-07-27 至 2026-08-02 的 TikTok 新内容，因此当前确认 `0` 条、新增链接 `0`。
+- 账号级快照：`@astrologywiki 6 followers / 1 following / 206 likes / 13 posts`；`@miraaastrology 57 / 6 / 658 / 8`；`@filestarsx 2 / 0 / 99 / 3`；`@shirley527146 0 / 1 / 4 / 2`。账号 `total_posts` 与抓取条数口径可能不同，不当作后台发布总数。
+- 公开搜索：TikTok 被 robots 阻断；YouTube、Instagram、X 搜索未返回可归属于目标账号的新内容或稳定新计数，未覆盖本地记录。
+- 冲突说明：Cancer Sun 内容与本地 Brief 文案吻合，但自动同步仍列为 `ambiguous`；Scorpio #4/#5/#6 与 IShowSpeed 的人工日期和公开时间戳也存在日期差异，均保留待确认。
+- 限制说明：公开数据不含 reach、留存、平均观看、profile visits、link clicks、slideshow completion 或 GA4 qualified/assisted UV；需要 Pengman 提供后台或导出。
 
 ## 2026-07-24 自动化增量检查
 

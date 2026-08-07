@@ -4,12 +4,12 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-07-21
+updated: 2026-08-04
 ---
 
 # Weekly Rolling Content Production SOP
 
-> 本文件是 AstrologyWiki 四账号矩阵的周度产能、内容池、Batch、热点插入和迁移规则唯一来源。四账号定位仍以 [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]] 为准；单条内容仍各自拥有独立 `content_id` 和主生产记录。
+> 本文件是 AstrologyWiki 当前启用社媒账号的周度产能、内容池、Batch、热点插入和迁移规则唯一来源。账号启停与定位以 [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]] 为准；当前只启用 `@astrologywiki` 与 `@miraaastrology`，未来账号未通过启用门前不进入周计划。
 
 ## 1. 滚动周原则
 
@@ -28,34 +28,30 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 ### 1.1 生成选题前的互联网调研门槛
 
-所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、四账号 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
+所有新候选，包括 Evergreen、Predictable、Hot、补库和替换候选，都必须先执行 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]] 的 `Mandatory Internet Research Gate`。原有周计划、周报、生产队列、账号定位与路由 Playbook、历史样本和 `decision / next_test` 仍须照常读取；以下入口只作为新增参考：
 
 - 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`
 - Apps Script Library：`https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3`
 
 固定 CSV 必须成功读取；Library 若需要登录，记录限制即可继续，但不得声称已读取内部内容。每轮还须核验至少 2 个与目标账号/候选直接相关的当前公开来源；Hot 使用更严格的 4 来源/3 直接链接门槛。
 
-## 2. 集中配置：试运行基线
+## 2. 集中配置：当前两账号基线
 
 > 所有默认配额只在本节维护。周计划模板引用本节，不复制成另一套默认值。真实产能变化时先修改本节，再从下一份周计划生效。
 
-| 配置项 | 试运行值 |
-|---|---:|
-| ① AstrologyWiki 官方账号每周正式排期 | 2 条 |
-| ② AI 占星师账号每周正式排期 | 2 条 |
-| ③ 热点占星测试账号每周热点/机动槽 | 1 条 |
-| ④ 普通占星爱好者账号每周正式排期 | 3 条 |
-| 每周正式排期合计 | 8 条 |
-| 每周额外完成的发布级机动库存 | 2 条 |
-| ①／②／③ 每账号最低非时效发布级库存 | 2 条 |
-| ④ 最低非时效发布级库存 | 3 条 |
+| 配置项 | 当前规则 |
+|---|---|
+| 当前启用账号 | `@astrologywiki`、`@miraaastrology` |
+| 当前增长重点 | `@miraaastrology`；具体配额由当周目标和产能决定 |
+| 官号职责 | 保持可信天象、知识和产品承接；不要求每周机械凑数 |
+| 每周正式排期合计 | 由当周可用时间和 S/M/L 计算，不再默认 8 条 |
+| 发布级机动库存 | 优先保持 1–2 周可执行缓冲；恢复周可明确例外 |
+| 暂停/退役账号配额 | 0；未明确启用不得预留 Hot 槽或生产容量 |
 | 已剪辑成片库存上限 | 未来 2 周 |
 | `producing` 同时在制上限 | 3 条 |
-| Hot 排期参考占比 | 15% |
-| Predictable 排期参考占比 | 25% |
-| Evergreen 排期参考占比 | 60% |
+| 内容池比例 | 仅作组合观察，不机械凑 `Hot / Predictable / Evergreen` 比例 |
 
-比例只是排期参考，不要求每周机械凑满。天象密集周可提高 `Predictable`，强热点周可提高 `Hot`，但总量仍受产能限制。
+当周先按账号角色和业务目标选内容，再用产能决定数量。天象密集周可提高 `Predictable`；热点只有能由当前 active 账号合理承接且通过证据门时才进入候选，不为历史热点号保留固定槽。
 
 ### 2.1 工作量换算
 
@@ -67,18 +63,18 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 - 每增加 1 条 `L`，原则上减少约 2 条 `S`；周计划必须记录替换了什么。
 - Idea 可以多，`selected` 不得超过未来两周可执行产能。
-- 无法明确本周可用时间时，不自动塞满 8+2；先按首周或保守产能执行。
+- 无法明确本周可用时间时，不自动塞满内容；先按首周或保守产能执行。
 
 ## 3. 周计划的两个清单
 
 每份周计划必须分开维护：
 
-1. **Publishing This Week**：本周实际要发布的内容，通常来自上周完成的 `scheduled` 或发布级备用库存。
-2. **Producing for Next Week**：本周要推进到 `edited`/`scheduled`、供下周使用的内容。
+1. **Publishing This Week**：本周实际要发布的内容，通常来自上周完成的 `ready` 内容；是否已定时看 `scheduled_at / publish_date`。
+2. **Producing for Next Week**：本周要推进到 `ready`、供下周使用的内容。
 
 同一 `content_id` 可以因为“本周生产并临时插播”同时出现在两区，但必须写明 `Hot exception`，不能默认混用。
 
-周计划存放在 `04-production/04-weekly-content-plans/`，从 [[inbox-pengman/04-production/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
+周计划存放在 `04-production/03-weekly-content-plans/`，从 [[inbox-pengman/04-production/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
 
 ## 4. 周一到周五
 
@@ -90,7 +86,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 - 最近周报中的 `decision / next_test`。
 - 当前单条生产队列及真实 `content_stage`。
 - 未来 6–8 周天象/可预测事件日历。
-- 四账号 Playbook、当前业务优先级和本周可用时间。
+- 账号定位与内容路由 Playbook、当前 active 账号、业务优先级和本周可用时间。
 - 本轮实时互联网调研结果，包括固定参考账号 CSV 的读取状态、Apps Script Library 的访问状态、相关账号/话题的当前公开内容和直接链接。
 
 **操作**
@@ -103,13 +99,13 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 6. 按账号定位筛选；每条明确账号、形式、优先级、成本、发布日期、截止日和过期日。
 7. 锁定本周要生产的下周组合；仅对正式承诺制作的内容设置 `content_stage: selected`。
 8. 按形式、制作环节、模板/工具和时效划分 Batch，填写 `batch_id`。
-9. 建立初步排期并保留 ③ 号热点/机动槽。
+9. 建立初步排期；只有当前 active 账号存在合格 Hot 且 Pengman 批准时才使用机动容量，不为暂停账号预留固定槽。
 
 **输出**
 
 - 完整的 `Publishing This Week`。
 - 受产能约束的 `Producing for Next Week`。
-- 四账号配额、三个内容池数量、Batch 列表和热点机动槽。
+- active 账号的本周分工、三个内容池数量、Batch 列表和可用机动容量。
 
 **完成标准**
 
@@ -130,7 +126,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 1. 按账号/系列批量完成 Brief，再按相近脚本结构集中写稿。
 2. 对天象、明星、体育、影视和公开事件完成事实核验。
 3. 人工确认 Hook、核心承诺、账号语气、CTA 和脚本版本。
-4. Brief 填完后进入 `brief`；脚本确认后进入 `scripted`。
+4. Brief、调研和脚本都在 `selected` 内推进；人工确认后更新 `script_status: 已确认` 和 `confirmed_script_version`，不改变 `content_stage`。
 5. 未确认脚本不进入大规模素材准备；实验通道继续遵守双模型隔离和人工确认规则。
 
 **输出**
@@ -140,22 +136,22 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 **完成标准**
 
-- 临近时效内容全部达到 `scripted`。
-- 其余本周承诺内容至少 80% 达到 `scripted`；不足时立即缩减本周生产承诺，不把积压隐藏到周三。
+- 临近时效内容的脚本全部人工确认。
+- 其余本周承诺内容至少 80% 达到 `script_status: 已确认`；不足时立即缩减本周生产承诺，不把积压隐藏到周三。
 
 ### 周三：素材与轻形式 Batch
 
 **输入**
 
-- `scripted` 内容、Batch 列表和授权/来源要求。
+- 已确认脚本的 `selected` 内容、Batch 列表和授权/来源要求。
 
 **操作**
 
 1. 按素材来源、尺寸、模板和工具批量准备图片、星盘图、B-roll、字幕、音乐和封面元素。
-2. 素材清单齐全后进入 `assets_ready`。
+2. 素材准备仍记录在 `selected` 的正文或检查项中，不新增阶段。
 3. 优先集中制作 slideshow、photo、字幕视频和 B-roll 等轻形式。
 4. 开始实际制作时进入 `producing`；同时最多 3 条。
-5. 剪辑、字幕和基础质检完成后进入 `edited`。
+5. 剪辑、字幕和基础质检完成后进入 `ready`。
 
 **输出**
 
@@ -163,7 +159,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 **完成标准**
 
-- 轻形式承诺内容均达到 `edited`，或已明确返工/取消；不得把模糊半成品继续算作库存。
+- 轻形式承诺内容均达到 `ready`，或已明确返工/取消；不得把模糊半成品继续算作库存。
 
 ### 周四：重形式 Batch
 
@@ -185,21 +181,21 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 **完成标准**
 
-- 计划中的可执行内容均达到 `edited`；`producing` 不遗留超过上限的半成品。
+- 计划中的可执行内容均达到 `ready`；`producing` 不遗留超过上限的半成品。
 
 ### 周五：质检、排期、库存和复盘
 
 **输入**
 
-- 本周所有 `edited` 内容、发布数据、实际链接和库存清单。
+- 本周所有 `ready` 内容、发布数据、实际链接和库存清单。
 
 **操作**
 
 1. 审核 Hook、账号语气、字幕、事实、品牌安全、CTA、封面和 Caption。
-2. 确认发布时间后进入 `scheduled`。
+2. 确认发布时间后保持 `ready`，填写 `publish_date / scheduled_at / scheduled_timezone`。
 3. 逐账号检查最低发布级库存和“未来两周成片上限”。
 4. 补充本周真实发布链接；没有核实直链不得进入 `published`。
-5. 将复盘结论写入对应周报；`decision` 和 `next_test` 均已填写后才进入 `reviewed`。
+5. 将复盘结论写入对应周报并填写 `decision / next_test`；复盘完成后仍保持 `published`。
 6. 清理过期 Hot、过期 Predictable 和超过一次顺延的内容。
 7. 把未解决风险带入下周计划，不为追求 8+2 伪造完成状态。
 
@@ -210,7 +206,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 **完成标准**
 
 - 下周正常发布不依赖当天从零制作。
-- `edited` 内容已有排期、明确的备用库存标记或返工决定。
+- `ready` 内容已有排期、明确的备用库存标记或返工决定。
 - 需要复盘的内容均有 `decision / next_test`，否则保持 `published`。
 
 ## 5. Batch 规则
@@ -253,7 +249,7 @@ Batch 是生产组织字段，不替代单条 `content_id` 和 `content_stage`�
 **过期/退回**
 
 - 事实、账号定位或系列 `decision` 改变时重新核验。
-- 两次被排期挤出后退回 `idea` 或设为 `hold`，不得长期停在 `selected`。
+- 两次被排期挤出后退回候选池或设为 `hold`，不得长期停在 `selected`。
 
 **排期优先级**
 
@@ -318,7 +314,7 @@ Batch 是生产组织字段，不替代单条 `content_id` 和 `content_stage`�
 
 - `8–10`：立即进入热点槽；允许调整当日 Batch。
 - `6–7`：当天稍后或次日处理，不立刻打断当前动作。
-- `4–5`：放入下周候选，保持 `idea`，不得自动变为 `selected`。
+- `4–5`：放入下周候选池，不写生命周期阶段，不得自动变为 `selected`。
 - `0–3`：放弃。
 
 事实未经核实、依赖猜测出生时间、需要绝对预测或有明显品牌风险时，即使总分高也不得插入。
@@ -328,7 +324,7 @@ Batch 是生产组织字段，不替代单条 `content_id` 和 `content_stage`�
 1. 优先使用预留热点槽。
 2. 热点槽已占用时，只替换同账号最低优先级的 Evergreen。
 3. 被替换内容只允许顺延一次，并记录 `reschedule_count: 1`。
-4. 第二次被挤出后退回 `idea`/内容池重新评估，不继续留在 `selected`。
+4. 第二次被挤出后退回候选池重新评估，不继续留在 `selected`。
 5. 不顺延即将过期的 Predictable；应在热点与 Predictable 中明确二选一。
 6. 不让一个热点连锁影响多个账号；其他账号继续原排期。
 7. 没有达到门槛的 Hot 时，不推翻周一选题；热点槽由发布级 Evergreen 库存补位。
@@ -338,23 +334,17 @@ Batch 是生产组织字段，不替代单条 `content_id` 和 `content_stage`�
 唯一生命周期：
 
 ```text
-idea → selected → brief → scripted → assets_ready → producing → edited → scheduled → published → reviewed
+selected → producing → ready → published
 ```
 
 补充状态：`hold`、`cancelled`。
 
 | content_stage | 完成定义 |
 |---|---|
-| `idea` | 候选已记录，但未承诺本周制作，不占产能 |
-| `selected` | 已进入未来两周产能，账号、pool、format、effort、deadline、batch 已明确 |
-| `brief` | Brief 的受众、承诺、Hook、证据、CTA 和约束已填；脚本仍可待确认 |
-| `scripted` | `script_status: 已确认`，确认版本可进入素材准备 |
-| `assets_ready` | 素材清单、来源/授权、模板和制作说明齐全 |
+| `selected` | 已由人类确认进入未来两周产能；包含 Brief、调研、脚本确认和素材准备。细分进度看 `script_status`、确认稿和下一动作 |
 | `producing` | 正在生成、剪辑或组装；同时最多 3 条 |
-| `edited` | 成片、字幕和基础质检已完成，可进入排期或发布级备用库存 |
-| `scheduled` | 已确定账号和发布时间，并完成 Caption/封面/发布设置 |
+| `ready` | 成片、字幕和基础质检已完成，可直接发布；是否已定时看 `scheduled_at / publish_date`，是否为库存看 `inventory_ready` |
 | `published` | 已实际发布且主记录有至少一个核实直链 |
-| `reviewed` | 已完成复盘，`decision` 与 `next_test` 均已填写 |
 | `hold` | 暂缓；必须写原因和下次复查日期，不占本周执行产能 |
 | `cancelled` | 已取消；保留原因，不再进入当前队列 |
 
@@ -362,10 +352,10 @@ idea → selected → brief → scripted → assets_ready → producing → edit
 
 - `producing` 同时最多 3 条。
 - `selected` 不得超过未来两周可执行产能。
-- `edited` 后 48 小时内必须进入 `scheduled`、返工或明确转为发布级备用库存；备用库存必须有 `inventory_ready: true`，不能长期停留为无归属成片。
+- `ready` 后 48 小时内必须完成排期、发布、返工决定或明确转为发布级备用库存；备用库存必须有 `inventory_ready: true`，不能长期停留为无归属成片。
 - 没有真实发布链接不得标记 `published`。
-- 没有 `decision` 和 `next_test` 不得标记 `reviewed`。
-- Idea 不受数量硬限制，但正式 `selected` 必须受产能限制。
+- `decision / next_test` 是否完整只表示复盘是否完成，不改变 `published` 阶段。
+- 候选池不受数量硬限制，但正式 `selected` 必须受产能限制。
 
 ## 9. 字段兼容与迁移映射
 
@@ -389,12 +379,12 @@ idea → selected → brief → scripted → assets_ready → producing → edit
 
 | 旧 `content_stage` | 新阶段 |
 |---|---|
-| `Brief` / `AI 初稿` / `等待人工润色` | `brief`；用 `script_status` 区分是否确认 |
-| `待制作` | 已确认脚本映射 `scripted`；素材齐全则 `assets_ready` |
-| `待发布` | 成片未排期为 `edited`；已设发布时间为 `scheduled` |
+| `idea` / `候选` | 回到候选池，不写 `content_stage`；只有重新获选才进入 `selected` |
+| `selected` / `brief` / `scripted` / `assets_ready` / `Brief` / `AI 初稿` / `等待人工润色` / `待制作` | `selected`；用 `script_status`、确认稿、素材清单和下一动作区分细节 |
+| `producing` / `制作中` | `producing` |
+| `edited` / `scheduled` / `待发布` / `已排期` | `ready`；排期信息保留在 `publish_date / scheduled_at` |
 | `已发布` | 有真实直链为 `published`；无直链则状态待确认，不自动迁移 |
-| `复盘中` | `published`，直到 decision/next_test 完整 |
-| `已复盘` | `reviewed`，前提是 decision/next_test 完整 |
+| `published` / `reviewed` / `复盘中` / `已复盘` | 有真实直链为 `published`；复盘信息保留在 `decision / next_test` |
 | `暂停` | `hold` |
 | 缺少 `content_stage` | 状态待确认，不从 `status` 或日期推断 |
 
@@ -402,23 +392,25 @@ idea → selected → brief → scripted → assets_ready → producing → edit
 
 ### 10.1 识别正在制作的内容
 
+主生产记录统一存放在 `07-content-production/` 的两个物理目录：`未发布/`（`selected / producing / ready / hold / cancelled` 或发布证据不完整）与 `已发布/`（`published` 且发布证据完整）。目录只做物理归档，不表达阶段；生命周期唯一真相源仍是 `content_stage`。
+
 1. 从 [[inbox-pengman/04-production/07-content-production/README]] 当前队列开始，不扫描所有历史 Idea。
 2. 打开候选主记录，核对真实脚本、素材、成片、排期和发布链接。
-3. 只有能明确落到 `selected` 至 `edited` 的内容才算当前 WIP；只有旧 `status` 或文件名日期的内容放入“状态待确认”。
-4. 已写好脚本但本周/下周不会制作：设为 `hold` 或退回 `idea`，记录脚本已存在，不占 `selected` 产能。
+3. 只有能明确落到 `selected / producing / ready` 的内容才算当前 WIP；只有旧 `status` 或文件名日期的内容放入“状态待确认”。
+4. 已写好脚本但本周/下周不会制作：设为 `hold` 或退回候选池，记录脚本已存在，不占 `selected` 产能。
 
 ### 10.2 区分两个周次
 
 - 本周已经有成片/排期并计划发布：放入 `Publishing This Week`。
 - 本周要继续推进、目标供下周发布：放入 `Producing for Next Week`。
-- 既没有本周发布日期，也没有进入未来两周产能的内容：留在 `idea`/`hold`，不放入两个执行清单。
+- 既没有本周发布日期，也没有进入未来两周产能的内容：留在候选池或 `hold`，不放入两个执行清单。
 
 ### 10.3 补旧字段
 
 - 只给当前 WIP 补 `pool`、`batch_id`、必要的 `expiry_date` 和新阶段。
 - 已发布历史内容不为迁移完整性机械补 `batch_id`。
 - Hot/Predictable 不知道有效期时先标“待确认”，确认前不得抢占排期。
-- 不把 `06-daily-content-recommendations` 的所有历史 Idea 转入 `selected`。
+- 不把 `02-daily-content-recommendations` 的所有历史 Idea 转入 `selected`。
 
 ### 10.4 第一批发布库存
 
@@ -428,18 +420,18 @@ idea → selected → brief → scripted → assets_ready → producing → edit
 - 至少完成 4 条低成本备用内容。
 - 再完成 2 条中等成本内容。
 - 周五排好下一周内容。
-- 至少保留 2 条未排期但可随时发布的 `edited + inventory_ready: true` 库存。
+- 至少保留 2 条未排期但可随时发布的 `ready + inventory_ready: true` 库存。
 
-首周优先选择已有脚本、事实稳定、模板成熟的 Evergreen；不以四账号全部发满为目标。第二周起再评估是否进入 8 条正式排期 + 2 条机动库存基线。
+首周优先选择已有脚本、事实稳定、模板成熟的 Evergreen；不以所有历史账号发满为目标。第二周起根据两个 active 账号的实际产能、数据和库存决定排期，不恢复旧 `8+2` 基线。
 
 ## 11. 被替代的旧规则
 
 以下规则自 2026-07-20 起废弃：
 
 - 每天从零生成 Route A/B/C 全量候选，并把日级候选作为默认生产起点。
-- 每天默认生成新的四账号生产组合；现在只需说明四账号当天的既定发布/推进/跳过状态。
+- 每天默认为所有历史账号生成新组合；现在只需说明当前 active 账号当天的既定发布、推进或跳过状态。
 - 用“今天选什么”替代周一产能与排期决策。
 - 用旧中文 `content_stage` 集合作为新记录阶段。
 - 把 `待发布` 同时当作“成片完成”和“已经排期”。
 
-仍然有效：四账号定位、品牌安全/文风、证据核验、最近 7–14 天去重、单条独立 `content_id`、双模型隔离、周报 `decision / next_test` 和真实发布链接规则。
+仍然有效：账号角色边界、品牌安全/文风、证据核验、最近 7–14 天去重、单条独立 `content_id`、双模型隔离、周报 `decision / next_test` 和真实发布链接规则。

@@ -40,14 +40,20 @@ constraints:
   - Candidate outputs from Claude and GPT remain candidates and may not alter confirmed facts
 script_status: 已确认
 confirmed_script_version: Claude-based compressed v2，经 Pengman 确认
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@filestarsx/photo/7663333677438438686"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 decision: 待观察
 next_test: Compare the correctly published photo post after 24–48 hours with the mistakenly published video version; treat format mismatch as a hypothesis until both links, timestamps and comparable metrics are available
 status: draft
 owner: Pengman
-updated: 2026-07-16
+updated: "2026-07-24"
+platform_post_id: "7663333677438438686"
+published_at: "2026-07-17T03:28:43.000Z"
+published_date: "2026-07-16"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # 2026-07-16 Messi × Yamal World Cup Final 内容生产记录

@@ -22,12 +22,19 @@ tags:
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池]]"
   - "[[inbox-pengman/04-production/07-content-production/2026-07-03 AI Host Video 2 制作方案]]"
-  - "[[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]"
-content_stage: 已发布
+  - "[[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]]"
+content_stage: "published"
+publish_match_post_id: "7662239701184597261"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设
-published_date: 2026-07-21
-updated: 2026-07-21
+published_date: "2026-07-13"
+updated: "2026-07-24"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7662239701184597261"
+platform_post_id: "7662239701184597261"
+published_at: "2026-07-14T04:43:48.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # 2026-07-14 Dreaming About Your Ex 视频制作方案

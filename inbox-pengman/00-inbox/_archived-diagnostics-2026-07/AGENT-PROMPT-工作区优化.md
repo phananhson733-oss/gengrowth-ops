@@ -1,3 +1,5 @@
+> **历史证据，不作为当前执行入口**；当前规则以 AGENTS、滚动周 SOP、当前周计划和单条主生产记录为准。
+
 # Agent Prompt: 优化 inbox-pengman 工作区
 
 你现在要优化 `/Users/pengman/gengrowth-ops/inbox-pengman/` 工作区，目标是让整个社媒运营系统更清晰、更易用。

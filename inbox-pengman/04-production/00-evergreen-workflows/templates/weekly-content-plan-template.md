@@ -4,12 +4,12 @@ project: astrologywiki
 type: weekly-content-plan-template
 status: active
 owner: Pengman
-updated: 2026-07-21
+updated: 2026-08-04
 ---
 
 # YYYY-Www 周度内容计划
 
-> 从本模板复制到 `04-production/04-weekly-content-plans/`。默认配额、内容池比例、WIP 和热点规则只引用 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]，不要在模板中另建默认配置。
+> 从本模板复制到 `04-production/03-weekly-content-plans/`。默认配额、内容池比例、WIP 和热点规则只引用 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]，不要在模板中另建默认配置。
 
 ## 0. Week Setup
 
@@ -37,7 +37,7 @@ updated: 2026-07-21
 
 | publish_date | content_id | title | account | pool | format | priority | content_stage | inventory/source | published_url | risk/next action |
 |---|---|---|---|---|---|---|---|---|---|---|
-|  |  |  |  | Evergreen/Predictable/Hot |  | P0/P1/P2 | scheduled/edited | 上周排期/备用库存 |  |  |
+|  |  |  |  | Evergreen/Predictable/Hot |  | P0/P1/P2 | ready | 用 `scheduled_at` / `inventory_ready` 区分 |  |  |
 
 ## 2. Producing for Next Week
 
@@ -47,15 +47,15 @@ updated: 2026-07-21
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |  |  |  |  |  |  | S/M/L | P0/P1/P2 | selected |  |  |  |  |  |
 
-## 3. Account Quota Check
+## 3. Active Account Allocation
 
-| account | 本周计划发布 | 本周实际发布 | 为下周生产 | 发布级库存 | 配额差异与原因 |
+| active account | 本周计划发布 | 本周实际发布 | 为下周生产 | 发布级库存 | 分工与原因 |
 |---|---:|---:|---:|---:|---|
-| ① AstrologyWiki 官方 |  |  |  |  |  |
-| ② AI 占星师 |  |  |  |  |  |
-| ③ 热点占星测试 |  |  |  |  |  |
-| ④ 普通占星爱好者 |  |  |  |  |  |
+| `@astrologywiki` |  |  |  |  |  |
+| `@miraaastrology` |  |  |  |  |  |
 | 合计 |  |  |  |  |  |
+
+> 暂停、退役或未启用账号不列入分配表；若本周提议启用新账号，先链接账号启用门的确认记录。
 
 ## 4. Pool Mix
 
@@ -67,11 +67,11 @@ updated: 2026-07-21
 | Predictable |  |  |  |  |
 | Hot |  |  |  |  |
 
-## 5. Hot Slot
+## 5. Hot / Flex Capacity
 
-- 预留账号：③ 热点占星测试 / 其他：
-- 预留发布日期：
-- 未出现合格热点时的 Evergreen 替补：
+- 可承接的当前 active 账号：
+- 可用机动时间：
+- 未出现合格热点时的既定用途：
 - 当前热点候选及得分：
 - 是否触发插入：否 / 是
 - 被替换的 `content_id`：
@@ -102,13 +102,13 @@ updated: 2026-07-21
 - [ ] 批量完成 Brief
 - [ ] 完成必要事实核验
 - [ ] 人工确认 Hook、核心承诺、CTA 和脚本
-- [ ] 已确认内容进入 `scripted`
+- [ ] 已确认内容写入 `script_status: 已确认`，`content_stage` 保持 `selected`
 - Tuesday output / blocker：
 
 ### Wednesday — Assets and Light Formats
 
 - [ ] 批量准备素材和授权/来源
-- [ ] 轻形式进入 `assets_ready` / `producing`
+- [ ] 轻形式素材准备完成后开始制作并进入 `producing`
 - [ ] slideshow、photo、字幕、B-roll 批量制作
 - [ ] `producing` 同时不超过 3 条
 - Wednesday output / blocker：
@@ -135,12 +135,12 @@ updated: 2026-07-21
 
 | content_id | title | account | pool | format | content_stage | inventory_ready | expiry/review date | scheduled? | notes |
 |---|---|---|---|---|---|---|---|---|---|
-|  |  |  | Evergreen |  | edited | true |  | no |  |
+|  |  |  | Evergreen |  | ready | true |  | no |  |
 
 - ① 当前发布级库存：
 - ② 当前发布级库存：
-- ③ 当前非时效发布级库存：
-- ④ 当前发布级库存：
+- `@astrologywiki` 当前发布级库存：
+- `@miraaastrology` 当前发布级库存：
 - 是否低于 SOP 最低线：
 - 是否超过未来两周成片上限：
 
@@ -153,7 +153,7 @@ updated: 2026-07-21
 ## 10. Friday Review
 
 - 本周计划发布 / 实际发布：
-- 本周计划生产 / 实际达到 edited 或 scheduled：
+- 本周计划生产 / 实际达到 ready：
 - 本周新增发布级库存：
 - 最大阻塞：
 - 哪个 Batch 最节省时间：

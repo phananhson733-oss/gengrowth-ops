@@ -89,7 +89,7 @@ updated: 2026-07-16
 │   ├── .gitkeep
 │   ├── README.md
 │   ├── content-direction-and-tools-research.md
-│   ├── four-account-tiktok-content-playbook.md
+│   ├── AstrologyWiki 社媒账号定位与内容路由 Playbook.md
 │   ├── social-seo-content-operations-framework.md
 │   ├── social-seo-fishbone-map.md
 │   └── 历史调研资料/
@@ -290,7 +290,7 @@ updated: 2026-07-16
 | 当前内容状态与最终稿 | 单条主生产记录 | 候选、共享 Prompt、README 只回链 |
 | 发布链接、周数据、`decision / next_test` | 对应 weekly digest | 生产记录不维护第二套周级数据 |
 | 公共表达、品牌安全、CTA | `astrologywiki-social-workflow/SKILL.md` | Daily SOP、旧工作流不再复制文风 |
-| 账号定位与形式路由 | `four-account-tiktok-content-playbook.md` | 策略总览只解释背景 |
+| 账号定位与形式路由 | `AstrologyWiki 社媒账号定位与内容路由 Playbook.md` | 策略总览只解释背景 |
 | 选题输入、站内承接、去重 | Daily SOP + Skill 强制执行边界 | Daily SOP 的旧可复用 Prompt 后续删除或改为链接 |
 | 双模型实验、人工反馈、L1–L5 | `Pengman 与 AI 内容润色协作说明.md` | Skill 只保留边界，生产模板只定义字段 |
 | 竞品数据 | 在线 Google Sheet | 本地 CSV 与研究稿只作历史证据 |
@@ -326,7 +326,7 @@ updated: 2026-07-16
 | `00-evergreen-workflows/` | SOP、模板、Skill | 保留 | 原路径，第一阶段不改名 | 43 个引用文件，直接控制生产 | 高 | README、AGENTS、主生产记录和 current-context |
 | `00/.../social-account-warmup-and-launch-workflow.md` | 账号启动/养号 | 迁移 | `07-account-assets/账号运营SOP/` | 不属于单条内容生产 | 中 | 00 README 及可能的任务文档 |
 | `00/.../daily-content-assistant-sop.md` | 输入、站内承接、去重、旧 Prompt | 合并/降权 | 仍在 `00`；删去已被 Skill 替代的 Prompt 前需确认 | 决策逻辑仍有用，但执行说明重复 | 高 | Skill、README、AGENTS |
-| `01.../four-account-tiktok-content-playbook.md` | 四账号路由 | 保留并迁入 SOP | `00-evergreen-workflows/` | 生产时直接调用的唯一账号路由 | 高 | Skill、路由说明、制作记录 |
+| `01.../AstrologyWiki 社媒账号定位与内容路由 Playbook.md` | 四账号路由 | 保留并迁入 SOP | `00-evergreen-workflows/` | 生产时直接调用的唯一账号路由 | 高 | Skill、路由说明、制作记录 |
 | `01.../content-direction-and-tools-research.md` | 平台/工具综合研究 | 迁移 | `05-调研资料/平台与策略/` | 决策证据，不是当前生产状态 | 中 | 04 README、鱼骨图、任务文档 |
 | `01.../social-seo-content-operations-framework.md` | 通用端到端运营框架 | 迁移并降权 | `05-调研资料/方法论/` | `status: draft`，与现行 Skill/SOP 重叠 | 中高 | 26 个路径引用集合中的一部分 |
 | `01.../social-seo-fishbone-map.md` | 总流程索引 | 合并后归档 | 根 README 已承担当前路由；原文移 `05-调研资料/历史流程/` | 避免两个总入口 | 中 | 04 README、周报 README、任务文档 |

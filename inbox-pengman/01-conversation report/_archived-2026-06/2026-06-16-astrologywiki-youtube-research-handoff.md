@@ -6,7 +6,7 @@ owner: Pengman
 type: conversation-handoff
 status: active
 related:
-  - inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
+  - inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md
   - inbox-pengman/01-conversation report/current-context.md
 ---
 
@@ -108,7 +108,7 @@ Shorts 不是压缩版系统视频，而是单点认知切片。
 
 主文档：
 
-[[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+[[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 已经完成的关键修改：
 

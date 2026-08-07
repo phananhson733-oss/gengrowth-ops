@@ -11,7 +11,7 @@ status: draft
 # 2026-07-06 起社媒内容数据分析
 
 > 这份文档只看 `2026-07-06` 起算的本周内容，不再把本周判断混在 `2026-07-03` 的阶段分析里。  
-> 口径：以 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md]] 和 [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md]] 为主，公开来源仅补内容链接和账号级数字；后台 analytics 仍统一记 `待补数据`。  
+> 口径：以 [[inbox-pengman/04-production/05-weekly-digests/2026-W28 本周已发布内容合集.md]] 和 [[inbox-pengman/04-production/05-weekly-digests/public-account-crawl-log.md]] 为主，公开来源仅补内容链接和账号级数字；后台 analytics 仍统一记 `待补数据`。  
 > 当前结论仅服务 AstrologyWiki 的 SEO / PV / 站内工具/主题页承接，不作为完整社媒投放复盘。
 
 ## 0. 本次更新说明
@@ -28,7 +28,7 @@ status: draft
   - TikTok `Haaland and Isabel's synastry` 公开播放刷新到 `373 plays`
   - TikTok `Venus in Virgo is receipt season` 公开播放刷新到 `310 plays`
   - TikTok `Your toxic trait according to your Moon sign` 公开播放刷新到 `294 plays`
-  - TikTok 另有 W29 新确认 `Fire Moon signs, did we get you?`，当前 `153 plays / 8 likes / 0 comments / 0 shares`，已另开 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md]]
+  - TikTok 另有 W29 新确认 `Fire Moon signs, did we get you?`，当前 `153 plays / 8 likes / 0 comments / 0 shares`，已另开 [[inbox-pengman/04-production/05-weekly-digests/2026-W29 本周已发布内容合集.md]]
   - Instagram 账号级仍可见 `0 followers / 0 following / 5 posts`
 - 本次仍未稳定补出的内容：
   - TikTok profile `12 videos` 与当前公开直达历史帖文数的口径核对

@@ -9,16 +9,21 @@ content_format: 9:16 非真人天象解释短视频（The Pattern 模式）
 series: This Week's Sky
 script_status: 已确认
 confirmed_script_version: Claude V1，经 Pengman 确认
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7663445797949721869"
 scheduled_publish_at: "2026-07-18T06:00:00-07:00"
-published_at: "2026-07-18T06:00:00-07:00"
+published_at: "2026-07-18T13:00:00.000Z"
 published_at_beijing: "2026-07-18T21:00:00+08:00"
 published_urls:
   - "https://www.tiktok.com/@astrologywiki/video/7663445797949721869"
 status: draft
 owner: Pengman
-updated: 2026-07-18
+updated: "2026-07-24"
+platform_post_id: "7663445797949721869"
+published_date: "2026-07-18"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Grand Alignment · July 19 — 视频制作方案

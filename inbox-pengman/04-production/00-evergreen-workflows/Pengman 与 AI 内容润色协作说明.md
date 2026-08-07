@@ -4,12 +4,84 @@ project: astrologywiki
 type: human-ai-content-workflow
 status: active
 owner: Pengman
-updated: 2026-07-20
+updated: 2026-08-04
 ---
 
 # Pengman 与 AI 内容选择、润色与学习协作说明
 
 > 本文是 Pengman 与 AI 进行双模型内容实验、候选选择、反馈、改稿、差异学习和规则升级的唯一详细协作规范。生产记录使用 [[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]]；Brief 字段和 `content_id` 口径见 [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]]。
+
+## 先选择协作路线
+
+| 路线 | 何时使用 | 产出 |
+|---|---|---|
+| **调研驱动的单稿流程** | 方向需要外部证据、社区语言或竞品机制，但不需要比较两份独立成稿 | 外部调研 → 总控冻结方向 → Claude 单稿 → 总控审稿 → Pengman 确认 |
+| **双模型内容实验** | Pengman 明确希望比较两种独立写法，且比较本身有实验价值 | 同一冻结包 → Claude 与 GPT 各写候选 → Pengman 选择 |
+
+两条路线都回到同一单条主生产记录，不建立模型各自的 Brief、状态表或生产队列。
+
+## 调研驱动的单稿流程
+
+这是当前 Scorpio × Virgo 已实际使用、可复用的标准链路：
+
+```text
+Perplexity / Gemini 调研
+→ 总控军师审证、去重并冻结内容方向
+→ Claude 依据同一冻结交接包写稿
+→ 总控军师检查事实、Hook、结构、口语自然度和系列重复
+→ Pengman 确认
+→ 写回同一主生产记录并进入制作
+```
+
+当前总控军师由 GPT-5.6 承担；以后模型版本变化时，沿用“总控军师”这个职责，不因版本变化另建流程。
+
+### 各方职责
+
+| 参与方 | 负责 | 不负责 |
+|---|---|---|
+| Perplexity / Gemini | 公开来源、Reddit/社区语言、关系机制、反例和来源链接；可并行调研，也可按任务只用其中一个 | 不决定最终方向，不直接把推断写成占星事实，不维护生产状态 |
+| 总控军师 | 检查链接与证据等级、合并重复模式、指出冲突和样本限制、与历史内容去重、冻结唯一核心机制和 Claude 交接包 | 不把两份调研机械拼接，不代替 Pengman 做最终品牌选择 |
+| Claude | 只依据冻结交接包生成 Hook、脚本、结构、Caption 等约定产出 | 不自行新增事实、改变核心机制或读取未冻结的调研全文 |
+| Pengman | 判断是否“对味”、确认脚本和制作投入；确认后进入正式制作 | 不需要重新整理来源或维护多套记录 |
+
+### 标准步骤
+
+1. **明确调研问题**：写清目标观众、账号、内容形式、需验证的机制、历史去重范围和禁止事项。
+2. **获取外部调研**：要求来源链接、查看日期、重复模式、单帖经历、反例、合理推断和样本限制。Reddit 自述只作社区语言与体验证据，不作因果证明。
+3. **总控审证**：把结论分为“多来源支持 / 单一案例 / 运营推断 / 待确认”；删去假链接、伪引用、刻板印象和与历史系列重复的机制。
+4. **冻结方向**：只保留一个核心机制、3 个以内生活细节、目标情绪、Hook 要求、历史高表现写法机制、禁止事项和证据缺口。
+5. **Claude 写稿**：Claude 只收到冻结包，不需要接收两份冗长调研全文；输出仍是待确认候选。
+6. **总控审稿**：检查强钩子、具体场景、美国口语自然度、公平呈现、事实边界、时长和系列差异；必要修改必须注明，不伪装成 Claude 原稿。
+7. **Pengman 确认**：只有 Pengman 明确采用后，才写 `script_status: 已确认`、`confirmed_script_version`；此时 `content_stage` 仍为 `selected`，实际开始制作才进入 `producing`。
+8. **记录与复盘**：主记录保存调研来源摘要、总控判断、冻结方向、Claude 原稿、总控修改和 Pengman 确认；发布后在周报填写 `decision / next_test`。
+
+### 冻结给 Claude 的交接包
+
+```yaml
+content_id:
+package_version: v1
+account:
+platform:
+target_audience:
+format:
+content_goal:
+core_mechanism:
+evidence_summary: []
+source_links: []
+historical_high_performance_mechanisms: []
+series_dedup_constraints: []
+mandatory_scenes: []
+target_emotion:
+hook_requirements:
+confirmed_facts: []
+prohibited_claims: []
+length:
+language:
+output_requirements:
+evidence_gaps: []
+```
+
+调研全文保留为过程证据；主记录只保存实际采用的来源、判断和冻结包，避免把文档变成长篇素材仓库。
 
 ## 双模型内容实验
 
@@ -130,12 +202,12 @@ Pengman 可以：
 
 | 实验阶段 | `content_stage` | `experiment_status` |
 |---|---|---|
-| 实验包已冻结 | `brief` | `ready` |
-| 两个模型生成中 | `brief` | `generating` |
-| 等待 Pengman 比较 | `brief` | `awaiting_comparison` |
-| 已选择但组合稿待确认 | `brief` | `selected_pending_confirmation` |
-| Pengman 明确确认最终稿 | `scripted` | `closed` |
-| 两个版本均否决 | `brief` | `rejected_returned_to_brief` |
+| 实验包已冻结 | `selected` | `ready` |
+| 两个模型生成中 | `selected` | `generating` |
+| 等待 Pengman 比较 | `selected` | `awaiting_comparison` |
+| 已选择但组合稿待确认 | `selected` | `selected_pending_confirmation` |
+| Pengman 明确确认最终稿 | `selected` | `closed` |
+| 两个版本均否决 | `selected` | `rejected_returned_to_brief` |
 
 Pengman 完整选择一个候选时，只有在明确说“确认采用”后，才填写 `script_status: 已确认`。若只是要求 Codex 组合或修改，组合稿仍等待 Pengman 确认。
 
@@ -236,7 +308,7 @@ AI 不得要求 Pengman 重新按模板填写已经用自然语言表达清楚�
 - Pengman 的原话进入“Pengman 原始反馈”。
 - AI 根据建议生成的版本进入“AI 根据人工建议生成的第二版”，不能伪装成“人工润色稿”。
 - “人工润色稿”只保存 Pengman 实际写出的完整版本；Pengman 若确认采用 AI 版本，应标记为“AI 第 N 版，经 Pengman 确认”，不得伪装成人工撰写。
-- Pengman 明确确认采用 AI 版本后，记录 `script_status: 已确认` 和 `confirmed_script_version`；即使没有完整人工稿，也可进入 `content_stage: scripted`。
+- Pengman 明确确认采用 AI 版本后，记录 `script_status: 已确认` 和 `confirmed_script_version`；即使没有完整人工稿，`content_stage` 仍保持 `selected`，实际开始制作时进入 `producing`。
 - “不喜欢但暂时说不清”是当前稿弱信号，不自动成为候选偏好。
 
 ## 修改尺度：L1–L5
@@ -261,7 +333,7 @@ L3 与 L4 的判断标准：用户问题、内容承诺或账号/形式路由只
 6. 修订受影响的 Brief 字段。
 7. 生成独立的“AI 根据人工建议生成的第二版”。
 8. 区分当前内容要求、系列规则、账号/平台规则和个人表达偏好。
-9. 没有 Pengman 完整人工稿且 Pengman 尚未确认任何 AI 版本时，保持 `content_stage: brief` 且 `script_status: 待确认`；若已明确确认采用 AI 版本，则标记 `script_status: 已确认`，记录确认版本并进入 `content_stage: scripted`。
+9. 没有 Pengman 完整人工稿且 Pengman 尚未确认任何 AI 版本时，保持 `content_stage: selected` 且 `script_status: 待确认`；若已明确确认采用 AI 版本，则标记 `script_status: 已确认` 并记录确认版本，`content_stage` 仍保持 `selected`。
 10. 单次反馈不直接修改长期 Skill。
 
 ## content_id 边界

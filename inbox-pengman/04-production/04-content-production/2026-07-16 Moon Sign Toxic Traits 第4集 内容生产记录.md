@@ -56,9 +56,9 @@ scheduled_timezone: America/Los_Angeles
 scheduled_publish_at_beijing: "2026-07-16T22:45:00+08:00"
 scheduled_platform: TikTok
 scheduled_account: AstrologyWiki 官方账号
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7663039564482710798"
-published_at: "2026-07-16T07:45:00-07:00"
+published_at: "2026-07-16T14:45:00.000Z"
 published_at_beijing: "2026-07-16T22:45:00+08:00"
 published_urls:
   - "https://www.tiktok.com/@astrologywiki/video/7663039564482710798"
@@ -67,7 +67,12 @@ decision: 待观察
 next_test: 在不改变 “Your toxic trait” 系列承诺的前提下，测试剩余三星座的共鸣度并继续使用 Moon report CTA
 status: draft
 owner: Pengman
-updated: 2026-07-16
+updated: "2026-07-24"
+platform_post_id: "7663039564482710798"
+published_date: "2026-07-16"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Moon Sign Toxic Traits 第 4 集
@@ -78,7 +83,7 @@ updated: 2026-07-16
 - **形式判断**：继续使用 17–18 秒纯字幕短视频，沿用前三集的星座连线图、字幕节奏和工具截图 CTA，不改 Canva / CapCut / Buffer 流程。
 - **内容承诺**：直接指出 Cancer、Libra、Aquarius Moon 各自最典型的 toxic trait；心理解释只能支撑尖锐行为描述，不能取代 toxic trait 主题。
 - **上一轮回流**：虽然 [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]] 提供了 Hook 测试信号，但本条首先是已建立系列的第 4 集。Pengman 已明确纠偏：应延续上一期 “Your toxic trait” 的内容承诺，而不是改成 “Ways to protect yourself”。
-- **规则来源**：公共表达以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] 为准；账号路由读取 [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]；制作读取 [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]。
+- **规则来源**：公共表达以 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] 为准；账号路由读取 [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]]；制作读取 [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow]]。
 
 ## 竞品证据与边界
 

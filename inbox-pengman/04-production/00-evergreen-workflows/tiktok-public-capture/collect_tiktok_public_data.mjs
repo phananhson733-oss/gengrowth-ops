@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 import { saveLocalHistory, syncGoogleSheets } from "./persistence.mjs";
+import { reconcileProductionRecords } from "./reconcile_published_content.mjs";
 
 const usernames = ["astrologywiki", "shirley527146", "miraaastrology", "filestarsx"];
 const fromRaw = process.argv.includes("--from-raw");
@@ -378,6 +379,26 @@ const googleSheets = await syncGoogleSheets({
   scriptDir,
 });
 
+let productionSync;
+try {
+  const report = await reconcileProductionRecords({
+    dbPath: localHistory.database_path,
+    vaultRoot: path.join(repoRoot, "inbox-pengman"),
+    checkedAt: capturedAt,
+    reportPath: path.join(outputDir, "publish_sync_" + captureDate + ".json"),
+  });
+  productionSync = {
+    status: "success",
+    counts: report.counts,
+    report: path.join(outputDir, "publish_sync_" + captureDate + ".json"),
+  };
+} catch (error) {
+  productionSync = {
+    status: "failed",
+    error: error instanceof Error ? error.message : String(error),
+  };
+}
+
 const summary = {
   run_id: localHistory.run_id,
   captured_at: capturedAt,
@@ -395,6 +416,7 @@ const summary = {
   errors,
   local_history: localHistory,
   google_sheets: googleSheets,
+  production_sync: productionSync,
   files: {
     xlsx: xlsxPath,
     accounts_csv: path.join(outputDir, "accounts_" + captureDate + ".csv"),

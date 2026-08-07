@@ -11,15 +11,16 @@ pillar: Scorpio psychology / silence as risk assessment / vulnerability avoidanc
 format: AI Host
 effort: M
 priority: P0
-content_stage: 已完成待发布
+content_stage: "published"
+publish_match_post_id: "7665662953739324686"
 script_status: humanized
 publish_date: 2026-W31
 deadline: 2026-07-25
 hook: Scorpio won't tell you they're hurt. They'll just… stop talking. And you'll think everything is fine.
 source_evidence:
   - "[[inbox-pengman/09-reports/miraaastrology-strategic-analysis-report]]"
-  - "[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Silent Devotion AI口播 内容生产记录]]"
-  - "[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Cancer Silence AI口播 内容生产记录]]"
+  - "[[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Silent Devotion AI口播 内容生产记录]]"
+  - "[[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Cancer Silence AI口播 内容生产记录]]"
   - 选题来源：周四7/24每日选题推荐 — Proven pattern 延续测试
 cta: 本轮继续无口播 CTA
 batch_id: 2026-W30-aihost-script-03
@@ -27,10 +28,17 @@ decision: 延续 Scorpio 防御行为系列，测试"沉默 = 风险评估"角�
 next_test: 冻结主播、声音、时长、背景、字幕和无口播 CTA，测试"沉默≠不在乎，沉默=脆弱性评估"是否获得高评论数（目标>8条）
 status: draft
 owner: Pengman
-updated: 2026-07-23
+updated: "2026-07-24"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设 / @miraaastrology
 performance_notes: 延续 Scorpio 防御行为系列，测试"沉默 = 风险评估"角度
+published_url: "https://www.tiktok.com/@miraaastrology/video/7665662953739324686"
+platform_post_id: "7665662953739324686"
+published_at: "2026-07-23T13:57:00.000Z"
+published_date: "2026-07-23"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播第六条 — 统一 Brief 与脚本

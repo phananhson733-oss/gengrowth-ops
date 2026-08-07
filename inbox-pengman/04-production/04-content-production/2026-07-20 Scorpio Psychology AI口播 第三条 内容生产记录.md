@@ -16,7 +16,7 @@ effort: M
 series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude v1，经 Pengman 确认采用，无异议
-content_stage: published
+content_stage: "published"
 production_status: 已制作完成
 scheduled_at: "2026-07-20T07:30:00-07:00"
 scheduled_timezone: America/Los_Angeles
@@ -28,7 +28,13 @@ decision: 继续受控验证；第三条带来 7 个新关注，但样本量仍�
 next_test: 保持主播、声音、时长、背景、字幕和无口播 CTA；下一批做 Scorpio #4 + Cancer Sun #1，使用匹配 24/72 小时窗口区分题材红利与形式红利
 status: draft
 owner: Pengman
-updated: 2026-07-21
+updated: "2026-07-24"
+platform_post_id: "7664501951190600973"
+published_at: "2026-07-20T14:38:00.000Z"
+published_date: "2026-07-20"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播第三条 — 统一 Brief 与脚本

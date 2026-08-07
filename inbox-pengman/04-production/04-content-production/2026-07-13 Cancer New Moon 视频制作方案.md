@@ -7,7 +7,7 @@ project: AstrologyWiki
 status: draft
 content_id: aw-cancer-new-moon-20260714
 content_format: 9:16 非真人天象解释短视频
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7661912847693188365"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 decision: 待观察
@@ -29,6 +29,13 @@ tags:
 related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池]]"
   - "[[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis]]"
+platform_post_id: "7661912847693188365"
+published_at: "2026-07-13T15:30:00.000Z"
+published_date: "2026-07-13"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
+updated: "2026-07-24"
 ---
 
 # 2026-07-14 Cancer New Moon 视频制作方案

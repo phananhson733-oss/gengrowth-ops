@@ -4,7 +4,7 @@ project: astrologywiki
 type: personal-reference
 status: reference
 owner: Pengman
-updated: 2026-07-21
+updated: 2026-08-04
 canonical: false
 ---
 
@@ -19,7 +19,7 @@ canonical: false
 阶段二：建立并确认 Brief → Claude / GPT 使用同一冻结包独立写稿
 ```
 
-候选研究只在周一、明确重排、确认补库或合格 Hot 时发生。候选证据可放在 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]；选中后必须在 [[inbox-pengman/04-production/07-content-production/README]] 建立独立 `content_id` 和主生产记录。
+候选研究只在周一、明确重排、确认补库或合格 Hot 时发生。候选证据可放在 [[inbox-pengman/04-production/02-daily-content-recommendations/README]]；选中后必须在 [[inbox-pengman/04-production/07-content-production/README]] 建立独立 `content_id` 和主生产记录。
 
 ## 1. 从周计划选中内容
 
@@ -66,7 +66,7 @@ Brief 确认，可以冻结双模型实验包。
 确认采用这个版本，进入制作。
 ```
 
-才填写 `script_status: 已确认` 并进入 `content_stage: scripted`。
+才填写 `script_status: 已确认` 和确认版本；`content_stage` 仍保持 `selected`，实际开始制作时进入 `producing`。
 
 ## 5. 四条边界
 

@@ -209,11 +209,11 @@ AstrologyWiki 仅作为使用案例，**不写入 Skill 本体**。
 
 调用这三个 Skill 处理 AstrologyWiki 内容时，必须先读取以下权威文件：
 
-1. 当前周计划：`inbox-pengman/04-production/04-weekly-content-plans/`
+1. 当前周计划：`inbox-pengman/04-production/03-weekly-content-plans/`
 2. 单条内容主生产记录：`inbox-pengman/04-production/07-content-production/`
-3. 最近发布周报：`inbox-pengman/04-production/05-weekly-published-content-digests/`
-4. 四账号 Playbook
-5. 当前有效的 AstrologyWiki 社媒 Skill/SOP（`social-daily` 等）
+3. 最近发布合集：`inbox-pengman/04-production/05-weekly-digests/`
+4. 当前账号定位与内容路由 Playbook（当前只启用官号与 Miraa）
+5. 当前有效的 AstrologyWiki 社媒 Skill/SOP（`astrologywiki-social-workflow` 与滚动周 SOP）
 6. TikTok 抓取数据和实际后台数据
 7. 当前公开来源和竞品证据
 
@@ -230,8 +230,8 @@ AstrologyWiki 现有业务规则和周计划
 
 - 自动将 Idea 提升为 `selected`
 - 修改已经锁定的周计划
-- 强迫四个账号每天发布
-- 根据通用内容比例覆盖四账号定位
+- 强迫所有历史账号每天发布或自行恢复暂停账号
+- 根据通用内容比例覆盖当前账号定位和实际产能
 - 根据固定 Benchmark 判断成功或失败
 - 自动发布内容
 

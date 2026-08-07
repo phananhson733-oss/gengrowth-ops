@@ -9,19 +9,23 @@ content_format: 9:16 AI 口播视频（新 AI 形象 + 深色背景 + 大字幕�
 series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude 第二版，经 Pengman 确认
-content_stage: 已发布
-published_url: ""
+content_stage: "published"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7663410404512566542"
 legacy_publish_claim: 2026-07-17T08:01:00-07:00；旧记录称已发布，但尚无真实直链，补链后才可改为 published
-published_at: 2026-07-17T08:01:00-07:00
+published_at: "2026-07-17T14:56:00.000Z"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 status: draft
 owner: Pengman
-updated: 2026-07-21
+updated: "2026-07-24"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设
 scheduled_at: 2026-07-17T08:01
 scheduled_timezone: America/Los_Angeles
-published_date: 2026-07-17
+published_date: "2026-07-17"
+platform_post_id: "7663410404512566542"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播 — 统一 Brief
@@ -42,7 +46,7 @@ published_date: 2026-07-17
 
 - **账号判断**：② AI 占星师人设。按 Playbook 定位："可信的占星 × 心理学 AI 分析师，不做泛星座标签，做心理机制解读"。本条正好是"单一 placement + 心理机制"形式，完全匹配 2 号定位。
 - **本次调用的 Playbook / SOP / Skill**：
-  - [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md]]（2 号定位和红线）
+  - [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md]]（2 号定位和红线）
   - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]（选题规则）
   - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md]]（Copy Style）
 - **读取的上一轮 decision / next_test**：

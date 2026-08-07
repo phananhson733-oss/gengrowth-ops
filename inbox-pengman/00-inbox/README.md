@@ -14,7 +14,7 @@ updated: 2026-07-21
 ## 处理规则
 
 1. 新输入先记录来源、日期和下一步。
-2. 可用但未进入产能的想法保持 Idea；周一候选研究、合格 Hot 或明确重排证据进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]。
+2. 可用但未进入产能的想法保持 Idea；周一候选研究、合格 Hot 或明确重排证据进入 [[inbox-pengman/04-production/02-daily-content-recommendations/README]]。
 3. Pengman 确认并纳入未来两周产能后，使用 [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]] 在 [[inbox-pengman/04-production/07-content-production/README]] 建立主生产记录。
 4. 不从本目录直接标记 `selected`，也不在这里保存最终脚本、发布链接或复盘结论。
 5. 每周清理一次：归类到周计划/候选证据/主生产记录，或确认无需保留。

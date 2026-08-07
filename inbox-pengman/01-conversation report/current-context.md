@@ -1,7 +1,7 @@
 ---
 title: Pengman 当前协作上下文
 date: 2026-06-15
-updated: 2026-07-21
+updated: 2026-08-04
 owner: Pengman
 type: conversation-context
 status: active
@@ -19,9 +19,9 @@ status: active
 - **不主要负责**：完整 SEO、站内内容生产、系统性外链建设，以及 GA4/GSC 埋点和产品侧商业化指标维护；但需负责社媒 CTA、短链及 social→工具使用/注册/购买的转化路径与结果追踪。
 - **团队北极星**：Q3 分成后日流水持续达到 $1,000/天；流量层以导向优先变现产品的 qualified UV 为主口径，不以 PV 考核。
 - **Pengman 社媒目标**：以 reach 为主控，保障 social→工具使用/注册/购买的转化路径，记录 assisted qualified UV，探索增长点并沉淀 SOP。
-- **当前重点**：已切换为滚动周机制。本周主要发布上周库存，本周生产下周内容；2026-W30 从周二试跑，当前聚焦 @miraaastrology 的同形式 Sun Sign 对照：Scorpio #4 与 Cancer Sun #1。
+- **当前运行**：滚动周机制（本周发布上周库存、本周生产下周内容）。当前行动任务与排期以**当前周计划**为准；实时内容阶段以单条主生产记录的 `content_stage` 为准；当前决策以 [[inbox-pengman/04-production/00-evergreen-workflows/ai-advisor/当前状态与决策记录|当前状态与决策记录]] 为准。
 - **当前数据决定**：Pengman 已于 2026-07-16 删除 GSC reports 并暂停使用；当前日更、Brief、证据预检和权限检查均不读取或索取 GSC，缺少 GSC 不构成阻塞。
-- **任务入口**：[[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
+- **任务入口**：[[inbox-pengman/04-production/03-weekly-content-plans/README|周度内容计划入口]]（当前行动任务由每周计划承接；单条进度以 `07-content-production` 主记录为准）
 
 ---
 
@@ -35,15 +35,19 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 通过平台内容扩大目标用户 reach，为当前优先变现产品带来 assisted qualified UV，并保障 social→工具使用/注册/购买的可追踪转化；AstrologyWiki 是当前主要项目。
 - 将用户问题、平台反馈和有效主题回传给 SEO / 内容同事。
 
-当前任务主文档：
+当前任务主入口：
 
-- [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
+- [[inbox-pengman/04-production/03-weekly-content-plans/README|周度内容计划入口]]
+
+历史职责梳理（已归档）：
+
+- [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/0615AstrologyWiki 内容运营与增长任务梳理.md]]
 
 相关个人调研：
 
-- [[inbox-pengman/05-调研资料/历史调研/海外营销内容平台以及思考.md]]
-- [[inbox-pengman/05-调研资料/历史调研/各多媒体平台具体内容调研.md]]
-- [[inbox-pengman/06-tasks/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
+- [[inbox-pengman/02-调研资料/历史调研/海外营销内容平台以及思考.md]]
+- [[inbox-pengman/02-调研资料/历史调研/各多媒体平台具体内容调研.md]]
+- [[inbox-pengman/02-调研资料/产品体验与反馈/AstrologyWiki 产品体验与问题记录/AstrologyWiki 产品体验.md]]
 
 ## 2. 已确认的职责边界
 
@@ -107,7 +111,7 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 - 2026-06-15：将任务从泛化的“SEO / 内容增长执行”收窄为“海外内容运营 / 营销执行”。
 - 2026-06-15：确认完整 SEO、系统外链建设及站内数据维护不属于 Pengman 的主要职责。
 - 2026-06-15：当前按平台账号从零搭建处理，但注册前需核查历史账号。
-- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档现在作为早期 YouTube、Shorts、平台优先级和首轮实验方案的历史调研资料。
+- 2026-06-16：基于已有仓库文档，新增站外内容调研/方案初稿：[[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]。该文档现在作为早期 YouTube、Shorts、平台优先级和首轮实验方案的历史调研资料。
 - 2026-06-16：确认 Reddit 优先级应拆分：**用户研究 P0，内容分发 / 宣传 P3**。Reddit 适合收集真实问题、社区语言和 FAQ，不应作为首轮主发布或导流渠道。文档中已将其定位为“Research radar, not distribution channel / 调研雷达，不是扩音器”。
 - 2026-06-16：确认站外选题应与 SEO 关键词/主题集群关联：可以、也应该从 SEO 关键词里选题，但不能把关键词原样变成社媒标题；需要按平台语境改写，并绑定对应 Wiki / Article / Tool 页面。
 - 2026-06-16：完成 Birth Chart / Natal Chart YouTube 长视频第一轮调研，已记录 3 个样本：The Astrology Podcast、The Gem Goddess、Mastering the Zodiac。当前判断：Birth Chart 应进入 YouTube P0 首批内容，作为频道“基建视频”。首发视频建议以 Mastering the Zodiac 的“剥洋葱”结构为主要母版，融合 The Gem Goddess 的反宿命/free will 口径和 The Astrology Podcast 的专业克制。
@@ -123,13 +127,13 @@ Pengman 当前主要负责 **AstrologyWiki 的海外内容运营 / 营销执行*
 ## 7. 2026-07-21 当前内容生产机制
 
 - 周度权威：[[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]。
-- 当前计划：[[inbox-pengman/04-production/04-weekly-content-plans/2026-W30 周度内容计划]]。
-- 日常 AI 只读取周计划、推进既定内容、检查阻塞/过期/库存并有限检查热点；不再每天从零生成四账号选题。
-- 周一候选、合格 Hot 或明确重排证据进入 [[inbox-pengman/04-production/06-daily-content-recommendations/README]]；Pengman 确认进入未来两周产能后，才在 [[inbox-pengman/04-production/07-content-production/README]] 建立主记录并设为 `selected`。
-- 内容生命周期唯一使用 `content_stage`：`idea → selected → brief → scripted → assets_ready → producing → edited → scheduled → published → reviewed`，补充 `hold / cancelled`。仓库 `status` 不代表生产阶段。
+- 周计划入口：[[inbox-pengman/04-production/03-weekly-content-plans/README|周度内容计划入口]]（读取当前周 `YYYY-Www` 文件；不以 W30 为当前状态）。
+- 日常 AI 只读取周计划、推进既定内容、检查阻塞/过期/库存并有限检查热点；不再每天从零为所有历史账号生成选题。当前只聚焦 `@miraaastrology` 与 `@astrologywiki`。
+- 周一候选、合格 Hot 或明确重排证据进入 [[inbox-pengman/04-production/02-daily-content-recommendations/README]]；Pengman 确认进入未来两周产能后，才在 [[inbox-pengman/04-production/07-content-production/README]] 建立主记录并设为 `selected`。
+- 内容生命周期唯一使用 `content_stage`：`selected → producing → ready → published`，补充例外 `hold / cancelled`。候选在被选中前留在候选池；脚本确认、定时和复盘分别由专用字段表达。仓库 `status` 不代表生产阶段。
 - 当前 @miraaastrology 定位保持“AI 占星师 × 单一 Sun Sign/placement × 具体关系行为 × 深层心理解释”；Scorpio 是首个方向性验证题材，不把账号锁死成 Scorpio-only。
 - Scorpio #3 后台快照：525 views、3h45m35s total play time、26.2s average watch、17.25% full watch、7 new followers；样本积极但不足以形成永久账号结论。
-- 下一轮最小对照：[[inbox-pengman/04-production/07-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]] 与 [[inbox-pengman/04-production/07-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]。固定 AI 主播、voice、深色背景、字幕、约 55–60 秒、无 3 秒品牌 intro、无 spoken CTA；主要只改变 Sun Sign 和心理机制。
+- 下一轮最小对照：[[inbox-pengman/04-production/04-content-production/2026-07-21 Scorpio Questions AI口播 内容生产记录]] 与 [[inbox-pengman/04-production/04-content-production/2026-07-21 Cancer Sun Forgiveness AI口播 内容生产记录]]。固定 AI 主播、voice、深色背景、字幕、约 55–60 秒、无 3 秒品牌 intro、无 spoken CTA；主要只改变 Sun Sign 和心理机制。
 - Cancer Moon 不再作为本轮对照，因为会同时改变星座与 placement 认知门槛。Moon Sign 科普优先放官方账号；miraa 以后只有在形成稳定断言式样本或持续出现用户需求后再评估。
-- 没有真实 `published_url` 不得进入 `published`；没有 `decision` 和 `next_test` 不得进入 `reviewed`。
+- 没有真实 `published_url` 不得进入 `published`；复盘完成后填写 `decision` 和 `next_test`，`content_stage` 仍保持 `published`。
 - 竞品事实优先读在线来源或本轮直接核验；本地旧快照和旧日级候选只作历史证据。

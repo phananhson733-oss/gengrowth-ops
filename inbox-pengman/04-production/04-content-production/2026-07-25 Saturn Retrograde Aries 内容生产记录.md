@@ -8,22 +8,32 @@ platform:
   - TikTok
 content_format: 9:16 非真人天象短视频（Transit Explainer）
 series: This Week's Sky
-script_status: 待确认
-content_stage: 构思中
+script_status: 已确认
+content_stage: "published"
 pool: Predictable
 pillar: Saturn Rx / Aries cycle
 effort: M
 priority: P2
 batch_id: 2026-W30-astrologywiki-transit-01
-planned_publish: 2026-07-26
+publish_date: 2026-07-24
+planned_publish: 2026-07-24
 expiry_date: 2026-08-02
 deadline: 2026-07-25
 cta: 有（延续 Sun Enters Leo 的 CTA 测试）
 status: draft
 owner: Pengman
-updated: 2026-07-25
+updated: "2026-07-27"
 scheduled_platform: TikTok
 scheduled_account: ① AstrologyWiki 官方
+scheduled_timezone: America/Los_Angeles
+schedule_source: Pengman 已确认在 TikTok 完成定时；精确时间待补
+published_url: "https://www.tiktok.com/@astrologywiki/video/7665989928840367374"
+platform_post_id: "7665989928840367374"
+published_at: "2026-07-24T13:35:00.000Z"
+published_date: "2026-07-24"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-07-28T02:58:31.732Z"
 ---
 
 # Saturn Retrograde in Aries — 视频制作方案

@@ -15,8 +15,8 @@ updated: 2026-07-09
 
 | 文件 | 内容 | 状态 |
 |---|---|---|
-| [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]] | 账号基础信息、bio、链接 | draft |
-| [[inbox-pengman/07-account-assets/社媒账号标准化启动准备.md]] | 重新标准化启动：手机/IP/购号流程、账号数量口径、待确认事项 | draft |
+| [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md]] | 账号基础信息、bio、链接 | draft |
+| [[inbox-pengman/05-account-assets/社媒账号标准化启动准备.md]] | 重新标准化启动：手机/IP/购号流程、账号数量口径、待确认事项 | draft |
 
 ## 相关 Workflow
 

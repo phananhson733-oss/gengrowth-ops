@@ -13,4 +13,4 @@ updated: 2026-07-16
 
 ## 当前文件
 
-- [[inbox-pengman/05-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]：Perplexity / Tavily + X 内容生产工作流调研。
+- [[inbox-pengman/02-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md]]：Perplexity / Tavily + X 内容生产工作流调研。

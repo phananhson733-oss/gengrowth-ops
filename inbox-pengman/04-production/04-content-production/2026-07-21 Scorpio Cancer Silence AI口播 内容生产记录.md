@@ -11,7 +11,7 @@ pillar: Scorpio × Cancer / mutual silence / relationship dynamics
 format: AI Host
 effort: M
 priority: P1
-content_stage: 已发布
+content_stage: "published"
 script_status: 待确认
 publish_date: 2026-W31 待排
 deadline: 2026-07-25
@@ -27,13 +27,19 @@ decision: Pengman 确认选题1（沉默博弈）进入脚本
 next_test: 首个配对内容测试；冻结主播、声音、时长、背景、字幕和无口播 CTA，新增变量为"双星座视角"
 status: draft
 owner: Pengman
-updated: 2026-07-21
+updated: "2026-08-02"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设 / @miraaastrology
 scheduled_at: 2026-07-21T12:26
 scheduled_timezone: America/Los_Angeles
 performance_notes: Pengman 确认选题1（沉默博弈）进入脚本
-published_date: 2026-07-21
+published_date: "2026-07-21"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7664915039442226445"
+platform_post_id: "7664915039442226445"
+published_at: "2026-07-21T19:26:00.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio × Cancer 沉默博弈 AI 口播 — 统一 Brief 与脚本

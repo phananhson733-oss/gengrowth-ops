@@ -22,7 +22,7 @@ owner: Pengman
 
 ## 使用边界
 
-- 当前执行优先读 [[inbox-pengman/04-production/04-weekly-content-plans/README]] 和当前周计划。
+- 当前执行优先读 [[inbox-pengman/04-production/03-weekly-content-plans/README]] 和当前周计划。
 - 候选出现在本目录不代表 `selected`。
 - AI 不得擅自把 Idea 提升到 `selected`，也不得增加超出周度产能的新任务。
 - Pengman 确认选中并纳入未来两周产能后，才在 `07-content-production` 建独立 `content_id` 和主生产记录。
@@ -46,8 +46,8 @@ owner: Pengman
 
 ## 当前历史输出
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-17 每日选题池.md]] — 历史综合候选池；日期需复核。
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池.md]] — 历史指定热点候选池。
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-17 每日选题池.md]] — 历史综合候选池；日期需复核。
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-16 世界杯决赛图文选题池.md]] — 历史指定热点候选池。
 - 其余日级文件继续保留；早期含脚本的混合格式不再复制。
 
-历史过程稿见 [[inbox-pengman/04-production/06-daily-content-recommendations/已合并旧稿/README]]。GSC 当前暂停，不作为输入。
+历史过程稿见 [[inbox-pengman/04-production/02-daily-content-recommendations/已合并旧稿/README]]。GSC 当前暂停，不作为输入。

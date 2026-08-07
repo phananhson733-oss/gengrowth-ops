@@ -2,7 +2,7 @@
 title: Pengman Inbox Agent Rules
 type: agent-ops
 agent: ops
-updated: 2026-07-21
+updated: 2026-08-04
 ---
 
 # AGENTS.md - Pengman Inbox
@@ -25,21 +25,37 @@ updated: 2026-07-21
 - 打开网页、搜索、阅读、截图和提取公开信息属于默认允许的只读动作。发布内容、发送消息、提交表单、上传文件、修改账号、付费或其他对外写入动作，仍须 Pengman 明确要求，并遵守操作时确认规则。
 - 页面打不开时记录具体失败层级（抓取、应用内浏览器、Chrome、登录或风控），再请求 Pengman 提供正文、截图或 PDF；不要把某一种访问方式失败等同于所有浏览器能力不可用。
 
-## 当前内容生产权威
+## 当前资料与内容生产权威
 
 按以下顺序判断：
 
-1. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
-2. 当前文件：`04-production/04-weekly-content-plans/YYYY-Www 周度内容计划.md`
-3. 涉及内容的 `07-content-production` 单条主生产记录
-4. 对应周的 `05-weekly-published-content-digests`
-5. 四账号 Playbook 和专项制作 SOP
+1. 当前 `inbox-pengman/AGENTS.md`
+2. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
+3. 当前文件：`04-production/03-weekly-content-plans/YYYY-Www 周度内容计划.md`
+4. 涉及内容的 `04-production/07-content-production` 单条主生产记录
+5. 对应周的 `04-production/05-weekly-digests` 和 `07-reports`
+6. 当前账号定位与内容路由 Playbook 和专项制作 SOP
+
+更具体、更近期、离执行现场更近的来源优先。当前周计划说明本周计划；单条主生产记录说明内容的实时阶段。二者冲突时，指出冲突并以单条主记录的 `content_stage` 判断当前阶段，不建立平行状态。
 
 默认机制是：本周发布上周库存，本周生产下周内容。周一锁定产能、选题、账号、形式、排期和 Batch；周二至周四批量生产；周五质检、排期、库存和复盘；每天只执行计划并有限检查热点。
 
+W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时例外，证据位于 `04-production/03-weekly-content-plans/2026-W32 周度内容计划.md`；不得将其自动固化为后续标准周规则。
+
+### 所有工作区对话的公共规则
+
+- `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件或 dispatch。
+- 当前生命周期只使用 `selected → producing → ready → published`；`hold / cancelled` 仅用于例外。脚本确认写入 `script_status`，定时信息写入 `scheduled_at / publish_date`，复盘写入 `decision / next_test`，不得再为这些动作另建生命周期阶段。候选在被人工选中前留在候选池，不写 `content_stage: idea`。
+- 缺少真实 `published_url`、平台 ID 或实际发布时间时，不把 `published` 表述为完整核验发布；应明确写成“主记录标记 published，发布证据待补”。
+- `tools/internal/skills/social-daily/SKILL.md` 是旧版每日批量生产流程，不再是当前执行入口；不得用它覆盖滚动周 SOP。
+- 输出和记录必须区分“已核验事实”“运营推断”“待确认项”；证据不足时不自行补全。
+- 新增文件、Skill、工作流或自动化前，先检查现有入口、主记录、SOP、Skills 和工具是否已经提供同类能力。
+- 不默认创建第二套状态表、内容日历、生产队列、工作流或项目管理系统；当前冲突应回到现有权威文件解决。
+- 描述工具和自动化时必须区分：**有文档**、**做过试验**、**已部署**、**有近期运行证据**。只有存在近期成功日志、数据库记录、同步结果或可核验输出时，才能声称当前实际运行。
+
 普通周二至周五不得：
 
-- 每天从零生成四账号选题；
+- 每天从零为所有历史账号生成选题；
 - 擅自把 Idea 提升为 `selected`；
 - 增加超出未来两周产能的任务；
 - 因没有合格热点而推翻周一计划。
@@ -53,7 +69,7 @@ updated: 2026-07-21
 - Pengman 确认补充发布库存；
 - 需要评估一个可能达到门槛的 Hot 项目。
 
-文件进入 `04-production/06-daily-content-recommendations/`，但该目录名仅为兼容旧链接；不再作为每日默认入口。
+文件进入 `04-production/02-daily-content-recommendations/`，但该目录名仅为兼容旧链接；不再作为每日默认入口。
 
 ### Evidence Preflight
 
@@ -62,7 +78,7 @@ updated: 2026-07-21
 - Weekly Rolling SOP 和当前周计划；
 - 最近发布周报；
 - 当前生产队列；
-- 四账号 Playbook；
+- 当前账号定位与内容路由 Playbook；
 - 与本次候选相关的竞品/来源文件；
 - Hot 或时效候选所需的当前公开来源；
 - 固定参考账号 CSV：`https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec`；
@@ -90,7 +106,8 @@ updated: 2026-07-21
 - 历史日级候选、旧流程、旧脚本和已发布数据保留原始证据；只加历史声明或修正当前引用，不追溯性改写成新流程。
 - 当前规则冲突时，合并到一个权威文件；不要通过不断增加“覆盖条款”维持两套同时生效的规则。
 - `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件/dispatch。
-- 候选证据在 `06`，已选内容在 `07`，周度组合在 `04-weekly-content-plans`，发布数据和复盘在 `05-weekly-published-content-digests`。
+- 新建或重新进入当前队列的记录只使用 `selected / producing / ready / published`，例外使用 `hold / cancelled`；历史阶段按现行周度 SOP 的兼容表读取，不追溯改写历史证据。
+- 候选证据在 `04-production/02-daily-content-recommendations`，已选内容在 `04-production/07-content-production`，周度组合在 `04-production/03-weekly-content-plans`，发布数据和复盘在 `04-production/05-weekly-digests` 与 `07-reports`。
 
 ## Operating Style
 

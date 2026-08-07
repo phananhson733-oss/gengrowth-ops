@@ -11,7 +11,8 @@ pillar: Scorpio psychology / trust testing
 format: AI Host
 effort: M
 priority: P0
-content_stage: 已发布
+content_stage: "published"
+publish_match_post_id: "7665176558616759566"
 script_status: 待确认
 publish_date: 2026-W31 待排
 deadline: 2026-07-24
@@ -26,11 +27,17 @@ decision: Pengman 已确认 Scorpio 第四条 Hook 方向，继续进入脚本
 next_test: 保持主播、时长、背景、字幕和无口播 CTA 不变，只测试 questions/already knows/truth verification 角度
 status: draft
 owner: Pengman
-updated: 2026-07-23
+updated: "2026-07-24"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设 / @miraaastrology
 performance_notes: Pengman 已确认 Scorpio 第四条 Hook 方向，继续进入脚本
-published_date: 2026-07-23
+published_date: "2026-07-21"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7665176558616759566"
+platform_post_id: "7665176558616759566"
+published_at: "2026-07-22T02:40:18.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播第四条 — 统一 Brief 与脚本

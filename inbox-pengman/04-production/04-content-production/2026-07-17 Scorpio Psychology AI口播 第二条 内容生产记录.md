@@ -9,18 +9,23 @@ content_format: 9:16 AI 口播视频（新 AI 形象 + 深色背景 + 大字幕�
 series: The Psychology of [Sign/Placement]
 script_status: 已确认
 confirmed_script_version: Claude V1，经 Pengman 确认进入制作
-content_stage: 已发布
-published_url: ""
+content_stage: "published"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7663472486893374734"
 legacy_publish_claim: 待补；旧记录称已发布，但尚无真实直链，补链后才可改为 published
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集]]"
 status: draft
 owner: Pengman
-updated: 2026-07-21
+updated: "2026-07-24"
 scheduled_platform: TikTok
 scheduled_account: ② AI 占星师人设
 scheduled_at: 2026-07-17T08:01
 scheduled_timezone: America/Los_Angeles
-published_date: 2026-07-17
+published_date: "2026-07-17"
+platform_post_id: "7663472486893374734"
+published_at: "2026-07-17T16:58:00.000Z"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
 ---
 
 # Scorpio Psychology AI 口播 第二条 — 统一 Brief

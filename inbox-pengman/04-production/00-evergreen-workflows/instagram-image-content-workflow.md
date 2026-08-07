@@ -6,12 +6,11 @@ status: active
 owner: Pengman
 updated: 2026-07-21
 related:
-  - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow.md]]
-  - [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
-  - [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md]]
-  - [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md]]
-  - [[inbox-pengman/04-production/06-daily-content-recommendations/README.md]]
+  - [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+  - [[inbox-pengman/02-调研资料/竞品研究/reference-accounts.md]]
+  - [[inbox-pengman/04-production/05-weekly-digests/README.md]]
+  - [[inbox-pengman/04-production/02-daily-content-recommendations/README.md]]
   - [[inbox-pengman/04-production/07-content-production/README.md]]
   - [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md]]
 ---
@@ -80,18 +79,18 @@ Before generating the Instagram image content, the AI assistant should reference
 2. `weekly-rolling-content-production-sop.md` and the Social Planning Skill.
    - Use current capacity, evidence, account-routing, public-expression and hotspot boundaries.
 
-3. `inbox-pengman/04-production/05-weekly-published-content-digests/`
+3. `inbox-pengman/04-production/05-weekly-digests/`
    - Check what has already been posted recently.
    - Avoid repeating the same person, transit, hook, article, or exact angle within 7-14 days unless it is a clearly different follow-up.
 
-4. `inbox-pengman/05-调研资料/竞品研究/reference-accounts.md`
+4. `inbox-pengman/02-调研资料/竞品研究/reference-accounts.md`
    - Use reference accounts for structure and format, not for copying visual style or wording.
    - For X, `satyastrology` is a reference for short transit insight + open chart question.
    - For image posts, reference account screenshots can inspire information density: big title, date, short insight, 3 concise action points.
 
 5. The selected topic's main production record:
    - `inbox-pengman/04-production/07-content-production/`
-   - Read `06-daily-content-recommendations/` only when the main record links a specific candidate/Hot evidence note.
+   - Read `02-daily-content-recommendations/` only when the main record links a specific candidate/Hot evidence note.
 
 6. AstrologyWiki brand direction:
    - modern
@@ -225,11 +224,11 @@ Use this prompt when asking an AI assistant to generate Instagram image content 
 你是 AstrologyWiki 的 Instagram 图文内容策划助手。请基于本周计划中已选中的主题和主生产记录，生成适合 Canva 制作的 Instagram 图片内容方案。图片数量由内容决定：如果主题只需要一眼扫完，做 single image；如果需要解释框架或步骤，做 carousel。
 
 必须先参考以下规则和资料：
-- inbox-pengman/04-production/04-weekly-content-plans/ 当前周计划
+- inbox-pengman/04-production/03-weekly-content-plans/ 当前周计划
 - inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop.md
 - inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md
-- inbox-pengman/04-production/05-weekly-published-content-digests/ 最近已发布内容
-- inbox-pengman/05-调研资料/竞品研究/reference-accounts.md
+- inbox-pengman/04-production/05-weekly-digests/ 最近已发布内容
+- inbox-pengman/02-调研资料/竞品研究/reference-accounts.md
 - inbox-pengman/04-production/07-content-production/ 当前已选主题的主生产记录
 
 目标：

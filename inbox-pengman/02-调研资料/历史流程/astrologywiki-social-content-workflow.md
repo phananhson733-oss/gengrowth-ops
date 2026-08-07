@@ -7,16 +7,16 @@ project: astrologywiki
 type: workflow
 status: draft
 source:
-  - [[inbox-pengman/06-tasks/2026-06-16-astrologywiki-weekly-todo.md]]
-  - [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]]
-  - [[inbox-pengman/01-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
-  - [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+  - [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/2026-06-16-astrologywiki-weekly-todo.md]]
+  - [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md]]
+  - [[inbox-pengman/01-conversation report/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+  - [[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
   - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
 ---
 
 # AstrologyWiki 站外内容长期工作流
 
-> 历史总览：本文保留早期流程和工具选择背景，不再作为当前执行规范。当前入口见 [[inbox-pengman/04-production/00-evergreen-workflows/README.md]]；规则冲突时，以 [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]] 指定的唯一来源为准。
+> **历史证据，不作为当前执行入口**；本文保留早期流程和工具选择背景。当前入口见 [[inbox-pengman/04-production/00-evergreen-workflows/README.md]]；规则冲突时，以 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]、[[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL]] 和单条主生产记录为准。
 >
 > 这份文档只记录长期会重复发生的内容工作：怎么找题、怎么做内容、怎么发、怎么复盘、怎么把结果沉淀成下一轮输入。  
 > 一次性的注册、账号资产、养号说明，已单独放在其他文档，不在这里重复。
@@ -158,12 +158,12 @@ source:
 
 必须参考的上下文：
 - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
-- [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
-- [[inbox-pengman/01-conversation report/2026-06-17-astrologywiki-account-warmup-discussion.md]]
-- [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md]]
-- [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md]]
-- [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
+- [[inbox-pengman/02-调研资料/历史流程/astrologywiki-social-content-workflow.md]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+- [[inbox-pengman/01-conversation report/_archived-2026-06/2026-06-17-astrologywiki-account-warmup-discussion.md]]
+- [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md]]
+- [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/0615AstrologyWiki 内容运营与增长任务梳理.md]]
+- [[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md]]
 
 工作要求：
 1. 优先从最近的选题、已发布内容和长期主题支柱里找下一步最适合做的题。
@@ -241,7 +241,7 @@ D. Suggested CTA
 
 当前主要复盘文档：
 
-[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
+[[inbox-pengman/04-production/05-weekly-digests/2026-06-17-astrologywiki-messi-video-launch-report.md]]
 
 ### 5.2 复盘要记录什么
 
@@ -321,7 +321,7 @@ birth chart 截图
 
 ## 8. 当前工作流状态
 
-> 本节只记录建设状态，不重复维护具体规则。当前执行口径以 [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明.md]]、[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]]、[[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]] 和对应生产模板为准。
+> 本节只记录建设状态，不重复维护具体规则。当前执行口径以 [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]、[[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板.md]]、[[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md]] 和对应生产模板为准。
 
 ### 已投入使用
 

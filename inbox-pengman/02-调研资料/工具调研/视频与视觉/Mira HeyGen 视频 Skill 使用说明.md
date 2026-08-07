@@ -28,13 +28,13 @@ updated: 2026-07-22
 
 Skill 可携带版本：
 
-`inbox-pengman/05-调研资料/工具调研/视频与视觉/skills/miraa-heygen-video/`
+`inbox-pengman/02-调研资料/工具调研/视频与视觉/skills/miraa-heygen-video/`
 
 当前工作区权限不能直接写入 Codex 的全局 Skill 目录，因此先把完整包放在调研资料中。需要全局安装时，在终端运行：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R "/Users/pengman/gengrowth-ops/inbox-pengman/05-调研资料/工具调研/视频与视觉/skills/miraa-heygen-video" ~/.codex/skills/
+cp -R "/Users/pengman/gengrowth-ops/inbox-pengman/02-调研资料/工具调研/视频与视觉/skills/miraa-heygen-video" ~/.codex/skills/
 ```
 
 安装后新开一个 Codex 任务，再用 `$miraa-heygen-video` 调用。

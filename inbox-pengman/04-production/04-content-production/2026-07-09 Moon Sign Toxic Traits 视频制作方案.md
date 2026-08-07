@@ -8,7 +8,7 @@ status: draft
 content_id: aw-moon-toxic-traits-01
 account: ① AstrologyWiki 官方
 content_format: 9:16 纯字幕短视频
-content_stage: published
+content_stage: "published"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7660473423038041358"
 weekly_digest: "[[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集]]"
 decision: 待观察
@@ -32,6 +32,13 @@ related:
   - "[[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池]]"
   - "[[inbox-pengman/05-调研资料/竞品研究/reference-accounts]]"
   - "[[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis]]"
+platform_post_id: "7660473423038041358"
+published_at: "2026-07-09T15:45:00.000Z"
+published_date: "2026-07-09"
+publish_sync_status: "matched"
+publish_sync_method: "exact_id_or_url"
+publish_sync_last_checked_at: "2026-07-24T07:30:03.652Z"
+updated: "2026-08-01"
 ---
 
 # 2026-07-09 Moon Sign Toxic Traits 视频制作方案

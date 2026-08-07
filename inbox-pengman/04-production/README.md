@@ -4,88 +4,77 @@ project: astrologywiki
 type: workspace-index
 status: active
 owner: Pengman
-updated: 2026-07-20
+updated: 2026-08-04
 ---
 
 # 内容生产工作区入口
 
-`04-production` 承载 AstrologyWiki 站外内容的滚动周计划、单条生产、发布复盘、生产模板和已验证 SOP。
+这是 AstrologyWiki 社媒内容生产的**唯一人工入口页**。它只回答“从哪里开始、下一步去哪看”，不复制周计划、单条状态或 SOP 细节。
 
-当前默认机制：
+## 先回答三个问题
+
+| 你想知道什么 | 打开哪里 | 以什么为准 |
+|---|---|---|
+| 本周计划做什么 | [[inbox-pengman/04-production/03-weekly-content-plans/README|周度内容计划入口]] → 当前 `YYYY-Www` 文件 | 当前周的目标、产能、排期和例外 |
+| 某条内容实际到哪一步 | [[inbox-pengman/04-production/07-content-production/README|单条主生产记录入口]] → 对应 `content_id` | 该记录的 `content_stage`、最终稿和发布证据 |
+| 具体任务怎么做 | [[inbox-pengman/04-production/00-evergreen-workflows/README|可复用流程索引]] | 只读当前任务对应的一份 SOP |
+
+不要先读历史聊天，也不要从文件名、日期或 `status` 推断进度。
+
+> 如果你是第一次接手、临时替班或不知道选题—生产—发布的完整顺序，先读 [[inbox-pengman/04-production/00-evergreen-workflows/社媒内容生产接手指南|社媒内容生产接手指南]]。
+
+## 一条内容的主流程
 
 ```text
-本周发布上周库存
-→ 本周生产下周内容
-→ 周一锁定产能/选题/排期/Batch
-→ 周二至周四批量生产
-→ 周五排期/库存/复盘
-→ 每日只执行计划并有限检查热点
+周一确认产能和候选
+→ 进入当前周计划并建立单条主记录（selected）
+→ 在 selected 内完成 Brief、证据、脚本确认和素材准备
+→ 开始生成、剪辑或组装（producing）
+→ 成片与基础质检完成（ready；用 scheduled_at 区分已定时，用 inventory_ready 区分库存）
+→ 取得真实链接后确认发布（published）
+→ 周报写 decision / next_test（仍保持 published）
 ```
 
-## 五个主入口
+默认周节奏由 [[04-production/00-evergreen-workflows/weekly-rolling-content-production-sop|Weekly Rolling Content Production SOP]] 维护：本周发布上周库存，本周生产下周内容。恢复周或热点插入等例外只在对应周计划记录，不能自动变成长期规则。
 
-| 要做的事 | 先读 | 说明 |
+## 人与 AI 的分工
+
+| 角色 | 主要责任 |
+|---|---|
+| Pengman | 确认方向、品牌判断、脚本、制作投入、付费和发布 |
+| 总控军师（当前 GPT-5.6） | 读取权威来源、核验证据、去重、冻结方向、审稿、指出冲突并写回主记录 |
+| Perplexity / Gemini | 按任务做外部调研和来源补充；输出是证据输入，不直接决定内容 |
+| Claude | 依据冻结后的交接包生成脚本候选；不自行改方向或补事实 |
+
+当前可复用的“Perplexity / Gemini 调研 → 总控军师审证并冻结方向 → Claude 写稿 → 总控军师审稿 → Pengman 确认”流程，见 [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明#调研驱动的单稿流程]]。
+
+## 按任务下钻
+
+| 场景 | 只需再读 |
+|---|---|
+| 第一次接手或星期中途替班 | [[inbox-pengman/04-production/00-evergreen-workflows/社媒内容生产接手指南|社媒内容生产接手指南]] |
+| 判断账号、账号启停或未来新账号 | [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook|账号定位与内容路由 Playbook]]；当前只启用官号与 Miraa |
+| 建立周计划、查容量或 Hot 插入 | Weekly Rolling SOP + 当前周计划 + 最近周报 |
+| 新候选研究 | [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL|AstrologyWiki Social Workflow]]；仅在权限门允许时执行 |
+| AI 调研、写稿与人工确认 | [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明|Pengman 与 AI 内容协作说明]] |
+| AI Host / 短视频制作 | [[inbox-pengman/04-production/00-evergreen-workflows/ai-short-video-production-workflow|AI Short Video Production Workflow]] |
+| 图文 / Carousel 制作 | [[inbox-pengman/04-production/00-evergreen-workflows/instagram-image-content-workflow|Instagram Image Content Workflow]] |
+| 发布数据和复盘 | [[inbox-pengman/04-production/05-weekly-digests/README|每周已发布内容合集入口]] + `07-reports/` 对应周报 |
+| 当前自动化证据 | [[inbox-pengman/04-production/00-evergreen-workflows/tiktok-public-capture/README|TikTok Public Capture]]；其他工具按“文档 / 试验 / 部署 / 运行证据”区分 |
+
+## 文件位置
+
+| 内容 | 当前目录 | 不再使用的旧入口 |
 |---|---|---|
-| 建立/执行周度计划 | [[inbox-pengman/04-production/04-weekly-content-plans/README]] | 区分 `Publishing This Week` 与 `Producing for Next Week`，维护产能、Batch、内容池和热点槽 |
-| 临时候选 / Hot 证据 | [[inbox-pengman/04-production/06-daily-content-recommendations/README]] | 仅保存周一候选研究、合格 Hot 或明确临时重排；不再是每日默认起点 |
-| 单条内容生产 | [[inbox-pengman/04-production/07-content-production/README]] | 独立 `content_id`、Brief、脚本、素材、真实 `content_stage` 和发布回链 |
-| 发布与复盘 | [[inbox-pengman/04-production/05-weekly-published-content-digests/README]] | 发布链接、公开数据和最终 `decision / next_test` 的周级事实来源 |
-| 生产 SOP / 模板 | [[inbox-pengman/04-production/00-evergreen-workflows/README]] | 滚动周、日执行、Brief、路由、人工润色和制作流程 |
+| 周计划 | `03-weekly-content-plans/` | `04-weekly-content-plans/` |
+| 候选与 Hot 证据 | `02-daily-content-recommendations/` | `06-daily-content-recommendations/` |
+| 单条主记录 | `07-content-production/未发布/` 与 `07-content-production/已发布/` | `04-content-production/` 仅保留历史记录 |
+| 发布合集 | `05-weekly-digests/` | `05-weekly-published-content-digests/` |
 
-## Pengman 日常最简操作
+## 不需要做的事
 
-周一：
-
-1. `按滚动周 SOP 建立本周计划，我这周有 X 小时。`
-2. `确认 Publishing This Week；为 Producing for Next Week 锁定选题和 Batch。`
-
-周二至周五：
-
-1. `读取本周计划，给我今天的执行卡。`
-2. `按执行卡推进；只在热点达到门槛时建议插入。`
-3. `结束后回写实际阶段、库存、阻塞和发布链接。`
-
-AI 不每天重新生成四账号选题，不擅自把 Idea 提升到 `selected`，也不增加超出周度产能的新任务。四个账号当天可以发布、推进、等待或跳过。
-
-> GSC 自 2026-07-16 起暂停。AI 不读取或索取 GSC，也不因缺少 GSC 阻塞计划、Brief 或制作。
-
-工作区级背景先看 [[inbox-pengman/01-conversation report/current-context]]。`02-topic-ideas` 已退役，不再作为人工或 AI 的读取入口。
-
-## AI 最小读取路径
-
-| 任务 | 最小文件集合 | 只有何时才扩读 |
-|---|---|---|
-| 周一建立周计划 | 本 README + [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]] + 周计划模板 + 最近周报 + `07` 当前队列 + 四账号 Playbook | 需要候选证据时读 `06`、公开文章/工具、在线竞品表被选中的行和当前热点来源 |
-| 查看今天做什么 | 当前周计划 + [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop]] + 今天涉及的主生产记录 | 只有 Hot 评估或时效核验才查公开来源 |
-| 生成新候选 | 仅限周一、明确重排、确认补库或合格 Hot；读取 Social Daily Skill + Daily SOP + 最近周报/候选去重 | Route B/Hot 才做当前公开研究；不默认读本地旧快照 |
-| 建立单条 Brief | 当前周计划已选行 + [[inbox-pengman/04-production/07-content-production/README]] + [[inbox-pengman/04-production/00-evergreen-workflows/统一内容 Brief 模板]] | 建立主记录后，后续状态只在该记录维护 |
-| 路由账号与形式 | [[inbox-pengman/04-production/00-evergreen-workflows/内容路由与规则调用说明]] + 四账号 Playbook | 只有追溯策略依据时读平台调研 |
-| 双模型/人工润色 | 主生产记录 + Brief 模板 + [[inbox-pengman/04-production/00-evergreen-workflows/Pengman 与 AI 内容润色协作说明]] + [[inbox-pengman/04-production/00-evergreen-workflows/内容生产与学习记录模板]] | 用户要求比较候选时才读实验附件 |
-| 制作短视频/图文 | 已确认主生产记录 + 对应制作 SOP + 当前 `batch_id` | 需要验证工具选择时才读工具调研 |
-| 发布和复盘 | 主生产记录 + 当前周计划 + 当前周报 | 需要阶段趋势时读历史周报或数据分析 |
-
-## 唯一事实来源
-
-| 信息 | 唯一或主要来源 | 其他文件边界 |
-|---|---|---|
-| 周度产能、两个周次清单、内容池、Batch、热点槽 | 当前周计划；默认规则来自 Weekly Rolling SOP | 日执行卡只显示和回写进度，不另建计划 |
-| 当前内容阶段、最终确认稿、制作记录 | `07-content-production` 单条主生产记录 | 周计划显示阶段但不是第二状态源 |
-| 发布链接、周级数据、最终 `decision / next_test` | 对应 weekly digest | 主生产记录保存本条直链并回链周报 |
-| 账号定位与形式路由 | 四账号 TikTok Playbook | 周计划和 Brief 只记录本次选择 |
-| 公共表达、品牌安全、CTA | Social Daily Skill | 其他 SOP 只链接或记录例外 |
-| 双模型实验、人工反馈、L1–L5 | Pengman 与 AI 内容润色协作说明 | 模板只定义记录结构 |
-| 竞品账号与视频数据 | 在线 Google Sheet | 本地研究文件只保存已选背景；旧快照不参与新判断 |
-
-`status` 只服务仓库 dispatch；内容真实进度只使用 `content_stage`。新生命周期与旧阶段映射见 Weekly Rolling SOP。缺少 `content_stage` 的旧稿一律状态待确认，不从 `status` 或日期推断。
-
-## 默认不扫描
-
-除非任务明确要求追溯或迁移，AI 默认不读取：
-
-- `05-调研资料/` 全目录；
-- `06-daily-content-recommendations/已合并旧稿/`；
-- `07-content-production/已合并旧稿/`；
-- 已关闭周报和早期数据分析；
-- 双模型候选、共享 Prompt 等附件。
-
-迁出的 [[inbox-pengman/05-调研资料/历史流程/astrologywiki-social-content-workflow]] 是历史背景，不是当前执行规则。当前口径以本 README、Weekly Rolling SOP、当前周计划、单条主记录和对应周报为准。
+- 不必从头读完所有 SOP 才能开始。
+- 不每天从零为所有历史账号生成候选；当前只执行 `@miraaastrology` 与 `@astrologywiki` 的既定计划。
+- 不在 README、周计划和主记录中维护三份状态。
+- 不把研究工具的输出直接当作最终事实或脚本方向。
+- 不把存在 README、脚本或试验记录的工具说成正在稳定运行。

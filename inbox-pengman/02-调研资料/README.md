@@ -15,12 +15,12 @@ updated: 2026-07-16
 
 | 目录 | 内容 | AI 默认读取 |
 |---|---|---:|
-| [[inbox-pengman/05-调研资料/平台与策略/README.md]] | 当前仍有参考价值的平台和内容方向研究 | 否 |
-| [[inbox-pengman/05-调研资料/方法论/README.md]] | 通用运营框架和方法论底稿 | 否 |
-| [[inbox-pengman/05-调研资料/工具调研/README.md]] | 视频、视觉、文本、搜索和社媒工具研究 | 否 |
-| [[inbox-pengman/05-调研资料/竞品研究/README.md]] | 竞品账号、视频机制和停用旧快照；在线表为事实源 | 否 |
-| [[inbox-pengman/05-调研资料/历史调研/README.md]] | 首轮方案、平台样本和早期思考 | 否 |
-| [[inbox-pengman/05-调研资料/历史流程/README.md]] | 已被当前 README / Skill / SOP 取代的旧总流程和鱼骨图 | 否 |
+| [[inbox-pengman/02-调研资料/平台与策略/README.md]] | 当前仍有参考价值的平台和内容方向研究 | 否 |
+| [[inbox-pengman/02-调研资料/方法论/README.md]] | 通用运营框架和方法论底稿 | 否 |
+| [[inbox-pengman/02-调研资料/工具调研/README.md]] | 视频、视觉、文本、搜索和社媒工具研究 | 否 |
+| [[inbox-pengman/02-调研资料/竞品研究/README.md]] | 竞品账号、视频机制和停用旧快照；在线表为事实源 | 否 |
+| [[inbox-pengman/02-调研资料/历史调研/README.md]] | 首轮方案、平台样本和早期思考 | 否 |
+| [[inbox-pengman/02-调研资料/历史流程/README.md]] | 已被当前 README / Skill / SOP 取代的旧总流程和鱼骨图 | 否 |
 
 ## 事实来源边界
 

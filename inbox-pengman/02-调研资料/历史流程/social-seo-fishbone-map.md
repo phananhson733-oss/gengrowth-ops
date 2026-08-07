@@ -7,10 +7,12 @@ owner: Pengman
 updated: 2026-07-15
 ---
 
+> **历史证据，不作为当前执行入口**；当前规则以 AGENTS、滚动周 SOP、当前周计划和单条主生产记录为准。
+
 # Social SEO 鱼骨流程索引
 
 > 这份 map 用来把 `inbox-pengman` 里已经存在的 AstrologyWiki 社媒 SEO 内容运营资料串起来。  
-> 主骨架沿用 [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]，每根鱼刺链接到现有 SOP、skill、playbook、内容包和复盘入口。
+> 主骨架沿用 [[inbox-pengman/02-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]，每根鱼刺链接到现有 SOP、skill、playbook、内容包和复盘入口。
 
 ## 0. 主骨
 
@@ -26,7 +28,7 @@ updated: 2026-07-15
 
 主文档：
 
-- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]
+- [[inbox-pengman/02-调研资料/方法论/social-seo-content-operations-framework.md|通用社媒 SEO 内容运营 SOP]]
 - [[inbox-pengman/04-production/README.md|内容创作工作区入口]]
 
 ## 1. 产品和 SEO 资产
@@ -35,7 +37,7 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/06-tasks/0615AstrologyWiki 内容运营与增长任务梳理.md|AstrologyWiki 内容运营与增长任务梳理]]
+- [[inbox-pengman/02-调研资料/历史调研/历史任务与职责/0615AstrologyWiki 内容运营与增长任务梳理.md|AstrologyWiki 内容运营与增长任务梳理]]
 - [[inbox-pengman/01-conversation report/current-context.md|current-context]]
 - [[inbox-pengman/02-topic-ideas/SEO选题调查.md|SEO 选题调查]]
 - [[inbox-pengman/02-topic-ideas/README|已删除旧稿：AstrologyWiki 站外内容选题库]]
@@ -51,15 +53,15 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/05-调研资料/平台与策略/content-direction-and-tools-research.md|内容方向与工具调研总览]]
-- [[inbox-pengman/05-调研资料/竞品研究/reference-accounts.md|内容创作参考账号]]
-- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md|占星短视频形式与钩子分析]]
-- [[inbox-pengman/05-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md|Perplexity / Tavily + X 内容生产工作流调研]]
-- [[inbox-pengman/05-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md|AstrologyWiki 站外内容平台调研与首轮运营方案初稿]]
+- [[inbox-pengman/02-调研资料/平台与策略/content-direction-and-tools-research.md|内容方向与工具调研总览]]
+- [[inbox-pengman/02-调研资料/竞品研究/reference-accounts.md|内容创作参考账号]]
+- [[inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md|占星短视频形式与钩子分析]]
+- [[inbox-pengman/02-调研资料/工具调研/文字与社媒/perplexity-tavily-x-content-workflow-research.md|Perplexity / Tavily + X 内容生产工作流调研]]
+- [[inbox-pengman/02-调研资料/历史调研/AstrologyWiki 站外内容平台调研与首轮运营方案初稿.md|AstrologyWiki 站外内容平台调研与首轮运营方案初稿]]
 
 输出到：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md|四账号 TikTok 内容打法手册]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md|AstrologyWiki Social Daily Skill]]
 
 ## 3. 账号矩阵与人设
@@ -68,15 +70,15 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]
-- [[inbox-pengman/07-account-assets/astrologywiki-account-assets.md|AstrologyWiki 账号资产]]
-- [[inbox-pengman/07-account-assets/社媒账号标准化启动准备.md|社媒账号标准化启动准备]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md|四账号 TikTok 内容打法手册]]
+- [[inbox-pengman/05-account-assets/astrologywiki-account-assets.md|AstrologyWiki 账号资产]]
+- [[inbox-pengman/05-account-assets/社媒账号标准化启动准备.md|社媒账号标准化启动准备]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/social-account-warmup-and-launch-workflow.md|社媒账号从零起号养号流程]]
 
 输出到：
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md|Daily Content Assistant SOP]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/README.md|每日内容包]]
 
 ## 4. 每日母题选择
 
@@ -86,16 +88,16 @@ updated: 2026-07-15
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/daily-content-assistant-sop.md|Daily Content Assistant SOP]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md|AstrologyWiki Social Daily Skill]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-14 每日选题池.md|2026-07-14 每日选题池]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-13 每日选题池.md|2026-07-13 每日选题池]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-10 每日选题池.md|2026-07-10 每日选题池]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-09 每日选题池.md|2026-07-09 每日选题池]]
-- [[inbox-pengman/04-production/06-daily-content-recommendations/2026-07-08 每日选题池.md|2026-07-08 每日选题池]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-14 每日选题池.md|2026-07-14 每日选题池]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-13 每日选题池.md|2026-07-13 每日选题池]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-10 每日选题池.md|2026-07-10 每日选题池]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-09 每日选题池.md|2026-07-09 每日选题池]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/2026-07-08 每日选题池.md|2026-07-08 每日选题池]]
 
 输出到：
 
-- [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md|每周已发布内容合集入口]]
+- [[inbox-pengman/04-production/02-daily-content-recommendations/README.md|每日内容包]]
+- [[inbox-pengman/04-production/05-weekly-digests/README.md|每周已发布内容合集入口]]
 
 ## 5. 内容生产与发布
 
@@ -114,8 +116,8 @@ updated: 2026-07-15
 
 输出到：
 
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md|每周已发布内容合集入口]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/public-account-crawl-log.md|public-account-crawl-log]]
+- [[inbox-pengman/04-production/05-weekly-digests/README.md|每周已发布内容合集入口]]
+- [[inbox-pengman/04-production/05-weekly-digests/public-account-crawl-log.md|public-account-crawl-log]]
 
 ## 6. 发布记录和复盘
 
@@ -123,17 +125,17 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W29 本周已发布内容合集.md|2026-W29 本周已发布内容合集]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W28 本周已发布内容合集.md|2026-W28 本周已发布内容合集]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-W27 本周已发布内容合集.md|2026-W27 本周已发布内容合集]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-06-social-content-data-analysis.md|2026-07-06 social content data analysis]]
-- [[inbox-pengman/04-production/05-weekly-published-content-digests/2026-07-03-social-content-data-analysis.md|2026-07-03 social content data analysis]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W29 本周已发布内容合集.md|2026-W29 本周已发布内容合集]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W28 本周已发布内容合集.md|2026-W28 本周已发布内容合集]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-W27 本周已发布内容合集.md|2026-W27 本周已发布内容合集]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-07-06-social-content-data-analysis.md|2026-07-06 social content data analysis]]
+- [[inbox-pengman/04-production/05-weekly-digests/2026-07-03-social-content-data-analysis.md|2026-07-03 social content data analysis]]
 
 输出到：
 
 - [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md|AstrologyWiki Social Daily Skill]]
-- [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]
-- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
+- [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md|四账号 TikTok 内容打法手册]]
+- [[inbox-pengman/02-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
 
 ## 7. SEO / skill / 模板回流
 
@@ -141,15 +143,15 @@ updated: 2026-07-15
 
 已有关联：
 
-- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#6. Stage 4：把调研链接转成内容生成 skill / SOP / 模板|Stage 4：生成 skill / SOP / 模板]]
-- [[inbox-pengman/05-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
-- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md#可复用钩子公式|可复用钩子公式]]
-- [[inbox-pengman/05-调研资料/竞品研究/astrology-short-video-format-analysis.md#脚本模板|脚本模板]]
+- [[inbox-pengman/02-调研资料/方法论/social-seo-content-operations-framework.md#6. Stage 4：把调研链接转成内容生成 skill / SOP / 模板|Stage 4：生成 skill / SOP / 模板]]
+- [[inbox-pengman/02-调研资料/方法论/social-seo-content-operations-framework.md#9. SEO 回流机制|SEO 回流机制]]
+- [[inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md#可复用钩子公式|可复用钩子公式]]
+- [[inbox-pengman/02-调研资料/竞品研究/astrology-short-video-format-analysis.md#脚本模板|脚本模板]]
 - [[inbox-pengman/04-production/00-evergreen-workflows/README.md|Evergreen Production Workflows]]
 
 回流判断：
 
-- 表现好的主题，先回到 [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]] 和 [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md|周复盘]]。
+- 表现好的主题，先回到 [[inbox-pengman/04-production/02-daily-content-recommendations/README.md|每日内容包]] 和 [[inbox-pengman/04-production/05-weekly-digests/README.md|周复盘]]。
 - 能重复 2-3 次的结构，再写回 [[inbox-pengman/04-production/00-evergreen-workflows/astrologywiki-social-workflow/SKILL.md|skill]] 或 [[inbox-pengman/04-production/00-evergreen-workflows/README.md|evergreen workflow]]。
 - 能支撑站内页面或工具说明的用户问题，再回到 [[inbox-pengman/02-topic-ideas/SEO选题调查.md|SEO 选题调查]] 或对应站内内容需求。
 
@@ -169,13 +171,13 @@ updated: 2026-07-15
 
 对应链接：
 
-1. [[inbox-pengman/04-production/06-daily-content-recommendations/README.md|每日内容包]]
-2. [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]
+1. [[inbox-pengman/04-production/02-daily-content-recommendations/README.md|每日内容包]]
+2. [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md|四账号 TikTok 内容打法手册]]
 3. [[inbox-pengman/04-production/00-evergreen-workflows/README.md|Evergreen Production Workflows]]
-4. [[inbox-pengman/04-production/05-weekly-published-content-digests/README.md|每周已发布内容合集入口]]
+4. [[inbox-pengman/04-production/05-weekly-digests/README.md|每周已发布内容合集入口]]
 
 ## 9. 还没完全确定的连接
 
-- 账号级 SOP：目前先连接到 [[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook.md|四账号 TikTok 内容打法手册]]，等每个账号的固定栏目、生产频率和质量标准更稳定后，再拆成单独账号 SOP。
+- 账号级 SOP：目前先连接到 [[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md|四账号 TikTok 内容打法手册]]，等每个账号的固定栏目、生产频率和质量标准更稳定后，再拆成单独账号 SOP。
 - 自动化发布和自动剪辑：目前先放在工具研究和生产 workflow 中，不作为这张 map 的主流程节点。
 - 站内 SEO 动作：目前只记录回流方向，不直接替代 SEO 同事维护的站内内容计划。

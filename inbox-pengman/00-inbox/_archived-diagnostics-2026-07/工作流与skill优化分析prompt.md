@@ -4,6 +4,8 @@ created: 2026-07-23
 purpose: 为 GenGrowth 社媒内容运营工作流梳理冗余、填补空白、规划通用化路径
 ---
 
+> **历史证据，不作为当前执行入口**；当前规则以 AGENTS、滚动周 SOP、当前周计划和单条主生产记录为准。
+
 # 工作流与 Skill 优化分析 Prompt
 
 ## 背景与目标
@@ -61,7 +63,7 @@ purpose: 为 GenGrowth 社媒内容运营工作流梳理冗余、填补空白、
 - `00-evergreen-workflows/Pengman 与 AI 内容润色协作说明.md` - 双模型实验协作
 
 **策略文档：**
-- `01-strategy-and-platform-research/four-account-tiktok-content-playbook.md` - 四账号定位、参考账号、内容方向、形式、钩子公式
+- `01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook.md` - 四账号定位、参考账号、内容方向、形式、钩子公式
 
 **生产记录：**
 - `04-weekly-content-plans/` - 周度计划（Publishing This Week / Producing for Next Week）

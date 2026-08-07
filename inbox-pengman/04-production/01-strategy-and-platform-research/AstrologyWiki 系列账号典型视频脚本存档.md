@@ -15,8 +15,8 @@ accounts:
 excluded_account:
   - shirley527146 / Shirley777
 related:
-  - "[[inbox-pengman/04-production/01-strategy-and-platform-research/four-account-tiktok-content-playbook]]"
-  - "[[inbox-pengman/07-account-assets/Google sheet curl]]"
+  - "[[inbox-pengman/04-production/01-strategy-and-platform-research/AstrologyWiki 社媒账号定位与内容路由 Playbook]]"
+  - "[[inbox-pengman/05-account-assets/Google sheet curl]]"
 ---
 
 # AstrologyWiki 系列账号典型视频脚本存档
