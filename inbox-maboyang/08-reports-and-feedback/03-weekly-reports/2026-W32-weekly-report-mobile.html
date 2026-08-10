@@ -12,7 +12,7 @@
   <header>
     <div class="meta">2026-W32 · 8月3日—8月9日 · 给 Lynne</div>
     <h1>GenGrowth 产品与 SEO 周报</h1>
-    <p class="lead">五个工具审计完成并收敛成唯一交办文档，启动门槛 17 条完成 13，<strong>剩 3 条卡住且都是招募前必须清的</strong>。选词跑出一条可复用规律。推广侧实测更正了原方案的社区选型——<strong>和高璇的 Reddit 计划是同一批版块，需要合并成一件事做</strong>。AstrologyWiki 大幅反弹，但反弹不是我们做的。</p>
+    <p class="lead">五个工具审计完成并收敛成唯一交办文档，启动门槛 17 条完成 13。改版引入的两个问题 8/9 复验<strong>已修复</strong>，招募前只剩 OAuth 持续授权一条硬门槛。选词跑出一条可复用规律。推广侧实测更正了原方案的社区选型——<strong>和高璇的 Reddit 计划是同一批版块，需要合并成一件事做</strong>。AstrologyWiki 大幅反弹，但反弹不是我们做的。</p>
     <div class="meta">数据采集：GSC / GA4 2026-08-09（8/3–8/9 同窗口）</div>
   </header>
 
@@ -29,7 +29,7 @@
   <section class="section">
     <h2>主要判断</h2>
 
-    <div class="card bad"><h3>首页与 /pricing 首屏是空白的 <span class="label stop">stop</span></h3><p>加载后 H1、副标题、CTA 全部不可见，要滚动才渐显。改版引入，不在原改动清单里，但<strong>影响面比清单上任何一条都大——首页是所有流量的落点</strong>。招募启动前必须修。</p></div>
+    <div class="card good"><h3>改版引入的两个问题已修复 <span class="label continue">verified</span></h3><p>8/9 实测复验：<strong>首页与 /pricing 首屏均完整渲染</strong>（badge / H1 / 副标题 / 双 CTA 全部可见），hero 现为 0.45s 时间驱动入场动画、<code>prefers-reduced-motion</code> 下自动关闭，「需滚动才渐显」的症状已消失；<strong>未知路径也已正确返回 404</strong>，不再 302 跳首页。</p><p class="small">P0-4 抓取进度这一条状态待彪哥确认，我未实测。</p></div>
 
     <div class="card bad"><h3>OAuth 约一小时失效 <span class="label stop">stop</span></h3><p>当前参数 <code>access_type=online</code>，不发 refresh token。<strong>第 7 天回访的用户面对的不是打开即用，是重走一遍完整授权</strong>，其中还包括 Google 那个写着 unsafe 的未验证警告页。这条直接决定「7 日留存 10 人」能否成立。</p></div>
 
@@ -64,7 +64,7 @@
   <section class="section">
     <h2>下周直接执行</h2>
     <ol>
-      <li><strong>门槛没清完不启动 Reddit 发帖</strong>：首屏空白 + OAuth 持续授权 + 工具命名两套口径统一（后者五分钟能改完，我来）。</li>
+      <li><strong>门槛没清完不启动 Reddit 发帖</strong>：OAuth 持续授权 + 工具命名两套口径统一（后者五分钟能改完，我来）。</li>
       <li>与高璇合并 Reddit 计划，确定谁发、发什么形态、r/SaaS 那张牌什么时候打。</li>
       <li>开写三个已验证选题：<code>how to find low hanging fruit keywords</code>（1,300/KD4）、<code>zero search volume keywords</code>（110/KD14）、<code>pagerank sculpting</code>（720/KD14）。</li>
       <li>排名 7–10 的 SERP 层排查：无痕窗口人工搜 <code>lamine yamal zodiac sign</code> 等词并截图，确认上方被什么占满。<strong>这条直接决定 P0-1 能不能给出有效建议。</strong></li>
