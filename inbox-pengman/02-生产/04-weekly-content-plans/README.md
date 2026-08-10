@@ -28,6 +28,6 @@ updated: 2026-08-04
 
 ## 当前周计划
 
-- [[inbox-pengman/02-生产/04-weekly-content-plans/2026-W32 周度内容计划]] — 当前周；加速恢复周 / 同周生产发布临时例外。
+- [[inbox-pengman/02-生产/04-weekly-content-plans/2026-W33 周度内容计划]] — 当前周；库存重建 + 内容连续发布。
 
 历史周计划保留在本目录。文件名中的周次只表示计划归属，单条实际阶段仍以 `02-content-production` 主记录的 `content_stage` 为准。
