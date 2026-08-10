@@ -12,15 +12,15 @@
   <header>
     <div class="meta">2026-W32 · 8月3日—8月9日 · 给 Lynne</div>
     <h1>GenGrowth 产品与 SEO 周报</h1>
-    <p class="lead">五个工具审计完成并收敛成唯一交办文档，启动门槛 17 条完成 13。改版引入的两个问题 8/9 复验<strong>已修复</strong>，招募前只剩 OAuth 持续授权一条硬门槛。选词跑出一条可复用规律。推广侧实测更正了原方案的社区选型——<strong>和高璇的 Reddit 计划是同一批版块，需要合并成一件事做</strong>。AstrologyWiki 大幅反弹，但反弹不是我们做的。</p>
+    <p class="lead">五个工具审计完成并收敛成唯一交办文档，启动门槛 17 条完成 14。改版引入的两个问题已复验修复、P0-4 抓取进度也已落地，<strong>招募前只剩 OAuth 持续授权一条硬门槛</strong>。选词跑出一条可复用规律。推广侧实测更正了原方案的社区选型——<strong>和高璇的 Reddit 计划是同一批版块，需要合并成一件事做</strong>。AstrologyWiki 大幅反弹，但反弹不是我们做的。</p>
     <div class="meta">数据采集：GSC / GA4 2026-08-09（8/3–8/9 同窗口）</div>
   </header>
 
   <section class="section">
     <h2>本周一眼看懂</h2>
     <div class="grid">
-      <div class="metric"><b>13/17</b><span>启动门槛完成<br>剩 3 条阻塞招募</span></div>
-      <div class="metric"><b>36</b><span>累计 SERP 实测词<br>本轮 8 词 4 可打</span></div>
+      <div class="metric"><b>14/17</b><span>启动门槛完成<br>硬门槛只剩 OAuth</span></div>
+      <div class="metric"><b>68.9%</b><span>gengrowth 曝光<br>落在废弃旧 URL</span></div>
       <div class="metric"><b>69</b><span>astrologywiki 点击<br>较上周 +245%</span></div>
       <div class="metric"><b>1,330</b><span>排名 7–10 曝光<br>只产出 1 次点击</span></div>
     </div>
@@ -29,7 +29,7 @@
   <section class="section">
     <h2>主要判断</h2>
 
-    <div class="card good"><h3>改版引入的两个问题已修复 <span class="label continue">verified</span></h3><p>8/9 实测复验：<strong>首页与 /pricing 首屏均完整渲染</strong>（badge / H1 / 副标题 / 双 CTA 全部可见），hero 现为 0.45s 时间驱动入场动画、<code>prefers-reduced-motion</code> 下自动关闭，「需滚动才渐显」的症状已消失；<strong>未知路径也已正确返回 404</strong>，不再 302 跳首页。</p><p class="small">P0-4 抓取进度这一条状态待彪哥确认，我未实测。</p></div>
+    <div class="card good"><h3>三条阻塞项已解决，硬门槛只剩 OAuth <span class="label continue">verified</span></h3><p>8/9 实测：<strong>首页与 /pricing 首屏均完整渲染</strong>（badge / H1 / 副标题 / 双 CTA 全部可见），hero 现为 0.45s 时间驱动入场动画、<code>prefers-reduced-motion</code> 下自动关闭，「需滚动才渐显」的症状已消失；<strong>未知路径也已正确返回 404</strong>，不再 302 跳首页。<strong>P0-4 运行期抓取进度已落地</strong>（彪哥确认，未实测）。</p></div>
 
     <div class="card bad"><h3>OAuth 约一小时失效 <span class="label stop">stop</span></h3><p>当前参数 <code>access_type=online</code>，不发 refresh token。<strong>第 7 天回访的用户面对的不是打开即用，是重走一遍完整授权</strong>，其中还包括 Google 那个写着 unsafe 的未验证警告页。这条直接决定「7 日留存 10 人」能否成立。</p></div>
 
@@ -40,6 +40,20 @@
     <div class="card warn"><h3>工具还停在「观测」，没走到「判断」 <span class="label pending">inconclusive</span></h3><p>比如 P0-4 输出 <code>Canonical 目标不同 66/162</code>，一个第一次做 SEO 的人不知道该干什么。<strong>这是我的评审判断，还没有任何真实用户验证过。</strong>但如果成立，现在大规模拉流量就是往漏桶里灌水——所以本阶段目标是拿到 10 个真实反馈，不是拉量。</p></div>
 
     <div class="card good"><h3>挂了四周的「GA4 关键事件为 0」查清了 <span class="label continue">continue</span></h3><p>埋点一直是好的——26 类事件正常上报，连 <code>funnel_auth_prompted</code> 这种漏斗事件都有。<strong>问题是后台没有把任何事件标记为「关键事件」。</strong>这是几分钟的配置，被当成开发任务挂了一个月。</p></div>
+
+    <div class="card good"><h3>改版判定：没有造成伤害，可以放心继续 <span class="label continue">continue</span></h3><p>本周数据到齐，按 8/3 基线同口径折算：<strong>曝光周均 1,541 → 1,866（+21%）</strong>，点击 6.5 → 2。<strong>点击的下降完全可以由时效文章衰减解释</strong>——基线 36 次点击里 20 次来自 <code>google-july-2026-update</code>，本周它是 94 曝光 / 0 点击 / 排名 8.07。<strong>和 astrologywiki 同一个模式，不是改版的锅。不需要回滚任何东西。</strong></p></div>
+
+    <div class="card bad"><h3>🔴 但 68.9% 的曝光还在废弃的旧 URL 上 <span class="label stop">stop</span></h3><p>全站 87 个有曝光的 URL 里，<strong>46 个是已不存在的 <code>/en/*</code>，吃掉 1,302 / 1,890 次曝光</strong>。更麻烦的是<strong>八篇文章的新旧 URL 在同时获得曝光——自己和自己竞争</strong>：</p>
+      <table>
+        <tr><th>文章</th><th class="n">旧 /en/ 曝光·排名</th><th class="n">新 URL 曝光·排名</th></tr>
+        <tr><td>why-use-a-backlink-monitor-tool</td><td class="n">173 · 78.0</td><td class="n">55 · 50.4</td></tr>
+        <tr><td>all-in-one-seo</td><td class="n">55 · <strong>50.5</strong></td><td class="n">126 · <strong>55.0</strong></td></tr>
+        <tr><td>manual-seo-service</td><td class="n">33 · 11.2</td><td class="n">47 · 10.7</td></tr>
+        <tr><td>seo-starter-package</td><td class="n">36 · 69.0</td><td class="n">3 · 17.7</td></tr>
+      </table>
+      <p><strong>注意 all-in-one-seo：旧 URL 排名比新 URL 还好。</strong>权重不但滞留，滞留的那一份还更强——<strong>这不是"等它自己迁过去"能解决的</strong>。修复成本低，是本周数据里最值得动手的一件事。</p></div>
+
+    <div class="card bad"><h3>🔴 全周非品牌点击只有 1 次，词全是旧定位 <span class="label stop">stop</span></h3><p>2 次点击里 1 次是品牌词 <code>gen growth</code>。曝光靠前的查询——<code>cheap seo tools</code>、<code>free seo company</code>、<code>manual seo service</code>、<code>ethical seo services</code>、<code>backlinks monitor</code>——<strong>全部是「SEO 代运营 / 工具代理」时期的旧定位词，和现在的产品完全不对应</strong>。W31 待办里的「旧定位内容清理」本周没做，<strong>而这批内容正在决定 Google 怎么理解我们是干什么的</strong>。</p></div>
 
     <div class="card warn"><h3>AstrologyWiki 反弹了，但不是我们做的 <span class="label adjust">adjust</span></h3><p>点击 20→69（+245%）、曝光 +126%，<strong>而本周站上零发布、零技术修复</strong>。是外部事件把精确姓名搜索送到了存量页上。</p><p>这能证明「不是惩罚」（被罚的站不会自己 +126%），<strong>但不能证明「补时效内容量就回来」——我们根本没补</strong>。含义是：我们的流量正随外部事件被动起伏，自己没有控制手段。</p></div>
   </section>
@@ -70,7 +84,8 @@
       <li>排名 7–10 的 SERP 层排查：无痕窗口人工搜 <code>lamine yamal zodiac sign</code> 等词并截图，确认上方被什么占满。<strong>这条直接决定 P0-1 能不能给出有效建议。</strong></li>
       <li>GA4 后台标记 3 个关键事件，并清理四组重复事件命名。</li>
       <li>确认中国区 5 个<strong>真实</strong>用户的入口是不是 <code>cn.bing.com</code>；并核实两个 <code>/zh/</code> 页面的 <code>page_view</code> 是否漏报。</li>
-      <li>gengrowth.ai 改版后按基线同口径复测（本周 GenGrowth 数据仍是 8/3–8/5 采集的）。</li>
+      <li>🔴 <strong>URL 迁移收口</strong>——68.9% 曝光还在 <code>/en/*</code> 旧 URL 上、八篇文章新旧自相竞争。修复成本低，优先级最高。</li>
+      <li>🔴 <strong>旧定位内容清理</strong>（W31 就列了，本周没做）。</li>
       <li>确认三个运动员页本周为何起量。<strong>若能提前预判这类事件，是维稳定位下唯一可主动做的动作。</strong></li>
     </ol>
   </section>
