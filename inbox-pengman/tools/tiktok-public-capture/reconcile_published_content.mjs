@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const DEFAULT_TIMEZONE = "America/Los_Angeles";
 const PRODUCTION_DIRS = [
-  "04-production/02-content-production",
+  "02-生产/02-content-production",
 ];
 const IGNORE_NAME = /(README|Candidate|Prompt|候选|共享|已合并旧稿)/i;
 const STOPWORDS = new Set([

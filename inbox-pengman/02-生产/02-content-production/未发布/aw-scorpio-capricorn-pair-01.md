@@ -16,8 +16,9 @@ content_stage: selected
 script_status: 待确认
 hook: "Scorpio and Capricorn both look low-maintenance — until neither one asks for what they need."
 cta: 无口播 CTA；caption 无链接
-batch_id: 待 W33 周计划确认
-deadline: 待 W33 周计划确认
+batch_id: 2026-W33-miraa-aihost-01
+publish_date: 2026-08-12
+deadline: 2026-08-11
 source_evidence:
   - "[[inbox-pengman/04-production/04-weekly-content-plans/2026-W32 周度内容计划]]"
   - "[[inbox-pengman/04-production/03-data-review/2026-W31-weekly-report]]"

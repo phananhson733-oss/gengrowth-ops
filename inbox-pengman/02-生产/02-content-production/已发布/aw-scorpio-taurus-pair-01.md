@@ -12,7 +12,7 @@ pillar: Compatibility / loyalty vs flexibility / fixed-sign stalemate
 format: AI Host
 priority: P0
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "GPT-5.6 v1，Pengman 已制作成片并于 2026-08-07 确认定时"
 hook: "Scorpio and Taurus don't leave easily — even when staying becomes the fight."
@@ -27,13 +27,20 @@ actual_credits_approx: 20
 source_evidence:
   - "[[inbox-pengman/04-production/04-weekly-content-plans/2026-W32 周度内容计划]]"
   - "[[inbox-pengman/04-production/03-data-review/2026-W31-weekly-report]]"
-  - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-cancer-pair-02]]"
-  - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-leo-pair-01]]"
-  - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-virgo-pair-01]]"
+  - "[[inbox-pengman/02-生产/02-content-production/已发布/aw-scorpio-cancer-pair-02]]"
+  - "[[inbox-pengman/02-生产/02-content-production/已发布/aw-scorpio-leo-pair-01]]"
+  - "[[inbox-pengman/02-生产/02-content-production/已发布/aw-scorpio-virgo-pair-01]]"
   - "https://www.tiktok.com/@fernandocarlos99"
 status: draft
 owner: Pengman
-updated: 2026-08-07
+updated: "2026-08-09"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7671142283831495950"
+platform_post_id: "7671142283831495950"
+published_at: "2026-08-07T18:30:00.000Z"
+published_date: "2026-08-07"
+publish_sync_status: "matched"
+publish_sync_method: "account_time"
+publish_sync_last_checked_at: "2026-08-10T03:05:01.363Z"
 ---
 
 # Scorpio × Taurus：内容生产记录
@@ -44,8 +51,8 @@ updated: 2026-08-07
 - 预估成本：M
 - 执行通道：W32 加速恢复周追加内容
 - 建议制作形式：沿用固定女性 AI Host、声音、深色背景和大字幕
-- 当前一个人类动作：等待定时发布；公开后核验真实链接、平台 ID 与实际发布时间
-- 当前阶段说明：已完成制作并定时至芝加哥时间 2026-08-07 11:30，对应北京时间 2026-08-08 00:30；当前为 `ready`
+- 当前一个人类动作：在统一 24h/72h 窗口补后台观看质量、单条增粉与内容反馈
+- 当前阶段说明：公开采集已核验真实链接、平台 ID 与实际发布时间，当前为 `published`
 - 本条实际消耗：约 20 credits，按 `$29 / 600 credits` 与 2026-08-06 汇率折算约 `¥6.52`
 
 ## 选择依据与产能边界
@@ -115,7 +122,7 @@ Scorpio and Taurus don't leave easily — even when staying becomes the fight.
 - **相关旧稿或人工修改记录**：延续 × Cancer 的双视角公平结构与 × Virgo 的具体行为要求；避免 × Leo 的“power struggle”写法，内部工作标题虽使用 `standoff`，正式脚本不得退回泛化权力争夺。
 - **上一轮 `decision / next_test`**：W31 决定继续保留双星座关系投射；W32 测试 × Leo 与 × Virgo，并要求保持同一 Host、字幕密度和相近时长。正式起稿前需带入两条内容的统一 24h/72h 数据；若数据仍缺失，明确标记 `待补数据`，不据此淘汰本题。
 - **约束和禁止声明**：必须公平解释双方；不使用 `toxic / narcissist / manipulative / codependent / trauma bond`；不写“Scorpio 控制、Taurus 固执”的单向标签；不宣称天生一对或注定失败；不加入财富、性、嫉妒或背叛等未冻结副题。
-- **制作或实验说明**：已沿用 Miraa 固定女性 AI Host、声音、深色背景和大字幕完成成片，并纳入 `2026-W32-aihost-03`；Pengman 已确认脚本与成片并设置定时，当前为 `ready`。
+- **制作或实验说明**：已沿用 Miraa 固定女性 AI Host、声音、深色背景和大字幕完成成片，并纳入 `2026-W32-aihost-03`；Pengman 已确认脚本与成片，公开采集已核验发布，当前为 `published`。
 
 ## 脚本起草输入边界
 
@@ -186,10 +193,9 @@ They both call it loyalty. Neither notices when it turns into a standoff. ♏️
 
 - 当前环境没有可调用的 `/humanizer` Skill；未伪称运行。
 - 已由总控模型完成替代审查：删去占星术语和课堂式解释；拆短长句；保证每句能自然口播；避免重复 `not X, but Y` 模板；结尾不使用企业式总结或建议。
-- Pengman 已采用本版本完成成片并设置定时；当前 `script_status: 已确认`、`content_stage: ready`。
+- Pengman 已采用本版本完成成片并发布；当前 `script_status: 已确认`、`content_stage: published`。
 
 ## 下一步
 
-1. 等待芝加哥时间 2026-08-07 11:30 定时发布。
-2. 公开后补 `published_url / platform_post_id / published_at`，再进入 `published`。
-3. 记录统一 24h/72h views、观看质量、shares、favorites 与增粉。
+1. 发布证据已由公开采集回写，当前为 `published`。
+2. 记录统一 24h/72h views、观看质量、shares、favorites 与增粉。

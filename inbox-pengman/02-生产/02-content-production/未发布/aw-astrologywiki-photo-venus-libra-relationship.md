@@ -15,10 +15,10 @@ effort: S
 content_stage: selected
 script_status: 待确认
 inventory_ready: false
-publish_date: 2026-08-14
-deadline: 2026-08-07
+publish_date: 2026-08-17
+deadline: 2026-08-14
 expiry_date: 2026-09-10
-batch_id: 2026-W32-light-inventory-01
+batch_id: 2026-W33-official-light-01
 status: draft
 owner: Pengman
 updated: 2026-08-03

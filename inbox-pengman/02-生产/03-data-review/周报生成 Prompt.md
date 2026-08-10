@@ -7,7 +7,7 @@ account: multiple
 platform: tiktok
 status: active
 owner: Pengman
-updated: 2026-08-04
+updated: 2026-08-10
 ---
 
 # 周报生成 Prompt
@@ -98,14 +98,14 @@ updated: 2026-08-04
 
 ## 数据来源优先级
 
-1. 当前周计划：`inbox-pengman/04-production/04-weekly-content-plans/YYYY-Www 周度内容计划.md`
-2. 最近已确认的业务重点、策略记录或 `inbox-pengman/04-production/00-evergreen-workflows/ai-advisor/当前状态与决策记录.md`
-3. 本周发布 digest：`inbox-pengman/04-production/03-data-review/`
-4. 单条主生产记录：`inbox-pengman/04-production/02-content-production/`
+1. 当前周计划：`inbox-pengman/02-生产/04-weekly-content-plans/YYYY-Www 周度内容计划.md`
+2. 最近已确认的业务重点、策略记录或 `inbox-pengman/02-生产/00-evergreen-workflows/ai-advisor/当前状态与决策记录.md`
+3. 本周发布与数据复盘：`inbox-pengman/02-生产/03-data-review/`
+4. 单条内容详情：`inbox-pengman/02-生产/02-content-production/`
 5. 社媒账号数据表：https://docs.google.com/spreadsheets/d/17NOiX9VGozHEgthpSbBN-2dyf4rJRsTQkmLubBwnICQ/edit
 6. TikTok 抓取数据：`inbox-pengman/output/` 中本周 capture summary 和 posts CSV
 7. 最近两期周报：只用于追踪同一假设、decision、next_test 和趋势，不作为本周执行证据
-8. 本周实际使用的候选证据：`inbox-pengman/02-调研资料/候选与热点研究/`；只有当前周计划或主记录链接时才读取
+8. 本周实际使用的候选证据：`inbox-pengman/01-调研资料/候选与热点研究/`；只有当前周计划或单条内容详情链接时才读取
 9. 本周明确使用的竞品来源；不扫描整个研究目录
 
 历史日级选题池、旧脚本和旧流程不作为当前执行证据。GSC 仍暂停。若路径中的旧文档链接与当前实际目录不一致，以当前实际文件为准，不创建第二套平行目录。
@@ -199,8 +199,8 @@ updated: 2026-08-04
 
 ### Step 8：生成两个版本
 
-1. 完整 Markdown：`inbox-pengman/04-production/03-data-review/YYYY-Www-weekly-report.md`
-2. Lynne 移动版 HTML：`inbox-pengman/04-production/03-data-review/YYYY-Www-weekly-report-mobile.html`
+1. 完整 Markdown：`inbox-pengman/02-生产/03-data-review/YYYY-Www-weekly-report.md`
+2. Lynne 移动版 HTML：`inbox-pengman/02-生产/03-data-review/YYYY-Www-weekly-report-mobile.html`
 
 移动版与 Markdown 使用同一事实和结论，不建立第二套数据口径。HTML 使用内联 CSS、移动端优先、无需外部依赖；首屏只显示管理摘要、主要判断、下一步和需要决策事项，详细执行与单条数据使用纵向卡片或折叠区，不使用需要横向滚动的宽表格。
 
@@ -339,4 +339,4 @@ updated: YYYY-MM-DD
 8. 周报的下周输入供下周计划使用，但不自动把候选提升为 `selected`。
 9. 默认不因为本周产量不足机械顺延所有内容；先根据业务重点、实验价值、时效和产能重新决定。
 10. Markdown 与移动版 HTML 必须保持相同事实、相同数据时间和相同结论。
-11. 文件名和路径统一为 `inbox-pengman/04-production/03-data-review/YYYY-Www-weekly-report.md` 和 `inbox-pengman/04-production/03-data-review/YYYY-Www-weekly-report-mobile.html`。
+11. 文件名和路径统一为 `inbox-pengman/02-生产/03-data-review/YYYY-Www-weekly-report.md` 和 `inbox-pengman/02-生产/03-data-review/YYYY-Www-weekly-report-mobile.html`。
