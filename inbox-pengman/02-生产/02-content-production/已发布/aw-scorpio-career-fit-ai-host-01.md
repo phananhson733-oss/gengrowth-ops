@@ -12,7 +12,7 @@ pillar: Scorpio / career fit / competence versus meaning
 format: AI Host
 priority: P0
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "Claude v1，Hook 经 Pengman 于 2026-08-06 确认修改"
 publish_date: 2026-08-08
@@ -24,7 +24,7 @@ expiry_date: 2026-09-08
 batch_id: 2026-W32-aihost-03
 status: draft
 owner: Pengman
-updated: 2026-08-07
+updated: "2026-08-09"
 actual_credits_approx: 20
 source_evidence:
   - "[[inbox-pengman/04-production/03-data-review/2026-W30-weekly-report]]"
@@ -34,6 +34,13 @@ source_evidence:
   - "https://www.reddit.com/r/Scorpio/comments/1s3nzax/scorpio_job_options/"
   - "https://www.reddit.com/r/Scorpio/comments/1ver7rq/careers_and_finding_what_suits_you/"
   - "https://www.reddit.com/r/Scorpio/comments/1nlshv8/"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7671207850223357197"
+platform_post_id: "7671207850223357197"
+published_at: "2026-08-08T15:00:00.000Z"
+published_date: "2026-08-08"
+publish_sync_status: "matched"
+publish_sync_method: "account_time"
+publish_sync_last_checked_at: "2026-08-10T03:05:01.363Z"
 ---
 
 # Scorpio Career Fit AI Host：内容生产记录
@@ -44,8 +51,8 @@ source_evidence:
 - 预估成本：M
 - 定时发布：芝加哥时间 2026-08-08 08:00，对应北京时间 2026-08-08 21:00
 - 建议制作形式：沿用 Mira 固定女性 AI Host、声音、深色背景和大字幕，不增加无关自动特效
-- 当前一个人类动作：等待定时发布；公开后核验真实链接、平台 ID 与实际发布时间
-- 当前阶段说明：已完成制作和定时，当前为 `ready`
+- 当前一个人类动作：在统一 24h/72h 窗口补后台观看质量、单条增粉与内容反馈
+- 当前阶段说明：公开采集已核验真实链接、平台 ID 与实际发布时间，当前为 `published`
 - 本条实际消耗：约 20 credits，按 `$29 / 600 credits` 与 2026-08-06 汇率折算约 `¥6.52`
 
 ## 选择依据与计划边界
@@ -173,12 +180,12 @@ Scorpios, what do you do for work—and do you actually like it?
 2. 首屏只保留两行 Hook，不叠加解释性小字。
 3. 避免 Video Chat Agent 自动添加的无关特效；优先使用此前稳定的生成路径。
 4. 生成后检查首屏在约两秒内是否可读、声音自然度、字幕同步、账号串号和最终时长。
-5. 已完成生成、基础 QA 和定时，当前保持 `ready`。
-6. 取得真实发布链接、平台 ID 与实际发布时间后进入 `published`。
+5. 已完成生成、基础 QA、定时与公开发布。
+6. 真实发布链接、平台 ID 与实际发布时间已由公开采集回写，当前为 `published`。
 
 ## 发布后验证
 
 - **主要问题**：职业场景能否使 Mira 脱离近期重复的关系/隐藏痛苦机制，并提高前两秒停留和整体播放。
 - **对照思路**：与本周 Scorpio × Taurus 的配对内容比较统一窗口的 views、平均观看、完播、shares、favorites、comments 和 followers gained；两条形式保持同一 Host、声音、背景和字幕规格。
-- **decision**：待发布后填写。
+- **decision**：待统一 24h/72h 后台观看质量和单条增粉数据后填写。
 - **next_test**：待 24h/72h 数据后决定职业/现实身份场景是否值得扩展，不因单条结果立即建立新系列。

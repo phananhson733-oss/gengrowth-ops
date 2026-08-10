@@ -2,10 +2,11 @@
 
 基于现有公开 TikTok 采集器增加本地历史、Google Sheets 同步、生产记录状态回写和 macOS 每日运行。采集器仍然使用公开 profile、creator embed 与单条公开页，不使用付费 API、代理或验证码绕过。
 
-本工具位于 `inbox-pengman/tools/`，因为它是可运行的本地自动化，不属于 Evergreen SOP。运行输出继续写入 `inbox-pengman/output/`；生产记录同步只扫描当前 `04-production/02-content-production/`，明确排除 `历史记录/`。
+本工具位于 `inbox-pengman/tools/`，因为它是可运行的本地自动化，不属于 Evergreen SOP。运行输出继续写入 `inbox-pengman/output/`；生产记录同步只扫描当前 `02-生产/02-content-production/`，明确排除 `历史记录/`。
 
 ## 最近一次迁移验证
 
+- `2026-08-09`：生产记录扫描路径已从迁移前的 `04-production/02-content-production/` 修正为当前 `02-生产/02-content-production/`；使用现有 SQLite 重跑后扫描 14 条当前主记录，安全匹配 11 条、实际补齐 4 条发布证据、保留 1 条未发布模糊项不写回。再次 dry-run 为 `changed=0`，确认结果可重复且不会反复改写。
 - `2026-08-07`：完成目录迁移、Node 语法检查、生产记录 dry-run、真实公开采集和同日 `--from-raw` 回放。
 - 真实采集与回放均读取 4 个账号、24 条帖子，`partial=0`、`errors=[]`；SQLite、Google Sheets 和生产记录同步成功。
 - 生产记录扫描由历史结构下的 36 份收窄为 14 份当前主记录；历史生产记录明确不参与匹配。

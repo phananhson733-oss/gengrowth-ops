@@ -12,7 +12,7 @@ pillar: Eclipse / Check Your Chart
 format: Short Text Video
 priority: P0
 effort: S
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "GPT-5.6 v1，经 Pengman 于 2026-08-07 确认"
 hook: "This Leo eclipse isn’t just for Leos."
@@ -26,7 +26,14 @@ expiry_date: 2026-08-12
 batch_id: 2026-W32-light-transit-01
 status: draft
 owner: Pengman
-updated: 2026-08-07
+updated: "2026-08-09"
+published_url: "https://www.tiktok.com/@astrologywiki/video/7671198276447702286"
+platform_post_id: "7671198276447702286"
+published_at: "2026-08-09T14:25:00.000Z"
+published_date: "2026-08-09"
+publish_sync_status: "matched"
+publish_sync_method: "account_time"
+publish_sync_last_checked_at: "2026-08-10T03:05:01.363Z"
 ---
 
 # Aug 12 Leo Eclipse：内容生产记录
@@ -38,14 +45,14 @@ updated: 2026-08-07
 - 执行通道：快速
 - 建议制作顺序：与 Mars in Cancer 共用轻形式 Batch
 - 可共用调研/素材：官号深色模板、日期字卡和 chart CTA
-- 当前一个人类动作：等待定时发布；公开后核验真实链接、平台 ID 与实际发布时间
+- 当前一个人类动作：在统一 24h/72h 窗口补后台观看质量与内容反馈
 
 ## 当前下一步
 
 - 日食日期、度数和安全边界已核验，见下方证据卡。
 - 脚本、Hook、CTA、画面节奏与 Caption 已由 Pengman 确认并写入本记录。
-- Pengman 已完成制作，并确认定时于芝加哥时间 2026-08-09 07:25 发布，对应北京时间 2026-08-09 20:25。
-- 当前 `content_stage` 为 `ready`；帖子公开后由真实链接、平台 ID 与实际发布时间核验，再进入 `published`。
+- Pengman 已完成制作并设置定时；帖子实际于 `2026-08-09T14:25:00.000Z` 公开。
+- 公开采集已核验真实链接、平台 ID 与实际发布时间，当前 `content_stage` 为 `published`。
 
 ## 事实、时区与安全证据卡
 

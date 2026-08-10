@@ -21,13 +21,21 @@ expiry_date: 2026-09-05
 batch_id: 2026-W32-aihost-02
 status: draft
 owner: Pengman
-updated: "2026-08-05"
-published_evidence_status: user_confirmed_url_pending
+updated: "2026-08-09"
+published_evidence_status: verified
+publish_match_post_id: "7670764739978398989"
 actual_credits_approx: 20
 source_evidence:
   - "[[inbox-pengman/00-inbox/Scorpio-has-zero-friends-脚本调研]]"
-  - "[[inbox-pengman/04-production/02-content-production/历史记录/迁移前旧格式/2026-07-21 Scorpio Questions AI口播 内容生产记录]]"
-  - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-psychology-ai-host-07]]"
+  - "[[inbox-pengman/02-生产/02-content-production/历史记录/迁移前旧格式/2026-07-21 Scorpio Questions AI口播 内容生产记录]]"
+  - "[[inbox-pengman/02-生产/02-content-production/已发布/aw-scorpio-psychology-ai-host-07]]"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7670764739978398989"
+platform_post_id: "7670764739978398989"
+published_at: "2026-08-06T14:30:00.000Z"
+published_date: "2026-08-06"
+publish_sync_status: "matched"
+publish_sync_method: "explicit_match_id"
+publish_sync_last_checked_at: "2026-08-10T03:05:01.363Z"
 ---
 
 # Scorpio Psychology AI Host #11：内容生产记录
@@ -39,7 +47,7 @@ source_evidence:
 - 执行通道：快速
 - 建议制作顺序：确认稿后直接进入 HeyGen 生成、剪辑、QA、发布
 - 可共用调研/素材：沿用 miraa 固定女性 AI Host、深色背景和大字幕；不增加无关特效
-- 当前一个人类动作：补真实发布链接、平台 ID 与实际发布时间，完成发布证据核验
+- 当前一个人类动作：在统一 24h/72h 窗口补后台观看质量、单条增粉与内容反馈
 
 ## AI Host 生产资源
 
@@ -47,7 +55,7 @@ source_evidence:
 - 本条实际消耗：约 20 credits（Pengman 于 2026-08-07 汇总确认）
 - 折算成本：按 `$29 / 600 credits` 与 2026-08-06 汇率 `$1 = ¥6.7491`，约 `¥6.52 / 条`
 - 视觉约束：固定 Host、深色背景、大字幕；避免 Video Chat Agent 自动添加的无关特效
-- 阶段说明：Pengman 确认本条已发布，因此 `content_stage` 更新为 `published`；真实 URL、平台 ID 与实际发布时间仍待自动采集或人工补齐，不表述为完整核验发布
+- 阶段说明：公开采集已通过明确平台 ID 核验真实 URL、平台 ID 与实际发布时间，当前为完整核验的 `published`
 
 ## 统一 Brief
 
@@ -74,7 +82,7 @@ source_evidence:
 ### 运营推断
 
 - 相比本周较抽象的配对脚本，本条用单一身份矛盾和具体行为降低前两秒理解成本。
-- “隐藏自己承担的重量”可能带来 Scorpio 本人的身份认领与自然分享，但实际播放、留存和互动仍待发布后验证。
+- “隐藏自己承担的重量”可能带来 Scorpio 本人的身份认领与自然分享；公开播放与互动已有首轮数据，后台留存和统一 24h/72h 指标仍待补。
 
 ### 待确认项
 
@@ -204,8 +212,8 @@ The strongest person in the room still needs someone to notice them.
 
 ## 发布与复盘
 
-- 发布链接：
-- 发布证据：Pengman 于 2026-08-07 确认已发布；真实 permalink、平台 ID 与实际发布时间待补
+- 发布链接：https://www.tiktok.com/@miraaastrology/video/7670764739978398989
+- 发布证据：Pengman 已确认发布；公开采集于 2026-08-10 通过明确平台 ID 补齐 permalink、平台 ID 与实际发布时间
 - `weekly_digest`：
 - `decision`：
 - `next_test`：
