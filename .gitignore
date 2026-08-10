@@ -2,6 +2,9 @@
 .obsidian/
 .obsidian.workspace*
 
+# Excalidraw 本地绘图目录（含其文件和子文件夹）
+/inbox-pengman/Excalidraw/
+
 # macOS
 .DS_Store
 
