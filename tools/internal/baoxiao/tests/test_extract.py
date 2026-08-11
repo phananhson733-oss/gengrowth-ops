@@ -60,6 +60,17 @@ class ParseExtractionTests(unittest.TestCase):
         f = extract.parse_extraction({**VALID, "confidence": 0.7}, confidence_threshold=0.6)
         self.assertFalse(f.needs_review)
 
+    def test_historical_backfill_metadata_is_parsed(self):
+        f = extract.parse_extraction({
+            **VALID,
+            "settled_month": "2026-01",
+            "allow_receipt": True,
+            "backfill_note": "历史 Receipt 人工批准补录",
+        })
+        self.assertEqual(f.settled_month, "2026-01")
+        self.assertTrue(f.allow_receipt)
+        self.assertEqual(f.backfill_note, "历史 Receipt 人工批准补录")
+
 
 class BuildExtractionMessagesTests(unittest.TestCase):
     def test_messages_carry_image_and_ask_json(self):

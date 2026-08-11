@@ -4,6 +4,8 @@ created: 2026-07-23
 author: Claude (Pengman 委托)
 ---
 
+> **历史证据，不作为当前执行入口**；当前规则以 AGENTS、滚动周 SOP、当前周计划和单条主生产记录为准。
+
 # 工作流与 Skill 诊断优化方案
 
 ## A. 当前状态诊断
@@ -13,7 +15,7 @@ author: Claude (Pengman 委托)
 ```mermaid
 graph TD
     A[① 了解产品<br>产品介绍/功能/资料] --> B[② 了解竞品<br>领域内所有相关社媒账号]
-    B --> C[③ 确定账号矩阵<br>four-account-playbook]
+    B --> C[③ 确定账号矩阵<br>AstrologyWiki 社媒账号定位与内容路由 Playbook]
     C --> D[④ 周一生成选题<br>astrologywiki-social-workflow Mode B]
     D --> E[⑤ 周二写脚本<br>Mode A]
     E --> F[⑥ 周三-周四批量制作<br>按形式分 Batch]
@@ -183,7 +185,7 @@ graph TD
 
 | 行动 | 具体操作 |
 |------|---------|
-| 合并 `tiktok-strategist` | 1. 把 Hook 评估框架复制到 `gengrowth-social/references/short-form-video.md`<br>2. 在 `gengrowth-social/SKILL.md` 顶部加交叉引用<br>3. 删除 `skills-staging/gengrowth-tiktok-strategist/` |
+| 合并 `tiktok-strategist` | 1. 把 Hook 评估框架复制到 `gengrowth-social/references/short-form-video.md`<br>2. 在 `gengrowth-social/SKILL.md` 顶部加交叉引用<br>3. 删除 `skills/gengrowth-tiktok-strategist/` |
 | 明确 Skill 边界 | 在 `gengrowth-social` 和 `social-media-analyzer` 各自 SKILL.md 顶部加一句边界说明 |
 
 ### 第 2 步：优化配置管理（下周，可选）
@@ -365,7 +367,7 @@ graph TD
 ```
 
 **产出**：
-- `four-account-tiktok-content-playbook.md`（或 three-account / five-account）
+- `AstrologyWiki 社媒账号定位与内容路由 Playbook.md`（或 three-account / five-account）
 - 每个账号的清晰定义
 - 为选题生成提供路由规则
 
@@ -407,7 +409,7 @@ graph TD
 - Hot 候选 1 条（Scorpio 嫉妒话题）
 
 每条包含：
-- 账号分配（按 four-account-playbook 路由）
+- 账号分配（当时按账号 Playbook 路由；当前文件为 `AstrologyWiki 社媒账号定位与内容路由 Playbook`）
 - 形式（AI 口播 / slideshow / photo）
 - effort（S/M/L）
 - batch_id

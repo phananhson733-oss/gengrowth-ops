@@ -2,7 +2,7 @@
 
 通过 Apps Script Web App 部署，AI 可直接 curl 读取表格数据，无需 OAuth。
 
-## Sheet 1（人工标注）
+## Sheet 1（竞品视频分析）
 
 - URL: `https://script.google.com/macros/s/AKfycbyBKT52vgqfnZN0opPL1z0aiB8gom3WlAGbuyyi2_bmSAF6a5khbLS_CYwUr0XseUxSOw/exec`
 - 工作表: account_links, account_analysis, video_links, video_analysis

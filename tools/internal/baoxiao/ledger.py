@@ -137,21 +137,28 @@ _SYMBOL_TO_CODE = [
     ("£", "GBP"),
 ]
 
-# v2.5.7:备用金账本汇率估算 — 三级 fallback:本地缓存 → exchangerate.host API → 硬编码近期均值。
+# 备用金账本汇率估算 — 三级 fallback:本地缓存 → SAFE/CFETS 官方中间价 → 备用估值。
 # 实际付款 = 汇率 × 原币 + 手续费/汇率波动,通常差 1-3%;这里只给起点估算,实付以截图为准。
 # Req 4 接入截图识别后,自动读截图实付额覆盖估算。
 _FX_TO_CNY_FALLBACK = {
     "CNY": 1.0,
-    "USD": 7.18,
-    "HKD": 0.92,
+    "USD": 6.8,
+    "HKD": 0.88,
     "EUR": 7.75,
     "GBP": 8.90,
 }
 _FX_CACHE_PATH = Path(__file__).resolve().parent / "logs" / "fx-cache.json"
-# Frankfurter:欧洲央行历史汇率,完全免费、无需 key。支持 USD/EUR/GBP/JPY 等主流币种。
-# HKD 等非欧元报价币不在 Frankfurter 范围,会走硬编码 fallback。
-_FX_API_URL = "https://api.frankfurter.app/{date}?from={base}&to=CNY"
+# 国家外汇管理局官方查询页；页面注明数据来源为中国外汇交易中心。
+# 以下币种为直接标价法：100 外币折合多少人民币，程序统一除以 100。
+_FX_API_URL = (
+    "https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do"
+    "?startDate={date}&endDate={date}&queryYN=true"
+)
 _FX_API_TIMEOUT = 5  # 秒,联网慢就 fallback
+_SAFE_DIRECT_COLUMN = {
+    "USD": 1, "EUR": 2, "JPY": 3, "HKD": 4, "GBP": 5,
+    "AUD": 6, "NZD": 7, "SGD": 8, "CHF": 9, "CAD": 10,
+}
 
 
 def _fx_cache_load() -> dict:
@@ -177,27 +184,57 @@ def _fx_cache_save(cache: dict) -> None:
 
 
 def _fetch_fx_rate_online(currency: str, iso_date: str) -> Optional[float]:
-    """调 Frankfurter API 取历史汇率(YYYY-MM-DD)。失败返回 None,调用方 fallback。
-    需要带 User-Agent 否则部分服务返回 403。Frankfurter 只支持欧元报价基础的主流币种,
-    HKD 等非报价币会返回 422 → urllib HTTPError → None。
-    """
+    """从 SAFE 官方页面取 CFETS/PBOC 当日人民币汇率中间价。"""
+    from html.parser import HTMLParser
     import urllib.request
     import urllib.error
-    url = _FX_API_URL.format(date=iso_date, base=currency.upper())
+
+    code = currency.upper()
+    column = _SAFE_DIRECT_COLUMN.get(code)
+    if column is None:
+        return None
+    url = _FX_API_URL.format(date=iso_date)
     req = urllib.request.Request(
         url, headers={"User-Agent": "gengrowth-baoxiao/2.5.8 (+wzb@gengrowth)"}
     )
+
+    class _TableParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.rows, self.row, self.in_td, self.text = [], [], False, []
+
+        def handle_starttag(self, tag, _attrs):
+            if tag.lower() == "tr":
+                self.row = []
+            elif tag.lower() == "td":
+                self.in_td, self.text = True, []
+
+        def handle_data(self, data):
+            if self.in_td:
+                self.text.append(data)
+
+        def handle_endtag(self, tag):
+            if tag.lower() == "td" and self.in_td:
+                self.row.append(" ".join(self.text).strip())
+                self.in_td = False
+            elif tag.lower() == "tr" and self.row:
+                self.rows.append(self.row)
+
     try:
         with urllib.request.urlopen(req, timeout=_FX_API_TIMEOUT) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+            body = resp.read().decode("utf-8", "replace")
     except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError,
             OSError, ValueError):
         return None
-    rate = data.get("rates", {}).get("CNY")
-    if rate is None:
+
+    parser = _TableParser()
+    parser.feed(body)
+    row = next((r for r in parser.rows if r and r[0] == iso_date), None)
+    if row is None or len(row) <= column:
         return None
     try:
-        rate_f = float(rate)
+        # 官方直接标价单位为“100 外币折合人民币”。
+        rate_f = float(row[column]) / 100.0
     except (TypeError, ValueError):
         return None
     # v2.5.8 bug fix #5:校验 finite + 正数,防 NaN/Inf/0/负数流入账本造成 dashboard 聚合静默坏
@@ -221,7 +258,8 @@ def lookup_fx_rate(currency: str, date_yyyymmdd: Optional[str] = None,
     if date_yyyymmdd and len(date_yyyymmdd) >= 8:
         iso_date = f"{date_yyyymmdd[:4]}-{date_yyyymmdd[4:6]}-{date_yyyymmdd[6:8]}"
         cache = _fx_cache_load()
-        key = f"{code}-CNY:{iso_date}"
+        # v2:隔离旧 Frankfurter/ECB 缓存，避免来源切换后误命中。
+        key = f"SAFE-CFETS:{code}-CNY:{iso_date}"
         if key in cache:
             return cache[key]
         # 2. 在线 API + 写缓存

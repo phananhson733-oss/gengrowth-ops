@@ -13,4 +13,4 @@ updated: 2026-07-16
 
 ## 当前文件
 
-- [[inbox-pengman/08-requirements/社媒竞品账号与视频链接分析工具需求文档.md]]：v0.5 聚焦账号、普通视频和 TikTok Photo 链接分析，并增加主风格标签与四账号适配建议。
+- [[inbox-pengman/06-requirements/社媒竞品账号与视频链接分析工具需求文档.md]]：v0.5 聚焦账号、普通视频和 TikTok Photo 链接分析，并增加主风格标签与四账号适配建议。

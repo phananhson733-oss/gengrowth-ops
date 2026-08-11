@@ -15,23 +15,23 @@ updated: 2026-07-16
 
 ## A 批次执行记录（2026-07-16）
 
-- 已建立 `inbox-pengman/05-调研资料/` 及平台与策略、方法论、工具调研、历史调研、历史流程五个入口。
+- 已建立 `inbox-pengman/02-调研资料/` 及平台与策略、方法论、工具调研、历史调研、历史流程五个入口。
 - 已迁移视频与视觉工具调研、文字与社媒工具调研、三份历史调研、内容方向总览、通用运营框架、鱼骨图和根旧工作流，共 16 个原有文件。
 - 已更新 `inbox-pengman` 内受影响的 wikilink 和硬编码路径；A 批次当时没有移动 `03-reference-accounts`，也没有修改 `AGENTS.md`。
 - 仓库权限不允许创建 `.git/index.lock`，因此无法使用 `git mv`；实际使用文件系统移动，Git 可在差异阶段识别删除/新增或重命名。
 - A 批次后 `04-production` 为 70 个文件、约 844.5 KB（其中 4 个为已忽略 `.DS_Store`）；迁移前为 86 个文件、1,055,213 B，当前生产区减少 16 个文件和约 20% 体积。
-- 新 `05-调研资料` 为 21 个文件、224,054 B，其中 16 个为迁移文件、5 个为新建索引。仓库总体积没有因移动而下降，索引说明使文本量小幅增加。
-- 迁移前完整目录树和数字继续保留为审查基线；当前结构以 `04-production/README.md` 和 `05-调研资料/README.md` 为准。
+- 新 `02-调研资料` 为 21 个文件、224,054 B，其中 16 个为迁移文件、5 个为新建索引。仓库总体积没有因移动而下降，索引说明使文本量小幅增加。
+- 迁移前完整目录树和数字继续保留为审查基线；当前结构以 `04-production/README.md` 和 `02-调研资料/README.md` 为准。
 
 ## B 批次执行记录（2026-07-16）
 
-- 已把原 `04-production/03-reference-accounts/` 整体迁到 `05-调研资料/竞品研究/`，共 9 个原有文件，其中 1 个 `.DS_Store` 已被 Git 忽略。
-- 4 个 CSV 保留并迁到 `05-调研资料/竞品研究/旧快照/2026-07-07/`；没有删除历史数据。
+- 已把原 `04-production/03-reference-accounts/` 整体迁到 `02-调研资料/竞品研究/`，共 9 个原有文件，其中 1 个 `.DS_Store` 已被 Git 忽略。
+- 4 个 CSV 保留并迁到 `02-调研资料/竞品研究/旧快照/2026-07-07/`；没有删除历史数据。
 - 已新增旧快照两级 README，明确这些 CSV 不参与新 Brief、候选生成或当前数据判断。
 - 已同步更新 `inbox-pengman/AGENTS.md`、Social Daily Skill、Daily SOP、四账号 Playbook、工作区 README、current-context 和所有竞品路径引用。
 - B 批次先把 Social Daily Skill 升级为 `v0.9.1`，只更新研究路径和旧快照边界；Pengman 随后确认暂停 GSC，Skill 再升级为 `v0.9.2`，移除 GSC 的读取、权限检查和证据门槛。
 - `04-production` 当前为 60 个文件、约 770 KB；Pengman 已确认同期删除的 GSC reports/README 不恢复，后续暂不读取 GSC。
-- `05-调研资料` 当前为 32 个文件、约 303 KB；在线 Google Sheet 继续作为竞品数据唯一事实来源。
+- `02-调研资料` 当前为 32 个文件、约 303 KB；在线 Google Sheet 继续作为竞品数据唯一事实来源。
 
 ## C1 批次执行记录（2026-07-17）
 
@@ -56,7 +56,7 @@ updated: 2026-07-16
 
 - `inbox-pengman/AGENTS.md`；
 - `inbox-pengman/README.md`；
-- `inbox-pengman/01-conversation report/current-context.md`；
+- `inbox-pengman/04-production/00-evergreen-workflows/ai-advisor/当前状态与决策记录.md`；
 - `inbox-pengman/04-production/README.md`；
 - `inbox-pengman/04-production/00-evergreen-workflows/**`；
 - 各一级子目录 README；
@@ -89,7 +89,7 @@ updated: 2026-07-16
 │   ├── .gitkeep
 │   ├── README.md
 │   ├── content-direction-and-tools-research.md
-│   ├── four-account-tiktok-content-playbook.md
+│   ├── AstrologyWiki 社媒账号定位与内容路由 Playbook.md
 │   ├── social-seo-content-operations-framework.md
 │   ├── social-seo-fishbone-map.md
 │   └── 历史调研资料/
@@ -234,7 +234,7 @@ updated: 2026-07-16
 
 当前没有证据表明 `04-production` 会造成明显 Git 上传或仓库体积问题。Markdown 文件数量多会增加浏览、索引和 AI 选择成本，但 1 MiB 级文本不会形成显著网络同步负担。
 
-把研究文件从 `04-production` 移到同一仓库的 `05-调研资料`，只会改善目录和 AI 路由，不会降低整个 Git 仓库体积。只有删除 Git 历史/跟踪文件、把未来大型媒体放外部存储，或不再跟踪可重建输出，才会真正减少仓库传输量。
+把研究文件从 `04-production` 移到同一仓库的 `02-调研资料`，只会改善目录和 AI 路由，不会降低整个 Git 仓库体积。只有删除 Git 历史/跟踪文件、把未来大型媒体放外部存储，或不再跟踪可重建输出，才会真正减少仓库传输量。
 
 ### `.gitignore` 建议
 
@@ -290,7 +290,7 @@ updated: 2026-07-16
 | 当前内容状态与最终稿 | 单条主生产记录 | 候选、共享 Prompt、README 只回链 |
 | 发布链接、周数据、`decision / next_test` | 对应 weekly digest | 生产记录不维护第二套周级数据 |
 | 公共表达、品牌安全、CTA | `astrologywiki-social-workflow/SKILL.md` | Daily SOP、旧工作流不再复制文风 |
-| 账号定位与形式路由 | `four-account-tiktok-content-playbook.md` | 策略总览只解释背景 |
+| 账号定位与形式路由 | `AstrologyWiki 社媒账号定位与内容路由 Playbook.md` | 策略总览只解释背景 |
 | 选题输入、站内承接、去重 | Daily SOP + Skill 强制执行边界 | Daily SOP 的旧可复用 Prompt 后续删除或改为链接 |
 | 双模型实验、人工反馈、L1–L5 | `Pengman 与 AI 内容润色协作说明.md` | Skill 只保留边界，生产模板只定义字段 |
 | 竞品数据 | 在线 Google Sheet | 本地 CSV 与研究稿只作历史证据 |
@@ -322,19 +322,19 @@ updated: 2026-07-16
 | 当前目录 / 文件 | 主要内容 | 建议 | 建议位置 | 理由 | 迁移风险 | 需要修复的链接 |
 |---|---|---|---|---|---|---|
 | `README.md` | 工作区入口 | 保留并已优化 | 原位 | 作为人和 AI 的唯一总入口 | 低 | 已补任务路由、默认不扫描和 SSOT |
-| 根 `astrologywiki-social-content-workflow.md` | 早期端到端流程 | 归档，不直接合并 | `05-调研资料/历史流程/` | 已被根 README 定义为历史背景 | 中 | 9 个引用文件；迁移时加旧路径映射 |
+| 根 `astrologywiki-social-content-workflow.md` | 早期端到端流程 | 归档，不直接合并 | `02-调研资料/历史流程/` | 已被根 README 定义为历史背景 | 中 | 9 个引用文件；迁移时加旧路径映射 |
 | `00-evergreen-workflows/` | SOP、模板、Skill | 保留 | 原路径，第一阶段不改名 | 43 个引用文件，直接控制生产 | 高 | README、AGENTS、主生产记录和 current-context |
 | `00/.../social-account-warmup-and-launch-workflow.md` | 账号启动/养号 | 迁移 | `07-account-assets/账号运营SOP/` | 不属于单条内容生产 | 中 | 00 README 及可能的任务文档 |
 | `00/.../daily-content-assistant-sop.md` | 输入、站内承接、去重、旧 Prompt | 合并/降权 | 仍在 `00`；删去已被 Skill 替代的 Prompt 前需确认 | 决策逻辑仍有用，但执行说明重复 | 高 | Skill、README、AGENTS |
-| `01.../four-account-tiktok-content-playbook.md` | 四账号路由 | 保留并迁入 SOP | `00-evergreen-workflows/` | 生产时直接调用的唯一账号路由 | 高 | Skill、路由说明、制作记录 |
-| `01.../content-direction-and-tools-research.md` | 平台/工具综合研究 | 迁移 | `05-调研资料/平台与策略/` | 决策证据，不是当前生产状态 | 中 | 04 README、鱼骨图、任务文档 |
-| `01.../social-seo-content-operations-framework.md` | 通用端到端运营框架 | 迁移并降权 | `05-调研资料/方法论/` | `status: draft`，与现行 Skill/SOP 重叠 | 中高 | 26 个路径引用集合中的一部分 |
-| `01.../social-seo-fishbone-map.md` | 总流程索引 | 合并后归档 | 根 README 已承担当前路由；原文移 `05-调研资料/历史流程/` | 避免两个总入口 | 中 | 04 README、周报 README、任务文档 |
-| `01.../历史调研资料/` | 早期平台研究 | 迁移/归档 | `05-调研资料/历史调研/` | 仅用于追溯 | 中 | current-context、旧 workflow；1 个失效链接已处理 |
-| `02-video-and-visual-tool-research/` | 视频/视觉工具调研 | 整体迁移 | `05-调研资料/工具调研/视频与视觉/` | 工具证据不应占生产入口 | 中 | 9 个引用文件 |
-| `03-reference-accounts/` | 竞品研究与旧快照 | 整体迁移 | `05-调研资料/竞品研究/` | 在线 Sheet 才是事实源 | 高 | 23 个引用文件，含 `AGENTS.md` 和 Skill |
-| `03.../sheets-export/` | 2026-07-07 左右旧 CSV | 归档，不参与生成 | `05-调研资料/竞品研究/旧快照/2026-07-07/` | 仅 22.2 KiB；保留追溯比删除更稳妥 | 中 | README 需明确停用；无直接 wikilink |
-| `04-text-and-social-tool-research/` | 文本/X/搜索工具研究 | 整体迁移 | `05-调研资料/工具调研/文字与社媒/` | 与 02 同类 | 低 | 5 个引用文件 |
+| `01.../AstrologyWiki 社媒账号定位与内容路由 Playbook.md` | 四账号路由 | 保留并迁入 SOP | `00-evergreen-workflows/` | 生产时直接调用的唯一账号路由 | 高 | Skill、路由说明、制作记录 |
+| `01.../content-direction-and-tools-research.md` | 平台/工具综合研究 | 迁移 | `02-调研资料/平台与策略/` | 决策证据，不是当前生产状态 | 中 | 04 README、鱼骨图、任务文档 |
+| `01.../social-seo-content-operations-framework.md` | 通用端到端运营框架 | 迁移并降权 | `02-调研资料/方法论/` | `status: draft`，与现行 Skill/SOP 重叠 | 中高 | 26 个路径引用集合中的一部分 |
+| `01.../social-seo-fishbone-map.md` | 总流程索引 | 合并后归档 | 根 README 已承担当前路由；原文移 `02-调研资料/历史流程/` | 避免两个总入口 | 中 | 04 README、周报 README、任务文档 |
+| `01.../历史调研资料/` | 早期平台研究 | 迁移/归档 | `02-调研资料/历史调研/` | 仅用于追溯 | 中 | current-context、旧 workflow；1 个失效链接已处理 |
+| `02-video-and-visual-tool-research/` | 视频/视觉工具调研 | 整体迁移 | `02-调研资料/工具调研/视频与视觉/` | 工具证据不应占生产入口 | 中 | 9 个引用文件 |
+| `03-reference-accounts/` | 竞品研究与旧快照 | 整体迁移 | `02-调研资料/竞品研究/` | 在线 Sheet 才是事实源 | 高 | 23 个引用文件，含 `AGENTS.md` 和 Skill |
+| `03.../sheets-export/` | 2026-07-07 左右旧 CSV | 归档，不参与生成 | `02-调研资料/竞品研究/旧快照/2026-07-07/` | 仅 22.2 KiB；保留追溯比删除更稳妥 | 中 | README 需明确停用；无直接 wikilink |
+| `04-text-and-social-tool-research/` | 文本/X/搜索工具研究 | 整体迁移 | `02-调研资料/工具调研/文字与社媒/` | 与 02 同类 | 低 | 5 个引用文件 |
 | `05-weekly-published-content-digests/` | 发布、数据、复盘 | 保留 | 原路径，第一阶段不改名 | 发布事实来源 | 高 | 50 个引用文件 |
 | `06-daily-content-recommendations/` | 历史日级候选；当前周一候选/Hot/重排证据 | 保留但再次收窄 | 原路径 | 不作为普通日执行入口，不维护单条状态 | 高，已完成 | 现行规则以 Weekly Rolling SOP 为准 |
 | `06.../已合并旧稿/` | 已合并的日级过程稿 | 保留但默认不读 | 原路径 | 仍有来源追溯价值，且与日级内容包同类 | 低 | README 已收口 |
@@ -360,7 +360,7 @@ inbox-pengman/
 │   └── 07-content-production/               # 被选中后的单条内容生产
 │       ├── README.md                        # 当前队列与状态索引
 │       └── 已合并旧稿/                      # 只放生产过程稿
-├── 05-调研资料/
+├── 02-调研资料/
 │   ├── README.md
 │   ├── 平台与策略/
 │   ├── 方法论/
@@ -412,7 +412,7 @@ inbox-pengman/
 |---|---:|---:|---:|
 | `04-production` 已跟踪文件 | 82 | 约 55 | 减少约 33% |
 | `04-production` 已跟踪体积 | 1,026,525 B / 1002.5 KiB | 约 719,730 B / 702.9 KiB | 减少约 30% |
-| 整个 Git 仓库体积 | 不变 | 基本不变 | 文件只是移到 `05-调研资料` |
+| 整个 Git 仓库体积 | 不变 | 基本不变 | 文件只是移到 `02-调研资料` |
 | 默认 AI 候选文件 | 74 个 Markdown | 通常 4–8 个 | 按任务减少约 89%–95% |
 | 默认上下文文本量 | 最坏接近 980 KiB | 通常约 50–150 KiB | 预计减少约 85%–95%，取决于任务 |
 
@@ -439,15 +439,15 @@ inbox-pengman/
 
 ### A. 推荐先确认：低路径风险迁出
 
-- [x] 建立 `05-调研资料/` 及唯一 README。
+- [x] 建立 `02-调研资料/` 及唯一 README。
 - [x] 整体迁移 `02-video-and-visual-tool-research/`。
 - [x] 整体迁移 `04-text-and-social-tool-research/`。
 - [x] 迁移 `01/.../历史调研资料/`、`content-direction-and-tools-research.md`、通用框架和鱼骨图。
-- [x] 将根旧工作流移到 `05-调研资料/历史流程/`，不合并正文。
+- [x] 将根旧工作流移到 `02-调研资料/历史流程/`，不合并正文。
 
 ### B. 需同步改规则：竞品目录
 
-- [x] 把 `03-reference-accounts/` 迁到 `05-调研资料/竞品研究/`。
+- [x] 把 `03-reference-accounts/` 迁到 `02-调研资料/竞品研究/`。
 - [x] 同批更新 `inbox-pengman/AGENTS.md`、Social Daily Skill、Daily SOP、Playbook 和所有 wikilink。
 - [x] 将 `sheets-export` 明确命名为 `旧快照/2026-07-07/`；本轮决定保留，不删除。
 
@@ -470,7 +470,7 @@ inbox-pengman/
 
 ## 14. 建议执行顺序与验证门
 
-1. A 批次已完成；验证 `05-调研资料/README.md`、路径映射、wikilink 和硬编码路径。
+1. A 批次已完成；验证 `02-调研资料/README.md`、路径映射、wikilink 和硬编码路径。
 2. B 批次已完成；`AGENTS.md`、Skill、Daily SOP、Playbook 和路径引用已同步更新。
 3. C1 已完成；下一步若继续 C 批次，先逐条确认旧制作方案状态，再决定是否建立物理状态子目录。
 4. 每批迁移独立验证 README 能从根入口到达全部当前文件；默认扫描清单不再包含研究和历史目录。

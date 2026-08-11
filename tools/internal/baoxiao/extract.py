@@ -51,6 +51,9 @@ class InvoiceFields:
     is_receipt: bool = False  # 付款收据(receipt 不能作报销凭证),ingest 时 skip 不入账
     invoice_type: str = ""    # "普票"(国内增值税普通)/ "专票"(国内增值税专用,可抵扣)/ "invoice"(海外)/ ""
     billed_to: str = ""       # 发票对象抬头(Bill to / 购买方)
+    settled_month: str = ""   # 历史补录专用:YYYY-MM,表示已结清月份
+    allow_receipt: bool = False  # 明确人工批准后,允许 receipt 作为历史报销记录补录
+    backfill_note: str = ""    # 历史补录审计说明
 
 
 def _coerce_amount(value):
@@ -82,6 +85,9 @@ def parse_extraction(raw, confidence_threshold=DEFAULT_CONFIDENCE_THRESHOLD):
         is_receipt=bool(raw.get("is_receipt")),
         invoice_type=str(raw.get("invoice_type") or "").strip(),
         billed_to=str(raw.get("billed_to") or "").strip(),
+        settled_month=str(raw.get("settled_month") or "").strip(),
+        allow_receipt=bool(raw.get("allow_receipt")),
+        backfill_note=str(raw.get("backfill_note") or "").strip(),
     )
     f.needs_review = (
         f.confidence < confidence_threshold

@@ -496,7 +496,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-MCMT-001` The Most Common MBTI Types for Each Zodiac Sign
 
 - [x] `PG-CELEB-062` Taylor Swift Travis Kelce wedding astrology
-- [ ] `PG-WC-055` Thor zodiac sign
+- [x] `PG-WC-055` Thor zodiac sign
+- [x] `PG-WC-055` Thor zodiac sign
 - [x] `PG-CELEB-063` Jennifer Lopez birth chart
 
 - [x] `PG-CELEB-064` jang wonyoung birth chart
@@ -510,6 +511,9 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-HEAL-008` mercury in gemini
 - [ ] `PG-HEAL-009` jupiter in sagittarius
 - [ ] `PG-MZ-001` INTJ zodiac sign
+- [x] `PG-KB-001` BTS members zodiac signs
+- [ ] `PG-KB-002` Jungkook birth chart
+- [x] `PG-FH-001` Harry Potter characters zodiac signs
 - [x] `PG-KB-001` BTS members zodiac signs
 - [ ] `PG-KB-002` Jungkook birth chart
 - [x] `PG-FH-001` Harry Potter characters zodiac signs
@@ -550,12 +554,14 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 ---
 ## ⚪ 7月24日 (周五) - 待写作
+**状态**：`等待输出` (自动补充选题，共 30 篇)
 **状态**：`等待输出` (自动补充选题，共 40 篇)
 - [ ] `PG-MZ-007` which zodiac sign is most INTJ
 - [ ] `PG-MZ-008` INFJ zodiac sign
 - [ ] `PG-MZ-009` INFP zodiac sign
 - [ ] `PG-MZ-010` ENFP zodiac sign
-- [ ] `PG-MZ-011` INTP zodiac sign
+- [x] `PG-MZ-011` INTP zodiac sign
+- [x] `PG-MZ-011` INTP zodiac sign
 - [ ] `PG-MZ-012` ENTJ zodiac sign
 - [ ] `PG-MZ-013` ENFJ zodiac sign
 - [ ] `PG-MZ-014` ISFJ zodiac sign
@@ -564,7 +570,8 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [ ] `PG-MZ-017` ESTJ zodiac sign
 - [ ] `PG-MZ-018` ESFJ zodiac sign
-- [ ] `PG-MZ-019` ESFP zodiac sign
+- [x] `PG-MZ-019` ESFP zodiac sign
+- [x] `PG-MZ-019` ESFP zodiac sign
 - [ ] `PG-MZ-020` ESTP zodiac sign
 - [ ] `PG-MZ-021` ISTJ zodiac sign
 - [ ] `PG-MZ-022` Scorpio MBTI
@@ -585,7 +592,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-MZ-036` INFJ Scorpio
 
 - [ ] `PG-MZ-037` INTJ Virgo
-- [ ] `PG-MZ-038` ENFP Gemini
+- [x] `PG-MZ-038` ENFP Gemini
 - [ ] `PG-MZ-039` INFP Pisces
 - [ ] `PG-MZ-040` ENTP Aquarius
 - [ ] `PG-MZ-041` ESFP Sagittarius
@@ -606,7 +613,7 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-KB-009` Jin BTS zodiac sign
 - [ ] `PG-KB-010` J-Hope birth chart
 - [ ] `PG-KB-011` J-Hope zodiac sign
-- [ ] `PG-KB-012` BTS compatibility zodiac
+- [x] `PG-KB-012` BTS compatibility zodiac
 - [x] `PG-KB-013` BLACKPINK zodiac signs
 
 - [ ] `PG-KB-014` Lisa birth chart
@@ -641,11 +648,11 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [ ] `PG-KN-004` NewJeans Danielle birth chart
 - [ ] `PG-KN-005` NewJeans Hyein birth chart
 - [ ] `PG-KN-006` NewJeans Haerin birth chart
-- [ ] `PG-KI-001` IVE members zodiac signs
+- [x] `PG-KI-001` IVE members zodiac signs
 - [ ] `PG-KI-002` IVE Jang Wonyoung birth chart
 - [ ] `PG-KI-003` IVE Rei birth chart
 
-- [ ] `PG-KS-007` SEVENTEEN zodiac signs
+- [x] `PG-KS-007` SEVENTEEN zodiac signs
 - [ ] `PG-KS-008` SEVENTEEN S.Coups birth chart
 - [ ] `PG-KS-009` SEVENTEEN Woozi birth chart
 - [ ] `PG-KS-010` SEVENTEEN Mingyu birth chart
@@ -655,11 +662,11 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 
 - [ ] `PG-FH-005` Ron Weasley zodiac sign
 - [ ] `PG-FH-006` Luna Lovegood zodiac sign
-- [ ] `PG-WC-056` Marvel characters zodiac signs
+- [x] `PG-WC-056` Marvel characters zodiac signs
 
 - [ ] `PG-WC-057` Spider-Man zodiac sign
 - [ ] `PG-WC-058` Tony Stark zodiac sign
-- [ ] `PG-WC-059` Wanda Maximoff zodiac sign
+- [x] `PG-WC-059` Wanda Maximoff zodiac sign
 - [ ] `PG-WC-060` Black Widow zodiac sign
 - [ ] `PG-FA-001` Attack on Titan characters zodiac signs
 - [ ] `PG-FA-002` Eren Yeager zodiac sign

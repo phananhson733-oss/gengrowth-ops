@@ -35,6 +35,17 @@ class RefreshDashboardLockSharedTests(unittest.TestCase):
         # 三个写命令(ingest / fetch / refresh)统一指向 HERE / baoxiao.lock。
         self.assertEqual(cli.BAOXIAO_LOCK_PATH, cli.HERE / "baoxiao.lock")
 
+    def test_equipment_category_is_allowed_in_canonical_filename(self):
+        row = ledger.LedgerRow(
+            id8="a", file_rel="发票/202607/Lynne/202607-办公费-¥100.pdf",
+            reimburser="Lynne", category="设备费用", amount=100,
+            currency="CNY", invoice_number="INV-1", period="202607",
+            submit_date="2026-07-01",
+        )
+        result = cli._canonical_filename_for(row, Path("/wiki"))
+        self.assertEqual(
+            result, "发票/202607/Lynne/202607-设备费用-¥100.pdf")
+
 
 class RefreshDashboardLockBusyTests(unittest.TestCase):
     """锁被 ingest 持有 → refresh 静默退出。验证 ledger.refresh_dashboard 未被调用。"""

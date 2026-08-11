@@ -9,24 +9,23 @@
 #
 # 优先级编排原则:
 # - 差旅费 > 交通费:出差期间打车归差旅,纯市内出行归交通
-# - 业务招待费 > 福利费:含"招待/宴请"明确归商务餐;员工自食归福利
-# - 商务送礼 > 福利费:对外送礼 vs 对内员工福利,粗略按关键词区分
+# - 商务招待 > 福利费:对外宴请、接待和送礼统一归商务招待;员工自食归福利
 # 未明确时由 Lynne 在账本备注列人工裁决。
 
 rules:
   - category: 差旅费
-    keywords: [机票, 高铁, 火车, 酒店, 住宿, 出差, 民宿, 行程单, 客房]
+    keywords: [机票, 高铁, 火车, 酒店, 住宿, 出差, 民宿, 行程单, 客房, 退票]
   - category: 交通费
     keywords: [出租车, 滴滴, 网约车, 打车, 地铁, 公交, 高德, 曹操, 共享]
-  - category: 业务招待费
-    keywords: [招待, 宴请, 商务餐, 客户餐, 商务用餐, 接待, 酒家, 餐厅, 餐饮]
-  - category: 商务送礼
-    keywords: [送礼, 礼品, 礼物, 花篮, 鲜花, 花束, 摆饰, 茶叶, 烟酒]
+  - category: 商务招待
+    keywords: [招待, 宴请, 商务餐, 客户餐, 商务用餐, 接待, 酒家, 餐厅, 餐饮, 送礼, 礼品, 礼物, 花篮, 鲜花, 花束, 摆饰, 茶叶, 烟酒]
   - category: 福利费
     keywords: [福利, 节日, 中秋, 端午, 春节礼, 员工餐, 餐补, 体检, 团建, 工会]
   - category: 研发费用
-    keywords: [服务器, 云服务, 账号, 订阅, API, 域名, 软件, OpenAI, Claude, 算力, Cloudflare, GPT, GitHub, Anthropic, Pockyt, App Store, iTunes, Gift Card, 充值, 美区, SaaS, Workspace, Ahrefs]
+    keywords: [广州俊树科技, 微信小程序认证, 认证服务费, 服务器, 云服务, 账号, 订阅, API, 域名, 软件, OpenAI, Open AI, Claude, 算力, Cloudflare, GPT, GitHub, Anthropic, Pockyt, App Store, iTunes, Gift Card, 充值, 美区, SaaS, Workspace, Ahrefs]
+  - category: 设备费用
+    keywords: [电脑, 计算机, 笔记本, 台式机, MacBook, Mac Mini, iMac, 手机, iPhone, iPad, 平板, 显示器, 硬盘, SSD, NAS, 主板, 打印机, 键盘, 鼠标, 路由器, 设备]
   - category: 办公费
-    keywords: [办公, 文具, 打印, 打印机, 快递, 耗材, 电脑, 显示器, 键盘, 鼠标, 笔, 纸, 公司, 采购, 开办, 支架]
+    keywords: [办公, 文具, 打印, 快递, 耗材, 笔, 纸, 公司, 采购, 开办, 支架, BOSS, 招聘]
   - category: 营销
     keywords: [广告, 推广, 投放, 营销, 认证, 公众号, 小程序, KOL, 直播, 抖音, SEO, 社群]

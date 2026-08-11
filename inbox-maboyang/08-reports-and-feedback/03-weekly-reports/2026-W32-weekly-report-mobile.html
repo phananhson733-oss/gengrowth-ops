@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GenGrowth 产品与 SEO 周报 | 2026-W32</title>
+  <style>
+    :root{--ink:#20202a;--muted:#6c6b7a;--paper:#f5f4fb;--card:#fff;--violet:#6b4eff;--green:#198754;--amber:#a96600;--red:#b73a48;--line:#e7e4f1}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}.wrap{max-width:720px;margin:auto;padding:20px 14px 48px}header{background:linear-gradient(135deg,#302663,#6b4eff);color:#fff;border-radius:22px;padding:24px 20px;box-shadow:0 12px 30px #35268422}h1{font-size:24px;line-height:1.25;margin:0 0 8px}.meta{font-size:12px;opacity:.82}.lead{font-size:16px;margin:18px 0 0}.section{margin-top:20px}.section h2{font-size:19px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric,.card,details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px}.metric b{display:block;font-size:23px;color:var(--violet)}.metric span{font-size:12px;color:var(--muted)}.card{margin-bottom:10px}.card h3{font-size:16px;margin:0 0 5px}.card p{margin:5px 0}.label{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;background:#eee}.adjust{background:#fff1d5;color:var(--amber)}.continue{background:#dcf5e7;color:var(--green)}.pending{background:#f3e8ff;color:#7040a0}.stop{background:#ffe0e4;color:var(--red)}.small{font-size:12px;color:var(--muted)}ul,ol{padding-left:20px}.signal{border-left:4px solid var(--violet)}.warn{border-left:4px solid #e2a12f}.good{border-left:4px solid #2aa66b}.bad{border-left:4px solid #b73a48}a{color:#5138db;text-decoration:none;font-weight:600}summary{cursor:pointer;font-weight:750}details{margin-bottom:10px}details>div{margin-top:12px}.num{font-variant-numeric:tabular-nums}table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.goal{background:linear-gradient(135deg,#f0fdf6,#eef2ff);border:1px solid #c7e9d6}.footer{margin-top:24px;color:var(--muted);font-size:11px;text-align:center}@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}header{padding:30px}.wrap{padding-top:28px}}
+  </style>
+</head>
+<body><main class="wrap">
+  <header>
+    <div class="meta">2026-W32 · 8月3日—8月9日 · 给 Lynne</div>
+    <h1>GenGrowth 产品与 SEO 周报</h1>
+    <p class="lead"><strong>本周目标：招募 10 个种子用户，跑通「授权 → 出结果 → 给反馈」完整路径，验证几个 SEO 小工具到底能不能用。</strong><br>8/10 实测：<strong>启动门槛已全部清零，招募可以直接开始，不需要顺延。</strong></p>
+  </header>
+
+  <section class="section">
+    <h2>一、本周目标</h2>
+    <div class="card goal">
+      <h3>招募 10 个种子用户，拿到基于真实使用的反馈</h3>
+      <p><strong>不是拉量，是验证。</strong>三个已上线的工具目前都停在「观测」，没走到「判断」——P0-4 输出 <code>Canonical 目标不同 66/162</code>，一个第一次做 SEO 的人不知道该干什么。<strong>这是我的评审判断，还没有任何真实用户验证过。</strong>如果它成立，现在做任何拉流量的事都是往漏桶里灌水。</p>
+      <table>
+        <tr><th>指标</th><th class="n">本周目标</th><th>说明</th></tr>
+        <tr><td>完成授权并跑出结果</td><td class="n">10 人</td><td>验证路径能不能走通</td></tr>
+        <tr><td>给出可用反馈</td><td class="n">5 人</td><td>判断产品是否具备扩大推广的条件</td></tr>
+        <tr><td>实测授权完成率</td><td class="n">拿到真值</td><td>用来回填后续目标，不再靠估</td></tr>
+      </table>
+      <p class="small">⚠️ <strong>「10」这个数需要会上确认。</strong>我原先质疑「50 招募 / 20 连接 GSC / 7 日留存 10」的两道损耗（Google 未验证警告页 + 授权不可续期），<strong>8/10 实测两条都已解决</strong>，这个质疑不再成立。但「先实测再定数」的理由仍在——<strong>我们至今没有任何一个真实用户走完过这条路径，授权完成率是多少完全不知道</strong>。建议先跑 10 人拿真值。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>二、怎么达成（关键执行事项）</h2>
+
+    <div class="card good"><h3>① 前置门槛：已全部清零 <span class="label continue">可以启动</span></h3>
+      <p><strong>OAuth 持续授权已落地</strong>（8/10 实测）。GSC 授权走 <code>?scope=gsc</code> 这条独立分支，参数完整：</p>
+      <table>
+        <tr><td><code>access_type=offline</code></td><td>✅ 持续授权，会下发 refresh token</td></tr>
+        <tr><td><code>prompt=consent</code></td><td>✅ <strong>关键</strong>——没有它，重复授权时 Google 不会重新下发 refresh token</td></tr>
+        <tr><td><code>scope</code> 含 <code>webmasters.readonly</code></td><td>✅ 读 GSC 数据的权限</td></tr>
+      </table>
+      <p class="small">此前审计报的 <code>access_type=online</code> 是<strong>登录</strong>那条路由（scope 只有 <code>openid email profile</code>），登录本就不需要 refresh token，两者是不同分支。</p>
+      <p class="small">✅ 一并已清：首页/pricing 首屏空白（8/9 实测）· 未知路径已返 404（8/9 实测）· P0-4 抓取进度已落地 · OAuth 应用验证已通过（Google 未验证警告页不再出现）。<strong>启动门槛 17 条完成 15，招募不需要顺延。</strong></p>
+    </div>
+
+    <div class="card signal"><h3>② 渠道：去创业者社区，不是 SEO 社区</h3>
+      <p>本周实测 11 个 Reddit 版块，<strong>更正了原方案最关键的一处判断</strong>：原清单全在 SEO 从业者社区，但那是自推限制最严的一档（r/SEO 连评论带链接都自动删），<strong>而且我们的 ICP 根本不在那里</strong>——ICP 是创业者，不是 SEO 从业者。</p>
+      <table>
+        <tr><th>顺序</th><th>版块</th><th>约束</th></tr>
+        <tr><td class="n">1</td><td>r/SideProject</td><td>零门槛，但几小时沉底</td></tr>
+        <tr><td class="n">2</td><td>r/microsaas</td><td>必须带真实洞察</td></tr>
+        <tr><td class="n">3</td><td>r/indiehackers</td><td><strong>自推仅一次机会</strong></td></tr>
+        <tr><td class="n">4</td><td>r/EntrepreneurRideAlong</td><td>规则最松</td></tr>
+        <tr><td class="n">—</td><td>r/SaaS</td><td>⚠️ <strong>60 天只有一次，本周先不用</strong></td></tr>
+      </table>
+      <p><strong>发帖形态统一为「这是我们做的工具，帮我们看看哪里说不清楚」</strong>——这不是钻空子，这类社区本就为求反馈存在，而我们这阶段要的确实是反馈。</p>
+    </div>
+
+    <div class="card warn"><h3>③ 承接：命名已统一，waitlist 还缺</h3>
+      <p>✅ <strong>工具命名对照卡已出</strong>（<code>00-inbox/2026-08-10-工具命名统一对照卡-v1.md</code>），以线上页面为唯一事实源。<strong>写招募话术、Brief、建联邮件前先看这一页。</strong></p>
+      <p>实测发现<strong>五个我们常用的名字在站上根本不存在</strong>——运营照文档写会写出用户点不到的东西：</p>
+      <table>
+        <tr><th>❌ 不存在</th><th>✅ 应改成</th></tr>
+        <tr><td>Website Health Map</td><td>Free site-wide SEO audit</td></tr>
+        <tr><td>Internal Link Map</td><td>Internal Link Audit</td></tr>
+        <tr><td>SEO Quick Wins<span class="small">（26 个文档在用）</span></td><td>GSC Opportunity Finder<span class="small">（社媒标题仍可用旧说法）</span></td></tr>
+      </table>
+      <p class="small">⚠️ 这与交办总表第六节记的 8/6 决策（P0-2=Internal Link Map、P0-4=Website Health Map）冲突——<strong>那两个名字站上一个都没有</strong>。建议以线上为准，需会上一句话确认。</p>
+      <p>❌ <strong>仍缺：站上没有任何 waitlist 收集机制</strong>（P0-5 走 Coming soon 分支要用）。</p>
+    </div>
+
+    <div class="card"><h3>④ 我本周做的（按优先级）</h3>
+      <table>
+        <tr><th class="n">#</th><th>事项</th><th>产出</th></tr>
+        <tr><td class="n">✅</td><td><s>工具命名统一</s> <strong>已完成</strong>——对照卡已出，待会上确认一处冲突</td><td>已可交给彭满、高璇使用</td></tr>
+        <tr><td class="n">1</td><td>与高璇合并 Reddit 计划（见三）</td><td>谁发、发哪、什么形态</td></tr>
+        <tr><td class="n">3</td><td>跑 10 人实测授权完成率</td><td>回填指标的真值</td></tr>
+        <tr><td class="n">4</td><td>URL 迁移收口 · GSC 侧</td><td>提交迁移 sitemap、催抓 6 个高曝光旧 URL</td></tr>
+        <tr><td class="n">5</td><td>GA4 标记 3 个关键事件 + 清理重复命名</td><td>几分钟配置，挂了四周</td></tr>
+        <tr><td class="n">6</td><td>旧定位内容盘点（W31 欠的）</td><td>逐篇定"删/改写/保留"</td></tr>
+      </table>
+    </div>
+
+    <div class="card"><h3>⑤ 交办工程（彪哥）</h3>
+      <table>
+        <tr><th class="n">#</th><th>事项</th><th>为什么</th></tr>
+        <tr><td class="n">1</td><td>建临时 <code>/sitemap-legacy-en.xml</code>（只放旧 URL，收口后删）</td><td>给 Googlebot 一条抓取路径</td></tr>
+        <tr><td class="n">2</td><td>修 7 个「308 跳 404」，不要的直接返 410</td><td>排名第 1/3/4 的位置白扔</td></tr>
+        <tr><td class="n">3</td><td>建 waitlist 收集机制</td><td>P0-5 要用，站上目前没有任何收集入口</td></tr>
+        <tr><td class="n">4</td><td>21 个软 404 与 <code>/blog?page=2..6</code> 全 canonical 到 <code>/blog</code></td><td>约 50 篇文章失去发现路径</td></tr>
+      </table>
+      <p class="small">⚠️ <strong>切勿在 robots.txt 里 <code>Disallow: /en/</code></strong>——禁抓后 Googlebot 永远看不到 308，旧 URL 会永久卡在索引里，比现在更糟。完整方案：<code>00-inbox/2026-08-10-url迁移收口-诊断与方案.md</code></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>三、协同（会上要对齐的细则）</h2>
+
+    <div class="card good"><h3>与高璇 · Reddit 撞在同一批版块</h3>
+      <p>高璇本周计划第 5 条列的六个版块，<strong>和我实测的是同一批</strong>。两人在分头做同一个渠道。<strong>建议：她负责账号与执行，我负责版块规则、发帖形态与排期。</strong></p>
+      <table>
+        <tr><th class="n">#</th><th>要对齐的</th></tr>
+        <tr><td class="n">C1</td><td>谁的账号发、发哪几个版块</td></tr>
+        <tr><td class="n">C2</td><td><strong>养号重心要改</strong>：r/GrowthHacking 要的是<strong>社区内 karma</strong>、r/juststart 要 <strong>comment karma</strong>——冲总 Karma 到 3,000 解决不了这两条（现 2,668 里只有 264 是 comment karma）</td></tr>
+        <tr><td class="n">C3</td><td>🔴 <strong>r/SaaS 的 60 天额度谁用、何时用</strong>——773k 订阅只有一次机会，用错 60 天补不回来，<strong>不能各自决定</strong></td></tr>
+        <tr><td class="n">C4</td><td>发帖形态统一为「求反馈」而非「介绍工具」</td></tr>
+        <tr><td class="n">C5</td><td>她要建 GenGrowth 建联邮箱——我给命名对应表，避免话术写出不存在的名字</td></tr>
+      </table>
+    </div>
+
+    <div class="card good"><h3>与彭满 · 选题与测量</h3>
+      <table>
+        <tr><th class="n">#</th><th>要对齐的</th></tr>
+        <tr><td class="n">D1</td><td><strong>选题互换</strong>：我给 36 词 SERP 实测表 + 否决词黑名单，她给社区调研的热门讨论</td></tr>
+        <tr><td class="n">D2</td><td><strong>一条可直接用的分工规则</strong>：被大厂锁死的词搜索里没缝、<strong>但正适合做社媒</strong>；有缝的词我写 blog。同一批词两条路分流</td></tr>
+        <tr><td class="n">D3</td><td>🔴 <strong>她的 UV 测量链和我的 GA4 关键事件是同一件事</strong>——她要「内容类型→落地页→UTM→UV/注册」，我这周正要标关键事件。<strong>建议合并做一次，别各建一套口径</strong></td></tr>
+        <tr><td class="n">D4</td><td>P0-1 与 P0-3 文案不能共用——同一套引擎，但用户心态相反（主动优化 vs 被动排查）</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>四、本周沉淀（可复用的四条）</h2>
+
+    <div class="card signal"><h3>1 · 选词：换个查询形态能救回被锁死的词</h3>
+      <p>教学型查询里，主词若是大厂 SEO 工具的<strong>功能名</strong>，SERP 一律锁死；换成<strong>工具型/替代型</strong>形态就有缝。同一主题的对照：<code>how to fix keyword cannibalization</code> 被 Semrush + Yoast 锁死 ❌，而 <code>keyword cannibalization checker</code> 里一个 2025-06 注册的域名排第 2 ✅。</p>
+      <p class="small">8 词实测 4 可打。<strong>但不是万能钥匙</strong>——<code>internal link checker</code>、<code>free seo audit tool</code> 换形态后前七/前九仍全是 DR 73–99。</p>
+    </div>
+
+    <div class="card signal"><h3>2 · 排名 7–10 这一档，在名人类查询上整体失效</h3>
+      <p>astrologywiki 最大的曝光池在排名 7–10（<strong>1,330 次曝光</strong>），只产出 <strong>1 次点击</strong>——该区间正常 CTR 约 2%，我们是 0.08%，<strong>低 25 倍</strong>。九个零点击词全落在这一档。</p>
+      <p><strong>这条比上周的单页观察结实得多</strong>：不是"某一页文案不行"（改 Title/Meta 已证伪），是<strong>那个位置整体失效</strong>。<strong>而 P0-1 的核心场景正是「高曝光低点击」——我们自己站上都诊断不出原因，工具目前也给不出。</strong></p>
+    </div>
+
+    <div class="card signal"><h3>3 · 两个「以为是 bug，其实是配置」的教训</h3>
+      <p><strong>GA4 关键事件为 0</strong>：埋点一直是好的，26 类事件正常上报——是后台没把任何事件标记为「关键事件」。<strong>几分钟的配置，被当成开发任务挂了四周。</strong></p>
+      <p><strong>URL 迁移未收口</strong>：308、robots、sitemap、内链、canonical、hreflang <strong>六项配置全对</strong>——问题是我们把指向旧 URL 的路径全删干净了，<strong>Googlebot 没有理由再去访问，也就永远发现不了那个 308</strong>。<strong>解法不是修跳转，是临时给它一条抓取路径。</strong></p>
+      <p class="small">共同点：<strong>先假设是缺陷就会白花时间，而且有很大概率把已经正确的东西改坏。</strong></p>
+    </div>
+
+    <div class="card warn"><h3>4 · 流量涨落大多不是我们干的</h3>
+      <p>astrologywiki 点击 20→69（+245%）、曝光 +126%，<strong>而本周零发布、零修复</strong>——是外部事件把精确姓名搜索送到了存量页上。gengrowth.ai 同期点击下降，也完全由一篇时效文章衰减解释。</p>
+      <p><strong>含义：我们的流量正随外部事件被动起伏，自己没有控制手段。</strong>「常青 vs 时效」占比指标该建起来了——这是 W31 就欠下的。</p>
+    </div>
+  </section>
+
+  <details><summary>W31 目标兑现：12 项完成 6 / 部分 2 / 未做 4</summary><div>
+    <p><strong>✅ 完成</strong>：基线存档 · 7 个选题词 SERP 验证 · DataForSEO 需求文档 · GA4 的 AI 来源识别 · GA4 关键事件查清 · GSC 网页索引补看</p>
+    <p><strong>⚠️ 部分</strong>：Haaland/Messi 零点击排查（做了排名带分析，<strong>SERP 人工截图没做，那才是能定因的一步</strong>）· Direct 流量着陆页分布（没对 Direct 单独切分）</p>
+    <p><strong>❌ 未做</strong>：旧定位内容清理 · P0-6 落地页文案 · 8 月行星过境与热点名人内容（astrologywiki 零发布）· 「常青 vs 时效」占比指标</p>
+    <p><strong>⚠️ 另有一项监测断了</strong>：W31 定的 GSC/GA4/<strong>Bing</strong> 三源监测，本周没导 Bing。而 W31 正是靠 Bing 的 Copilot 引用数（831→111）才定位到时效内容到期。<strong>AI 是唯一还在增长的渠道，断了监测等于关掉唯一能看见它的窗口。</strong></p>
+    <p class="small">四项未做的共同点：<strong>全是内容侧的活，而本周投入几乎都在产品审计与数据分析上。需要确认这个倾斜是不是有意为之。</strong></p>
+  </div></details>
+
+  <details><summary>数据附录</summary><div>
+    <p><strong>gengrowth.ai（8/3–8/9）</strong>：2 点击 / 1,866 曝光 / CTR 0.11%。<strong>改版判定：没有造成伤害</strong>——按基线同口径，曝光周均 1,541→1,866（<strong>+21%</strong>），点击下降完全由时效文章衰减解释。<strong>不需要回滚。</strong></p>
+    <p>⚠️ 但 <strong>68.9% 的曝光仍落在废弃的 <code>/en/*</code> 旧 URL</strong>（46 个 URL / 1,302 次曝光）；<strong>全周非品牌点击只有 1 次</strong>，且曝光靠前的词全是「SEO 代运营」时期的旧定位词。</p>
+    <p><strong>astrologywiki（8/3–8/9）</strong>：69 点击 / 6,399 曝光 / CTR 1.08%，日均排名 18.9→9.9。GA4：77 次会话（Organic 41 · Unassigned 14 · Direct 13 · <strong>AI Assistant 8</strong>）。<strong>35% 会话来源不明</strong>；周留存基本为零。</p>
+    <p class="small">🆕 中国区 5 个活跃用户是<strong>真实用户</strong>（我们 IP 已排除），入口最可能是 <code>cn.bing.com</code>——若成立，是一个我们完全没在看、且绕开 Google 的渠道。</p>
+  </div></details>
+
+  <div class="footer">GSC 与 GA4 均为 8/3–8/9 同窗口导出。完整版见 <code>2026-08-09-weekly-w32.md</code>。</div>
+</main></body></html>
