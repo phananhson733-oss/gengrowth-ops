@@ -13,8 +13,9 @@ format: AI Host
 priority: P0
 effort: M
 content_stage: selected
-script_status: 待确认
-hook: "Scorpio and Capricorn both look low-maintenance — until neither one asks for what they need."
+script_status: 已确认
+confirmed_script_version: "Humanizer 2.9.1 final v1，经 Pengman 于 2026-08-10 确认"
+hook: "Scorpio and Capricorn can both struggle to say what they need."
 cta: 无口播 CTA；caption 无链接
 batch_id: 2026-W33-miraa-aihost-01
 publish_date: 2026-08-12
@@ -28,7 +29,7 @@ source_evidence:
   - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-virgo-pair-01]]"
 status: draft
 owner: Pengman
-updated: 2026-08-06
+updated: 2026-08-10
 ---
 
 # Scorpio × Capricorn：内容生产记录
@@ -39,7 +40,7 @@ updated: 2026-08-06
 - 预估成本：M
 - 执行通道：W33 Miraa 非时效库存候选
 - 建议制作形式：沿用固定女性 AI Host、声音、深色背景和大字幕
-- 当前一个人类动作：确认英文稿与 caption；确认后进入 HeyGen 生成
+- 当前一个人类动作：按已确认稿进入 HeyGen 生成；实际开始生成时把 `content_stage` 更新为 `producing`
 - 当前阶段说明：Pengman 已明确选择本题，因此建立主记录并设为 `selected`；尚未开始生成、剪辑或组装，不进入 `producing`
 
 ## 选择依据与产能边界
@@ -193,10 +194,156 @@ They never became unreliable. They just stopped feeling needed. ♏️ × ♑️
 - 已由总控模型完成替代审查：删去占星术语和课堂式解释；控制长句；使用自然美式口语；避免重复 `not X, but Y` 模板；结尾不提供建议或企业式总结。
 - 当前仍需 Pengman 人工确认。确认前保持 `script_status: 待确认`、`content_stage: selected`。
 
+## Claude 批量脚本草稿（待 Pengman 确认）
+
+- 版本：批量脚本工作稿 v2（Codex 复核；未调用 Claude）
+- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 词数：147 词
+- 预计时长：约 48–55 秒
+- 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA
+- 说明：本条已有 GPT-5.6 v1 草稿（135 词）待确认；本区块为同一冻结 Brief 下的批量工作稿，未调用 Claude，不冒充独立 Claude 输出。
+
+### 唯一内容机制
+
+Scorpio 和 Capricorn 都用可靠、低需求和 `I can handle it` 表达爱，结果双方持续到场，真实需要却没有进入关系语言。
+
+### Hook 候选
+
+1. `Scorpio and Capricorn never say, “I need you.”`
+2. `Both keep showing up. Neither asks for help.`
+3. `Their strongest relationship still feels lonely.`
+4. `Love became errands, plans, and silence.`
+5. `“I can handle it” left both unseen.`
+
+### 选中 Hook
+
+**`Scorpio and Capricorn never say, “I need you.”`**
+
+选择理由：8 个词同时点名双方，并把冲突放在一句双方都说不出口的话上；它不同于前三条的日常熟悉、突发求助和具体小谎机制。Hook 不承诺匹配度，也不把任何一方设为反派。
+
+### English Voiceover
+
+```text
+Scorpio and Capricorn never say, “I need you.”
+
+Both are dependable. They remember the appointment, handle the errand, and show up at midnight when something breaks. That looks like love because it is love.
+
+But when either one feels overwhelmed, the answer is usually, “I'm fine. I can handle it.”
+
+Scorpio may hope a change in tone gets noticed. Capricorn may hear the words, respect them, and take care of something practical instead.
+
+Nobody is trying to be cold. Neither wants to add a problem to the other person's day.
+
+Plans get made. Promises get kept. The relationship looks solid.
+
+Meanwhile, the real need never enters the room.
+
+Scorpio and Capricorn can become so good at being reliable, so careful about asking for nothing, that both start wondering why love feels lonely.
+
+They keep proving, “You can count on me,” while never saying, “Please stay with me.”
+```
+
+### 五段式结构
+
+| 时间 | 段落功能 |
+|---:|---|
+| 0–3s | Hook：双方都不说“我需要你” |
+| 3–15s | 约会、跑腿、深夜修理等可靠行为 |
+| 15–28s | `I'm fine / I can handle it` 的共同语言 |
+| 28–42s | Scorpio 的语气变化与 Capricorn 的实际照顾 |
+| 42–55s | 可靠持续存在，真实需要却始终没说出口 |
+
+### Text Overlay
+
+- Opening: `SCORPIO × CAPRICORN`
+- 后续:
+  1. `NEITHER SAYS “I NEED YOU”`
+  2. `I CAN HANDLE IT`
+  3. `THE RELATIONSHIP STILL WORKS`
+  4. `THE REAL NEED STAYS OUTSIDE`
+
+### Caption
+
+They keep every promise except the one need they never say out loud. ♏️ × ♑️
+
+### Hashtags
+
+`#scorpio #capricorn #scorpiocapricorn #zodiaccompatibility`
+
+### Humanizer 检查
+
+- 未调用 `/humanizer` Skill：当前环境中未发现可用 Skill。
+- 已按 Humanization Gate 完成等价总控检查：开头 8 词且点名双方；使用 appointment / errand / midnight 等口语行为；避免 `make sense on paper`、兼容清单和过度修辞；双方意图均被公平解释。仍待 Pengman 人工确认。
+
+### 自检
+
+- [x] 只讲一个机制
+- [x] 至少两个具体行为：记住约会、处理跑腿、深夜到场、说 `I'm fine / I can handle it`
+- [x] 未与历史 Miraa 内容重复：不复用 × Taurus 的僵局、× Virgo 的倾诉/解决或 #11 的单方情绪承接
+- [x] 无绝对化/病理化/性别化
+- [x] 无口播 CTA
+- [x] 遵守禁止项：不写 power couple、事业、兼容度分数或“天生一对”；公平解释双方
+
+## Pengman 最终确认版本（2026-08-10）
+
+- 确认结果：Pengman 回复“可以，写入生产记录，我准备开始生产”，确认采用本节版本。
+- 确认版本：`Humanizer 2.9.1 final v1`
+- 反馈级别：L3 后确认；未改变选题、账号、形式或核心机制。
+- 当前阶段：脚本已确认，`content_stage` 继续保持 `selected`；实际开始 HeyGen 生成、剪辑或组装时再进入 `producing`。
+- 制作条件：固定女性 AI Host、声音、深色背景、大字幕；无口播 CTA。
+
+### 最终 Hook
+
+`Scorpio and Capricorn can both struggle to say what they need.`
+
+### 最终 English Voiceover
+
+```text
+Scorpio and Capricorn can both struggle to say what they need.
+
+Scorpio may hope someone notices when something changes. They get quieter, pull back a little, and wait to see if the other person asks.
+
+Capricorn often takes people at their word. If Scorpio says everything is okay, Capricorn may give them space and focus on keeping daily life running. From Capricorn's side, that can feel respectful.
+
+The same thing happens in reverse. Capricorn gets stressed and keeps working. Scorpio sees them handling it and assumes they want to be left alone.
+
+Both believe they are giving the other person space. They also don't want to add more stress.
+
+So the relationship can look steady while both people feel unsupported. They care. They show up. They keep handling what needs to be handled.
+
+The actual need never gets said out loud.
+```
+
+- 词数：141
+- 预计时长：约 49-56 秒
+
+### 五段式结构与 Text Overlay
+
+| 时间 | 叙事作用 | Text overlay |
+|---:|---|---|
+| 0-4s | 点名双方共同问题 | `BOTH STRUGGLE TO ASK` |
+| 4-16s | Scorpio 等待对方察觉 | `SCORPIO WAITS TO BE ASKED` |
+| 16-29s | Capricorn 尊重说出口的话 | `CAPRICORN TAKES WORDS SERIOUSLY` |
+| 29-43s | 交换角色呈现同一误读 | `THE SAME THING REVERSES` |
+| 43-55s | 关系稳定但需求未说出口 | `THE NEED STAYS UNSAID` |
+
+### Caption 与 Hashtags
+
+```text
+Scorpio and Capricorn may keep showing up without ever saying what support they need.
+
+#Scorpio #Capricorn #ScorpioCapricorn #AstrologyTok
+```
+
+### Humanization Gate
+
+- 已安装并实际使用 `/humanizer` Skill，版本 `2.9.1`。
+- 已完成 draft、AI 痕迹审查和 final rewrite：Hook 改为广泛关系认领；删除送饭、取消晚餐等过窄场景，以及对称句、制造式金句和 em dash。
+- Pengman 已人工确认本版本，可进入制作。
+
 ## 下一步
 
-1. Pengman 确认或修改 `GPT-5.6 v1` 英文稿与 caption。
-2. 确认后写入 `script_status: 已确认` 和 `confirmed_script_version`；`content_stage` 仍保持 `selected`。
+1. 使用本文件“Pengman 最终确认版本（2026-08-10）”进入 HeyGen 生成。
+2. 实际开始生成、剪辑或组装时，把 `content_stage` 更新为 `producing`。
 3. W33 周计划锁定产能后，为 Taurus / Capricorn 两条回写 `publish_date / deadline / batch_id` 和制作顺序。
-4. 实际开始 HeyGen 生成、剪辑或组装时，把 `content_stage` 更新为 `producing`。
-5. 成片 QA 核对首屏、自动特效、字幕断句、口播稿与 caption；未经确认不临时追加 CTA。
+4. 成片 QA 核对首屏、自动特效、字幕断句、口播稿与 caption；未经确认不临时追加 CTA。

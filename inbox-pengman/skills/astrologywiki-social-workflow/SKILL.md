@@ -1,11 +1,11 @@
 ---
 name: astrologywiki-social-workflow
-description: "Use for AstrologyWiki weekly candidate research, qualified Hot assessment, account routing, social copy, short-video ideas, X posts, or execution of the active rolling-week plan. Ordinary daily work advances locked items; new candidates are allowed only for Monday planning, confirmed inventory refill, explicit replan, or a qualifying Hot item."
+description: "Use for AstrologyWiki weekly candidate research, qualified Hot assessment, account routing, selected-record script drafting, social copy, short-video ideas, X posts, or execution of the active rolling-week plan. Ordinary daily work advances locked items; new candidates are allowed only for Monday planning, confirmed inventory refill, explicit replan, or a qualifying Hot item."
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 1.2.0
-  updated: 2026-08-04
+  version: 1.3.0
+  updated: 2026-08-11
 ---
 
 # AstrologyWiki Weekly Social Planning and Hot Response
@@ -219,6 +219,33 @@ Hook 检查：
 ```
 
 不能就先重写 Hook。
+
+### 8.1 Pengman 的 Hook 与白纸重写偏好
+
+以下是 Pengman 已明确确认的生产偏好，适用于 `@miraaastrology` 的 AI Host / 双人口播脚本。单条主生产记录的具体要求优先。
+
+**强 Hook 必须：**
+
+- 在前 2–3 秒让用户知道谁、正在发生什么具体行为，以及为什么这和自己有关；
+- 从可看见的生活场景、动作、关系瞬间或反常识冲突切入，而不从性格定义、抽象情绪或占星术语切入；
+- 使用自然、简单的美式英语，能直接被放上首屏大字幕；
+- 先给矛盾或场景，再解释其情绪含义；不把“深刻”误写成含糊。
+
+**默认避开：**
+
+- `Scorpio hides what they carry`、`You might not really know Scorpio` 等只有情绪判断、没有场景的首句；
+- `mysterious`、`emotional walls`、`access`、`boundaries`、`emotional depth` 等抽象词作为 Hook 主体；
+- 只说“Scorpio is/has ……”却没有动作、冲突或后果的身份标签；
+- 以诗意、治疗话术、AI 总结句或工整对偶代替真实处境。
+
+**写稿动作：**
+
+1. 先读取目标单条主生产记录、`01-reference/` 中相关参考、同账号最近已发布记录与当前未发布记录。
+2. 只从参考中学习 Hook 清晰度、场景、节奏和情绪推进；不复制竞品句子、顺序、隐喻、CTA 或未经核验的主张。
+3. 先给 5 个彼此不同的 Hook 候选；每个都必须换一个具体进入场景，而不是只替换同义词。
+4. 选择最强 Hook 后再写完整稿。若没有一个 Hook 能通过“谁／行为／为什么有关”的 2–3 秒检查，先重写 Hook，不用抽象句勉强起稿。
+5. 当 Pengman 要求“从零重写”时，将现有 Hook、Voiceover、Caption、Overlay 和模型初稿视为已否决过程稿；只继承主生产记录中已确认的选题、核心机制、来源、形式、禁止项与实验变量。不得做同义替换式改稿。
+6. 脚本初稿完成后，执行本 Skill 的 Humanization Gate；最终稿仍只是 `candidate`，直到 Pengman 明确确认。
 
 ## 9. Candidate Research Workflow
 
