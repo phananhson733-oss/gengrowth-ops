@@ -8,8 +8,8 @@ market: "US primary; UK/CA/AU secondary"
 status: draft_for_h4
 humanization_review: "passed — reviewed with the humanizer checklist; spoken rhythm, concrete scene, repetition, abstract phrasing, and AI-style symmetry checked"
 pronunciation_review: "complete"
-script_hash: "PENDING_RUNNER"
-duration_s: "PENDING_RUNNER"
+script_hash: "a78c32b866b8"
+duration_s: 51
 ---
 
 # Prompt Package — Mercury isn't retrograde, you just sent that text
@@ -152,7 +152,7 @@ Machine-side review completed:
 - Humanization pass completed; no classroom intro, corporate phrasing, clinical diagnosis, deterministic prediction, or copied competitor wording
 - Pronunciation notes present
 - Caption, hashtags, and tracked CTA prepared
-- Script stays within the 35–60 second target after runner calculation: `PENDING_RUNNER`
+- Script duration is 51 seconds according to the runner, within the 35–60 second target
 
 Human actions still required:
 
