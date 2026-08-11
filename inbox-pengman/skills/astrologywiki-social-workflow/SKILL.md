@@ -4,7 +4,7 @@ description: "Use for AstrologyWiki weekly candidate research, qualified Hot ass
 metadata:
   site: astrologywiki.com
   owner: Pengman
-  version: 1.3.0
+  version: 1.3.1
   updated: 2026-08-11
 ---
 
@@ -222,9 +222,9 @@ Hook 检查：
 
 ### 8.1 Pengman 的 Hook 与白纸重写偏好
 
-以下是 Pengman 已明确确认的生产偏好，适用于 `@miraaastrology` 的 AI Host / 双人口播脚本。单条主生产记录的具体要求优先。
+以下是 Pengman 已明确确认的生产偏好，适用于 `@miraaastrology` 的 AI Host / 双人口播脚本。单条主生产记录的具体要求优先；双人口播 Questioner Hook 按下方专用规则执行。
 
-**强 Hook 必须：**
+**单人 AI Host 的强 Hook 必须：**
 
 - 在前 2–3 秒让用户知道谁、正在发生什么具体行为，以及为什么这和自己有关；
 - 从可看见的生活场景、动作、关系瞬间或反常识冲突切入，而不从性格定义、抽象情绪或占星术语切入；
@@ -238,11 +238,20 @@ Hook 检查：
 - 只说“Scorpio is/has ……”却没有动作、冲突或后果的身份标签；
 - 以诗意、治疗话术、AI 总结句或工整对偶代替真实处境。
 
+**双人口播 Questioner Hook：**
+
+- 只让 Questioner 代表观众提出问题，Miraa 承担主要回答和情绪落点；不把两人写成平等聊天。
+- Hook 直接使用问句，默认优先以 `Why` 或 `Who` 起手。
+- Hook 尽量短，确保 Questioner 能在约 2 秒内自然说完；先删背景、铺垫和具体场景。
+- Hook 只点明 Scorpio 或目标关系与核心困惑；具体行为、场景和双方视角放进 Miraa 的回答。
+- 生成 5 个候选时，改变问题角度，不靠替换场景或堆叠修饰词制造差异。
+- 本规则只适用于一人提问、一人回答的双人口播；单人 AI Host 继续使用具体场景或行为型 Hook。
+
 **写稿动作：**
 
 1. 先读取目标单条主生产记录、`01-reference/` 中相关参考、同账号最近已发布记录与当前未发布记录。
 2. 只从参考中学习 Hook 清晰度、场景、节奏和情绪推进；不复制竞品句子、顺序、隐喻、CTA 或未经核验的主张。
-3. 先给 5 个彼此不同的 Hook 候选；每个都必须换一个具体进入场景，而不是只替换同义词。
+3. 先给 5 个彼此不同的 Hook 候选。单人 AI Host 更换具体进入场景；双人口播按 Questioner Hook 专用规则更换问题角度。
 4. 选择最强 Hook 后再写完整稿。若没有一个 Hook 能通过“谁／行为／为什么有关”的 2–3 秒检查，先重写 Hook，不用抽象句勉强起稿。
 5. 当 Pengman 要求“从零重写”时，将现有 Hook、Voiceover、Caption、Overlay 和模型初稿视为已否决过程稿；只继承主生产记录中已确认的选题、核心机制、来源、形式、禁止项与实验变量。不得做同义替换式改稿。
 6. 脚本初稿完成后，执行本 Skill 的 Humanization Gate；最终稿仍只是 `candidate`，直到 Pengman 明确确认。
@@ -409,6 +418,8 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 - 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log
+
+- 2026-08-11 · v1.3.1 · 记录 Pengman 对双人口播 Questioner Hook 的确认偏好：直接问句、优先 `Why` 或 `Who` 起手、约 2 秒内说完、不在首句铺具体场景，具体冲突由 Miraa 展开。
 
 - 2026-08-04 · v1.2.0 · 修正迁移后的 `02 / 03 / 05 / 07` 当前路径；将不可用时会阻断流程的 `/humanizer` 硬依赖改为可核验 Skill 或总控审稿 + Pengman 确认的等价门槛。
 - 2026-07-21 · v1.1.0 · 将实时互联网调研设为所有新候选的硬性前置条件；新增固定参考账号 CSV 与 Apps Script Library 访问检查，保留原有本地参考项，并区分公开读取成功、登录限制和阻塞。

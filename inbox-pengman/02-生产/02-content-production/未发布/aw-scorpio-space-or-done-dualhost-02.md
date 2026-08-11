@@ -15,7 +15,7 @@ effort: L
 content_stage: selected
 script_status: 待确认
 deadline: 2026-08-15
-hook: "待 Claude 起草并由 Pengman 确认"
+hook: "Why does Scorpio disappear for space?"
 cta: 无口播 CTA；caption 无链接
 batch_id: 2026-W33-miraa-dualhost-02
 experiment_id: 2026-W33-miraa-dualhost-02
@@ -26,7 +26,7 @@ source_evidence:
   - "https://www.quora.com/profile/Just-Another-Reader-3/Why-do-Scorpios-never-respond-When-we-are-together-there-s-a-bond-of-some-sort-but-when-we-aren-t-together-I-ll-shoot"
 status: draft
 owner: Pengman
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # 失联是在冷静，还是关系已经结束？
@@ -35,7 +35,7 @@ updated: 2026-08-10
 
 - 由 Pengman 于 2026-08-10 正式选中，指定测试**双人口播**：新角色问“Do you need space, or are we done?”，Miraa 回答。
 - **当前阶段**：`selected`；未写稿、未生成；不得因标题写有“失联”就标记为 `producing`。
-- **当前一个人类动作**：先确认强 Hook 与对“需要空间”的公平边界，再进入双人脚本。
+- **当前一个人类动作**：审阅下方完整双人口播候选；明确确认采用后再更新 script_status，并决定是否制作。
 
 ## 统一内容 Brief
 
@@ -45,7 +45,7 @@ updated: 2026-08-10
 - **内容承诺**：区分“明确说需要空间及期限”与“让对方无限等待、无法判断计划或关系是否还存在”。
 - **核心洞察**：处理情绪需要空间可以成立；把空间变成对方无法理解的沉默，会让等待者只能把沉默当答案。
 - **账号匹配理由**：是 Miraa 的具体关系行为主题，且适合由新角色代表等待者的直接问题。
-- **Hook 说明**：前两秒由新角色直接给出生活情境或问题；不得复用历史 `Scorpio goes silent`、`stop talking` 的 Hook。
+- **Hook 说明**：Pengman 已确认由 Questioner 直接短问 `Why does Scorpio disappear for space?`；首句不加入具体场景；不得复用历史 `Scorpio goes silent`、`stop talking` 的 Hook。
 - **CTA / 落地页**：无口播 CTA；caption 无链接。
 - **事实与来源说明**：社区中存在不同意见；不把 ghosting 归因于星座，也不把沉默解释为成熟或浪漫。
 - **相关旧稿或人工修改记录**：与历史 Scorpio 沉默内容同属撤退母题，但本条只讨论等待者所需的清晰边界和时间信息，不能解释为“Scorpio 正在测试你”。
@@ -57,3 +57,34 @@ updated: 2026-08-10
 - 一个核心问题：`space needs communication`。
 - 至少使用一个生活细节：说好确认约会却到晚上才出现，或争吵后数天毫无消息。
 - 同时给出 Scorpio 的处理空间与等待者的感受；不以“谁更坏”结尾。
+
+## Codex 完整双人口播候选 v1（待 Pengman 确认）
+
+- candidate_status: candidate
+- Hook：Pengman 已确认
+- 完整脚本：待 Pengman 确认
+- 词数：约 141 词
+- 预计时长：约 49–56 秒
+- 形式：Questioner 只问一次；Miraa 承担回答；无口播 CTA
+
+### English Dialogue
+
+```text
+QUESTIONER: Why does Scorpio disappear for space?
+
+MIRAA: Because some Scorpios would rather cool down first than say something they don't mean.
+
+After an argument, they may step away until they can sort out what they actually want to say. That can be a reasonable need. The problem starts when the other person has no idea what is happening.
+
+If you agreed to confirm Friday's date and Friday night comes with no message, the silence gives no useful answer. Are they calming down? Are they ending the relationship? The person waiting has to guess.
+
+Space is much clearer with one sentence and a time frame: "I need two days. I'll text you Wednesday."
+
+They may truly need that time. The person waiting still needs to know what happens next. You cannot tell the difference from the length of the silence. The message around it tells the other person what is happening.
+```
+
+### Humanization Gate
+
+- 已实际使用 /humanizer Skill 2.9.1。
+- 已检查 Questioner 与 Miraa 的声音差异、真实口播自然度、抽象词堆叠、工整对偶、重复对照和 AI 总结句。
+- 本版本仍为候选；script_status 保持 待确认。
