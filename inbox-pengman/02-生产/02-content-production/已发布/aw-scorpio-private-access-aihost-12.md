@@ -12,9 +12,12 @@ pillar: Scorpio psychology / privacy / gradual access
 format: AI Host
 priority: P0
 effort: M
-content_stage: selected
+content_stage: ready
 script_status: 已确认
-confirmed_script_version: "Humanizer 2.9.1 final v1，经 Pengman 于 2026-08-10 确认"
+confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
+inventory_ready: false
+publish_date: 2026-08-11
+scheduled_timezone: America/Chicago
 deadline: 2026-08-13
 hook: "You can know a Scorpio for years and still not know what they're feeling."
 cta: 无口播 CTA；caption 无链接
@@ -25,16 +28,17 @@ source_evidence:
   - "https://www.dxpnet.com/opinion/scorpio/scorpios-our-personal-space-2599316/"
 status: draft
 owner: Pengman
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # 你每天和 Scorpio 聊天，也可能仍然不了解他们
 
 ## 执行卡
 
-- 由 Pengman 于 2026-08-10 从 Miraa 候选池正式选中；当前只进入 `selected`，尚未写稿或生成。
+- 2026-08-11 已完成成片制作与发布前检查，当前为 `ready`。
 - **形式**：沿用固定女性 AI Host、声音、深色背景与大字幕。
-- **当前一个人类动作**：按已确认稿进入 HeyGen 生成；实际开始生成时把 `content_stage` 更新为 `producing`。
+- **排期**：已定时至芝加哥时间 2026-08-11；具体时刻待回写。
+- **当前一个人类动作**：实际发布后补充真实链接、平台 ID 和发布时间，再更新为 `published`。
 
 ## 统一内容 Brief
 
@@ -57,10 +61,10 @@ updated: 2026-08-10
 - 至少使用两个具体行为：每天聊天、认真记住他人的事、回避谈自己或只分享安全的一层。
 - 结尾应有安静的重新理解，不给关系建议，不把隐私等同于不在乎。
 
-## Claude 批量脚本草稿（待 Pengman 确认）
+## 已生产英文脚本
 
-- 版本：批量脚本工作稿 v2（Codex 复核；未调用 Claude）
-- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 版本：2026-08-11 成片使用版本
+- 状态：已确认并完成成片制作
 - 词数：149 词
 - 预计时长：约 48–55 秒
 - 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA
@@ -147,7 +151,7 @@ You can know Scorpio's whole routine and still be meeting them one layer at a ti
 - 确认结果：Pengman 回复“可以，写入生产记录，我准备开始生产”，确认采用本节版本。
 - 确认版本：`Humanizer 2.9.1 final v1`
 - 反馈级别：L3 后确认；未改变选题、账号、形式或核心机制。
-- 当前阶段：脚本已确认，`content_stage` 继续保持 `selected`；实际开始 HeyGen 生成、剪辑或组装时再进入 `producing`。
+- 当前阶段：2026-08-11 已完成成片与发布前检查，`content_stage: ready`；已排期但尚无真实发布链接。
 - 制作条件：固定女性 AI Host、声音、深色背景、大字幕；无口播 CTA。
 
 ### 最终 Hook

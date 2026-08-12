@@ -12,20 +12,31 @@ pillar: Scorpio psychology / friends-to-lovers / changed expectations
 format: Dual AI Host / question and answer
 priority: P1
 effort: L
-content_stage: selected
-script_status: 待确认
+content_stage: "published"
+script_status: 已确认
+confirmed_script_version: "2026-08-11 双人口播成片使用版本，经 Pengman 确认"
+inventory_ready: false
+publish_date: 2026-08-11
+scheduled_timezone: America/Chicago
 deadline: 2026-08-16
 hook: "Why does Scorpio fear friends-to-lovers?"
 cta: 无口播 CTA；caption 无链接
 batch_id: 2026-W33-miraa-dualhost-01
 experiment_id: 2026-W33-miraa-dualhost-01
-experiment_status: planned
+experiment_status: produced_pending_publish
 source_evidence:
   - "https://www.reddit.com/r/astrologymemes/comments/1uc449r/scorpios_talk_to_me_about_your_perspective_on_the/"
   - "https://www.reddit.com/r/astrologymemes/comments/1t9afoz/scorpios_and_commitment/"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-11"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7672723824974073101"
+platform_post_id: "7672723824974073101"
+published_at: "2026-08-11T15:35:00.000Z"
+published_date: "2026-08-11"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-12T02:01:42.818Z"
 ---
 
 # 朋友突然表白时，Scorpio 会怀疑整段友情吗？
@@ -33,8 +44,9 @@ updated: 2026-08-11
 ## 执行卡
 
 - 由 Pengman 于 2026-08-10 正式选中，指定测试**双人口播**：Miraa 回答，新增角色提出问题。
-- **当前阶段**：`selected`；第二角色的形象、声音和具体问答稿均待确认，不进入生成。
-- **当前一个人类动作**：审阅下方完整双人口播候选；明确确认采用后再更新 script_status，并决定是否制作。
+- **当前阶段**：双人口播成片已完成并通过发布前检查，当前为 `ready`。
+- **排期**：已定时至芝加哥时间 2026-08-11；具体时刻待回写。
+- **当前一个人类动作**：实际发布后补充真实链接、平台 ID 和发布时间，再更新为 `published`。
 
 ## 统一内容 Brief
 
@@ -57,11 +69,11 @@ updated: 2026-08-11
 - 以“你是真心选择我，还是其他选择都没了？”这一担忧为情绪中心，但不得将其写成既定事实。
 - 需在 45–60 秒内完成；脚本确认后才确定第二角色素材。
 
-## Codex 完整双人口播候选 v1（待 Pengman 确认）
+## 已生产双人口播脚本 v1
 
-- candidate_status: candidate
+- production_status: 成片完成
 - Hook：Pengman 已确认
-- 完整脚本：待 Pengman 确认
+- 完整脚本：已用于 2026-08-11 成片
 - 词数：约 140 词
 - 预计时长：约 49–55 秒
 - 形式：Questioner 只问一次；Miraa 承担回答；无口播 CTA
@@ -86,4 +98,4 @@ Before Scorpio can picture dating that friend, they may need to believe the frie
 
 - 已实际使用 /humanizer Skill 2.9.1。
 - 已检查 Questioner 与 Miraa 的声音差异、真实口播自然度、抽象词堆叠、工整对偶、重复对照和 AI 总结句。
-- 本版本仍为候选；script_status 保持 待确认。
+- 本版本已完成制作；发布前仍需核对成片与本记录一致。

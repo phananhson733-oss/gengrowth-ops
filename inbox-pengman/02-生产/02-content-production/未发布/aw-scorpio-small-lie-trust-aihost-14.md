@@ -12,9 +12,10 @@ pillar: Scorpio psychology / trust / lie of omission
 format: AI Host
 priority: P0
 effort: M
-content_stage: selected
+content_stage: ready
 script_status: 已确认
-confirmed_script_version: "Humanizer 2.9.1 final v1，经 Pengman 于 2026-08-10 确认"
+confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
+inventory_ready: true
 deadline: 2026-08-14
 hook: "One small lie can make Scorpio question the whole relationship."
 cta: 无口播 CTA；caption 无链接
@@ -25,7 +26,7 @@ source_evidence:
   - "https://www.reddit.com/r/Scorpio/comments/1ukgvaa/is_this_normal_emotions_behaviour_for_a_scorpio/"
 status: draft
 owner: Pengman
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # 为什么一个小谎会让 Scorpio 重新怀疑整段关系？
@@ -33,8 +34,9 @@ updated: 2026-08-10
 ## 执行卡
 
 - 由 Pengman 于 2026-08-10 正式选中，并明确要求**强 Hook**。
-- **形式**：固定女性 AI Host、声音、深色背景与大字幕；当前未开始制作。
-- **当前一个人类动作**：按已确认稿进入 HeyGen 生成；实际开始生成时把 `content_stage` 更新为 `producing`。
+- **形式**：固定女性 AI Host、声音、深色背景与大字幕；2026-08-11 已完成成片制作与发布前检查。
+- **当前阶段**：`ready + inventory_ready: true`，等待后续排期。
+- **当前一个人类动作**：确认发布日期；定时后回写具体时间，实际发布后补充真实链接。
 
 ## 统一内容 Brief
 
@@ -57,10 +59,10 @@ updated: 2026-08-10
 - 中段必须同时解释隐私与不诚实的区别。
 - 结尾停在关系可信度如何被改变，不给出绝对判决或恋爱建议。
 
-## Claude 批量脚本草稿（待 Pengman 确认）
+## 已生产英文脚本
 
-- 版本：批量脚本工作稿 v2（Codex 复核；未调用 Claude）
-- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 版本：2026-08-11 成片使用版本
+- 状态：已确认并完成成片制作
 - 词数：147 词
 - 预计时长：约 48–55 秒
 - 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA
@@ -147,7 +149,7 @@ Privacy can stay private. The version you offer still needs to be real. ♏️
 - 确认结果：Pengman 回复“可以，写入生产记录，我准备开始生产”，确认采用本节版本。
 - 确认版本：`Humanizer 2.9.1 final v1`
 - 反馈级别：L3 后确认；未改变选题、账号、形式或核心机制。
-- 当前阶段：脚本已确认，`content_stage` 继续保持 `selected`；实际开始 HeyGen 生成、剪辑或组装时再进入 `producing`。
+- 当前阶段：2026-08-11 已完成成片与发布前检查，`content_stage: ready`，作为后续发布库存。
 - 制作条件：固定女性 AI Host、声音、深色背景、大字幕；无口播 CTA。
 
 ### 最终 Hook
