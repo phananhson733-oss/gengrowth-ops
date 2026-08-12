@@ -12,9 +12,10 @@ pillar: Scorpio psychology / friendship / solitude and support
 format: AI Host
 priority: P1
 effort: M
-content_stage: selected
+content_stage: ready
 script_status: 已确认
-confirmed_script_version: "Humanizer 2.9.1 final v1，经 Pengman 于 2026-08-10 确认"
+confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
+inventory_ready: true
 deadline: 2026-08-15
 hook: "Scorpios have very few real friends."
 cta: 无口播 CTA；caption 无链接
@@ -25,15 +26,16 @@ source_evidence:
   - "https://www.reddit.com/r/astrologymemes/comments/1v1bcru/lets_talk_scorpio_placements/"
 status: draft
 owner: Pengman
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # Scorpio 只有一两个真朋友：享受独处，也会发现没人能接住自己
 
 ## 执行卡
 
-- 由 Pengman 于 2026-08-10 正式选中；当前为单人 AI Host。
-- **当前一个人类动作**：按已确认稿进入 HeyGen 生成；实际开始生成时把 `content_stage` 更新为 `producing`。
+- 2026-08-11 已完成单人 AI Host 成片制作与发布前检查。
+- **当前阶段**：`ready + inventory_ready: true`，等待后续排期。
+- **当前一个人类动作**：确认发布日期；定时后回写具体时间，实际发布后补充真实链接。
 
 ## 统一内容 Brief
 
@@ -56,10 +58,10 @@ updated: 2026-08-10
 - 至少一个具体生活场景：下班后不主动社交、换工作后不再联系旧同事，或需要帮助时翻遍联系人。
 - 结尾不写”所以要主动交朋友”的建议型落点。
 
-## Claude 批量脚本草稿（待 Pengman 确认）
+## 已生产英文脚本
 
-- 版本：批量脚本工作稿 v2（Codex 复核；未调用 Claude）
-- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 版本：2026-08-11 成片使用版本
+- 状态：已确认并完成成片制作
 - 词数：146 词
 - 预计时长：约 48–54 秒
 - 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA
@@ -146,7 +148,7 @@ Loving your own company and having someone to call can both matter. ♏️
 - 确认结果：Pengman 回复“可以，写入生产记录，我准备开始生产”，确认采用本节版本。
 - 确认版本：`Humanizer 2.9.1 final v1`
 - 反馈级别：L3 后确认；未改变选题、账号、形式或核心机制。
-- 当前阶段：脚本已确认，`content_stage` 继续保持 `selected`；实际开始 HeyGen 生成、剪辑或组装时再进入 `producing`。
+- 当前阶段：2026-08-11 已完成成片与发布前检查，`content_stage: ready`，作为后续发布库存。
 - 制作条件：固定女性 AI Host、声音、深色背景、大字幕；无口播 CTA。
 
 ### 最终 Hook

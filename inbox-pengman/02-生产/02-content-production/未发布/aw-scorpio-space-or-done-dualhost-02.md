@@ -12,14 +12,16 @@ pillar: Scorpio relationship / silence / communication boundary
 format: Dual AI Host / question and answer
 priority: P0
 effort: L
-content_stage: selected
-script_status: 待确认
+content_stage: ready
+script_status: 已确认
+confirmed_script_version: "2026-08-11 双人口播成片使用版本，经 Pengman 确认"
+inventory_ready: true
 deadline: 2026-08-15
 hook: "Why does Scorpio disappear for space?"
 cta: 无口播 CTA；caption 无链接
 batch_id: 2026-W33-miraa-dualhost-02
 experiment_id: 2026-W33-miraa-dualhost-02
-experiment_status: planned
+experiment_status: produced_pending_schedule
 source_evidence:
   - "https://www.reddit.com/r/Scorpio/comments/1tfxb7j/ghosting/"
   - "https://www.reddit.com/r/Scorpio/comments/1v79ji4/curious_for_your_scorpio_opinions/"
@@ -34,8 +36,8 @@ updated: 2026-08-11
 ## 执行卡
 
 - 由 Pengman 于 2026-08-10 正式选中，指定测试**双人口播**：新角色问“Do you need space, or are we done?”，Miraa 回答。
-- **当前阶段**：`selected`；未写稿、未生成；不得因标题写有“失联”就标记为 `producing`。
-- **当前一个人类动作**：审阅下方完整双人口播候选；明确确认采用后再更新 script_status，并决定是否制作。
+- **当前阶段**：双人口播成片已完成并通过发布前检查，当前为 `ready + inventory_ready: true`。
+- **当前一个人类动作**：等待 Pengman 确认后续发布日期；定时后回写具体时间，实际发布后补充真实链接。
 
 ## 统一内容 Brief
 
@@ -58,11 +60,11 @@ updated: 2026-08-11
 - 至少使用一个生活细节：说好确认约会却到晚上才出现，或争吵后数天毫无消息。
 - 同时给出 Scorpio 的处理空间与等待者的感受；不以“谁更坏”结尾。
 
-## Codex 完整双人口播候选 v1（待 Pengman 确认）
+## 已生产双人口播脚本 v1
 
-- candidate_status: candidate
+- production_status: 成片完成
 - Hook：Pengman 已确认
-- 完整脚本：待 Pengman 确认
+- 完整脚本：已用于 2026-08-11 成片
 - 词数：约 141 词
 - 预计时长：约 49–56 秒
 - 形式：Questioner 只问一次；Miraa 承担回答；无口播 CTA
@@ -87,4 +89,4 @@ They may truly need that time. The person waiting still needs to know what happe
 
 - 已实际使用 /humanizer Skill 2.9.1。
 - 已检查 Questioner 与 Miraa 的声音差异、真实口播自然度、抽象词堆叠、工整对偶、重复对照和 AI 总结句。
-- 本版本仍为候选；script_status 保持 待确认。
+- 本版本已完成制作；发布前仍需核对成片与本记录一致。

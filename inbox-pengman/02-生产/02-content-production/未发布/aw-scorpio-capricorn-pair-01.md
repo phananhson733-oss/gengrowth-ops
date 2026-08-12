@@ -12,13 +12,13 @@ pillar: Compatibility / unspoken needs / reliability without disclosure
 format: AI Host
 priority: P0
 effort: M
-content_stage: selected
+content_stage: ready
 script_status: 已确认
-confirmed_script_version: "Humanizer 2.9.1 final v1，经 Pengman 于 2026-08-10 确认"
+confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
+inventory_ready: true
 hook: "Scorpio and Capricorn can both struggle to say what they need."
 cta: 无口播 CTA；caption 无链接
 batch_id: 2026-W33-miraa-aihost-01
-publish_date: 2026-08-12
 deadline: 2026-08-11
 source_evidence:
   - "[[inbox-pengman/04-production/04-weekly-content-plans/2026-W32 周度内容计划]]"
@@ -29,7 +29,7 @@ source_evidence:
   - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-virgo-pair-01]]"
 status: draft
 owner: Pengman
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # Scorpio × Capricorn：内容生产记录
@@ -40,8 +40,8 @@ updated: 2026-08-10
 - 预估成本：M
 - 执行通道：W33 Miraa 非时效库存候选
 - 建议制作形式：沿用固定女性 AI Host、声音、深色背景和大字幕
-- 当前一个人类动作：按已确认稿进入 HeyGen 生成；实际开始生成时把 `content_stage` 更新为 `producing`
-- 当前阶段说明：Pengman 已明确选择本题，因此建立主记录并设为 `selected`；尚未开始生成、剪辑或组装，不进入 `producing`
+- 当前阶段说明：2026-08-11 已完成成片制作与发布前检查，当前为 `ready + inventory_ready: true`。
+- 当前一个人类动作：等待 Pengman 确认后续发布日期；定时后回写具体时间，实际发布后补充真实链接。
 
 ## 选择依据与产能边界
 
@@ -137,7 +137,7 @@ Scorpio and Capricorn both look low-maintenance — until neither one asks for w
 ## GPT-5.6 英文口播初稿（2026-08-06）
 
 - 版本：`GPT-5.6 v1`
-- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 状态：历史草稿；已被后续最终确认版本替代
 - 词数：135 词
 - 预计时长：约 50–56 秒，实际以 Miraa 当前 AI Host 语速为准
 - 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA；不增加自动特效
@@ -192,12 +192,12 @@ They never became unreliable. They just stopped feeling needed. ♏️ × ♑️
 
 - 当前环境没有可调用的 `/humanizer` Skill；未伪称运行。
 - 已由总控模型完成替代审查：删去占星术语和课堂式解释；控制长句；使用自然美式口语；避免重复 `not X, but Y` 模板；结尾不提供建议或企业式总结。
-- 当前仍需 Pengman 人工确认。确认前保持 `script_status: 待确认`、`content_stage: selected`。
+- 本节为历史草稿审查记录；后续最终版本已经 Pengman 确认并于 2026-08-11 完成成片。
 
-## Claude 批量脚本草稿（待 Pengman 确认）
+## 历史批量脚本草稿（已被后续版本替代）
 
 - 版本：批量脚本工作稿 v2（Codex 复核；未调用 Claude）
-- 状态：待 Pengman 确认；未写入 `confirmed_script_version`
+- 状态：历史草稿；已被后续最终确认版本替代
 - 词数：147 词
 - 预计时长：约 48–55 秒
 - 实验条件：固定 Host、声音、深色背景、大字幕；无口播 CTA
@@ -289,7 +289,7 @@ They keep every promise except the one need they never say out loud. ♏️ × �
 - 确认结果：Pengman 回复“可以，写入生产记录，我准备开始生产”，确认采用本节版本。
 - 确认版本：`Humanizer 2.9.1 final v1`
 - 反馈级别：L3 后确认；未改变选题、账号、形式或核心机制。
-- 当前阶段：脚本已确认，`content_stage` 继续保持 `selected`；实际开始 HeyGen 生成、剪辑或组装时再进入 `producing`。
+- 当前阶段：2026-08-11 已完成成片与发布前检查，`content_stage: ready`，作为后续发布库存。
 - 制作条件：固定女性 AI Host、声音、深色背景、大字幕；无口播 CTA。
 
 ### 最终 Hook
