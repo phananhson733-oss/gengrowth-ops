@@ -1,13 +1,14 @@
 ---
 title: AI短剧在Reddit的用户讨论度初步调研
+owner: Gao Xuan
 date: 2026-08-11
 status: draft
 tags:
-- report
-- reddit
-- ai-short-drama
-- user-research
-- market-observation
+  - report
+  - reddit
+  - ai-short-drama
+  - user-research
+  - market-observation
 ---
 
 # AI短剧在Reddit的用户讨论度初步调研
