@@ -1,11 +1,6 @@
 ---
 name: astrologywiki-social-workflow
 description: "Use for AstrologyWiki weekly candidate research, qualified Hot assessment, account routing, selected-record script drafting, social copy, short-video ideas, X posts, or execution of the active rolling-week plan. Ordinary daily work advances locked items; new candidates are allowed only for Monday planning, confirmed inventory refill, explicit replan, or a qualifying Hot item."
-metadata:
-  site: astrologywiki.com
-  owner: Pengman
-  version: 1.3.1
-  updated: 2026-08-11
 ---
 
 # AstrologyWiki Weekly Social Planning and Hot Response
@@ -100,6 +95,18 @@ GSC 已暂停，不读取、不索取，也不构成阻塞。旧竞品快照只�
 4. Hot 继续执行更严格的 4 个当前公开来源与跨 2 个候选至少 3 个直接链接规则。
 5. 固定 CSV 索引不可读取时，停止生成正式候选并报告阻塞。Library 入口仅需登录时，可在 CSV 与其他实时公开来源均已成功核验的前提下继续，但必须披露限制。
 6. 没有完成以上门槛时，只能推进已经 `selected` 的既定内容，不能输出新的正式候选，也不能把 Idea 提升为 `selected`。
+
+### Miraa Community Topic Research
+
+为 `@miraaastrology` 执行 Mode B 周一候选研究或 Mode C 补库/重排时，在生成候选前必须完成英语社区话题调研。完整执行契约见 [references/community-topic-research.md](references/community-topic-research.md)，必须全文读取后执行。
+
+- 先研究近期英语社区正在反复讨论的 Scorpio 现实问题，再从研究结果生成候选；不得从产品定位直接跳到标题列表。
+- 实际打开 Reddit、X、Quora、TikTok/YouTube 公开讨论或其他相关英语社区页面；搜索摘要、标题和平台元数据不能代替正文或评论。
+- 优先最近 90 天，其次最近 12 个月；更早内容只用于说明长期重复，不得冒充当前热度。
+- 调研阶段至少交付 5 个不同讨论点，目标 8–12 个，并保留直接链接、互动可见性、跨平台重复、反方观点、生活细节和自然英语表达。
+- 调研输出只是证据池，不得在此阶段生成最终 Hook、脚本、Caption、Hashtag 或替 Pengman 选定题目。
+- 若平台正文或评论不可读，记录具体失败层级和 `互动量不可核验`；不得根据标题猜正文、伪造互动量或用户原话。
+- Mode D 单个 Hot 评估继续执行 Hot 专用证据门；除非用户同时要求刷新 Miraa 候选池，否则不强制重做完整社区话题池。
 
 ## 4. Evidence Preflight
 
@@ -226,16 +233,28 @@ Hook 检查：
 
 **单人 AI Host 的强 Hook 必须：**
 
-- 在前 2–3 秒让用户知道谁、正在发生什么具体行为，以及为什么这和自己有关；
-- 从可看见的生活场景、动作、关系瞬间或反常识冲突切入，而不从性格定义、抽象情绪或占星术语切入；
+- 优先用“目标身份／性格判断 + 广泛可认领的行为、关系张力或后果”直接开场；可以从 `Scorpio...`、`Scorpios...` 或目标配对开始；
+- 在前 2–3 秒让用户知道在说谁、核心判断或冲突是什么，以及为什么值得继续听；
+- 性格判断必须落到普通观众马上能理解的行为、关系问题或结果，不能只给抽象标签；
 - 使用自然、简单的美式英语，能直接被放上首屏大字幕；
-- 先给矛盾或场景，再解释其情绪含义；不把“深刻”误写成含糊。
+- Hook 保持宽、直、容易认领；具体时间、地点、人物和生活细节默认放进正文证明 Hook，不强制塞进首句；
+- 先给身份判断或广泛矛盾，再解释心理机制；不把“深刻”误写成含糊。
+
+**当前已确认的 Hook 方向示例：**
+
+- `Scorpios have very few real friends.`
+- `One small lie can make Scorpio question the whole relationship.`
+- `Scorpio and Capricorn can both struggle to say what they need.`
+- `You can know a Scorpio for years and still not know what they're feeling.`
+
+这些示例用于说明“身份明确、矛盾广泛、简单可认领”的机制，不得机械套句或替换星座名。
 
 **默认避开：**
 
-- `Scorpio hides what they carry`、`You might not really know Scorpio` 等只有情绪判断、没有场景的首句；
+- `Scorpio is mysterious`、`Scorpio has emotional walls` 等只有抽象性格标签、没有行为、关系张力或后果的首句；
 - `mysterious`、`emotional walls`、`access`、`boundaries`、`emotional depth` 等抽象词作为 Hook 主体；
-- 只说“Scorpio is/has ……”却没有动作、冲突或后果的身份标签；
+- 只说“Scorpio is/has ……”却没有可认领判断、冲突或后果的空泛身份标签；
+- 餐厅、前任、具体时刻、单次约会、搬家、送饭等过窄场景作为默认 Hook；只有该场景本身是选题核心、足够普遍且已获确认时才使用；
 - 以诗意、治疗话术、AI 总结句或工整对偶代替真实处境。
 
 **双人口播 Questioner Hook：**
@@ -245,13 +264,13 @@ Hook 检查：
 - Hook 尽量短，确保 Questioner 能在约 2 秒内自然说完；先删背景、铺垫和具体场景。
 - Hook 只点明 Scorpio 或目标关系与核心困惑；具体行为、场景和双方视角放进 Miraa 的回答。
 - 生成 5 个候选时，改变问题角度，不靠替换场景或堆叠修饰词制造差异。
-- 本规则只适用于一人提问、一人回答的双人口播；单人 AI Host 继续使用具体场景或行为型 Hook。
+- 本规则只适用于一人提问、一人回答的双人口播；单人 AI Host 使用身份判断或广泛关系张力型 Hook。
 
 **写稿动作：**
 
 1. 先读取目标单条主生产记录、`01-reference/` 中相关参考、同账号最近已发布记录与当前未发布记录。
 2. 只从参考中学习 Hook 清晰度、场景、节奏和情绪推进；不复制竞品句子、顺序、隐喻、CTA 或未经核验的主张。
-3. 先给 5 个彼此不同的 Hook 候选。单人 AI Host 更换具体进入场景；双人口播按 Questioner Hook 专用规则更换问题角度。
+3. 先给 5 个彼此不同的 Hook 候选。单人 AI Host 改变身份判断、关系张力或后果角度，不靠替换窄场景制造差异；双人口播按 Questioner Hook 专用规则更换问题角度。
 4. 选择最强 Hook 后再写完整稿。若没有一个 Hook 能通过“谁／行为／为什么有关”的 2–3 秒检查，先重写 Hook，不用抽象句勉强起稿。
 5. 当 Pengman 要求“从零重写”时，将现有 Hook、Voiceover、Caption、Overlay 和模型初稿视为已否决过程稿；只继承主生产记录中已确认的选题、核心机制、来源、形式、禁止项与实验变量。不得做同义替换式改稿。
 6. 脚本初稿完成后，执行本 Skill 的 Humanization Gate；最终稿仍只是 `candidate`，直到 Pengman 明确确认。
@@ -273,6 +292,8 @@ Hook 检查：
 ### Step 2：完成实时互联网调研
 
 先执行 Mandatory Internet Research Gate：读取固定 CSV、尝试访问 Library 页面、查看与目标账号/缺口相关的当前公开内容，并写出 Evidence Preflight。研究完成前不开始生成候选。
+
+若目标包含 `@miraaastrology` 的 Mode B 或 Mode C 候选池，再按 [references/community-topic-research.md](references/community-topic-research.md) 完成社区话题研究，先保存 Research receipt、话题分层、生活细节库、语言库和完整来源清单。Social OS 执行时先用 `source-ingest` 将可用证据写入证据池，再由 `research` 生成候选；社区研究结果不得直接自动通过 H1 或 H3。
 
 ### Step 3：收集候选
 
@@ -412,13 +433,15 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 ## 13. File Routing
 
 - 当前周组合：`04-weekly-content-plans/`
-- 周一候选研究、Hot 证据、明确重排：`02-daily-content-recommendations/`
+- 周一候选研究、社区话题研究、Hot 证据和明确重排：`01-调研资料/候选与热点研究/`
 - 已选 Brief、脚本、制作与发布回链：`02-content-production/`
 - 发布数据和周级复盘：`05-weekly-digests/` 与 `04-production/03-data-review/`
 - 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log
 
+- 2026-08-13 · v1.5.0 · 为 Miraa 正式候选池更新增加英语互联网社区话题调研前置步骤：实际打开帖子和评论、优先近期来源、跨平台判断讨论度，先形成研究证据池再生成候选，研究阶段不写 Hook 或脚本。
+- 2026-08-13 · v1.4.0 · 以 Pengman 当前确认偏好修正单人 AI Host Hook：允许并优先使用直接身份／性格判断开场，但必须带广泛可认领的行为、关系张力或后果；具体小场景默认移入正文，不再强制作为 Hook。
 - 2026-08-11 · v1.3.1 · 记录 Pengman 对双人口播 Questioner Hook 的确认偏好：直接问句、优先 `Why` 或 `Who` 起手、约 2 秒内说完、不在首句铺具体场景，具体冲突由 Miraa 展开。
 
 - 2026-08-04 · v1.2.0 · 修正迁移后的 `02 / 03 / 05 / 07` 当前路径；将不可用时会阻断流程的 `/humanizer` 硬依赖改为可核验 Skill 或总控审稿 + Pengman 确认的等价门槛。
