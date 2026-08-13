@@ -1,0 +1,106 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-partner-consistency-2026w33",
+      "claim": "把 Scorpio 伴侣的信任需求写成观察承诺与行动是否一致，而不是泛化成嫉妒，会让双人关系口播获得更高的评论认同。",
+      "evidence_source_ids": ["src-d2f838d0b8", "src-1f7a8f99ff"],
+      "success_metric": "7d comment_rate 高于近期 Miraa 单星座关系口播中位数",
+      "observe_window": "7d",
+      "verdict": "pending",
+      "research_topic_id": "t-partner-total-trust"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-spouse-privacy-2026w33",
+      "claim": "用争吵截图是否发给朋友这一具体冲突区分关系隐私与隐瞒，会比抽象的神秘标签带来更高分享与站队评论。",
+      "evidence_source_ids": ["src-b74a58a31f"],
+      "success_metric": "7d share_rate 或 comment_rate 高于近期 Miraa 单星座关系口播中位数",
+      "observe_window": "7d",
+      "verdict": "pending",
+      "research_topic_id": "t-marriage-privacy"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-marriage-security-2026w33",
+      "claim": "用婚前追求强度、婚后重视安稳的反差呈现 Scorpio 婚姻角色，会在不依赖嫉妒刻板印象的前提下提高收藏率。",
+      "evidence_source_ids": ["src-cef5ed13e1"],
+      "success_metric": "7d save_rate 高于近期 Miraa 单星座关系口播中位数",
+      "observe_window": "7d",
+      "verdict": "pending",
+      "research_topic_id": "t-marriage-home-security"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-mother-honesty-2026w33",
+      "claim": "用书包没打开却说作业做完这一家庭细节呈现 Scorpio mother 对前后矛盾的敏感，会获得比泛化母亲性格更高的 tag 与分享。",
+      "evidence_source_ids": ["src-9ccb02d35a", "src-1f7a8f99ff"],
+      "success_metric": "7d share_rate 与 tag 型评论占比高于近期 Miraa 单星座口播中位数",
+      "observe_window": "7d",
+      "verdict": "pending",
+      "research_topic_id": "t-mother-honesty"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-dating-intensity-boundary-2026w33",
+      "claim": "把强烈亲密与忽冷忽热明确区分，并加入边界提醒，会让 Scorpio dating 双人口播兼具共鸣与安全性。",
+      "evidence_source_ids": ["src-c28b086c65"],
+      "success_metric": "7d completion_rate >= 0.35 且关系边界类正向评论占比高于负向标签评论",
+      "observe_window": "7d",
+      "verdict": "pending",
+      "research_topic_id": "t-dating-intensity"
+    }
+  ],
+  "backlog": [
+    {
+      "account": "@miraaastrology",
+      "title": "A Scorpio partner watches consistency, not reassurance",
+      "hook": "Partner: Why isn't saying “trust me” enough? Scorpio: Because I remember what you promised — and I watch what you do next.",
+      "angle": "Two-person dialogue: separate complete trust from jealousy by showing a promise-and-follow-through scene; consistency is framed as a preference, not a universal law.",
+      "why_now": "Evergreen Route A/C candidate grounded in two directly readable cross-platform sources: an X girlfriend-role post with 8.2K visible views and a YouTube role description with 1.7K views. It tests a concrete relationship behavior without diagnosing or predicting.",
+      "score": "89",
+      "hypothesis_id": "hyp-miraa-scorpio-partner-consistency-2026w33",
+      "research_topic_id": "t-partner-total-trust",
+      "stage": "drafted"
+    },
+    {
+      "account": "@miraaastrology",
+      "title": "A Scorpio spouse may keep the argument off the group chat",
+      "hook": "Friend: Send me the screenshots. Scorpio spouse: No — private doesn't mean dishonest, but this fight belongs in the relationship first.",
+      "angle": "Two-person dialogue: a friend asks for conflict screenshots and the spouse explains privacy; explicitly distinguish healthy privacy from isolation or concealment.",
+      "why_now": "Evergreen Route A/C candidate based on a directly readable X marriage-privacy post with 4.8K visible views, 41 likes, 8 reposts and 54 bookmarks. It converts an abstract secrecy stereotype into a recognizable group-chat conflict.",
+      "score": "82",
+      "hypothesis_id": "hyp-miraa-scorpio-spouse-privacy-2026w33",
+      "research_topic_id": "t-marriage-privacy",
+      "stage": "drafted"
+    },
+    {
+      "account": "@miraaastrology",
+      "title": "What a Scorpio may want after marriage: peace, not power",
+      "hook": "Partner: I thought you wanted intensity. Scorpio spouse: I did — now I want a home where neither of us has to stay on guard.",
+      "angle": "Two-person dialogue: contrast early relationship intensity with the desire for an emotionally safe home; keep the claim conditional because the source is an Ascendant-specific small sample.",
+      "why_now": "Evergreen Route A/C test from a directly readable Scorpio Ascendant marriage post with 1.8K visible views. Evidence strength is weak, so this is a lower-priority small-sample candidate rather than a broad Scorpio claim.",
+      "score": "71",
+      "hypothesis_id": "hyp-miraa-scorpio-marriage-security-2026w33",
+      "research_topic_id": "t-marriage-home-security",
+      "stage": "drafted"
+    },
+    {
+      "account": "@miraaastrology",
+      "title": "A Scorpio mom notices the one detail that changed",
+      "hook": "Kid: I finished my homework. Scorpio mom: Then why is your backpack still zipped?",
+      "angle": "Two-person parent-child dialogue: use one observable contradiction to show an honesty standard, then balance it by saying children need room to admit mistakes safely.",
+      "why_now": "Evergreen Route A/C candidate supported by an X Scorpio-mother joke with 8.6K visible views and readable replies plus a YouTube role description. Mother-role evidence is the strongest family-role signal in this sample; no equivalent father candidate is generated.",
+      "score": "91",
+      "hypothesis_id": "hyp-miraa-scorpio-mother-honesty-2026w33",
+      "research_topic_id": "t-mother-honesty",
+      "stage": "drafted"
+    },
+    {
+      "account": "@miraaastrology",
+      "title": "Dating a Scorpio: intensity still needs boundaries",
+      "hook": "Partner: We talked until 2 a.m., then you disappeared all day. Scorpio: I needed space — but you still deserved a clear message.",
+      "angle": "Two-person dating dialogue: validate the need to decompress after closeness while refusing to romanticize hot-and-cold behavior; give a communication boundary rather than a diagnosis.",
+      "why_now": "Evergreen Route A/C candidate grounded in a directly readable Quora first-person two-year relationship account describing high highs and low lows. Engagement is not verifiable, so the score reflects lived-detail value rather than claimed heat.",
+      "score": "84",
+      "hypothesis_id": "hyp-miraa-scorpio-dating-intensity-boundary-2026w33",
+      "research_topic_id": "t-dating-intensity",
+      "stage": "drafted"
+    }
+  ]
+}
