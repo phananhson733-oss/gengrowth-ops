@@ -182,6 +182,8 @@ execution_trace:
 
 `title` 仅用于内部识别，绝不能作为缺失 Hook 时的替代值。
 
+双人口播时，`选题审批.hook` 只保存第一人的第一句，不包含 `Partner:`、`Scorpio:` 等说话人标签，也不包含第二人的回答。开场类型和第二人的首个回应方向写入 `angle` 或冻结写作包；Script 再按对应 Skill 展开对话。
+
 ### runner 修改
 
 1. `status --content-id` 必须返回：
@@ -351,6 +353,7 @@ language:
 4. 人工修改 H3 Hook 后，旧 Script、Package 和 H4 审批自动失效；
 5. 使用旧稿运行 `package` 时，返回 `hook_match=failed` 并停止；
 6. 重新生成后，H4 checks 显示 `hook_match=ok`。
+7. 双人口播候选的 H3 Hook 只含第一人的问句或判词，第二人的附和与解释不在同一单元格；Script 第一条非空句仍与该 Hook 一致。
 
 ### 测试 C：多 Skill 配置
 
