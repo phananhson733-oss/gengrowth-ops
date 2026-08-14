@@ -1,0 +1,206 @@
+{
+  "schema_version": "miraa-community-research/v1",
+  "product": "astrologywiki",
+  "account": "@miraaastrology",
+  "mode": "B",
+  "week": "2026-W33",
+  "searched_at": "2026-08-13T19:16:25+08:00",
+  "sample_limitations": "本轮比较的是公开可读讨论信号，不代表平台全量热度。Reddit 直接页未稳定返回正文，未作为证据；父亲角色缺少足够直接讨论；X 样本含 Sun/Venus/Ascendant 等不同占星口径，只用于识别关系场景需求，不把帖子断言当作星座事实。",
+  "competitor_index_checked_at": "2026-08-13T18:58:00+08:00；固定 CSV 成功返回",
+  "apps_script_library_attempt": "2026-08-13T18:58:00+08:00；页面需要登录，未读取内部内容",
+  "platforms_attempted": ["Reddit", "X", "Quora", "YouTube"],
+  "platforms_accessed": ["X", "Quora", "YouTube"],
+  "opened_pages": 16,
+  "readable_pages": 6,
+  "unavailable_sources": [
+    {"platform": "Reddit", "failure_layer": "直接帖子页只返回搜索摘要或空结果，正文/评论不可稳定读取，因此排除"}
+  ],
+  "topics": [
+    {
+      "topic_id": "t-partner-total-trust",
+      "topic_name": "Scorpio partner seeks complete trust",
+      "discussion": "恋爱角色讨论反复把深度连接、忠诚和完全信任放在一起。",
+      "video_fit": "双人问答可用一方问‘为什么她还在确认’，另一方解释她要的是一致性而非更多甜言蜜语。",
+      "main_views": "信任建立后会高度投入，并把稳定行动看得比口头保证重要。",
+      "counter_views": "这只是公开占星内容中的叙事模式，不能推断每个天蝎伴侣都会如此。",
+      "life_scenes": ["记得伴侣答应过的小事并观察是否做到", "约会后不急着定义关系但会观察前后一致"],
+      "discussion_evidence": {"source_refs": ["sx-girlfriend", "sy-traits"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "X 角色帖可见 8.2K views；YouTube 直接页把 Scorpio woman 同时描述为 partner，并有 1.7K views。", "limitations": "来源使用不同 placement 口径，作为内容需求信号而非事实证明。"},
+      "natural_english": [{"text": "wants a connection where both people trust each other completely", "attribution": "source_quote", "source_ref": "sx-girlfriend"}]
+    },
+    {
+      "topic_id": "t-marriage-privacy",
+      "topic_name": "Scorpio spouse protects relationship privacy",
+      "discussion": "婚姻与伴侣内容中，争吵是否应该告诉朋友、关系是否应该公开，是具体且可争论的生活问题。",
+      "video_fit": "双人口播可让一方主张‘找朋友复盘’，另一方解释‘先在关系内部解决’。",
+      "main_views": "关系细节越重要，越倾向先私下处理。",
+      "counter_views": "隐私不等于隐瞒；拒绝任何外部支持也可能让问题恶化。",
+      "life_scenes": ["吵架后拒绝把截图发进朋友群", "合照可以发但冲突细节不公开", "先等情绪降下来再谈而不是直播式复盘"],
+      "discussion_evidence": {"source_refs": ["sx-secrecy"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "直接帖子围绕 Scorpio placement 与恋爱/婚姻隐私展开，可见 4.8K views、41 likes、8 reposts。", "limitations": "帖子带有绝对化占星表达，只借具体隐私冲突，不采用宿命结论。"},
+      "natural_english": [{"text": "The fights you have with your wife or husband should not be discussed with anyone.", "attribution": "source_quote", "source_ref": "sx-secrecy"}]
+    },
+    {
+      "topic_id": "t-marriage-home-security",
+      "topic_name": "Marriage shifts Scorpio toward emotional security",
+      "discussion": "婚后角色内容不仅讨论忠诚，也讨论家是否成为情绪安全区。",
+      "video_fit": "双人可形成‘婚前追求强度／婚后追求安稳’的反差问答。",
+      "main_views": "长期关系可能把关注点从控制感转向安稳、家庭和共同生活。",
+      "counter_views": "单个 Ascendant 帖不能证明普遍行为，只说明该反差具备内容兴趣。",
+      "life_scenes": ["开始认真讨论共同住所和日常分工", "比起赢一场争论更想恢复家里的平静", "把固定晚餐或睡前聊天当作安全信号"],
+      "discussion_evidence": {"source_refs": ["sx-marriage-home"], "cross_platform": false, "evidence_strength": "弱", "discussion_signal": "直接 Scorpio Ascendant 婚后主题帖可见 1.8K views。", "limitations": "互动规模有限且不是 Sun-sign 样本，适合作为小样本测试。"},
+      "natural_english": [{"text": "Emotional security becomes your priority.", "attribution": "source_quote", "source_ref": "sx-marriage-home"}]
+    },
+    {
+      "topic_id": "t-mother-honesty",
+      "topic_name": "Scorpio mother and honesty discipline",
+      "discussion": "母亲角色最清晰的可见梗是孩子很难用含糊说法蒙混过去，以及家中对诚实的高要求。",
+      "video_fit": "双人可用孩子一句‘我没做’，母亲一句追问，快速进入可见场景。",
+      "main_views": "对细节和前后矛盾敏感，容易把诚实当家庭底线。",
+      "counter_views": "高标准也可能让孩子害怕犯错；内容需要同时承认安全沟通的重要性。",
+      "life_scenes": ["孩子说作业做完了但书包还没打开", "听到故事前后不一致后只问一个具体细节", "不因犯错生气但会因持续撒谎失去耐心"],
+      "discussion_evidence": {"source_refs": ["sx-mother", "sy-traits"], "cross_platform": true, "evidence_strength": "强", "discussion_signal": "X 母亲梗可见 8.6K views、72 likes，并有可读跟帖；YouTube 直接页也把 mother 作为 Scorpio woman 的角色。", "limitations": "X 是幽默化表达，不能当育儿事实；父亲角色没有同等证据。"},
+      "natural_english": [{"text": "raised by a Scorpio mother", "attribution": "source_quote", "source_ref": "sx-mother"}]
+    },
+    {
+      "topic_id": "t-dating-intensity",
+      "topic_name": "Dating a Scorpio feels intensely high and low",
+      "discussion": "第一人称关系回答常用‘highs were highs, lows were lows’描述强烈投入与情绪反差。",
+      "video_fit": "双人可让一方说‘昨天很亲近、今天很安静’，另一方区分深度需求与不健康的忽冷忽热。",
+      "main_views": "强烈连接和情绪波动是人们描述 Scorpio girlfriend/partner 时的高记忆点。",
+      "counter_views": "情绪不稳定不能用星座合理化；视频必须强调沟通和边界。",
+      "life_scenes": ["一次约会聊到凌晨但第二天需要独处", "争执后不是立刻和好而是反复消化细节", "感觉被高度关注同时又担心下一次降温"],
+      "discussion_evidence": {"source_refs": ["sq-female-experience"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Quora 直接页含两年关系的第一人称回答，并在同页出现多个不同关系角色回答。", "limitations": "互动量不可稳定拆分；属于个体经历，不能泛化或病理化。"},
+      "natural_english": [{"text": "Highs were highs, lows were lows.", "attribution": "source_quote", "source_ref": "sq-female-experience"}]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "sx-mother",
+      "title": "Raised by a Scorpio mother",
+      "platform": "X",
+      "url": "https://x.com/Rude_Astrology/status/2073102127791026210",
+      "observed_at": "2026-08-13T19:05:00+08:00",
+      "displayed_date": "2026-07-03",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["t-mother-honesty"],
+      "quote_verbatim": "Lawyer: My client was raised by a Scorpio mother, your honor. Me: case dismissed.",
+      "comment_excerpt": "raised by a Scorpio AND the built-in example for every younger kid — they've been on trial since age 6.",
+      "visible_engagement": {"views": 8600, "likes": 72, "replies": 2, "reposts": 3, "bookmarks": 6}
+    },
+    {
+      "source_ref": "sx-girlfriend",
+      "title": "Venus as the girlfriend in each sign",
+      "platform": "X",
+      "url": "https://x.com/Astro_Panditji_/status/2085138790834741630",
+      "observed_at": "2026-08-13T19:08:00+08:00",
+      "displayed_date": "2026-08-05",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["t-partner-total-trust"],
+      "quote_verbatim": "Scorpio Venus — deeply loyal, emotionally intense, and wants a connection where both people trust each other completely.",
+      "visible_engagement": {"views": 8200}
+    },
+    {
+      "source_ref": "sx-secrecy",
+      "title": "The reality of Scorpio sign — hide it to protect it",
+      "platform": "X",
+      "url": "https://x.com/Astro_Panditji_/status/2079455306468470924",
+      "observed_at": "2026-08-13T19:09:00+08:00",
+      "displayed_date": "2026-07-21",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["t-marriage-privacy"],
+      "quote_verbatim": "The fights you have with your wife or husband should not be discussed with anyone.",
+      "visible_engagement": {"views": 4800, "likes": 41, "replies": 6, "reposts": 8, "bookmarks": 54}
+    },
+    {
+      "source_ref": "sx-marriage-home",
+      "title": "How life changes after marriage — Scorpio Ascendant",
+      "platform": "X",
+      "url": "https://x.com/Astro_Panditji_/status/2082394200423686284",
+      "observed_at": "2026-08-13T19:10:00+08:00",
+      "displayed_date": "2026-07-29",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["t-marriage-home-security"],
+      "quote_verbatim": "You value peace more than power. Emotional security becomes your priority. Home finally starts feeling complete.",
+      "visible_engagement": {"views": 1800, "likes": 13, "replies": 1, "bookmarks": 6}
+    },
+    {
+      "source_ref": "sq-female-experience",
+      "title": "Experiences with a Scorpio female",
+      "platform": "Quora",
+      "url": "https://www.quora.com/What-are-your-experiences-with-a-Scorpio-female-and-what-is-your-zodiac-sign",
+      "observed_at": "2026-08-13T19:11:00+08:00",
+      "displayed_date_note": "页面混合多个回答；可读回答显示相对时间或未显示统一发布日期",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["t-dating-intensity"],
+      "quote_verbatim": "I was in a relationship with a scorpio woman for 2 years. Thruth be told, it was intense and love was love... Highs were highs, lows were lows.",
+      "engagement_note": "互动量不可核验；替代信号为同一问题下存在伴侣、姐妹、母亲和女儿等多个角色回答，以及一条两年关系第一人称叙述。"
+    },
+    {
+      "source_ref": "sy-traits",
+      "title": "Scorpio Traits — Scorpio Man, Woman, Love, Facts & Life",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=5J-iB9gWjPQ",
+      "observed_at": "2026-08-13T19:12:00+08:00",
+      "displayed_date": "2020-09-13",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["t-partner-total-trust", "t-mother-honesty"],
+      "body_excerpt": "The page description presents Scorpio woman in the roles of partner, mother and friend and frames diligence as a defining trait.",
+      "visible_engagement": {"views": 1764, "subscribers": 10800}
+    }
+  ],
+  "life_detail_bank": [
+    "noticing the backpack is still closed after a child says homework is done",
+    "refusing to send argument screenshots to a group chat",
+    "remembering a promise made weeks earlier",
+    "watching whether words and actions stay consistent",
+    "talking until 2 a.m. on an early date",
+    "needing a quiet day after an intense conversation",
+    "choosing a calm home over winning an argument",
+    "creating a fixed dinner routine after marriage",
+    "asking one precise follow-up when a story changes",
+    "being more upset by repeated lying than by the original mistake",
+    "keeping couple problems off public social media",
+    "discussing shared housing and chores seriously",
+    "letting a partner see private fears only after trust builds",
+    "checking in after conflict instead of pretending nothing happened",
+    "setting a boundary when intensity turns into hot-and-cold behavior"
+  ],
+  "language_bank": {
+    "phrases": [
+      {"text": "trust each other completely", "attribution": "source_quote", "source_ref": "sx-girlfriend"},
+      {"text": "Highs were highs, lows were lows", "attribution": "source_quote", "source_ref": "sq-female-experience"},
+      {"text": "emotional security becomes your priority", "attribution": "source_quote", "source_ref": "sx-marriage-home"},
+      {"text": "keep the argument inside the relationship first", "attribution": "synthesized_pattern"},
+      {"text": "I remember what you promised", "attribution": "synthesized_pattern"},
+      {"text": "privacy is not the same as secrecy", "attribution": "synthesized_pattern"},
+      {"text": "consistency matters more than reassurance", "attribution": "synthesized_pattern"},
+      {"text": "the house has to feel emotionally safe", "attribution": "synthesized_pattern"},
+      {"text": "she noticed the detail that changed", "attribution": "synthesized_pattern"},
+      {"text": "intensity needs boundaries too", "attribution": "synthesized_pattern"},
+      {"text": "don't perform the relationship for an audience", "attribution": "synthesized_pattern"},
+      {"text": "tell me the truth, not the polished version", "attribution": "synthesized_pattern"},
+      {"text": "deeply loyal and emotionally intense", "attribution": "source_quote", "source_ref": "sx-girlfriend"},
+      {"text": "you value peace more than power", "attribution": "source_quote", "source_ref": "sx-marriage-home"},
+      {"text": "raised by a Scorpio mother", "attribution": "source_quote", "source_ref": "sx-mother"}
+    ],
+    "questions": [
+      {"text": "Why does consistency matter more than saying trust me?", "attribution": "synthesized_pattern"},
+      {"text": "Would you tell your friends every detail of this fight?", "attribution": "synthesized_pattern"},
+      {"text": "What changed after the relationship became serious?", "attribution": "synthesized_pattern"},
+      {"text": "How did she know the story did not add up?", "attribution": "synthesized_pattern"},
+      {"text": "When does intensity stop feeling romantic?", "attribution": "synthesized_pattern"}
+    ],
+    "reaction_patterns": [
+      {"text": "That is exactly how my partner handles conflict.", "attribution": "synthesized_pattern"},
+      {"text": "My mom would catch that lie in two seconds.", "attribution": "synthesized_pattern"},
+      {"text": "Private does not mean dishonest.", "attribution": "synthesized_pattern"},
+      {"text": "The calm home part is more accurate than the jealousy stereotype.", "attribution": "synthesized_pattern"},
+      {"text": "Strong chemistry still needs clear boundaries.", "attribution": "synthesized_pattern"}
+    ]
+  }
+}

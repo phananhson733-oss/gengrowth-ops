@@ -514,9 +514,6 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 - [x] `PG-KB-001` BTS members zodiac signs
 - [ ] `PG-KB-002` Jungkook birth chart
 - [x] `PG-FH-001` Harry Potter characters zodiac signs
-- [x] `PG-KB-001` BTS members zodiac signs
-- [ ] `PG-KB-002` Jungkook birth chart
-- [x] `PG-FH-001` Harry Potter characters zodiac signs
 - [ ] `PG-VEDIC-007` Beyoncé birth chart
 
 - [ ] `PG-VEDIC-008` ishowspeed birth chart
@@ -675,8 +672,13 @@ PG-VEDIC-002-003-004由于全是近义长尾词，建议暂时合并为一篇文
 ---
 ## ⚪ 7月28日 (周二) - 待写作
 **状态**：`等待输出` (自动补充选题，共 10 篇)
-- [ ] `PG-VEDIC-009` Selena Gomez zodiac sign
-- [ ] `PG-VEDIC-010` Ariana Grande zodiac sign
+> ⏸️ **暂缓（等 OPS 登记）**：`PG-VEDIC-009` Selena Gomez zodiac sign — canonical 选题登记表无此 page_id 行
+> ⏸️ **暂缓（等 OPS 登记）**：`PG-VEDIC-010` Ariana Grande zodiac sign — canonical 选题登记表无此 page_id 行
+>
+> 这两条自 2026-07-24 起以 `- [ ]` 形式卡死整条授稿 lane 20 天（preflight fail-closed，一个坏 PID 卡全部）。
+> 已于 2026-08-13 改为引用块以解除阻塞。**恢复方式**：OPS 在 canonical 选题登记表（`1CkjOC…`）
+> 补这两个 page_id 的行并填 `cluster_id`（须是 主题集群表 已注册的 ID），然后把这两行改回 `- [ ] ` 格式即可。
+> ⚠️ 不要改成 `* [ ]` / `- [~]` 等非规范格式 —— preflight 会抛 `non-canonical unchecked row`。
 
 - [ ] `PG-FD-002` Tanjiro zodiac sign
 - [ ] `PG-FJ-001` Jujutsu Kaisen zodiac signs
