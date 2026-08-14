@@ -93,7 +93,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 同一 `content_id` 可以因为“本周生产并临时插播”同时出现在两区，但必须写明 `Hot exception`，不能默认混用。
 
-周计划存放在 `04-production/04-weekly-content-plans/`，从 [[inbox-pengman/04-production/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
+周计划存放在 `02-生产/04-weekly-content-plans/`，从 [[inbox-pengman/02-生产/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
 
 ## 4. 周一到周五
 
@@ -113,7 +113,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 1. 先确认 `Publishing This Week` 是否全部有可发布资产；缺口优先从发布级库存补，不从零临时生产。
 2. 计算本周 S/M/L 可执行产能；`selected` 总量不得超过未来两周产能。
 3. 检查未来 6–8 周 Predictable 事件，为临近两周的事件确定 Brief/生产截止时间。
-4. 在生成任何新候选前，执行 Social Daily Skill 的 Mandatory Internet Research Gate：成功读取固定参考账号 CSV，尝试访问 Apps Script Library，并核验至少 2 个与目标账号/选题直接相关的当前公开来源；Hot 继续使用更严格的来源门槛。
+4. 在生成任何新候选前，执行 AstrologyWiki 主 Skill 的 Mandatory Internet Research Gate：成功读取固定参考账号 CSV，尝试访问 Apps Script Library，并核验至少 2 个与目标账号/选题直接相关的当前公开来源；Hot 继续使用更严格的来源门槛。
 5. 从 `Evergreen / Predictable / Hot` 生成候选，检查最近 7–14 天去重和上一轮 `decision / next_test`。
 6. 维护各当前账号的候选池：Miraa 正常目标为 **15–20 条研究合格候选**；从中提出本周短名单，再按账号定位筛选。
 7. 每条进入短名单的候选明确账号、形式、优先级、成本、发布日期、截止日和过期日。
@@ -416,7 +416,7 @@ selected → producing → ready → published
 
 主生产记录统一存放在 `02-content-production/` 的两个物理目录：`未发布/`（`selected / producing / ready / hold / cancelled` 或发布证据不完整）与 `已发布/`（`published` 且发布证据完整）。目录只做物理归档，不表达阶段；生命周期唯一真相源仍是 `content_stage`。
 
-1. 从 [[inbox-pengman/04-production/02-content-production/README]] 当前队列开始，不扫描所有历史 Idea。
+1. 从 [[inbox-pengman/02-生产/02-content-production/README]] 当前队列开始，不扫描所有历史 Idea。
 2. 打开候选主记录，核对真实脚本、素材、成片、排期和发布链接。
 3. 只有能明确落到 `selected / producing / ready` 的内容才算当前 WIP；只有旧 `status` 或文件名日期的内容放入“状态待确认”。
 4. 已写好脚本但本周/下周不会制作：设为 `hold` 或退回候选池，记录脚本已存在，不占 `selected` 产能。

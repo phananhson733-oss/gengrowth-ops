@@ -11,8 +11,8 @@ description: "Use for AstrologyWiki weekly candidate research, qualified Hot ass
 
 执行顺序：
 
-1. [[inbox-pengman/04-production/00-evergreen-workflows/weekly-rolling-content-production-sop]]
-2. 当前周计划：`04-production/04-weekly-content-plans/`
+1. [[inbox-pengman/02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop]]
+2. 当前周计划：`02-生产/04-weekly-content-plans/`
 3. 涉及内容的 `02-content-production` 主生产记录
 4. 最近发布周报和 `decision / next_test`
 5. 本 Skill 的研究、路由和表达规则
@@ -208,6 +208,9 @@ Route 只是研究来源，不是生产状态，也不要求每周平均分配�
 ## 8. Copy Style
 
 本节是公共社媒表达的主要来源。
+
+- 默认使用自然、简洁、面向美国受众的英语生成所有正式选题、Hook、Script、Caption 和公开文案；研究笔记与内部解释可以使用中文。只有 Pengman 在当前任务中明确要求其他语言时才切换。
+- 生成候选时，候选标题、选题、角度、测试变量、Hook 和 Script 正文均使用英语，不因用户用中文描述任务而切换成中文。
 
 - 开头先给人物、行为、冲突或结果，不从术语定义开始。
 - TikTok 默认使用直接、像创作者说话的断言式 Hook。
@@ -446,10 +449,13 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 - 当前周组合：`04-weekly-content-plans/`
 - 周一候选研究、社区话题研究、Hot 证据和明确重排：`01-调研资料/候选与热点研究/`
 - 已选 Brief、脚本、制作与发布回链：`02-content-production/`
-- 发布数据和周级复盘：`05-weekly-digests/` 与 `04-production/03-data-review/`
+- 发布数据和周级复盘：`05-weekly-digests/` 与 `02-生产/03-data-review/`
 - 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log
+
+- 2026-08-14 · v1.6.2 · 将选题、Hook、Script 与候选说明的默认输出语言统一为自然美式英语；中文仅用于内部研究与偏好解释，除非 Pengman 当次明确要求其他语言。
+- 2026-08-14 · v1.6.1 · 修正现行生产入口为 `02-生产/`，供 Preference Studio 和其他调用方稳定读取当前权威文件。
 
 - 2026-08-13 · v1.6.0 · 扩展 Miraa 双人口播偏好：允许 `Who / Why / How` 短问句，或“第一人直接下判词、第二人简短附和后解释”；同时规定选题审批的 Hook 只保存第一人的第一句，不再写入两人的整段场景对话。
 - 2026-08-13 · v1.5.0 · 为 Miraa 正式候选池更新增加英语互联网社区话题调研前置步骤：实际打开帖子和评论、优先近期来源、跨平台判断讨论度，先形成研究证据池再生成候选，研究阶段不写 Hook 或脚本。
