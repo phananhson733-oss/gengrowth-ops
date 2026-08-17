@@ -1,0 +1,33 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w34-community-care-burden",
+      "claim": "A concrete partner-response-to-family-crisis scene will generate more recognition comments than a generic Scorpio loyalty claim.",
+      "evidence_source_ids": ["src-353fdae077", "src-cc578ac301", "src-96bb69d2b7"],
+      "success_metric": "7d completion_rate >= 0.35",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-r34-t4"
+    }
+  ],
+  "backlog": [
+    {
+      "candidate_id": "cand-miraa-r34-t4-care-burden",
+      "content_id": "miraa-w34-15",
+      "week": "2026-W34",
+      "account": "@miraaastrology",
+      "title": "Scorpio Stops Calling It Love When Family Grief Becomes ‘Your Problem’",
+      "hook": "Scorpio handled the hospital, the paperwork, and the grief. Their partner called it ‘your problem.’",
+      "angle": "Scorpio | Single AI host | A family crisis exposes the difference between respecting someone’s private grief and refusing to share any emotional or practical load. Keep the conflict behavioral; no medical advice or destiny claim.",
+      "why_now": "checked_at=2026-08-17; community topic miraa-r34-t4 is supported by src-353fdae077/src-cc578ac301/src-96bb69d2b7 across three readable recent Reddit threads with 195 displayed comments. Dedupe: unlike the recent Scorpio-mother honesty story, this centers a partner’s response to caregiving and grief. Single variable: shared responsibility versus ‘your problem.’",
+      "score": 92,
+      "hypothesis_id": "hyp-miraa-w34-community-care-burden",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "One adult host can explain the care-versus-abandonment conflict without reenacting illness or showing sensitive family footage.",
+      "research_topic_id": "miraa-r34-t4",
+      "evidence_source_ids": ["src-353fdae077", "src-cc578ac301", "src-96bb69d2b7"]
+    }
+  ]
+}
