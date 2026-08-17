@@ -8,8 +8,8 @@
   "sample_limitations": "Reddit direct pages were frequently blocked by a humanity/login wall; only sources with captured body or comments are marked readable. Current web horoscope pages and public YouTube transcript text broadened the sample, but these are editorial/creator evidence rather than representative population data. X comments and Quora answer bodies were not readable, so no cross-platform consensus or invented engagement is claimed.",
   "competitor_index_checked_at": "2026-08-17T02:40:46.240Z; CSV endpoint readable; 18 records returned; relevant references included astrologyclips, AstroLada, Nightlight Astrology, Patrick Arundell Astrology and Steven Forrest.",
   "apps_script_library_attempt": "2026-08-17T02:40:46.240Z; redirected to Google sign-in; login_required; internal content not read.",
-  "platforms_attempted": ["Reddit", "X/Twitter", "Quora", "YouTube", "Web"],
-  "platforms_accessed": ["Reddit", "X/Twitter", "YouTube", "Web"],
+  "platforms_attempted": ["reddit", "twitter/x", "quora", "youtube", "web"],
+  "platforms_accessed": ["reddit", "twitter/x", "youtube", "web"],
   "opened_pages": 23,
   "readable_pages": 9,
   "unavailable_sources": [
@@ -60,7 +60,7 @@
       "main_views": "Pulling back may be an attempt to measure reciprocity after over-investing.",
       "counter_views": "Silence can still confuse the other person; direct communication is usually clearer.",
       "discussion_evidence": {"source_refs": ["src-w34-04", "src-w34-03", "src-w34-09"], "cross_platform": true, "evidence_strength": "强", "discussion_signal": "Readable Reddit comments give direct lived examples, while current Web/YouTube material repeats reciprocity and relationship-review themes.", "limitations": "Reddit source is within the last 12 months, not the last 90 days."},
-      "natural_english": [{"text": "I stopped doing all the reaching out", "attribution": {"type": "source_quote", "source_ref": "src-w34-04"}}]
+      "natural_english": [{"text": "I stopped doing all the reaching out", "attribution": "source_quote", "source_ref": "src-w34-04"}]
     },
     {
       "topic_id": "miraa-w34-t05",
@@ -133,7 +133,7 @@
     {
       "source_ref": "src-w34-01",
       "title": "Your August Horoscope Is Here — & Something In Your Life Is Reaching Its Final Chapter",
-      "platform": "Web/Refinery29",
+      "platform": "web",
       "url": "https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects",
       "displayed_date": "2026-07-30",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -146,7 +146,7 @@
     {
       "source_ref": "src-w34-02",
       "title": "2026 Horoscopes: What the Planets Have in Store for Each Zodiac Sign",
-      "platform": "Web/InStyle",
+      "platform": "web",
       "url": "https://www.instyle.com/2026-horoscopes-11874618",
       "displayed_date_note": "Captured page body identifies the article as 2026 coverage; publication date was not exposed in extracted text.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -159,7 +159,7 @@
     {
       "source_ref": "src-w34-03",
       "title": "Your Horoscope Predictions for 2026, Based on Your Zodiac Sign",
-      "platform": "Web/People",
+      "platform": "web",
       "url": "https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460",
       "displayed_date_note": "Captured page body identifies 2026 coverage; publication date was not exposed in extracted text.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -172,7 +172,7 @@
     {
       "source_ref": "src-w34-04",
       "title": "Dating a Scorpio",
-      "platform": "Reddit/r/Scorpio",
+      "platform": "reddit",
       "url": "https://www.reddit.com/r/Scorpio/comments/1nrvhci/dating_a_scorpio",
       "displayed_date": "2025-09-27",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -185,7 +185,7 @@
     {
       "source_ref": "src-w34-05",
       "title": "Most athletic signs?",
-      "platform": "Reddit/r/astrologymemes",
+      "platform": "reddit",
       "url": "https://www.reddit.com/r/astrologymemes/comments/1ktlmdf/most_athletic_signs",
       "displayed_date": "2025-05-23",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -198,7 +198,7 @@
     {
       "source_ref": "src-w34-06",
       "title": "August 2026 Horoscope - Scorpio",
-      "platform": "X/Twitter",
+      "platform": "twitter/x",
       "url": "https://x.com/Astrotherapist1/status/2083201118524571729",
       "displayed_date_note": "Post text states August 2026; exact timestamp was not exposed in capture.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -211,7 +211,7 @@
     {
       "source_ref": "src-w34-07",
       "title": "Scorpio 2026 Year Ahead Horoscope & Astrology Forecast",
-      "platform": "YouTube",
+      "platform": "youtube",
       "url": "https://www.youtube.com/watch?v=x92_tumLJWQ",
       "displayed_date_note": "Title identifies 2026 forecast; upload date was not exposed in captured transcript result.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -224,7 +224,7 @@
     {
       "source_ref": "src-w34-08",
       "title": "VIRGO 2026: CLARITY in CONNECTION for the First Time in 14 Years! Collaborations & Community",
-      "platform": "YouTube",
+      "platform": "youtube",
       "url": "https://www.youtube.com/watch?v=Ub9eSTT1Hf0",
       "displayed_date_note": "Title identifies 2026 forecast; upload date was not exposed in captured transcript result.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -237,7 +237,7 @@
     {
       "source_ref": "src-w34-09",
       "title": "LOVE & Relationships 2026 Horoscopes! All 12 Signs! With Timestamps",
-      "platform": "YouTube",
+      "platform": "youtube",
       "url": "https://www.youtube.com/watch?v=wiXUhR7jReo",
       "displayed_date_note": "Title identifies 2026 coverage; upload date was not exposed in captured transcript result.",
       "observed_at": "2026-08-17T02:40:46.240Z",
