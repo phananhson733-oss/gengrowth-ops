@@ -8,14 +8,14 @@
   "sample_limitations": "Reddit direct pages were frequently blocked by a humanity/login wall; only sources with captured body or comments are marked readable. Current web horoscope pages and public YouTube transcript text broadened the sample, but these are editorial/creator evidence rather than representative population data. X comments and Quora answer bodies were not readable, so no cross-platform consensus or invented engagement is claimed.",
   "competitor_index_checked_at": "2026-08-17T02:40:46.240Z; CSV endpoint readable; 18 records returned; relevant references included astrologyclips, AstroLada, Nightlight Astrology, Patrick Arundell Astrology and Steven Forrest.",
   "apps_script_library_attempt": "2026-08-17T02:40:46.240Z; redirected to Google sign-in; login_required; internal content not read.",
-  "platforms_attempted": ["reddit", "twitter/x", "quora", "youtube", "web"],
-  "platforms_accessed": ["reddit", "twitter/x", "youtube", "web"],
+  "platforms_attempted": ["reddit", "twitter", "x", "quora", "youtube", "web"],
+  "platforms_accessed": ["reddit", "x", "youtube", "web"],
   "opened_pages": 23,
   "readable_pages": 9,
   "unavailable_sources": [
     {"platform": "Reddit", "failure_layer": "many current direct threads returned humanity/login walls; blocked pages excluded from formal evidence"},
     {"platform": "Quora", "failure_layer": "question metadata/search result readable, answer bodies not readable; excluded from formal evidence"},
-    {"platform": "X/Twitter", "failure_layer": "post bodies readable for some results; replies/comments required app/login and were not read"}
+    {"platform": "x", "failure_layer": "post bodies readable for some results; replies/comments required app/login and were not read"}
   ],
   "topics": [
     {
@@ -141,7 +141,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t05", "miraa-w34-t06", "miraa-w34-t07", "miraa-w34-t08", "miraa-w34-t09", "miraa-w34-t10"],
       "body_excerpt": "Scorpio is urged to pitch and speak up while also making space for privacy and rest; multiple sign sections address home, work, routine and relationship changes.",
-      "engagement_note": "互动量不可核验；substitute signal: current dated editorial page with full sign sections."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["current dated editorial page with full sign sections"]
     },
     {
       "source_ref": "src-w34-02",
@@ -154,7 +155,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t03", "miraa-w34-t06", "miraa-w34-t09", "miraa-w34-t10"],
       "body_excerpt": "The page covers Scorpio home/career shifts, Virgo work-life reassessment, Aquarius partnerships, Taurus home/career change and Libra relationship definitions.",
-      "engagement_note": "互动量不可核验；substitute signal: full current year-ahead article body."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["full current year-ahead article body"]
     },
     {
       "source_ref": "src-w34-03",
@@ -167,7 +169,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t03", "miraa-w34-t04", "miraa-w34-t06", "miraa-w34-t07", "miraa-w34-t08", "miraa-w34-t10"],
       "body_excerpt": "The article gives concrete examples such as changing work schedules, redefining family roles, renegotiating trust and setting firm boundaries at work.",
-      "engagement_note": "互动量不可核验；substitute signal: readable current article with concrete real-life examples."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["readable current article with concrete real-life examples"]
     },
     {
       "source_ref": "src-w34-04",
@@ -180,7 +183,8 @@
       "readable_layers": ["body", "comments"],
       "supported_topic_ids": ["miraa-w34-t04", "miraa-w34-t07"],
       "comment_excerpt": "One commenter described putting more energy into maintaining relationships, then pulling back to seek equal effort; others emphasized honesty, autonomy and space.",
-      "engagement_note": "互动量不可核验；substitute signal: multiple readable comments with agreement and disagreement."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["multiple readable comments with agreement and disagreement"]
     },
     {
       "source_ref": "src-w34-05",
@@ -193,12 +197,13 @@
       "readable_layers": ["body", "comments"],
       "supported_topic_ids": ["miraa-w34-t06"],
       "comment_excerpt": "Commenters disagreed sharply with the ranking and supplied counterexamples, reinforcing that sign traits should be framed as observations rather than facts.",
-      "engagement_note": "互动量不可核验；substitute signal: long readable disagreement thread."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["long readable disagreement thread"]
     },
     {
       "source_ref": "src-w34-06",
       "title": "August 2026 Horoscope - Scorpio",
-      "platform": "twitter/x",
+      "platform": "x",
       "url": "https://x.com/Astrotherapist1/status/2083201118524571729",
       "displayed_date_note": "Post text states August 2026; exact timestamp was not exposed in capture.",
       "observed_at": "2026-08-17T02:40:46.240Z",
@@ -206,7 +211,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t02", "miraa-w34-t03"],
       "body_excerpt": "The post discusses Scorpio career/public reputation, leadership changes, home/family matters and honesty in relationships.",
-      "engagement_note": "互动量不可核验；replies required app/login and were not read."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["post body readable; replies required app/login and were not read"]
     },
     {
       "source_ref": "src-w34-07",
@@ -219,7 +225,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t05"],
       "body_excerpt": "Transcript discusses extended effort across career and friend groups, including tensions that can arise when work and friendship mix.",
-      "engagement_note": "互动量不可核验；substitute signal: readable long-form transcript."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["readable long-form transcript"]
     },
     {
       "source_ref": "src-w34-08",
@@ -232,7 +239,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t06"],
       "body_excerpt": "Transcript discusses Virgo work habits, sustainable systems, over-giving and reciprocity.",
-      "engagement_note": "互动量不可核验；substitute signal: readable transcript with concrete work-process themes."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["readable transcript with concrete work-process themes"]
     },
     {
       "source_ref": "src-w34-09",
@@ -245,7 +253,8 @@
       "readable_layers": ["body"],
       "supported_topic_ids": ["miraa-w34-t04", "miraa-w34-t09"],
       "body_excerpt": "Transcript covers relationship dependence, commitments and the work required to transform partnership patterns.",
-      "engagement_note": "互动量不可核验；substitute signal: readable timestamped transcript across all 12 signs."
+      "engagement_note": "互动量不可核验",
+      "substitute_signals": ["readable timestamped transcript across all 12 signs"]
     }
   ],
   "life_detail_bank": [
