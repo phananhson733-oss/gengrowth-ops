@@ -8,16 +8,16 @@
   "sample_limitations": "All five supported topics rely on readable Reddit threads. X replies and TikTok comments were not readable logged out; Quora was blocked by Cloudflare; recent YouTube comment bodies were unavailable. No cross-platform repetition is claimed.",
   "competitor_index_checked_at": "2026-08-17T08:13:56Z; public CSV endpoint readable; 18 rows observed",
   "apps_script_library_attempt": "2026-08-17T08:13:56Z; login_required; redirected to Google sign-in; internal content not read",
-  "platforms_attempted": ["Reddit", "X/Twitter", "Quora", "YouTube", "TikTok"],
-  "platforms_accessed": ["Reddit", "X/Twitter", "YouTube", "TikTok"],
+  "platforms_attempted": ["reddit", "twitter/x", "quora", "youtube", "tiktok"],
+  "platforms_accessed": ["reddit", "twitter/x", "youtube", "tiktok"],
   "opened_pages": 21,
-  "readable_pages": 19,
+  "readable_pages": 11,
   "unavailable_sources": [
-    {"platform": "Reddit direct/old/JSON/RSS", "failure_layer": "anonymous challenge or empty extraction; readable bodies and comments were verified through a Redlib read-only mirror while preserving original Reddit URLs"},
-    {"platform": "X/Twitter replies", "failure_layer": "logged-out app browser showed post bodies but not reply threads"},
-    {"platform": "Quora", "failure_layer": "Cloudflare security verification blocked discussion bodies"},
-    {"platform": "YouTube recent comments", "failure_layer": "current video showed comment count but comment-body loading timed out"},
-    {"platform": "TikTok comments", "failure_layer": "public post bodies and engagement counts readable; comment drawer required login and exposed no comment bodies"}
+    {"platform": "reddit", "failure_layer": "anonymous challenge or empty extraction; readable bodies and comments were verified through a Redlib read-only mirror while preserving original Reddit URLs"},
+    {"platform": "twitter/x", "failure_layer": "logged-out app browser showed post bodies but not reply threads"},
+    {"platform": "quora", "failure_layer": "Cloudflare security verification blocked discussion bodies"},
+    {"platform": "youtube", "failure_layer": "current video showed comment count but comment-body loading timed out"},
+    {"platform": "tiktok", "failure_layer": "public post bodies and engagement counts readable; comment drawer required login and exposed no comment bodies"}
   ],
   "topics": [
     {
@@ -30,8 +30,8 @@
       "life_scenes": ["meeting several times a week without defining the relationship", "physical affection replacing a feelings conversation", "doing dishes and changing bedding when a partner is sick", "an intense first date followed by weeks of silence"],
       "discussion_evidence": {"source_refs": ["s1", "s2", "s3"], "cross_platform": false, "evidence_strength": "强", "discussion_signal": "Three recent independent threads; 110 displayed comments in total; recognition and disagreement both visible.", "limitations": "One case has a large age gap and all sources are from one subreddit."},
       "natural_english": [
-        {"text": "there’s never ever a single word spoken about it", "attribution": {"type": "source_quote", "source_ref": "s1"}},
-        {"text": "The silence ruined it all", "attribution": {"type": "source_quote", "source_ref": "s2"}}
+        {"text": "there’s never ever a single word spoken about it", "attribution": "source_quote", "source_ref": "s1"},
+        {"text": "The silence ruined it all", "attribution": "source_quote", "source_ref": "s2"}
       ]
     },
     {
@@ -44,8 +44,8 @@
       "life_scenes": ["daily voice messages about work and family", "every conversation returning to one person", "months of breakup venting followed by absence when support is reversed", "muting or blocking after repeated one-sided contact"],
       "discussion_evidence": {"source_refs": ["s4", "s5", "s6"], "cross_platform": false, "evidence_strength": "强", "discussion_signal": "Three recent threads with 70 displayed comments and repeated first-person stories.", "limitations": "The theme is adjacent to earlier Miraa emotional-support content and must remain focused on reciprocity failure."},
       "natural_english": [
-        {"text": "tired of being the one they pour things onto repeatedly", "attribution": {"type": "source_quote", "source_ref": "s4"}},
-        {"text": "just needs a free therapist", "attribution": {"type": "source_quote", "source_ref": "s5"}}
+        {"text": "tired of being the one they pour things onto repeatedly", "attribution": "source_quote", "source_ref": "s4"},
+        {"text": "just needs a free therapist", "attribution": "source_quote", "source_ref": "s5"}
       ]
     },
     {
@@ -58,8 +58,8 @@
       "life_scenes": ["showing up unannounced with activities", "giving an unwanted pep talk", "not answering the door while needing solitude", "sending one availability message and waiting"],
       "discussion_evidence": {"source_refs": ["s7", "s6"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Two recent independent threads; 78 displayed comments; many direct support-preference statements.", "limitations": "One thread responds to an embedded video whose visual content was not used as evidence."},
       "natural_english": [
-        {"text": "I’m here when you’re ready", "attribution": {"type": "source_quote", "source_ref": "s7"}},
-        {"text": "I want to be alone with my feelings", "attribution": {"type": "source_quote", "source_ref": "s7"}}
+        {"text": "I’m here when you’re ready", "attribution": "source_quote", "source_ref": "s7"},
+        {"text": "I want to be alone with my feelings", "attribution": "source_quote", "source_ref": "s7"}
       ]
     },
     {
@@ -72,8 +72,8 @@
       "life_scenes": ["caring for a parent with cancer while a relationship is strained", "a partner saying the sick parent is not their responsibility", "seven years of caregiving delaying work and personal plans", "handling grief, probate and moving with little help"],
       "discussion_evidence": {"source_refs": ["s8", "s9", "s10"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Three recent threads with 195 displayed comments; several first-person family-care and support accounts.", "limitations": "Relevant evidence appears within broad trauma and marriage discussions rather than three narrowly identical thread titles."},
       "natural_english": [
-        {"text": "she was my mother and therefore my problem", "attribution": {"type": "source_quote", "source_ref": "s8"}},
-        {"text": "I have a heavy load to carry around here", "attribution": {"type": "source_quote", "source_ref": "s9"}}
+        {"text": "she was my mother and therefore my problem", "attribution": "source_quote", "source_ref": "s8"},
+        {"text": "I have a heavy load to carry around here", "attribution": "source_quote", "source_ref": "s9"}
       ]
     },
     {
@@ -86,8 +86,8 @@
       "life_scenes": ["noticing breath or laundry scent on a date", "judging dishes left in the sink", "washing dishes and changing bedding for a sick partner", "leaving an apartment cleaner after staying overnight"],
       "discussion_evidence": {"source_refs": ["s11", "s1"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Two recent independent threads with 54 displayed comments and concrete domestic behaviors.", "limitations": "One source mentions chores inside a wider relationship story, so the evidence is weaker than the first four topics."},
       "natural_english": [
-        {"text": "It gives me security and safety in my personal space", "attribution": {"type": "source_quote", "source_ref": "s11"}},
-        {"text": "My apartment is cleaner than it was after he leaves", "attribution": {"type": "source_quote", "source_ref": "s1"}}
+        {"text": "It gives me security and safety in my personal space", "attribution": "source_quote", "source_ref": "s11"},
+        {"text": "My apartment is cleaner than it was after he leaves", "attribution": "source_quote", "source_ref": "s1"}
       ]
     }
   ],
@@ -125,17 +125,17 @@
   "language_bank": {
     "phrases": [
       {"text": "actions speak louder than words", "attribution": "synthesized_pattern"},
-      {"text": "there’s never ever a single word spoken about it", "attribution": {"type": "source_quote", "source_ref": "s1"}},
-      {"text": "The silence ruined it all", "attribution": {"type": "source_quote", "source_ref": "s2"}},
-      {"text": "tired of being the one they pour things onto repeatedly", "attribution": {"type": "source_quote", "source_ref": "s4"}},
-      {"text": "just needs a free therapist", "attribution": {"type": "source_quote", "source_ref": "s5"}},
-      {"text": "People trauma dump on me a lot", "attribution": {"type": "source_quote", "source_ref": "s6"}},
-      {"text": "I’m here when you’re ready", "attribution": {"type": "source_quote", "source_ref": "s7"}},
-      {"text": "I want to be alone with my feelings", "attribution": {"type": "source_quote", "source_ref": "s7"}},
-      {"text": "she was my mother and therefore my problem", "attribution": {"type": "source_quote", "source_ref": "s8"}},
-      {"text": "I have a heavy load to carry around here", "attribution": {"type": "source_quote", "source_ref": "s9"}},
-      {"text": "security and safety in my personal space", "attribution": {"type": "source_quote", "source_ref": "s11"}},
-      {"text": "the apartment is cleaner after he leaves", "attribution": {"type": "source_quote", "source_ref": "s1"}},
+      {"text": "there’s never ever a single word spoken about it", "attribution": "source_quote", "source_ref": "s1"},
+      {"text": "The silence ruined it all", "attribution": "source_quote", "source_ref": "s2"},
+      {"text": "tired of being the one they pour things onto repeatedly", "attribution": "source_quote", "source_ref": "s4"},
+      {"text": "just needs a free therapist", "attribution": "source_quote", "source_ref": "s5"},
+      {"text": "People trauma dump on me a lot", "attribution": "source_quote", "source_ref": "s6"},
+      {"text": "I’m here when you’re ready", "attribution": "source_quote", "source_ref": "s7"},
+      {"text": "I want to be alone with my feelings", "attribution": "source_quote", "source_ref": "s7"},
+      {"text": "she was my mother and therefore my problem", "attribution": "source_quote", "source_ref": "s8"},
+      {"text": "I have a heavy load to carry around here", "attribution": "source_quote", "source_ref": "s9"},
+      {"text": "security and safety in my personal space", "attribution": "source_quote", "source_ref": "s11"},
+      {"text": "the apartment is cleaner after he leaves", "attribution": "source_quote", "source_ref": "s1"},
       {"text": "one-sided emotional labor", "attribution": "synthesized_pattern"},
       {"text": "care without a clear commitment", "attribution": "synthesized_pattern"},
       {"text": "support that feels intrusive", "attribution": "synthesized_pattern"}
