@@ -4,7 +4,7 @@ project: astrologywiki
 type: workflow
 status: active
 owner: Pengman
-updated: 2026-08-04
+updated: 2026-08-16
 ---
 
 # Weekly Rolling Content Production SOP
@@ -42,7 +42,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 | 配置项 | 当前规则 |
 |---|---|
 | 当前启用账号 | `@astrologywiki`、`@miraaastrology` |
-| 当前增长重点 | `@miraaastrology`；具体配额由当周目标和产能决定 |
+| 当前增长重点 | `@miraaastrology`；当前方向为每天 2–3 条，具体组合仍由当周产能和库存锁定 |
 | 官号职责 | 保持可信天象、知识和产品承接；不要求每周机械凑数 |
 | 每周正式排期合计 | 由当周可用时间和 S/M/L 计算，不再默认 8 条 |
 | 发布级机动库存 | 优先保持 1–2 周可执行缓冲；恢复周可明确例外 |
@@ -67,22 +67,14 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 ### 2.2 Miraa 的发布库存规则
 
-`@miraaastrology` 当前是增长重点，采用“**7 发 / 7 产 / 3 库存**”作为正常周目标；实际发布允许在 **5–7 条**之间浮动，不能为了凑满 7 条牺牲选题、脚本或 QA。
+`@miraaastrology` 当前进入提高频率和扩展星座的验证阶段：**目标每天 2–3 条，即完整周 14–21 条公开发布**。这是本周起的业务方向，替代旧的“7 发 / 7 产 / 3 库存”默认值。
 
-```text
-正常周：上周库存 3 + 本周生产 7 = 可用 10
-       → 本周发布 5–7（正常目标 7）
-       → 保持至少 3 条 ready 库存
-
-库存为 0 的启动/恢复周：本周生产 10
-       → 优先发布 5–7
-       → 其余达到 ready 的内容留作下周库存
-```
-
-- 这里的“库存”只指 `content_stage: ready` 且 `inventory_ready: true` 的单条主记录；计划中的标题、未确认脚本或定时截图都不算库存。
-- 第 6、7 条若没有足够制作与 QA 时间，优先转为下周库存，不要求周末临时发布。
-- 库存已稳定为 3 条后，本周主要生产 7 条，不持续囤积超过未来两周可执行量的成片。
-- 官号和其他账号按其内容窗口、业务任务和剩余产能安排；不能因 Miraa 有 7 条目标而机械同步增加配额。
+- 频率目标不等于周一一次性把 14–21 个候选全部设为 `selected`。先用候选池、可用成片和真实 S/M/L 产能锁定可执行 Batch；不足时如实记录缺口，不用低质量内容补量。
+- “库存”仍只指 `content_stage: ready` 且 `inventory_ready: true` 的单条主记录。标题、未确认脚本、平台定时截图和生成中的文件都不算库存。
+- 以 2–3 条/天发布时，原有 3 条库存只能覆盖约 1 天，不能再被称为稳定缓冲。每周计划必须单独写明可覆盖几天，以及下一批内容何时达到 `ready`。
+- 扩展到其他星座时，固定当前 Miraa 形象、声音、时长和包装作为基线；一次内容测试优先只改变星座/选题机制。需要测试新形象时另列单一变量对照，不与换星座、双人口播或 CTA 大改同时发生。
+- 每条 Miraa 内容补充与主题自然对应的 CTA；默认优先使用字幕或 caption 的轻量“查看你的星盘 / Big Three in bio”路径。具体落地页、UTM 与是否加入口播，由单条 Brief 明确，不能用泛广告句破坏首屏和结尾。
+- 官号和其他账号按其内容窗口、业务任务和剩余产能安排；不能因 Miraa 加频而机械同步增加配额。
 
 ## 3. 周计划的两个清单
 
@@ -93,7 +85,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 
 同一 `content_id` 可以因为“本周生产并临时插播”同时出现在两区，但必须写明 `Hot exception`，不能默认混用。
 
-周计划存放在 `04-production/04-weekly-content-plans/`，从 [[inbox-pengman/04-production/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
+周计划存放在 `02-生产/04-weekly-content-plans/`，从 [[inbox-pengman/02-生产/00-evergreen-workflows/templates/weekly-content-plan-template]] 复制。命名建议：`YYYY-Www 周度内容计划.md`。
 
 ## 4. 周一到周五
 
@@ -113,7 +105,7 @@ Producing for Next Week = 本周主要生产下周需要发布的内容
 1. 先确认 `Publishing This Week` 是否全部有可发布资产；缺口优先从发布级库存补，不从零临时生产。
 2. 计算本周 S/M/L 可执行产能；`selected` 总量不得超过未来两周产能。
 3. 检查未来 6–8 周 Predictable 事件，为临近两周的事件确定 Brief/生产截止时间。
-4. 在生成任何新候选前，执行 Social Daily Skill 的 Mandatory Internet Research Gate：成功读取固定参考账号 CSV，尝试访问 Apps Script Library，并核验至少 2 个与目标账号/选题直接相关的当前公开来源；Hot 继续使用更严格的来源门槛。
+4. 在生成任何新候选前，执行 AstrologyWiki 主 Skill 的 Mandatory Internet Research Gate：成功读取固定参考账号 CSV，尝试访问 Apps Script Library，并核验至少 2 个与目标账号/选题直接相关的当前公开来源；Hot 继续使用更严格的来源门槛。
 5. 从 `Evergreen / Predictable / Hot` 生成候选，检查最近 7–14 天去重和上一轮 `decision / next_test`。
 6. 维护各当前账号的候选池：Miraa 正常目标为 **15–20 条研究合格候选**；从中提出本周短名单，再按账号定位筛选。
 7. 每条进入短名单的候选明确账号、形式、优先级、成本、发布日期、截止日和过期日。
@@ -416,7 +408,7 @@ selected → producing → ready → published
 
 主生产记录统一存放在 `02-content-production/` 的两个物理目录：`未发布/`（`selected / producing / ready / hold / cancelled` 或发布证据不完整）与 `已发布/`（`published` 且发布证据完整）。目录只做物理归档，不表达阶段；生命周期唯一真相源仍是 `content_stage`。
 
-1. 从 [[inbox-pengman/04-production/02-content-production/README]] 当前队列开始，不扫描所有历史 Idea。
+1. 从 [[inbox-pengman/02-生产/02-content-production/README]] 当前队列开始，不扫描所有历史 Idea。
 2. 打开候选主记录，核对真实脚本、素材、成片、排期和发布链接。
 3. 只有能明确落到 `selected / producing / ready` 的内容才算当前 WIP；只有旧 `status` 或文件名日期的内容放入“状态待确认”。
 4. 已写好脚本但本周/下周不会制作：设为 `hold` 或退回候选池，记录脚本已存在，不占 `selected` 产能。

@@ -1,0 +1,148 @@
+{
+  "version": 3,
+  "updatedAt": "2026-08-14T10:38:49.205Z",
+  "signals": [
+    {
+      "id": "857514f0-2e7e-4765-92dc-27664d66c027",
+      "polarity": "negative",
+      "label": "避免刻意具体、容易显得 AI 生成的场景",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "本轮 Scorpio 信任主题的 Hook",
+      "evidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "change one detail over dinner看着就像是ai生成的"
+      ],
+      "sourceSessionIds": [
+        "74335831-839c-46e4-927d-306d9d65e427"
+      ],
+      "confidenceNote": "直接来自对 B 的明确负面反馈；暂不扩展为所有内容的长期规则。",
+      "reasonedEvidence": 1,
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "a023755f-3f23-4f39-83f9-b21a2faa1aef",
+      "polarity": "positive",
+      "label": "抽象概念需要用更简单直白的词表达",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "本轮 Scorpio 信任主题的 Hook",
+      "evidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "感觉吸引人一点，但是这个boundaries有点不够“简单”"
+      ],
+      "sourceSessionIds": [
+        "74335831-839c-46e4-927d-306d9d65e427"
+      ],
+      "confidenceNote": "用户指出 boundaries“不够简单”，并表示 D 有一定吸引力；仅确认对易懂度的要求。",
+      "reasonedEvidence": 1,
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "74335831-839c-46e4-927d-306d9d65e427",
+      "createdAt": "2026-08-14T08:42:16.871Z",
+      "mode": "hook",
+      "brief": "为 @miraaastrology 的 Scorpio 信任主题生成 4 个 Hook",
+      "bestId": "D",
+      "worstId": "B",
+      "bestReason": "感觉吸引人一点，但是这个boundaries有点不够“简单”",
+      "worstReason": "change one detail over dinner看着就像是ai生成的",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "A · 直接判断",
+          "angle": "身份 + 后果",
+          "copy": "One small lie can make Scorpio question the whole relationship."
+        },
+        {
+          "id": "B",
+          "title": "B · 具体场景",
+          "angle": "时间地点切入",
+          "copy": "When you change one detail over dinner, Scorpio notices."
+        },
+        {
+          "id": "C",
+          "title": "C · 问句开场",
+          "angle": "观众问题",
+          "copy": "Why does Scorpio pull away after one small lie?"
+        },
+        {
+          "id": "D",
+          "title": "D · 抽象表达",
+          "angle": "概念解释",
+          "copy": "Scorpio's emotional boundaries are deeper than they seem."
+        }
+      ],
+      "learningSummary": "明确反馈支持：本轮 Hook 应避免“change one detail over dinner”这类刻意、具体到像 AI 生成的场景；同时保留一定吸引力，并把 boundaries 等抽象概念说得更简单。未据此推断出对某一种固定句式的长期偏好。"
+    }
+  ],
+  "skillUpdates": [],
+  "currentRound": {
+    "mode": "topic",
+    "brief": "Scorpio喜欢什么类型的人",
+    "generatedAt": "2026-08-14T10:38:49.205Z",
+    "contextReceipt": [
+      {
+        "id": "product_skill",
+        "label": "AstrologyWiki 主 Skill",
+        "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+        "updatedAt": "2026-08-14T09:56:12.672Z",
+        "readable": true
+      },
+      {
+        "id": "account_guide",
+        "label": "账号分工指南",
+        "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+        "updatedAt": "2026-08-07T11:11:01.239Z",
+        "readable": true
+      },
+      {
+        "id": "weekly_sop",
+        "label": "周度生产 SOP",
+        "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+        "updatedAt": "2026-08-14T09:41:52.706Z",
+        "readable": true
+      }
+    ],
+    "candidates": [
+      {
+        "id": "A",
+        "title": "Consistency Wins",
+        "topic": "Why Scorpio likes people who follow through on what they say they will do",
+        "angle": "Test whether a concrete trust-building behavior outperforms broad “loyalty” language.",
+        "copy": "Scorpio is drawn to people whose actions stay consistent after the excitement wears off. This explores why follow-through can feel more attractive than big promises.",
+        "testedVariable": "Concrete behavior versus abstract trait"
+      },
+      {
+        "id": "B",
+        "title": "Say It Clearly",
+        "topic": "Why Scorpio likes people who communicate directly instead of sending mixed signals",
+        "angle": "Frame attraction around emotional clarity and the relief of not having to decode mixed signals.",
+        "copy": "Scorpio may be intrigued by mystery, but lasting interest grows when someone can say what they mean. The focus is direct communication without games.",
+        "testedVariable": "Communication clarity as the attraction trigger"
+      },
+      {
+        "id": "C",
+        "title": "Keep It Private",
+        "topic": "Why Scorpio likes people who respect confidentiality and protect the relationship’s private side",
+        "angle": "Use privacy and discretion as a relationship-specific form of respect, not as an abstract personality label.",
+        "copy": "For Scorpio, trust can deepen when someone protects private conversations and does not turn intimacy into public content. This gives discretion a clear everyday meaning.",
+        "testedVariable": "Privacy and discretion versus emotional intensity"
+      },
+      {
+        "id": "D",
+        "title": "Have Your Own Life",
+        "topic": "Why Scorpio likes people who are confident, self-directed, and not dependent on constant attention",
+        "angle": "Position independence as secure attachment: attraction grows when both people have a full life outside the relationship.",
+        "copy": "Scorpio can appreciate someone who is deeply invested without becoming dependent on constant reassurance. This angle explores the pull of confidence, space, and self-direction.",
+        "testedVariable": "Self-sufficiency versus constant availability"
+      }
+    ]
+  }
+}

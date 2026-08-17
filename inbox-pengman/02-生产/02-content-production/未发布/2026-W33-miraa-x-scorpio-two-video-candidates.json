@@ -1,0 +1,84 @@
+{
+  "sources": [
+    {
+      "source_id": "src-x-astroeleanor-scorpio-raw-loyalty-20260801",
+      "source_kind": "competitor_post",
+      "platform": "x",
+      "handle": "@astroeleanor",
+      "url": "https://x.com/astroeleanor/status/2083665382951305386",
+      "canonical_url": "https://x.com/astroeleanor/status/2083665382951305386",
+      "followers": "",
+      "median_views_30d": "",
+      "post_freq_weekly": "",
+      "top_post_urls": "",
+      "quote_verbatim": "Something I ABSOLUTELY love about Scorpio placements is that they will love you through the raw, ugly, messy & frustrating parts of you without flinching. Their loyalty is unmatched. Very little scares them when it comes to shadows, and they’re NOT going to judge you for feeling things intensely, because they understand.",
+      "posted_at": "2026-08-01T21:25:14Z",
+      "borrowable_mechanism": "用一句正向而具体的身份断言切入，再把 loyalty 从口号落到面对他人混乱和强烈情绪时不退缩的关系行为。",
+      "capture_status": "verified",
+      "upstream_ref": "Tavily:X公开帖子:2083665382951305386",
+      "competitor_type": "content",
+      "serves_audience": "Scorpio placements 及希望在关系中被接纳、被理解的英语区年轻用户",
+      "not_applicable": "不复制原帖措辞，不声称所有 Scorpio 都不评判，不把 Moon in Scorpio 的传统尊贵状态直接当作心理事实。"
+    },
+    {
+      "source_id": "src-x-hourlyhoroscope-scorpio-pets-20260810",
+      "source_kind": "competitor_post",
+      "platform": "x",
+      "handle": "@hourIyhoroscope",
+      "url": "https://x.com/hourIyhoroscope/status/2086853077626417369",
+      "canonical_url": "https://x.com/hourIyhoroscope/status/2086853077626417369",
+      "followers": "",
+      "median_views_30d": "",
+      "post_freq_weekly": "",
+      "top_post_urls": "",
+      "quote_verbatim": "you should spend more time with your pets, scorpio.",
+      "posted_at": "2026-08-10T16:32:00Z",
+      "borrowable_mechanism": "极短的 Scorpio 身份点名加一个温暖、具体、非恋爱的生活动作，降低理解成本并扩大分享场景。",
+      "capture_status": "verified",
+      "upstream_ref": "Tavily:X公开帖子:2086853077626417369",
+      "competitor_type": "content",
+      "serves_audience": "Scorpio 身份认领用户与宠物内容受众",
+      "not_applicable": "不把机器人运势短句扩写成确定性占星事实，不复制原句，不声称宠物行为由太阳星座决定。"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-safe-for-messy-parts",
+      "claim": "把 Scorpio 的 loyalty 写成在对方最混乱、难堪时仍保持在场，而不是重复深情或牺牲叙事，会在固定 AI Host 条件下带来高于近期 Miraa 单星座内容中位数的分享率。",
+      "evidence_source_ids": "src-x-astroeleanor-scorpio-raw-loyalty-20260801",
+      "success_metric": "7d share_rate 高于近期 Miraa 单星座 AI Host 内容中位数",
+      "observe_window": "7d",
+      "verdict": "inconclusive"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-scorpio-pet-soft-side",
+      "claim": "用宠物这一非恋爱生活场景呈现 Scorpio 不需要解释就能放松的一面，会在固定 AI Host 条件下提高收藏与分享，并吸引不同于恋爱题材的评论。",
+      "evidence_source_ids": "src-x-hourlyhoroscope-scorpio-pets-20260810",
+      "success_metric": "7d save_rate 或 share_rate 高于近期 Miraa 单星座 AI Host 内容中位数",
+      "observe_window": "7d",
+      "verdict": "inconclusive"
+    }
+  ],
+  "backlog": [
+    {
+      "account": "@miraaastrology",
+      "title": "Scorpio won't leave you even if they know your darkest side",
+      "hook": "Scorpio won't leave you even if they know your darkest side.",
+      "angle": "positive identity reframe / emotional safety",
+      "why_now": "X 上 @astroeleanor 于 2026-08-01 发布的 Scorpio placements 正向特质帖获得 52.5K 可见浏览；本题借其“loyalty 落到接住 raw/messy parts”的机制，同时避开 Miraa 已发的 all-or-nothing、沉默退出、版本核对、情绪承接成本，以及未发的隐私、小谎和真朋友主题。",
+      "score": "86",
+      "hypothesis_id": "hyp-miraa-scorpio-safe-for-messy-parts",
+      "stage": "drafted"
+    },
+    {
+      "account": "@miraaastrology",
+      "title": "Scorpio tells their pets everything",
+      "hook": "Scorpio tells their pets everything.",
+      "angle": "unexpected daily-life identity / pet relationship",
+      "why_now": "X 上 @hourIyhoroscope 于 2026-08-10 发布的“spend more time with your pets, scorpio”公开帖获得约 47K 可见浏览与 830 赞；该题把高共鸣极短身份句扩展成宠物关系中的具体行为，并避开 Miraa 现有恋爱、信任、隐私、友情与配对库存。",
+      "score": "83",
+      "hypothesis_id": "hyp-miraa-scorpio-pet-soft-side",
+      "stage": "drafted"
+    }
+  ]
+}

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Mira HeyGen Video"
-  short_description: "Safely generate Mira avatar videos with HeyGen"
-  default_prompt: "Use $miraa-heygen-video to preflight and generate a Mira HeyGen video from a confirmed script."

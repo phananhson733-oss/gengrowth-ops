@@ -1,0 +1,164 @@
+---
+project: astrologywiki-social
+type: weekly-report
+status: draft
+owner: Pengman
+audience: GenGrowth team
+week: 2026-W33
+period: 2026-08-10 to 2026-08-16 (Asia/Shanghai)
+updated: 2026-08-16
+data_snapshot_at: 2026-08-17T02:17:16.063Z
+data_snapshot_timezone: UTC
+tiktok_studio_manual_snapshot: 2026-W33-reporting-period
+---
+
+# GenGrowth 社媒运营｜彭满周报 | 2026-W33
+
+## 管理摘要
+
+本周 Miraa 实际有 7 条带真实链接的公开发布，超过原计划的 5–7 条下限；公开快照显示，朋友转恋人以 1,012 播放取得最高触达，Scorpio × Capricorn 以 52 赞、7 分享取得本周较强的互动质量。两者并不指向同一条“必胜公式”：前者的对话式明确情境更容易得到初始播放，后者的“双星座 + 具体共同困境”更容易被保存和分享；最晚发布的 3 条仍没有经过相同观察窗口。
+
+把 W33 与 7 月中旬以来的历史样本放在一起看，较强内容的共同点不是“只要有一个具体情境”，而是首屏既给出可见行为或强反差，又立刻抛出一个与直觉相反的原因。Friends to Lovers、`They knew the answer but still ask` 和 Scorpio × Cancer 都符合这个结构；Career 的结构同样值得复测，但其总播放和增粉混入了推广结果，不能再作为自然表现最强的证据。Scorpio × Virgo、#7 也说明有具体行为仍可能拿不到高播放。因此下周要测试的是“行为/反差 → 隐藏原因”的开场结构，而不是把所有视频都硬写成事件。
+
+下周方向已调整：Miraa 持续发布、扩展其他星座、保持现有 AI Host 为基线并补 CTA；官号将先验证“每周星座运势”与“每日星座运势”哪种形式更适合，再结合本周星象组织内容。5 个购入账号转入独立短剧试验线：先调研题材、来源与首屏结构，再用小 Batch 开始自然发布；粉丝异常仍持续记录，但不等同于暂停所有内容研究。
+
+### 本周重点状态
+
+| 重点 | 本周要验证/推进什么 | 核心结果 | 判断 | 下一步 |
+|---|---|---|---|---|
+| Miraa 内容 | 恢复连续发布，并测试关系/身份认领题材与单双人形式 | 7 条已核验发布；最高触达 1,012，最高分享 7；样本年龄不一致 | `adjust` | 保留具体场景 Hook，扩展星座，统一在 24h/72h 复盘。 |
+| AstrologyWiki 官号 | 用 Leo Eclipse 测时效天象内容和 CTA | Leo Eclipse 已有真实发布证据；另有 1 条 Birth Chart 公开号内容尚未对应主记录 | `adjust` | W34 比较“每周星座运势 / 每日星座运势”的形式，并保留本周星象栏目；逐条有 CTA 和生产记录。 |
+| 短剧试验账号 | 新增设备和带粉账号后的风险核查 | 10 台手机；5 个购入账号、5 个养号；粉丝异常未获解释 | `hold` | 等莫总回复，先不发布、付费或扩大投入。 |
+
+## 一、Miraa：选题与 Hook 的方向性分析
+
+### 数据口径与限制
+
+- **已核验**：公开采集快照时间为 UTC 2026-08-17 02:17（芝加哥 8 月 16 日晚间、北京时间 8 月 17 日上午）；Miraa 当时为 154 粉、1,686 获赞、20 条公开帖。
+- **已核验**：本周 7 条内容均有真实 URL、平台 ID 和发布时间；公开数据含播放、点赞、评论、分享。
+- **已核验（TikTok Studio 人工查看）**：Career、Scorpio × Capricorn、Friends to Lovers 三条已有单条平均观看、完播、流量来源和新增关注截图。其余内容尚未取得同口径后台数据，因此不能把三条的后台指标直接扩展到全周。
+- **已确认（Pengman 提供）**：Career 的推广带来 678 播放、29 新增关注，花费 11.82 美元；该条总播放/增粉不能直接作为自然分发结果解读。
+- **待确认**：不同视频的上线时长为不足 1 天至约 5 天，不能用当前播放量直接排名优劣；CTA 尚未在这批内容中一致执行，也不能判断其转化作用。
+
+### TikTok Studio 账号总览：Overview、Content、Viewers、Followers
+
+> **数据口径**：以下四页均为 TikTok Studio 人工查看时显示的最近 7 天窗口。页面未显示时区，因此“活跃时间”仅保留平台原始小时，不换算为芝加哥或北京时间。Overview 页面上方的总量卡片未完整截到，故不补写未核验的总播放等数字。
+
+| 页面 | 已核验数据 | 对运营的含义 | 不应过度解读 |
+|---|---|---|---|
+| Overview | 流量来源：For You 93.9%、Search 3.3%、个人主页 1.7%、Following 1.1%、Sound 0%。搜索词抽样均为 0.5%，包括 `Leo and Scorpio`、`Scorpio job`、`Leo woman scorpio man`、`scorpion zodiac sign meaning`、`horoscope professionnel scorpion`。 | 当前主要仍靠推荐页，搜索是可继续积累的辅助来源；标题/字幕可保留明确的星座与现实主题关键词。 | 这些是账号级聚合，不能归因到某一条视频或某一个关键词。 |
+| Content | 最近 7 天“Most views”依次为：Career 1,382；Friends to Lovers 992；Scorpio × Capricorn 865；Private Access 611；Scorpio × Cancer: same silence 609；Space or Done 491；love from the wound 366；They knew the answer but still ask 301；Real Friends 239；Taurus 223。 | 周内内容页仍把 Career、Friends、Capricorn 列为前三；但这是滚动 7 天窗口，适合看本周分发，不等同于单条累计播放。 | Career 包含推广，不能拿这个排名证明其自然表现优于其他内容。 |
+| Viewers | 总观众 5.3K（较前一窗口 +1.9K，+53.8%）；新观众 4.1K（+1.3K，+46.7%）。性别：男 57%、女 42%、其他 1%；年龄：18–24 3.3%、25–34 13.1%、35–44 27.0%、45–54 31.8%、55+ 24.8%；美国 94.7%。平台显示观众最活跃为周六 3–4 点。 | 当前确实主要触达美国新受众，且 35+ 占 83.6%；下周可继续把美国日常困境和清晰英文表达作为基线。 | 不证明“AI Host 天生吸引男性”或“Scorpio 题材只能吸引 35+”。这是全账号聚合，且可能受历史内容与推广影响。 |
+| Followers | 累计粉丝 154；净增粉丝 45（较前一窗口 +15，+50%）。性别：男 67%、女 26%、其他 7%；年龄：18–24 3.4%、25–34 8.7%、35–44 22.1%、45–54 34.3%、55+ 31.5%；美国 68.6%。平台显示粉丝最活跃为 8 月 15 日 10 点。 | 已关注人群比整体观众更偏男性、年长，35+ 占 87.9%。后续可把“现有 Host / 新 Host”“Scorpio / 其他星座”拆开做小范围测试。 | 不能用单一聚合画像决定永久内容方向；美国占比低于整体观众，也不能仅据此推断粉丝质量或来源。 |
+
+**补充判断：** Overview、Content、Viewers、Followers 四页共同说明，Miraa 不是完全没有推荐分发，且能触达以美国为主的新观众；现在更缺的是同一观察窗口下的题材、Hook、Host、CTA 与自然/付费流量拆分，而不是立刻把低播放归因成账号不活跃。
+
+### 内容级信号
+
+| 内容 | 公开结果（快照时） | 选题 / Hook | 方向性解读 | 下一次只改什么 |
+|---|---:|---|---|---|
+| [Friends to Lovers](https://www.tiktok.com/@miraaastrology/video/7672723824974073101) | 1,012 播放 · 28 赞 · 4 评 · 1 分享 | `Why does Scorpio fear friends-to-lovers?`；朋友表白这一单一事件 | 本周最高触达。关系身份突然变化是清楚、易代入的起点；但点赞/分享没有同步最高，不能只看播放。 | 保持“单一关系事件”，测试更短、更具反差的前两秒表达。 |
+| [Scorpio × Capricorn](https://www.tiktok.com/@miraaastrology/video/7673357393639705870) | 904 播放 · 52 赞 · 3 评 · 7 分享 | `Scorpio and Capricorn can both struggle to say what they need.` | 公开互动率约 6.9%，分享数本周最高。双星座共同的具体矛盾有可转发性；最终 Hook 比原候选更抽象，仍不能归因到一句 Hook。 | 保持“双视角 + 同一生活矛盾”，把首句改回更可见的行为/原话。 |
+| [Private Access](https://www.tiktok.com/@miraaastrology/video/7672723696498265357) | 612 播放 · 39 赞 · 2 评 · 4 分享 | `You can know a Scorpio for years and still not know what they're feeling.` | 互动率约 7.4%，但触达中等。主题有共鸣，开头仍偏概念性的“认识很多年”。 | 用一段具体日常互动替代抽象结论，再保留“仍未真正了解”的落点。 |
+| [Space or Done](https://www.tiktok.com/@miraaastrology/video/7673729920412945677) | 514 播放 · 35 赞 · 1 评 · 2 分享 | `Why does Scorpio disappear for space?` | 关系 stakes 清楚，但“Scorpio 消失”是旧且常见的预设，双人口播本身也与题材一起变化，无法判定形式作用。 | 保持双人问答时，只换 Hook，不再把“消失”当默认前提。 |
+| [Small Lie](https://www.tiktok.com/@miraaastrology/video/7673789452585569549) | 204 播放 · 10 赞 · 0 评 · 0 分享 | 最终为 `One small lie can make Scorpio question the whole relationship.` | 上线约两天，不能判定失败；但成片 Hook 放弃了原本 `You lied about one dinner. Why?` 的具体事件和悬念，首屏变成抽象判断。 | 复测时保留“一个可见的小事件 + 第二人称 + 未说破的问题”。 |
+| [Real Friends](https://www.tiktok.com/@miraaastrology/video/7673791050640624909) | 437 播放 · 38 赞 · 1 评 · 2 分享 | `Scorpios have very few real friends.` | 上线约一天，点赞率约 8.7%，说明已触达人群的认领较强；播放尚不够判断。最终 Hook 是广泛身份标签，弱于原来的“独处，直到需要人接你”场景。 | 等 72h，再用具体需要支持的场景复测，不把孤独写成优越感。 |
+| [Scorpio Mom](https://www.tiktok.com/@miraaastrology/video/7673793917963341070) | 205 播放 · 6 赞 · 0 评 · 1 分享 | `How do Scorpio moms know when you are lying?` | 上线不足一天，受众也更窄；同时换了家庭角色与双人口播，不可归因。 | 先补满观察窗口；同主题候选先去重，不连续做相似的“察觉谎言”。 |
+
+### TikTok Studio 单条补充：留存、来源与新增关注
+
+> 数据来自 TikTok Studio 的人工逐条查看；发布时间显示的时区未标注，因此本表不转换时区。推广拆分由 Pengman 提供。TikTok 的“新增关注”是单条归因指标，仍需后续在同一观察窗口复核。
+
+| 内容 | 单条后台数据 | 可以得出的结论 | 不能得出的结论 |
+|---|---|---|---|
+| [Scorpio Career](https://www.tiktok.com/@miraaastrology/video/7671207850223357197) | 54.1 秒；2,195 播放；平均观看 15.2 秒（28%）；完播 10.24%；38 新增关注；For You 93.7%。其中推广带来 678 播放、29 新增关注，花费 $11.82。 | 推广每次播放约 $0.017、每个新增关注约 $0.41；题材能作为“Scorpio + 现实生活困境”的下一轮自然测试方向。 | 不能说 Career 是自然转粉最强内容：扣除推广后约为 1,517 自然播放、9 自然新增关注。 |
+| [Scorpio × Capricorn](https://www.tiktok.com/@miraaastrology/video/7673357393639705870) | 52 秒；907 播放；平均观看 20.3 秒（39%）；完播 17.11%；8 新增关注；For You 97.7%。 | 在已查看的三条中，留存最高；按当前数字计算，自然新增关注效率约 0.88%，高于 Career 扣除推广后的约 0.59%。 | 不能仅凭一条内容判定“Capricorn 组合更容易爆”；播放仍低于 Career，样本也不足。 |
+| [Friends to Lovers](https://www.tiktok.com/@miraaastrology/video/7672723824974073101) | 56.6 秒；1,013 播放；平均观看 20.6 秒（约 36%）；完播 11.13%；5 新增关注。 | “朋友变恋人”的关系起点能获得较好触达，但当前版本的自然新增关注效率约 0.49%，低于 Capricorn。 | 不能把较高播放直接等同于更高质量或更强转粉。 |
+
+三条观众都以美国为主（Career 97.0%、Capricorn 95.7%、Friends to Lovers 97.3%），且均以非粉丝观看为主（Career / Capricorn 为 99%；Friends to Lovers 为 99%）。这支持“当前内容确实在触达美国新受众”，但尚不足以证明哪一种 Host、星座或题材决定了受众画像。
+
+### 与往期 Mira 样本一起看
+
+> 下面的历史数据来自各条内容最新可获得的公开快照，采集日期不完全相同，因此用于看结构模式，不作为严格的同窗口排名。
+
+| 历史样本 | 最新可得公开结果 | 开场结构 | 对 W33 的意义 |
+|---|---:|---|---|
+| [They knew the answer but still ask](https://www.tiktok.com/@miraaastrology/video/7665176558616759566) | 3,346 播放 · 47 分享 | 具体行为（明明知道还问）+ 立即反常识 | 历史最高样本之一。观众第一秒就能理解行为，并想知道“为什么还要问”。 |
+| [Scorpio × Cancer: love from the wound](https://www.tiktok.com/@miraaastrology/video/7667514308733013262) | 2,632 播放 · 61 收藏 · 41 分享 | 看似美好的关系描述 + `and that's the problem` 的反转 | 不是生活事件，但矛盾足够尖锐；说明“强反差”也能代替具体事件。 |
+| [Scorpio × Cancer: same silence](https://www.tiktok.com/@miraaastrology/video/7664915039442226445) | 2,286 播放 · 41 收藏 · 29 分享 | 同一可见行为（沉默）+ 两种相反解读 | 说明双星座内容在双方都有明确处境和分歧时，既能触达也有保存价值。 |
+| [Scorpio Career](https://www.tiktok.com/@miraaastrology/video/7671207850223357197) | 2,195 播放（含推广 678）· 35 收藏 · 10 分享 | 具体现实困境（工作越擅长越想离开）+ 反差 | 非恋爱场景值得继续测试；但 29/38 新增关注来自推广，不能把其总播放或转粉当作自然表现。 |
+| [Scorpio doesn't do halfway](https://www.tiktok.com/@miraaastrology/video/7667476837844454669) | 825 播放 · 17 收藏 · 6 分享 | 没有具体事件，但有非常短的两极冲突 | 反例：具体情境不是必需条件；有力、可争论的反差也可以让人停留。 |
+| [Scorpio #7: every version](https://www.tiktok.com/@miraaastrology/video/7670017236546997518) | 430 播放 · 7 收藏 · 1 分享 | 行为很具体（记住每个版本），但延续了既有“真假 / 核验”主题 | 反例：有具体行为不等于高播放；主题的新鲜度、首句表达和当时分发都可能影响。 |
+| [Scorpio × Virgo](https://www.tiktok.com/@miraaastrology/video/7670079907791179022) | 418 播放 · 4 收藏 · 5 分享 | 有明确倾诉/给方案的生活冲突，但首句未把场景立刻讲透 | 反例：配对和生活场景都不是自动加分；开场是否足够短、清楚仍需单独验证。 |
+
+### 更直接的结论
+
+1. **更值得复测的不是“具体情境”四个字，而是一个完整开场结构：可见行为或强反差 → 观众没想到的原因。** 例如“已经知道答案却还要问”“越擅长工作越想离开”“看起来很会爱，问题也正出在这里”。Career 的题材值得自然复测，但不把带推广的总结果当作验证成功。
+2. **W33 里为什么有高有低：** Friends to Lovers 和 Capricorn 都有明确的关系困境，因此分别拿到了较好的触达或分享；后台单条数据进一步显示，Capricorn 的平均观看和完播都高于 Friends to Lovers，且当前自然转粉效率更高。Small Lie 的最终稿把原本的“一顿饭”具体事件改成了泛结论，Real Friends 也从“真正需要人时”退回了“真朋友很少”，首屏少了一个立即可见的画面。这是可操作的脚本差异，但不是播放差异的唯一原因。
+3. **配对题材不用放弃，也不能一概扩大。** Cancer 的两条历史高样本与 W33 Capricorn 都支持继续做；Virgo、Taurus、Leo 的中低样本说明组合名称本身不够，必须先有一个双方都能认领的具体矛盾。
+4. **最近三条先不要判死刑。** Small Lie、Real Friends 和 Scorpio Mom 还没经过相同观察窗口，Mom 还同时换了家庭角色和双人口播。等到同一窗口再判断。
+5. **下周扩展其他星座是为了补题材，不是因为 Scorpio 已经失效。** 目前没有证据证明 Scorpio 疲劳；保持同一形象和包装后，才能看出星座、选题和 Hook 的差异。
+
+目前仍不能判断：此前低频是否影响分发、双人口播是否更好，以及 CTA 是否带来 UV。已查看三条后台数据，但全周尚无一致的完播、主页访问、单条增粉和点击观察窗口。
+
+### 决定
+
+- **状态：`adjust`。** 继续关系/身份认领内容，但新的选题优先写成具体场景；每条仅测试一个主要变量，CTA 从 W34 起进入 Brief 和 QA。
+- **下一次测试：** 在同一 AI Host、相近时段、相同 CTA 形式下，分别发布至少两条“其他星座 + 具体生活情节”的内容；在 24h 与 72h 比较播放、互动、主页访问与增粉。若无后台数据，则明确只评价公开分发/互动。
+
+## 二、官号：从时效单条改为两条固定栏目
+
+### 本周执行与结果
+
+- [Leo Eclipse 3 Things](https://www.tiktok.com/@astrologywiki/video/7673099984472034574) 已有真实发布证据：公开快照为 320 播放、13 赞、0 评论、1 分享。它是“真实天象 + 用户如何理解自己”的时效内容，并包含 `Check your full chart on AstrologyWiki.` CTA。
+- 公开抓取还发现 2026-08-13 发布的 `Get your Birth Chart in 10 seconds`（125 播放），但现有主生产记录无法唯一对应；它不能在本周被算作已完整归档的生产成果。
+
+### 判断与下周动作
+
+- **状态：`adjust`。** W33 的天象内容只形成了单条早期样本，无法得出“时效天象有效/无效”。
+- **决定：** W34 不先锁定周更或日更：分别研究并制作“每周星座运势 / 每日星座运势”小样，再结合制作成本、信息密度、首屏和初步数据决定 W35 的节奏；本周星象保持独立栏目。所有内容均补轻量 CTA，且天象日期与解释先核验。
+- **待补：** 为 `Get your Birth Chart in 10 seconds` 找到或补建唯一主生产记录、真实 CTA 与制作信息；不能用发布数据反推其生产阶段。
+
+## 三、下周新增方向：短剧账号与资产变化
+
+### 已确认
+
+- 当前有 10 台手机；其中 5 台关联购入的带粉 TikTok 账号，另外 5 台账号养号中。
+- 除 Miraa 和官方账号外，新增账号计划尝试短剧方向。
+- 部分账号出现一夜由 1,000+ 粉降至约 200 的异常。
+
+### 下周路径与边界
+
+- **状态：`adjust`。** 粉丝下降原因仍未核验，不能据此认定账号失效、平台处罚或账号来源问题；但可继续内容调研并准备首批自然发布。
+- 首先每周查看 [Short Drama Prediction](https://short-drama-prediction-milo.vercel.app/) 和 [Dramafinds](https://dramafinds.com/)。Dramafinds 当前可用于观察 Romance、CEO/Boss、Family、Marriage、Revenge、Werewolf 等题材和剧情钩子；Short Drama Prediction 的内部数据尚未在本次公开查看中读到，需要人工确认后记录。
+- 研究结论完成后，用少量账号、少量内容跑一个小 Batch；每条写明账号、内容来源、版权/授权状态、题材、真实发布时间和链接。短剧方向独立于 AstrologyWiki 内容队列。
+- 不批量同步发布、不买量、不绑定收款、不开店、不增加设备/IP投入；没有内容来源/版权结论时不发布。
+
+## 四、下周直接执行
+
+### 1. Miraa：保持发布，并把“有效开场”做成可比较样本
+
+- 继续发布；先从候选池中人工锁定制作项，再进入生产。Miraa 保持当前女性 AI Host、音色和视觉为基线，同时扩展其他星座。
+- 每条先完成实时调研、选题、中文内容说明、Hook、脚本与轻量 CTA；发布后补真实 URL，并在 24h / 72h 记录数据。
+- 优先制作“可见行为或强反差 → 隐藏原因”的内容；Career 的现实困境题材可以自然复测，但不沿用推广数据替代自然结果。
+- 对 Scorpio Mom 的重叠候选先做人工去重，不让相同“察觉谎言”机制连续占用产能。
+
+### 2. AstrologyWiki 官号：用一周决定运势栏目的发布节奏
+
+- 调研同类账号的每周运势、每日运势和本周星象内容：它们如何覆盖星座、控制时长、设置首屏和 CTA。
+- 分别完成一个“本周运势”和一个“每日运势”小样的 Brief；当日期、星象与内容核验完成后，按产能发布，不预设日更或周更。
+- 周五比较两种形式的制作成本、信息密度、首屏和初步数据，决定 W35 以哪种为主；本周星象仍是独立栏目，不与运势混写。
+
+### 3. TikTok 短剧：调研完成后，开始首批小 Batch 发布
+
+- 每周查看 Short Drama Prediction 和 Dramafinds；归纳适合首批测试的题材、剧情反转与短视频首屏，不照搬站内素材或默认拥有版权。
+- 完成一页首批账号研究结论：账号定位、受众、内容来源、版权/授权状态、首屏钩子、转化路径与停止条件。
+- 研究和来源确认后，在少量账号上开始自然发布；逐条回写真实链接和基础数据。粉丝异常继续在飞书资产表记录，并等莫总的后续结论。
+
+## 证据与待补数据
+
+- 公开数据：[[inbox-pengman/output/capture_summary_2026-08-17.json]]、[[inbox-pengman/output/posts_2026-08-17.csv]]、[[inbox-pengman/output/accounts_2026-08-17.csv]]。
+- 后台数据：TikTok Studio 的 Overview、Content、Viewers、Followers 四页与 Career / Scorpio × Capricorn / Friends to Lovers 单条详情，均为本次人工查看截图；未建立第二套数据表。
+- 本周计划：[[inbox-pengman/02-生产/04-weekly-content-plans/2026-W33 周度内容计划]]。
+- 下周方向：[[inbox-pengman/02-生产/04-weekly-content-plans/2026-W34 周度内容计划]]。
+- 待人工补充：逐条完播/平均观看、主页访问、单条增粉、CTA 链接点击和 UV；短剧账号异常的截图、账号名单与莫总结论。

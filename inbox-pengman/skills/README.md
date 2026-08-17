@@ -39,6 +39,7 @@
 | `astrologywiki-social-workflow` | AstrologyWiki 候选研究、Evidence Preflight、账号路由和表达边界 | Pengman 工作区现行规则 |
 | `miraa-heygen-video` | Miraa AI Host 的 HeyGen 生成、QC 与交接边界 | Pengman 视频工作流研究与试验 |
 | `weekly-content-plan` | 周计划结构与周级执行辅助 | Pengman 工作区维护 |
+| `learn-content-preferences` | 用四选一训练偏好、积累证据并在人工确认后定点更新产品 Skill | Pengman 本地 Preference Studio |
 
 三个 `gengrowth-*` Skill 保持产品无关，产品差异通过运行时 context 输入解决；`astrologywiki-social-workflow` 明确属于产品专项 Skill，不反向污染通用核心。
 
@@ -212,9 +213,9 @@ AstrologyWiki 仅作为使用案例，**不写入 Skill 本体**。
 
 调用这三个 Skill 处理 AstrologyWiki 内容时，必须先读取以下权威文件：
 
-1. 当前周计划：`inbox-pengman/04-production/04-weekly-content-plans/`
-2. 单条内容主生产记录：`inbox-pengman/04-production/02-content-production/`
-3. 最近发布合集：`inbox-pengman/04-production/03-data-review/`
+1. 当前周计划：`inbox-pengman/02-生产/04-weekly-content-plans/`
+2. 单条内容主生产记录：`inbox-pengman/02-生产/02-content-production/`
+3. 最近发布合集：`inbox-pengman/02-生产/03-data-review/`
 4. 当前账号分工与内容发布指南（当前只启用官号与 Miraa）
 5. 当前有效的 AstrologyWiki 社媒 Skill/SOP（`astrologywiki-social-workflow` 与滚动周 SOP）
 6. TikTok 抓取数据和实际后台数据

@@ -7,7 +7,7 @@ account: multiple
 platform: multiple
 status: active
 owner: Pengman
-updated: 2026-08-07
+updated: 2026-08-16
 active_accounts:
   - "@astrologywiki"
   - "@miraaastrology"
@@ -15,7 +15,7 @@ active_accounts:
 
 # AstrologyWiki 社媒账号分工与内容发布指南
 
-> 本文档回答两个直接问题：“每个账号分别负责什么？”以及“这条内容应该发到哪个账号？”当前只启用 `@astrologywiki` 与 `@miraaastrology`；它不要求两个账号每天都发。未来增加、恢复或停用账号时，先检查本文的“新账号启用条件”，再由本周内容安排决定是否投入产能。
+> 本文档回答两个直接问题：“每个账号分别负责什么？”以及“这条内容应该发到哪个账号？”当前用于 AstrologyWiki 内容生产的账号仍是 `@astrologywiki` 与 `@miraaastrology`。Miraa 当前目标为每天 2–3 条；官号不按数量硬凑，而是围绕固定的周运势与星象栏目生产。未来增加、恢复或停用账号时，先检查本文的“新账号启用条件”，再由本周内容安排决定是否投入产能。
 
 本文只说明账号分工、内容边界、适合的制作形式，以及不同内容应该发到哪里。每周能做多少、具体排期和每条内容的实际进度，仍以 [[inbox-pengman/02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop|每周内容生产流程]]、本周内容安排和每条内容详情页为准。
 
@@ -27,6 +27,7 @@ active_accounts:
 | `@miraaastrology` | **active / 当前增长重点** | AI 占星师人设、具体星座或 placement、关系行为、心理机制、系列化短视频 | 泛品牌公告、复杂产品教程、把心理推断写成诊断或占星定律 |
 | `@filestarsx` / 历史热点测试方向 | **paused** | 当前不分配日常产能 | 不因出现普通热点而自动恢复，不保留默认 Hot 配额 |
 | 历史普通占星爱好者测试号 | **retired** | 仅保留历史数据和学习证据 | 不再作为低成本测试号，不承担选题探测或批量铺量 |
+| 短剧方向的 5 个购入 TikTok 账号 | **warm-up / pending risk review** | 独立短剧试验线；账号资产和设备关系以飞书“社媒设备账号资产表”为准 | 不进入 AstrologyWiki/Miraa 内容队列、不复制设备或账号台账；粉丝从 1,000+ 降至约 200 的原因等待莫总确认前，不发布、不付费、不扩大投入 |
 | 未来可能新增的账号 | **not activated** | 尚无当前职责 | 不进入本周安排、候选内容分配、生产配额或自动化发布范围 |
 
 `active / paused / retired / not activated` 是账号层状态，不是内容生命周期，不能写入单条内容的 `content_stage`。
@@ -61,10 +62,11 @@ active_accounts:
 
 ### 优先内容支柱
 
-1. **Current Sky / Predictable Transit**：未来几天或本周的重要天象、日期窗口和实际含义。
-2. **Check Your Chart**：录屏、页面展示、宫位/度数/placement 查询，引导用户完成具体动作。
-3. **Evergreen Explainer**：Moon、Rising、Venus、houses、aspects 等可搜索知识。
-4. **Product-led Answer**：从真实用户问题出发，用工具或页面完成回答；不是产品功能清单。
+1. **每周星座运势**：按周解释各星座的可感知主题、提醒与适用边界；不写成绝对预言。
+2. **本周星象**：未来几天或本周的重要天象、日期窗口、可观察影响和如何查看自己的星盘。
+3. **Check Your Chart**：录屏、页面展示、宫位/度数/placement 查询，引导用户完成具体动作。
+4. **Evergreen Explainer**：Moon、Rising、Venus、houses、aspects 等可搜索知识。
+5. **Product-led Answer**：从真实用户问题出发，用工具或页面完成回答；不是产品功能清单。
 
 ### 推荐形式
 
@@ -82,8 +84,11 @@ active_accounts:
 
 ### CTA
 
+官号每条内容都补一个与视频问题直接对应的 CTA；优先放在结尾字幕和 caption，是否口播由时长与内容自然度决定。
+
 - `Generate your chart`
 - `Check where this lands in your chart`
+- `See your weekly chart themes`
 - `Read the full guide`
 - 与视频问题直接对应的具体工具或页面
 
@@ -100,7 +105,7 @@ active_accounts:
 
 `AI 占星师 × 单一 Sun Sign 或 placement × 具体关系行为 × 深层心理解释`
 
-当前 Scorpio 是正在验证的系列，不等于永久 Scorpio-only。是否扩展其他星座、关系组合或 AI Host 形象，必须看已发布数据、系列去重和周计划，不因题库可扩展就自动批量生产。
+Scorpio 是已经跑过的系列，不等于永久 Scorpio-only。当前方向是把其他星座纳入同一账号的内容组合，同时保持现有女性 AI Host 作为主要基线；偶尔可测试其他形象，但一次只测试 Host，不与换星座、换时长、换双人口播或 CTA 大改叠加。
 
 ### 优先内容支柱
 

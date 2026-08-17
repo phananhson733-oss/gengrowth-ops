@@ -4,7 +4,7 @@ project: astrologywiki
 type: weekly-plan-index
 status: active
 owner: Pengman
-updated: 2026-08-04
+updated: 2026-08-16
 ---
 
 # 周度内容计划入口
@@ -28,6 +28,6 @@ updated: 2026-08-04
 
 ## 当前周计划
 
-- [[inbox-pengman/02-生产/04-weekly-content-plans/2026-W33 周度内容计划]] — 当前周；库存重建 + 内容连续发布。
+- [[inbox-pengman/02-生产/04-weekly-content-plans/2026-W34 周度内容计划]] — 当前周；Miraa 提频与扩展星座、官号固定栏目、短剧账号风险待确认。
 
 历史周计划保留在本目录。文件名中的周次只表示计划归属，单条实际阶段仍以 `02-content-production` 主记录的 `content_stage` 为准。
