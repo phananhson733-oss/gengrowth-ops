@@ -230,6 +230,8 @@ Hook 检查：
 
 不能就先重写 Hook。
 
+生成完整 Script 时，第一句口播（如有 speaker label，则指 label 后的第一句）必须先作为独立 Hook 生成并通过上述检查；它继承当前 Hook 偏好，不能只按正文的 Script 风格生成。
+
 ### 8.1 Pengman 的 Hook 与白纸重写偏好
 
 以下是 Pengman 已明确确认的生产偏好，适用于 `@miraaastrology` 的 AI Host / 双人口播选题与脚本。单条主生产记录的具体要求优先；双人口播按下方专用规则执行。
