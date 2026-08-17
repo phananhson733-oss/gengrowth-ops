@@ -8,7 +8,7 @@
   "sample_limitations": "Reddit direct pages were frequently blocked by a humanity/login wall; only sources with captured body or comments are marked readable. Current web horoscope pages and public YouTube transcript text broadened the sample, but these are editorial/creator evidence rather than representative population data. X comments and Quora answer bodies were not readable, so no cross-platform consensus or invented engagement is claimed.",
   "competitor_index_checked_at": "2026-08-17T02:40:46.240Z; CSV endpoint readable; 18 records returned; relevant references included astrologyclips, AstroLada, Nightlight Astrology, Patrick Arundell Astrology and Steven Forrest.",
   "apps_script_library_attempt": "2026-08-17T02:40:46.240Z; redirected to Google sign-in; login_required; internal content not read.",
-  "platforms_attempted": ["reddit", "twitter", "x", "quora", "youtube", "web"],
+  "platforms_attempted": ["reddit", "x", "quora", "youtube", "web"],
   "platforms_accessed": ["reddit", "x", "youtube", "web"],
   "opened_pages": 23,
   "readable_pages": 9,
