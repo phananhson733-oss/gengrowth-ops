@@ -12,7 +12,7 @@ pillar: Compatibility / unspoken needs / reliability without disclosure
 format: AI Host
 priority: P0
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
 inventory_ready: true
@@ -29,7 +29,14 @@ source_evidence:
   - "[[inbox-pengman/04-production/02-content-production/已发布/aw-scorpio-virgo-pair-01]]"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-16"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7673357393639705870"
+platform_post_id: "7673357393639705870"
+published_at: "2026-08-13T14:00:00.000Z"
+published_date: "2026-08-13"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-17T02:14:02.125Z"
 ---
 
 # Scorpio × Capricorn：内容生产记录

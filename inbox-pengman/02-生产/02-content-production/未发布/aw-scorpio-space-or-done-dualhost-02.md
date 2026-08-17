@@ -12,7 +12,7 @@ pillar: Scorpio relationship / silence / communication boundary
 format: Dual AI Host / question and answer
 priority: P0
 effort: L
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "2026-08-11 双人口播成片使用版本，经 Pengman 确认"
 inventory_ready: true
@@ -28,7 +28,14 @@ source_evidence:
   - "https://www.quora.com/profile/Just-Another-Reader-3/Why-do-Scorpios-never-respond-When-we-are-together-there-s-a-bond-of-some-sort-but-when-we-aren-t-together-I-ll-shoot"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-16"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7673729920412945677"
+platform_post_id: "7673729920412945677"
+published_at: "2026-08-14T14:15:00.000Z"
+published_date: "2026-08-14"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-17T02:14:02.125Z"
 ---
 
 # 失联是在冷静，还是关系已经结束？

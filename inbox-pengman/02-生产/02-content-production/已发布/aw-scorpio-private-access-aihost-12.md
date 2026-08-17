@@ -12,7 +12,7 @@ pillar: Scorpio psychology / privacy / gradual access
 format: AI Host
 priority: P0
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
 inventory_ready: false
@@ -28,7 +28,14 @@ source_evidence:
   - "https://www.dxpnet.com/opinion/scorpio/scorpios-our-personal-space-2599316/"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-16"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7672723696498265357"
+platform_post_id: "7672723696498265357"
+published_at: "2026-08-11T20:00:00.000Z"
+published_date: "2026-08-11"
+publish_sync_status: "matched"
+publish_sync_method: "manual_verified_match"
+publish_sync_last_checked_at: "2026-08-17T02:14:02.125Z"
 ---
 
 # 你每天和 Scorpio 聊天，也可能仍然不了解他们

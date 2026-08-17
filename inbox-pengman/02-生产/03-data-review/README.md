@@ -4,7 +4,7 @@ project: astrologywiki
 type: report-index
 status: active
 owner: Pengman
-updated: 2026-08-07
+updated: 2026-08-16
 ---
 
 # 数据复盘入口
@@ -20,7 +20,7 @@ updated: 2026-08-07
 
 ## 当前入口
 
-- 周报：根目录的 `2026-Www-weekly-report.md`。
+- 当前周报：[[inbox-pengman/02-生产/03-data-review/2026-W33-weekly-report]]；历史周报同样保留在根目录。
 - 专项复盘：`专项复盘/`。
 - 历史发布记录：`历史发布记录/`，仅作数据底稿和追溯，不再维护第二套周级结论。
 

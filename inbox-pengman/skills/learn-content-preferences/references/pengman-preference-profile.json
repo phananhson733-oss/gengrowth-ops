@@ -1,0 +1,714 @@
+{
+  "version": 3,
+  "updatedAt": "2026-08-17T09:30:35.897Z",
+  "signals": [
+    {
+      "id": "857514f0-2e7e-4765-92dc-27664d66c027",
+      "polarity": "negative",
+      "label": "避免刻意具体、容易显得 AI 生成的场景",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "本轮 Scorpio 信任主题的 Hook",
+      "evidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "change one detail over dinner看着就像是ai生成的"
+      ],
+      "sourceSessionIds": [
+        "74335831-839c-46e4-927d-306d9d65e427"
+      ],
+      "confidenceNote": "直接来自对 B 的明确负面反馈；暂不扩展为所有内容的长期规则。",
+      "reasonedEvidence": 1,
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "a023755f-3f23-4f39-83f9-b21a2faa1aef",
+      "polarity": "positive",
+      "label": "抽象概念需要用更简单直白的词表达",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续短 Hook：优先使用简短、直白、容易立即理解的行为表达。",
+      "evidence": 3,
+      "status": "confirmed",
+      "sourceReasons": [
+        "感觉吸引人一点，但是这个boundaries有点不够“简单”",
+        "感觉这条很对味！",
+        "我很喜欢这种一上来就点名的感觉"
+      ],
+      "sourceSessionIds": [
+        "74335831-839c-46e4-927d-306d9d65e427",
+        "6b2bdf63-e872-4494-88df-aa6cece209e6",
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff"
+      ],
+      "confidenceNote": "最佳与最差候选的差异，以及用户提出的更短改写共同支持该倾向。",
+      "reasonedEvidence": 3,
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "appliedTo": {
+        "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+        "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+        "alreadyApplied": false
+      },
+      "confirmedAt": "2026-08-17T09:30:35.897Z"
+    },
+    {
+      "id": "f5b76697-dbb7-4d47-936b-c91df0b74e12",
+      "polarity": "positive",
+      "label": "优先广泛可认领的具体行为和关系张力",
+      "scope": "topic",
+      "category": "selection",
+      "applicability": "适用于后续金牛座选题：优先选择能让受众迅速对号入座的具体行为、关系问题或心理反应。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "感觉比较对味，能让人觉得这就是我的感觉"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "直接来自用户对 A“这就是我的感觉”的正面反馈，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 7. Topic and Safety Rules"
+    },
+    {
+      "id": "f65d3ce8-b159-4198-9104-63e265df6f5f",
+      "polarity": "negative",
+      "label": "避免过窄的双星座讨论场景",
+      "scope": "topic",
+      "category": "selection",
+      "applicability": "适用于后续金牛座选题：避免必须依赖两个星座配对才能成立的窄场景。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "场景太窄，选择了两个星座作为讨论，而且场景有点抽象不够吸引人"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "直接来自用户对 B“场景太窄”的负面反馈，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 7. Topic and Safety Rules"
+    },
+    {
+      "id": "37937f5c-1f42-471c-96ef-f733deb4d4e9",
+      "polarity": "positive",
+      "label": "避免抽象场景，优先用直观行为承载心理机制",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于金牛座选题和 Hook：抽象心理判断应落到观众能马上理解的行为或后果上。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "感觉比较对味，能让人觉得这就是我的感觉"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "用户明确认为 B 的场景“不够吸引人”且偏抽象；该表达规则与现有 Scorpio 专属信号不完全相同，因此不复用其 matchSignalId。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "3a48803e-2b9d-4c9a-bdbe-69a4cdd966a8",
+      "polarity": "positive",
+      "label": "偏好用反刻板印象重构金牛座特质",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续金牛座 Hook",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "其实我觉得b和c都挺对味的，尤其是c，c有种反金牛座固执的刻板印象的感觉，就是“金牛座不总是这样，金牛座其实是这样。。。”的感觉很不错"
+      ],
+      "sourceSessionIds": [
+        "9f5064f0-d427-4efc-a47d-6761ca2377cf"
+      ],
+      "confidenceNote": "Pengman 明确喜欢 C 的反刻板印象重构，但目前只有一轮选择证据。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "1853d3ad-2015-4845-ba80-5161cd4de6bf",
+      "polarity": "negative",
+      "label": "避免不够直观的双视角对照",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于关系类 Hook",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "看不懂"
+      ],
+      "sourceSessionIds": [
+        "9f5064f0-d427-4efc-a47d-6761ca2377cf"
+      ],
+      "confidenceNote": "D 被评价为难懂，说明双视角对照如果不够直观会削弱理解；这是基于本轮结果的低置信度推断。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "f671b202-9253-4e45-bdcd-997a7805db4a",
+      "polarity": "positive",
+      "label": "偏好开头直接点名目标星座",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续单人星座 Hook：优先在首句直接点名目标星座或身份。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "我很喜欢这种一上来就点名的感觉"
+      ],
+      "sourceSessionIds": [
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff"
+      ],
+      "confidenceNote": "来自本轮最佳候选 A 的明确选择理由，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "969163f5-ad89-4ebb-93da-ee26e25c041f",
+      "polarity": "negative",
+      "label": "避免过长或抽象的反差 Hook",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续反差 Hook：心理判断需要尽快落到明确、可见的行为上。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "选题可以，但是hook不行，首先是太长了，可以写成“水瓶座回消息回的慢，但其实他们care deeply"
+      ],
+      "sourceSessionIds": [
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff"
+      ],
+      "confidenceNote": "用户认为 D 的选题可以但 Hook 不行，并给出了以回复慢这一行为承载关心的压缩方向，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "e54d035e-d67c-4c7a-9412-00ffd2719bff",
+      "createdAt": "2026-08-17T09:07:12.364Z",
+      "mode": "hook",
+      "brief": "你自由发挥",
+      "bestId": "A",
+      "worstId": "D",
+      "bestReason": "我很喜欢这种一上来就点名的感觉",
+      "worstReason": "选题可以，但是hook不行，首先是太长了，可以写成“水瓶座回消息回的慢，但其实他们care deeply",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Taurus Doesn’t Hate Change",
+          "topic": "Taurus and the pressure to make quick decisions",
+          "angle": "反刻板印象：把 Taurus “stubbornness” reframed as resistance to being pressured",
+          "copy": "Taurus doesn’t hate change—they hate being rushed into it.",
+          "testedVariable": "Contrast framing with a simple behavior-versus-motive reveal"
+        },
+        {
+          "id": "B",
+          "title": "Leo Remembers the Feeling",
+          "topic": "Leo, forgiveness, and emotional impact in relationships",
+          "angle": "Forgiveness with emotional memory: separate moving on from forgetting the impact",
+          "copy": "Leo can forgive the mistake and still remember how you made them feel.",
+          "testedVariable": "Emotional consequence framing versus trait labeling"
+        },
+        {
+          "id": "C",
+          "title": "Why Gemini Suddenly Goes Quiet",
+          "topic": "Gemini withdrawing when communication feels emotionally risky",
+          "angle": "Silence as conflict avoidance rather than lack of interest",
+          "copy": "Gemini goes quiet when every answer feels like it will start a fight.",
+          "testedVariable": "Observable behavior tied to an immediate relationship tension"
+        },
+        {
+          "id": "D",
+          "title": "Aquarius Cares Differently",
+          "topic": "Aquarius and the mismatch between emotional investment and texting habits",
+          "angle": "Contradiction between caring deeply and showing it through delayed communication",
+          "copy": "Aquarius may care deeply and still be the last person to text back.",
+          "testedVariable": "反差 hook pairing an unexpected emotional truth with a familiar behavior"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Needs to Be Sure",
+          "topic": "Taurus delaying a decision until they feel confident about it",
+          "angle": "Reframe Taurus patience as waiting for certainty instead of resisting change.",
+          "copy": "Taurus waits until the choice feels right.",
+          "testedVariable": "Identity-first statement with a concise behavioral reveal"
+        },
+        {
+          "id": "B",
+          "title": "When Libra Says It’s Fine",
+          "topic": "Libra hiding relationship frustration to avoid conflict",
+          "angle": "Show Libra’s conflict avoidance through a familiar relationship behavior.",
+          "copy": "Libra says “it’s fine” when it really isn’t.",
+          "testedVariable": "Quoted everyday behavior instead of an abstract personality trait"
+        },
+        {
+          "id": "C",
+          "title": "Why Virgo Notices Everything",
+          "topic": "Virgo pointing out small details because they are paying close attention",
+          "angle": "Use a direct question to create curiosity around Virgo’s criticism and care.",
+          "copy": "Why does Virgo notice every little thing?",
+          "testedVariable": "Question-led hook focused on an observable attention pattern"
+        },
+        {
+          "id": "D",
+          "title": "When Capricorn Goes Quiet",
+          "topic": "Capricorn becoming less communicative after feeling disappointed in a relationship",
+          "angle": "Connect Capricorn’s restrained communication to an emotional consequence.",
+          "copy": "Capricorn gets quiet when they feel let down.",
+          "testedVariable": "Short cause-and-behavior framing with emotional stakes"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮更偏好开头直接点名目标星座，并用短、直白的句子连接到广泛可认领的行为或关系张力。过长、抽象的反差表达较弱；“care deeply”这类心理判断应压缩并落到明显行为上。"
+    },
+    {
+      "id": "6b2bdf63-e872-4494-88df-aa6cece209e6",
+      "createdAt": "2026-08-17T08:28:44.115Z",
+      "mode": "hook",
+      "brief": "关于金牛座",
+      "bestId": "D",
+      "worstId": "C",
+      "bestReason": "感觉这条很对味！",
+      "worstReason": "太长了，长难句",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Taurus Doesn't Rush Big Decisions",
+          "topic": "Taurus decision-making and resistance to pressure",
+          "angle": "Reverse the “Taurus is stubborn” stereotype by framing their refusal to rush as a deliberate standard.",
+          "copy": "Taurus isn't slow—they just refuse to make big decisions under pressure.",
+          "testedVariable": "Reverse-stereotype framing"
+        },
+        {
+          "id": "B",
+          "title": "The Taurus Silence Signal",
+          "topic": "Taurus silence and changing their mind",
+          "angle": "Use a recognizable communication behavior to show how Taurus may signal discomfort without openly arguing.",
+          "copy": "When Taurus gets unusually quiet, they may already be rethinking the whole situation.",
+          "testedVariable": "Behavior-to-consequence framing"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Has a Line You Won't See Coming",
+          "topic": "Taurus boundaries and non-negotiable priorities",
+          "angle": "Create tension by contrasting Taurus’s calm exterior with the firmness of their private limits.",
+          "copy": "Taurus can look easygoing right up until you ask them to give up the one thing they decided was non-negotiable.",
+          "testedVariable": "Contrast and escalation"
+        },
+        {
+          "id": "D",
+          "title": "How Taurus Shows They Care",
+          "topic": "Taurus loyalty and consistent effort",
+          "angle": "Challenge the idea that Taurus only values comfort by connecting their loyalty to consistent effort rather than romantic clichés.",
+          "copy": "Taurus doesn't always say they care—they keep showing up after everyone else gets tired.",
+          "testedVariable": "Action-based emotional proof"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Remembers More Than You Think",
+          "topic": "Taurus showing care through memory and consistent attention",
+          "angle": "Show Taurus care through a simple, repeatable action rather than words.",
+          "copy": "Taurus shows they care by remembering the little things you thought they forgot.",
+          "testedVariable": "Specific everyday behavior"
+        },
+        {
+          "id": "B",
+          "title": "When Taurus Stops Arguing",
+          "topic": "Taurus withdrawing effort after repeated relationship conflict",
+          "angle": "Frame Taurus’s refusal to engage as a sign that the relationship may already be over for them.",
+          "copy": "When Taurus stops arguing, they may have already stopped trying.",
+          "testedVariable": "Behavior-to-relationship-consequence framing"
+        },
+        {
+          "id": "C",
+          "title": "Why Taurus Takes So Long to Answer",
+          "topic": "Taurus delaying responses while reassessing trust",
+          "angle": "Use a direct question to make viewers recognize Taurus’s private decision process.",
+          "copy": "Why does Taurus take so long to answer? They may be deciding whether they still trust you.",
+          "testedVariable": "Question-led psychological explanation"
+        },
+        {
+          "id": "D",
+          "title": "What Taurus Is Really Stubborn About",
+          "topic": "Taurus persistence and selective commitment",
+          "angle": "Use a compact reverse-stereotype claim that turns stubbornness into follow-through.",
+          "copy": "Taurus isn't stubborn about everything—they're committed to what still matters to them.",
+          "testedVariable": "Concise reverse-stereotype framing"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮仅能确认：偏好更短、更直接、容易一眼听懂的 Hook；D 的具体行为和情感结果表达比 C 的长句更符合当前反馈。尚不足以确认某一种金牛座主题或特定 Hook 结构应长期优先。"
+    },
+    {
+      "id": "9f5064f0-d427-4efc-a47d-6761ca2377cf",
+      "createdAt": "2026-08-17T07:17:35.648Z",
+      "mode": "hook",
+      "brief": "关于金牛座",
+      "bestId": "C",
+      "worstId": "D",
+      "bestReason": "其实我觉得b和c都挺对味的，尤其是c，c有种反金牛座固执的刻板印象的感觉，就是“金牛座不总是这样，金牛座其实是这样。。。”的感觉很不错",
+      "worstReason": "看不懂",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "How Taurus Shows They Care",
+          "topic": "Taurus expressing affection through consistency instead of words",
+          "angle": "Direct behavior callout: Taurus shows care through practical consistency, which can make their feelings easy to miss.",
+          "copy": "Taurus may not say they miss you—they’ll just keep showing up.",
+          "testedVariable": "A direct, behavior-based identity judgment"
+        },
+        {
+          "id": "B",
+          "title": "Why Taurus Takes Silence Seriously",
+          "topic": "Taurus reacting to unexplained changes in communication",
+          "angle": "Relationship tension: Taurus can interpret sudden emotional distance as a sign that trust has changed.",
+          "copy": "When you suddenly go quiet, Taurus may start questioning the whole relationship.",
+          "testedVariable": "A consequence-led relationship conflict"
+        },
+        {
+          "id": "C",
+          "title": "The Reason Taurus Holds Their Ground",
+          "topic": "Taurus resisting change because they value stability and clear reasons",
+          "angle": "Contrarian reframe: Taurus’s reputation for stubbornness can hide a strong need for stability before making a change.",
+          "copy": "Taurus isn’t always refusing to change—they may need to know what they’re changing for.",
+          "testedVariable": "A not-X-but-Y reframe of a familiar Taurus trait"
+        },
+        {
+          "id": "D",
+          "title": "When Taurus Needs More Time",
+          "topic": "How Taurus’s slower decision-making can create misunderstandings in relationships",
+          "angle": "Comparison structure: Taurus and a more spontaneous partner can read the same pause in completely different ways.",
+          "copy": "Taurus calls it taking their time. Someone else may hear, “You’re not interested.”",
+          "testedVariable": "A two-perspective contrast between Taurus and a partner"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "How Taurus Shows They Trust You",
+          "topic": "Taurus showing trust through daily routines and gradual inclusion",
+          "angle": "Trust signal: Taurus expresses closeness by sharing ordinary routines and making space for someone in daily life.",
+          "copy": "Taurus may not open up all at once. They show trust by letting you into their everyday life.",
+          "testedVariable": "A concrete trust behavior instead of a verbal or emotional confession"
+        },
+        {
+          "id": "B",
+          "title": "What Taurus Really Struggles to Forgive",
+          "topic": "Taurus reacting to repeated unreliability in close relationships",
+          "angle": "Relationship consequence: Taurus can tolerate mistakes, but repeated inconsistency changes how safe the relationship feels.",
+          "copy": "Taurus can forgive a mistake. What they struggle with is feeling like they can never rely on you.",
+          "testedVariable": "A tolerance-versus-reliability contrast built around a relationship consequence"
+        },
+        {
+          "id": "C",
+          "title": "When Taurus Stops Trying",
+          "topic": "Taurus withdrawing effort after repeated unresolved relationship problems",
+          "angle": "Emotional withdrawal: Taurus’s silence becomes meaningful when they stop trying to repair the same problem.",
+          "copy": "When Taurus stops bringing up the problem, they may not be over it—they may be done trying to fix it alone.",
+          "testedVariable": "A recognizable behavioral turning point with a clear emotional consequence"
+        },
+        {
+          "id": "D",
+          "title": "Why Taurus Needs a Real Reason",
+          "topic": "Taurus taking time before major decisions because they need a trustworthy reason",
+          "angle": "Decision pressure: Taurus responds better to a clear reason than to urgency or emotional pressure.",
+          "copy": "Taurus is not trying to make everything difficult. They just do not make big choices without a reason they trust.",
+          "testedVariable": "A direct stereotype correction tied to a practical decision-making need"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮更偏好清晰、直白的反刻板印象表达，尤其是“金牛座不只是表面上的某种特质，其实是在回应另一种真实需求”的重构感。B 的关系张力也符合方向；D 的双视角表达因不够直观而被认为难懂。"
+    },
+    {
+      "id": "76837f5e-7c17-40f0-bd2b-69437a0c285a",
+      "createdAt": "2026-08-17T07:14:36.241Z",
+      "mode": "topic",
+      "brief": "关于金牛座的选题",
+      "bestId": "A",
+      "worstId": "B",
+      "bestReason": "感觉比较对味，能让人觉得这就是我的感觉",
+      "worstReason": "场景太窄，选择了两个星座作为讨论，而且场景有点抽象不够吸引人",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "When Plans Change",
+          "topic": "Why Taurus can go quiet when plans suddenly change, even if they eventually agree to the new plan",
+          "angle": "Test whether a specific response to sudden change creates stronger recognition than generic “stubborn Taurus” framing.",
+          "copy": "Taurus may not resist every change—they may need time to feel steady before they respond. This explores what happens when plans shift before they are ready.",
+          "testedVariable": "Change-response framing versus a broad stubbornness label"
+        },
+        {
+          "id": "B",
+          "title": "Taurus Meets Gemini",
+          "topic": "Why Taurus and Gemini can misunderstand each other when one wants a settled plan and the other wants to stay spontaneous",
+          "angle": "Use a two-sign relationship mismatch to show how Taurus’s need for predictability can be misread as lack of interest by Gemini.",
+          "copy": "Taurus may want time to settle into a plan, while Gemini wants to keep options open. The tension is not always about caring less—it can be about moving at different speeds.",
+          "testedVariable": "Two-sign misinterpretation versus single-sign psychology"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Moon Care",
+          "topic": "How Taurus Moon shows love through comfort and practical care instead of dramatic emotional gestures",
+          "angle": "Test a placement-led topic that translates Taurus Moon needs into observable relationship behavior rather than abstract emotional language.",
+          "copy": "A Taurus Moon may show care through comfort, consistency, and practical support. This angle looks at why grand emotional declarations may matter less than feeling genuinely at ease.",
+          "testedVariable": "Moon placement specificity versus Sun-sign relatability"
+        },
+        {
+          "id": "D",
+          "title": "The Taurus Exit Point",
+          "topic": "Why Taurus can take a long time to leave a relationship or situation once it no longer feels right",
+          "angle": "Frame delayed decisions as a boundary and self-protection question, avoiding labels like passive or indecisive.",
+          "copy": "Taurus may stay in a situation longer than others expect because leaving means giving up something familiar and tangible. This explores the moment patience becomes a choice to protect stability.",
+          "testedVariable": "Decision-threshold framing versus indecisiveness framing"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Needs Proof",
+          "topic": "Why Taurus may stay emotionally reserved until someone proves they are consistent over time",
+          "angle": "Frame Taurus hesitation as a trust response: they may need repeated proof before becoming fully open, rather than simply being guarded.",
+          "copy": "Taurus may seem hard to get close to, but the real issue can be consistency. This explores why steady actions often matter more to them than intense promises.",
+          "testedVariable": "Trust-building behavior versus general guardedness"
+        },
+        {
+          "id": "B",
+          "title": "Taurus in Conflict",
+          "topic": "Why Taurus may go quiet during an argument and return only after they have processed what they feel",
+          "angle": "Show how Taurus handles conflict through delayed, controlled responses instead of immediate emotional confrontation.",
+          "copy": "Taurus may not argue the moment something feels wrong. They may hold it in, think it through, and respond only when they know exactly what they want to say.",
+          "testedVariable": "Conflict-processing style versus a stubbornness label"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Remembers Patterns",
+          "topic": "Why Taurus may forgive one disappointment but lose trust when unreliability becomes a pattern",
+          "angle": "Focus on Taurus’s attachment to reliability in relationships, especially when someone repeatedly fails to follow through.",
+          "copy": "For Taurus, broken promises can change how safe a relationship feels. This explores why one missed commitment may matter less than a pattern of not following through.",
+          "testedVariable": "Reliability threshold versus dramatic betrayal framing"
+        },
+        {
+          "id": "D",
+          "title": "When Taurus Needs Help",
+          "topic": "Why Taurus may struggle to ask for help even when they are usually the person everyone relies on",
+          "angle": "Use a self-worth and attachment angle: Taurus may have trouble accepting help because receiving support can feel like losing control or owing someone.",
+          "copy": "Taurus often wants to be the dependable one. This explores why accepting help can feel more uncomfortable than giving it, even when they genuinely need support.",
+          "testedVariable": "Difficulty receiving support versus practical-care expression"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "用户更偏好能让广泛受众立刻产生“这就是我”的金牛具体行为与关系张力；不偏好依赖两个星座配对、场景过窄或表达抽象的选题。以下候选继续测试单一金牛行为，但避免重复本轮的临时变动、双星座误读、Taurus Moon 和离开关系主题。"
+    },
+    {
+      "id": "74335831-839c-46e4-927d-306d9d65e427",
+      "createdAt": "2026-08-14T08:42:16.871Z",
+      "mode": "hook",
+      "brief": "为 @miraaastrology 的 Scorpio 信任主题生成 4 个 Hook",
+      "bestId": "D",
+      "worstId": "B",
+      "bestReason": "感觉吸引人一点，但是这个boundaries有点不够“简单”",
+      "worstReason": "change one detail over dinner看着就像是ai生成的",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "A · 直接判断",
+          "angle": "身份 + 后果",
+          "copy": "One small lie can make Scorpio question the whole relationship."
+        },
+        {
+          "id": "B",
+          "title": "B · 具体场景",
+          "angle": "时间地点切入",
+          "copy": "When you change one detail over dinner, Scorpio notices."
+        },
+        {
+          "id": "C",
+          "title": "C · 问句开场",
+          "angle": "观众问题",
+          "copy": "Why does Scorpio pull away after one small lie?"
+        },
+        {
+          "id": "D",
+          "title": "D · 抽象表达",
+          "angle": "概念解释",
+          "copy": "Scorpio's emotional boundaries are deeper than they seem."
+        }
+      ],
+      "learningSummary": "明确反馈支持：本轮 Hook 应避免“change one detail over dinner”这类刻意、具体到像 AI 生成的场景；同时保留一定吸引力，并把 boundaries 等抽象概念说得更简单。未据此推断出对某一种固定句式的长期偏好。"
+    }
+  ],
+  "skillUpdates": [
+    {
+      "signalId": "a023755f-3f23-4f39-83f9-b21a2faa1aef",
+      "appliedAt": "2026-08-17T09:30:35.897Z",
+      "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+      "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "alreadyApplied": false
+    }
+  ],
+  "currentRound": {
+    "mode": "hook",
+    "brief": "你自由发挥",
+    "generatedAt": "2026-08-17T09:07:12.364Z",
+    "contextReceipt": [
+      {
+        "id": "product_skill",
+        "label": "AstrologyWiki 主 Skill",
+        "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+        "updatedAt": "2026-08-14T09:56:12.672Z",
+        "readable": true
+      },
+      {
+        "id": "account_guide",
+        "label": "账号分工指南",
+        "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+        "updatedAt": "2026-08-17T02:38:41.948Z",
+        "readable": true
+      },
+      {
+        "id": "weekly_sop",
+        "label": "周度生产 SOP",
+        "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+        "updatedAt": "2026-08-17T02:38:41.897Z",
+        "readable": true
+      }
+    ],
+    "candidates": [
+      {
+        "id": "A",
+        "title": "Taurus Needs to Be Sure",
+        "topic": "Taurus delaying a decision until they feel confident about it",
+        "angle": "Reframe Taurus patience as waiting for certainty instead of resisting change.",
+        "copy": "Taurus waits until the choice feels right.",
+        "testedVariable": "Identity-first statement with a concise behavioral reveal"
+      },
+      {
+        "id": "B",
+        "title": "When Libra Says It’s Fine",
+        "topic": "Libra hiding relationship frustration to avoid conflict",
+        "angle": "Show Libra’s conflict avoidance through a familiar relationship behavior.",
+        "copy": "Libra says “it’s fine” when it really isn’t.",
+        "testedVariable": "Quoted everyday behavior instead of an abstract personality trait"
+      },
+      {
+        "id": "C",
+        "title": "Why Virgo Notices Everything",
+        "topic": "Virgo pointing out small details because they are paying close attention",
+        "angle": "Use a direct question to create curiosity around Virgo’s criticism and care.",
+        "copy": "Why does Virgo notice every little thing?",
+        "testedVariable": "Question-led hook focused on an observable attention pattern"
+      },
+      {
+        "id": "D",
+        "title": "When Capricorn Goes Quiet",
+        "topic": "Capricorn becoming less communicative after feeling disappointed in a relationship",
+        "angle": "Connect Capricorn’s restrained communication to an emotional consequence.",
+        "copy": "Capricorn gets quiet when they feel let down.",
+        "testedVariable": "Short cause-and-behavior framing with emotional stakes"
+      }
+    ]
+  }
+}

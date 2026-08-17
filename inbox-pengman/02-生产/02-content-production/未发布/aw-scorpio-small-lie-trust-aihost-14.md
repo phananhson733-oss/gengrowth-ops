@@ -12,7 +12,7 @@ pillar: Scorpio psychology / trust / lie of omission
 format: AI Host
 priority: P0
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
 inventory_ready: true
@@ -26,7 +26,14 @@ source_evidence:
   - "https://www.reddit.com/r/Scorpio/comments/1ukgvaa/is_this_normal_emotions_behaviour_for_a_scorpio/"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-16"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7673789452585569549"
+platform_post_id: "7673789452585569549"
+published_at: "2026-08-14T20:54:00.000Z"
+published_date: "2026-08-14"
+publish_sync_status: "matched"
+publish_sync_method: "manual_verified_match"
+publish_sync_last_checked_at: "2026-08-17T02:14:02.125Z"
 ---
 
 # 为什么一个小谎会让 Scorpio 重新怀疑整段关系？
