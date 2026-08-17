@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>2026 W33 - KOC 建联与 Reddit 运营周报</title>
+  <style>
+    :root{--navy:#17275f;--blue:#315cff;--cyan:#0aa6bd;--orange:#f17a3f;--green:#15955a;--ink:#192238;--muted:#69748d;--line:#dce2ee;--pale:#f2f5ff;--warm:#fff8f3}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e9edf4;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65}
+    .report{padding:28px 0}.page{position:relative;width:min(960px,calc(100% - 28px));min-height:1280px;margin:0 auto 26px;padding:74px 76px 82px;background:#fff;box-shadow:0 12px 36px rgba(19,35,73,.12)}
+    .hero{padding:30px 28px 28px;background:var(--navy);color:#fff}.kicker{margin:0 0 12px;font-size:13px;letter-spacing:.05em;opacity:.86}.hero h1{margin:0;font-size:38px;font-weight:500;line-height:1.2}.hero .sub{margin:12px 0 14px;font-size:14px;opacity:.86}.hero .date{margin:0;font-size:13px;opacity:.9}
+    .overview{margin-top:22px;padding:15px 16px;border:1px solid var(--line)}.overview h2{margin:0 0 7px;font-size:23px}.overview p{margin:0;font-size:14px}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 5px}.metric{padding:13px 8px 14px;border:1px solid var(--line);border-top:4px solid var(--blue);text-align:center}.metric:nth-child(2){border-top-color:var(--cyan)}.metric:nth-child(3){border-top-color:var(--orange)}.metric:nth-child(4){border-top-color:var(--green)}.metric strong{display:block;font-size:31px;font-weight:500;line-height:1.2}.metric span{display:block;margin-top:10px;color:var(--muted);font-size:12px}
+    .data-strip{display:grid;grid-template-columns:1.5fr 1fr;margin:18px 8px 20px;border:1px solid var(--line)}.data-copy{padding:26px 20px}.data-copy small{color:var(--blue)}.data-copy h3{margin:8px 0 8px;font-size:23px;font-weight:500}.data-copy p{margin:0;font-size:14px}.data-aside{display:flex;align-items:center;justify-content:center;padding:18px;background:#f8faff}.ring{display:grid;place-items:center;width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--blue) 0 7.8%,#e7ebf4 7.8% 100%);position:relative}.ring:after{content:"";position:absolute;width:82px;height:82px;border-radius:50%;background:#fff}.ring b{z-index:1;color:var(--blue);font-size:22px}.ring span{position:absolute;z-index:1;margin-top:40px;color:var(--muted);font-size:10px}
+    .section-title{display:flex;align-items:center;gap:13px;margin:20px 0 12px}.num{display:grid;place-items:center;width:41px;height:41px;border:1px solid #ced8ff;background:var(--pale);color:var(--blue);font-size:12px}.section-title h2{margin:0;font-size:24px;font-weight:500}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}.info{padding:14px 13px;border-right:1px solid var(--line)}.info:last-child{border:0}.info small{color:var(--blue)}.info h3{margin:2px 0 7px;font-size:16px}.info ul{margin:0;padding-left:16px;color:var(--muted);font-size:12.5px}.info li{margin:4px 0}
+    .feedback{margin:10px 0 15px;border:1px solid #ced8ff}.feedback-head{padding:13px 15px;background:#f8f9ff}.feedback-head small{color:var(--blue)}.feedback-head h3{margin:7px 0 5px;font-size:20px}.feedback-head p{margin:0;font-size:13px}.quote{padding:9px 15px;background:#eaf0ff;color:#334362;font-size:12px}.shot{margin:12px;border:1px solid var(--line);background:#fff}.shot img{display:block;width:100%;height:auto}.shot figcaption{padding:7px 10px;color:var(--muted);font-size:11px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}.two-col>div{padding:13px 15px}.two-col>div+div{border-left:1px solid var(--line)}.two-col h3{margin:0 0 6px;font-size:15px}.two-col ul{margin:0;padding-left:17px;color:var(--muted);font-size:12.5px}.two-col li{margin:4px 0}
+    .stack{border:1px solid var(--line)}.stack-item{padding:13px 15px;border-bottom:1px solid var(--line)}.stack-item:last-child{border:0}.stack-item h3{margin:0 0 4px;font-size:15px}.stack-item p{margin:0;font-size:13px}.plan{display:grid;grid-template-columns:45px 1fr;border:1px solid var(--line);border-bottom:0}.plan:last-child{border-bottom:1px solid var(--line)}.plan b{display:grid;place-items:center;border-right:1px solid var(--line);color:var(--blue);font-size:12px}.plan p{margin:0;padding:11px 13px;font-size:13px}.risk{padding:13px 15px;border:1px solid #f2cbb5;background:var(--warm)}.risk h3{margin:0 0 3px;font-size:14px}.risk p{margin:0 0 8px;color:var(--muted);font-size:12px}.risk p:last-child{margin:0}.support{display:grid;grid-template-columns:1fr 1fr;border:1px solid #cbd6ff;background:#f6f7ff}.support>div{padding:14px}.support>div+div{border-left:1px solid #cbd6ff}.support small{color:var(--blue)}.support h3{margin:3px 0;font-size:15px}.support p{margin:0;color:var(--muted);font-size:12px}
+    .page-no{position:absolute;right:78px;bottom:33px;color:#8893aa;font-size:11px}.foot{position:absolute;left:78px;bottom:33px;color:#8893aa;font-size:11px}.compact .section-title{margin-top:15px}.compact .feedback{margin-bottom:12px}.compact .feedback-head{padding:11px 14px}.compact .shot{margin:10px}.compact .two-col>div{padding:11px 14px}
+    @media(max-width:700px){.report{padding:0}.page{width:100%;min-height:0;margin:0;padding:24px 16px 46px;box-shadow:none;border-bottom:10px solid #e9edf4}.hero{padding:25px 20px}.hero h1{font-size:29px}.metrics{grid-template-columns:1fr 1fr}.data-strip{grid-template-columns:1fr}.data-aside{padding:14px}.grid3,.two-col,.support{grid-template-columns:1fr}.info{border-right:0;border-bottom:1px solid var(--line)}.info:last-child{border-bottom:0}.two-col>div+div,.support>div+div{border-left:0;border-top:1px solid var(--line)}.section-title h2{font-size:21px}.shot{margin:8px}.foot{left:16px;bottom:18px}.page-no{right:16px;bottom:18px}}
+    @media print{body{background:#fff}.report{padding:0}.page{width:210mm;min-height:297mm;margin:0;padding:17mm 18mm 20mm;box-shadow:none;page-break-after:always}.page:last-child{page-break-after:auto}}
+  </style>
+</head>
+<body><main class="report">
+  <section class="page">
+    <header class="hero">
+      <p class="kicker">WEEKLY PROGRESS REPORT</p>
+      <h1>KOC 建联与 Reddit 运营周报</h1>
+      <p class="sub">聚焦 KOC 触达、AstrologyWiki 产品反馈、Reddit 账号矩阵与内容渠道建设。</p>
+      <p class="date">汇报周期：2026.08.10-08.14　|　汇报日期：2026.08.17</p>
+    </header>
+    <div class="overview"><h2>本周概览</h2><p>共发送 KOC 建联邮件 129 封并获得 10 封回复；AstrologyWiki 收到 3 份有效反馈及 1 个积极合作意向。同时完成 Reddit 冷启动 SOP、封禁复盘与社区平台分析。</p></div>
+    <div class="metrics"><div class="metric"><strong>129</strong><span>KOC 触达</span></div><div class="metric"><strong>10</strong><span>收到回复</span></div><div class="metric"><strong>3</strong><span>有效产品反馈</span></div><div class="metric"><strong>1</strong><span>积极合作意向</span></div></div>
+    <div class="data-strip"><div class="data-copy"><small>本周触达数据</small><h3>AstrologyWiki 回复率 9.5%</h3><p>AI 科技类 KOC 触达 87 人、回复 6 人；AstrologyWiki 触达 42 人、回复 4 人，其中 3 人提供有效产品反馈。</p></div><div class="data-aside"><div class="ring"><b>7.8%</b><span>整体回复率</span></div></div></div>
+    <div class="section-title"><span class="num">01</span><h2>本周完成</h2></div>
+    <div class="grid3">
+      <div class="info"><small>建联与管理</small><h3>KOC 触达体系</h3><ul><li>完善 KOC 触达 Google Sheet</li><li>发件前查重，避免重复建联</li><li>建立回复、反馈及合作模板</li><li>发送建联邮件 129 封</li></ul></div>
+      <div class="info"><small>AstrologyWiki</small><h3>产品反馈与跟进</h3><ul><li>获得 3 份有效产品反馈</li><li>确认 1 个积极合作意向</li><li>发现星位数据疑似错误</li><li>已同步彪哥排查修复</li></ul></div>
+      <div class="info"><small>Reddit & TikTok</small><h3>账号运营与调研</h3><ul><li>建立 4 个 Reddit 小号</li><li>完成冷启动与社区运营 SOP</li><li>复盘大号封禁原因</li><li>调研 AI 短剧讨论度并养号</li></ul></div>
+    </div>
+    <span class="foot">KOC 建联与 Reddit 运营周报</span><span class="page-no">1</span>
+  </section>
+
+  <section class="page compact">
+    <div class="section-title"><span class="num">02</span><h2>有效产品反馈</h2></div>
+    <div class="feedback"><div class="feedback-head"><small>@crypticsirena</small><h3>认可占星与心理学结合，关注星位准确性</h3><p>认为产品对初学者友好，“触发模式”“根本原因”和时间线功能具有差异化。</p></div><div class="quote">反馈 Chiron、Ceres、Pallas 的星位可能不准确，并询问产品是否会推出 App。</div><figure class="shot"><img src="weekly-report-2026-08-10-assets/crypticsirena-feedback.png" alt="@crypticsirena 产品反馈"><figcaption>真实反馈邮件截图</figcaption></figure></div>
+    <div class="two-col"><div><h3>主要认可</h3><ul><li>占星与心理学结合自然</li><li>学习工具对新手友好</li><li>时间线功能具有新鲜感</li></ul></div><div><h3>后续动作</h3><ul><li>核验小行星计算与数据来源</li><li>修复后回访反馈者</li><li>记录 App 需求作为产品建议</li></ul></div></div>
+    <div class="feedback"><div class="feedback-head"><small>@tarot_empress_cory</small><h3>分析内容有深度，但页面层级与语气可继续优化</h3><p>认可结合实际与疗愈建议的表达方式，认为内容具备较强的个人定制感。</p></div><div class="quote">希望长页面拆分为可点击模块，增加行星位置交互和关系兼容性分析，并让解读语气更加平衡、积极。</div><figure class="shot"><img src="weekly-report-2026-08-10-assets/tarot-empress-cory-feedback.png" alt="@tarot_empress_cory 产品反馈"><figcaption>真实反馈邮件截图</figcaption></figure></div>
+    <span class="foot">KOC 建联与 Reddit 运营周报</span><span class="page-no">2</span>
+  </section>
+
+  <section class="page compact">
+    <div class="section-title"><span class="num">03</span><h2>反馈与合作机会</h2></div>
+    <div class="feedback"><div class="feedback-head"><small>@thegoodwitchofsylvanlake</small><h3>整体体验积极，对新手友好且具备持续使用意愿</h3><p>认可本命盘、相位表、宫主星、逆行星体和太阳返照盘的清晰布局，也喜欢产品加载页文案。</p></div><div class="quote">希望增加当前时刻星盘并询问是否会推出 App；反馈 Juno 和 Chiron 星位结果疑似错误，已同步排查。</div><figure class="shot"><img src="weekly-report-2026-08-10-assets/thegoodwitchofsylvanlake-feedback-1.png" alt="第一部分反馈"><figcaption>第一部分真实反馈</figcaption></figure><figure class="shot"><img src="weekly-report-2026-08-10-assets/thegoodwitchofsylvanlake-feedback-2.png" alt="第二部分反馈"><figcaption>补充的星位问题反馈</figcaption></figure></div>
+    <div class="feedback"><div class="feedback-head"><small>合作进展</small><h3>明确表达积极合作意向</h3><p>对方愿意进一步沟通合作，并共同判断双方是否适合长期配合。目前正在推进视频合作形式及内容确认。</p></div><figure class="shot"><img src="weekly-report-2026-08-10-assets/thegoodwitchofsylvanlake-collaboration.png" alt="合作意向回复"><figcaption>@thegoodwitchofsylvanlake 合作意向回复</figcaption></figure></div>
+    <div class="two-col"><div><h3>产品机会</h3><ul><li>完善星位准确性与验证机制</li><li>评估 Current Chart 与 App 需求</li><li>改善长页面信息层级与交互</li></ul></div><div><h3>合作机会</h3><ul><li>确认视频主题与产品卖点</li><li>明确交付形式和时间节点</li><li>沉淀首个占星垂类合作案例</li></ul></div></div>
+    <span class="foot">KOC 建联与 Reddit 运营周报</span><span class="page-no">3</span>
+  </section>
+
+  <section class="page">
+    <div class="section-title"><span class="num">04</span><h2>正在推进</h2></div>
+    <div class="stack"><div class="stack-item"><h3>建联与反馈</h3><p>持续获取 GenGrowth 产品反馈并扩大垂类 KOC 池；跟进 @thegoodwitchofsylvanlake 视频合作。</p></div><div class="stack-item"><h3>Reddit 账号矩阵</h3><p>跟进大号申诉；使用 4 个小号测试内容，并复用已验证经验积累 Karma。</p></div><div class="stack-item"><h3>跨平台内容准备</h3><p>为现有 Reddit 账号建立对应的 X 账号，为后续跨平台内容测试做准备。</p></div></div>
+    <div class="section-title"><span class="num">05</span><h2>本周计划</h2></div>
+    <div class="plan"><b>1</b><p>重点寻找 GenGrowth 垂类达人，扩充高匹配度 KOC 池。</p></div><div class="plan"><b>2</b><p>为目前已有的 5 个 Reddit 账号分别建立备用机 X 账号。</p></div><div class="plan"><b>3</b><p>开展 Reddit 内容测试，记录不同选题、社区和发帖方式的数据表现。</p></div><div class="plan"><b>4</b><p>运用 Reddit 冷启动与社区运营 SOP，持续运营小号并积累 Karma。</p></div><div class="plan"><b>5</b><p>与 @thegoodwitchofsylvanlake 确认合作方式及视频内容。</p></div><div class="plan"><b>6</b><p>测试 X 平台内容，并整理 X 账号冷启动与养号规则。</p></div>
+    <div class="section-title"><span class="num">06</span><h2>问题与风险</h2></div>
+    <div class="risk"><h3>Reddit 封号与平台风控</h3><p>大号封禁疑似与评论中附带产品链接有关；新账号需控制发布和导流节奏，优先在友好型 Subreddit 中积累信用。</p><h3>产品数据准确性</h3><p>多位 KOC 反馈部分小行星或星位数据疑似有误，需持续核验，修复后及时回访。</p><h3>KOC 合作成本</h3><p>AI 科技类博主付费合作比例较高；后续增加 Hashtag 组合，重点补充 1K-10K 粉丝的垂类 KOC。</p></div>
+    <div class="section-title"><span class="num">07</span><h2>需要领导确认</h2></div>
+    <div class="support"><div><small>当前状态</small><h3>暂无待决策事项</h3><p>现阶段工作可按既定节奏继续推进。</p></div><div><small>补充方向</small><h3>持续沉淀运营 SOP</h3><p>整理 X 养号规则，并形成 Reddit 与 X 可复用的跨平台运营流程。</p></div></div>
+    <span class="foot">KOC 建联与 Reddit 运营周报</span><span class="page-no">4</span>
+  </section>
+</main></body></html>

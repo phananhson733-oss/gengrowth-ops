@@ -288,6 +288,11 @@ Hook 检查：
 5. 当 Pengman 要求“从零重写”时，将现有 Hook、Voiceover、Caption、Overlay 和模型初稿视为已否决过程稿；只继承主生产记录中已确认的选题、核心机制、来源、形式、禁止项与实验变量。不得做同义替换式改稿。
 6. 脚本初稿完成后，执行本 Skill 的 Humanization Gate；最终稿仍只是 `candidate`，直到 Pengman 明确确认。
 
+
+<!-- preference-rule:a023755f-3f23-4f39-83f9-b21a2faa1aef -->
+- **偏好训练确认 · 2026-08-17**：优先“抽象概念需要用更简单直白的词表达”。适用范围：适用于后续短 Hook：优先使用简短、直白、容易立即理解的行为表达。。
+<!-- /preference-rule:a023755f-3f23-4f39-83f9-b21a2faa1aef -->
+
 ## 9. Candidate Research Workflow
 
 ### Step 1：读取产能和缺口

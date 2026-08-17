@@ -5,7 +5,7 @@ type: workflow-change-proposal
 status: blocked_pending_pm_or_hermes_apply
 owner: Pengman
 created: 2026-08-17
-scope: social-pipeline research context only
+scope: social-pipeline Hook context and H3 Hook rewrite only
 content_generation_performed: false
 ---
 
@@ -13,7 +13,7 @@ content_generation_performed: false
 
 ## 1. 当前状态
 
-本提案只修复 `prepare-context --for-command research` 的候选 Hook 上下文，不生成候选、不改现有 Sheet 行、不重跑 `research`。
+本提案修复 `prepare-context --for-command research` 的候选 Hook 上下文，并增加一个受控的 H3 Hook 重写入口。它不生成脚本、不改变人工选择或内容生命周期，也不重跑本轮 `research`。
 
 本轮成功生成候选时的运行证据：
 
@@ -63,6 +63,16 @@ content_generation_performed: false
 - `默认反馈方式`
 - `修改尺度：L1–L5`
 - `候选偏好升级`
+
+同时必须读取 Pengman 的实际偏好档案：
+
+`/Users/awayer_mini/gengrowth-ops/inbox-pengman/skills/learn-content-preferences/references/pengman-preference-profile.md`
+
+使用边界：
+
+- `已确认长期规则` 可以作为本轮 Hook 的硬约束；
+- `待验证偏好` 与 `单次证据` 只能作为弱提示，不能被自动升级成长期规则；
+- 不存在已确认偏好时，优先遵守产品 Skill 的 §8.1，而不是从播放量或单个最终稿猜测偏好。
 
 必须执行的边界：
 
@@ -170,6 +180,16 @@ research:
       - "修改尺度：L1–L5"
       - "候选偏好升级"
 
+- name: pengman-content-preference-profile
+  path: /Users/awayer_mini/gengrowth-ops/inbox-pengman/skills/learn-content-preferences/references/pengman-preference-profile.md
+  required_for: [research]
+  include_sections:
+    research:
+      - "已确认长期规则"
+      - "待验证偏好"
+      - "单次证据"
+      - "使用边界"
+
 - name: competitor-hook-scorpio-zero-friends
   path: /Users/awayer_mini/gengrowth-ops/inbox-pengman/02-生产/01-reference/Scorpio-has-zero-friends-脚本调研.md
   required_for: [research]
@@ -221,6 +241,18 @@ hook_context:
 4. `published_at` 或 `updated` 倒序；
 5. `content_id` 作为稳定 tie-breaker。
 
+### 3.4 Skill 更新自动生效
+
+Pengman 更新工作区中的 Skill、偏好档案或被配置的参考文件后，下一次 Social OS 候选 Hook 生成必须使用新版本，不能继续复用旧上下文包。
+
+要求：
+
+1. 每次 `prepare-context` 都重新读取已配置文件并计算当前 `source_sha256`；
+2. 若当前 Hash 与任何可复用的旧 context receipt 不同，旧 receipt 自动失效，必须重新 prepare 并 attested；
+3. trace 同时记录文件路径、当前 source Hash、注入 Hash 与 context 准备时间；
+4. §8 / §8.1 的 heading 改名、移动或无法解析时必须明确报错，不能静默跳过、加载旧缓存或退化为全文；
+5. 不要求 Pengman 每次改 Skill 后手动同步配置或重复长 Prompt。只要路径和 heading 未变，下一次生成自动采用新内容。
+
 ## 4. runner 变更要求
 
 目标：`prepare-context --for-command research` 在签发 context receipt 前构建并校验 `hook_context`。
@@ -255,6 +287,13 @@ hook_context:
       "sections": ["持续学习闭环", "每次写稿前的学习包", "默认反馈方式", "修改尺度：L1–L5", "候选偏好升级"],
       "source_sha256": "...",
       "injected_sha256": "..."
+    },
+    "pengman_preference_profile": {
+      "path": ".../pengman-preference-profile.md",
+      "source_sha256": "...",
+      "injected_sha256": "...",
+      "confirmed_rules_count": 0,
+      "testing_signals_count": 0
     },
     "recent_samples": [
       {
@@ -298,10 +337,13 @@ hook_context:
 
 - Copy Style / Hook 正文缺失 → 不签发 receipt；
 - Pengman 偏好文件缺失或章节不可读 → 不签发 receipt；
+- `pengman-preference-profile.md` 缺失或章节不可读 → 不签发 receipt；
 - 没有至少 1 条已发布和 1 条待发布、同账号样本 → 不签发 receipt，并列出具体缺口；
 - 竞品 Hook 参考为空或只拿到 metadata → 不签发 receipt；
 - context pack 超限 → 不截断关键类别，返回各类别字节数与压缩建议；
 - 样本只有最终稿、没有明确人工反馈时，允许作为账号/系列样本，但必须标 `preference_evidence=false`，不得称为 Pengman 偏好证据。
+
+上述四类输入之外，Pengman 偏好档案也必须有精确路径与 source/injected Hash；否则 `hook_context.status` 不得为 `resolved`。
 
 ## 7. 只读验收步骤
 
@@ -310,7 +352,7 @@ hook_context:
 1. `social_pipeline.py validate --config <AstrologyWiki config>`；
 2. 对已有 Miraa receipt 运行 `prepare-context --for-command research --mode B --account @miraaastrology --week 2026-W34 ...`；
 3. 检查 `context_envelope.execution_trace.hook_context.status=resolved`；
-4. 检查 Copy Style、偏好文件、近期 published/pending 样本、竞品 Hook reference 四类均有精确路径与 source/injected Hash；
+4. 检查 Copy Style、协作说明、`pengman-preference-profile.md`、近期 published/pending 样本、竞品 Hook reference 均有精确路径与 source/injected Hash；
 5. 检查 `historical_samples_read` 非空；
 6. 不消费 context receipt，不调用 `research`，不写 Sheet。
 
@@ -329,8 +371,45 @@ hook_context:
 9. pack 超限不截断关键类别；
 10. 只运行 `prepare-context` 不写 Google Sheet；
 11. `research` 只有在新 hook context 的 context receipt 被 attested 后才允许写候选。
+12. 修改 §8.1、偏好档案或任一已配置参考文件后，下一次 `prepare-context` 产生新的 source Hash 与 context pack Hash；旧 attestation 不能被复用。
+13. §8.1 heading 无法解析时返回明确错误，不能静默退化成旧缓存、全文或无 Hook 规则生成。
 
-## 9. 权限与交接
+## 9. H3 Hook 受控重写入口（P0）
+
+本次还需要一个最小的受控入口，供 Pengman 在上下文修复并验收后，重写已存在但尚未人工选择的候选 Hook。
+
+范围：
+
+- 输入必须是 Pengman 显式指定的 `content_id` 列表；
+- 只处理 `@miraaastrology` 且 `selection_status` 为空的 H3 未选候选；
+- 已标记 `dropped`、已人工选择或已进入生产记录的内容一律拒绝修改；
+- 只允许写入候选行的 `hook` 字段；不得改 `title`、`angle`、证据字段、`selection_status`、`content_stage`、脚本、排期或生产记录；
+- 生成前必须使用本提案定义的、已 attested 的最新 `hook_context`；
+- 返回每条的旧 Hook、新 Hook、2–3 秒自检结果和未通过原因；不自动把候选标为 passed / dropped，最终取舍仍由 Pengman 决定。
+
+建议分为两个明确动作：
+
+1. `preview-hook-rewrite`：只读生成预览，不写 Sheet；
+2. `apply-hook-rewrite`：只对 Pengman 在预览后显式确认的 `content_id` 写入 Hook。
+
+这不是新的生命周期或状态系统，只是受限编辑现有 H3 `hook` 单元格的能力。
+
+## 10. 实施优先级、权限与交接
+
+### P0：本次必须完成
+
+1. 注入 `8. Copy Style` 和 `8.1 Pengman 的 Hook 与白纸重写偏好`；
+2. 注入 Pengman 协作说明中的学习边界与 `pengman-preference-profile.md`；
+3. 每次生成重新读取 Skill / 偏好 / 参考文件，Skill 更新自动产生新的 context pack；
+4. 在 trace 中证明所有关键输入实际被注入；
+5. 实现本节定义的 H3 Hook 预览与受控写回入口；
+6. 先完成只读验收，再允许候选 Hook 生成或重写。
+
+### P1：可在 P0 跑通后补充
+
+- 更精细的动态样本相关度排序；
+- 扩展更多竞品参考；
+- 本提案第 8 节中的完整回归测试覆盖。
 
 Social Bot 当前预授权只允许经 runner 执行业务命令，明确禁止修改 Skill、product config、runner 或正式知识库。因此本轮只形成修复提案，没有修改：
 
