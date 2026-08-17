@@ -12,6 +12,211 @@ updated: 2026-08-10
 
 # Miraa 候选池
 
+## 2026-W34 新候选｜Mode B 候选研究
+
+### 本轮研究凭据
+
+- `checked_at`: `2026-08-17T02:40:46.240Z`
+- 固定参考账号 CSV：成功读取；18 行；字段包括 `name/platform/type/url/added_date/added_by/notes/keyword`。
+- Apps Script Library：已尝试打开；页面要求登录；记录为 `login_required`，未声称读取内部代码。
+- 已读取工作区输入：`AGENTS.md`、周滚动生产 SOP、W34 周计划、W33 周报、原 Miraa 候选池、近期已发布/未发布/正在制作主记录、reference README 与 4 份真人/AI 口播竞品参考。
+- 已读公开英文正文：
+  - [Your August Horoscope Is Here — & Something In Your Life Is Reaching Its Final Chapter](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文编辑页正文，可读；非社区样本。
+  - [2026 Horoscopes: What the Planets Have in Store for Each Zodiac Sign](https://www.instyle.com/2026-horoscopes-11874618)｜页面为 2026 年度内容，抓取正文未显示发布日期｜当前英文编辑页正文，可读；非社区样本。
+  - [Your Horoscope Predictions for 2026, Based on Your Zodiac Sign](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜页面为 2026 年度内容，抓取正文未显示发布日期｜当前英文编辑页正文，可读；非社区样本。
+  - [Dating a Scorpio](https://www.reddit.com/r/Scorpio/comments/1nrvhci/dating_a_scorpio)｜2025-09-27｜Reddit 正文与评论可读；不属于近 90 天样本。
+  - [Scorpio 2026 Year Ahead Horoscope & Astrology Forecast](https://www.youtube.com/watch?v=x92_tumLJWQ)｜标题标注 2026，抓取结果未显示上传日期｜公开英文 transcript 可读。
+  - [VIRGO 2026: CLARITY in CONNECTION for the First Time in 14 Years! Collaborations & Community](https://www.youtube.com/watch?v=Ub9eSTT1Hf0)｜标题标注 2026，抓取结果未显示上传日期｜公开英文 transcript 可读。
+  - [LOVE & Relationships 2026 Horoscopes! All 12 Signs! With Timestamps](https://www.youtube.com/watch?v=wiXUhR7jReo)｜标题标注 2026，抓取结果未显示上传日期｜公开英文 transcript 可读。
+- 读取限制：多个当前 Reddit 线程触发登录墙；X 可读帖子正文但回复需登录；Quora 只取得 metadata，未把搜索摘要当作正文证据。
+- Research receipt：`research-receipts/2026-W34-miraa-mode-b.json`；SHA-256 `597c7750c4fcd7da3b03658865b4308b88b2cd4af9424450adf48b82e0a9f138`。
+- Google Sheet：14 条均写入 `选题审批`，ID 使用现有 `content_id` 列承载 `miraa-w34-01` 至 `miraa-w34-14`；人工 `selection_status` 保持空白，等同 `待人工选择 / pending`。
+- 去重口径：已核对近期发布、未发布和正在制作；Career 推广数据只用于识别近期题材，不作为自然爆款证据。
+
+### miraa-w34-01｜Scorpio 下班了，脑子还在开会
+
+1. **适用星座 / 内容形式**：Scorpio｜TikTok｜AI 单人口播
+2. **一句话核心机制**：可靠和专注在下班后没有自动停止，恢复时间被工作复盘侵占。
+3. **具体生活场景**：她已经离开办公室，却仍反复想会议；同事遇到危机也先找她。
+4. **英文首屏 Hook**：`Scorpio left work. The meeting came home too.`
+5. **为什么观众会停下来**：先看到“人离开、会议没离开”的强反差，再想知道为什么她关不掉工作模式。
+6. **与近期内容的去重说明**：近期 Career 讲“表现很好却想离开”，本条只讲下班后的认知负荷；推广数据未被当作自然爆款证据。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[Scorpio 2026 Year Ahead](https://www.youtube.com/watch?v=x92_tumLJWQ)｜日期未显示｜公开 transcript。
+8. **可借鉴的竞品 Hook / 结构**：借“具体生活领域 → 可见后果 → 心理机制”结构，不复制预测措辞。
+9. **建议优先测试的唯一变量**：首屏是否直接使用 `left work / came home` 的动作反差。
+10. **证据强度**：**中**——两个当前/年度来源可读，但不是行为调查。
+
+### miraa-w34-02｜Scorpio 做完了工作，却跳过了邀功
+
+1. **适用星座 / 内容形式**：Scorpio｜TikTok｜AI 单人口播
+2. **一句话核心机制**：能力已经可见，但自我推销让她觉得像在表演，因此功劳被别人先说出口。
+3. **具体生活场景**：项目是她做完的，汇报时却让同事先讲；会议结束后才发现自己的贡献没有被记住。
+4. **英文首屏 Hook**：`Scorpio did the work — then let someone else present it.`
+5. **为什么观众会停下来**：工作已经完成却主动放弃可见度，结果与常见的“Scorpio 很有掌控感”预期相反。
+6. **与近期内容的去重说明**：不讲离职、不讲职场人缘；只测“完成工作 vs 公开邀功”的一刻。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借固定 CSV 中“职业/关系领域先点明，再给反常识结论”的结构，不借原句。
+9. **建议优先测试的唯一变量**：强反差陈述句 vs 问句。
+10. **证据强度**：**中**——多源支持职业可见度主题，但具体会议场景是综合提炼。
+
+### miraa-w34-03｜Scorpio 为什么总是家庭里最后收尾的人
+
+1. **适用星座 / 内容形式**：Scorpio｜TikTok｜AI 单人口播
+2. **一句话核心机制**：责任感没有被说出口，却逐渐变成全家默认由她处理的隐形劳动。
+3. **具体生活场景**：家庭群没人回复时她直接打电话解决；聚会结束后其他人离开，她留下收拾。
+4. **英文首屏 Hook**：`Nobody answered the family chat. Scorpio handled it.`
+5. **为什么观众会停下来**：一个人人见过的家庭群动作，马上暴露“没人分配、却总有人收尾”的不公平。
+6. **与近期内容的去重说明**：不同于 Scorpio mom 识谎、书包或母女对话；本条是成年家庭角色。
+7. **来源**：[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“家庭角色 + 一个动作 + 没想到的责任机制”，不做父母/儿童身份替换。
+9. **建议优先测试的唯一变量**：`family chat` 作为首屏可见道具。
+10. **证据强度**：**中**——两个当前年度来源支持家庭角色变化，缺近期社区评论。
+
+### miraa-w34-04｜Scorpio 停止主动后，计划为什么全消失了
+
+1. **适用星座 / 内容形式**：Scorpio｜TikTok｜AI 双人口播
+2. **一句话核心机制**：她不是在测试别人；她停止单向维持后，关系的真实互惠程度才变得可见。
+3. **具体生活场景**：每次见面都由她定时间和地点；一个月不再提醒后，所有计划同时消失。
+4. **英文首屏 Hook**：`Scorpio stopped making the plans. The plans stopped too.`
+5. **为什么观众会停下来**：同一个动词重复两次，马上制造“她停了，关系也停了”的因果悬念。
+6. **与近期内容的去重说明**：已有候选强调长期单向支持后彻底退出；本条只观察“停止安排计划”这一可测试动作，不直接下分手结论。
+7. **来源**：[Dating a Scorpio](https://www.reddit.com/r/Scorpio/comments/1nrvhci/dating_a_scorpio)｜2025-09-27｜Reddit 正文+评论可读；[LOVE & Relationships 2026](https://www.youtube.com/watch?v=wiXUhR7jReo)｜日期未显示｜公开 transcript。
+8. **可借鉴的竞品 Hook / 结构**：借 `动作停止 → 后果也停止 → 解释互惠`，不复制 Reddit 原话。
+9. **建议优先测试的唯一变量**：`stopped / stopped` 的回声节奏。
+10. **证据强度**：**强**——有实际可读的社区正文与评论，并有跨平台关系主题补充；但社区样本不在近 90 天内。
+
+### miraa-w34-05｜Scorpio 和朋友一起工作后，最难说出口的是截止时间
+
+1. **适用星座 / 内容形式**：Scorpio｜TikTok｜AI 双人口播
+2. **一句话核心机制**：忠诚让她推迟工作边界，越在乎朋友，越难像对普通同事一样直接催进度。
+3. **具体生活场景**：好友成为项目搭档；截止时间临近，她改了三次消息，还是没按发送。
+4. **英文首屏 Hook**：`Scorpio can confront a coworker. A friend is harder.`
+5. **为什么观众会停下来**：把“敢面对同事”与“更难面对朋友”放在同句，直接产生反差。
+6. **与近期内容的去重说明**：近期没有“朋友变同事”场景；也不同于 friends-to-lovers 与 zero friends。
+7. **来源**：[Scorpio 2026 Year Ahead](https://www.youtube.com/watch?v=x92_tumLJWQ)｜日期未显示｜公开英文 transcript；[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文。
+8. **可借鉴的竞品 Hook / 结构**：借“同一人面对两种角色，行为突然不同”的对照结构。
+9. **建议优先测试的唯一变量**：`coworker / friend` 的角色反差。
+10. **证据强度**：**中**——跨平台来源可读，具体项目截止场景为综合提炼。
+
+### miraa-w34-06｜Virgo 已经在做下一级工作，职位却没变
+
+1. **适用星座 / 内容形式**：Virgo｜TikTok｜AI 单人口播
+2. **一句话核心机制**：她用加码证明可靠，却没有把职责升级转化成明确的头衔和授权。
+3. **具体生活场景**：她培训新人、修团队流程、替经理收尾，但三年后职位名称仍然相同。
+4. **英文首屏 Hook**：`Virgo is already doing the next job. The title never changed.`
+5. **为什么观众会停下来**：观众先认出“已经在做”的事实，再被“职位没变”激起不公平感。
+6. **与近期内容的去重说明**：近期生产记录没有 Virgo 晋升停滞；机制是过度负责与认可错位，不是把 Scorpio Career 换星座。
+7. **来源**：[VIRGO 2026: CLARITY in CONNECTION](https://www.youtube.com/watch?v=Ub9eSTT1Hf0)｜日期未显示｜公开 transcript；[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“已经发生的行为 → 正式结果没有发生”结构，不用完美主义标签开场。
+9. **建议优先测试的唯一变量**：`next job / title` 对照。
+10. **证据强度**：**中**——Virgo transcript 与当前年度来源一致，但缺近期社区样本。
+
+### miraa-w34-07｜Gemini 学会这份工作后，为什么立刻开始厌倦
+
+1. **适用星座 / 内容形式**：Gemini｜TikTok｜AI 单人口播
+2. **一句话核心机制**：问题不是不能坚持，而是岗位在学习曲线结束后只剩重复，刺激迅速下降。
+3. **具体生活场景**：入职前三个月学得最快；流程熟悉后，每天面对同一队列开始拖延。
+4. **英文首屏 Hook**：`Gemini learned the job. Now the job feels over.`
+5. **为什么观众会停下来**：两秒内给出“学会即结束”的反常识转折，让人想知道厌倦不是懒的原因。
+6. **与近期内容的去重说明**：近期没有 Gemini 职业重复场景；与 Virgo 的“头衔不变”是不同机制，唯一焦点是 novelty。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“两短句：掌握 → 失去兴趣”的进展反转，不复制年度预测语言。
+9. **建议优先测试的唯一变量**：两短句的停顿节奏。
+10. **证据强度**：**中**——多源支持职业变化，但具体 novelty 机制仍需实测。
+
+### miraa-w34-08｜Capricorn 达成目标后，才发现目标不是自己的
+
+1. **适用星座 / 内容形式**：Capricorn｜TikTok｜AI 单人口播
+2. **一句话核心机制**：执行力让她把计划走到底，却也让她延迟检查目标是否符合自己的价值。
+3. **具体生活场景**：完成资格考试或晋升后，没有开心，反而第一次问“我为什么要这个”。
+4. **英文首屏 Hook**：`Capricorn hit the goal. Then realized it was the wrong one.`
+5. **为什么观众会停下来**：成功之后才发现目标错误，结局与“达成目标就满足”的预期相反。
+6. **与近期内容的去重说明**：W33 Capricorn 只出现在 Scorpio × Capricorn 关系配对；本条完全是单星座职业价值冲突。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“目标达成 → 情绪没有跟上 → 原因反转”的结构。
+9. **建议优先测试的唯一变量**：`goal / wrong one` 的强反差。
+10. **证据强度**：**中**——当前来源支持价值和事业重估，具体场景为综合提炼。
+
+### miraa-w34-09｜Pisces 选了稳定工作，却把创意都耗在下班前
+
+1. **适用星座 / 内容形式**：Pisces｜TikTok｜AI 单人口播
+2. **一句话核心机制**：稳定工作减少了风险，却同时消耗了下班后真正想创作所需的注意力。
+3. **具体生活场景**：白天完成安全但重复的工作；晚上打开画板或文档，十分钟后就关掉。
+4. **英文首屏 Hook**：`Pisces picked the safe job. Now there is no energy left to create.`
+5. **为什么观众会停下来**：安全通常被当作解决方案，这里却成为创作耗损的来源。
+6. **与近期内容的去重说明**：近期没有 Pisces 工作与创造力内容；不同于 Virgo 的认可和 Gemini 的重复刺激。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“看似正确选择 → 看不见的代价”结构。
+9. **建议优先测试的唯一变量**：`safe job / no energy left` 对照。
+10. **证据强度**：**中**——多源支持工作/生活重估，但缺社区全文。
+
+### miraa-w34-10｜Aquarius 慢回六个梗图，却会接你凌晨两点的电话
+
+1. **适用星座 / 内容形式**：Aquarius｜TikTok｜AI 单人口播
+2. **一句话核心机制**：联系频率和可靠性不是同一件事；她不维持连续闲聊，却会在高风险时刻出现。
+3. **具体生活场景**：一周没回群聊里的梗图；朋友凌晨两点打来电话，她立即接听。
+4. **英文首屏 Hook**：`Aquarius ignored six memes — then answered your 2 a.m. call.`
+5. **为什么观众会停下来**：两个具体数字把“慢回”与“关键时刻可靠”放在同一秒内。
+6. **与近期内容的去重说明**：不做 soulmate，不把 Aquarius 写成冷漠、没感情或没朋友；只测通信频率与行动支持的差异。
+7. **来源**：[Dating a Scorpio](https://www.reddit.com/r/Scorpio/comments/1nrvhci/dating_a_scorpio)｜2025-09-27｜Reddit 正文+评论，提供空间/互惠讨论；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“轻任务缺席 → 高风险任务出现”的强反差，不借冷漠标签。
+9. **建议优先测试的唯一变量**：`six memes / 2 a.m.` 的数字锚点。
+10. **证据强度**：**中**——有社区互动机制与当前年度来源，但不是 Aquarius 专属调查。
+
+### miraa-w34-11｜Cancer 喂饱了所有人，却一直没坐下
+
+1. **适用星座 / 内容形式**：Cancer｜TikTok｜AI 单人口播
+2. **一句话核心机制**：照顾行为因为顺利运作而变得不可见，所有人被照顾时，照顾者反而最少被询问。
+3. **具体生活场景**：她记住每个人的饮食要求、端完最后一道菜，客人离开后才发现自己没吃。
+4. **英文首屏 Hook**：`Cancer fed everyone. Nobody noticed she never sat down.`
+5. **为什么观众会停下来**：可见动作和被忽略的结果同时出现，观众很容易代入家庭聚会。
+6. **与近期内容的去重说明**：reference 的 Cancer 主题是面对冷淡伴侣；本条只讲家庭照顾劳动，不是关系中的“选冷男人”。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“先给动作，再揭示没人注意的代价”，不做抽象情绪判断。
+9. **建议优先测试的唯一变量**：`never sat down` 的视觉动作。
+10. **证据强度**：**中**——当前来源支持家庭/照顾主题，场景具体但缺近期社区评论。
+
+### miraa-w34-12｜Aries 在群聊还没决定前，已经把餐厅订好了
+
+1. **适用星座 / 内容形式**：Aries｜TikTok｜AI 单人口播
+2. **一句话核心机制**：快速行动是在减少不确定性，但别人可能把它理解成替所有人做主。
+3. **具体生活场景**：群聊还在讨论地点和预算，她已经预订；有人感谢效率，也有人觉得没被问。
+4. **英文首屏 Hook**：`Aries booked the table before the group chat picked a restaurant.`
+5. **为什么观众会停下来**：观众一秒看懂“决定早于讨论”的冲突，并想知道到底是高效还是越界。
+6. **与近期内容的去重说明**：近期没有 Aries 群体决策题；不从生气、冲动或领导者身份下结论。
+7. **来源**：[Refinery29 August 2026](https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects)｜2026-07-30｜当前英文正文；[LOVE & Relationships 2026](https://www.youtube.com/watch?v=wiXUhR7jReo)｜日期未显示｜公开 transcript。
+8. **可借鉴的竞品 Hook / 结构**：借“先发生的动作 → 还没完成的集体过程”时间差。
+9. **建议优先测试的唯一变量**：`before the group chat` 的时间反差。
+10. **证据强度**：**中**——跨平台主题可读，但具体餐厅场景是综合测试场景。
+
+### miraa-w34-13｜Aries 已经订位，Libra 还在问每个人想吃什么
+
+1. **适用星座 / 内容形式**：Aries × Libra｜TikTok｜AI 双人口播
+2. **一句话核心机制**：Aries 用决定结束不确定，Libra 用继续询问降低社交摩擦；双方都在让事情顺利，却用不同速度。
+3. **具体生活场景**：朋友聚餐；Aries 已订位，Libra 还在确认过敏、预算和距离；两人都觉得对方让事情更难。
+4. **英文首屏 Hook**：`Aries already booked it. Libra is still asking everyone.`
+5. **为什么观众会停下来**：两个同时发生的动作立刻呈现冲突，且观众能在两边都找到合理性。
+6. **与近期内容的去重说明**：不是 compatibility 评分；双方都有具体处境、压力和不同视角，近期也无此配对场景。
+7. **来源**：[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文；[LOVE & Relationships 2026](https://www.youtube.com/watch?v=wiXUhR7jReo)｜日期未显示｜公开 transcript。
+8. **可借鉴的竞品 Hook / 结构**：借双人口播的镜像句法，第二人回应“我不是拖延，我在避免有人被忽略”。
+9. **建议优先测试的唯一变量**：双句镜像结构。
+10. **证据强度**：**中**——跨平台支持关系协商主题，具体配对机制仍需验证。
+
+### miraa-w34-14｜Taurus 想留下旧沙发，Aquarius 想重做整个房间
+
+1. **适用星座 / 内容形式**：Taurus × Aquarius｜TikTok｜AI 双人口播
+2. **一句话核心机制**：Taurus 用熟悉感维持安全，Aquarius 用改变建立新开始；冲突落在共同预算和归属感，不是抽象 compatibility。
+3. **具体生活场景**：两人搬进新家；一方要留下旧沙发，另一方要重做布局；两边都要承担花费和生活习惯变化。
+4. **英文首屏 Hook**：`Taurus kept the old couch. Aquarius redesigned the whole room.`
+5. **为什么观众会停下来**：旧沙发和整个房间是可见物件，冲突尺度差异让人想知道谁在保护什么。
+6. **与近期内容的去重说明**：不同于近期 Scorpio 配对与泛“谁更合适”；本条只讨论共同居住、预算与改变速度。
+7. **来源**：[InStyle 2026 Horoscopes](https://www.instyle.com/2026-horoscopes-11874618)｜发布日期未显示｜年度正文；[People 2026 Horoscope](https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460)｜发布日期未显示｜年度正文。
+8. **可借鉴的竞品 Hook / 结构**：借“两个具体动作 + 不同隐藏需求”，第二人分别解释安全和重新开始。
+9. **建议优先测试的唯一变量**：`old couch / whole room` 的物件尺度反差。
+10. **证据强度**：**中**——当前多源支持家庭/变化主题，缺针对该配对的可读社区正文。
+
+---
+
 > 这里存放**带来源的内容候选证据**。未选中项目留在本页等待选择；选中后保留本页的来源卡并链接至单条主生产记录。它不是内容日历、任务表或 `content_stage`；实际制作与发布仍只看单条主生产记录。
 
 ## 使用目标
