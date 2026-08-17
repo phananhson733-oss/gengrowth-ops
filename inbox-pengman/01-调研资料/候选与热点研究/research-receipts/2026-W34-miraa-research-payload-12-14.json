@@ -1,0 +1,47 @@
+{
+  "hypotheses": [],
+  "backlog": [
+    {
+      "content_id": "miraa-w34-12",
+      "account": "@miraaastrology",
+      "title": "Aries 在群聊还没决定前，已经把餐厅订好了",
+      "hook": "Aries booked the table before the group chat picked a restaurant.",
+      "angle": "Aries｜单人口播｜行动速度与集体协商冲突：用决定结束不确定，却被别人看成替大家做主。",
+      "why_now": "checked_at=2026-08-17；来源 src-e3aff33a63/src-d475dff9bd/src-0ba482769d；证据中。去重：近期没有 Aries 群体决策场景。唯一变量：before the group chat 的时间反差。",
+      "score": 88,
+      "hypothesis_id": "hyp-miraa-w34-t09-decision-speed",
+      "research_topic_id": "miraa-w34-t09",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "单人讲清行为与误读，避免怒气刻板印象。"
+    },
+    {
+      "content_id": "miraa-w34-13",
+      "account": "@miraaastrology",
+      "title": "Aries 已经订位，Libra 还在问每个人想吃什么",
+      "hook": "Aries already booked it. Libra is still asking everyone.",
+      "angle": "Aries × Libra｜双人口播｜具体晚餐冲突：Aries 要结束不确定，Libra 要避免任何人不舒服；双方都在试图让事情顺利。",
+      "why_now": "checked_at=2026-08-17；来源 src-e3aff33a63/src-d475dff9bd/src-0ba482769d；证据中。去重：不同于泛 compatibility，双方都有动作、压力和合理视角。唯一变量：双句镜像结构。",
+      "score": 91,
+      "hypothesis_id": "hyp-miraa-w34-t09-decision-speed",
+      "research_topic_id": "miraa-w34-t09",
+      "content_format": "ai_host_dual",
+      "production_tool": "HeyGen",
+      "route_reason": "两位成年女性各自说明速度与协商的真实代价。"
+    },
+    {
+      "content_id": "miraa-w34-14",
+      "account": "@miraaastrology",
+      "title": "Taurus 想留下旧沙发，Aquarius 想重做整个房间",
+      "hook": "Taurus kept the old couch. Aquarius redesigned the whole room.",
+      "angle": "Taurus × Aquarius｜双人口播｜共同居住冲突：一方用熟悉感维持安全，另一方用改变建立新开始；预算和归属感都受影响。",
+      "why_now": "checked_at=2026-08-17；来源 src-e3aff33a63/src-d475dff9bd/src-8cdf1d236c；证据中。去重：不是 compatibility 评分，也不同于近期 Scorpio 配对；冲突固定在搬家和共同预算。唯一变量：old couch/whole room 物件反差。",
+      "score": 87,
+      "hypothesis_id": "hyp-miraa-w34-t10-home-reset",
+      "research_topic_id": "miraa-w34-t10",
+      "content_format": "ai_host_dual",
+      "production_tool": "HeyGen",
+      "route_reason": "两位成年女性分别代表保留与重置，不下绝对结论。"
+    }
+  ]
+}
