@@ -1,0 +1,289 @@
+{
+  "schema_version": "miraa-community-research/v1",
+  "product": "astrologywiki",
+  "account": "@miraaastrology",
+  "mode": "B",
+  "week": "2026-W34",
+  "searched_at": "2026-08-17T02:40:46.240Z",
+  "sample_limitations": "Reddit direct pages were frequently blocked by a humanity/login wall; only sources with captured body or comments are marked readable. Current web horoscope pages and public YouTube transcript text broadened the sample, but these are editorial/creator evidence rather than representative population data. X comments and Quora answer bodies were not readable, so no cross-platform consensus or invented engagement is claimed.",
+  "competitor_index_checked_at": "2026-08-17T02:40:46.240Z; CSV endpoint readable; 18 records returned; relevant references included astrologyclips, AstroLada, Nightlight Astrology, Patrick Arundell Astrology and Steven Forrest.",
+  "apps_script_library_attempt": "2026-08-17T02:40:46.240Z; redirected to Google sign-in; login_required; internal content not read.",
+  "platforms_attempted": ["Reddit", "X/Twitter", "Quora", "YouTube", "Web"],
+  "platforms_accessed": ["Reddit", "X/Twitter", "YouTube", "Web"],
+  "opened_pages": 23,
+  "readable_pages": 9,
+  "unavailable_sources": [
+    {"platform": "Reddit", "failure_layer": "many current direct threads returned humanity/login walls; blocked pages excluded from formal evidence"},
+    {"platform": "Quora", "failure_layer": "question metadata/search result readable, answer bodies not readable; excluded from formal evidence"},
+    {"platform": "X/Twitter", "failure_layer": "post bodies readable for some results; replies/comments required app/login and were not read"}
+  ],
+  "topics": [
+    {
+      "topic_id": "miraa-w34-t01",
+      "topic_name": "Scorpio 把工作压力带回家",
+      "discussion": "Several current sources frame Scorpio around demanding routines, career visibility and the need to stop pushing through depletion; the usable conflict is not ambition itself but being unable to mentally clock out.",
+      "life_scenes": ["下班后仍在脑内复盘会议", "同事遇到危机时总先找她", "回家后因为安静被误会成生气"],
+      "video_fit": "Work stress is instantly recognizable and lets a single-host video explain the gap between competence and recovery without diagnosing anyone.",
+      "main_views": "Scorpio-coded focus can look reliable at work while quietly consuming off-hours.",
+      "counter_views": "Workload and burnout depend on role and circumstances; Sun sign alone cannot explain them.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-02", "src-w34-03", "src-w34-07"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Current editorial coverage and a detailed public YouTube transcript independently connect Scorpio with work routines, career pressure and recovery.", "limitations": "Creator/editorial framing; not survey evidence."},
+      "natural_english": [{"text": "still carrying the meeting home", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t02",
+      "topic_name": "Scorpio 争取可见度但不想表演",
+      "discussion": "Current sources repeatedly pair career visibility with speaking up, pitching or accepting authority; the tension is wanting credit for real work without constant self-promotion.",
+      "life_scenes": ["会议里有答案却等到最后才说", "项目做完后让别人先汇报", "看到晋升机会却讨厌自我推销"],
+      "video_fit": "A visible meeting moment creates a clear two-second contrast between being prepared and staying offstage.",
+      "main_views": "Authority can be present before Scorpio is willing to make it visible.",
+      "counter_views": "Many people self-promote comfortably; job culture matters more than sign labels.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-02", "src-w34-06", "src-w34-07"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Independent Web, X and YouTube sources converge on career visibility and public responsibility in August/2026.", "limitations": "Timing claims are astrological commentary, not causal proof."},
+      "natural_english": [{"text": "did the work, skipped the victory lap", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t03",
+      "topic_name": "Scorpio 在家庭里总做最后收尾的人",
+      "discussion": "Current 2026 coverage repeatedly connects Scorpio with home/family restructuring; the concrete conflict is becoming the person who handles the difficult call, bill or repair while others assume it is covered.",
+      "life_scenes": ["家庭群里没人回复时她直接处理", "聚会结束后最后一个收拾", "家人只在出事时打电话"],
+      "video_fit": "Family labor is visual and comment-friendly while avoiding the overused lie-detection angle.",
+      "main_views": "Control can begin as practical responsibility rather than a need to dominate.",
+      "counter_views": "The role may come from family history and availability, not astrology.",
+      "discussion_evidence": {"source_refs": ["src-w34-02", "src-w34-03", "src-w34-06"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Three current sources independently foreground home, family and responsibility for Scorpio.", "limitations": "No readable current community comment thread for this exact family role."},
+      "natural_english": [{"text": "the one who handles the hard call", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t04",
+      "topic_name": "Scorpio 需要对等投入而非测试忠诚",
+      "discussion": "A readable Reddit thread contains firsthand comments about pulling back when relationship effort is unequal; current sources also emphasize honesty and negotiated support.",
+      "life_scenes": ["总是自己先发消息和安排见面", "停止提醒后计划就消失", "不吵架但开始把时间留给自己"],
+      "video_fit": "The behavior is visible, relatable and corrects the stereotype that withdrawal is automatically manipulation.",
+      "main_views": "Pulling back may be an attempt to measure reciprocity after over-investing.",
+      "counter_views": "Silence can still confuse the other person; direct communication is usually clearer.",
+      "discussion_evidence": {"source_refs": ["src-w34-04", "src-w34-03", "src-w34-09"], "cross_platform": true, "evidence_strength": "强", "discussion_signal": "Readable Reddit comments give direct lived examples, while current Web/YouTube material repeats reciprocity and relationship-review themes.", "limitations": "Reddit source is within the last 12 months, not the last 90 days."},
+      "natural_english": [{"text": "I stopped doing all the reaching out", "attribution": {"type": "source_quote", "source_ref": "src-w34-04"}}]
+    },
+    {
+      "topic_id": "miraa-w34-t05",
+      "topic_name": "Scorpio 把朋友和工作绑在一起后的摩擦",
+      "discussion": "A public YouTube transcript explicitly discusses sustained work with friends or groups and the tensions that can arise when career and friendship overlap.",
+      "life_scenes": ["朋友变成项目搭档后不敢催进度", "群聊里的玩笑进入工作会议", "分工不清时把关系问题当任务问题"],
+      "video_fit": "Both sides have a concrete stake and the topic differs from recent romance-heavy Scorpio posts.",
+      "main_views": "Loyalty can make professional boundaries harder to state early.",
+      "counter_views": "Clear roles and written expectations can make friend collaborations work well.",
+      "discussion_evidence": {"source_refs": ["src-w34-07", "src-w34-01"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "A detailed creator transcript plus current editorial material independently connect career, groups and boundaries.", "limitations": "No readable current Reddit thread on this exact collaboration conflict."},
+      "natural_english": [{"text": "friend first, deadline second", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t06",
+      "topic_name": "努力与认可错位",
+      "discussion": "Current coverage across several signs returns to stagnant roles, changing definitions of success, unsustainable routines and asking for value to be recognized.",
+      "life_scenes": ["已经在做下一级工作但头衔没变", "学会岗位后开始厌倦重复", "为了稳定留在耗尽创意的工作"],
+      "video_fit": "The same human conflict can become distinct Virgo, Gemini, Capricorn or Pisces candidates by changing mechanism and scene rather than swapping labels.",
+      "main_views": "Effort alone does not guarantee alignment, promotion or meaning.",
+      "counter_views": "Career outcomes depend on management, labor market and personal choices.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-02", "src-w34-03", "src-w34-08"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Three current editorial pages and a creator transcript repeat work-routine, value and visibility conflicts.", "limitations": "Sign-specific mechanisms are candidate hypotheses, not measured traits."},
+      "natural_english": [{"text": "doing the next job without the next title", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t07",
+      "topic_name": "友情里的空间与互惠",
+      "discussion": "Readable comments and current coverage both distinguish caring from constant contact; the tension is whether space feels respectful or like one person is carrying the friendship.",
+      "life_scenes": ["几天不回消息但会认真回复重要问题", "总是同一个人安排见面", "朋友把少联系理解成不在乎"],
+      "video_fit": "This supports an Aquarius single-sign candidate without claiming detachment or low empathy.",
+      "main_views": "People can value a friendship and still need more space or less frequent contact.",
+      "counter_views": "Space is not a substitute for basic reciprocity or clear expectations.",
+      "discussion_evidence": {"source_refs": ["src-w34-04", "src-w34-01", "src-w34-03"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Reddit lived experience plus current Web coverage repeats friendship review, support and reciprocity.", "limitations": "Current Aquarius comments were not readable; mechanism is cross-sign evidence."},
+      "natural_english": [{"text": "space without disappearing", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t08",
+      "topic_name": "照顾别人变成默认家务",
+      "discussion": "Current sources foreground home, hosting, family roles and support; the usable conflict is the person who makes everyone comfortable but is never asked what they need.",
+      "life_scenes": ["聚会前先问每个人吃什么", "所有人离开后独自收拾", "家人默认她会记住生日和预约"],
+      "video_fit": "A Cancer candidate can start from visible care work instead of a generic 'emotional' label.",
+      "main_views": "Nurturing becomes resentment when it is treated as invisible infrastructure.",
+      "counter_views": "Care can be freely chosen, and asking directly may prevent assumptions.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-03"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Two current readable articles independently emphasize Cancer home, hosting and support themes.", "limitations": "Editorial sources only for the exact care-labor scene."},
+      "natural_english": [{"text": "everyone relaxed because she handled it", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t09",
+      "topic_name": "行动速度与协商速度冲突",
+      "discussion": "Relationship sources repeatedly contrast direct action with partnership reflection; the pair-level conflict is one person ending uncertainty quickly while the other tries to avoid a decision that may upset someone.",
+      "life_scenes": ["出门前还在决定去哪吃", "一方已经订位另一方还在问大家", "争执时一方要现在解决另一方要先想清楚"],
+      "video_fit": "It gives Aries and Libra distinct, sympathetic viewpoints rather than a compatibility score.",
+      "main_views": "Speed can feel like clarity to Aries and pressure to Libra.",
+      "counter_views": "Either person can be decisive; the scene is an astrology framing, not a rule.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-02", "src-w34-09"], "cross_platform": true, "evidence_strength": "中", "discussion_signal": "Current Web and YouTube relationship material supports commitment, direct conversation and partnership renegotiation.", "limitations": "The exact dinner scene is a synthesized visualization."},
+      "natural_english": [{"text": "decide now versus keep everyone comfortable", "attribution": "synthesized_pattern"}]
+    },
+    {
+      "topic_id": "miraa-w34-t10",
+      "topic_name": "稳定与改变的家居冲突",
+      "discussion": "Current sources repeatedly place Taurus and Aquarius around home, identity, partnership and routine changes; the useful pair conflict is how much of a shared space should remain familiar during a reset.",
+      "life_scenes": ["搬家时一方想保留旧家具布局", "一方先建立固定晨间流程另一方不断试新方法", "共同预算里争论升级设备还是继续使用"],
+      "video_fit": "A shared-home disagreement gives both signs a practical stake and avoids generic compatibility claims.",
+      "main_views": "Familiarity can feel safe to Taurus while experimentation can feel necessary to Aquarius.",
+      "counter_views": "Preferences depend on personality, finances and the full chart, not Sun sign alone.",
+      "discussion_evidence": {"source_refs": ["src-w34-01", "src-w34-02", "src-w34-03"], "cross_platform": false, "evidence_strength": "中", "discussion_signal": "Three current readable articles independently connect Taurus/Aquarius with home, routine and partnership shifts.", "limitations": "No readable current community thread for the exact shared-space scene."},
+      "natural_english": [{"text": "keep what works versus rebuild the system", "attribution": "synthesized_pattern"}]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "src-w34-01",
+      "title": "Your August Horoscope Is Here — & Something In Your Life Is Reaching Its Final Chapter",
+      "platform": "Web/Refinery29",
+      "url": "https://www.refinery29.com/en-us/august-monthly-horoscope-2026-meanings-effects",
+      "displayed_date": "2026-07-30",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t05", "miraa-w34-t06", "miraa-w34-t07", "miraa-w34-t08", "miraa-w34-t09", "miraa-w34-t10"],
+      "body_excerpt": "Scorpio is urged to pitch and speak up while also making space for privacy and rest; multiple sign sections address home, work, routine and relationship changes.",
+      "engagement_note": "互动量不可核验；substitute signal: current dated editorial page with full sign sections."
+    },
+    {
+      "source_ref": "src-w34-02",
+      "title": "2026 Horoscopes: What the Planets Have in Store for Each Zodiac Sign",
+      "platform": "Web/InStyle",
+      "url": "https://www.instyle.com/2026-horoscopes-11874618",
+      "displayed_date_note": "Captured page body identifies the article as 2026 coverage; publication date was not exposed in extracted text.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t03", "miraa-w34-t06", "miraa-w34-t09", "miraa-w34-t10"],
+      "body_excerpt": "The page covers Scorpio home/career shifts, Virgo work-life reassessment, Aquarius partnerships, Taurus home/career change and Libra relationship definitions.",
+      "engagement_note": "互动量不可核验；substitute signal: full current year-ahead article body."
+    },
+    {
+      "source_ref": "src-w34-03",
+      "title": "Your Horoscope Predictions for 2026, Based on Your Zodiac Sign",
+      "platform": "Web/People",
+      "url": "https://people.com/yearly-horoscope-2026-for-each-zodiac-sign-11872460",
+      "displayed_date_note": "Captured page body identifies 2026 coverage; publication date was not exposed in extracted text.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t03", "miraa-w34-t04", "miraa-w34-t06", "miraa-w34-t07", "miraa-w34-t08", "miraa-w34-t10"],
+      "body_excerpt": "The article gives concrete examples such as changing work schedules, redefining family roles, renegotiating trust and setting firm boundaries at work.",
+      "engagement_note": "互动量不可核验；substitute signal: readable current article with concrete real-life examples."
+    },
+    {
+      "source_ref": "src-w34-04",
+      "title": "Dating a Scorpio",
+      "platform": "Reddit/r/Scorpio",
+      "url": "https://www.reddit.com/r/Scorpio/comments/1nrvhci/dating_a_scorpio",
+      "displayed_date": "2025-09-27",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["miraa-w34-t04", "miraa-w34-t07"],
+      "comment_excerpt": "One commenter described putting more energy into maintaining relationships, then pulling back to seek equal effort; others emphasized honesty, autonomy and space.",
+      "engagement_note": "互动量不可核验；substitute signal: multiple readable comments with agreement and disagreement."
+    },
+    {
+      "source_ref": "src-w34-05",
+      "title": "Most athletic signs?",
+      "platform": "Reddit/r/astrologymemes",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1ktlmdf/most_athletic_signs",
+      "displayed_date": "2025-05-23",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["miraa-w34-t06"],
+      "comment_excerpt": "Commenters disagreed sharply with the ranking and supplied counterexamples, reinforcing that sign traits should be framed as observations rather than facts.",
+      "engagement_note": "互动量不可核验；substitute signal: long readable disagreement thread."
+    },
+    {
+      "source_ref": "src-w34-06",
+      "title": "August 2026 Horoscope - Scorpio",
+      "platform": "X/Twitter",
+      "url": "https://x.com/Astrotherapist1/status/2083201118524571729",
+      "displayed_date_note": "Post text states August 2026; exact timestamp was not exposed in capture.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t02", "miraa-w34-t03"],
+      "body_excerpt": "The post discusses Scorpio career/public reputation, leadership changes, home/family matters and honesty in relationships.",
+      "engagement_note": "互动量不可核验；replies required app/login and were not read."
+    },
+    {
+      "source_ref": "src-w34-07",
+      "title": "Scorpio 2026 Year Ahead Horoscope & Astrology Forecast",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=x92_tumLJWQ",
+      "displayed_date_note": "Title identifies 2026 forecast; upload date was not exposed in captured transcript result.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t01", "miraa-w34-t02", "miraa-w34-t05"],
+      "body_excerpt": "Transcript discusses extended effort across career and friend groups, including tensions that can arise when work and friendship mix.",
+      "engagement_note": "互动量不可核验；substitute signal: readable long-form transcript."
+    },
+    {
+      "source_ref": "src-w34-08",
+      "title": "VIRGO 2026: CLARITY in CONNECTION for the First Time in 14 Years! Collaborations & Community",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=Ub9eSTT1Hf0",
+      "displayed_date_note": "Title identifies 2026 forecast; upload date was not exposed in captured transcript result.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t06"],
+      "body_excerpt": "Transcript discusses Virgo work habits, sustainable systems, over-giving and reciprocity.",
+      "engagement_note": "互动量不可核验；substitute signal: readable transcript with concrete work-process themes."
+    },
+    {
+      "source_ref": "src-w34-09",
+      "title": "LOVE & Relationships 2026 Horoscopes! All 12 Signs! With Timestamps",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=wiXUhR7jReo",
+      "displayed_date_note": "Title identifies 2026 coverage; upload date was not exposed in captured transcript result.",
+      "observed_at": "2026-08-17T02:40:46.240Z",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["miraa-w34-t04", "miraa-w34-t09"],
+      "body_excerpt": "Transcript covers relationship dependence, commitments and the work required to transform partnership patterns.",
+      "engagement_note": "互动量不可核验；substitute signal: readable timestamped transcript across all 12 signs."
+    }
+  ],
+  "life_detail_bank": [
+    "下班后洗澡时还在复盘会议", "同事遇到危机时总先发消息给她", "有答案却等到会议最后才说", "做完项目但把汇报机会让给别人", "家庭群无人回复时直接把问题处理掉", "聚会后最后一个收拾桌面", "家人只在出事时打电话", "停止主动安排后整个月没有见面", "朋友变成搭档后不敢催截止时间", "做下一级工作三年但头衔没变", "学会岗位后开始厌倦重复流程", "留在稳定工作却没有精力做创意", "几天不回闲聊但会认真回复重要消息", "所有客人放松因为她记住每个人的需要", "出门前一方已订位另一方还在问所有人", "搬家时争论旧家具是否保留", "共同预算里争论升级设备还是继续用", "回家安静被伴侣误会成生气"
+  ],
+  "language_bank": {
+    "phrases": [
+      {"text": "still carrying the meeting home", "attribution": "synthesized_pattern"},
+      {"text": "did the work, skipped the victory lap", "attribution": "synthesized_pattern"},
+      {"text": "the one who handles the hard call", "attribution": "synthesized_pattern"},
+      {"text": "equal effort, not constant contact", "attribution": "synthesized_pattern"},
+      {"text": "friend first, deadline second", "attribution": "synthesized_pattern"},
+      {"text": "doing the next job without the next title", "attribution": "synthesized_pattern"},
+      {"text": "the job stopped feeling new", "attribution": "synthesized_pattern"},
+      {"text": "safe on paper, draining in real life", "attribution": "synthesized_pattern"},
+      {"text": "space without disappearing", "attribution": "synthesized_pattern"},
+      {"text": "everyone relaxed because she handled it", "attribution": "synthesized_pattern"},
+      {"text": "decide now versus keep everyone comfortable", "attribution": "synthesized_pattern"},
+      {"text": "keep what works versus rebuild the system", "attribution": "synthesized_pattern"},
+      {"text": "a quiet person with a public job", "attribution": "synthesized_pattern"},
+      {"text": "the plan disappeared when she stopped planning", "attribution": "synthesized_pattern"},
+      {"text": "home became another shift", "attribution": "synthesized_pattern"}
+    ],
+    "questions": [
+      {"text": "Who always handles the hard part?", "attribution": "synthesized_pattern"},
+      {"text": "Why did the plan stop happening?", "attribution": "synthesized_pattern"},
+      {"text": "When does space start feeling like distance?", "attribution": "synthesized_pattern"},
+      {"text": "Who is already doing the next job?", "attribution": "synthesized_pattern"},
+      {"text": "Why does a stable job still feel wrong?", "attribution": "synthesized_pattern"},
+      {"text": "Who gets to decide when everyone disagrees?", "attribution": "synthesized_pattern"}
+    ],
+    "reaction_patterns": [
+      {"text": "I am always the one who plans it.", "attribution": "synthesized_pattern"},
+      {"text": "This is exactly what happens after work.", "attribution": "synthesized_pattern"},
+      {"text": "My family only calls when something breaks.", "attribution": "synthesized_pattern"},
+      {"text": "I need space, but I still care.", "attribution": "synthesized_pattern"},
+      {"text": "I have been doing the higher role for years.", "attribution": "synthesized_pattern"},
+      {"text": "We fight about this every time we move.", "attribution": "synthesized_pattern"}
+    ]
+  }
+}
