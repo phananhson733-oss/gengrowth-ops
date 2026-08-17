@@ -8,13 +8,13 @@
   "sample_limitations": "All five supported topics rely on readable Reddit threads. X replies and TikTok comments were not readable logged out; Quora was blocked by Cloudflare; recent YouTube comment bodies were unavailable. No cross-platform repetition is claimed.",
   "competitor_index_checked_at": "2026-08-17T08:13:56Z; public CSV endpoint readable; 18 rows observed",
   "apps_script_library_attempt": "2026-08-17T08:13:56Z; login_required; redirected to Google sign-in; internal content not read",
-  "platforms_attempted": ["reddit", "twitter/x", "quora", "youtube", "tiktok"],
-  "platforms_accessed": ["reddit", "twitter/x", "youtube", "tiktok"],
+  "platforms_attempted": ["reddit", "x", "quora", "youtube", "tiktok"],
+  "platforms_accessed": ["reddit", "x", "youtube", "tiktok"],
   "opened_pages": 21,
   "readable_pages": 11,
   "unavailable_sources": [
     {"platform": "reddit", "failure_layer": "anonymous challenge or empty extraction; readable bodies and comments were verified through a Redlib read-only mirror while preserving original Reddit URLs"},
-    {"platform": "twitter/x", "failure_layer": "logged-out app browser showed post bodies but not reply threads"},
+    {"platform": "x", "failure_layer": "logged-out app browser showed post bodies but not reply threads"},
     {"platform": "quora", "failure_layer": "Cloudflare security verification blocked discussion bodies"},
     {"platform": "youtube", "failure_layer": "current video showed comment count but comment-body loading timed out"},
     {"platform": "tiktok", "failure_layer": "public post bodies and engagement counts readable; comment drawer required login and exposed no comment bodies"}
