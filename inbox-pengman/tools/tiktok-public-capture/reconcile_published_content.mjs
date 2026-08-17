@@ -15,6 +15,13 @@ const STOPWORDS = new Set([
   "their", "them", "they", "this", "tiktok", "video", "what", "when", "where", "why",
   "will", "with", "you", "your", "zodiac",
 ]);
+// These terms commonly appear across every post for the same account. They can
+// support a match, but must never be the only reason a ready record is marked
+// published. A distinct topic signal (for example, "capricorn", "friends" or
+// "space") is required for fuzzy caption matching.
+const GENERIC_MATCH_TOKENS = new Set([
+  "astrology", "astrologywiki", "psychology", "scorpio", "sign", "tiktok", "zodiac",
+]);
 
 function scalar(frontmatter, key) {
   const match = frontmatter.match(new RegExp(`^${key}:\\s*(.*?)\\s*$`, "m"));
@@ -125,7 +132,6 @@ function expectedText(frontmatter, filename, text) {
     scalar(frontmatter, "title"),
     scalar(frontmatter, "hook"),
     scalar(frontmatter, "topic"),
-    scalar(frontmatter, "pillar"),
     scalar(frontmatter, "series"),
     filename.replace(/^\d{4}-\d{2}-\d{2}\s*/, "").replace(/内容生产记录|视频制作方案|制作方案/g, ""),
     bodySignals(text),
@@ -233,10 +239,11 @@ function chooseCandidate(note, posts, claimedIds) {
   const best = candidates[0];
   const second = candidates[1];
   const margin = best.score - (second?.score || 0);
+  const hasDistinctTopicSignal = best.shared.some((token) => !GENERIC_MATCH_TOKENS.has(token));
   const preciseTime = anchor?.precision === "time" && best.hours !== null && best.hours <= 6 &&
     (!second || second.hours === null || best.hours * 2 < second.hours);
-  const strongText = best.shared.length >= 2 && best.score >= 0.45 && margin >= 0.12;
-  const datedText = anchor && best.shared.length >= 3 && best.score >= 0.3 && margin >= 0.1;
+  const strongText = hasDistinctTopicSignal && best.shared.length >= 2 && best.score >= 0.45 && margin >= 0.12;
+  const datedText = hasDistinctTopicSignal && anchor && best.shared.length >= 3 && best.score >= 0.3 && margin >= 0.1;
   if (preciseTime || strongText || datedText) {
     const confidence = Math.min(0.99, 0.55 + best.score * 0.35 + (preciseTime ? 0.2 : 0));
     return {

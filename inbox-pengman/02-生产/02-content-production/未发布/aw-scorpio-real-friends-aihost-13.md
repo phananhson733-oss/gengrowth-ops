@@ -12,7 +12,7 @@ pillar: Scorpio psychology / friendship / solitude and support
 format: AI Host
 priority: P1
 effort: M
-content_stage: ready
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "2026-08-11 成片使用版本，经 Pengman 确认"
 inventory_ready: true
@@ -26,7 +26,14 @@ source_evidence:
   - "https://www.reddit.com/r/astrologymemes/comments/1v1bcru/lets_talk_scorpio_placements/"
 status: draft
 owner: Pengman
-updated: 2026-08-11
+updated: "2026-08-16"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7673791050640624909"
+platform_post_id: "7673791050640624909"
+published_at: "2026-08-15T18:18:00.000Z"
+published_date: "2026-08-15"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-17T02:14:02.125Z"
 ---
 
 # Scorpio 只有一两个真朋友：享受独处，也会发现没人能接住自己
