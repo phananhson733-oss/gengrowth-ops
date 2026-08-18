@@ -1,0 +1,164 @@
+{
+  "receipt_version": "1.0",
+  "receipt_source": "hermes_agent",
+  "source_kind": "hermes_tavily_web_research",
+  "tool_identity": "tavily",
+  "session_id": "HERMES_SESSION_ID",
+  "query_count": 14,
+  "search_queries": [
+    "site:reddit.com/r/Scorpio recent Scorpio relationship friendship trust behavior discussion",
+    "site:reddit.com/r/astrologymemes recent Taurus Cancer relationship behavior discussion",
+    "site:reddit.com/r/astrologymemes recent Capricorn Pisces Aquarius relationship behavior discussion",
+    "site:reddit.com/r/AriesTheRam recent Aries relationship friendship communication behavior",
+    "site:instagram.com Scorpio trust access relationship astrology Scorpio",
+    "site:instagram.com Scorpio emotions anger sadness vulnerability astrology",
+    "site:instagram.com Capricorn detachment peace emotional exhaustion astrology August 2026",
+    "site:instagram.com Aquarius space loyalty relationship astrology comments",
+    "site:instagram.com Pisces loyalty space daily communication relationship astrology August 2026",
+    "1bd154-02 Pisces weekly horoscope honesty relationship tool"
+  ],
+  "searched_at": "2026-08-18T13:45:00+08:00",
+  "window_start": "2026-07-19",
+  "window_end": "2026-08-18",
+  "requested_source_window_days": 30,
+  "freshness_note": "All six selected direct sources are dated between 2026-08-01 and 2026-08-17, within the requested 30-day research window.",
+  "blocked_domains": [
+    "x.com (robots/rate-limit during this run)",
+    "reddit.com pages that returned only challenge pages or snippets"
+  ],
+  "pages_checked": 8,
+  "retries": [
+    "Retried unreadable Reddit pages via old.reddit.com; still unreadable.",
+    "Retried exact Reddit post IDs with raw-content search; excluded results without body/comment layers.",
+    "Replaced an undated Capricorn source with a dated 2026-08-15 Instagram post.",
+    "Replaced a 2024 Pisces article with a dated 2026-08-14 YouTube transcript."
+  ],
+  "selected_count": 6,
+  "selected_urls": [
+    "https://www.instagram.com/p/DbgHNd4j4oc",
+    "https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7",
+    "https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/",
+    "https://www.instagram.com/p/DcFO9dKjwvr",
+    "https://www.instagram.com/p/DbqoJgpOc1D",
+    "https://www.youtube.com/watch?v=zuPXdDu112o"
+  ],
+  "source_rows": [
+    {
+      "source_id": "miraa-w34-6pack-scorpio-accountability",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DbgHNd4j4oc",
+      "source_date": "2026-08-01",
+      "read_status": "readable",
+      "observed_body_or_comments": "Post says Scorpio does not expect perfection but wants honest repair: admit mistakes, have the uncomfortable conversation, and choose accountability over pride. Comments include 'we in it for the long haul' and agreement that this is the desired relationship pattern.",
+      "engagement_note": "2K likes and 3 visible comments at observation time.",
+      "recency_check": "17 days old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "Fresh relationship-repair angle that differs from generic loyalty and betrayal hooks."
+    },
+    {
+      "source_id": "miraa-w34-6pack-scorpio-emotion-processing",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7",
+      "source_date": "2026-08-17",
+      "read_status": "readable",
+      "observed_body_or_comments": "Post frames Scorpio as analyzing, remembering, and interpreting a feeling before reacting. Comments describe being calm outside but fiery inside, and one commenter says an angry Scorpio near water calms down quickly.",
+      "engagement_note": "25.9K likes and 118 comments at observation time.",
+      "recency_check": "1 day old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "High-engagement behavioral angle with room for a non-deterministic AI-astrologer explanation."
+    },
+    {
+      "source_id": "miraa-w34-6pack-aries-relationship-pace",
+      "platform": "reddit",
+      "url": "https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/",
+      "source_date": "2026-08-14",
+      "read_status": "readable",
+      "observed_body_or_comments": "Original poster pushes back on the idea that Aries always rushes relationships, saying physical pace can be fast while emotional commitment is not. Replies describe slow-burn relationships, careful selection, and commitment only after certainty.",
+      "engagement_note": "Direct post body plus multi-comment discussion layer was readable.",
+      "recency_check": "4 days old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "Counter-stereotype angle that is broader than compatibility ranking."
+    },
+    {
+      "source_id": "miraa-w34-6pack-capricorn-energy-drain",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DcFO9dKjwvr",
+      "source_date": "2026-08-15",
+      "read_status": "readable",
+      "observed_body_or_comments": "Post says Capricorn may observe and give chances, then remove themselves from people, places, or environments that keep draining their energy. Comments repeatedly describe walking away from negative meetings, jobs, friendships, and relationships rather than arguing indefinitely.",
+      "engagement_note": "3.7K likes and 23 comments at observation time.",
+      "recency_check": "3 days old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "Clear practical behavior with direct community validation and no transit dependence."
+    },
+    {
+      "source_id": "miraa-w34-6pack-aquarius-space-not-rejection",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DbqoJgpOc1D",
+      "source_date": "2026-08-05",
+      "read_status": "readable",
+      "observed_body_or_comments": "Post says Aquarius can process emotions privately and need distance without caring less; trust, freedom, and respect for individuality help them move closer voluntarily. Comments include direct self-identification such as 'I feel seen' and agreement with the pattern.",
+      "engagement_note": "80.4K likes and 178 comments at observation time.",
+      "recency_check": "13 days old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "High-engagement misconception-correction angle suitable for a single-sign short."
+    },
+    {
+      "source_id": "miraa-w34-6pack-pisces-honesty-tool",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=zuPXdDu112o",
+      "source_date": "2026-08-14",
+      "read_status": "readable",
+      "observed_body_or_comments": "The weekly Pisces transcript says confusion around love or work can dominate early in the week, but by the end of the week reaching out and talking through one connection constructively becomes easier. It repeatedly emphasizes getting details right and using honest communication rather than reacting to uncertainty.",
+      "engagement_note": "1,762 views, 124 likes, and 7 comments shown in the indexed video record.",
+      "recency_check": "4 days old; within 30-day window",
+      "selected_for_research": true,
+      "selection_reason": "Current W34 predictable-content angle anchored to a full transcript rather than a search snippet."
+    }
+  ],
+  "supported_topics": [
+    {
+      "topic": "Scorpio relationship repair through accountability instead of perfection",
+      "supporting_source_ids": ["miraa-w34-6pack-scorpio-accountability"],
+      "finding": "The community framing favors honest repair after mistakes and sees emotional avoidance as more damaging than the original mistake.",
+      "why_now": "The August 1 post remains recent and provides a distinct conflict-repair hook beyond betrayal or access-loss themes."
+    },
+    {
+      "topic": "Scorpio investigates a feeling before showing the reaction",
+      "supporting_source_ids": ["miraa-w34-6pack-scorpio-emotion-processing"],
+      "finding": "The post/comment layer describes calm presentation, intense internal processing, memory, and delayed reaction rather than instant emotional display.",
+      "why_now": "The August 17 post has the strongest observed engagement in the Scorpio set and is only one day old."
+    },
+    {
+      "topic": "Aries can move fast in life but slow in love",
+      "supporting_source_ids": ["miraa-w34-6pack-aries-relationship-pace"],
+      "finding": "Aries respondents push back on the rush-everything stereotype and distinguish physical pace from emotional commitment.",
+      "why_now": "A fresh August 14 discussion provides a counter-stereotype angle with several direct replies."
+    },
+    {
+      "topic": "Capricorn removes themselves when a situation keeps draining energy",
+      "supporting_source_ids": ["miraa-w34-6pack-capricorn-energy-drain"],
+      "finding": "Respondents describe leaving negative contexts as a practical boundary rather than continuing to complain or force change.",
+      "why_now": "The August 15 post is fresh and has direct examples across work, friendship, and romance."
+    },
+    {
+      "topic": "Aquarius distance does not automatically mean rejection",
+      "supporting_source_ids": ["miraa-w34-6pack-aquarius-space-not-rejection"],
+      "finding": "The source frames privacy and space as part of emotional processing, while safety and freedom make closeness more likely.",
+      "why_now": "The August 5 post has high engagement and directly corrects a common relationship misread."
+    },
+    {
+      "topic": "Pisces benefits from honest conversation when a connection feels confusing this week",
+      "supporting_source_ids": ["miraa-w34-6pack-pisces-honesty-tool"],
+      "finding": "The W34 transcript says relationship confusion can ease when Pisces reaches out, talks through details, and avoids acting on shaky information.",
+      "why_now": "The video was posted August 14 specifically for August 17-23, matching W34 timing."
+    }
+  ],
+  "min_supported_topics": 5,
+  "community_first_research_done": true,
+  "all_candidate_topics_from_community_research": true,
+  "external_research_outcome": "success",
+  "no_external_sources_found": false,
+  "failure_reason": "",
+  "operator_note": "Six W34 candidate topics requested for @miraaastrology: two Scorpio and four other signs. Fixed competitor CSV was readable; Apps Script Library did not return usable body content. Search snippets and challenge pages were excluded from formal evidence."
+}
