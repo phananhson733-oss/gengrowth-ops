@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "account": "@miraaastrology",
+  "week": "2026-W34",
+  "mode": "C",
+  "searched_at": "2026-08-18T13:04:23+08:00",
+  "search_method": "manual public-web research: search discovery followed by direct-page extraction of post bodies, comments, transcripts, dates, and visible engagement",
+  "query_log": [
+    "site:reddit.com/r/astrologymemes Scorpio trust relationships behavior astrology",
+    "site:reddit.com/r/astrologymemes Virgo relationship overthinking criticism behavior astrology",
+    "site:reddit.com/r/astrologymemes Taurus relationship stubborn silence behavior astrology",
+    "site:x.com astrology Scorpio trust relationship behavior",
+    "site:quora.com astrology Virgo relationship behavior",
+    "site:youtube.com astrology signs relationship Scorpio Virgo comments",
+    "recent Reddit follow-up: Virgo dating/nitpicking and Scorpio placements/trust"
+  ],
+  "platforms_attempted": [
+    "reddit",
+    "x/twitter",
+    "quora",
+    "youtube"
+  ],
+  "platforms_accessed": [
+    "reddit",
+    "x/twitter",
+    "quora",
+    "youtube"
+  ],
+  "opened_pages": 20,
+  "readable_pages": 13,
+  "competitor_index": {
+    "checked": true,
+    "status": "public CSV readable; 18 AstrologyWiki rows were returned, but the extractor did not expose account_url values consistently",
+    "source": "https://script.google.com/macros/s/AKfycbyunRIRkIyxEFRUIPstyKFPebAE2rBZB8CBFmoTWzJkhBl-ugAsakxHwZipbT4hTOgANg/exec",
+    "effect_on_research": "Used only to confirm benchmark format notes such as visible-behavior hooks, psychological landing, and avoiding absolute claims; not used as user-demand evidence."
+  },
+  "competitor_library": {
+    "checked": true,
+    "status": "login_required",
+    "source": "https://script.google.com/macros/library/d/1XrKVy_7L_IJl_1Zc-9puY03e8RbvwDi7CQMEAL1uzaafW9Cfa32lRshg/3",
+    "effect_on_research": "Excluded. Browser redirected to Google sign-in and no internal library body was used."
+  },
+  "sources": [
+    {
+      "ref": "s1",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1pljuvu/as_a_scorpio_rising_do_you_find_yourself_not",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2025-12-13",
+      "exact_question": "Do Scorpio risings observe people before letting them in because past experiences make trust difficult?",
+      "evidence_type": "direct discussion body plus many first-person comments",
+      "engagement": "thread body and numerous replies readable; total counter not exposed by extraction"
+    },
+    {
+      "ref": "s2",
+      "url": "https://x.com/ObservAstrology/status/2084260834952544588",
+      "platform": "x/twitter",
+      "author_or_community": "@ObservAstrology",
+      "date": "2026-08-03",
+      "exact_question": "Why can Venus in Scorpio want deep love yet test and observe before opening?",
+      "evidence_type": "public post body with a visible reply",
+      "engagement": "11.6K views shown"
+    },
+    {
+      "ref": "s3",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1j65j5h/lost_trust_in_scorpios",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2025-03-08",
+      "exact_question": "How does controlling or abandoning behavior damage trust in relationships with Scorpio people?",
+      "evidence_type": "direct discussion comments with first-person relationship accounts",
+      "engagement": "multiple reply chains readable; total counter not exposed by extraction"
+    },
+    {
+      "ref": "s4",
+      "url": "https://x.com/Mene4prosper/status/2001920734583767128",
+      "platform": "x/twitter",
+      "author_or_community": "@Mene4prosper",
+      "date": "2025-12-19",
+      "exact_question": "When does using Scorpio jealousy or possessiveness as a sign explanation become an excuse instead of self-awareness?",
+      "evidence_type": "public post body",
+      "engagement": "1.1K views shown"
+    },
+    {
+      "ref": "s5",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1ilkji6/how_hard_is_it_to_date_a_virgo",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2025-02-09",
+      "exact_question": "Does Virgo criticism function as attempted help while a partner experiences it as judgment or being treated like a project?",
+      "evidence_type": "direct question plus many positive, negative, and corrective first-person comments",
+      "engagement": "large multi-branch comment section readable; total counter not exposed by extraction"
+    },
+    {
+      "ref": "s6",
+      "url": "https://www.youtube.com/watch?v=UlbVCrs6MPs",
+      "platform": "youtube",
+      "author_or_community": "Puro Astrology",
+      "date": "2021-06-06",
+      "exact_question": "Why can Virgo factual problem-solving hurt an emotional partner even when the intent is repair?",
+      "evidence_type": "full public transcript and comment-count metadata",
+      "engagement": "64,887 views, 1,992 likes, 308 comments shown"
+    },
+    {
+      "ref": "s7",
+      "url": "https://www.quora.com/What-is-it-like-when-a-Virgo-is-in-love-with-you",
+      "platform": "quora",
+      "author_or_community": "Quora Virgo discussion",
+      "date": "page answers updated across 2022-2026",
+      "exact_question": "How do Virgo people show love through service, precision, privacy, and practical support?",
+      "evidence_type": "direct answer bodies with conflicting viewpoints; toxic and pathologizing sections were excluded",
+      "engagement": "top constructive answer displayed 99 upvotes"
+    },
+    {
+      "ref": "s8",
+      "url": "https://x.com/Astro_Panditji_/status/2085138790834741630",
+      "platform": "x/twitter",
+      "author_or_community": "@Astro_Panditji_",
+      "date": "2026-08-05",
+      "exact_question": "What concrete acts are publicly associated with Virgo Venus as a partner?",
+      "evidence_type": "public post body",
+      "engagement": "8.3K views shown"
+    },
+    {
+      "ref": "s9",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1vbg6cc/okay_yeah_this_is_why_no_one_likes_taurus_men",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2026-07-31 (page displayed 18d ago)",
+      "exact_question": "How much of a partner's past must be disclosed, and when does wanting full context collide with earned privacy?",
+      "evidence_type": "recent direct comment debate with both disclosure and privacy viewpoints",
+      "engagement": "multiple reply chains readable"
+    },
+    {
+      "ref": "s10",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1v8ftq0/my_experience_with_virgo_guys",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2026-07-28 (page displayed 21d ago)",
+      "exact_question": "How do recent users react to Virgo-coded criticism or mixed signals without treating one person as the whole sign?",
+      "evidence_type": "recent meme thread plus direct comments and an explicit anti-generalization counterpoint",
+      "engagement": "search surface showed 989 upvotes and 160 comments; page body/comments were then opened"
+    },
+    {
+      "ref": "s11",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1v1bcru/lets_talk_scorpio_placements",
+      "platform": "reddit",
+      "author_or_community": "r/astrologymemes",
+      "date": "2026-07 (page displayed 1mo ago)",
+      "exact_question": "Do Scorpio placements feel they must mute their intensity to keep relationships comfortable for others?",
+      "evidence_type": "recent direct comments",
+      "engagement": "search surface showed 350 upvotes and 94 comments; readable comments included loneliness around being perceived as too intense"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "miraa-w34-test-t01",
+      "user_question": "Why does Scorpio observe and test people before trusting them, even when they genuinely want closeness?",
+      "real_scenario": "A new relationship feels promising, but Scorpio shares surface facts, watches consistency, and waits for proof before revealing anything that could be used against them.",
+      "tension": "The same behavior that protects trust can make the other person feel distrusted or kept outside.",
+      "psychological_mechanism": "Learned vigilance and asymmetric vulnerability: risk is reduced by collecting behavioral evidence before reciprocal disclosure.",
+      "contrarian_or_non_obvious_angle": "The distance is not always lack of interest; sometimes the desire to trust is exactly why the vetting becomes so strict.",
+      "why_miraa": "Fits Miraa's AI-astrologer voice and the proven opening pattern: visible behavior first, then an unexpected psychological reason; it also avoids repeating the published small-lie and space/disappearing hooks.",
+      "source_refs": ["s1", "s2", "s4"],
+      "saturation_note": "Trust is a saturated Scorpio theme, so the candidate must avoid generic jealousy/secretive wording and focus on the observable sequence: watches consistency before sharing.",
+      "support_strength": "strong",
+      "notes": "Cross-platform direct bodies; both user voice and creator interpretation."
+    },
+    {
+      "topic_id": "miraa-w34-test-t02",
+      "user_question": "Why do some Scorpio placements feel they must mute their emotional intensity to stay acceptable to other people?",
+      "real_scenario": "They edit how much they say or feel in friendships and dating because prior reactions framed their depth as too much.",
+      "tension": "Self-protection prevents rejection but creates loneliness and being chronically misunderstood.",
+      "psychological_mechanism": "Anticipatory self-silencing after social punishment for emotional intensity.",
+      "contrarian_or_non_obvious_angle": "The intimidating surface can coexist with active self-restraint rather than emotional dominance.",
+      "why_miraa": "Supports a non-pathologizing Scorpio identity topic with a concrete social consequence.",
+      "source_refs": ["s3", "s11"],
+      "saturation_note": "Avoid the vague 'Scorpio is intense' label; only viable if anchored in editing oneself around friends or partners.",
+      "support_strength": "medium",
+      "notes": "Recent first-person comments plus an older relationship-trust debate."
+    },
+    {
+      "topic_id": "miraa-w34-test-t03",
+      "user_question": "Why does Virgo correct the person they love when what that person needed was to feel understood?",
+      "real_scenario": "A partner tells a stressful story; Virgo spots the solvable detail and corrects it before acknowledging the feeling.",
+      "tension": "Virgo experiences the correction as care and repair; the partner experiences it as judgment or being turned into a project.",
+      "psychological_mechanism": "Instrumental support replaces emotional validation: reducing error feels safer and more useful than sitting with unresolved emotion.",
+      "contrarian_or_non_obvious_angle": "The criticism may be an awkward bid for usefulness, but good intent does not cancel the relational impact.",
+      "why_miraa": "Strong all-sign test because the first sentence can identify Virgo and a widely recognized relationship consequence, followed by a nuanced explanation rather than a fixed negative label.",
+      "source_refs": ["s5", "s6", "s10"],
+      "saturation_note": "Virgo criticism is highly saturated; the differentiator must be the specific order-of-operations conflict: correction arrives before validation.",
+      "support_strength": "strong",
+      "notes": "Reddit first-person discussion, recent counterpoint, and YouTube transcript support."
+    },
+    {
+      "topic_id": "miraa-w34-test-t04",
+      "user_question": "Why can Virgo do everything practical for a partner yet still be mistaken for emotionally distant?",
+      "real_scenario": "They remember appointments, solve logistics, and quietly remove stressors, but do not make a dramatic declaration.",
+      "tension": "Care is high while visible emotional reassurance is low, creating a love-language mismatch.",
+      "psychological_mechanism": "Competence and service are used as low-risk channels for attachment; vulnerability is displaced into useful action.",
+      "contrarian_or_non_obvious_angle": "The calendar, errand, or repair may be the emotional statement, not a substitute for having feelings.",
+      "why_miraa": "Concrete, non-pathologizing Virgo identity topic suitable for a single AI Host.",
+      "source_refs": ["s5", "s7", "s8"],
+      "saturation_note": "Acts-of-service lists are common; a candidate needs one visible action and one relationship misunderstanding, not a trait roundup.",
+      "support_strength": "strong",
+      "notes": "Three platforms with constructive and dissenting viewpoints."
+    },
+    {
+      "topic_id": "miraa-w34-test-t05",
+      "user_question": "Why can Taurus want the full history before committing while a partner sees that demand as distrust?",
+      "real_scenario": "A relationship becomes serious and one person wants every past detail; the other wants present behavior to earn the right to know more.",
+      "tension": "Security through complete context conflicts with security through respected privacy.",
+      "psychological_mechanism": "Uncertainty reduction through information control versus boundary-based trust building.",
+      "contrarian_or_non_obvious_angle": "Wanting the past can be about preventing comparison and surprise, but forcing disclosure can destroy the safety needed for honesty.",
+      "why_miraa": "Provides a third-sign backup while keeping the discussion in an adult relationship dilemma.",
+      "source_refs": ["s9"],
+      "saturation_note": "Only one recent direct thread; do not promote to a final candidate without another independent source.",
+      "support_strength": "weak",
+      "notes": "Retained for research breadth only; excluded from the two requested candidates."
+    }
+  ],
+  "unavailable_sources": [
+    {
+      "source_or_platform": "Apps Script Library",
+      "failure_layer": "login_required",
+      "effect_on_conclusion": "Internal library evidence excluded; no claim depends on it."
+    },
+    {
+      "source_or_platform": "Reddit threads scorpios_and_commitment, virgos_whats_your_relationship_with_stress_and, and no_contact_or_silent",
+      "failure_layer": "page-level extraction returned related-post shells or insufficient direct body",
+      "effect_on_conclusion": "Excluded from formal source_refs."
+    }
+  ],
+  "summary": "Five evidence-backed discussion points were mapped. The two strongest non-duplicate test directions are Scorpio vetting-before-disclosure and Virgo correction-before-validation. Both support visible behavior plus an unexpected reason, while avoiding deterministic or pathologizing claims."
+}
