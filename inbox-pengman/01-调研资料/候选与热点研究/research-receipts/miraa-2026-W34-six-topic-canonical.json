@@ -1,280 +1,142 @@
 {
-  "schema_version": "miraa-community-research/v1",
-  "product": "astrologywiki",
-  "account": "@miraaastrology",
-  "mode": "B",
-  "week": "2026-W34",
-  "searched_at": "2026-08-18T15:49:57+08:00",
-  "sample_limitations": "Six recent single-source discussion directions from Instagram, Reddit and YouTube; creator posts and community comments are qualitative evidence, not population data. Current browser access to Reddit was anti-bot blocked, so the same-day Tavily-readable body/comment capture in the saved research draft is retained. X direct pages were rate-limited and Quora results were metadata-only, so neither supports a formal topic.",
-  "competitor_index_checked_at": "2026-08-18T15:46:00+08:00; public CSV readable; header plus 18 account rows.",
-  "apps_script_library_attempt": "2026-08-18T15:48:00+08:00; redirected to Google sign-in; internal content not read.",
-  "platforms_attempted": ["reddit", "x", "quora", "youtube", "instagram"],
-  "platforms_accessed": ["reddit", "youtube", "instagram"],
-  "opened_pages": 8,
-  "readable_pages": 6,
-  "unavailable_sources": [
-    {"platform": "x", "failure_layer": "robots/rate-limit; no readable direct discussion page retained"},
-    {"platform": "quora", "failure_layer": "search metadata only; answer body not accepted as formal evidence"},
-    {"platform": "reddit", "failure_layer": "current browser anti-bot challenge; same-day Tavily body/comment capture retained for the one readable source"}
+  "schema_version":"miraa-community-research/v1",
+  "product":"astrologywiki",
+  "account":"@miraaastrology",
+  "mode":"B",
+  "week":"2026-W34",
+  "searched_at":"2026-08-18T15:49:57+08:00",
+  "sample_limitations":"Six qualitative sources, not population data. Reddit browser blocked; same-day readable capture retained. X rate-limited; Quora metadata-only.",
+  "competitor_index_checked_at":"2026-08-18T15:46:00+08:00; CSV readable; 18 rows.",
+  "apps_script_library_attempt":"2026-08-18T15:48:00+08:00; Google sign-in; content unread.",
+  "platforms_attempted":["reddit","x","quora","youtube","instagram"],
+  "platforms_accessed":["reddit","youtube","instagram"],
+  "opened_pages":8,
+  "readable_pages":6,
+  "unavailable_sources":[
+    {"platform":"x","failure_layer":"rate-limited"},
+    {"platform":"quora","failure_layer":"metadata only"},
+    {"platform":"reddit","failure_layer":"browser challenge; saved readable capture used"}
   ],
-  "topics": [
+  "topics":[
     {
-      "topic_id": "miraa-w34-six-t01",
-      "topic_name": "Scorpio 更在意犯错后的修复",
-      "discussion": "讨论把关系中的重点放在承认错误、进行不舒服的对话和持续修复，而不是要求伴侣从不犯错。",
-      "life_scenes": ["对方犯错后先承认而不是辩解", "两人把没说开的事重新谈完", "争执后用具体行动恢复信任"],
-      "video_fit": "能把 Scorpio 的信任主题落到可见的修复行为，并避开泛泛的忠诚或背叛标签。",
-      "main_views": "诚实修复比表面完美更重要；回避对话会放大原本的错误。",
-      "counter_views": "单一 Instagram 社区不能代表所有 Scorpio；修复能力也受个人成熟度和关系质量影响。",
-      "discussion_evidence": {
-        "source_refs": ["s1"],
-        "cross_platform": false,
-        "evidence_strength": "strong",
-        "discussion_signal": "Recent readable post with 2K likes and visible agreement comments.",
-        "limitations": "One creator-community thread; qualitative only."
-      },
-      "natural_english": [
-        {"text": "own what happened", "attribution": "synthesized_pattern"},
-        {"text": "have the uncomfortable conversation", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t01",
+      "topic_name":"Scorpio 关系修复",
+      "discussion":"犯错后承认、谈完、修复。",
+      "life_scenes":["先承认再解释","争执后完成对话"],
+      "video_fit":"用修复行为讲信任。",
+      "main_views":"修复重于完美。",
+      "counter_views":"单帖不代表全部。",
+      "discussion_evidence":{"source_refs":["s1"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"2K likes; agreement comments.","limitations":"One thread."},
+      "natural_english":[{"text":"own what happened","attribution":"synthesized_pattern"}]
     },
     {
-      "topic_id": "miraa-w34-six-t02",
-      "topic_name": "Scorpio 先分析感受再反应",
-      "discussion": "评论把外表冷静和内部强烈处理同时放在一起：先记住细节、解释含义、重放对话，再决定是否表达。",
-      "life_scenes": ["争执当下语气平静", "回家后重放每一句话", "隔一段时间才说出真正介意的点"],
-      "video_fit": "能用可见时间差解释为何外表平静不等于没感觉，适合 35–60 秒单机制口播。",
-      "main_views": "延迟反应可能来自内部处理，而不是故意冷处理。",
-      "counter_views": "延迟表达也可能让对方误读；不能把沉默自动解释成深度或正确。",
-      "discussion_evidence": {
-        "source_refs": ["s2"],
-        "cross_platform": false,
-        "evidence_strength": "strong",
-        "discussion_signal": "One-day-old readable post with 25.9K likes and 118 comments; comments describe calm outside and intense internal processing.",
-        "limitations": "High engagement does not establish a universal sign trait."
-      },
-      "natural_english": [
-        {"text": "I need to replay it first", "attribution": "synthesized_pattern"},
-        {"text": "calm outside, sorting it out inside", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t02",
+      "topic_name":"Scorpio 延迟反应",
+      "discussion":"先重放细节，再表达反应。",
+      "life_scenes":["当下平静","回家重放对话"],
+      "video_fit":"用时间差解释情绪。",
+      "main_views":"延迟可能是处理。",
+      "counter_views":"沉默也会误读。",
+      "discussion_evidence":{"source_refs":["s2"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"25.9K likes; 118 comments.","limitations":"One thread."},
+      "natural_english":[{"text":"replay it first","attribution":"synthesized_pattern"}]
     },
     {
-      "topic_id": "miraa-w34-six-t03",
-      "topic_name": "Aries 行动快但承诺不一定快",
-      "discussion": "发帖者和回复者区分了生活或身体层面的快节奏，与情感承诺和关系标签上的谨慎。",
-      "life_scenes": ["很快约下一次见面", "聊天推进很直接", "在正式定义关系前观察更久"],
-      "video_fit": "是清楚的反刻板印象：同一个人可以行动快，同时对承诺认真。",
-      "main_views": "快节奏不等于随便；承诺可能要等到确定。",
-      "counter_views": "不同 Aries 经历差异大；身体节奏与情感节奏不能替所有人下结论。",
-      "discussion_evidence": {
-        "source_refs": ["s3"],
-        "cross_platform": false,
-        "evidence_strength": "strong",
-        "discussion_signal": "Recent readable Reddit body plus multiple replies describing slow-burn relationships and careful commitment.",
-        "limitations": "One subreddit discussion."
-      },
-      "natural_english": [
-        {"text": "fast start, slow commitment", "attribution": "synthesized_pattern"},
-        {"text": "I do not rush the label", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t03",
+      "topic_name":"Aries 快行动慢承诺",
+      "discussion":"行动快，不等于关系标签快。",
+      "life_scenes":["很快约下次","定义关系前观察"],
+      "video_fit":"清楚的反刻板印象。",
+      "main_views":"快不等于随便。",
+      "counter_views":"个体节奏不同。",
+      "discussion_evidence":{"source_refs":["s3"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"Readable body and replies.","limitations":"One subreddit."},
+      "natural_english":[{"text":"fast start, slow commitment","attribution":"synthesized_pattern"}]
     },
     {
-      "topic_id": "miraa-w34-six-t04",
-      "topic_name": "Capricorn 在长期消耗后直接退出",
-      "discussion": "帖子和评论反复描述先观察、给机会，再离开持续消耗精力的会议、工作、友情或关系。",
-      "life_scenes": ["重复参加没有结果的会议", "给同一份工作多次改善机会", "不再参加持续消耗的社交安排"],
-      "video_fit": "有明确行为链：观察、给机会、退出；不需要使用冷漠或无情标签。",
-      "main_views": "退出被描述为长期评估后的 practical boundary，而不是突然翻脸。",
-      "counter_views": "不沟通就退出也会制造误解；是否离开受现实资源和权力关系影响。",
-      "discussion_evidence": {
-        "source_refs": ["s4"],
-        "cross_platform": false,
-        "evidence_strength": "strong",
-        "discussion_signal": "Three-day-old readable post with 3.7K likes and 23 comments across work, friendship and romance examples.",
-        "limitations": "One creator-community thread."
-      },
-      "natural_english": [
-        {"text": "I gave it enough chances", "attribution": "synthesized_pattern"},
-        {"text": "done spending energy here", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t04",
+      "topic_name":"Capricorn 消耗后退出",
+      "discussion":"先观察、给机会，再离开消耗。",
+      "life_scenes":["重复无效会议","停止消耗性社交"],
+      "video_fit":"行为链清楚。",
+      "main_views":"退出是长期评估。",
+      "counter_views":"不沟通也会误解。",
+      "discussion_evidence":{"source_refs":["s4"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"3.7K likes; 23 comments.","limitations":"One thread."},
+      "natural_english":[{"text":"enough chances","attribution":"synthesized_pattern"}]
     },
     {
-      "topic_id": "miraa-w34-six-t05",
-      "topic_name": "Aquarius 的距离不必然等于拒绝",
-      "discussion": "帖子把私人处理情绪、需要距离和仍然在乎并列；评论出现被理解和认同的反馈。",
-      "life_scenes": ["一天不回闲聊但没有结束关系", "先独处整理情绪再回来谈", "被允许保留个人空间后更愿意靠近"],
-      "video_fit": "能纠正常见误读，并把抽象的独立落到沟通频率和回归对话两个动作。",
-      "main_views": "空间可能是处理方式；尊重自由和清楚边界有助于主动靠近。",
-      "counter_views": "空间不能成为无限消失或拒绝沟通的借口；对方仍有权要求可预测性。",
-      "discussion_evidence": {
-        "source_refs": ["s5"],
-        "cross_platform": false,
-        "evidence_strength": "strong",
-        "discussion_signal": "Readable post with 80.4K likes and 178 comments, including direct recognition responses.",
-        "limitations": "High engagement is not prevalence evidence."
-      },
-      "natural_english": [
-        {"text": "I need space to process", "attribution": "synthesized_pattern"},
-        {"text": "distance is not always rejection", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t05",
+      "topic_name":"Aquarius 空间非拒绝",
+      "discussion":"距离可与在乎并存。",
+      "life_scenes":["一天不回闲聊","独处后回来谈"],
+      "video_fit":"纠正关系误读。",
+      "main_views":"空间可能是处理。",
+      "counter_views":"不能无限消失。",
+      "discussion_evidence":{"source_refs":["s5"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"80.4K likes; 178 comments.","limitations":"One thread."},
+      "natural_english":[{"text":"space to process","attribution":"synthesized_pattern"}]
     },
     {
-      "topic_id": "miraa-w34-six-t06",
-      "topic_name": "Pisces 在关系不清楚时先核对细节",
-      "discussion": "W34 视频转录把关系或工作中的混乱，与主动联系、谈清一个连接和避免根据不完整信息反应放在一起。",
-      "life_scenes": ["对方语气变化后先直接询问", "把双方记得不同的细节重新核对", "不靠猜测决定关系下一步"],
-      "video_fit": "有明确 W34 时效窗口，也能转成轻量、非宿命的沟通提醒。",
-      "main_views": "诚实沟通和核对细节比对不确定性自行补全更可靠。",
-      "counter_views": "这是单一创作者的周运势解释，不是确定预测；真实问题仍需双方沟通。",
-      "discussion_evidence": {
-        "source_refs": ["s6"],
-        "cross_platform": false,
-        "evidence_strength": "medium",
-        "discussion_signal": "Readable W34 transcript posted August 14 with 1,762 views, 124 likes and 7 comments in the indexed record.",
-        "limitations": "Creator transcript is not a broad community sample."
-      },
-      "natural_english": [
-        {"text": "ask instead of guessing", "attribution": "synthesized_pattern"},
-        {"text": "get the details straight", "attribution": "synthesized_pattern"}
-      ]
+      "topic_id":"miraa-w34-six-t06",
+      "topic_name":"Pisces 核对细节",
+      "discussion":"W34 混乱时先联系、问清。",
+      "life_scenes":["先问语气变化","核对不同记忆"],
+      "video_fit":"W34 非宿命提醒。",
+      "main_views":"问比猜可靠。",
+      "counter_views":"单一创作者解释。",
+      "discussion_evidence":{"source_refs":["s6"],"cross_platform":false,"evidence_strength":"medium","discussion_signal":"1,762 views; 124 likes; 7 comments.","limitations":"One transcript."},
+      "natural_english":[{"text":"ask instead of guessing","attribution":"synthesized_pattern"}]
     }
   ],
-  "sources": [
+  "sources":[
     {
-      "source_ref": "s1",
-      "title": "Scorpio relationship repair and accountability discussion",
-      "platform": "instagram",
-      "url": "https://www.instagram.com/p/DbgHNd4j4oc",
-      "displayed_date": "2026-08-01",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body", "comments"],
-      "supported_topic_ids": ["miraa-w34-six-t01"],
-      "body_excerpt": "The post says Scorpio does not expect perfection but wants honest repair: admit mistakes, have the uncomfortable conversation, and choose accountability over pride.",
-      "visible_engagement": "2K likes and 3 visible comments at observation time"
+      "source_ref":"s1","title":"Scorpio repair discussion","platform":"instagram","url":"https://www.instagram.com/p/DbgHNd4j4oc","displayed_date":"2026-08-01","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t01"],"body_excerpt":"Admit mistakes, have the hard talk, repair honestly.","visible_engagement":"2K likes; 3 comments"
     },
     {
-      "source_ref": "s2",
-      "title": "Scorpio emotion-processing discussion",
-      "platform": "instagram",
-      "url": "https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7",
-      "displayed_date": "2026-08-17",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body", "comments"],
-      "supported_topic_ids": ["miraa-w34-six-t02"],
-      "comment_excerpt": "Comments describe appearing calm outside while feeling intense inside, with analysis and memory preceding reaction.",
-      "visible_engagement": "25.9K likes and 118 comments at observation time"
+      "source_ref":"s2","title":"Scorpio processing discussion","platform":"instagram","url":"https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7","displayed_date":"2026-08-17","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t02"],"comment_excerpt":"Calm outside; analysis and memory before reaction.","visible_engagement":"25.9K likes; 118 comments"
     },
     {
-      "source_ref": "s3",
-      "title": "Why do people think Aries likes to be fast-paced?",
-      "platform": "reddit",
-      "url": "https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/",
-      "displayed_date": "2026-08-14",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body", "comments"],
-      "supported_topic_ids": ["miraa-w34-six-t03"],
-      "body_excerpt": "The poster separates fast physical or social pace from emotional commitment; replies describe slow-burn relationships, careful selection and commitment after certainty.",
-      "engagement_note": "互动量不可核验; readable body plus multiple independent replies were used as the discussion signal",
-      "substitute_signals": ["readable body plus multiple independent replies"]
+      "source_ref":"s3","title":"Aries relationship pace","platform":"reddit","url":"https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/","displayed_date":"2026-08-14","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t03"],"body_excerpt":"Fast pace can coexist with careful commitment.","engagement_note":"互动量不可核验","substitute_signals":["readable body and replies"]
     },
     {
-      "source_ref": "s4",
-      "title": "Capricorn leaving energy-draining situations discussion",
-      "platform": "instagram",
-      "url": "https://www.instagram.com/p/DcFO9dKjwvr",
-      "displayed_date": "2026-08-15",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body", "comments"],
-      "supported_topic_ids": ["miraa-w34-six-t04"],
-      "comment_excerpt": "Comments describe walking away from negative meetings, jobs, friendships and relationships after observing and giving chances.",
-      "visible_engagement": "3.7K likes and 23 comments at observation time"
+      "source_ref":"s4","title":"Capricorn energy drain","platform":"instagram","url":"https://www.instagram.com/p/DcFO9dKjwvr","displayed_date":"2026-08-15","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t04"],"comment_excerpt":"Leave draining meetings, jobs, friendships and relationships.","visible_engagement":"3.7K likes; 23 comments"
     },
     {
-      "source_ref": "s5",
-      "title": "Aquarius space is not automatic rejection discussion",
-      "platform": "instagram",
-      "url": "https://www.instagram.com/p/DbqoJgpOc1D",
-      "displayed_date": "2026-08-05",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body", "comments"],
-      "supported_topic_ids": ["miraa-w34-six-t05"],
-      "body_excerpt": "The post says Aquarius can process emotions privately and need distance without caring less; trust, freedom and respect for individuality can support voluntary closeness.",
-      "visible_engagement": "80.4K likes and 178 comments at observation time"
+      "source_ref":"s5","title":"Aquarius space discussion","platform":"instagram","url":"https://www.instagram.com/p/DbqoJgpOc1D","displayed_date":"2026-08-05","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t05"],"body_excerpt":"Private processing and distance can coexist with care.","visible_engagement":"80.4K likes; 178 comments"
     },
     {
-      "source_ref": "s6",
-      "title": "Pisces weekly horoscope for August 17-23, 2026",
-      "platform": "youtube",
-      "url": "https://www.youtube.com/watch?v=zuPXdDu112o",
-      "displayed_date": "2026-08-14",
-      "observed_at": "2026-08-18T15:49:57+08:00",
-      "access_status": "readable",
-      "readable_layers": ["body"],
-      "supported_topic_ids": ["miraa-w34-six-t06"],
-      "body_excerpt": "The transcript says relationship or work confusion can ease when Pisces reaches out, talks through details and avoids reacting to uncertain information.",
-      "visible_engagement": "1,762 views, 124 likes and 7 comments in the indexed record"
+      "source_ref":"s6","title":"Pisces August 17-23","platform":"youtube","url":"https://www.youtube.com/watch?v=zuPXdDu112o","displayed_date":"2026-08-14","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body"],"supported_topic_ids":["miraa-w34-six-t06"],"body_excerpt":"Reach out, check details, avoid reacting to uncertainty.","visible_engagement":"1,762 views; 124 likes; 7 comments"
     }
   ],
-  "life_detail_bank": [
-    "承认错误时先说事实而不是辩解",
-    "争执后把没说完的话重新谈完",
-    "用后续行动恢复信任",
-    "当下看起来平静",
-    "回家后重放每一句话",
-    "隔一段时间才说出真正介意的点",
-    "很快约下一次见面",
-    "正式定义关系前观察更久",
-    "重复参加没有结果的会议",
-    "给同一份工作多次改善机会",
-    "停止参加持续消耗的社交安排",
-    "一天不回闲聊但没有结束关系",
-    "先独处整理情绪再回来谈",
-    "被允许保留空间后更愿意靠近",
-    "语气变化后先直接询问",
-    "核对双方记得不同的细节",
-    "不靠猜测决定关系下一步"
-  ],
-  "language_bank": {
-    "phrases": [
-      {"text": "own what happened", "attribution": "synthesized_pattern"},
-      {"text": "have the uncomfortable conversation", "attribution": "synthesized_pattern"},
-      {"text": "repair matters more than perfection", "attribution": "synthesized_pattern"},
-      {"text": "I need to replay it first", "attribution": "synthesized_pattern"},
-      {"text": "calm outside, sorting it out inside", "attribution": "synthesized_pattern"},
-      {"text": "say the real issue later", "attribution": "synthesized_pattern"},
-      {"text": "fast start, slow commitment", "attribution": "synthesized_pattern"},
-      {"text": "I do not rush the label", "attribution": "synthesized_pattern"},
-      {"text": "certain before committed", "attribution": "synthesized_pattern"},
-      {"text": "I gave it enough chances", "attribution": "synthesized_pattern"},
-      {"text": "done spending energy here", "attribution": "synthesized_pattern"},
-      {"text": "leaving instead of arguing forever", "attribution": "synthesized_pattern"},
-      {"text": "I need space to process", "attribution": "synthesized_pattern"},
-      {"text": "distance is not always rejection", "attribution": "synthesized_pattern"},
-      {"text": "come back when the thought is clear", "attribution": "synthesized_pattern"},
-      {"text": "ask instead of guessing", "attribution": "synthesized_pattern"},
-      {"text": "get the details straight", "attribution": "synthesized_pattern"},
-      {"text": "do not fill in the blanks", "attribution": "synthesized_pattern"}
+  "life_detail_bank":["先承认错误","谈完冲突","行动修复","当下平静","回家重放","延迟表达","很快约见","慢定关系","无效会议","多给机会","退出消耗","慢回闲聊","独处处理","回来沟通","直接询问"],
+  "language_bank":{
+    "phrases":[
+      {"text":"own it","attribution":"synthesized_pattern"},
+      {"text":"repair it","attribution":"synthesized_pattern"},
+      {"text":"hard conversation","attribution":"synthesized_pattern"},
+      {"text":"replay it","attribution":"synthesized_pattern"},
+      {"text":"calm outside","attribution":"synthesized_pattern"},
+      {"text":"say it later","attribution":"synthesized_pattern"},
+      {"text":"move fast","attribution":"synthesized_pattern"},
+      {"text":"choose slowly","attribution":"synthesized_pattern"},
+      {"text":"enough chances","attribution":"synthesized_pattern"},
+      {"text":"leave the drain","attribution":"synthesized_pattern"},
+      {"text":"need space","attribution":"synthesized_pattern"},
+      {"text":"still care","attribution":"synthesized_pattern"},
+      {"text":"come back clear","attribution":"synthesized_pattern"},
+      {"text":"ask first","attribution":"synthesized_pattern"},
+      {"text":"check details","attribution":"synthesized_pattern"}
     ],
-    "questions": [
-      {"text": "What happened after the mistake?", "attribution": "synthesized_pattern"},
-      {"text": "Why did the reaction come later?", "attribution": "synthesized_pattern"},
-      {"text": "Are we moving fast or committing fast?", "attribution": "synthesized_pattern"},
-      {"text": "How many chances were already given?", "attribution": "synthesized_pattern"},
-      {"text": "Is this space or a real exit?", "attribution": "synthesized_pattern"},
-      {"text": "Did anyone ask what actually happened?", "attribution": "synthesized_pattern"}
+    "questions":[
+      {"text":"What happened after?","attribution":"synthesized_pattern"},
+      {"text":"Why react later?","attribution":"synthesized_pattern"},
+      {"text":"Fast or committed?","attribution":"synthesized_pattern"},
+      {"text":"How many chances?","attribution":"synthesized_pattern"},
+      {"text":"Space or exit?","attribution":"synthesized_pattern"}
     ],
-    "reaction_patterns": [
-      {"text": "The repair matters to me.", "attribution": "synthesized_pattern"},
-      {"text": "I looked calm, but I was processing it.", "attribution": "synthesized_pattern"},
-      {"text": "I move fast, but I choose slowly.", "attribution": "synthesized_pattern"},
-      {"text": "I left after too many chances.", "attribution": "synthesized_pattern"},
-      {"text": "I need space, but I still care.", "attribution": "synthesized_pattern"},
-      {"text": "I should have asked instead of guessing.", "attribution": "synthesized_pattern"}
+    "reaction_patterns":[
+      {"text":"Repair matters.","attribution":"synthesized_pattern"},
+      {"text":"I was processing.","attribution":"synthesized_pattern"},
+      {"text":"I choose slowly.","attribution":"synthesized_pattern"},
+      {"text":"I gave chances.","attribution":"synthesized_pattern"},
+      {"text":"I need space.","attribution":"synthesized_pattern"}
     ]
   }
 }
