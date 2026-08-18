@@ -177,7 +177,8 @@
       "readable_layers": ["body", "comments"],
       "supported_topic_ids": ["miraa-w34-six-t03"],
       "body_excerpt": "The poster separates fast physical or social pace from emotional commitment; replies describe slow-burn relationships, careful selection and commitment after certainty.",
-      "engagement_note": "互动量不可核验; substitute signal: readable body plus multiple independent replies"
+      "engagement_note": "互动量不可核验; readable body plus multiple independent replies were used as the discussion signal",
+      "substitute_signals": ["readable body plus multiple independent replies"]
     },
     {
       "source_ref": "s4",
