@@ -5,113 +5,113 @@
   "mode":"B",
   "week":"2026-W34",
   "searched_at":"2026-08-18T15:49:57+08:00",
-  "sample_limitations":"Qualitative sample. Reddit browser blocked; saved capture used. X blocked; Quora metadata-only.",
-  "competitor_index_checked_at":"2026-08-18T15:46+08:00; CSV; 18 rows.",
-  "apps_script_library_attempt":"2026-08-18T15:48+08:00; login_required.",
+  "sample_limitations":"Qualitative; blocked channels excluded.",
+  "competitor_index_checked_at":"2026-08-18T15:46+08:00;18 rows.",
+  "apps_script_library_attempt":"2026-08-18T15:48+08:00;login.",
   "platforms_attempted":["reddit","x","quora","youtube","instagram"],
   "platforms_accessed":["reddit","youtube","instagram"],
   "opened_pages":8,
   "readable_pages":6,
   "unavailable_sources":[
-    {"platform":"x","failure_layer":"rate limit"},
+    {"platform":"x","failure_layer":"blocked"},
     {"platform":"quora","failure_layer":"metadata"},
-    {"platform":"reddit","failure_layer":"browser challenge"}
+    {"platform":"reddit","failure_layer":"challenge"}
   ],
   "topics":[
     {
       "topic_id":"miraa-w34-six-t01",
       "topic_name":"Scorpio 冲突处理",
-      "discussion":"先处理含义，再修复关系。",
+      "discussion":"处理后修复。",
       "life_scenes":["先承认错误","谈完冲突","当下平静","回家重放"],
-      "video_fit":"可拆修复与延迟反应。",
-      "main_views":"修复重于完美；延迟可能是处理。",
-      "counter_views":"单平台样本。",
-      "discussion_evidence":{"source_refs":["s1","s2"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"2 recent threads.","limitations":"Qualitative."},
+      "video_fit":"可拆两题。",
+      "main_views":"先处理再修复。",
+      "counter_views":"样本有限。",
+      "discussion_evidence":{"source_refs":["s1","s2"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"2 threads.","limitations":"Single platform."},
       "natural_english":[{"text":"own it","attribution":"synthesized_pattern"}]
     },
     {
       "topic_id":"miraa-w34-six-t03",
       "topic_name":"Aries 节奏",
-      "discussion":"行动快，承诺可慢。",
+      "discussion":"快行动慢承诺。",
       "life_scenes":["快约下次","慢定关系"],
-      "video_fit":"反刻板印象。",
-      "main_views":"快不等于随便。",
+      "video_fit":"反刻板。",
+      "main_views":"快非随便。",
       "counter_views":"个体不同。",
-      "discussion_evidence":{"source_refs":["s3"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"Body+replies.","limitations":"One thread."},
+      "discussion_evidence":{"source_refs":["s3"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"Body+replies.","limitations":"Single."},
       "natural_english":[{"text":"choose slowly","attribution":"synthesized_pattern"}]
     },
     {
       "topic_id":"miraa-w34-six-t04",
       "topic_name":"Capricorn 退出",
-      "discussion":"多次给机会后退出消耗。",
+      "discussion":"给机会后退出。",
       "life_scenes":["无效会议","停止消耗"],
-      "video_fit":"行为链清楚。",
-      "main_views":"退出源于评估。",
-      "counter_views":"沉默会误读。",
-      "discussion_evidence":{"source_refs":["s4"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"3.7K/23.","limitations":"One thread."},
+      "video_fit":"行为清楚。",
+      "main_views":"退出经评估。",
+      "counter_views":"会被误读。",
+      "discussion_evidence":{"source_refs":["s4"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"3.7K/23.","limitations":"Single."},
       "natural_english":[{"text":"enough chances","attribution":"synthesized_pattern"}]
     },
     {
       "topic_id":"miraa-w34-six-t05",
       "topic_name":"Aquarius 空间",
-      "discussion":"距离可与在乎并存。",
+      "discussion":"距离仍在乎。",
       "life_scenes":["慢回闲聊","独处后谈"],
       "video_fit":"纠正误读。",
-      "main_views":"空间可能是处理。",
-      "counter_views":"不能无限消失。",
-      "discussion_evidence":{"source_refs":["s5"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"80.4K/178.","limitations":"One thread."},
+      "main_views":"空间可处理。",
+      "counter_views":"不可无限消失。",
+      "discussion_evidence":{"source_refs":["s5"],"cross_platform":false,"evidence_strength":"strong","discussion_signal":"80.4K/178.","limitations":"Single."},
       "natural_english":[{"text":"need space","attribution":"synthesized_pattern"}]
     },
     {
       "topic_id":"miraa-w34-six-t06",
       "topic_name":"Pisces 核对",
-      "discussion":"W34 混乱时先问清。",
+      "discussion":"混乱先问清。",
       "life_scenes":["询问变化","核对记忆"],
-      "video_fit":"时效沟通提醒。",
-      "main_views":"问比猜可靠。",
-      "counter_views":"非确定预测。",
-      "discussion_evidence":{"source_refs":["s6"],"cross_platform":false,"evidence_strength":"medium","discussion_signal":"1762/124/7.","limitations":"One transcript."},
+      "video_fit":"W34 提醒。",
+      "main_views":"问比猜好。",
+      "counter_views":"非预测。",
+      "discussion_evidence":{"source_refs":["s6"],"cross_platform":false,"evidence_strength":"medium","discussion_signal":"1762/124/7.","limitations":"Single."},
       "natural_english":[{"text":"ask first","attribution":"synthesized_pattern"}]
     }
   ],
   "sources":[
     {
-      "source_ref":"s1","title":"S1","platform":"instagram","url":"https://www.instagram.com/p/DbgHNd4j4oc","displayed_date":"2026-08-01","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t01"],"body_excerpt":"The post says Scorpio does not expect perfection but wants honest repair: admit mistakes, have the uncomfortable conversation, and choose accountability over pride.","visible_engagement":"2K/3"
+      "source_ref":"s1","title":"S1","platform":"instagram","url":"https://www.instagram.com/p/DbgHNd4j4oc","displayed_date":"2026-08-01","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t01"],"body_excerpt":"The post says Scorpio does not expect perfection but wants honest repair: admit mistakes, have the uncomfortable conversation, and choose accountability over pride.","visible_engagement":"2K/3"
     },
     {
-      "source_ref":"s2","title":"S2","platform":"instagram","url":"https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7","displayed_date":"2026-08-17","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t01"],"comment_excerpt":"Comments describe appearing calm outside while feeling intense inside, with analysis and memory preceding reaction.","visible_engagement":"25.9K/118"
+      "source_ref":"s2","title":"S2","platform":"instagram","url":"https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7","displayed_date":"2026-08-17","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t01"],"comment_excerpt":"Comments describe appearing calm outside while feeling intense inside, with analysis and memory preceding reaction.","visible_engagement":"25.9K/118"
     },
     {
-      "source_ref":"s3","title":"S3","platform":"reddit","url":"https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/","displayed_date":"2026-08-14","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t03"],"body_excerpt":"The poster separates fast physical or social pace from emotional commitment; replies describe slow-burn relationships, careful selection and commitment after certainty.","engagement_note":"互动量不可核验","substitute_signals":["body+replies"]
+      "source_ref":"s3","title":"S3","platform":"reddit","url":"https://www.reddit.com/r/AriesTheRam/comments/1vnnd3a/why_do_people_think_we_like_to_be_fast_paced/","displayed_date":"2026-08-14","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t03"],"body_excerpt":"The poster separates fast physical or social pace from emotional commitment; replies describe slow-burn relationships, careful selection and commitment after certainty.","engagement_note":"互动量不可核验","substitute_signals":["body+replies"]
     },
     {
-      "source_ref":"s4","title":"S4","platform":"instagram","url":"https://www.instagram.com/p/DcFO9dKjwvr","displayed_date":"2026-08-15","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t04"],"comment_excerpt":"Comments describe walking away from negative meetings, jobs, friendships and relationships after observing and giving chances.","visible_engagement":"3.7K/23"
+      "source_ref":"s4","title":"S4","platform":"instagram","url":"https://www.instagram.com/p/DcFO9dKjwvr","displayed_date":"2026-08-15","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t04"],"comment_excerpt":"Comments describe walking away from negative meetings, jobs, friendships and relationships after observing and giving chances.","visible_engagement":"3.7K/23"
     },
     {
-      "source_ref":"s5","title":"S5","platform":"instagram","url":"https://www.instagram.com/p/DbqoJgpOc1D","displayed_date":"2026-08-05","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t05"],"body_excerpt":"The post says Aquarius can process emotions privately and need distance without caring less; trust, freedom and respect for individuality can support voluntary closeness.","visible_engagement":"80.4K/178"
+      "source_ref":"s5","title":"S5","platform":"instagram","url":"https://www.instagram.com/p/DbqoJgpOc1D","displayed_date":"2026-08-05","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body","comments"],"supported_topic_ids":["miraa-w34-six-t05"],"body_excerpt":"The post says Aquarius can process emotions privately and need distance without caring less; trust, freedom and respect for individuality can support voluntary closeness.","visible_engagement":"80.4K/178"
     },
     {
-      "source_ref":"s6","title":"S6","platform":"youtube","url":"https://www.youtube.com/watch?v=zuPXdDu112o","displayed_date":"2026-08-14","observed_at":"2026-08-18T15:49:57+08:00","access_status":"readable","readable_layers":["body"],"supported_topic_ids":["miraa-w34-six-t06"],"body_excerpt":"The transcript says relationship or work confusion can ease when Pisces reaches out, talks through details and avoids reacting to uncertain information.","visible_engagement":"1762/124/7"
+      "source_ref":"s6","title":"S6","platform":"youtube","url":"https://www.youtube.com/watch?v=zuPXdDu112o","displayed_date":"2026-08-14","observed_at":"2026-08-18","access_status":"readable","readable_layers":["body"],"supported_topic_ids":["miraa-w34-six-t06"],"body_excerpt":"The transcript says relationship or work confusion can ease when Pisces reaches out, talks through details and avoids reacting to uncertain information.","visible_engagement":"1762/124/7"
     }
   ],
   "life_detail_bank":["认错","复谈","修复","平静","重放","延迟","快约","慢定","会议","机会","退出","慢回","独处","回谈","询问"],
   "language_bank":{
     "phrases":[
       {"text":"own it","attribution":"synthesized_pattern"},
-      {"text":"repair it","attribution":"synthesized_pattern"},
-      {"text":"hard talk","attribution":"synthesized_pattern"},
-      {"text":"replay it","attribution":"synthesized_pattern"},
-      {"text":"stay calm","attribution":"synthesized_pattern"},
-      {"text":"say later","attribution":"synthesized_pattern"},
-      {"text":"move fast","attribution":"synthesized_pattern"},
-      {"text":"choose slow","attribution":"synthesized_pattern"},
+      {"text":"repair","attribution":"synthesized_pattern"},
+      {"text":"talk","attribution":"synthesized_pattern"},
+      {"text":"replay","attribution":"synthesized_pattern"},
+      {"text":"calm","attribution":"synthesized_pattern"},
+      {"text":"later","attribution":"synthesized_pattern"},
+      {"text":"move","attribution":"synthesized_pattern"},
+      {"text":"choose","attribution":"synthesized_pattern"},
       {"text":"enough chances","attribution":"synthesized_pattern"},
-      {"text":"leave drain","attribution":"synthesized_pattern"},
-      {"text":"need space","attribution":"synthesized_pattern"},
-      {"text":"still care","attribution":"synthesized_pattern"},
-      {"text":"come back","attribution":"synthesized_pattern"},
-      {"text":"ask first","attribution":"synthesized_pattern"},
-      {"text":"check facts","attribution":"synthesized_pattern"}
+      {"text":"leave","attribution":"synthesized_pattern"},
+      {"text":"space","attribution":"synthesized_pattern"},
+      {"text":"care","attribution":"synthesized_pattern"},
+      {"text":"return","attribution":"synthesized_pattern"},
+      {"text":"ask","attribution":"synthesized_pattern"},
+      {"text":"check","attribution":"synthesized_pattern"}
     ],
     "questions":[
       {"text":"What next?","attribution":"synthesized_pattern"},
