@@ -14,7 +14,7 @@ format: AI Host
 production_tool: HeyGen
 priority: P0
 effort: M
-content_stage: selected
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "Pengman supplied and confirmed · 2026-08-17"
 inventory_ready: false
@@ -30,7 +30,14 @@ source_evidence:
   - "skills/learn-content-preferences/references/pengman-preference-profile.json · currentRound candidate D"
 status: draft
 owner: Pengman
-updated: 2026-08-17
+updated: "2026-08-17"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7674952729978080525"
+platform_post_id: "7674952729978080525"
+published_at: "2026-08-17T14:25:00.000Z"
+published_date: "2026-08-17"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-18T02:30:17.587Z"
 ---
 
 # Aquarius 需要空间，但伴侣需要明确感

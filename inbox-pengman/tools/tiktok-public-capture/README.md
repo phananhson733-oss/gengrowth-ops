@@ -66,7 +66,7 @@ TikTok 公开账号
 
 1. 同一天重复运行时，Excel、CSV、采集摘要和同名原始文件使用固定日期文件名，因此会覆盖当天文件；不会追加，也不会创建带运行序号的新文件。
 2. 原脚本只有当前运行内的 detail Map，没有跨运行的 post_id 去重或历史数据库。升级后，当前结果先按 post_id 去重，SQLite 的 posts 以 post_id 为主键。
-3. 默认运行仍会重新读取 4 个历史账号主页、creator embed 当前暴露的全部内容，并逐条重新读取详情，以保留指标连续性；这不表示 4 个账号都仍在生产。当前生产只聚焦官号与 Miraa。--from-raw 仅用于本地回放测试，不发起网络请求。
+3. 默认运行会重新读取 `collect_tiktok_public_data.mjs` 中配置的全部账号主页、creator embed 当前暴露的全部内容，并逐条重新读取详情，以保留指标连续性；进入采集清单不表示该账号仍在生产。--from-raw 仅用于本地回放测试，不发起网络请求。
 4. 无法取得的数字字段保留为 null；CSV 中为空单元格，Excel 中为空值。真实的公开 0 保留为 0。SQLite 继续使用 NULL，不把缺失字段写成 0。
 5. 输出目录：
    - 日期文件：/Users/pengman/gengrowth-ops/inbox-pengman/output/

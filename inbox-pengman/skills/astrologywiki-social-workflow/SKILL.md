@@ -295,6 +295,11 @@ Hook 检查：
 - **偏好训练确认 · 2026-08-17**：优先“抽象概念需要用更简单直白的词表达”。适用范围：适用于后续短 Hook：优先使用简短、直白、容易立即理解的行为表达。。
 <!-- /preference-rule:a023755f-3f23-4f39-83f9-b21a2faa1aef -->
 
+
+<!-- preference-rule:4d648243-9ffa-4dd7-a93e-ea92d2af866d -->
+- **偏好训练确认 · 2026-08-18**：优先“偏好更简洁的 Hook”。适用范围：适用于后续关系类短 Hook，在保留关系张力的前提下压缩长度。。
+<!-- /preference-rule:4d648243-9ffa-4dd7-a93e-ea92d2af866d -->
+
 ## 9. Candidate Research Workflow
 
 ### Step 1：读取产能和缺口

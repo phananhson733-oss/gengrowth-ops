@@ -14,7 +14,7 @@ format: Dual AI Host / question and answer
 production_tool: HeyGen
 priority: P0
 effort: L
-content_stage: selected
+content_stage: "published"
 script_status: 已确认
 confirmed_script_version: "Pengman supplied; reassurance simplified · 2026-08-17"
 inventory_ready: false
@@ -30,7 +30,14 @@ source_evidence:
   - "skills/learn-content-preferences/references/pengman-preference-profile.json · currentRound candidate D"
 status: draft
 owner: Pengman
-updated: 2026-08-17
+updated: "2026-08-17"
+published_url: "https://www.tiktok.com/@miraaastrology/video/7674953344418385165"
+platform_post_id: "7674953344418385165"
+published_at: "2026-08-17T18:30:00.000Z"
+published_date: "2026-08-17"
+publish_sync_status: "matched"
+publish_sync_method: "account_caption"
+publish_sync_last_checked_at: "2026-08-18T02:30:17.587Z"
 ---
 
 # Scorpio 为什么绕着真正的问题问

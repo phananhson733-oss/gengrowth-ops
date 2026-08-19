@@ -6,7 +6,19 @@ import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 import { saveLocalHistory, syncGoogleSheets } from "./persistence.mjs";
 import { reconcileProductionRecords } from "./reconcile_published_content.mjs";
 
-const usernames = ["astrologywiki", "shirley527146", "miraaastrology", "filestarsx"];
+const usernames = [
+  "astrologywiki",
+  "shirley527146",
+  "miraaastrology",
+  "filestarsx",
+  "shirley5278789",
+  "shirley5276973",
+  "user3127916753059",
+  "user4485806813444",
+  "user12027302755050",
+  "user2942394775979",
+  "user47225225594035",
+];
 const fromRaw = process.argv.includes("--from-raw");
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, "../../..");
