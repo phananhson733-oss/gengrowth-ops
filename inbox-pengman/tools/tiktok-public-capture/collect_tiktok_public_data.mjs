@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 import { saveLocalHistory, syncGoogleSheets } from "./persistence.mjs";
 import { reconcileProductionRecords } from "./reconcile_published_content.mjs";
+import { syncFeishuFollowerMetrics } from "./feishu_sync.mjs";
 
 const usernames = [
   "astrologywiki",
@@ -397,6 +398,12 @@ for (const sheetName of ["accounts", "posts"]) {
   await fs.writeFile(path.join(rawDir, "qa_" + sheetName + ".png"), new Uint8Array(await preview.arrayBuffer()));
 }
 
+const feishu = await syncFeishuFollowerMetrics({
+  dbPath: localHistory.database_path,
+  runId: localHistory.run_id,
+  scriptDir,
+});
+
 const googleSheets = await syncGoogleSheets({
   dbPath: localHistory.database_path,
   runId: localHistory.run_id,
@@ -439,6 +446,7 @@ const summary = {
   partial_posts: posts.filter((row) => row.likes === null).length,
   errors,
   local_history: localHistory,
+  feishu,
   google_sheets: googleSheets,
   production_sync: productionSync,
   files: {
