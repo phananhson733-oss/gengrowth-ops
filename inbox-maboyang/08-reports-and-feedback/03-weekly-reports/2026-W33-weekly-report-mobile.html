@@ -2,280 +2,219 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GenGrowth 产品与 SEO 周报 | 2026-W33</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SEO 与产品周报 | 2026 W33</title>
   <style>
-    :root{--ink:#20202a;--muted:#6c6b7a;--paper:#f5f4fb;--card:#fff;--violet:#6b4eff;--green:#198754;--amber:#a96600;--red:#b73a48;--line:#e7e4f1}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}.wrap{max-width:720px;margin:auto;padding:20px 14px 48px}header{background:linear-gradient(135deg,#302663,#6b4eff);color:#fff;border-radius:22px;padding:24px 20px;box-shadow:0 12px 30px #35268422}h1{font-size:24px;line-height:1.25;margin:0 0 8px}.meta{font-size:12px;opacity:.82}.lead{font-size:16px;margin:18px 0 0}.section{margin-top:20px}.section h2{font-size:19px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric,.card,details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px}.metric b{display:block;font-size:23px;color:var(--violet)}.metric span{font-size:12px;color:var(--muted)}.card{margin-bottom:10px}.card h3{font-size:16px;margin:0 0 5px}.card p{margin:5px 0}.label{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;background:#eee}.adjust{background:#fff1d5;color:var(--amber)}.continue{background:#dcf5e7;color:var(--green)}.pending{background:#f3e8ff;color:#7040a0}.stop{background:#ffe0e4;color:var(--red)}.small{font-size:12px;color:var(--muted)}ul,ol{padding-left:20px}.signal{border-left:4px solid var(--violet)}.warn{border-left:4px solid #e2a12f}.good{border-left:4px solid #2aa66b}.bad{border-left:4px solid #b73a48}a{color:#5138db;text-decoration:none;font-weight:600}summary{cursor:pointer;font-weight:750}details{margin-bottom:10px}details>div{margin-top:12px}.num{font-variant-numeric:tabular-nums}table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.goal{background:linear-gradient(135deg,#fff5f5,#f5f4fb);border:1px solid #f0d0d4}.footer{margin-top:24px;color:var(--muted);font-size:11px;text-align:center}@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}header{padding:30px}.wrap{padding-top:28px}}
+    :root{--ink:#20202a;--muted:#6c6b7a;--paper:#f5f4fb;--card:#fff;--violet:#6b4eff;--deep:#4a3ab5;--green:#198754;--amber:#a96600;--red:#b73a48;--line:#e7e4f1;--warm:#fff8f3}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}
+    .wrap{max-width:760px;margin:auto;padding:20px 14px 48px}
+    header{background:linear-gradient(135deg,#302663,#6b4eff);color:#fff;border-radius:22px;padding:26px 22px;box-shadow:0 12px 30px #35268422}
+    .kicker{margin:0 0 10px;font-size:12px;letter-spacing:.06em;opacity:.8}
+    h1{font-size:26px;line-height:1.25;margin:0 0 10px;font-weight:600}
+    .meta{font-size:12.5px;opacity:.85;margin:0}
+    .overview{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px}
+    .overview h2{margin:0 0 8px;font-size:17px}
+    .overview p{margin:0 0 8px;font-size:14px}.overview p:last-child{margin:0}
+    .sec{margin-top:26px}
+    .sec-title{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+    .num{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#efecff;color:var(--violet);font-size:12px;font-weight:700;flex:none}
+    .sec-title h2{margin:0;font-size:19px;font-weight:600}
+    .lead{margin:0 0 12px;font-size:13px;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin-bottom:10px}
+    .card h3{margin:0 0 6px;font-size:16px}.card p{margin:0 0 7px;font-size:13.5px}.card p:last-child{margin:0}
+    .card small{color:var(--violet);font-size:12px;font-weight:600}
+    .card ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}.card li{margin:5px 0}
+    .key{border-left:4px solid var(--violet)}
+    .use{color:var(--deep);font-size:13px;font-weight:600}
+    .quote{background:#efecff;border-radius:12px;padding:13px 15px;margin:10px 0;color:#332a58;font-size:13px;line-height:1.9}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:0}
+    th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:var(--muted);font-weight:600;background:#faf9ff}tr:last-child td{border-bottom:0}
+    .tw{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .plan{display:grid;grid-template-columns:38px 1fr;background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;overflow:hidden}
+    .plan b{display:grid;place-items:center;background:#faf9ff;border-right:1px solid var(--line);color:var(--violet);font-size:12px}
+    .plan p{margin:0;padding:11px 13px;font-size:13.5px}
+    .risk{background:var(--warm);border:1px solid #f2cbb5;border-radius:16px;padding:16px 17px}
+    .risk h3{margin:0 0 4px;font-size:15px}.risk p{margin:0 0 13px;color:#6a5a4d;font-size:13px}.risk p:last-child{margin:0}
+    .ask{background:#f8f7ff;border:1px solid #cfc6ff;border-radius:16px;padding:15px 17px;margin-bottom:10px}
+    .ask small{color:var(--violet);font-size:12px;font-weight:600}
+    .ask h3{margin:4px 0 8px;font-size:16px}
+    .ask ol,.ask ul{margin:0;padding-left:18px;font-size:13px}.ask li{margin:6px 0}
+    code{background:#f1eefc;padding:1px 5px;border-radius:4px;font-size:12.5px}
+    .footer{margin-top:26px;color:var(--muted);font-size:11.5px;text-align:center}
+    @media(min-width:640px){.wrap{padding-top:28px}header{padding:32px 30px}h1{font-size:30px}}
   </style>
 </head>
 <body><main class="wrap">
+
   <header>
-    <div class="meta">2026-W33 · 8月10日—8月16日 · 给 Lynne</div>
-    <h1>GenGrowth 产品与 SEO 周报</h1>
-    <p class="lead"><strong>本周最有价值的产出，是通过 SEO 社群一对一拿到的一段用户访谈——它指出产品缺的不是功能，是「翻译」。</strong><br>我做的三条技术诊断结论都是"没问题"，<strong>而访谈直接指向了真瓶颈。</strong></p>
+    <p class="kicker">WEEKLY PROGRESS REPORT</p>
+    <h1>SEO 与产品周报</h1>
+    <p class="meta">2026.08.10 – 08.16　|　汇报日期 2026.08.17　|　马博洋</p>
   </header>
 
-  <section class="section">
-    <h2>一、本周目标</h2>
-    <div class="card goal" style="background:linear-gradient(135deg,#fffbf0,#f5f4fb);border:1px solid #f0e0c0">
-      <h3>找到 10 个种子用户验证 SEO 工具 <span class="label adjust">形式未达成 · 目的达成</span></h3>
-      <p><strong>公开渠道全线受阻：</strong></p>
-      <table>
-        <tr><td>Reddit</td><td>账号被封，申诉中</td></tr>
-        <tr><td>Hacker News</td><td>提交被拦 + 低 karma 限流。<strong>实测该题材 13 个月内没有一条超过 9 分的帖子</strong></td></tr>
-        <tr><td>IndieHackers</td><td>产品页已建，发帖权限要先靠评论积累</td></tr>
-      </table>
-      <p><strong>三者共同点：都需要账号信誉的时间积累。</strong></p>
-      <p><strong>但换了渠道——改走 SEO 社群一对一邀请体验，拿到了一段深度用户访谈，并已据此修改产品（8/14 之前完成）。</strong></p>
-      <p class="small">原目标要的是「10 人跑通授权 + 5 人给可用反馈」。<strong>实际拿到的是一段能直接改产品定位的访谈——比 10 份「挺好用的」有价值得多。</strong>核心结论见第二节 ⑦。</p>
-      <p>💡 <strong>建议改口径</strong>：从「找到 N 个用户」改成「拿到 N 段能改动产品的反馈」。<strong>数量不是目的，判断依据才是。</strong></p>
-    </div>
-  </section>
+  <div class="overview">
+    <h2>本周概览</h2>
+    <p>未达成「10 个种子用户」的形式目标——三个公开渠道都要先养账号，短期突破不了。但改走 SEO 社群一对一，拿到一段深度用户访谈，<strong>直接改变了产品方向判断，并已据此修改产品</strong>。</p>
+    <p>同时完成 gengrowth.ai 三方向诊断收口、彪哥三项交办验收、dramafinds 技术审计与执行方案。</p>
+    <p><strong>文章发布 2 篇，低于计划 5 篇，排期已顺延 3 天。</strong></p>
+  </div>
 
-  <section class="section">
-    <h2>二、关键执行事项</h2>
+  <section class="sec">
+    <div class="sec-title"><span class="num">01</span><h2>本周完成</h2></div>
 
-    <div class="card good"><h3>① 诊断收官：三条线全部排除 <span class="label continue">可以放心继续产内容</span></h3>
-      <table>
-        <tr><th>排查方向</th><th>结论</th></tr>
-        <tr><td>内容生产行不行</td><td>✅ <strong>没问题</strong>——8/7 发的四篇技术面全干净、已收录，4 天进 17–32 名</td></tr>
-        <tr><td>技术配置行不行</td><td>✅ <strong>没问题</strong>——迁移六项全对，新文 canonical / 渲染 / schema 齐全</td></tr>
-        <tr><td>内链行不行</td><td>✅ <strong>已饱和，不是瓶颈</strong></td></tr>
-      </table>
-      <p><strong>真实瓶颈是域名权重和主题簇厚度。</strong></p>
-    </div>
-
-    <div class="card good"><h3>② 彪哥执行验收：B1 / B2 / B4 全部通过</h3>
-      <table>
-        <tr><th>#</th><th>事项</th><th>验收</th></tr>
-        <tr><td>B2</td><td>7 个「308 → 404」</td><td>全部落到真实内容，最终 200</td></tr>
-        <tr><td>B1</td><td>legacy sitemap</td><td>已上线，<strong>覆盖从要求的 95 条扩到 162 条</strong>（代码侧生成全部历史 URL）</td></tr>
-        <tr><td>B4</td><td>分页 canonical</td><td>已改自指，73 篇文章发现路径恢复</td></tr>
-      </table>
-      <p class="small">三个最容易踩的坑一个都没踩：没并进主 sitemap、robots 没误加 Disallow、没加 noindex。</p>
-      <p><strong>最大收益</strong>：近 3 个月 <strong>27% 的 AI 引用（51/186）</strong>此前落在这些死链上，<strong>包括被引用最多的第 1 名（43 次）</strong>，现在都有了真实落点。</p>
-      <p class="small">⚠️ 这个收益量化不了——GSC 对 AI 功能只提供曝光，不提供点击。</p>
-    </div>
-
-    <div class="card warn"><h3>③ 产品页与工具页审计 <span class="label adjust">需排期</span></h3>
-      <p><strong><code>/agents/seo</code> 与 <code>/agents/tech</code> 文本相似度 84.3%</strong>（26 句里 20 句完全相同）。对照工具落地页 SOP 的四项硬指标——8 区块 / ≥15 H3 / 8–10 FAQ / 4 种 Schema——<strong>一项都不达标</strong>。</p>
-      <table>
-        <tr><th>项</th><th class="n">agent 页</th><th class="n">被它取代的工具页</th><th class="n">SOP</th></tr>
-        <tr><td>正文词数</td><td class="n">569</td><td class="n">2,653</td><td class="n">—</td></tr>
-        <tr><td>H2</td><td class="n">1</td><td class="n">13</td><td class="n">8 区块</td></tr>
-        <tr><td>Schema 种类</td><td class="n">2</td><td class="n">10</td><td class="n">4</td></tr>
-      </table>
-      <p><code>/tools/low-competition-keywords</code> 全页 <strong>466 词</strong>，是 SOP 下限（2,000 词）的 23%，工具页 → blog 内链为 <strong>0</strong>。</p>
-      <p class="small">🆕 <strong>新增交办 B8</strong>：<code>app.gengrowth.ai</code> 的 robots.txt 返回 307 不是有效文件，Google 视为「允许全抓」，正在抓 <code>_next/static/*</code> 的 JS/CSS/字体。<strong>一行配置能修。</strong></p>
-    </div>
-
-    <div class="card signal"><h3>④ blog 排期提到每周 7 篇，并找到新的选题池</h3>
-      <p><strong>A 线 2 篇一手数据 + B 线 5 篇替代品对比</strong>，已排到 8/27。核对过 SOP：B 线全部是 Spoke，不占每周 T1 ≤3 篇的配额。</p>
-      <p><strong>实测验证 13 个候选词，10 个通过（77%）</strong>——远高于跨词型历史均值 47%。</p>
-      <p><strong>一个方向性发现</strong>：产品转向 agents 后，真正的竞品从 Ahrefs / Semrush 变成了 Outrank / BabyLoveGrowth / Abun 这一批同量级玩家。</p>
-      <table>
-        <tr><th><code>outrank alternatives</code> 前 7 名</th><th class="n">月访</th><th>域名注册</th></tr>
-        <tr><td>ContentMonk</td><td class="n">13.97K</td><td>2024-11</td></tr>
-        <tr><td>Discovered Labs</td><td class="n">43.37K</td><td>2025-08</td></tr>
-        <tr><td><strong>SEOTakeoff</strong></td><td class="n"><strong>6.01K</strong></td><td><strong>2025-11（才 9 个月）</strong></td></tr>
-      </table>
-      <p class="small">此前打的 <code>ahrefs alternative</code>（KD 33）和 <code>semrush alternatives</code>（KD 37）对手都是 DR90+ 巨头，<strong>而这批小竞品的词 SERP 宽得多。</strong></p>
-    </div>
-
-    <div class="card good"><h3>⑤ astrologywiki 曝光下跌已归因 <span class="label continue">无需救</span></h3>
-      <p><strong>不是排名掉了，是世界杯结束了。</strong></p>
-      <p><strong>2026 世界杯决赛 7 月 19 日——而曝光峰值就是 7/19 的 5,044。</strong></p>
-      <table>
-        <tr><th>时段</th><th class="n">日均展示</th></tr>
-        <tr><td>2026-06</td><td class="n">513</td></tr>
-        <tr><td>2026-07</td><td class="n">2,470<span class="small">（峰值 5,044）</span></td></tr>
-        <tr><td>2026-08</td><td class="n">~1,000</td></tr>
-      </table>
-      <p><strong>8 月的水位仍是 6 月的 2 倍。</strong>而且头部趋势词排名没变——<code>lamine yamal zodiac sign</code> 仍排 7.7、<code>lionel messi zodiac sign</code> 排 6.0。<strong>是搜索量没了，不是位置没了。</strong></p>
-      <p class="small">⚠️ 另外：8/13 那个「断崖」是数据延迟造成的假信号。用两份导出对照证明，<strong>GSC 最后一天会回填约 34%。</strong></p>
-    </div>
-
-    <div class="card bad"><h3>⑥ dramafinds 合作评估 <span class="label pending">需 Lynne 定夺</span></h3>
-      <p><strong>结论：现阶段无法给出有依据的流量预期，建议先取对方 GSC 数据再决策。</strong></p>
-      <p>合作配置已确认为「网站框架与剧源完全相同，只改域名和 blog」——<strong>意味着 blog 是新站唯一的独有资产，项目产出完全押在 blog 上。</strong></p>
-      <p><strong>而 4 个查询的 SERP 实测显示，这个假设本身存疑：</strong></p>
-      <table>
-        <tr><th>查询</th><th>前十构成</th><th>对方 blog</th></tr>
-        <tr><td><code>When Forever Fell Apart</code></td><td>9/10 是视频</td><td>❌ 不在</td></tr>
-        <tr><td><code>...ending</code></td><td>8/9 是视频</td><td>❌ 不在</td></tr>
-        <tr><td><code>one night or forever</code></td><td>Videos 置顶 + IMDb + Amazon</td><td>❌ 不在</td></tr>
-        <tr><td><code>best free short drama apps</code></td><td>应用商店占 5 席 + UGC</td><td>❌ 不在</td></tr>
-      </table>
-      <p class="small"><strong>用户搜剧名是想「看剧」，不是「读文章」。</strong>唯一稳定占位的非视频结果是 IMDb，靠的是权威性而非内容。</p>
-      <p class="small">⚠️ 样本说明：共 4 个查询、3 部剧，模式一致但样本偏小。</p>
-    </div>
-    <div class="card bad"><h3>⑦ 用户访谈：产品缺的是「翻译」，不是功能 <span class="label stop">本周最重要</span></h3>
-      <p><strong>SEO 社群一对一拿到的原话摘录：</strong></p>
-      <p class="small" style="border-left:3px solid #b73a48;padding-left:10px">
-        「啥都有，就感觉好像<strong>差了点核心的点</strong>」<br>
-        「我审计完之后，也给了我好多数据，<strong>我也很懵</strong>」<br>
-        「我想得到的是<strong>一句总结的话，告诉我"下一步做什么"</strong>」<br>
-        「化繁为简，给我解读翻译，然后给我<strong>一针见血的建议，3 条左右，不能多但是有效</strong>」<br>
-        「现在这几个免费工具更多的是给出<strong>原由推断</strong>，没有很果断的给建议」
-      </p>
-      <p>用户自己给的类比是 <code>whatcable.uk</code>——把电脑的技术参数直接翻译成「这是快充线，速度多少」。<strong>他用的词是「翻译官」。</strong></p>
-      <p class="small">用户的自我修正：「我一开始想的是数据列全以后显得更权威，<strong>但没想到大多数需要审计的人可能更需要的是具体的步骤指导</strong>」。</p>
-      <p><strong>🔴 这与我独立做的工具审计完全对上</strong>（我 8/14 跑的已是改动之后的状态）：</p>
-      <table>
-        <tr><th>我的实测</th><th>用户的表述</th></tr>
-        <tr><td><code>CHECK BEFORE ACTING</code> <strong>16 行完全一样</strong></td><td>「没有很果断的给建议」</td></tr>
-        <tr><td>15 条结果<strong>不排序</strong>，22,200 量的排第 8</td><td>「给了我好多数据，我也很懵」</td></tr>
-        <tr><td>结果页<strong>从头到尾没有一句总结</strong></td><td>「我想得到的是一句总结的话」</td></tr>
-      </table>
-      <p><strong>最刺眼的一条</strong>：那三条通用检查的第三条是 <code>Decide whether this demand is your buyer</code>——<strong>工具跑完两分钟、烧了数据预算，最后让用户自己判断这个需求是不是他的买家。</strong></p>
-      <p class="small">⚠️ <strong>技术前提</strong>：翻译层需要底层先采集「最弱站排第几」和「有无 AI Overview」两个字段，否则判断写不出来。<strong>这也解释了为什么上一轮修改没解决问题</strong>——只改展示层，底层数据不支持做判断。</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>三、下周任务（W34 · 8/17 – 8/23）</h2>
-
-    <div class="card signal"><h3>① 内容线：一天一篇，已排定 <span class="label continue">已锁定</span></h3>
-      <table>
-        <tr><th>日期</th><th>线</th><th>选题</th></tr>
-        <tr><td><strong>8/17 一</strong></td><td>A</td><td><code>google algorithm update august 2026</code><br><span class="small">⏰ 时效，动笔前须查 Search Status Dashboard</span></td></tr>
-        <tr><td>8/18 二</td><td>B</td><td><code>outrank alternatives</code></td></tr>
-        <tr><td>8/19 三</td><td>B</td><td><code>autoblogging ai alternatives</code></td></tr>
-        <tr><td>8/20 四</td><td>B</td><td><code>babylovegrowth alternatives</code></td></tr>
-        <tr><td><strong>8/21 五</strong></td><td>A</td><td><code>agentic seo</code></td></tr>
-        <tr><td>8/22 六</td><td>B</td><td><code>frase alternatives</code></td></tr>
-        <tr><td>8/23 日</td><td>B</td><td><code>byword ai alternatives</code></td></tr>
-      </table>
-      <p class="small">⚠️ <strong>本周排期已滑坡 3 天</strong>——原定 8/14–8/16 的三篇均未发布，整表已顺延。<strong>如果下周仍跑不满，需要在周会上重新评估 7 篇/周这个节奏</strong>——上周定它的依据是「管线跑得动，8/7 一天发过 4 篇」，若实际达不到，日历排得再细也没用。</p>
-    </div>
-
-    <div class="card"><h3>② 我的任务（可独立推进）</h3>
-      <table>
-        <tr><th class="n">#</th><th>事项</th><th>说明</th></tr>
-        <tr><td class="n">1</td><td><strong>向 dramafinds 方索取 GSC 数据</strong></td><td>🔴 <strong>最高优先</strong>——决定那个合作该不该做</td></tr>
-        <tr><td class="n">2</td><td><strong>GSC 收录核查</strong></td><td><code>/agents</code> 系列与三个工具页逐个查，未收录的提交</td></tr>
-        <tr><td class="n">3</td><td>补验 B 线候选词 14–15 个</td><td>7 篇/周的供给需求，批量验不占档期</td></tr>
-        <tr><td class="n">4</td><td><strong>恢复 Bing / AI 可见度监测</strong></td><td>W31 就定的三源监测，<strong>已断两周</strong>。而 AI 引用是增速最快的渠道</td></tr>
-        <tr><td class="n">5</td><td>审查自动外链化的投放清单与速率</td><td>若是自动投放而非自动发现，在 DR 低位的站上是风险</td></tr>
-        <tr><td class="n">6</td><td>移动端 SERP 补测</td><td>移动端占曝光 62%，<strong>但现有结论全建立在桌面数据上</strong></td></tr>
-        <tr><td class="n">7</td><td>🆕 <strong>手写一版「翻译层」输出给用户看</strong></td><td>用 8/14 那次的真实结果（15 个词已全验过 SERP），<strong>不开发、就是一段文字</strong>，验证「3 条 + 判断 + 排序」这个格式对不对</td></tr>
-      </table>
-    </div>
-
-    <div class="card warn"><h3>③ 依赖他人的</h3>
-      <table>
-        <tr><th>事项</th><th>卡在谁</th></tr>
-        <tr><td>B7 工具结果页反馈入口</td><td>彪哥（🔴 最高优先）</td></tr>
-        <tr><td>B8 app 子域禁抓</td><td>彪哥（一行配置）</td></tr>
-        <tr><td>B3 waitlist 状态确认</td><td>彪哥</td></tr>
-        <tr><td>A1 agent 页差异化重写</td><td>彪哥（<strong>唯一需正式排期的大工程</strong>）</td></tr>
-        <tr><td>种子用户渠道</td><td>需 Lynne 定方向</td></tr>
-      </table>
-    </div>
-
-    <div class="card"><h3>④ 明确不做的</h3>
+    <div class="card"><small>gengrowth.ai</small><h3>三方向诊断收口</h3>
       <ul>
-        <li><strong><code>/en/</code> 收口复算</strong>——legacy sitemap 8/13 提交，见效 2–4 周，<strong>8/27 之后再算才有意义</strong></li>
-        <li><strong>旧定位内容处置</strong>——等 Lynne 决策</li>
-        <li><strong>落地页文案改动</strong>——等 B7 的用户反馈回来</li>
+        <li>文章质量：没问题，4 天进 17–32 名</li>
+        <li>技术配置：没问题，六项全对</li>
+        <li>站内链接：已饱和，不是瓶颈</li>
+      </ul>
+      <p style="margin-top:8px"><strong>真瓶颈是站点信任度和主题厚度，按月计。</strong></p>
+    </div>
+
+    <div class="card"><small>交办验收 · 彪哥</small><h3>三项全部通过</h3>
+      <ul>
+        <li>7 个死链全部指向真实内容</li>
+        <li>旧网址清单 162 条（我要求 95 条）</li>
+        <li>文章列表翻页修复，73 篇恢复可见</li>
+        <li>另查出产品页两处硬伤，待排期</li>
+      </ul>
+    </div>
+
+    <div class="card"><small>外部与内容</small><h3>评估与选题</h3>
+      <ul>
+        <li>dramafinds 技术审计 + 执行方案</li>
+        <li>astrologywiki 下跌归因：世界杯结束，不是我们的问题</li>
+        <li>13 个选题验证，10 个可用</li>
+        <li>找到新竞品池：Outrank / BabyLoveGrowth</li>
       </ul>
     </div>
   </section>
 
-  <section class="section">
-    <h2>四、协同</h2>
+  <section class="sec">
+    <div class="sec-title"><span class="num">02</span><h2>本周最重要的发现</h2></div>
 
-    <div class="card warn"><h3>彪哥 <span class="label adjust">B7 最高优先</span></h3>
-      <p>🔴 <strong>工具结果页反馈入口（B7）</strong>——规格已给全可直接照做。<strong>自然用户进来能否留下痕迹全看它。</strong></p>
-      <p class="small">B8 app 子域禁抓（一行配置）· B3 waitlist 状态待确认 · B5/B6 内链（低优先，做完不要期待排名变化）</p>
+    <div class="card key">
+      <small>SEO 社群一对一访谈</small>
+      <h3>🔴 产品缺的不是功能，是「翻译」</h3>
+
+      <div class="quote">
+        「啥都有，就感觉好像<strong>差了点核心的点</strong>」<br>
+        「我审计完之后，也给了我好多数据，<strong>我也很懵</strong>」<br>
+        「我想得到的是<strong>一句总结的话，告诉我"下一步做什么"</strong>」<br>
+        「一针见血的建议，<strong>3 条左右，不能多</strong>但是有效」<br>
+        「我一开始想的是数据列全以后显得更权威，<strong>但没想到大多数需要审计的人可能更需要的是具体的步骤指导</strong>」
+      </div>
+
+      <p>用户自己给的类比是一个把技术参数翻译成大白话的网站，<strong>他用的词是「翻译官」</strong>。</p>
+      <p><strong>同一周我独立跑了一次我们的关键词工具（已是改动后的版本），结论完全一样</strong>：结果表最后一列 16 行内容一模一样、15 条结果不排序、整页没有一句总结。</p>
+      <p>最刺眼的是那条通用建议的原文——<strong>「你自己判断这个需求是不是你的买家」</strong>。工具跑了两分钟、花了数据成本，最后把判断推回给用户。</p>
+      <p style="color:var(--deep);font-weight:600">一个外部用户和一次内部测试各自独立得出同一结论，这种交叉验证比任何一方单独说都可信。</p>
     </div>
 
-    <div class="card signal"><h3>内容侧</h3>
-      <p>继续产出方法论文章——<strong>这是本周唯一被验证有效的杠杆</strong>（4 天进 17–32 名）。</p>
-      <p class="small">新选题须过「一词一篇」判定（选词规则第八节）。</p>
+    <div class="tw" style="margin-top:12px"><table>
+      <tr><th style="width:50%">由此定下的产品规格</th><th>⚠️ 技术前提</th></tr>
+      <tr>
+        <td><strong>最多 3 条</strong>——超过就等于把判断推回给用户</td>
+        <td rowspan="3">要先采集两条我们现在<strong>根本没采</strong>的数据，否则判断写不出来。<br><br><strong>这也解释了上一轮修改为什么没解决问题</strong>——只改了显示方式，底层不支持做判断。</td>
+      </tr>
+      <tr><td><strong>必须是断言</strong>——「先做 X，因为 Y」，不是「你自己判断」</td></tr>
+      <tr><td><strong>放在最前面</strong>——用户要一句总结，不是翻完表格自己总结</td></tr>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-title"><span class="num">03</span><h2>本周沉淀</h2></div>
+    <p class="lead">本周攒下 15 条以后能直接用的判断。下面 4 条最重要，其余列在表里。</p>
+
+    <div class="card key">
+      <h3>🔴 换网址「做完」和「被 Google 认过」是两件事</h3>
+      <p>六项配置全部正确，但三个月后<strong>旧网址仍拿走 88% 曝光</strong>。原因不是配置错，是<strong>清理做得太彻底</strong>——网址清单和站内链接里的旧地址全删了，Google 再没理由去访问它，也就永远收不到「已搬走」这个信号。</p>
+      <p><strong>跳转是对的，只是没人去看。</strong></p>
+      <p class="use">→ 换网址后要临时留一条给 Google 的路，等它认完再删。判断迁移完没完，看 Google 那边的数据换过来没有，不看配置改完没有。</p>
     </div>
 
-    <div class="card"><h3>高璇</h3>
-      <p>Reddit 申诉进展——卡着推广主渠道。</p>
+    <div class="card key">
+      <h3>🔴 同一个词加个修饰词，能不能排上去完全不同</h3>
+      <p>搜剧名，前十九成是视频，文章进不去；搜「剧名 + 全集在哪看」，<strong>同一篇文章就能排第 6–9 位</strong>。差别在于用户搜这个词是想干什么。</p>
+      <p class="use">→ 选词不能只看搜索量和难度，要先看前十都是什么形态。前十全是视频，我们写文章就进不去。</p>
     </div>
 
-    <div class="card pending" style="border-left:4px solid #7040a0"><h3>需要 Lynne 定夺</h3>
+    <div class="card key">
+      <h3>🔴 评估一个渠道，先查它的历史，别先发帖试</h3>
+      <p>在 Hacker News 折腾了几天，最后才去查：<strong>过去 13 个月，SEO 话题没有一条帖子超过 9 个赞。</strong>这个查用了不到一小时。</p>
+      <p class="use">→ 进新渠道前先翻它半年到一年的历史。如果历史上没人成功过，那不是我们发得不够好。</p>
+    </div>
+
+    <div class="card key">
+      <h3>一个已经删掉的页面，可能还在贡献大部分流量</h3>
+      <p>一个已废弃的旧网址，<strong>单独一个页面占了全站 51% 的点击</strong>；AI 引用我们 186 次，<strong>27% 落在打不开的死链上</strong>。</p>
+      <p class="use">→ 删页面或换网址前，先查它现在还在贡献多少。</p>
+    </div>
+
+    <div class="tw" style="margin-top:12px"><table>
+      <tr><th style="width:33%">其余 11 条</th><th>要点</th></tr>
+      <tr><td>一个意思只写一篇</td><td>同一个意思写了 7 篇 → 2,318 次被搜到、<strong>2 次点击</strong>。新选题先查有没有同意思的旧文</td></tr>
+      <tr><td>定位一变，对手换一批</td><td>不再对标 Ahrefs / Semrush。就这一条把选题通过率从 47% 提到 77%</td></tr>
+      <tr><td>站内链接要先剔模板</td><td>「68 个链接」里 67 个是推荐卡模板。且链接多≠排名好（68 条排 32 名，4 条排 23 名）</td></tr>
+      <tr><td>公开渠道门槛是时间</td><td>Reddit / HN / IndieHackers 都得先养号，加班解决不了。<strong>要快就走一对一</strong></td></tr>
+      <tr><td>AI 引用增长最快但测不到</td><td>5 月 0 次 → 8 月前 12 天 93 次。Google 只给引用数不给访问数，<strong>不能当成绩汇报</strong></td></tr>
+      <tr><td>不缺功能，缺敢下结论</td><td>用户评价市面免费工具「没有很果断的给建议」——这正是空位。<strong>下轮投入不加功能，加判断</strong></td></tr>
+      <tr><td>抽样验几个只能说几个</td><td>本周三次判断被自己的复测推翻，都是被追问才发现。已写成检查清单第 11 条</td></tr>
+      <tr><td>占比会在没好转时也降</td><td>废弃网址占比 94.7%→86.1% 看着在好转，<strong>绝对数 7,279→9,028 一直在涨</strong>。判据已改看绝对值</td></tr>
+      <tr><td>导出日期不同结论不同</td><td>上面三个数都是「过去 3 个月」，只差几天导出。引用数据必须写清哪天导的</td></tr>
+      <tr><td>数据检查清单已统一</td><td>11 条收拢成一份，分析时自动调用。原来散在两份文档，现在一个入口</td></tr>
+      <tr><td>迁移那条已成对外内容</td><td>第一条已写成英文技术帖，本周在 SEO 从业者社区发布</td></tr>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-title"><span class="num">04</span><h2>下周计划</h2></div>
+    <div class="plan"><b>1</b><p><strong>文章一天一篇</strong>，8/17–8/23 七篇已排定选题（首篇有时效，动笔前先确认 Google 有没有正式承认更新）。</p></div>
+    <div class="plan"><b>2</b><p><strong>Reddit 内容线</strong>：申诉结果本周内要明确；不管结果先备好 4 篇帖子；把用户访谈改写成一篇。</p></div>
+    <div class="plan"><b>3</b><p>向 dramafinds 方索取 Google 后台数据，决定合作的资源怎么配。</p></div>
+    <div class="plan"><b>4</b><p>逐个核查产品页有没有被 Google 收录（上周发现 <code>/agents</code> 压根没被收）。</p></div>
+    <div class="plan"><b>5</b><p><strong>恢复 Bing 与 AI 引用监测</strong>——已断两周，而这是目前增长最快的渠道。</p></div>
+    <div class="plan"><b>6</b><p><strong>手写一版「翻译层」输出</strong>：不用开发，就写一段文字，验证「3 条 + 给判断 + 排好序」这个格式对不对。</p></div>
+    <div class="plan"><b>7</b><p>补测手机端搜索结果——手机占 62%，但现有结论全建立在电脑端数据上。</p></div>
+    <div class="plan"><b>8</b><p>批量验证 14–15 个新选题，支撑一天一篇的供给。</p></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-title"><span class="num">05</span><h2>问题与风险</h2></div>
+    <div class="risk">
+      <h3>内容产出跟不上排期</h3>
+      <p>计划 7 篇/周，本周实际发布 2 篇，排期已顺延 3 天。<strong>我定这个数的依据是「8/7 一天发过 4 篇」——那是峰值不是常态，我拿峰值当了产能基线。</strong>如果下周仍跑不满，需要在周会上重新定这个节奏。</p>
+      <h3>Reddit 主渠道中断</h3>
+      <p>大号封禁申诉中，卡着推广主渠道。<strong>不建议开小号发同样内容</strong>——会被判定为规避封禁、连累主账号。申诉不通过的备选方向需要提前想好。</p>
+      <h3>我的结论下得偏早</h3>
+      <p>本周有三次判断被自己的复测推翻（关键词工具准确率、dramafinds 内容类型、剧名词能不能做），<strong>三次都是被追问才去验的</strong>。已写成数据检查清单第 11 条，用到「全部 / 都是 / 确实」这类词之前先问自己验了几个。</p>
+      <h3>种子用户渠道尚未跑通</h3>
+      <p>一对一验证可行但不可规模化，公开渠道又都需要时间养号。<strong>这是下阶段最大的不确定性。</strong></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-title"><span class="num">06</span><h2>需要确认与协同</h2></div>
+
+    <div class="ask"><small>需要 Lynne 定夺</small><h3>四项</h3>
       <ol>
-        <li><strong>dramafinds 合作是否以「先看对方 GSC 数据」为推进前提</strong></li>
-        <li><strong>种子用户目标是否改口径</strong>——从「找 N 个用户」改成「拿到 N 段能改动产品的反馈」</li>
         <li>🔴 <strong>「翻译层」是否列为下阶段产品主线</strong></li>
-        <li>旧定位内容存废（7 篇「便宜」簇 2 次点击、6 篇 SaaS 簇 0 点击）</li>
+        <li><strong>种子用户目标是否改口径</strong>——从「找 N 个用户」改成「拿到 N 段能改动产品的反馈」</li>
+        <li>dramafinds 合作按哪个方案立项（建议视频端为主、文章为辅）</li>
+        <li>旧定位文章的存废（一组 7 篇 2 次点击、一组 6 篇 0 点击）</li>
       </ol>
     </div>
-  </section>
 
-  <section class="section">
-    <h2>五、重点沉淀</h2>
-
-    <details><summary>① 内链审计必须先剥离组件级样板链接</summary>
-      <div>
-        <p>三篇新文初查各显示「68 条入链」，是全站第二名的 3.8 倍。<strong>拆开锚文本后发现 67 条来自同一个 Related Articles 推荐卡组件，真正的正文编辑内链只有 2–4 条。</strong></p>
-        <p><strong>而且入链多不等于排名好</strong>：同批文章里，<code>low-hanging-fruit</code> 68 条入链排 <strong>32.1</strong>，<code>zero-search-volume</code> 仅 4 条入链排 <strong>23.2</strong>。</p>
-      </div>
-    </details>
-
-    <details><summary>② 一个词只写一篇（已写入选词规则第八节）</summary>
-      <div>
-        <p>站内实证：「便宜 / 低价 SEO 工具」这一个意图写了 <strong>7 篇 → 2,318 次展示、2 次点击，无一进前 15</strong>。白标 3 篇 0 点击，SaaS SEO 6 篇 0 点击。</p>
-        <p><strong>干净对照</strong>：同域名下四篇方法论文章各瞄准不同意图，4 天内全部进入 17–32 名。</p>
-      </div>
-    </details>
-
-    <details><summary>③ 分母陷阱：占比会在问题没好转时下降</summary>
-      <div>
-        <p><code>/en/</code> 曝光占比从 <strong>68.9% 降到 60.8%</strong>，看似在收口。<strong>但绝对展示是 1,302 → 1,327，不降反升</strong>——占比下降的全部原因是新内容把分母做大了。</p>
-        <p>删除 legacy sitemap 的判据已据此从「占比 &lt;5%」改为<strong>「绝对周展示 &lt;66 次」</strong>。</p>
-      </div>
-    </details>
-
-    <details open><summary>④ 抽样验证与全称结论（本周犯过两次）</summary>
-      <div>
-        <table>
-          <tr><th>案例</th><th class="n">我验了</th><th>我说的</th><th>全量核实后</th></tr>
-          <tr><td>关键词工具的 15 条输出</td><td class="n"><strong>3 条</strong></td><td>「确实挖到了真机会」</td><td>准确率 <strong>53%</strong>，且量级最大的两条都错</td></tr>
-          <tr><td>dramafinds 的内容类型</td><td class="n"><strong>1 部剧</strong></td><td>「品类完全不同」</td><td>11 部样本里 <strong>7 部与判断相反</strong></td></tr>
-        </table>
-        <p><strong>两次都是被追问才发现。</strong>已作为第 11 条写进检查清单：<strong>用到「全部 / 都是 / 整站 / 确实」这类全称词之前，先问"我验了几个"。</strong></p>
-      </div>
-    </details>
-
-    <details open><summary>⑤ 🔴 用户要的是判断，不是数据（本周最重要的一条）</summary>
-      <div>
-        <p>用户原话：「一针见血的建议，<strong>3 条左右，不能多</strong>但是有效」。</p>
-        <p><strong>「3 条，不能多」是上限，不是"最好控制在"。给 15 条等于没给。</strong></p>
-        <table>
-          <tr><th class="n">#</th><th>由此得出的产品规格</th></tr>
-          <tr><td class="n">1</td><td><strong>数量上限 3 条</strong>——超过就等于把判断推回给用户</td></tr>
-          <tr><td class="n">2</td><td><strong>必须是断言，不是检查项</strong>——「先做 X，因为 Y」，不是「Decide whether…」</td></tr>
-          <tr><td class="n">3</td><td><strong>位置在结果最前</strong>——用户要的是"一句总结的话"，不是翻完表格自己总结</td></tr>
-        </table>
-        <p class="small">⚠️ 前提：翻译层需要底层先采集「最弱站排第几」和「有无 AI Overview」两个字段。</p>
-      </div>
-    </details>
-
-    <details><summary>⑥ 工具沉淀：数据口径现在只有一个入口</summary>
-      <div>
-        <p>建立 <code>seo-metrics-guardrails</code> skill，收拢<strong>十一条数据口径检查</strong>（窗口一致性、分母陷阱、CTR 基准、内链审计程序、抽样与全称结论等），分析 GSC/GA4 时自动加载。</p>
-        <p>原 8/11 的方法论备忘已并入并归档。</p>
-      </div>
-    </details>
-  </section>
-
-  <section class="section">
-    <h2>六、诚实评估</h2>
-    <div class="card bad">
-      <p><strong>① 本周最有价值的产出不是我做的诊断，是那段用户访谈。</strong><br>我把三个问题全部关闭，结论都是"没问题"——<strong>但它们本来也不是瓶颈。而访谈直接指出了真瓶颈：产品停在数据，没走到判断。</strong></p>
-      <p><strong>② 公开渠道受阻，但一对一这条路是通的。</strong><br>Reddit / HN / IH 三条共同点是都要等账号信誉，<strong>而 SEO 社群一对一不需要等，本周已验证可行。建议把资源从"攻公开渠道"转到"复制一对一"。</strong></p>
-      <p><strong>③ 我的排期给得太满。</strong><br>定了 7 篇/周，实际本周发了 2 篇，滑坡 3 天。<strong>上周定这个数的依据是「8/7 一天发过 4 篇」——那是峰值不是常态，我拿峰值当产能基线了。</strong></p>
-      <p><strong>④ 判断被自己的实测推翻两次。</strong><br>先说四篇新文可能没收录（错，已收录），再说要做内链清单（做完发现清单是空的）。<strong>好的一面是验证做了，坏的一面是结论说早了。</strong>已落实为检查清单第 11 条。</p>
+    <div class="ask" style="background:#fffdf7;border-color:#f0e0c0"><small style="color:var(--amber)">等他人交付</small><h3>彪哥 / 高璇</h3>
+      <ul>
+        <li>🔴 <strong>工具结果页反馈入口</strong>（彪哥）——规格已给全，用户能否留下痕迹全看它</li>
+        <li>后台域名禁抓（彪哥，一行配置）· waitlist 状态确认</li>
+        <li>两个 Agent 页重写（彪哥，唯一需正式排期的大工程）</li>
+        <li><strong>Reddit 申诉结果</strong>（高璇）——本周内要有明确答复</li>
+      </ul>
     </div>
   </section>
 
-  <div class="footer">GenGrowth · 2026-W33 · 马博洋<br>完整版：<code>08-reports-and-feedback/03-weekly-reports/2026-08-16-weekly-w33.md</code></div>
-</main></body>
-</html>
+  <div class="footer">GenGrowth · 2026 W33 · 马博洋<br>完整版：<code>08-reports-and-feedback/03-weekly-reports/2026-08-16-weekly-w33.md</code></div>
+</main></body></html>
