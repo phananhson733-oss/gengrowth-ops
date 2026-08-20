@@ -18,6 +18,7 @@ updated: 2026-08-07
 | [[inbox-pengman/01-调研资料/平台与策略/README.md]] | 当前仍有参考价值的平台和内容方向研究 | 否 |
 | [[inbox-pengman/01-调研资料/方法论/README.md]] | 通用运营框架和方法论底稿 | 否 |
 | [[inbox-pengman/01-调研资料/工具调研/README.md]] | 视频、视觉、文本、搜索和社媒工具研究 | 否 |
+| [[inbox-pengman/01-调研资料/竞品与生态调研/README.md]] | 短剧分销/内容营销生态内的平台型玩家调研（如 AitoEarn） | 否 |
 | [[inbox-pengman/01-调研资料/候选与热点研究/README.md]] | 仅在权限门允许时保存周一候选、Hot、补库或明确重排信息来源 | 否 |
 | [[inbox-pengman/01-调研资料/历史调研/README.md]] | 首轮方案、平台样本和早期思考 | 否 |
 | [[inbox-pengman/01-调研资料/历史流程/README.md]] | 已被当前 README / Skill / SOP 取代的旧总流程和鱼骨图 | 否 |
