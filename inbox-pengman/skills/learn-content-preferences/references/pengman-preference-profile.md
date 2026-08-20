@@ -2,16 +2,23 @@
 
 > 由本地 Preference Studio 自动维护。原始反馈保存在 JSON；只有 Pengman 在页面确认后，规则才进入“已确认长期规则”。
 
-更新时间：2026-08-17T09:30:35.897Z
+更新时间：2026-08-19T07:11:47.677Z
 
 ## 已确认长期规则
 
 - **偏好 · Hook**：抽象概念需要用更简单直白的词表达
-  - 证据：3 个不同训练轮次，其中 3 轮有明确原因
-  - 适用范围：适用于后续短 Hook：优先使用简短、直白、容易立即理解的行为表达。
+  - 证据：7 个不同训练轮次，其中 6 轮有明确原因
+  - 适用范围：适用于后续 Scorpio 关系类短 Hook：优先把心理机制落到简单、立即可理解的行为上。
   - 分类：expression
   - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
-  - 最近原话：“我很喜欢这种一上来就点名的感觉”
+  - 最近原话：“非常戳中人心”
+
+- **偏好 · Hook**：偏好更简洁的 Hook
+  - 证据：3 个不同训练轮次，其中 3 轮有明确原因
+  - 适用范围：适用于后续关系类短 Hook，在保留关系张力的前提下压缩长度。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
+  - 最近原话：“非常戳中人心”
 
 ## 等待 Pengman 确认
 
@@ -19,7 +26,12 @@
 
 ## 待验证偏好
 
-- 无
+- **偏好 · Hook**：使用简单直白、立即可理解的行为表达
+  - 证据：2 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于后续关系类 Scorpio Hook：将心理判断落到听、打断、否定等观众能立即识别的行为上。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
+  - 最近原话：“选择 D 为最好（未填写原因）”
 
 ## 单次证据
 
@@ -78,6 +90,57 @@
   - 分类：expression
   - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
   - 最近原话：“选题可以，但是hook不行，首先是太长了，可以写成“水瓶座回消息回的慢，但其实他们care deeply”
+
+- **偏好 · 选题**：本轮偏好贴合 AstrologyWiki 官号与工具承接定位
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于本轮 AstrologyWiki 官号选题判断：官方、解释型并能自然承接星盘工具的内容相对更合适。
+  - 分类：account_rule
+  - 目标：需人工路由
+  - 最近原话：“因为其他几个都更差一点。这个的话还挺适合astrologywiki官号的”
+
+- **避免 · Hook**：避免“X says..., Y says...”式刻意双人对照模板
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于当前关系类双人或对照口播的表达审查。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
+  - 最近原话：“ai味道很重，这种xxx says ,,,, xxx says,,,就很ai”
+
+- **避免 · Hook**：避免把抽象心理矛盾单独作为 Hook 主体
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于关系类 Scorpio Hook，不代表所有脚本正文都必须使用具体生活场景。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
+  - 最近原话：“有点空有点虚，有点过于抽象”
+
+- **偏好 · Hook**：本轮 Hook 需要比现有候选提供更多信息量
+  - 证据：1 个不同训练轮次，其中 0 轮有明确原因
+  - 适用范围：仅适用于当前这轮 Scorpio Hook 重写。
+  - 分类：current_only
+  - 目标：需人工路由
+  - 最近原话：“选择 D 为最好（未填写原因）”
+
+- **避免 · Hook**：避免工整、抽象、带 AI 文案感的 Hook
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于当前 Scorpio 关系类 Hook 的表达审查。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ### 8.1 Pengman 的 Hook 与白纸重写偏好
+  - 最近原话：“其实都不喜欢，太抽象了，很ai
+story chapter等词汇就很ai
+都有点太短了每条”
+
+- **偏好 · Script**：偏好简单直白、容易理解的脚本表达
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于星座关系类口播：优先使用常见词和清楚的行为判断，减少抽象心理术语。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ## 8. Copy Style
+  - 最近原话：“文字简单好理解”
+
+- **避免 · Script**：避免模糊空泛的关系场景
+  - 证据：1 个不同训练轮次，其中 1 轮有明确原因
+  - 适用范围：适用于星座关系类口播：关系判断应落到联系、约会、沟通和履约等可观察行为上。
+  - 分类：expression
+  - 目标：skills/astrologywiki-social-workflow/SKILL.md · ## 8. Copy Style
+  - 最近原话：“场景又有点太空太虚了”
 
 ## 使用边界
 

@@ -230,6 +230,8 @@ Hook 检查：
 
 不能就先重写 Hook。
 
+生成完整 Script 时，第一句口播（如有 speaker label，则指 label 后的第一句）必须先作为独立 Hook 生成并通过上述检查；它继承当前 Hook 偏好，不能只按正文的 Script 风格生成。
+
 ### 8.1 Pengman 的 Hook 与白纸重写偏好
 
 以下是 Pengman 已明确确认的生产偏好，适用于 `@miraaastrology` 的 AI Host / 双人口播选题与脚本。单条主生产记录的具体要求优先；双人口播按下方专用规则执行。
@@ -292,6 +294,11 @@ Hook 检查：
 <!-- preference-rule:a023755f-3f23-4f39-83f9-b21a2faa1aef -->
 - **偏好训练确认 · 2026-08-17**：优先“抽象概念需要用更简单直白的词表达”。适用范围：适用于后续短 Hook：优先使用简短、直白、容易立即理解的行为表达。。
 <!-- /preference-rule:a023755f-3f23-4f39-83f9-b21a2faa1aef -->
+
+
+<!-- preference-rule:4d648243-9ffa-4dd7-a93e-ea92d2af866d -->
+- **偏好训练确认 · 2026-08-18**：优先“偏好更简洁的 Hook”。适用范围：适用于后续关系类短 Hook，在保留关系张力的前提下压缩长度。。
+<!-- /preference-rule:4d648243-9ffa-4dd7-a93e-ea92d2af866d -->
 
 ## 9. Candidate Research Workflow
 

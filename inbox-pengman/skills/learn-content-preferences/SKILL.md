@@ -31,6 +31,13 @@ For AstrologyWiki work, read the current AGENTS.md, the rolling weekly SOP, the 
 7. Ask the user to choose the best and worst candidates. Reasons are optional; explain that reasons make long-term learning more reliable.
 8. Do not ask the user to fill a template when their natural-language explanation is already clear.
 
+## Inherit Preferences Across Composite Objects
+
+- Topic candidates use topic preferences.
+- Hook candidates inherit topic preferences for the AI-chosen topic and Hook preferences for the publishable Hook.
+- Script candidates inherit topic, Hook, and Script preferences. Treat the first spoken sentence after any speaker label as the Script's embedded publishable Hook; apply Hook preferences to that sentence before applying Script preferences to the complete Script.
+- When Script feedback specifically evaluates the opening sentence, record that signal with Hook scope. Do not dilute a strong Hook preference into a generic Script-style rule.
+
 ## Default Output Language
 
 Generate every candidate title, topic, angle, tested variable, Hook, and Script in natural American English, even when the training brief is written in Chinese. Keep preference summaries, evidence labels, and interface explanations in concise Chinese. Change the candidate language only when Pengman explicitly requests another language for the current task.

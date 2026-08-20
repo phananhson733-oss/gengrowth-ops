@@ -31,11 +31,17 @@ function initDatabase(db) {
     " accounts_total INTEGER NOT NULL, accounts_success INTEGER NOT NULL,",
     " posts_total INTEGER NOT NULL, partial_count INTEGER NOT NULL,",
     " failed_count INTEGER NOT NULL, status TEXT NOT NULL, error_summary TEXT,",
-    " google_sheets_status TEXT NOT NULL DEFAULT 'pending');",
+    " google_sheets_status TEXT NOT NULL DEFAULT 'pending',",
+    " feishu_status TEXT NOT NULL DEFAULT 'pending', feishu_updated_count INTEGER NOT NULL DEFAULT 0,",
+    " feishu_error_summary TEXT);",
     "CREATE INDEX IF NOT EXISTS idx_account_snapshots_date ON account_snapshots(snapshot_date);",
     "CREATE INDEX IF NOT EXISTS idx_post_snapshots_date ON post_snapshots(snapshot_date);",
     "CREATE INDEX IF NOT EXISTS idx_post_snapshots_username ON post_snapshots(username);"
   ]));
+  const runColumns = new Set(db.prepare("PRAGMA table_info(runs)").all().map((column) => column.name));
+  if (!runColumns.has("feishu_status")) db.exec("ALTER TABLE runs ADD COLUMN feishu_status TEXT NOT NULL DEFAULT 'pending'");
+  if (!runColumns.has("feishu_updated_count")) db.exec("ALTER TABLE runs ADD COLUMN feishu_updated_count INTEGER NOT NULL DEFAULT 0");
+  if (!runColumns.has("feishu_error_summary")) db.exec("ALTER TABLE runs ADD COLUMN feishu_error_summary TEXT");
 }
 
 function missingMetricFields(post) {
@@ -265,9 +271,11 @@ function querySheetData(db) {
     },
     runs: {
       headers: ["run_id", "started_at", "finished_at", "accounts_total", "accounts_success",
-        "posts_total", "partial_count", "failed_count", "status", "error_summary"],
+        "posts_total", "partial_count", "failed_count", "status", "error_summary",
+        "feishu_status", "feishu_updated_count", "feishu_error_summary"],
       rows: db.prepare(SQL([
-        "SELECT run_id,started_at,finished_at,accounts_total,accounts_success,posts_total,partial_count,failed_count,status,error_summary",
+        "SELECT run_id,started_at,finished_at,accounts_total,accounts_success,posts_total,partial_count,failed_count,status,error_summary,",
+        "feishu_status,feishu_updated_count,feishu_error_summary",
         "FROM runs ORDER BY started_at"
       ])).all()
     }
