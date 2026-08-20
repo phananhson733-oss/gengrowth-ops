@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-14T10:38:49.205Z",
+  "updatedAt": "2026-08-19T07:11:47.677Z",
   "signals": [
     {
       "id": "857514f0-2e7e-4765-92dc-27664d66c027",
@@ -28,22 +28,1490 @@
       "label": "抽象概念需要用更简单直白的词表达",
       "scope": "hook",
       "category": "expression",
-      "applicability": "本轮 Scorpio 信任主题的 Hook",
-      "evidence": 1,
-      "status": "candidate",
+      "applicability": "适用于后续 Scorpio 关系类短 Hook：优先把心理机制落到简单、立即可理解的行为上。",
+      "evidence": 7,
+      "status": "confirmed",
       "sourceReasons": [
-        "感觉吸引人一点，但是这个boundaries有点不够“简单”"
+        "感觉吸引人一点，但是这个boundaries有点不够“简单”",
+        "感觉这条很对味！",
+        "我很喜欢这种一上来就点名的感觉",
+        "够短够直接，场景触动人",
+        "够短",
+        "选择 D 为最好（未填写原因）",
+        "非常戳中人心"
       ],
       "sourceSessionIds": [
-        "74335831-839c-46e4-927d-306d9d65e427"
+        "74335831-839c-46e4-927d-306d9d65e427",
+        "6b2bdf63-e872-4494-88df-aa6cece209e6",
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff",
+        "5b7e6165-128b-4045-b0e8-a73da0aa35a2",
+        "e113ab01-560c-447d-a3fe-89380dca00aa",
+        "c9707077-2be8-431d-a153-5220615a84ff",
+        "c3bc8a61-27c9-4d53-b8f1-1874ce9435b0"
       ],
-      "confidenceNote": "用户指出 boundaries“不够简单”，并表示 D 有一定吸引力；仅确认对易懂度的要求。",
+      "confidenceNote": "best C 使用了清晰的行为与后果；worst D 被认为偏长且难理解，支持这一方向。",
+      "reasonedEvidence": 6,
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "appliedTo": {
+        "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+        "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+        "alreadyApplied": false
+      },
+      "confirmedAt": "2026-08-17T09:30:35.897Z"
+    },
+    {
+      "id": "f5b76697-dbb7-4d47-936b-c91df0b74e12",
+      "polarity": "positive",
+      "label": "优先广泛可认领的具体行为和关系张力",
+      "scope": "topic",
+      "category": "selection",
+      "applicability": "适用于后续金牛座选题：优先选择能让受众迅速对号入座的具体行为、关系问题或心理反应。",
+      "evidence": 1,
       "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "感觉比较对味，能让人觉得这就是我的感觉"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "直接来自用户对 A“这就是我的感觉”的正面反馈，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 7. Topic and Safety Rules"
+    },
+    {
+      "id": "f65d3ce8-b159-4198-9104-63e265df6f5f",
+      "polarity": "negative",
+      "label": "避免过窄的双星座讨论场景",
+      "scope": "topic",
+      "category": "selection",
+      "applicability": "适用于后续金牛座选题：避免必须依赖两个星座配对才能成立的窄场景。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "场景太窄，选择了两个星座作为讨论，而且场景有点抽象不够吸引人"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "直接来自用户对 B“场景太窄”的负面反馈，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 7. Topic and Safety Rules"
+    },
+    {
+      "id": "37937f5c-1f42-471c-96ef-f733deb4d4e9",
+      "polarity": "positive",
+      "label": "避免抽象场景，优先用直观行为承载心理机制",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于金牛座选题和 Hook：抽象心理判断应落到观众能马上理解的行为或后果上。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "感觉比较对味，能让人觉得这就是我的感觉"
+      ],
+      "sourceSessionIds": [
+        "76837f5e-7c17-40f0-bd2b-69437a0c285a"
+      ],
+      "confidenceNote": "用户明确认为 B 的场景“不够吸引人”且偏抽象；该表达规则与现有 Scorpio 专属信号不完全相同，因此不复用其 matchSignalId。",
       "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
       "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "3a48803e-2b9d-4c9a-bdbe-69a4cdd966a8",
+      "polarity": "positive",
+      "label": "偏好用反刻板印象重构金牛座特质",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续金牛座 Hook",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "其实我觉得b和c都挺对味的，尤其是c，c有种反金牛座固执的刻板印象的感觉，就是“金牛座不总是这样，金牛座其实是这样。。。”的感觉很不错"
+      ],
+      "sourceSessionIds": [
+        "9f5064f0-d427-4efc-a47d-6761ca2377cf"
+      ],
+      "confidenceNote": "Pengman 明确喜欢 C 的反刻板印象重构，但目前只有一轮选择证据。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "1853d3ad-2015-4845-ba80-5161cd4de6bf",
+      "polarity": "negative",
+      "label": "避免不够直观的双视角对照",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于关系类 Hook",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "看不懂"
+      ],
+      "sourceSessionIds": [
+        "9f5064f0-d427-4efc-a47d-6761ca2377cf"
+      ],
+      "confidenceNote": "D 被评价为难懂，说明双视角对照如果不够直观会削弱理解；这是基于本轮结果的低置信度推断。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "f671b202-9253-4e45-bdcd-997a7805db4a",
+      "polarity": "positive",
+      "label": "偏好开头直接点名目标星座",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续单人星座 Hook：优先在首句直接点名目标星座或身份。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "我很喜欢这种一上来就点名的感觉"
+      ],
+      "sourceSessionIds": [
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff"
+      ],
+      "confidenceNote": "来自本轮最佳候选 A 的明确选择理由，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "969163f5-ad89-4ebb-93da-ee26e25c041f",
+      "polarity": "negative",
+      "label": "避免过长或抽象的反差 Hook",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续反差 Hook：心理判断需要尽快落到明确、可见的行为上。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "选题可以，但是hook不行，首先是太长了，可以写成“水瓶座回消息回的慢，但其实他们care deeply"
+      ],
+      "sourceSessionIds": [
+        "e54d035e-d67c-4c7a-9412-00ffd2719bff"
+      ],
+      "confidenceNote": "用户认为 D 的选题可以但 Hook 不行，并给出了以回复慢这一行为承载关心的压缩方向，置信度中等。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "3dd834ee-6233-4d2a-9a82-ad3f7e65a094",
+      "polarity": "positive",
+      "label": "本轮偏好贴合 AstrologyWiki 官号与工具承接定位",
+      "scope": "topic",
+      "category": "account_rule",
+      "applicability": "适用于本轮 AstrologyWiki 官号选题判断：官方、解释型并能自然承接星盘工具的内容相对更合适。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "因为其他几个都更差一点。这个的话还挺适合astrologywiki官号的"
+      ],
+      "sourceSessionIds": [
+        "5a0f857a-1e13-492d-9bb7-2d02d8160191"
+      ],
+      "confidenceNote": "仅由本轮 bestReason 支持，属于低置信度的本轮判断，不升级为长期确认规则。"
+    },
+    {
+      "id": "366807c4-91b0-4fd9-9a66-7d62b1fb49ef",
+      "polarity": "negative",
+      "label": "避免“X says..., Y says...”式刻意双人对照模板",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于当前关系类双人或对照口播的表达审查。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "ai味道很重，这种xxx says ,,,, xxx says,,,就很ai"
+      ],
+      "sourceSessionIds": [
+        "5a0f857a-1e13-492d-9bb7-2d02d8160191"
+      ],
+      "confidenceNote": "直接来自对最差候选的反馈；反馈针对具体模板，不足以证明所有双视角内容都应避免。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "6354e2a0-bd86-45c9-bb6f-854cbb697146",
+      "polarity": "positive",
+      "label": "使用简单直白、立即可理解的行为表达",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续关系类 Scorpio Hook：将心理判断落到听、打断、否定等观众能立即识别的行为上。",
+      "evidence": 2,
+      "reasonedEvidence": 1,
+      "status": "testing",
+      "sourceReasons": [
+        "因为其他几个都更差一点。这个的话还挺适合astrologywiki官号的",
+        "选择 D 为最好（未填写原因）"
+      ],
+      "sourceSessionIds": [
+        "5a0f857a-1e13-492d-9bb7-2d02d8160191",
+        "c9707077-2be8-431d-a153-5220615a84ff"
+      ],
+      "confidenceNote": "反馈明确指出当前候选太抽象且太像 AI；具体行为是直接支持的改进方向。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "0c29ff67-7609-4b8b-817c-f35c0d7d9b69",
+      "polarity": "negative",
+      "label": "避免把抽象心理矛盾单独作为 Hook 主体",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于关系类 Scorpio Hook，不代表所有脚本正文都必须使用具体生活场景。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "有点空有点虚，有点过于抽象"
+      ],
+      "sourceSessionIds": [
+        "5b7e6165-128b-4045-b0e8-a73da0aa35a2"
+      ],
+      "confidenceNote": "B 被评价为空泛抽象，说明抽象心理矛盾单独作为开场时吸引力较弱；该信号为低置信度。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "4d648243-9ffa-4dd7-a93e-ea92d2af866d",
+      "polarity": "positive",
+      "label": "偏好更简洁的 Hook",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于后续关系类短 Hook，在保留关系张力的前提下压缩长度。",
+      "evidence": 3,
+      "reasonedEvidence": 3,
+      "status": "confirmed",
+      "sourceReasons": [
+        "够短",
+        "字数合适，长度合适，",
+        "非常戳中人心"
+      ],
+      "sourceSessionIds": [
+        "e113ab01-560c-447d-a3fe-89380dca00aa",
+        "e27bbf68-8649-49ac-b9a8-7eb47e4045ce",
+        "c3bc8a61-27c9-4d53-b8f1-1874ce9435b0"
+      ],
+      "confidenceNote": "用户明确指出 D 有点长且难理解，因此对更简洁表达的偏好有较明确支持。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "appliedTo": {
+        "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+        "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+        "alreadyApplied": false
+      },
+      "confirmedAt": "2026-08-18T05:46:36.155Z"
+    },
+    {
+      "id": "9fc062b8-698b-4639-b438-61683377bc7c",
+      "polarity": "positive",
+      "label": "本轮 Hook 需要比现有候选提供更多信息量",
+      "scope": "hook",
+      "category": "current_only",
+      "applicability": "仅适用于当前这轮 Scorpio Hook 重写。",
+      "evidence": 1,
+      "reasonedEvidence": 0,
+      "status": "candidate",
+      "sourceReasons": [
+        "选择 D 为最好（未填写原因）"
+      ],
+      "sourceSessionIds": [
+        "c9707077-2be8-431d-a153-5220615a84ff"
+      ],
+      "confidenceNote": "用户明确表示本轮每条候选都有点太短，但尚不足以确认这是所有后续 Hook 的长期长度规则。"
+    },
+    {
+      "id": "b8a5df98-b63c-40a3-8f47-c004f7316446",
+      "polarity": "negative",
+      "label": "避免工整、抽象、带 AI 文案感的 Hook",
+      "scope": "hook",
+      "category": "expression",
+      "applicability": "适用于当前 Scorpio 关系类 Hook 的表达审查。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "其实都不喜欢，太抽象了，很ai\nstory chapter等词汇就很ai\n都有点太短了每条"
+      ],
+      "sourceSessionIds": [
+        "c9707077-2be8-431d-a153-5220615a84ff"
+      ],
+      "confidenceNote": "用户直接评价整体有 AI 感；现有信号只部分覆盖抽象问题，因此不强行匹配已有规则。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "### 8.1 Pengman 的 Hook 与白纸重写偏好"
+    },
+    {
+      "id": "d104b7b9-d35a-4449-bce0-058399109f87",
+      "polarity": "positive",
+      "label": "偏好简单直白、容易理解的脚本表达",
+      "scope": "script",
+      "category": "expression",
+      "applicability": "适用于星座关系类口播：优先使用常见词和清楚的行为判断，减少抽象心理术语。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "文字简单好理解"
+      ],
+      "sourceSessionIds": [
+        "22ae88cf-1b21-47e2-9521-f9e104a1a9af"
+      ],
+      "confidenceNote": "用户明确称赞 B 的文字简单好理解；该反馈针对完整脚本，不只针对开头。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 8. Copy Style"
+    },
+    {
+      "id": "d7ff8358-4967-4bab-abe7-b2494b68d096",
+      "polarity": "negative",
+      "label": "避免模糊空泛的关系场景",
+      "scope": "script",
+      "category": "expression",
+      "applicability": "适用于星座关系类口播：关系判断应落到联系、约会、沟通和履约等可观察行为上。",
+      "evidence": 1,
+      "reasonedEvidence": 1,
+      "status": "candidate",
+      "sourceReasons": [
+        "场景又有点太空太虚了"
+      ],
+      "sourceSessionIds": [
+        "22ae88cf-1b21-47e2-9521-f9e104a1a9af"
+      ],
+      "confidenceNote": "用户明确指出 D 的场景太空太虚；现有相近信号主要限定于 Hook 或特定星座，因此不直接合并。",
+      "targetFile": "skills/astrologywiki-social-workflow/SKILL.md",
+      "targetSection": "## 8. Copy Style"
     }
   ],
   "sessions": [
+    {
+      "id": "22ae88cf-1b21-47e2-9521-f9e104a1a9af",
+      "createdAt": "2026-08-19T06:58:31.561Z",
+      "mode": "script",
+      "brief": "重写这个：Aries can make it feel serious before they're ready to make it official.  They text first. They plan the next date. They kiss you early, and suddenly it feels like the relationship is already moving.  Then you ask, \"So what are we?\" and the energy changes.  That doesn't always mean they were playing you. Moving toward someone can feel exciting. Calling it a relationship means deciding whether they can keep showing up after the rush wears off.  So don't let the speed answer the question for you. Watch what happens next. Do they keep the plans they make? Can they talk through an awkward moment? Does their effort stay steady once the chase is over?  Aries may move fast when they like you. What matters is whether their actions stay consistent once it starts to feel real.",
+      "bestId": "B",
+      "worstId": "D",
+      "bestReason": "文字简单好理解",
+      "worstReason": "场景又有点太空太虚了",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Aries Can Make It Feel Official Too Soon",
+          "topic": "Aries in early-stage dating and the difference between romantic momentum and real commitment",
+          "angle": "Reframe Aries's fast romantic energy as genuine excitement that still needs to be tested over time.",
+          "copy": "Aries can make a new connection feel official before they actually define it. They may text first, make the plans, and bring a lot of energy to the beginning. That attention can feel like a clear promise, even when they are still figuring out what they want. The important question is not whether Aries moves fast. It is whether they can stay present after the excitement settles. Do they follow through when the date is no longer new? Do they make room for your feelings when the conversation gets uncomfortable? Do they still show interest when there is nothing to chase? Aries may fall into the momentum quickly. Let consistency, not chemistry alone, tell you what this is becoming.",
+          "testedVariable": "Mechanism: excitement versus sustained effort"
+        },
+        {
+          "id": "B",
+          "title": "The Aries Relationship Test Starts After You Ask",
+          "topic": "Aries and what their behavior reveals after a partner asks for clarity",
+          "angle": "Use a practical behavior checklist to shift the viewer's attention from the label to what happens after the label conversation.",
+          "copy": "Aries may act like your partner before they are ready to call you one. They initiate the conversation, suggest the next plan, and make the connection feel like it is gaining speed. Then the relationship question comes up, and they suddenly need more time. That pause does not automatically erase everything that came before it. Some Aries enjoy the feeling of getting close before they are ready for the responsibility of being consistent. So watch the next few weeks instead of arguing with the first rush. Do they keep reaching out? Do they communicate when plans change? Do they make the connection clearer through their actions? Aries can create strong momentum quickly. The real answer is whether they keep choosing the connection when it requires effort.",
+          "testedVariable": "Structure: post-conversation behavior checklist"
+        },
+        {
+          "id": "C",
+          "title": "Aries May Mean It Before They Are Ready",
+          "topic": "Aries, sincere attraction, and the gap between feeling strongly and being ready for commitment",
+          "angle": "Challenge the common idea that fast-moving Aries are automatically unserious, while keeping the focus on accountability.",
+          "copy": "Aries can be serious about you and still be unprepared to make it official. Their first instinct may be to move closer: start the conversations, arrange the next outing, and act on the attraction before they have a full plan for the relationship. That does not make the early interest fake. But strong feelings are not the same as a clear commitment. Aries has to show that the connection can survive ordinary moments, slower days, and honest questions. Can they tell you what they need without disappearing? Can they accept that your pace may be different? Can they keep treating you with care when the excitement is no longer doing all the work? With Aries, fast chemistry may be real. It still needs steady choices behind it.",
+          "testedVariable": "Angle: fast movement can be sincere without being commitment-ready"
+        },
+        {
+          "id": "D",
+          "title": "Watch Aries When the Excitement Gets Complicated",
+          "topic": "Aries in dating and how they handle the first uncomfortable moment of a relationship",
+          "angle": "Build the script around a turning point: the first awkward moment after the early rush.",
+          "copy": "Aries can look fully invested until the relationship stops feeling easy. At first, they bring the energy: quick replies, bold plans, and a willingness to make the next move. That can make you believe the relationship is already settled. But the more revealing moment often comes after the first awkward conversation, changed plan, or honest question. Do they lean in and explain themselves, or do they lose interest the moment things require patience? Aries often loves the beginning because it feels active and exciting. A lasting connection asks for something different: listening, repair, and follow-through. So do not judge the relationship only by how quickly Aries starts it. Pay attention to how they handle the first moment that cannot be solved with charm or momentum.",
+          "testedVariable": "Narrative mechanism: the first difficult moment as the commitment signal"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Aries Can Act Committed Before They Choose Commitment",
+          "topic": "Aries dating behavior and the difference between taking initiative and choosing a relationship",
+          "angle": "Give viewers one direct distinction: early initiative shows interest, while steady follow-through shows commitment.",
+          "copy": "Aries can do all the relationship things before they decide they want a relationship. They text you first, ask when they can see you again, and make it clear that they are interested. But interest is not the same as commitment. The answer comes after you ask for clarity. Do they give you an honest answer? Do they keep making plans? Do they stay in contact when the conversation is no longer fun or flirty? Fast attention can be real, but it can still be temporary. With Aries, do not assume that a strong start has already settled the relationship. Let their next choices show you whether they only wanted the excitement or actually want to build something with you.",
+          "testedVariable": "Direct distinction between initiative and commitment"
+        },
+        {
+          "id": "B",
+          "title": "What Aries Does After the Relationship Talk Matters More",
+          "topic": "Aries dating behavior after someone asks where the relationship is going",
+          "angle": "Organize the script around a simple before-and-after timeline so the commitment test is easy to follow.",
+          "copy": "Aries may move fast until you ask where the relationship is going. Before that talk, they may call often, plan dates, and make you feel wanted. After the talk, watch what changes. If they still contact you, keep their plans, and answer your questions clearly, the early interest may have something solid behind it. If the effort drops as soon as you ask for clarity, the speed was not a promise. It was just the pace of the beginning. Aries can genuinely like you without being ready to choose a relationship. You do not have to guess which one it is. Pay attention to how they treat you after they know what you need.",
+          "testedVariable": "Before-and-after timeline centered on the clarity conversation"
+        },
+        {
+          "id": "C",
+          "title": "Aries Moving Fast Does Not Mean You Have to Move Fast",
+          "topic": "Aries dating pace and how a partner can hold their own boundaries during an intense beginning",
+          "angle": "Shift the focus from reading Aries to protecting the viewer's pace and letting Aries respond to a clear boundary.",
+          "copy": "Aries may move fast, but you do not have to match their pace. They may want another date right away, text all day, or bring up future plans early. Enjoying that attention does not mean you have to treat the relationship as settled. Tell them what pace feels right for you, then watch their response. Can they slow down without losing interest? Can they respect a no without turning cold? Can they keep showing up when they are not controlling the speed? That tells you more than the exciting start. Aries may be quick to pursue someone they like. Real relationship potential shows up when they can respect your pace as well as their own.",
+          "testedVariable": "Boundary-response test instead of a commitment-label test"
+        },
+        {
+          "id": "D",
+          "title": "Do Not Count Aries's Big Moves—Count the Follow-Through",
+          "topic": "Aries romantic gestures versus everyday reliability in a new relationship",
+          "angle": "Use a clear contrast between noticeable romantic moves and small repeated actions without relying on a vague turning-point scene.",
+          "copy": "Do not count how many big moves Aries makes at the start. Count how often they follow through. A bold invitation, a long late-night call, or an exciting plan can show real attraction. But none of those things tells you how steady the relationship will be. Look at the smaller choices. Do they call when they said they would? Do they reschedule instead of disappearing? Do they listen when something bothers you? Do they keep making time for you once they know you are interested too? Aries can be very clear when they want your attention. Commitment becomes clear when their effort stays reliable, even when there is nothing left to prove or chase.",
+          "testedVariable": "Big gestures versus small repeated actions"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-18T05:46:36.155Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮明确偏好简单、直白、容易理解的完整脚本；不喜欢用模糊场景或抽象概念来解释关系判断。下一轮保留 Aries 早期主动不等于承诺的核心，但分别测试直接判断、时间线、边界测试和对比结构。"
+    },
+    {
+      "id": "c3bc8a61-27c9-4d53-b8f1-1874ce9435b0",
+      "createdAt": "2026-08-18T05:46:28.667Z",
+      "mode": "hook",
+      "brief": "Scorpio opens up to the person who lets them finish without calling them dramatic.\t修改这条hook，让它更简洁",
+      "bestId": "C",
+      "worstId": "D",
+      "bestReason": "非常戳中人心",
+      "worstReason": "有点长，有点难理解",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Feels Safe",
+          "topic": "Scorpio opening up when someone respects private feelings and personal disclosures",
+          "angle": "Frame privacy as the condition that helps Scorpio share more.",
+          "copy": "Scorpio reveals more when you keep their trust private.",
+          "testedVariable": "Privacy as the basis for vulnerability"
+        },
+        {
+          "id": "B",
+          "title": "What Scorpio Remembers",
+          "topic": "Scorpio valuing people who remain steady when conversations become emotionally serious",
+          "angle": "Show Scorpio remembering who stayed steady during emotional conversations.",
+          "copy": "Scorpio remembers who stayed calm when things got real.",
+          "testedVariable": "Emotional steadiness under pressure"
+        },
+        {
+          "id": "C",
+          "title": "Why Scorpio Goes Quiet",
+          "topic": "Scorpio withdrawing after their feelings are mocked or treated as entertainment",
+          "angle": "Use a clear consequence when someone mocks or trivializes Scorpio’s feelings.",
+          "copy": "Scorpio stops sharing when you turn their feelings into a joke.",
+          "testedVariable": "Mockery as a reason for emotional withdrawal"
+        },
+        {
+          "id": "D",
+          "title": "When Scorpio Gets Honest",
+          "topic": "Scorpio becoming more honest when relationship conversations feel collaborative instead of competitive",
+          "angle": "Frame honesty as something Scorpio gives up when a conversation becomes a competition.",
+          "copy": "Scorpio tells the truth when you stop trying to win the argument.",
+          "testedVariable": "Collaboration versus winning the argument"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Feels Heard",
+          "topic": "Scorpio opening up when someone listens patiently instead of interrupting or redirecting the conversation",
+          "angle": "Show that Scorpio opens up when the other person listens without interrupting.",
+          "copy": "Scorpio shares more when you let them speak.",
+          "testedVariable": "Listening without interruption"
+        },
+        {
+          "id": "B",
+          "title": "Why Scorpio Shuts Down",
+          "topic": "Scorpio withdrawing after someone minimizes their feelings or treats them as unimportant",
+          "angle": "Show emotional dismissal as the reason Scorpio stops sharing.",
+          "copy": "Scorpio shuts down when you dismiss their feelings.",
+          "testedVariable": "Dismissal of feelings"
+        },
+        {
+          "id": "C",
+          "title": "How Scorpio Builds Trust",
+          "topic": "Scorpio trusting people who protect private conversations and do not share personal disclosures",
+          "angle": "Frame confidentiality as the behavior that builds Scorpio’s trust.",
+          "copy": "Scorpio trusts people who keep their secrets.",
+          "testedVariable": "Keeping private disclosures confidential"
+        },
+        {
+          "id": "D",
+          "title": "When Scorpio Tells the Truth",
+          "topic": "Scorpio becoming more honest when the other person stays calm during serious emotional conversations",
+          "angle": "Show calmness during serious conversations as a condition for Scorpio’s honesty.",
+          "copy": "Scorpio tells you the truth when you stay calm.",
+          "testedVariable": "Calmness during emotional conversations"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:56:37.850Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "选择 C 而非 D，说明在 Scorpio 关系类 Hook 中，优先使用更短、更直白、能立即理解的行为和后果；过长或需要额外解释的表达较弱。"
+    },
+    {
+      "id": "e27bbf68-8649-49ac-b9a8-7eb47e4045ce",
+      "createdAt": "2026-08-18T05:45:11.525Z",
+      "mode": "hook",
+      "brief": "Scorpio opens up to the person who lets them finish without calling them dramatic.\t修改这条hook，让它更简洁",
+      "bestId": "A",
+      "worstId": "C",
+      "bestReason": "字数合适，长度合适，",
+      "worstReason": "",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Feels Heard",
+          "topic": "Scorpio becoming more honest when someone listens without dismissing their feelings",
+          "angle": "Show Scorpio becoming honest when their feelings are heard instead of dismissed.",
+          "copy": "Scorpio opens up when you listen instead of dismissing what they feel.",
+          "testedVariable": "Listening versus emotional dismissal"
+        },
+        {
+          "id": "B",
+          "title": "Why Scorpio Stops Sharing",
+          "topic": "Scorpio withdrawing from conversations when they are repeatedly interrupted",
+          "angle": "Frame interruption as the behavior that makes Scorpio stop sharing.",
+          "copy": "Interrupt Scorpio too often, and they stop telling you what they really think.",
+          "testedVariable": "Consequence of repeated interruption"
+        },
+        {
+          "id": "C",
+          "title": "The Word That Shuts Scorpio Down",
+          "topic": "Scorpio becoming guarded after their feelings are called dramatic",
+          "angle": "Use the word “dramatic” as a recognizable relationship trigger and focus on the resulting silence.",
+          "copy": "Call Scorpio dramatic, and they will think twice before opening up again.",
+          "testedVariable": "Specific dismissive label"
+        },
+        {
+          "id": "D",
+          "title": "How Scorpio Starts Talking",
+          "topic": "Scorpio sharing more when someone listens before offering advice",
+          "angle": "Contrast listening with immediately trying to solve the problem, making the behavior easy to recognize.",
+          "copy": "Scorpio opens up more when you listen first instead of trying to fix everything.",
+          "testedVariable": "Listening first versus rushing to fix"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Feels Safe",
+          "topic": "Scorpio opening up when someone respects private feelings and personal disclosures",
+          "angle": "Frame privacy as the condition that helps Scorpio share more.",
+          "copy": "Scorpio reveals more when you keep their trust private.",
+          "testedVariable": "Privacy as the basis for vulnerability"
+        },
+        {
+          "id": "B",
+          "title": "What Scorpio Remembers",
+          "topic": "Scorpio valuing people who remain steady when conversations become emotionally serious",
+          "angle": "Show Scorpio remembering who stayed steady during emotional conversations.",
+          "copy": "Scorpio remembers who stayed calm when things got real.",
+          "testedVariable": "Emotional steadiness under pressure"
+        },
+        {
+          "id": "C",
+          "title": "Why Scorpio Goes Quiet",
+          "topic": "Scorpio withdrawing after their feelings are mocked or treated as entertainment",
+          "angle": "Use a clear consequence when someone mocks or trivializes Scorpio’s feelings.",
+          "copy": "Scorpio stops sharing when you turn their feelings into a joke.",
+          "testedVariable": "Mockery as a reason for emotional withdrawal"
+        },
+        {
+          "id": "D",
+          "title": "When Scorpio Gets Honest",
+          "topic": "Scorpio becoming more honest when relationship conversations feel collaborative instead of competitive",
+          "angle": "Frame honesty as something Scorpio gives up when a conversation becomes a competition.",
+          "copy": "Scorpio tells the truth when you stop trying to win the argument.",
+          "testedVariable": "Collaboration versus winning the argument"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:56:37.850Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮反馈支持：Hook 应更简洁，优先保留清晰的 Scorpio 关系行为与张力；暂不推断对具体措辞或场景的偏好。"
+    },
+    {
+      "id": "c9707077-2be8-431d-a153-5220615a84ff",
+      "createdAt": "2026-08-18T05:43:38.230Z",
+      "mode": "hook",
+      "brief": "Scorpio opens up to the person who lets them finish without calling them dramatic.\t修改这条hook，让它更简洁",
+      "bestId": "D",
+      "worstId": "C",
+      "bestReason": "",
+      "worstReason": "其实都不喜欢，太抽象了，很ai\nstory chapter等词汇就很ai\n都有点太短了每条",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Shuts Down",
+          "topic": "Scorpio withdrawing after being called dramatic",
+          "angle": "Lead with the consequence of labeling Scorpio’s feelings instead of opening with the condition.",
+          "copy": "Call Scorpio dramatic, and they shut down.",
+          "testedVariable": "Consequence-first framing"
+        },
+        {
+          "id": "B",
+          "title": "Let Scorpio Finish",
+          "topic": "Scorpio becoming more honest when they are not interrupted",
+          "angle": "Use a short, direct condition that connects being allowed to speak with emotional honesty.",
+          "copy": "Let Scorpio finish. They might open up.",
+          "testedVariable": "Two-beat conditional structure"
+        },
+        {
+          "id": "C",
+          "title": "Hear the Whole Story",
+          "topic": "Scorpio feeling understood when someone listens without judging",
+          "angle": "Frame the hook around the listener’s behavior and Scorpio’s need to complete their thought.",
+          "copy": "Scorpio needs you to hear the whole story.",
+          "testedVariable": "Listener-focused wording"
+        },
+        {
+          "id": "D",
+          "title": "How to Help Scorpio Open Up",
+          "topic": "Giving Scorpio room to finish difficult conversations",
+          "angle": "Use a direct question followed by a simple action, making the relationship payoff immediately clear.",
+          "copy": "Want Scorpio to open up? Don't interrupt them.",
+          "testedVariable": "Question-to-action structure"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Feels Heard",
+          "topic": "Scorpio becoming more honest when someone listens without dismissing their feelings",
+          "angle": "Show Scorpio becoming honest when their feelings are heard instead of dismissed.",
+          "copy": "Scorpio opens up when you listen instead of dismissing what they feel.",
+          "testedVariable": "Listening versus emotional dismissal"
+        },
+        {
+          "id": "B",
+          "title": "Why Scorpio Stops Sharing",
+          "topic": "Scorpio withdrawing from conversations when they are repeatedly interrupted",
+          "angle": "Frame interruption as the behavior that makes Scorpio stop sharing.",
+          "copy": "Interrupt Scorpio too often, and they stop telling you what they really think.",
+          "testedVariable": "Consequence of repeated interruption"
+        },
+        {
+          "id": "C",
+          "title": "The Word That Shuts Scorpio Down",
+          "topic": "Scorpio becoming guarded after their feelings are called dramatic",
+          "angle": "Use the word “dramatic” as a recognizable relationship trigger and focus on the resulting silence.",
+          "copy": "Call Scorpio dramatic, and they will think twice before opening up again.",
+          "testedVariable": "Specific dismissive label"
+        },
+        {
+          "id": "D",
+          "title": "How Scorpio Starts Talking",
+          "topic": "Scorpio sharing more when someone listens before offering advice",
+          "angle": "Contrast listening with immediately trying to solve the problem, making the behavior easy to recognize.",
+          "copy": "Scorpio opens up more when you listen first instead of trying to fix everything.",
+          "testedVariable": "Listening first versus rushing to fix"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:56:37.850Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮反馈表明：当前候选整体偏短、偏抽象，带有明显的 AI 文案感；下一轮应保留清晰的 Scorpio 关系张力，但使用更自然、具体、可认领的行为表达，并适度增加信息量。"
+    },
+    {
+      "id": "e113ab01-560c-447d-a3fe-89380dca00aa",
+      "createdAt": "2026-08-18T05:41:16.744Z",
+      "mode": "hook",
+      "brief": "Scorpio opens up to the person who lets them finish without calling them dramatic.\t修改这条hook，让它更简洁",
+      "bestId": "D",
+      "worstId": "B",
+      "bestReason": "够短",
+      "worstReason": "有点长",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "The Person Scorpio Opens Up To",
+          "topic": "Scorpio feeling heard in relationships",
+          "angle": "A concise relational payoff: Scorpio opens up when the other person listens without dismissing their feelings.",
+          "copy": "Scorpio opens up to the person who lets them finish.",
+          "testedVariable": "Maximum brevity while preserving the core listening behavior."
+        },
+        {
+          "id": "B",
+          "title": "How to Get Scorpio to Open Up",
+          "topic": "Scorpio shutting down when their feelings are dismissed",
+          "angle": "A direct contrast between feeling heard and being dismissed, using plain language instead of the word “dramatic.”",
+          "copy": "Scorpio opens up when you listen instead of dismissing them.",
+          "testedVariable": "Behavioral contrast: listening versus dismissal."
+        },
+        {
+          "id": "C",
+          "title": "When Scorpio Keeps Talking",
+          "topic": "Scorpio trusting someone with their real feelings",
+          "angle": "A trust-based angle focused on the moment Scorpio decides it is safe to keep talking.",
+          "copy": "Scorpio keeps talking when you don’t judge their feelings.",
+          "testedVariable": "Emotional consequence: continuing to talk rather than simply opening up."
+        },
+        {
+          "id": "D",
+          "title": "What Helps Scorpio Open Up",
+          "topic": "Scorpio needing uninterrupted space to express themselves",
+          "angle": "A conversational angle that makes the other person’s patience the central relationship behavior.",
+          "copy": "Scorpio opens up when you listen all the way through.",
+          "testedVariable": "Expression mechanism: simple conversational phrasing with a clear action."
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "When Scorpio Finally Tells You the Truth",
+          "topic": "Scorpio sharing honest feelings with a patient partner",
+          "angle": "Focus on Scorpio speaking honestly when the other person gives them time instead of rushing the conversation.",
+          "copy": "Scorpio tells you the truth when you don’t rush them.",
+          "testedVariable": "Emotional payoff through patience rather than uninterrupted listening."
+        },
+        {
+          "id": "B",
+          "title": "Why Scorpio Keeps Talking",
+          "topic": "Scorpio continuing difficult conversations instead of shutting down",
+          "angle": "Show that Scorpio becomes more willing to speak when the other person stays present during uncomfortable conversations.",
+          "copy": "Scorpio talks more when you stay through the hard part.",
+          "testedVariable": "Relationship commitment as the condition for Scorpio opening up."
+        },
+        {
+          "id": "C",
+          "title": "When Scorpio Stops Explaining",
+          "topic": "Scorpio withdrawing after their feelings are dismissed",
+          "angle": "Use a visible conversational behavior: Scorpio stops explaining when they feel their feelings are being minimized.",
+          "copy": "Scorpio stops explaining when you brush them off.",
+          "testedVariable": "Negative consequence of dismissal instead of the positive payoff of listening."
+        },
+        {
+          "id": "D",
+          "title": "What Makes Scorpio Open Up",
+          "topic": "Scorpio feeling understood in close relationships",
+          "angle": "Frame openness as a response to being taken seriously, without using abstract trust language.",
+          "copy": "Scorpio opens up when you take them seriously.",
+          "testedVariable": "Validation as the central relationship behavior."
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:56:37.850Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮反馈仅支持：偏好更简洁的 Hook。D 因更短被选中，B 因偏长被淘汰；未足以判断具体句式或主题方向。"
+    },
+    {
+      "id": "5b7e6165-128b-4045-b0e8-a73da0aa35a2",
+      "createdAt": "2026-08-17T10:20:29.627Z",
+      "mode": "script",
+      "brief": "给miraaastrology的scorpio的script",
+      "bestId": "A",
+      "worstId": "B",
+      "bestReason": "够短够直接，场景触动人",
+      "worstReason": "有点空有点虚，有点过于抽象",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Scorpio Watches What You Do After You Apologize",
+          "topic": "Why Scorpio may remain cautious after an apology and look for consistent behavior before fully trusting again.",
+          "angle": "A single-host explanation of how Scorpio evaluates trust after a mistake, focusing on repeated behavior instead of instant forgiveness.",
+          "copy": "Scorpio may forgive the mistake, but they keep watching what happens next.\n\nOne apology can matter to them, but it does not erase the feeling immediately. Scorpio usually wants to see whether your behavior actually changes when no one is reminding you.\n\nThat is why they may seem calm after a disagreement and still act more careful around you. They are comparing your words with what you do over time.\n\nThis does not always mean Scorpio is trying to punish you. They may be deciding whether it feels safe to relax again. If you want to rebuild trust with Scorpio, consistency will usually speak louder than another dramatic promise.\n\nFor Scorpio, trust comes back through repeated proof, not one perfect conversation.",
+          "testedVariable": "Test a broad behavior-and-consequence Hook about trust repair in a single-host format."
+        },
+        {
+          "id": "B",
+          "title": "Scorpio Wants Honesty Before They Show Their Own Feelings",
+          "topic": "Why Scorpio may demand emotional honesty while taking longer to disclose their own feelings.",
+          "angle": "A counterintuitive single-host script about Scorpio wanting honesty while struggling to reveal their own feelings first.",
+          "copy": "Scorpio can ask you to be honest while hiding what they really feel.\n\nThat contradiction usually shows up when the conversation matters most. They may ask what you want, where you stand, or whether something has changed, but give you a short answer when you ask the same question back.\n\nScorpio often wants proof that the truth will be handled carefully before they reveal more of themselves. So they may look for your honesty first, then decide whether it is safe to match it.\n\nThe problem is that this can make the other person feel tested. No one wants to keep opening up into a conversation that only goes one way.\n\nScorpio does not have to share everything at once. But a small honest sentence can change the whole tone: “I want to tell you, but I am nervous about how this will land.”",
+          "testedVariable": "Test a counter-stereotype Hook built around a visible contradiction rather than a standard Scorpio trait."
+        },
+        {
+          "id": "C",
+          "title": "Scorpio Notices the Shift Before You Explain It",
+          "topic": "Why Scorpio may notice changes in someone's tone or effort before directly asking what is happening.",
+          "angle": "A pattern-recognition explanation that turns Scorpio's reputation for noticing changes into concrete relationship behavior, without treating intuition as certainty.",
+          "copy": "Scorpio notices the change in your behavior before they ask what is wrong.\n\nThey may catch the shorter replies, the different tone, or the way you stop volunteering details. Scorpio often pays close attention to small shifts because consistency helps them understand where they stand with someone.\n\nBut noticing a change is not the same as knowing the reason. They can sense that something feels different and still build the wrong story around it.\n\nThat is when Scorpio may become more watchful instead of asking directly. They are trying to protect themselves from hearing a truth they are not ready for, but the guessing can create even more distance.\n\nA clear question works better than a quiet investigation: “Have you felt different with me lately?” It gives Scorpio a fact to respond to instead of a story to defend against.",
+          "testedVariable": "Test a concrete observation Hook and a misconception-correction structure: noticing a shift does not equal knowing its cause."
+        },
+        {
+          "id": "D",
+          "title": "Why Scorpio Asks Around the Question",
+          "topic": "Why Scorpio may seek reassurance through indirect questions instead of directly asking whether a partner still cares.",
+          "angle": "A two-person question-first script about Scorpio seeking reassurance indirectly, with the second speaker providing the main explanation and practical emotional resolution.",
+          "copy": "Why does Scorpio ask indirect questions when they want reassurance?\n\nAstrologer: Because asking “Do you still care about me?” can feel too exposed. Scorpio may ask what you think of the relationship, bring up a similar situation, or make a casual comment just to see how you respond.\n\nPartner: So they are looking for reassurance without asking for it?\n\nAstrologer: Exactly. They want to know whether your answer is real, not just something you say because they asked. But indirect questions can leave the other person confused, especially when the real need stays hidden.\n\nScorpio can be direct without losing control of the conversation. Try saying, “I need reassurance, and I am having trouble asking for it.” That gives the other person a chance to respond to the real question.\n\nThe clearer the need, the less Scorpio has to read between the lines.",
+          "testedVariable": "Test a question-first two-person format focused on indirect reassurance-seeking rather than conflict withdrawal."
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Scorpio Stops Making Plans When Your Effort Keeps Changing",
+          "topic": "Why Scorpio may stop initiating plans after repeated cancellations or inconsistent effort.",
+          "angle": "A single-host explanation of why Scorpio may stop making plans with someone who repeatedly cancels, focusing on the visible consequence of unreliable effort.",
+          "copy": "Scorpio may stop making plans with you after you cancel too many times.\n\nThey may not argue about every missed plan. Instead, they start giving shorter answers, making fewer suggestions, and waiting for you to show that you actually want to see them.\n\nFor Scorpio, the problem is usually bigger than one canceled day. Repeated cancellations can make them feel like they are the only person keeping the connection alive.\n\nThat is why they may suddenly seem less available. They are not always trying to make you chase them. They may be matching the effort they feel they are receiving.\n\nIf you want Scorpio to trust your interest again, make one clear plan and follow through. Consistent effort is easier for them to believe than another explanation.",
+          "testedVariable": "Test a reliability-and-effort Hook centered on a repeated observable behavior and its relationship consequence."
+        },
+        {
+          "id": "B",
+          "title": "Why Scorpio Keeps Asking What You Really Mean",
+          "topic": "Why Scorpio may ask repeated follow-up questions when someone's explanation feels vague or incomplete.",
+          "angle": "A single-host explanation of Scorpio's tendency to ask follow-up questions when an answer feels incomplete, focusing on the need for clarity rather than suspicion.",
+          "copy": "Scorpio keeps asking questions when your answer does not feel complete.\n\nThey may ask what you meant, when you started feeling that way, or what changed. To the other person, this can sound like an interrogation. To Scorpio, it may be the only way to understand what is actually happening.\n\nA vague answer leaves too much room for guessing, and guessing makes Scorpio focus on the details even more. They would usually rather hear an uncomfortable truth than receive a calm answer that does not explain anything.\n\nBut Scorpio can also mistake uncertainty for dishonesty. Not every unfinished answer is a hidden problem.\n\nIf you are talking to Scorpio, try being specific about what you know and what you are still figuring out. Clear limits are easier to trust than a polished answer that avoids the real question.",
+          "testedVariable": "Test a clarification-seeking Hook and an explanation structure that distinguishes incomplete information from dishonesty."
+        },
+        {
+          "id": "C",
+          "title": "Scorpio Pulls Back When Your Relationship Becomes Public",
+          "topic": "Why Scorpio may protect relationship privacy when friends or other people start commenting on it.",
+          "angle": "A single-host explanation of why Scorpio may keep a relationship private when other people's opinions start affecting it, focusing on privacy as protection rather than secrecy.",
+          "copy": "Scorpio may keep your relationship private when too many people have an opinion about it.\n\nThey might stop sharing updates, avoid discussing disagreements, or change the subject when friends start asking for details. That does not automatically mean they are ashamed of the relationship.\n\nScorpio often wants the connection to develop without outside commentary shaping every decision. Once private moments become public discussion, they may feel like they have to defend something that was supposed to belong to the two of you.\n\nThe difficult part is that their privacy can look like distance. The other person may wonder why Scorpio will not talk about something that matters to them.\n\nA useful middle ground is simple: agree on what stays between you and what can be shared. Scorpio usually feels safer when privacy is a mutual choice, not a wall they have to maintain alone.",
+          "testedVariable": "Test a privacy-as-protection mechanism using a broad social-pressure Hook instead of a one-on-one trust conflict."
+        },
+        {
+          "id": "D",
+          "title": "Scorpio Opens Up When You Stop Pushing",
+          "topic": "Why Scorpio may become more open after someone respects their limits without taking the boundary personally.",
+          "angle": "A single-host explanation of how Scorpio reacts when someone respects a clear no, focusing on how permission and follow-through can create closeness.",
+          "copy": "Scorpio opens up more when you respect their no the first time.\n\nThey may not respond warmly when someone keeps pushing for an answer, a favor, or more personal information after they have already said they are not ready. Even friendly pressure can make Scorpio feel like their comfort is being treated as an obstacle.\n\nBut when you accept the no without turning it into a personal insult, something changes. Scorpio sees that they can be honest about their limits without losing the relationship.\n\nThat is often what makes them come back and share more later. They are not being difficult just to create distance. They are checking whether closeness still leaves room for choice.\n\nWith Scorpio, respecting the boundary can do more for intimacy than demanding immediate openness. They are more likely to offer access when they know it will not be taken from them.",
+          "testedVariable": "Test a boundary-respect Hook that frames Scorpio's increased openness as a consequence of being allowed to choose."
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:56:37.850Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "A 胜过 B，说明本轮更偏好短、直接、马上能认领的关系行为与后果；相比之下，只有“想要诚实但不先表达自己”这类抽象矛盾较难成立。该结论主要适用于 Hook 表达，不扩展为固定选题或账号规则。"
+    },
+    {
+      "id": "5a0f857a-1e13-492d-9bb7-2d02d8160191",
+      "createdAt": "2026-08-17T09:52:04.806Z",
+      "mode": "script",
+      "brief": "你自由发挥",
+      "bestId": "C",
+      "worstId": "D",
+      "bestReason": "因为其他几个都更差一点。这个的话还挺适合astrologywiki官号的",
+      "worstReason": "ai味道很重，这种xxx says ,,,, xxx says,,,就很ai",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Why Cancer Asks If You Are Okay",
+          "topic": "Cancer seeking reassurance through indirect relationship questions",
+          "angle": "A comment-style response that turns a common dating frustration into a fair explanation of how Cancer may seek reassurance indirectly.",
+          "copy": "Why does Cancer ask if you are okay when they are the one who seems upset?\n\nSometimes they are not looking for a confession. They are checking whether the connection still feels steady.\n\nCancer may notice a shorter text, a different tone, or the way you leave the room before they know how to explain what they noticed. Instead of saying, “I need reassurance,” they may ask, “Is something wrong?”\n\nThe question can sound indirect, but the need underneath it may be simple: “Are we still good?”\n\nThe best response is not to make them guess harder. Try saying, “Nothing changed between us, but I can tell you what is on my mind.”\n\nFor Cancer, clarity can feel more comforting than a perfect answer.",
+          "testedVariable": "Question-led opening versus a declarative sign judgment, with reassurance as the central relationship need."
+        },
+        {
+          "id": "B",
+          "title": "When Sagittarius Leaves You Out Without Meaning To",
+          "topic": "Sagittarius balancing independence and consideration in relationships",
+          "angle": "A short scene built around a missed invitation, showing how Sagittarius may interpret closeness through shared freedom rather than constant access.",
+          "copy": "Sagittarius can care about you deeply and still forget to invite you into every plan.\n\nThat does not automatically mean the relationship matters less to them. Sagittarius often experiences closeness through shared experiences, honest conversation, and the freedom to keep discovering life.\n\nBut this can create a painful mismatch. Their partner may think, “If you wanted me there, you would have asked.” Sagittarius may think, “If we are close, I should not have to prove it with every invitation.”\n\nBoth people are reading the same absence differently.\n\nA useful conversation sounds like this: “I do not need to join everything, but I want to know when you are making plans that affect us.”\n\nFreedom works better in a relationship when it includes consideration.",
+          "testedVariable": "Scene-first storytelling with a specific social behavior, testing whether a freedom-versus-inclusion conflict creates stronger recognition than abstract compatibility language."
+        },
+        {
+          "id": "C",
+          "title": "Your Venus Sign Is Not Your Whole Love Story",
+          "topic": "How Venus, Moon, Mars, and Rising placements add different layers to relationship style",
+          "angle": "A myth-busting educational script for the official account that separates Venus preferences from a complete relationship profile and ends with a chart lookup.",
+          "copy": "Your Venus sign can explain what feels attractive to you, but it cannot describe your entire love life.\n\nVenus is useful for exploring how you show affection, what you value in connection, and the kinds of style or harmony you are drawn toward.\n\nBut relationships involve more than one placement. Your Moon can add emotional needs. Your Mars can describe how you pursue what you want. Your Rising sign can shape the way people first experience you.\n\nSo if your Venus description feels accurate but incomplete, that is normal. One placement is a clue, not a complete personality report.\n\nGenerate your birth chart, find your Venus sign, and then compare it with your Moon and Mars. The contrast may explain why your dating style looks different in different situations.",
+          "testedVariable": "Myth-busting structure that begins with a limitation, testing whether a precise correction drives more tool engagement than a basic placement definition."
+        },
+        {
+          "id": "D",
+          "title": "Leo Wants an Answer, Pisces Wants You to Notice",
+          "topic": "Leo and Pisces misunderstanding direct communication and emotional sensitivity",
+          "angle": "A split-perspective monologue in which Leo and Pisces respond to the same emotional moment, emphasizing translation rather than blame.",
+          "copy": "Leo says, “Tell me what is wrong.” Pisces says, “I thought you would feel it.”\n\nThat difference can turn one quiet moment into a much bigger misunderstanding.\n\nLeo may use direct conversation to bring the relationship back into the open. Silence can feel like distance, so they ask for an answer and want to know where they stand.\n\nPisces may need time to sort through several feelings at once. They may hope the other person notices the change before they have to explain it perfectly.\n\nThen Leo feels shut out, while Pisces feels pressured.\n\nThe bridge is not for either person to become someone else. Leo can ask, “Do you need a little time, or do you want to talk now?” Pisces can answer with a clear timeframe instead of disappearing into the feeling.\n\nDifferent emotional languages become easier when both people translate instead of testing each other.",
+          "testedVariable": "Two-voice contrast and mirrored dialogue, testing whether a memorable verbal pattern improves retention while keeping both signs equally responsible for the repair."
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Why Your Venus Sign Does Not Explain Everything",
+          "topic": "Using multiple birth chart placements to understand relationship patterns",
+          "angle": "Start with a common chart question, then separate what each placement can and cannot explain before directing viewers to compare placements in their own chart.",
+          "copy": "Why can your Venus sign feel accurate but still fail to explain your relationships?\n\nBecause Venus is only one part of the picture.\n\nVenus can show what you value in love, how you express affection, and what kind of connection feels appealing. But it does not explain every emotional reaction or every dating habit.\n\nYour Moon can add information about what helps you feel secure. Mars can describe how you go after what you want. Your Rising sign can shape the first impression you give people.\n\nThat is why one placement can feel completely true and still feel incomplete.\n\nGenerate your birth chart and compare your Venus, Moon, and Mars signs. Look for the places where they agree, and the places where they tell a different part of your story.",
+          "testedVariable": "Question-led educational opening with a clear limitation and a multi-placement comparison CTA."
+        },
+        {
+          "id": "B",
+          "title": "Your Venus House Changes the Question",
+          "topic": "How a planet's house placement adds life-area context to a sign interpretation",
+          "angle": "Use a practical chart-checking task: identify the house containing a placement, explain why the house adds life-area context, and send viewers to the chart tool.",
+          "copy": "Your Venus sign can tell you what you like. Your Venus house can show where those values become important.\n\nVenus in one sign may describe your approach to affection, beauty, and connection. The house adds a different question: where do you look for harmony, pleasure, or approval in everyday life?\n\nA Venus placement in the fifth house may bring attention to dating, creativity, and self-expression. In the seventh house, partnership may become a much bigger focus. In the eleventh house, friendship and community may shape how connection develops.\n\nThe sign describes the style. The house points to the area of life.\n\nGenerate your chart, find Venus, and check both the sign and the house. That gives you a more useful starting point than reading the sign alone.",
+          "testedVariable": "Action-first chart lookup structure that turns an abstract concept into a specific tool-based task."
+        },
+        {
+          "id": "C",
+          "title": "Why People May Not Guess Your Sun Sign",
+          "topic": "The difference between Sun sign identity and Rising sign first impressions",
+          "angle": "Correct a familiar misconception by contrasting Sun sign identity with Rising sign presentation, using observable first-impression behaviors instead of abstract labels.",
+          "copy": "Your Sun sign is not always the part of you people notice first.\n\nYour Sun can describe your central identity and the qualities you are growing into. Your Rising sign often describes the style people meet at the beginning: how you enter a room, respond to a new situation, or approach unfamiliar people.\n\nThat can explain why someone says, “You do not seem like your Sun sign.” They may be reacting to the way your Rising sign comes across before they know you well.\n\nThis does not mean one placement is fake. It means a birth chart has different layers, and each one answers a different question.\n\nGenerate your chart and compare your Sun and Rising signs. Ask what people notice first, and what they understand only after they know you better.",
+          "testedVariable": "Myth-busting contrast between Sun and Rising signs, with behavior-based examples and a self-reflection CTA."
+        },
+        {
+          "id": "D",
+          "title": "Which Birth Chart Placement Should You Check?",
+          "topic": "Matching common relationship questions with Venus, Moon, and Mars placements",
+          "angle": "Build the script around a short three-question diagnostic that helps viewers choose the relevant chart placement instead of giving a broad placement lecture.",
+          "copy": "When you want to understand a relationship pattern, start with the right chart question.\n\nAsk what you are drawn to. Venus can help you explore attraction, affection, and the qualities you value in connection.\n\nAsk what you need to feel emotionally settled. Your Moon can add insight into comfort, reactions, and emotional habits.\n\nAsk how you pursue what you want. Mars can help you look at desire, effort, and conflict style.\n\nThese placements do not give fixed answers about your future. They give you different ways to examine the same relationship experience.\n\nGenerate your birth chart, choose one question, and start with the placement that matches it. A focused question usually tells you more than trying to interpret the whole chart at once.",
+          "testedVariable": "Diagnostic checklist structure that maps three user questions to three placements and keeps the CTA focused."
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-17T09:30:35.897Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮反馈明确支持：相较于泛化的星座关系口播，贴合 AstrologyWiki 官号定位、能解释占星概念并承接工具使用的内容更合适。表达上应避免“X says..., Y says...”这类刻意的双人对照模板，因为它容易显得像 AI 生成。已确认规则继续生效：Hook 使用简单、直白、容易立即理解的行为表达。除上述差异外，不对其他候选特征做更强推断。"
+    },
+    {
+      "id": "e54d035e-d67c-4c7a-9412-00ffd2719bff",
+      "createdAt": "2026-08-17T09:07:12.364Z",
+      "mode": "hook",
+      "brief": "你自由发挥",
+      "bestId": "A",
+      "worstId": "D",
+      "bestReason": "我很喜欢这种一上来就点名的感觉",
+      "worstReason": "选题可以，但是hook不行，首先是太长了，可以写成“水瓶座回消息回的慢，但其实他们care deeply",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Taurus Doesn’t Hate Change",
+          "topic": "Taurus and the pressure to make quick decisions",
+          "angle": "反刻板印象：把 Taurus “stubbornness” reframed as resistance to being pressured",
+          "copy": "Taurus doesn’t hate change—they hate being rushed into it.",
+          "testedVariable": "Contrast framing with a simple behavior-versus-motive reveal"
+        },
+        {
+          "id": "B",
+          "title": "Leo Remembers the Feeling",
+          "topic": "Leo, forgiveness, and emotional impact in relationships",
+          "angle": "Forgiveness with emotional memory: separate moving on from forgetting the impact",
+          "copy": "Leo can forgive the mistake and still remember how you made them feel.",
+          "testedVariable": "Emotional consequence framing versus trait labeling"
+        },
+        {
+          "id": "C",
+          "title": "Why Gemini Suddenly Goes Quiet",
+          "topic": "Gemini withdrawing when communication feels emotionally risky",
+          "angle": "Silence as conflict avoidance rather than lack of interest",
+          "copy": "Gemini goes quiet when every answer feels like it will start a fight.",
+          "testedVariable": "Observable behavior tied to an immediate relationship tension"
+        },
+        {
+          "id": "D",
+          "title": "Aquarius Cares Differently",
+          "topic": "Aquarius and the mismatch between emotional investment and texting habits",
+          "angle": "Contradiction between caring deeply and showing it through delayed communication",
+          "copy": "Aquarius may care deeply and still be the last person to text back.",
+          "testedVariable": "反差 hook pairing an unexpected emotional truth with a familiar behavior"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Needs to Be Sure",
+          "topic": "Taurus delaying a decision until they feel confident about it",
+          "angle": "Reframe Taurus patience as waiting for certainty instead of resisting change.",
+          "copy": "Taurus waits until the choice feels right.",
+          "testedVariable": "Identity-first statement with a concise behavioral reveal"
+        },
+        {
+          "id": "B",
+          "title": "When Libra Says It’s Fine",
+          "topic": "Libra hiding relationship frustration to avoid conflict",
+          "angle": "Show Libra’s conflict avoidance through a familiar relationship behavior.",
+          "copy": "Libra says “it’s fine” when it really isn’t.",
+          "testedVariable": "Quoted everyday behavior instead of an abstract personality trait"
+        },
+        {
+          "id": "C",
+          "title": "Why Virgo Notices Everything",
+          "topic": "Virgo pointing out small details because they are paying close attention",
+          "angle": "Use a direct question to create curiosity around Virgo’s criticism and care.",
+          "copy": "Why does Virgo notice every little thing?",
+          "testedVariable": "Question-led hook focused on an observable attention pattern"
+        },
+        {
+          "id": "D",
+          "title": "When Capricorn Goes Quiet",
+          "topic": "Capricorn becoming less communicative after feeling disappointed in a relationship",
+          "angle": "Connect Capricorn’s restrained communication to an emotional consequence.",
+          "copy": "Capricorn gets quiet when they feel let down.",
+          "testedVariable": "Short cause-and-behavior framing with emotional stakes"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮更偏好开头直接点名目标星座，并用短、直白的句子连接到广泛可认领的行为或关系张力。过长、抽象的反差表达较弱；“care deeply”这类心理判断应压缩并落到明显行为上。"
+    },
+    {
+      "id": "6b2bdf63-e872-4494-88df-aa6cece209e6",
+      "createdAt": "2026-08-17T08:28:44.115Z",
+      "mode": "hook",
+      "brief": "关于金牛座",
+      "bestId": "D",
+      "worstId": "C",
+      "bestReason": "感觉这条很对味！",
+      "worstReason": "太长了，长难句",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "Taurus Doesn't Rush Big Decisions",
+          "topic": "Taurus decision-making and resistance to pressure",
+          "angle": "Reverse the “Taurus is stubborn” stereotype by framing their refusal to rush as a deliberate standard.",
+          "copy": "Taurus isn't slow—they just refuse to make big decisions under pressure.",
+          "testedVariable": "Reverse-stereotype framing"
+        },
+        {
+          "id": "B",
+          "title": "The Taurus Silence Signal",
+          "topic": "Taurus silence and changing their mind",
+          "angle": "Use a recognizable communication behavior to show how Taurus may signal discomfort without openly arguing.",
+          "copy": "When Taurus gets unusually quiet, they may already be rethinking the whole situation.",
+          "testedVariable": "Behavior-to-consequence framing"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Has a Line You Won't See Coming",
+          "topic": "Taurus boundaries and non-negotiable priorities",
+          "angle": "Create tension by contrasting Taurus’s calm exterior with the firmness of their private limits.",
+          "copy": "Taurus can look easygoing right up until you ask them to give up the one thing they decided was non-negotiable.",
+          "testedVariable": "Contrast and escalation"
+        },
+        {
+          "id": "D",
+          "title": "How Taurus Shows They Care",
+          "topic": "Taurus loyalty and consistent effort",
+          "angle": "Challenge the idea that Taurus only values comfort by connecting their loyalty to consistent effort rather than romantic clichés.",
+          "copy": "Taurus doesn't always say they care—they keep showing up after everyone else gets tired.",
+          "testedVariable": "Action-based emotional proof"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Remembers More Than You Think",
+          "topic": "Taurus showing care through memory and consistent attention",
+          "angle": "Show Taurus care through a simple, repeatable action rather than words.",
+          "copy": "Taurus shows they care by remembering the little things you thought they forgot.",
+          "testedVariable": "Specific everyday behavior"
+        },
+        {
+          "id": "B",
+          "title": "When Taurus Stops Arguing",
+          "topic": "Taurus withdrawing effort after repeated relationship conflict",
+          "angle": "Frame Taurus’s refusal to engage as a sign that the relationship may already be over for them.",
+          "copy": "When Taurus stops arguing, they may have already stopped trying.",
+          "testedVariable": "Behavior-to-relationship-consequence framing"
+        },
+        {
+          "id": "C",
+          "title": "Why Taurus Takes So Long to Answer",
+          "topic": "Taurus delaying responses while reassessing trust",
+          "angle": "Use a direct question to make viewers recognize Taurus’s private decision process.",
+          "copy": "Why does Taurus take so long to answer? They may be deciding whether they still trust you.",
+          "testedVariable": "Question-led psychological explanation"
+        },
+        {
+          "id": "D",
+          "title": "What Taurus Is Really Stubborn About",
+          "topic": "Taurus persistence and selective commitment",
+          "angle": "Use a compact reverse-stereotype claim that turns stubbornness into follow-through.",
+          "copy": "Taurus isn't stubborn about everything—they're committed to what still matters to them.",
+          "testedVariable": "Concise reverse-stereotype framing"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮仅能确认：偏好更短、更直接、容易一眼听懂的 Hook；D 的具体行为和情感结果表达比 C 的长句更符合当前反馈。尚不足以确认某一种金牛座主题或特定 Hook 结构应长期优先。"
+    },
+    {
+      "id": "9f5064f0-d427-4efc-a47d-6761ca2377cf",
+      "createdAt": "2026-08-17T07:17:35.648Z",
+      "mode": "hook",
+      "brief": "关于金牛座",
+      "bestId": "C",
+      "worstId": "D",
+      "bestReason": "其实我觉得b和c都挺对味的，尤其是c，c有种反金牛座固执的刻板印象的感觉，就是“金牛座不总是这样，金牛座其实是这样。。。”的感觉很不错",
+      "worstReason": "看不懂",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "How Taurus Shows They Care",
+          "topic": "Taurus expressing affection through consistency instead of words",
+          "angle": "Direct behavior callout: Taurus shows care through practical consistency, which can make their feelings easy to miss.",
+          "copy": "Taurus may not say they miss you—they’ll just keep showing up.",
+          "testedVariable": "A direct, behavior-based identity judgment"
+        },
+        {
+          "id": "B",
+          "title": "Why Taurus Takes Silence Seriously",
+          "topic": "Taurus reacting to unexplained changes in communication",
+          "angle": "Relationship tension: Taurus can interpret sudden emotional distance as a sign that trust has changed.",
+          "copy": "When you suddenly go quiet, Taurus may start questioning the whole relationship.",
+          "testedVariable": "A consequence-led relationship conflict"
+        },
+        {
+          "id": "C",
+          "title": "The Reason Taurus Holds Their Ground",
+          "topic": "Taurus resisting change because they value stability and clear reasons",
+          "angle": "Contrarian reframe: Taurus’s reputation for stubbornness can hide a strong need for stability before making a change.",
+          "copy": "Taurus isn’t always refusing to change—they may need to know what they’re changing for.",
+          "testedVariable": "A not-X-but-Y reframe of a familiar Taurus trait"
+        },
+        {
+          "id": "D",
+          "title": "When Taurus Needs More Time",
+          "topic": "How Taurus’s slower decision-making can create misunderstandings in relationships",
+          "angle": "Comparison structure: Taurus and a more spontaneous partner can read the same pause in completely different ways.",
+          "copy": "Taurus calls it taking their time. Someone else may hear, “You’re not interested.”",
+          "testedVariable": "A two-perspective contrast between Taurus and a partner"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "How Taurus Shows They Trust You",
+          "topic": "Taurus showing trust through daily routines and gradual inclusion",
+          "angle": "Trust signal: Taurus expresses closeness by sharing ordinary routines and making space for someone in daily life.",
+          "copy": "Taurus may not open up all at once. They show trust by letting you into their everyday life.",
+          "testedVariable": "A concrete trust behavior instead of a verbal or emotional confession"
+        },
+        {
+          "id": "B",
+          "title": "What Taurus Really Struggles to Forgive",
+          "topic": "Taurus reacting to repeated unreliability in close relationships",
+          "angle": "Relationship consequence: Taurus can tolerate mistakes, but repeated inconsistency changes how safe the relationship feels.",
+          "copy": "Taurus can forgive a mistake. What they struggle with is feeling like they can never rely on you.",
+          "testedVariable": "A tolerance-versus-reliability contrast built around a relationship consequence"
+        },
+        {
+          "id": "C",
+          "title": "When Taurus Stops Trying",
+          "topic": "Taurus withdrawing effort after repeated unresolved relationship problems",
+          "angle": "Emotional withdrawal: Taurus’s silence becomes meaningful when they stop trying to repair the same problem.",
+          "copy": "When Taurus stops bringing up the problem, they may not be over it—they may be done trying to fix it alone.",
+          "testedVariable": "A recognizable behavioral turning point with a clear emotional consequence"
+        },
+        {
+          "id": "D",
+          "title": "Why Taurus Needs a Real Reason",
+          "topic": "Taurus taking time before major decisions because they need a trustworthy reason",
+          "angle": "Decision pressure: Taurus responds better to a clear reason than to urgency or emotional pressure.",
+          "copy": "Taurus is not trying to make everything difficult. They just do not make big choices without a reason they trust.",
+          "testedVariable": "A direct stereotype correction tied to a practical decision-making need"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "本轮更偏好清晰、直白的反刻板印象表达，尤其是“金牛座不只是表面上的某种特质，其实是在回应另一种真实需求”的重构感。B 的关系张力也符合方向；D 的双视角表达因不够直观而被认为难懂。"
+    },
+    {
+      "id": "76837f5e-7c17-40f0-bd2b-69437a0c285a",
+      "createdAt": "2026-08-17T07:14:36.241Z",
+      "mode": "topic",
+      "brief": "关于金牛座的选题",
+      "bestId": "A",
+      "worstId": "B",
+      "bestReason": "感觉比较对味，能让人觉得这就是我的感觉",
+      "worstReason": "场景太窄，选择了两个星座作为讨论，而且场景有点抽象不够吸引人",
+      "candidates": [
+        {
+          "id": "A",
+          "title": "When Plans Change",
+          "topic": "Why Taurus can go quiet when plans suddenly change, even if they eventually agree to the new plan",
+          "angle": "Test whether a specific response to sudden change creates stronger recognition than generic “stubborn Taurus” framing.",
+          "copy": "Taurus may not resist every change—they may need time to feel steady before they respond. This explores what happens when plans shift before they are ready.",
+          "testedVariable": "Change-response framing versus a broad stubbornness label"
+        },
+        {
+          "id": "B",
+          "title": "Taurus Meets Gemini",
+          "topic": "Why Taurus and Gemini can misunderstand each other when one wants a settled plan and the other wants to stay spontaneous",
+          "angle": "Use a two-sign relationship mismatch to show how Taurus’s need for predictability can be misread as lack of interest by Gemini.",
+          "copy": "Taurus may want time to settle into a plan, while Gemini wants to keep options open. The tension is not always about caring less—it can be about moving at different speeds.",
+          "testedVariable": "Two-sign misinterpretation versus single-sign psychology"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Moon Care",
+          "topic": "How Taurus Moon shows love through comfort and practical care instead of dramatic emotional gestures",
+          "angle": "Test a placement-led topic that translates Taurus Moon needs into observable relationship behavior rather than abstract emotional language.",
+          "copy": "A Taurus Moon may show care through comfort, consistency, and practical support. This angle looks at why grand emotional declarations may matter less than feeling genuinely at ease.",
+          "testedVariable": "Moon placement specificity versus Sun-sign relatability"
+        },
+        {
+          "id": "D",
+          "title": "The Taurus Exit Point",
+          "topic": "Why Taurus can take a long time to leave a relationship or situation once it no longer feels right",
+          "angle": "Frame delayed decisions as a boundary and self-protection question, avoiding labels like passive or indecisive.",
+          "copy": "Taurus may stay in a situation longer than others expect because leaving means giving up something familiar and tangible. This explores the moment patience becomes a choice to protect stability.",
+          "testedVariable": "Decision-threshold framing versus indecisiveness framing"
+        }
+      ],
+      "nextCandidates": [
+        {
+          "id": "A",
+          "title": "Taurus Needs Proof",
+          "topic": "Why Taurus may stay emotionally reserved until someone proves they are consistent over time",
+          "angle": "Frame Taurus hesitation as a trust response: they may need repeated proof before becoming fully open, rather than simply being guarded.",
+          "copy": "Taurus may seem hard to get close to, but the real issue can be consistency. This explores why steady actions often matter more to them than intense promises.",
+          "testedVariable": "Trust-building behavior versus general guardedness"
+        },
+        {
+          "id": "B",
+          "title": "Taurus in Conflict",
+          "topic": "Why Taurus may go quiet during an argument and return only after they have processed what they feel",
+          "angle": "Show how Taurus handles conflict through delayed, controlled responses instead of immediate emotional confrontation.",
+          "copy": "Taurus may not argue the moment something feels wrong. They may hold it in, think it through, and respond only when they know exactly what they want to say.",
+          "testedVariable": "Conflict-processing style versus a stubbornness label"
+        },
+        {
+          "id": "C",
+          "title": "Taurus Remembers Patterns",
+          "topic": "Why Taurus may forgive one disappointment but lose trust when unreliability becomes a pattern",
+          "angle": "Focus on Taurus’s attachment to reliability in relationships, especially when someone repeatedly fails to follow through.",
+          "copy": "For Taurus, broken promises can change how safe a relationship feels. This explores why one missed commitment may matter less than a pattern of not following through.",
+          "testedVariable": "Reliability threshold versus dramatic betrayal framing"
+        },
+        {
+          "id": "D",
+          "title": "When Taurus Needs Help",
+          "topic": "Why Taurus may struggle to ask for help even when they are usually the person everyone relies on",
+          "angle": "Use a self-worth and attachment angle: Taurus may have trouble accepting help because receiving support can feel like losing control or owing someone.",
+          "copy": "Taurus often wants to be the dependable one. This explores why accepting help can feel more uncomfortable than giving it, even when they genuinely need support.",
+          "testedVariable": "Difficulty receiving support versus practical-care expression"
+        }
+      ],
+      "contextReceipt": [
+        {
+          "id": "product_skill",
+          "label": "AstrologyWiki 主 Skill",
+          "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+          "updatedAt": "2026-08-14T09:56:12.672Z",
+          "readable": true
+        },
+        {
+          "id": "account_guide",
+          "label": "账号分工指南",
+          "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
+          "updatedAt": "2026-08-17T02:38:41.948Z",
+          "readable": true
+        },
+        {
+          "id": "weekly_sop",
+          "label": "周度生产 SOP",
+          "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
+          "updatedAt": "2026-08-17T02:38:41.897Z",
+          "readable": true
+        }
+      ],
+      "learningSummary": "用户更偏好能让广泛受众立刻产生“这就是我”的金牛具体行为与关系张力；不偏好依赖两个星座配对、场景过窄或表达抽象的选题。以下候选继续测试单一金牛行为，但避免重复本轮的临时变动、双星座误读、Taurus Moon 和离开关系主题。"
+    },
     {
       "id": "74335831-839c-46e4-927d-306d9d65e427",
       "createdAt": "2026-08-14T08:42:16.871Z",
@@ -82,66 +1550,81 @@
       "learningSummary": "明确反馈支持：本轮 Hook 应避免“change one detail over dinner”这类刻意、具体到像 AI 生成的场景；同时保留一定吸引力，并把 boundaries 等抽象概念说得更简单。未据此推断出对某一种固定句式的长期偏好。"
     }
   ],
-  "skillUpdates": [],
+  "skillUpdates": [
+    {
+      "signalId": "4d648243-9ffa-4dd7-a93e-ea92d2af866d",
+      "appliedAt": "2026-08-18T05:46:36.155Z",
+      "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+      "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "alreadyApplied": false
+    },
+    {
+      "signalId": "a023755f-3f23-4f39-83f9-b21a2faa1aef",
+      "appliedAt": "2026-08-17T09:30:35.897Z",
+      "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
+      "section": "### 8.1 Pengman 的 Hook 与白纸重写偏好",
+      "alreadyApplied": false
+    }
+  ],
   "currentRound": {
-    "mode": "topic",
-    "brief": "Scorpio喜欢什么类型的人",
-    "generatedAt": "2026-08-14T10:38:49.205Z",
+    "mode": "script",
+    "brief": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.  At first, they let it go. The canceled plan. The comment that landed wrong. The promise you didn't keep. They notice, but they tell themselves it was one bad day.  Then it happens again.  They may bring it up once or twice. But asking for the same basic effort over and over wears them down. Eventually, they stop explaining.  That's why the exit feels sudden. You thought the problem was over because they got quiet. They got quiet because they were done asking.  But Capricorn has a part to own too. If they never tell you where the line is, you cannot know when you crossed it.  They don't have to argue forever. They do have to say, \"This keeps happening, and I can't keep doing this.\"  Then if nothing changes, they leave.重写除了首句以外的script，保持主题不变但是换叙述",
+    "generatedAt": "2026-08-19T07:11:47.677Z",
     "contextReceipt": [
       {
         "id": "product_skill",
         "label": "AstrologyWiki 主 Skill",
         "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
-        "updatedAt": "2026-08-14T09:56:12.672Z",
+        "updatedAt": "2026-08-18T05:46:36.155Z",
         "readable": true
       },
       {
         "id": "account_guide",
         "label": "账号分工指南",
         "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
-        "updatedAt": "2026-08-07T11:11:01.239Z",
+        "updatedAt": "2026-08-17T02:38:41.948Z",
         "readable": true
       },
       {
         "id": "weekly_sop",
         "label": "周度生产 SOP",
         "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
-        "updatedAt": "2026-08-14T09:41:52.706Z",
+        "updatedAt": "2026-08-17T02:38:41.897Z",
         "readable": true
       }
     ],
     "candidates": [
       {
         "id": "A",
-        "title": "Consistency Wins",
-        "topic": "Why Scorpio likes people who follow through on what they say they will do",
-        "angle": "Test whether a concrete trust-building behavior outperforms broad “loyalty” language.",
-        "copy": "Scorpio is drawn to people whose actions stay consistent after the excitement wears off. This explores why follow-through can feel more attractive than big promises.",
-        "testedVariable": "Concrete behavior versus abstract trait"
+        "title": "Capricorn Leaves When the Pattern Becomes Clear",
+        "topic": "Capricorn’s decision to leave after repeated disappointment changes their expectations in a relationship",
+        "angle": "Reframe Capricorn’s distance as the result of repeated broken patterns rather than one dramatic mistake. Move through the relationship in stages: notice, communicate, adjust, detach.",
+        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nOne mistake usually gives them something to work with. They can understand a bad day, an honest mistake, or a promise that slipped once. What changes things is the pattern that follows.\n\nThey start paying attention to whether you take responsibility without being chased. Do you remember what happened? Do you try to fix it? Do your actions look different next time?\n\nCapricorn may not need a perfect partner. They need to believe the relationship can improve. When every apology leads back to the same behavior, they slowly stop investing in the apology.\n\nThat is why their final decision can feel so sudden. The decision was not sudden. You just did not see all the small moments when their hope was wearing out.\n\nCapricorn still has to speak honestly before reaching that point. They cannot expect you to understand a boundary they never explain. But once they have clearly asked for change and nothing changes, leaving may feel less like punishment and more like accepting the evidence.",
+        "testedVariable": "Narrative structure: gradual timeline showing how repeated disappointment erodes trust"
       },
       {
         "id": "B",
-        "title": "Say It Clearly",
-        "topic": "Why Scorpio likes people who communicate directly instead of sending mixed signals",
-        "angle": "Frame attraction around emotional clarity and the relief of not having to decode mixed signals.",
-        "copy": "Scorpio may be intrigued by mystery, but lasting interest grows when someone can say what they mean. The focus is direct communication without games.",
-        "testedVariable": "Communication clarity as the attraction trigger"
+        "title": "Capricorn’s Silence Does Not Always Mean It’s Over",
+        "topic": "How Capricorn’s quiet response to repeated disappointment can be mistaken for forgiveness",
+        "angle": "Tell the story from the partner’s point of view. Explain why Capricorn’s quietness can be mistaken for forgiveness, then land on the need for direct repair instead of relying on silence.",
+        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nThe confusing part is that they may not keep bringing the issue up. After you apologize, they might accept the apology and move on. You may think everything is fine because they are no longer upset.\n\nBut Capricorn is watching what happens after the conversation. Did you follow through? Did you change the habit? Did you make them feel like asking was worth it?\n\nIf the answer keeps being no, their quietness starts to mean something different. They are not always calming down. Sometimes they are deciding whether this relationship still has a future they can trust.\n\nBy the time they stop checking in, making plans, or explaining why something hurt, they may already feel emotionally finished. The silence is not the beginning of the problem. It is often the end of repeated attempts to solve it.\n\nCapricorn cannot make their partner guess forever, though. A clear sentence like, “This keeps happening, and I need it to change,” gives the relationship a fair chance. After that, real change matters more than another promise.",
+        "testedVariable": "Point of view: partner-facing explanation of how Capricorn’s silence is misread"
       },
       {
         "id": "C",
-        "title": "Keep It Private",
-        "topic": "Why Scorpio likes people who respect confidentiality and protect the relationship’s private side",
-        "angle": "Use privacy and discretion as a relationship-specific form of respect, not as an abstract personality label.",
-        "copy": "For Scorpio, trust can deepen when someone protects private conversations and does not turn intimacy into public content. This gives discretion a clear everyday meaning.",
-        "testedVariable": "Privacy and discretion versus emotional intensity"
+        "title": "Capricorn Can Forgive a Mistake—Not the Same Pattern Forever",
+        "topic": "Why Capricorn reacts differently to an isolated mistake than to repeated behavior after a clear conversation",
+        "angle": "Use a mistake-versus-pattern contrast. Make the central question not whether Capricorn is unforgiving, but whether the other person responds differently after being told what hurt.",
+        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nThere is a big difference between making a mistake and refusing to learn from one. Capricorn usually knows that people get overwhelmed, misspeak, and fall short sometimes.\n\nWhat they struggle with is having the same conversation with someone who keeps treating it like new information. The canceled plan is not the whole issue. The broken promise is not the whole issue. The issue is that nothing seems to change once they tell you how it affects them.\n\nAt first, Capricorn may give you room. Then they give you a reminder. Eventually, they stop giving the relationship the benefit of the doubt.\n\nThat can make them look harsh, but their real question is simple: can I rely on what this person says, or only on what they do after I complain?\n\nThey also have a responsibility here. Capricorn should not hide every disappointment until it becomes a final verdict. They need to name the pattern while there is still something to repair.\n\nOne honest conversation cannot fix everything. But repeated effort can show Capricorn that their trust was not misplaced.",
+        "testedVariable": "Contrast mechanism: separate a one-time mistake from an uncorrected pattern"
       },
       {
         "id": "D",
-        "title": "Have Your Own Life",
-        "topic": "Why Scorpio likes people who are confident, self-directed, and not dependent on constant attention",
-        "angle": "Position independence as secure attachment: attraction grows when both people have a full life outside the relationship.",
-        "copy": "Scorpio can appreciate someone who is deeply invested without becoming dependent on constant reassurance. This angle explores the pull of confidence, space, and self-direction.",
-        "testedVariable": "Self-sufficiency versus constant availability"
+        "title": "Capricorn Starts Leaving Before They Say Goodbye",
+        "topic": "How Capricorn gradually stops relying on someone before ending a relationship after repeated disappointment",
+        "angle": "Center the emotional shift from expectation to self-protection. Show that Capricorn’s exit begins when they stop planning around the relationship and start making decisions without it.",
+        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nBefore they walk away, they often change how much they depend on you. They stop assuming you will keep your word. They make backup plans. They hesitate before asking for help. They protect their time because trusting your promises has started to cost too much.\n\nYou may notice the final distance, but miss the earlier adjustment. Capricorn has already been lowering their expectations to avoid being hurt by the same behavior again.\n\nThat is the point where the relationship starts to feel different to them. They are no longer building their day, their plans, or their future around what you say you will do.\n\nAnd when someone stops including you in their expectations, the breakup can look abrupt from the outside. Inside, they have been practicing life without relying on you.\n\nCapricorn should not turn this into a silent punishment. If they want a real chance at repair, they need to explain what has changed for them and what they need now.\n\nBut if the other person keeps asking for trust without offering consistent proof, Capricorn may finally choose the peace of not having to prepare for another letdown.",
+        "testedVariable": "Emotional mechanism: portray departure as self-protection after reliance has been withdrawn"
       }
     ]
   }

@@ -1,0 +1,60 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w34-virgo-ex-stereotype",
+      "claim": "A direct hook that separates one bad Virgo ex from the whole sign will create more recognition and debate than repeating a generic Virgo dating stereotype.",
+      "evidence_source_ids": [
+        "src-4b653b6b36"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments explicitly agree, disagree, or share a counterexample about judging a sign from one ex",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-w34-test-t04"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-w34-virgo-same-sign-different-treatment",
+      "claim": "A same-sign, different-treatment contrast will make the non-deterministic message more concrete than an abstract reminder that behavior is not destiny.",
+      "evidence_source_ids": [
+        "src-4b653b6b36"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments explicitly recognize or challenge the same-sign-different-treatment contrast",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-w34-test-t05"
+    }
+  ],
+  "backlog": [
+    {
+      "content_id": "miraa-w34-nonscorpio-01",
+      "week": "2026-W34",
+      "account": "@miraaastrology",
+      "title": "Your Virgo Ex Is Not Evidence About Every Virgo",
+      "hook": "One bad Virgo ex does not prove every Virgo will treat you the same way.",
+      "angle": "Virgo | Single AI host | Start with the temptation to turn one painful relationship into a sign-wide rule, then contrast it with a recent community counterexample describing steady care. Keep both examples as anecdotes, not astrology facts, and end on the behavior the viewer should actually watch.",
+      "why_now": "checked_at=2026-08-18; research topic miraa-w34-test-t04 is supported by verified source src-4b653b6b36, a recent readable Reddit thread containing harsh stereotype claims and direct lived counterexamples. Dedupe: not the existing Virgo practical-care candidate; the single test variable is whether one ex should define the whole sign. Evidence remains single-platform and qualitative.",
+      "score": "88",
+      "hypothesis_id": "hyp-miraa-w34-virgo-ex-stereotype",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C. The current Miraa AI-host baseline can deliver a direct anti-stereotype call-out without changing host, voice, or format. P0 test; S effort; H3 selection required.",
+      "research_topic_id": "miraa-w34-test-t04"
+    },
+    {
+      "content_id": "miraa-w34-nonscorpio-02",
+      "week": "2026-W34",
+      "account": "@miraaastrology",
+      "title": "Same Virgo Sign, Completely Different Partner",
+      "hook": "Two Virgos can share the same sign and treat you completely differently.",
+      "angle": "Virgo | Single AI host | Use two opposite lived examples from the same discussion—steady practical care versus harmful behavior—to show that a sign can frame a pattern but cannot predict a person's choices. Keep the focus on observable treatment, not compatibility scores or diagnosis.",
+      "why_now": "checked_at=2026-08-18; research topic miraa-w34-test-t05 is supported by verified source src-4b653b6b36, whose readable thread contains kindness, harm, and ordinary incompatibility in the same sign discussion. Dedupe: not the existing Virgo acts-of-care candidate; the single test variable is same sign versus different treatment. Evidence remains single-platform and qualitative.",
+      "score": "86",
+      "hypothesis_id": "hyp-miraa-w34-virgo-same-sign-different-treatment",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C. One AI host can explain the contrast clearly while preserving the current production baseline and avoiding a deterministic claim. P1 test; S effort; H3 selection required.",
+      "research_topic_id": "miraa-w34-test-t05"
+    }
+  ]
+}

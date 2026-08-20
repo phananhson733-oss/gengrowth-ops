@@ -19,11 +19,14 @@ TikTok 公开账号
   → 每日采集
   → SQLite（同一份事实数据）
       ├→ Google Sheets：账号和帖子指标
+      ├→ 飞书 tiktok资产表：粉丝数和粉丝同步时间
       └→ 主生产记录：published 状态、直链、post_id 和发布时间
           → Pengman 工作台 Calendar / Published Library
 ```
 
 生产记录回写不再从 Google Sheet 反向读取，而是和 Sheet 同时消费本次 SQLite 数据。这样 Sheet API 暂时失败时，本地发布状态仍可更新；两端的数据来源仍然完全一致。
+
+飞书同步同样直接读取 SQLite，不从 Google Sheet 反向读取。它按“现账号ID优先、为空时使用原账号ID”匹配 `tiktok资产表`，只更新数字字段 `粉丝` 和日期字段 `粉丝同步时间`。重复账号、缺少指标或没有飞书记录的账号会跳过并进入运行摘要；飞书失败不阻断 Google Sheets 或生产记录同步。
 
 ### Ready 的排期字段与 Published 是两段不同的信号
 
@@ -66,7 +69,7 @@ TikTok 公开账号
 
 1. 同一天重复运行时，Excel、CSV、采集摘要和同名原始文件使用固定日期文件名，因此会覆盖当天文件；不会追加，也不会创建带运行序号的新文件。
 2. 原脚本只有当前运行内的 detail Map，没有跨运行的 post_id 去重或历史数据库。升级后，当前结果先按 post_id 去重，SQLite 的 posts 以 post_id 为主键。
-3. 默认运行仍会重新读取 4 个历史账号主页、creator embed 当前暴露的全部内容，并逐条重新读取详情，以保留指标连续性；这不表示 4 个账号都仍在生产。当前生产只聚焦官号与 Miraa。--from-raw 仅用于本地回放测试，不发起网络请求。
+3. 默认运行会重新读取 `collect_tiktok_public_data.mjs` 中配置的全部账号主页、creator embed 当前暴露的全部内容，并逐条重新读取详情，以保留指标连续性；进入采集清单不表示该账号仍在生产。--from-raw 仅用于本地回放测试，不发起网络请求。
 4. 无法取得的数字字段保留为 null；CSV 中为空单元格，Excel 中为空值。真实的公开 0 保留为 0。SQLite 继续使用 NULL，不把缺失字段写成 0。
 5. 输出目录：
    - 日期文件：/Users/pengman/gengrowth-ops/inbox-pengman/output/
@@ -110,6 +113,20 @@ Google Sheets 会批量更新以下标签页：
 - runs
 
 每次同步会根据 SQLite 重写这些表的已用数据，保证同日重复运行不会增加重复行。
+
+## 飞书粉丝同步配置
+
+同步使用飞书企业自建应用。应用需开通“查看、评论、编辑和管理多维表格”及 Wiki 只读权限，并作为可编辑文档应用加入目标多维表格。
+
+在 `.env` 中配置：
+
+    FEISHU_SYNC_ENABLED=true
+    FEISHU_APP_ID=
+    FEISHU_APP_SECRET=
+    FEISHU_WIKI_NODE_TOKEN=QCigwFYMCiuQu1k8q94cXy7PnZd
+    FEISHU_TABLE_ID=tbl1LkOftGc2aHis
+
+凭证只保存在被 Git 忽略的 `.env` 中，文件权限应为 `600`。只读连接测试使用 `test_feishu_connection.mjs`；单行真实写入验证使用 `canary_feishu_follower_sync.mjs`。
 
 ## 命令
 
