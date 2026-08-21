@@ -10,7 +10,7 @@
   "apps_script_library_attempt": "2026-08-21T10:46:00+08:00; login_required; internal content not read.",
   "platforms_attempted": [
     "reddit",
-    "x/twitter",
+    "twitter",
     "quora",
     "youtube",
     "instagram"
@@ -24,7 +24,7 @@
   "readable_pages": 4,
   "unavailable_sources": [
     {
-      "platform": "x/twitter",
+      "platform": "twitter",
       "failure_layer": "No directly readable reply threads were available in this capture; excluded from formal user-voice support."
     },
     {
@@ -262,7 +262,11 @@
         "miraa-w34-refill21-t05"
       ],
       "body_excerpt": "The poster describes harmful dating experiences, names their own bias, and asks for counterexamples while distinguishing criticism and perceptiveness from kindness.",
-      "engagement_note": "互动量不可核验; substitute signal: the full first-person body and explicit request for counterexamples were readable."
+      "engagement_note": "互动量不可核验; the direct first-person body and explicit request for counterexamples were readable.",
+      "substitute_signals": [
+        "Full first-person body was readable",
+        "The poster explicitly requested counterexamples"
+      ]
     },
     {
       "source_ref": "s4",
