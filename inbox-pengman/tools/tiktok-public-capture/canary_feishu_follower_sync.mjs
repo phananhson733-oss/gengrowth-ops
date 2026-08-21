@@ -82,9 +82,8 @@ if (node.obj_type !== "bitable" || !node.obj_token) throw new Error("Wiki node d
 const apiBase = `https://open.feishu.cn/open-apis/bitable/v1/apps/${encodeURIComponent(node.obj_token)}/tables/${encodeURIComponent(tableId)}`;
 const recordsPayload = await requestJson(`${apiBase}/records?page_size=100`, { headers: authHeaders });
 const matches = (recordsPayload.data?.items || []).filter((record) => {
-  const currentId = asText(record.fields?.["现账号ID"]);
-  const originalId = asText(record.fields?.["原账号ID"]);
-  return (currentId || originalId).replace(/^@/, "").toLowerCase() === targetUsername;
+  const accountId = asText(record.fields?.["账号ID"]);
+  return accountId.replace(/^@/, "").toLowerCase() === targetUsername;
 });
 if (matches.length !== 1) throw new Error(`Expected exactly one Feishu record for ${targetUsername}; found ${matches.length}`);
 

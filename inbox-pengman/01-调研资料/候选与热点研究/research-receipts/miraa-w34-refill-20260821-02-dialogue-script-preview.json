@@ -1,0 +1,18 @@
+{
+  "content_id": "miraa-w34-refill-20260821-02",
+  "status": "rejected_by_pengman",
+  "write_performed": false,
+  "rejection_reason": "Pengman requires the entire single-host Script to avoid invented dialogue, quoted lines, and X says or X asks passages.",
+  "superseded_by": "miraa-w34-refill-20260821-02-narration-script-preview.json",
+  "source_reference": "02-生产/01-reference/Scorpio-Gemini-eleanor-astrology脚本调研.md",
+  "hook_locked": true,
+  "script_text": "Scorpio and Gemini are one of the hardest zodiac pairings. They can care about each other and still clash all the time.\n\nScorpio asks, \"What are we doing?\"\n\nGemini says, \"Why do we have to decide right now?\"\n\nMost people assume that's always how it goes. It's not.\n\nSometimes Gemini is trying to book the trip or figure out what comes next, and Scorpio says, \"Give me a minute.\"\n\nWhoever wants the answer starts thinking, \"You don't take us seriously.\" Whoever feels pushed starts thinking, \"You're trying to control me.\"\n\nIf you're a Scorpio-Gemini couple, tell me which one you are: \"Where is this going?\" or \"Can you give me a minute?\"",
+  "content_format": "ai_host_single",
+  "production_tool": "HeyGen",
+  "humanizer": {
+    "skill": "humanizer",
+    "version": "2.9.1",
+    "execution": "performed_in_codex_before_preview",
+    "notes": "Removed therapy-style advice, abstract relationship analysis, em dashes, and a generic uplifting conclusion. Preserved the locked Hook and role-reversal mechanism."
+  }
+}

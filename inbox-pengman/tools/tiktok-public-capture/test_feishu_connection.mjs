@@ -79,9 +79,8 @@ const fieldNames = new Set(fields.map((field) => field.field_name));
 const effectiveIds = [];
 const blankRecordIds = [];
 for (const record of records) {
-  const currentId = asText(record.fields?.["现账号ID"]);
-  const originalId = asText(record.fields?.["原账号ID"]);
-  const effectiveId = currentId || originalId;
+  const accountId = asText(record.fields?.["账号ID"]);
+  const effectiveId = accountId;
   if (effectiveId) effectiveIds.push(effectiveId);
   else blankRecordIds.push(record.record_id);
 }
@@ -107,9 +106,8 @@ const latestMetrics = db.prepare([
 db.close();
 const metricMap = new Map(latestMetrics.map((metric) => [metric.username.toLowerCase(), Number(metric.followers)]));
 const followerComparisons = records.map((record) => {
-  const currentId = asText(record.fields?.["现账号ID"]);
-  const originalId = asText(record.fields?.["原账号ID"]);
-  const username = (currentId || originalId).replace(/^@/, "").toLowerCase();
+  const accountId = asText(record.fields?.["账号ID"]);
+  const username = accountId.replace(/^@/, "").toLowerCase();
   const sqliteFollowers = metricMap.get(username);
   const feishuFollowers = Number(record.fields?.["粉丝"]);
   return {
@@ -133,8 +131,8 @@ console.log(JSON.stringify({
   field_count: fields.length,
   record_count: records.length,
   required_fields: {
-    original_account_id: fieldNames.has("原账号ID"),
-    current_account_id: fieldNames.has("现账号ID"),
+    original_account_id: fieldNames.has("账号ID"),
+    current_account_id: fieldNames.has("账号ID"),
   },
   effective_account_count: effectiveIds.length,
   effective_account_ids: effectiveIds,

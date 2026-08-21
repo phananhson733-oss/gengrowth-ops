@@ -16,7 +16,7 @@ Act as an English social-media community researcher. Research recent, actively d
 
 Use this research for Mode B weekly candidate planning and Mode C refill/replan. Return a research pool for Pengman to screen; do not select a final topic or begin content production.
 
-Seek concrete identity, behavior, emotional experience, relationship interaction, work, friendship, family, trust, needs, self-protection, or life-conflict discussions that a non-expert can understand and a 35–60 second AI-host video could explain.
+Seek concrete identity, behavior, emotional experience, relationship interaction, work, friendship, family, trust, needs, self-protection, or life-conflict discussions that a non-expert can understand and a 45–90 second AI-host video could explain.
 
 Do not treat broad labels such as “mysterious,” “loyal,” “possessive,” or “intense” as sufficient topics without a repeated real-life conflict or behavior.
 
