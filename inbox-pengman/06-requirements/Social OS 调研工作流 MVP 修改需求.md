@@ -1,28 +1,28 @@
 ---
-title: Social OS 不要每次生成选题都重新调研 MVP 修改需求
+title: Social Bot 本地调研知识库与选题复用 SOP MVP 修改需求
 project: astrologywiki
 type: automation-requirements
 status: draft
 owner: Pengman
 assignee: 彪哥
 priority: P0
-updated: 2026-08-20
+updated: 2026-08-21
 ---
 
-# Social OS 调研工作流 MVP 修改需求
+# Social Bot 本地调研知识库与选题复用 SOP MVP 修改需求
 
-## 一、本轮目标
+## 一、需求结论
 
-不重做 Social OS，不新建第二套表格、候选池或内容状态系统。
+本轮不是重做 Social OS，也不是给 Google Sheet 再造一个候选池。
 
-本轮只解决一个问题：**生成选题时，不要每次都重新执行完整互联网调研。**
+本轮要优化 Social Bot 的**选题研究 SOP**：在 `gengrowth-ops` 中建立一个由 Git 管理的 Miraa 本地调研知识库，通过“每周完整刷新 + 每日增量巡逻”持续更新；用户要求生成选题时，Social Bot 先从本地知识库检索资料，不再默认重新抓取整套互联网数据。
 
-保留现有完整调研、Research receipt、`source-ingest`、证据池、候选生成和 H0–H5 人工审批，只将执行顺序从：
+核心链路从：
 
 ```text
-每次要求生成选题
-→ 完整互联网调研
-→ Research receipt
+每次生成新选题
+→ 从零完成完整互联网调研
+→ 保存 Research receipt
 → source-ingest
 → 生成候选
 ```
@@ -30,189 +30,263 @@ updated: 2026-08-20
 改为：
 
 ```text
-每周完整调研
-→ 写入现有调研池 / 证据池
-→ 每天轻量增量巡逻
-→ 生成选题时优先复用有效调研
-→ 资料不足、过期或遇到 Hot 时才定向补查
+每周完整刷新本地知识库
+→ 每日增量巡逻并更新本地知识库
+→ 生成选题时先检索本地知识库
+→ 只校验并 source-ingest 实际采用的证据
+→ 资料不足、过期或遇到 Hot 时才定向联网补查
+→ 生成候选并停在 drafted，等待 Pengman 选择
 ```
 
-目标效果：普通的“生成 2 个 Miraa 单人口播选题”不再等待一整轮社区调研；在调研池有效且证据足够时，直接从现有研究生成候选。
+首期只覆盖 `@miraaastrology`，但目录和字段按未来可扩展到其他产品、账号的方式设计。
 
 ---
 
-## 二、修改原因与理想状态
+## 二、当前问题
 
-**为什么改（当前痛点）：** 现在的流程把"调研"和"写选题"绑在一起——每次只要生成选题，就从头重做一整轮完整互联网调研，再看社区、刷竞品、找来源、写调研报告，最后才挤出几个候选。实际需求往往只是"生成 2 个单人口播选题"，却要等一整套研究跑完，慢且重复。
+现有 `astrologywiki-social-workflow` 将“调研”和“生成选题”绑定在一次请求中。Miraa 每次生成任何 Mode B / Mode C 新候选前，都要重新完成英语社区调研，至少包括话题池、生活场景库、语言库、来源清单和 Research receipt，再经 `source-ingest` 后生成候选。
 
-**理想状态（改完应该是什么样）：** 把"调研"和"生成选题"解耦成两个独立节奏，让调研变成储备、选题变成取用：
+真实结果是：用户只要求“生成两个 Miraa 单人口播选题”，Bot 仍会重新打开社区页面、竞品入口和公开来源，重复构建一整份调研材料。主要耗时来自重复调研，而不是候选生成。
 
-- **每周完整调研**：一次性把事实和素材（大家在讨论什么、哪些话题、哪些来源、什么热度）摸清，灌进证据池，供整周取用；
-- **每天轻量巡逻**：只往证据池里补充新的事实和信号，不生产选题；
-- **生成选题时**：从证据池里**挑选**相关、新鲜、证据够的事实，**加工**成候选选题，不再重跑完整调研；
-- **只有缺料、过期或突发热点**：才针对那一个缺口补查，而不是整单重来。
+这会造成：
 
-一句话：**调研是每周一次 + 每天一次的储备动作，写选题时直接复用储备里的新鲜事实来源。**
-
----
-
-## 三、当前状态与问题
-
-**已核验行为：** 现有 `astrologywiki-social-workflow` 要求每次生成任何新候选前完成实时互联网调研（至少 5 个讨论点、15 个生活场景、语言库和完整来源清单），保存为 Research receipt、经 `source-ingest` 后才生成候选。
-
-**真实案例（2026-08-20）：** 请求只是"生成 2 个 Miraa 单人口播选题"，却先产出 1 份完整 receipt、5 个讨论方向、4 个来源、15 个场景、15 条短语/5 问题/5 评论反应，最后才生成 2 个候选。慢点不在"写两个选题"，而在"每次写选题前都重做整套研究"。
-
-**当前风险：** 同账号同周次相近主题被重复研究；简单请求触发长时非流式调用；页面访问失败/重试增加耗时；每轮保存完整调研易形成重复 receipt 和证据；用户只看到"等待 API"无法判断阶段；为了两条候选完成 5–12 个话题研究，规模与请求不匹配。
+- 同一账号、同一周、相近主题被反复研究；
+- 大量已验证事实和生活场景不能被稳定复用；
+- 简单选题请求被放大成长时间非流式任务；
+- 页面失败和重试直接影响选题响应时间；
+- Research receipts 越积越多，但缺少统一索引、合并和新鲜度管理；
+- 用户只能看到“等待 API”，无法判断 Bot 在检索、补查还是生成候选。
 
 ---
 
-## 四、MVP 修改原则
+## 三、目标与成功标准
 
-### 保留
+### 3.1 P0 目标
 
-- 保留现有 Google Sheet 和 H0–H5；
-- 保留现有 Research receipt 格式；
-- 保留现有 `source-ingest` 和证据池；
-- 保留现有 `research` 候选生成命令；
-- 保留固定竞品 CSV、Apps Script Library 和公开来源核验；
-- 保留 Hot 内容的实时证据门；
-- 保留 `content_stage` 作为唯一内容生命周期；
-- 保留 Pengman 人工选择候选的权限。
+1. 在 `gengrowth-ops` 建立 Miraa 本地调研知识库；
+2. 每周完整刷新一次，每日做一次轻量增量巡逻；
+3. Social Bot 选题时默认本地优先，不再默认运行完整互联网调研；
+4. 使用本地 gbrain 做知识库的关键词 + 语义混合召回；
+5. gbrain 只做可重建检索索引，本地 Markdown 才是权威资料；
+6. 仅把当前候选实际采用的证据送入 `source-ingest`；
+7. 保留来源追溯、去重、Hot 实时核验和 H0–H5 人工门；
+8. 本地资料不足时只补当前缺口，不刷新整个社区调研池。
 
-### 只增加
+### 3.2 核心成败标准
 
-1. 调研结果的新鲜度判断；
-2. 候选生成前的“优先复用现有调研池”逻辑；
-3. 每周完整调研入口；
-4. 每日轻量增量巡逻入口；
-5. 资料不足时的定向补查；
-6. 简单可读的执行进度。
+在本地知识库存在足够、未过期的 Miraa 研究资料时，用户在飞书 `# social assistant` 请求：
+
+> 生成 Miraa 两个单人口播选题
+
+Social Bot 必须：
+
+1. 先检索本地知识库；
+2. 不执行完整社区互联网调研；
+3. 只读取命中的 Topic 和 Source 原始文件；
+4. 只 `source-ingest` 两个候选实际采用的来源；
+5. 生成两个候选并停在 `drafted`；
+6. 不写任何人工审批字段；
+7. 正常环境下 5 分钟内返回。
+
+验收重点不是“有没有打印 reused”，而是日志和写入证据能够证明：**本轮没有重跑完整调研，只复用了本地知识库。**
 
 ---
 
-## 五、P0 MVP 修改需求
+## 四、权威边界
 
-## P0-1：完整调研与候选生成解耦
+| 数据 | 权威位置 | 说明 |
+|---|---|---|
+| 调研主题、生活场景、自然语言、反方观点 | `gengrowth-ops` 本地知识库 | 选题研究的主要数据源 |
+| 原始周更、日更、定向补查记录 | 知识库 `runs/` | 追加式审计记录，不覆盖历史 |
+| gbrain 搜索索引 | 本地 gbrain | 派生索引，可以删除并从文件重建 |
+| 实际采用的正式证据 | 现有 Social OS Sheet 的证据池 | 只能通过 `social_pipeline.py source-ingest` 写入 |
+| 候选及内容生命周期 | 现有 Social OS Sheet | `content_stage` 仍是唯一生命周期 |
+| H0–H5 与选择结果 | 现有人工字段 | Bot 不得代填或口头绕过 |
 
-候选生成不再默认调用完整社区调研。
+硬边界：
 
-建议将现有能力按职责分为三个动作，但尽量复用现有 runner、Prompt 和写入逻辑：
+- `social_pipeline.py` 继续作为 Sheet 的唯一写入口；
+- 本地知识库不是第二套候选池、排期表或内容状态系统；
+- gbrain 返回的摘要和相关度分数不能直接作为证据；
+- Bot 必须重新打开命中的本地文件，校验有效期、来源状态和证据强度；
+- `next_gate` 只作为 Bot 响应字段，不新增为 Sheet 列；
+- 任何自然语言确认都不能代替 H1、H3、H4 或 H5 的人工字段。
+
+---
+
+## 五、本地知识库结构
+
+建议在现有目录下新增：
 
 ```text
-full-research-refresh   每周完整调研
-light-research-patrol  每日轻量巡逻
-research               从有效调研池生成候选
+inbox-pengman/01-调研资料/候选与热点研究/
+└── miraa-knowledge-base/
+    ├── README.md
+    ├── RESOLVER.md
+    ├── schema.md
+    ├── config.yaml
+    ├── index.json
+    ├── topics/
+    │   └── <topic-id>.md
+    ├── sources/
+    │   └── <source-id>.md
+    └── runs/
+        ├── weekly/
+        ├── daily/
+        ├── targeted/
+        └── migration/
 ```
 
-命令名称可以由彪哥按现有代码结构调整，行为必须分开。
+各目录职责：
 
-### `full-research-refresh`
+- `README.md`：给人看的使用说明、常用入口和排障方法；
+- `RESOLVER.md`：规定一条信息应该进入 Topic、Source 还是 Run，避免重复落盘；
+- `schema.md`：字段、ID、合并、新鲜度和校验契约；
+- `config.yaml`：Miraa 的调度、有效期、证据门、gbrain source ID 和来源范围；
+- `index.json`：从 Topic 文件自动生成的轻量降级索引，不允许手工维护；
+- `topics/`：一条可复用研究主题一个 Markdown 页面；
+- `sources/`：一个规范化直接来源一个 Markdown 页面；
+- `runs/`：每次周更、日更、补查和首次迁移的不可变 JSON 记录。
 
-- 继续执行现有完整 Research receipt 流程；
-- 读取产品、账号、库存、近期内容、竞品、社区讨论和安全规则；
-- 生成完整话题池、生活场景库、语言库和来源清单；
-- 通过现有 `source-ingest` 写入证据池；
-- 不自动生成候选；
-- 不自动把任何内容设为 `selected`。
+不新建 SQLite、向量数据库或第二个 Sheet。gbrain 自己的数据库不属于知识库真源。
 
-### `light-research-patrol`
-
-- 只查看上次完整调研之后的新内容或明显变化；
-- 只保存新增或发生变化的证据；
-- 没有新信号时正常结束，不生成空洞话题；
-- 不重新生成完整 Research receipt；
-- 不生成候选；
-- 不写人工审批字段和 `content_stage`。
-
-### `research`
-
-- 默认读取现有证据池中仍然有效、与目标账号和任务相关的研究；
-- 完成去重、账号匹配和候选排序后直接生成指定数量的候选；
-- 不再自动调用完整社区调研；
-- 调研池不足时进入“定向补查”，而不是重跑整套完整调研。
+`kb_version` 不依赖“是否已经 Git commit”。每次成功发布时，对 `schema.md`、`config.yaml`、`topics/`、`sources/` 和派生 `index.json` 的规范化内容计算稳定 SHA-256 manifest；该 manifest hash 就是本轮 `kb_version`。定时任务只写知识库文件，不自动 commit、push 或改写其他 `gengrowth-ops` 内容。
 
 ---
 
-## P0-2：增加最小新鲜度判断
+## 六、知识页数据模型
 
-不要求新建调研数据库。优先使用 Research receipt 和现有证据记录中的：
+### 6.1 Topic 页面
 
-- `searched_at / observed_at / checked_at`；
-- 账号；
-- 话题或内容类型；
-- 来源链接；
-- 证据强度；
-- 已支持的 `topic_id`；
-- 是否已经被候选使用。
+Topic 使用 gbrain 的“Compiled Truth + Timeline”结构：上半部分保存当前可用结论，下半部分追加每次观察和变化。
 
-如果现有结构无法判断有效期，MVP 最多增加以下机器字段：
+```markdown
+---
+schema_version: social-research-topic/v1
+type: social-research-topic
+product: astrologywiki
+account: "@miraaastrology"
+topic_id: miraa-scorpio-trust-after-conflict
+title: Scorpio rebuilds trust after conflict
+aliases: []
+signs: [scorpio]
+themes: [trust, relationship, conflict]
+formats: [single-host]
+research_scope: evergreen_community
+evidence_strength: strong
+status: active
+first_observed_at: "2026-08-18T13:15:00+08:00"
+last_checked_at: "2026-08-21T21:00:00-05:00"
+last_verified_at: "2026-08-21T21:00:00-05:00"
+valid_until: "2026-08-28T21:00:00-05:00"
+source_ids: [src-example-1, src-example-2]
+used_content_ids: []
+tags: [miraa, scorpio, trust]
+---
+
+# Scorpio rebuilds trust after conflict
+
+## Current synthesis
+当前可以复用的研究结论。
+
+## Life situations
+可视化生活场景，不写最终 Hook。
+
+## Language patterns
+自然英语表达，并标记 source quote 或 synthesized pattern。
+
+## Counterviews and limitations
+反方观点、样本限制和不能泛化的部分。
+
+## Source map
+本 Topic 的来源与各自支持范围。
+
+---
+
+## Timeline
+
+- 2026-08-21：每日巡逻重新核验……
+- 2026-08-18：首次从周调研建立……
+```
+
+规则：
+
+- `topic_id` 建立后不得因为标题改写而改变；
+- Current synthesis 可以根据新证据重写；
+- Timeline 只能追加，不能改写旧记录；
+- 每个当前结论都必须能追溯到 Source 或 Timeline；
+- Topic 只能保存研究方向，不提前生成最终 Hook、脚本、Caption 或 Hashtag；
+- `used_content_ids` 只是从 Sheet 成功结果回写的派生缓存，不成为内容生命周期，也不能代替每次选题前读取 Sheet 做完整去重。
+
+### 6.2 Source 页面
+
+每个可读取的直接页面建立一个稳定 Source。`source_id` 优先由规范化 URL 生成；相同页面的跟踪参数、短链和重复抓取必须归并。
+
+最小字段：
 
 ```yaml
-research_scope: evergreen_community | predictable_event | hot_signal
-refresh_mode: full | light | targeted
-valid_until: "..."
+schema_version: social-research-source/v1
+type: social-research-source
+product: astrologywiki
+account: "@miraaastrology"
+source_id: src-example-1
+canonical_url: "https://example.com/post"
+platform: reddit
+author_or_account: "..."
+published_at: "..."
+first_observed_at: "..."
+last_checked_at: "..."
+last_verified_at: "..."
+access_status: readable
+readable_layers: [body, comments]
+supported_topic_ids: [miraa-scorpio-trust-after-conflict]
+content_fingerprint: "..."
 ```
 
-这些是研究元数据，不是新的内容生命周期字段。
+正文保存：
 
-### 建议有效期
+- 该来源实际支持的发现；
+- 可见互动或替代讨论信号；
+- 简短、带归属的原话；
+- 反方观点与样本限制；
+- 重新核验时间线。
 
-| 研究类型 | 默认有效期 | 候选生成时要求 |
-|---|---:|---|
-| Evergreen / 社区关系话题 | 7 天 | 有效期内优先直接复用 |
-| 竞品新内容与社区新增信号 | 3–7 天 | 根据最近巡逻时间判断 |
-| Predictable 天象 / 节日 / 已知事件 | 以事件时间为准 | 72 小时和 24 小时前复核 |
-| Hot / 突发新闻 | 12–24 小时 | 必须进行当前实时核验 |
+搜索摘要、登录页、标题或页面元数据只能记录在 Run 中，不得创建为 `access_status: readable` 的正式 Source。
 
-有效期放到产品配置中，不能写死在通用 runner 业务代码里。
+### 6.3 Run 记录
+
+周更、日更、定向补查和迁移都必须生成不可变 Run：
+
+```yaml
+run_id: krun_...
+mode: weekly | daily | targeted | migration
+status: success | no_new_signal | partial | failed
+started_at: "..."
+finished_at: "..."
+account: "@miraaastrology"
+watermark_before: "..."
+watermark_after: "..."
+platforms_attempted: []
+platforms_accessed: []
+opened_pages: 0
+readable_pages: 0
+created_topic_ids: []
+updated_topic_ids: []
+created_source_ids: []
+updated_source_ids: []
+unavailable_sources: []
+failure_reason: ""
+kb_version_before: "..."
+kb_version_after: "..."
+index_rebuilt: true
+gbrain_sync_status: success | skipped | failed
+```
+
+失败 Run 必须保留真实错误，但不能推进成功水位或伪造新的 `last_verified_at`。
 
 ---
 
-## P0-3：候选生成的复用与补查规则
-
-> **池子定位（给 AI 的关键说明）**：这里的"池子"指的是**证据池/事实数据来源池**——里面存的是大家在讨论的内容、话题、来源链接、证据，是一大堆**事实和素材**，不是现成的成品选题。生成候选时，是从池子里**挑选**相关、新鲜、证据够的事实，**加工/提炼**成选题。选题是加工出来的下游产物，不是池子里本来就躺着的。请勿把证据池误做成"存成品选题"的池子。
-
-用户要求生成候选时，runner 按以下顺序判断：
-
-```text
-1. 查找与目标账号、形式和主题匹配的有效研究
-2. 检查来源是否仍在有效期内
-3. 检查证据数量和强度是否满足当前候选门槛
-4. 检查是否与近期发布、未发布候选重复
-5. 条件满足：直接生成用户指定数量的候选
-6. 条件不足：只针对缺失项补查
-7. Hot 或关键事实过期：执行当前实时核验
-```
-
-### 可以直接复用
-
-- 本周完整调研已经成功完成；
-- 目标账号和话题匹配；
-- 至少有当前 Skill 要求的有效直接来源；
-- 没有明显过期或来源失效；
-- 没有与近期内容重复。
-
-### 必须定向补查
-
-- 用户指定的星座或主题在调研池中没有合格资料；
-- 现有资料只有搜索摘要或页面元数据；
-- 直接来源已经过期或无法读取；
-- 候选涉及天象时间、名人事实或正在变化的公共事件；
-- 现有资料不足以支持用户要求的候选数量。
-
-### 不允许
-
-- 因为缺 1 个来源就自动重做整个 5–12 话题社区调研；
-- 静默使用已经过期的 Hot 证据；
-- 为满足数量而从弱证据生成正式候选；
-- 把历史 Research receipt 的存在等同于当前仍然有效；
-- 复用调研池后跳过候选去重和账号匹配。
-
----
-
-## P0-4：每周完整调研计划
-
-MVP 先为 AstrologyWiki 建立一个可配置的每周完整调研任务。
+## 七、每周完整刷新 SOP
 
 建议时间：
 
@@ -220,121 +294,482 @@ MVP 先为 AstrologyWiki 建立一个可配置的每周完整调研任务。
 每周日 21:00 America/Chicago
 ```
 
-该时间约对应北京时间周一上午，可供周一周计划和候选研究使用。时间和时区必须显式写入配置。
+每周任务是“刷新已有知识库”，不是清空后重建。
 
-执行范围：
+执行顺序：
 
-- 当前 active 账号；
-- 当前库存缺口；
-- 最近发布与未发布内容去重；
-- 竞品近期内容；
-- 英语社区当前讨论；
+```text
+1. 获取知识库写锁
+2. 读取 schema、config、当前 index 和最近成功 Run
+3. 读取 Miraa 当前账号定位、库存、近期发布、未发布候选和 decision / next_test
+4. 读取现有 Topics / Sources，识别需要复核、补充或归档的内容
+5. 执行完整英语社区调研和固定竞品入口核验
+6. 对 URL、来源内容和 Topic 身份去重
+7. 在临时工作区更新 Topic / Source，并写 weekly Run
+8. 校验 schema、引用、时间、新鲜度和重复项
+9. 校验通过后原子发布新版本
+10. 自动重建 index.json
+11. 增量同步 gbrain 的 social-os-miraa source
+12. 释放写锁并返回本轮计数
+```
+
+调研范围：
+
+- 当前 `@miraaastrology` 定位和允许形式；
+- 最近 7–14 天已发布内容和未发布候选去重；
+- 固定竞品账号和英语社区当前讨论；
 - 未来 7–14 天 Predictable 事件；
-- 上一轮 `decision / next_test`。
+- 上一轮 `decision / next_test`；
+- 已有 Topic 的过期、冲突、反方观点和来源可读性。
 
-周日执行完整调研时，当天不再重复执行同账号的每日轻量巡逻。
+完整刷新继续满足现有 Miraa community research 契约：至少交付 5 个有直接来源支持的讨论点，资料充足时目标 8–12 个，并维护跨 Topic 的生活场景和语言表达；不得为了满足数量填充弱证据。区别仅在于结果被规范化合并进知识库，而不是在每次选题请求中重新生成一份孤立 receipt。
 
-如果完整调研失败：
+输出边界：
 
-- 保留上一份仍在有效期内的研究；
-- 标记本轮失败原因；
-- 不把旧研究的 `checked_at` 改成新时间；
-- 不伪装成本周完整调研已经成功。
+- 更新知识库，不生成候选；
+- 不执行 `research`；
+- 不批量把整周资料写入 Sheet；
+- 不写任何人工审批字段；
+- 本周没有再次观察到的 Topic 不自动删除，按 `valid_until` 和状态规则处理；
+- 完整调研失败时继续保留上一版成功知识库，不修改其核验时间。
 
 ---
 
-## P0-5：每日轻量巡逻
+## 八、每日增量巡逻 SOP
 
 建议时间：
 
 ```text
-每天 21:00 America/Chicago
+周一至周六 21:00 America/Chicago
 ```
 
-每日巡逻只检查：
+每日巡逻从各来源最近一次成功水位开始，只检查：
 
-- 固定竞品账号是否出现新内容；
-- 已关注的社区话题是否出现明显新讨论；
-- 是否出现新的高互动信号；
-- 未来事件是否进入 72 小时或 24 小时复核窗口；
-- 是否出现需要 Route B / Hot 评估的当前事件。
+- 固定竞品是否出现新内容；
+- 已跟踪社区 Topic 是否出现新讨论、反方观点或高互动信号；
+- Predictable 事件是否进入 T-72h 或 T-24h；
+- 是否出现需要 Hot 实时评估的当前信号。
 
-### 每日巡逻停止条件
+处理规则：
 
-- 没有新内容：记录 `no_new_signal` 后结束；
-- 新内容与已有来源重复：记录去重结果后结束；
-- 新内容只有标题或摘要：记录 `metadata_only`，不进入正式证据池；
-- 找到有效新增证据：只增量写入并更新对应研究元数据。
+| 发现 | 处理 |
+|---|---|
+| 新的可读直接来源 | 创建 Source，并归并到已有 Topic 或创建新 Topic |
+| 已有来源内容或互动变化 | 更新 Source 当前状态，并向 Timeline 追加核验记录 |
+| 仅重新确认来源仍有效 | 可以更新该 Source 的 `last_verified_at`；Topic 是否续期仍按证据门判断 |
+| 只有标题、摘要或登录页 | 只写 Run，不进入正式 Source |
+| 与已有来源重复 | 记录去重命中，不重复建 Source |
+| 没有新信号 | 写 `no_new_signal` Run，不改 Topic 结论或有效期 |
 
-每日巡逻不得为了“每天必须有产出”而生成新话题或候选。
+每日巡逻不得为了“每天有产出”而制造新话题、候选或语言表达。
+
+周日只执行每周完整刷新，不再重复执行同账号的每日巡逻。
 
 ---
 
-## P0-6：天象与事件更新规则
+## 九、gbrain 检索契约
 
-Predictable 天象/节日不需要每天从零做完整调研：每周完整调研时建立未来 7–14 天事件观察清单，事件进入 T-72h 和 T-24h 窗口时由每日巡逻做轻量复核（核对时间、时区、账号匹配、内容库存）；关键事实没变化就只更新核验记录，不重写整份调研。Hot/突发事件：每日巡逻发现后先按现有 Hot 评分门判断，24h 内要响应的必须实时核验、不能只依赖每周调研池；未达门槛则不影响周计划、不自动生成或选择候选。
+### 9.1 使用方式
+
+本地 Markdown 为权威资料；gbrain 是可重建的检索加速层。
+
+MVP 使用当前本地 gbrain 已具备的能力：
+
+- 将 `miraa-knowledge-base` 注册为独立 source，例如 `social-os-miraa`；
+- 周更、日更或补查成功发布后执行该 source 的增量 sync；
+- 使用 `gbrain query` 做关键词 + 向量 + RRF 混合召回；
+- 已知明确 Topic ID 时直接读取本地文件，不浪费语义检索；
+- 不以升级 gbrain 为 MVP 前置条件。
+
+不得将 Social OS 内容混入默认 gbrain source，也不得不加范围地跨全部 gbrain source 检索。查询必须显式限制为 `social-os-miraa`，避免其他仓库、个人知识或 SEO 内容污染选题依据。
+
+### 9.2 两段式检索
+
+```text
+第一段：召回
+用户请求 → 解析账号、形式、sign、主题和时间要求
+→ gbrain scoped hybrid query
+→ 返回相关 Topic slugs
+
+第二段：确定性校验
+打开 gengrowth-ops 中的原始 Topic / Source 文件
+→ account 必须匹配
+→ status 必须可用
+→ valid_until 必须有效
+→ evidence_strength 必须达门
+→ Source 必须可读且未失效
+→ 与近期已发布、未发布候选去重
+→ 得到允许生成候选的资料集合
+```
+
+gbrain 的摘要、RRF 分数或向量相似度只用于发现和排序，不能代替直接来源、时间核验或证据门。
+
+### 9.3 降级策略
+
+- gbrain 或 embedding 不可用：使用自动生成的 `index.json` 做关键词和标签检索；
+- gbrain sync 失败：保留已校验的知识库版本，并标记 `search_index_stale`；
+- gbrain PGLite 锁冲突：本轮不覆盖索引状态，稍后重试或走 `index.json`；
+- 检索后必须读取原始文件，不能把 gbrain snippet 直接传给 `research`；
+- 检索服务故障本身不能触发完整互联网调研。
 
 ---
 
-## P0-7：增加可读进度和执行证据
+## 十、选题生成 SOP
 
-非流式 API 可继续使用，但界面必须显示当前阶段（不能只显示 `waiting for non-streaming API response`）。最小进度如"正在检查调研池新鲜度 → 正在复用本周调研：5 个话题/4 个来源 → 正在生成 2 个候选 → 等待人工选择"；触发补查时显示"调研池缺少 Virgo 的有效直接来源，正在定向补查，不刷新完整池"。
+用户要求生成 Miraa 候选时：
 
-执行记录至少保存以下字段，写入机器执行记录、不要求 Pengman 手工填写：
+```text
+1. 读取当前周计划、库存、近期发布、未发布候选和账号规则
+2. 查询本地知识库
+3. 对命中的 Topic / Source 做新鲜度、证据和去重校验
+4. 资料足够：选出支持当前候选所需的最小证据集合
+5. 生成本轮 kb-selection receipt
+6. 只对 receipt 中实际采用的 Source 执行幂等 source-ingest
+7. prepare-context 获取与本次命令、账号和范围绑定的一次性 context receipt
+8. 执行 research 生成用户指定数量的候选
+9. 回读 Sheet 结果
+10. Sheet 写入成功后，在知识库写锁内向相关 Topic 追加候选使用记录，并更新派生 used_content_ids
+11. 返回 content_id、stage、next_gate 和研究复用证据
+```
+
+新增的 `kb-selection receipt` 是机器执行凭证，不是内容状态。最小字段：
 
 ```yaml
-research_mode: reused | full | light | targeted
-research_receipt_ids: []
-evidence_source_ids: []
+schema_version: social-kb-selection/v1
+selection_receipt_id: ksel_...
+account: "@miraaastrology"
+request_summary: "two single-host candidates"
+kb_version: "..."
+search_backend: gbrain | fallback_index
+query: "..."
+topic_ids: []
+source_ids: []
 freshness_checked_at: "..."
+freshness_result: valid
+dedupe_checked_at: "..."
+created_at: "..."
+```
+
+receipt 必须与本次账号、请求范围和知识库版本绑定；不能换请求复用。`source-ingest` 必须继续保持幂等，已在证据池中的来源只建立本次追溯关系，不重复写行。
+
+候选去重的权威输入始终是 Sheet 中的已发布和未发布内容；`used_content_ids` 只用于加速和审计。若候选已经成功写入 Sheet，但知识库使用记录回写失败，不回滚 Sheet 候选；记录 `kb_usage_writeback_failed` 并在下次维护任务补齐。
+
+执行记录与 Bot 响应至少包含：
+
+```yaml
+research_mode: reused | targeted | hot
+search_backend: gbrain | fallback_index
+kb_version: "..."
+selection_receipt_id: "..."
+topic_ids: []
+source_ids: []
 freshness_result: valid | partial | expired
-targeted_gap: "..."
+targeted_gap: ""
+content_ids: []
+stage: drafted
+next_gate: "Pengman 在选题审批填写 selection_status"
 ```
 
 ---
 
-## 六、本轮不修改
+## 十一、资料不足时的定向补查
+
+本地检索不足时，先输出明确缺口：
+
+```yaml
+gap:
+  signs: [virgo]
+  themes: [relationship]
+  format: single-host
+  missing:
+    direct_sources: 1
+  reason: no_valid_direct_source
+```
+
+然后按缺口执行：
+
+```text
+只搜索 gap 指定范围
+→ 保存 targeted Run
+→ 将合格 Topic / Source 写回本地知识库
+→ 校验并发布新版本
+→ 同步索引
+→ 再执行一次本地检索
+→ 资料充足才继续 source-ingest 和 research
+```
+
+停止条件：
+
+- 同一选题请求最多执行一轮定向补查；
+- 补查后仍无合格直接来源：返回资料不足，不生成正式候选；
+- 页面只能读取摘要、标题或元数据：返回不可用；
+- 发现与近期内容重复：返回重复，不为凑数量换成弱证据；
+- 缺一个来源不得扩展成完整 5–12 Topic 社区调研；
+- 定向补查必须回写知识库，不能只在当前对话中临时使用。
+
+---
+
+## 十二、有效期与 Hot 规则
+
+有效期全部放在知识库 `config.yaml` 或产品配置中，不写死在 Hermes core，也不新增面向用户的 `HERMES_*` 环境变量。
+
+默认建议：
+
+| 类型 | 默认有效期 | 使用要求 |
+|---|---:|---|
+| Evergreen / 社区关系话题 | 7 天 | 有效期内、来源仍可读且证据达门时可复用 |
+| 竞品新内容与社区新增信号 | 3–7 天 | 按最近成功核验时间判断 |
+| Predictable 天象 / 节日 / 已知事件 | 以事件时间为准 | T-72h 和 T-24h 重新核对时间、时区和账号匹配 |
+| Hot / 突发新闻 | 12–24 小时 | 必须执行当前实时核验，不能只使用本地旧资料 |
+
+Topic 有效必须同时满足：
+
+- `status: active`；
+- 账号、形式和主题匹配；
+- 当前有效直接来源数量达门；
+- 证据强度达门；
+- 没有未解决的关键事实冲突；
+- 没有与近期已发布或未发布候选重复。
+
+时间规则：
+
+- 文件修改时间和 gbrain sync 时间不能充当 `last_verified_at`；
+- 访问失败只能更新 `last_checked_at`，不能延长 `valid_until`；
+- 只有成功读取并确认仍支持该 Topic 的直接来源，才允许更新 `last_verified_at`；
+- `no_new_signal` 不能自动延长所有 Topic 的有效期。
+
+Hot 可以先检索本地知识库了解背景，但正式候选必须通过现有 Hot 当前证据门。实时核验成功后也要写回知识库并设置短有效期；失败则安全写零。
+
+---
+
+## 十三、调度、并发和失败保护
+
+调度优先复用 Hermes 现有 cron / scheduler 和 Social profile，不新增常驻守护进程、新 core model tool 或第二套调度器。
+
+配置必须显式包含：
+
+```yaml
+account: "@miraaastrology"
+knowledge_base_path: "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base"
+timezone: America/Chicago
+weekly_refresh: "Sunday 21:00"
+daily_patrol: "Monday-Saturday 21:00"
+gbrain_source_id: social-os-miraa
+```
+
+并发规则：
+
+- 同一知识库同一时间只能有一个写任务；
+- 周更、日更、定向补查和首次迁移共用同一写锁；
+- 候选生成读取最近成功版本，不读取未发布的临时文件；
+- 周日周更优先，当天不再运行日更；
+- 锁已被有效任务持有时，本轮安全跳过并报告，不强行抢锁。
+
+发布规则：
+
+```text
+临时工作区生成
+→ schema / 引用 / 去重 / 时间校验
+→ 对本轮变更文件逐一执行同目录原子替换
+→ 重建 index
+→ 计算并回读 kb_version manifest
+→ gbrain sync
+```
+
+不允许通过交换或删除整个知识库目录来“原子发布”，避免覆盖用户文件或未关联变更。如果 schema 校验失败、引用断裂或写入中断，继续使用上一版成功知识库。gbrain sync 失败不回滚已发布文件，但必须暴露降级状态。
+
+---
+
+## 十四、Bot 可见进度与回复
+
+Bot 不应只显示 `waiting for non-streaming API response`。最小进度：
+
+```text
+正在检索 Miraa 本地知识库
+→ gbrain 命中 4 个相关 Topic / 7 个有效 Source
+→ 正在检查新鲜度和近期内容去重
+→ 采用 3 个来源生成 2 个候选
+→ 候选已写入，等待 Pengman 选择
+```
+
+触发补查时：
+
+```text
+本地知识库缺少 Virgo relationship 的有效直接来源
+→ 正在做一次定向补查
+→ 不刷新完整社区调研池
+```
+
+失败时必须区分：
+
+- `no_valid_local_evidence`：本地无有效资料；
+- `targeted_research_insufficient`：补查后仍不足；
+- `gbrain_unavailable_fallback_used`：gbrain 不可用，已用本地索引；
+- `knowledge_base_update_failed`：知识库更新失败，仍保留上一版；
+- `duplicate_candidate_risk`：命中近期重复；
+- `hot_realtime_verification_failed`：Hot 实时核验失败。
+
+---
+
+## 十五、首次迁移
+
+MVP 不从空库开始。首次上线先迁移现有：
+
+```text
+01-调研资料/候选与热点研究/research-receipts/
+```
+
+迁移规则：
+
+1. 只迁移 `@miraaastrology` 的可解析 Research receipts；
+2. 原文件保持不变，作为历史输入；
+3. 对规范化 URL、来源内容和 Topic 语义做去重；
+4. 为同一研究方向生成稳定 `topic_id`；
+5. 将当前结论写入 Topic 上半部分，将原 receipt 记录写入 Timeline；
+6. 只有仍可核验的直接来源才能进入 active Topic；
+7. 过期、弱证据或不可读来源可以迁移为历史记录，但不能标记为当前有效；
+8. 生成 migration Run、重建 `index.json` 并同步独立 gbrain source；
+9. 迁移过程不生成候选、不写 Sheet、不改变任何审批状态。
+
+迁移完成后先做只读检索验收，再启用周更、日更和选题复用。
+
+---
+
+## 十六、本轮不修改
 
 - 不重做 Google Sheet；
 - 不新建第二个候选池、内容日历或状态系统；
 - 不修改 `content_stage` 生命周期；
 - 不改变 H0–H5 人工审批；
-- 不允许 AI 自动把 Idea 设为 `selected`；
-- 不自动写完整 Script、调用 HeyGen 或生成视频；
-- 不自动发布；
+- 不允许 AI 自动填写 `selection_status`；
+- 不自动生成完整 Script、Package、HeyGen 视频或发布内容；
 - 不修改现有 Hook 锁定、Humanizer 和 Package 规则；
-- 不要求每天产出固定数量的新研究；
-- 不要求 MVP 实现复杂的语义向量数据库；
-- 不要求一次支持所有产品，先以 AstrologyWiki 和当前 active 账号跑通。
+- 不要求每天产生固定数量的新研究；
+- 不把 gbrain 数据库变成权威来源；
+- 不允许跨全部 gbrain source 检索；
+- 不为该功能新增 Hermes core model tool；
+- 不要求 MVP 支持 `@astrologywiki` 或其他账号；
+- 不以升级 gbrain、引入新向量数据库或购买新服务为前置条件。
+- 不由 Social Bot 自动 commit、push、reset 或清理 `gengrowth-ops`；现有 Git 备份/同步流程继续独立负责版本保存。
 
 ---
 
-## 七、最小验收测试
+## 十七、最小验收测试
 
-**核心验收（唯一成败关键）：**
+### A. 核心本地复用路径
 
-> 在完整调研仍有效时，请求"生成 Miraa 两个单人口播选题"，runner 先检查调研池新鲜度，**不重新执行完整社区调研**，直接从有效证据生成 2 个候选（`research_mode: reused`），候选停在 `drafted` 等 Pengman 选择。正常环境 5 分钟内完成，验收重点只有一条：**没有重跑完整调研**。
+前置：知识库存在足够、有效且未重复的 Miraa Topic / Source。
 
-**其余作为顺带核验项**（每个新动作出现时随手确认，不单独立测试）：
+请求：
 
-- **full-research-refresh**：生成完整 receipt、写入证据池，不自动生成候选，执行记录 `research_mode: full`；
-- **light-research-patrol**：无新内容时返回 `no_new_signal` 且不重复写已有来源、不生成候选、不写 `content_stage`；
-- **定向补查**：池中缺某星座/主题时只补查该缺口并走 `source-ingest`，不重跑整套调研，记录 `research_mode: targeted`；
-- **安全边界**：复用研究不自动通过 H1/H3、不自动设 `selected`，Hot 仍走实时证据门，完整调研失败不伪造成功记录。
+> 生成 Miraa 两个单人口播选题
 
-以上通过，即认为 MVP 完成。
+必须证明：
+
+- 查询显式限制在 `social-os-miraa`；
+- 未运行完整周调研、每日巡逻或无关网页抓取；
+- gbrain 只返回 slug，正式判断重新读取本地文件；
+- 仅采用当前候选所需的最小 Source 集合；
+- `source-ingest → prepare-context → research` 顺序完整；
+- context receipt 与命令、账号和范围绑定且一次性使用；
+- 只生成两个候选；
+- `content_stage=drafted`，人工审批字段为空；
+- 响应包含 `content_id`、`stage`、`next_gate`、`kb_version` 和来源 ID；
+- Sheet 成功结果被追加到对应 Topic 使用记录；该回写失败时有明确错误且不重复创建候选；
+- 正常环境 5 分钟内完成。
+
+### B. 周更
+
+- 更新或新增 Topic / Source，并写成功 weekly Run；
+- 不生成候选、不运行 `research`、不写 Sheet；
+- 不清空知识库或改变稳定 ID；
+- 失败时旧版本和核验时间保持不变；
+- 成功后重建 index 并记录 gbrain sync 状态。
+
+### C. 日更无新信号
+
+- 返回 `no_new_signal`；
+- 不重复创建 Source；
+- 不改 Topic 结论和有效期；
+- 不生成候选、不写内容状态。
+
+### D. 日更新增信号
+
+- 新 Source 使用稳定 ID；
+- 已有 Topic 被正确归并并追加 Timeline；
+- 相同规范化 URL 不产生重复文件；
+- 只有可读直接来源能提升当前证据。
+
+### E. 定向补查
+
+- 先返回结构化 gap；
+- 只补指定 sign / theme / format 缺口；
+- 最多执行一轮；
+- 补查结果先写回知识库，再进入候选生成；
+- 仍不足时安全返回零，不扩大成完整调研。
+
+### F. gbrain 降级与隔离
+
+- gbrain 不可用时从 `index.json` 找到有效 Topic；
+- 不因 gbrain 故障执行完整互联网调研；
+- 查询不能命中默认 gbrain source 中的无关知识；
+- gbrain sync 失败时本地知识库仍可用，并明确显示索引过期。
+
+### G. Hot 与过期资料
+
+- 过期 Topic 不得静默用于正式候选；
+- Hot 必须实时核验；
+- 实时核验失败安全写零；
+- 核验成功的新增证据写回知识库并设置短有效期。
+
+### H. 原子性和人工边界
+
+- 临时写入失败不会暴露半成品知识库；
+- 同时触发周更和日更时只有一个写任务执行；
+- Bot 不写 H1、H3、H4、H5；
+- Hook、Script、Package 和发布流程行为不变。
+
+### I. 真实入口验收
+
+除单元和集成测试外，必须在真实飞书 `# social assistant` 完成一次只生成候选的端到端验收，并同时核对：
+
+- Bot 对话进度与最终回复；
+- 本地知识库读取和 Run 记录；
+- gbrain scoped query / fallback 证据；
+- Sheet 实际新增候选和人工字段；
+- Social profile 部署副本与源文件一致。
 
 ---
 
-## 八、给彪哥的最小实现顺序
+## 十八、建议实现顺序
 
-1. **先在候选生成前增加"查找有效 Research receipt / 证据"的判断；**
-2. **有有效研究时直接生成候选，停止自动调用完整社区调研；**
-3. **资料不足时只返回缺口或执行定向补查；**
-4. **把现有完整调研封装为独立的每周任务，继续复用现有 Prompt、receipt 和 `source-ingest`；**
-5. **增加每日轻量巡逻，只写新增证据并去重；**
-6. **最后补天象 T-72h / T-24h 复核和可读进度。**
+1. 定义 `schema.md`、`config.yaml`、Topic / Source / Run 校验器和行为测试；
+2. 建立 `miraa-knowledge-base` 目录并迁移现有 Miraa receipts；
+3. 生成派生 `index.json`，完成不依赖 gbrain 的确定性检索；
+4. 注册独立 gbrain source，增加 scoped sync / query 包装和降级路径；
+5. 实现每周刷新和每日巡逻，共用写锁、临时目录和原子发布；
+6. 实现 `kb-selection receipt`，让 runner 只 ingest 实际采用的证据；
+7. 将现有 `research` 默认入口改为本地知识库优先；
+8. 实现一次性定向补查和 Hot 实时核验例外；
+9. 使用 Hermes 现有 cron 配置周更、日更，不新建调度器；
+10. 更新 AstrologyWiki workflow Skill、Social pipeline runbook 和 field notes；
+11. 跑行为契约、临时 `HERMES_HOME` 集成测试和真实飞书验收；
+12. 同步并校验源码与 Social profile 部署副本后，再重启 Social gateway。
 
-最小完成标准不是建立一个新的复杂"研究系统"，而是：
+---
 
-> 同一周已经完成合格调研后，再要求生成两个候选时，Social OS 能复用现有调研，直接生成候选，不再从头跑完整流程。
+## 十九、Definition of Done
+
+以下全部满足才算完成：
+
+- Miraa 本地知识库已建立并完成首次迁移；
+- 周更和日更能独立运行并留下真实 Run；
+- gbrain 使用独立 source，查询不会跨库污染；
+- gbrain 不可用时存在确定性本地降级；
+- 普通选题请求默认只读本地知识库；
+- 只 ingest 候选实际采用的证据；
+- 资料不足只做一次定向补查；
+- Hot、过期、弱证据和不可读来源继续 fail closed；
+- H0–H5、`content_stage`、Hook 锁定和人工权限未被改变；
+- 真实 `# social assistant` 验收证明“没有重新跑完整调研”；
+- 源码、运行时 Skill、runbook 和 field notes 副本一致且可回滚。
