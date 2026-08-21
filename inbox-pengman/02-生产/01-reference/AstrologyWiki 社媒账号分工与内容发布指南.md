@@ -7,7 +7,7 @@ account: multiple
 platform: multiple
 status: active
 owner: Pengman
-updated: 2026-08-16
+updated: 2026-08-20
 active_accounts:
   - "@astrologywiki"
   - "@miraaastrology"
@@ -116,7 +116,8 @@ Scorpio 是已经跑过的系列，不等于永久 Scorpio-only。当前方向�
 
 ### 推荐形式
 
-- 固定 AI Host、声音、字幕和视觉规格的 35–60 秒短视频
+- 固定 AI Host、声音、字幕和视觉规格的 45–90 秒短视频；不再把 60 秒作为硬上限
+- `word_count` 只作为派生检查，不设统一硬字数上限；最终以当前 AI Host 生成后的实际音频时长是否落在 45–90 秒为准
 - 有明确测试目的时的短版变体
 - 关系场景和心理机制优先于抽象性格标签
 
@@ -131,6 +132,7 @@ Scorpio 是已经跑过的系列，不等于永久 Scorpio-only。当前方向�
 
 - 一条视频只讲一个核心机制。
 - 前 1–3 秒必须出现具体行为、冲突或反差。
+- 单人 AI Host 默认全篇连续叙述，不写虚构人物台词、`X says / X asks`、角色对话或伪双人口播；只有 Pengman 对当前单条内容明确要求时才例外。
 - 双方关系内容公平呈现，不设单一反派。
 - 美国 18–35 岁观众能自然听懂；避免生硬翻译腔和 AI 总结句。
 - 继续读取同系列最近 `decision / next_test`，避免重复 truth test、沉默、控制等旧机制。
