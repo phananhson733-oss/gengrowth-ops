@@ -1,0 +1,28 @@
+{
+  "content_id": "miraa-w34-refill-20260821-02",
+  "status": "preview_only",
+  "write_performed": false,
+  "source_reference": "02-生产/01-reference/Scorpio-Gemini-eleanor-astrology脚本调研.md",
+  "hook_locked": true,
+  "script_text": "Scorpio and Gemini are one of the hardest zodiac pairings. They can care about each other and still clash all the time.\n\nScorpio often wants a clear answer about where the relationship is going. Once they care, waiting can feel like a warning. Gemini can care just as much and still hate making a decision before they are ready.\n\nThat difference shows up fast. One person wants to define the relationship or make the next plan. The other wants more time and may change their mind.\n\nThe more one person pushes for an answer, the more the other feels trapped and pulls back. Then every delay starts to look like a sign that something is wrong.\n\nBut Gemini is not always the one asking for freedom. Sometimes Gemini wants the trip booked and the future decided, while Scorpio is the one slowing things down.\n\nBoth people may be serious about the relationship. They just do not always want the next step at the same time. After a while, they are no longer fighting about the plan. They are fighting over whether the other person cares enough.",
+  "content_format": "ai_host_single",
+  "production_tool": "HeyGen",
+  "word_count": 186,
+  "duration_target_seconds": {
+    "min": 45,
+    "max": 90,
+    "hard_max_60_removed": true,
+    "measurement": "Final acceptance uses the current AI Host's generated audio duration. Word count is a derived check, not a universal hard limit."
+  },
+  "dialogue_check": {
+    "invented_quotes": 0,
+    "x_says_or_asks": 0,
+    "speaker_exchange": 0
+  },
+  "humanizer": {
+    "skill": "humanizer",
+    "version": "2.9.1",
+    "execution": "performed_in_codex_before_preview",
+    "notes": "Removed invented dialogue, quoted lines, role-play, therapy-style advice, and a generic CTA. Preserved the locked Hook, the role-reversal evidence, and one continuous narrator voice."
+  }
+}

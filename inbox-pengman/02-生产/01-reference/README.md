@@ -14,6 +14,7 @@ updated: 2026-08-07
 ## 当前参考
 
 - [[inbox-pengman/02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南|账号分工与内容发布指南]]：说明当前启用哪些账号、每个账号负责什么，以及不同内容应该发到哪里。
+- [[inbox-pengman/02-生产/01-reference/Scorpio-Gemini-eleanor-astrology脚本调研|Scorpio and Gemini · Eleanor Astrology 脚本调研]]：供 `miraa-w34-refill-20260821-02` 学习单人口播中的强判词、双方角色化表达和冲突推进；不复制原稿或确定性负面标签。
 
 ## 与调研资料的边界
 

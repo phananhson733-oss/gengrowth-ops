@@ -129,7 +129,7 @@ export async function syncFeishuFollowerMetrics({ dbPath, runId, scriptDir }) {
       listAllRecords(apiBase, headers),
     ]);
     const fields = new Map((fieldPayload.data?.items || []).map((field) => [field.field_name, field]));
-    for (const required of ["原账号ID", "现账号ID", "粉丝", "粉丝同步时间"]) {
+    for (const required of ["账号ID", "粉丝", "粉丝同步时间"]) {
       if (!fields.has(required)) throw new Error(`Missing required Feishu field: ${required}`);
     }
     if (fields.get("粉丝")?.ui_type !== "Number") throw new Error("Feishu field 粉丝 must be a Number field");
@@ -138,9 +138,8 @@ export async function syncFeishuFollowerMetrics({ dbPath, runId, scriptDir }) {
     const recordMap = new Map();
     const duplicateIds = new Set();
     for (const record of records) {
-      const currentId = normalizeUsername(record.fields?.["现账号ID"]);
-      const originalId = normalizeUsername(record.fields?.["原账号ID"]);
-      const effectiveId = currentId || originalId;
+      const accountId = normalizeUsername(record.fields?.["账号ID"]);
+      const effectiveId = accountId;
       if (!effectiveId) continue;
       if (recordMap.has(effectiveId)) duplicateIds.add(effectiveId);
       else recordMap.set(effectiveId, record);

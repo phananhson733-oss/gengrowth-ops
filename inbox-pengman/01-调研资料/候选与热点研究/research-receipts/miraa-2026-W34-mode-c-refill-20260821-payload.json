@@ -1,0 +1,60 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w34-refill21-virgo-flaw-hurt",
+      "claim": "A short Virgo identity hook that contrasts seeing flaws with missing emotional impact will create more recognition and disagreement than a generic claim that Virgo is critical.",
+      "evidence_source_ids": [
+        "src-32d6992ce2"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments explicitly recognize, reject, or qualify the flaw-versus-hurt pattern",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-w34-refill21-t03"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-w34-refill21-scorpio-gemini-pace",
+      "claim": "A Scorpio-Gemini shared pace conflict will generate more sends, shares, and partner tags than a one-sided compatibility verdict because either person can recognize the role reversal.",
+      "evidence_source_ids": [
+        "src-623e71cde9"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments or shares explicitly identify who sets the pace in a Scorpio-Gemini relationship",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-w34-refill21-t04"
+    }
+  ],
+  "backlog": [
+    {
+      "content_id": "miraa-w34-refill-20260821-01",
+      "week": "2026-W34",
+      "account": "@miraaastrology",
+      "title": "When Virgo Sees the Problem but Misses the Hurt",
+      "hook": "Virgo can spot every flaw and miss the hurt.",
+      "angle": "Virgo | Single AI host | Start with the difference between accurately noticing a problem and noticing the emotional impact of how it is said. Use concrete relationship behavior—correcting details, winning the point, and overlooking the partner's reaction. Keep the source as one person's experience and avoid treating criticism as a universal Virgo trait.",
+      "why_now": "checked_at=2026-08-21; research topic miraa-w34-refill21-t03 is supported by verified source src-32d6992ce2, a directly readable first-person Reddit body that explicitly names bias and asks for counterexamples. W33 learning favors a visible behavior or sharp contrast before the hidden reason. Dedupe: unlike the selected Virgo practical-care item and the dropped Virgo anti-stereotype items, this tests accuracy versus emotional impact. Evidence is single-platform and qualitative; comments and engagement were not readable.",
+      "score": "87",
+      "hypothesis_id": "hyp-miraa-w34-refill21-virgo-flaw-hurt",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; the current single AI host can deliver one direct behavior-versus-impact contrast without changing the format baseline.",
+      "research_topic_id": "miraa-w34-refill21-t03"
+    },
+    {
+      "content_id": "miraa-w34-refill-20260821-02",
+      "week": "2026-W34",
+      "account": "@miraaastrology",
+      "title": "Scorpio and Gemini Fight Over the Pace, Not the Feeling",
+      "hook": "Scorpio and Gemini can care—and still fight over pace.",
+      "angle": "Scorpio × Gemini | Single AI host | Explain one shared relationship conflict without assigning a fixed role: one person wants to act, travel, define, or change plans faster while the other wants more stability or time. The source comments report opposite role assignments, so the video should invite viewers to identify who sets the pace rather than issue a compatibility verdict.",
+      "why_now": "checked_at=2026-08-21; research topic miraa-w34-refill21-t04 is supported by verified source src-623e71cde9, a readable Instagram discussion with 1K visible likes and 33 comments, including opposite lived reports about restlessness and comfort. W33 review found that pairing content is more share-oriented when both sides can own one concrete conflict; Scorpio-Capricorn had the strongest observed sharing and higher retention among the three reviewed posts. Dedupe: unlike Scorpio-Capricorn needs or Aries commitment-label pace, this tests a two-person life-pace role reversal. Evidence remains one qualitative thread and does not predict compatibility.",
+      "score": "90",
+      "hypothesis_id": "hyp-miraa-w34-refill21-scorpio-gemini-pace",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; one AI host keeps the current baseline fixed while testing a sendable pair conflict without switching to dual-host dialogue.",
+      "research_topic_id": "miraa-w34-refill21-t04"
+    }
+  ]
+}
