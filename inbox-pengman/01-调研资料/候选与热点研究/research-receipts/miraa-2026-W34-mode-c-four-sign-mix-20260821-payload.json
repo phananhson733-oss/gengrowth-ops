@@ -3,46 +3,38 @@
     {
       "hypothesis_id": "hyp-miraa-w34-mix21-scorpio-support-without-pressure",
       "claim": "A friendship-first Scorpio topic that contrasts one steady check-in with repeated questions will earn more recognition comments than another generic claim about Scorpio being distant.",
-      "evidence_source_ids": [
-        "src-60e39bf04f"
-      ],
+      "evidence_source_ids": ["src-60e39bf04f"],
       "success_metric": "7d completion_rate >= 0.35 and comments describe a useful or unhelpful way of supporting someone who goes quiet",
       "observe_window": "7d",
       "verdict": "inconclusive",
-      "research_topic_id": "miraa-w34-mix21-t01"
+      "research_topic_id": "t1"
     },
     {
       "hypothesis_id": "hyp-miraa-w34-mix21-libra-remembered-detail",
       "claim": "A remembered-detail versus expensive-date contrast will make Libra romance more concrete and shareable than a generic claim that Libra loves love.",
-      "evidence_source_ids": [
-        "src-f838cb625d"
-      ],
+      "evidence_source_ids": ["src-f838cb625d"],
       "success_metric": "7d completion_rate >= 0.35 and comments name a small detail or gesture that made the viewer feel seen",
       "observe_window": "7d",
       "verdict": "inconclusive",
-      "research_topic_id": "miraa-w34-mix21-t02"
+      "research_topic_id": "t2"
     },
     {
-      "hypothesis_id": "hyp-miraa-w34-mix21-libra-safe-opinion",
-      "claim": "Framing Libra hesitation as reading whether disagreement is safe will generate more debate than repeating the indecisive stereotype.",
-      "evidence_source_ids": [
-        "src-3243021320"
-      ],
-      "success_metric": "7d completion_rate >= 0.35 and comments agree, disagree, or describe when Libra states an opinion directly",
+      "hypothesis_id": "hyp-miraa-w34-mix21-cancer-listen-before-advice",
+      "claim": "A Cancer topic that contrasts being heard with being immediately fixed will generate more first-person comments than a broad claim about Cancer being emotional.",
+      "evidence_source_ids": ["src-a61a6ec879"],
+      "success_metric": "7d completion_rate >= 0.35 and comments distinguish wanting listening from wanting advice",
       "observe_window": "7d",
       "verdict": "inconclusive",
-      "research_topic_id": "miraa-w34-mix21-t03"
+      "research_topic_id": "t5"
     },
     {
       "hypothesis_id": "hyp-miraa-w34-mix21-cancer-family-boundary",
       "claim": "A direct family-boundary statement will generate more saves than another Cancer caregiving scene because it gives the viewer a line between care and carrying every problem.",
-      "evidence_source_ids": [
-        "src-a61a6ec879"
-      ],
+      "evidence_source_ids": ["src-a61a6ec879"],
       "success_metric": "7d completion_rate >= 0.35 and saves or comments mention a family boundary rather than only a Cancer stereotype",
       "observe_window": "7d",
       "verdict": "inconclusive",
-      "research_topic_id": "miraa-w34-mix21-t04"
+      "research_topic_id": "t4"
     }
   ],
   "backlog": [
@@ -53,14 +45,14 @@
       "title": "How to Support Scorpio Without Pushing",
       "hook": "When Scorpio goes quiet in a rough patch, more questions can feel like more pressure.",
       "angle": "Scorpio | Single AI host | Use a friendship situation: one person wants to help, but repeated questions make the quiet friend withdraw further. Contrast one steady check-in with demanding an immediate explanation. Keep the counter-view explicit: space is not permission to disappear indefinitely.",
-      "why_now": "checked_at=2026-08-21; research topic miraa-w34-mix21-t01 is supported by verified source src-60e39bf04f, a directly readable Reddit body asking how to support a Scorpio friend through a rough patch without becoming overbearing. Engagement and comments were unavailable, so evidence is weak and anecdotal. Dedupe: unlike the pending dating topic about pulling away after closeness, this tests friendship support during a known rough patch.",
+      "why_now": "checked_at=2026-08-21; research topic t1 is supported by verified source src-60e39bf04f, a directly readable Reddit body asking how to support a Scorpio friend through a rough patch without becoming overbearing. Engagement and comments were unavailable, so evidence is weak and anecdotal. Dedupe: unlike the pending dating topic about pulling away after closeness, this tests friendship support during a known rough patch.",
       "score": "82",
       "hypothesis_id": "hyp-miraa-w34-mix21-scorpio-support-without-pressure",
       "stage": "drafted",
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
       "route_reason": "Evergreen Route C; one host can explain the support-versus-pressure conflict without adding another character or changing the production baseline.",
-      "research_topic_id": "miraa-w34-mix21-t01"
+      "research_topic_id": "t1"
     },
     {
       "content_id": "miraa-w34-mix-20260821-02",
@@ -69,30 +61,30 @@
       "title": "What Libra Actually Calls Romantic",
       "hook": "Libra notices the tiny detail you remembered more than the expensive date you planned.",
       "angle": "Libra | Single AI host | Contrast a polished expensive date with one small detail remembered from an earlier conversation. Use cooking, quiet time or an unprompted small gift as proof. Preserve the counter-view that special occasions can still deserve a bigger planned gesture.",
-      "why_now": "checked_at=2026-08-21; research topic miraa-w34-mix21-t02 is supported by verified source src-f838cb625d, a directly readable Libra Reddit thread with multiple comments contrasting grand gestures with remembered details, cooking and quiet shared time; visible comment scores include 14 and 10. Dedupe: unlike the existing Aries-Libra restaurant-decision topic, this tests what makes Libra feel seen inside an established relationship.",
+      "why_now": "checked_at=2026-08-21; research topic t2 is supported by verified source src-f838cb625d, a directly readable Libra Reddit thread with comments contrasting grand gestures with remembered details, cooking and quiet shared time; visible comment scores include 14 and 10. Dedupe: unlike the existing Aries-Libra restaurant-decision topic, this tests what makes Libra feel seen inside an established relationship.",
       "score": "90",
       "hypothesis_id": "hyp-miraa-w34-mix21-libra-remembered-detail",
       "stage": "drafted",
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
       "route_reason": "Evergreen Route C; a single host can deliver the expensive-date versus remembered-detail contrast with simple supporting visuals.",
-      "research_topic_id": "miraa-w34-mix21-t02"
+      "research_topic_id": "t2"
     },
     {
       "content_id": "miraa-w34-mix-20260821-03",
       "week": "2026-W34",
       "account": "@miraaastrology",
-      "title": "Libra Has an Opinion—They Are Reading the Room",
-      "hook": "Libra does have an opinion. They just want to know it is safe to say it.",
-      "angle": "Libra | Single AI host | Start with the difference between having no opinion and checking whether disagreement will be punished. Use a partner asking what Libra really thinks, then calling the answer mean or dramatic. Keep this as a relationship behavior pattern, not a universal rule.",
-      "why_now": "checked_at=2026-08-21; research topic miraa-w34-mix21-t03 is supported by verified source src-3243021320, a directly readable Libra Reddit thread whose comments repeatedly ask for quality time and room to have strong opinions without being called mean; visible comment scores include 40, 19 and 15. Dedupe: this is not the existing dinner-choice conflict; the single test variable is whether disagreement feels safe.",
-      "score": "88",
-      "hypothesis_id": "hyp-miraa-w34-mix21-libra-safe-opinion",
+      "title": "What Cancer Wants Before the Advice",
+      "hook": "Cancer may ask for advice and still need you to listen before you start fixing the problem.",
+      "angle": "Cancer | Single AI host | Use a family or friendship conversation where the listener jumps straight to solutions. Contrast fixing with first asking, 'Do you want advice, or do you want me to listen?' Keep this about communication, not diagnosis or emotional destiny.",
+      "why_now": "checked_at=2026-08-21; research topic t5 is supported by verified source src-a61a6ec879, a directly readable July 2026 YouTube transcript about Cancer themes of family conversations, naming emotional needs and listening beneath the words; the video shows 8.1K views and 653 likes. Dedupe: this tests listening before advice, not the earlier invisible-caregiving topic or the separate family-boundary candidate.",
+      "score": "86",
+      "hypothesis_id": "hyp-miraa-w34-mix21-cancer-listen-before-advice",
       "stage": "drafted",
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
-      "route_reason": "Evergreen Route C; one host can show the opinion-versus-safety contrast while keeping the current single-host test baseline.",
-      "research_topic_id": "miraa-w34-mix21-t03"
+      "route_reason": "Evergreen Route C; one host can stage the advice-versus-listening contrast using a short quoted question and simple conversation visuals.",
+      "research_topic_id": "t5"
     },
     {
       "content_id": "miraa-w34-mix-20260821-04",
@@ -101,14 +93,14 @@
       "title": "When Cancer Stops Being the Family Fixer",
       "hook": "Cancer can love the family and still refuse to carry every family problem.",
       "angle": "Cancer | Single AI host | Use one family-group-chat problem that everyone expects Cancer to solve. Show the boundary as a specific refusal to take one more task, not as cutting the family off. Avoid diagnosis, inherited-trauma claims or treating caregiving as destiny.",
-      "why_now": "checked_at=2026-08-21; research topic miraa-w34-mix21-t04 is supported by verified source src-a61a6ec879, a directly readable July 2026 YouTube transcript about Cancer themes of family conversations, caregiving and loving people while needing boundaries; the video shows 8.1K views and 653 likes. Dedupe: unlike the earlier Cancer invisible-labor topic about never sitting down at dinner, this tests a spoken boundary before another family task is accepted.",
+      "why_now": "checked_at=2026-08-21; research topic t4 is supported by verified source src-a61a6ec879, a directly readable July 2026 YouTube transcript about Cancer themes of family conversations, caregiving and loving people while needing boundaries; the video shows 8.1K views and 653 likes. Dedupe: unlike the earlier Cancer invisible-labor topic about never sitting down at dinner, this tests a spoken boundary before another family task is accepted.",
       "score": "87",
       "hypothesis_id": "hyp-miraa-w34-mix21-cancer-family-boundary",
       "stage": "drafted",
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
       "route_reason": "Evergreen Route C; the family-group-chat boundary can be explained by one host without adding a parent-child role-play or product screen.",
-      "research_topic_id": "miraa-w34-mix21-t04"
+      "research_topic_id": "t4"
     }
   ]
 }
