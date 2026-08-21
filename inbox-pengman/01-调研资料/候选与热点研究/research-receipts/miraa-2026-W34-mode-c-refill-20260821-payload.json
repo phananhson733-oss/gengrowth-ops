@@ -38,10 +38,7 @@
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
       "route_reason": "Evergreen Route C; the current single AI host can deliver one direct behavior-versus-impact contrast without changing the format baseline.",
-      "research_topic_id": "miraa-w34-refill21-t03",
-      "evidence_source_ids": [
-        "src-32d6992ce2"
-      ]
+      "research_topic_id": "miraa-w34-refill21-t03"
     },
     {
       "content_id": "miraa-w34-refill-20260821-02",
@@ -57,10 +54,7 @@
       "content_format": "ai_host_single",
       "production_tool": "HeyGen",
       "route_reason": "Evergreen Route C; one AI host keeps the current baseline fixed while testing a sendable pair conflict without switching to dual-host dialogue.",
-      "research_topic_id": "miraa-w34-refill21-t04",
-      "evidence_source_ids": [
-        "src-623e71cde9"
-      ]
+      "research_topic_id": "miraa-w34-refill21-t04"
     }
   ]
 }
