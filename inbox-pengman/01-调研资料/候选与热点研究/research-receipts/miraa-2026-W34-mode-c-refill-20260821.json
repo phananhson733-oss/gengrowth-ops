@@ -1,0 +1,416 @@
+{
+  "schema_version": "miraa-community-research/v1",
+  "product": "astrologywiki",
+  "account": "@miraaastrology",
+  "mode": "C",
+  "week": "2026-W34",
+  "searched_at": "2026-08-21T10:57:48+08:00",
+  "sample_limitations": "Qualitative refill research. Formal support comes from four directly readable Instagram/Reddit pages; two Instagram topics are single-post signals, the Virgo item is one first-person Reddit post without readable comments in this capture, and the Gemini-Scorpio item has readable comments but no displayed publication date. No prevalence claim is made.",
+  "competitor_index_checked_at": "2026-08-21T10:45:00+08:00; public CSV readable; 18 rows; single-host references reviewed: @maxcartexofficial, @promentalityx, @terryhales1.",
+  "apps_script_library_attempt": "2026-08-21T10:46:00+08:00; login_required; internal content not read.",
+  "platforms_attempted": [
+    "reddit",
+    "x/twitter",
+    "quora",
+    "youtube",
+    "instagram"
+  ],
+  "platforms_accessed": [
+    "reddit",
+    "youtube",
+    "instagram"
+  ],
+  "opened_pages": 4,
+  "readable_pages": 4,
+  "unavailable_sources": [
+    {
+      "platform": "x/twitter",
+      "failure_layer": "No directly readable reply threads were available in this capture; excluded from formal user-voice support."
+    },
+    {
+      "platform": "quora",
+      "failure_layer": "Search/extraction access was unavailable or metadata-only during this run; excluded."
+    },
+    {
+      "platform": "youtube",
+      "failure_layer": "A creator transcript was readable, but viewer comments were not; transcript was excluded from user-voice evidence."
+    },
+    {
+      "platform": "reddit",
+      "failure_layer": "Most direct and mirror pages returned 403 or proof-of-work challenges; one JSON representation remained readable and is the only Reddit source used."
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "miraa-w34-refill21-t01",
+      "topic_name": "Scorpio：犯错后更在意是否愿意修复",
+      "discussion": "A readable post and comments frame the relationship conflict as avoidance versus accountability after a mistake, rather than demanding perfection.",
+      "video_fit": "The behavior sequence is visible and easy to recognize: admit the mistake, finish the uncomfortable conversation, and follow through.",
+      "main_views": "Honest repair can protect trust better than pretending nothing happened.",
+      "counter_views": "One post cannot establish a sign-wide rule, and accountability still needs reciprocal behavior.",
+      "life_scenes": [
+        "admitting the mistake instead of changing the subject",
+        "returning to an uncomfortable conversation the same day",
+        "following through after an apology"
+      ],
+      "discussion_evidence": {
+        "source_refs": [
+          "s1"
+        ],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable body plus three visible comments; 2K visible likes.",
+        "limitations": "Single Instagram post; not evidence of prevalence or a universal Scorpio trait."
+      },
+      "natural_english": [
+        {
+          "text": "own the mistake",
+          "attribution": "synthesized_pattern"
+        },
+        {
+          "text": "choose accountability over pride",
+          "attribution": "source_quote",
+          "source_ref": "s1"
+        }
+      ]
+    },
+    {
+      "topic_id": "miraa-w34-refill21-t02",
+      "topic_name": "Scorpio：反应前会先重放细节",
+      "discussion": "The readable post and comments describe a gap between a calm surface and a later response after details are analyzed and remembered.",
+      "video_fit": "A clear timing contrast can be shown without diagnosing anyone: calm during the moment, replay afterward, then respond.",
+      "main_views": "Delayed reaction may reflect private processing rather than no reaction.",
+      "counter_views": "Silence can also create confusion, and the source does not prove that delayed processing is mature or sign-specific.",
+      "life_scenes": [
+        "staying quiet during the argument",
+        "replaying the exact wording later",
+        "bringing up one remembered detail after the room is calm"
+      ],
+      "discussion_evidence": {
+        "source_refs": [
+          "s2"
+        ],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable body and multiple visible comments; 81.7K visible likes and 530 comments.",
+        "limitations": "Single Instagram post with a strong creator framing; comments include disagreement and element jokes."
+      },
+      "natural_english": [
+        {
+          "text": "I felt this",
+          "attribution": "source_quote",
+          "source_ref": "s2"
+        },
+        {
+          "text": "replay every detail",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "miraa-w34-refill21-t03",
+      "topic_name": "Virgo：看见问题不等于看见对方感受",
+      "discussion": "A first-person Reddit post debates how criticism, perceptiveness, aloofness, wit, and poor treatment can be confused with intelligence or mystery in dating.",
+      "video_fit": "The conflict is concrete and non-mystical: spotting flaws can still leave a partner feeling dismissed or small.",
+      "main_views": "Being perceptive does not excuse disrespect or emotional neglect.",
+      "counter_views": "The poster explicitly seeks counterexamples and acknowledges bias; one dating history cannot represent every Virgo.",
+      "life_scenes": [
+        "correcting every detail while missing the hurt tone",
+        "winning the argument but leaving the partner feeling smaller",
+        "using wit to avoid showing interest"
+      ],
+      "discussion_evidence": {
+        "source_refs": [
+          "s3"
+        ],
+        "cross_platform": false,
+        "evidence_strength": "weak",
+        "discussion_signal": "Direct first-person body was readable and explicitly asks for counterexamples.",
+        "limitations": "One Reddit post; comments and engagement were not readable in this capture; no consensus claim."
+      },
+      "natural_english": [
+        {
+          "text": "critical and perceptive",
+          "attribution": "source_quote",
+          "source_ref": "s3"
+        },
+        {
+          "text": "notice the flaw, miss the feeling",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "miraa-w34-refill21-t04",
+      "topic_name": "Scorpio × Gemini：关系节奏角色并不固定",
+      "discussion": "Readable comments on a compatibility post disagree sharply about who is more restless, comfort-seeking, emotional, adventurous, or cautious in the pairing.",
+      "video_fit": "The shared conflict is easy to recognize and send to a partner: both people care, but they may fight over who sets the pace.",
+      "main_views": "The pairing can feel intense when two people want different speeds for plans, risk, and commitment.",
+      "counter_views": "Commenters report opposite experiences and one explicitly invokes the Barnum effect; Sun-sign labels cannot predict who moves faster.",
+      "life_scenes": [
+        "one person wants a spontaneous trip while the other wants a plan",
+        "one pushes the relationship forward while the other slows it down",
+        "both feel strongly but disagree about when to act"
+      ],
+      "discussion_evidence": {
+        "source_refs": [
+          "s4"
+        ],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable comment thread with 1K visible likes and 33 comments; multiple comments report opposite lived experiences.",
+        "limitations": "Single Instagram thread and self-reported anecdotes; page date was unavailable."
+      },
+      "natural_english": [
+        {
+          "text": "the exact opposite in my circumstance",
+          "attribution": "source_quote",
+          "source_ref": "s4"
+        },
+        {
+          "text": "who sets the pace",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "miraa-w34-refill21-t05",
+      "topic_name": "星座标签与真实相处结果冲突",
+      "discussion": "Across a Virgo dating post and a Scorpio-Gemini comment thread, users question whether a sign label can explain harmful behavior, kindness, pace, or compatibility.",
+      "video_fit": "The discussion can support a chart-calibration message without turning the video into a generic disclaimer.",
+      "main_views": "Observable treatment and relationship behavior matter more than a broad sign stereotype.",
+      "counter_views": "Some users still find sign language useful for naming patterns, even while rejecting deterministic compatibility claims.",
+      "life_scenes": [
+        "one ex becomes evidence for an entire sign",
+        "two couples with the same signs report opposite dynamics",
+        "a viewer asks for a counterexample before trusting the stereotype"
+      ],
+      "discussion_evidence": {
+        "source_refs": [
+          "s3",
+          "s4"
+        ],
+        "cross_platform": true,
+        "evidence_strength": "medium",
+        "discussion_signal": "Two readable discussion bodies across Reddit and Instagram independently challenge broad relationship labels.",
+        "limitations": "Small qualitative sample; the sources discuss different signs and cannot establish prevalence."
+      },
+      "natural_english": [
+        {
+          "text": "there must be good ones out there",
+          "attribution": "source_quote",
+          "source_ref": "s3"
+        },
+        {
+          "text": "it does not apply to everyone",
+          "attribution": "source_quote",
+          "source_ref": "s4"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "s1",
+      "title": "Scorpios do not expect perfect relationships; they expect honest ones",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DbgHNd4j4oc",
+      "displayed_date": "2026-08-01",
+      "observed_at": "2026-08-21T10:57:48+08:00",
+      "access_status": "readable",
+      "readable_layers": [
+        "body",
+        "comments"
+      ],
+      "supported_topic_ids": [
+        "miraa-w34-refill21-t01"
+      ],
+      "body_excerpt": "The post contrasts honest repair and accountability with avoiding difficult conversations after a mistake.",
+      "visible_engagement": "2K likes; 3 comments"
+    },
+    {
+      "source_ref": "s2",
+      "title": "Scorpio may analyze and remember a feeling before responding",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/scorpiosaga/p/DcJvS65DMY7",
+      "displayed_date": "2026-08-17",
+      "observed_at": "2026-08-21T10:57:48+08:00",
+      "access_status": "readable",
+      "readable_layers": [
+        "body",
+        "comments"
+      ],
+      "supported_topic_ids": [
+        "miraa-w34-refill21-t02"
+      ],
+      "comment_excerpt": "Visible comments include direct recognition, disagreement, and descriptions of calm presentation with intense internal feeling.",
+      "visible_engagement": "81.7K likes; 530 comments"
+    },
+    {
+      "source_ref": "s3",
+      "title": "Let's talk about Virgo men",
+      "platform": "reddit",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/1pex14u/lets_talk_about_virgo_men.json",
+      "displayed_date_note": "The extractor returned the direct body but no page date during the 2026-08-21 capture.",
+      "observed_at": "2026-08-21T10:57:48+08:00",
+      "access_status": "readable",
+      "readable_layers": [
+        "body"
+      ],
+      "supported_topic_ids": [
+        "miraa-w34-refill21-t03",
+        "miraa-w34-refill21-t05"
+      ],
+      "body_excerpt": "The poster describes harmful dating experiences, names their own bias, and asks for counterexamples while distinguishing criticism and perceptiveness from kindness.",
+      "engagement_note": "互动量不可核验; substitute signal: the full first-person body and explicit request for counterexamples were readable."
+    },
+    {
+      "source_ref": "s4",
+      "title": "Scorpio and Gemini compatibility comment discussion",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DU9SwQQESY0/",
+      "displayed_date_note": "The readable page did not expose the publication date during the 2026-08-21 capture.",
+      "observed_at": "2026-08-21T10:57:48+08:00",
+      "access_status": "readable",
+      "readable_layers": [
+        "comments"
+      ],
+      "supported_topic_ids": [
+        "miraa-w34-refill21-t04",
+        "miraa-w34-refill21-t05"
+      ],
+      "comment_excerpt": "Comments report opposite lived dynamics, including different views of who is restless or comfort-paced, and one explicitly says astrology does not apply to everyone.",
+      "visible_engagement": "1K likes; 33 comments"
+    }
+  ],
+  "life_detail_bank": [
+    "admitting a mistake without changing the subject",
+    "returning to a hard conversation after cooling down",
+    "following through after an apology",
+    "pretending nothing happened to keep the peace",
+    "staying calm during an argument",
+    "replaying the exact words later",
+    "remembering one contradiction after the room is quiet",
+    "correcting every detail in a partner's story",
+    "winning the argument while the partner feels smaller",
+    "using wit instead of showing interest",
+    "wanting a spontaneous trip while the partner wants a plan",
+    "pushing a relationship forward while the other slows it down",
+    "two couples with the same signs reporting opposite dynamics",
+    "turning one painful ex into a rule about a whole sign",
+    "asking for a counterexample before accepting a stereotype"
+  ],
+  "language_bank": {
+    "phrases": [
+      {
+        "text": "own the mistake",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "finish the conversation",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "choose accountability over pride",
+        "attribution": "source_quote",
+        "source_ref": "s1"
+      },
+      {
+        "text": "pretend nothing happened",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "replay every detail",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "I felt this",
+        "attribution": "source_quote",
+        "source_ref": "s2"
+      },
+      {
+        "text": "notice the flaw",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "miss the feeling",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "critical and perceptive",
+        "attribution": "source_quote",
+        "source_ref": "s3"
+      },
+      {
+        "text": "ask for a counterexample",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "the exact opposite in my circumstance",
+        "attribution": "source_quote",
+        "source_ref": "s4"
+      },
+      {
+        "text": "who sets the pace",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "move fast",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "slow it down",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "it does not apply to everyone",
+        "attribution": "source_quote",
+        "source_ref": "s4"
+      }
+    ],
+    "questions": [
+      {
+        "text": "Did they own what happened?",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "Why did the real reaction come later?",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "Did they notice your feelings too?",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "Who keeps changing the pace?",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "Is this the sign or the behavior?",
+        "attribution": "synthesized_pattern"
+      }
+    ],
+    "reaction_patterns": [
+      {
+        "text": "The apology was not the hard part.",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "I always react later.",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "They saw the flaw but missed me.",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "Our roles are completely reversed.",
+        "attribution": "synthesized_pattern"
+      },
+      {
+        "text": "One ex is not the whole sign.",
+        "attribution": "synthesized_pattern"
+      }
+    ]
+  }
+}
