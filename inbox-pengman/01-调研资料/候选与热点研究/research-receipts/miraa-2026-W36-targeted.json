@@ -1,0 +1,248 @@
+{
+  "schema_version": "social-kb-targeted/v1",
+  "product": "AstrologyWiki",
+  "account": "@miraaastrology",
+  "mode": "B",
+  "week": "2026-W36",
+  "searched_at": "2026-08-24T08:37:05.150743+00:00",
+  "gap": {
+    "signs": ["taurus", "leo", "sagittarius", "gemini", "libra"],
+    "themes": ["verbal reassurance", "conflict accountability", "fast detachment", "intensity versus consistency", "people pleasing and boundaries"],
+    "format": "ai_host_single",
+    "missing": {
+      "required_new_topics": 5,
+      "required_direct_sources_per_topic": 1
+    },
+    "reason": "After checking the live H3/H4 inventory, the reusable KB topics for Aries, Capricorn, Pisces, Aquarius, Virgo, Cancer, Libra and Scorpio/Gemini were already represented in the production queue. Five new, non-duplicate relationship mechanisms were needed for 2026-W36."
+  },
+  "sample_limitations": "One targeted pass across sign-specific Reddit communities. Each topic is supported by one readable discussion, so findings are qualitative user-voice signals, not representative claims about everyone with that sign. Fixed competitor CSV was checked; the Apps Script Library returned login_required. Search summaries were not used as evidence.",
+  "topics": [
+    {
+      "topic_id": "tgt-taurus-reassurance",
+      "topic_name": "Taurus Verbal Reassurance",
+      "discussion": "A relationship discussion asks whether Taurus partners tend to give compliments or prefer receiving them. Replies point in both directions: some describe verbally complimentary Taurus partners, while another partner says reassurance may matter when insecurity is present.",
+      "video_fit": "A single host can separate practical care from verbal reassurance and end with a concrete communication check instead of a sign stereotype.",
+      "main_views": "Quiet or practical care does not remove the need to ask how a partner wants appreciation expressed; some Taurus partners may still value direct reassurance.",
+      "counter_views": "Other replies describe Taurus men as freely complimentary, and chart placements or individual habits may explain the difference better than Sun sign alone.",
+      "life_scenes": [
+        "A partner wonders why compliments feel less frequent than expected.",
+        "Someone gives steady practical care but rarely says admiration out loud.",
+        "A spouse notices that reassurance lands strongly when insecurity surfaces."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["tg-taurus-20260816"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "A recent Taurus community thread shows active disagreement and 36 comments around giving versus receiving compliments.",
+        "limitations": "One Reddit thread; respondents discuss Taurus men and personal partners, not a representative Taurus sample."
+      },
+      "natural_english": [
+        {
+          "text": "I know he’d rather hear them because I feel like sometimes he’s insecure and needs to hear it.",
+          "attribution": "source_quote",
+          "source_ref": "tg-taurus-20260816"
+        },
+        {
+          "text": "Practical care and verbal reassurance can be two different needs.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-leo-accountability",
+      "topic_name": "Leo Accountability in Conflict",
+      "discussion": "A Leo community thread frames relationship conflict around winning arguments versus taking accountability. The comments also push back against blaming every Leo for one person’s dating history.",
+      "video_fit": "A single host can turn the tension into a concise conflict-repair lesson with an explicit safety line against sign-wide blame.",
+      "main_views": "In conflict, protecting pride can make being right feel more urgent than repairing the relationship; accountability is the more useful test.",
+      "counter_views": "The thread itself drew resistance because one person’s behavior cannot be projected onto every Leo, and conflict patterns are not determined by Sun sign alone.",
+      "life_scenes": [
+        "An argument keeps expanding because both people want the final word.",
+        "A partner explains impact but receives a defense instead of ownership.",
+        "After cooling down, the real question becomes who can name their part without humiliation."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["tg-leo-20260804"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "A recent Leo-specific thread and its replies actively debate accountability, projection and defensiveness in relationships.",
+        "limitations": "The post is confrontational and the comments are polarized; it supports a discussion mechanism, not a universal Leo trait."
+      },
+      "natural_english": [
+        {
+          "text": "It’s not always about winning an argument, especially in a relationship.",
+          "attribution": "source_quote",
+          "source_ref": "tg-leo-20260804"
+        },
+        {
+          "text": "Accountability is not the same thing as humiliation.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-sagittarius-detachment",
+      "topic_name": "Sagittarius Fast Detachment",
+      "discussion": "A Sagittarius community discussion centers on becoming intensely close, feeling a sudden ick after a surprising behavior, and then wanting to detach quickly. Some commenters view that switch as protection rather than a flaw.",
+      "video_fit": "A single host can explain the difference between a clear boundary and an unexamined exit impulse in under a minute.",
+      "main_views": "Fast detachment can protect a real boundary, but the speed of the switch is worth checking before treating one disappointing moment as the whole relationship.",
+      "counter_views": "Some commenters experience quick emotional shutoff as a useful ability; leaving can be healthy when the surprise reveals disrespect or a repeated pattern.",
+      "life_scenes": [
+        "Two people feel inseparable until one unexpected action changes the emotional temperature.",
+        "The first reaction is to stop replying and mentally end the relationship.",
+        "Later, the person tries to decide whether the ick exposed a boundary or only a moment of disappointment."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["tg-sagittarius-20260719"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "A recent Sagittarius thread contains multiple replies debating whether rapid relational shutoff is a gift, a defense or a problem.",
+        "limitations": "One sign-specific Reddit discussion; quick detachment can reflect context, attachment history or safety concerns rather than astrology."
+      },
+      "natural_english": [
+        {
+          "text": "On the contrary I have always seen my ability to turn on and turn off relationships as a bonus feature instead of something negative.",
+          "attribution": "source_quote",
+          "source_ref": "tg-sagittarius-20260719"
+        },
+        {
+          "text": "A fast exit can be a boundary, but it can also skip the clarity check.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-gemini-consistency",
+      "topic_name": "Gemini Intensity Versus Consistency",
+      "discussion": "A relationship post describes two months of high-intensity messaging followed by reduced availability. The writer also notes depression, stress and distance, making the key distinction consistency versus intensity rather than blaming Gemini behavior.",
+      "video_fit": "A single host can use the emotional contrast to explain why intense contact is not the same as reliable availability while preserving the mental-health caveat.",
+      "main_views": "Frequent messages can create powerful closeness, but a sustainable relationship needs consistent capacity and mutual availability, not only intense bursts of connection.",
+      "counter_views": "The reduced contact may be explained by depression, stress and being overseas; it should not be treated as proof of a Gemini pattern or lack of care.",
+      "life_scenes": [
+        "Messages arrive often enough that every notification creates a rush.",
+        "After two intense months, replies become less frequent and the change feels like loss.",
+        "The other person tries to respect space while deciding whether the relationship is actually mutual."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["tg-gemini-20260717"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "A recent Gemini community advice thread includes a detailed body and replies about intense contact, distance, stress and the decision not to chase.",
+        "limitations": "The situation explicitly includes depression and geographic distance; those factors must remain visible and the topic cannot be generalized to Geminis."
+      },
+      "natural_english": [
+        {
+          "text": "I was in pure bliss and the surge of endorphins whenever they messaged was off the charts.",
+          "attribution": "source_quote",
+          "source_ref": "tg-gemini-20260717"
+        },
+        {
+          "text": "Intensity tells you how a moment feels; consistency tells you what a relationship can hold.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-libra-boundaries",
+      "topic_name": "Libra People-Pleasing Reset",
+      "discussion": "A Libra community discussion describes a sudden drop in the urge to keep caring for everyone, with commenters connecting the change to exhaustion, divorce and deliberately unlearning people-pleasing.",
+      "video_fit": "A single host can explain the difference between emotional numbness and a boundary reset without treating withdrawal as automatically healthy.",
+      "main_views": "When people-pleasing has run for too long, saying no can initially feel cold or frightening even when it is a needed boundary correction.",
+      "counter_views": "Sudden indifference can also signal burnout or unresolved hurt; healthy boundaries still require clear communication rather than disappearing or devaluing others.",
+      "life_scenes": [
+        "Someone who usually smooths everything over stops volunteering to fix the mood.",
+        "After a divorce, a person practices choosing their own needs without apologizing.",
+        "The new calm feels scary because it does not match the old people-pleasing identity."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["tg-libra-20260821"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "A very recent Libra thread received multiple identifying replies, including one tying the shift to divorce and changing people-pleasing habits.",
+        "limitations": "One Reddit discussion; the emotional shift may reflect burnout, grief or personal development rather than Libra identity."
+      },
+      "natural_english": [
+        {
+          "text": "Same here. Got divorced a year ago and have been changing my people pleasing ways.",
+          "attribution": "source_quote",
+          "source_ref": "tg-libra-20260821"
+        },
+        {
+          "text": "A boundary reset can feel cold when self-abandonment used to feel normal.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "tg-taurus-20260816",
+      "title": "Do Taurus men compliment?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Taurusgang/comments/1vq8b15/do_taurus_men_compliment/",
+      "observed_at": "2026-08-24T08:37:05.150743+00:00",
+      "displayed_date": "2026-08-16T20:52:16+00:00",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-taurus-reassurance"],
+      "quote_verbatim": "I know he’d rather hear them because I feel like sometimes he’s insecure and needs to hear it.",
+      "visible_engagement": {
+        "comments": 36,
+        "visible_comment_score": 12
+      }
+    },
+    {
+      "source_ref": "tg-leo-20260804",
+      "title": "Leo, no you are not always right and that’s okay.",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/LeoAstrology/comments/1vfhntu/leo_no_you_are_not_always_right_and_thats_okay/",
+      "observed_at": "2026-08-24T08:37:05.150743+00:00",
+      "displayed_date": "2026-08-04T17:52:07+00:00",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-leo-accountability"],
+      "quote_verbatim": "It’s not always about winning an argument, especially in a relationship.",
+      "engagement_note": "互动量不可核验；替代信号：JSON 返回多个可读回复，且观点出现明显分歧。"
+    },
+    {
+      "source_ref": "tg-sagittarius-20260719",
+      "title": "Scared of how quickly I detach from people",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Sagittarians/comments/1v0lulj/scared_of_how_quickly_i_detach_from_people/",
+      "observed_at": "2026-08-24T08:37:05.150743+00:00",
+      "displayed_date": "2026-07-19T09:18:59+00:00",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-sagittarius-detachment"],
+      "quote_verbatim": "On the contrary I have always seen my ability to turn on and turn off relationships as a bonus feature instead of something negative.",
+      "engagement_note": "互动量不可核验；替代信号：正文与多条评论围绕快速断联是否有益展开讨论。"
+    },
+    {
+      "source_ref": "tg-gemini-20260717",
+      "title": "I love you Geminis, but why do you come and go?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/geminis/comments/1uynbz5/i_love_you_geminis_but_why_do_you_come_and_go/",
+      "observed_at": "2026-08-24T08:37:05.150743+00:00",
+      "displayed_date": "2026-07-17T02:45:26+00:00",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-gemini-consistency"],
+      "quote_verbatim": "I was in pure bliss and the surge of endorphins whenever they messaged was off the charts.",
+      "engagement_note": "互动量不可核验；替代信号：正文包含两个月高频联系、距离与压力等具体情境，评论继续讨论是否该追逐。"
+    },
+    {
+      "source_ref": "tg-libra-20260821",
+      "title": "I don’t GAF all of a sudden and it’s scary",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/libra_astrology/comments/1vuuykf/i_dont_gaf_all_of_a_sudden_and_its_scary/",
+      "observed_at": "2026-08-24T08:37:05.150743+00:00",
+      "displayed_date": "2026-08-21T22:38:37+00:00",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-libra-boundaries"],
+      "quote_verbatim": "Same here. Got divorced a year ago and have been changing my people pleasing ways.",
+      "visible_engagement": {
+        "visible_comment_score": 23
+      }
+    }
+  ]
+}
