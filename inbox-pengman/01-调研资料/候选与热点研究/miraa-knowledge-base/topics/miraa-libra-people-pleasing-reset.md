@@ -25,7 +25,8 @@ themes:
 title: Libra People-Pleasing Reset
 topic_id: miraa-libra-people-pleasing-reset
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-20260824-05
 valid_until: '2026-08-31T08:37:05.150743+00:00'
 ---
 # Libra People-Pleasing Reset
@@ -54,4 +55,5 @@ Limitations: One Reddit discussion; the emotional shift may reflect burnout, gri
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w36-20260824-05 via ksel_a3a6b3d4f5b5b44f
 - 2026-08-24: targeted ingest (mode B, week 2026-W36, receipt sha256:e74ddc79675a); sources: src-0547f0cc5c

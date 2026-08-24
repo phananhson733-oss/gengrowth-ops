@@ -25,7 +25,8 @@ themes:
 title: Sagittarius Fast Detachment
 topic_id: miraa-sagittarius-fast-detachment
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-20260824-03
 valid_until: '2026-08-31T08:37:05.150743+00:00'
 ---
 # Sagittarius Fast Detachment
@@ -54,4 +55,5 @@ Limitations: One sign-specific Reddit discussion; quick detachment can reflect c
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w36-20260824-03 via ksel_43d5c9d4289aedac
 - 2026-08-24: targeted ingest (mode B, week 2026-W36, receipt sha256:e74ddc79675a); sources: src-208c92fe33

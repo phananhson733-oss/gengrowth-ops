@@ -157,7 +157,9 @@
       ],
       "title": "Gemini Intensity Versus Consistency",
       "topic_id": "miraa-gemini-intensity-versus-consistency",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w36-20260824-04"
+      ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
@@ -187,7 +189,10 @@
       ],
       "title": "Leo Accountability in Conflict",
       "topic_id": "miraa-leo-accountability-in-conflict",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
@@ -238,7 +243,9 @@
       ],
       "title": "Libra People-Pleasing Reset",
       "topic_id": "miraa-libra-people-pleasing-reset",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w36-20260824-05"
+      ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
@@ -331,7 +338,9 @@
       ],
       "title": "Sagittarius Fast Detachment",
       "topic_id": "miraa-sagittarius-fast-detachment",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w36-20260824-03"
+      ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
@@ -647,7 +656,10 @@
       ],
       "title": "Taurus Verbal Reassurance",
       "topic_id": "miraa-taurus-verbal-reassurance",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {

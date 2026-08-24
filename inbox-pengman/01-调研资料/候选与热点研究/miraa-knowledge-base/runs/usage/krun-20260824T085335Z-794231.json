@@ -1,0 +1,21 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "kb_usage_writeback_failed: receipt_path is not readable: /Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_ecc901c6c214ea83.json",
+  "finished_at": "2026-08-24T08:53:35.951703+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "kb_version_before": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_ecc901c6c214ea83.json",
+  "receipt_sha256": "",
+  "run_id": "krun-20260824T085335Z-794231",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T08:53:35.948746+00:00",
+  "status": "failed",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

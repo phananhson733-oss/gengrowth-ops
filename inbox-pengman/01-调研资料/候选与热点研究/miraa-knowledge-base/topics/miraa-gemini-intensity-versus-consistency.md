@@ -25,7 +25,8 @@ themes:
 title: Gemini Intensity Versus Consistency
 topic_id: miraa-gemini-intensity-versus-consistency
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-20260824-04
 valid_until: '2026-08-31T08:37:05.150743+00:00'
 ---
 # Gemini Intensity Versus Consistency
@@ -54,4 +55,5 @@ Limitations: The situation explicitly includes depression and geographic distanc
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w36-20260824-04 via ksel_0b7b039013ad901e
 - 2026-08-24: targeted ingest (mode B, week 2026-W36, receipt sha256:e74ddc79675a); sources: src-ce373095ff

@@ -25,7 +25,9 @@ themes:
 title: Taurus Verbal Reassurance
 topic_id: miraa-taurus-verbal-reassurance
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-20260824-01
+- miraa-w36-20260824-02
 valid_until: '2026-08-31T08:37:05.150743+00:00'
 ---
 # Taurus Verbal Reassurance
@@ -54,4 +56,5 @@ Limitations: One Reddit thread; respondents discuss Taurus men and personal part
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w36-20260824-02, miraa-w36-20260824-01 via ksel_1d01a7d7e68acbfd
 - 2026-08-24: targeted ingest (mode B, week 2026-W36, receipt sha256:e74ddc79675a); sources: src-8bbbb91e3b

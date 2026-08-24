@@ -1,0 +1,24 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T08:54:58.084151+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "234141465fabc06b12e75c0832fb62aa9143f2e2d4f3d1c6f83c3d48b38985bb",
+  "kb_version_before": "d535065e6f348d07c49a50364d25eb0ee0fa12ba8b398790a2cbd2ae549983e9",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_1d01a7d7e68acbfd.json",
+  "receipt_sha256": "afbe3fe0904a50cd521077db244a0085707171c0f5b816cbed413757e5da35a1",
+  "run_id": "krun-20260824T085458Z-93d2b8",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T08:54:58.002968+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-leo-accountability-in-conflict",
+    "miraa-taurus-verbal-reassurance"
+  ]
+}
