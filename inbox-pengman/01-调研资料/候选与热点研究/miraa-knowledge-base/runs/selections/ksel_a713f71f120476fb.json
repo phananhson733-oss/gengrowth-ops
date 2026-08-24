@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-24T07:25:19.574198+00:00",
+  "dedupe_checked_at": "2026-08-24T15:25:19+0800",
+  "dedupe_note": "Read Social OS H3 pending candidates and local unpublished production records; no Aquarius space-versus-care candidate found. The 01-reference Aquarius competitor study is treated as structure reference, not user evidence.",
+  "freshness_checked_at": "2026-08-24T07:25:19.574198+00:00",
+  "freshness_result": "valid",
+  "kb_version": "a333246784ce619a8932819295770e5cbadfc36059ff6e9cbf0836e2308ceb23",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "aquarius relationship space independence communication",
+  "request_summary": "生成一条本周的 @miraaastrology 选题；参考 01-reference 中账号指南和 Aquarius 脚本调研，只借鉴结构不复制；与现有 H3 候选去重。",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_a713f71f120476fb",
+  "source_ids": [
+    "src-13f4593928"
+  ],
+  "topic_ids": [
+    "miraa-aquarius-空间"
+  ],
+  "week": "2026-W35"
+}
