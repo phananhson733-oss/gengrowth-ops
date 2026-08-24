@@ -103,10 +103,10 @@ export function saveLocalHistory({ outputDir, snapshotDate, capturedAt, username
         upsertAccount.run(snapshotDate, capturedAt, username, account.account_url, account.nickname ?? null,
           account.followers ?? null, account.following ?? null, account.total_likes ?? null,
           account.total_posts ?? null, account.bio ?? null, "complete");
-      } else {
-        upsertAccount.run(snapshotDate, capturedAt, username, "https://www.tiktok.com/@" + username,
-          null, null, null, null, null, null, "failed");
       }
+      // 如果本次采集失败（account 不在 accountByUsername 中），不写入 failed 快照行，
+      // 这样 accounts_latest 仍保留上一次成功的记录，避免失败时把粉丝数等清空。
+      // 失败情况仍通过 runs.error_summary 和 failed_count 记录。
     }
 
     for (const post of posts) {
@@ -234,7 +234,7 @@ function querySheetData(db) {
         "following", "total_likes", "total_posts", "bio", "collection_status"],
       rows: db.prepare(SQL([
         "SELECT snapshot_date,captured_at,username,account_url,nickname,followers,following,total_likes,total_posts,bio,collection_status",
-        "FROM account_snapshots a WHERE snapshot_date=(SELECT MAX(snapshot_date) FROM account_snapshots x WHERE x.username=a.username)",
+        "FROM account_snapshots a WHERE snapshot_date=(SELECT MAX(snapshot_date) FROM account_snapshots x WHERE x.username=a.username AND x.collection_status='complete' AND x.followers IS NOT NULL)",
         "ORDER BY username"
       ])).all()
     },
