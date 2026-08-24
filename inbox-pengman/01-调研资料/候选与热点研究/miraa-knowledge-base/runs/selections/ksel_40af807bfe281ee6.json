@@ -1,0 +1,31 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-24T08:39:22.717933+00:00",
+  "dedupe_checked_at": "2026-08-24T08:39:22+00:00",
+  "dedupe_note": "Checked live H3 and H4 inventory on 2026-08-24. Existing Aries, Capricorn, Pisces, Aquarius, Virgo, Cancer, Libra Moon and Scorpio/Gemini mechanisms were excluded. These five new topics use distinct mechanisms and signs and are not represented by current queued content.",
+  "freshness_checked_at": "2026-08-24T08:39:22.717933+00:00",
+  "freshness_result": "valid",
+  "kb_version": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "W36 Taurus reassurance Leo accountability Sagittarius detachment Gemini consistency Libra boundaries ai_host_single",
+  "request_summary": "Generate five next-week topics for @miraaastrology.",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_40af807bfe281ee6",
+  "source_ids": [
+    "src-0547f0cc5c",
+    "src-208c92fe33",
+    "src-6806e535fc",
+    "src-8bbbb91e3b",
+    "src-ce373095ff"
+  ],
+  "topic_ids": [
+    "miraa-gemini-intensity-versus-consistency",
+    "miraa-leo-accountability-in-conflict",
+    "miraa-libra-people-pleasing-reset",
+    "miraa-sagittarius-fast-detachment",
+    "miraa-taurus-verbal-reassurance"
+  ],
+  "week": "2026-W36"
+}
