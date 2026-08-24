@@ -402,7 +402,10 @@
       "themes": [],
       "title": "Scorpio 冲突处理",
       "topic_id": "miraa-scorpio-冲突处理",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
       "valid_until": "2026-08-25T00:00:00+00:00"
     },
     {
@@ -513,7 +516,10 @@
       "themes": [],
       "title": "Virgo: behavior is not destiny",
       "topic_id": "miraa-virgo-behavior-is-not-destiny",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
       "valid_until": "2026-08-25T13:12:00+08:00"
     },
     {

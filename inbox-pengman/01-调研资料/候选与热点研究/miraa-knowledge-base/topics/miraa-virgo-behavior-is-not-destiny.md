@@ -19,7 +19,9 @@ themes: []
 title: 'Virgo: behavior is not destiny'
 topic_id: miraa-virgo-behavior-is-not-destiny
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w35-single-20260824-01
+- miraa-w35-single-20260824-02
 valid_until: '2026-08-25T13:12:00+08:00'
 ---
 # Virgo: behavior is not destiny
@@ -46,4 +48,5 @@ Limitations: Anecdotal and gendered thread.
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w35-single-20260824-01, miraa-w35-single-20260824-02 via ksel_17974a57d9e31af1
 - 2026-08-21: migration ingest (mode C, week 2026-W34, receipt sha256:c48bbb7e33f1); sources: src-4b653b6b36

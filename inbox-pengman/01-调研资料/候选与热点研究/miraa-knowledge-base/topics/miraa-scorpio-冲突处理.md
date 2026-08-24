@@ -20,7 +20,9 @@ themes: []
 title: Scorpio 冲突处理
 topic_id: miraa-scorpio-冲突处理
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w35-single-20260824-01
+- miraa-w35-single-20260824-02
 valid_until: '2026-08-25T00:00:00+00:00'
 ---
 # Scorpio 冲突处理
@@ -50,4 +52,5 @@ Limitations: Single platform.
 
 ## Timeline
 
+- 2026-08-24: used by miraa-w35-single-20260824-01, miraa-w35-single-20260824-02 via ksel_17974a57d9e31af1
 - 2026-08-21: migration ingest (mode B, week 2026-W34, receipt sha256:ea1a5f798a20); sources: src-f026911d7f, src-fffddd7467
