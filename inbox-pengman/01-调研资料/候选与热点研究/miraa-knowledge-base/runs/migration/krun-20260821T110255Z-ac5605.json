@@ -1,0 +1,179 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [
+    "src-08e9c84910",
+    "src-0b38aa9363",
+    "src-0ba482769d",
+    "src-0c1047810a",
+    "src-13f4593928",
+    "src-1eb691e039",
+    "src-1f7a8f99ff",
+    "src-32d6992ce2",
+    "src-353fdae077",
+    "src-4141a98647",
+    "src-4b653b6b36",
+    "src-5455253dfd",
+    "src-582099c0e5",
+    "src-5e8aef7880",
+    "src-60e39bf04f",
+    "src-623e71cde9",
+    "src-643a0233aa",
+    "src-79541119a3",
+    "src-7d8d09ef15",
+    "src-8cdf1d236c",
+    "src-96bb69d2b7",
+    "src-96c7212593",
+    "src-9ccb02d35a",
+    "src-9eedb3eae7",
+    "src-a61a6ec879",
+    "src-ad81d16f55",
+    "src-b74a58a31f",
+    "src-c28b086c65",
+    "src-cc578ac301",
+    "src-cef5ed13e1",
+    "src-d2f838d0b8",
+    "src-d475dff9bd",
+    "src-d9e40f31d4",
+    "src-e3aff33a63",
+    "src-f026911d7f",
+    "src-f838cb625d",
+    "src-fffddd7467"
+  ],
+  "created_topic_ids": [
+    "miraa-aquarius-空间",
+    "miraa-aries-节奏",
+    "miraa-cancer-limits",
+    "miraa-cancer-needs",
+    "miraa-capricorn-退出",
+    "miraa-dating-a-scorpio-feels-intensely-high-and-low",
+    "miraa-libra-details",
+    "miraa-libra-time",
+    "miraa-marriage-shifts-scorpio-toward-emotional-security",
+    "miraa-pisces-核对",
+    "miraa-scorpio-gemini-节奏冲突",
+    "miraa-scorpio-mother-and-honesty-discipline",
+    "miraa-scorpio-partner-seeks-complete-trust",
+    "miraa-scorpio-selective-privacy",
+    "miraa-scorpio-spouse-protects-relationship-privacy",
+    "miraa-scorpio-support",
+    "miraa-scorpio-trust-before-full-disclosure",
+    "miraa-scorpio-修复与回避",
+    "miraa-scorpio-冲突处理",
+    "miraa-scorpio-延迟反应",
+    "miraa-scorpio-把工作压力带回家",
+    "miraa-scorpio-朋友变同事后的摩擦",
+    "miraa-scorpio-要对等投入",
+    "miraa-virgo-behavior-is-not-destiny",
+    "miraa-virgo-love-shown-through-actions",
+    "miraa-virgo-stereotype-versus-lived-counterexample",
+    "miraa-virgo-看错感受",
+    "miraa-亲密行动是否能替代明确的关系表达",
+    "miraa-低谷时的主动打气是否越界",
+    "miraa-努力与认可错位",
+    "miraa-单向倾诉何时耗尽友情",
+    "miraa-友情里的空间与互惠",
+    "miraa-标签与真实关系",
+    "miraa-清洁与气味如何成为安全感和关系信号",
+    "miraa-照顾别人变成默认家务",
+    "miraa-父母重病或离世时伴侣是否共同承担",
+    "miraa-稳定与改变的家居冲突",
+    "miraa-行动速度与协商速度冲突"
+  ],
+  "failure_reason": "",
+  "finished_at": "2026-08-21T11:02:55.861006+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "aae43314aa9359ba6798e2c415202041536c6d4d7efff14818eb35c49989d05c",
+  "kb_version_before": "e8d4c48ac74d4d7a180b66354e0e4408f7bcb3b68fc3633a7516a810d9b590df",
+  "mode": "migration",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts",
+  "receipt_sha256": "",
+  "run_id": "krun-20260821T110255Z-ac5605",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [
+    {
+      "file": "2026-W34-miraa-research-payload-07-14.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "2026-W34-miraa-research-payload-12-14.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "2026-W34-miraa-research-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-candidate-t4.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-mode-c-four-sign-mix-20260821-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-mode-c-refill-20260821-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-mode-c-two-nonscorpio-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-mode-c-two-topic-test-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-2026-W34-six-topic-research.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-01-hook-preview.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-01-package-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-01-script-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-01-script-rewrite-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-dialogue-script-preview.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-hook-preview.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-narration-script-preview.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-package-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-script-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-refill-20260821-02-script-rewrite-payload.json",
+      "reason": "not_a_community_receipt"
+    },
+    {
+      "file": "miraa-w34-test-01-hook-preview.json",
+      "reason": "not_a_community_receipt"
+    }
+  ],
+  "started_at": "2026-08-21T11:02:55.853437+00:00",
+  "status": "partial",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

@@ -9,16 +9,16 @@ import { syncFeishuFollowerMetrics } from "./feishu_sync.mjs";
 
 const usernames = [
   "astrologywiki",
-  "shirley527146",
-  "miraaastrology",
   "filestarsx",
-  "shirley5278789",
+  "miraaastrology",
+  "shirley527146",
   "shirley5276973",
-  "user3127916753059",
-  "user4485806813444",
+  "shirley5278789",
   "user12027302755050",
   "user2942394775979",
-  "user47225225594035",
+  "dramaclips0364",
+  "dramavault163",
+  "dramaexpedition",
 ];
 const fromRaw = process.argv.includes("--from-raw");
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
