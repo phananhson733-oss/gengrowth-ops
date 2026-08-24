@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-24T08:42:43.112059+00:00",
+  "dedupe_checked_at": "2026-08-24T08:42:43+00:00",
+  "dedupe_note": "Checked live H3/H4 inventory on 2026-08-24; this mechanism is not represented in queued content.",
+  "freshness_checked_at": "2026-08-24T08:42:43.112059+00:00",
+  "freshness_result": "valid",
+  "kb_version": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "W36 Sagittarius fast detachment ai_host_single",
+  "request_summary": "Generate W36 topic 3 for @miraaastrology: Sagittarius.",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_43d5c9d4289aedac",
+  "source_ids": [
+    "src-208c92fe33"
+  ],
+  "topic_ids": [
+    "miraa-sagittarius-fast-detachment"
+  ],
+  "week": "2026-W36"
+}
