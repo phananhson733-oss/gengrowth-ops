@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T07:28:17.564744+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "9f48d238ca469b8e9f32630777855522ba5d7561726bb5558ecf36b68b786d86",
+  "kb_version_before": "a333246784ce619a8932819295770e5cbadfc36059ff6e9cbf0836e2308ceb23",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_a713f71f120476fb.json",
+  "receipt_sha256": "9ffddaefef07c938362db42ded0b6e6e9074e2072eb868e349fc92bfbcaea28c",
+  "run_id": "krun-20260824T072817Z-ef4f45",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T07:28:17.494953+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-aquarius-空间"
+  ]
+}
