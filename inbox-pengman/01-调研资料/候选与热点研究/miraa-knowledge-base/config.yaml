@@ -1,0 +1,19 @@
+schema_version: social-kb-config/v1
+product: astrologywiki
+account: "@miraaastrology"
+timezone: America/Chicago
+# Phase 2 才启用；MVP 检索只用 kb_pipeline.py search（live 文件 + index.json）
+gbrain_source_id: social-os-miraa
+# 两者都已定时化：launchd com.gengrowth.miraa-kb-refresh，入口
+# ~/miraa-kb-refresh/tick.sh 按 timezone 的星期分流（周日 weekly，周一至周六 daily）。
+# 时间以本文件的 timezone 为准；plist 里写的是折算后的本机时间，别直接照抄这里的 21:00。
+weekly_refresh: "Sunday 21:00"        # 自动 + 仍可人工在飞书触发
+daily_patrol: "Monday-Saturday 21:00" # 自动；无新信号走 record-patrol
+ttl_days:
+  evergreen_community: 7
+  competitor_signal: 7
+  hot: 1
+evidence_gate:
+  min_direct_sources_per_topic: 1
+  allowed_strengths_for_reuse: [strong, medium]
+selection_ttl_hours: 24

@@ -26,7 +26,7 @@ source_evidence:
   - "https://www.reddit.com/r/astrologymemes/comments/1v1bcru/lets_talk_scorpio_placements/"
 status: draft
 owner: Pengman
-updated: "2026-08-16"
+updated: "2026-08-24"
 published_url: "https://www.tiktok.com/@miraaastrology/video/7673791050640624909"
 platform_post_id: "7673791050640624909"
 published_at: "2026-08-15T18:18:00.000Z"

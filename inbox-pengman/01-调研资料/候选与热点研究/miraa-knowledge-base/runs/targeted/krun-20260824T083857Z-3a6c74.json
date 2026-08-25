@@ -1,0 +1,33 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [
+    "src-0547f0cc5c",
+    "src-208c92fe33",
+    "src-6806e535fc",
+    "src-8bbbb91e3b",
+    "src-ce373095ff"
+  ],
+  "created_topic_ids": [
+    "miraa-gemini-intensity-versus-consistency",
+    "miraa-leo-accountability-in-conflict",
+    "miraa-libra-people-pleasing-reset",
+    "miraa-sagittarius-fast-detachment",
+    "miraa-taurus-verbal-reassurance"
+  ],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T08:38:57.594096+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "kb_version_before": "9f48d238ca469b8e9f32630777855522ba5d7561726bb5558ecf36b68b786d86",
+  "mode": "targeted",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts/miraa-2026-W36-targeted.json",
+  "receipt_sha256": "e74ddc79675a5fa04a511b364b0edcee8a505dce60703f64bf60f2d072403993",
+  "run_id": "krun-20260824T083857Z-3a6c74",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T08:38:57.503865+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

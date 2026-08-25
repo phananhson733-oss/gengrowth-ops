@@ -30,7 +30,7 @@ source_evidence:
   - "skills/learn-content-preferences/references/pengman-preference-profile.json · currentRound candidate D"
 status: draft
 owner: Pengman
-updated: "2026-08-17"
+updated: "2026-08-24"
 published_url: "https://www.tiktok.com/@miraaastrology/video/7674952729978080525"
 platform_post_id: "7674952729978080525"
 published_at: "2026-08-17T14:25:00.000Z"

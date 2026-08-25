@@ -28,7 +28,7 @@ cta: "Check your full chart on AstrologyWiki."
 batch_id: 2026-W33-official-eclipse-hot-01
 status: draft
 owner: Pengman
-updated: "2026-08-12"
+updated: "2026-08-24"
 published_url: "https://www.tiktok.com/@astrologywiki/video/7673099984472034574"
 platform_post_id: "7673099984472034574"
 published_at: "2026-08-12T13:30:00.000Z"

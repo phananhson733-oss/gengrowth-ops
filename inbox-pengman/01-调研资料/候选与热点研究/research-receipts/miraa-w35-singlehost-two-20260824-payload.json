@@ -1,0 +1,61 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w35-virgo-one-ex-not-rule",
+      "claim": "A call-out that separates one bad Virgo relationship from a rule about every Virgo will prompt more opposite-experience comments than another fixed Virgo stereotype.",
+      "evidence_source_ids": [
+        "src-4b653b6b36"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments compare different lived experiences instead of repeating a fixed Virgo label",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-virgo-behavior-is-not-destiny"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-w35-scorpio-delayed-conflict-repair",
+      "claim": "A Scorpio topic that connects visible calm during conflict with delayed processing and explicit repair will earn more recognition comments than another generic claim about Scorpio silence.",
+      "evidence_source_ids": [
+        "src-f026911d7f",
+        "src-fffddd7467"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments distinguish delayed processing from avoidance or describe returning to repair a conflict",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-scorpio-冲突处理"
+    }
+  ],
+  "backlog": [
+    {
+      "content_id": "miraa-w35-single-20260824-01",
+      "week": "2026-W35",
+      "account": "@miraaastrology",
+      "title": "One Virgo Ex Is Not a Virgo Rule",
+      "hook": "One Virgo ex does not define every Virgo relationship.",
+      "angle": "Virgo | Single AI host | Use one continuous narration, not character dialogue. Start with how one painful relationship becomes a rule about an entire sign, then contrast it with a different lived example of consistent care. Land on the idea that astrology may name a pattern, but observable behavior decides whether a relationship is healthy. Keep the language gender-neutral and non-diagnostic.",
+      "why_now": "checked_at=2026-08-24; research topic miraa-virgo-behavior-is-not-destiny is supported by verified source src-4b653b6b36, a directly readable Reddit body and comment thread last verified 2026-08-18 with 989 visible upvotes and 160 comments. The thread contains sharply different Virgo relationship experiences, so it supports a behavior-over-label angle rather than a universal claim. Dedupe: unlike the existing Virgo practical-care item and the accuracy-versus-hurt item, this tests whether viewers generalize one ex into a sign rule. The evidence is one platform, anecdotal and partly gendered; the candidate itself stays gender-neutral.",
+      "score": "88",
+      "hypothesis_id": "hyp-miraa-w35-virgo-one-ex-not-rule",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; one host can deliver the stereotype-versus-behavior contrast while keeping Miraa's current avatar, voice and visual baseline fixed.",
+      "research_topic_id": "miraa-virgo-behavior-is-not-destiny"
+    },
+    {
+      "content_id": "miraa-w35-single-20260824-02",
+      "week": "2026-W35",
+      "account": "@miraaastrology",
+      "title": "Why Scorpio Reopens the Argument Later",
+      "hook": "Scorpio looks calm in the fight, then replays every word later.",
+      "angle": "Scorpio | Single AI host | Use one continuous narration, not character dialogue. Explain that visible calm during conflict can be delayed processing rather than a lack of feeling. Show the useful version: Scorpio returns after processing, admits what mattered and repairs the issue. Keep the counter-view explicit: replaying the conflict without communicating becomes avoidance or scorekeeping, not repair.",
+      "why_now": "checked_at=2026-08-24; research topic miraa-scorpio-冲突处理 is supported by verified sources src-f026911d7f and src-fffddd7467. The first is a directly readable Instagram body/comment thread published 2026-08-17 with visible engagement recorded as 81.7K/530 and comments about looking calm while feeling intensely and reacting after analysis; the second is a directly readable Instagram post published 2026-08-01 with visible engagement recorded as 2K/3 and a clear accountability-and-repair counterpoint. Dedupe: unlike the pending Scorpio pull-away-after-closeness and support-during-a-rough-patch items, this tests post-conflict processing followed by explicit repair. Both sources are qualitative Instagram evidence, so the pattern is not treated as universal.",
+      "score": "91",
+      "hypothesis_id": "hyp-miraa-w35-scorpio-delayed-conflict-repair",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; a single host can explain the delayed-processing-to-repair sequence without adding a second character or changing the production baseline.",
+      "research_topic_id": "miraa-scorpio-冲突处理"
+    }
+  ]
+}

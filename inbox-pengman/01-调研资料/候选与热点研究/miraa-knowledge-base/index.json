@@ -1,0 +1,981 @@
+{
+  "account": "@miraaastrology",
+  "schema_version": "social-kb-index/v1",
+  "topics": [
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "path": "topics/miraa-aquarius-空间.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "aquarius"
+      ],
+      "source_ids": [
+        "src-13f4593928"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Aquarius 空间",
+      "topic_id": "miraa-aquarius-空间",
+      "used_content_ids": [
+        "miraa-w35-single-20260824-03"
+      ],
+      "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "path": "topics/miraa-aries-节奏.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "aries"
+      ],
+      "source_ids": [
+        "src-96c7212593"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Aries 节奏",
+      "topic_id": "miraa-aries-节奏",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-cancer-limits.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer"
+      ],
+      "source_ids": [
+        "src-a61a6ec879"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Cancer limits",
+      "topic_id": "miraa-cancer-limits",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-cancer-needs.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer"
+      ],
+      "source_ids": [
+        "src-a61a6ec879"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Cancer needs",
+      "topic_id": "miraa-cancer-needs",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "path": "topics/miraa-capricorn-退出.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "capricorn"
+      ],
+      "source_ids": [
+        "src-0b38aa9363"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Capricorn 退出",
+      "topic_id": "miraa-capricorn-退出",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-14T10:48:46+08:00",
+      "path": "topics/miraa-dating-a-scorpio-feels-intensely-high-and-low.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-c28b086c65"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Dating a Scorpio feels intensely high and low",
+      "topic_id": "miraa-dating-a-scorpio-feels-intensely-high-and-low",
+      "used_content_ids": [],
+      "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-gemini-intensity-versus-consistency.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "gemini"
+      ],
+      "source_ids": [
+        "src-ce373095ff"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "communication",
+        "consistency",
+        "relationships"
+      ],
+      "title": "Gemini Intensity Versus Consistency",
+      "topic_id": "miraa-gemini-intensity-versus-consistency",
+      "used_content_ids": [
+        "miraa-w36-20260824-04"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-leo-accountability-in-conflict.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "leo"
+      ],
+      "source_ids": [
+        "src-6806e535fc"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "accountability",
+        "conflict-repair",
+        "relationships"
+      ],
+      "title": "Leo Accountability in Conflict",
+      "topic_id": "miraa-leo-accountability-in-conflict",
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-libra-details.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra"
+      ],
+      "source_ids": [
+        "src-f838cb625d"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Libra details",
+      "topic_id": "miraa-libra-details",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-libra-people-pleasing-reset.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra"
+      ],
+      "source_ids": [
+        "src-0547f0cc5c"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "people-pleasing",
+        "relationships"
+      ],
+      "title": "Libra People-Pleasing Reset",
+      "topic_id": "miraa-libra-people-pleasing-reset",
+      "used_content_ids": [
+        "miraa-w36-20260824-05"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-libra-time.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra"
+      ],
+      "source_ids": [
+        "src-f838cb625d"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Libra time",
+      "topic_id": "miraa-libra-time",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [],
+      "last_verified_at": "2026-08-14T10:48:46+08:00",
+      "path": "topics/miraa-marriage-shifts-scorpio-toward-emotional-security.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-cef5ed13e1"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Marriage shifts Scorpio toward emotional security",
+      "topic_id": "miraa-marriage-shifts-scorpio-toward-emotional-security",
+      "used_content_ids": [],
+      "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "path": "topics/miraa-pisces-核对.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "pisces"
+      ],
+      "source_ids": [
+        "src-4141a98647"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Pisces 核对",
+      "topic_id": "miraa-pisces-核对",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-sagittarius-fast-detachment.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "sagittarius"
+      ],
+      "source_ids": [
+        "src-208c92fe33"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "detachment",
+        "relationships"
+      ],
+      "title": "Sagittarius Fast Detachment",
+      "topic_id": "miraa-sagittarius-fast-detachment",
+      "used_content_ids": [
+        "miraa-w36-20260824-03"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-gemini-节奏冲突.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "gemini",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-623e71cde9"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio × Gemini：节奏冲突",
+      "topic_id": "miraa-scorpio-gemini-节奏冲突",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-14T10:48:46+08:00",
+      "path": "topics/miraa-scorpio-mother-and-honesty-discipline.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-1f7a8f99ff",
+        "src-9ccb02d35a"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio mother and honesty discipline",
+      "topic_id": "miraa-scorpio-mother-and-honesty-discipline",
+      "used_content_ids": [],
+      "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-14T10:48:46+08:00",
+      "path": "topics/miraa-scorpio-partner-seeks-complete-trust.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-1f7a8f99ff",
+        "src-d2f838d0b8"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio partner seeks complete trust",
+      "topic_id": "miraa-scorpio-partner-seeks-complete-trust",
+      "used_content_ids": [],
+      "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T13:15:00+08:00",
+      "path": "topics/miraa-scorpio-selective-privacy.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-d9e40f31d4"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio: selective privacy",
+      "topic_id": "miraa-scorpio-selective-privacy",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T13:15:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-14T10:48:46+08:00",
+      "path": "topics/miraa-scorpio-spouse-protects-relationship-privacy.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-b74a58a31f"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio spouse protects relationship privacy",
+      "topic_id": "miraa-scorpio-spouse-protects-relationship-privacy",
+      "used_content_ids": [],
+      "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-support.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-60e39bf04f"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio support",
+      "topic_id": "miraa-scorpio-support",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T13:15:00+08:00",
+      "path": "topics/miraa-scorpio-trust-before-full-disclosure.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-d9e40f31d4"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio: trust before full disclosure",
+      "topic_id": "miraa-scorpio-trust-before-full-disclosure",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T13:15:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-修复与回避.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-fffddd7467"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio：修复与回避",
+      "topic_id": "miraa-scorpio-修复与回避",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-冲突处理.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-f026911d7f",
+        "src-fffddd7467"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio 冲突处理",
+      "topic_id": "miraa-scorpio-冲突处理",
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
+      "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-延迟反应.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-f026911d7f"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio：延迟反应",
+      "topic_id": "miraa-scorpio-延迟反应",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-scorpio-把工作压力带回家.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-5e8aef7880",
+        "src-8cdf1d236c",
+        "src-d475dff9bd",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio 把工作压力带回家",
+      "topic_id": "miraa-scorpio-把工作压力带回家",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-scorpio-朋友变同事后的摩擦.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-5e8aef7880",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio 朋友变同事后的摩擦",
+      "topic_id": "miraa-scorpio-朋友变同事后的摩擦",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-scorpio-要对等投入.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-0ba482769d",
+        "src-79541119a3",
+        "src-8cdf1d236c"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Scorpio 要对等投入",
+      "topic_id": "miraa-scorpio-要对等投入",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-taurus-verbal-reassurance.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "taurus"
+      ],
+      "source_ids": [
+        "src-8bbbb91e3b"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "love-language",
+        "relationships",
+        "verbal-reassurance"
+      ],
+      "title": "Taurus Verbal Reassurance",
+      "topic_id": "miraa-taurus-verbal-reassurance",
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-18T13:12:00+08:00",
+      "path": "topics/miraa-virgo-behavior-is-not-destiny.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-4b653b6b36"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Virgo: behavior is not destiny",
+      "topic_id": "miraa-virgo-behavior-is-not-destiny",
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
+      "valid_until": "2026-08-25T13:12:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-18T13:12:00+08:00",
+      "path": "topics/miraa-virgo-love-shown-through-actions.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-4b653b6b36"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Virgo: love shown through actions",
+      "topic_id": "miraa-virgo-love-shown-through-actions",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T13:12:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-18T13:12:00+08:00",
+      "path": "topics/miraa-virgo-stereotype-versus-lived-counterexample.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-4b653b6b36"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Virgo: stereotype versus lived counterexample",
+      "topic_id": "miraa-virgo-stereotype-versus-lived-counterexample",
+      "used_content_ids": [],
+      "valid_until": "2026-08-25T13:12:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-virgo-看错感受.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-32d6992ce2"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "Virgo：看错感受",
+      "topic_id": "miraa-virgo-看错感受",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "path": "topics/miraa-亲密行动是否能替代明确的关系表达.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-08e9c84910",
+        "src-1eb691e039",
+        "src-ad81d16f55"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "亲密行动是否能替代明确的关系表达",
+      "topic_id": "miraa-亲密行动是否能替代明确的关系表达",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "path": "topics/miraa-低谷时的主动打气是否越界.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-0c1047810a",
+        "src-7d8d09ef15"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "低谷时的主动打气是否越界",
+      "topic_id": "miraa-低谷时的主动打气是否越界",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-努力与认可错位.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-582099c0e5",
+        "src-8cdf1d236c",
+        "src-d475dff9bd",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "努力与认可错位",
+      "topic_id": "miraa-努力与认可错位",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [],
+      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "path": "topics/miraa-单向倾诉何时耗尽友情.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-0c1047810a",
+        "src-5455253dfd",
+        "src-9eedb3eae7"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "单向倾诉何时耗尽友情",
+      "topic_id": "miraa-单向倾诉何时耗尽友情",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-友情里的空间与互惠.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-79541119a3",
+        "src-8cdf1d236c",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "友情里的空间与互惠",
+      "topic_id": "miraa-友情里的空间与互惠",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-21T00:00:00+00:00",
+      "path": "topics/miraa-标签与真实关系.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-32d6992ce2",
+        "src-623e71cde9"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "标签与真实关系",
+      "topic_id": "miraa-标签与真实关系",
+      "used_content_ids": [],
+      "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "path": "topics/miraa-清洁与气味如何成为安全感和关系信号.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-1eb691e039",
+        "src-643a0233aa"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "清洁与气味如何成为安全感和关系信号",
+      "topic_id": "miraa-清洁与气味如何成为安全感和关系信号",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-照顾别人变成默认家务.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-8cdf1d236c",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "照顾别人变成默认家务",
+      "topic_id": "miraa-照顾别人变成默认家务",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "path": "topics/miraa-父母重病或离世时伴侣是否共同承担.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-353fdae077",
+        "src-96bb69d2b7",
+        "src-cc578ac301"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "父母重病或离世时伴侣是否共同承担",
+      "topic_id": "miraa-父母重病或离世时伴侣是否共同承担",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-稳定与改变的家居冲突.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-8cdf1d236c",
+        "src-d475dff9bd",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "稳定与改变的家居冲突",
+      "topic_id": "miraa-稳定与改变的家居冲突",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [],
+      "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
+      "path": "topics/miraa-行动速度与协商速度冲突.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-0ba482769d",
+        "src-d475dff9bd",
+        "src-e3aff33a63"
+      ],
+      "status": "active",
+      "tags": [],
+      "themes": [],
+      "title": "行动速度与协商速度冲突",
+      "topic_id": "miraa-行动速度与协商速度冲突",
+      "used_content_ids": [],
+      "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    }
+  ]
+}
