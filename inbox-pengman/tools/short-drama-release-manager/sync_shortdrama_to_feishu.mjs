@@ -123,7 +123,7 @@ async function setupGoogle(token) {
   const backupPath = path.join(backupDir, `google-before-${timestamp}.json`);
   await fs.writeFile(backupPath, JSON.stringify(before, null, 2));
 
-  const metadata = await googleRequest(`${base}?fields=sheets.properties(sheetId,title),sheets.tables(tableId,name,range)`, token);
+  const metadata = await googleRequest(`${base}?fields=sheets.properties(sheetId,title,gridProperties),sheets.tables(tableId,name,range)`, token);
   const captureSheet = (metadata.sheets || []).find((sheet) => sheet.properties?.title === "采集数据");
   const captureTables = captureSheet?.tables || [];
   if (captureTables.length) {
@@ -141,7 +141,6 @@ async function setupGoogle(token) {
   const values = [
     { range: "'采集数据'!A1", values: [[captureFormula]] },
     { range: "'发布记录'!U1", values: [["发布状态"]] },
-    { range: "'发布记录'!U2", values: [[`=IF(AND(A2="",B2="",D2="",E2="",F2="",G2=""),"",IF(H2<>"",IF(COUNTIF('采集数据'!$C$2:$C$500,H2)>0,"已回填","已公开"),"已排期"))`]] },
     {
       range: "'账号台账'!C2:C100",
       values: Array.from({ length: 99 }, (_, index) => [`=IF(A${index + 2}="","",IFERROR(VLOOKUP(A${index + 2},IMPORTRANGE("${metricsSheetId}","accounts_latest!C:F"),4,FALSE),""))`]),
@@ -157,18 +156,22 @@ async function setupGoogle(token) {
   });
 
   const ids = new Map((metadata.sheets || []).map((sheet) => [sheet.properties.title, sheet.properties.sheetId]));
-  const formulaRows = Array.from({ length: 99 }, (_, index) => ({
-    pasteData: {
-      coordinate: { sheetId: ids.get("发布记录"), rowIndex: index + 2, columnIndex: 20 },
-      data: `=IF(AND(A${index + 3}="",B${index + 3}="",D${index + 3}="",E${index + 3}="",F${index + 3}="",G${index + 3}=""),"",IF(H${index + 3}<>"",IF(COUNTIF('采集数据'!$C$2:$C$500,H${index + 3})>0,"已回填","已公开"),"已排期"))`,
-      type: "PASTE_FORMULA",
-      delimiter: "\t",
-    },
+  const releaseSheet = (metadata.sheets || []).find((sheet) => sheet.properties?.title === "发布记录");
+  const releaseRowCount = releaseSheet?.properties?.gridProperties?.rowCount || 100;
+  const statusFormula = (row) => `=IF(AND(A${row}="",B${row}="",D${row}="",E${row}="",F${row}="",G${row}=""),"",IF(OR(G${row}<>"",H${row}<>""),IF(COUNTIF('采集数据'!$C$2:$C$500,IF(H${row}<>"",H${row},IFERROR(REGEXEXTRACT(G${row},"[0-9]{15,20}"),"")))>0,"已回填","已公开"),IF(AND(A${row}<>"",A${row}<=TODAY()),"待公开","已排期")))`;
+  const statusFormulaRows = Array.from({ length: Math.max(0, releaseRowCount - 1) }, (_, index) => ({
+    values: [{ userEnteredValue: { formulaValue: statusFormula(index + 2) } }],
   }));
   await googleRequest(`${base}:batchUpdate`, token, {
     method: "POST",
     body: JSON.stringify({ requests: [
-      ...formulaRows,
+      {
+        updateCells: {
+          start: { sheetId: ids.get("发布记录"), rowIndex: 1, columnIndex: 20 },
+          rows: statusFormulaRows,
+          fields: "userEnteredValue",
+        },
+      },
     ] }),
   });
 
