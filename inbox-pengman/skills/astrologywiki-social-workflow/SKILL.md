@@ -334,6 +334,16 @@ Hook 检查：
 - 可用警告后果式强收束，但只用于"明显越界行为"语境，保留"保护自己"的公平落点，不写宿命式 `once you do, you're out`。
 - 也可停在隐藏需求或保护目标，不强加 CTA。
 
+### caption 与 hashtags
+
+提炼自 [[inbox-pengman/02-生产/01-reference/竞品-caption-hashtags-对照与模式]]：
+
+- caption 从"一句式收尾"升级为"Hook 句 + 轻量身份认领 CTA"，不做整段脚本复述：`Are you a Scorpio? Drop your birthday below.` / `If this sounds like you, type "YES".`
+- 身份认领 CTA 只问身份、不留私人信息，不违反可信定位；是竞品评论量的主要来源。
+- hashtags 扩到 5–6 个：星座位 + `Tok` / `Season` 变体 + `#ZodiacSigns` + `#Astrology`，可测试加 `#AstrologyTok` / `#ZodiacTok`。
+- 不用流量标签 `#fyp / #uktiktok / #tiktokgrowth`，不用 `#podcast / #podcastclips`（语义不符），不复制标题党 caption。
+- caption 用 1–2 个星座符号或互动 emoji（♏️ 💬 👇），保持克制，不堆砌。
+
 ### 边界与验证
 
 - 全部手法遵守第 7 节 Topic and Safety Rules 与账号指南红线。
@@ -507,6 +517,7 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 
 ## Change Log
 
+- 2026-08-24 · v1.7.1 · 在 8.2 补 caption/hashtags 规则：caption 升级为"Hook 句 + 身份认领 CTA"、hashtags 扩到 5–6 个含星座 Tok/Season 变体、禁用流量标签和标题党 caption。配套新增 `01-reference/竞品-caption-hashtags-对照与模式.md` 与原始抓取 receipt。
 - 2026-08-24 · v1.7.0 · 新增 8.2「刺激度与留存（竞品学习）」：允许更强断言/警告/反常识 Hook、身份认领续看钩子、"X 但 Y"短对仗、结果先行、警告后果式收尾、三点清单；明确禁止标题党/病理化/脏话，并要求每项手法先 canary 对照验证后再固化为偏好。配套新增参考文件 `01-reference/竞品高播放学习要点-刺激度与留存.md`。
 - 2026-08-20 · v1.6.3 · 明确 Miraa 单人 AI Host 默认使用连续叙述、避免创作式对话，并将通用目标时长扩展为 45–90 秒；word count 改为派生检查，实际音频时长优先。单条已冻结实验仍优先。
 - 2026-08-14 · v1.6.2 · 将选题、Hook、Script 与候选说明的默认输出语言统一为自然美式英语；中文仅用于内部研究与偏好解释，除非 Pengman 当次明确要求其他语言。
