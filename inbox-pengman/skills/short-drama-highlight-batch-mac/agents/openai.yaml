@@ -1,0 +1,4 @@
+interface:
+  display_name: "短剧批量高光 Mac"
+  short_description: "在 Apple Silicon Mac 上按剧顺序生成三条高光内容"
+  default_prompt: "Use $short-drama-highlight-batch-mac to prepare three highlight videos per drama on this Mac."

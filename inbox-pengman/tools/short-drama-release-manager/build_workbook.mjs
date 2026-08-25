@@ -14,7 +14,7 @@ const accounts = [
   ["shirley5276973", "https://www.tiktok.com/@shirley5276973", 0, "B生活", "生活内容 + 短剧切片", "AI真人剧", "发布中", "2026-08-21"],
   ["shirley527146", "https://www.tiktok.com/@shirley527146", 0, "C测试", "测评 / 排名 / 吐槽", "AI真人剧", "养号中", "2026-08-21"],
   ["shirley5278789", "https://www.tiktok.com/@shirley5278789", 0, "C测试", "测评 / 排名 / 吐槽", "AI真人剧", "未发", "2026-08-21"],
-  ["filestarsx", "https://www.tiktok.com/@filestarsx", 2, "D重养", "重养后再分配", "AI真人剧", "重养", "2026-08-21"],
+  ["dramapenelope", "https://www.tiktok.com/@dramapenelope", 2, "D重养", "重养后再分配", "AI真人剧", "重养", "2026-08-21"],
 ];
 
 const capturedPosts = [

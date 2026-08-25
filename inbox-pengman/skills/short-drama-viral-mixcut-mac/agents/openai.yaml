@@ -1,0 +1,4 @@
+interface:
+  display_name: "短剧爆款混剪 Mac"
+  short_description: "不需要爆款参考视频，直接从本剧素材生成三条差异化混剪"
+  default_prompt: "Use $short-drama-viral-mixcut-mac to create three hook-led mixcuts from local drama footage without a reference video."
