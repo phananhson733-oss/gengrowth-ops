@@ -4,6 +4,7 @@ date: 2026-08-20
 目的: 回答"这个品类还有多少切入点可以挖关键词"，系统性列出已验证/待验证/已排除的入口
 数据: Semrush 美国库 + Google 实测，2026-08-20
 关联: 02-keyword-research/2026-08-20-dramashortstv-关键词清单-40个.md（本次新增词并入该清单）
+更新: 2026-08-21 —— 受众定位确认为「短剧观众」，本文档 3.3 节选角/试镜类、4.2 节行业角度均排除，详见 00-inbox/2026-08-21-dramashortstv-网站架构方案.md 2.1.1 节
 ---
 
 # dramashortstv.com 选词 · 入口拓展
@@ -79,15 +80,17 @@ date: 2026-08-20
 
 **加上之前的 mark vega / anna stadler / mark herrmann / lukas charles stafford，已确认至少 6 个具体演员有独立搜索量。** 380 页官网数据里大概率还有更多，这是个可以持续挖的子矿。
 
-### 3.3 🔴 低 KD 好词：选角/试镜角度（新入口，之前完全没想到）
+### 3.3 ❌ 已排除：选角/试镜角度（2026-08-21 —— 受众定位确认为短剧观众后排除）
 
 | 关键词 | 月搜 | KD |
 |---|---:|---:|
-| `reelshort actors list` | 90 | **15** |
-| `short casting` | 90 | **10** |
-| `how to find actors for short film` | 70 | **8** |
-| `reelshort auditions` | 50 | **12** |
+| `reelshort actors list` | 90 | 15 |
+| `short casting` | 90 | 10 |
+| `how to find actors for short film` | 70 | 8 |
+| `reelshort auditions` | 50 | 12 |
 | `how to become a reelshort actor` | 20 | 未收录 |
+
+**KD 全部低于 20，是这次调研 KD 最干净的一批词，但排除的理由和 KD 无关。** 搜这些词的人是想进短剧这个行业的普通人/业余演员，不是短剧观众——2026-08-21 确认 dramashortstv.com 的受众定位是短剧观众，这批词不服务这个受众，不进执行清单。**3.1 节的 `reelshort actors`/`cast reel` 等粉丝向"这演员是谁"的词不受影响，继续保留**——那是观众在追星，不是想入行，两者意图不同。
 
 **这 5 个 KD 全部在 20 以下，是这次调研里 KD 最低的一批词，符合"快速胜利"桶的标准阈值（KD<20），之前完全没找到过这么干净的。** 受众不是短剧观众，是想进这个行业的普通人/业余演员——这是一个之前完全没考虑过的受众细分。
 
@@ -96,7 +99,8 @@ date: 2026-08-20
 不是"1 篇通用 + 6 篇个人"简单相加，是枢纽-辐条结构：
 - **枢纽页**：`reelshort actors`/`reelshort cast`/`cast reel` 三个母词合并成一篇"ReelShort 全演员图鉴"，内链导向每个具体演员的独立页面
 - **辐条页**：6+ 个具体演员各一篇，成本低（整理公开资料即可）
-- **独立选题**：`how much do actors get paid for reelshort`（590/月，商业好奇心角度，值得单独写）+ 选角/试镜类可以合并成一篇"怎么去 ReelShort 试镜"
+- **独立选题**：`how much do actors get paid for reelshort`（590/月，观众的商业好奇心角度，值得单独写，是"薪酬有多少"不是"怎么入行"，仍属短剧观众范畴）
+- ~~选角/试镜类合并成一篇~~：❌ 2026-08-21 已排除，见 3.3 节
 
 ---
 
@@ -106,9 +110,9 @@ date: 2026-08-20
 
 `reelshort not working` 及变体（`reelshort not working on iphone/android`、`reelshort network connection error iphone`、`reelshort app down`）：Semrush **查不到量级**，但真实 SERP 显示 4 个 YouTube 视频（170–1.4K 播放）+ Reddit + JustAnswer 专门在回答这个问题，说明有真实但小的需求。**竞争几乎全是视频和问答网站，没有专门的图文内容站在做**——如果要填充产能可以用，但不该指望它带量。
 
-### 4.2 行业/商业角度
+### 4.2 ❌ 行业/商业角度——已排除（2026-08-21）
 
-`how much do actors get paid for reelshort`（590/月）已经在演员簇里验证了，这类"这个行业到底怎么运作"的好奇心角度可能还有更多，比如"reelshort revenue"、"how does reelshort make money"——**这次没有系统查，是下一轮可以专门开一个批次的方向**。
+`reelshort revenue`、`how does reelshort make money` 这类"这个行业到底怎么运作"的角度，**受众定位确认为短剧观众后不再展开**——这类词面向的是想了解行业/投资短剧赛道的人，不是短剧观众，不再开新批次去查。`how much do actors get paid for reelshort`（590/月）不受影响，仍保留在 3.1 节，那是观众追星式的好奇心，不是行业研究。
 
 ---
 
@@ -125,9 +129,9 @@ date: 2026-08-20
 | dramallama.app（BL 簇）| 10 | 并入 G 组，原 2 词扩到 12 词 |
 | reelshort actors 簇（枢纽词）| 7 | 新增 |
 | 具体演员名（Kingsley、Asher Bradshaw）| 2 | 并入 F 组，原 4 词扩到 6+ 词 |
-| 选角/试镜类（低 KD）| 5 | 新增子类，KD 全部 <20 |
+| ~~选角/试镜类~~ | ~~5~~ | ❌ 2026-08-21 已排除，受众非短剧观众，不计入总数 |
 | 故障类 | 1 组（量小，不单独计数）| 备用产能，非主力 |
 
-**48 个（上一轮）+ 约 24 个新增 = 72 个左右，去重合并同义词后，实际可执行的独立内容篇数预计在 20-24 篇**（含新的"演员图鉴+辐条页"结构和"BL App推荐"扩充版）。
+**48 个（上一轮）+ 约 19 个新增（扣除已排除的选角/试镜 5 词）= 67 个左右，去重合并同义词后，实际可执行的独立内容篇数预计在 18-22 篇**（含新的"演员图鉴+辐条页"结构和"BL App推荐"扩充版）。
 
 **距离每周 7-10 篇的量，现在两周的词库基本够了，但"具体剧名"滚动流程和"官方域名话题发现（3 个还没查）"仍然是接下来必须做的，不是可选项。**
