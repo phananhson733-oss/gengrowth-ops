@@ -1,0 +1,4 @@
+interface:
+  display_name: "短剧高光混剪（Mac）"
+  short_description: "在Mac上将一部短剧整理成2–3条短版原声高光混剪"
+  default_prompt: "用短剧高光混剪（Mac）处理这个短剧目录，先做一部剧canary并验证产物。"
