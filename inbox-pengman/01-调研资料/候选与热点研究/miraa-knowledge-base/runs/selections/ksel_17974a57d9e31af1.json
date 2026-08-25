@@ -1,0 +1,26 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-24T07:15:41.687153+00:00",
+  "dedupe_checked_at": "2026-08-24T14:18:13+08:00",
+  "dedupe_note": "Checked live Social OS H3/H4 rows. Excluded current Virgo practical-care and accuracy-versus-hurt items, Scorpio pull-away/support/relationship-privacy items, and Aquarius temporary-space item. Retained distinct truth tests: one-ex generalization versus individual behavior; delayed conflict processing followed by explicit repair.",
+  "freshness_checked_at": "2026-08-24T07:15:41.687153+00:00",
+  "freshness_result": "valid",
+  "kb_version": "9ff3e7cadc48d448b2ec41d8e4679c0533723bea3f60b0721322917b81f88146",
+  "mode": "C",
+  "product": "astrologywiki",
+  "query": "Miraa two single AI host topics: Virgo behavior versus sign label; Scorpio delayed conflict processing and repair",
+  "request_summary": "生成 Miraa 两个单人口播选题",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_17974a57d9e31af1",
+  "source_ids": [
+    "src-4b653b6b36",
+    "src-f026911d7f",
+    "src-fffddd7467"
+  ],
+  "topic_ids": [
+    "miraa-scorpio-冲突处理",
+    "miraa-virgo-behavior-is-not-destiny"
+  ],
+  "week": "2026-W35"
+}

@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T08:53:36.161138+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "4d069653bbc794af85995df8aa7f093356e3e79eceb6a9b0d5250cb81567e6b8",
+  "kb_version_before": "da119a21e918f2f5ce361536911355fdd7438999fc3b7753f3ba83d62a4d2c36",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_0b7b039013ad901e.json",
+  "receipt_sha256": "bc526984fc97412a73199cbfc698fa2985de311e5a0dfa2beb9602df0c2cd62f",
+  "run_id": "krun-20260824T085336Z-bc2294",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T08:53:36.084874+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-gemini-intensity-versus-consistency"
+  ]
+}

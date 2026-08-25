@@ -6,7 +6,7 @@ const outputDir = process.argv[2] || path.resolve("output/short-drama-release-ma
 await fs.mkdir(outputDir, { recursive: true });
 
 const accounts = [
-  ["user12027302755050", "https://www.tiktok.com/@user12027302755050", 274, "A纯切片", "待分配垂类包", "AI真人剧", "未发", "2026-08-21"],
+  ["dramadetour0", "https://www.tiktok.com/@dramadetour0", 274, "A纯切片", "待分配垂类包", "AI真人剧", "未发", "2026-08-21"],
   ["user3127916753059", "https://www.tiktok.com/@user3127916753059", 249, "A纯切片", "待分配垂类包", "AI真人剧", "未发", "2026-08-21"],
   ["user4485806813444", "https://www.tiktok.com/@user4485806813444", 263, "A纯切片", "待分配垂类包", "AI真人剧", "未发", "2026-08-21"],
   ["user47225225594035", "https://www.tiktok.com/@user47225225594035", 1217, "A纯切片", "待分配垂类包", "AI真人剧", "未发", "2026-08-21"],

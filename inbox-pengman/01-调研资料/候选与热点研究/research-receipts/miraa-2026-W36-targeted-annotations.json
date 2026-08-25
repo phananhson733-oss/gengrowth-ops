@@ -1,0 +1,32 @@
+{
+  "tgt-taurus-reassurance": {
+    "signs": ["taurus"],
+    "themes": ["love-language", "relationships", "verbal-reassurance"],
+    "formats": ["ai-host-single"],
+    "tags": ["evergreen", "relationship-mechanism"]
+  },
+  "tgt-leo-accountability": {
+    "signs": ["leo"],
+    "themes": ["accountability", "conflict-repair", "relationships"],
+    "formats": ["ai-host-single"],
+    "tags": ["evergreen", "relationship-mechanism"]
+  },
+  "tgt-sagittarius-detachment": {
+    "signs": ["sagittarius"],
+    "themes": ["boundaries", "detachment", "relationships"],
+    "formats": ["ai-host-single"],
+    "tags": ["evergreen", "relationship-mechanism"]
+  },
+  "tgt-gemini-consistency": {
+    "signs": ["gemini"],
+    "themes": ["communication", "consistency", "relationships"],
+    "formats": ["ai-host-single"],
+    "tags": ["evergreen", "relationship-mechanism"]
+  },
+  "tgt-libra-boundaries": {
+    "signs": ["libra"],
+    "themes": ["boundaries", "people-pleasing", "relationships"],
+    "formats": ["ai-host-single"],
+    "tags": ["evergreen", "relationship-mechanism"]
+  }
+}

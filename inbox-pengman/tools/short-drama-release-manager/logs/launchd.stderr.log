@@ -1,0 +1,14 @@
+file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:49
+  if (!response.ok) throw new Error(`${response.status} ${payload.error?.message || payload.msg || response.statusText}`);
+                          ^
+
+Error: 503 The service is currently unavailable.
+    at requestJson (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:49:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async readGoogleRange (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:94:19)
+    at async Promise.all (index 2)
+    at async readSourceTables (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:316:38)
+    at async syncFeishu (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:360:16)
+    at async file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:382:40
+
+Node.js v24.19.0

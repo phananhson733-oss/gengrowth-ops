@@ -20,8 +20,8 @@ expiry_date: 2026-08-12
 batch_id: 2026-W32-light-transit-01
 status: draft
 owner: Pengman
-updated: "2026-08-03"
-published_url: "https://www.tiktok.com/@astrologywiki/video/7669738516435176718"
+updated: "2026-08-24"
+published_url: "https://www.tiktok.com/@astrologywiki/photo/7669738516435176718"
 platform_post_id: "7669738516435176718"
 published_at: "2026-08-03T14:00:00.000Z"
 published_date: "2026-08-03"

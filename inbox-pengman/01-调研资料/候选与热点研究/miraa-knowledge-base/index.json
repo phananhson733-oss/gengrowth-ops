@@ -20,7 +20,9 @@
       "themes": [],
       "title": "Aquarius 空间",
       "topic_id": "miraa-aquarius-空间",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w35-single-20260824-03"
+      ],
       "valid_until": "2026-08-25T00:00:00+00:00"
     },
     {
@@ -131,6 +133,71 @@
     {
       "aliases": [],
       "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-gemini-intensity-versus-consistency.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "gemini"
+      ],
+      "source_ids": [
+        "src-ce373095ff"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "communication",
+        "consistency",
+        "relationships"
+      ],
+      "title": "Gemini Intensity Versus Consistency",
+      "topic_id": "miraa-gemini-intensity-versus-consistency",
+      "used_content_ids": [
+        "miraa-w36-20260824-04"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-leo-accountability-in-conflict.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "leo"
+      ],
+      "source_ids": [
+        "src-6806e535fc"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "accountability",
+        "conflict-repair",
+        "relationships"
+      ],
+      "title": "Leo Accountability in Conflict",
+      "topic_id": "miraa-leo-accountability-in-conflict",
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
       "path": "topics/miraa-libra-details.md",
@@ -148,6 +215,38 @@
       "topic_id": "miraa-libra-details",
       "used_content_ids": [],
       "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-libra-people-pleasing-reset.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra"
+      ],
+      "source_ids": [
+        "src-0547f0cc5c"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "people-pleasing",
+        "relationships"
+      ],
+      "title": "Libra People-Pleasing Reset",
+      "topic_id": "miraa-libra-people-pleasing-reset",
+      "used_content_ids": [
+        "miraa-w36-20260824-05"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
       "aliases": [],
@@ -211,6 +310,38 @@
       "topic_id": "miraa-pisces-核对",
       "used_content_ids": [],
       "valid_until": "2026-08-25T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-sagittarius-fast-detachment.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "sagittarius"
+      ],
+      "source_ids": [
+        "src-208c92fe33"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "detachment",
+        "relationships"
+      ],
+      "title": "Sagittarius Fast Detachment",
+      "topic_id": "miraa-sagittarius-fast-detachment",
+      "used_content_ids": [
+        "miraa-w36-20260824-03"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
     },
     {
       "aliases": [],
@@ -402,7 +533,10 @@
       "themes": [],
       "title": "Scorpio 冲突处理",
       "topic_id": "miraa-scorpio-冲突处理",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
       "valid_until": "2026-08-25T00:00:00+00:00"
     },
     {
@@ -498,6 +632,39 @@
     {
       "aliases": [],
       "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
+      "path": "topics/miraa-taurus-verbal-reassurance.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "taurus"
+      ],
+      "source_ids": [
+        "src-8bbbb91e3b"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "love-language",
+        "relationships",
+        "verbal-reassurance"
+      ],
+      "title": "Taurus Verbal Reassurance",
+      "topic_id": "miraa-taurus-verbal-reassurance",
+      "used_content_ids": [
+        "miraa-w36-20260824-01",
+        "miraa-w36-20260824-02"
+      ],
+      "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-18T13:12:00+08:00",
       "path": "topics/miraa-virgo-behavior-is-not-destiny.md",
@@ -513,7 +680,10 @@
       "themes": [],
       "title": "Virgo: behavior is not destiny",
       "topic_id": "miraa-virgo-behavior-is-not-destiny",
-      "used_content_ids": [],
+      "used_content_ids": [
+        "miraa-w35-single-20260824-01",
+        "miraa-w35-single-20260824-02"
+      ],
       "valid_until": "2026-08-25T13:12:00+08:00"
     },
     {

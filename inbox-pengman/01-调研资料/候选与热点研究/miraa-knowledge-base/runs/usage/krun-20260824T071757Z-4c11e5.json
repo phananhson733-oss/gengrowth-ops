@@ -1,0 +1,24 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T07:17:57.223229+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "a333246784ce619a8932819295770e5cbadfc36059ff6e9cbf0836e2308ceb23",
+  "kb_version_before": "9ff3e7cadc48d448b2ec41d8e4679c0533723bea3f60b0721322917b81f88146",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_17974a57d9e31af1.json",
+  "receipt_sha256": "acc2d8dc22abda2882afb41772874954af94814ce9c78e043ba78c12a8adc74b",
+  "run_id": "krun-20260824T071757Z-4c11e5",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T07:17:57.154276+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-scorpio-冲突处理",
+    "miraa-virgo-behavior-is-not-destiny"
+  ]
+}

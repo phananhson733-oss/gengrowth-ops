@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-24T08:53:36.054843+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "da119a21e918f2f5ce361536911355fdd7438999fc3b7753f3ba83d62a4d2c36",
+  "kb_version_before": "7f1f9f5d1ed98e131a050eba892a08e6719ba21c34ac705ab13e1651ceca7aa7",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_43d5c9d4289aedac.json",
+  "receipt_sha256": "ff701a96a966a6667b012a945d0045a90750a0b184d5a63af2ca795d3bb6854c",
+  "run_id": "krun-20260824T085335Z-fd1bc1",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-24T08:53:35.980352+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-sagittarius-fast-detachment"
+  ]
+}
