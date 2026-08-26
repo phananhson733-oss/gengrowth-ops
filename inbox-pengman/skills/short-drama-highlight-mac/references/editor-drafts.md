@@ -26,6 +26,20 @@ The script stages one CapCut folder and one Jianying folder. It refuses to overw
 - The CapCut platform source is `cc`; the Jianying platform source is `lv`.
 - The manifest reports the expected number of separate segments.
 
+## Silent visual drafts
+
+For a BGM-ready visual montage, add `--mute-audio`. This sets every source-video segment's volume to zero while keeping every clip independently editable:
+
+```bash
+~/.codex/venvs/short-drama-highlight-mac/bin/python scripts/build_editor_drafts.py \
+  --work-dir /absolute/path/to/visual-work \
+  --output-dir /absolute/path/to/editor-canary \
+  --part-id 1 --editor both --canary-seconds 5 --mute-audio \
+  --draft-name Codex_SilentVisual_Canary
+```
+
+The staged manifest must report `source_audio_muted: true` for each editor. Open the canary in each application and confirm that the timeline remains made of separate clips and playback is silent before generating full silent drafts.
+
 ## Gate 2: install without overwriting
 
 Default macOS libraries:

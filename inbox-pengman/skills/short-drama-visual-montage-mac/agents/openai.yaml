@@ -1,0 +1,4 @@
+interface:
+  display_name: "短剧无声视觉混剪 Mac"
+  short_description: "从短剧素材挑选高颜值镜头，生成三条无声影视感混剪"
+  default_prompt: "Use $short-drama-visual-montage-mac to make three silent BGM-ready visual montages and optionally stage muted CapCut and Jianying drafts."

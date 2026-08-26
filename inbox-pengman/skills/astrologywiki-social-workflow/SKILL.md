@@ -100,7 +100,7 @@ GSC 已暂停，不读取、不索取，也不构成阻塞。旧竞品快照只�
 
 为 `@miraaastrology` 执行 Mode B 周一候选研究或 Mode C 补库/重排时，在生成候选前必须完成英语社区话题调研。完整执行契约见 [references/community-topic-research.md](references/community-topic-research.md)，必须全文读取后执行。
 
-- 先研究近期英语社区正在反复讨论的 Scorpio 现实问题，再从研究结果生成候选；不得从产品定位直接跳到标题列表。
+- 先研究近期英语社区正在反复讨论的目标星座或星座组合的现实问题，再从研究结果生成候选；不得从产品定位直接跳到标题列表。
 - 实际打开 Reddit、X、Quora、TikTok/YouTube 公开讨论或其他相关英语社区页面；搜索摘要、标题和平台元数据不能代替正文或评论。
 - 优先最近 90 天，其次最近 12 个月；更早内容只用于说明长期重复，不得冒充当前热度。
 - 调研阶段至少交付 5 个不同讨论点，目标 8–12 个，并保留直接链接、互动可见性、跨平台重复、反方观点、生活细节和自然英语表达。
@@ -287,6 +287,26 @@ Hook 检查：
 - 在 `angle` 或冻结写作包中记录开场类型（`question_first` / `verdict_echo`）和第二人的首个回应方向；不为此新增一套表格字段。
 - 生成双人口播候选时，按话题选择上述结构，并改变问题或判断角度；不靠替换人物、场景或堆叠修饰词制造差异。
 - 具体行为、生活场景和双方视角放进第二人的解释和后续脚本，除非该场景本身就是已经核验的选题核心。
+
+**双星座配对 Hook 偏好（作参考，非强制）：**
+
+以下结构是 Pengman 偏好的配对题材 Hook 方向；在话题合适时优先采用，不是唯一写法，不机械套句或替换星座名。
+
+- `[Sign A] and [Sign B] can be the [形容词] match in the zodiac.`（最高级/命定匹配判断）
+- `Have you ever seen [Sign A] and [Sign B] together?` / `You rarely see [Sign A] and [Sign B] together.`（稀有组合好奇）
+- `This is why [Sign A] and [Sign B] are obsessed with each other.`（强吸引/沉迷好奇）
+- `You know what's dangerous about a [Sign A] and a [Sign B]?`（危险/没人谈的秘密缺口）
+- `If you're a [Sign A] who's locked in with a [Sign B], you might wanna stick around.`（关系定向 + 留看承诺）
+
+竞品同类型参考（学结构与情绪浓度，不复制措辞）：
+- `Capricorn and Aries — two powerful energies the universe keeps pulling back together.`
+- `The dangerous thing about a Leo and Scorpio connection... nobody talks about this.`
+- `Why Cancer and Virgo are Obsessed with Each Other.`（@kinglexagod，75.2K）
+- `You know what's dangerous about a Virgo and a Cancer?`（@mazi1k，126.9K）
+- `If you're a Cancer who's currently locked in with a Virgo, you might wanna stick around.`（@mads_cancer，21.7K）
+- `Scorpio + Pisces = so deep it feels almost psychic.`
+
+不偏好：`When [Sign A] does X, [Sign B] does Y — and both feel ...` 的"行为对照错位"式配对开场（含 `[Sign A] does this, [Sign B] hears something different` 变体），配对题材避免以此作为默认首句。
 
 **写稿动作：**
 
@@ -517,6 +537,7 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 
 ## Change Log
 
+- 2026-08-24 · v1.7.2 · 在 8.1 记录 Pengman 的双星座配对 Hook 偏好：`A and B can be the [形容词] match`、`Have you ever seen A and B together`、`This is why A and B are obsessed with each other`、`dangerous... nobody talks about`、`locked in with... stick around` 作参考非强制；明确不偏好 `When A does X, B does Y` 行为对照式配对开场。同步更新账号指南 Hook 方向，并补竞品配对 Hook 样例（来自参考账号 Google Sheet 与 Cancer×Virgo 三份调研）。
 - 2026-08-24 · v1.7.1 · 在 8.2 补 caption/hashtags 规则：caption 升级为"Hook 句 + 身份认领 CTA"、hashtags 扩到 5–6 个含星座 Tok/Season 变体、禁用流量标签和标题党 caption。配套新增 `01-reference/竞品-caption-hashtags-对照与模式.md` 与原始抓取 receipt。
 - 2026-08-24 · v1.7.0 · 新增 8.2「刺激度与留存（竞品学习）」：允许更强断言/警告/反常识 Hook、身份认领续看钩子、"X 但 Y"短对仗、结果先行、警告后果式收尾、三点清单；明确禁止标题党/病理化/脏话，并要求每项手法先 canary 对照验证后再固化为偏好。配套新增参考文件 `01-reference/竞品高播放学习要点-刺激度与留存.md`。
 - 2026-08-20 · v1.6.3 · 明确 Miraa 单人 AI Host 默认使用连续叙述、避免创作式对话，并将通用目标时长扩展为 45–90 秒；word count 改为派生检查，实际音频时长优先。单条已冻结实验仍优先。

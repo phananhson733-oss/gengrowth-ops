@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-19T07:11:47.677Z",
+  "updatedAt": "2026-08-26T08:07:25.598Z",
   "signals": [
     {
       "id": "857514f0-2e7e-4765-92dc-27664d66c027",
@@ -1567,22 +1567,22 @@
     }
   ],
   "currentRound": {
-    "mode": "script",
-    "brief": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.  At first, they let it go. The canceled plan. The comment that landed wrong. The promise you didn't keep. They notice, but they tell themselves it was one bad day.  Then it happens again.  They may bring it up once or twice. But asking for the same basic effort over and over wears them down. Eventually, they stop explaining.  That's why the exit feels sudden. You thought the problem was over because they got quiet. They got quiet because they were done asking.  But Capricorn has a part to own too. If they never tell you where the line is, you cannot know when you crossed it.  They don't have to argue forever. They do have to say, \"This keeps happening, and I can't keep doing this.\"  Then if nothing changes, they leave.重写除了首句以外的script，保持主题不变但是换叙述",
-    "generatedAt": "2026-08-19T07:11:47.677Z",
+    "mode": "hook",
+    "brief": "Cancer × Capricorn 都追求长期关系，但一方需要高频陪伴，另一方更习惯用安静、稳定的行动表达投入。",
+    "generatedAt": "2026-08-26T08:07:25.598Z",
     "contextReceipt": [
       {
         "id": "product_skill",
         "label": "AstrologyWiki 主 Skill",
         "relativePath": "skills/astrologywiki-social-workflow/SKILL.md",
-        "updatedAt": "2026-08-18T05:46:36.155Z",
+        "updatedAt": "2026-08-25T06:27:04.510Z",
         "readable": true
       },
       {
         "id": "account_guide",
         "label": "账号分工指南",
         "relativePath": "02-生产/01-reference/AstrologyWiki 社媒账号分工与内容发布指南.md",
-        "updatedAt": "2026-08-17T02:38:41.948Z",
+        "updatedAt": "2026-08-21T05:05:12.996Z",
         "readable": true
       },
       {
@@ -1591,40 +1591,61 @@
         "relativePath": "02-生产/00-evergreen-workflows/weekly-rolling-content-production-sop.md",
         "updatedAt": "2026-08-17T02:38:41.897Z",
         "readable": true
+      },
+      {
+        "id": "competitor_MDIt55Sf5LqnLzAxLXJlZmVyZW5jZS_nq57lk4EtY2FwdGlvbi1oYXNodGFncy3lr7nnhafkuI7mqKHlvI8ubWQ",
+        "label": "竞品研究 · 竞品-caption-hashtags-对照与模式",
+        "relativePath": "02-生产/01-reference/竞品-caption-hashtags-对照与模式.md",
+        "readable": false,
+        "kind": "competitor"
+      },
+      {
+        "id": "competitor_MDIt55Sf5LqnLzAxLXJlZmVyZW5jZS_nq57lk4Hpq5jmkq3mlL7lrabkuaDopoHngrkt5Yi65r-A5bqm5LiO55WZ5a2YLm1k",
+        "label": "竞品研究 · 竞品高播放学习要点-刺激度与留存",
+        "relativePath": "02-生产/01-reference/竞品高播放学习要点-刺激度与留存.md",
+        "readable": false,
+        "kind": "competitor"
+      },
+      {
+        "id": "competitor_MDIt55Sf5LqnLzAxLXJlZmVyZW5jZS9XaGF0LU1ha2VzLVRhdXJ1cy1GYWxsLUluLUxvdmUtc2hhcHBhdGFyLWZhY3Rz6ISa5pys6LCD56CULm1k",
+        "label": "竞品研究 · What-Makes-Taurus-Fall-In-Love-shappatar-facts脚本调研",
+        "relativePath": "02-生产/01-reference/What-Makes-Taurus-Fall-In-Love-shappatar-facts脚本调研.md",
+        "readable": false,
+        "kind": "competitor"
       }
     ],
     "candidates": [
       {
         "id": "A",
-        "title": "Capricorn Leaves When the Pattern Becomes Clear",
-        "topic": "Capricorn’s decision to leave after repeated disappointment changes their expectations in a relationship",
-        "angle": "Reframe Capricorn’s distance as the result of repeated broken patterns rather than one dramatic mistake. Move through the relationship in stages: notice, communicate, adjust, detach.",
-        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nOne mistake usually gives them something to work with. They can understand a bad day, an honest mistake, or a promise that slipped once. What changes things is the pattern that follows.\n\nThey start paying attention to whether you take responsibility without being chased. Do you remember what happened? Do you try to fix it? Do your actions look different next time?\n\nCapricorn may not need a perfect partner. They need to believe the relationship can improve. When every apology leads back to the same behavior, they slowly stop investing in the apology.\n\nThat is why their final decision can feel so sudden. The decision was not sudden. You just did not see all the small moments when their hope was wearing out.\n\nCapricorn still has to speak honestly before reaching that point. They cannot expect you to understand a boundary they never explain. But once they have clearly asked for change and nothing changes, leaving may feel less like punishment and more like accepting the evidence.",
-        "testedVariable": "Narrative structure: gradual timeline showing how repeated disappointment erodes trust"
+        "title": "Two Different Signs of Commitment",
+        "topic": "How Cancer and Capricorn show commitment through shared time versus dependable actions",
+        "angle": "An original behavioral contrast between Cancer's need for frequent closeness and Capricorn's steady follow-through.",
+        "copy": "Cancer wants more time together. Capricorn thinks showing up consistently should be enough.",
+        "testedVariable": "Direct two-sentence behavior contrast"
       },
       {
         "id": "B",
-        "title": "Capricorn’s Silence Does Not Always Mean It’s Over",
-        "topic": "How Capricorn’s quiet response to repeated disappointment can be mistaken for forgiveness",
-        "angle": "Tell the story from the partner’s point of view. Explain why Capricorn’s quietness can be mistaken for forgiveness, then land on the need for direct repair instead of relying on silence.",
-        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nThe confusing part is that they may not keep bringing the issue up. After you apologize, they might accept the apology and move on. You may think everything is fine because they are no longer upset.\n\nBut Capricorn is watching what happens after the conversation. Did you follow through? Did you change the habit? Did you make them feel like asking was worth it?\n\nIf the answer keeps being no, their quietness starts to mean something different. They are not always calming down. Sometimes they are deciding whether this relationship still has a future they can trust.\n\nBy the time they stop checking in, making plans, or explaining why something hurt, they may already feel emotionally finished. The silence is not the beginning of the problem. It is often the end of repeated attempts to solve it.\n\nCapricorn cannot make their partner guess forever, though. A clear sentence like, “This keeps happening, and I need it to change,” gives the relationship a fair chance. After that, real change matters more than another promise.",
-        "testedVariable": "Point of view: partner-facing explanation of how Capricorn’s silence is misread"
+        "title": "Same Goal, Different Needs",
+        "topic": "Why Cancer and Capricorn can share long-term goals while missing each other's emotional needs",
+        "angle": "Borrowed competitor research's \"they X but Y\" contrast structure, applied to a balanced relationship misunderstanding.",
+        "copy": "Cancer and Capricorn both want something serious, but they can still make each other feel unloved.",
+        "testedVariable": "Competitor-derived shared-goal contrast"
       },
       {
         "id": "C",
-        "title": "Capricorn Can Forgive a Mistake—Not the Same Pattern Forever",
-        "topic": "Why Capricorn reacts differently to an isolated mistake than to repeated behavior after a clear conversation",
-        "angle": "Use a mistake-versus-pattern contrast. Make the central question not whether Capricorn is unforgiving, but whether the other person responds differently after being told what hurt.",
-        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nThere is a big difference between making a mistake and refusing to learn from one. Capricorn usually knows that people get overwhelmed, misspeak, and fall short sometimes.\n\nWhat they struggle with is having the same conversation with someone who keeps treating it like new information. The canceled plan is not the whole issue. The broken promise is not the whole issue. The issue is that nothing seems to change once they tell you how it affects them.\n\nAt first, Capricorn may give you room. Then they give you a reminder. Eventually, they stop giving the relationship the benefit of the doubt.\n\nThat can make them look harsh, but their real question is simple: can I rely on what this person says, or only on what they do after I complain?\n\nThey also have a responsibility here. Capricorn should not hide every disappointment until it becomes a final verdict. They need to name the pattern while there is still something to repair.\n\nOne honest conversation cannot fix everything. But repeated effort can show Capricorn that their trust was not misplaced.",
-        "testedVariable": "Contrast mechanism: separate a one-time mistake from an uncorrected pattern"
+        "title": "When Commitment Still Feels Distant",
+        "topic": "How Capricorn's quiet commitment can leave Cancer wanting more visible connection",
+        "angle": "An original consequence-first hook that frames the mismatch as misread effort rather than incompatibility.",
+        "copy": "Cancer can feel neglected even when Capricorn is fully committed.",
+        "testedVariable": "Unexpected emotional consequence"
       },
       {
         "id": "D",
-        "title": "Capricorn Starts Leaving Before They Say Goodbye",
-        "topic": "How Capricorn gradually stops relying on someone before ending a relationship after repeated disappointment",
-        "angle": "Center the emotional shift from expectation to self-protection. Show that Capricorn’s exit begins when they stop planning around the relationship and start making decisions without it.",
-        "copy": "Capricorn doesn't leave the first time you disappoint them. They leave when they stop expecting you to do better.\n\nBefore they walk away, they often change how much they depend on you. They stop assuming you will keep your word. They make backup plans. They hesitate before asking for help. They protect their time because trusting your promises has started to cost too much.\n\nYou may notice the final distance, but miss the earlier adjustment. Capricorn has already been lowering their expectations to avoid being hurt by the same behavior again.\n\nThat is the point where the relationship starts to feel different to them. They are no longer building their day, their plans, or their future around what you say you will do.\n\nAnd when someone stops including you in their expectations, the breakup can look abrupt from the outside. Inside, they have been practicing life without relying on you.\n\nCapricorn should not turn this into a silent punishment. If they want a real chance at repair, they need to explain what has changed for them and what they need now.\n\nBut if the other person keeps asking for trust without offering consistent proof, Capricorn may finally choose the peace of not having to prepare for another letdown.",
-        "testedVariable": "Emotional mechanism: portray departure as self-protection after reliance has been withdrawn"
+        "title": "How Cancer and Capricorn Show Love",
+        "topic": "The difference between Cancer seeking frequent connection and Capricorn expressing love through reliability",
+        "angle": "An original identity-first misunderstanding hook centered on observable behavior from both signs.",
+        "copy": "Cancer looks for more closeness. Capricorn shows love by staying reliable.",
+        "testedVariable": "Simple identity-led behavior comparison"
       }
     ]
   }
