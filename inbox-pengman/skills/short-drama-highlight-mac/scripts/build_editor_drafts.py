@@ -190,7 +190,8 @@ def reset_keyframe_collections(value: object) -> object:
     return copy.deepcopy(value)
 
 
-def build_document(template: dict, part: dict, platform: dict, canary_seconds: float) -> tuple[dict, list[dict]]:
+def build_document(template: dict, part: dict, platform: dict, canary_seconds: float,
+                   mute_audio: bool = False) -> tuple[dict, list[dict]]:
     track_template, segment_template, ref_lookup = select_template_parts(template)
     source_segments = trim_plan_segments(part, canary_seconds)
     document = copy.deepcopy(template)
@@ -273,7 +274,7 @@ def build_document(template: dict, part: dict, platform: dict, canary_seconds: f
         }
         segment["render_timerange"] = {"start": 0, "duration": 0}
         segment["speed"] = 1.0
-        segment["volume"] = 1.0
+        segment["volume"] = 0.0 if mute_audio else 1.0
         segment["last_nonzero_volume"] = 1.0
         segment["common_keyframes"] = []
         segment["keyframe_refs"] = []
@@ -465,7 +466,8 @@ def write_draft_folder(draft_dir: Path, draft_root: Path, draft_name: str, docum
     shutil.copy2(cover_path, timeline_dir / "draft_cover.jpg")
 
 
-def verify_draft(path: Path, expected_duration_us: int, expected_segments: int) -> dict:
+def verify_draft(path: Path, expected_duration_us: int, expected_segments: int,
+                 expected_muted: bool = False) -> dict:
     info = read_json(path / "draft_info.json")
     meta = read_json(path / "draft_meta_info.json")
     video_tracks = [track for track in info.get("tracks") or [] if track.get("type") == "video"]
@@ -486,6 +488,13 @@ def verify_draft(path: Path, expected_duration_us: int, expected_segments: int) 
     timeline_info = path / "Timelines" / str(timeline_id) / "draft_info.json"
     if not timeline_info.is_file() or read_json(timeline_info).get("id") != timeline_id:
         raise RuntimeError(f"Draft active timeline copy is missing: {path}")
+    volumes = [
+        float(segment.get("volume", 1.0))
+        for track in video_tracks
+        for segment in track.get("segments") or []
+    ]
+    if expected_muted and any(volume != 0.0 for volume in volumes):
+        raise RuntimeError(f"Draft source audio was not muted: {path}")
     return {
         "path": str(path),
         "duration_s": round(expected_duration_us / 1_000_000.0, 3),
@@ -494,6 +503,7 @@ def verify_draft(path: Path, expected_duration_us: int, expected_segments: int) 
         "schema_version": info.get("version"),
         "new_version": info.get("new_version"),
         "platform": (info.get("platform") or {}).get("app_source"),
+        "source_audio_muted": bool(volumes) and all(volume == 0.0 for volume in volumes),
     }
 
 
@@ -505,6 +515,7 @@ def main() -> int:
     parser.add_argument("--editor", choices=["both", "capcut", "jianying"], default="both")
     parser.add_argument("--draft-name", default="", help="Base draft name; editor suffix is added.")
     parser.add_argument("--canary-seconds", type=float, default=0.0)
+    parser.add_argument("--mute-audio", action="store_true", help="Set every source-video segment volume to zero.")
     parser.add_argument("--capcut-root", default=str(CAPCUT_ROOT))
     parser.add_argument("--jianying-root", default=str(JIANYING_ROOT))
     args = parser.parse_args()
@@ -531,12 +542,16 @@ def main() -> int:
             platform = find_jianying_platform(jianying_root)
             draft_root = jianying_root
             suffix = "Jianying"
-        document, media_rows = build_document(template, part, platform, args.canary_seconds)
+        document, media_rows = build_document(
+            template, part, platform, args.canary_seconds, args.mute_audio
+        )
         draft_name = f"{base_name}_{suffix}"
         draft_dir = output_dir / editor / draft_name
         write_draft_folder(draft_dir, draft_root, draft_name, document, template_meta, media_rows)
         segment_count = len(document["tracks"][0]["segments"])
-        result = verify_draft(draft_dir, int(document["duration"]), segment_count)
+        result = verify_draft(
+            draft_dir, int(document["duration"]), segment_count, args.mute_audio
+        )
         result["editor"] = editor
         result["template"] = str(template_dir)
         result["install_destination"] = str(draft_root / draft_name)
