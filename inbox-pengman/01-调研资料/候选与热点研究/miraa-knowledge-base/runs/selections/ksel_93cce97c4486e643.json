@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-26T10:42:48.883794+00:00",
+  "dedupe_checked_at": "2026-08-26T10:36:39Z",
+  "dedupe_note": "候选已通过旧 selection receipt 写入 Social OS；本收据仅用于在 KB 版本变化后完成同题 usage 审计。",
+  "freshness_checked_at": "2026-08-26T10:42:48.883794+00:00",
+  "freshness_result": "valid",
+  "kb_version": "f6b61b0778a08a6481d0c7cf1fdac3bdbdf6408e205419fd8723dded9afab99b",
+  "mode": "C",
+  "product": "astrologywiki",
+  "query": "Cancer Capricorn connection rhythms",
+  "request_summary": "KB usage writeback refresh for already-written Cancer×Capricorn candidate miraa-w35-pair-20260826-02 after the prior topic usage changed kb_version.",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_93cce97c4486e643",
+  "source_ids": [
+    "src-360de179fb"
+  ],
+  "topic_ids": [
+    "miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同"
+  ],
+  "week": "2026-W35"
+}

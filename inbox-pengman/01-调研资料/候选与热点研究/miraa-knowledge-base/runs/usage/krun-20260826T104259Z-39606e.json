@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-26T10:42:59.293406+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "kb_version_before": "f6b61b0778a08a6481d0c7cf1fdac3bdbdf6408e205419fd8723dded9afab99b",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_93cce97c4486e643.json",
+  "receipt_sha256": "e59f767344298fc5db8f8ce90d0b46017140b557c5b263ebb89362387e3376a2",
+  "run_id": "krun-20260826T104259Z-39606e",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-26T10:42:59.194863+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同"
+  ]
+}

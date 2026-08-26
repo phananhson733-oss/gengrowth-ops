@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-26T10:42:38.461504+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "f6b61b0778a08a6481d0c7cf1fdac3bdbdf6408e205419fd8723dded9afab99b",
+  "kb_version_before": "1593b54742315e3a71f9ade24d17a4efd3f262c6a23a5bb69d9f6e1da18f947e",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_5e67b955e04df501.json",
+  "receipt_sha256": "cd7e09961a53ccf3a8a119fef00f5dda311c44940858c2631c1835c1645a548b",
+  "run_id": "krun-20260826T104238Z-63a8ae",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-26T10:42:38.360301+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+  ]
+}
