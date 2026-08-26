@@ -1,0 +1,290 @@
+{
+  "schema_version": "social-kb-targeted/v1",
+  "product": "astrologywiki",
+  "account": "@miraaastrology",
+  "mode": "C",
+  "week": "2026-W35",
+  "searched_at": "2026-08-26T06:17:58Z",
+  "gap": {
+    "signs": ["aries", "leo", "libra", "aquarius", "scorpio", "pisces", "cancer"],
+    "themes": ["double-sign relationship dynamics", "support versus space", "clarity versus silence", "breakup and repair", "mixed-placement identity", "tropical versus sidereal identity"],
+    "format": "research_only",
+    "missing": {
+      "direct_pair_topics_beyond_scorpio_gemini": 4,
+      "mixed_sign_identity_topics": 2
+    },
+    "reason": "The existing KB had one direct two-sign relationship topic, Scorpio × Gemini pace conflict. The user requested broader double-sign research and explicitly removed source-recency limits, so this targeted pass opened older readable discussions while keeping source and evidence requirements unchanged."
+  },
+  "sample_limitations": "Targeted qualitative pass, not a prevalence study. Five of six topics rely on one readable Reddit body; one identity topic includes a 69-vote poll and readable comments. Page dates were often not exposed, which is acceptable for this request because the user explicitly removed freshness limits. The findings describe reported relationship or identity mechanisms and must not be generalized into universal Sun-sign traits, diagnoses, compatibility scores, or deterministic predictions. Browser automation remained permission-blocked, so only pages successfully opened through public extraction were retained; search snippets and blocked pages were excluded.",
+  "topics": [
+    {
+      "topic_id": "tgt-double-scorpio-aries-slow-commitment",
+      "topic_name": "Scorpio × Aries：慢速承诺与模糊边界",
+      "discussion": "An Aries writer describes a long, slowly developing Scorpio relationship with small emotional misunderstandings, unclear exclusivity and a recurring phrase that one partner is tolerating behavior he would not accept elsewhere.",
+      "video_fit": "The pair can be discussed through one concrete tension: patience may feel caring to one person but leave expectations and relationship status unclear to the other. This is a research direction, not a compatibility verdict.",
+      "main_views": "Slow pacing can protect trust, but patience becomes ambiguous when neither person defines what exclusivity, tolerance or acceptable conflict behavior actually means.",
+      "counter_views": "The post is one situationship and explicitly includes personal history, different backgrounds and individual humor; none of those details establish a general Aries or Scorpio trait.",
+      "life_scenes": [
+        "Two people know each other for a year and a half but still describe the relationship as slow and uncertain.",
+        "Small jokes or changes in attitude create emotional misunderstandings.",
+        "One person says they tolerate behavior they would not accept from others, leaving the other unsure whether that signals care or accumulated resentment."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-aries-scorpio-13n2jro"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Detailed first-person relationship body with specific duration, exclusivity uncertainty and repeated interpersonal wording.",
+        "limitations": "Single Reddit body; no readable comments in the retained extract and no representative evidence."
+      },
+      "natural_english": [
+        {
+          "text": "Weve been taking it really slow but we are exclusive?",
+          "attribution": "source_quote",
+          "source_ref": "ds-aries-scorpio-13n2jro"
+        },
+        {
+          "text": "Patience can feel loving and still leave the relationship undefined.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-double-scorpio-leo-support-space",
+      "topic_name": "Scorpio × Leo：支持对方但不越界",
+      "discussion": "A Leo friend asks how to support a Scorpio friend through a rough patch without taking withdrawal personally or becoming overbearing.",
+      "video_fit": "The topic offers a friendship-centered pair dynamic rather than another romance prediction: how care, check-ins and space can be misread when one person withdraws.",
+      "main_views": "The central tension is not which sign cares more, but how to stay available without treating distance as rejection or turning support into pressure.",
+      "counter_views": "Only the question body was readable; there is no retained reply evidence showing how Scorpio users answered, so the topic remains a weak signal rather than a reusable conclusion.",
+      "life_scenes": [
+        "A friend becomes colder or quieter during a rough patch.",
+        "The supporting friend tries not to personalize the withdrawal.",
+        "They hesitate between checking in again and giving more space."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-leo-scorpio-1hfyzef"],
+        "cross_platform": false,
+        "evidence_strength": "weak",
+        "discussion_signal": "Readable first-person question naming both signs and a concrete support-versus-space dilemma.",
+        "limitations": "Single short body; no readable comments and no outcome."
+      },
+      "natural_english": [
+        {
+          "text": "I’m a Leo btw so I’m just trying to help her get through a rough patch and not be overbearing friend.",
+          "attribution": "source_quote",
+          "source_ref": "ds-leo-scorpio-1hfyzef"
+        },
+        {
+          "text": "Support can turn into pressure when the other person needs room.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-double-scorpio-libra-clarity-silence",
+      "topic_name": "Scorpio × Libra：给空间还是要求明确答复",
+      "discussion": "A Libra writer describes restarting a relationship with a Scorpio partner, giving him space when he said he had a lot going on, then being stood up and receiving no response after asking about his intentions.",
+      "video_fit": "This supports a specific two-sided relationship question: when does patience and space stop being considerate and start preventing a necessary clarity conversation?",
+      "main_views": "The conflict sits between preserving harmony by allowing space and protecting oneself by asking for a clear statement of intent after plans and communication break down.",
+      "counter_views": "The writer asks whether the behavior is Scorpio-related, but the described missed plan and non-response are individual behaviors; sign labels cannot determine intent or relationship outcome.",
+      "life_scenes": [
+        "A couple reconnects after an earlier breakup and initially has a positive reunion.",
+        "One person says they are overwhelmed, so the other gives them space.",
+        "A confirmed plan is missed, and a direct question about intentions receives no answer."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-libra-scorpio-nzv2oi"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Detailed readable body with a sequence of breakup, reconnection, space, missed plans and a request for clarity.",
+        "limitations": "Single first-person account; no readable replies in the retained extract and no verified outcome."
+      },
+      "natural_english": [
+        {
+          "text": "Do you scorpios often disappear and don’t answer to messages for days?",
+          "attribution": "source_quote",
+          "source_ref": "ds-libra-scorpio-nzv2oi"
+        },
+        {
+          "text": "Giving space does not remove the need for a clear answer.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-double-scorpio-aquarius-breakup-repair",
+      "topic_name": "Scorpio × Aquarius：复合意愿不等于修复证据",
+      "discussion": "An Aquarius writer describes a year-long relationship with a Scorpio partner marked by impulsive breakups, short returns and a later attempt to reconnect after three months apart.",
+      "video_fit": "The pair can be explored through a behavior-first question that many viewers understand without astrology: is wanting the relationship back different from showing that the breakup pattern has changed?",
+      "main_views": "A return or declaration of intent may reopen contact, but repair requires evidence that the conflict and breakup cycle will be handled differently.",
+      "counter_views": "The writer names anger and impulsive breakups as individual behavior. The source cannot establish that Aquarius–Scorpio pairs generally repeat this pattern or that reconciliation will fail.",
+      "life_scenes": [
+        "Arguments end in impulsive breakups followed by a return within days.",
+        "After a longer separation, one person reaches out repeatedly but remains vague about change.",
+        "The other person still loves them but cannot tell whether the relationship would work differently."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-aquarius-scorpio-17m04ug"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable first-person body with a year-long timeline and repeated breakup-return behavior.",
+        "limitations": "Single account; no readable comments and no follow-up outcome."
+      },
+      "natural_english": [
+        {
+          "text": "i still love & miss him but i don’t know if it will work again.",
+          "attribution": "source_quote",
+          "source_ref": "ds-aquarius-scorpio-17m04ug"
+        },
+        {
+          "text": "Wanting the relationship back is not the same as showing how the pattern will change.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-double-water-placements-inner-outer-gap",
+      "topic_name": "Scorpio × Pisces × Cancer placements：内在强烈但外表难读",
+      "discussion": "A writer with Scorpio Sun and Venus, Pisces rising and Cancer Moon describes intense internal emotional swings while also saying other people experience them as hard to read.",
+      "video_fit": "This broadens double-sign research beyond couples: a mixed-placement identity topic can compare private emotional intensity with an outward presentation that others misread.",
+      "main_views": "The useful content mechanism is the gap between a vivid private emotional life and an exterior that does not communicate the same intensity.",
+      "counter_views": "The post contains significant personal distress and self-interpretation. It must not be converted into a diagnosis, proof that water placements cause dysregulation, or a universal claim about Scorpio, Pisces or Cancer.",
+      "life_scenes": [
+        "Someone journals, writes or vents to process strong internal feelings.",
+        "They present an optimistic exterior that does not show the private intensity.",
+        "Other people repeatedly say they are hard to read."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-water-placements-1rinnz0"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Detailed readable self-report explicitly naming multiple water-sign placements and an inner-versus-outer contrast.",
+        "limitations": "Single self-report with sensitive mental-health language; suitable only as qualitative identity evidence with a strict non-diagnostic boundary."
+      },
+      "natural_english": [
+        {
+          "text": "I get told all the time that I’m so hard to read.",
+          "attribution": "source_quote",
+          "source_ref": "ds-water-placements-1rinnz0"
+        },
+        {
+          "text": "A strong inner life does not always look intense from the outside.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-double-scorpio-libra-system-identity",
+      "topic_name": "Scorpio × Libra：热带与恒星体系下的身份错位",
+      "discussion": "A poll asks whether tropical Scorpios resonate with Libra under sidereal dates. The comments show mixed responses and repeatedly introduce other placements, including Scorpio Sun and Moon with Libra rising.",
+      "video_fit": "This is an explainable double-sign identity topic: why two chart systems or multiple placements can produce different labels, and why personal resonance is not a test that one system is universally correct.",
+      "main_views": "People may recognize traits from both labels because tropical and sidereal systems calculate signs differently and because a full chart contains multiple placements.",
+      "counter_views": "Many voters rejected the Libra identification, while others attributed resonance to Libra placements. The poll cannot prove one zodiac system more accurate than the other.",
+      "life_scenes": [
+        "A person learns that their Sun sign changes when they switch chart systems.",
+        "They compare the new label with the sign identity they have used for years.",
+        "Comments reveal that Moon, rising, Venus and stellium placements complicate a simple two-label comparison."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ds-scorpio-libra-system-12xoc9n"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable poll with 69 visible votes and multiple comments expressing agreement, rejection and mixed-placement explanations.",
+        "limitations": "One subreddit poll; self-selection and system familiarity are unknown, and the result is not a scientific comparison of zodiac systems."
+      },
+      "natural_english": [
+        {
+          "text": "yes but i am a scorpio sun & moon with a libra rising. occasionally feels like libra takes precedent though",
+          "attribution": "source_quote",
+          "source_ref": "ds-scorpio-libra-system-12xoc9n"
+        },
+        {
+          "text": "A second sign label may come from a different chart system or from another major placement.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "ds-aries-scorpio-13n2jro",
+      "title": "Scorpio Man Says he super patient with me",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/13n2jro/scorpio_man_says_he_super_patient_with_me.json",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-double-scorpio-aries-slow-commitment"],
+      "quote_verbatim": "Weve been taking it really slow but we are exclusive?",
+      "engagement_note": "互动量不可核验；替代信号：正文提供一年半关系时长、慢速推进、排他性疑问与具体沟通摩擦。"
+    },
+    {
+      "source_ref": "ds-leo-scorpio-1hfyzef",
+      "title": "Being there for Scorpio friend",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/1hfyzef/being_there_for_scorpio_friend.json",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-double-scorpio-leo-support-space"],
+      "quote_verbatim": "I’m a Leo btw so I’m just trying to help her get through a rough patch and not be overbearing friend.",
+      "engagement_note": "互动量不可核验；替代信号：正文明确点名双方星座及支持与空间的现实两难。"
+    },
+    {
+      "source_ref": "ds-libra-scorpio-nzv2oi",
+      "title": "Libra F & Scorpio M",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/nzv2oi/libra_f_scorpio_m.json",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-double-scorpio-libra-clarity-silence"],
+      "quote_verbatim": "Do you scorpios often disappear and don’t answer to messages for days?",
+      "engagement_note": "互动量不可核验；替代信号：正文提供分手、重联、给空间、爽约和追问意图的完整事件链。"
+    },
+    {
+      "source_ref": "ds-aquarius-scorpio-17m04ug",
+      "title": "He (scorpio) wants me (aqua) back but I don’t know if I should go back or move on completely",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/17m04ug/he_scorpio_wants_me_aquaback_but_i_dont_know_if_i/",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "The readable page grouped the post under 2023 but did not expose an exact publication date; retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-double-scorpio-aquarius-breakup-repair"],
+      "quote_verbatim": "i still love & miss him but i don’t know if it will work again.",
+      "engagement_note": "互动量不可核验；替代信号：正文给出一年关系、反复分手回归与三个月后复联的时间线。"
+    },
+    {
+      "source_ref": "ds-water-placements-1rinnz0",
+      "title": "Scorpio sun, pisces rising, cancer moon. Scorpio VENUS. Help.",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/1rinnz0/scorpio_sun_pisces_rising_cancer_moon_scorpio.json",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-double-water-placements-inner-outer-gap"],
+      "quote_verbatim": "I get told all the time that I’m so hard to read.",
+      "engagement_note": "互动量不可核验；替代信号：正文明确列出多个水象 placements，并描述内在体验与外在可读性之间的反差。"
+    },
+    {
+      "source_ref": "ds-scorpio-libra-system-12xoc9n",
+      "title": "do any of you feel like you're a libra? (tropical vs sidereal)",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Scorpio/comments/12xoc9n/do_any_of_you_feel_like_youre_a_libra_tropical_vs/",
+      "observed_at": "2026-08-26T06:17:58Z",
+      "displayed_date_note": "Reddit displayed the post as 3 years old; exact date was not exposed. Retained because the user explicitly removed freshness limits.",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-double-scorpio-libra-system-identity"],
+      "quote_verbatim": "yes but i am a scorpio sun & moon with a libra rising. occasionally feels like libra takes precedent though",
+      "visible_engagement": {
+        "poll_votes": 69,
+        "visible_comment_scores": [7, 5, 5, 3]
+      }
+    }
+  ]
+}
