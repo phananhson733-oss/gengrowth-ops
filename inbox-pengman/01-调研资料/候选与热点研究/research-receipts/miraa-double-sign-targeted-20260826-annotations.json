@@ -1,0 +1,38 @@
+{
+  "tgt-double-scorpio-aries-slow-commitment": {
+    "signs": ["scorpio", "aries"],
+    "themes": ["relationships", "slow-commitment", "expectations"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "pair-dynamic"]
+  },
+  "tgt-double-scorpio-leo-support-space": {
+    "signs": ["scorpio", "leo"],
+    "themes": ["friendship", "support-space", "boundaries"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "pair-dynamic"]
+  },
+  "tgt-double-scorpio-libra-clarity-silence": {
+    "signs": ["scorpio", "libra"],
+    "themes": ["relationships", "clarity", "communication"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "pair-dynamic"]
+  },
+  "tgt-double-scorpio-aquarius-breakup-repair": {
+    "signs": ["scorpio", "aquarius"],
+    "themes": ["relationships", "breakup-repair", "conflict"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "pair-dynamic"]
+  },
+  "tgt-double-water-placements-inner-outer-gap": {
+    "signs": ["scorpio", "pisces", "cancer"],
+    "themes": ["mixed-placements", "self-perception", "emotional-intensity"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "placement-identity", "safety-sensitive"]
+  },
+  "tgt-double-scorpio-libra-system-identity": {
+    "signs": ["scorpio", "libra"],
+    "themes": ["tropical-sidereal", "identity", "mixed-placements"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "placement-identity"]
+  }
+}
