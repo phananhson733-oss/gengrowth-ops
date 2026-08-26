@@ -46,10 +46,10 @@ sitemap 提交            https://dramafinds.com/en/detail/7875   （共 3,580 �
 
 **修复（二选一）：**
 
-| 方案 | 做法 |
-|---|---|
-| **A（推荐）** | 把 `/en/detail/*` 的 canonical 改为**自指**，与其他 20 种语言一致 |
-| B | 把 sitemap 里的 `/en/detail/*` 换成 `/detail/*`，并对 `/en/detail/*` 做 301 |
+| 方案        | 做法                                                                 |
+| --------- | ------------------------------------------------------------------ |
+| **A（推荐）** | 把 `/en/detail/*` 的 canonical 改为**自指**，与其他 20 种语言一致                 |
+| B         | 把 sitemap 里的 `/en/detail/*` 换成 `/detail/*`，并对 `/en/detail/*` 做 301 |
 
 **不要维持现状**——现在是 sitemap 说 A、canonical 说 B、B 没提交，三方互相矛盾。
 

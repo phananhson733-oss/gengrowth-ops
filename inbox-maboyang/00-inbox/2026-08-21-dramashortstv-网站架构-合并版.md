@@ -1,7 +1,7 @@
 ---
 title: dramashortstv.com 网站架构（合并版）
 date: 2026-08-21
-更新: 2026-08-23 —— 分类页（/genre/）命名与获客能力结论修正，见二节和四节，详细数据见 02-keyword-research/2026-08-21-dramashortstv-分类页题材词验证.md
+更新: 2026-08-23 —— 分类页（/genre/）命名与获客能力结论修正，见二节和四节，详细数据见 02-keyword-research/2026-08-26-dramashortstv-选词验证.md 第四节
 说明: 合并自「网站架构方案」+「产品页面架构方案」两份文档，只保留结论，去掉推导过程。要看依据和调研细节，翻旧文档。
 参照: reelshort.com（产品页实测）+ reelpulse.net（内容营销层实测，外链方式不学）
 ---

@@ -2,7 +2,7 @@
 title: dramashortstv.com 关键词清单 · 40 个可直接分配写作
 date: 2026-08-20
 来源: reelpulse.net / fanficable.com / dramabox.org（竞品映射）+ Google 搜索建议 + Semrush 关键词魔法工具 + reelshort.com 官网（话题发现）
-方法: 汇总自 02-keyword-research/2026-08-20-dramashortstv选词-SOP四桶分级.md 全部分析，本文档是扁平化的执行清单
+方法: 汇总自选词验证全部分析，本文档是扁平化的执行清单；完整方法论/证据链见 02-keyword-research/2026-08-26-dramashortstv-选词验证.md（原「选词-drama-shorts词根」「选词-入口拓展」「选词-SOP四桶分级」「分类页题材词验证」四份文档已于 2026-08-26 合并入此）
 状态: v2 —— 补上用户指出遗漏的三步验证：① 月搜≥500 的高量词逐个查真实 AI 摘要 ② reelpulse.net×fanficable.com 做 Keyword Gap（SOP 来源2，此前完全没做）③ 裸品牌词+具体剧名做 Google Trends 检查（SOP 来源5，此前完全没做）。v1 未经这三步就标"可直接排期"，不准确，已改正
 ---
 
@@ -96,6 +96,8 @@ date: 2026-08-20
 ---
 
 ## F 组：演员/角色档案页（4 词，批量生产型，成本低）
+
+> 🔴 2026-08-26 更新：演员**人选范围**已扩展并合并到 `00-inbox/2026-08-24-dramashortstv-演员图鉴生产清单.md`（这4人 + 原「选词-入口拓展」的6人 + reelshort.com页面流量21+人，三源合并），**以后选人选看那份文档**。这4个词仍然是这4个人已验证的 Semrush 关键词数据，保留在这里不变。
 
 | # | 关键词 | 月搜 | KD | 来源 |
 |---|---|---:|---:|---|
