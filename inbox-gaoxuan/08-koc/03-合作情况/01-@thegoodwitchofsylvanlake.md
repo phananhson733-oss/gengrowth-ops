@@ -5,12 +5,21 @@ creator: Richelle MacKinnon
 handle: "@thegoodwitchofsylvanlake"
 profile: https://www.tiktok.com/@thegoodwitchofsylvanlake
 brand: AstrologyWiki
-status: interested
+status: published
 owner: Gao Xuan
-last_updated: 2026-08-14
+last_updated: 2026-08-25
 ---
 
 # @thegoodwitchofsylvanlake｜Richelle
+
+## 2026-08-25 最新进度
+
+- 当前状态：已发布合作内容
+- 已完成：Richelle 已完成内容制作并发布
+- TikTok 发布链接：https://vt.tiktok.com/ZSVX5jGXs/
+- Facebook 发布链接：https://www.facebook.com/share/p/19GPdEKzd2/?mibextid=wwXIfr
+- 下一步：记录 TikTok 和 Facebook 发布后的可见数据及后续转化情况
+- 状态来源：Gao Xuan 于 2026-08-25 确认
 
 ## 基本情况
 
