@@ -1,0 +1,25 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-26T10:37:05.859334+00:00",
+  "dedupe_checked_at": "2026-08-26T10:36:39Z",
+  "dedupe_note": "已回读 Social OS 全局 H3/H4 状态，并检索近期生产记录；未发现相同双星座机制的候选或成片。现有 2 个单星座拟复用 miraa-w35-single-20260824-01 与 miraa-w35-single-20260824-02，避免重复生成。",
+  "freshness_checked_at": "2026-08-26T10:37:05.859334+00:00",
+  "freshness_result": "valid",
+  "kb_version": "1593b54742315e3a71f9ade24d17a4efd3f262c6a23a5bb69d9f6e1da18f947e",
+  "mode": "C",
+  "product": "astrologywiki",
+  "query": "Virgo Cancer emotional availability; Libra Capricorn romance devotion",
+  "request_summary": "按照已有调研，为 @miraaastrology 准备 2 个单星座与 2 个星座配对的高流量脚本；本次补齐 2 个配对候选，单星座复用现有 H3 候选。",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_f3cc81183099a273",
+  "source_ids": [
+    "src-15984b7886",
+    "src-f838cb625d"
+  ],
+  "topic_ids": [
+    "miraa-libra-capricorn-浪漫仪式与行动型照顾的错位",
+    "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+  ],
+  "week": "2026-W35"
+}

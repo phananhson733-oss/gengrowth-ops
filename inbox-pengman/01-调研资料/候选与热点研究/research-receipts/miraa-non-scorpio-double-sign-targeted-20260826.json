@@ -1,0 +1,297 @@
+{
+  "schema_version": "social-kb-targeted/v1",
+  "product": "astrologywiki",
+  "account": "@miraaastrology",
+  "mode": "C",
+  "week": "2026-W35",
+  "searched_at": "2026-08-26T06:27:14Z",
+  "gap": {
+    "signs": ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "sagittarius", "capricorn", "aquarius", "pisces"],
+    "themes": ["non-Scorpio pair dynamics", "friendship", "relationship rhythms", "love languages", "stereotype versus lived behavior", "multi-system chart identity"],
+    "format": "research_only",
+    "missing": {
+      "required_non_scorpio_topics": 6,
+      "required_direct_sources_per_topic": 1
+    },
+    "reason": "The user corrected the previous Scorpio-heavy scope and explicitly allowed double-sign research across all zodiac combinations. This pass therefore excluded Scorpio from every new topic and retained only directly readable discussion bodies or comments."
+  },
+  "sample_limitations": "Targeted qualitative pass across Reddit discussions; not a prevalence study or a compatibility ranking. All six topics are supported by one readable direct thread each. Some threads include multiple comments and visible scores; two are detailed single-body anecdotes. Source age ranges from days to years because the user explicitly removed freshness limits. Findings describe recurring questions and concrete behaviors, not universal traits or deterministic outcomes. Mental-health and trauma language in one Cancer/Virgo discussion is preserved only as source context and is not converted into diagnosis or zodiac causation.",
+  "topics": [
+    {
+      "topic_id": "tgt-ns-cancer-capricorn-connection-rhythms",
+      "topic_name": "Cancer × Capricorn：都要长期关系，但需要的陪伴频率不同",
+      "discussion": "A Cancer community thread asks whether Cancer–Capricorn relationships can last. A detailed reply argues that both may want deep, enduring connection while differing sharply in how often presence, affection and reassurance need to be expressed.",
+      "video_fit": "The pair can be explained through observable routines—daily conversation and physical presence versus quieter, less frequent practical loyalty—without declaring either rhythm more loving.",
+      "main_views": "One person may register love through frequent contact and shared daily activities, while the other may register commitment through focus, stability and occasional but durable action.",
+      "counter_views": "The most detailed reply comes from one person interpreting their Cancer Moon and Capricorn rising. It is a mixed-placement self-report, not evidence that every Cancer or Capricorn follows the same schedule.",
+      "life_scenes": [
+        "One person wants daily conversation, hugs, walks or meals together to feel connected.",
+        "The other stays focused on work and assumes the relationship remains secure without constant contact.",
+        "Both want endurance, but one experiences silence as absence while the other experiences it as trust."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-cancer-capricorn-1r2r9gn"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable body and comments; one detailed comment had a visible score of 23 and received agreeing replies from users with Cancer/Capricorn placements.",
+        "limitations": "Single subreddit thread; placement mixes and self-selection make it unsuitable for universal claims."
+      },
+      "natural_english": [
+        {
+          "text": "both souls ache for deep, enduring connection, just expressed through opposite rhythms.",
+          "attribution": "source_quote",
+          "source_ref": "ns-cancer-capricorn-1r2r9gn"
+        },
+        {
+          "text": "They may want the same relationship but need different proof that it is still there.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-ns-virgo-cancer-stereotype-availability",
+      "topic_name": "Virgo × Cancer：温柔标签与真实情绪可用性不一致",
+      "discussion": "A Virgo writer challenges the expectation that Cancer partners are always visibly sensitive and emotionally available. Cancer commenters describe overwhelm, withdrawal and difficulty opening up, while also rejecting simple sign-wide blame.",
+      "video_fit": "This supports a behavior-first topic about the difference between having strong feelings and being able to communicate them safely in a relationship.",
+      "main_views": "A person can experience intense emotion yet appear detached when they are overwhelmed or do not feel safe enough to be vulnerable; visible softness is not the same as emotional availability.",
+      "counter_views": "The thread includes personal therapy and trauma histories. Those experiences cannot be attributed to Cancer, and the original Virgo writer also generalizes from several disappointing encounters.",
+      "life_scenes": [
+        "A partner expects visible sensitivity but experiences judgment, distance or emotional shutdown instead.",
+        "Someone feels overwhelmed by the emotional atmosphere and withdraws rather than explaining it.",
+        "Both people begin using zodiac expectations to interpret behavior that may have individual causes."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-virgo-cancer-14f8tpx"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable body and multiple detailed comments, including disagreement with the original stereotype and visible comment scores.",
+        "limitations": "Older single thread with sensitive personal histories; no basis for diagnosis or prevalence claims."
+      },
+      "natural_english": [
+        {
+          "text": "Then we withdraw because it feels unsafe.",
+          "attribution": "source_quote",
+          "source_ref": "ns-virgo-cancer-14f8tpx"
+        },
+        {
+          "text": "Feeling deeply and showing up emotionally are not always the same skill.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-ns-libra-capricorn-love-language",
+      "topic_name": "Libra × Capricorn：浪漫仪式与行动型照顾的错位",
+      "discussion": "In a Libra romance thread, one commenter contrasts a desire for romantic dinners, gifts and quiet sunsets with a Capricorn partner who expresses devotion through cooking and organizing birthday events.",
+      "video_fit": "The pair offers a concrete love-language mismatch: one person looks for romance as an experience, while the other may treat practical effort as the romantic act itself.",
+      "main_views": "Acts of service can carry real devotion, but they may not fully replace explicit romance or the feeling of being intentionally celebrated.",
+      "counter_views": "Other commenters prefer small details over large gestures, and Venus placements are repeatedly mentioned. Sun signs alone do not explain individual preferences.",
+      "life_scenes": [
+        "A partner cooks, handles the house or organizes a birthday event instead of giving flowers.",
+        "The other person appreciates the effort but still wants a romantic dinner or personal gift.",
+        "Small remembered details may feel more meaningful than expensive public gestures."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-libra-capricorn-1nhmi4l"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable comment thread with several concrete examples, visible scores of 14 and 10, and counterviews about small versus large gestures.",
+        "limitations": "Single Libra community thread; several commenters also identify Venus in Virgo, so the mechanism cannot be assigned to Sun signs alone."
+      },
+      "natural_english": [
+        {
+          "text": "My current partner is Capricorn. Not a romantic. His way of showing his devotion is acts of service.",
+          "attribution": "source_quote",
+          "source_ref": "ns-libra-capricorn-1nhmi4l"
+        },
+        {
+          "text": "Practical devotion can be real and still miss the kind of romance someone is asking for.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-ns-gemini-taurus-friendship-rhythm",
+      "topic_name": "Gemini × Taurus：冒险与安静陪伴可以同时存在",
+      "discussion": "A Gemini friendship thread asks how Gemini–Taurus friendships work. Replies describe long-term loyalty, practical care during depression, cooking and cleaning together, quiet nonverbal time and joining adventures when the Gemini handles planning.",
+      "video_fit": "This creates a friendship-focused alternative to romance compatibility content, grounded in specific acts of care and different social rhythms.",
+      "main_views": "The friendship may work when practical steadiness and quiet companionship coexist with novelty and adventure, rather than forcing both people into one pace.",
+      "counter_views": "The thread has only two detailed replies, and one commenter says a Taurus friendship lasted 27 years while a Taurus marriage did not, directly showing that relationship type and individuals matter.",
+      "life_scenes": [
+        "A friend brings food, helps clean a room or helps with hair and makeup during a difficult period.",
+        "Both people can spend hours together without talking.",
+        "One friend plans the adventure while the other reliably joins and brings practical support."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-gemini-taurus-1o1v85e"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable body plus two concrete comments; visible engagement showed 6 upvotes and 2 comments, including a 27-year friendship example.",
+        "limitations": "Small sample from one sign-specific thread; positive friendship stories do not predict romantic outcomes."
+      },
+      "natural_english": [
+        {
+          "text": "She’s always down for an adventure with me as long as I’m planning it LOL",
+          "attribution": "source_quote",
+          "source_ref": "ns-gemini-taurus-1o1v85e"
+        },
+        {
+          "text": "One person can bring the plan while the other brings the staying power.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-ns-libra-sagittarius-directness-security",
+      "topic_name": "Libra × Sagittarius：直接表达如何建立安全感",
+      "discussion": "A Libra man describes a two-year relationship with a Sagittarius woman that developed slowly, remained open and direct, and became secure enough that friends noticed how closely connected they were.",
+      "video_fit": "The useful mechanism is not that the signs are automatically compatible, but that forward honesty and a slow pace can reduce ambiguity without requiring control.",
+      "main_views": "Directness, openness and enough time before deeper commitment may help two socially expressive people build security rather than relying on guessing games.",
+      "counter_views": "This is one highly positive anecdote with no readable comments in the retained extract. It cannot establish that the pairing usually works or that honesty alone explains the outcome.",
+      "life_scenes": [
+        "One person directly asks whether the other is single instead of waiting for hints.",
+        "The relationship develops for almost a year before physical intimacy.",
+        "Both partners describe themselves as open and secure rather than testing each other."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-libra-sagittarius-1gcahl0"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Detailed first-person body with a two-year timeline and specific behaviors around initiation, pace and openness.",
+        "limitations": "Single positive account; no readable replies or counterexamples in the retained page."
+      },
+      "natural_english": [
+        {
+          "text": "She is the most forward and honest person I have ever met and I honestly believe that is what makes us stick.",
+          "attribution": "source_quote",
+          "source_ref": "ns-libra-sagittarius-1gcahl0"
+        },
+        {
+          "text": "Directness can make a relationship feel freer, not less secure.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    },
+    {
+      "topic_id": "tgt-ns-pisces-multisystem-chart-identity",
+      "topic_name": "Pisces × Aquarius 等多配置：换体系后整套身份标签改变",
+      "discussion": "A Pisces community post compares a tropical chart—Pisces Sun, Gemini Moon and Libra rising—with a sidereal chart—Aquarius Sun, Taurus Moon and Virgo rising—and says both feel recognizable in different ways.",
+      "video_fit": "This expands double-sign content beyond pair relationships into a clear educational identity question: why changing zodiac systems can alter several major labels at once.",
+      "main_views": "A person may resonate with both chart descriptions because tropical and sidereal systems use different reference points and because identity is not reducible to one placement.",
+      "counter_views": "Personal resonance cannot prove one system more accurate. The post also calls the sidereal chart more accurate based on opinion and secondhand astrologer claims, not comparative evidence.",
+      "life_scenes": [
+        "Someone runs the same birth data through a different zodiac system and sees Sun, Moon and rising all change.",
+        "They recognize parts of both descriptions and question which label is the real one.",
+        "The comparison shifts from one double-sign identity to an entire six-sign self-description."
+      ],
+      "discussion_evidence": {
+        "source_refs": ["ns-pisces-sidereal-16xaiuk"],
+        "cross_platform": false,
+        "evidence_strength": "medium",
+        "discussion_signal": "Readable first-person body explicitly listing all tropical and sidereal Sun, Moon and rising labels.",
+        "limitations": "Single self-report; no readable comments and no evidence that subjective resonance validates either system."
+      },
+      "natural_english": [
+        {
+          "text": "in tropical, I’m a Pisces sun Gemini moon and Libra rising, but in sidereal I’m a Aquarius sun Taurus moon and a Virgo rising",
+          "attribution": "source_quote",
+          "source_ref": "ns-pisces-sidereal-16xaiuk"
+        },
+        {
+          "text": "Changing zodiac systems can change several labels without changing the person being described.",
+          "attribution": "synthesized_pattern"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_ref": "ns-cancer-capricorn-1r2r9gn",
+      "title": "Capricorns and Cancers what are your thoughts",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/CancertheCrab/comments/1r2r9gn/capricorns_and_cancers_what_are_your_thoughts/",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Reddit displayed the discussion as 5 days old; exact publication timestamp was not exposed.",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-ns-cancer-capricorn-connection-rhythms"],
+      "quote_verbatim": "both souls ache for deep, enduring connection, just expressed through opposite rhythms.",
+      "visible_engagement": {
+        "visible_comment_scores": [23, 9, 3]
+      }
+    },
+    {
+      "source_ref": "ns-virgo-cancer-14f8tpx",
+      "title": "Have any virgos eaten a crab?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/astrologymemes/comments/14f8tpx/have_any_virgos_eaten_a_crab/",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Reddit displayed the discussion as 3 years old; exact publication timestamp was not exposed. Retained because freshness was explicitly unrestricted.",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-ns-virgo-cancer-stereotype-availability"],
+      "quote_verbatim": "Then we withdraw because it feels unsafe.",
+      "visible_engagement": {
+        "visible_comment_scores": [7]
+      }
+    },
+    {
+      "source_ref": "ns-libra-capricorn-1nhmi4l",
+      "title": "Libras love romance. Do you prepare romantic events for others or expect people to prepare them for you?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/libra_astrology/comments/1nhmi4l/libras_love_romance_do_you_prepare_romantic/",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Reddit displayed the discussion as 6 months old; exact publication timestamp was not exposed.",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-ns-libra-capricorn-love-language"],
+      "quote_verbatim": "My current partner is Capricorn. Not a romantic. His way of showing his devotion is acts of service.",
+      "visible_engagement": {
+        "visible_comment_scores": [14, 10, 1]
+      }
+    },
+    {
+      "source_ref": "ns-gemini-taurus-1o1v85e",
+      "title": "Gemini and Taurus as friends?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/geminis/comments/1o1v85e/gemini_and_taurus_as_friends/",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Reddit displayed the discussion as 4 months old; exact publication timestamp was not exposed.",
+      "access_status": "readable",
+      "readable_layers": ["body", "comments"],
+      "supported_topic_ids": ["tgt-ns-gemini-taurus-friendship-rhythm"],
+      "quote_verbatim": "She’s always down for an adventure with me as long as I’m planning it LOL",
+      "visible_engagement": {
+        "post_upvotes": 6,
+        "comments": 2,
+        "visible_comment_scores": [2, 1]
+      }
+    },
+    {
+      "source_ref": "ns-libra-sagittarius-1gcahl0",
+      "title": "Libra Man Sag Woman",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/Sagittarians/comments/1gcahl0/libra_man_sag_woman.json",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because freshness was explicitly unrestricted.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-ns-libra-sagittarius-directness-security"],
+      "quote_verbatim": "She is the most forward and honest person I have ever met and I honestly believe that is what makes us stick.",
+      "engagement_note": "互动量不可核验；替代信号：正文提供两年关系时长、由女方主动确认单身、近一年后才进入亲密关系及双方开放沟通等具体行为。"
+    },
+    {
+      "source_ref": "ns-pisces-sidereal-16xaiuk",
+      "title": "Does anyone else relate to their sidereal chart?",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/piscesastrology/comments/16xaiuk/does_anyone_else_relate_to_their_sidereal_chart.json",
+      "observed_at": "2026-08-26T06:27:14Z",
+      "displayed_date_note": "Publication date was not exposed in the readable extraction; retained because freshness was explicitly unrestricted.",
+      "access_status": "readable",
+      "readable_layers": ["body"],
+      "supported_topic_ids": ["tgt-ns-pisces-multisystem-chart-identity"],
+      "quote_verbatim": "in tropical, I’m a Pisces sun Gemini moon and Libra rising, but in sidereal I’m a Aquarius sun Taurus moon and a Virgo rising",
+      "engagement_note": "互动量不可核验；替代信号：正文完整列出两套体系中的 Sun、Moon 和 Rising 标签并比较主观认同。"
+    }
+  ]
+}

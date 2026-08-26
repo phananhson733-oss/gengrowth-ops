@@ -124,8 +124,8 @@ Scorpio 是已经跑过的系列，不等于永久 Scorpio-only。当前方向�
 ### Hook 方向
 
 - `Scorpio [does a specific observable behavior]. Here's what they're protecting.`
-- `[Sign A] does this. [Sign B] hears something completely different.`
 - `People think [sign] is [surface trait]. The real conflict starts when [specific scene].`
+- 配对题材优先：`[Sign A] and [Sign B] can be the [形容词] match in the zodiac.` / `Have you ever seen [Sign A] and [Sign B] together?` / `This is why [Sign A] and [Sign B] are obsessed with each other.`（作参考非强制，详见 skill 8.1）
 - 从一句可见行为或冲突开始，不先解释星座背景
 
 ### 质量标准

@@ -1,0 +1,4 @@
+interface:
+  display_name: "短剧解说混剪 Mac"
+  short_description: "在 Apple Silicon Mac 上用本地美式英语配音制作三条短剧解说"
+  default_prompt: "Use $short-drama-narration-mac to create three overseas-facing English short-drama narration videos with local US English TTS."

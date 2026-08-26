@@ -1,0 +1,36 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [
+    "src-1b3ff28145",
+    "src-575ec1b756",
+    "src-7d86f40b6f",
+    "src-7e907d341a",
+    "src-ac246815dd"
+  ],
+  "created_topic_ids": [
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据",
+    "miraa-scorpio-aries-慢速承诺与模糊边界",
+    "miraa-scorpio-leo-支持对方但不越界",
+    "miraa-scorpio-libra-热带与恒星体系下的身份错位",
+    "miraa-scorpio-libra-给空间还是要求明确答复",
+    "miraa-scorpio-pisces-cancer-placements-内在强烈但外表难读"
+  ],
+  "failure_reason": "",
+  "finished_at": "2026-08-26T06:20:45.891544+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "f119fd84b05623c1c44020c3d1d5312cf3dab9dfa13ebddb3be47eac95c13ea0",
+  "kb_version_before": "234141465fabc06b12e75c0832fb62aa9143f2e2d4f3d1c6f83c3d48b38985bb",
+  "mode": "targeted",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts/miraa-double-sign-targeted-20260826.json",
+  "receipt_sha256": "cd62f1f99c104dc0a779d99cc581b64b95cbaa13e18e8e75a2f932683f64d655",
+  "run_id": "krun-20260826T062045Z-defdc5",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-26T06:20:45.796017+00:00",
+  "status": "success",
+  "updated_source_ids": [
+    "src-60e39bf04f"
+  ],
+  "updated_topic_ids": []
+}

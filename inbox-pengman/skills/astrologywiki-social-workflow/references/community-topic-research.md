@@ -12,7 +12,7 @@
 
 ## 1. Scope and stop point
 
-Act as an English social-media community researcher. Research recent, actively discussed Scorpio topics that can inform `@miraaastrology` TikTok candidates for US users aged 18–35.
+Act as an English social-media community researcher. Research recent, actively discussed topics for the target zodiac sign(s) or sign pairing that can inform `@miraaastrology` TikTok candidates for US users aged 18–35.
 
 Use this research for Mode B weekly candidate planning and Mode C refill/replan. Return a research pool for Pengman to screen; do not select a final topic or begin content production.
 
@@ -64,7 +64,7 @@ If exact engagement is unavailable, write `互动量不可核验` and name the s
 
 1. Read current product, account, capacity, inventory, recent-post, deduplication, safety, and `decision / next_test` context.
 2. Read the mandatory competitor index and record `checked_at`; attempt the Apps Script Library as required by the parent Skill.
-3. Search broadly for recent Scorpio discussions across the listed communities.
+3. Search broadly for recent discussions about the target sign(s) or sign pairing across the listed communities.
 4. Open and read candidate pages and, when accessible, their comments or replies.
 5. Cluster repeated questions by human conflict rather than astrology keyword.
 6. Separate repeated evidence, single anecdotes, counterexamples, and unsupported inference.

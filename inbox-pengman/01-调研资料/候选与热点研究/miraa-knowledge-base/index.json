@@ -49,6 +49,38 @@
     {
       "aliases": [],
       "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer",
+        "capricorn"
+      ],
+      "source_ids": [
+        "src-360de179fb"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "connection-rhythm",
+        "reassurance",
+        "relationships"
+      ],
+      "title": "Cancer × Capricorn：都要长期关系，但需要的陪伴频率不同",
+      "topic_id": "miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
       "path": "topics/miraa-cancer-limits.md",
@@ -168,6 +200,38 @@
       "formats": [
         "ai-host-single"
       ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-gemini-taurus-冒险与安静陪伴可以同时存在.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "gemini",
+        "taurus"
+      ],
+      "source_ids": [
+        "src-61ac07140b"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "adventure-and-rest",
+        "friendship",
+        "practical-care"
+      ],
+      "title": "Gemini × Taurus：冒险与安静陪伴可以同时存在",
+      "topic_id": "miraa-gemini-taurus-冒险与安静陪伴可以同时存在",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
       "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
       "path": "topics/miraa-leo-accountability-in-conflict.md",
       "research_scope": "evergreen_community",
@@ -194,6 +258,38 @@
         "miraa-w36-20260824-02"
       ],
       "valid_until": "2026-08-31T08:37:05.150743+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-libra-capricorn-浪漫仪式与行动型照顾的错位.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "capricorn",
+        "libra"
+      ],
+      "source_ids": [
+        "src-f838cb625d"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "acts-of-service",
+        "love-language",
+        "relationships"
+      ],
+      "title": "Libra × Capricorn：浪漫仪式与行动型照顾的错位",
+      "topic_id": "miraa-libra-capricorn-浪漫仪式与行动型照顾的错位",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
     },
     {
       "aliases": [],
@@ -251,6 +347,38 @@
     {
       "aliases": [],
       "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-libra-sagittarius-直接表达如何建立安全感.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra",
+        "sagittarius"
+      ],
+      "source_ids": [
+        "src-7fda75d24e"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "directness",
+        "relationships",
+        "security"
+      ],
+      "title": "Libra × Sagittarius：直接表达如何建立安全感",
+      "topic_id": "miraa-libra-sagittarius-直接表达如何建立安全感",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
       "path": "topics/miraa-libra-time.md",
@@ -289,6 +417,42 @@
       "topic_id": "miraa-marriage-shifts-scorpio-toward-emotional-security",
       "used_content_ids": [],
       "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-pisces-aquarius-等多配置-换体系后整套身份标签改变.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "aquarius",
+        "gemini",
+        "libra",
+        "pisces",
+        "taurus",
+        "virgo"
+      ],
+      "source_ids": [
+        "src-23ba9cd300"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "placement-identity"
+      ],
+      "themes": [
+        "identity",
+        "mixed-placements",
+        "tropical-sidereal"
+      ],
+      "title": "Pisces × Aquarius 等多配置：换体系后整套身份标签改变",
+      "topic_id": "miraa-pisces-aquarius-等多配置-换体系后整套身份标签改变",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
     },
     {
       "aliases": [],
@@ -346,6 +510,68 @@
     {
       "aliases": [],
       "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-aquarius-复合意愿不等于修复证据.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "aquarius",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-ac246815dd"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "breakup-repair",
+        "conflict",
+        "relationships"
+      ],
+      "title": "Scorpio × Aquarius：复合意愿不等于修复证据",
+      "topic_id": "miraa-scorpio-aquarius-复合意愿不等于修复证据",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-aries-慢速承诺与模糊边界.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "aries",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-7e907d341a"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "expectations",
+        "relationships",
+        "slow-commitment"
+      ],
+      "title": "Scorpio × Aries：慢速承诺与模糊边界",
+      "topic_id": "miraa-scorpio-aries-慢速承诺与模糊边界",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
       "path": "topics/miraa-scorpio-gemini-节奏冲突.md",
@@ -364,6 +590,99 @@
       "topic_id": "miraa-scorpio-gemini-节奏冲突",
       "used_content_ids": [],
       "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-leo-支持对方但不越界.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "leo",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-60e39bf04f"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "boundaries",
+        "friendship",
+        "support-space"
+      ],
+      "title": "Scorpio × Leo：支持对方但不越界",
+      "topic_id": "miraa-scorpio-leo-支持对方但不越界",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-libra-热带与恒星体系下的身份错位.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-575ec1b756"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "placement-identity"
+      ],
+      "themes": [
+        "identity",
+        "mixed-placements",
+        "tropical-sidereal"
+      ],
+      "title": "Scorpio × Libra：热带与恒星体系下的身份错位",
+      "topic_id": "miraa-scorpio-libra-热带与恒星体系下的身份错位",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-libra-给空间还是要求明确答复.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "libra",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-7d86f40b6f"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "pair-dynamic"
+      ],
+      "themes": [
+        "clarity",
+        "communication",
+        "relationships"
+      ],
+      "title": "Scorpio × Libra：给空间还是要求明确答复",
+      "topic_id": "miraa-scorpio-libra-给空间还是要求明确答复",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
     },
     {
       "aliases": [],
@@ -408,6 +727,39 @@
       "topic_id": "miraa-scorpio-partner-seeks-complete-trust",
       "used_content_ids": [],
       "valid_until": "2026-08-21T10:48:46+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:17:58+00:00",
+      "path": "topics/miraa-scorpio-pisces-cancer-placements-内在强烈但外表难读.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer",
+        "pisces",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-1b3ff28145"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "placement-identity",
+        "safety-sensitive"
+      ],
+      "themes": [
+        "emotional-intensity",
+        "mixed-placements",
+        "self-perception"
+      ],
+      "title": "Scorpio × Pisces × Cancer placements：内在强烈但外表难读",
+      "topic_id": "miraa-scorpio-pisces-cancer-placements-内在强烈但外表难读",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:17:58+00:00"
     },
     {
       "aliases": [],
@@ -685,6 +1037,39 @@
         "miraa-w35-single-20260824-02"
       ],
       "valid_until": "2026-08-25T13:12:00+08:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-26T06:27:14+00:00",
+      "path": "topics/miraa-virgo-cancer-温柔标签与真实情绪可用性不一致.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer",
+        "virgo"
+      ],
+      "source_ids": [
+        "src-15984b7886"
+      ],
+      "status": "active",
+      "tags": [
+        "double-sign",
+        "non-scorpio",
+        "pair-dynamic",
+        "safety-sensitive"
+      ],
+      "themes": [
+        "emotional-availability",
+        "relationships",
+        "stereotypes"
+      ],
+      "title": "Virgo × Cancer：温柔标签与真实情绪可用性不一致",
+      "topic_id": "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致",
+      "used_content_ids": [],
+      "valid_until": "2026-09-02T06:27:14+00:00"
     },
     {
       "aliases": [],

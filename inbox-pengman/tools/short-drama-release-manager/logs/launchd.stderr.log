@@ -12,3 +12,15 @@ Error: 503 The service is currently unavailable.
     at async file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:382:40
 
 Node.js v24.19.0
+file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:206
+  if (payload.code !== 0) throw new Error(`Feishu ${payload.code}: ${payload.msg}`);
+                                ^
+
+Error: Feishu 1254060: TextFieldConvFail
+    at feishuRequest (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:206:33)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async syncTable (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:350:5)
+    at async syncFeishu (file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:368:20)
+    at async file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:382:40
+
+Node.js v24.19.0

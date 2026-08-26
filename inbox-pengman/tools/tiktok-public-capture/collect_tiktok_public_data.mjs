@@ -9,7 +9,7 @@ import { syncFeishuFollowerMetrics } from "./feishu_sync.mjs";
 
 const usernames = [
   "astrologywiki",
-  "filestarsx",
+  "dramapenelope",
   "miraaastrology",
   "shirley527146",
   "shirley5276973",

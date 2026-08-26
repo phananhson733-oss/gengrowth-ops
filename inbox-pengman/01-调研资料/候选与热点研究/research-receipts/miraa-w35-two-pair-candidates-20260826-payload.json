@@ -1,0 +1,60 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-virgo-lonely-together",
+      "claim": "A short paradox hook about Cancer and Virgo feeling lonely together will earn more partner tags, shares, and first-person comments than a generic compatibility claim because it gives both signs one recognizable relationship problem.",
+      "evidence_source_ids": [
+        "src-15984b7886"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments, shares, or tags identify the gap between feeling deeply and showing up emotionally",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+    },
+    {
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-capricorn-proof-of-love",
+      "claim": "A Cancer-Capricorn pairing topic framed as needing different proof of the same love will generate more shares and recognition comments than a broad opposite-sign compatibility verdict.",
+      "evidence_source_ids": [
+        "src-360de179fb"
+      ],
+      "success_metric": "7d completion_rate >= 0.35 and comments or shares identify daily reassurance versus practical commitment as the pair's main tension",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同"
+    }
+  ],
+  "backlog": [
+    {
+      "content_id": "miraa-w35-pair-20260826-01",
+      "week": "2026-W35",
+      "account": "@miraaastrology",
+      "title": "Why Cancer and Virgo Can Feel Lonely Together",
+      "hook": "Cancer and Virgo can feel lonely together.",
+      "angle": "Cancer × Virgo | Dual AI host | verdict_echo. The first adult woman states the paradox; the second briefly agrees, then explains one behavior-first mechanism: both people may care deeply, but overwhelm, criticism, or withdrawal can make care hard to feel in the moment. Use one observable relationship scene and keep the counter-view explicit: Sun signs do not cause emotional unavailability, and individual communication matters more than the label.",
+      "why_now": "checked_at=2026-08-26; research topic miraa-virgo-cancer-温柔标签与真实情绪可用性不一致 is supported by verified source src-15984b7886, a directly readable Reddit body-and-comments thread in which Cancer commenters describe withdrawing when vulnerability feels unsafe; visible comment score 7. Product Rules §8.1 records three public competitor hooks on the same pairing with 75.2K, 126.9K, and 21.7K visible views; those samples support only the pairing format and emotional-intensity test, not this mechanism or wording. Dedupe: current H3/H4 status and recent production records show no pending or produced Cancer-Virgo item with the lonely-together mechanism. Evidence remains one older qualitative thread with sensitive personal histories, so the candidate avoids diagnosis and universal claims.",
+      "score": "94",
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-virgo-lonely-together",
+      "stage": "drafted",
+      "content_format": "ai_host_dual",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; a short verdict-and-echo exchange lets each sign be named immediately while one speaker still carries the explanation, using the two fixed adult female hosts.",
+      "research_topic_id": "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+    },
+    {
+      "content_id": "miraa-w35-pair-20260826-02",
+      "week": "2026-W35",
+      "account": "@miraaastrology",
+      "title": "Cancer and Capricorn Need Different Proof of Love",
+      "hook": "Cancer and Capricorn need different proof of love.",
+      "angle": "Cancer × Capricorn | Single AI host | Start with the shared goal of a lasting relationship, then contrast two observable proof systems: frequent conversation, touch, and shared routines versus quiet stability, work, and durable practical action. Show how silence can feel like absence to one person and trust to the other. Keep the counter-view explicit: the source is a mixed-placement self-report, so the video tests a relationship rhythm rather than predicting compatibility.",
+      "why_now": "checked_at=2026-08-26; research topic miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同 is supported by verified source src-360de179fb, a directly readable Reddit body-and-comments thread observed five days after posting; visible comment scores include 23, 9, and 3. The existing Cancer reference script shows that a Cancer-Capricorn contrast can carry a strong relationship explanation, while its own review warns against weak astrological causation and manipulative advice; this candidate keeps only the clear identity-to-behavior structure. Dedupe: current H3/H4 status and recent production records show no pending or produced Cancer-Capricorn item about daily reassurance versus practical commitment. Evidence is still one mixed-placement qualitative thread, not a compatibility ranking.",
+      "score": "91",
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-capricorn-proof-of-love",
+      "stage": "drafted",
+      "content_format": "ai_host_single",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; one host can explain the two proof systems without fictional dialogue, keeping Miraa's current single-host baseline for this relationship mechanism.",
+      "research_topic_id": "miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同"
+    }
+  ]
+}
