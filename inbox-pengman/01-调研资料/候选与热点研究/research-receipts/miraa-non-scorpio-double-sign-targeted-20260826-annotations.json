@@ -1,0 +1,38 @@
+{
+  "tgt-ns-cancer-capricorn-connection-rhythms": {
+    "signs": ["cancer", "capricorn"],
+    "themes": ["relationships", "connection-rhythm", "reassurance"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "pair-dynamic"]
+  },
+  "tgt-ns-virgo-cancer-stereotype-availability": {
+    "signs": ["virgo", "cancer"],
+    "themes": ["relationships", "emotional-availability", "stereotypes"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "pair-dynamic", "safety-sensitive"]
+  },
+  "tgt-ns-libra-capricorn-love-language": {
+    "signs": ["libra", "capricorn"],
+    "themes": ["relationships", "love-language", "acts-of-service"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "pair-dynamic"]
+  },
+  "tgt-ns-gemini-taurus-friendship-rhythm": {
+    "signs": ["gemini", "taurus"],
+    "themes": ["friendship", "practical-care", "adventure-and-rest"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "pair-dynamic"]
+  },
+  "tgt-ns-libra-sagittarius-directness-security": {
+    "signs": ["libra", "sagittarius"],
+    "themes": ["relationships", "directness", "security"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "pair-dynamic"]
+  },
+  "tgt-ns-pisces-multisystem-chart-identity": {
+    "signs": ["pisces", "gemini", "libra", "aquarius", "taurus", "virgo"],
+    "themes": ["tropical-sidereal", "mixed-placements", "identity"],
+    "formats": ["ai-host-single"],
+    "tags": ["double-sign", "non-scorpio", "placement-identity"]
+  }
+}
