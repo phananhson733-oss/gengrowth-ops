@@ -27,7 +27,8 @@ themes:
 title: Cancer × Capricorn：都要长期关系，但需要的陪伴频率不同
 topic_id: miraa-cancer-capricorn-都要长期关系-但需要的陪伴频率不同
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w35-pair-20260826-02
 valid_until: '2026-09-02T06:27:14+00:00'
 ---
 # Cancer × Capricorn：都要长期关系，但需要的陪伴频率不同
@@ -56,4 +57,5 @@ Limitations: Single subreddit thread; placement mixes and self-selection make it
 
 ## Timeline
 
+- 2026-08-26: used by miraa-w35-pair-20260826-02 via ksel_93cce97c4486e643
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:b77e20fdc147); sources: src-360de179fb

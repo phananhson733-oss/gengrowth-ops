@@ -1,0 +1,31 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-virgo-lonely-together",
+      "claim": "A short paradox hook about Cancer and Virgo feeling lonely together will earn more partner tags, shares, and first-person comments than a generic compatibility claim because it gives both signs one recognizable relationship problem.",
+      "evidence_source_ids": ["src-15984b7886"],
+      "success_metric": "7d completion_rate >= 0.35 and comments, shares, or tags identify the gap between feeling deeply and showing up emotionally",
+      "observe_window": "7d",
+      "verdict": "inconclusive",
+      "research_topic_id": "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+    }
+  ],
+  "backlog": [
+    {
+      "content_id": "miraa-w35-pair-20260826-01",
+      "week": "2026-W35",
+      "account": "@miraaastrology",
+      "title": "Why Cancer and Virgo Can Feel Lonely Together",
+      "hook": "Cancer and Virgo can feel lonely together.",
+      "angle": "Cancer × Virgo | Dual AI host | verdict_echo. The first adult woman states the paradox; the second briefly agrees, then explains one behavior-first mechanism: both people may care deeply, but overwhelm, criticism, or withdrawal can make care hard to feel in the moment. Use one observable relationship scene and keep the counter-view explicit: Sun signs do not cause emotional unavailability, and individual communication matters more than the label.",
+      "why_now": "checked_at=2026-08-26; research topic miraa-virgo-cancer-温柔标签与真实情绪可用性不一致 is supported by verified source src-15984b7886, a directly readable Reddit body-and-comments thread in which Cancer commenters describe withdrawing when vulnerability feels unsafe; visible comment score 7. Product Rules §8.1 records three public competitor hooks on the same pairing with 75.2K, 126.9K, and 21.7K visible views; those samples support only the pairing format and emotional-intensity test, not this mechanism or wording. Dedupe: current H3/H4 status and recent production records show no pending or produced Cancer-Virgo item with the lonely-together mechanism. Evidence remains one older qualitative thread with sensitive personal histories, so the candidate avoids diagnosis and universal claims.",
+      "score": "94",
+      "hypothesis_id": "hyp-miraa-w35-pair26-cancer-virgo-lonely-together",
+      "stage": "drafted",
+      "content_format": "ai_host_dual",
+      "production_tool": "HeyGen",
+      "route_reason": "Evergreen Route C; a short verdict-and-echo exchange lets each sign be named immediately while one speaker still carries the explanation, using the two fixed adult female hosts.",
+      "research_topic_id": "miraa-virgo-cancer-温柔标签与真实情绪可用性不一致"
+    }
+  ]
+}

@@ -28,7 +28,8 @@ themes:
 title: Virgo × Cancer：温柔标签与真实情绪可用性不一致
 topic_id: miraa-virgo-cancer-温柔标签与真实情绪可用性不一致
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w35-pair-20260826-01
 valid_until: '2026-09-02T06:27:14+00:00'
 ---
 # Virgo × Cancer：温柔标签与真实情绪可用性不一致
@@ -57,4 +58,5 @@ Limitations: Older single thread with sensitive personal histories; no basis for
 
 ## Timeline
 
+- 2026-08-26: used by miraa-w35-pair-20260826-01 via ksel_5e67b955e04df501
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:b77e20fdc147); sources: src-15984b7886
