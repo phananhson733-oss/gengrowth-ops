@@ -143,6 +143,12 @@ Use the same checklist: official listing, developer identity, exact coin or subs
 
 Check each app separately. App names may share a category, but their developer details, pricing, support, and current user feedback can differ.
 
+## Make the short drama app decision before the next episode
+
+Before you unlock another episode, pause and check three things: the exact cost of the option in front of you, whether it renews automatically, and where you would go for support or a refund. Those details matter more than a broad label such as “safe” or “unsafe.”
+
+If the terms are clear and the cost feels reasonable for the story you want to watch, you can choose with more confidence. If the terms are unclear, wait. A short pause before checkout is better than trying to untangle a purchase after it has gone through.
+
 ## Sources and items to verify before publication
 
 - Add a dated link or screenshot for the official Apple App Store and Google Play listing of every app named in the comparison table.
