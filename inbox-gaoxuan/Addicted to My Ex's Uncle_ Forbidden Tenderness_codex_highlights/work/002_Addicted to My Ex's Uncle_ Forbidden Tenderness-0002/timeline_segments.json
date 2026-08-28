@@ -1,0 +1,507 @@
+{
+  "text": "Babe, what are you staring at? Get in. Babe, next time, come home with me and meet my parents. Okay. [Music] [Music] [Music] Tomorrow I'll come watch your performance. Blocked me? Fine. I'll make you want me again.",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 2.0,
+      "text": "Babe, what are you staring at?",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 0.0,
+          "end": 0.0,
+          "confidence": 0.505161
+        },
+        {
+          "word": " Babe",
+          "start": 0.0,
+          "end": 0.28,
+          "confidence": 0.760456
+        },
+        {
+          "word": ",",
+          "start": 0.28,
+          "end": 0.42,
+          "confidence": 0.791358
+        },
+        {
+          "word": " what",
+          "start": 0.42,
+          "end": 0.7,
+          "confidence": 0.979694
+        },
+        {
+          "word": " are",
+          "start": 0.74,
+          "end": 0.91,
+          "confidence": 0.981233
+        },
+        {
+          "word": " you",
+          "start": 0.91,
+          "end": 1.12,
+          "confidence": 0.997063
+        },
+        {
+          "word": " staring",
+          "start": 1.12,
+          "end": 1.61,
+          "confidence": 0.992954
+        },
+        {
+          "word": " at",
+          "start": 1.61,
+          "end": 1.74,
+          "confidence": 0.998931
+        },
+        {
+          "word": "?",
+          "start": 1.75,
+          "end": 2.0,
+          "confidence": 0.974555
+        },
+        {
+          "word": "[_TT_100]",
+          "start": 2.0,
+          "end": 2.0,
+          "confidence": 0.0318961
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 2.0,
+      "end": 3.0,
+      "text": "Get in.",
+      "words": [
+        {
+          "word": " Get",
+          "start": 2.0,
+          "end": 2.37,
+          "confidence": 0.982377
+        },
+        {
+          "word": " in",
+          "start": 2.37,
+          "end": 2.62,
+          "confidence": 0.998247
+        },
+        {
+          "word": ".",
+          "start": 2.74,
+          "end": 3.0,
+          "confidence": 0.827623
+        },
+        {
+          "word": "[_TT_150]",
+          "start": 3.0,
+          "end": 3.0,
+          "confidence": 0.161588
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 8.0,
+      "end": 13.0,
+      "text": "Babe, next time, come home with me and meet my parents.",
+      "words": [
+        {
+          "word": " Babe",
+          "start": 8.0,
+          "end": 7.0,
+          "confidence": 0.978693
+        },
+        {
+          "word": ",",
+          "start": 8.01,
+          "end": 9.0,
+          "confidence": 0.853413
+        },
+        {
+          "word": " next",
+          "start": 9.0,
+          "end": 9.5,
+          "confidence": 0.856243
+        },
+        {
+          "word": " time",
+          "start": 9.5,
+          "end": 10.0,
+          "confidence": 0.999451
+        },
+        {
+          "word": ",",
+          "start": 10.0,
+          "end": 10.24,
+          "confidence": 0.329735
+        },
+        {
+          "word": " come",
+          "start": 10.24,
+          "end": 10.74,
+          "confidence": 0.732156
+        },
+        {
+          "word": " home",
+          "start": 10.74,
+          "end": 11.23,
+          "confidence": 0.993328
+        },
+        {
+          "word": " with",
+          "start": 11.24,
+          "end": 11.74,
+          "confidence": 0.995856
+        },
+        {
+          "word": " me",
+          "start": 11.74,
+          "end": 12.0,
+          "confidence": 0.997577
+        },
+        {
+          "word": " and",
+          "start": 12.0,
+          "end": 12.18,
+          "confidence": 0.434885
+        },
+        {
+          "word": " meet",
+          "start": 12.18,
+          "end": 12.43,
+          "confidence": 0.938926
+        },
+        {
+          "word": " my",
+          "start": 12.43,
+          "end": 12.55,
+          "confidence": 0.992447
+        },
+        {
+          "word": " parents",
+          "start": 12.55,
+          "end": 13.0,
+          "confidence": 0.989633
+        },
+        {
+          "word": ".",
+          "start": 13.0,
+          "end": 13.0,
+          "confidence": 0.957676
+        },
+        {
+          "word": "[_TT_650]",
+          "start": 13.0,
+          "end": 13.0,
+          "confidence": 0.660127
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 16.0,
+      "end": 17.0,
+      "text": "Okay.",
+      "words": [
+        {
+          "word": " Okay",
+          "start": 16.01,
+          "end": 17.0,
+          "confidence": 0.798904
+        },
+        {
+          "word": ".",
+          "start": 17.0,
+          "end": 17.0,
+          "confidence": 0.907303
+        },
+        {
+          "word": "[_TT_850]",
+          "start": 17.0,
+          "end": 17.0,
+          "confidence": 0.834172
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 30.0,
+      "end": 32.0,
+      "text": "[Music]",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 30.0,
+          "end": 30.0,
+          "confidence": 0.873309
+        },
+        {
+          "word": " [",
+          "start": 30.0,
+          "end": 30.28,
+          "confidence": 0.727416
+        },
+        {
+          "word": "Music",
+          "start": 30.28,
+          "end": 31.69,
+          "confidence": 0.680439
+        },
+        {
+          "word": "]",
+          "start": 31.69,
+          "end": 32.0,
+          "confidence": 0.999987
+        },
+        {
+          "word": "[_TT_100]",
+          "start": 32.0,
+          "end": 32.0,
+          "confidence": 0.458657
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 60.0,
+      "end": 62.0,
+      "text": "[Music]",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 60.0,
+          "end": 60.0,
+          "confidence": 0.382712
+        },
+        {
+          "word": " [",
+          "start": 60.0,
+          "end": 60.28,
+          "confidence": 0.769599
+        },
+        {
+          "word": "Music",
+          "start": 60.28,
+          "end": 61.69,
+          "confidence": 0.939049
+        },
+        {
+          "word": "]",
+          "start": 61.69,
+          "end": 62.0,
+          "confidence": 0.981402
+        },
+        {
+          "word": "[_TT_100]",
+          "start": 62.0,
+          "end": 62.0,
+          "confidence": 0.646924
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 90.0,
+      "end": 104.0,
+      "text": "[Music]",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 90.0,
+          "end": 90.0,
+          "confidence": 0.270345
+        },
+        {
+          "word": " [",
+          "start": 90.25,
+          "end": 92.01,
+          "confidence": 0.792449
+        },
+        {
+          "word": "Music",
+          "start": 92.01,
+          "end": 101.98,
+          "confidence": 0.895603
+        },
+        {
+          "word": "]",
+          "start": 101.99,
+          "end": 104.0,
+          "confidence": 0.988358
+        },
+        {
+          "word": "[_TT_700]",
+          "start": 104.0,
+          "end": 104.0,
+          "confidence": 0.196857
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 104.0,
+      "end": 107.0,
+      "text": "Tomorrow I'll come watch your performance.",
+      "words": [
+        {
+          "word": " Tomorrow",
+          "start": 104.0,
+          "end": 104.44,
+          "confidence": 0.899149
+        },
+        {
+          "word": " I",
+          "start": 104.44,
+          "end": 104.49,
+          "confidence": 0.780402
+        },
+        {
+          "word": "'ll",
+          "start": 104.49,
+          "end": 104.65,
+          "confidence": 0.952697
+        },
+        {
+          "word": " come",
+          "start": 104.66,
+          "end": 104.87,
+          "confidence": 0.997018
+        },
+        {
+          "word": " watch",
+          "start": 104.87,
+          "end": 105.14,
+          "confidence": 0.983661
+        },
+        {
+          "word": " your",
+          "start": 105.14,
+          "end": 105.36,
+          "confidence": 0.995976
+        },
+        {
+          "word": " performance",
+          "start": 105.36,
+          "end": 106.0,
+          "confidence": 0.993265
+        },
+        {
+          "word": ".",
+          "start": 106.0,
+          "end": 107.0,
+          "confidence": 0.917193
+        },
+        {
+          "word": "[_TT_850]",
+          "start": 107.0,
+          "end": 107.0,
+          "confidence": 0.308601
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 109.0,
+      "end": 113.0,
+      "text": "Blocked me? Fine. I'll make you want me again.",
+      "words": [
+        {
+          "word": " Bl",
+          "start": 109.0,
+          "end": 107.5,
+          "confidence": 0.682704
+        },
+        {
+          "word": "ocked",
+          "start": 109.0,
+          "end": 108.74,
+          "confidence": 0.998983
+        },
+        {
+          "word": " me",
+          "start": 109.0,
+          "end": 109.24,
+          "confidence": 0.997876
+        },
+        {
+          "word": "?",
+          "start": 109.25,
+          "end": 110.0,
+          "confidence": 0.487942
+        },
+        {
+          "word": " Fine",
+          "start": 110.0,
+          "end": 110.57,
+          "confidence": 0.848416
+        },
+        {
+          "word": ".",
+          "start": 110.57,
+          "end": 111.0,
+          "confidence": 0.774047
+        },
+        {
+          "word": " I",
+          "start": 111.0,
+          "end": 111.08,
+          "confidence": 0.77417
+        },
+        {
+          "word": "'ll",
+          "start": 111.09,
+          "end": 111.36,
+          "confidence": 0.99212
+        },
+        {
+          "word": " make",
+          "start": 111.36,
+          "end": 111.72,
+          "confidence": 0.9972
+        },
+        {
+          "word": " you",
+          "start": 111.73,
+          "end": 111.99,
+          "confidence": 0.998409
+        },
+        {
+          "word": " want",
+          "start": 111.99,
+          "end": 112.34,
+          "confidence": 0.994921
+        },
+        {
+          "word": " me",
+          "start": 112.34,
+          "end": 112.53,
+          "confidence": 0.998134
+        },
+        {
+          "word": " again",
+          "start": 112.53,
+          "end": 113.0,
+          "confidence": 0.997898
+        },
+        {
+          "word": ".",
+          "start": 113.0,
+          "end": 113.0,
+          "confidence": 0.969712
+        },
+        {
+          "word": "[_TT_1150]",
+          "start": 113.0,
+          "end": 113.0,
+          "confidence": 0.615107
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "duration": 117.0,
+  "provider": "whisper.cpp-local",
+  "model": "/Users/gaoxuan/.codex/models/whisper/ggml-base.en.bin"
+}

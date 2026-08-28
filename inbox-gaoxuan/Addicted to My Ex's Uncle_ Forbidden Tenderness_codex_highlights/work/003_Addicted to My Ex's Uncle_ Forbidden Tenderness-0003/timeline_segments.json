@@ -1,0 +1,1385 @@
+{
+  "text": "Final shows over time to actually relax. Oh my god, what a beautiful necklace. It's stunning. How much do you think that costs? To my one and only. Lane got it for you? Your boyfriend spoils you rotten. Must be nice, getting fakes. What are you talking about? Eve's boyfriend is a legit heir. The original is the star's tier. Warned by Queen Victoria. It sold at a San Francisco auction last week. $60 million to a mysterious Mr. K. Definitely not your boyfriend. It's $60 million, so he uses really a fake. What if this Mr. K is just a friend or associate of lanes? $60 million isn't that crazy for Lane. The original has the Queen's mark of V. This one definitely doesn't. No, no way. That mark, it's the original.",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 2.74,
+      "text": "Final shows over time to actually relax.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 0.0,
+          "end": 0.0,
+          "confidence": 0.926716
+        },
+        {
+          "word": " Final",
+          "start": 0.05,
+          "end": 0.39,
+          "confidence": 0.708726
+        },
+        {
+          "word": " shows",
+          "start": 0.39,
+          "end": 0.78,
+          "confidence": 0.697226
+        },
+        {
+          "word": " over",
+          "start": 0.78,
+          "end": 1.09,
+          "confidence": 0.933693
+        },
+        {
+          "word": " time",
+          "start": 1.1,
+          "end": 1.42,
+          "confidence": 0.690929
+        },
+        {
+          "word": " to",
+          "start": 1.42,
+          "end": 1.58,
+          "confidence": 0.989806
+        },
+        {
+          "word": " actually",
+          "start": 1.58,
+          "end": 2.21,
+          "confidence": 0.996576
+        },
+        {
+          "word": " relax",
+          "start": 2.21,
+          "end": 2.64,
+          "confidence": 0.998214
+        },
+        {
+          "word": ".",
+          "start": 2.64,
+          "end": 2.74,
+          "confidence": 0.828919
+        },
+        {
+          "word": "[_TT_137]",
+          "start": 2.74,
+          "end": 2.74,
+          "confidence": 0.0263619
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 6.5,
+      "end": 8.38,
+      "text": "Oh my god, what a beautiful necklace.",
+      "words": [
+        {
+          "word": " Oh",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.828481
+        },
+        {
+          "word": " my",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.939483
+        },
+        {
+          "word": " god",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.507873
+        },
+        {
+          "word": ",",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.403173
+        },
+        {
+          "word": " what",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.831446
+        },
+        {
+          "word": " a",
+          "start": 6.5,
+          "end": 6.5,
+          "confidence": 0.992892
+        },
+        {
+          "word": " beautiful",
+          "start": 6.53,
+          "end": 6.53,
+          "confidence": 0.998675
+        },
+        {
+          "word": " necklace",
+          "start": 6.55,
+          "end": 7.85,
+          "confidence": 0.999317
+        },
+        {
+          "word": ".",
+          "start": 7.85,
+          "end": 8.38,
+          "confidence": 0.333084
+        },
+        {
+          "word": "[_TT_419]",
+          "start": 8.38,
+          "end": 8.38,
+          "confidence": 0.0761132
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 8.38,
+      "end": 9.54,
+      "text": "It's stunning.",
+      "words": [
+        {
+          "word": " It",
+          "start": 8.42,
+          "end": 8.53,
+          "confidence": 0.995233
+        },
+        {
+          "word": "'s",
+          "start": 8.53,
+          "end": 8.68,
+          "confidence": 0.996985
+        },
+        {
+          "word": " stunning",
+          "start": 8.68,
+          "end": 9.29,
+          "confidence": 0.999186
+        },
+        {
+          "word": ".",
+          "start": 9.29,
+          "end": 9.53,
+          "confidence": 0.782693
+        },
+        {
+          "word": "[_TT_477]",
+          "start": 9.54,
+          "end": 9.54,
+          "confidence": 0.198956
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 9.54,
+      "end": 11.82,
+      "text": "How much do you think that costs?",
+      "words": [
+        {
+          "word": " How",
+          "start": 9.59,
+          "end": 9.8,
+          "confidence": 0.998336
+        },
+        {
+          "word": " much",
+          "start": 9.8,
+          "end": 10.14,
+          "confidence": 0.999846
+        },
+        {
+          "word": " do",
+          "start": 10.14,
+          "end": 10.31,
+          "confidence": 0.99899
+        },
+        {
+          "word": " you",
+          "start": 10.31,
+          "end": 10.57,
+          "confidence": 0.997798
+        },
+        {
+          "word": " think",
+          "start": 10.57,
+          "end": 11.0,
+          "confidence": 0.999438
+        },
+        {
+          "word": " that",
+          "start": 11.0,
+          "end": 11.34,
+          "confidence": 0.997103
+        },
+        {
+          "word": " costs",
+          "start": 11.34,
+          "end": 11.8,
+          "confidence": 0.909016
+        },
+        {
+          "word": "?",
+          "start": 11.8,
+          "end": 11.82,
+          "confidence": 0.661698
+        },
+        {
+          "word": "[_TT_591]",
+          "start": 11.82,
+          "end": 11.82,
+          "confidence": 0.210504
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 11.82,
+      "end": 13.3,
+      "text": "To my one and only.",
+      "words": [
+        {
+          "word": " To",
+          "start": 11.86,
+          "end": 11.99,
+          "confidence": 0.945424
+        },
+        {
+          "word": " my",
+          "start": 11.99,
+          "end": 12.16,
+          "confidence": 0.993076
+        },
+        {
+          "word": " one",
+          "start": 12.16,
+          "end": 12.42,
+          "confidence": 0.984944
+        },
+        {
+          "word": " and",
+          "start": 12.42,
+          "end": 12.68,
+          "confidence": 0.995765
+        },
+        {
+          "word": " only",
+          "start": 12.68,
+          "end": 12.98,
+          "confidence": 0.999777
+        },
+        {
+          "word": ".",
+          "start": 13.01,
+          "end": 13.3,
+          "confidence": 0.872028
+        },
+        {
+          "word": "[_TT_665]",
+          "start": 13.3,
+          "end": 13.3,
+          "confidence": 0.0580928
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 14.52,
+      "end": 15.78,
+      "text": "Lane got it for you?",
+      "words": [
+        {
+          "word": " Lane",
+          "start": 14.52,
+          "end": 14.52,
+          "confidence": 0.786167
+        },
+        {
+          "word": " got",
+          "start": 14.52,
+          "end": 14.52,
+          "confidence": 0.983149
+        },
+        {
+          "word": " it",
+          "start": 14.53,
+          "end": 14.53,
+          "confidence": 0.999287
+        },
+        {
+          "word": " for",
+          "start": 14.57,
+          "end": 14.94,
+          "confidence": 0.999009
+        },
+        {
+          "word": " you",
+          "start": 14.94,
+          "end": 15.35,
+          "confidence": 0.99971
+        },
+        {
+          "word": "?",
+          "start": 15.35,
+          "end": 15.78,
+          "confidence": 0.618871
+        },
+        {
+          "word": "[_TT_789]",
+          "start": 15.78,
+          "end": 15.78,
+          "confidence": 0.55055
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 15.78,
+      "end": 17.62,
+      "text": "Your boyfriend spoils you rotten.",
+      "words": [
+        {
+          "word": " Your",
+          "start": 15.83,
+          "end": 16.01,
+          "confidence": 0.949921
+        },
+        {
+          "word": " boyfriend",
+          "start": 16.01,
+          "end": 16.53,
+          "confidence": 0.998452
+        },
+        {
+          "word": " spo",
+          "start": 16.54,
+          "end": 16.7,
+          "confidence": 0.892745
+        },
+        {
+          "word": "ils",
+          "start": 16.7,
+          "end": 16.87,
+          "confidence": 0.997265
+        },
+        {
+          "word": " you",
+          "start": 16.88,
+          "end": 17.05,
+          "confidence": 0.939915
+        },
+        {
+          "word": " rotten",
+          "start": 17.05,
+          "end": 17.4,
+          "confidence": 0.970875
+        },
+        {
+          "word": ".",
+          "start": 17.4,
+          "end": 17.62,
+          "confidence": 0.966199
+        },
+        {
+          "word": "[_TT_881]",
+          "start": 17.62,
+          "end": 17.62,
+          "confidence": 0.152036
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 21.22,
+      "end": 23.7,
+      "text": "Must be nice, getting fakes.",
+      "words": [
+        {
+          "word": " Must",
+          "start": 21.22,
+          "end": 21.22,
+          "confidence": 0.987515
+        },
+        {
+          "word": " be",
+          "start": 21.22,
+          "end": 21.22,
+          "confidence": 0.998597
+        },
+        {
+          "word": " nice",
+          "start": 21.27,
+          "end": 21.69,
+          "confidence": 0.999708
+        },
+        {
+          "word": ",",
+          "start": 21.72,
+          "end": 22.52,
+          "confidence": 0.54625
+        },
+        {
+          "word": " getting",
+          "start": 22.52,
+          "end": 23.06,
+          "confidence": 0.984038
+        },
+        {
+          "word": " f",
+          "start": 23.07,
+          "end": 23.14,
+          "confidence": 0.961672
+        },
+        {
+          "word": "akes",
+          "start": 23.14,
+          "end": 23.45,
+          "confidence": 0.997483
+        },
+        {
+          "word": ".",
+          "start": 23.45,
+          "end": 23.62,
+          "confidence": 0.976539
+        },
+        {
+          "word": "[_TT_1185]",
+          "start": 23.7,
+          "end": 23.7,
+          "confidence": 0.200353
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 26.76,
+      "end": 28.06,
+      "text": "What are you talking about?",
+      "words": [
+        {
+          "word": " What",
+          "start": 26.76,
+          "end": 26.76,
+          "confidence": 0.947554
+        },
+        {
+          "word": " are",
+          "start": 26.76,
+          "end": 26.76,
+          "confidence": 0.991565
+        },
+        {
+          "word": " you",
+          "start": 26.76,
+          "end": 26.76,
+          "confidence": 0.998868
+        },
+        {
+          "word": " talking",
+          "start": 26.76,
+          "end": 26.76,
+          "confidence": 0.999228
+        },
+        {
+          "word": " about",
+          "start": 26.81,
+          "end": 27.52,
+          "confidence": 0.999458
+        },
+        {
+          "word": "?",
+          "start": 27.52,
+          "end": 28.06,
+          "confidence": 0.976291
+        },
+        {
+          "word": "[_TT_1403]",
+          "start": 28.06,
+          "end": 28.06,
+          "confidence": 0.334054
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 28.06,
+      "end": 29.92,
+      "text": "Eve's boyfriend is a legit heir.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 28.06,
+          "end": 28.06,
+          "confidence": 0.999996
+        },
+        {
+          "word": " Eve",
+          "start": 28.11,
+          "end": 28.25,
+          "confidence": 0.830144
+        },
+        {
+          "word": "'s",
+          "start": 28.25,
+          "end": 28.37,
+          "confidence": 0.998588
+        },
+        {
+          "word": " boyfriend",
+          "start": 28.37,
+          "end": 28.94,
+          "confidence": 0.988561
+        },
+        {
+          "word": " is",
+          "start": 28.94,
+          "end": 29.06,
+          "confidence": 0.99822
+        },
+        {
+          "word": " a",
+          "start": 29.06,
+          "end": 29.12,
+          "confidence": 0.998098
+        },
+        {
+          "word": " legit",
+          "start": 29.12,
+          "end": 29.44,
+          "confidence": 0.975636
+        },
+        {
+          "word": " heir",
+          "start": 29.44,
+          "end": 29.69,
+          "confidence": 0.967841
+        },
+        {
+          "word": ".",
+          "start": 29.69,
+          "end": 29.91,
+          "confidence": 0.993159
+        },
+        {
+          "word": "[_TT_93]",
+          "start": 29.92,
+          "end": 29.92,
+          "confidence": 0.0390918
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 31.48,
+      "end": 34.12,
+      "text": "The original is the star's tier.",
+      "words": [
+        {
+          "word": " The",
+          "start": 31.48,
+          "end": 31.48,
+          "confidence": 0.998517
+        },
+        {
+          "word": " original",
+          "start": 31.5,
+          "end": 31.5,
+          "confidence": 0.994833
+        },
+        {
+          "word": " is",
+          "start": 31.53,
+          "end": 31.79,
+          "confidence": 0.994605
+        },
+        {
+          "word": " the",
+          "start": 31.79,
+          "end": 32.21,
+          "confidence": 0.70876
+        },
+        {
+          "word": " star",
+          "start": 32.22,
+          "end": 32.79,
+          "confidence": 0.506048
+        },
+        {
+          "word": "'s",
+          "start": 32.79,
+          "end": 33.07,
+          "confidence": 0.986515
+        },
+        {
+          "word": " tier",
+          "start": 33.07,
+          "end": 33.64,
+          "confidence": 0.706837
+        },
+        {
+          "word": ".",
+          "start": 33.64,
+          "end": 34.12,
+          "confidence": 0.608145
+        },
+        {
+          "word": "[_TT_303]",
+          "start": 34.12,
+          "end": 34.12,
+          "confidence": 0.249651
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 34.12,
+      "end": 36.28,
+      "text": "Warned by Queen Victoria.",
+      "words": [
+        {
+          "word": " Warn",
+          "start": 34.17,
+          "end": 34.48,
+          "confidence": 0.232356
+        },
+        {
+          "word": "ed",
+          "start": 34.48,
+          "end": 34.64,
+          "confidence": 0.848785
+        },
+        {
+          "word": " by",
+          "start": 34.67,
+          "end": 34.83,
+          "confidence": 0.999302
+        },
+        {
+          "word": " Queen",
+          "start": 34.83,
+          "end": 35.27,
+          "confidence": 0.852848
+        },
+        {
+          "word": " Victoria",
+          "start": 35.27,
+          "end": 35.97,
+          "confidence": 0.994489
+        },
+        {
+          "word": ".",
+          "start": 35.99,
+          "end": 36.28,
+          "confidence": 0.891657
+        },
+        {
+          "word": "[_TT_411]",
+          "start": 36.28,
+          "end": 36.28,
+          "confidence": 0.447358
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 36.28,
+      "end": 38.88,
+      "text": "It sold at a San Francisco auction last week.",
+      "words": [
+        {
+          "word": " It",
+          "start": 36.32,
+          "end": 36.42,
+          "confidence": 0.994389
+        },
+        {
+          "word": " sold",
+          "start": 36.42,
+          "end": 36.7,
+          "confidence": 0.614979
+        },
+        {
+          "word": " at",
+          "start": 36.7,
+          "end": 36.84,
+          "confidence": 0.998091
+        },
+        {
+          "word": " a",
+          "start": 36.84,
+          "end": 36.91,
+          "confidence": 0.990016
+        },
+        {
+          "word": " San",
+          "start": 36.91,
+          "end": 37.12,
+          "confidence": 0.996383
+        },
+        {
+          "word": " Francisco",
+          "start": 37.12,
+          "end": 37.76,
+          "confidence": 0.997309
+        },
+        {
+          "word": " auction",
+          "start": 37.76,
+          "end": 38.26,
+          "confidence": 0.992612
+        },
+        {
+          "word": " last",
+          "start": 38.26,
+          "end": 38.54,
+          "confidence": 0.996432
+        },
+        {
+          "word": " week",
+          "start": 38.54,
+          "end": 38.8,
+          "confidence": 0.999678
+        },
+        {
+          "word": ".",
+          "start": 38.87,
+          "end": 38.88,
+          "confidence": 0.80247
+        },
+        {
+          "word": "[_TT_541]",
+          "start": 38.88,
+          "end": 38.88,
+          "confidence": 0.403744
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 38.88,
+      "end": 43.52,
+      "text": "$60 million to a mysterious Mr. K.",
+      "words": [
+        {
+          "word": " $",
+          "start": 38.92,
+          "end": 39.02,
+          "confidence": 0.676171
+        },
+        {
+          "word": "60",
+          "start": 39.02,
+          "end": 39.87,
+          "confidence": 0.995688
+        },
+        {
+          "word": " million",
+          "start": 39.87,
+          "end": 40.87,
+          "confidence": 0.978046
+        },
+        {
+          "word": " to",
+          "start": 40.89,
+          "end": 41.12,
+          "confidence": 0.879471
+        },
+        {
+          "word": " a",
+          "start": 41.12,
+          "end": 41.24,
+          "confidence": 0.997194
+        },
+        {
+          "word": " mysterious",
+          "start": 41.24,
+          "end": 42.42,
+          "confidence": 0.996482
+        },
+        {
+          "word": " Mr",
+          "start": 42.42,
+          "end": 42.67,
+          "confidence": 0.950644
+        },
+        {
+          "word": ".",
+          "start": 42.67,
+          "end": 43.02,
+          "confidence": 0.865382
+        },
+        {
+          "word": " K",
+          "start": 43.02,
+          "end": 43.14,
+          "confidence": 0.784071
+        },
+        {
+          "word": ".",
+          "start": 43.14,
+          "end": 43.52,
+          "confidence": 0.851221
+        },
+        {
+          "word": "[_TT_773]",
+          "start": 43.52,
+          "end": 43.52,
+          "confidence": 0.216398
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 43.52,
+      "end": 45.32,
+      "text": "Definitely not your boyfriend.",
+      "words": [
+        {
+          "word": " Definitely",
+          "start": 43.57,
+          "end": 44.14,
+          "confidence": 0.990476
+        },
+        {
+          "word": " not",
+          "start": 44.14,
+          "end": 44.32,
+          "confidence": 0.993722
+        },
+        {
+          "word": " your",
+          "start": 44.32,
+          "end": 44.56,
+          "confidence": 0.998502
+        },
+        {
+          "word": " boyfriend",
+          "start": 44.56,
+          "end": 45.11,
+          "confidence": 0.998929
+        },
+        {
+          "word": ".",
+          "start": 45.11,
+          "end": 45.32,
+          "confidence": 0.985131
+        },
+        {
+          "word": "[_TT_863]",
+          "start": 45.32,
+          "end": 45.32,
+          "confidence": 0.06397
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 45.32,
+      "end": 48.88,
+      "text": "It's $60 million, so he uses really a fake.",
+      "words": [
+        {
+          "word": " It",
+          "start": 45.36,
+          "end": 45.48,
+          "confidence": 0.800555
+        },
+        {
+          "word": "'s",
+          "start": 45.48,
+          "end": 45.64,
+          "confidence": 0.989555
+        },
+        {
+          "word": " $",
+          "start": 45.64,
+          "end": 45.72,
+          "confidence": 0.45647
+        },
+        {
+          "word": "60",
+          "start": 45.72,
+          "end": 46.21,
+          "confidence": 0.997392
+        },
+        {
+          "word": " million",
+          "start": 46.21,
+          "end": 46.78,
+          "confidence": 0.993083
+        },
+        {
+          "word": ",",
+          "start": 46.78,
+          "end": 46.96,
+          "confidence": 0.185809
+        },
+        {
+          "word": " so",
+          "start": 46.96,
+          "end": 47.12,
+          "confidence": 0.924759
+        },
+        {
+          "word": " he",
+          "start": 47.13,
+          "end": 47.3,
+          "confidence": 0.649495
+        },
+        {
+          "word": " uses",
+          "start": 47.3,
+          "end": 47.64,
+          "confidence": 0.896919
+        },
+        {
+          "word": " really",
+          "start": 47.64,
+          "end": 48.15,
+          "confidence": 0.71976
+        },
+        {
+          "word": " a",
+          "start": 48.16,
+          "end": 48.17,
+          "confidence": 0.98516
+        },
+        {
+          "word": " fake",
+          "start": 48.25,
+          "end": 48.58,
+          "confidence": 0.909622
+        },
+        {
+          "word": ".",
+          "start": 48.58,
+          "end": 48.87,
+          "confidence": 0.9787
+        },
+        {
+          "word": "[_TT_1041]",
+          "start": 48.88,
+          "end": 48.88,
+          "confidence": 0.0573307
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 52.12,
+      "end": 55.32,
+      "text": "What if this Mr. K is just a friend or associate of lanes?",
+      "words": [
+        {
+          "word": " What",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.997537
+        },
+        {
+          "word": " if",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.997763
+        },
+        {
+          "word": " this",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.888435
+        },
+        {
+          "word": " Mr",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.991028
+        },
+        {
+          "word": ".",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.988974
+        },
+        {
+          "word": " K",
+          "start": 52.12,
+          "end": 52.12,
+          "confidence": 0.995653
+        },
+        {
+          "word": " is",
+          "start": 52.17,
+          "end": 52.41,
+          "confidence": 0.945556
+        },
+        {
+          "word": " just",
+          "start": 52.41,
+          "end": 53.23,
+          "confidence": 0.986749
+        },
+        {
+          "word": " a",
+          "start": 53.23,
+          "end": 53.29,
+          "confidence": 0.983142
+        },
+        {
+          "word": " friend",
+          "start": 53.29,
+          "end": 53.6,
+          "confidence": 0.994822
+        },
+        {
+          "word": " or",
+          "start": 53.6,
+          "end": 53.7,
+          "confidence": 0.772969
+        },
+        {
+          "word": " associate",
+          "start": 53.7,
+          "end": 54.2,
+          "confidence": 0.992554
+        },
+        {
+          "word": " of",
+          "start": 54.2,
+          "end": 54.42,
+          "confidence": 0.963473
+        },
+        {
+          "word": " lanes",
+          "start": 54.42,
+          "end": 54.94,
+          "confidence": 0.594708
+        },
+        {
+          "word": "?",
+          "start": 55.05,
+          "end": 55.32,
+          "confidence": 0.948665
+        },
+        {
+          "word": "[_TT_1363]",
+          "start": 55.32,
+          "end": 55.32,
+          "confidence": 0.403795
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "start": 55.32,
+      "end": 57.36,
+      "text": "$60 million isn't that crazy for Lane.",
+      "words": [
+        {
+          "word": " $",
+          "start": 55.36,
+          "end": 55.37,
+          "confidence": 0.34841
+        },
+        {
+          "word": "60",
+          "start": 55.37,
+          "end": 55.69,
+          "confidence": 0.998683
+        },
+        {
+          "word": " million",
+          "start": 55.69,
+          "end": 56.05,
+          "confidence": 0.994311
+        },
+        {
+          "word": " isn",
+          "start": 56.06,
+          "end": 56.22,
+          "confidence": 0.992246
+        },
+        {
+          "word": "'t",
+          "start": 56.22,
+          "end": 56.32,
+          "confidence": 0.999931
+        },
+        {
+          "word": " that",
+          "start": 56.32,
+          "end": 56.52,
+          "confidence": 0.999554
+        },
+        {
+          "word": " crazy",
+          "start": 56.52,
+          "end": 56.79,
+          "confidence": 0.999348
+        },
+        {
+          "word": " for",
+          "start": 56.79,
+          "end": 56.95,
+          "confidence": 0.999245
+        },
+        {
+          "word": " Lane",
+          "start": 56.95,
+          "end": 57.16,
+          "confidence": 0.964801
+        },
+        {
+          "word": ".",
+          "start": 57.16,
+          "end": 57.36,
+          "confidence": 0.958888
+        },
+        {
+          "word": "[_TT_1465]",
+          "start": 57.36,
+          "end": 57.36,
+          "confidence": 0.33382
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "start": 58.62,
+      "end": 61.42,
+      "text": "The original has the Queen's mark of V.",
+      "words": [
+        {
+          "word": " The",
+          "start": 58.62,
+          "end": 58.62,
+          "confidence": 0.99858
+        },
+        {
+          "word": " original",
+          "start": 58.66,
+          "end": 58.66,
+          "confidence": 0.997265
+        },
+        {
+          "word": " has",
+          "start": 58.67,
+          "end": 59.01,
+          "confidence": 0.998647
+        },
+        {
+          "word": " the",
+          "start": 59.01,
+          "end": 59.35,
+          "confidence": 0.994818
+        },
+        {
+          "word": " Queen",
+          "start": 59.36,
+          "end": 59.95,
+          "confidence": 0.549862
+        },
+        {
+          "word": "'s",
+          "start": 59.95,
+          "end": 60.18,
+          "confidence": 0.998273
+        },
+        {
+          "word": " mark",
+          "start": 60.18,
+          "end": 60.65,
+          "confidence": 0.71226
+        },
+        {
+          "word": " of",
+          "start": 60.65,
+          "end": 60.88,
+          "confidence": 0.960166
+        },
+        {
+          "word": " V",
+          "start": 60.88,
+          "end": 61.0,
+          "confidence": 0.875334
+        },
+        {
+          "word": ".",
+          "start": 61.0,
+          "end": 61.42,
+          "confidence": 0.904696
+        },
+        {
+          "word": "[_TT_168]",
+          "start": 61.42,
+          "end": 61.42,
+          "confidence": 0.291872
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "start": 61.42,
+      "end": 62.78,
+      "text": "This one definitely doesn't.",
+      "words": [
+        {
+          "word": " This",
+          "start": 61.47,
+          "end": 61.62,
+          "confidence": 0.998304
+        },
+        {
+          "word": " one",
+          "start": 61.62,
+          "end": 61.77,
+          "confidence": 0.99919
+        },
+        {
+          "word": " definitely",
+          "start": 61.77,
+          "end": 62.27,
+          "confidence": 0.997994
+        },
+        {
+          "word": " doesn",
+          "start": 62.27,
+          "end": 62.51,
+          "confidence": 0.999047
+        },
+        {
+          "word": "'t",
+          "start": 62.52,
+          "end": 62.62,
+          "confidence": 0.999897
+        },
+        {
+          "word": ".",
+          "start": 62.62,
+          "end": 62.78,
+          "confidence": 0.998475
+        },
+        {
+          "word": "[_TT_236]",
+          "start": 62.78,
+          "end": 62.78,
+          "confidence": 0.121583
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "start": 68.3,
+      "end": 70.38,
+      "text": "No, no way.",
+      "words": [
+        {
+          "word": " No",
+          "start": 68.3,
+          "end": 68.3,
+          "confidence": 0.994129
+        },
+        {
+          "word": ",",
+          "start": 68.3,
+          "end": 68.3,
+          "confidence": 0.480895
+        },
+        {
+          "word": " no",
+          "start": 68.3,
+          "end": 68.3,
+          "confidence": 0.990218
+        },
+        {
+          "word": " way",
+          "start": 68.34,
+          "end": 68.46,
+          "confidence": 0.994547
+        },
+        {
+          "word": ".",
+          "start": 68.46,
+          "end": 70.38,
+          "confidence": 0.472886
+        },
+        {
+          "word": "[_TT_616]",
+          "start": 70.38,
+          "end": 70.38,
+          "confidence": 0.262268
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "start": 70.38,
+      "end": 72.46,
+      "text": "That mark, it's the original.",
+      "words": [
+        {
+          "word": " That",
+          "start": 70.43,
+          "end": 70.67,
+          "confidence": 0.988457
+        },
+        {
+          "word": " mark",
+          "start": 70.67,
+          "end": 70.96,
+          "confidence": 0.985376
+        },
+        {
+          "word": ",",
+          "start": 70.96,
+          "end": 71.1,
+          "confidence": 0.645963
+        },
+        {
+          "word": " it",
+          "start": 71.1,
+          "end": 71.24,
+          "confidence": 0.992792
+        },
+        {
+          "word": "'s",
+          "start": 71.24,
+          "end": 71.38,
+          "confidence": 0.999588
+        },
+        {
+          "word": " the",
+          "start": 71.38,
+          "end": 71.59,
+          "confidence": 0.997037
+        },
+        {
+          "word": " original",
+          "start": 71.6,
+          "end": 72.18,
+          "confidence": 0.998462
+        },
+        {
+          "word": ".",
+          "start": 72.19,
+          "end": 72.46,
+          "confidence": 0.91034
+        },
+        {
+          "word": "[_TT_720]",
+          "start": 72.46,
+          "end": 72.46,
+          "confidence": 0.141316
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "duration": 76.565,
+  "provider": "whisper.cpp-local",
+  "model": "/Users/gaoxuan/.codex/models/whisper/ggml-base.en.bin"
+}

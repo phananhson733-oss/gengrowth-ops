@@ -1,0 +1,1409 @@
+{
+  "text": "Mr. Bernard, I'm sorry. I've had too much. Please, I'll never disrespect her again. Too late. Can't even protect your own woman, useless. You see that? Huh? I just lost 300 million in business and got humiliated by Uncle Kai. All because of you. Because of me? Yeah. If you just had that drink, none of this would have happened. Lane, you're pathetic. All right, Eve. Can we talk about this at home? Go home to your mother. Hey! You've been crying? No. Break up with Lane. He doesn't deserve you. None of your business? None of my business? Let me go. I'll scream. You said you'd scream, why don't you? Shut up. Come closer. Stop. Please, just stop. Baby, your body's telling me a different story. Babe!",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 9.76,
+      "text": "Mr. Bernard, I'm sorry. I've had too much. Please, I'll never disrespect her again.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 0.0,
+          "end": 0.0,
+          "confidence": 0.620764
+        },
+        {
+          "word": " Mr",
+          "start": 0.01,
+          "end": 0.4,
+          "confidence": 0.301466
+        },
+        {
+          "word": ".",
+          "start": 0.51,
+          "end": 0.99,
+          "confidence": 0.919394
+        },
+        {
+          "word": " Bernard",
+          "start": 1.02,
+          "end": 2.38,
+          "confidence": 0.832901
+        },
+        {
+          "word": ",",
+          "start": 2.38,
+          "end": 2.77,
+          "confidence": 0.530626
+        },
+        {
+          "word": " I",
+          "start": 2.77,
+          "end": 2.97,
+          "confidence": 0.965219
+        },
+        {
+          "word": "'m",
+          "start": 2.97,
+          "end": 3.36,
+          "confidence": 0.685038
+        },
+        {
+          "word": " sorry",
+          "start": 3.45,
+          "end": 4.12,
+          "confidence": 0.994805
+        },
+        {
+          "word": ".",
+          "start": 4.47,
+          "end": 5.0,
+          "confidence": 0.226993
+        },
+        {
+          "word": " I",
+          "start": 5.0,
+          "end": 5.14,
+          "confidence": 0.892372
+        },
+        {
+          "word": "'ve",
+          "start": 5.14,
+          "end": 5.56,
+          "confidence": 0.768837
+        },
+        {
+          "word": " had",
+          "start": 5.56,
+          "end": 5.98,
+          "confidence": 0.972439
+        },
+        {
+          "word": " too",
+          "start": 5.98,
+          "end": 6.4,
+          "confidence": 0.988523
+        },
+        {
+          "word": " much",
+          "start": 6.4,
+          "end": 7.0,
+          "confidence": 0.995328
+        },
+        {
+          "word": ".",
+          "start": 7.0,
+          "end": 7.09,
+          "confidence": 0.839394
+        },
+        {
+          "word": " Please",
+          "start": 7.16,
+          "end": 7.46,
+          "confidence": 0.706881
+        },
+        {
+          "word": ",",
+          "start": 7.46,
+          "end": 7.56,
+          "confidence": 0.644287
+        },
+        {
+          "word": " I",
+          "start": 7.56,
+          "end": 7.57,
+          "confidence": 0.984393
+        },
+        {
+          "word": "'ll",
+          "start": 7.64,
+          "end": 7.74,
+          "confidence": 0.980008
+        },
+        {
+          "word": " never",
+          "start": 7.82,
+          "end": 7.9,
+          "confidence": 0.993375
+        },
+        {
+          "word": " disrespect",
+          "start": 8.03,
+          "end": 8.54,
+          "confidence": 0.99581
+        },
+        {
+          "word": " her",
+          "start": 8.54,
+          "end": 8.66,
+          "confidence": 0.987513
+        },
+        {
+          "word": " again",
+          "start": 8.68,
+          "end": 8.96,
+          "confidence": 0.98419
+        },
+        {
+          "word": ".",
+          "start": 8.99,
+          "end": 9.76,
+          "confidence": 0.687859
+        },
+        {
+          "word": "[_TT_488]",
+          "start": 9.76,
+          "end": 9.76,
+          "confidence": 0.00405708
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 9.76,
+      "end": 11.8,
+      "text": "Too late.",
+      "words": [
+        {
+          "word": " Too",
+          "start": 9.77,
+          "end": 10.37,
+          "confidence": 0.91715
+        },
+        {
+          "word": " late",
+          "start": 10.49,
+          "end": 11.18,
+          "confidence": 0.996841
+        },
+        {
+          "word": ".",
+          "start": 11.18,
+          "end": 11.8,
+          "confidence": 0.940609
+        },
+        {
+          "word": "[_TT_590]",
+          "start": 11.8,
+          "end": 11.8,
+          "confidence": 0.00305922
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 11.8,
+      "end": 37.06,
+      "text": "Can't even protect your own woman, useless.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 11.8,
+          "end": 11.8,
+          "confidence": 0.999807
+        },
+        {
+          "word": " Can",
+          "start": 12.35,
+          "end": 13.69,
+          "confidence": 0.572163
+        },
+        {
+          "word": "'t",
+          "start": 13.69,
+          "end": 14.95,
+          "confidence": 0.997883
+        },
+        {
+          "word": " even",
+          "start": 15.26,
+          "end": 17.45,
+          "confidence": 0.995486
+        },
+        {
+          "word": " protect",
+          "start": 17.47,
+          "end": 21.01,
+          "confidence": 0.998511
+        },
+        {
+          "word": " your",
+          "start": 21.87,
+          "end": 24.4,
+          "confidence": 0.986493
+        },
+        {
+          "word": " own",
+          "start": 24.4,
+          "end": 26.29,
+          "confidence": 0.99426
+        },
+        {
+          "word": " woman",
+          "start": 26.29,
+          "end": 29.44,
+          "confidence": 0.993083
+        },
+        {
+          "word": ",",
+          "start": 29.44,
+          "end": 30.7,
+          "confidence": 0.275838
+        },
+        {
+          "word": " useless",
+          "start": 30.7,
+          "end": 35.11,
+          "confidence": 0.993013
+        },
+        {
+          "word": ".",
+          "start": 35.11,
+          "end": 37.06,
+          "confidence": 0.949552
+        },
+        {
+          "word": "[_TT_1263]",
+          "start": 37.06,
+          "end": 37.06,
+          "confidence": 0.0398665
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 37.06,
+      "end": 41.76,
+      "text": "You see that? Huh? I just lost 300 million in business and got humiliated by Uncle Kai.",
+      "words": [
+        {
+          "word": " You",
+          "start": 37.06,
+          "end": 37.29,
+          "confidence": 0.632885
+        },
+        {
+          "word": " see",
+          "start": 37.29,
+          "end": 37.52,
+          "confidence": 0.99803
+        },
+        {
+          "word": " that",
+          "start": 37.56,
+          "end": 37.82,
+          "confidence": 0.988763
+        },
+        {
+          "word": "?",
+          "start": 37.83,
+          "end": 38.03,
+          "confidence": 0.740541
+        },
+        {
+          "word": " Huh",
+          "start": 38.08,
+          "end": 38.33,
+          "confidence": 0.516426
+        },
+        {
+          "word": "?",
+          "start": 38.33,
+          "end": 38.6,
+          "confidence": 0.952089
+        },
+        {
+          "word": " I",
+          "start": 38.6,
+          "end": 38.64,
+          "confidence": 0.63386
+        },
+        {
+          "word": " just",
+          "start": 38.64,
+          "end": 38.82,
+          "confidence": 0.977543
+        },
+        {
+          "word": " lost",
+          "start": 38.83,
+          "end": 39.02,
+          "confidence": 0.999089
+        },
+        {
+          "word": " 300",
+          "start": 39.02,
+          "end": 39.45,
+          "confidence": 0.722769
+        },
+        {
+          "word": " million",
+          "start": 39.45,
+          "end": 39.78,
+          "confidence": 0.974137
+        },
+        {
+          "word": " in",
+          "start": 39.78,
+          "end": 39.87,
+          "confidence": 0.985699
+        },
+        {
+          "word": " business",
+          "start": 39.87,
+          "end": 40.3,
+          "confidence": 0.984711
+        },
+        {
+          "word": " and",
+          "start": 40.3,
+          "end": 40.44,
+          "confidence": 0.73837
+        },
+        {
+          "word": " got",
+          "start": 40.51,
+          "end": 40.52,
+          "confidence": 0.956681
+        },
+        {
+          "word": " humiliated",
+          "start": 40.56,
+          "end": 41.1,
+          "confidence": 0.978117
+        },
+        {
+          "word": " by",
+          "start": 41.1,
+          "end": 41.18,
+          "confidence": 0.966693
+        },
+        {
+          "word": " Uncle",
+          "start": 41.22,
+          "end": 41.45,
+          "confidence": 0.912477
+        },
+        {
+          "word": " Kai",
+          "start": 41.52,
+          "end": 41.6,
+          "confidence": 0.569593
+        },
+        {
+          "word": ".",
+          "start": 41.6,
+          "end": 41.76,
+          "confidence": 0.699651
+        },
+        {
+          "word": "[_TT_1498]",
+          "start": 41.76,
+          "end": 41.76,
+          "confidence": 0.116733
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 41.76,
+      "end": 46.08,
+      "text": "All because of you. Because of me? Yeah. If you just had that drink, none of this would have happened.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 41.76,
+          "end": 41.76,
+          "confidence": 0.999996
+        },
+        {
+          "word": " All",
+          "start": 41.76,
+          "end": 41.92,
+          "confidence": 0.784717
+        },
+        {
+          "word": " because",
+          "start": 41.92,
+          "end": 42.3,
+          "confidence": 0.994146
+        },
+        {
+          "word": " of",
+          "start": 42.3,
+          "end": 42.41,
+          "confidence": 0.996877
+        },
+        {
+          "word": " you",
+          "start": 42.41,
+          "end": 42.54,
+          "confidence": 0.976276
+        },
+        {
+          "word": ".",
+          "start": 42.57,
+          "end": 42.73,
+          "confidence": 0.623277
+        },
+        {
+          "word": " Because",
+          "start": 42.78,
+          "end": 43.05,
+          "confidence": 0.494855
+        },
+        {
+          "word": " of",
+          "start": 43.05,
+          "end": 43.13,
+          "confidence": 0.99667
+        },
+        {
+          "word": " me",
+          "start": 43.13,
+          "end": 43.21,
+          "confidence": 0.99578
+        },
+        {
+          "word": "?",
+          "start": 43.21,
+          "end": 43.36,
+          "confidence": 0.908593
+        },
+        {
+          "word": " Yeah",
+          "start": 43.36,
+          "end": 43.72,
+          "confidence": 0.537438
+        },
+        {
+          "word": ".",
+          "start": 43.72,
+          "end": 44.0,
+          "confidence": 0.647096
+        },
+        {
+          "word": " If",
+          "start": 44.0,
+          "end": 44.08,
+          "confidence": 0.596986
+        },
+        {
+          "word": " you",
+          "start": 44.08,
+          "end": 44.21,
+          "confidence": 0.998266
+        },
+        {
+          "word": " just",
+          "start": 44.21,
+          "end": 44.38,
+          "confidence": 0.939186
+        },
+        {
+          "word": " had",
+          "start": 44.38,
+          "end": 44.51,
+          "confidence": 0.996548
+        },
+        {
+          "word": " that",
+          "start": 44.51,
+          "end": 44.68,
+          "confidence": 0.991611
+        },
+        {
+          "word": " drink",
+          "start": 44.68,
+          "end": 44.9,
+          "confidence": 0.99378
+        },
+        {
+          "word": ",",
+          "start": 44.9,
+          "end": 44.98,
+          "confidence": 0.847904
+        },
+        {
+          "word": " none",
+          "start": 44.98,
+          "end": 45.15,
+          "confidence": 0.989803
+        },
+        {
+          "word": " of",
+          "start": 45.21,
+          "end": 45.28,
+          "confidence": 0.997674
+        },
+        {
+          "word": " this",
+          "start": 45.28,
+          "end": 45.36,
+          "confidence": 0.973274
+        },
+        {
+          "word": " would",
+          "start": 45.36,
+          "end": 45.47,
+          "confidence": 0.948684
+        },
+        {
+          "word": " have",
+          "start": 45.53,
+          "end": 45.64,
+          "confidence": 0.592197
+        },
+        {
+          "word": " happened",
+          "start": 45.64,
+          "end": 45.88,
+          "confidence": 0.942364
+        },
+        {
+          "word": ".",
+          "start": 45.95,
+          "end": 46.08,
+          "confidence": 0.95777
+        },
+        {
+          "word": "[_TT_216]",
+          "start": 46.08,
+          "end": 46.08,
+          "confidence": 0.0808927
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 46.08,
+      "end": 49.4,
+      "text": "Lane, you're pathetic.",
+      "words": [
+        {
+          "word": " Lane",
+          "start": 46.09,
+          "end": 46.65,
+          "confidence": 0.841672
+        },
+        {
+          "word": ",",
+          "start": 46.66,
+          "end": 46.93,
+          "confidence": 0.687843
+        },
+        {
+          "word": " you",
+          "start": 46.93,
+          "end": 47.36,
+          "confidence": 0.921069
+        },
+        {
+          "word": "'re",
+          "start": 47.36,
+          "end": 47.79,
+          "confidence": 0.993712
+        },
+        {
+          "word": " pathetic",
+          "start": 47.79,
+          "end": 48.94,
+          "confidence": 0.995745
+        },
+        {
+          "word": ".",
+          "start": 48.94,
+          "end": 49.4,
+          "confidence": 0.98931
+        },
+        {
+          "word": "[_TT_382]",
+          "start": 49.4,
+          "end": 49.4,
+          "confidence": 0.0171564
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 49.4,
+      "end": 52.28,
+      "text": "All right, Eve. Can we talk about this at home?",
+      "words": [
+        {
+          "word": " All",
+          "start": 49.4,
+          "end": 49.63,
+          "confidence": 0.448363
+        },
+        {
+          "word": " right",
+          "start": 49.63,
+          "end": 50.01,
+          "confidence": 0.997348
+        },
+        {
+          "word": ",",
+          "start": 50.01,
+          "end": 50.15,
+          "confidence": 0.884906
+        },
+        {
+          "word": " Eve",
+          "start": 50.17,
+          "end": 50.37,
+          "confidence": 0.988668
+        },
+        {
+          "word": ".",
+          "start": 50.42,
+          "end": 50.64,
+          "confidence": 0.480245
+        },
+        {
+          "word": " Can",
+          "start": 50.64,
+          "end": 50.82,
+          "confidence": 0.967227
+        },
+        {
+          "word": " we",
+          "start": 50.82,
+          "end": 50.94,
+          "confidence": 0.995714
+        },
+        {
+          "word": " talk",
+          "start": 50.94,
+          "end": 51.16,
+          "confidence": 0.998015
+        },
+        {
+          "word": " about",
+          "start": 51.17,
+          "end": 51.48,
+          "confidence": 0.998506
+        },
+        {
+          "word": " this",
+          "start": 51.48,
+          "end": 51.72,
+          "confidence": 0.99878
+        },
+        {
+          "word": " at",
+          "start": 51.72,
+          "end": 51.84,
+          "confidence": 0.998479
+        },
+        {
+          "word": " home",
+          "start": 51.84,
+          "end": 52.08,
+          "confidence": 0.999497
+        },
+        {
+          "word": "?",
+          "start": 52.08,
+          "end": 52.28,
+          "confidence": 0.971117
+        },
+        {
+          "word": "[_TT_526]",
+          "start": 52.28,
+          "end": 52.28,
+          "confidence": 0.0336824
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 52.28,
+      "end": 57.04,
+      "text": "Go home to your mother.",
+      "words": [
+        {
+          "word": " Go",
+          "start": 52.29,
+          "end": 52.72,
+          "confidence": 0.991624
+        },
+        {
+          "word": " home",
+          "start": 52.81,
+          "end": 53.63,
+          "confidence": 0.999426
+        },
+        {
+          "word": " to",
+          "start": 53.63,
+          "end": 54.07,
+          "confidence": 0.998917
+        },
+        {
+          "word": " your",
+          "start": 54.07,
+          "end": 54.98,
+          "confidence": 0.997508
+        },
+        {
+          "word": " mother",
+          "start": 54.98,
+          "end": 56.33,
+          "confidence": 0.996506
+        },
+        {
+          "word": ".",
+          "start": 56.33,
+          "end": 57.03,
+          "confidence": 0.97547
+        },
+        {
+          "word": "[_TT_764]",
+          "start": 57.04,
+          "end": 57.04,
+          "confidence": 0.0284485
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 57.04,
+      "end": 65.04,
+      "text": "Hey!",
+      "words": [
+        {
+          "word": " Hey",
+          "start": 57.81,
+          "end": 61.04,
+          "confidence": 0.956674
+        },
+        {
+          "word": "!",
+          "start": 61.04,
+          "end": 64.93,
+          "confidence": 0.839913
+        },
+        {
+          "word": "[_TT_1164]",
+          "start": 65.04,
+          "end": 65.04,
+          "confidence": 0.0031776
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 65.04,
+      "end": 70.48,
+      "text": "You've been crying? No.",
+      "words": [
+        {
+          "word": " You",
+          "start": 65.06,
+          "end": 65.76,
+          "confidence": 0.310419
+        },
+        {
+          "word": "'ve",
+          "start": 65.77,
+          "end": 66.47,
+          "confidence": 0.952417
+        },
+        {
+          "word": " been",
+          "start": 66.47,
+          "end": 67.43,
+          "confidence": 0.996856
+        },
+        {
+          "word": " crying",
+          "start": 67.43,
+          "end": 68.87,
+          "confidence": 0.99911
+        },
+        {
+          "word": "?",
+          "start": 68.87,
+          "end": 69.6,
+          "confidence": 0.969359
+        },
+        {
+          "word": " No",
+          "start": 69.6,
+          "end": 69.95,
+          "confidence": 0.660238
+        },
+        {
+          "word": ".",
+          "start": 69.95,
+          "end": 70.48,
+          "confidence": 0.957545
+        },
+        {
+          "word": "[_TT_1436]",
+          "start": 70.48,
+          "end": 70.48,
+          "confidence": 0.0762596
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 70.48,
+      "end": 76.24,
+      "text": "Break up with Lane. He doesn't deserve you.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 70.48,
+          "end": 70.48,
+          "confidence": 0.999996
+        },
+        {
+          "word": " Break",
+          "start": 70.49,
+          "end": 71.03,
+          "confidence": 0.898942
+        },
+        {
+          "word": " up",
+          "start": 71.03,
+          "end": 71.24,
+          "confidence": 0.980155
+        },
+        {
+          "word": " with",
+          "start": 71.25,
+          "end": 71.69,
+          "confidence": 0.998951
+        },
+        {
+          "word": " Lane",
+          "start": 71.69,
+          "end": 72.13,
+          "confidence": 0.97014
+        },
+        {
+          "word": ".",
+          "start": 72.13,
+          "end": 72.48,
+          "confidence": 0.856897
+        },
+        {
+          "word": " He",
+          "start": 72.48,
+          "end": 72.82,
+          "confidence": 0.914724
+        },
+        {
+          "word": " doesn",
+          "start": 72.82,
+          "end": 73.67,
+          "confidence": 0.99964
+        },
+        {
+          "word": "'t",
+          "start": 73.68,
+          "end": 74.01,
+          "confidence": 0.999844
+        },
+        {
+          "word": " deserve",
+          "start": 74.01,
+          "end": 75.2,
+          "confidence": 0.999386
+        },
+        {
+          "word": " you",
+          "start": 75.2,
+          "end": 75.71,
+          "confidence": 0.999601
+        },
+        {
+          "word": ".",
+          "start": 75.71,
+          "end": 76.24,
+          "confidence": 0.990439
+        },
+        {
+          "word": "[_TT_288]",
+          "start": 76.24,
+          "end": 76.24,
+          "confidence": 0.0619524
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 76.24,
+      "end": 85.48,
+      "text": "None of your business? None of my business?",
+      "words": [
+        {
+          "word": " None",
+          "start": 76.24,
+          "end": 76.55,
+          "confidence": 0.995622
+        },
+        {
+          "word": " of",
+          "start": 76.55,
+          "end": 76.7,
+          "confidence": 0.999203
+        },
+        {
+          "word": " your",
+          "start": 76.74,
+          "end": 77.0,
+          "confidence": 0.988144
+        },
+        {
+          "word": " business",
+          "start": 77.01,
+          "end": 77.63,
+          "confidence": 0.999218
+        },
+        {
+          "word": "?",
+          "start": 77.63,
+          "end": 77.88,
+          "confidence": 0.702311
+        },
+        {
+          "word": " None",
+          "start": 77.88,
+          "end": 79.48,
+          "confidence": 0.843912
+        },
+        {
+          "word": " of",
+          "start": 79.7,
+          "end": 80.28,
+          "confidence": 0.998253
+        },
+        {
+          "word": " my",
+          "start": 80.28,
+          "end": 81.06,
+          "confidence": 0.998584
+        },
+        {
+          "word": " business",
+          "start": 81.12,
+          "end": 84.13,
+          "confidence": 0.998799
+        },
+        {
+          "word": "?",
+          "start": 84.26,
+          "end": 85.45,
+          "confidence": 0.910635
+        },
+        {
+          "word": "[_TT_750]",
+          "start": 85.48,
+          "end": 85.48,
+          "confidence": 0.113699
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 85.48,
+      "end": 102.48,
+      "text": "Let me go. I'll scream.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 85.48,
+          "end": 85.48,
+          "confidence": 0.999983
+        },
+        {
+          "word": " Let",
+          "start": 86.03,
+          "end": 87.69,
+          "confidence": 0.942923
+        },
+        {
+          "word": " me",
+          "start": 87.69,
+          "end": 89.17,
+          "confidence": 0.998692
+        },
+        {
+          "word": " go",
+          "start": 89.17,
+          "end": 90.65,
+          "confidence": 0.996839
+        },
+        {
+          "word": ".",
+          "start": 90.65,
+          "end": 92.86,
+          "confidence": 0.940713
+        },
+        {
+          "word": " I",
+          "start": 92.86,
+          "end": 93.59,
+          "confidence": 0.856927
+        },
+        {
+          "word": "'ll",
+          "start": 93.6,
+          "end": 95.78,
+          "confidence": 0.994713
+        },
+        {
+          "word": " scream",
+          "start": 95.81,
+          "end": 100.24,
+          "confidence": 0.988662
+        },
+        {
+          "word": ".",
+          "start": 100.24,
+          "end": 102.48,
+          "confidence": 0.560405
+        },
+        {
+          "word": "[_TT_850]",
+          "start": 102.48,
+          "end": 102.48,
+          "confidence": 0.00238697
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 102.48,
+      "end": 112.12,
+      "text": "You said you'd scream, why don't you?",
+      "words": [
+        {
+          "word": " You",
+          "start": 102.98,
+          "end": 103.33,
+          "confidence": 0.30006
+        },
+        {
+          "word": " said",
+          "start": 103.33,
+          "end": 104.46,
+          "confidence": 0.994345
+        },
+        {
+          "word": " you",
+          "start": 104.46,
+          "end": 105.31,
+          "confidence": 0.99358
+        },
+        {
+          "word": "'d",
+          "start": 105.31,
+          "end": 105.87,
+          "confidence": 0.978222
+        },
+        {
+          "word": " scream",
+          "start": 105.98,
+          "end": 107.57,
+          "confidence": 0.996334
+        },
+        {
+          "word": ",",
+          "start": 107.57,
+          "end": 108.09,
+          "confidence": 0.424939
+        },
+        {
+          "word": " why",
+          "start": 108.23,
+          "end": 108.88,
+          "confidence": 0.938849
+        },
+        {
+          "word": " don",
+          "start": 109.33,
+          "end": 109.83,
+          "confidence": 0.986148
+        },
+        {
+          "word": "'t",
+          "start": 109.83,
+          "end": 110.37,
+          "confidence": 0.999666
+        },
+        {
+          "word": " you",
+          "start": 110.5,
+          "end": 111.23,
+          "confidence": 0.995797
+        },
+        {
+          "word": "?",
+          "start": 111.23,
+          "end": 112.12,
+          "confidence": 0.94034
+        },
+        {
+          "word": "[_TT_1332]",
+          "start": 112.12,
+          "end": 112.12,
+          "confidence": 0.0117582
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 112.12,
+      "end": 117.04,
+      "text": "Shut up.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 112.12,
+          "end": 112.12,
+          "confidence": 0.999996
+        },
+        {
+          "word": " Shut",
+          "start": 112.67,
+          "end": 114.3,
+          "confidence": 0.98864
+        },
+        {
+          "word": " up",
+          "start": 114.3,
+          "end": 115.39,
+          "confidence": 0.997687
+        },
+        {
+          "word": ".",
+          "start": 115.58,
+          "end": 117.04,
+          "confidence": 0.618048
+        },
+        {
+          "word": "[_TT_246]",
+          "start": 117.04,
+          "end": 117.04,
+          "confidence": 0.00388653
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 117.04,
+      "end": 124.76,
+      "text": "Come closer.",
+      "words": [
+        {
+          "word": " Come",
+          "start": 117.59,
+          "end": 119.41,
+          "confidence": 0.458814
+        },
+        {
+          "word": " closer",
+          "start": 119.55,
+          "end": 122.97,
+          "confidence": 0.899402
+        },
+        {
+          "word": ".",
+          "start": 122.98,
+          "end": 124.76,
+          "confidence": 0.92809
+        },
+        {
+          "word": "[_TT_632]",
+          "start": 124.76,
+          "end": 124.76,
+          "confidence": 0.00595729
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 124.76,
+      "end": 132.2,
+      "text": "Stop. Please, just stop.",
+      "words": [
+        {
+          "word": " Stop",
+          "start": 125.27,
+          "end": 125.9,
+          "confidence": 0.398673
+        },
+        {
+          "word": ".",
+          "start": 125.9,
+          "end": 126.75,
+          "confidence": 0.721333
+        },
+        {
+          "word": " Please",
+          "start": 126.75,
+          "end": 128.46,
+          "confidence": 0.966214
+        },
+        {
+          "word": ",",
+          "start": 128.46,
+          "end": 128.88,
+          "confidence": 0.599076
+        },
+        {
+          "word": " just",
+          "start": 129.22,
+          "end": 130.07,
+          "confidence": 0.972735
+        },
+        {
+          "word": " stop",
+          "start": 130.17,
+          "end": 131.16,
+          "confidence": 0.991569
+        },
+        {
+          "word": ".",
+          "start": 131.61,
+          "end": 132.2,
+          "confidence": 0.872254
+        },
+        {
+          "word": "[_TT_1004]",
+          "start": 132.2,
+          "end": 132.2,
+          "confidence": 0.109826
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "start": 132.2,
+      "end": 142.44,
+      "text": "Baby, your body's telling me a different story.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 132.2,
+          "end": 132.2,
+          "confidence": 0.999996
+        },
+        {
+          "word": " Baby",
+          "start": 132.7,
+          "end": 133.15,
+          "confidence": 0.262636
+        },
+        {
+          "word": ",",
+          "start": 133.15,
+          "end": 133.62,
+          "confidence": 0.940489
+        },
+        {
+          "word": " your",
+          "start": 133.62,
+          "end": 134.57,
+          "confidence": 0.938441
+        },
+        {
+          "word": " body",
+          "start": 134.57,
+          "end": 135.52,
+          "confidence": 0.98407
+        },
+        {
+          "word": "'s",
+          "start": 135.66,
+          "end": 135.99,
+          "confidence": 0.748214
+        },
+        {
+          "word": " telling",
+          "start": 135.99,
+          "end": 137.64,
+          "confidence": 0.998334
+        },
+        {
+          "word": " me",
+          "start": 137.65,
+          "end": 138.11,
+          "confidence": 0.997326
+        },
+        {
+          "word": " a",
+          "start": 138.14,
+          "end": 138.25,
+          "confidence": 0.995328
+        },
+        {
+          "word": " different",
+          "start": 138.37,
+          "end": 140.5,
+          "confidence": 0.99247
+        },
+        {
+          "word": " story",
+          "start": 140.5,
+          "end": 141.64,
+          "confidence": 0.999716
+        },
+        {
+          "word": ".",
+          "start": 141.65,
+          "end": 142.44,
+          "confidence": 0.935346
+        },
+        {
+          "word": "[_TT_512]",
+          "start": 142.44,
+          "end": 142.44,
+          "confidence": 0.00160879
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "start": 142.44,
+      "end": 160.16,
+      "text": "Babe!",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 142.44,
+          "end": 142.44,
+          "confidence": 1
+        },
+        {
+          "word": " Babe",
+          "start": 143.21,
+          "end": 152.49,
+          "confidence": 0.802809
+        },
+        {
+          "word": "!",
+          "start": 152.58,
+          "end": 160.16,
+          "confidence": 0.999329
+        },
+        {
+          "word": "[_TT_886]",
+          "start": 160.16,
+          "end": 160.16,
+          "confidence": 0.121315
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "duration": 163.968,
+  "provider": "whisper.cpp-local",
+  "model": "/Users/gaoxuan/.codex/models/whisper/ggml-base.en.bin"
+}

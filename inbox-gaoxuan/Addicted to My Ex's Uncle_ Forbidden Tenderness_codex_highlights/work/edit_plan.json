@@ -1,0 +1,5369 @@
+{
+  "parts": [
+    {
+      "part_id": 1,
+      "draft_name": "Addicted to My Ex's Uncle_ Forbidden Tenderness_codex_highlights_Part1_The Man in Her Dreams Is His Uncle",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "fps": 24
+      },
+      "total_duration_us": 58080000,
+      "segments": [
+        {
+          "timeline_order": 0,
+          "episode": 1,
+          "role": "hook",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0001.mp4",
+          "source_start_us": 277640000,
+          "source_duration_us": 3400000,
+          "timeline_start_us": 0,
+          "timeline_duration_us": 3400000,
+          "audio_volume": 1.0,
+          "label": "钩子: Forbidden private warning 第1 [277.6s-281.0s]"
+        },
+        {
+          "timeline_order": 1,
+          "episode": 1,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0001.mp4",
+          "source_start_us": 6180000,
+          "source_duration_us": 15960000,
+          "timeline_start_us": 3400000,
+          "timeline_duration_us": 15960000,
+          "audio_volume": 1.0,
+          "label": "主干: Intimate recurring dream 第1 [6.2s-22.1s]"
+        },
+        {
+          "timeline_order": 2,
+          "episode": 1,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0001.mp4",
+          "source_start_us": 27880000,
+          "source_duration_us": 22200000,
+          "timeline_start_us": 19360000,
+          "timeline_duration_us": 22200000,
+          "audio_volume": 1.0,
+          "label": "主干: Eve wakes and wonders who he is 第1 [27.9s-50.1s]"
+        },
+        {
+          "timeline_order": 3,
+          "episode": 1,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0001.mp4",
+          "source_start_us": 145440000,
+          "source_duration_us": 16520000,
+          "timeline_start_us": 41560000,
+          "timeline_duration_us": 16520000,
+          "audio_volume": 1.0,
+          "label": "主干: Boyfriend introduces Uncle Kai and Eve recognizes him 第1 [145.4s-162.0s]"
+        }
+      ],
+      "subtitles": [
+        {
+          "text": "That dress looks beautiful tonight,",
+          "start_us": 0,
+          "duration_us": 1800000,
+          "words": [
+            {
+              "word": " That",
+              "start": 277.64,
+              "end": 277.64,
+              "confidence": 0.998199
+            },
+            {
+              "word": " dress",
+              "start": 277.64,
+              "end": 277.64,
+              "confidence": 0.999464
+            },
+            {
+              "word": " looks",
+              "start": 277.64,
+              "end": 277.64,
+              "confidence": 0.997491
+            },
+            {
+              "word": " beautiful",
+              "start": 277.64,
+              "end": 277.64,
+              "confidence": 0.999703
+            },
+            {
+              "word": " tonight",
+              "start": 277.66,
+              "end": 278.59,
+              "confidence": 0.998731
+            },
+            {
+              "word": ",",
+              "start": 278.59,
+              "end": 279.44,
+              "confidence": 0.563476
+            },
+            {
+              "word": "[_TT_770]",
+              "start": 279.44,
+              "end": 279.44,
+              "confidence": 0.450059
+            }
+          ]
+        },
+        {
+          "text": "next time wear it just for me.",
+          "start_us": 1800000,
+          "duration_us": 1600000,
+          "words": [
+            {
+              "word": " next",
+              "start": 279.46,
+              "end": 279.68,
+              "confidence": 0.992358
+            },
+            {
+              "word": " time",
+              "start": 279.68,
+              "end": 279.92,
+              "confidence": 0.999458
+            },
+            {
+              "word": " wear",
+              "start": 279.92,
+              "end": 280.15,
+              "confidence": 0.875876
+            },
+            {
+              "word": " it",
+              "start": 280.15,
+              "end": 280.28,
+              "confidence": 0.999308
+            },
+            {
+              "word": " just",
+              "start": 280.28,
+              "end": 280.52,
+              "confidence": 0.99602
+            },
+            {
+              "word": " for",
+              "start": 280.52,
+              "end": 280.7,
+              "confidence": 0.997957
+            },
+            {
+              "word": " me",
+              "start": 280.7,
+              "end": 280.82,
+              "confidence": 0.999901
+            },
+            {
+              "word": ".",
+              "start": 280.82,
+              "end": 281.04,
+              "confidence": 0.998032
+            },
+            {
+              "word": "[_TT_850]",
+              "start": 281.04,
+              "end": 281.04,
+              "confidence": 0.138543
+            }
+          ]
+        },
+        {
+          "text": "Eve, my little butterfly.",
+          "start_us": 3400000,
+          "duration_us": 2540000,
+          "words": [
+            {
+              "word": " Eve",
+              "start": 6.18,
+              "end": 6.18,
+              "confidence": 0.550244
+            },
+            {
+              "word": ",",
+              "start": 6.21,
+              "end": 7.5,
+              "confidence": 0.842705
+            },
+            {
+              "word": " my",
+              "start": 7.5,
+              "end": 7.63,
+              "confidence": 0.925493
+            },
+            {
+              "word": " little",
+              "start": 7.63,
+              "end": 8.03,
+              "confidence": 0.998174
+            },
+            {
+              "word": " butterfly",
+              "start": 8.03,
+              "end": 8.64,
+              "confidence": 0.983678
+            },
+            {
+              "word": ".",
+              "start": 8.64,
+              "end": 8.72,
+              "confidence": 0.648728
+            },
+            {
+              "word": "[_TT_436]",
+              "start": 8.72,
+              "end": 8.72,
+              "confidence": 0.124102
+            }
+          ]
+        },
+        {
+          "text": "You only dance in my arms.",
+          "start_us": 6860000,
+          "duration_us": 1620000,
+          "words": [
+            {
+              "word": " You",
+              "start": 9.64,
+              "end": 9.64,
+              "confidence": 0.997394
+            },
+            {
+              "word": " only",
+              "start": 9.64,
+              "end": 9.64,
+              "confidence": 0.997704
+            },
+            {
+              "word": " dance",
+              "start": 9.67,
+              "end": 10.04,
+              "confidence": 0.552176
+            },
+            {
+              "word": " in",
+              "start": 10.04,
+              "end": 10.26,
+              "confidence": 0.998532
+            },
+            {
+              "word": " my",
+              "start": 10.26,
+              "end": 10.48,
+              "confidence": 0.99931
+            },
+            {
+              "word": " arms",
+              "start": 10.48,
+              "end": 10.92,
+              "confidence": 0.999821
+            },
+            {
+              "word": ".",
+              "start": 10.92,
+              "end": 11.26,
+              "confidence": 0.990953
+            },
+            {
+              "word": "[_TT_563]",
+              "start": 11.26,
+              "end": 11.26,
+              "confidence": 0.14341
+            }
+          ]
+        },
+        {
+          "text": "(upbeat music)",
+          "start_us": 8480000,
+          "duration_us": 2580000,
+          "words": [
+            {
+              "word": " (",
+              "start": 11.28,
+              "end": 11.46,
+              "confidence": 0.624095
+            },
+            {
+              "word": "up",
+              "start": 11.46,
+              "end": 11.85,
+              "confidence": 0.631319
+            },
+            {
+              "word": "beat",
+              "start": 11.85,
+              "end": 12.64,
+              "confidence": 0.999741
+            },
+            {
+              "word": " music",
+              "start": 12.64,
+              "end": 13.63,
+              "confidence": 0.994271
+            },
+            {
+              "word": ")",
+              "start": 13.63,
+              "end": 13.84,
+              "confidence": 0.985567
+            },
+            {
+              "word": "[_TT_692]",
+              "start": 13.84,
+              "end": 13.84,
+              "confidence": 0.844723
+            }
+          ]
+        },
+        {
+          "text": "Say my name Eve, say it.",
+          "start_us": 13960000,
+          "duration_us": 2820000,
+          "words": [
+            {
+              "word": " Say",
+              "start": 16.74,
+              "end": 16.74,
+              "confidence": 0.391497
+            },
+            {
+              "word": " my",
+              "start": 16.74,
+              "end": 16.74,
+              "confidence": 0.984966
+            },
+            {
+              "word": " name",
+              "start": 16.74,
+              "end": 16.74,
+              "confidence": 0.99951
+            },
+            {
+              "word": " Eve",
+              "start": 16.77,
+              "end": 17.23,
+              "confidence": 0.660849
+            },
+            {
+              "word": ",",
+              "start": 17.23,
+              "end": 17.79,
+              "confidence": 0.595658
+            },
+            {
+              "word": " say",
+              "start": 17.79,
+              "end": 18.64,
+              "confidence": 0.932709
+            },
+            {
+              "word": " it",
+              "start": 18.64,
+              "end": 19.24,
+              "confidence": 0.996143
+            },
+            {
+              "word": ".",
+              "start": 19.24,
+              "end": 19.56,
+              "confidence": 0.955833
+            },
+            {
+              "word": "[_TT_978]",
+              "start": 19.56,
+              "end": 19.56,
+              "confidence": 0.010524
+            }
+          ]
+        },
+        {
+          "text": "(upbeat music)",
+          "start_us": 16780000,
+          "duration_us": 2580000,
+          "words": [
+            {
+              "word": " (",
+              "start": 19.58,
+              "end": 19.76,
+              "confidence": 0.993688
+            },
+            {
+              "word": "up",
+              "start": 19.76,
+              "end": 20.15,
+              "confidence": 0.411599
+            },
+            {
+              "word": "beat",
+              "start": 20.15,
+              "end": 20.94,
+              "confidence": 0.999831
+            },
+            {
+              "word": " music",
+              "start": 20.94,
+              "end": 21.93,
+              "confidence": 0.996841
+            },
+            {
+              "word": ")",
+              "start": 21.93,
+              "end": 22.14,
+              "confidence": 0.987332
+            },
+            {
+              "word": "[_TT_1107]",
+              "start": 22.14,
+              "end": 22.14,
+              "confidence": 0.721731
+            }
+          ]
+        },
+        {
+          "text": "That dream again.",
+          "start_us": 19360000,
+          "duration_us": 1160000,
+          "words": [
+            {
+              "word": " That",
+              "start": 27.88,
+              "end": 27.88,
+              "confidence": 0.69674
+            },
+            {
+              "word": " dream",
+              "start": 27.88,
+              "end": 27.88,
+              "confidence": 0.994934
+            },
+            {
+              "word": " again",
+              "start": 27.88,
+              "end": 27.88,
+              "confidence": 0.987362
+            },
+            {
+              "word": ".",
+              "start": 27.91,
+              "end": 29.04,
+              "confidence": 0.911176
+            },
+            {
+              "word": "[_TT_1452]",
+              "start": 29.04,
+              "end": 29.04,
+              "confidence": 0.110096
+            }
+          ]
+        },
+        {
+          "text": "(birds chirping)",
+          "start_us": 22420000,
+          "duration_us": 1940000,
+          "words": [
+            {
+              "word": " (",
+              "start": 30.94,
+              "end": 30.94,
+              "confidence": 0.936932
+            },
+            {
+              "word": "birds",
+              "start": 30.94,
+              "end": 30.94,
+              "confidence": 0.0739673
+            },
+            {
+              "word": " ch",
+              "start": 30.96,
+              "end": 31.07,
+              "confidence": 0.853411
+            },
+            {
+              "word": "ir",
+              "start": 31.07,
+              "end": 31.58,
+              "confidence": 0.974308
+            },
+            {
+              "word": "ping",
+              "start": 31.58,
+              "end": 32.6,
+              "confidence": 0.96736
+            },
+            {
+              "word": ")",
+              "start": 32.6,
+              "end": 32.88,
+              "confidence": 0.992828
+            },
+            {
+              "word": "[_TT_144]",
+              "start": 32.88,
+              "end": 32.88,
+              "confidence": 0.111615
+            }
+          ]
+        },
+        {
+          "text": "Babe, eight to night at the Simmons party.",
+          "start_us": 24360000,
+          "duration_us": 2560000,
+          "words": [
+            {
+              "word": " Babe",
+              "start": 32.91,
+              "end": 33.14,
+              "confidence": 0.915534
+            },
+            {
+              "word": ",",
+              "start": 33.14,
+              "end": 33.27,
+              "confidence": 0.969697
+            },
+            {
+              "word": " eight",
+              "start": 33.27,
+              "end": 33.59,
+              "confidence": 0.820933
+            },
+            {
+              "word": " to",
+              "start": 33.59,
+              "end": 33.73,
+              "confidence": 0.27033
+            },
+            {
+              "word": " night",
+              "start": 33.73,
+              "end": 34.06,
+              "confidence": 0.784479
+            },
+            {
+              "word": " at",
+              "start": 34.06,
+              "end": 34.19,
+              "confidence": 0.956879
+            },
+            {
+              "word": " the",
+              "start": 34.19,
+              "end": 34.39,
+              "confidence": 0.982352
+            },
+            {
+              "word": " Simmons",
+              "start": 34.39,
+              "end": 34.86,
+              "confidence": 0.948861
+            },
+            {
+              "word": " party",
+              "start": 34.86,
+              "end": 35.19,
+              "confidence": 0.799543
+            },
+            {
+              "word": ".",
+              "start": 35.19,
+              "end": 35.44,
+              "confidence": 0.60515
+            },
+            {
+              "word": "[_TT_272]",
+              "start": 35.44,
+              "end": 35.44,
+              "confidence": 0.356379
+            }
+          ]
+        },
+        {
+          "text": "Dress pretty.",
+          "start_us": 26920000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " Dress",
+              "start": 35.47,
+              "end": 35.74,
+              "confidence": 0.931405
+            },
+            {
+              "word": " pretty",
+              "start": 35.74,
+              "end": 36.1,
+              "confidence": 0.993854
+            },
+            {
+              "word": ".",
+              "start": 36.1,
+              "end": 36.28,
+              "confidence": 0.987396
+            },
+            {
+              "word": "[_TT_314]",
+              "start": 36.28,
+              "end": 36.28,
+              "confidence": 0.145609
+            }
+          ]
+        },
+        {
+          "text": "It felt so real.",
+          "start_us": 31200000,
+          "duration_us": 1720000,
+          "words": [
+            {
+              "word": " It",
+              "start": 39.72,
+              "end": 39.72,
+              "confidence": 0.756976
+            },
+            {
+              "word": " felt",
+              "start": 39.72,
+              "end": 39.72,
+              "confidence": 0.999247
+            },
+            {
+              "word": " so",
+              "start": 39.72,
+              "end": 39.72,
+              "confidence": 0.996324
+            },
+            {
+              "word": " real",
+              "start": 39.75,
+              "end": 40.38,
+              "confidence": 0.999295
+            },
+            {
+              "word": ".",
+              "start": 40.38,
+              "end": 41.44,
+              "confidence": 0.619252
+            },
+            {
+              "word": "[_TT_572]",
+              "start": 41.44,
+              "end": 41.44,
+              "confidence": 0.233895
+            }
+          ]
+        },
+        {
+          "text": "Too real for just a dream.",
+          "start_us": 32920000,
+          "duration_us": 1920000,
+          "words": [
+            {
+              "word": " Too",
+              "start": 41.46,
+              "end": 41.69,
+              "confidence": 0.991104
+            },
+            {
+              "word": " real",
+              "start": 41.69,
+              "end": 42.02,
+              "confidence": 0.998496
+            },
+            {
+              "word": " for",
+              "start": 42.02,
+              "end": 42.27,
+              "confidence": 0.992282
+            },
+            {
+              "word": " just",
+              "start": 42.27,
+              "end": 42.6,
+              "confidence": 0.997687
+            },
+            {
+              "word": " a",
+              "start": 42.6,
+              "end": 42.68,
+              "confidence": 0.975606
+            },
+            {
+              "word": " dream",
+              "start": 42.68,
+              "end": 43.09,
+              "confidence": 0.999928
+            },
+            {
+              "word": ".",
+              "start": 43.09,
+              "end": 43.36,
+              "confidence": 0.983339
+            },
+            {
+              "word": "[_TT_668]",
+              "start": 43.36,
+              "end": 43.36,
+              "confidence": 0.417816
+            }
+          ]
+        },
+        {
+          "text": "The man in my dream isn't lame.",
+          "start_us": 34840000,
+          "duration_us": 2160000,
+          "words": [
+            {
+              "word": " The",
+              "start": 43.38,
+              "end": 43.6,
+              "confidence": 0.99922
+            },
+            {
+              "word": " man",
+              "start": 43.6,
+              "end": 43.84,
+              "confidence": 0.996993
+            },
+            {
+              "word": " in",
+              "start": 43.84,
+              "end": 44.0,
+              "confidence": 0.997573
+            },
+            {
+              "word": " my",
+              "start": 44.0,
+              "end": 44.16,
+              "confidence": 0.998986
+            },
+            {
+              "word": " dream",
+              "start": 44.16,
+              "end": 44.55,
+              "confidence": 0.998948
+            },
+            {
+              "word": " isn",
+              "start": 44.55,
+              "end": 44.79,
+              "confidence": 0.954265
+            },
+            {
+              "word": "'t",
+              "start": 44.79,
+              "end": 44.94,
+              "confidence": 0.999712
+            },
+            {
+              "word": " lame",
+              "start": 44.94,
+              "end": 45.25,
+              "confidence": 0.524642
+            },
+            {
+              "word": ".",
+              "start": 45.25,
+              "end": 45.52,
+              "confidence": 0.992799
+            },
+            {
+              "word": "[_TT_776]",
+              "start": 45.52,
+              "end": 45.52,
+              "confidence": 0.110967
+            }
+          ]
+        },
+        {
+          "text": "(dramatic music)",
+          "start_us": 38160000,
+          "duration_us": 2560000,
+          "words": [
+            {
+              "word": " (",
+              "start": 46.68,
+              "end": 46.68,
+              "confidence": 0.972997
+            },
+            {
+              "word": "d",
+              "start": 46.68,
+              "end": 46.68,
+              "confidence": 0.106179
+            },
+            {
+              "word": "ram",
+              "start": 46.7,
+              "end": 46.75,
+              "confidence": 0.902741
+            },
+            {
+              "word": "atic",
+              "start": 46.75,
+              "end": 47.74,
+              "confidence": 0.998186
+            },
+            {
+              "word": " music",
+              "start": 47.74,
+              "end": 48.98,
+              "confidence": 0.933087
+            },
+            {
+              "word": ")",
+              "start": 48.98,
+              "end": 49.24,
+              "confidence": 0.995311
+            },
+            {
+              "word": "[_TT_962]",
+              "start": 49.24,
+              "end": 49.24,
+              "confidence": 0.2829
+            }
+          ]
+        },
+        {
+          "text": "Who is he?",
+          "start_us": 40720000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " Who",
+              "start": 49.26,
+              "end": 49.49,
+              "confidence": 0.992334
+            },
+            {
+              "word": " is",
+              "start": 49.49,
+              "end": 49.65,
+              "confidence": 0.997853
+            },
+            {
+              "word": " he",
+              "start": 49.65,
+              "end": 49.81,
+              "confidence": 0.99274
+            },
+            {
+              "word": "?",
+              "start": 49.81,
+              "end": 50.07,
+              "confidence": 0.982836
+            },
+            {
+              "word": "[_TT_1004]",
+              "start": 50.08,
+              "end": 50.08,
+              "confidence": 0.267994
+            }
+          ]
+        },
+        {
+          "text": "Uncle Kai, what are you doing here?",
+          "start_us": 41560000,
+          "duration_us": 2700000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 145.44,
+              "end": 145.44,
+              "confidence": 0.99999
+            },
+            {
+              "word": " Uncle",
+              "start": 145.47,
+              "end": 145.86,
+              "confidence": 0.956864
+            },
+            {
+              "word": " Kai",
+              "start": 145.86,
+              "end": 146.11,
+              "confidence": 0.996981
+            },
+            {
+              "word": ",",
+              "start": 146.11,
+              "end": 146.27,
+              "confidence": 0.945698
+            },
+            {
+              "word": " what",
+              "start": 146.27,
+              "end": 146.6,
+              "confidence": 0.9991
+            },
+            {
+              "word": " are",
+              "start": 146.6,
+              "end": 146.85,
+              "confidence": 0.997105
+            },
+            {
+              "word": " you",
+              "start": 146.85,
+              "end": 147.1,
+              "confidence": 0.999289
+            },
+            {
+              "word": " doing",
+              "start": 147.1,
+              "end": 147.52,
+              "confidence": 0.997352
+            },
+            {
+              "word": " here",
+              "start": 147.52,
+              "end": 147.85,
+              "confidence": 0.998182
+            },
+            {
+              "word": "?",
+              "start": 147.85,
+              "end": 148.14,
+              "confidence": 0.985893
+            },
+            {
+              "word": "[_TT_135]",
+              "start": 148.14,
+              "end": 148.14,
+              "confidence": 0.16234
+            }
+          ]
+        },
+        {
+          "text": "Oh, Uncle Kai, let me introduce you to my girlfriend.",
+          "start_us": 46180000,
+          "duration_us": 2820000,
+          "words": [
+            {
+              "word": " Oh",
+              "start": 150.06,
+              "end": 150.06,
+              "confidence": 0.987432
+            },
+            {
+              "word": ",",
+              "start": 150.06,
+              "end": 150.06,
+              "confidence": 0.842652
+            },
+            {
+              "word": " Uncle",
+              "start": 150.06,
+              "end": 150.06,
+              "confidence": 0.757545
+            },
+            {
+              "word": " Kai",
+              "start": 150.09,
+              "end": 150.54,
+              "confidence": 0.997567
+            },
+            {
+              "word": ",",
+              "start": 150.54,
+              "end": 150.96,
+              "confidence": 0.910578
+            },
+            {
+              "word": " let",
+              "start": 150.96,
+              "end": 151.08,
+              "confidence": 0.978547
+            },
+            {
+              "word": " me",
+              "start": 151.08,
+              "end": 151.15,
+              "confidence": 0.999607
+            },
+            {
+              "word": " introduce",
+              "start": 151.16,
+              "end": 151.54,
+              "confidence": 0.998679
+            },
+            {
+              "word": " you",
+              "start": 151.54,
+              "end": 151.68,
+              "confidence": 0.990397
+            },
+            {
+              "word": " to",
+              "start": 151.68,
+              "end": 151.82,
+              "confidence": 0.954087
+            },
+            {
+              "word": " my",
+              "start": 151.82,
+              "end": 151.96,
+              "confidence": 0.998911
+            },
+            {
+              "word": " girlfriend",
+              "start": 151.96,
+              "end": 152.66,
+              "confidence": 0.996004
+            },
+            {
+              "word": ".",
+              "start": 152.66,
+              "end": 152.88,
+              "confidence": 0.968832
+            },
+            {
+              "word": "[_TT_372]",
+              "start": 152.88,
+              "end": 152.88,
+              "confidence": 0.355541
+            }
+          ]
+        },
+        {
+          "text": "Her name is Eve.",
+          "start_us": 49000000,
+          "duration_us": 1520000,
+          "words": [
+            {
+              "word": " Her",
+              "start": 152.91,
+              "end": 153.18,
+              "confidence": 0.998342
+            },
+            {
+              "word": " name",
+              "start": 153.18,
+              "end": 153.57,
+              "confidence": 0.999638
+            },
+            {
+              "word": " is",
+              "start": 153.57,
+              "end": 153.78,
+              "confidence": 0.99942
+            },
+            {
+              "word": " Eve",
+              "start": 153.78,
+              "end": 154.08,
+              "confidence": 0.850268
+            },
+            {
+              "word": ".",
+              "start": 154.08,
+              "end": 154.4,
+              "confidence": 0.981167
+            },
+            {
+              "word": "[_TT_448]",
+              "start": 154.4,
+              "end": 154.4,
+              "confidence": 0.0330482
+            }
+          ]
+        },
+        {
+          "text": "(upbeat music)",
+          "start_us": 50520000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " (",
+              "start": 154.42,
+              "end": 154.46,
+              "confidence": 0.685636
+            },
+            {
+              "word": "up",
+              "start": 154.46,
+              "end": 154.58,
+              "confidence": 0.424098
+            },
+            {
+              "word": "beat",
+              "start": 154.58,
+              "end": 154.83,
+              "confidence": 0.999895
+            },
+            {
+              "word": " music",
+              "start": 154.83,
+              "end": 155.15,
+              "confidence": 0.996236
+            },
+            {
+              "word": ")",
+              "start": 155.15,
+              "end": 155.24,
+              "confidence": 0.997561
+            },
+            {
+              "word": "[_TT_490]",
+              "start": 155.24,
+              "end": 155.24,
+              "confidence": 0.235885
+            }
+          ]
+        },
+        {
+          "text": "That voice.",
+          "start_us": 51360000,
+          "duration_us": 1600000,
+          "words": [
+            {
+              "word": " That",
+              "start": 155.27,
+              "end": 155.77,
+              "confidence": 0.622256
+            },
+            {
+              "word": " voice",
+              "start": 155.77,
+              "end": 156.43,
+              "confidence": 0.982821
+            },
+            {
+              "word": ".",
+              "start": 156.43,
+              "end": 156.84,
+              "confidence": 0.629598
+            },
+            {
+              "word": "[_TT_570]",
+              "start": 156.84,
+              "end": 156.84,
+              "confidence": 0.103826
+            }
+          ]
+        },
+        {
+          "text": "Say my name, Eve.",
+          "start_us": 52960000,
+          "duration_us": 1060000,
+          "words": [
+            {
+              "word": " Say",
+              "start": 156.86,
+              "end": 157.02,
+              "confidence": 0.710064
+            },
+            {
+              "word": " my",
+              "start": 157.02,
+              "end": 157.14,
+              "confidence": 0.970978
+            },
+            {
+              "word": " name",
+              "start": 157.14,
+              "end": 157.38,
+              "confidence": 0.99887
+            },
+            {
+              "word": ",",
+              "start": 157.38,
+              "end": 157.5,
+              "confidence": 0.628758
+            },
+            {
+              "word": " Eve",
+              "start": 157.5,
+              "end": 157.68,
+              "confidence": 0.984874
+            },
+            {
+              "word": ".",
+              "start": 157.68,
+              "end": 157.9,
+              "confidence": 0.979527
+            },
+            {
+              "word": "[_TT_623]",
+              "start": 157.9,
+              "end": 157.9,
+              "confidence": 0.0356998
+            }
+          ]
+        },
+        {
+          "text": "He's the man from my dreams?",
+          "start_us": 55760000,
+          "duration_us": 2320000,
+          "words": [
+            {
+              "word": " He",
+              "start": 159.64,
+              "end": 159.64,
+              "confidence": 0.769218
+            },
+            {
+              "word": "'s",
+              "start": 159.64,
+              "end": 159.64,
+              "confidence": 0.995459
+            },
+            {
+              "word": " the",
+              "start": 159.64,
+              "end": 159.64,
+              "confidence": 0.99886
+            },
+            {
+              "word": " man",
+              "start": 159.64,
+              "end": 159.64,
+              "confidence": 0.99751
+            },
+            {
+              "word": " from",
+              "start": 159.67,
+              "end": 160.14,
+              "confidence": 0.671668
+            },
+            {
+              "word": " my",
+              "start": 160.14,
+              "end": 160.46,
+              "confidence": 0.998456
+            },
+            {
+              "word": " dreams",
+              "start": 160.46,
+              "end": 161.42,
+              "confidence": 0.992661
+            },
+            {
+              "word": "?",
+              "start": 161.43,
+              "end": 161.96,
+              "confidence": 0.661666
+            },
+            {
+              "word": "[_TT_826]",
+              "start": 161.96,
+              "end": 161.96,
+              "confidence": 0.0987825
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_id": 2,
+      "draft_name": "Addicted to My Ex's Uncle_ Forbidden Tenderness_codex_highlights_Part2_The Sixty Million Dollar Secret",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "fps": 24
+      },
+      "total_duration_us": 54580000,
+      "segments": [
+        {
+          "timeline_order": 0,
+          "episode": 5,
+          "role": "hook",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 87760000,
+          "source_duration_us": 7480000,
+          "timeline_start_us": 0,
+          "timeline_duration_us": 7480000,
+          "audio_volume": 1.0,
+          "label": "钩子: Kai reveals he chose the necklace for her 第5 [87.8s-95.2s]"
+        },
+        {
+          "timeline_order": 1,
+          "episode": 3,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0003.mp4",
+          "source_start_us": 6500000,
+          "source_duration_us": 11120000,
+          "timeline_start_us": 7480000,
+          "timeline_duration_us": 11120000,
+          "audio_volume": 1.0,
+          "label": "主干: Friends admire the necklace 第3 [6.5s-17.6s]"
+        },
+        {
+          "timeline_order": 2,
+          "episode": 3,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0003.mp4",
+          "source_start_us": 21220000,
+          "source_duration_us": 27660000,
+          "timeline_start_us": 18600000,
+          "timeline_duration_us": 27660000,
+          "audio_volume": 1.0,
+          "label": "主干: Rival calls it fake and reveals the auction price 第3 [21.2s-48.9s]"
+        },
+        {
+          "timeline_order": 3,
+          "episode": 3,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0003.mp4",
+          "source_start_us": 58620000,
+          "source_duration_us": 4160000,
+          "timeline_start_us": 46260000,
+          "timeline_duration_us": 4160000,
+          "audio_volume": 1.0,
+          "label": "主干: They search for the Queens mark 第3 [58.6s-62.8s]"
+        },
+        {
+          "timeline_order": 4,
+          "episode": 3,
+          "role": "ending",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0003.mp4",
+          "source_start_us": 68300000,
+          "source_duration_us": 4160000,
+          "timeline_start_us": 50420000,
+          "timeline_duration_us": 4160000,
+          "audio_volume": 1.0,
+          "label": "悬念结尾: The necklace is confirmed genuine 第3 [68.3s-72.5s]"
+        }
+      ],
+      "subtitles": [
+        {
+          "text": "- You look even more beautiful in that necklace",
+          "start_us": 0,
+          "duration_us": 1920000,
+          "words": [
+            {
+              "word": " -",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.448809
+            },
+            {
+              "word": " You",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.880216
+            },
+            {
+              "word": " look",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.997267
+            },
+            {
+              "word": " even",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.997166
+            },
+            {
+              "word": " more",
+              "start": 87.82,
+              "end": 88.08,
+              "confidence": 0.999239
+            },
+            {
+              "word": " beautiful",
+              "start": 88.08,
+              "end": 88.96,
+              "confidence": 0.99842
+            },
+            {
+              "word": " in",
+              "start": 88.96,
+              "end": 89.06,
+              "confidence": 0.522656
+            },
+            {
+              "word": " that",
+              "start": 89.06,
+              "end": 89.25,
+              "confidence": 0.991514
+            },
+            {
+              "word": " necklace",
+              "start": 89.25,
+              "end": 89.68,
+              "confidence": 0.953039
+            },
+            {
+              "word": "[_TT_1490]",
+              "start": 89.68,
+              "end": 89.68,
+              "confidence": 0.32518
+            }
+          ]
+        },
+        {
+          "text": "than I imagined.",
+          "start_us": 1920000,
+          "duration_us": 1640000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 89.68,
+              "end": 89.68,
+              "confidence": 0.999971
+            },
+            {
+              "word": " than",
+              "start": 89.74,
+              "end": 90.06,
+              "confidence": 0.91609
+            },
+            {
+              "word": " I",
+              "start": 90.06,
+              "end": 90.15,
+              "confidence": 0.996077
+            },
+            {
+              "word": " imagined",
+              "start": 90.15,
+              "end": 90.92,
+              "confidence": 0.946672
+            },
+            {
+              "word": ".",
+              "start": 90.92,
+              "end": 91.32,
+              "confidence": 0.72807
+            },
+            {
+              "word": "[_TT_82]",
+              "start": 91.32,
+              "end": 91.32,
+              "confidence": 0.0725553
+            }
+          ]
+        },
+        {
+          "text": "Next time wear it on your ankle, just for me.",
+          "start_us": 3560000,
+          "duration_us": 3920000,
+          "words": [
+            {
+              "word": " Next",
+              "start": 91.38,
+              "end": 91.56,
+              "confidence": 0.773589
+            },
+            {
+              "word": " time",
+              "start": 91.56,
+              "end": 91.8,
+              "confidence": 0.995044
+            },
+            {
+              "word": " wear",
+              "start": 91.8,
+              "end": 92.04,
+              "confidence": 0.912367
+            },
+            {
+              "word": " it",
+              "start": 92.04,
+              "end": 92.16,
+              "confidence": 0.996795
+            },
+            {
+              "word": " on",
+              "start": 92.16,
+              "end": 92.28,
+              "confidence": 0.997944
+            },
+            {
+              "word": " your",
+              "start": 92.28,
+              "end": 92.52,
+              "confidence": 0.99854
+            },
+            {
+              "word": " ankle",
+              "start": 92.52,
+              "end": 92.83,
+              "confidence": 0.999011
+            },
+            {
+              "word": ",",
+              "start": 92.88,
+              "end": 92.96,
+              "confidence": 0.346239
+            },
+            {
+              "word": " just",
+              "start": 92.96,
+              "end": 93.72,
+              "confidence": 0.52911
+            },
+            {
+              "word": " for",
+              "start": 93.72,
+              "end": 94.29,
+              "confidence": 0.920205
+            },
+            {
+              "word": " me",
+              "start": 94.29,
+              "end": 94.66,
+              "confidence": 0.998677
+            },
+            {
+              "word": ".",
+              "start": 94.66,
+              "end": 95.15,
+              "confidence": 0.994778
+            },
+            {
+              "word": "[_TT_278]",
+              "start": 95.24,
+              "end": 95.24,
+              "confidence": 0.0720912
+            }
+          ]
+        },
+        {
+          "text": "Oh my god, what a beautiful necklace.",
+          "start_us": 7480000,
+          "duration_us": 1880000,
+          "words": [
+            {
+              "word": " Oh",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.828481
+            },
+            {
+              "word": " my",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.939483
+            },
+            {
+              "word": " god",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.507873
+            },
+            {
+              "word": ",",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.403173
+            },
+            {
+              "word": " what",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.831446
+            },
+            {
+              "word": " a",
+              "start": 6.5,
+              "end": 6.5,
+              "confidence": 0.992892
+            },
+            {
+              "word": " beautiful",
+              "start": 6.53,
+              "end": 6.53,
+              "confidence": 0.998675
+            },
+            {
+              "word": " necklace",
+              "start": 6.55,
+              "end": 7.85,
+              "confidence": 0.999317
+            },
+            {
+              "word": ".",
+              "start": 7.85,
+              "end": 8.38,
+              "confidence": 0.333084
+            },
+            {
+              "word": "[_TT_419]",
+              "start": 8.38,
+              "end": 8.38,
+              "confidence": 0.0761132
+            }
+          ]
+        },
+        {
+          "text": "It's stunning.",
+          "start_us": 9360000,
+          "duration_us": 1160000,
+          "words": [
+            {
+              "word": " It",
+              "start": 8.42,
+              "end": 8.53,
+              "confidence": 0.995233
+            },
+            {
+              "word": "'s",
+              "start": 8.53,
+              "end": 8.68,
+              "confidence": 0.996985
+            },
+            {
+              "word": " stunning",
+              "start": 8.68,
+              "end": 9.29,
+              "confidence": 0.999186
+            },
+            {
+              "word": ".",
+              "start": 9.29,
+              "end": 9.53,
+              "confidence": 0.782693
+            },
+            {
+              "word": "[_TT_477]",
+              "start": 9.54,
+              "end": 9.54,
+              "confidence": 0.198956
+            }
+          ]
+        },
+        {
+          "text": "How much do you think that costs?",
+          "start_us": 10520000,
+          "duration_us": 2280000,
+          "words": [
+            {
+              "word": " How",
+              "start": 9.59,
+              "end": 9.8,
+              "confidence": 0.998336
+            },
+            {
+              "word": " much",
+              "start": 9.8,
+              "end": 10.14,
+              "confidence": 0.999846
+            },
+            {
+              "word": " do",
+              "start": 10.14,
+              "end": 10.31,
+              "confidence": 0.99899
+            },
+            {
+              "word": " you",
+              "start": 10.31,
+              "end": 10.57,
+              "confidence": 0.997798
+            },
+            {
+              "word": " think",
+              "start": 10.57,
+              "end": 11.0,
+              "confidence": 0.999438
+            },
+            {
+              "word": " that",
+              "start": 11.0,
+              "end": 11.34,
+              "confidence": 0.997103
+            },
+            {
+              "word": " costs",
+              "start": 11.34,
+              "end": 11.8,
+              "confidence": 0.909016
+            },
+            {
+              "word": "?",
+              "start": 11.8,
+              "end": 11.82,
+              "confidence": 0.661698
+            },
+            {
+              "word": "[_TT_591]",
+              "start": 11.82,
+              "end": 11.82,
+              "confidence": 0.210504
+            }
+          ]
+        },
+        {
+          "text": "To my one and only.",
+          "start_us": 12800000,
+          "duration_us": 1480000,
+          "words": [
+            {
+              "word": " To",
+              "start": 11.86,
+              "end": 11.99,
+              "confidence": 0.945424
+            },
+            {
+              "word": " my",
+              "start": 11.99,
+              "end": 12.16,
+              "confidence": 0.993076
+            },
+            {
+              "word": " one",
+              "start": 12.16,
+              "end": 12.42,
+              "confidence": 0.984944
+            },
+            {
+              "word": " and",
+              "start": 12.42,
+              "end": 12.68,
+              "confidence": 0.995765
+            },
+            {
+              "word": " only",
+              "start": 12.68,
+              "end": 12.98,
+              "confidence": 0.999777
+            },
+            {
+              "word": ".",
+              "start": 13.01,
+              "end": 13.3,
+              "confidence": 0.872028
+            },
+            {
+              "word": "[_TT_665]",
+              "start": 13.3,
+              "end": 13.3,
+              "confidence": 0.0580928
+            }
+          ]
+        },
+        {
+          "text": "Lane got it for you?",
+          "start_us": 15500000,
+          "duration_us": 1260000,
+          "words": [
+            {
+              "word": " Lane",
+              "start": 14.52,
+              "end": 14.52,
+              "confidence": 0.786167
+            },
+            {
+              "word": " got",
+              "start": 14.52,
+              "end": 14.52,
+              "confidence": 0.983149
+            },
+            {
+              "word": " it",
+              "start": 14.53,
+              "end": 14.53,
+              "confidence": 0.999287
+            },
+            {
+              "word": " for",
+              "start": 14.57,
+              "end": 14.94,
+              "confidence": 0.999009
+            },
+            {
+              "word": " you",
+              "start": 14.94,
+              "end": 15.35,
+              "confidence": 0.99971
+            },
+            {
+              "word": "?",
+              "start": 15.35,
+              "end": 15.78,
+              "confidence": 0.618871
+            },
+            {
+              "word": "[_TT_789]",
+              "start": 15.78,
+              "end": 15.78,
+              "confidence": 0.55055
+            }
+          ]
+        },
+        {
+          "text": "Your boyfriend spoils you rotten.",
+          "start_us": 16760000,
+          "duration_us": 1840000,
+          "words": [
+            {
+              "word": " Your",
+              "start": 15.83,
+              "end": 16.01,
+              "confidence": 0.949921
+            },
+            {
+              "word": " boyfriend",
+              "start": 16.01,
+              "end": 16.53,
+              "confidence": 0.998452
+            },
+            {
+              "word": " spo",
+              "start": 16.54,
+              "end": 16.7,
+              "confidence": 0.892745
+            },
+            {
+              "word": "ils",
+              "start": 16.7,
+              "end": 16.87,
+              "confidence": 0.997265
+            },
+            {
+              "word": " you",
+              "start": 16.88,
+              "end": 17.05,
+              "confidence": 0.939915
+            },
+            {
+              "word": " rotten",
+              "start": 17.05,
+              "end": 17.4,
+              "confidence": 0.970875
+            },
+            {
+              "word": ".",
+              "start": 17.4,
+              "end": 17.62,
+              "confidence": 0.966199
+            },
+            {
+              "word": "[_TT_881]",
+              "start": 17.62,
+              "end": 17.62,
+              "confidence": 0.152036
+            }
+          ]
+        },
+        {
+          "text": "Must be nice, getting fakes.",
+          "start_us": 18600000,
+          "duration_us": 2480000,
+          "words": [
+            {
+              "word": " Must",
+              "start": 21.22,
+              "end": 21.22,
+              "confidence": 0.987515
+            },
+            {
+              "word": " be",
+              "start": 21.22,
+              "end": 21.22,
+              "confidence": 0.998597
+            },
+            {
+              "word": " nice",
+              "start": 21.27,
+              "end": 21.69,
+              "confidence": 0.999708
+            },
+            {
+              "word": ",",
+              "start": 21.72,
+              "end": 22.52,
+              "confidence": 0.54625
+            },
+            {
+              "word": " getting",
+              "start": 22.52,
+              "end": 23.06,
+              "confidence": 0.984038
+            },
+            {
+              "word": " f",
+              "start": 23.07,
+              "end": 23.14,
+              "confidence": 0.961672
+            },
+            {
+              "word": "akes",
+              "start": 23.14,
+              "end": 23.45,
+              "confidence": 0.997483
+            },
+            {
+              "word": ".",
+              "start": 23.45,
+              "end": 23.62,
+              "confidence": 0.976539
+            },
+            {
+              "word": "[_TT_1185]",
+              "start": 23.7,
+              "end": 23.7,
+              "confidence": 0.200353
+            }
+          ]
+        },
+        {
+          "text": "What are you talking about?",
+          "start_us": 24140000,
+          "duration_us": 1300000,
+          "words": [
+            {
+              "word": " What",
+              "start": 26.76,
+              "end": 26.76,
+              "confidence": 0.947554
+            },
+            {
+              "word": " are",
+              "start": 26.76,
+              "end": 26.76,
+              "confidence": 0.991565
+            },
+            {
+              "word": " you",
+              "start": 26.76,
+              "end": 26.76,
+              "confidence": 0.998868
+            },
+            {
+              "word": " talking",
+              "start": 26.76,
+              "end": 26.76,
+              "confidence": 0.999228
+            },
+            {
+              "word": " about",
+              "start": 26.81,
+              "end": 27.52,
+              "confidence": 0.999458
+            },
+            {
+              "word": "?",
+              "start": 27.52,
+              "end": 28.06,
+              "confidence": 0.976291
+            },
+            {
+              "word": "[_TT_1403]",
+              "start": 28.06,
+              "end": 28.06,
+              "confidence": 0.334054
+            }
+          ]
+        },
+        {
+          "text": "Eve's boyfriend is a legit heir.",
+          "start_us": 25440000,
+          "duration_us": 1860000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 28.06,
+              "end": 28.06,
+              "confidence": 0.999996
+            },
+            {
+              "word": " Eve",
+              "start": 28.11,
+              "end": 28.25,
+              "confidence": 0.830144
+            },
+            {
+              "word": "'s",
+              "start": 28.25,
+              "end": 28.37,
+              "confidence": 0.998588
+            },
+            {
+              "word": " boyfriend",
+              "start": 28.37,
+              "end": 28.94,
+              "confidence": 0.988561
+            },
+            {
+              "word": " is",
+              "start": 28.94,
+              "end": 29.06,
+              "confidence": 0.99822
+            },
+            {
+              "word": " a",
+              "start": 29.06,
+              "end": 29.12,
+              "confidence": 0.998098
+            },
+            {
+              "word": " legit",
+              "start": 29.12,
+              "end": 29.44,
+              "confidence": 0.975636
+            },
+            {
+              "word": " heir",
+              "start": 29.44,
+              "end": 29.69,
+              "confidence": 0.967841
+            },
+            {
+              "word": ".",
+              "start": 29.69,
+              "end": 29.91,
+              "confidence": 0.993159
+            },
+            {
+              "word": "[_TT_93]",
+              "start": 29.92,
+              "end": 29.92,
+              "confidence": 0.0390918
+            }
+          ]
+        },
+        {
+          "text": "The original is the star's tier.",
+          "start_us": 28860000,
+          "duration_us": 2640000,
+          "words": [
+            {
+              "word": " The",
+              "start": 31.48,
+              "end": 31.48,
+              "confidence": 0.998517
+            },
+            {
+              "word": " original",
+              "start": 31.5,
+              "end": 31.5,
+              "confidence": 0.994833
+            },
+            {
+              "word": " is",
+              "start": 31.53,
+              "end": 31.79,
+              "confidence": 0.994605
+            },
+            {
+              "word": " the",
+              "start": 31.79,
+              "end": 32.21,
+              "confidence": 0.70876
+            },
+            {
+              "word": " star",
+              "start": 32.22,
+              "end": 32.79,
+              "confidence": 0.506048
+            },
+            {
+              "word": "'s",
+              "start": 32.79,
+              "end": 33.07,
+              "confidence": 0.986515
+            },
+            {
+              "word": " tier",
+              "start": 33.07,
+              "end": 33.64,
+              "confidence": 0.706837
+            },
+            {
+              "word": ".",
+              "start": 33.64,
+              "end": 34.12,
+              "confidence": 0.608145
+            },
+            {
+              "word": "[_TT_303]",
+              "start": 34.12,
+              "end": 34.12,
+              "confidence": 0.249651
+            }
+          ]
+        },
+        {
+          "text": "Warned by Queen Victoria.",
+          "start_us": 31500000,
+          "duration_us": 2160000,
+          "words": [
+            {
+              "word": " Warn",
+              "start": 34.17,
+              "end": 34.48,
+              "confidence": 0.232356
+            },
+            {
+              "word": "ed",
+              "start": 34.48,
+              "end": 34.64,
+              "confidence": 0.848785
+            },
+            {
+              "word": " by",
+              "start": 34.67,
+              "end": 34.83,
+              "confidence": 0.999302
+            },
+            {
+              "word": " Queen",
+              "start": 34.83,
+              "end": 35.27,
+              "confidence": 0.852848
+            },
+            {
+              "word": " Victoria",
+              "start": 35.27,
+              "end": 35.97,
+              "confidence": 0.994489
+            },
+            {
+              "word": ".",
+              "start": 35.99,
+              "end": 36.28,
+              "confidence": 0.891657
+            },
+            {
+              "word": "[_TT_411]",
+              "start": 36.28,
+              "end": 36.28,
+              "confidence": 0.447358
+            }
+          ]
+        },
+        {
+          "text": "It sold at a San Francisco auction last week.",
+          "start_us": 33660000,
+          "duration_us": 2600000,
+          "words": [
+            {
+              "word": " It",
+              "start": 36.32,
+              "end": 36.42,
+              "confidence": 0.994389
+            },
+            {
+              "word": " sold",
+              "start": 36.42,
+              "end": 36.7,
+              "confidence": 0.614979
+            },
+            {
+              "word": " at",
+              "start": 36.7,
+              "end": 36.84,
+              "confidence": 0.998091
+            },
+            {
+              "word": " a",
+              "start": 36.84,
+              "end": 36.91,
+              "confidence": 0.990016
+            },
+            {
+              "word": " San",
+              "start": 36.91,
+              "end": 37.12,
+              "confidence": 0.996383
+            },
+            {
+              "word": " Francisco",
+              "start": 37.12,
+              "end": 37.76,
+              "confidence": 0.997309
+            },
+            {
+              "word": " auction",
+              "start": 37.76,
+              "end": 38.26,
+              "confidence": 0.992612
+            },
+            {
+              "word": " last",
+              "start": 38.26,
+              "end": 38.54,
+              "confidence": 0.996432
+            },
+            {
+              "word": " week",
+              "start": 38.54,
+              "end": 38.8,
+              "confidence": 0.999678
+            },
+            {
+              "word": ".",
+              "start": 38.87,
+              "end": 38.88,
+              "confidence": 0.80247
+            },
+            {
+              "word": "[_TT_541]",
+              "start": 38.88,
+              "end": 38.88,
+              "confidence": 0.403744
+            }
+          ]
+        },
+        {
+          "text": "$60 million to a mysterious Mr. K.",
+          "start_us": 36260000,
+          "duration_us": 4640000,
+          "words": [
+            {
+              "word": " $",
+              "start": 38.92,
+              "end": 39.02,
+              "confidence": 0.676171
+            },
+            {
+              "word": "60",
+              "start": 39.02,
+              "end": 39.87,
+              "confidence": 0.995688
+            },
+            {
+              "word": " million",
+              "start": 39.87,
+              "end": 40.87,
+              "confidence": 0.978046
+            },
+            {
+              "word": " to",
+              "start": 40.89,
+              "end": 41.12,
+              "confidence": 0.879471
+            },
+            {
+              "word": " a",
+              "start": 41.12,
+              "end": 41.24,
+              "confidence": 0.997194
+            },
+            {
+              "word": " mysterious",
+              "start": 41.24,
+              "end": 42.42,
+              "confidence": 0.996482
+            },
+            {
+              "word": " Mr",
+              "start": 42.42,
+              "end": 42.67,
+              "confidence": 0.950644
+            },
+            {
+              "word": ".",
+              "start": 42.67,
+              "end": 43.02,
+              "confidence": 0.865382
+            },
+            {
+              "word": " K",
+              "start": 43.02,
+              "end": 43.14,
+              "confidence": 0.784071
+            },
+            {
+              "word": ".",
+              "start": 43.14,
+              "end": 43.52,
+              "confidence": 0.851221
+            },
+            {
+              "word": "[_TT_773]",
+              "start": 43.52,
+              "end": 43.52,
+              "confidence": 0.216398
+            }
+          ]
+        },
+        {
+          "text": "Definitely not your boyfriend.",
+          "start_us": 40900000,
+          "duration_us": 1800000,
+          "words": [
+            {
+              "word": " Definitely",
+              "start": 43.57,
+              "end": 44.14,
+              "confidence": 0.990476
+            },
+            {
+              "word": " not",
+              "start": 44.14,
+              "end": 44.32,
+              "confidence": 0.993722
+            },
+            {
+              "word": " your",
+              "start": 44.32,
+              "end": 44.56,
+              "confidence": 0.998502
+            },
+            {
+              "word": " boyfriend",
+              "start": 44.56,
+              "end": 45.11,
+              "confidence": 0.998929
+            },
+            {
+              "word": ".",
+              "start": 45.11,
+              "end": 45.32,
+              "confidence": 0.985131
+            },
+            {
+              "word": "[_TT_863]",
+              "start": 45.32,
+              "end": 45.32,
+              "confidence": 0.06397
+            }
+          ]
+        },
+        {
+          "text": "It's $60 million, so he uses really a fake.",
+          "start_us": 42700000,
+          "duration_us": 3560000,
+          "words": [
+            {
+              "word": " It",
+              "start": 45.36,
+              "end": 45.48,
+              "confidence": 0.800555
+            },
+            {
+              "word": "'s",
+              "start": 45.48,
+              "end": 45.64,
+              "confidence": 0.989555
+            },
+            {
+              "word": " $",
+              "start": 45.64,
+              "end": 45.72,
+              "confidence": 0.45647
+            },
+            {
+              "word": "60",
+              "start": 45.72,
+              "end": 46.21,
+              "confidence": 0.997392
+            },
+            {
+              "word": " million",
+              "start": 46.21,
+              "end": 46.78,
+              "confidence": 0.993083
+            },
+            {
+              "word": ",",
+              "start": 46.78,
+              "end": 46.96,
+              "confidence": 0.185809
+            },
+            {
+              "word": " so",
+              "start": 46.96,
+              "end": 47.12,
+              "confidence": 0.924759
+            },
+            {
+              "word": " he",
+              "start": 47.13,
+              "end": 47.3,
+              "confidence": 0.649495
+            },
+            {
+              "word": " uses",
+              "start": 47.3,
+              "end": 47.64,
+              "confidence": 0.896919
+            },
+            {
+              "word": " really",
+              "start": 47.64,
+              "end": 48.15,
+              "confidence": 0.71976
+            },
+            {
+              "word": " a",
+              "start": 48.16,
+              "end": 48.17,
+              "confidence": 0.98516
+            },
+            {
+              "word": " fake",
+              "start": 48.25,
+              "end": 48.58,
+              "confidence": 0.909622
+            },
+            {
+              "word": ".",
+              "start": 48.58,
+              "end": 48.87,
+              "confidence": 0.9787
+            },
+            {
+              "word": "[_TT_1041]",
+              "start": 48.88,
+              "end": 48.88,
+              "confidence": 0.0573307
+            }
+          ]
+        },
+        {
+          "text": "The original has the Queen's mark of V.",
+          "start_us": 46260000,
+          "duration_us": 2800000,
+          "words": [
+            {
+              "word": " The",
+              "start": 58.62,
+              "end": 58.62,
+              "confidence": 0.99858
+            },
+            {
+              "word": " original",
+              "start": 58.66,
+              "end": 58.66,
+              "confidence": 0.997265
+            },
+            {
+              "word": " has",
+              "start": 58.67,
+              "end": 59.01,
+              "confidence": 0.998647
+            },
+            {
+              "word": " the",
+              "start": 59.01,
+              "end": 59.35,
+              "confidence": 0.994818
+            },
+            {
+              "word": " Queen",
+              "start": 59.36,
+              "end": 59.95,
+              "confidence": 0.549862
+            },
+            {
+              "word": "'s",
+              "start": 59.95,
+              "end": 60.18,
+              "confidence": 0.998273
+            },
+            {
+              "word": " mark",
+              "start": 60.18,
+              "end": 60.65,
+              "confidence": 0.71226
+            },
+            {
+              "word": " of",
+              "start": 60.65,
+              "end": 60.88,
+              "confidence": 0.960166
+            },
+            {
+              "word": " V",
+              "start": 60.88,
+              "end": 61.0,
+              "confidence": 0.875334
+            },
+            {
+              "word": ".",
+              "start": 61.0,
+              "end": 61.42,
+              "confidence": 0.904696
+            },
+            {
+              "word": "[_TT_168]",
+              "start": 61.42,
+              "end": 61.42,
+              "confidence": 0.291872
+            }
+          ]
+        },
+        {
+          "text": "This one definitely doesn't.",
+          "start_us": 49060000,
+          "duration_us": 1360000,
+          "words": [
+            {
+              "word": " This",
+              "start": 61.47,
+              "end": 61.62,
+              "confidence": 0.998304
+            },
+            {
+              "word": " one",
+              "start": 61.62,
+              "end": 61.77,
+              "confidence": 0.99919
+            },
+            {
+              "word": " definitely",
+              "start": 61.77,
+              "end": 62.27,
+              "confidence": 0.997994
+            },
+            {
+              "word": " doesn",
+              "start": 62.27,
+              "end": 62.51,
+              "confidence": 0.999047
+            },
+            {
+              "word": "'t",
+              "start": 62.52,
+              "end": 62.62,
+              "confidence": 0.999897
+            },
+            {
+              "word": ".",
+              "start": 62.62,
+              "end": 62.78,
+              "confidence": 0.998475
+            },
+            {
+              "word": "[_TT_236]",
+              "start": 62.78,
+              "end": 62.78,
+              "confidence": 0.121583
+            }
+          ]
+        },
+        {
+          "text": "No, no way.",
+          "start_us": 50420000,
+          "duration_us": 2080000,
+          "words": [
+            {
+              "word": " No",
+              "start": 68.3,
+              "end": 68.3,
+              "confidence": 0.994129
+            },
+            {
+              "word": ",",
+              "start": 68.3,
+              "end": 68.3,
+              "confidence": 0.480895
+            },
+            {
+              "word": " no",
+              "start": 68.3,
+              "end": 68.3,
+              "confidence": 0.990218
+            },
+            {
+              "word": " way",
+              "start": 68.34,
+              "end": 68.46,
+              "confidence": 0.994547
+            },
+            {
+              "word": ".",
+              "start": 68.46,
+              "end": 70.38,
+              "confidence": 0.472886
+            },
+            {
+              "word": "[_TT_616]",
+              "start": 70.38,
+              "end": 70.38,
+              "confidence": 0.262268
+            }
+          ]
+        },
+        {
+          "text": "That mark, it's the original.",
+          "start_us": 52500000,
+          "duration_us": 2080000,
+          "words": [
+            {
+              "word": " That",
+              "start": 70.43,
+              "end": 70.67,
+              "confidence": 0.988457
+            },
+            {
+              "word": " mark",
+              "start": 70.67,
+              "end": 70.96,
+              "confidence": 0.985376
+            },
+            {
+              "word": ",",
+              "start": 70.96,
+              "end": 71.1,
+              "confidence": 0.645963
+            },
+            {
+              "word": " it",
+              "start": 71.1,
+              "end": 71.24,
+              "confidence": 0.992792
+            },
+            {
+              "word": "'s",
+              "start": 71.24,
+              "end": 71.38,
+              "confidence": 0.999588
+            },
+            {
+              "word": " the",
+              "start": 71.38,
+              "end": 71.59,
+              "confidence": 0.997037
+            },
+            {
+              "word": " original",
+              "start": 71.6,
+              "end": 72.18,
+              "confidence": 0.998462
+            },
+            {
+              "word": ".",
+              "start": 72.19,
+              "end": 72.46,
+              "confidence": 0.91034
+            },
+            {
+              "word": "[_TT_720]",
+              "start": 72.46,
+              "end": 72.46,
+              "confidence": 0.141316
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_id": 3,
+      "draft_name": "Addicted to My Ex's Uncle_ Forbidden Tenderness_codex_highlights_Part3_Trapped in the Dressing Room",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "fps": 24
+      },
+      "total_duration_us": 50440000,
+      "segments": [
+        {
+          "timeline_order": 0,
+          "episode": 5,
+          "role": "hook",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 97240000,
+          "source_duration_us": 4640000,
+          "timeline_start_us": 0,
+          "timeline_duration_us": 4640000,
+          "audio_volume": 1.0,
+          "label": "钩子: Kai admits he sent the necklace 第5 [97.2s-101.9s]"
+        },
+        {
+          "timeline_order": 1,
+          "episode": 5,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 21840000,
+          "source_duration_us": 2000000,
+          "timeline_start_us": 4640000,
+          "timeline_duration_us": 2000000,
+          "audio_volume": 1.0,
+          "label": "主干: Eve finds Kai shirtless 第5 [21.8s-23.8s]"
+        },
+        {
+          "timeline_order": 2,
+          "episode": 5,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 35000000,
+          "source_duration_us": 11440000,
+          "timeline_start_us": 6640000,
+          "timeline_duration_us": 11440000,
+          "audio_volume": 1.0,
+          "label": "主干: He orders her to help him change 第5 [35.0s-46.4s]"
+        },
+        {
+          "timeline_order": 3,
+          "episode": 5,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 50760000,
+          "source_duration_us": 24880000,
+          "timeline_start_us": 18080000,
+          "timeline_duration_us": 24880000,
+          "audio_volume": 1.0,
+          "label": "主干: The charged dressing-room confrontation 第5 [50.8s-75.6s]"
+        },
+        {
+          "timeline_order": 4,
+          "episode": 5,
+          "role": "ending",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0005.mp4",
+          "source_start_us": 87760000,
+          "source_duration_us": 7480000,
+          "timeline_start_us": 42960000,
+          "timeline_duration_us": 7480000,
+          "audio_volume": 1.0,
+          "label": "悬念结尾: Kai makes a possessive request 第5 [87.8s-95.2s]"
+        }
+      ],
+      "subtitles": [
+        {
+          "text": "- You sent the necklace?",
+          "start_us": 0,
+          "duration_us": 1360000,
+          "words": [
+            {
+              "word": " -",
+              "start": 97.24,
+              "end": 97.24,
+              "confidence": 0.956393
+            },
+            {
+              "word": " You",
+              "start": 97.24,
+              "end": 97.24,
+              "confidence": 0.999014
+            },
+            {
+              "word": " sent",
+              "start": 97.24,
+              "end": 97.24,
+              "confidence": 0.993885
+            },
+            {
+              "word": " the",
+              "start": 97.24,
+              "end": 97.24,
+              "confidence": 0.989132
+            },
+            {
+              "word": " necklace",
+              "start": 97.3,
+              "end": 98.12,
+              "confidence": 0.999207
+            },
+            {
+              "word": "?",
+              "start": 98.12,
+              "end": 98.6,
+              "confidence": 0.844505
+            },
+            {
+              "word": "[_TT_446]",
+              "start": 98.6,
+              "end": 98.6,
+              "confidence": 0.0973188
+            }
+          ]
+        },
+        {
+          "text": "- Who else would it be?",
+          "start_us": 3520000,
+          "duration_us": 1120000,
+          "words": [
+            {
+              "word": " -",
+              "start": 100.76,
+              "end": 100.76,
+              "confidence": 0.748827
+            },
+            {
+              "word": " Who",
+              "start": 100.76,
+              "end": 100.76,
+              "confidence": 0.995163
+            },
+            {
+              "word": " else",
+              "start": 100.76,
+              "end": 100.76,
+              "confidence": 0.999811
+            },
+            {
+              "word": " would",
+              "start": 100.76,
+              "end": 100.76,
+              "confidence": 0.998624
+            },
+            {
+              "word": " it",
+              "start": 100.82,
+              "end": 101.03,
+              "confidence": 0.998963
+            },
+            {
+              "word": " be",
+              "start": 101.03,
+              "end": 101.35,
+              "confidence": 0.99979
+            },
+            {
+              "word": "?",
+              "start": 101.35,
+              "end": 101.88,
+              "confidence": 0.995454
+            },
+            {
+              "word": "[_TT_610]",
+              "start": 101.88,
+              "end": 101.88,
+              "confidence": 0.078099
+            }
+          ]
+        },
+        {
+          "text": "- Why are you shirtless?",
+          "start_us": 4640000,
+          "duration_us": 2000000,
+          "words": [
+            {
+              "word": " -",
+              "start": 21.84,
+              "end": 21.84,
+              "confidence": 0.782402
+            },
+            {
+              "word": " Why",
+              "start": 21.84,
+              "end": 21.84,
+              "confidence": 0.995456
+            },
+            {
+              "word": " are",
+              "start": 21.84,
+              "end": 21.84,
+              "confidence": 0.993794
+            },
+            {
+              "word": " you",
+              "start": 21.84,
+              "end": 21.84,
+              "confidence": 0.997615
+            },
+            {
+              "word": " shirt",
+              "start": 21.84,
+              "end": 21.84,
+              "confidence": 0.835113
+            },
+            {
+              "word": "less",
+              "start": 21.9,
+              "end": 22.56,
+              "confidence": 0.998325
+            },
+            {
+              "word": "?",
+              "start": 22.56,
+              "end": 23.77,
+              "confidence": 0.987472
+            },
+            {
+              "word": "[_TT_1192]",
+              "start": 23.84,
+              "end": 23.84,
+              "confidence": 0.0271639
+            }
+          ]
+        },
+        {
+          "text": "- You put it on me.",
+          "start_us": 6640000,
+          "duration_us": 1040000,
+          "words": [
+            {
+              "word": " -",
+              "start": 35.06,
+              "end": 35.06,
+              "confidence": 0.840756
+            },
+            {
+              "word": " You",
+              "start": 35.06,
+              "end": 35.25,
+              "confidence": 0.996565
+            },
+            {
+              "word": " put",
+              "start": 35.25,
+              "end": 35.44,
+              "confidence": 0.997889
+            },
+            {
+              "word": " it",
+              "start": 35.44,
+              "end": 35.57,
+              "confidence": 0.998395
+            },
+            {
+              "word": " on",
+              "start": 35.57,
+              "end": 35.7,
+              "confidence": 0.999466
+            },
+            {
+              "word": " me",
+              "start": 35.7,
+              "end": 35.83,
+              "confidence": 0.967957
+            },
+            {
+              "word": ".",
+              "start": 35.83,
+              "end": 36.04,
+              "confidence": 0.943667
+            },
+            {
+              "word": "[_TT_302]",
+              "start": 36.04,
+              "end": 36.04,
+              "confidence": 0.0247772
+            }
+          ]
+        },
+        {
+          "text": "- Sorry, I can't do that.",
+          "start_us": 9200000,
+          "duration_us": 1660000,
+          "words": [
+            {
+              "word": " -",
+              "start": 37.56,
+              "end": 37.56,
+              "confidence": 0.938464
+            },
+            {
+              "word": " Sorry",
+              "start": 37.56,
+              "end": 37.56,
+              "confidence": 0.994941
+            },
+            {
+              "word": ",",
+              "start": 37.56,
+              "end": 37.56,
+              "confidence": 0.761708
+            },
+            {
+              "word": " I",
+              "start": 37.56,
+              "end": 37.56,
+              "confidence": 0.24258
+            },
+            {
+              "word": " can",
+              "start": 37.62,
+              "end": 37.67,
+              "confidence": 0.999035
+            },
+            {
+              "word": "'t",
+              "start": 37.67,
+              "end": 37.94,
+              "confidence": 0.9995
+            },
+            {
+              "word": " do",
+              "start": 37.94,
+              "end": 38.21,
+              "confidence": 0.999695
+            },
+            {
+              "word": " that",
+              "start": 38.21,
+              "end": 38.76,
+              "confidence": 0.999836
+            },
+            {
+              "word": ".",
+              "start": 38.76,
+              "end": 39.22,
+              "confidence": 0.996415
+            },
+            {
+              "word": "[_TT_461]",
+              "start": 39.22,
+              "end": 39.22,
+              "confidence": 0.0977444
+            }
+          ]
+        },
+        {
+          "text": "- You spilled juice all over my shirt.",
+          "start_us": 11960000,
+          "duration_us": 2880000,
+          "words": [
+            {
+              "word": " -",
+              "start": 40.32,
+              "end": 40.32,
+              "confidence": 0.98302
+            },
+            {
+              "word": " You",
+              "start": 40.32,
+              "end": 40.32,
+              "confidence": 0.995197
+            },
+            {
+              "word": " spilled",
+              "start": 40.38,
+              "end": 40.54,
+              "confidence": 0.99371
+            },
+            {
+              "word": " juice",
+              "start": 40.54,
+              "end": 41.14,
+              "confidence": 0.995539
+            },
+            {
+              "word": " all",
+              "start": 41.14,
+              "end": 41.5,
+              "confidence": 0.998384
+            },
+            {
+              "word": " over",
+              "start": 41.5,
+              "end": 41.98,
+              "confidence": 0.999771
+            },
+            {
+              "word": " my",
+              "start": 41.98,
+              "end": 42.22,
+              "confidence": 0.999209
+            },
+            {
+              "word": " shirt",
+              "start": 42.22,
+              "end": 42.82,
+              "confidence": 0.999634
+            },
+            {
+              "word": ".",
+              "start": 42.82,
+              "end": 43.2,
+              "confidence": 0.895002
+            },
+            {
+              "word": "[_TT_660]",
+              "start": 43.2,
+              "end": 43.2,
+              "confidence": 0.154939
+            }
+          ]
+        },
+        {
+          "text": "The least you could do is help me change.",
+          "start_us": 14840000,
+          "duration_us": 2400000,
+          "words": [
+            {
+              "word": " The",
+              "start": 43.26,
+              "end": 43.4,
+              "confidence": 0.988872
+            },
+            {
+              "word": " least",
+              "start": 43.4,
+              "end": 43.74,
+              "confidence": 0.996151
+            },
+            {
+              "word": " you",
+              "start": 43.74,
+              "end": 43.94,
+              "confidence": 0.998894
+            },
+            {
+              "word": " could",
+              "start": 43.94,
+              "end": 44.28,
+              "confidence": 0.951168
+            },
+            {
+              "word": " do",
+              "start": 44.28,
+              "end": 44.41,
+              "confidence": 0.9983
+            },
+            {
+              "word": " is",
+              "start": 44.41,
+              "end": 44.54,
+              "confidence": 0.94664
+            },
+            {
+              "word": " help",
+              "start": 44.54,
+              "end": 44.81,
+              "confidence": 0.994027
+            },
+            {
+              "word": " me",
+              "start": 44.81,
+              "end": 44.94,
+              "confidence": 0.999163
+            },
+            {
+              "word": " change",
+              "start": 44.94,
+              "end": 45.34,
+              "confidence": 0.998294
+            },
+            {
+              "word": ".",
+              "start": 45.37,
+              "end": 45.6,
+              "confidence": 0.429364
+            },
+            {
+              "word": "[_TT_780]",
+              "start": 45.6,
+              "end": 45.6,
+              "confidence": 0.490479
+            }
+          ]
+        },
+        {
+          "text": "Don't you think?",
+          "start_us": 17240000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " Don",
+              "start": 45.66,
+              "end": 45.75,
+              "confidence": 0.992161
+            },
+            {
+              "word": "'t",
+              "start": 45.75,
+              "end": 45.85,
+              "confidence": 0.999819
+            },
+            {
+              "word": " you",
+              "start": 45.85,
+              "end": 46.0,
+              "confidence": 0.996132
+            },
+            {
+              "word": " think",
+              "start": 46.0,
+              "end": 46.26,
+              "confidence": 0.999102
+            },
+            {
+              "word": "?",
+              "start": 46.26,
+              "end": 46.44,
+              "confidence": 0.96121
+            },
+            {
+              "word": "[_TT_822]",
+              "start": 46.44,
+              "end": 46.44,
+              "confidence": 0.168522
+            }
+          ]
+        },
+        {
+          "text": "- Turn around.",
+          "start_us": 18080000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " -",
+              "start": 50.76,
+              "end": 50.76,
+              "confidence": 0.893983
+            },
+            {
+              "word": " Turn",
+              "start": 50.76,
+              "end": 50.76,
+              "confidence": 0.996734
+            },
+            {
+              "word": " around",
+              "start": 50.76,
+              "end": 50.76,
+              "confidence": 0.991096
+            },
+            {
+              "word": ".",
+              "start": 50.82,
+              "end": 51.6,
+              "confidence": 0.982474
+            },
+            {
+              "word": "[_TT_1080]",
+              "start": 51.6,
+              "end": 51.6,
+              "confidence": 0.232266
+            }
+          ]
+        },
+        {
+          "text": "♪ You'll make me tremble ♪",
+          "start_us": 18920000,
+          "duration_us": 4120000,
+          "words": [
+            {
+              "word": " ♪",
+              "start": 51.66,
+              "end": 52.09,
+              "confidence": 0.86883
+            },
+            {
+              "word": " You",
+              "start": 52.09,
+              "end": 52.58,
+              "confidence": 0.573565
+            },
+            {
+              "word": "'ll",
+              "start": 52.58,
+              "end": 53.07,
+              "confidence": 0.412905
+            },
+            {
+              "word": " make",
+              "start": 53.07,
+              "end": 53.69,
+              "confidence": 0.998068
+            },
+            {
+              "word": " me",
+              "start": 53.73,
+              "end": 54.05,
+              "confidence": 0.999466
+            },
+            {
+              "word": " trem",
+              "start": 54.05,
+              "end": 54.7,
+              "confidence": 0.946589
+            },
+            {
+              "word": "ble",
+              "start": 54.7,
+              "end": 55.18,
+              "confidence": 0.803582
+            },
+            {
+              "word": " ♪",
+              "start": 55.18,
+              "end": 55.72,
+              "confidence": 0.925292
+            },
+            {
+              "word": "[_TT_1286]",
+              "start": 55.72,
+              "end": 55.72,
+              "confidence": 0.0267057
+            }
+          ]
+        },
+        {
+          "text": "♪ You'll make me scream your name ♪",
+          "start_us": 23040000,
+          "duration_us": 4160000,
+          "words": [
+            {
+              "word": " ♪",
+              "start": 55.78,
+              "end": 56.1,
+              "confidence": 0.910583
+            },
+            {
+              "word": " You",
+              "start": 56.1,
+              "end": 56.48,
+              "confidence": 0.984459
+            },
+            {
+              "word": "'ll",
+              "start": 56.52,
+              "end": 56.87,
+              "confidence": 0.920827
+            },
+            {
+              "word": " make",
+              "start": 56.87,
+              "end": 57.38,
+              "confidence": 0.997936
+            },
+            {
+              "word": " me",
+              "start": 57.38,
+              "end": 57.65,
+              "confidence": 0.999397
+            },
+            {
+              "word": " scream",
+              "start": 57.65,
+              "end": 58.42,
+              "confidence": 0.993892
+            },
+            {
+              "word": " your",
+              "start": 58.42,
+              "end": 58.94,
+              "confidence": 0.792607
+            },
+            {
+              "word": " name",
+              "start": 58.94,
+              "end": 59.46,
+              "confidence": 0.988027
+            },
+            {
+              "word": " ♪",
+              "start": 59.46,
+              "end": 59.88,
+              "confidence": 0.99587
+            },
+            {
+              "word": "[_TT_1494]",
+              "start": 59.88,
+              "end": 59.88,
+              "confidence": 0.136111
+            }
+          ]
+        },
+        {
+          "text": "♪ Oh, you love me so good ♪",
+          "start_us": 27200000,
+          "duration_us": 4160000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 59.88,
+              "end": 59.88,
+              "confidence": 0.999971
+            },
+            {
+              "word": " ♪",
+              "start": 59.94,
+              "end": 60.37,
+              "confidence": 0.968876
+            },
+            {
+              "word": " Oh",
+              "start": 60.37,
+              "end": 60.7,
+              "confidence": 0.48257
+            },
+            {
+              "word": ",",
+              "start": 60.7,
+              "end": 61.03,
+              "confidence": 0.4933
+            },
+            {
+              "word": " you",
+              "start": 61.03,
+              "end": 61.52,
+              "confidence": 0.229223
+            },
+            {
+              "word": " love",
+              "start": 61.52,
+              "end": 62.16,
+              "confidence": 0.680641
+            },
+            {
+              "word": " me",
+              "start": 62.21,
+              "end": 62.51,
+              "confidence": 0.998536
+            },
+            {
+              "word": " so",
+              "start": 62.51,
+              "end": 62.84,
+              "confidence": 0.992131
+            },
+            {
+              "word": " good",
+              "start": 62.84,
+              "end": 63.5,
+              "confidence": 0.967242
+            },
+            {
+              "word": " ♪",
+              "start": 63.5,
+              "end": 64.04,
+              "confidence": 0.648851
+            },
+            {
+              "word": "[_TT_208]",
+              "start": 64.04,
+              "end": 64.04,
+              "confidence": 0.0587943
+            }
+          ]
+        },
+        {
+          "text": "♪ Oh, me babe ♪",
+          "start_us": 31360000,
+          "duration_us": 2160000,
+          "words": [
+            {
+              "word": " ♪",
+              "start": 64.1,
+              "end": 64.44,
+              "confidence": 0.980294
+            },
+            {
+              "word": " Oh",
+              "start": 64.44,
+              "end": 64.7,
+              "confidence": 0.189617
+            },
+            {
+              "word": ",",
+              "start": 64.7,
+              "end": 64.97,
+              "confidence": 0.800501
+            },
+            {
+              "word": " me",
+              "start": 64.97,
+              "end": 65.24,
+              "confidence": 0.745012
+            },
+            {
+              "word": " babe",
+              "start": 65.24,
+              "end": 65.77,
+              "confidence": 0.699299
+            },
+            {
+              "word": " ♪",
+              "start": 65.77,
+              "end": 66.19,
+              "confidence": 0.748349
+            },
+            {
+              "word": "[_TT_316]",
+              "start": 66.2,
+              "end": 66.2,
+              "confidence": 0.0312038
+            }
+          ]
+        },
+        {
+          "text": "♪ Don't be shy ♪",
+          "start_us": 33520000,
+          "duration_us": 2200000,
+          "words": [
+            {
+              "word": " ♪",
+              "start": 66.26,
+              "end": 66.6,
+              "confidence": 0.894939
+            },
+            {
+              "word": " Don",
+              "start": 66.6,
+              "end": 67.01,
+              "confidence": 0.964055
+            },
+            {
+              "word": "'t",
+              "start": 67.01,
+              "end": 67.28,
+              "confidence": 0.998685
+            },
+            {
+              "word": " be",
+              "start": 67.28,
+              "end": 67.55,
+              "confidence": 0.99136
+            },
+            {
+              "word": " shy",
+              "start": 67.55,
+              "end": 67.95,
+              "confidence": 0.996991
+            },
+            {
+              "word": " ♪",
+              "start": 67.95,
+              "end": 68.4,
+              "confidence": 0.954756
+            },
+            {
+              "word": "[_TT_426]",
+              "start": 68.4,
+              "end": 68.4,
+              "confidence": 0.0745624
+            }
+          ]
+        },
+        {
+          "text": "♪ This love feels too good to be true ♪",
+          "start_us": 35720000,
+          "duration_us": 3440000,
+          "words": [
+            {
+              "word": " ♪",
+              "start": 68.46,
+              "end": 68.7,
+              "confidence": 0.994465
+            },
+            {
+              "word": " This",
+              "start": 68.7,
+              "end": 69.1,
+              "confidence": 0.96982
+            },
+            {
+              "word": " love",
+              "start": 69.1,
+              "end": 69.5,
+              "confidence": 0.984177
+            },
+            {
+              "word": " feels",
+              "start": 69.5,
+              "end": 70.0,
+              "confidence": 0.995991
+            },
+            {
+              "word": " too",
+              "start": 70.0,
+              "end": 70.3,
+              "confidence": 0.97075
+            },
+            {
+              "word": " good",
+              "start": 70.3,
+              "end": 70.69,
+              "confidence": 0.935202
+            },
+            {
+              "word": " to",
+              "start": 70.73,
+              "end": 70.9,
+              "confidence": 0.571039
+            },
+            {
+              "word": " be",
+              "start": 70.9,
+              "end": 71.1,
+              "confidence": 0.95084
+            },
+            {
+              "word": " true",
+              "start": 71.1,
+              "end": 71.5,
+              "confidence": 0.98117
+            },
+            {
+              "word": " ♪",
+              "start": 71.5,
+              "end": 71.84,
+              "confidence": 0.967052
+            },
+            {
+              "word": "[_TT_598]",
+              "start": 71.84,
+              "end": 71.84,
+              "confidence": 0.124652
+            }
+          ]
+        },
+        {
+          "text": "- Pervert.",
+          "start_us": 39160000,
+          "duration_us": 1320000,
+          "words": [
+            {
+              "word": " -",
+              "start": 71.9,
+              "end": 72.0,
+              "confidence": 0.899196
+            },
+            {
+              "word": " Per",
+              "start": 72.0,
+              "end": 72.49,
+              "confidence": 0.560357
+            },
+            {
+              "word": "vert",
+              "start": 72.49,
+              "end": 73.16,
+              "confidence": 0.776491
+            },
+            {
+              "word": ".",
+              "start": 73.16,
+              "end": 73.16,
+              "confidence": 0.78706
+            },
+            {
+              "word": "[_TT_664]",
+              "start": 73.16,
+              "end": 73.16,
+              "confidence": 0.209807
+            }
+          ]
+        },
+        {
+          "text": "- Keep going.",
+          "start_us": 40480000,
+          "duration_us": 1480000,
+          "words": [
+            {
+              "word": " -",
+              "start": 73.22,
+              "end": 73.27,
+              "confidence": 0.910422
+            },
+            {
+              "word": " Keep",
+              "start": 73.27,
+              "end": 73.71,
+              "confidence": 0.995697
+            },
+            {
+              "word": " going",
+              "start": 73.72,
+              "end": 74.28,
+              "confidence": 0.998666
+            },
+            {
+              "word": ".",
+              "start": 74.28,
+              "end": 74.63,
+              "confidence": 0.838242
+            },
+            {
+              "word": "[_TT_738]",
+              "start": 74.64,
+              "end": 74.64,
+              "confidence": 0.172585
+            }
+          ]
+        },
+        {
+          "text": "You're not done.",
+          "start_us": 41960000,
+          "duration_us": 1000000,
+          "words": [
+            {
+              "word": " You",
+              "start": 74.7,
+              "end": 74.82,
+              "confidence": 0.947735
+            },
+            {
+              "word": "'re",
+              "start": 74.82,
+              "end": 75.0,
+              "confidence": 0.998382
+            },
+            {
+              "word": " not",
+              "start": 75.0,
+              "end": 75.18,
+              "confidence": 0.999611
+            },
+            {
+              "word": " done",
+              "start": 75.18,
+              "end": 75.42,
+              "confidence": 0.996791
+            },
+            {
+              "word": ".",
+              "start": 75.42,
+              "end": 75.64,
+              "confidence": 0.998292
+            },
+            {
+              "word": "[_TT_788]",
+              "start": 75.64,
+              "end": 75.64,
+              "confidence": 0.121674
+            }
+          ]
+        },
+        {
+          "text": "- You look even more beautiful in that necklace",
+          "start_us": 42960000,
+          "duration_us": 1920000,
+          "words": [
+            {
+              "word": " -",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.448809
+            },
+            {
+              "word": " You",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.880216
+            },
+            {
+              "word": " look",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.997267
+            },
+            {
+              "word": " even",
+              "start": 87.76,
+              "end": 87.76,
+              "confidence": 0.997166
+            },
+            {
+              "word": " more",
+              "start": 87.82,
+              "end": 88.08,
+              "confidence": 0.999239
+            },
+            {
+              "word": " beautiful",
+              "start": 88.08,
+              "end": 88.96,
+              "confidence": 0.99842
+            },
+            {
+              "word": " in",
+              "start": 88.96,
+              "end": 89.06,
+              "confidence": 0.522656
+            },
+            {
+              "word": " that",
+              "start": 89.06,
+              "end": 89.25,
+              "confidence": 0.991514
+            },
+            {
+              "word": " necklace",
+              "start": 89.25,
+              "end": 89.68,
+              "confidence": 0.953039
+            },
+            {
+              "word": "[_TT_1490]",
+              "start": 89.68,
+              "end": 89.68,
+              "confidence": 0.32518
+            }
+          ]
+        },
+        {
+          "text": "than I imagined.",
+          "start_us": 44880000,
+          "duration_us": 1640000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 89.68,
+              "end": 89.68,
+              "confidence": 0.999971
+            },
+            {
+              "word": " than",
+              "start": 89.74,
+              "end": 90.06,
+              "confidence": 0.91609
+            },
+            {
+              "word": " I",
+              "start": 90.06,
+              "end": 90.15,
+              "confidence": 0.996077
+            },
+            {
+              "word": " imagined",
+              "start": 90.15,
+              "end": 90.92,
+              "confidence": 0.946672
+            },
+            {
+              "word": ".",
+              "start": 90.92,
+              "end": 91.32,
+              "confidence": 0.72807
+            },
+            {
+              "word": "[_TT_82]",
+              "start": 91.32,
+              "end": 91.32,
+              "confidence": 0.0725553
+            }
+          ]
+        },
+        {
+          "text": "Next time wear it on your ankle, just for me.",
+          "start_us": 46520000,
+          "duration_us": 3920000,
+          "words": [
+            {
+              "word": " Next",
+              "start": 91.38,
+              "end": 91.56,
+              "confidence": 0.773589
+            },
+            {
+              "word": " time",
+              "start": 91.56,
+              "end": 91.8,
+              "confidence": 0.995044
+            },
+            {
+              "word": " wear",
+              "start": 91.8,
+              "end": 92.04,
+              "confidence": 0.912367
+            },
+            {
+              "word": " it",
+              "start": 92.04,
+              "end": 92.16,
+              "confidence": 0.996795
+            },
+            {
+              "word": " on",
+              "start": 92.16,
+              "end": 92.28,
+              "confidence": 0.997944
+            },
+            {
+              "word": " your",
+              "start": 92.28,
+              "end": 92.52,
+              "confidence": 0.99854
+            },
+            {
+              "word": " ankle",
+              "start": 92.52,
+              "end": 92.83,
+              "confidence": 0.999011
+            },
+            {
+              "word": ",",
+              "start": 92.88,
+              "end": 92.96,
+              "confidence": 0.346239
+            },
+            {
+              "word": " just",
+              "start": 92.96,
+              "end": 93.72,
+              "confidence": 0.52911
+            },
+            {
+              "word": " for",
+              "start": 93.72,
+              "end": 94.29,
+              "confidence": 0.920205
+            },
+            {
+              "word": " me",
+              "start": 94.29,
+              "end": 94.66,
+              "confidence": 0.998677
+            },
+            {
+              "word": ".",
+              "start": 94.66,
+              "end": 95.15,
+              "confidence": 0.994778
+            },
+            {
+              "word": "[_TT_278]",
+              "start": 95.24,
+              "end": 95.24,
+              "confidence": 0.0720912
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_id": 4,
+      "draft_name": "Addicted to My Ex's Uncle_ Forbidden Tenderness_codex_highlights_Part4_Her Boyfriend Trades Her for a Deal",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "fps": 24
+      },
+      "total_duration_us": 58480000,
+      "segments": [
+        {
+          "timeline_order": 0,
+          "episode": 7,
+          "role": "hook",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0007.mp4",
+          "source_start_us": 127200000,
+          "source_duration_us": 3600000,
+          "timeline_start_us": 0,
+          "timeline_duration_us": 3600000,
+          "audio_volume": 1.0,
+          "label": "钩子: Kai claims Eve as his guest 第7 [127.2s-130.8s]"
+        },
+        {
+          "timeline_order": 1,
+          "episode": 7,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0007.mp4",
+          "source_start_us": 61960000,
+          "source_duration_us": 12400000,
+          "timeline_start_us": 3600000,
+          "timeline_duration_us": 12400000,
+          "audio_volume": 1.0,
+          "label": "主干: Marcus harasses Eve and she calls for Lane 第7 [62.0s-74.4s]"
+        },
+        {
+          "timeline_order": 2,
+          "episode": 7,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0007.mp4",
+          "source_start_us": 76160000,
+          "source_duration_us": 5320000,
+          "timeline_start_us": 16000000,
+          "timeline_duration_us": 5320000,
+          "audio_volume": 1.0,
+          "label": "主干: Lane confronts Marcus weakly 第7 [76.2s-81.5s]"
+        },
+        {
+          "timeline_order": 3,
+          "episode": 7,
+          "role": "backbone",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0007.mp4",
+          "source_start_us": 84000000,
+          "source_duration_us": 23720000,
+          "timeline_start_us": 21320000,
+          "timeline_duration_us": 23720000,
+          "audio_volume": 1.0,
+          "label": "主干: Marcus threatens the deal and Lane tells Eve to comply 第7 [84.0s-107.7s]"
+        },
+        {
+          "timeline_order": 4,
+          "episode": 7,
+          "role": "ending",
+          "video_path": "/Users/gaoxuan/Desktop/短剧/Addicted to My Ex's Uncle_ Forbidden Tenderness/Addicted to My Ex's Uncle_ Forbidden Tenderness-0007.mp4",
+          "source_start_us": 117360000,
+          "source_duration_us": 13440000,
+          "timeline_start_us": 45040000,
+          "timeline_duration_us": 13440000,
+          "audio_volume": 1.0,
+          "label": "悬念结尾: Kai attacks Marcus and steps in 第7 [117.4s-130.8s]"
+        }
+      ],
+      "subtitles": [
+        {
+          "text": "- Marcus, you're offending my guest.",
+          "start_us": 0,
+          "duration_us": 3600000,
+          "words": [
+            {
+              "word": " -",
+              "start": 127.23,
+              "end": 127.28,
+              "confidence": 0.960481
+            },
+            {
+              "word": " Marcus",
+              "start": 127.32,
+              "end": 127.93,
+              "confidence": 0.99858
+            },
+            {
+              "word": ",",
+              "start": 127.93,
+              "end": 128.14,
+              "confidence": 0.77025
+            },
+            {
+              "word": " you",
+              "start": 128.14,
+              "end": 128.45,
+              "confidence": 0.917295
+            },
+            {
+              "word": "'re",
+              "start": 128.45,
+              "end": 128.76,
+              "confidence": 0.967473
+            },
+            {
+              "word": " offending",
+              "start": 128.76,
+              "end": 129.71,
+              "confidence": 0.990776
+            },
+            {
+              "word": " my",
+              "start": 129.71,
+              "end": 129.92,
+              "confidence": 0.998824
+            },
+            {
+              "word": " guest",
+              "start": 129.92,
+              "end": 130.44,
+              "confidence": 0.940445
+            },
+            {
+              "word": ".",
+              "start": 130.44,
+              "end": 130.8,
+              "confidence": 0.991047
+            },
+            {
+              "word": "[_TT_722]",
+              "start": 130.8,
+              "end": 130.8,
+              "confidence": 0.116598
+            }
+          ]
+        },
+        {
+          "text": "- Hey, they're pretty thing.",
+          "start_us": 3600000,
+          "duration_us": 1800000,
+          "words": [
+            {
+              "word": " -",
+              "start": 61.96,
+              "end": 61.96,
+              "confidence": 0.876202
+            },
+            {
+              "word": " Hey",
+              "start": 61.96,
+              "end": 61.96,
+              "confidence": 0.995173
+            },
+            {
+              "word": ",",
+              "start": 61.96,
+              "end": 61.96,
+              "confidence": 0.501287
+            },
+            {
+              "word": " they",
+              "start": 61.96,
+              "end": 61.96,
+              "confidence": 0.875247
+            },
+            {
+              "word": "'re",
+              "start": 61.99,
+              "end": 61.99,
+              "confidence": 0.993547
+            },
+            {
+              "word": " pretty",
+              "start": 62.04,
+              "end": 62.75,
+              "confidence": 0.775472
+            },
+            {
+              "word": " thing",
+              "start": 62.75,
+              "end": 63.36,
+              "confidence": 0.860313
+            },
+            {
+              "word": ".",
+              "start": 63.36,
+              "end": 63.76,
+              "confidence": 0.877165
+            },
+            {
+              "word": "[_TT_298]",
+              "start": 63.76,
+              "end": 63.76,
+              "confidence": 0.44865
+            }
+          ]
+        },
+        {
+          "text": "Have a drink with me.",
+          "start_us": 5400000,
+          "duration_us": 1120000,
+          "words": [
+            {
+              "word": " Have",
+              "start": 63.84,
+              "end": 63.99,
+              "confidence": 0.995968
+            },
+            {
+              "word": " a",
+              "start": 63.99,
+              "end": 64.04,
+              "confidence": 0.999336
+            },
+            {
+              "word": " drink",
+              "start": 64.04,
+              "end": 64.33,
+              "confidence": 0.999819
+            },
+            {
+              "word": " with",
+              "start": 64.33,
+              "end": 64.56,
+              "confidence": 0.999489
+            },
+            {
+              "word": " me",
+              "start": 64.56,
+              "end": 64.67,
+              "confidence": 0.999825
+            },
+            {
+              "word": ".",
+              "start": 64.67,
+              "end": 64.88,
+              "confidence": 0.638192
+            },
+            {
+              "word": "[_TT_354]",
+              "start": 64.88,
+              "end": 64.88,
+              "confidence": 0.411693
+            }
+          ]
+        },
+        {
+          "text": "Make a friend, let's be friends.",
+          "start_us": 6520000,
+          "duration_us": 2080000,
+          "words": [
+            {
+              "word": " Make",
+              "start": 64.96,
+              "end": 65.15,
+              "confidence": 0.941506
+            },
+            {
+              "word": " a",
+              "start": 65.15,
+              "end": 65.21,
+              "confidence": 0.999487
+            },
+            {
+              "word": " friend",
+              "start": 65.21,
+              "end": 65.62,
+              "confidence": 0.997935
+            },
+            {
+              "word": ",",
+              "start": 65.62,
+              "end": 65.75,
+              "confidence": 0.428504
+            },
+            {
+              "word": " let",
+              "start": 65.75,
+              "end": 65.95,
+              "confidence": 0.987202
+            },
+            {
+              "word": "'s",
+              "start": 65.95,
+              "end": 66.08,
+              "confidence": 0.999695
+            },
+            {
+              "word": " be",
+              "start": 66.08,
+              "end": 66.2,
+              "confidence": 0.998327
+            },
+            {
+              "word": " friends",
+              "start": 66.21,
+              "end": 66.69,
+              "confidence": 0.99922
+            },
+            {
+              "word": ".",
+              "start": 66.69,
+              "end": 66.95,
+              "confidence": 0.995537
+            },
+            {
+              "word": "[_TT_458]",
+              "start": 66.96,
+              "end": 66.96,
+              "confidence": 0.510358
+            }
+          ]
+        },
+        {
+          "text": "- Please keep your distance.",
+          "start_us": 8600000,
+          "duration_us": 1880000,
+          "words": [
+            {
+              "word": " -",
+              "start": 66.99,
+              "end": 66.99,
+              "confidence": 0.991503
+            },
+            {
+              "word": " Please",
+              "start": 67.04,
+              "end": 67.46,
+              "confidence": 0.999093
+            },
+            {
+              "word": " keep",
+              "start": 67.46,
+              "end": 67.74,
+              "confidence": 0.983641
+            },
+            {
+              "word": " your",
+              "start": 67.74,
+              "end": 68.01,
+              "confidence": 0.997242
+            },
+            {
+              "word": " distance",
+              "start": 68.02,
+              "end": 68.59,
+              "confidence": 0.999878
+            },
+            {
+              "word": ".",
+              "start": 68.59,
+              "end": 68.84,
+              "confidence": 0.999094
+            },
+            {
+              "word": "[_TT_552]",
+              "start": 68.84,
+              "end": 68.84,
+              "confidence": 0.578209
+            }
+          ]
+        },
+        {
+          "text": "- Don't be shy, I'll take good care of you.",
+          "start_us": 10480000,
+          "duration_us": 3280000,
+          "words": [
+            {
+              "word": " -",
+              "start": 68.87,
+              "end": 68.87,
+              "confidence": 0.985522
+            },
+            {
+              "word": " Don",
+              "start": 68.92,
+              "end": 69.18,
+              "confidence": 0.999396
+            },
+            {
+              "word": "'t",
+              "start": 69.18,
+              "end": 69.34,
+              "confidence": 0.999969
+            },
+            {
+              "word": " be",
+              "start": 69.35,
+              "end": 69.52,
+              "confidence": 0.999478
+            },
+            {
+              "word": " shy",
+              "start": 69.52,
+              "end": 69.78,
+              "confidence": 0.999649
+            },
+            {
+              "word": ",",
+              "start": 69.78,
+              "end": 69.95,
+              "confidence": 0.473468
+            },
+            {
+              "word": " I",
+              "start": 69.95,
+              "end": 70.03,
+              "confidence": 0.989595
+            },
+            {
+              "word": "'ll",
+              "start": 70.03,
+              "end": 70.29,
+              "confidence": 0.999298
+            },
+            {
+              "word": " take",
+              "start": 70.29,
+              "end": 70.64,
+              "confidence": 0.999203
+            },
+            {
+              "word": " good",
+              "start": 70.64,
+              "end": 70.99,
+              "confidence": 0.99971
+            },
+            {
+              "word": " care",
+              "start": 70.99,
+              "end": 71.33,
+              "confidence": 0.999058
+            },
+            {
+              "word": " of",
+              "start": 71.34,
+              "end": 71.51,
+              "confidence": 0.999176
+            },
+            {
+              "word": " you",
+              "start": 71.51,
+              "end": 71.77,
+              "confidence": 0.999733
+            },
+            {
+              "word": ".",
+              "start": 71.77,
+              "end": 72.12,
+              "confidence": 0.998409
+            },
+            {
+              "word": "[_TT_716]",
+              "start": 72.12,
+              "end": 72.12,
+              "confidence": 0.317832
+            }
+          ]
+        },
+        {
+          "text": "- Lane.",
+          "start_us": 13760000,
+          "duration_us": 1400000,
+          "words": [
+            {
+              "word": " -",
+              "start": 72.2,
+              "end": 72.29,
+              "confidence": 0.964474
+            },
+            {
+              "word": " Lane",
+              "start": 72.29,
+              "end": 72.99,
+              "confidence": 0.872201
+            },
+            {
+              "word": ".",
+              "start": 72.99,
+              "end": 73.52,
+              "confidence": 0.714151
+            },
+            {
+              "word": "[_TT_786]",
+              "start": 73.52,
+              "end": 73.52,
+              "confidence": 0.148953
+            }
+          ]
+        },
+        {
+          "text": "Lane.",
+          "start_us": 15160000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " Lane",
+              "start": 73.6,
+              "end": 74.0,
+              "confidence": 0.906508
+            },
+            {
+              "word": ".",
+              "start": 74.0,
+              "end": 74.36,
+              "confidence": 0.379148
+            },
+            {
+              "word": "[_TT_828]",
+              "start": 74.36,
+              "end": 74.36,
+              "confidence": 0.496952
+            }
+          ]
+        },
+        {
+          "text": "- Hey, hey, take easy, Marcus.",
+          "start_us": 16000000,
+          "duration_us": 2720000,
+          "words": [
+            {
+              "word": " -",
+              "start": 76.16,
+              "end": 76.16,
+              "confidence": 0.924612
+            },
+            {
+              "word": " Hey",
+              "start": 76.16,
+              "end": 76.16,
+              "confidence": 0.998936
+            },
+            {
+              "word": ",",
+              "start": 76.16,
+              "end": 76.16,
+              "confidence": 0.948241
+            },
+            {
+              "word": " hey",
+              "start": 76.16,
+              "end": 76.16,
+              "confidence": 0.986333
+            },
+            {
+              "word": ",",
+              "start": 76.16,
+              "end": 76.16,
+              "confidence": 0.83903
+            },
+            {
+              "word": " take",
+              "start": 76.24,
+              "end": 76.6,
+              "confidence": 0.96959
+            },
+            {
+              "word": " easy",
+              "start": 76.61,
+              "end": 77.21,
+              "confidence": 0.991724
+            },
+            {
+              "word": ",",
+              "start": 77.21,
+              "end": 77.51,
+              "confidence": 0.583218
+            },
+            {
+              "word": " Marcus",
+              "start": 77.51,
+              "end": 78.4,
+              "confidence": 0.976455
+            },
+            {
+              "word": ".",
+              "start": 78.41,
+              "end": 78.88,
+              "confidence": 0.876346
+            },
+            {
+              "word": "[_TT_1054]",
+              "start": 78.88,
+              "end": 78.88,
+              "confidence": 0.450304
+            }
+          ]
+        },
+        {
+          "text": "This is my girlfriend.",
+          "start_us": 18720000,
+          "duration_us": 1760000,
+          "words": [
+            {
+              "word": " This",
+              "start": 78.96,
+              "end": 79.21,
+              "confidence": 0.993669
+            },
+            {
+              "word": " is",
+              "start": 79.21,
+              "end": 79.37,
+              "confidence": 0.995551
+            },
+            {
+              "word": " my",
+              "start": 79.37,
+              "end": 79.52,
+              "confidence": 0.999729
+            },
+            {
+              "word": " girlfriend",
+              "start": 79.52,
+              "end": 80.36,
+              "confidence": 0.983427
+            },
+            {
+              "word": ".",
+              "start": 80.36,
+              "end": 80.64,
+              "confidence": 0.623361
+            },
+            {
+              "word": "[_TT_1142]",
+              "start": 80.64,
+              "end": 80.64,
+              "confidence": 0.372983
+            }
+          ]
+        },
+        {
+          "text": "Can I help you?",
+          "start_us": 20480000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " Can",
+              "start": 80.72,
+              "end": 80.82,
+              "confidence": 0.996805
+            },
+            {
+              "word": " I",
+              "start": 80.82,
+              "end": 80.88,
+              "confidence": 0.99947
+            },
+            {
+              "word": " help",
+              "start": 80.88,
+              "end": 81.11,
+              "confidence": 0.999886
+            },
+            {
+              "word": " you",
+              "start": 81.11,
+              "end": 81.28,
+              "confidence": 0.999432
+            },
+            {
+              "word": "?",
+              "start": 81.29,
+              "end": 81.48,
+              "confidence": 0.993045
+            },
+            {
+              "word": "[_TT_1184]",
+              "start": 81.48,
+              "end": 81.48,
+              "confidence": 0.196322
+            }
+          ]
+        },
+        {
+          "text": "- Well, well, well.",
+          "start_us": 21320000,
+          "duration_us": 2360000,
+          "words": [
+            {
+              "word": " -",
+              "start": 84.0,
+              "end": 84.0,
+              "confidence": 0.933547
+            },
+            {
+              "word": " Well",
+              "start": 84.0,
+              "end": 84.0,
+              "confidence": 0.996683
+            },
+            {
+              "word": ",",
+              "start": 84.0,
+              "end": 84.0,
+              "confidence": 0.977797
+            },
+            {
+              "word": " well",
+              "start": 84.08,
+              "end": 84.14,
+              "confidence": 0.998913
+            },
+            {
+              "word": ",",
+              "start": 84.14,
+              "end": 84.62,
+              "confidence": 0.97663
+            },
+            {
+              "word": " well",
+              "start": 84.62,
+              "end": 85.59,
+              "confidence": 0.998485
+            },
+            {
+              "word": ".",
+              "start": 85.59,
+              "end": 86.35,
+              "confidence": 0.779168
+            },
+            {
+              "word": "[_TT_1428]",
+              "start": 86.36,
+              "end": 86.36,
+              "confidence": 0.602205
+            }
+          ]
+        },
+        {
+          "text": "Your girlfriend, so what?",
+          "start_us": 23680000,
+          "duration_us": 2160000,
+          "words": [
+            {
+              "word": "[_BEG_]",
+              "start": 86.36,
+              "end": 86.36,
+              "confidence": 0.999994
+            },
+            {
+              "word": " Your",
+              "start": 86.44,
+              "end": 86.7,
+              "confidence": 0.250534
+            },
+            {
+              "word": " girlfriend",
+              "start": 86.7,
+              "end": 87.56,
+              "confidence": 0.994592
+            },
+            {
+              "word": ",",
+              "start": 87.56,
+              "end": 87.72,
+              "confidence": 0.655103
+            },
+            {
+              "word": " so",
+              "start": 87.72,
+              "end": 87.9,
+              "confidence": 0.996831
+            },
+            {
+              "word": " what",
+              "start": 87.9,
+              "end": 88.24,
+              "confidence": 0.997699
+            },
+            {
+              "word": "?",
+              "start": 88.24,
+              "end": 88.52,
+              "confidence": 0.875224
+            },
+            {
+              "word": "[_TT_108]",
+              "start": 88.52,
+              "end": 88.52,
+              "confidence": 0.390576
+            }
+          ]
+        },
+        {
+          "text": "If you still want access to my shipping routes in Europe,",
+          "start_us": 25840000,
+          "duration_us": 3640000,
+          "words": [
+            {
+              "word": " If",
+              "start": 88.6,
+              "end": 88.6,
+              "confidence": 0.986713
+            },
+            {
+              "word": " you",
+              "start": 88.64,
+              "end": 88.79,
+              "confidence": 0.999539
+            },
+            {
+              "word": " still",
+              "start": 88.79,
+              "end": 89.06,
+              "confidence": 0.998456
+            },
+            {
+              "word": " want",
+              "start": 89.06,
+              "end": 89.28,
+              "confidence": 0.994205
+            },
+            {
+              "word": " access",
+              "start": 89.28,
+              "end": 89.64,
+              "confidence": 0.996881
+            },
+            {
+              "word": " to",
+              "start": 89.64,
+              "end": 89.75,
+              "confidence": 0.975042
+            },
+            {
+              "word": " my",
+              "start": 89.75,
+              "end": 89.86,
+              "confidence": 0.99617
+            },
+            {
+              "word": " shipping",
+              "start": 89.86,
+              "end": 90.32,
+              "confidence": 0.994709
+            },
+            {
+              "word": " routes",
+              "start": 90.32,
+              "end": 90.68,
+              "confidence": 0.953234
+            },
+            {
+              "word": " in",
+              "start": 90.68,
+              "end": 91.04,
+              "confidence": 0.945296
+            },
+            {
+              "word": " Europe",
+              "start": 91.04,
+              "end": 92.12,
+              "confidence": 0.998963
+            },
+            {
+              "word": ",",
+              "start": 92.12,
+              "end": 92.16,
+              "confidence": 0.948974
+            },
+            {
+              "word": "[_TT_290]",
+              "start": 92.16,
+              "end": 92.16,
+              "confidence": 0.162784
+            }
+          ]
+        },
+        {
+          "text": "you better let her have that drink with me.",
+          "start_us": 29480000,
+          "duration_us": 2080000,
+          "words": [
+            {
+              "word": " you",
+              "start": 92.24,
+              "end": 92.32,
+              "confidence": 0.981491
+            },
+            {
+              "word": " better",
+              "start": 92.32,
+              "end": 92.65,
+              "confidence": 0.5605
+            },
+            {
+              "word": " let",
+              "start": 92.65,
+              "end": 92.8,
+              "confidence": 0.990537
+            },
+            {
+              "word": " her",
+              "start": 92.81,
+              "end": 92.97,
+              "confidence": 0.995845
+            },
+            {
+              "word": " have",
+              "start": 92.97,
+              "end": 93.19,
+              "confidence": 0.998934
+            },
+            {
+              "word": " that",
+              "start": 93.19,
+              "end": 93.41,
+              "confidence": 0.997855
+            },
+            {
+              "word": " drink",
+              "start": 93.41,
+              "end": 93.68,
+              "confidence": 0.999611
+            },
+            {
+              "word": " with",
+              "start": 93.69,
+              "end": 93.91,
+              "confidence": 0.99955
+            },
+            {
+              "word": " me",
+              "start": 93.91,
+              "end": 94.02,
+              "confidence": 0.999611
+            },
+            {
+              "word": ".",
+              "start": 94.02,
+              "end": 94.23,
+              "confidence": 0.979929
+            },
+            {
+              "word": "[_TT_394]",
+              "start": 94.24,
+              "end": 94.24,
+              "confidence": 0.392364
+            }
+          ]
+        },
+        {
+          "text": "I promise I'll keep my hands to myself.",
+          "start_us": 31560000,
+          "duration_us": 2240000,
+          "words": [
+            {
+              "word": " I",
+              "start": 94.27,
+              "end": 94.27,
+              "confidence": 0.997299
+            },
+            {
+              "word": " promise",
+              "start": 94.32,
+              "end": 94.76,
+              "confidence": 0.99878
+            },
+            {
+              "word": " I",
+              "start": 94.76,
+              "end": 94.82,
+              "confidence": 0.849739
+            },
+            {
+              "word": "'ll",
+              "start": 94.82,
+              "end": 95.01,
+              "confidence": 0.998647
+            },
+            {
+              "word": " keep",
+              "start": 95.01,
+              "end": 95.27,
+              "confidence": 0.997265
+            },
+            {
+              "word": " my",
+              "start": 95.27,
+              "end": 95.4,
+              "confidence": 0.999354
+            },
+            {
+              "word": " hands",
+              "start": 95.4,
+              "end": 95.72,
+              "confidence": 0.999083
+            },
+            {
+              "word": " to",
+              "start": 95.72,
+              "end": 95.84,
+              "confidence": 0.999489
+            },
+            {
+              "word": " myself",
+              "start": 95.85,
+              "end": 96.24,
+              "confidence": 0.997935
+            },
+            {
+              "word": ".",
+              "start": 96.24,
+              "end": 96.48,
+              "confidence": 0.969069
+            },
+            {
+              "word": "[_TT_506]",
+              "start": 96.48,
+              "end": 96.48,
+              "confidence": 0.0668049
+            }
+          ]
+        },
+        {
+          "text": "(laughing)",
+          "start_us": 33800000,
+          "duration_us": 960000,
+          "words": [
+            {
+              "word": " (",
+              "start": 96.51,
+              "end": 96.56,
+              "confidence": 0.967656
+            },
+            {
+              "word": "laugh",
+              "start": 96.6,
+              "end": 97.03,
+              "confidence": 0.39788
+            },
+            {
+              "word": "ing",
+              "start": 97.04,
+              "end": 97.32,
+              "confidence": 0.999844
+            },
+            {
+              "word": ")",
+              "start": 97.32,
+              "end": 97.44,
+              "confidence": 0.987076
+            },
+            {
+              "word": "[_TT_554]",
+              "start": 97.44,
+              "end": 97.44,
+              "confidence": 0.172119
+            }
+          ]
+        },
+        {
+          "text": "- Eve, listen, just apologize to Marcus",
+          "start_us": 34760000,
+          "duration_us": 4440000,
+          "words": [
+            {
+              "word": " -",
+              "start": 97.52,
+              "end": 97.6,
+              "confidence": 0.878343
+            },
+            {
+              "word": " Eve",
+              "start": 97.6,
+              "end": 98.1,
+              "confidence": 0.870945
+            },
+            {
+              "word": ",",
+              "start": 98.1,
+              "end": 98.44,
+              "confidence": 0.705432
+            },
+            {
+              "word": " listen",
+              "start": 98.44,
+              "end": 99.76,
+              "confidence": 0.926916
+            },
+            {
+              "word": ",",
+              "start": 99.76,
+              "end": 100.19,
+              "confidence": 0.542436
+            },
+            {
+              "word": " just",
+              "start": 100.2,
+              "end": 100.52,
+              "confidence": 0.899223
+            },
+            {
+              "word": " apologize",
+              "start": 100.52,
+              "end": 101.23,
+              "confidence": 0.990544
+            },
+            {
+              "word": " to",
+              "start": 101.23,
+              "end": 101.39,
+              "confidence": 0.993866
+            },
+            {
+              "word": " Marcus",
+              "start": 101.39,
+              "end": 101.88,
+              "confidence": 0.998049
+            },
+            {
+              "word": "[_TT_776]",
+              "start": 101.88,
+              "end": 101.88,
+              "confidence": 0.334548
+            }
+          ]
+        },
+        {
+          "text": "and have a drink with him.",
+          "start_us": 39200000,
+          "duration_us": 1720000,
+          "words": [
+            {
+              "word": " and",
+              "start": 101.96,
+              "end": 102.1,
+              "confidence": 0.999836
+            },
+            {
+              "word": " have",
+              "start": 102.1,
+              "end": 102.38,
+              "confidence": 0.998826
+            },
+            {
+              "word": " a",
+              "start": 102.39,
+              "end": 102.46,
+              "confidence": 0.985216
+            },
+            {
+              "word": " drink",
+              "start": 102.46,
+              "end": 102.83,
+              "confidence": 0.999895
+            },
+            {
+              "word": " with",
+              "start": 102.83,
+              "end": 103.12,
+              "confidence": 0.98977
+            },
+            {
+              "word": " him",
+              "start": 103.12,
+              "end": 103.34,
+              "confidence": 0.98639
+            },
+            {
+              "word": ".",
+              "start": 103.34,
+              "end": 103.59,
+              "confidence": 0.984228
+            },
+            {
+              "word": "[_TT_862]",
+              "start": 103.6,
+              "end": 103.6,
+              "confidence": 0.227513
+            }
+          ]
+        },
+        {
+          "text": "- No, Lane.",
+          "start_us": 40920000,
+          "duration_us": 1000000,
+          "words": [
+            {
+              "word": " -",
+              "start": 103.63,
+              "end": 103.63,
+              "confidence": 0.96201
+            },
+            {
+              "word": " No",
+              "start": 103.68,
+              "end": 103.84,
+              "confidence": 0.959484
+            },
+            {
+              "word": ",",
+              "start": 103.84,
+              "end": 104.0,
+              "confidence": 0.886421
+            },
+            {
+              "word": " Lane",
+              "start": 104.0,
+              "end": 104.33,
+              "confidence": 0.892529
+            },
+            {
+              "word": ".",
+              "start": 104.33,
+              "end": 104.6,
+              "confidence": 0.902273
+            },
+            {
+              "word": "[_TT_912]",
+              "start": 104.6,
+              "end": 104.6,
+              "confidence": 0.110036
+            }
+          ]
+        },
+        {
+          "text": "- No.",
+          "start_us": 44200000,
+          "duration_us": 840000,
+          "words": [
+            {
+              "word": " -",
+              "start": 106.88,
+              "end": 106.88,
+              "confidence": 0.247524
+            },
+            {
+              "word": " No",
+              "start": 106.88,
+              "end": 106.88,
+              "confidence": 0.986068
+            },
+            {
+              "word": ".",
+              "start": 106.96,
+              "end": 107.72,
+              "confidence": 0.906831
+            },
+            {
+              "word": "[_TT_1068]",
+              "start": 107.72,
+              "end": 107.72,
+              "confidence": 0.352981
+            }
+          ]
+        },
+        {
+          "text": "(groaning)",
+          "start_us": 45040000,
+          "duration_us": 2260000,
+          "words": [
+            {
+              "word": " (",
+              "start": 117.36,
+              "end": 117.36,
+              "confidence": 0.750019
+            },
+            {
+              "word": "gro",
+              "start": 117.36,
+              "end": 117.36,
+              "confidence": 0.164489
+            },
+            {
+              "word": "aning",
+              "start": 117.44,
+              "end": 118.81,
+              "confidence": 0.965136
+            },
+            {
+              "word": ")",
+              "start": 118.81,
+              "end": 119.62,
+              "confidence": 0.967279
+            },
+            {
+              "word": "[_TT_163]",
+              "start": 119.62,
+              "end": 119.62,
+              "confidence": 0.225464
+            }
+          ]
+        },
+        {
+          "text": "(screaming)",
+          "start_us": 49840000,
+          "duration_us": 3280000,
+          "words": [
+            {
+              "word": " (",
+              "start": 122.16,
+              "end": 122.16,
+              "confidence": 0.7443
+            },
+            {
+              "word": "sc",
+              "start": 122.16,
+              "end": 122.16,
+              "confidence": 0.825189
+            },
+            {
+              "word": "ream",
+              "start": 122.24,
+              "end": 123.31,
+              "confidence": 0.995103
+            },
+            {
+              "word": "ing",
+              "start": 123.31,
+              "end": 124.89,
+              "confidence": 0.918823
+            },
+            {
+              "word": ")",
+              "start": 124.89,
+              "end": 125.44,
+              "confidence": 0.993492
+            },
+            {
+              "word": "[_TT_454]",
+              "start": 125.44,
+              "end": 125.44,
+              "confidence": 0.0113637
+            }
+          ]
+        },
+        {
+          "text": "- Oh my God, it's him!",
+          "start_us": 53120000,
+          "duration_us": 1760000,
+          "words": [
+            {
+              "word": " -",
+              "start": 125.47,
+              "end": 125.47,
+              "confidence": 0.829909
+            },
+            {
+              "word": " Oh",
+              "start": 125.52,
+              "end": 125.69,
+              "confidence": 0.982516
+            },
+            {
+              "word": " my",
+              "start": 125.69,
+              "end": 125.85,
+              "confidence": 0.932841
+            },
+            {
+              "word": " God",
+              "start": 125.85,
+              "end": 126.12,
+              "confidence": 0.690964
+            },
+            {
+              "word": ",",
+              "start": 126.12,
+              "end": 126.29,
+              "confidence": 0.951319
+            },
+            {
+              "word": " it",
+              "start": 126.29,
+              "end": 126.46,
+              "confidence": 0.849392
+            },
+            {
+              "word": "'s",
+              "start": 126.46,
+              "end": 126.63,
+              "confidence": 0.995889
+            },
+            {
+              "word": " him",
+              "start": 126.63,
+              "end": 126.89,
+              "confidence": 0.998392
+            },
+            {
+              "word": "!",
+              "start": 126.89,
+              "end": 127.2,
+              "confidence": 0.410893
+            },
+            {
+              "word": "[_TT_542]",
+              "start": 127.2,
+              "end": 127.2,
+              "confidence": 0.171093
+            }
+          ]
+        },
+        {
+          "text": "- Marcus, you're offending my guest.",
+          "start_us": 54880000,
+          "duration_us": 3600000,
+          "words": [
+            {
+              "word": " -",
+              "start": 127.23,
+              "end": 127.28,
+              "confidence": 0.960481
+            },
+            {
+              "word": " Marcus",
+              "start": 127.32,
+              "end": 127.93,
+              "confidence": 0.99858
+            },
+            {
+              "word": ",",
+              "start": 127.93,
+              "end": 128.14,
+              "confidence": 0.77025
+            },
+            {
+              "word": " you",
+              "start": 128.14,
+              "end": 128.45,
+              "confidence": 0.917295
+            },
+            {
+              "word": "'re",
+              "start": 128.45,
+              "end": 128.76,
+              "confidence": 0.967473
+            },
+            {
+              "word": " offending",
+              "start": 128.76,
+              "end": 129.71,
+              "confidence": 0.990776
+            },
+            {
+              "word": " my",
+              "start": 129.71,
+              "end": 129.92,
+              "confidence": 0.998824
+            },
+            {
+              "word": " guest",
+              "start": 129.92,
+              "end": 130.44,
+              "confidence": 0.940445
+            },
+            {
+              "word": ".",
+              "start": 130.44,
+              "end": 130.8,
+              "confidence": 0.991047
+            },
+            {
+              "word": "[_TT_722]",
+              "start": 130.8,
+              "end": 130.8,
+              "confidence": 0.116598
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

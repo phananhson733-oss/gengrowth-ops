@@ -1,0 +1,2161 @@
+{
+  "text": "- Eve, can you come help me with my cufflinks? I'm a bit stuck. (upbeat music) (upbeat music) - Why are you shirtless? (upbeat music) ♪ Babes just shut up and come to me ♪ - You put it on me. - Sorry, I can't do that. - You spilled juice all over my shirt. The least you could do is help me change. Don't you think? - Turn around. ♪ You'll make me tremble ♪ ♪ You'll make me scream your name ♪ ♪ Oh, you love me so good ♪ ♪ Oh, me babe ♪ ♪ Don't be shy ♪ ♪ This love feels too good to be true ♪ - Pervert. - Keep going. You're not done. ♪ Hold me and I want to feel this love again and again ♪ ♪ Again and again and again ♪ - Done. I'm leaving. - You look even more beautiful in that necklace than I imagined. Next time wear it on your ankle, just for me. - You sent the necklace? - Who else would it be? - Enough. Take it back. You sent me creepy messages. You gave me a necklace. And now you've trapped me in a dressing room? Aren't you afraid I'll tell Lane? (eerie music)",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 3.74,
+      "text": "- Eve, can you come help me with my cufflinks?",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 0.0,
+          "end": 0.0,
+          "confidence": 0.347289
+        },
+        {
+          "word": " -",
+          "start": 0.06,
+          "end": 0.09,
+          "confidence": 0.132805
+        },
+        {
+          "word": " Eve",
+          "start": 0.09,
+          "end": 0.37,
+          "confidence": 0.411183
+        },
+        {
+          "word": ",",
+          "start": 0.37,
+          "end": 0.55,
+          "confidence": 0.792243
+        },
+        {
+          "word": " can",
+          "start": 0.55,
+          "end": 0.82,
+          "confidence": 0.98512
+        },
+        {
+          "word": " you",
+          "start": 0.83,
+          "end": 1.11,
+          "confidence": 0.998489
+        },
+        {
+          "word": " come",
+          "start": 1.11,
+          "end": 1.47,
+          "confidence": 0.912137
+        },
+        {
+          "word": " help",
+          "start": 1.47,
+          "end": 1.84,
+          "confidence": 0.93462
+        },
+        {
+          "word": " me",
+          "start": 1.84,
+          "end": 2.03,
+          "confidence": 0.991091
+        },
+        {
+          "word": " with",
+          "start": 2.03,
+          "end": 2.4,
+          "confidence": 0.991807
+        },
+        {
+          "word": " my",
+          "start": 2.4,
+          "end": 2.58,
+          "confidence": 0.995771
+        },
+        {
+          "word": " cuff",
+          "start": 2.58,
+          "end": 2.95,
+          "confidence": 0.887921
+        },
+        {
+          "word": "links",
+          "start": 2.95,
+          "end": 3.41,
+          "confidence": 0.823975
+        },
+        {
+          "word": "?",
+          "start": 3.41,
+          "end": 3.74,
+          "confidence": 0.945839
+        },
+        {
+          "word": "[_TT_187]",
+          "start": 3.74,
+          "end": 3.74,
+          "confidence": 0.0107426
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 3.74,
+      "end": 4.82,
+      "text": "I'm a bit stuck.",
+      "words": [
+        {
+          "word": " I",
+          "start": 3.8,
+          "end": 3.81,
+          "confidence": 0.977062
+        },
+        {
+          "word": "'m",
+          "start": 3.81,
+          "end": 3.95,
+          "confidence": 0.996694
+        },
+        {
+          "word": " a",
+          "start": 3.95,
+          "end": 4.02,
+          "confidence": 0.99601
+        },
+        {
+          "word": " bit",
+          "start": 4.02,
+          "end": 4.23,
+          "confidence": 0.993178
+        },
+        {
+          "word": " stuck",
+          "start": 4.23,
+          "end": 4.58,
+          "confidence": 0.996098
+        },
+        {
+          "word": ".",
+          "start": 4.58,
+          "end": 4.82,
+          "confidence": 0.986073
+        },
+        {
+          "word": "[_TT_241]",
+          "start": 4.82,
+          "end": 4.82,
+          "confidence": 0.0184614
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 4.82,
+      "end": 7.4,
+      "text": "(upbeat music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 4.88,
+          "end": 6.99,
+          "confidence": 0.865841
+        },
+        {
+          "word": "up",
+          "start": 6.99,
+          "end": 7.05,
+          "confidence": 0.119745
+        },
+        {
+          "word": "beat",
+          "start": 7.1,
+          "end": 7.19,
+          "confidence": 0.998741
+        },
+        {
+          "word": " music",
+          "start": 7.19,
+          "end": 7.35,
+          "confidence": 0.818318
+        },
+        {
+          "word": ")",
+          "start": 7.35,
+          "end": 7.4,
+          "confidence": 0.983014
+        },
+        {
+          "word": "[_TT_370]",
+          "start": 7.4,
+          "end": 7.4,
+          "confidence": 0.586536
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 12.06,
+      "end": 14.64,
+      "text": "(upbeat music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 12.06,
+          "end": 12.06,
+          "confidence": 0.990973
+        },
+        {
+          "word": "up",
+          "start": 12.06,
+          "end": 12.06,
+          "confidence": 0.0745104
+        },
+        {
+          "word": "beat",
+          "start": 12.06,
+          "end": 12.06,
+          "confidence": 0.999224
+        },
+        {
+          "word": " music",
+          "start": 12.12,
+          "end": 13.99,
+          "confidence": 0.97271
+        },
+        {
+          "word": ")",
+          "start": 14.07,
+          "end": 14.64,
+          "confidence": 0.98526
+        },
+        {
+          "word": "[_TT_732]",
+          "start": 14.64,
+          "end": 14.64,
+          "confidence": 0.595186
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 21.84,
+      "end": 23.84,
+      "text": "- Why are you shirtless?",
+      "words": [
+        {
+          "word": " -",
+          "start": 21.84,
+          "end": 21.84,
+          "confidence": 0.782402
+        },
+        {
+          "word": " Why",
+          "start": 21.84,
+          "end": 21.84,
+          "confidence": 0.995456
+        },
+        {
+          "word": " are",
+          "start": 21.84,
+          "end": 21.84,
+          "confidence": 0.993794
+        },
+        {
+          "word": " you",
+          "start": 21.84,
+          "end": 21.84,
+          "confidence": 0.997615
+        },
+        {
+          "word": " shirt",
+          "start": 21.84,
+          "end": 21.84,
+          "confidence": 0.835113
+        },
+        {
+          "word": "less",
+          "start": 21.9,
+          "end": 22.56,
+          "confidence": 0.998325
+        },
+        {
+          "word": "?",
+          "start": 22.56,
+          "end": 23.77,
+          "confidence": 0.987472
+        },
+        {
+          "word": "[_TT_1192]",
+          "start": 23.84,
+          "end": 23.84,
+          "confidence": 0.0271639
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 23.84,
+      "end": 26.42,
+      "text": "(upbeat music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 23.9,
+          "end": 24.04,
+          "confidence": 0.98046
+        },
+        {
+          "word": "up",
+          "start": 24.04,
+          "end": 24.43,
+          "confidence": 0.583298
+        },
+        {
+          "word": "beat",
+          "start": 24.43,
+          "end": 25.22,
+          "confidence": 0.999893
+        },
+        {
+          "word": " music",
+          "start": 25.22,
+          "end": 26.21,
+          "confidence": 0.997328
+        },
+        {
+          "word": ")",
+          "start": 26.21,
+          "end": 26.42,
+          "confidence": 0.991668
+        },
+        {
+          "word": "[_TT_1321]",
+          "start": 26.42,
+          "end": 26.42,
+          "confidence": 0.798936
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 30.18,
+      "end": 35.0,
+      "text": "♪ Babes just shut up and come to me ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 30.18,
+          "end": 30.18,
+          "confidence": 0.620618
+        },
+        {
+          "word": " Bab",
+          "start": 30.18,
+          "end": 30.18,
+          "confidence": 0.439981
+        },
+        {
+          "word": "es",
+          "start": 30.18,
+          "end": 30.18,
+          "confidence": 0.666727
+        },
+        {
+          "word": " just",
+          "start": 30.18,
+          "end": 30.18,
+          "confidence": 0.677184
+        },
+        {
+          "word": " shut",
+          "start": 30.24,
+          "end": 30.68,
+          "confidence": 0.850831
+        },
+        {
+          "word": " up",
+          "start": 30.68,
+          "end": 31.2,
+          "confidence": 0.965307
+        },
+        {
+          "word": " and",
+          "start": 31.21,
+          "end": 32.01,
+          "confidence": 0.948885
+        },
+        {
+          "word": " come",
+          "start": 32.01,
+          "end": 33.08,
+          "confidence": 0.989247
+        },
+        {
+          "word": " to",
+          "start": 33.08,
+          "end": 33.61,
+          "confidence": 0.984219
+        },
+        {
+          "word": " me",
+          "start": 33.61,
+          "end": 34.01,
+          "confidence": 0.984611
+        },
+        {
+          "word": " ♪",
+          "start": 34.24,
+          "end": 35.0,
+          "confidence": 0.961304
+        },
+        {
+          "word": "[_TT_250]",
+          "start": 35.0,
+          "end": 35.0,
+          "confidence": 0.0982055
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 35.0,
+      "end": 36.04,
+      "text": "- You put it on me.",
+      "words": [
+        {
+          "word": " -",
+          "start": 35.06,
+          "end": 35.06,
+          "confidence": 0.840756
+        },
+        {
+          "word": " You",
+          "start": 35.06,
+          "end": 35.25,
+          "confidence": 0.996565
+        },
+        {
+          "word": " put",
+          "start": 35.25,
+          "end": 35.44,
+          "confidence": 0.997889
+        },
+        {
+          "word": " it",
+          "start": 35.44,
+          "end": 35.57,
+          "confidence": 0.998395
+        },
+        {
+          "word": " on",
+          "start": 35.57,
+          "end": 35.7,
+          "confidence": 0.999466
+        },
+        {
+          "word": " me",
+          "start": 35.7,
+          "end": 35.83,
+          "confidence": 0.967957
+        },
+        {
+          "word": ".",
+          "start": 35.83,
+          "end": 36.04,
+          "confidence": 0.943667
+        },
+        {
+          "word": "[_TT_302]",
+          "start": 36.04,
+          "end": 36.04,
+          "confidence": 0.0247772
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 37.56,
+      "end": 39.22,
+      "text": "- Sorry, I can't do that.",
+      "words": [
+        {
+          "word": " -",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.938464
+        },
+        {
+          "word": " Sorry",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.994941
+        },
+        {
+          "word": ",",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.761708
+        },
+        {
+          "word": " I",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.24258
+        },
+        {
+          "word": " can",
+          "start": 37.62,
+          "end": 37.67,
+          "confidence": 0.999035
+        },
+        {
+          "word": "'t",
+          "start": 37.67,
+          "end": 37.94,
+          "confidence": 0.9995
+        },
+        {
+          "word": " do",
+          "start": 37.94,
+          "end": 38.21,
+          "confidence": 0.999695
+        },
+        {
+          "word": " that",
+          "start": 38.21,
+          "end": 38.76,
+          "confidence": 0.999836
+        },
+        {
+          "word": ".",
+          "start": 38.76,
+          "end": 39.22,
+          "confidence": 0.996415
+        },
+        {
+          "word": "[_TT_461]",
+          "start": 39.22,
+          "end": 39.22,
+          "confidence": 0.0977444
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 40.32,
+      "end": 43.2,
+      "text": "- You spilled juice all over my shirt.",
+      "words": [
+        {
+          "word": " -",
+          "start": 40.32,
+          "end": 40.32,
+          "confidence": 0.98302
+        },
+        {
+          "word": " You",
+          "start": 40.32,
+          "end": 40.32,
+          "confidence": 0.995197
+        },
+        {
+          "word": " spilled",
+          "start": 40.38,
+          "end": 40.54,
+          "confidence": 0.99371
+        },
+        {
+          "word": " juice",
+          "start": 40.54,
+          "end": 41.14,
+          "confidence": 0.995539
+        },
+        {
+          "word": " all",
+          "start": 41.14,
+          "end": 41.5,
+          "confidence": 0.998384
+        },
+        {
+          "word": " over",
+          "start": 41.5,
+          "end": 41.98,
+          "confidence": 0.999771
+        },
+        {
+          "word": " my",
+          "start": 41.98,
+          "end": 42.22,
+          "confidence": 0.999209
+        },
+        {
+          "word": " shirt",
+          "start": 42.22,
+          "end": 42.82,
+          "confidence": 0.999634
+        },
+        {
+          "word": ".",
+          "start": 42.82,
+          "end": 43.2,
+          "confidence": 0.895002
+        },
+        {
+          "word": "[_TT_660]",
+          "start": 43.2,
+          "end": 43.2,
+          "confidence": 0.154939
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 43.2,
+      "end": 45.6,
+      "text": "The least you could do is help me change.",
+      "words": [
+        {
+          "word": " The",
+          "start": 43.26,
+          "end": 43.4,
+          "confidence": 0.988872
+        },
+        {
+          "word": " least",
+          "start": 43.4,
+          "end": 43.74,
+          "confidence": 0.996151
+        },
+        {
+          "word": " you",
+          "start": 43.74,
+          "end": 43.94,
+          "confidence": 0.998894
+        },
+        {
+          "word": " could",
+          "start": 43.94,
+          "end": 44.28,
+          "confidence": 0.951168
+        },
+        {
+          "word": " do",
+          "start": 44.28,
+          "end": 44.41,
+          "confidence": 0.9983
+        },
+        {
+          "word": " is",
+          "start": 44.41,
+          "end": 44.54,
+          "confidence": 0.94664
+        },
+        {
+          "word": " help",
+          "start": 44.54,
+          "end": 44.81,
+          "confidence": 0.994027
+        },
+        {
+          "word": " me",
+          "start": 44.81,
+          "end": 44.94,
+          "confidence": 0.999163
+        },
+        {
+          "word": " change",
+          "start": 44.94,
+          "end": 45.34,
+          "confidence": 0.998294
+        },
+        {
+          "word": ".",
+          "start": 45.37,
+          "end": 45.6,
+          "confidence": 0.429364
+        },
+        {
+          "word": "[_TT_780]",
+          "start": 45.6,
+          "end": 45.6,
+          "confidence": 0.490479
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 45.6,
+      "end": 46.44,
+      "text": "Don't you think?",
+      "words": [
+        {
+          "word": " Don",
+          "start": 45.66,
+          "end": 45.75,
+          "confidence": 0.992161
+        },
+        {
+          "word": "'t",
+          "start": 45.75,
+          "end": 45.85,
+          "confidence": 0.999819
+        },
+        {
+          "word": " you",
+          "start": 45.85,
+          "end": 46.0,
+          "confidence": 0.996132
+        },
+        {
+          "word": " think",
+          "start": 46.0,
+          "end": 46.26,
+          "confidence": 0.999102
+        },
+        {
+          "word": "?",
+          "start": 46.26,
+          "end": 46.44,
+          "confidence": 0.96121
+        },
+        {
+          "word": "[_TT_822]",
+          "start": 46.44,
+          "end": 46.44,
+          "confidence": 0.168522
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 50.76,
+      "end": 51.6,
+      "text": "- Turn around.",
+      "words": [
+        {
+          "word": " -",
+          "start": 50.76,
+          "end": 50.76,
+          "confidence": 0.893983
+        },
+        {
+          "word": " Turn",
+          "start": 50.76,
+          "end": 50.76,
+          "confidence": 0.996734
+        },
+        {
+          "word": " around",
+          "start": 50.76,
+          "end": 50.76,
+          "confidence": 0.991096
+        },
+        {
+          "word": ".",
+          "start": 50.82,
+          "end": 51.6,
+          "confidence": 0.982474
+        },
+        {
+          "word": "[_TT_1080]",
+          "start": 51.6,
+          "end": 51.6,
+          "confidence": 0.232266
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 51.6,
+      "end": 55.72,
+      "text": "♪ You'll make me tremble ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 51.66,
+          "end": 52.09,
+          "confidence": 0.86883
+        },
+        {
+          "word": " You",
+          "start": 52.09,
+          "end": 52.58,
+          "confidence": 0.573565
+        },
+        {
+          "word": "'ll",
+          "start": 52.58,
+          "end": 53.07,
+          "confidence": 0.412905
+        },
+        {
+          "word": " make",
+          "start": 53.07,
+          "end": 53.69,
+          "confidence": 0.998068
+        },
+        {
+          "word": " me",
+          "start": 53.73,
+          "end": 54.05,
+          "confidence": 0.999466
+        },
+        {
+          "word": " trem",
+          "start": 54.05,
+          "end": 54.7,
+          "confidence": 0.946589
+        },
+        {
+          "word": "ble",
+          "start": 54.7,
+          "end": 55.18,
+          "confidence": 0.803582
+        },
+        {
+          "word": " ♪",
+          "start": 55.18,
+          "end": 55.72,
+          "confidence": 0.925292
+        },
+        {
+          "word": "[_TT_1286]",
+          "start": 55.72,
+          "end": 55.72,
+          "confidence": 0.0267057
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 55.72,
+      "end": 59.88,
+      "text": "♪ You'll make me scream your name ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 55.78,
+          "end": 56.1,
+          "confidence": 0.910583
+        },
+        {
+          "word": " You",
+          "start": 56.1,
+          "end": 56.48,
+          "confidence": 0.984459
+        },
+        {
+          "word": "'ll",
+          "start": 56.52,
+          "end": 56.87,
+          "confidence": 0.920827
+        },
+        {
+          "word": " make",
+          "start": 56.87,
+          "end": 57.38,
+          "confidence": 0.997936
+        },
+        {
+          "word": " me",
+          "start": 57.38,
+          "end": 57.65,
+          "confidence": 0.999397
+        },
+        {
+          "word": " scream",
+          "start": 57.65,
+          "end": 58.42,
+          "confidence": 0.993892
+        },
+        {
+          "word": " your",
+          "start": 58.42,
+          "end": 58.94,
+          "confidence": 0.792607
+        },
+        {
+          "word": " name",
+          "start": 58.94,
+          "end": 59.46,
+          "confidence": 0.988027
+        },
+        {
+          "word": " ♪",
+          "start": 59.46,
+          "end": 59.88,
+          "confidence": 0.99587
+        },
+        {
+          "word": "[_TT_1494]",
+          "start": 59.88,
+          "end": 59.88,
+          "confidence": 0.136111
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 59.88,
+      "end": 64.04,
+      "text": "♪ Oh, you love me so good ♪",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 59.88,
+          "end": 59.88,
+          "confidence": 0.999971
+        },
+        {
+          "word": " ♪",
+          "start": 59.94,
+          "end": 60.37,
+          "confidence": 0.968876
+        },
+        {
+          "word": " Oh",
+          "start": 60.37,
+          "end": 60.7,
+          "confidence": 0.48257
+        },
+        {
+          "word": ",",
+          "start": 60.7,
+          "end": 61.03,
+          "confidence": 0.4933
+        },
+        {
+          "word": " you",
+          "start": 61.03,
+          "end": 61.52,
+          "confidence": 0.229223
+        },
+        {
+          "word": " love",
+          "start": 61.52,
+          "end": 62.16,
+          "confidence": 0.680641
+        },
+        {
+          "word": " me",
+          "start": 62.21,
+          "end": 62.51,
+          "confidence": 0.998536
+        },
+        {
+          "word": " so",
+          "start": 62.51,
+          "end": 62.84,
+          "confidence": 0.992131
+        },
+        {
+          "word": " good",
+          "start": 62.84,
+          "end": 63.5,
+          "confidence": 0.967242
+        },
+        {
+          "word": " ♪",
+          "start": 63.5,
+          "end": 64.04,
+          "confidence": 0.648851
+        },
+        {
+          "word": "[_TT_208]",
+          "start": 64.04,
+          "end": 64.04,
+          "confidence": 0.0587943
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 64.04,
+      "end": 66.2,
+      "text": "♪ Oh, me babe ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 64.1,
+          "end": 64.44,
+          "confidence": 0.980294
+        },
+        {
+          "word": " Oh",
+          "start": 64.44,
+          "end": 64.7,
+          "confidence": 0.189617
+        },
+        {
+          "word": ",",
+          "start": 64.7,
+          "end": 64.97,
+          "confidence": 0.800501
+        },
+        {
+          "word": " me",
+          "start": 64.97,
+          "end": 65.24,
+          "confidence": 0.745012
+        },
+        {
+          "word": " babe",
+          "start": 65.24,
+          "end": 65.77,
+          "confidence": 0.699299
+        },
+        {
+          "word": " ♪",
+          "start": 65.77,
+          "end": 66.19,
+          "confidence": 0.748349
+        },
+        {
+          "word": "[_TT_316]",
+          "start": 66.2,
+          "end": 66.2,
+          "confidence": 0.0312038
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "start": 66.2,
+      "end": 68.4,
+      "text": "♪ Don't be shy ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 66.26,
+          "end": 66.6,
+          "confidence": 0.894939
+        },
+        {
+          "word": " Don",
+          "start": 66.6,
+          "end": 67.01,
+          "confidence": 0.964055
+        },
+        {
+          "word": "'t",
+          "start": 67.01,
+          "end": 67.28,
+          "confidence": 0.998685
+        },
+        {
+          "word": " be",
+          "start": 67.28,
+          "end": 67.55,
+          "confidence": 0.99136
+        },
+        {
+          "word": " shy",
+          "start": 67.55,
+          "end": 67.95,
+          "confidence": 0.996991
+        },
+        {
+          "word": " ♪",
+          "start": 67.95,
+          "end": 68.4,
+          "confidence": 0.954756
+        },
+        {
+          "word": "[_TT_426]",
+          "start": 68.4,
+          "end": 68.4,
+          "confidence": 0.0745624
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "start": 68.4,
+      "end": 71.84,
+      "text": "♪ This love feels too good to be true ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 68.46,
+          "end": 68.7,
+          "confidence": 0.994465
+        },
+        {
+          "word": " This",
+          "start": 68.7,
+          "end": 69.1,
+          "confidence": 0.96982
+        },
+        {
+          "word": " love",
+          "start": 69.1,
+          "end": 69.5,
+          "confidence": 0.984177
+        },
+        {
+          "word": " feels",
+          "start": 69.5,
+          "end": 70.0,
+          "confidence": 0.995991
+        },
+        {
+          "word": " too",
+          "start": 70.0,
+          "end": 70.3,
+          "confidence": 0.97075
+        },
+        {
+          "word": " good",
+          "start": 70.3,
+          "end": 70.69,
+          "confidence": 0.935202
+        },
+        {
+          "word": " to",
+          "start": 70.73,
+          "end": 70.9,
+          "confidence": 0.571039
+        },
+        {
+          "word": " be",
+          "start": 70.9,
+          "end": 71.1,
+          "confidence": 0.95084
+        },
+        {
+          "word": " true",
+          "start": 71.1,
+          "end": 71.5,
+          "confidence": 0.98117
+        },
+        {
+          "word": " ♪",
+          "start": 71.5,
+          "end": 71.84,
+          "confidence": 0.967052
+        },
+        {
+          "word": "[_TT_598]",
+          "start": 71.84,
+          "end": 71.84,
+          "confidence": 0.124652
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "start": 71.84,
+      "end": 73.16,
+      "text": "- Pervert.",
+      "words": [
+        {
+          "word": " -",
+          "start": 71.9,
+          "end": 72.0,
+          "confidence": 0.899196
+        },
+        {
+          "word": " Per",
+          "start": 72.0,
+          "end": 72.49,
+          "confidence": 0.560357
+        },
+        {
+          "word": "vert",
+          "start": 72.49,
+          "end": 73.16,
+          "confidence": 0.776491
+        },
+        {
+          "word": ".",
+          "start": 73.16,
+          "end": 73.16,
+          "confidence": 0.78706
+        },
+        {
+          "word": "[_TT_664]",
+          "start": 73.16,
+          "end": 73.16,
+          "confidence": 0.209807
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "start": 73.16,
+      "end": 74.64,
+      "text": "- Keep going.",
+      "words": [
+        {
+          "word": " -",
+          "start": 73.22,
+          "end": 73.27,
+          "confidence": 0.910422
+        },
+        {
+          "word": " Keep",
+          "start": 73.27,
+          "end": 73.71,
+          "confidence": 0.995697
+        },
+        {
+          "word": " going",
+          "start": 73.72,
+          "end": 74.28,
+          "confidence": 0.998666
+        },
+        {
+          "word": ".",
+          "start": 74.28,
+          "end": 74.63,
+          "confidence": 0.838242
+        },
+        {
+          "word": "[_TT_738]",
+          "start": 74.64,
+          "end": 74.64,
+          "confidence": 0.172585
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "start": 74.64,
+      "end": 75.64,
+      "text": "You're not done.",
+      "words": [
+        {
+          "word": " You",
+          "start": 74.7,
+          "end": 74.82,
+          "confidence": 0.947735
+        },
+        {
+          "word": "'re",
+          "start": 74.82,
+          "end": 75.0,
+          "confidence": 0.998382
+        },
+        {
+          "word": " not",
+          "start": 75.0,
+          "end": 75.18,
+          "confidence": 0.999611
+        },
+        {
+          "word": " done",
+          "start": 75.18,
+          "end": 75.42,
+          "confidence": 0.996791
+        },
+        {
+          "word": ".",
+          "start": 75.42,
+          "end": 75.64,
+          "confidence": 0.998292
+        },
+        {
+          "word": "[_TT_788]",
+          "start": 75.64,
+          "end": 75.64,
+          "confidence": 0.121674
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "start": 75.64,
+      "end": 80.64,
+      "text": "♪ Hold me and I want to feel this love again and again ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 75.7,
+          "end": 75.95,
+          "confidence": 0.947986
+        },
+        {
+          "word": " Hold",
+          "start": 75.95,
+          "end": 76.37,
+          "confidence": 0.918468
+        },
+        {
+          "word": " me",
+          "start": 76.37,
+          "end": 76.58,
+          "confidence": 0.994002
+        },
+        {
+          "word": " and",
+          "start": 76.58,
+          "end": 76.89,
+          "confidence": 0.520809
+        },
+        {
+          "word": " I",
+          "start": 76.89,
+          "end": 76.99,
+          "confidence": 0.989117
+        },
+        {
+          "word": " want",
+          "start": 76.99,
+          "end": 77.41,
+          "confidence": 0.241157
+        },
+        {
+          "word": " to",
+          "start": 77.41,
+          "end": 77.61,
+          "confidence": 0.98159
+        },
+        {
+          "word": " feel",
+          "start": 77.62,
+          "end": 78.04,
+          "confidence": 0.979903
+        },
+        {
+          "word": " this",
+          "start": 78.04,
+          "end": 78.46,
+          "confidence": 0.838146
+        },
+        {
+          "word": " love",
+          "start": 78.46,
+          "end": 78.88,
+          "confidence": 0.995444
+        },
+        {
+          "word": " again",
+          "start": 78.88,
+          "end": 79.39,
+          "confidence": 0.938059
+        },
+        {
+          "word": " and",
+          "start": 79.41,
+          "end": 79.72,
+          "confidence": 0.67632
+        },
+        {
+          "word": " again",
+          "start": 79.72,
+          "end": 80.25,
+          "confidence": 0.997666
+        },
+        {
+          "word": " ♪",
+          "start": 80.25,
+          "end": 80.64,
+          "confidence": 0.507296
+        },
+        {
+          "word": "[_TT_1038]",
+          "start": 80.64,
+          "end": 80.64,
+          "confidence": 0.743239
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "start": 80.64,
+      "end": 84.28,
+      "text": "♪ Again and again and again ♪",
+      "words": [
+        {
+          "word": " ♪",
+          "start": 80.7,
+          "end": 81.04,
+          "confidence": 0.733043
+        },
+        {
+          "word": " Again",
+          "start": 81.04,
+          "end": 81.71,
+          "confidence": 0.521541
+        },
+        {
+          "word": " and",
+          "start": 81.71,
+          "end": 82.11,
+          "confidence": 0.973777
+        },
+        {
+          "word": " again",
+          "start": 82.11,
+          "end": 82.77,
+          "confidence": 0.995486
+        },
+        {
+          "word": " and",
+          "start": 82.81,
+          "end": 83.18,
+          "confidence": 0.860608
+        },
+        {
+          "word": " again",
+          "start": 83.18,
+          "end": 83.85,
+          "confidence": 0.958311
+        },
+        {
+          "word": " ♪",
+          "start": 83.85,
+          "end": 84.28,
+          "confidence": 0.826027
+        },
+        {
+          "word": "[_TT_1220]",
+          "start": 84.28,
+          "end": 84.28,
+          "confidence": 0.0942457
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "start": 84.28,
+      "end": 85.76,
+      "text": "- Done.",
+      "words": [
+        {
+          "word": " -",
+          "start": 84.34,
+          "end": 84.46,
+          "confidence": 0.916572
+        },
+        {
+          "word": " Done",
+          "start": 84.46,
+          "end": 85.2,
+          "confidence": 0.538668
+        },
+        {
+          "word": ".",
+          "start": 85.2,
+          "end": 85.76,
+          "confidence": 0.817471
+        },
+        {
+          "word": "[_TT_1294]",
+          "start": 85.76,
+          "end": 85.76,
+          "confidence": 0.25613
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "start": 85.76,
+      "end": 86.6,
+      "text": "I'm leaving.",
+      "words": [
+        {
+          "word": " I",
+          "start": 85.82,
+          "end": 85.82,
+          "confidence": 0.963981
+        },
+        {
+          "word": "'m",
+          "start": 85.82,
+          "end": 85.94,
+          "confidence": 0.998586
+        },
+        {
+          "word": " leaving",
+          "start": 85.94,
+          "end": 86.39,
+          "confidence": 0.999169
+        },
+        {
+          "word": ".",
+          "start": 86.39,
+          "end": 86.6,
+          "confidence": 0.981381
+        },
+        {
+          "word": "[_TT_1336]",
+          "start": 86.6,
+          "end": 86.6,
+          "confidence": 0.334704
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "start": 87.76,
+      "end": 89.68,
+      "text": "- You look even more beautiful in that necklace",
+      "words": [
+        {
+          "word": " -",
+          "start": 87.76,
+          "end": 87.76,
+          "confidence": 0.448809
+        },
+        {
+          "word": " You",
+          "start": 87.76,
+          "end": 87.76,
+          "confidence": 0.880216
+        },
+        {
+          "word": " look",
+          "start": 87.76,
+          "end": 87.76,
+          "confidence": 0.997267
+        },
+        {
+          "word": " even",
+          "start": 87.76,
+          "end": 87.76,
+          "confidence": 0.997166
+        },
+        {
+          "word": " more",
+          "start": 87.82,
+          "end": 88.08,
+          "confidence": 0.999239
+        },
+        {
+          "word": " beautiful",
+          "start": 88.08,
+          "end": 88.96,
+          "confidence": 0.99842
+        },
+        {
+          "word": " in",
+          "start": 88.96,
+          "end": 89.06,
+          "confidence": 0.522656
+        },
+        {
+          "word": " that",
+          "start": 89.06,
+          "end": 89.25,
+          "confidence": 0.991514
+        },
+        {
+          "word": " necklace",
+          "start": 89.25,
+          "end": 89.68,
+          "confidence": 0.953039
+        },
+        {
+          "word": "[_TT_1490]",
+          "start": 89.68,
+          "end": 89.68,
+          "confidence": 0.32518
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "start": 89.68,
+      "end": 91.32,
+      "text": "than I imagined.",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 89.68,
+          "end": 89.68,
+          "confidence": 0.999971
+        },
+        {
+          "word": " than",
+          "start": 89.74,
+          "end": 90.06,
+          "confidence": 0.91609
+        },
+        {
+          "word": " I",
+          "start": 90.06,
+          "end": 90.15,
+          "confidence": 0.996077
+        },
+        {
+          "word": " imagined",
+          "start": 90.15,
+          "end": 90.92,
+          "confidence": 0.946672
+        },
+        {
+          "word": ".",
+          "start": 90.92,
+          "end": 91.32,
+          "confidence": 0.72807
+        },
+        {
+          "word": "[_TT_82]",
+          "start": 91.32,
+          "end": 91.32,
+          "confidence": 0.0725553
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "start": 91.32,
+      "end": 95.24,
+      "text": "Next time wear it on your ankle, just for me.",
+      "words": [
+        {
+          "word": " Next",
+          "start": 91.38,
+          "end": 91.56,
+          "confidence": 0.773589
+        },
+        {
+          "word": " time",
+          "start": 91.56,
+          "end": 91.8,
+          "confidence": 0.995044
+        },
+        {
+          "word": " wear",
+          "start": 91.8,
+          "end": 92.04,
+          "confidence": 0.912367
+        },
+        {
+          "word": " it",
+          "start": 92.04,
+          "end": 92.16,
+          "confidence": 0.996795
+        },
+        {
+          "word": " on",
+          "start": 92.16,
+          "end": 92.28,
+          "confidence": 0.997944
+        },
+        {
+          "word": " your",
+          "start": 92.28,
+          "end": 92.52,
+          "confidence": 0.99854
+        },
+        {
+          "word": " ankle",
+          "start": 92.52,
+          "end": 92.83,
+          "confidence": 0.999011
+        },
+        {
+          "word": ",",
+          "start": 92.88,
+          "end": 92.96,
+          "confidence": 0.346239
+        },
+        {
+          "word": " just",
+          "start": 92.96,
+          "end": 93.72,
+          "confidence": 0.52911
+        },
+        {
+          "word": " for",
+          "start": 93.72,
+          "end": 94.29,
+          "confidence": 0.920205
+        },
+        {
+          "word": " me",
+          "start": 94.29,
+          "end": 94.66,
+          "confidence": 0.998677
+        },
+        {
+          "word": ".",
+          "start": 94.66,
+          "end": 95.15,
+          "confidence": 0.994778
+        },
+        {
+          "word": "[_TT_278]",
+          "start": 95.24,
+          "end": 95.24,
+          "confidence": 0.0720912
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "start": 97.24,
+      "end": 98.6,
+      "text": "- You sent the necklace?",
+      "words": [
+        {
+          "word": " -",
+          "start": 97.24,
+          "end": 97.24,
+          "confidence": 0.956393
+        },
+        {
+          "word": " You",
+          "start": 97.24,
+          "end": 97.24,
+          "confidence": 0.999014
+        },
+        {
+          "word": " sent",
+          "start": 97.24,
+          "end": 97.24,
+          "confidence": 0.993885
+        },
+        {
+          "word": " the",
+          "start": 97.24,
+          "end": 97.24,
+          "confidence": 0.989132
+        },
+        {
+          "word": " necklace",
+          "start": 97.3,
+          "end": 98.12,
+          "confidence": 0.999207
+        },
+        {
+          "word": "?",
+          "start": 98.12,
+          "end": 98.6,
+          "confidence": 0.844505
+        },
+        {
+          "word": "[_TT_446]",
+          "start": 98.6,
+          "end": 98.6,
+          "confidence": 0.0973188
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "start": 100.76,
+      "end": 101.88,
+      "text": "- Who else would it be?",
+      "words": [
+        {
+          "word": " -",
+          "start": 100.76,
+          "end": 100.76,
+          "confidence": 0.748827
+        },
+        {
+          "word": " Who",
+          "start": 100.76,
+          "end": 100.76,
+          "confidence": 0.995163
+        },
+        {
+          "word": " else",
+          "start": 100.76,
+          "end": 100.76,
+          "confidence": 0.999811
+        },
+        {
+          "word": " would",
+          "start": 100.76,
+          "end": 100.76,
+          "confidence": 0.998624
+        },
+        {
+          "word": " it",
+          "start": 100.82,
+          "end": 101.03,
+          "confidence": 0.998963
+        },
+        {
+          "word": " be",
+          "start": 101.03,
+          "end": 101.35,
+          "confidence": 0.99979
+        },
+        {
+          "word": "?",
+          "start": 101.35,
+          "end": 101.88,
+          "confidence": 0.995454
+        },
+        {
+          "word": "[_TT_610]",
+          "start": 101.88,
+          "end": 101.88,
+          "confidence": 0.078099
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "start": 103.56,
+      "end": 104.4,
+      "text": "- Enough.",
+      "words": [
+        {
+          "word": " -",
+          "start": 103.56,
+          "end": 103.56,
+          "confidence": 0.98911
+        },
+        {
+          "word": " Enough",
+          "start": 103.62,
+          "end": 103.64,
+          "confidence": 0.995888
+        },
+        {
+          "word": ".",
+          "start": 103.64,
+          "end": 104.4,
+          "confidence": 0.183486
+        },
+        {
+          "word": "[_TT_736]",
+          "start": 104.4,
+          "end": 104.4,
+          "confidence": 0.702705
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "start": 104.4,
+      "end": 105.72,
+      "text": "Take it back.",
+      "words": [
+        {
+          "word": " Take",
+          "start": 104.46,
+          "end": 104.8,
+          "confidence": 0.978082
+        },
+        {
+          "word": " it",
+          "start": 104.8,
+          "end": 105.0,
+          "confidence": 0.99947
+        },
+        {
+          "word": " back",
+          "start": 105.0,
+          "end": 105.4,
+          "confidence": 0.999489
+        },
+        {
+          "word": ".",
+          "start": 105.4,
+          "end": 105.72,
+          "confidence": 0.909479
+        },
+        {
+          "word": "[_TT_802]",
+          "start": 105.72,
+          "end": 105.72,
+          "confidence": 0.447865
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "start": 105.72,
+      "end": 107.04,
+      "text": "You sent me creepy messages.",
+      "words": [
+        {
+          "word": " You",
+          "start": 105.78,
+          "end": 105.87,
+          "confidence": 0.966177
+        },
+        {
+          "word": " sent",
+          "start": 105.87,
+          "end": 106.07,
+          "confidence": 0.996016
+        },
+        {
+          "word": " me",
+          "start": 106.07,
+          "end": 106.17,
+          "confidence": 0.99915
+        },
+        {
+          "word": " creepy",
+          "start": 106.17,
+          "end": 106.46,
+          "confidence": 0.981089
+        },
+        {
+          "word": " messages",
+          "start": 106.47,
+          "end": 106.87,
+          "confidence": 0.998917
+        },
+        {
+          "word": ".",
+          "start": 106.87,
+          "end": 107.04,
+          "confidence": 0.683523
+        },
+        {
+          "word": "[_TT_868]",
+          "start": 107.04,
+          "end": 107.04,
+          "confidence": 0.774924
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "start": 107.04,
+      "end": 108.16,
+      "text": "You gave me a necklace.",
+      "words": [
+        {
+          "word": " You",
+          "start": 107.1,
+          "end": 107.22,
+          "confidence": 0.999245
+        },
+        {
+          "word": " gave",
+          "start": 107.22,
+          "end": 107.46,
+          "confidence": 0.940449
+        },
+        {
+          "word": " me",
+          "start": 107.46,
+          "end": 107.58,
+          "confidence": 0.999668
+        },
+        {
+          "word": " a",
+          "start": 107.58,
+          "end": 107.64,
+          "confidence": 0.99643
+        },
+        {
+          "word": " necklace",
+          "start": 107.64,
+          "end": 108.16,
+          "confidence": 0.999668
+        },
+        {
+          "word": ".",
+          "start": 108.16,
+          "end": 108.16,
+          "confidence": 0.118908
+        },
+        {
+          "word": "[_TT_924]",
+          "start": 108.16,
+          "end": 108.16,
+          "confidence": 0.509122
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "start": 108.16,
+      "end": 110.72,
+      "text": "And now you've trapped me in a dressing room?",
+      "words": [
+        {
+          "word": " And",
+          "start": 108.22,
+          "end": 108.34,
+          "confidence": 0.992831
+        },
+        {
+          "word": " now",
+          "start": 108.34,
+          "end": 108.52,
+          "confidence": 0.995065
+        },
+        {
+          "word": " you",
+          "start": 108.52,
+          "end": 108.7,
+          "confidence": 0.983963
+        },
+        {
+          "word": "'ve",
+          "start": 108.7,
+          "end": 108.88,
+          "confidence": 0.994459
+        },
+        {
+          "word": " trapped",
+          "start": 108.88,
+          "end": 109.3,
+          "confidence": 0.966593
+        },
+        {
+          "word": " me",
+          "start": 109.3,
+          "end": 109.44,
+          "confidence": 0.99891
+        },
+        {
+          "word": " in",
+          "start": 109.44,
+          "end": 109.58,
+          "confidence": 0.969573
+        },
+        {
+          "word": " a",
+          "start": 109.58,
+          "end": 109.64,
+          "confidence": 0.997428
+        },
+        {
+          "word": " dressing",
+          "start": 109.64,
+          "end": 110.2,
+          "confidence": 0.999704
+        },
+        {
+          "word": " room",
+          "start": 110.2,
+          "end": 110.48,
+          "confidence": 0.999275
+        },
+        {
+          "word": "?",
+          "start": 110.49,
+          "end": 110.72,
+          "confidence": 0.784285
+        },
+        {
+          "word": "[_TT_1052]",
+          "start": 110.72,
+          "end": 110.72,
+          "confidence": 0.280513
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "start": 111.76,
+      "end": 113.24,
+      "text": "Aren't you afraid I'll tell Lane?",
+      "words": [
+        {
+          "word": " Aren",
+          "start": 111.76,
+          "end": 111.76,
+          "confidence": 0.971973
+        },
+        {
+          "word": "'t",
+          "start": 111.76,
+          "end": 111.76,
+          "confidence": 0.99992
+        },
+        {
+          "word": " you",
+          "start": 111.76,
+          "end": 111.76,
+          "confidence": 0.999455
+        },
+        {
+          "word": " afraid",
+          "start": 111.82,
+          "end": 111.96,
+          "confidence": 0.999746
+        },
+        {
+          "word": " I",
+          "start": 111.96,
+          "end": 112.04,
+          "confidence": 0.982227
+        },
+        {
+          "word": "'ll",
+          "start": 112.04,
+          "end": 112.29,
+          "confidence": 0.998041
+        },
+        {
+          "word": " tell",
+          "start": 112.29,
+          "end": 112.62,
+          "confidence": 0.974007
+        },
+        {
+          "word": " Lane",
+          "start": 112.62,
+          "end": 112.95,
+          "confidence": 0.521036
+        },
+        {
+          "word": "?",
+          "start": 112.95,
+          "end": 113.23,
+          "confidence": 0.905165
+        },
+        {
+          "word": "[_TT_1178]",
+          "start": 113.24,
+          "end": 113.24,
+          "confidence": 0.180068
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "start": 115.16,
+      "end": 117.66,
+      "text": "(eerie music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 115.22,
+          "end": 115.5,
+          "confidence": 0.873327
+        },
+        {
+          "word": "e",
+          "start": 115.5,
+          "end": 115.69,
+          "confidence": 0.0348423
+        },
+        {
+          "word": "erie",
+          "start": 115.69,
+          "end": 116.47,
+          "confidence": 0.945579
+        },
+        {
+          "word": " music",
+          "start": 116.47,
+          "end": 117.33,
+          "confidence": 0.889695
+        },
+        {
+          "word": ")",
+          "start": 117.49,
+          "end": 117.66,
+          "confidence": 0.988067
+        },
+        {
+          "word": "[_TT_1399]",
+          "start": 117.66,
+          "end": 117.66,
+          "confidence": 0.642319
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "duration": 120.939,
+  "provider": "whisper.cpp-local",
+  "model": "/Users/gaoxuan/.codex/models/whisper/ggml-base.en.bin"
+}

@@ -1,0 +1,2477 @@
+{
+  "text": "(dramatic music) - Nothing. I realized I was wrong about something. - You scared me, thought some guy was trying to steal my girl. - You're dizzy and not feeling well. Want me to stay tonight? (phone ringing) - I'm really tired. You should head home. (phone ringing) (sighing) - All right, all right. Whatever you say, get some rest. (dramatic music) (dramatic music) - Wait here, I'll grab you some dessert. Be right back. - Okay. (phone ringing) - Hey, they're pretty thing. Have a drink with me. Make a friend, let's be friends. - Please keep your distance. - Don't be shy, I'll take good care of you. - Lane. Lane. - Hey, hey, take easy, Marcus. This is my girlfriend. Can I help you? - Well, well, well. Your girlfriend, so what? If you still want access to my shipping routes in Europe, you better let her have that drink with me. I promise I'll keep my hands to myself. (laughing) - Eve, listen, just apologize to Marcus and have a drink with him. - No, Lane. - No. (dramatic music) (groaning) (screaming) - Oh my God, it's him! - Marcus, you're offending my guest. (dramatic music)",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 2.74,
+      "text": "(dramatic music)",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 0.0,
+          "end": 0.0,
+          "confidence": 0.748662
+        },
+        {
+          "word": " (",
+          "start": 0.08,
+          "end": 0.18,
+          "confidence": 0.202279
+        },
+        {
+          "word": "d",
+          "start": 0.18,
+          "end": 0.36,
+          "confidence": 0.196836
+        },
+        {
+          "word": "ram",
+          "start": 0.36,
+          "end": 0.9,
+          "confidence": 0.981906
+        },
+        {
+          "word": "atic",
+          "start": 0.9,
+          "end": 1.62,
+          "confidence": 0.99895
+        },
+        {
+          "word": " music",
+          "start": 1.62,
+          "end": 2.52,
+          "confidence": 0.848347
+        },
+        {
+          "word": ")",
+          "start": 2.53,
+          "end": 2.74,
+          "confidence": 0.978286
+        },
+        {
+          "word": "[_TT_137]",
+          "start": 2.74,
+          "end": 2.74,
+          "confidence": 0.268011
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 6.38,
+      "end": 7.5,
+      "text": "- Nothing.",
+      "words": [
+        {
+          "word": " -",
+          "start": 6.38,
+          "end": 6.38,
+          "confidence": 0.815977
+        },
+        {
+          "word": " Nothing",
+          "start": 6.38,
+          "end": 6.38,
+          "confidence": 0.998527
+        },
+        {
+          "word": ".",
+          "start": 6.46,
+          "end": 7.5,
+          "confidence": 0.675012
+        },
+        {
+          "word": "[_TT_375]",
+          "start": 7.5,
+          "end": 7.5,
+          "confidence": 0.207319
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 7.5,
+      "end": 9.5,
+      "text": "I realized I was wrong about something.",
+      "words": [
+        {
+          "word": " I",
+          "start": 7.53,
+          "end": 7.53,
+          "confidence": 0.993731
+        },
+        {
+          "word": " realized",
+          "start": 7.58,
+          "end": 8.0,
+          "confidence": 0.994767
+        },
+        {
+          "word": " I",
+          "start": 8.0,
+          "end": 8.05,
+          "confidence": 0.995323
+        },
+        {
+          "word": " was",
+          "start": 8.05,
+          "end": 8.22,
+          "confidence": 0.999779
+        },
+        {
+          "word": " wrong",
+          "start": 8.22,
+          "end": 8.5,
+          "confidence": 0.999943
+        },
+        {
+          "word": " about",
+          "start": 8.5,
+          "end": 8.78,
+          "confidence": 0.998837
+        },
+        {
+          "word": " something",
+          "start": 8.78,
+          "end": 9.28,
+          "confidence": 0.999409
+        },
+        {
+          "word": ".",
+          "start": 9.29,
+          "end": 9.5,
+          "confidence": 0.997331
+        },
+        {
+          "word": "[_TT_475]",
+          "start": 9.5,
+          "end": 9.5,
+          "confidence": 0.428193
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 9.5,
+      "end": 11.06,
+      "text": "- You scared me, thought some guy",
+      "words": [
+        {
+          "word": " -",
+          "start": 9.53,
+          "end": 9.53,
+          "confidence": 0.993913
+        },
+        {
+          "word": " You",
+          "start": 9.58,
+          "end": 9.83,
+          "confidence": 0.997231
+        },
+        {
+          "word": " scared",
+          "start": 9.83,
+          "end": 10.34,
+          "confidence": 0.990582
+        },
+        {
+          "word": " me",
+          "start": 10.34,
+          "end": 10.54,
+          "confidence": 0.999184
+        },
+        {
+          "word": ",",
+          "start": 10.54,
+          "end": 10.58,
+          "confidence": 0.405922
+        },
+        {
+          "word": " thought",
+          "start": 10.58,
+          "end": 10.74,
+          "confidence": 0.578465
+        },
+        {
+          "word": " some",
+          "start": 10.74,
+          "end": 10.92,
+          "confidence": 0.976604
+        },
+        {
+          "word": " guy",
+          "start": 10.92,
+          "end": 11.06,
+          "confidence": 0.99628
+        },
+        {
+          "word": "[_TT_553]",
+          "start": 11.06,
+          "end": 11.06,
+          "confidence": 0.398373
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 11.06,
+      "end": 12.5,
+      "text": "was trying to steal my girl.",
+      "words": [
+        {
+          "word": " was",
+          "start": 11.14,
+          "end": 11.23,
+          "confidence": 0.998548
+        },
+        {
+          "word": " trying",
+          "start": 11.23,
+          "end": 11.56,
+          "confidence": 0.971376
+        },
+        {
+          "word": " to",
+          "start": 11.57,
+          "end": 11.68,
+          "confidence": 0.998679
+        },
+        {
+          "word": " steal",
+          "start": 11.68,
+          "end": 11.96,
+          "confidence": 0.998854
+        },
+        {
+          "word": " my",
+          "start": 11.96,
+          "end": 12.07,
+          "confidence": 0.999417
+        },
+        {
+          "word": " girl",
+          "start": 12.07,
+          "end": 12.3,
+          "confidence": 0.997274
+        },
+        {
+          "word": ".",
+          "start": 12.3,
+          "end": 12.5,
+          "confidence": 0.941779
+        },
+        {
+          "word": "[_TT_625]",
+          "start": 12.5,
+          "end": 12.5,
+          "confidence": 0.0807139
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 16.5,
+      "end": 18.74,
+      "text": "- You're dizzy and not feeling well.",
+      "words": [
+        {
+          "word": " -",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.766789
+        },
+        {
+          "word": " You",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.996075
+        },
+        {
+          "word": "'re",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.996573
+        },
+        {
+          "word": " dizz",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.998159
+        },
+        {
+          "word": "y",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.995437
+        },
+        {
+          "word": " and",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.88804
+        },
+        {
+          "word": " not",
+          "start": 16.5,
+          "end": 16.5,
+          "confidence": 0.993331
+        },
+        {
+          "word": " feeling",
+          "start": 16.58,
+          "end": 17.34,
+          "confidence": 0.997181
+        },
+        {
+          "word": " well",
+          "start": 17.34,
+          "end": 18.12,
+          "confidence": 0.995156
+        },
+        {
+          "word": ".",
+          "start": 18.12,
+          "end": 18.74,
+          "confidence": 0.919347
+        },
+        {
+          "word": "[_TT_937]",
+          "start": 18.74,
+          "end": 18.74,
+          "confidence": 0.483945
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 18.74,
+      "end": 20.02,
+      "text": "Want me to stay tonight?",
+      "words": [
+        {
+          "word": " Want",
+          "start": 18.82,
+          "end": 18.97,
+          "confidence": 0.988132
+        },
+        {
+          "word": " me",
+          "start": 18.97,
+          "end": 19.08,
+          "confidence": 0.998239
+        },
+        {
+          "word": " to",
+          "start": 19.08,
+          "end": 19.18,
+          "confidence": 0.999333
+        },
+        {
+          "word": " stay",
+          "start": 19.19,
+          "end": 19.42,
+          "confidence": 0.989774
+        },
+        {
+          "word": " tonight",
+          "start": 19.42,
+          "end": 19.82,
+          "confidence": 0.989468
+        },
+        {
+          "word": "?",
+          "start": 19.82,
+          "end": 20.02,
+          "confidence": 0.979497
+        },
+        {
+          "word": "[_TT_1001]",
+          "start": 20.02,
+          "end": 20.02,
+          "confidence": 0.0523822
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 20.02,
+      "end": 22.06,
+      "text": "(phone ringing)",
+      "words": [
+        {
+          "word": " (",
+          "start": 20.1,
+          "end": 20.16,
+          "confidence": 0.978019
+        },
+        {
+          "word": "phone",
+          "start": 20.16,
+          "end": 20.88,
+          "confidence": 0.233216
+        },
+        {
+          "word": " ringing",
+          "start": 20.88,
+          "end": 21.9,
+          "confidence": 0.54625
+        },
+        {
+          "word": ")",
+          "start": 21.9,
+          "end": 22.05,
+          "confidence": 0.992968
+        },
+        {
+          "word": "[_TT_1103]",
+          "start": 22.06,
+          "end": 22.06,
+          "confidence": 0.438268
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 22.06,
+      "end": 23.62,
+      "text": "- I'm really tired.",
+      "words": [
+        {
+          "word": " -",
+          "start": 22.09,
+          "end": 22.09,
+          "confidence": 0.998793
+        },
+        {
+          "word": " I",
+          "start": 22.14,
+          "end": 22.22,
+          "confidence": 0.999809
+        },
+        {
+          "word": "'m",
+          "start": 22.22,
+          "end": 22.39,
+          "confidence": 0.998304
+        },
+        {
+          "word": " really",
+          "start": 22.39,
+          "end": 22.9,
+          "confidence": 0.987387
+        },
+        {
+          "word": " tired",
+          "start": 22.9,
+          "end": 23.33,
+          "confidence": 0.99956
+        },
+        {
+          "word": ".",
+          "start": 23.33,
+          "end": 23.62,
+          "confidence": 0.900227
+        },
+        {
+          "word": "[_TT_1181]",
+          "start": 23.62,
+          "end": 23.62,
+          "confidence": 0.442245
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 24.9,
+      "end": 26.06,
+      "text": "You should head home.",
+      "words": [
+        {
+          "word": " You",
+          "start": 24.9,
+          "end": 24.9,
+          "confidence": 0.992273
+        },
+        {
+          "word": " should",
+          "start": 24.9,
+          "end": 24.9,
+          "confidence": 0.999161
+        },
+        {
+          "word": " head",
+          "start": 24.98,
+          "end": 25.19,
+          "confidence": 0.99489
+        },
+        {
+          "word": " home",
+          "start": 25.19,
+          "end": 25.67,
+          "confidence": 0.999375
+        },
+        {
+          "word": ".",
+          "start": 25.67,
+          "end": 26.06,
+          "confidence": 0.995721
+        },
+        {
+          "word": "[_TT_1303]",
+          "start": 26.06,
+          "end": 26.06,
+          "confidence": 0.0404667
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 26.06,
+      "end": 28.72,
+      "text": "(phone ringing)",
+      "words": [
+        {
+          "word": " (",
+          "start": 26.14,
+          "end": 26.25,
+          "confidence": 0.972878
+        },
+        {
+          "word": "phone",
+          "start": 26.25,
+          "end": 27.19,
+          "confidence": 0.409842
+        },
+        {
+          "word": " ringing",
+          "start": 27.19,
+          "end": 28.51,
+          "confidence": 0.928875
+        },
+        {
+          "word": ")",
+          "start": 28.51,
+          "end": 28.72,
+          "confidence": 0.995607
+        },
+        {
+          "word": "[_TT_1436]",
+          "start": 28.72,
+          "end": 28.72,
+          "confidence": 0.132701
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 30.84,
+      "end": 32.24,
+      "text": "(sighing)",
+      "words": [
+        {
+          "word": " (",
+          "start": 30.84,
+          "end": 30.84,
+          "confidence": 0.864407
+        },
+        {
+          "word": "s",
+          "start": 30.84,
+          "end": 30.84,
+          "confidence": 0.628654
+        },
+        {
+          "word": "igh",
+          "start": 30.84,
+          "end": 30.84,
+          "confidence": 0.971157
+        },
+        {
+          "word": "ing",
+          "start": 30.92,
+          "end": 31.84,
+          "confidence": 0.412621
+        },
+        {
+          "word": ")",
+          "start": 31.84,
+          "end": 32.24,
+          "confidence": 0.96411
+        },
+        {
+          "word": "[_TT_112]",
+          "start": 32.24,
+          "end": 32.24,
+          "confidence": 0.245826
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 32.24,
+      "end": 34.44,
+      "text": "- All right, all right.",
+      "words": [
+        {
+          "word": " -",
+          "start": 32.27,
+          "end": 32.32,
+          "confidence": 0.545827
+        },
+        {
+          "word": " All",
+          "start": 32.36,
+          "end": 32.64,
+          "confidence": 0.777372
+        },
+        {
+          "word": " right",
+          "start": 32.64,
+          "end": 33.13,
+          "confidence": 0.998643
+        },
+        {
+          "word": ",",
+          "start": 33.13,
+          "end": 33.32,
+          "confidence": 0.496264
+        },
+        {
+          "word": " all",
+          "start": 33.32,
+          "end": 33.62,
+          "confidence": 0.957068
+        },
+        {
+          "word": " right",
+          "start": 33.62,
+          "end": 34.11,
+          "confidence": 0.999382
+        },
+        {
+          "word": ".",
+          "start": 34.11,
+          "end": 34.44,
+          "confidence": 0.662702
+        },
+        {
+          "word": "[_TT_222]",
+          "start": 34.44,
+          "end": 34.44,
+          "confidence": 0.29853
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 34.44,
+      "end": 36.22,
+      "text": "Whatever you say, get some rest.",
+      "words": [
+        {
+          "word": " Whatever",
+          "start": 34.52,
+          "end": 34.91,
+          "confidence": 0.995771
+        },
+        {
+          "word": " you",
+          "start": 34.91,
+          "end": 35.08,
+          "confidence": 0.99875
+        },
+        {
+          "word": " say",
+          "start": 35.08,
+          "end": 35.25,
+          "confidence": 0.999188
+        },
+        {
+          "word": ",",
+          "start": 35.25,
+          "end": 35.36,
+          "confidence": 0.833201
+        },
+        {
+          "word": " get",
+          "start": 35.36,
+          "end": 35.53,
+          "confidence": 0.934299
+        },
+        {
+          "word": " some",
+          "start": 35.53,
+          "end": 35.76,
+          "confidence": 0.99942
+        },
+        {
+          "word": " rest",
+          "start": 35.76,
+          "end": 35.98,
+          "confidence": 0.998333
+        },
+        {
+          "word": ".",
+          "start": 35.99,
+          "end": 36.22,
+          "confidence": 0.997377
+        },
+        {
+          "word": "[_TT_311]",
+          "start": 36.22,
+          "end": 36.22,
+          "confidence": 0.0953639
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 37.56,
+      "end": 40.3,
+      "text": "(dramatic music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.994162
+        },
+        {
+          "word": "d",
+          "start": 37.56,
+          "end": 37.56,
+          "confidence": 0.0908446
+        },
+        {
+          "word": "ram",
+          "start": 37.57,
+          "end": 37.57,
+          "confidence": 0.991658
+        },
+        {
+          "word": "atic",
+          "start": 37.64,
+          "end": 38.65,
+          "confidence": 0.99988
+        },
+        {
+          "word": " music",
+          "start": 38.65,
+          "end": 40.01,
+          "confidence": 0.977383
+        },
+        {
+          "word": ")",
+          "start": 40.01,
+          "end": 40.3,
+          "confidence": 0.99402
+        },
+        {
+          "word": "[_TT_515]",
+          "start": 40.3,
+          "end": 40.3,
+          "confidence": 0.3054
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 47.14,
+      "end": 49.9,
+      "text": "(dramatic music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 47.14,
+          "end": 47.14,
+          "confidence": 0.994224
+        },
+        {
+          "word": "d",
+          "start": 47.14,
+          "end": 47.14,
+          "confidence": 0.282561
+        },
+        {
+          "word": "ram",
+          "start": 47.14,
+          "end": 47.14,
+          "confidence": 0.998595
+        },
+        {
+          "word": "atic",
+          "start": 47.14,
+          "end": 47.14,
+          "confidence": 0.999944
+        },
+        {
+          "word": " music",
+          "start": 47.22,
+          "end": 49.23,
+          "confidence": 0.972878
+        },
+        {
+          "word": ")",
+          "start": 49.23,
+          "end": 49.89,
+          "confidence": 0.994046
+        },
+        {
+          "word": "[_TT_995]",
+          "start": 49.9,
+          "end": 49.9,
+          "confidence": 0.434322
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 54.4,
+      "end": 56.12,
+      "text": "- Wait here, I'll grab you some dessert.",
+      "words": [
+        {
+          "word": " -",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.730917
+        },
+        {
+          "word": " Wait",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.994
+        },
+        {
+          "word": " here",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.992396
+        },
+        {
+          "word": ",",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.672459
+        },
+        {
+          "word": " I",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.989068
+        },
+        {
+          "word": "'ll",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.997948
+        },
+        {
+          "word": " grab",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.996594
+        },
+        {
+          "word": " you",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.995002
+        },
+        {
+          "word": " some",
+          "start": 54.4,
+          "end": 54.4,
+          "confidence": 0.993331
+        },
+        {
+          "word": " dessert",
+          "start": 54.48,
+          "end": 55.56,
+          "confidence": 0.991038
+        },
+        {
+          "word": ".",
+          "start": 55.56,
+          "end": 56.11,
+          "confidence": 0.682655
+        },
+        {
+          "word": "[_TT_1306]",
+          "start": 56.12,
+          "end": 56.12,
+          "confidence": 0.420213
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "start": 56.12,
+      "end": 56.96,
+      "text": "Be right back.",
+      "words": [
+        {
+          "word": " Be",
+          "start": 56.2,
+          "end": 56.2,
+          "confidence": 0.926528
+        },
+        {
+          "word": " right",
+          "start": 56.24,
+          "end": 56.52,
+          "confidence": 0.99976
+        },
+        {
+          "word": " back",
+          "start": 56.53,
+          "end": 56.76,
+          "confidence": 0.999855
+        },
+        {
+          "word": ".",
+          "start": 56.77,
+          "end": 56.96,
+          "confidence": 0.986348
+        },
+        {
+          "word": "[_TT_1348]",
+          "start": 56.96,
+          "end": 56.96,
+          "confidence": 0.425141
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "start": 56.96,
+      "end": 57.8,
+      "text": "- Okay.",
+      "words": [
+        {
+          "word": " -",
+          "start": 56.99,
+          "end": 57.04,
+          "confidence": 0.98841
+        },
+        {
+          "word": " Okay",
+          "start": 57.08,
+          "end": 57.48,
+          "confidence": 0.992646
+        },
+        {
+          "word": ".",
+          "start": 57.48,
+          "end": 57.8,
+          "confidence": 0.985285
+        },
+        {
+          "word": "[_TT_1390]",
+          "start": 57.8,
+          "end": 57.8,
+          "confidence": 0.356988
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "start": 57.8,
+      "end": 60.46,
+      "text": "(phone ringing)",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 57.8,
+          "end": 57.8,
+          "confidence": 0.999992
+        },
+        {
+          "word": " (",
+          "start": 57.88,
+          "end": 57.99,
+          "confidence": 0.982881
+        },
+        {
+          "word": "phone",
+          "start": 57.99,
+          "end": 58.93,
+          "confidence": 0.171882
+        },
+        {
+          "word": " ringing",
+          "start": 58.93,
+          "end": 60.25,
+          "confidence": 0.9763
+        },
+        {
+          "word": ")",
+          "start": 60.25,
+          "end": 60.46,
+          "confidence": 0.994458
+        },
+        {
+          "word": "[_TT_133]",
+          "start": 60.46,
+          "end": 60.46,
+          "confidence": 0.178107
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "start": 61.96,
+      "end": 63.76,
+      "text": "- Hey, they're pretty thing.",
+      "words": [
+        {
+          "word": " -",
+          "start": 61.96,
+          "end": 61.96,
+          "confidence": 0.876202
+        },
+        {
+          "word": " Hey",
+          "start": 61.96,
+          "end": 61.96,
+          "confidence": 0.995173
+        },
+        {
+          "word": ",",
+          "start": 61.96,
+          "end": 61.96,
+          "confidence": 0.501287
+        },
+        {
+          "word": " they",
+          "start": 61.96,
+          "end": 61.96,
+          "confidence": 0.875247
+        },
+        {
+          "word": "'re",
+          "start": 61.99,
+          "end": 61.99,
+          "confidence": 0.993547
+        },
+        {
+          "word": " pretty",
+          "start": 62.04,
+          "end": 62.75,
+          "confidence": 0.775472
+        },
+        {
+          "word": " thing",
+          "start": 62.75,
+          "end": 63.36,
+          "confidence": 0.860313
+        },
+        {
+          "word": ".",
+          "start": 63.36,
+          "end": 63.76,
+          "confidence": 0.877165
+        },
+        {
+          "word": "[_TT_298]",
+          "start": 63.76,
+          "end": 63.76,
+          "confidence": 0.44865
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "start": 63.76,
+      "end": 64.88,
+      "text": "Have a drink with me.",
+      "words": [
+        {
+          "word": " Have",
+          "start": 63.84,
+          "end": 63.99,
+          "confidence": 0.995968
+        },
+        {
+          "word": " a",
+          "start": 63.99,
+          "end": 64.04,
+          "confidence": 0.999336
+        },
+        {
+          "word": " drink",
+          "start": 64.04,
+          "end": 64.33,
+          "confidence": 0.999819
+        },
+        {
+          "word": " with",
+          "start": 64.33,
+          "end": 64.56,
+          "confidence": 0.999489
+        },
+        {
+          "word": " me",
+          "start": 64.56,
+          "end": 64.67,
+          "confidence": 0.999825
+        },
+        {
+          "word": ".",
+          "start": 64.67,
+          "end": 64.88,
+          "confidence": 0.638192
+        },
+        {
+          "word": "[_TT_354]",
+          "start": 64.88,
+          "end": 64.88,
+          "confidence": 0.411693
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "start": 64.88,
+      "end": 66.96,
+      "text": "Make a friend, let's be friends.",
+      "words": [
+        {
+          "word": " Make",
+          "start": 64.96,
+          "end": 65.15,
+          "confidence": 0.941506
+        },
+        {
+          "word": " a",
+          "start": 65.15,
+          "end": 65.21,
+          "confidence": 0.999487
+        },
+        {
+          "word": " friend",
+          "start": 65.21,
+          "end": 65.62,
+          "confidence": 0.997935
+        },
+        {
+          "word": ",",
+          "start": 65.62,
+          "end": 65.75,
+          "confidence": 0.428504
+        },
+        {
+          "word": " let",
+          "start": 65.75,
+          "end": 65.95,
+          "confidence": 0.987202
+        },
+        {
+          "word": "'s",
+          "start": 65.95,
+          "end": 66.08,
+          "confidence": 0.999695
+        },
+        {
+          "word": " be",
+          "start": 66.08,
+          "end": 66.2,
+          "confidence": 0.998327
+        },
+        {
+          "word": " friends",
+          "start": 66.21,
+          "end": 66.69,
+          "confidence": 0.99922
+        },
+        {
+          "word": ".",
+          "start": 66.69,
+          "end": 66.95,
+          "confidence": 0.995537
+        },
+        {
+          "word": "[_TT_458]",
+          "start": 66.96,
+          "end": 66.96,
+          "confidence": 0.510358
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "start": 66.96,
+      "end": 68.84,
+      "text": "- Please keep your distance.",
+      "words": [
+        {
+          "word": " -",
+          "start": 66.99,
+          "end": 66.99,
+          "confidence": 0.991503
+        },
+        {
+          "word": " Please",
+          "start": 67.04,
+          "end": 67.46,
+          "confidence": 0.999093
+        },
+        {
+          "word": " keep",
+          "start": 67.46,
+          "end": 67.74,
+          "confidence": 0.983641
+        },
+        {
+          "word": " your",
+          "start": 67.74,
+          "end": 68.01,
+          "confidence": 0.997242
+        },
+        {
+          "word": " distance",
+          "start": 68.02,
+          "end": 68.59,
+          "confidence": 0.999878
+        },
+        {
+          "word": ".",
+          "start": 68.59,
+          "end": 68.84,
+          "confidence": 0.999094
+        },
+        {
+          "word": "[_TT_552]",
+          "start": 68.84,
+          "end": 68.84,
+          "confidence": 0.578209
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "start": 68.84,
+      "end": 72.12,
+      "text": "- Don't be shy, I'll take good care of you.",
+      "words": [
+        {
+          "word": " -",
+          "start": 68.87,
+          "end": 68.87,
+          "confidence": 0.985522
+        },
+        {
+          "word": " Don",
+          "start": 68.92,
+          "end": 69.18,
+          "confidence": 0.999396
+        },
+        {
+          "word": "'t",
+          "start": 69.18,
+          "end": 69.34,
+          "confidence": 0.999969
+        },
+        {
+          "word": " be",
+          "start": 69.35,
+          "end": 69.52,
+          "confidence": 0.999478
+        },
+        {
+          "word": " shy",
+          "start": 69.52,
+          "end": 69.78,
+          "confidence": 0.999649
+        },
+        {
+          "word": ",",
+          "start": 69.78,
+          "end": 69.95,
+          "confidence": 0.473468
+        },
+        {
+          "word": " I",
+          "start": 69.95,
+          "end": 70.03,
+          "confidence": 0.989595
+        },
+        {
+          "word": "'ll",
+          "start": 70.03,
+          "end": 70.29,
+          "confidence": 0.999298
+        },
+        {
+          "word": " take",
+          "start": 70.29,
+          "end": 70.64,
+          "confidence": 0.999203
+        },
+        {
+          "word": " good",
+          "start": 70.64,
+          "end": 70.99,
+          "confidence": 0.99971
+        },
+        {
+          "word": " care",
+          "start": 70.99,
+          "end": 71.33,
+          "confidence": 0.999058
+        },
+        {
+          "word": " of",
+          "start": 71.34,
+          "end": 71.51,
+          "confidence": 0.999176
+        },
+        {
+          "word": " you",
+          "start": 71.51,
+          "end": 71.77,
+          "confidence": 0.999733
+        },
+        {
+          "word": ".",
+          "start": 71.77,
+          "end": 72.12,
+          "confidence": 0.998409
+        },
+        {
+          "word": "[_TT_716]",
+          "start": 72.12,
+          "end": 72.12,
+          "confidence": 0.317832
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "start": 72.12,
+      "end": 73.52,
+      "text": "- Lane.",
+      "words": [
+        {
+          "word": " -",
+          "start": 72.2,
+          "end": 72.29,
+          "confidence": 0.964474
+        },
+        {
+          "word": " Lane",
+          "start": 72.29,
+          "end": 72.99,
+          "confidence": 0.872201
+        },
+        {
+          "word": ".",
+          "start": 72.99,
+          "end": 73.52,
+          "confidence": 0.714151
+        },
+        {
+          "word": "[_TT_786]",
+          "start": 73.52,
+          "end": 73.52,
+          "confidence": 0.148953
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "start": 73.52,
+      "end": 74.36,
+      "text": "Lane.",
+      "words": [
+        {
+          "word": " Lane",
+          "start": 73.6,
+          "end": 74.0,
+          "confidence": 0.906508
+        },
+        {
+          "word": ".",
+          "start": 74.0,
+          "end": 74.36,
+          "confidence": 0.379148
+        },
+        {
+          "word": "[_TT_828]",
+          "start": 74.36,
+          "end": 74.36,
+          "confidence": 0.496952
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "start": 76.16,
+      "end": 78.88,
+      "text": "- Hey, hey, take easy, Marcus.",
+      "words": [
+        {
+          "word": " -",
+          "start": 76.16,
+          "end": 76.16,
+          "confidence": 0.924612
+        },
+        {
+          "word": " Hey",
+          "start": 76.16,
+          "end": 76.16,
+          "confidence": 0.998936
+        },
+        {
+          "word": ",",
+          "start": 76.16,
+          "end": 76.16,
+          "confidence": 0.948241
+        },
+        {
+          "word": " hey",
+          "start": 76.16,
+          "end": 76.16,
+          "confidence": 0.986333
+        },
+        {
+          "word": ",",
+          "start": 76.16,
+          "end": 76.16,
+          "confidence": 0.83903
+        },
+        {
+          "word": " take",
+          "start": 76.24,
+          "end": 76.6,
+          "confidence": 0.96959
+        },
+        {
+          "word": " easy",
+          "start": 76.61,
+          "end": 77.21,
+          "confidence": 0.991724
+        },
+        {
+          "word": ",",
+          "start": 77.21,
+          "end": 77.51,
+          "confidence": 0.583218
+        },
+        {
+          "word": " Marcus",
+          "start": 77.51,
+          "end": 78.4,
+          "confidence": 0.976455
+        },
+        {
+          "word": ".",
+          "start": 78.41,
+          "end": 78.88,
+          "confidence": 0.876346
+        },
+        {
+          "word": "[_TT_1054]",
+          "start": 78.88,
+          "end": 78.88,
+          "confidence": 0.450304
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "start": 78.88,
+      "end": 80.64,
+      "text": "This is my girlfriend.",
+      "words": [
+        {
+          "word": " This",
+          "start": 78.96,
+          "end": 79.21,
+          "confidence": 0.993669
+        },
+        {
+          "word": " is",
+          "start": 79.21,
+          "end": 79.37,
+          "confidence": 0.995551
+        },
+        {
+          "word": " my",
+          "start": 79.37,
+          "end": 79.52,
+          "confidence": 0.999729
+        },
+        {
+          "word": " girlfriend",
+          "start": 79.52,
+          "end": 80.36,
+          "confidence": 0.983427
+        },
+        {
+          "word": ".",
+          "start": 80.36,
+          "end": 80.64,
+          "confidence": 0.623361
+        },
+        {
+          "word": "[_TT_1142]",
+          "start": 80.64,
+          "end": 80.64,
+          "confidence": 0.372983
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "start": 80.64,
+      "end": 81.48,
+      "text": "Can I help you?",
+      "words": [
+        {
+          "word": " Can",
+          "start": 80.72,
+          "end": 80.82,
+          "confidence": 0.996805
+        },
+        {
+          "word": " I",
+          "start": 80.82,
+          "end": 80.88,
+          "confidence": 0.99947
+        },
+        {
+          "word": " help",
+          "start": 80.88,
+          "end": 81.11,
+          "confidence": 0.999886
+        },
+        {
+          "word": " you",
+          "start": 81.11,
+          "end": 81.28,
+          "confidence": 0.999432
+        },
+        {
+          "word": "?",
+          "start": 81.29,
+          "end": 81.48,
+          "confidence": 0.993045
+        },
+        {
+          "word": "[_TT_1184]",
+          "start": 81.48,
+          "end": 81.48,
+          "confidence": 0.196322
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "start": 84.0,
+      "end": 86.36,
+      "text": "- Well, well, well.",
+      "words": [
+        {
+          "word": " -",
+          "start": 84.0,
+          "end": 84.0,
+          "confidence": 0.933547
+        },
+        {
+          "word": " Well",
+          "start": 84.0,
+          "end": 84.0,
+          "confidence": 0.996683
+        },
+        {
+          "word": ",",
+          "start": 84.0,
+          "end": 84.0,
+          "confidence": 0.977797
+        },
+        {
+          "word": " well",
+          "start": 84.08,
+          "end": 84.14,
+          "confidence": 0.998913
+        },
+        {
+          "word": ",",
+          "start": 84.14,
+          "end": 84.62,
+          "confidence": 0.97663
+        },
+        {
+          "word": " well",
+          "start": 84.62,
+          "end": 85.59,
+          "confidence": 0.998485
+        },
+        {
+          "word": ".",
+          "start": 85.59,
+          "end": 86.35,
+          "confidence": 0.779168
+        },
+        {
+          "word": "[_TT_1428]",
+          "start": 86.36,
+          "end": 86.36,
+          "confidence": 0.602205
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "start": 86.36,
+      "end": 88.52,
+      "text": "Your girlfriend, so what?",
+      "words": [
+        {
+          "word": "[_BEG_]",
+          "start": 86.36,
+          "end": 86.36,
+          "confidence": 0.999994
+        },
+        {
+          "word": " Your",
+          "start": 86.44,
+          "end": 86.7,
+          "confidence": 0.250534
+        },
+        {
+          "word": " girlfriend",
+          "start": 86.7,
+          "end": 87.56,
+          "confidence": 0.994592
+        },
+        {
+          "word": ",",
+          "start": 87.56,
+          "end": 87.72,
+          "confidence": 0.655103
+        },
+        {
+          "word": " so",
+          "start": 87.72,
+          "end": 87.9,
+          "confidence": 0.996831
+        },
+        {
+          "word": " what",
+          "start": 87.9,
+          "end": 88.24,
+          "confidence": 0.997699
+        },
+        {
+          "word": "?",
+          "start": 88.24,
+          "end": 88.52,
+          "confidence": 0.875224
+        },
+        {
+          "word": "[_TT_108]",
+          "start": 88.52,
+          "end": 88.52,
+          "confidence": 0.390576
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "start": 88.52,
+      "end": 92.16,
+      "text": "If you still want access to my shipping routes in Europe,",
+      "words": [
+        {
+          "word": " If",
+          "start": 88.6,
+          "end": 88.6,
+          "confidence": 0.986713
+        },
+        {
+          "word": " you",
+          "start": 88.64,
+          "end": 88.79,
+          "confidence": 0.999539
+        },
+        {
+          "word": " still",
+          "start": 88.79,
+          "end": 89.06,
+          "confidence": 0.998456
+        },
+        {
+          "word": " want",
+          "start": 89.06,
+          "end": 89.28,
+          "confidence": 0.994205
+        },
+        {
+          "word": " access",
+          "start": 89.28,
+          "end": 89.64,
+          "confidence": 0.996881
+        },
+        {
+          "word": " to",
+          "start": 89.64,
+          "end": 89.75,
+          "confidence": 0.975042
+        },
+        {
+          "word": " my",
+          "start": 89.75,
+          "end": 89.86,
+          "confidence": 0.99617
+        },
+        {
+          "word": " shipping",
+          "start": 89.86,
+          "end": 90.32,
+          "confidence": 0.994709
+        },
+        {
+          "word": " routes",
+          "start": 90.32,
+          "end": 90.68,
+          "confidence": 0.953234
+        },
+        {
+          "word": " in",
+          "start": 90.68,
+          "end": 91.04,
+          "confidence": 0.945296
+        },
+        {
+          "word": " Europe",
+          "start": 91.04,
+          "end": 92.12,
+          "confidence": 0.998963
+        },
+        {
+          "word": ",",
+          "start": 92.12,
+          "end": 92.16,
+          "confidence": 0.948974
+        },
+        {
+          "word": "[_TT_290]",
+          "start": 92.16,
+          "end": 92.16,
+          "confidence": 0.162784
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "start": 92.16,
+      "end": 94.24,
+      "text": "you better let her have that drink with me.",
+      "words": [
+        {
+          "word": " you",
+          "start": 92.24,
+          "end": 92.32,
+          "confidence": 0.981491
+        },
+        {
+          "word": " better",
+          "start": 92.32,
+          "end": 92.65,
+          "confidence": 0.5605
+        },
+        {
+          "word": " let",
+          "start": 92.65,
+          "end": 92.8,
+          "confidence": 0.990537
+        },
+        {
+          "word": " her",
+          "start": 92.81,
+          "end": 92.97,
+          "confidence": 0.995845
+        },
+        {
+          "word": " have",
+          "start": 92.97,
+          "end": 93.19,
+          "confidence": 0.998934
+        },
+        {
+          "word": " that",
+          "start": 93.19,
+          "end": 93.41,
+          "confidence": 0.997855
+        },
+        {
+          "word": " drink",
+          "start": 93.41,
+          "end": 93.68,
+          "confidence": 0.999611
+        },
+        {
+          "word": " with",
+          "start": 93.69,
+          "end": 93.91,
+          "confidence": 0.99955
+        },
+        {
+          "word": " me",
+          "start": 93.91,
+          "end": 94.02,
+          "confidence": 0.999611
+        },
+        {
+          "word": ".",
+          "start": 94.02,
+          "end": 94.23,
+          "confidence": 0.979929
+        },
+        {
+          "word": "[_TT_394]",
+          "start": 94.24,
+          "end": 94.24,
+          "confidence": 0.392364
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "start": 94.24,
+      "end": 96.48,
+      "text": "I promise I'll keep my hands to myself.",
+      "words": [
+        {
+          "word": " I",
+          "start": 94.27,
+          "end": 94.27,
+          "confidence": 0.997299
+        },
+        {
+          "word": " promise",
+          "start": 94.32,
+          "end": 94.76,
+          "confidence": 0.99878
+        },
+        {
+          "word": " I",
+          "start": 94.76,
+          "end": 94.82,
+          "confidence": 0.849739
+        },
+        {
+          "word": "'ll",
+          "start": 94.82,
+          "end": 95.01,
+          "confidence": 0.998647
+        },
+        {
+          "word": " keep",
+          "start": 95.01,
+          "end": 95.27,
+          "confidence": 0.997265
+        },
+        {
+          "word": " my",
+          "start": 95.27,
+          "end": 95.4,
+          "confidence": 0.999354
+        },
+        {
+          "word": " hands",
+          "start": 95.4,
+          "end": 95.72,
+          "confidence": 0.999083
+        },
+        {
+          "word": " to",
+          "start": 95.72,
+          "end": 95.84,
+          "confidence": 0.999489
+        },
+        {
+          "word": " myself",
+          "start": 95.85,
+          "end": 96.24,
+          "confidence": 0.997935
+        },
+        {
+          "word": ".",
+          "start": 96.24,
+          "end": 96.48,
+          "confidence": 0.969069
+        },
+        {
+          "word": "[_TT_506]",
+          "start": 96.48,
+          "end": 96.48,
+          "confidence": 0.0668049
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "start": 96.48,
+      "end": 97.44,
+      "text": "(laughing)",
+      "words": [
+        {
+          "word": " (",
+          "start": 96.51,
+          "end": 96.56,
+          "confidence": 0.967656
+        },
+        {
+          "word": "laugh",
+          "start": 96.6,
+          "end": 97.03,
+          "confidence": 0.39788
+        },
+        {
+          "word": "ing",
+          "start": 97.04,
+          "end": 97.32,
+          "confidence": 0.999844
+        },
+        {
+          "word": ")",
+          "start": 97.32,
+          "end": 97.44,
+          "confidence": 0.987076
+        },
+        {
+          "word": "[_TT_554]",
+          "start": 97.44,
+          "end": 97.44,
+          "confidence": 0.172119
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "start": 97.44,
+      "end": 101.88,
+      "text": "- Eve, listen, just apologize to Marcus",
+      "words": [
+        {
+          "word": " -",
+          "start": 97.52,
+          "end": 97.6,
+          "confidence": 0.878343
+        },
+        {
+          "word": " Eve",
+          "start": 97.6,
+          "end": 98.1,
+          "confidence": 0.870945
+        },
+        {
+          "word": ",",
+          "start": 98.1,
+          "end": 98.44,
+          "confidence": 0.705432
+        },
+        {
+          "word": " listen",
+          "start": 98.44,
+          "end": 99.76,
+          "confidence": 0.926916
+        },
+        {
+          "word": ",",
+          "start": 99.76,
+          "end": 100.19,
+          "confidence": 0.542436
+        },
+        {
+          "word": " just",
+          "start": 100.2,
+          "end": 100.52,
+          "confidence": 0.899223
+        },
+        {
+          "word": " apologize",
+          "start": 100.52,
+          "end": 101.23,
+          "confidence": 0.990544
+        },
+        {
+          "word": " to",
+          "start": 101.23,
+          "end": 101.39,
+          "confidence": 0.993866
+        },
+        {
+          "word": " Marcus",
+          "start": 101.39,
+          "end": 101.88,
+          "confidence": 0.998049
+        },
+        {
+          "word": "[_TT_776]",
+          "start": 101.88,
+          "end": 101.88,
+          "confidence": 0.334548
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "start": 101.88,
+      "end": 103.6,
+      "text": "and have a drink with him.",
+      "words": [
+        {
+          "word": " and",
+          "start": 101.96,
+          "end": 102.1,
+          "confidence": 0.999836
+        },
+        {
+          "word": " have",
+          "start": 102.1,
+          "end": 102.38,
+          "confidence": 0.998826
+        },
+        {
+          "word": " a",
+          "start": 102.39,
+          "end": 102.46,
+          "confidence": 0.985216
+        },
+        {
+          "word": " drink",
+          "start": 102.46,
+          "end": 102.83,
+          "confidence": 0.999895
+        },
+        {
+          "word": " with",
+          "start": 102.83,
+          "end": 103.12,
+          "confidence": 0.98977
+        },
+        {
+          "word": " him",
+          "start": 103.12,
+          "end": 103.34,
+          "confidence": 0.98639
+        },
+        {
+          "word": ".",
+          "start": 103.34,
+          "end": 103.59,
+          "confidence": 0.984228
+        },
+        {
+          "word": "[_TT_862]",
+          "start": 103.6,
+          "end": 103.6,
+          "confidence": 0.227513
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "start": 103.6,
+      "end": 104.6,
+      "text": "- No, Lane.",
+      "words": [
+        {
+          "word": " -",
+          "start": 103.63,
+          "end": 103.63,
+          "confidence": 0.96201
+        },
+        {
+          "word": " No",
+          "start": 103.68,
+          "end": 103.84,
+          "confidence": 0.959484
+        },
+        {
+          "word": ",",
+          "start": 103.84,
+          "end": 104.0,
+          "confidence": 0.886421
+        },
+        {
+          "word": " Lane",
+          "start": 104.0,
+          "end": 104.33,
+          "confidence": 0.892529
+        },
+        {
+          "word": ".",
+          "start": 104.33,
+          "end": 104.6,
+          "confidence": 0.902273
+        },
+        {
+          "word": "[_TT_912]",
+          "start": 104.6,
+          "end": 104.6,
+          "confidence": 0.110036
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "start": 106.88,
+      "end": 107.72,
+      "text": "- No.",
+      "words": [
+        {
+          "word": " -",
+          "start": 106.88,
+          "end": 106.88,
+          "confidence": 0.247524
+        },
+        {
+          "word": " No",
+          "start": 106.88,
+          "end": 106.88,
+          "confidence": 0.986068
+        },
+        {
+          "word": ".",
+          "start": 106.96,
+          "end": 107.72,
+          "confidence": 0.906831
+        },
+        {
+          "word": "[_TT_1068]",
+          "start": 107.72,
+          "end": 107.72,
+          "confidence": 0.352981
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "start": 108.88,
+      "end": 111.64,
+      "text": "(dramatic music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 108.88,
+          "end": 108.88,
+          "confidence": 0.995839
+        },
+        {
+          "word": "d",
+          "start": 108.88,
+          "end": 108.88,
+          "confidence": 0.664033
+        },
+        {
+          "word": "ram",
+          "start": 108.96,
+          "end": 109.02,
+          "confidence": 0.999147
+        },
+        {
+          "word": "atic",
+          "start": 109.02,
+          "end": 110.06,
+          "confidence": 0.999966
+        },
+        {
+          "word": " music",
+          "start": 110.06,
+          "end": 111.36,
+          "confidence": 0.99118
+        },
+        {
+          "word": ")",
+          "start": 111.36,
+          "end": 111.63,
+          "confidence": 0.998419
+        },
+        {
+          "word": "[_TT_1264]",
+          "start": 111.64,
+          "end": 111.64,
+          "confidence": 0.389624
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "start": 117.36,
+      "end": 119.62,
+      "text": "(groaning)",
+      "words": [
+        {
+          "word": " (",
+          "start": 117.36,
+          "end": 117.36,
+          "confidence": 0.750019
+        },
+        {
+          "word": "gro",
+          "start": 117.36,
+          "end": 117.36,
+          "confidence": 0.164489
+        },
+        {
+          "word": "aning",
+          "start": 117.44,
+          "end": 118.81,
+          "confidence": 0.965136
+        },
+        {
+          "word": ")",
+          "start": 118.81,
+          "end": 119.62,
+          "confidence": 0.967279
+        },
+        {
+          "word": "[_TT_163]",
+          "start": 119.62,
+          "end": 119.62,
+          "confidence": 0.225464
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "start": 122.16,
+      "end": 125.44,
+      "text": "(screaming)",
+      "words": [
+        {
+          "word": " (",
+          "start": 122.16,
+          "end": 122.16,
+          "confidence": 0.7443
+        },
+        {
+          "word": "sc",
+          "start": 122.16,
+          "end": 122.16,
+          "confidence": 0.825189
+        },
+        {
+          "word": "ream",
+          "start": 122.24,
+          "end": 123.31,
+          "confidence": 0.995103
+        },
+        {
+          "word": "ing",
+          "start": 123.31,
+          "end": 124.89,
+          "confidence": 0.918823
+        },
+        {
+          "word": ")",
+          "start": 124.89,
+          "end": 125.44,
+          "confidence": 0.993492
+        },
+        {
+          "word": "[_TT_454]",
+          "start": 125.44,
+          "end": 125.44,
+          "confidence": 0.0113637
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "start": 125.44,
+      "end": 127.2,
+      "text": "- Oh my God, it's him!",
+      "words": [
+        {
+          "word": " -",
+          "start": 125.47,
+          "end": 125.47,
+          "confidence": 0.829909
+        },
+        {
+          "word": " Oh",
+          "start": 125.52,
+          "end": 125.69,
+          "confidence": 0.982516
+        },
+        {
+          "word": " my",
+          "start": 125.69,
+          "end": 125.85,
+          "confidence": 0.932841
+        },
+        {
+          "word": " God",
+          "start": 125.85,
+          "end": 126.12,
+          "confidence": 0.690964
+        },
+        {
+          "word": ",",
+          "start": 126.12,
+          "end": 126.29,
+          "confidence": 0.951319
+        },
+        {
+          "word": " it",
+          "start": 126.29,
+          "end": 126.46,
+          "confidence": 0.849392
+        },
+        {
+          "word": "'s",
+          "start": 126.46,
+          "end": 126.63,
+          "confidence": 0.995889
+        },
+        {
+          "word": " him",
+          "start": 126.63,
+          "end": 126.89,
+          "confidence": 0.998392
+        },
+        {
+          "word": "!",
+          "start": 126.89,
+          "end": 127.2,
+          "confidence": 0.410893
+        },
+        {
+          "word": "[_TT_542]",
+          "start": 127.2,
+          "end": 127.2,
+          "confidence": 0.171093
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "start": 127.2,
+      "end": 130.8,
+      "text": "- Marcus, you're offending my guest.",
+      "words": [
+        {
+          "word": " -",
+          "start": 127.23,
+          "end": 127.28,
+          "confidence": 0.960481
+        },
+        {
+          "word": " Marcus",
+          "start": 127.32,
+          "end": 127.93,
+          "confidence": 0.99858
+        },
+        {
+          "word": ",",
+          "start": 127.93,
+          "end": 128.14,
+          "confidence": 0.77025
+        },
+        {
+          "word": " you",
+          "start": 128.14,
+          "end": 128.45,
+          "confidence": 0.917295
+        },
+        {
+          "word": "'re",
+          "start": 128.45,
+          "end": 128.76,
+          "confidence": 0.967473
+        },
+        {
+          "word": " offending",
+          "start": 128.76,
+          "end": 129.71,
+          "confidence": 0.990776
+        },
+        {
+          "word": " my",
+          "start": 129.71,
+          "end": 129.92,
+          "confidence": 0.998824
+        },
+        {
+          "word": " guest",
+          "start": 129.92,
+          "end": 130.44,
+          "confidence": 0.940445
+        },
+        {
+          "word": ".",
+          "start": 130.44,
+          "end": 130.8,
+          "confidence": 0.991047
+        },
+        {
+          "word": "[_TT_722]",
+          "start": 130.8,
+          "end": 130.8,
+          "confidence": 0.116598
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "start": 130.8,
+      "end": 133.54,
+      "text": "(dramatic music)",
+      "words": [
+        {
+          "word": " (",
+          "start": 130.88,
+          "end": 130.98,
+          "confidence": 0.997619
+        },
+        {
+          "word": "d",
+          "start": 130.98,
+          "end": 131.16,
+          "confidence": 0.649045
+        },
+        {
+          "word": "ram",
+          "start": 131.16,
+          "end": 131.7,
+          "confidence": 0.996349
+        },
+        {
+          "word": "atic",
+          "start": 131.7,
+          "end": 132.42,
+          "confidence": 0.999935
+        },
+        {
+          "word": " music",
+          "start": 132.42,
+          "end": 133.32,
+          "confidence": 0.987328
+        },
+        {
+          "word": ")",
+          "start": 133.33,
+          "end": 133.54,
+          "confidence": 0.987646
+        },
+        {
+          "word": "[_TT_859]",
+          "start": 133.54,
+          "end": 133.54,
+          "confidence": 0.327168
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "duration": 135.979,
+  "provider": "whisper.cpp-local",
+  "model": "/Users/gaoxuan/.codex/models/whisper/ggml-base.en.bin"
+}

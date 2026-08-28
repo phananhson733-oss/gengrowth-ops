@@ -1,0 +1,149 @@
+{
+  "drama_title": "Addicted to My Ex's Uncle: Forbidden Tenderness",
+  "part_count": 4,
+  "parts": [
+    {
+      "part_id": 1,
+      "title": "The Man in Her Dreams Is His Uncle",
+      "summary": "Eve dreams of a possessive stranger and discovers he is her boyfriend's powerful uncle.",
+      "hook": {
+        "episode": 1,
+        "start_s": 277.64,
+        "end_s": 281.04,
+        "reason": "Forbidden private warning"
+      },
+      "context_clips": [],
+      "keep_ranges_by_episode": {
+        "1": [
+          {
+            "start_s": 6.18,
+            "end_s": 22.14,
+            "reason": "Intimate recurring dream"
+          },
+          {
+            "start_s": 27.88,
+            "end_s": 50.08,
+            "reason": "Eve wakes and wonders who he is"
+          },
+          {
+            "start_s": 145.44,
+            "end_s": 161.96,
+            "reason": "Boyfriend introduces Uncle Kai and Eve recognizes him"
+          }
+        ]
+      },
+      "ending": {}
+    },
+    {
+      "part_id": 2,
+      "title": "The Sixty Million Dollar Secret",
+      "summary": "A necklace thought to be fake is exposed as a sixty-million-dollar gift from mysterious Mr K.",
+      "hook": {
+        "episode": 5,
+        "start_s": 87.76,
+        "end_s": 95.24,
+        "reason": "Kai reveals he chose the necklace for her"
+      },
+      "context_clips": [],
+      "keep_ranges_by_episode": {
+        "3": [
+          {
+            "start_s": 6.5,
+            "end_s": 17.62,
+            "reason": "Friends admire the necklace"
+          },
+          {
+            "start_s": 21.22,
+            "end_s": 48.88,
+            "reason": "Rival calls it fake and reveals the auction price"
+          },
+          {
+            "start_s": 58.62,
+            "end_s": 62.78,
+            "reason": "They search for the Queens mark"
+          }
+        ]
+      },
+      "ending": {
+        "episode": 3,
+        "start_s": 68.3,
+        "end_s": 72.46,
+        "reason": "The necklace is confirmed genuine"
+      }
+    },
+    {
+      "part_id": 3,
+      "title": "Trapped in the Dressing Room",
+      "summary": "Kai corners Eve in a dressing room and reveals the secret gift came from him.",
+      "hook": {
+        "episode": 5,
+        "start_s": 97.24,
+        "end_s": 101.88,
+        "reason": "Kai admits he sent the necklace"
+      },
+      "context_clips": [],
+      "keep_ranges_by_episode": {
+        "5": [
+          {
+            "start_s": 21.84,
+            "end_s": 23.84,
+            "reason": "Eve finds Kai shirtless"
+          },
+          {
+            "start_s": 35,
+            "end_s": 46.44,
+            "reason": "He orders her to help him change"
+          },
+          {
+            "start_s": 50.76,
+            "end_s": 75.64,
+            "reason": "The charged dressing-room confrontation"
+          }
+        ]
+      },
+      "ending": {
+        "episode": 5,
+        "start_s": 87.76,
+        "end_s": 95.24,
+        "reason": "Kai makes a possessive request"
+      }
+    },
+    {
+      "part_id": 4,
+      "title": "Her Boyfriend Trades Her for a Deal",
+      "summary": "Lane asks Eve to appease a predatory business contact until Uncle Kai violently intervenes.",
+      "hook": {
+        "episode": 7,
+        "start_s": 127.2,
+        "end_s": 130.8,
+        "reason": "Kai claims Eve as his guest"
+      },
+      "context_clips": [],
+      "keep_ranges_by_episode": {
+        "7": [
+          {
+            "start_s": 61.96,
+            "end_s": 74.36,
+            "reason": "Marcus harasses Eve and she calls for Lane"
+          },
+          {
+            "start_s": 76.16,
+            "end_s": 81.48,
+            "reason": "Lane confronts Marcus weakly"
+          },
+          {
+            "start_s": 84,
+            "end_s": 107.72,
+            "reason": "Marcus threatens the deal and Lane tells Eve to comply"
+          }
+        ]
+      },
+      "ending": {
+        "episode": 7,
+        "start_s": 117.36,
+        "end_s": 130.8,
+        "reason": "Kai attacks Marcus and steps in"
+      }
+    }
+  ]
+}
