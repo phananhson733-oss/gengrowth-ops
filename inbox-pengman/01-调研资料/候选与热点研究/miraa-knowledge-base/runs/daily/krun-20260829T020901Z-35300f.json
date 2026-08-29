@@ -1,0 +1,22 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-29T02:09:01.720166+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "kb_version_before": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "mode": "daily",
+  "patrol_note": "水位2026-08-26T06:27Z。①竞品: 索引CSV读取成功(18账号=16TikTok+1X+1IG); TikTok试点@thepattern无头访问仅壳层+Something went wrong, x.com/satyastrology 403, instagram.com/astrology.mn 仅轮廓无帖子时间戳——均未读到正文, 不建Source。②社区Topic: Reddit全入口被网络级封锁(www .json与old.reddit均403, WebFetch被拒, 无头Chromium遇network security拦截), 55个topic的新讨论核验本轮不可达。③Predictable: KB内55个topic全为evergreen_community, 无Predictable类跟踪对象, 无T-72/T-24待核事件。④Hot: WebSearch快查见8-28双鱼座偏月食为当日既定天象(已过峰值, 仅摘要级来源未读正文, KB已有refinery29八月月运web来源), 不构成需入库新信号。判定no_new_signal。",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "run_id": "krun-20260829T020901Z-35300f",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-29T02:09:01.416357+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}
