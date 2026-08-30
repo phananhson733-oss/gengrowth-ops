@@ -1,0 +1,22 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-30T02:03:41.326301+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "kb_version_before": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "mode": "daily",
+  "patrol_note": "水位2026-08-26T06:27Z。①竞品: 索引CSV端点读取成功(18账号=16TikTok+1X+1IG, 与上轮一致); 正文全不可读——TikTok @thepattern与@costarastrology均只渲染壳层标题'TikTok - Make Your Day'(平台级墙), x.com/satyastrology WebFetch返回HTTP 402, instagram.com/astrology.mn 仅见193K粉丝轮廓与栏目高亮、无可核帖子时间戳与caption; tiktok-public-capture本机仍不存在。按§8只拿到壳层/摘要处理, 不建Source。②社区Topic: Reddit全入口仍被封锁——www.reddit.com/r/Scorpio与r/libra_astrology new.json均403(返回拦截页), WebFetch被拒(unable to fetch), old.reddit 302至登录墙; 55个topic的新讨论核验本轮不可达。③Predictable: KB 55个topic全为evergreen_community, 无Predictable跟踪对象, 无T-72/T-24待核事件。④Hot: WebSearch快查(astrology viral news Aug 29 2026)仅命中常规每日Vedic运势与2026年运聚合页, 8-28双鱼偏月食已过峰值且上轮已评估, 无需Hot实时评估的新信号。判定no_new_signal。",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "run_id": "krun-20260830T020341Z-660e98",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-30T02:03:41.162042+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}
