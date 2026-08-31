@@ -123,25 +123,36 @@
       "valid_until": "2026-08-28T00:00:00+00:00"
     },
     {
-      "aliases": [],
-      "evidence_strength": "strong",
-      "formats": [],
-      "last_verified_at": "2026-08-18T00:00:00+00:00",
+      "aliases": [
+        "Capricorn 退出"
+      ],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
       "path": "topics/miraa-capricorn-退出.md",
       "research_scope": "evergreen_community",
       "signs": [
         "capricorn"
       ],
       "source_ids": [
-        "src-0b38aa9363"
+        "src-bd76081c7a"
       ],
       "status": "active",
-      "tags": [],
-      "themes": [],
-      "title": "Capricorn 退出",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "breakup-finality",
+        "relationships"
+      ],
+      "title": "Capricorn 退出前已下定决心",
       "topic_id": "miraa-capricorn-退出",
       "used_content_ids": [],
-      "valid_until": "2026-08-25T00:00:00+00:00"
+      "valid_until": "2026-09-07T00:00:00+00:00"
     },
     {
       "aliases": [],
@@ -989,6 +1000,65 @@
       "formats": [
         "ai-host-single"
       ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-认真后反而变安静.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-fb6832a680"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "communication",
+        "emotional-intensity",
+        "relationships"
+      ],
+      "title": "Scorpio 认真后反而变安静",
+      "topic_id": "miraa-scorpio-认真后反而变安静",
+      "used_content_ids": [],
+      "valid_until": "2026-09-07T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "path": "topics/miraa-scorpio-金星入座的期待与现实落差.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-267587face"
+      ],
+      "status": "active",
+      "tags": [
+        "predictable"
+      ],
+      "themes": [
+        "expectations",
+        "forecast-reality-gap",
+        "predictable-events"
+      ],
+      "title": "Scorpio 金星入座的期待与现实落差",
+      "topic_id": "miraa-scorpio-金星入座的期待与现实落差",
+      "used_content_ids": [],
+      "valid_until": "2026-09-07T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
       "last_verified_at": "2026-08-24T08:37:05.150743+00:00",
       "path": "topics/miraa-taurus-verbal-reassurance.md",
       "research_scope": "evergreen_community",
@@ -1119,6 +1189,34 @@
     },
     {
       "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "path": "topics/miraa-virgo-新月的清理与重启仪式.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-ba363cbf98"
+      ],
+      "status": "active",
+      "tags": [
+        "predictable"
+      ],
+      "themes": [
+        "predictable-events",
+        "reset-ritual"
+      ],
+      "title": "Virgo 新月的清理与重启仪式",
+      "topic_id": "miraa-virgo-新月的清理与重启仪式",
+      "used_content_ids": [],
+      "valid_until": "2026-09-07T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
       "evidence_strength": "weak",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
@@ -1202,25 +1300,33 @@
       "valid_until": "2026-08-24T02:40:46.240000+00:00"
     },
     {
-      "aliases": [],
-      "evidence_strength": "strong",
-      "formats": [],
-      "last_verified_at": "2026-08-17T00:00:00+00:00",
+      "aliases": [
+        "单向倾诉何时耗尽友情"
+      ],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
       "path": "topics/miraa-单向倾诉何时耗尽友情.md",
       "research_scope": "evergreen_community",
       "signs": [],
       "source_ids": [
-        "src-0c1047810a",
-        "src-5455253dfd",
-        "src-9eedb3eae7"
+        "src-0c9c1e100f"
       ],
       "status": "active",
-      "tags": [],
-      "themes": [],
-      "title": "单向倾诉何时耗尽友情",
+      "tags": [
+        "evergreen"
+      ],
+      "themes": [
+        "boundaries",
+        "emotional-labor",
+        "friendship"
+      ],
+      "title": "单向倾诉耗尽友情",
       "topic_id": "miraa-单向倾诉何时耗尽友情",
       "used_content_ids": [],
-      "valid_until": "2026-08-24T00:00:00+00:00"
+      "valid_until": "2026-09-07T00:00:00+00:00"
     },
     {
       "aliases": [],
@@ -1326,6 +1432,33 @@
     },
     {
       "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "path": "topics/miraa-用独处消化情绪不等于冷落.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-dda94ec6c9"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen"
+      ],
+      "themes": [
+        "emotional-processing",
+        "relationships",
+        "solitude"
+      ],
+      "title": "用独处消化情绪不等于冷落",
+      "topic_id": "miraa-用独处消化情绪不等于冷落",
+      "used_content_ids": [],
+      "valid_until": "2026-09-07T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
       "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-17T02:40:46.240000+00:00",
@@ -1365,6 +1498,33 @@
       "topic_id": "miraa-行动速度与协商速度冲突",
       "used_content_ids": [],
       "valid_until": "2026-08-24T02:40:46.240000+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "path": "topics/miraa-运势内容的疲劳与怀疑.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-2d9dd05710"
+      ],
+      "status": "active",
+      "tags": [
+        "anti-doom",
+        "evergreen"
+      ],
+      "themes": [
+        "horoscope-fatigue",
+        "skepticism"
+      ],
+      "title": "运势内容的疲劳与怀疑",
+      "topic_id": "miraa-运势内容的疲劳与怀疑",
+      "used_content_ids": [],
+      "valid_until": "2026-09-07T00:00:00+00:00"
     }
   ]
 }
