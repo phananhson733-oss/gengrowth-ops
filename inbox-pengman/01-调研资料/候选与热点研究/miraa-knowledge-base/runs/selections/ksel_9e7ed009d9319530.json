@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T08:02:05.119827+00:00",
+  "dedupe_checked_at": "2026-08-31T08:02:05Z",
+  "dedupe_note": "",
+  "freshness_checked_at": "2026-08-31T08:02:05.119827+00:00",
+  "freshness_result": "valid",
+  "kb_version": "96f8e04f2d8c4d0b2088333901e74ccf739f929a354eb9eaf9361ab2a914f954",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "",
+  "request_summary": "x",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_9e7ed009d9319530",
+  "source_ids": [
+    "src-2d9dd05710"
+  ],
+  "topic_ids": [
+    "miraa-运势内容的疲劳与怀疑"
+  ],
+  "week": "2026-W36"
+}

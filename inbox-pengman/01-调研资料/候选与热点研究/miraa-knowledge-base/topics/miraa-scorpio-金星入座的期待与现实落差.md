@@ -24,7 +24,8 @@ themes:
 title: Scorpio 金星入座的期待与现实落差
 topic_id: miraa-scorpio-金星入座的期待与现实落差
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-01
 valid_until: '2026-09-07T00:00:00+00:00'
 ---
 # Scorpio 金星入座的期待与现实落差
@@ -52,4 +53,5 @@ Limitations: single platform; comments skew toward believers
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-01 via ksel_bcdf8710eab47cb4
 - 2026-08-31: weekly ingest (mode B, week 2026-W35, receipt sha256:11b59582f4ed); sources: src-267587face

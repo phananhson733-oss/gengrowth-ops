@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:01:21.311348+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "96f8e04f2d8c4d0b2088333901e74ccf739f929a354eb9eaf9361ab2a914f954",
+  "kb_version_before": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_bcdf8710eab47cb4.json",
+  "receipt_sha256": "c469b4bc261524b94a2d3ca51d187044d823d6f7f5de9f7ab5ca88d2fd3efb22",
+  "run_id": "krun-20260831T080121Z-3af8a3",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:01:21.194573+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-scorpio-金星入座的期待与现实落差"
+  ]
+}
