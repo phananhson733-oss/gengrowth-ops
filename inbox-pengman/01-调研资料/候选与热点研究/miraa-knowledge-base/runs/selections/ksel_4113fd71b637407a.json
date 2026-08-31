@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T08:10:43.359991+00:00",
+  "dedupe_checked_at": "2026-08-31T08:10:43Z",
+  "dedupe_note": "",
+  "freshness_checked_at": "2026-08-31T08:10:43.359991+00:00",
+  "freshness_result": "valid",
+  "kb_version": "61b514c0f6d8f09379b177c1809fd4f1b140b354c5df7f21f6e802fc4021c0f4",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "",
+  "request_summary": "x",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_4113fd71b637407a",
+  "source_ids": [
+    "src-7fda75d24e"
+  ],
+  "topic_ids": [
+    "miraa-libra-sagittarius-直接表达如何建立安全感"
+  ],
+  "week": "2026-W36"
+}

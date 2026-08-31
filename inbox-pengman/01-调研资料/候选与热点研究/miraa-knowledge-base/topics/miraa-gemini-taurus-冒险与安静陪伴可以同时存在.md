@@ -27,7 +27,8 @@ themes:
 title: Gemini × Taurus：冒险与安静陪伴可以同时存在
 topic_id: miraa-gemini-taurus-冒险与安静陪伴可以同时存在
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-06
 valid_until: '2026-09-02T06:27:14+00:00'
 ---
 # Gemini × Taurus：冒险与安静陪伴可以同时存在
@@ -56,4 +57,5 @@ Limitations: Small sample from one sign-specific thread; positive friendship sto
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-06 via ksel_af461e6d16607f13
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:b77e20fdc147); sources: src-61ac07140b
