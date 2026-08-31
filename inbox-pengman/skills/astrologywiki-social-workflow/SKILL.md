@@ -256,10 +256,12 @@ Hook 检查：
 
 - `Scorpios have very few real friends.`
 - `One small lie can make Scorpio question the whole relationship.`
-- `Scorpio and Capricorn can both struggle to say what they need.`
 - `You can know a Scorpio for years and still not know what they're feeling.`
+- `Scorpio never lets a fight end.`（强断言 `never` 式）
+- `The loneliest couple in the zodiac? Cancer and Virgo.`（反问判词式）
+- `Why Cancer and Capricorn both feel unloved.`（`Why` 问题式）
 
-这些示例用于说明“身份明确、矛盾广泛、简单可认领”的机制，不得机械套句或替换星座名。
+这些示例用于说明“身份明确、矛盾广泛、简单可认领”的机制，不得机械套句或替换星座名。后三条是 Pengman 当前偏好的强断言/反问判词/`Why` 问题句式，优先采用；旧的“can both struggle”共同状态式不再作为默认。
 
 **默认避开：**
 
@@ -333,9 +335,9 @@ Hook 检查：
 
 ### Hook 刺激度
 
-- 允许并优先使用更强的断言、警告或反常识式 Hook：`Never ...`、`Don't ...`、极端判断，以及"不是 X，而是 Y"的意外翻转。给出"具体越界行为 + 立即后果"，不先解释星座背景。
+- 允许并优先使用更强的断言、警告或反常识式 Hook：`Never ...`、`Don't ...`、极端判断、`Why ...` 问题式、反问判词式（`The [最高级] ... in the zodiac? [Sign A] and [Sign B].`），以及"不是 X，而是 Y"的意外翻转。给出"具体越界行为 + 立即后果"，不先解释星座背景。
 - 禁止升级为博眼球标题党：不用 `most dangerous / dark side / worst ... exposed` 等耸动标签，不用病理化标签，不用脏话。
-- 断言必须落到可认领的行为或关系后果，抽象标签仍用简单直白的词。
+- 断言必须落到可认领的行为或关系后果，抽象标签仍用简单直白的词。已确认示例：`Scorpio never lets a fight end.` / `The loneliest couple in the zodiac? Cancer and Virgo.` / `Why Cancer and Capricorn both feel unloved.`
 
 ### 身份认领续看钩子
 
@@ -348,6 +350,21 @@ Hook 检查：
 - 用"他们 X，但 Y"短对仗替代长因果解释；平均句长缩短，避免复杂从句。
 - 星座即主语：正文短句尽量以该星座为主语，新观众 1 秒识别"关于谁"。
 - 数字清单仅限 3 点，且 3 点都证明同一个核心机制；把最有情绪、最能引发评论的一点放最后。
+
+### 正文反例与避坑
+
+强 Hook 之后，正文不能"叛变"回旧的克制科普风格。以下写法会泄掉钩子张力、拉低留存，且读起来像 AI：
+
+- 钩子后第二句就"平反/辩护"：`does not always mean they love drama`、`Sometimes they need time to...` —— 强断言 Hook 之后继续兑现张力，不立刻客观化或替星座辩解。
+- 教学/定义式口吻：`The healthy version...`、`The difference is simple`、`scorekeeping`、`repair` —— 正文是"描述/认领"，让观众对号入座，不是给观众上课、下定义。
+- 抽象心理学术语堆叠：`what repair would look like`、`what the next conversation is supposed to fix` —— 换成大白话。
+- 精确时间点 + "一睡一醒"对比：`You're asleep by midnight. Scorpio is still...` —— `midnight / 2am / 凌晨三点` 是 AI 情感文案套路，竞品不用；场景只用轻行为（`They answer your morning message`），不用精确时间。
+- "They're not X. They're Y." 完整主谓对称句：`They're not replaying it to punish anyone. They're trying to find...` —— 改用竞品的 `It's not about X. It's about Y.` 短语式。
+- "One... the other..." 对称分类：`One keeps the relationship. The other keeps the wound open.` —— 改用 `or` 对立（`fix it — or to keep score`）或一句话收束。
+- 工整对偶：`Coming back to solve... Coming back only to punish...` —— 同一机制只讲一次，不用对称句。
+- 结尾给建议/规劝：`They just need to decide...`、`You should...` —— 结尾落到情绪峰值或隐藏需求，不给忠告。
+
+竞品式替代（描述/认领，非上课、非对称）：`They watch more than they speak.` / `They forgive, but they never forget.` / `Scorpio comes back to fix it — or to keep score.`
 
 ### 收尾
 
@@ -537,6 +554,9 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 
 ## Change Log
 
+- 2026-08-26 · v1.7.5 · 扩充 8.2「正文反例与避坑」：新增精确时间点"一睡一醒"对比、"They're not X. They're Y."完整主谓对称句、"One... the other..."对称分类三类 AI 味句式，并修正此前把 midnight 场景当正例的错误；统一用竞品式"描述/认领"替代。
+- 2026-08-26 · v1.7.4 · 在 8.2 新增「正文反例与避坑」：强 Hook 后不得泄气平反/教学定义式/抽象术语堆叠/工整对偶/结尾给建议；正文必须是"描述认领"而非"上课"，配具体反例与对照句。
+- 2026-08-26 · v1.7.3 · 将 Pengman 确认的三条 Hook 写入 8.1 已确认示例与 8.2 刺激度句式：`Scorpio never lets a fight end.`（never 强断言）、`The loneliest couple in the zodiac? Cancer and Virgo.`（反问判词）、`Why Cancer and Capricorn both feel unloved.`（Why 问题式）；明确旧"can both struggle"共同状态式不再作为默认。
 - 2026-08-24 · v1.7.2 · 在 8.1 记录 Pengman 的双星座配对 Hook 偏好：`A and B can be the [形容词] match`、`Have you ever seen A and B together`、`This is why A and B are obsessed with each other`、`dangerous... nobody talks about`、`locked in with... stick around` 作参考非强制；明确不偏好 `When A does X, B does Y` 行为对照式配对开场。同步更新账号指南 Hook 方向，并补竞品配对 Hook 样例（来自参考账号 Google Sheet 与 Cancer×Virgo 三份调研）。
 - 2026-08-24 · v1.7.1 · 在 8.2 补 caption/hashtags 规则：caption 升级为"Hook 句 + 身份认领 CTA"、hashtags 扩到 5–6 个含星座 Tok/Season 变体、禁用流量标签和标题党 caption。配套新增 `01-reference/竞品-caption-hashtags-对照与模式.md` 与原始抓取 receipt。
 - 2026-08-24 · v1.7.0 · 新增 8.2「刺激度与留存（竞品学习）」：允许更强断言/警告/反常识 Hook、身份认领续看钩子、"X 但 Y"短对仗、结果先行、警告后果式收尾、三点清单；明确禁止标题党/病理化/脏话，并要求每项手法先 canary 对照验证后再固化为偏好。配套新增参考文件 `01-reference/竞品高播放学习要点-刺激度与留存.md`。
