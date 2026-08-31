@@ -23,7 +23,8 @@ themes:
 title: 运势内容的疲劳与怀疑
 topic_id: miraa-运势内容的疲劳与怀疑
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-02
 valid_until: '2026-09-07T00:00:00+00:00'
 ---
 # 运势内容的疲劳与怀疑
@@ -52,4 +53,5 @@ Limitations: single platform; skepticism concentrated in a few comments
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-02 via ksel_9e7ed009d9319530
 - 2026-08-31: weekly ingest (mode B, week 2026-W35, receipt sha256:11b59582f4ed); sources: src-2d9dd05710

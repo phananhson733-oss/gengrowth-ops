@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:03:21.204842+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "0ec39d85e6b3ce44c514ef7c2e7cfa4b7c7599abc732ca76af5a6efb8ded3c74",
+  "kb_version_before": "96f8e04f2d8c4d0b2088333901e74ccf739f929a354eb9eaf9361ab2a914f954",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_9e7ed009d9319530.json",
+  "receipt_sha256": "05a0fc21ac71e284498551e9e3cba9eed387808d9203f441cbb5d7164c31d35b",
+  "run_id": "krun-20260831T080321Z-f608af",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:03:21.095272+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-运势内容的疲劳与怀疑"
+  ]
+}
