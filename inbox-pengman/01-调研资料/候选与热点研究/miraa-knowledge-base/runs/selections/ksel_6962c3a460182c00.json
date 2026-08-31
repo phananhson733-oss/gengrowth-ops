@@ -1,0 +1,35 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T07:53:13.680946+00:00",
+  "dedupe_checked_at": "2026-08-31T07:53:13Z",
+  "dedupe_note": "已读取Sheet全局status及H3/H4全部28条pending内容，并核对KB used_content_ids；排除已使用或近似重复的Gemini强度/Libra讨好/Sag快速抽离/Taurus reassurance/Leo冲突/Cancer-Capricorn/Cancer-Virgo/Capricorn退出/Scorpio靠近后抽离等方向",
+  "freshness_checked_at": "2026-08-31T07:53:13.680946+00:00",
+  "freshness_result": "valid",
+  "kb_version": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "high-traffic competitor-style hook relationship conflict pair identity predictable",
+  "request_summary": "生成7条@miraaastrology选题；不限制星座；优先符合Pengman Hook偏好、竞品感和流量，不要太保守",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_6962c3a460182c00",
+  "source_ids": [
+    "src-1b3ff28145",
+    "src-267587face",
+    "src-61ac07140b",
+    "src-7d86f40b6f",
+    "src-7e907d341a",
+    "src-7fda75d24e",
+    "src-ac246815dd"
+  ],
+  "topic_ids": [
+    "miraa-gemini-taurus-冒险与安静陪伴可以同时存在",
+    "miraa-libra-sagittarius-直接表达如何建立安全感",
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据",
+    "miraa-scorpio-aries-慢速承诺与模糊边界",
+    "miraa-scorpio-libra-给空间还是要求明确答复",
+    "miraa-scorpio-pisces-cancer-placements-内在强烈但外表难读",
+    "miraa-scorpio-金星入座的期待与现实落差"
+  ],
+  "week": "2026-W36"
+}

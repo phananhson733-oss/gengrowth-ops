@@ -1,0 +1,29 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T07:54:41.874235+00:00",
+  "dedupe_checked_at": "2026-08-31T07:54:41Z",
+  "dedupe_note": "Sheet全局status及H3/H4全部28条pending已核对；四个方向均无KB used_content_ids，且未与现有Capricorn退出、Scorpio拉远、Cancer-Capricorn、Cancer-Virgo等方向重复",
+  "freshness_checked_at": "2026-08-31T07:54:41.874235+00:00",
+  "freshness_result": "valid",
+  "kb_version": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "strong hook Scorpio relationship identity predictable",
+  "request_summary": "批次A：生成4条@miraaastrology高流量强Hook候选；竞品感优先",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_8c7cbb563d3d1a1e",
+  "source_ids": [
+    "src-1b3ff28145",
+    "src-267587face",
+    "src-7e907d341a",
+    "src-ac246815dd"
+  ],
+  "topic_ids": [
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据",
+    "miraa-scorpio-aries-慢速承诺与模糊边界",
+    "miraa-scorpio-pisces-cancer-placements-内在强烈但外表难读",
+    "miraa-scorpio-金星入座的期待与现实落差"
+  ],
+  "week": "2026-W36"
+}
