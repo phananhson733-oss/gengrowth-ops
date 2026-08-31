@@ -23,7 +23,8 @@ themes:
 title: Virgo 新月的清理与重启仪式
 topic_id: miraa-virgo-新月的清理与重启仪式
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-03
 valid_until: '2026-09-07T00:00:00+00:00'
 ---
 # Virgo 新月的清理与重启仪式
@@ -51,4 +52,5 @@ Limitations: single platform; many comments address the creator
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-03 via ksel_9bc3030b616721b3
 - 2026-08-31: weekly ingest (mode B, week 2026-W35, receipt sha256:11b59582f4ed); sources: src-ba363cbf98
