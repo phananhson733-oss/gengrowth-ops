@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T07:57:19.862809+00:00",
+  "dedupe_checked_at": "2026-08-31T07:57:19Z",
+  "dedupe_note": "",
+  "freshness_checked_at": "2026-08-31T07:57:19.862809+00:00",
+  "freshness_result": "valid",
+  "kb_version": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "",
+  "request_summary": "1/7 强Hook",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_6cbcf673e3f05280",
+  "source_ids": [
+    "src-ac246815dd"
+  ],
+  "topic_ids": [
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据"
+  ],
+  "week": "2026-W36"
+}
