@@ -26,7 +26,8 @@ themes:
 title: Scorpio × Aquarius：复合意愿不等于修复证据
 topic_id: miraa-scorpio-aquarius-复合意愿不等于修复证据
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-04
 valid_until: '2026-09-02T06:17:58+00:00'
 ---
 # Scorpio × Aquarius：复合意愿不等于修复证据
@@ -55,4 +56,5 @@ Limitations: Single account; no readable comments and no follow-up outcome.
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-04 via ksel_b0e80626f0b780f9
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:cd62f1f99c10); sources: src-ac246815dd

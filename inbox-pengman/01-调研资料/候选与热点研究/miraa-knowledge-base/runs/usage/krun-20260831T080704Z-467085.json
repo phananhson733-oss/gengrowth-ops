@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:07:04.416314+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "82569152f25287ebb343daefddddd8064c597cffbce7306c1b399e1f5085d0db",
+  "kb_version_before": "f1d10f751c1b90fa19a671b8f7242896488dcaee98501fd82ebe81d6f453f768",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_b0e80626f0b780f9.json",
+  "receipt_sha256": "1a2311ebe6fcb614169e61a318f35ac726edab2c9c1543df991760b8c3ef5402",
+  "run_id": "krun-20260831T080704Z-467085",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:07:04.306686+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据"
+  ]
+}
