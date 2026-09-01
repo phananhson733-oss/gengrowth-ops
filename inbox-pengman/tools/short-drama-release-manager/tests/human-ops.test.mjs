@@ -15,6 +15,8 @@ function deferred() {
   return { promise, resolve };
 }
 
+const pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
 class FakeRepository {
   constructor(tableName, primaryField, rows, writes, { appToken, tableId }) {
     this.tableName = tableName;
@@ -1008,4 +1010,141 @@ test("file-backed human mutation lease keeps busy receipts reusable then stale o
     secondStore.close();
     rmSync(directory, { recursive: true });
   }
+});
+
+test("long pending Base read keeps heartbeating, excludes another owner, and stops after success", async () => {
+  const fx = fixture();
+  const entered = deferred();
+  const releaseRead = deferred();
+  const originalLoad = fx.repos.dramas.loadIndex.bind(fx.repos.dramas);
+  let readPending = false;
+  fx.repos.dramas.loadIndex = async () => {
+    readPending = true;
+    entered.resolve();
+    await releaseRead.promise;
+    readPending = false;
+    return originalLoad();
+  };
+  const originalRenew = fx.jobs.renewMutationLease.bind(fx.jobs);
+  let renewCount = 0;
+  let activeRenewals = 0;
+  let maximumActiveRenewals = 0;
+  fx.jobs.renewMutationLease = async (input) => {
+    renewCount += 1;
+    if (!readPending) return originalRenew(input);
+    activeRenewals += 1;
+    maximumActiveRenewals = Math.max(maximumActiveRenewals, activeRenewals);
+    try {
+      await pause(1_200);
+      return originalRenew(input);
+    } finally {
+      activeRenewals -= 1;
+    }
+  };
+  const pending = fx.service.applySingleField({
+    actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "备注", value: "after long read",
+  });
+  await entered.promise;
+  const renewsAtReadStart = renewCount;
+  await pause(2_150);
+  const heartbeatObserved = renewCount > renewsAtReadStart;
+  const lockKey = fx.jobs.db.prepare("SELECT lock_key FROM mutation_leases").get().lock_key;
+  assert.equal(fx.jobs.acquireMutationLease({
+    lockKey,
+    ownerId: "competing-owner",
+    now: "2026-09-01T00:00:01Z",
+    leaseSeconds: 300,
+  }), null);
+  releaseRead.resolve();
+  await pending;
+  assert.equal(heartbeatObserved, true, "a heartbeat must renew while a list/retry wait is pending");
+  assert.equal(maximumActiveRenewals, 1, "slow heartbeat renewals must never overlap");
+  const renewsAfterSuccess = renewCount;
+  await pause(1_150);
+  assert.equal(renewCount, renewsAfterSuccess, "success must clear and stop the heartbeat timer");
+  assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.备注, "after long read");
+  fx.close();
+});
+
+test("heartbeat ownership loss during pending pre-read stops consume, write, audit, and timer", async () => {
+  const fx = fixture();
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "must not write" },
+  });
+  const entered = deferred();
+  const releaseRead = deferred();
+  const originalLoad = fx.repos.dramas.loadIndex.bind(fx.repos.dramas);
+  let heartbeatMustFail = false;
+  fx.repos.dramas.loadIndex = async () => {
+    heartbeatMustFail = true;
+    entered.resolve();
+    await releaseRead.promise;
+    return originalLoad();
+  };
+  const originalRenew = fx.jobs.renewMutationLease.bind(fx.jobs);
+  let renewCount = 0;
+  fx.jobs.renewMutationLease = (input) => {
+    renewCount += 1;
+    if (heartbeatMustFail) {
+      const error = new Error("simulated lease ownership loss");
+      error.code = "mutation_lease_mismatch";
+      throw error;
+    }
+    return originalRenew(input);
+  };
+  const pending = fx.service.applyPreview({
+    actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id,
+  });
+  await entered.promise;
+  await pause(1_150);
+  releaseRead.resolve();
+  await assert.rejects(pending, (error) => error.code === "mutation_lease_mismatch");
+  assert.equal(fx.jobs.getPreview(preview.receipt_id).used_at, null);
+  assert.deepEqual(fx.writes, []);
+  assert.deepEqual(fx.audits, []);
+  const renewsAfterFailure = renewCount;
+  await pause(1_150);
+  assert.equal(renewCount, renewsAfterFailure, "failure must clear and stop the heartbeat timer");
+  fx.close();
+});
+
+test("heartbeat loss during an in-flight write surfaces failure and stops later audit or success", async () => {
+  const fx = fixture();
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "remote write completed" },
+  });
+  const enteredWrite = deferred();
+  const releaseWrite = deferred();
+  let writePending = false;
+  fx.repos.dramas.beforeWrite = async () => {
+    writePending = true;
+    enteredWrite.resolve();
+    await releaseWrite.promise;
+    writePending = false;
+  };
+  const originalRenew = fx.jobs.renewMutationLease.bind(fx.jobs);
+  let renewCount = 0;
+  fx.jobs.renewMutationLease = (input) => {
+    renewCount += 1;
+    if (writePending) {
+      const error = new Error("simulated loss during remote write");
+      error.code = "mutation_lease_mismatch";
+      throw error;
+    }
+    return originalRenew(input);
+  };
+  const pending = fx.service.applyPreview({
+    actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id,
+  });
+  await enteredWrite.promise;
+  await pause(1_150);
+  releaseWrite.resolve();
+  await assert.rejects(pending, (error) => error.code === "mutation_lease_mismatch");
+  assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.备注, "remote write completed");
+  assert.notEqual(fx.jobs.getPreview(preview.receipt_id).used_at, null);
+  assert.deepEqual(fx.audits, []);
+  const renewsAfterFailure = renewCount;
+  await pause(1_150);
+  assert.equal(renewCount, renewsAfterFailure);
+  fx.close();
 });

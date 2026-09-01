@@ -20,6 +20,7 @@ const METRICS = Object.freeze(["播放量", "点赞", "收藏", "转发", "评�
 const RECEIPT_VERSION = 1;
 const RECEIPT_ID_PATTERN = /^sdp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const MUTATION_LEASE_SECONDS = 300;
+const MUTATION_HEARTBEAT_MILLISECONDS = 1_000;
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const APPLY_QUEUES = new Map();
 
@@ -123,6 +124,16 @@ function baseBinding(repos) {
 
 function equal(left, right) {
   return isDeepStrictEqual(left, right);
+}
+
+function mutationLeaseLoss(error) {
+  const code = ["mutation_lease_mismatch", "mutation_lease_lost"].includes(error?.code)
+    ? error.code
+    : "mutation_lease_lost";
+  if (error instanceof ShortDramaError && error.code === code) return error;
+  return new ShortDramaError(code, "Human Base mutation lease ownership was lost", {
+    cause_code: typeof error?.code === "string" ? error.code : "internal_error",
+  });
 }
 
 function cellState(fields, field) {
@@ -417,9 +428,43 @@ export class HumanOpsService {
   }
 
   async #leasedStep(renew, operation) {
-    renew();
-    const result = await operation();
-    renew();
+    // A remote write cannot be rolled back if ownership is lost mid-flight.
+    // Heartbeat loss is surfaced before any later receipt/write/audit step or success result.
+    const performRenew = async () => {
+      try {
+        return await renew();
+      } catch (error) {
+        throw mutationLeaseLoss(error);
+      }
+    };
+    await performRenew();
+    let heartbeatError = null;
+    let heartbeatPromise = null;
+    const heartbeat = () => {
+      if (heartbeatPromise || heartbeatError) return;
+      const active = performRenew()
+        .catch((error) => { heartbeatError ??= error; })
+        .finally(() => {
+          if (heartbeatPromise === active) heartbeatPromise = null;
+        });
+      heartbeatPromise = active;
+    };
+    const timer = setInterval(heartbeat, MUTATION_HEARTBEAT_MILLISECONDS);
+    timer.unref?.();
+    let result;
+    let operationError = null;
+    try {
+      result = await operation();
+    } catch (error) {
+      operationError = error;
+    } finally {
+      clearInterval(timer);
+      const active = heartbeatPromise;
+      if (active) await active;
+    }
+    if (heartbeatError) throw heartbeatError;
+    if (operationError) throw operationError;
+    await performRenew();
     return result;
   }
 
