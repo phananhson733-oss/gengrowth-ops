@@ -1,0 +1,33 @@
+{
+  "schema_version": "shortdrama/v1",
+  "timezone": "Asia/Shanghai",
+  "source_spreadsheet_id": "1BbOcWUVrhRsnuSAs9LcyCuYWTrauPxtJWI12Esao7p0",
+  "paths": {
+    "metrics_sqlite": "../../output/tiktok_metrics.sqlite",
+    "collector": "../tiktok-public-capture/collect_tiktok_public_data.mjs",
+    "collector_summary_dir": "../../output",
+    "ops_sqlite": "../../output/short-drama-release-manager/shortdrama_ops.sqlite",
+    "payload_root": "../../output/short-drama-release-manager/payloads"
+  },
+  "base": {
+    "url": "https://example.invalid/base/company-owned-short-drama",
+    "app_token_env": "FEISHU_SHORTDRAMA_APP_TOKEN",
+    "table_id_envs": {
+      "accounts": "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID",
+      "dramas": "FEISHU_SHORTDRAMA_POOL_TABLE_ID",
+      "captures": "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID",
+      "releases": "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID"
+    }
+  },
+  "auth": {
+    "feishu_app_id_env": "FEISHU_APP_ID",
+    "feishu_app_secret_env": "FEISHU_APP_SECRET",
+    "google_service_account_path_env": "GOOGLE_SERVICE_ACCOUNT_JSON",
+    "operator_ids_env": "SHORTDRAMA_OPERATOR_IDS",
+    "privileged_ids_env": "SHORTDRAMA_PRIVILEGED_IDS",
+    "notification_chat_ids_env": "SHORTDRAMA_NOTIFICATION_CHAT_IDS"
+  },
+  "acceptance": {
+    "privileged_actor_id": "ou_example_not_production"
+  }
+}
