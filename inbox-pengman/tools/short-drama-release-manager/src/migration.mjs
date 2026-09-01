@@ -1,11 +1,12 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { lstat, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
-import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
+import { matchReleaseToCapture } from "./matcher.mjs";
+import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
 
 const VERSION = "shortdrama-migration/v1";
@@ -16,16 +17,15 @@ const TABLE_BINDINGS = Object.freeze({
   "发布记录": "releases",
 });
 const PRESENTATION = Object.freeze([
-  ["账号台账", "在用账号", "在用账号"], ["账号台账", "需处理账号", "需处理账号"],
-  ["选剧池", "未排期", "未排期"], ["选剧池", "已排期", "已排期"],
-  ["选剧池", "按平台", "按平台"], ["选剧池", "按语言", "按语言"],
-  ["发布记录", "已排期", "发布-已排期"], ["发布记录", "待公开", "待公开"],
-  ["发布记录", "已公开待回填", "已公开待回填"], ["发布记录", "已回填", "已回填"],
-  ["发布记录", "按账号表现", "按账号表现"], ["发布记录", "按剧表现", "按剧表现"],
-  ["采集数据", "完整", "采集-完整"], ["采集数据", "部分缺失", "部分缺失"],
-  ["采集数据", "未关联发布", "未关联发布"],
+  ["账号台账", "在用账号"], ["账号台账", "需处理账号"],
+  ["选剧池", "未排期"], ["选剧池", "已排期"], ["选剧池", "按平台"], ["选剧池", "按语言"],
+  ["发布记录", "已排期"], ["发布记录", "待公开"], ["发布记录", "已公开待回填"], ["发布记录", "已回填"],
+  ["发布记录", "按账号表现"], ["发布记录", "按剧表现"],
+  ["采集数据", "完整"], ["采集数据", "部分缺失"], ["采集数据", "未关联发布"],
 ]);
+const DASHBOARD_BLOCKS = Object.freeze(["活跃账号数", "待公开数", "待回填数", "按账号最新累计表现", "按剧最新累计表现", "最近一次同步终态"]);
 const ARTIFACT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../output/short-drama-release-manager/migrations");
+const ARTIFACT_TRUST_ROOT = resolve(ARTIFACT_ROOT, "../..");
 const POST_ID = /^\d+$/;
 const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
@@ -142,15 +142,12 @@ function blocked(code, table, sourceRow, details = {}) {
 function writableProjection(tableName, row, { exclude = [] } = {}) {
   const ignored = new Set(exclude);
   const result = {};
-  for (const [field, value] of Object.entries(row)) {
-    if (field === "source_row" || ignored.has(field)) continue;
-    let owner;
-    try { owner = fieldOwner(tableName, field); } catch (error) {
-      if (error.code === "field_not_allowed") continue;
-      throw error;
-    }
-    if (owner === "derived") continue;
-    result[field] = optionalValue(value);
+  const writable = [...TABLES[tableName].human, ...TABLES[tableName].machine, ...TABLES[tableName].shared];
+  for (const field of writable) {
+    if (ignored.has(field)) continue;
+    const spec = BASE_FIELD_SPECS[tableName].find((item) => item.name === field);
+    const fallback = spec?.kind === "multi_select" ? [] : null;
+    result[field] = Object.hasOwn(row, field) ? optionalValue(row[field]) : fallback;
   }
   return result;
 }
@@ -254,7 +251,7 @@ function validateCaptures(rows, accountIds, blocks, sourceRevision) {
     if (!Array.isArray(source.missing_fields) || source.missing_fields.some((field) => typeof field !== "string")) {
       fail("migration_source_invalid", "Capture missing_fields is invalid", { post_id: key });
     }
-    result.push({
+    result.push(writableProjection("采集数据", {
       "Post ID": key,
       "快照日期": optionalValue(source.snapshot_date),
       "采集时间": optionalValue(source.captured_at),
@@ -271,15 +268,19 @@ function validateCaptures(rows, accountIds, blocks, sourceRevision) {
       "缺失字段": [...source.missing_fields],
       "来源 run_id": optionalValue(source.run_id) ?? `migration:${sourceRevision}`,
       "Base 同步时间": optionalValue(source.base_sync_time),
-    });
+    }));
   }
   return result;
 }
 
-function validateReleases(rows, accountIds, dramasByName, capturesByPost, blocks) {
+function beijingDate(iso) {
+  return new Date(Date.parse(iso) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+function validateReleases(rows, accountIds, dramasByName, captureSources, capturesByPost, blocks, generatedAtValue) {
   if (!Array.isArray(rows)) fail("migration_source_invalid", "Google release rows are missing");
   const result = [];
-  const seenPosts = new Map();
+  const claimedPostIds = new Set();
   rows.forEach((source, at) => {
     if (!plainObject(source)) fail("migration_source_invalid", "Google release row is malformed");
     const releaseId = businessId("SR", at + 1);
@@ -290,32 +291,32 @@ function validateReleases(rows, accountIds, dramasByName, capturesByPost, blocks
     const dramaName = typeof source.剧名 === "string" ? source.剧名.trim() : "";
     const dramaId = dramasByName.get(dramaName) ?? null;
     if (!dramaId) blocks.push(blocked("missing_drama_target", "发布记录", source.source_row, { release_id: releaseId, drama_name: dramaName }));
-    let sourcePost = null;
-    try { sourcePost = postId(source["Post ID"], { nullable: true }); }
-    catch { blocks.push(blocked("invalid_post_id", "发布记录", source.source_row, { release_id: releaseId })); }
-    let urlIdentity = null;
-    try { urlIdentity = tiktokIdentity(source.视频链接, "post"); }
-    catch { blocks.push(blocked("source_url_invalid", "发布记录", source.source_row, { release_id: releaseId })); }
-    if (urlIdentity && accountId && urlIdentity.accountId !== accountId) blocks.push(blocked("source_account_mismatch", "发布记录", source.source_row, { release_id: releaseId }));
-    if (urlIdentity && sourcePost && urlIdentity.postId !== sourcePost) blocks.push(blocked("source_post_mismatch", "发布记录", source.source_row, { release_id: releaseId }));
-    const resolvedPost = sourcePost ?? urlIdentity?.postId ?? null;
-    if (resolvedPost) {
-      const previous = seenPosts.get(resolvedPost);
-      if (previous) blocks.push(blocked("duplicate_release_post_id", "发布记录", source.source_row, { post_id: resolvedPost, release_ids: [previous, releaseId] }));
-      else seenPosts.set(resolvedPost, releaseId);
-      const capture = capturesByPost.get(resolvedPost);
-      if (capture && accountId && capture.账号 !== accountId) blocks.push(blocked("source_account_mismatch", "发布记录", source.source_row, { release_id: releaseId, post_id: resolvedPost }));
+    const match = matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
+    const hasManual = source["Post ID"] !== null && source["Post ID"] !== undefined && source["Post ID"] !== "" ||
+      source.视频链接 !== null && source.视频链接 !== undefined && source.视频链接 !== "";
+    const futureUnlinked = !hasManual && typeof source.日期 === "string" && /^\d{4}-\d{2}-\d{2}$/.test(source.日期) && source.日期 > beijingDate(generatedAtValue);
+    let resolvedPost = null;
+    if (match.status === "matched") {
+      resolvedPost = match.post.post_id;
+      if ((source.归档状态 ?? "active") !== "archived") claimedPostIds.add(resolvedPost);
+    } else if (!futureUnlinked) {
+      blocks.push(blocked(match.reason, "发布记录", source.source_row, { release_id: releaseId, candidates: match.candidates?.map((item) => item.post_id) ?? [] }));
     }
     const projected = writableProjection("发布记录", source, { exclude: ["发布ID", "账号", "剧", "采集记录", "账号名", "主页链接", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论"] });
-    if (resolvedPost) projected["Post ID"] = resolvedPost;
-    result.push({
+    if (resolvedPost) {
+      projected["Post ID"] = resolvedPost;
+      projected.视频链接 = match.post.post_url ?? projected.视频链接;
+      projected.匹配方式 = match.method;
+      projected.匹配置信度 = match.confidence ?? 1;
+    }
+    result.push(writableProjection("发布记录", {
       ...projected,
       发布ID: releaseId,
       账号: accountId,
       剧: dramaId,
       采集记录: resolvedPost && capturesByPost.has(resolvedPost) ? resolvedPost : null,
       归档状态: projected.归档状态 ?? "active",
-    });
+    }));
   });
   return result;
 }
@@ -359,36 +360,60 @@ function schemaPlan(baseSchema, blocks) {
     ids.add(table.table_id);
   }
   const tableIds = Object.fromEntries([...byName].map(([name, table]) => [name, table.table_id]));
-  const actions = [];
+  const tableActions = [];
+  const fieldActions = [];
   for (const tableName of TABLE_ORDER) {
     const table = byName.get(tableName);
     if (!table) {
-      actions.push({ id: `table:${tableName}`, kind: "create_table", table: tableName });
-      continue;
+      tableActions.push({ id: `table:${tableName}`, kind: "create_table", table: tableName, phase: "storage" });
     }
     const fields = new Map();
-    for (const field of table.fields) {
+    for (const field of table?.fields ?? []) {
       if (!plainObject(field) || typeof field.name !== "string" || fields.has(field.name)) fail("base_schema_drift", "Base field metadata is malformed or duplicate", { table: tableName });
       fields.set(field.name, field);
     }
     for (const spec of BASE_FIELD_SPECS[tableName]) {
       const existing = fields.get(spec.name);
       if (!existing) {
-        if (!spec.managedReverseOf) actions.push({ id: `field:${tableName}:${spec.name}`, kind: "create_field", table: tableName, field: spec.name });
+        if (spec.primary) {
+          if (!table) continue;
+          const primaryFields = table.fields.filter((field) => field.is_primary === true || field.primary === true);
+          if (table.record_count === 0 && primaryFields.length === 1 && typeof primaryFields[0].field_id === "string" && primaryFields[0].field_id !== "") {
+            fieldActions.push({ id: `primary:${tableName}:${spec.name}`, kind: "update_primary_field", table: tableName, field: spec.name, field_id: primaryFields[0].field_id, phase: "storage" });
+          } else {
+            blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "primary_field_unrecoverable" }));
+          }
+        } else if (spec.managedReverseOf) {
+          const ownerTable = byName.get(spec.managedReverseOf.table);
+          if (ownerTable?.fields?.some((field) => field.name === spec.managedReverseOf.field)) {
+            blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "managed_reverse_missing" }));
+          }
+        } else {
+          fieldActions.push({ id: `field:${tableName}:${spec.name}`, kind: "create_field", table: tableName, field: spec.name, phase: spec.phase });
+        }
+        continue;
+      }
+      if (spec.primary && existing.is_primary !== true && existing.primary !== true) {
+        blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "target_primary_not_primary" }));
         continue;
       }
       const expected = expectedFieldConfig(tableName, spec, tableIds);
       if (!configMatches(existing, expected)) blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name }));
     }
   }
+  const actions = [...tableActions, ...fieldActions.sort((left, right) =>
+    SCHEMA_APPLY_ORDER.indexOf(left.phase) - SCHEMA_APPLY_ORDER.indexOf(right.phase) ||
+    TABLE_ORDER.indexOf(left.table) - TABLE_ORDER.indexOf(right.table) ||
+    BASE_FIELD_SPECS[left.table].findIndex((spec) => spec.name === left.field) - BASE_FIELD_SPECS[right.table].findIndex((spec) => spec.name === right.field),
+  )];
   return { revision, actions };
 }
 
 function presentationActions() {
-  const actions = PRESENTATION.map(([table, viewName, displayName]) => ({
-    id: `view:${table}:${viewName}`, kind: "create_view", table, name: displayName, view_name: viewName,
+  const actions = PRESENTATION.map(([table, viewName]) => ({
+    id: `view:${table}:${viewName}`, kind: "configure_view", table, name: viewName,
   }));
-  actions.push({ id: "dashboard:短剧发行管理仪表盘", kind: "create_dashboard", name: "短剧发行管理仪表盘" });
+  actions.push({ id: "dashboard:短剧发行管理仪表盘", kind: "configure_dashboard", name: "短剧发行管理仪表盘", blocks: [...DASHBOARD_BLOCKS] });
   return actions;
 }
 
@@ -413,13 +438,16 @@ export async function planMigration(context = {}) {
   if (!plainObject(context) || !plainObject(context.google)) fail("migration_source_invalid", "Normalized Google source is required");
   const google = clone(context.google, "migration_source_invalid");
   const sourceRevision = text(google.revision, "source_revision");
+  if (!plainObject(google.raw_backup)) fail("migration_source_invalid", "Token-free Google recovery backup is required");
+  const generatedAtValue = generatedAt(context.now);
   const blocks = [];
   const accountResult = validateAccountRows(google.accounts, blocks);
   const dramaResult = validateDramaRows(google.dramas, blocks);
   const capturesInput = context.captures ?? (typeof context.readLatestPosts === "function" ? await context.readLatestPosts() : null);
-  const captures = validateCaptures(clone(capturesInput, "migration_source_invalid"), accountResult.unique, blocks, sourceRevision);
+  const captureSources = clone(capturesInput, "migration_source_invalid");
+  const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
-  const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, capturesByPost, blocks);
+  const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, generatedAtValue);
   const schema = schemaPlan(context.baseSchema, blocks);
   const orderedBlocks = blocks.sort((left, right) =>
     left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
@@ -427,8 +455,9 @@ export async function planMigration(context = {}) {
   const manifest = {
     version: VERSION,
     source_revision: sourceRevision,
+    source_backup: clone(google.raw_backup, "migration_source_invalid"),
     schema_revision: schema.revision,
-    generated_at: generatedAt(context.now),
+    generated_at: generatedAtValue,
     schema_actions: schema.actions,
     presentation_actions: presentationActions(),
     sequence_seeds: {
@@ -455,12 +484,12 @@ export async function planMigration(context = {}) {
 function assertManifest(manifest) {
   const expectedKeys = [
     "accounts", "blocked", "captures", "counts", "dramas", "generated_at", "presentation_actions",
-    "releases", "schema_actions", "schema_revision", "sequence_seeds", "sha256", "source_revision", "version",
+    "releases", "schema_actions", "schema_revision", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
       !Array.isArray(manifest.blocked) || !plainObject(manifest.counts) || !Array.isArray(manifest.accounts) ||
       !Array.isArray(manifest.dramas) || !Array.isArray(manifest.captures) || !Array.isArray(manifest.releases) ||
-      !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds)) {
+      !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds) || !plainObject(manifest.source_backup)) {
     fail("migration_manifest_invalid", "Migration manifest shape is invalid");
   }
   if (!isDeepStrictEqual(Object.keys(manifest).sort(), expectedKeys)) fail("migration_manifest_invalid", "Migration manifest contains unsupported fields");
@@ -498,14 +527,20 @@ function assertManifest(manifest) {
     }
     actionIds.add(action.id);
     if (action.kind === "create_table") {
-      if (!isDeepStrictEqual(Object.keys(action).sort(), ["id", "kind", "table"]) || action.id !== `table:${action.table}`) {
+      if (!isDeepStrictEqual(Object.keys(action).sort(), ["id", "kind", "phase", "table"]) || action.id !== `table:${action.table}` || action.phase !== "storage") {
         fail("migration_manifest_invalid", "Migration table action is not fixed");
       }
     } else if (action.kind === "create_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
-      if (!spec || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "table"]) ||
-          action.id !== `field:${action.table}:${action.field}`) {
+      if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "table"]) ||
+          action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase) {
         fail("migration_manifest_invalid", "Migration field action is not fixed");
+      }
+    } else if (action.kind === "update_primary_field") {
+      const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
+      if (!spec?.primary || typeof action.field_id !== "string" || action.field_id === "" || action.phase !== "storage" ||
+          !isDeepStrictEqual(Object.keys(action).sort(), ["field", "field_id", "id", "kind", "phase", "table"]) || action.id !== `primary:${action.table}:${action.field}`) {
+        fail("migration_manifest_invalid", "Migration primary-field action is not fixed");
       }
     } else {
       fail("migration_manifest_invalid", "Migration schema action is unsupported");
@@ -623,33 +658,109 @@ async function applyData(context, manifest) {
 
 async function applySchema(context, manifest) {
   const adapter = context.schemaAdapter;
-  if (!objectLike(adapter) || typeof adapter.createTable !== "function" || typeof adapter.createField !== "function" || typeof adapter.verifySchemaAction !== "function") {
+  if (!objectLike(adapter) || typeof adapter.createTable !== "function" || typeof adapter.createField !== "function" ||
+      typeof adapter.updateField !== "function" || typeof adapter.readSchema !== "function" || typeof adapter.verifySchemaAction !== "function") {
     fail("migration_context_invalid", "Fixed schema adapter is required");
   }
-  for (const action of manifest.schema_actions) {
-    if (!plainObject(action) || action.id !== `${action.kind === "create_table" ? "table" : "field"}:${action.table}${action.kind === "create_field" ? `:${action.field}` : ""}` || !TABLE_ORDER.includes(action.table)) {
-      fail("migration_manifest_invalid", "Schema action is not fixed");
+  const readSchema = async () => {
+    const schema = await adapter.readSchema();
+    if (!plainObject(schema) || schema.complete !== true || !Array.isArray(schema.tables)) fail("readback_mismatch", "Complete Base schema readback is required");
+    const tables = new Map();
+    for (const table of schema.tables) {
+      if (!plainObject(table) || typeof table.name !== "string" || typeof table.table_id !== "string" || tables.has(table.name) || !Array.isArray(table.fields ?? [])) {
+        fail("readback_mismatch", "Base schema readback is malformed");
+      }
+      tables.set(table.name, table);
     }
-    if (action.kind === "create_table") await adapter.createTable(action.table);
-    else if (action.kind === "create_field" && BASE_FIELD_SPECS[action.table].some((spec) => spec.name === action.field && !spec.managedReverseOf)) await adapter.createField(action.table, action.field);
-    else fail("migration_manifest_invalid", "Schema action is unsupported");
-    const verified = await adapter.verifySchemaAction(clone(action));
+    return { schema, tables };
+  };
+  for (const action of manifest.schema_actions) {
+    const before = await readSchema();
+    if (action.kind === "create_table") {
+      if (!before.tables.has(action.table)) await adapter.createTable(action.table);
+    } else if (action.kind === "create_field") {
+      const table = before.tables.get(action.table);
+      if (!table) fail("readback_mismatch", "Schema action target table is missing", { action: action.id });
+      const spec = BASE_FIELD_SPECS[action.table].find((item) => item.name === action.field && !item.primary && !item.managedReverseOf);
+      if (!spec) fail("migration_manifest_invalid", "Schema field action is unsupported");
+      if (!(table.fields ?? []).some((field) => field.name === action.field)) {
+        const bindings = spec.kind === "link" ? { targetTableId: before.tables.get(spec.targetTable)?.table_id } : {};
+        if (spec.kind === "link" && typeof bindings.targetTableId !== "string") fail("readback_mismatch", "Link target table is unresolved", { action: action.id });
+        await adapter.createField(table.table_id, action.table, action.field, bindings);
+      }
+    } else if (action.kind === "update_primary_field") {
+      const table = before.tables.get(action.table);
+      if (!table || !(table.fields ?? []).some((field) => field.field_id === action.field_id)) fail("readback_mismatch", "Primary bootstrap field is unresolved", { action: action.id });
+      await adapter.updateField(table.table_id, action.field_id, action.table, action.field);
+    } else fail("migration_manifest_invalid", "Schema action is unsupported");
+    const after = await readSchema();
+    const tableAfter = after.tables.get(action.table);
+    if (!tableAfter || action.kind !== "create_table" && !(tableAfter.fields ?? []).some((field) => field.name === action.field)) {
+      fail("readback_mismatch", "Schema action did not appear in complete readback", { action: action.id });
+    }
+    const verified = await adapter.verifySchemaAction(clone(action), clone(after.schema));
     if (verified !== true) fail("readback_mismatch", "Schema action readback failed", { action: action.id });
+  }
+  const final = await readSchema();
+  for (const tableName of TABLE_ORDER) {
+    const names = new Set(final.tables.get(tableName)?.fields?.map((field) => field.name) ?? []);
+    for (const spec of BASE_FIELD_SPECS[tableName]) if (!names.has(spec.name)) fail("readback_mismatch", "Fixed Base field is missing after schema apply", { table: tableName, field: spec.name });
   }
 }
 
 async function applyPresentation(context, manifest) {
   const adapter = context.presentationAdapter;
-  if (!objectLike(adapter) || typeof adapter.createView !== "function" || typeof adapter.createDashboard !== "function" || typeof adapter.verifyPresentationAction !== "function") {
+  if (!objectLike(adapter) || typeof adapter.readSchema !== "function" || typeof adapter.listViews !== "function" ||
+      typeof adapter.createView !== "function" || typeof adapter.updateView !== "function" || typeof adapter.listDashboards !== "function" ||
+      typeof adapter.createDashboard !== "function" || typeof adapter.listDashboardBlocks !== "function" ||
+      typeof adapter.createDashboardBlock !== "function" || typeof adapter.verifyPresentationAction !== "function") {
     fail("migration_context_invalid", "Fixed presentation adapter is required");
   }
   const fixed = new Map(presentationActions().map((action) => [action.id, action]));
+  const schema = await adapter.readSchema();
+  if (!plainObject(schema) || schema.complete !== true || !Array.isArray(schema.tables)) fail("readback_mismatch", "Complete presentation table readback is required");
+  const tables = new Map(schema.tables.map((table) => [table.name, table]));
   for (const action of manifest.presentation_actions) {
     if (!isDeepStrictEqual(canonicalize(action), canonicalize(fixed.get(action.id)))) fail("migration_manifest_invalid", "Presentation action is not fixed");
-    if (action.kind === "create_view") await adapter.createView(action.table, action.view_name);
-    else if (action.kind === "create_dashboard") await adapter.createDashboard(action.name);
-    else fail("migration_manifest_invalid", "Presentation action is unsupported");
-    const verified = await adapter.verifyPresentationAction(clone(action));
+    let readback;
+    if (action.kind === "configure_view") {
+      const table = tables.get(action.table);
+      if (!table || typeof table.table_id !== "string") fail("readback_mismatch", "Presentation table is unresolved", { action: action.id });
+      const listed = await adapter.listViews(table.table_id, action.table);
+      if (!plainObject(listed) || listed.complete !== true || !Array.isArray(listed.items)) fail("readback_mismatch", "Complete view readback is required", { action: action.id });
+      const matches = listed.items.filter((view) => view.name === action.name);
+      if (matches.length > 1) fail("base_schema_drift", "Duplicate fixed view name", { action: action.id });
+      const created = matches[0] ?? await adapter.createView(table.table_id, action.table, action.name);
+      const viewId = created?.view_id;
+      if (typeof viewId !== "string" || viewId === "") fail("readback_mismatch", "View ID is unresolved", { action: action.id });
+      await adapter.updateView(table.table_id, viewId, action.table, action.name);
+      readback = await adapter.listViews(table.table_id, action.table);
+      if (!plainObject(readback) || readback.complete !== true || !Array.isArray(readback.items) ||
+          readback.items.filter((view) => view.name === action.name && view.view_id === viewId).length !== 1) {
+        fail("readback_mismatch", "Configured view is missing from complete readback", { action: action.id });
+      }
+    } else if (action.kind === "configure_dashboard") {
+      const listed = await adapter.listDashboards();
+      if (!plainObject(listed) || listed.complete !== true || !Array.isArray(listed.items)) fail("readback_mismatch", "Complete dashboard readback is required");
+      const matches = listed.items.filter((dashboard) => dashboard.name === action.name);
+      if (matches.length > 1) fail("base_schema_drift", "Duplicate fixed dashboard name");
+      const dashboard = matches[0] ?? await adapter.createDashboard(action.name);
+      const dashboardId = dashboard?.dashboard_id;
+      if (typeof dashboardId !== "string" || dashboardId === "") fail("readback_mismatch", "Dashboard ID is unresolved");
+      let blocks = await adapter.listDashboardBlocks(dashboardId);
+      if (!plainObject(blocks) || blocks.complete !== true || !Array.isArray(blocks.items)) fail("readback_mismatch", "Complete dashboard block readback is required");
+      for (const blockName of action.blocks) {
+        const blockMatches = blocks.items.filter((block) => block.name === blockName);
+        if (blockMatches.length > 1) fail("base_schema_drift", "Duplicate fixed dashboard block", { block: blockName });
+        if (blockMatches.length === 0) await adapter.createDashboardBlock(dashboardId, blockName);
+      }
+      readback = await adapter.listDashboardBlocks(dashboardId);
+      if (!plainObject(readback) || readback.complete !== true || !Array.isArray(readback.items) ||
+          action.blocks.some((blockName) => readback.items.filter((block) => block.name === blockName).length !== 1)) {
+        fail("readback_mismatch", "Dashboard blocks are missing from complete readback", { action: action.id });
+      }
+    } else fail("migration_manifest_invalid", "Presentation action is unsupported");
+    const verified = await adapter.verifyPresentationAction(clone(action), clone(readback));
     if (verified !== true) fail("readback_mismatch", "Presentation action readback failed", { action: action.id });
   }
 }
@@ -698,9 +809,15 @@ function assertExactKeys(index, expectedRows, primary, tableName) {
 }
 
 function assertExpectedFields(index, entries, primary, tableName) {
+  const writable = new Set([primary, ...TABLES[tableName].human, ...TABLES[tableName].machine, ...TABLES[tableName].shared]);
   for (const entry of entries) {
     const record = index.get(entry.key);
     if (!plainObject(record) || !plainObject(record.fields) || record.fields[primary] !== entry.key) fail("readback_mismatch", "Base record is malformed", { table: tableName, key: entry.key });
+    const expectedKeys = [primary, ...Object.keys(entry.patch)].sort();
+    const actualKeys = Object.keys(record.fields).filter((field) => writable.has(field)).sort();
+    if (!isDeepStrictEqual(actualKeys, expectedKeys)) {
+      fail("readback_mismatch", "Base writable field set does not match the migration manifest", { table: tableName, key: entry.key, expected: expectedKeys, actual: actualKeys });
+    }
     for (const [field, expected] of Object.entries(entry.patch)) {
       if (!Object.hasOwn(record.fields, field) || !isDeepStrictEqual(canonicalize(record.fields[field]), canonicalize(expected))) {
         fail("readback_mismatch", "Base field does not match the migration manifest", { table: tableName, key: entry.key, field });
@@ -757,16 +874,54 @@ export async function writeMigrationArtifact(value, { fileName } = {}) {
     fail("migration_artifact_invalid", "Migration artifact file name is invalid");
   }
   canonicalize(value);
-  const path = resolve(ARTIFACT_ROOT, fileName);
-  if (dirname(path) !== ARTIFACT_ROOT) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
+  const inspectDirectory = async (path, { create = false } = {}) => {
+    let info;
+    try { info = await lstat(path); }
+    catch (error) {
+      if (error?.code !== "ENOENT" || !create) fail("migration_artifact_invalid", "Migration artifact directory is unavailable");
+      try { await mkdir(path, { mode: 0o700 }); } catch (cause) {
+        if (cause?.code !== "EEXIST") fail("migration_artifact_invalid", "Migration artifact directory could not be created");
+      }
+      info = await lstat(path);
+    }
+    if (info.isSymbolicLink() || !info.isDirectory()) fail("migration_artifact_invalid", "Migration artifact directory must not be a symlink");
+  };
+  const secureRoot = async () => {
+    await inspectDirectory(ARTIFACT_TRUST_ROOT);
+    let cursor = ARTIFACT_TRUST_ROOT;
+    for (const component of ["short-drama-release-manager", "migrations"]) {
+      cursor = resolve(cursor, component);
+      await inspectDirectory(cursor, { create: true });
+    }
+    const trustedReal = await realpath(ARTIFACT_TRUST_ROOT);
+    const rootReal = await realpath(ARTIFACT_ROOT);
+    const remainder = relative(trustedReal, rootReal);
+    if (remainder === "" || remainder === ".." || remainder.startsWith(`..${sep}`) || resolve(rootReal) !== ARTIFACT_ROOT) {
+      fail("migration_artifact_invalid", "Migration artifact directory escaped the trusted output root");
+    }
+    return rootReal;
+  };
+  const root = await secureRoot();
+  const path = resolve(root, fileName);
+  if (dirname(path) !== root) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
   const bytes = `${JSON.stringify(value, null, 2)}\n`;
-  await mkdir(ARTIFACT_ROOT, { recursive: true });
+  try {
+    const info = await lstat(path);
+    if (info.isSymbolicLink()) fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
+    fail("migration_artifact_exists", "Migration artifact already exists", { file_name: fileName });
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    if (error?.code !== "ENOENT") fail("migration_artifact_invalid", "Migration artifact target could not be inspected");
+  }
+  await secureRoot();
   try {
     await writeFile(path, bytes, { flag: "wx", mode: 0o600 });
   } catch (error) {
     if (error?.code === "EEXIST") fail("migration_artifact_exists", "Migration artifact already exists", { file_name: fileName });
     fail("migration_artifact_write_failed", "Migration artifact could not be written", { cause: error?.code ?? "unknown" });
   }
+  const targetInfo = await lstat(path);
+  if (targetInfo.isSymbolicLink() || !targetInfo.isFile()) fail("migration_artifact_readback_mismatch", "Migration artifact target changed during write");
   const readback = await readFile(path);
   const expectedHash = createHash("sha256").update(bytes).digest("hex");
   const actualHash = createHash("sha256").update(readback).digest("hex");

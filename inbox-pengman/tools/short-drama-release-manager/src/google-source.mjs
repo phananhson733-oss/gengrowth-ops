@@ -1,4 +1,4 @@
-import { createSign } from "node:crypto";
+import { createHash, createSign } from "node:crypto";
 
 import { ShortDramaError } from "./errors.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
@@ -93,8 +93,32 @@ function normalizeRange(value) {
   return `${match[1]}!${match[2]}1:${match[3]}`;
 }
 
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (plainObject(value)) return Object.fromEntries(Object.keys(value).sort().filter((key) => value[key] !== undefined).map((key) => [key, canonical(value[key])]));
+  return value;
+}
+
+function evidenceRevision(value) {
+  return `google-evidence-v1:${createHash("sha256").update(JSON.stringify(canonical(value))).digest("hex")}`;
+}
+
+function normalizedMetadata(metadata) {
+  return {
+    spreadsheetId: metadata.spreadsheetId,
+    properties: {
+      title: metadata.properties.title,
+      locale: metadata.properties.locale,
+      timeZone: metadata.properties.timeZone,
+    },
+    sheets: metadata.sheets.map((sheet) => ({ properties: clone(sheet.properties) })),
+  };
+}
+
 function validateMetadata(metadata) {
-  if (!plainObject(metadata) || typeof metadata.revisionId !== "string" || metadata.revisionId.trim() === "" ||
+  if (!plainObject(metadata) || typeof metadata.spreadsheetId !== "string" || metadata.spreadsheetId.trim() === "" ||
+      typeof metadata.properties?.title !== "string" || metadata.properties.title.trim() === "" ||
+      typeof metadata.properties?.locale !== "string" || metadata.properties.locale.trim() === "" ||
       typeof metadata.properties?.timeZone !== "string" || metadata.properties.timeZone.trim() === "" ||
       !Array.isArray(metadata.sheets)) {
     fail("Google metadata is incomplete");
@@ -103,8 +127,10 @@ function validateMetadata(metadata) {
   const ids = [];
   for (const sheet of metadata.sheets) {
     const title = sheet?.properties?.title;
-    const id = sheet?.properties?.sheetId;
-    if (typeof title !== "string" || title.trim() !== title || !Number.isSafeInteger(id)) fail("Google sheet metadata is malformed");
+    const { sheetId: id, index, gridProperties } = sheet?.properties ?? {};
+    if (typeof title !== "string" || title.trim() !== title || !Number.isSafeInteger(id) || !Number.isSafeInteger(index) ||
+        !plainObject(gridProperties) || !Number.isSafeInteger(gridProperties.rowCount) || gridProperties.rowCount < 1 ||
+        !Number.isSafeInteger(gridProperties.columnCount) || gridProperties.columnCount < 1) fail("Google sheet metadata is malformed");
     titles.push(title);
     ids.push(id);
   }
@@ -113,6 +139,35 @@ function validateMetadata(metadata) {
     fail("Google spreadsheet must contain the exact four migration sheets once");
   }
   return Object.fromEntries(metadata.sheets.map((sheet) => [sheet.properties.title, sheet.properties.sheetId]));
+}
+
+function validateGrid(grid) {
+  if (!plainObject(grid)) fail("Google grid backup is missing");
+  const result = {};
+  for (const { key } of GOOGLE_MIGRATION_RANGES) {
+    if (!Array.isArray(grid[key])) fail("Google grid backup range is missing", { sheet: key });
+    for (const row of grid[key]) {
+      if (!plainObject(row) || !Array.isArray(row.values)) fail("Google grid row is malformed", { sheet: key });
+      for (const cell of row.values) if (!plainObject(cell)) fail("Google grid cell is malformed", { sheet: key });
+    }
+    result[key] = clone(grid[key]);
+  }
+  return result;
+}
+
+function gridFromSpreadsheet(payload) {
+  const result = {};
+  const byTitle = new Map(GOOGLE_MIGRATION_RANGES.map((item) => [item.title, item.key]));
+  for (const sheet of payload.sheets) {
+    const key = byTitle.get(sheet.properties.title);
+    if (!key || !Array.isArray(sheet.data) || sheet.data.length !== 1) fail("Google grid backup range is incomplete", { sheet: sheet.properties.title });
+    const data = sheet.data[0];
+    if (!plainObject(data) || (data.startRow ?? 0) !== 0 || (data.startColumn ?? 0) !== 0 || !Array.isArray(data.rowData)) {
+      fail("Google grid backup range is malformed", { sheet: sheet.properties.title });
+    }
+    result[key] = data.rowData;
+  }
+  return validateGrid(result);
 }
 
 function assertMatrixMap(map, label) {
@@ -227,20 +282,22 @@ function normalizeTable(key, unformatted, formatted) {
 
 export function normalizeGoogleSource(input) {
   if (!plainObject(input)) fail("Google source must be an object");
-  const metadata = clone(input.metadata);
+  const metadata = normalizedMetadata(clone(input.metadata));
   const sheetIds = validateMetadata(metadata);
+  const grid = validateGrid(input.grid);
   assertMatrixMap(input.formulas, "formula");
   assertMatrixMap(input.unformatted, "unformatted");
   assertMatrixMap(input.formatted, "formatted");
   const rawBackup = clone({
     metadata,
+    grid,
     formulas: input.formulas,
     unformatted: input.unformatted,
     formatted: input.formatted,
   });
   const captures = normalizeTable("captures", input.unformatted.captures, input.formatted.captures);
   return {
-    revision: metadata.revisionId,
+    revision: evidenceRevision(rawBackup),
     timezone: metadata.properties.timeZone,
     sheet_ids: sheetIds,
     accounts: normalizeTable("accounts", input.unformatted.accounts, input.formatted.accounts),
@@ -305,10 +362,15 @@ export async function readGoogleMigrationSource({
 
   const base = `${SHEETS_ORIGIN}/${encodeURIComponent(spreadsheetId)}`;
   const requestOptions = { method: "GET", headers: { authorization: `Bearer ${accessToken}` } };
-  const metadata = await fetchJson(`${base}?fields=spreadsheetId,revisionId,properties(timeZone),sheets(properties(sheetId,title))`, requestOptions);
-  assertNoCursor(metadata);
-  if (metadata.spreadsheetId !== undefined && metadata.spreadsheetId !== spreadsheetId) fail("Google metadata spreadsheet ID mismatch");
-  validateMetadata(metadata);
+  const gridUrl = new URL(base);
+  gridUrl.searchParams.set("includeGridData", "true");
+  for (const { range } of GOOGLE_MIGRATION_RANGES) gridUrl.searchParams.append("ranges", range);
+  gridUrl.searchParams.set("fields", "spreadsheetId,properties(title,locale,timeZone),sheets(properties(sheetId,title,index,gridProperties(rowCount,columnCount)),data(startRow,startColumn,rowData(values(userEnteredValue,effectiveValue,formattedValue,userEnteredFormat,effectiveFormat,dataValidation,hyperlink,note))))");
+  const spreadsheet = await fetchJson(gridUrl.toString(), requestOptions);
+  assertNoCursor(spreadsheet);
+  if (spreadsheet.spreadsheetId !== spreadsheetId) fail("Google metadata spreadsheet ID mismatch");
+  validateMetadata(spreadsheet);
+  const grid = gridFromSpreadsheet(spreadsheet);
   const matrices = {};
   for (const render of ["FORMULA", "UNFORMATTED_VALUE", "FORMATTED_VALUE"]) {
     const url = new URL(`${base}/values:batchGet`);
@@ -319,7 +381,8 @@ export async function readGoogleMigrationSource({
     matrices[render] = validateBatch(await fetchJson(url.toString(), requestOptions), spreadsheetId);
   }
   return normalizeGoogleSource({
-    metadata,
+    metadata: spreadsheet,
+    grid,
     formulas: matrices.FORMULA,
     unformatted: matrices.UNFORMATTED_VALUE,
     formatted: matrices.FORMATTED_VALUE,

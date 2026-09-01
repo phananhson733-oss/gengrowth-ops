@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
-import { readFile, rm } from "node:fs/promises";
+import { mkdir, readFile, rename, rm, symlink } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   GOOGLE_MIGRATION_RANGES,
@@ -44,14 +46,18 @@ function matrices() {
 function normalizedSource() {
   return normalizeGoogleSource({
     metadata: {
-      revisionId: "google-r1",
-      properties: { timeZone: "America/Los_Angeles" },
+      spreadsheetId: "sheet-1",
+      properties: { title: "Short Drama", locale: "zh_CN", timeZone: "America/Los_Angeles" },
       sheets: [
-        { properties: { title: "账号台账", sheetId: 1 } },
-        { properties: { title: "发布记录", sheetId: 2 } },
-        { properties: { title: "选剧池", sheetId: 3 } },
-        { properties: { title: "采集数据", sheetId: 4 } },
+        { properties: { title: "账号台账", sheetId: 1, index: 0, gridProperties: { rowCount: 100, columnCount: 8 } } },
+        { properties: { title: "发布记录", sheetId: 2, index: 1, gridProperties: { rowCount: 100, columnCount: 16 } } },
+        { properties: { title: "选剧池", sheetId: 3, index: 2, gridProperties: { rowCount: 100, columnCount: 19 } } },
+        { properties: { title: "采集数据", sheetId: 4, index: 3, gridProperties: { rowCount: 100, columnCount: 10 } } },
       ],
+    },
+    grid: {
+      accounts: [{ values: [{ userEnteredValue: { stringValue: "账号名" }, effectiveValue: { stringValue: "账号名" }, formattedValue: "账号名", userEnteredFormat: { textFormat: { bold: true } }, effectiveFormat: { numberFormat: { type: "TEXT", pattern: "@" } }, dataValidation: { condition: { type: "ONE_OF_LIST", values: [{ userEnteredValue: "在用" }] } }, note: "owner" }] }],
+      releases: [], dramas: [], captures: [],
     },
     ...matrices(),
   });
@@ -89,7 +95,9 @@ test("Google normalization ignores formula-only rows, preserves null/zero, and k
   assert.equal(result.releases[0].收藏, null);
   assert.equal(result.capture_audit_rows, 1);
   assert.equal("captures" in result, false);
-  assert.equal(result.raw_backup.metadata.revisionId, "google-r1");
+  assert.match(result.revision, /^google-evidence-v1:[a-f0-9]{64}$/);
+  assert.equal(result.raw_backup.grid.accounts[0].values[0].dataValidation.condition.type, "ONE_OF_LIST");
+  assert.equal(result.raw_backup.grid.accounts[0].values[0].effectiveFormat.numberFormat.pattern, "@");
   assert.equal(JSON.stringify(result.raw_backup).includes("Bearer"), false);
 });
 
@@ -110,9 +118,12 @@ test("readGoogleMigrationSource uses readonly JWT and four bounded GETs with exa
   const calls = [];
   const data = matrices();
   const metadata = {
-    revisionId: "google-r1",
-    properties: { timeZone: "Asia/Shanghai" },
-    sheets: ["账号台账", "发布记录", "选剧池", "采集数据"].map((title, index) => ({ properties: { title, sheetId: index + 1 } })),
+    spreadsheetId: "sheet-1",
+    properties: { title: "Short Drama", locale: "zh_CN", timeZone: "Asia/Shanghai" },
+    sheets: GOOGLE_MIGRATION_RANGES.map((item, index) => ({
+      properties: { title: item.title, sheetId: index + 1, index, gridProperties: { rowCount: 100, columnCount: [8, 16, 19, 10][index] } },
+      data: [{ startRow: 0, startColumn: 0, rowData: index === 0 ? [{ values: [{ dataValidation: { condition: { type: "ONE_OF_LIST", values: [{ userEnteredValue: "发布中" }] } }, userEnteredFormat: { numberFormat: { type: "DATE", pattern: "yyyy-mm-dd" } }, effectiveFormat: { numberFormat: { type: "DATE", pattern: "yyyy-mm-dd" } }, userEnteredValue: { stringValue: "账号名" }, effectiveValue: { stringValue: "账号名" }, formattedValue: "账号名" }] }] : [] }],
+    })),
   };
   const renderMatrices = [data.formulas, data.unformatted, data.formatted];
   const fetchJson = async (url, options) => {
@@ -148,14 +159,29 @@ test("readGoogleMigrationSource uses readonly JWT and four bounded GETs with exa
   const claims = JSON.parse(Buffer.from(jwt, "base64url").toString("utf8"));
   assert.equal(claims.scope, "https://www.googleapis.com/auth/spreadsheets.readonly");
   for (const call of calls.slice(1)) assert.equal(call.options.method, "GET");
+  assert.equal(calls[1].url.includes("revisionId"), false);
+  assert.equal(calls[1].url.includes("includeGridData=true"), true);
+  assert.equal(new URL(calls[1].url).searchParams.getAll("ranges").length, 4);
   assert.equal(result.capture_audit_rows, 1);
+  assert.equal(result.raw_backup.grid.accounts[0].values[0].dataValidation.condition.type, "ONE_OF_LIST");
+  assert.equal(result.raw_backup.grid.accounts[0].values[0].effectiveFormat.numberFormat.pattern, "yyyy-mm-dd");
   assert.equal(JSON.stringify(result).includes("secret-token"), false);
+});
+
+test("Google source revision changes for any semantic grid or rendered-value evidence", () => {
+  const base = normalizedSource();
+  const changedGrid = structuredClone(base.raw_backup);
+  changedGrid.grid.accounts[0].values[0].note = "changed";
+  const changedValue = structuredClone(base.raw_backup);
+  changedValue.formatted.accounts[1][2] = "1,162";
+  assert.notEqual(normalizeGoogleSource(changedGrid).revision, base.revision);
+  assert.notEqual(normalizeGoogleSource(changedValue).revision, base.revision);
 });
 
 test("Google reader rejects incomplete/mismatched ranges and duplicate sheet metadata", async () => {
   const metadata = {
-    revisionId: "r1", properties: { timeZone: "UTC" },
-    sheets: ["账号台账", "发布记录", "选剧池", "采集数据"].map((title, index) => ({ properties: { title, sheetId: index + 1 } })),
+    spreadsheetId: "sheet-1", properties: { title: "Short Drama", locale: "en_US", timeZone: "UTC" },
+    sheets: GOOGLE_MIGRATION_RANGES.map((item, index) => ({ properties: { title: item.title, sheetId: index + 1, index, gridProperties: { rowCount: 100, columnCount: [8, 16, 19, 10][index] } }, data: [{ startRow: 0, startColumn: 0, rowData: [] }] })),
   };
   const data = matrices();
   const makeFetch = (mutation) => async (url) => {
@@ -189,11 +215,12 @@ test("plan is pure and deterministic, uses visible/source order, and never impor
   assert.equal(first.sha256, second.sha256);
   assert.equal(first.generated_at === second.generated_at, false);
   assert.equal(first.sha256, manifestDigest(first));
-  assert.deepEqual(first.schema_actions.map((action) => action.table), ["账号台账", "选剧池", "采集数据", "发布记录"]);
+  assert.equal(first.source_backup.grid.accounts[0].values[0].dataValidation.condition.type, "ONE_OF_LIST");
+  assert.deepEqual(first.schema_actions.filter((action) => action.kind === "create_table").map((action) => action.table), ["账号台账", "选剧池", "采集数据", "发布记录"]);
   assert.deepEqual(first.presentation_actions.map((action) => action.name), [
     "在用账号", "需处理账号", "未排期", "已排期", "按平台", "按语言",
-    "发布-已排期", "待公开", "已公开待回填", "已回填", "按账号表现", "按剧表现",
-    "采集-完整", "部分缺失", "未关联发布", "短剧发行管理仪表盘",
+    "已排期", "待公开", "已公开待回填", "已回填", "按账号表现", "按剧表现",
+    "完整", "部分缺失", "未关联发布", "短剧发行管理仪表盘",
   ]);
 });
 
@@ -204,7 +231,7 @@ test("plan blocks duplicate identities, missing targets, and URL/account disagre
   google.releases.push({ ...google.releases[0], source_row: 5, 账号名: "missing", 剧名: "missing", 视频链接: null, "Post ID": null });
   const manifest = await planMigration({ google, captures: [latestCapture({ post_url: "https://www.tiktok.com/@other/video/99" })] });
   assert.deepEqual(new Set(manifest.blocked.map((item) => item.code)), new Set([
-    "duplicate_account_key", "ambiguous_drama_key", "missing_account_target", "missing_drama_target", "source_account_mismatch",
+    "duplicate_account_key", "ambiguous_drama_key", "missing_account_target", "missing_drama_target", "source_account_mismatch", "no_account_time_candidate",
   ]));
   await assert.rejects(
     () => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest),
@@ -244,6 +271,53 @@ test("schema plan blocks same-name type/config drift and creates fixed missing f
   });
   assert.equal(manifest.blocked.some((item) => item.code === "base_schema_drift" && item.field === "粉丝数"), true);
   assert.equal(manifest.schema_actions.some((action) => action.field === "关联发布记录" && action.table !== "发布记录"), false);
+
+  const inconsistentReverse = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "reverse", tables: [
+    { name: "账号台账", table_id: "ta", fields: [] },
+    { name: "选剧池", table_id: "td", fields: [] },
+    { name: "采集数据", table_id: "tc", fields: [] },
+    { name: "发布记录", table_id: "tr", fields: [{ field_id: "link-drama", name: "剧", type: "link", link_table: "td", bidirectional: true, bidirectional_link_field_name: "关联发布记录" }] },
+  ] } });
+  assert.equal(inconsistentReverse.blocked.some((item) => item.code === "base_schema_drift" && item.table === "选剧池" && item.field === "关联发布记录"), true);
+
+  const falsePrimary = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "primary", tables: [
+    { name: "账号台账", table_id: "ta", record_count: 0, fields: [{ field_id: "not-primary", name: "账号ID", type: "text", is_primary: false }, { field_id: "primary", name: "文本", type: "text", is_primary: true }] },
+  ] } });
+  assert.equal(falsePrimary.blocked.some((item) => item.code === "base_schema_drift" && item.table === "账号台账" && item.field === "账号ID"), true);
+});
+
+test("fresh Base plan creates every fixed field in phase order and bootstraps only an empty default primary", async () => {
+  const fresh = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "new", tables: [] } });
+  assert.equal(fresh.schema_actions.filter((action) => action.kind === "create_table").length, 4);
+  assert.equal(fresh.schema_actions.some((action) => action.kind === "create_field" && action.field === "账号名"), true);
+  assert.equal(fresh.schema_actions.some((action) => action.kind === "create_field" && action.field === { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[action.table]), false);
+  assert.equal(fresh.schema_actions.some((action) => action.field === "关联发布记录"), false);
+  const accountFields = fresh.schema_actions.filter((action) => action.table === "账号台账");
+  assert.ok(accountFields.length > 2);
+
+  const bootstrap = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
+    revision: "empty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
+  } });
+  assert.deepEqual(bootstrap.schema_actions.find((action) => action.kind === "update_primary_field"), {
+    id: "primary:账号台账:账号ID", kind: "update_primary_field", table: "账号台账", field: "账号ID", field_id: "fld-default", phase: "storage",
+  });
+  const unsafe = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
+    revision: "nonempty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 1, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
+  } });
+  assert.equal(unsafe.blocked.some((entry) => entry.code === "base_schema_drift" && entry.field === "账号ID"), true);
+});
+
+test("release planning uses the matcher and blocks due/ambiguous/claimed evidence while allowing a truly future unlinked row", async () => {
+  const google = normalizedSource();
+  google.releases = [
+    { ...google.releases[0], source_row: 2, 视频链接: null, "Post ID": null, 日期: "2026-08-24" },
+    { ...google.releases[0], source_row: 3, 视频链接: null, "Post ID": null, 日期: "2026-08-24" },
+    { ...google.releases[0], source_row: 4, 视频链接: null, "Post ID": null, 日期: "2026-09-10" },
+  ];
+  const captures = [latestCapture({ published_at: "2026-08-24T01:00:00Z" }), latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100", published_at: "2026-08-24T02:00:00Z" })];
+  const manifest = await planMigration({ google, captures, now: () => "2026-09-01T00:00:00Z" });
+  assert.equal(manifest.blocked.filter((entry) => entry.code === "ambiguous_post_match").length, 2);
+  assert.equal(manifest.releases[2].采集记录, null);
 });
 
 class MemoryRepo {
@@ -323,7 +397,7 @@ test("apply rejects missing digest and source/schema drift before any write", as
   }
 });
 
-test("schema and presentation phases execute only fixed typed adapters one action at a time with verification", async () => {
+test("schema and presentation phases reject incomplete adapters before writes", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const calls = [];
   const schemaAdapter = {
@@ -331,18 +405,95 @@ test("schema and presentation phases execute only fixed typed adapters one actio
     createField: async () => { throw new Error("unexpected field action"); },
     verifySchemaAction: async (action) => { calls.push(["verifySchema", action.id]); return true; },
   };
-  await applyMigration({ phase: "schema", schemaAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
-  assert.equal(calls.length, 8);
-  assert.deepEqual(calls.slice(0, 2), [["createTable", "账号台账"], ["verifySchema", "table:账号台账"]]);
-  calls.length = 0;
+  await assert.rejects(() => applyMigration({ phase: "schema", schemaAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "migration_context_invalid");
+  assert.equal(calls.length, 0);
   const presentationAdapter = {
     createView: async (table, view) => calls.push(["view", table, view]),
     createDashboard: async (name) => calls.push(["dashboard", name]),
     verifyPresentationAction: async (action) => { calls.push(["verify", action.id]); return true; },
   };
-  await applyMigration({ phase: "presentation", presentationAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
-  assert.equal(calls.length, 32);
-  assert.deepEqual(calls.at(-2), ["dashboard", "短剧发行管理仪表盘"]);
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "migration_context_invalid");
+  assert.equal(calls.length, 0);
+});
+
+test("schema apply resolves IDs from complete readback, updates default primary, and creates dependent links after storage", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "new", tables: [] } });
+  const calls = [];
+  const tables = new Map();
+  const adapter = {
+    createTable: async (name) => { tables.set(name, { table_id: `tbl-${name}`, fields: [{ field_id: `primary-${name}`, name: { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], is_primary: true }] }); calls.push(["table", name]); },
+    createField: async (tableId, table, field, bindings) => {
+      tables.get(table).fields.push({ field_id: `${tableId}-${field}`, name: field });
+      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push({ field_id: "reverse-drama", name: "关联发布记录" });
+      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push({ field_id: "reverse-capture", name: "关联发布记录" });
+      calls.push(["field", table, field, bindings]);
+    },
+    updateField: async (...args) => calls.push(["update", ...args]),
+    readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
+    verifySchemaAction: async () => true,
+  };
+  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  assert.equal(calls.some((call) => call[0] === "field" && call[2] === "账号名"), true);
+  const linkCall = calls.find((call) => call[0] === "field" && call[1] === "发布记录" && call[2] === "剧");
+  assert.deepEqual(linkCall[3], { targetTableId: "tbl-选剧池" });
+});
+
+test("schema apply performs an empty-table primary bootstrap and proves the renamed primary in readback", async () => {
+  const baseSchema = { revision: "bootstrap", tables: [{ name: "账号台账", table_id: "tbl-account", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }] };
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
+  const tables = new Map([["账号台账", structuredClone(baseSchema.tables[0])]]);
+  const calls = [];
+  const adapter = {
+    createTable: async (name) => tables.set(name, { table_id: `tbl-${name}`, fields: [{ field_id: `primary-${name}`, name: { "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], is_primary: true }] }),
+    createField: async (tableId, table, field) => {
+      tables.get(table).fields.push({ field_id: `${tableId}-${field}`, name: field });
+      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push({ field_id: "reverse-drama", name: "关联发布记录" });
+      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push({ field_id: "reverse-capture", name: "关联发布记录" });
+    },
+    updateField: async (tableId, fieldId, table, field) => { const target = tables.get(table).fields.find((item) => item.field_id === fieldId); target.name = field; calls.push([tableId, fieldId, table, field]); },
+    readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
+    verifySchemaAction: async () => true,
+  };
+  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  assert.deepEqual(calls, [["tbl-account", "fld-default", "账号台账", "账号ID"]]);
+  assert.equal(tables.get("账号台账").fields.some((field) => field.name === "账号ID" && field.is_primary), true);
+});
+
+test("presentation apply resolves views/dashboard, configures every view, and creates all six dashboard blocks", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const calls = [];
+  const views = new Map();
+  const blocks = [];
+  const adapter = {
+    readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
+    listViews: async (tableId) => ({ complete: true, items: views.get(tableId) ?? [] }),
+    createView: async (tableId, _table, view) => { const created = { view_id: `view-${view}`, name: view }; views.set(tableId, [...(views.get(tableId) ?? []), created]); return created; },
+    updateView: async (...args) => calls.push(["updateView", ...args]),
+    listDashboards: async () => ({ complete: true, items: [] }),
+    createDashboard: async () => ({ dashboard_id: "dash-1" }),
+    listDashboardBlocks: async () => ({ complete: true, items: blocks }),
+    createDashboardBlock: async (_dashboardId, block) => { blocks.push({ block_id: `block-${block}`, name: block }); calls.push(["block", block]); },
+    verifyPresentationAction: async () => true,
+  };
+  await applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  assert.equal(calls.filter((call) => call[0] === "updateView").length, 15);
+  assert.deepEqual(calls.filter((call) => call[0] === "block").map((call) => call[1]), ["活跃账号数", "待公开数", "待回填数", "按账号最新累计表现", "按剧最新累计表现", "最近一次同步终态"]);
+});
+
+test("presentation apply rejects name-only creates missing from complete post-write readback", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const adapter = {
+    readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
+    listViews: async () => ({ complete: true, items: [] }),
+    createView: async () => ({ view_id: "created-but-not-visible" }),
+    updateView: async () => {},
+    listDashboards: async () => ({ complete: true, items: [] }),
+    createDashboard: async () => ({ dashboard_id: "dash" }),
+    listDashboardBlocks: async () => ({ complete: true, items: [] }),
+    createDashboardBlock: async () => ({ block_id: "block" }),
+    verifyPresentationAction: async () => true,
+  };
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "readback_mismatch");
 });
 
 test("verify checks exact sets, every writable value, relation IDs, extras and null versus zero", async () => {
@@ -361,6 +512,19 @@ test("verify checks exact sets, every writable value, relation IDs, extras and n
   await assert.rejects(() => verifyMigration({ repos }, manifest), (error) => error.code === "readback_mismatch");
   repos.releases.rows.get("SR-000001").fields.账号 = [{ id: "rec-accounts-dramaexpedition" }];
   repos.accounts.rows.set("extra", { record_id: "rec-extra", fields: { 账号ID: "extra" } });
+  await assert.rejects(() => verifyMigration({ repos }, manifest), (error) => error.code === "readback_mismatch");
+});
+
+test("data apply materializes every writable field and verification rejects stale values omitted by the Google row", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  repos.accounts.rows.set("dramaexpedition", { record_id: "rec-accounts-dramaexpedition", fields: { 账号ID: "dramaexpedition", 指标同步时间: "stale", 同步状态: "failed" } });
+  await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  const patch = repos.calls[0][2][0].patch;
+  assert.deepEqual(Object.keys(patch).sort(), ["主页链接", "账号名", "所属组", "定位垂类", "表现形式", "状态", "数据日期", "指标同步时间", "粉丝数", "同步状态"].sort());
+  assert.equal(patch.指标同步时间, null);
+  assert.equal(repos.accounts.rows.get("dramaexpedition").fields.指标同步时间, null);
+  delete repos.accounts.rows.get("dramaexpedition").fields.同步状态;
   await assert.rejects(() => verifyMigration({ repos }, manifest), (error) => error.code === "readback_mismatch");
 });
 
@@ -397,7 +561,30 @@ test("artifact writer is exclusive, fixed-root and verifies readback without acc
   const written = await writeMigrationArtifact(manifest, { fileName: name });
   assert.equal(written.path.endsWith(`/output/short-drama-release-manager/migrations/${name}`), true);
   assert.equal(JSON.parse(await readFile(written.path, "utf8")).sha256, manifest.sha256);
+  assert.equal(JSON.parse(await readFile(written.path, "utf8")).source_backup.grid.accounts[0].values[0].effectiveFormat.numberFormat.pattern, "@");
   await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: name }), (error) => error.code === "migration_artifact_exists");
   await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: "../escape.json" }), (error) => error.code === "migration_artifact_invalid");
   await rm(written.path);
+
+  const migrations = resolve(dirname(fileURLToPath(import.meta.url)), "../../../output/short-drama-release-manager/migrations");
+  await mkdir(migrations, { recursive: true });
+  const targetName = `symlink-target-${process.pid}.json`;
+  const outside = resolve(dirname(migrations), `outside-${process.pid}.json`);
+  await symlink(outside, resolve(migrations, targetName));
+  await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: targetName }), (error) => error.code === "migration_artifact_invalid");
+  await rm(resolve(migrations, targetName));
+
+  const saved = `${migrations}.saved-${process.pid}`;
+  const escape = resolve(dirname(migrations), `escape-${process.pid}`);
+  await mkdir(escape, { recursive: true });
+  await rename(migrations, saved);
+  await symlink(escape, migrations, "dir");
+  try {
+    await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: `parent-${process.pid}.json` }), (error) => error.code === "migration_artifact_invalid");
+  } finally {
+    await rm(migrations);
+    await rename(saved, migrations);
+    await rm(escape, { recursive: true });
+    await rm(outside, { force: true });
+  }
 });

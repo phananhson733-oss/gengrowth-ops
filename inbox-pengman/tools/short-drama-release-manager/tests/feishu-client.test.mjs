@@ -54,6 +54,19 @@ test("dashboard pagination uses page_size/page_token while other lists use limit
     .every((url) => !/[?&](?:limit|page_size)=200(?:&|$)/.test(new URL(url).search)));
 });
 
+test("dashboard blocks use fixed Base v3 token pagination", async () => {
+  const urls = [];
+  const responses = [
+    { code: 0, data: { items: [{ block_id: "b1", name: "活跃账号数" }], has_more: true, page_token: "p2", revision: "r" } },
+    { code: 0, data: { items: [{ block_id: "b2", name: "待公开数" }], has_more: false, revision: "r" } },
+  ];
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async (url) => { urls.push(url); return responses.shift(); } });
+  const result = await client.listDashboardBlocks("base", "dash");
+  assert.deepEqual(result.items.map((item) => item.block_id), ["b1", "b2"]);
+  assert.deepEqual(urls.map((url) => new URL(url).search), ["?page_size=100", "?page_size=100&page_token=p2"]);
+  assert.equal(urls.every((url) => new URL(url).pathname === "/open-apis/base/v3/bases/base/dashboards/dash/blocks"), true);
+});
+
 test("malformed, incomplete, or non-progressing pagination fails closed", async (t) => {
   const cases = [
     [{ code: 0, data: { items: [], has_more: "false" } }, "has_more"],

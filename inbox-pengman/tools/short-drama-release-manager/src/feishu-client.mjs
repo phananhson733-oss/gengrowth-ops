@@ -585,6 +585,10 @@ export class FeishuClient {
     return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100 });
   }
 
+  listDashboardBlocks(baseToken, dashboardId) {
+    return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100 });
+  }
+
   async getRecord(baseToken, tableId, recordId) {
     return this.operation(async (context) => {
       const payload = await this.request(
