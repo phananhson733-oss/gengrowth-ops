@@ -15,10 +15,13 @@ import {
   createWakeWorker,
   evaluateDailyHealth,
   exitCodeFor,
+  inspectTrustedSocialInvoker,
   inspectTrustedLocalInvoker,
   readMacProcessRow,
   parseCommand,
   readGoogleServiceAccount,
+  assertSocialRuntimeConfig,
+  SOCIAL_RUNTIME_CONFIG_PATH,
   main,
   readPayload,
   resolveInvocationIdentity,
@@ -614,6 +617,117 @@ test("macOS process inspection reads full Cellar executables without a combined 
   assert.equal(calls.length, 3);
   assert.ok(calls.every(([file, args]) => file === "/bin/ps" && args.includes("-ww")));
   assert.equal(calls.some(([, args]) => args.some((value) => /ppid=,comm=,args=/.test(value))), false);
+});
+
+test("Social provenance accepts only direct Runner shell execution from a Hermes gateway anchor", async () => {
+  const argv = ["pool", "list", "--config", SOCIAL_RUNTIME_CONFIG_PATH];
+  const command = parseCommand(argv);
+  const runner = path.resolve(new URL("../shortdrama_ctl.mjs", import.meta.url).pathname);
+  const sessionId = "a1b2c3d4e5f6";
+  const cache = "/Users/awayer_mini/.hermes/profiles/social/cache/terminal";
+  const snapshot = `${cache}/hermes-snap-${sessionId}.sh`;
+  const cwdFile = `${cache}/hermes-cwd-${sessionId}.txt`;
+  const direct = `/usr/bin/env node ${runner} ${argv.join(" ")}`;
+  const wrapped = [
+    `source ${snapshot} >/dev/null 2>&1 || true`,
+    `builtin cd -- ${path.dirname(runner)} || exit 126`,
+    `eval '${direct}'`,
+    "__hermes_ec=$?",
+    "umask 077",
+    `{ export -p > ${snapshot}.tmp.$BASHPID && mv -f ${snapshot}.tmp.$BASHPID ${snapshot}; } 2>/dev/null || rm -f ${snapshot}.tmp.$BASHPID 2>/dev/null || true`,
+    `pwd -P > ${cwdFile} 2>/dev/null || true`,
+    `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"`,
+    "exit $__hermes_ec",
+  ].join("\n");
+  const python = "/Users/awayer_mini/hermes-agent/.venv/bin/python";
+  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace --external-supervisor`;
+  const rows = new Map([
+    [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} pool list --config ${SOCIAL_RUNTIME_CONFIG_PATH}` }],
+    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
+    [80, { pid: 80, ppid: 70, command: python, args: gatewayArgs }],
+    [70, { pid: 70, ppid: 1, command: python, args: `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gatewayArgs}` }],
+  ]);
+  const inspect = (candidate) => inspectTrustedSocialInvoker({
+    argv, command, configPath: SOCIAL_RUNTIME_CONFIG_PATH, pid: 100,
+    runnerPath: runner, nodePath: process.execPath, readProcess: (pid) => candidate.get(pid),
+  });
+  assert.equal(inspect(rows), true);
+
+  const persistentPython = new Map(rows);
+  persistentPython.set(80, { pid: 80, ppid: 75, command: "/usr/bin/python3", args: "python3 persistent_process.py" });
+  persistentPython.set(75, rows.get(80));
+  assert.equal(inspect(persistentPython), false);
+  let loads = 0;
+  let builds = 0;
+  const blocked = await execute(argv, {
+    env: {
+      HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
+      HERMES_SESSION_USER_ID: "ou_operator", HERMES_SESSION_CHAT_ID: "oc_social",
+    },
+    isTrustedSocialInvoker: () => inspect(persistentPython),
+    validateSocialConfig: async () => assert.fail("config must not be inspected"),
+    loadEnvironment: async () => { loads += 1; throw new Error("must not load"); },
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(blocked.result.error.code, "social_invoker_untrusted");
+  assert.deepEqual({ loads, builds }, { loads: 0, builds: 0 });
+  for (const [commandPath, args] of [
+    ["/usr/bin/python3", "python3 -i"], ["/usr/bin/ruby", "ruby -e loop"], ["/usr/bin/perl", "perl worker.pl"],
+    ["/usr/bin/php", "php -a"], ["/usr/bin/lua", "lua"], [process.execPath, "node"],
+    ["/usr/local/bin/process-registry", "process-registry submit"], ["/Applications/Codex.app/Contents/MacOS/Codex", "Codex"],
+    ["/Applications/Visual Studio Code.app/Contents/MacOS/Electron", "Electron"],
+  ]) {
+    const invalid = new Map(rows);
+    invalid.set(80, { pid: 80, ppid: 70, command: commandPath, args });
+    assert.equal(inspect(invalid), false);
+  }
+  const persistentShell = new Map(rows);
+  persistentShell.set(90, { pid: 90, ppid: 80, command: "/bin/bash", args: "/bin/bash -lic set +m; /usr/bin/env node runner" });
+  assert.equal(inspect(persistentShell), false);
+});
+
+test("Social provenance and fixed config reject before environment, payload, runtime, or network", async () => {
+  const session = {
+    HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
+    HERMES_SESSION_USER_ID: "ou_operator", HERMES_SESSION_CHAT_ID: "oc_social",
+  };
+  let loads = 0;
+  let builds = 0;
+  let configChecks = 0;
+  const rejected = await execute(["pool", "list", "--config", SOCIAL_RUNTIME_CONFIG_PATH], {
+    env: session,
+    isTrustedSocialInvoker: () => false,
+    validateSocialConfig: async () => { configChecks += 1; },
+    loadEnvironment: async () => { loads += 1; return session; },
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(rejected.result.error.code, "social_invoker_untrusted");
+  assert.deepEqual({ loads, builds, configChecks }, { loads: 0, builds: 0, configChecks: 0 });
+
+  const alternate = await execute(["pool", "list", "--config", "/tmp/alternate-shortdrama.json"], {
+    env: session,
+    isTrustedSocialInvoker: () => true,
+    socialConfigPath: SOCIAL_RUNTIME_CONFIG_PATH,
+    loadEnvironment: async () => { loads += 1; return session; },
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(alternate.result.error.code, "social_config_invalid");
+  assert.deepEqual({ loads, builds }, { loads: 0, builds: 0 });
+});
+
+test("Social runtime config is exact, regular, resolved, and non-symlinked", async () => {
+  const root = await realpath(await mkdtemp(path.join(os.tmpdir(), "shortdrama-social-config-")));
+  const expected = path.join(root, "shortdrama.runtime.json");
+  await writeFile(expected, "{}\n");
+  await assert.doesNotReject(assertSocialRuntimeConfig(expected, { expectedPath: expected }));
+  await assert.rejects(assertSocialRuntimeConfig(path.join(root, "alternate.json"), { expectedPath: expected }),
+    (error) => error.code === "social_config_invalid");
+  const target = path.join(root, "target.json");
+  await writeFile(target, "{}\n");
+  await rm(expected);
+  await symlink(target, expected);
+  await assert.rejects(assertSocialRuntimeConfig(expected, { expectedPath: expected }),
+    (error) => error.code === "social_config_invalid");
 });
 
 test("internal identity requires a private installation capability and old markers cannot spoof it", async () => {

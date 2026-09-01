@@ -40,6 +40,7 @@ const MAX_PAYLOAD_BYTES = 1024 * 1024;
 const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
+export const SOCIAL_RUNTIME_CONFIG_PATH = resolve(dirname(SCRIPT_PATH), "shortdrama.runtime.json");
 
 const REGISTRY = Object.freeze({
   doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
@@ -220,6 +221,136 @@ export function inspectTrustedLocalInvoker({
     return false;
   }
   return false;
+}
+
+function exactProcessRow(row, pid) {
+  return row && row.pid === pid && Number.isSafeInteger(row.ppid) && row.ppid >= 0 &&
+    typeof row.command === "string" && row.command.startsWith("/") && typeof row.args === "string";
+}
+
+function safeDirectToken(value) {
+  return typeof value === "string" && value.length > 0 && !/[\s'"\\;$&|<>`()]/.test(value);
+}
+
+function directNodeInvocation(row, { nodePath, runnerPath, argv }) {
+  if (!exactProcessRow(row, row?.pid) || resolve(row.command) !== resolve(nodePath)) return false;
+  const tokens = row.args.trim().split(/\s+/);
+  if (tokens.length !== argv.length + 2 || !["node", nodePath].includes(tokens[0]) ||
+      resolve(tokens[1]) !== resolve(runnerPath)) return false;
+  return argv.every((value, index) => tokens[index + 2] === value);
+}
+
+function hermesCachePath(value, kind, sessionId = null) {
+  const pattern = kind === "snapshot"
+    ? /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal\/hermes-snap-([a-f0-9]{12})\.sh$/
+    : /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal\/hermes-cwd-([a-f0-9]{12})\.txt$/;
+  const match = pattern.exec(value);
+  if (!match || sessionId !== null && match[1] !== sessionId) return null;
+  return match[1];
+}
+
+function exactHermesShell(row, { runnerPath, directCommand }) {
+  if (!exactProcessRow(row, row?.pid) || row.command.split("/").pop().toLowerCase() !== "bash") return false;
+  let script;
+  let login;
+  for (const [prefix, candidateLogin] of [[`${row.command} -c `, false], [`${row.command} -l -c `, true]]) {
+    if (row.args.startsWith(prefix)) {
+      script = row.args.slice(prefix.length);
+      login = candidateLogin;
+      break;
+    }
+  }
+  if (script === undefined) return false;
+  const lines = script.split("\n");
+  let at = 0;
+  let snapshot = null;
+  let sessionId = null;
+  const source = /^source (\/\S+) >\/dev\/null 2>&1 \|\| true$/.exec(lines[0] ?? "");
+  if (source) {
+    snapshot = source[1];
+    sessionId = hermesCachePath(snapshot, "snapshot");
+    if (!sessionId || login) return false;
+    at += 1;
+  } else if (!login) return false;
+  const runnerDirectory = dirname(resolve(runnerPath));
+  if (lines[at++] !== `builtin cd -- ${runnerDirectory} || exit 126` ||
+      lines[at++] !== `eval '${directCommand}'` ||
+      lines[at++] !== "__hermes_ec=$?" || lines[at++] !== "umask 077") return false;
+  if (snapshot !== null) {
+    const temp = `${snapshot}.tmp.$BASHPID`;
+    if (lines[at++] !== `{ export -p > ${temp} && mv -f ${temp} ${snapshot}; } 2>/dev/null || rm -f ${temp} 2>/dev/null || true`) return false;
+  }
+  const cwd = /^pwd -P > (\/\S+) 2>\/dev\/null \|\| true$/.exec(lines[at++] ?? "");
+  const cwdSession = cwd ? hermesCachePath(cwd[1], "cwd", sessionId) : null;
+  if (!cwdSession) return false;
+  sessionId ??= cwdSession;
+  if (lines[at++] !== `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"` ||
+      lines[at++] !== "exit $__hermes_ec" || at !== lines.length) return false;
+  return true;
+}
+
+function exactGatewayProcess(row) {
+  if (!exactProcessRow(row, row?.pid) || !/^python(?:3(?:\.\d+)?)?$/.test(row.command.split("/").pop().toLowerCase())) return null;
+  const tokens = row.args.trim().split(/\s+/);
+  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace", "--external-supervisor"];
+  return tokens.length === expected.length && tokens.every((value, index) => value === expected[index]) ? tokens : null;
+}
+
+function exactGatewayWrapper(row, gatewayTokens) {
+  if (!exactProcessRow(row, row?.pid) || row.ppid !== 1 || row.command !== gatewayTokens[0]) return false;
+  const tokens = row.args.trim().split(/\s+/);
+  const separator = tokens.indexOf("--");
+  if (separator !== 5 || tokens[0] !== row.command || tokens[1] !== "-m" || tokens[2] !== "hermes_cli.stderr_timestamp" ||
+      tokens[3] !== "--error-log" || !/^\/Users\/[^/]+\/\.hermes\/profiles\/social\/logs\/gateway\.error\.log$/.test(tokens[4])) return false;
+  const child = tokens.slice(separator + 1);
+  return child.length === gatewayTokens.length && child.every((value, index) => value === gatewayTokens[index]);
+}
+
+export function inspectTrustedSocialInvoker({
+  argv,
+  command,
+  configPath,
+  pid = process.pid,
+  readProcess = readMacProcessRow,
+  runnerPath = SCRIPT_PATH,
+  nodePath = process.execPath,
+} = {}) {
+  if (!Array.isArray(argv) || argv.length < 2 || argv.some((value) => !safeDirectToken(value)) ||
+      !command || typeof configPath !== "string" || resolve(configPath) !== SOCIAL_RUNTIME_CONFIG_PATH && resolve(configPath) !== resolve(dirname(runnerPath), "shortdrama.runtime.json") ||
+      !Number.isSafeInteger(pid) || pid <= 1 || typeof readProcess !== "function") return false;
+  const directCommand = `/usr/bin/env node ${resolve(runnerPath)} ${argv.join(" ")}`;
+  try {
+    const runner = readProcess(pid);
+    if (!exactProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
+    const shell = readProcess(runner.ppid);
+    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { runnerPath, directCommand })) return false;
+    const gateway = readProcess(shell.ppid);
+    const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway) : null;
+    if (!gatewayTokens) return false;
+    const wrapper = readProcess(gateway.ppid);
+    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens);
+  } catch {
+    return false;
+  }
+}
+
+export async function assertSocialRuntimeConfig(configPath, { expectedPath = SOCIAL_RUNTIME_CONFIG_PATH } = {}) {
+  const expected = resolve(expectedPath);
+  if (typeof configPath !== "string" || resolve(configPath) !== expected) {
+    fail("social_config_invalid", "Social commands require the fixed production runtime config");
+  }
+  try {
+    const [file, parent, resolvedFile, resolvedParent] = await Promise.all([
+      lstat(expected), lstat(dirname(expected)), realpath(expected), realpath(dirname(expected)),
+    ]);
+    if (file.isSymbolicLink() || !file.isFile() || parent.isSymbolicLink() || !parent.isDirectory() ||
+        resolvedFile !== expected || resolvedParent !== dirname(expected)) {
+      fail("social_config_invalid", "Social runtime config path is unsafe");
+    }
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    fail("social_config_invalid", "Social runtime config is unavailable");
+  }
 }
 
 export function resolveInvocationIdentity(command, env = {}, policy = {}) {
@@ -1301,6 +1432,9 @@ export async function execute(argv, {
   build = buildRuntime,
   loadEnvironment = loadRuntimeEnvironment,
   isTrustedLocalInvoker = inspectTrustedLocalInvoker,
+  isTrustedSocialInvoker = inspectTrustedSocialInvoker,
+  validateSocialConfig = assertSocialRuntimeConfig,
+  socialConfigPath = SOCIAL_RUNTIME_CONFIG_PATH,
 } = {}) {
   let runtime;
   let outputReservation;
@@ -1308,6 +1442,15 @@ export async function execute(argv, {
     const command = parseCommand(argv);
     const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
     if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");
+    const rawHasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => env[key] !== undefined);
+    let preliminaryIdentity = null;
+    if (rawHasSession) {
+      preliminaryIdentity = resolveInvocationIdentity(command, env);
+      if (isTrustedSocialInvoker({ argv, command, configPath }) !== true) {
+        fail("social_invoker_untrusted", "Social commands require direct Hermes gateway execution");
+      }
+      await validateSocialConfig(configPath, { expectedPath: socialConfigPath });
+    }
     const effectiveEnv = await loadEnvironment({ configPath, env });
     const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => effectiveEnv[key] !== undefined);
     if (command.group === "doctor" && command.options.initState &&
@@ -1318,7 +1461,7 @@ export async function execute(argv, {
     if (!canResolveBeforeRuntime && localActorRequired(command) && isTrustedLocalInvoker({ command, actorId: command.options.actorId ?? null }) !== true) {
       fail("local_invoker_untrusted", "Local admin actions require a standalone interactive human Terminal ancestry");
     }
-    const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, effectiveEnv) : null;
+    if (preliminaryIdentity === null && canResolveBeforeRuntime) preliminaryIdentity = resolveInvocationIdentity(command, effectiveEnv);
     const migrationEvidence = await loadMigrationEvidence(command);
     if (command.options.output) outputReservation = await reserveMigrationArtifact(command.options.output);
     runtime = await build({ configPath, env: effectiveEnv, command });
