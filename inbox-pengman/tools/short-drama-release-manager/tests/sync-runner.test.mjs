@@ -141,9 +141,10 @@ function successfulRepos(calls, { releases = [], captureIds = [["99", "rec-captu
         calls.push(["releases:link", releaseId, captureRecordId, structuredClone(expected)]);
         return { readback: "verified" };
       },
-      async upsertByKey(releaseId, patch, actorKind) {
-        assert.equal(actorKind, "machine");
+      async upsertEvidenceSafely(releaseId, patch, expected, captureRecordId) {
         calls.push(["releases:evidence", releaseId, structuredClone(patch)]);
+        assert.deepEqual(Object.keys(expected).sort(), ["Post ID", "账号", "日期", "视频链接"].sort());
+        assert.ok(captureRecordId.startsWith("rec-capture-"));
         return { readback: "verified" };
       },
     },
@@ -504,6 +505,59 @@ test("an existing capture relation reserves its Post ID before date inference", 
   store.close();
 });
 
+test("multiple existing capture relations conflict, reserve their Posts, and never overwrite", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-multi", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99" }, { id: "rec-capture-100" }], 归档状态: "active" } },
+    { record_id: "rec-date", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, {
+    releases,
+    captureIds: [["99", "rec-capture-99"], ["100", "rec-capture-100"]],
+  }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [
+      captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" }),
+      captureSource("100", { comments: 0, collection_status: "complete", missing_fields: "[]" }),
+    ] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.ok(result.errors.some((row) => row.target === "SR-000001" && row.code === "release_capture_relation_conflict"));
+  assert.equal(calls.filter(([name]) => name === "releases:link" || name === "releases:evidence").length, 0);
+  store.close();
+});
+
+test("a malformed existing relation still reserves every resolvable Post claim", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-malformed", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99", extra: true }], 归档状态: "active" } },
+    { record_id: "rec-date", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.ok(result.errors.some((row) => row.target === "SR-000001" && row.code === "release_capture_relation_conflict"));
+  assert.equal(calls.filter(([name]) => name === "releases:link" || name === "releases:evidence").length, 0);
+  store.close();
+});
+
+test("an omitted empty capture relation remains eligible for deterministic inference", async () => {
+  const calls = [];
+  const release = { record_id: "rec-empty", fields: {
+    发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null,
+    日期: "2026-09-01", 归档状态: "active",
+  } };
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases: [release] }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "success");
+  assert.deepEqual(calls.filter(([name]) => name === "releases:link").map((row) => row[1]), ["SR-000001"]);
+  store.close();
+});
+
 test("wrong owner and reclaimed lease are rejected before collector side effects", async () => {
   for (const workerPid of [9999, 4242]) {
     const store = makeClaimedStore();
@@ -608,8 +662,7 @@ test("release evidence verifies requested machine fields while unrelated human e
   const release = { record_id: "rec-r", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null, 日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99" }], 归档状态: "active", 备注: "before" } };
   const repos = successfulRepos(calls, { releases: [release] });
   repos.releases.machineUpsertWithInvariant = async () => { throw Object.assign(new Error("unrelated human edit"), { code: "machine_invariant_violation" }); };
-  repos.releases.upsertByKey = async (releaseId, patch, actorKind) => {
-    assert.equal(actorKind, "machine");
+  repos.releases.upsertEvidenceSafely = async (releaseId, patch) => {
     release.fields.备注 = "concurrent human edit";
     Object.assign(release.fields, structuredClone(patch));
     calls.push(["releases:evidence", releaseId]);

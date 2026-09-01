@@ -539,6 +539,141 @@ test("linkCaptureSafely writes Base v3 relation and verifies stable match inputs
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
 });
 
+test("release evidence clears only this run relation when match inputs drift during write", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01",
+      采集记录: [{ id: "rec-c" }], 备注: "keep",
+    } }],
+  });
+  const baseUpdate = client.updateRecords.bind(client);
+  let writes = 0;
+  client.updateRecords = async (...args) => {
+    writes += 1;
+    const result = await baseUpdate(...args);
+    if (writes === 1) client.rows[tableIds.releases][0].fields["Post ID"] = "100";
+    return result;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.releases.upsertEvidenceSafely(
+      "SR-1", { 匹配方式: "exact_post_id", 匹配置信度: 1 },
+      { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
+      "rec-c",
+    ),
+    (error) => error.code === "concurrent_human_change",
+  );
+  assert.equal(client.rows[tableIds.releases][0].fields["Post ID"], "100");
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
+  assert.equal(client.rows[tableIds.releases][0].fields.备注, "keep");
+  assert.equal(client.calls.update.length, 2);
+});
+
+test("release evidence never clears a concurrently replaced relation", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [
+      { record_id: "rec-c", fields: { "Post ID": "99" } },
+      { record_id: "rec-other", fields: { "Post ID": "100" } },
+    ],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01",
+      采集记录: [{ id: "rec-c" }],
+    } }],
+  });
+  const baseUpdate = client.updateRecords.bind(client);
+  client.updateRecords = async (...args) => {
+    const result = await baseUpdate(...args);
+    client.rows[tableIds.releases][0].fields["Post ID"] = "100";
+    client.rows[tableIds.releases][0].fields.采集记录 = [{ id: "rec-other" }];
+    return result;
+  };
+  await assert.rejects(
+    () => makeRepos(client).releases.upsertEvidenceSafely(
+      "SR-1", { 匹配方式: "exact_post_id" },
+      { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
+      "rec-c",
+    ),
+    (error) => error.code === "concurrent_human_change",
+  );
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-other" }]);
+  assert.equal(client.calls.update.length, 1);
+});
+
+test("release evidence ignores unrelated human edits and verifies requested machine fields", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01",
+      采集记录: [{ id: "rec-c" }], 备注: "before",
+    } }],
+  });
+  const baseUpdate = client.updateRecords.bind(client);
+  client.updateRecords = async (...args) => {
+    const result = await baseUpdate(...args);
+    client.rows[tableIds.releases][0].fields.备注 = "concurrent human edit";
+    return result;
+  };
+  const result = await makeRepos(client).releases.upsertEvidenceSafely(
+    "SR-1", { 匹配方式: "exact_post_id", 匹配置信度: 1 },
+    { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
+    "rec-c",
+  );
+  assert.equal(result.readback, "verified");
+  assert.equal(result.record.fields.备注, "concurrent human edit");
+  assert.equal(result.record.fields.匹配方式, "exact_post_id");
+});
+
+test("release evidence safely clears a stale linked relation found before its write", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "100", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01",
+      采集记录: [{ id: "rec-c" }],
+    } }],
+  });
+  await assert.rejects(
+    () => makeRepos(client).releases.upsertEvidenceSafely(
+      "SR-1", { 匹配方式: "exact_post_id" },
+      { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
+      "rec-c",
+    ),
+    (error) => error.code === "concurrent_human_change",
+  );
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
+  assert.equal(client.calls.update.length, 1);
+});
+
+test("release evidence re-reads before cleanup and preserves a replacement made in the gap", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [
+      { record_id: "rec-c", fields: { "Post ID": "99" } },
+      { record_id: "rec-other", fields: { "Post ID": "100" } },
+    ],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "100", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01",
+      采集记录: [{ id: "rec-c" }],
+    } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  let reads = 0;
+  client.getRecord = async (...args) => {
+    reads += 1;
+    if (reads === 2) client.rows[tableIds.releases][0].fields.采集记录 = [{ id: "rec-other" }];
+    return baseGet(...args);
+  };
+  await assert.rejects(
+    () => makeRepos(client).releases.upsertEvidenceSafely(
+      "SR-1", { 匹配方式: "exact_post_id" },
+      { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
+      "rec-c",
+    ),
+    (error) => error.code === "concurrent_human_change",
+  );
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-other" }]);
+  assert.equal(client.calls.update.length, 0);
+});
+
 test("linkCaptureSafely binds its post-write readback to the release record", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],

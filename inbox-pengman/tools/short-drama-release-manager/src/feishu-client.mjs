@@ -47,6 +47,25 @@ async function awaitWithAbort(value, signal) {
   }
 }
 
+function defaultSleep(ms, { signal } = {}) {
+  assertNotAborted(signal);
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const finish = (callback, value) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      signal?.removeEventListener?.("abort", onAbort);
+      callback(value);
+    };
+    const onAbort = () => finish(reject, abortFailure());
+    const timer = setTimeout(() => finish(resolve), ms);
+    timer.unref?.();
+    signal?.addEventListener?.("abort", onAbort, { once: true });
+    if (signal?.aborted) onAbort();
+  });
+}
+
 function encoded(value) {
   if (typeof value !== "string" || value.length === 0) {
     fail("base_response_invalid", "Feishu identifier must be a non-empty string");
@@ -458,7 +477,7 @@ export class FeishuClient {
   constructor({
     tokenProvider,
     fetchJson = defaultFetchJson,
-    sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+    sleep = defaultSleep,
     logger = null,
     runId = null,
   } = {}) {
@@ -494,11 +513,10 @@ export class FeishuClient {
     });
     const tail = run.then(() => undefined, () => undefined);
     this.writeQueues.set(key, tail);
-    try {
-      return await awaitWithAbort(run, signal);
-    } finally {
+    void tail.then(() => {
       if (this.writeQueues.get(key) === tail) this.writeQueues.delete(key);
-    }
+    });
+    return await awaitWithAbort(run, signal);
   }
 
   async request(path, { method = "GET", body = undefined, context = undefined, signal = undefined } = {}) {
@@ -529,7 +547,7 @@ export class FeishuClient {
         assertNotAborted(signal);
         this.log(method, path, statusOf(error) ?? "error");
         if (isRateLimited(error) && attempt < MAX_REQUEST_ATTEMPTS) {
-          await awaitWithAbort(this.sleep(retryDelay(error, attempt)), signal);
+          await awaitWithAbort(this.sleep(retryDelay(error, attempt), { signal }), signal);
           continue;
         }
         if (isAuthorizationFailure(error) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
@@ -554,7 +572,7 @@ export class FeishuClient {
         return payload;
       }
       if (isRateLimited(payload) && attempt < MAX_REQUEST_ATTEMPTS) {
-        await awaitWithAbort(this.sleep(retryDelay(payload, attempt)), signal);
+        await awaitWithAbort(this.sleep(retryDelay(payload, attempt), { signal }), signal);
         continue;
       }
       if (isAuthorizationFailure(payload) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {

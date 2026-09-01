@@ -245,6 +245,66 @@ test("same-table writes serialize across calls while different tables may overla
   assert.ok(events.indexOf("end:same") < events.indexOf("start:same:second"));
 });
 
+test("an aborted queued write cannot unlink the same-table serialization tail", async () => {
+  let active = 0;
+  let maxActive = 0;
+  let requests = 0;
+  let releaseFirst;
+  const firstGate = new Promise((resolve) => { releaseFirst = resolve; });
+  let firstStarted;
+  const started = new Promise((resolve) => { firstStarted = resolve; });
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      requests += 1;
+      active += 1;
+      maxActive = Math.max(maxActive, active);
+      if (requests === 1) {
+        firstStarted();
+        await firstGate;
+      }
+      await new Promise((resolve) => setImmediate(resolve));
+      active -= 1;
+      return { code: 0, data: { record_id_list: options.body.record_id_list } };
+    },
+  });
+  const write = (id, options) => client.updateRecords("base", "same", [{ record_id: id, fields: { A: id } }], options);
+  const first = write("r1");
+  await started;
+  const controller = new AbortController();
+  const second = write("r2", { signal: controller.signal });
+  controller.abort();
+  await assert.rejects(() => second, (error) => error.code === "base_operation_aborted");
+  const third = write("r3");
+  await new Promise((resolve) => setImmediate(resolve));
+  releaseFirst();
+  await Promise.all([first, third]);
+  assert.equal(maxActive, 1);
+  assert.equal(requests, 2);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("native Retry-After delay aborts promptly and clears its timer", async () => {
+  const timeoutCount = () => process.getActiveResourcesInfo().filter((name) => name === "Timeout").length;
+  const before = timeoutCount();
+  const controller = new AbortController();
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => {
+      setImmediate(() => controller.abort());
+      return { code: 1254291, status: 429, headers: { "retry-after": "1" }, data: {} };
+    },
+  });
+  const startedAt = Date.now();
+  await assert.rejects(
+    () => client.listRecords("base", "tbl", { signal: controller.signal }),
+    (error) => error.code === "base_operation_aborted",
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.ok(Date.now() - startedAt < 250);
+  assert.ok(timeoutCount() <= before);
+});
+
 test("empty or malformed writes and mismatched responses fail closed", async (t) => {
   const client = new FeishuClient({
     tokenProvider: async () => "token",

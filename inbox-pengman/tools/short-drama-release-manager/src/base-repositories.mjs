@@ -469,6 +469,90 @@ export class TableRepository {
 }
 
 class ReleaseRepository extends TableRepository {
+  async upsertEvidenceSafely(releaseId, patch, expectedMatchInputs, expectedCaptureRecordId, { signal } = {}) {
+    assertNotAborted(signal);
+    const releaseKey = normalizeKey(releaseId);
+    const captureId = normalizeRecordId(expectedCaptureRecordId);
+    assertExpectedObject(expectedMatchInputs);
+    if (Object.keys(expectedMatchInputs).length !== MATCH_INPUT_FIELDS.length ||
+        MATCH_INPUT_FIELDS.some((fieldName) => !Object.hasOwn(expectedMatchInputs, fieldName))) {
+      fail("base_response_invalid", "Expected evidence match inputs must contain exactly four fields");
+    }
+    const prepared = this.preparePatch(releaseKey, patch, "machine");
+    if (Object.hasOwn(prepared.patch, "采集记录") || Object.hasOwn(prepared.patch, this.primaryField)) {
+      fail("field_owner_violation", "Evidence patch cannot change release identity or relation");
+    }
+    await this.validateRelations(prepared.patch, { signal });
+    if (!this.index) await this.loadIndex({ signal });
+    assertNotAborted(signal);
+    const indexed = this.index.get(releaseKey);
+    if (!indexed) fail("base_record_not_found", "Release record was not found");
+    const expectedRelation = [{ id: captureId }];
+
+    const inputsChanged = (record) => MATCH_INPUT_FIELDS.some(
+      (fieldName) => !equalValue(fieldValue(record.fields, fieldName), expectedMatchInputs[fieldName]),
+    );
+    const clearOwnedRelation = async (record) => {
+      if (!equalValue(fieldValue(record.fields, "采集记录"), expectedRelation)) return;
+      const current = await this.readRecordById(record.record_id, { requirePrimary: true, signal });
+      if (!equalValue(fieldValue(current.fields, "采集记录"), expectedRelation)) {
+        this.index = null;
+        return;
+      }
+      assertNotAborted(signal);
+      this.index = null;
+      const cleared = await this.client.updateRecords(this.appToken, this.tableId, [
+        { record_id: current.record_id, fields: { 采集记录: [] } },
+      ], { signal });
+      assertNotAborted(signal);
+      validateWriteResult(cleared, 1, this.tableName, [current.record_id]);
+      await this.readRecordById(current.record_id, {
+        requirePrimary: true,
+        signal,
+        validate: (readback) => {
+          if (!equalValue(fieldValue(readback.fields, "采集记录"), [])) {
+            fail("readback_mismatch", "Concurrent evidence relation cleanup was not verified", { table: this.tableName });
+          }
+        },
+      });
+    };
+
+    const before = await this.readRecordById(indexed.record_id, {
+      requirePrimary: true,
+      signal,
+      validate: (record) => {
+        if (normalizeKey(record.fields[this.primaryField]) !== releaseKey) {
+          fail("readback_mismatch", "Release primary key changed before evidence write", { table: this.tableName });
+        }
+      },
+    });
+    if (inputsChanged(before) || !equalValue(fieldValue(before.fields, "采集记录"), expectedRelation)) {
+      await clearOwnedRelation(before);
+      this.index = null;
+      fail("concurrent_human_change", "Release match inputs or relation changed before evidence write");
+    }
+
+    if (Object.keys(prepared.patch).length === 0) {
+      return { record: clone(before), readback: "verified" };
+    }
+    this.index = null;
+    const written = await this.client.updateRecords(this.appToken, this.tableId, [
+      { record_id: before.record_id, fields: clone(prepared.patch) },
+    ], { signal });
+    assertNotAborted(signal);
+    validateWriteResult(written, 1, this.tableName, [before.record_id]);
+    const after = await this.readRecordById(before.record_id, { requirePrimary: true, signal });
+    if (inputsChanged(after) || !equalValue(fieldValue(after.fields, "采集记录"), expectedRelation)) {
+      await clearOwnedRelation(after);
+      this.index = null;
+      fail("concurrent_human_change", "Release match inputs or relation changed during evidence write");
+    }
+    assertRequestedFields(after, prepared.patch, this.tableName);
+    // A concurrent unrelated edit may have happened; force the next caller to reload a complete index.
+    this.index = null;
+    return { record: clone(after), readback: "verified" };
+  }
+
   async linkCaptureSafely(releaseId, captureRecordId, expectedMatchInputs, { signal } = {}) {
     assertNotAborted(signal);
     const releaseKey = normalizeKey(releaseId);

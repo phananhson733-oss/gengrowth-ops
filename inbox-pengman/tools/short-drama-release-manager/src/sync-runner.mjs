@@ -268,6 +268,26 @@ function relationId(value) {
   return value[0].id;
 }
 
+function classifyCaptureRelation(value) {
+  if (value === undefined || value === null) return { state: "empty", ids: [] };
+  if (!Array.isArray(value)) return { state: "malformed", ids: [] };
+  const ids = [];
+  let malformed = false;
+  for (const cell of value) {
+    if (!plainObject(cell) || !normalizedString(cell.id)) {
+      malformed = true;
+      continue;
+    }
+    if (Object.keys(cell).length !== 1 || ids.includes(cell.id)) malformed = true;
+    if (ids.includes(cell.id)) continue;
+    ids.push(cell.id);
+  }
+  if (malformed) return { state: "malformed", ids };
+  if (ids.length === 0) return { state: "empty", ids };
+  if (ids.length === 1) return { state: "single", ids };
+  return { state: "multiple", ids };
+}
+
 function accountReverseIndex(index) {
   const result = new Map();
   for (const [accountId, record] of index) {
@@ -383,7 +403,9 @@ export async function runSyncWorker(context, runId) {
       typeof context.jobs.renewLease !== "function" || typeof context.jobs.transition !== "function" ||
       typeof context.jobs.finishClaim !== "function" || !Number.isSafeInteger(context.workerPid) ||
       context.workerPid <= 0 || typeof context.collector !== "function" || !context.source ||
-      !context.repos || !context.repos.accounts || !context.repos.captures || !context.repos.releases) {
+      !context.repos || !context.repos.accounts || !context.repos.captures || !context.repos.releases ||
+      typeof context.repos.releases.linkCaptureSafely !== "function" ||
+      typeof context.repos.releases.upsertEvidenceSafely !== "function") {
     fail("sync_context_invalid", "Sync worker context is invalid");
   }
   const expectedDate = runIdDate(runId);
@@ -510,16 +532,25 @@ export async function runSyncWorker(context, runId) {
     for (const [releaseId, rawRecord] of active) {
       beat.assertOwned();
       const fields = rawRecord?.fields;
-      const existingCapture = relationId(fields.采集记录);
+      const captureRelation = classifyCaptureRelation(fields.采集记录);
+      const resolvableExistingPostIds = captureRelation.ids
+        .map((recordId) => capturePostByRecordId.get(recordId))
+        .filter(Boolean);
+      const existingCapture = captureRelation.state === "single" ? captureRelation.ids[0] : null;
       const existingPostId = existingCapture ? capturePostByRecordId.get(existingCapture) : null;
       const rawClaims = rawExplicitPostIds(fields);
       const reserveInvalidClaims = () => {
-        for (const claimed of [...rawClaims, ...(existingPostId ? [existingPostId] : [])]) {
+        for (const claimed of [...rawClaims, ...resolvableExistingPostIds]) {
           const rows = reservations.get(claimed) ?? [];
           rows.push({ releaseId, invalid: true });
           reservations.set(claimed, rows);
         }
       };
+      if (captureRelation.state === "multiple" || captureRelation.state === "malformed") {
+        releaseError(errors, releaseId, { code: "release_capture_relation_conflict" });
+        reserveInvalidClaims();
+        continue;
+      }
       const accountRecordId = relationId(fields.账号);
       const accountId = accountRecordId ? accountIds.get(accountRecordId) : null;
       if (!accountId) {
@@ -641,15 +672,14 @@ export async function runSyncWorker(context, runId) {
           beat.assertOwned();
           totals.releases_linked += 1;
         }
-        if (typeof context.repos.releases.upsertByKey === "function") {
-          await context.repos.releases.upsertByKey(
-            item.releaseId,
-            requestedEvidence(item.match, initial.started_at),
-            "machine",
-            { signal: beat.signal },
-          );
-          beat.assertOwned();
-        }
+        await context.repos.releases.upsertEvidenceSafely(
+          item.releaseId,
+          requestedEvidence(item.match, initial.started_at),
+          expected,
+          captureRecordId,
+          { signal: beat.signal },
+        );
+        beat.assertOwned();
       } catch (error) {
         releaseError(errors, item.releaseId, error);
       }
