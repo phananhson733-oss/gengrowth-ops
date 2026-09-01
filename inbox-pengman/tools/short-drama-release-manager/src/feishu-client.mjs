@@ -204,6 +204,10 @@ function canonicalFieldBody(tableName, spec, bindings = {}) {
   fail("base_schema_drift", "Unsupported fixed field kind", { field: spec.name, kind: spec.kind });
 }
 
+export function fixedFieldDescriptor(tableName, fieldName, bindings = {}) {
+  return structuredClone(canonicalFieldBody(tableName, findFieldSpec(tableName, fieldName), bindings));
+}
+
 const allVisibleFields = (tableName) => BASE_FIELD_SPECS[tableName].map((spec) => spec.name);
 const emptyFilter = () => ({ logic: "and", conditions: [] });
 const noGrouping = () => [];
@@ -234,7 +238,7 @@ const VIEW_SPECS = Object.freeze({
   }),
 });
 
-function fixedView(tableName, viewName) {
+export function fixedViewDescriptor(tableName, viewName) {
   const spec = typeof viewName === "string" ? VIEW_SPECS[tableName]?.[viewName] : null;
   if (!spec) {
     fail("base_schema_drift", "View is not part of the fixed Base presentation schema", {
@@ -268,10 +272,14 @@ const DASHBOARD_BLOCK_SPECS = Object.freeze({
   "最近一次同步终态": { type: "text", data_config: { text: "尚无成功同步记录" } },
 });
 
-function fixedDashboardBlock(blockName) {
+export function fixedDashboardBlockDescriptor(blockName) {
   const spec = typeof blockName === "string" ? DASHBOARD_BLOCK_SPECS[blockName] : null;
   if (!spec) fail("base_schema_drift", "Dashboard block is not part of the fixed Base presentation schema");
   return { name: blockName, type: spec.type, data_config: structuredClone(spec.data_config) };
+}
+
+export function fixedDashboardDescriptor() {
+  return { name: DASHBOARD_NAME, blocks: Object.keys(DASHBOARD_BLOCK_SPECS).map((name) => fixedDashboardBlockDescriptor(name)) };
 }
 
 function assertFields(fields, context) {
@@ -694,7 +702,7 @@ export class FeishuClient {
   }
 
   async createView(baseToken, tableId, tableName, viewName) {
-    const view = fixedView(tableName, viewName);
+    const view = fixedViewDescriptor(tableName, viewName);
     const body = { name: view.name, type: view.type };
     return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
@@ -706,7 +714,7 @@ export class FeishuClient {
   }
 
   async updateView(baseToken, tableId, viewId, tableName, viewName) {
-    const view = fixedView(tableName, viewName);
+    const view = fixedViewDescriptor(tableName, viewName);
     return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
       for (const part of ["filter", "sort", "group", "visible_fields"]) {
@@ -714,6 +722,20 @@ export class FeishuClient {
       }
       return { view_id: viewId, name: view.name, configured: true };
     }));
+  }
+
+  readViewConfiguration(baseToken, tableId, viewId, tableName, viewName) {
+    fixedViewDescriptor(tableName, viewName);
+    return this.operation(async (context) => {
+      const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
+      const result = {};
+      for (const part of ["filter", "sort", "group", "visible_fields"]) {
+        const payload = await this.request(`${root}/${part}`, { context });
+        if (!plainObject(payload.data?.[part])) throw invalidResponse(`Feishu view ${part} response is malformed`);
+        result[part] = structuredClone(payload.data[part]);
+      }
+      return result;
+    });
   }
 
   async createDashboard(baseToken, dashboardName) {
@@ -729,13 +751,42 @@ export class FeishuClient {
   }
 
   async createDashboardBlock(baseToken, dashboardId, blockName) {
-    const body = fixedDashboardBlock(blockName);
+    const body = fixedDashboardBlockDescriptor(blockName);
     return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`,
         { method: "POST", body, context },
       );
       return requireEntity(payload, "block", "block_id");
+    }));
+  }
+
+  readDashboardBlock(baseToken, dashboardId, blockId, blockName) {
+    fixedDashboardBlockDescriptor(blockName);
+    return this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
+        { context },
+      );
+      const block = payload.data?.block;
+      if (!plainObject(block) || block.block_id !== blockId || block.name !== blockName || typeof block.type !== "string" || !plainObject(block.data_config)) {
+        throw invalidResponse("Feishu dashboard block response is malformed");
+      }
+      return structuredClone(block);
+    });
+  }
+
+  updateDashboardBlock(baseToken, dashboardId, blockId, blockName) {
+    const fixed = fixedDashboardBlockDescriptor(blockName);
+    const body = { name: fixed.name, data_config: fixed.data_config };
+    return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
+        { method: "PATCH", body, context },
+      );
+      const block = requireEntity(payload, "block", "block_id");
+      if (block.block_id !== blockId) throw invalidResponse("Feishu dashboard block response ID does not match request");
+      return block;
     }));
   }
 

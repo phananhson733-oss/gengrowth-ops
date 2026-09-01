@@ -1,10 +1,12 @@
 import { createHash } from "node:crypto";
-import { lstat, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { constants as fsConstants } from "node:fs";
+import { lstat, mkdir, open, readFile, realpath } from "node:fs/promises";
 import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
+import { fixedDashboardDescriptor, fixedFieldDescriptor, fixedViewDescriptor } from "./feishu-client.mjs";
 import { matchReleaseToCapture } from "./matcher.mjs";
 import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
@@ -23,7 +25,6 @@ const PRESENTATION = Object.freeze([
   ["发布记录", "按账号表现"], ["发布记录", "按剧表现"],
   ["采集数据", "完整"], ["采集数据", "部分缺失"], ["采集数据", "未关联发布"],
 ]);
-const DASHBOARD_BLOCKS = Object.freeze(["活跃账号数", "待公开数", "待回填数", "按账号最新累计表现", "按剧最新累计表现", "最近一次同步终态"]);
 const ARTIFACT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../output/short-drama-release-manager/migrations");
 const ARTIFACT_TRUST_ROOT = resolve(ARTIFACT_ROOT, "../..");
 const POST_ID = /^\d+$/;
@@ -103,6 +104,14 @@ export function manifestDigest(manifest) {
 
 export function verificationDigest(report) {
   return sha256(withoutDigestEnvelope(report));
+}
+
+export function schemaReceiptDigest(receipt) {
+  return sha256(withoutDigestEnvelope(receipt));
+}
+
+export function presentationReceiptDigest(receipt) {
+  return sha256(withoutDigestEnvelope(receipt));
 }
 
 function text(value, field, { nullable = false } = {}) {
@@ -294,11 +303,12 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     const match = matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
     const hasManual = source["Post ID"] !== null && source["Post ID"] !== undefined && source["Post ID"] !== "" ||
       source.视频链接 !== null && source.视频链接 !== undefined && source.视频链接 !== "";
-    const futureUnlinked = !hasManual && typeof source.日期 === "string" && /^\d{4}-\d{2}-\d{2}$/.test(source.日期) && source.日期 > beijingDate(generatedAtValue);
+    const futureUnlinked = !hasManual && match.status === "unmatched" && match.reason === "no_account_time_candidate" &&
+      typeof source.日期 === "string" && /^\d{4}-\d{2}-\d{2}$/.test(source.日期) && source.日期 > beijingDate(generatedAtValue);
     let resolvedPost = null;
     if (match.status === "matched") {
       resolvedPost = match.post.post_id;
-      if ((source.归档状态 ?? "active") !== "archived") claimedPostIds.add(resolvedPost);
+      claimedPostIds.add(resolvedPost);
     } else if (!futureUnlinked) {
       blocks.push(blocked(match.reason, "发布记录", source.source_row, { release_id: releaseId, candidates: match.candidates?.map((item) => item.post_id) ?? [] }));
     }
@@ -337,6 +347,23 @@ function expectedFieldConfig(tableName, spec, tableIds) {
   fail("base_schema_drift", "Fixed schema contains an unsupported field kind", { table: tableName, field: spec.name });
 }
 
+function fixedSchemaDescriptor(tableName, spec) {
+  const descriptor = { name: spec.name, kind: spec.kind, phase: spec.phase };
+  for (const key of ["primary", "targetTable", "bidirectional", "reverseField", "managedReverseOf", "linkField", "sourceField", "expression", "systemType"]) {
+    if (spec[key] !== undefined) descriptor[key] = clone(spec[key]);
+  }
+  const bindings = spec.kind === "link" ? { targetTableId: `table:${spec.targetTable}` } : {};
+  descriptor.canonical = fixedFieldDescriptor(tableName, spec.name, bindings);
+  return canonicalize(descriptor);
+}
+
+function fixedSchemaContract() {
+  return Object.fromEntries(TABLE_ORDER.map((tableName) => [
+    tableName,
+    BASE_FIELD_SPECS[tableName].map((spec) => fixedSchemaDescriptor(tableName, spec)),
+  ]));
+}
+
 function configMatches(actual, expected) {
   if (!plainObject(actual)) return false;
   for (const [key, value] of Object.entries(expected)) {
@@ -365,7 +392,7 @@ function schemaPlan(baseSchema, blocks) {
   for (const tableName of TABLE_ORDER) {
     const table = byName.get(tableName);
     if (!table) {
-      tableActions.push({ id: `table:${tableName}`, kind: "create_table", table: tableName, phase: "storage" });
+      tableActions.push({ id: `table:${tableName}`, kind: "create_table", table: tableName, phase: "storage", spec: fixedSchemaDescriptor(tableName, BASE_FIELD_SPECS[tableName][0]) });
     }
     const fields = new Map();
     for (const field of table?.fields ?? []) {
@@ -379,7 +406,7 @@ function schemaPlan(baseSchema, blocks) {
           if (!table) continue;
           const primaryFields = table.fields.filter((field) => field.is_primary === true || field.primary === true);
           if (table.record_count === 0 && primaryFields.length === 1 && typeof primaryFields[0].field_id === "string" && primaryFields[0].field_id !== "") {
-            fieldActions.push({ id: `primary:${tableName}:${spec.name}`, kind: "update_primary_field", table: tableName, field: spec.name, field_id: primaryFields[0].field_id, phase: "storage" });
+            fieldActions.push({ id: `primary:${tableName}:${spec.name}`, kind: "update_primary_field", table: tableName, field: spec.name, field_id: primaryFields[0].field_id, phase: "storage", spec: fixedSchemaDescriptor(tableName, spec) });
           } else {
             blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "primary_field_unrecoverable" }));
           }
@@ -389,7 +416,7 @@ function schemaPlan(baseSchema, blocks) {
             blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "managed_reverse_missing" }));
           }
         } else {
-          fieldActions.push({ id: `field:${tableName}:${spec.name}`, kind: "create_field", table: tableName, field: spec.name, phase: spec.phase });
+          fieldActions.push({ id: `field:${tableName}:${spec.name}`, kind: "create_field", table: tableName, field: spec.name, phase: spec.phase, spec: fixedSchemaDescriptor(tableName, spec) });
         }
         continue;
       }
@@ -411,9 +438,10 @@ function schemaPlan(baseSchema, blocks) {
 
 function presentationActions() {
   const actions = PRESENTATION.map(([table, viewName]) => ({
-    id: `view:${table}:${viewName}`, kind: "configure_view", table, name: viewName,
+    id: `view:${table}:${viewName}`, kind: "configure_view", table, name: viewName, configuration: fixedViewDescriptor(table, viewName),
   }));
-  actions.push({ id: "dashboard:短剧发行管理仪表盘", kind: "configure_dashboard", name: "短剧发行管理仪表盘", blocks: [...DASHBOARD_BLOCKS] });
+  const dashboard = fixedDashboardDescriptor();
+  actions.push({ id: `dashboard:${dashboard.name}`, kind: "configure_dashboard", name: dashboard.name, blocks: dashboard.blocks });
   return actions;
 }
 
@@ -456,7 +484,7 @@ export async function planMigration(context = {}) {
     version: VERSION,
     source_revision: sourceRevision,
     source_backup: clone(google.raw_backup, "migration_source_invalid"),
-    schema_revision: schema.revision,
+    initial_schema_revision: schema.revision,
     generated_at: generatedAtValue,
     schema_actions: schema.actions,
     presentation_actions: presentationActions(),
@@ -477,14 +505,16 @@ export async function planMigration(context = {}) {
     releases,
     blocked: orderedBlocks,
   };
+  manifest.schema_spec_sha256 = sha256({ actions: manifest.schema_actions, contract: fixedSchemaContract() });
+  manifest.presentation_spec_sha256 = sha256(manifest.presentation_actions);
   manifest.sha256 = manifestDigest(manifest);
   return clone(manifest);
 }
 
 function assertManifest(manifest) {
   const expectedKeys = [
-    "accounts", "blocked", "captures", "counts", "dramas", "generated_at", "presentation_actions",
-    "releases", "schema_actions", "schema_revision", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
+    "accounts", "blocked", "captures", "counts", "dramas", "generated_at", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
+    "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
       !Array.isArray(manifest.blocked) || !plainObject(manifest.counts) || !Array.isArray(manifest.accounts) ||
@@ -495,7 +525,7 @@ function assertManifest(manifest) {
   if (!isDeepStrictEqual(Object.keys(manifest).sort(), expectedKeys)) fail("migration_manifest_invalid", "Migration manifest contains unsupported fields");
   if (manifestDigest(manifest) !== manifest.sha256) fail("migration_digest_mismatch", "Migration manifest self-digest does not match");
   if (typeof manifest.source_revision !== "string" || manifest.source_revision === "" ||
-      typeof manifest.schema_revision !== "string" || manifest.schema_revision === "" ||
+      typeof manifest.initial_schema_revision !== "string" || manifest.initial_schema_revision === "" ||
       typeof manifest.generated_at !== "string" || !Number.isFinite(Date.parse(manifest.generated_at))) {
     fail("migration_manifest_invalid", "Migration manifest metadata is invalid");
   }
@@ -520,6 +550,9 @@ function assertManifest(manifest) {
   if (!isDeepStrictEqual(canonicalize(manifest.presentation_actions), canonicalize(fixedPresentation))) {
     fail("migration_manifest_invalid", "Migration presentation actions are not fixed");
   }
+  if (manifest.schema_spec_sha256 !== sha256({ actions: manifest.schema_actions, contract: fixedSchemaContract() }) || manifest.presentation_spec_sha256 !== sha256(manifest.presentation_actions)) {
+    fail("migration_manifest_invalid", "Migration semantic specification digests are inconsistent");
+  }
   const actionIds = new Set();
   for (const action of manifest.schema_actions) {
     if (!plainObject(action) || actionIds.has(action.id) || !TABLE_ORDER.includes(action.table)) {
@@ -527,19 +560,20 @@ function assertManifest(manifest) {
     }
     actionIds.add(action.id);
     if (action.kind === "create_table") {
-      if (!isDeepStrictEqual(Object.keys(action).sort(), ["id", "kind", "phase", "table"]) || action.id !== `table:${action.table}` || action.phase !== "storage") {
+      const runtime = fixedSchemaDescriptor(action.table, BASE_FIELD_SPECS[action.table][0]);
+      if (!isDeepStrictEqual(Object.keys(action).sort(), ["id", "kind", "phase", "spec", "table"]) || action.id !== `table:${action.table}` || action.phase !== "storage" || !isDeepStrictEqual(action.spec, runtime)) {
         fail("migration_manifest_invalid", "Migration table action is not fixed");
       }
     } else if (action.kind === "create_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
-      if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "table"]) ||
-          action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase) {
+      if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "spec", "table"]) ||
+          action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
         fail("migration_manifest_invalid", "Migration field action is not fixed");
       }
     } else if (action.kind === "update_primary_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
       if (!spec?.primary || typeof action.field_id !== "string" || action.field_id === "" || action.phase !== "storage" ||
-          !isDeepStrictEqual(Object.keys(action).sort(), ["field", "field_id", "id", "kind", "phase", "table"]) || action.id !== `primary:${action.table}:${action.field}`) {
+          !isDeepStrictEqual(Object.keys(action).sort(), ["field", "field_id", "id", "kind", "phase", "spec", "table"]) || action.id !== `primary:${action.table}:${action.field}` || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
         fail("migration_manifest_invalid", "Migration primary-field action is not fixed");
       }
     } else {
@@ -553,8 +587,26 @@ function assertApplyEnvelope(context, manifest) {
   if (typeof context.expectedSha256 !== "string" || context.expectedSha256 === "") fail("migration_digest_required", "Expected migration digest is required");
   if (context.expectedSha256 !== manifest.sha256) fail("migration_digest_mismatch", "Expected migration digest does not match");
   if (context.sourceRevision !== manifest.source_revision) fail("source_revision_drift", "Google source revision changed after planning");
-  if (context.schemaRevision !== manifest.schema_revision) fail("schema_revision_drift", "Base schema revision changed after planning");
   if (manifest.blocked.length > 0) fail("migration_blocked", "Migration manifest contains blocked entries", { count: manifest.blocked.length });
+}
+
+async function currentSchemaRevision(context) {
+  const reader = context.getSchemaRevision ?? context.schemaAdapter?.getSchemaRevision;
+  if (typeof reader !== "function") fail("migration_context_invalid", "Current Base schema revision reader is required");
+  const revision = await reader();
+  if (typeof revision !== "string" || revision.trim() === "") fail("schema_revision_drift", "Current Base schema revision is invalid");
+  return revision;
+}
+
+function assertSchemaReceipt(context, manifest, receipt = context.schemaReceipt) {
+  if (!plainObject(receipt) || receipt.version !== "shortdrama-schema-receipt/v1" || receipt.status !== "verified" ||
+      receipt.manifest_sha256 !== manifest.sha256 || receipt.pre_revision !== manifest.initial_schema_revision ||
+      receipt.action_spec_sha256 !== manifest.schema_spec_sha256 || typeof receipt.post_revision !== "string" || receipt.post_revision === "" ||
+      typeof receipt.sha256 !== "string" || receipt.sha256 !== context.expectedSchemaReceiptSha256 || schemaReceiptDigest(receipt) !== receipt.sha256 ||
+      !isDeepStrictEqual(Object.keys(receipt).sort(), ["action_spec_sha256", "manifest_sha256", "post_revision", "pre_revision", "sha256", "status", "version"])) {
+    fail("migration_schema_receipt_required", "An authentic schema receipt for this manifest is required");
+  }
+  return receipt;
 }
 
 function assertRepoSet(repos, { write = true } = {}) {
@@ -691,7 +743,9 @@ async function applySchema(context, manifest) {
     } else if (action.kind === "update_primary_field") {
       const table = before.tables.get(action.table);
       if (!table || !(table.fields ?? []).some((field) => field.field_id === action.field_id)) fail("readback_mismatch", "Primary bootstrap field is unresolved", { action: action.id });
-      await adapter.updateField(table.table_id, action.field_id, action.table, action.field);
+      if (!(table.fields ?? []).some((field) => field.field_id === action.field_id && field.name === action.field)) {
+        await adapter.updateField(table.table_id, action.field_id, action.table, action.field);
+      }
     } else fail("migration_manifest_invalid", "Schema action is unsupported");
     const after = await readSchema();
     const tableAfter = after.tables.get(action.table);
@@ -711,15 +765,17 @@ async function applySchema(context, manifest) {
 async function applyPresentation(context, manifest) {
   const adapter = context.presentationAdapter;
   if (!objectLike(adapter) || typeof adapter.readSchema !== "function" || typeof adapter.listViews !== "function" ||
-      typeof adapter.createView !== "function" || typeof adapter.updateView !== "function" || typeof adapter.listDashboards !== "function" ||
+      typeof adapter.createView !== "function" || typeof adapter.updateView !== "function" || typeof adapter.readViewConfiguration !== "function" || typeof adapter.listDashboards !== "function" ||
       typeof adapter.createDashboard !== "function" || typeof adapter.listDashboardBlocks !== "function" ||
-      typeof adapter.createDashboardBlock !== "function" || typeof adapter.verifyPresentationAction !== "function") {
+      typeof adapter.createDashboardBlock !== "function" || typeof adapter.readDashboardBlock !== "function" ||
+      typeof adapter.updateDashboardBlock !== "function") {
     fail("migration_context_invalid", "Fixed presentation adapter is required");
   }
   const fixed = new Map(presentationActions().map((action) => [action.id, action]));
   const schema = await adapter.readSchema();
   if (!plainObject(schema) || schema.complete !== true || !Array.isArray(schema.tables)) fail("readback_mismatch", "Complete presentation table readback is required");
   const tables = new Map(schema.tables.map((table) => [table.name, table]));
+  const semanticReadbacks = [];
   for (const action of manifest.presentation_actions) {
     if (!isDeepStrictEqual(canonicalize(action), canonicalize(fixed.get(action.id)))) fail("migration_manifest_invalid", "Presentation action is not fixed");
     let readback;
@@ -739,6 +795,15 @@ async function applyPresentation(context, manifest) {
           readback.items.filter((view) => view.name === action.name && view.view_id === viewId).length !== 1) {
         fail("readback_mismatch", "Configured view is missing from complete readback", { action: action.id });
       }
+      const configuration = await adapter.readViewConfiguration(table.table_id, viewId, action.table, action.name);
+      const expected = {
+        filter: action.configuration.filter,
+        sort: action.configuration.sort,
+        group: action.configuration.group,
+        visible_fields: action.configuration.visible_fields,
+      };
+      if (!isDeepStrictEqual(canonicalize(configuration), canonicalize(expected))) fail("readback_mismatch", "View configuration does not match the fixed semantic contract", { action: action.id });
+      semanticReadbacks.push({ id: action.id, sha256: sha256(configuration) });
     } else if (action.kind === "configure_dashboard") {
       const listed = await adapter.listDashboards();
       if (!plainObject(listed) || listed.complete !== true || !Array.isArray(listed.items)) fail("readback_mismatch", "Complete dashboard readback is required");
@@ -747,22 +812,34 @@ async function applyPresentation(context, manifest) {
       const dashboard = matches[0] ?? await adapter.createDashboard(action.name);
       const dashboardId = dashboard?.dashboard_id;
       if (typeof dashboardId !== "string" || dashboardId === "") fail("readback_mismatch", "Dashboard ID is unresolved");
-      let blocks = await adapter.listDashboardBlocks(dashboardId);
+      const blocks = await adapter.listDashboardBlocks(dashboardId);
       if (!plainObject(blocks) || blocks.complete !== true || !Array.isArray(blocks.items)) fail("readback_mismatch", "Complete dashboard block readback is required");
-      for (const blockName of action.blocks) {
-        const blockMatches = blocks.items.filter((block) => block.name === blockName);
-        if (blockMatches.length > 1) fail("base_schema_drift", "Duplicate fixed dashboard block", { block: blockName });
-        if (blockMatches.length === 0) await adapter.createDashboardBlock(dashboardId, blockName);
+      const blockReadbacks = [];
+      for (const blockSpec of action.blocks) {
+        const blockMatches = blocks.items.filter((block) => block.name === blockSpec.name);
+        if (blockMatches.length > 1) fail("base_schema_drift", "Duplicate fixed dashboard block", { block: blockSpec.name });
+        let block = blockMatches[0] ?? await adapter.createDashboardBlock(dashboardId, blockSpec.name);
+        if (typeof block?.block_id !== "string" || block.block_id === "") fail("readback_mismatch", "Dashboard block ID is unresolved", { block: blockSpec.name });
+        block = await adapter.readDashboardBlock(dashboardId, block.block_id, blockSpec.name);
+        if (block.type !== blockSpec.type) fail("base_schema_drift", "Dashboard block immutable type drift", { block: blockSpec.name });
+        if (!isDeepStrictEqual(canonicalize(block.data_config), canonicalize(blockSpec.data_config))) {
+          await adapter.updateDashboardBlock(dashboardId, block.block_id, blockSpec.name);
+          block = await adapter.readDashboardBlock(dashboardId, block.block_id, blockSpec.name);
+        }
+        const expectedBlock = { name: blockSpec.name, type: blockSpec.type, data_config: blockSpec.data_config };
+        const actualBlock = { name: block.name, type: block.type, data_config: block.data_config };
+        if (!isDeepStrictEqual(canonicalize(actualBlock), canonicalize(expectedBlock))) fail("readback_mismatch", "Dashboard block does not match the fixed semantic contract", { block: blockSpec.name });
+        blockReadbacks.push({ name: blockSpec.name, block_id: block.block_id, sha256: sha256(actualBlock) });
       }
       readback = await adapter.listDashboardBlocks(dashboardId);
       if (!plainObject(readback) || readback.complete !== true || !Array.isArray(readback.items) ||
-          action.blocks.some((blockName) => readback.items.filter((block) => block.name === blockName).length !== 1)) {
+          action.blocks.some((blockSpec) => readback.items.filter((block) => block.name === blockSpec.name).length !== 1)) {
         fail("readback_mismatch", "Dashboard blocks are missing from complete readback", { action: action.id });
       }
+      semanticReadbacks.push({ id: action.id, sha256: sha256(blockReadbacks) });
     } else fail("migration_manifest_invalid", "Presentation action is unsupported");
-    const verified = await adapter.verifyPresentationAction(clone(action), clone(readback));
-    if (verified !== true) fail("readback_mismatch", "Presentation action readback failed", { action: action.id });
   }
+  return semanticReadbacks;
 }
 
 function assertVerificationProof(context, manifest) {
@@ -789,16 +866,52 @@ export async function applyMigration(context = {}, manifest) {
   assertApplyEnvelope(context, manifest);
   const phase = context.phase ?? "data";
   if (!new Set(["schema", "data", "presentation", "sequences"]).has(phase)) fail("migration_phase_invalid", "Migration phase is invalid");
-  if (phase === "schema") await applySchema(context, manifest);
+  if (phase === "schema") {
+    const current = await currentSchemaRevision(context);
+    if (context.schemaReceipt !== undefined || context.expectedSchemaReceiptSha256 !== undefined) {
+      const receipt = assertSchemaReceipt(context, manifest);
+      if (current !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision does not match the completed schema receipt");
+      await applySchema(context, manifest);
+      return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt: clone(receipt), reused: true };
+    }
+    if (current !== manifest.initial_schema_revision) fail("schema_revision_drift", "Base schema revision changed after planning");
+    await applySchema(context, manifest);
+    const postRevision = await currentSchemaRevision(context);
+    const receipt = {
+      version: "shortdrama-schema-receipt/v1",
+      status: "verified",
+      manifest_sha256: manifest.sha256,
+      pre_revision: manifest.initial_schema_revision,
+      post_revision: postRevision,
+      action_spec_sha256: manifest.schema_spec_sha256,
+    };
+    receipt.sha256 = schemaReceiptDigest(receipt);
+    return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt: receipt, reused: false };
+  }
+  const receipt = assertSchemaReceipt(context, manifest);
+  if (await currentSchemaRevision(context) !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision changed after schema verification");
   if (phase === "data") await applyData(context, manifest);
-  if (phase === "presentation") await applyPresentation(context, manifest);
+  if (phase === "presentation") {
+    const readbacks = await applyPresentation(context, manifest);
+    const presentationReceipt = {
+      version: "shortdrama-presentation-receipt/v1",
+      status: "verified",
+      manifest_sha256: manifest.sha256,
+      schema_receipt_sha256: receipt.sha256,
+      presentation_spec_sha256: manifest.presentation_spec_sha256,
+      semantic_readbacks: readbacks,
+      semantic_sha256: sha256(readbacks),
+    };
+    presentationReceipt.sha256 = presentationReceiptDigest(presentationReceipt);
+    return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt_sha256: receipt.sha256, presentation_receipt: presentationReceipt };
+  }
   if (phase === "sequences") {
     assertVerificationProof(context, manifest);
     if (typeof context.seedSequence !== "function") fail("migration_context_invalid", "Sequence seed function is required");
     await context.seedSequence("drama", manifest.sequence_seeds.drama);
     await context.seedSequence("release", manifest.sequence_seeds.release);
   }
-  return { status: "applied", phase, manifest_sha256: manifest.sha256 };
+  return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt_sha256: receipt.sha256 };
 }
 
 function assertExactKeys(index, expectedRows, primary, tableName) {
@@ -899,9 +1012,11 @@ export async function writeMigrationArtifact(value, { fileName } = {}) {
     if (remainder === "" || remainder === ".." || remainder.startsWith(`..${sep}`) || resolve(rootReal) !== ARTIFACT_ROOT) {
       fail("migration_artifact_invalid", "Migration artifact directory escaped the trusted output root");
     }
-    return rootReal;
+    const info = await lstat(rootReal);
+    return { path: rootReal, dev: info.dev, ino: info.ino };
   };
-  const root = await secureRoot();
+  const initialRoot = await secureRoot();
+  const root = initialRoot.path;
   const path = resolve(root, fileName);
   if (dirname(path) !== root) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
   const bytes = `${JSON.stringify(value, null, 2)}\n`;
@@ -913,12 +1028,26 @@ export async function writeMigrationArtifact(value, { fileName } = {}) {
     if (error instanceof ShortDramaError) throw error;
     if (error?.code !== "ENOENT") fail("migration_artifact_invalid", "Migration artifact target could not be inspected");
   }
-  await secureRoot();
+  const beforeOpen = await secureRoot();
+  if (beforeOpen.path !== root || beforeOpen.dev !== initialRoot.dev || beforeOpen.ino !== initialRoot.ino) {
+    fail("migration_artifact_invalid", "Migration artifact parent changed before write");
+  }
+  let handle;
   try {
-    await writeFile(path, bytes, { flag: "wx", mode: 0o600 });
+    const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW;
+    handle = await open(path, flags, 0o600);
+    await handle.writeFile(bytes);
+    await handle.sync();
   } catch (error) {
     if (error?.code === "EEXIST") fail("migration_artifact_exists", "Migration artifact already exists", { file_name: fileName });
+    if (error?.code === "ELOOP") fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
     fail("migration_artifact_write_failed", "Migration artifact could not be written", { cause: error?.code ?? "unknown" });
+  } finally {
+    await handle?.close();
+  }
+  const afterWrite = await secureRoot();
+  if (afterWrite.path !== root || afterWrite.dev !== initialRoot.dev || afterWrite.ino !== initialRoot.ino) {
+    fail("migration_artifact_readback_mismatch", "Migration artifact parent changed during write");
   }
   const targetInfo = await lstat(path);
   if (targetInfo.isSymbolicLink() || !targetInfo.isFile()) fail("migration_artifact_readback_mismatch", "Migration artifact target changed during write");

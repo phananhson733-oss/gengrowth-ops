@@ -13,6 +13,7 @@ import {
   applyMigration,
   manifestDigest,
   planMigration,
+  schemaReceiptDigest,
   verificationDigest,
   verifyMigration,
   writeMigrationArtifact,
@@ -102,15 +103,16 @@ test("Google normalization ignores formula-only rows, preserves null/zero, and k
 });
 
 test("Google normalization rejects duplicate/missing headers, ambiguous dates and malformed multi-selects", () => {
-  for (const mutate of [
-    (data) => { data.unformatted.accounts[0][1] = "账号名"; },
-    (data) => { data.unformatted.releases[0][0] = "not-date"; },
-    (data) => { data.unformatted.dramas[1][3] = "08/09/10"; data.formatted.dramas[1][3] = "08/09/10"; },
-    (data) => { data.unformatted.dramas[1][2] = "狼人,,复仇"; },
+  for (const [mutate, expected] of [
+    [(data) => { data.unformatted.accounts[0][1] = "账号名"; }, { sheet: "accounts" }],
+    [(data) => { data.unformatted.releases[0][0] = "not-date"; }, { field: "日期" }],
+    [(data) => { data.unformatted.dramas[1][3] = "08/09/10"; data.formatted.dramas[1][3] = "08/09/10"; }, { field: "上线日期" }],
+    [(data) => { data.unformatted.dramas[1][2] = "狼人,,复仇"; }, { field: "剧分类" }],
   ]) {
-    const data = { metadata: normalizedSource().raw_backup.metadata, ...matrices() };
+    const backup = normalizedSource().raw_backup;
+    const data = { metadata: backup.metadata, grid: backup.grid, ...matrices() };
     mutate(data);
-    assert.throws(() => normalizeGoogleSource(data), (error) => error.code === "google_source_invalid");
+    assert.throws(() => normalizeGoogleSource(data), (error) => error.code === "google_source_invalid" && Object.entries(expected).every(([key, value]) => error.details[key] === value));
   }
 });
 
@@ -234,7 +236,7 @@ test("plan blocks duplicate identities, missing targets, and URL/account disagre
     "duplicate_account_key", "ambiguous_drama_key", "missing_account_target", "missing_drama_target", "source_account_mismatch", "no_account_time_candidate",
   ]));
   await assert.rejects(
-    () => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest),
+    () => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision }, manifest),
     (error) => error.code === "migration_blocked",
   );
 });
@@ -249,9 +251,9 @@ test("manifest canonical digest distinguishes null/missing/zero and rejects tamp
   assert.notEqual(nullDigest, manifestDigest(missing));
   const tampered = structuredClone(manifest);
   tampered.counts.accounts = 999;
-  await assert.rejects(() => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, tampered), (error) => error.code === "migration_digest_mismatch");
+  await assert.rejects(() => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision }, tampered), (error) => error.code === "migration_digest_mismatch");
   tampered.sha256 = manifestDigest(tampered);
-  await assert.rejects(() => applyMigration({ expectedSha256: tampered.sha256, sourceRevision: tampered.source_revision, schemaRevision: tampered.schema_revision }, tampered), (error) => error.code === "migration_manifest_invalid");
+  await assert.rejects(() => applyMigration({ expectedSha256: tampered.sha256, sourceRevision: tampered.source_revision }, tampered), (error) => error.code === "migration_manifest_invalid");
   assert.throws(() => manifestDigest({ bad: Number.NaN }), (error) => error.code === "migration_manifest_invalid");
   const cyclic = {}; cyclic.self = cyclic;
   assert.throws(() => manifestDigest(cyclic), (error) => error.code === "migration_manifest_invalid");
@@ -298,9 +300,11 @@ test("fresh Base plan creates every fixed field in phase order and bootstraps on
   const bootstrap = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
     revision: "empty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
   } });
-  assert.deepEqual(bootstrap.schema_actions.find((action) => action.kind === "update_primary_field"), {
-    id: "primary:账号台账:账号ID", kind: "update_primary_field", table: "账号台账", field: "账号ID", field_id: "fld-default", phase: "storage",
+  const primaryAction = bootstrap.schema_actions.find((action) => action.kind === "update_primary_field");
+  assert.deepEqual({ ...primaryAction, spec: undefined }, {
+    id: "primary:账号台账:账号ID", kind: "update_primary_field", table: "账号台账", field: "账号ID", field_id: "fld-default", phase: "storage", spec: undefined,
   });
+  assert.deepEqual(primaryAction.spec.canonical, { name: "账号ID", type: "text" });
   const unsafe = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
     revision: "nonempty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 1, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
   } });
@@ -318,6 +322,49 @@ test("release planning uses the matcher and blocks due/ambiguous/claimed evidenc
   const manifest = await planMigration({ google, captures, now: () => "2026-09-01T00:00:00Z" });
   assert.equal(manifest.blocked.filter((entry) => entry.code === "ambiguous_post_match").length, 2);
   assert.equal(manifest.releases[2].采集记录, null);
+});
+
+test("archived releases still claim Post IDs and future dates never swallow non-empty matcher failures", async () => {
+  const google = normalizedSource();
+  google.releases = [
+    { ...google.releases[0], source_row: 2, 归档状态: "archived" },
+    { ...google.releases[0], source_row: 3, 归档状态: "archived" },
+    { ...google.releases[0], source_row: 4, 日期: "2026-09-10", 视频链接: null, "Post ID": null },
+  ];
+  const duplicate = await planMigration({ google, captures: [latestCapture()], now: () => "2026-09-01T00:00:00Z" });
+  assert.equal(duplicate.blocked.some((entry) => entry.code === "manual_post_claimed"), true);
+
+  const ambiguousGoogle = normalizedSource();
+  ambiguousGoogle.releases[0] = { ...ambiguousGoogle.releases[0], 日期: "2026-09-10", 视频链接: null, "Post ID": null };
+  const ambiguous = await planMigration({ google: ambiguousGoogle, captures: [
+    latestCapture({ published_at: "2026-09-10T01:00:00Z" }),
+    latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100", published_at: "2026-09-10T02:00:00Z" }),
+  ], now: () => "2026-09-01T00:00:00Z" });
+  assert.equal(ambiguous.blocked.some((entry) => entry.code === "ambiguous_post_match"), true);
+});
+
+test("manifest binds full schema and presentation semantics, not only action names", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  assert.equal(manifest.schema_actions.every((action) => action.spec && action.spec.name), true);
+  const lookup = manifest.schema_actions.find((action) => action.table === "发布记录" && action.field === "账号名");
+  assert.deepEqual(lookup.spec.canonical.where, { logic: "and", conditions: [["账号ID", "intersects", { type: "field_ref", field: "账号" }]] });
+  assert.equal(lookup.spec.canonical.aggregate, "raw_value");
+  const bidirectional = manifest.schema_actions.find((action) => action.table === "发布记录" && action.field === "剧");
+  assert.equal(bidirectional.spec.canonical.bidirectional, true);
+  assert.equal(bidirectional.spec.canonical.bidirectional_link_field_name, "关联发布记录");
+  const view = manifest.presentation_actions.find((action) => action.id === "view:账号台账:在用账号");
+  assert.deepEqual(view.configuration.filter, { logic: "and", conditions: [["状态", "intersects", ["在用"]]] });
+  assert.ok(view.configuration.visible_fields.visible_fields.includes("同步状态"));
+  const dashboard = manifest.presentation_actions.find((action) => action.id.startsWith("dashboard:"));
+  assert.equal(dashboard.blocks.length, 6);
+  assert.deepEqual(dashboard.blocks.map((block) => [block.name, block.type]), [["活跃账号数", "statistics"], ["待公开数", "statistics"], ["待回填数", "statistics"], ["按账号最新累计表现", "column"], ["按剧最新累计表现", "column"], ["最近一次同步终态", "text"]]);
+
+  const drifted = structuredClone(manifest);
+  drifted.schema_actions.find((action) => action.kind === "create_field").spec.canonical.type = "number";
+  drifted.sha256 = manifestDigest(drifted);
+  const repos = memoryRepos();
+  await assert.rejects(() => applyMigration({ repos, expectedSha256: drifted.sha256, ...schemaGate(drifted) }, drifted), (error) => error.code === "migration_manifest_invalid");
+  assert.equal(repos.calls.length, 0);
 });
 
 class MemoryRepo {
@@ -352,12 +399,29 @@ function memoryRepos() {
   };
 }
 
+function schemaGate(manifest, postRevision = "post-schema-r1") {
+  const schemaReceipt = {
+    version: "shortdrama-schema-receipt/v1",
+    status: "verified",
+    manifest_sha256: manifest.sha256,
+    pre_revision: manifest.initial_schema_revision,
+    post_revision: postRevision,
+    action_spec_sha256: manifest.schema_spec_sha256,
+  };
+  schemaReceipt.sha256 = schemaReceiptDigest(schemaReceipt);
+  return {
+    sourceRevision: manifest.source_revision,
+    schemaReceipt,
+    expectedSchemaReceiptSha256: schemaReceipt.sha256,
+    getSchemaRevision: async () => postRevision,
+  };
+}
+
 test("data apply prevalidates, bulk-syncs once per table in order, and resolves stable relations to Base v3 IDs", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const repos = memoryRepos();
   const result = await applyMigration({
-    phase: "data", repos, expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision,
+    phase: "data", repos, expectedSha256: manifest.sha256, ...schemaGate(manifest),
   }, manifest);
   assert.equal(result.status, "applied");
   assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
@@ -378,8 +442,7 @@ test("data apply rejects a re-digested late derived field before the first bulk 
   manifest.sha256 = manifestDigest(manifest);
   const repos = memoryRepos();
   await assert.rejects(() => applyMigration({
-    repos, expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision,
+    repos, expectedSha256: manifest.sha256, ...schemaGate(manifest),
   }, manifest), (error) => error.code === "migration_manifest_invalid");
   assert.equal(repos.calls.length, 0);
 });
@@ -387,9 +450,9 @@ test("data apply rejects a re-digested late derived field before the first bulk 
 test("apply rejects missing digest and source/schema drift before any write", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   for (const context of [
-    { sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision },
-    { expectedSha256: manifest.sha256, sourceRevision: "changed", schemaRevision: manifest.schema_revision },
-    { expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: "changed" },
+    { ...schemaGate(manifest) },
+    { expectedSha256: manifest.sha256, ...schemaGate(manifest), sourceRevision: "changed" },
+    { expectedSha256: manifest.sha256, ...schemaGate(manifest), getSchemaRevision: async () => "changed" },
   ]) {
     const repos = memoryRepos();
     await assert.rejects(() => applyMigration({ ...context, repos }, manifest), (error) => ["migration_digest_required", "source_revision_drift", "schema_revision_drift"].includes(error.code));
@@ -405,14 +468,13 @@ test("schema and presentation phases reject incomplete adapters before writes", 
     createField: async () => { throw new Error("unexpected field action"); },
     verifySchemaAction: async (action) => { calls.push(["verifySchema", action.id]); return true; },
   };
-  await assert.rejects(() => applyMigration({ phase: "schema", schemaAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "migration_context_invalid");
+  await assert.rejects(() => applyMigration({ phase: "schema", schemaAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => manifest.initial_schema_revision }, manifest), (error) => error.code === "migration_context_invalid");
   assert.equal(calls.length, 0);
   const presentationAdapter = {
     createView: async (table, view) => calls.push(["view", table, view]),
     createDashboard: async (name) => calls.push(["dashboard", name]),
-    verifyPresentationAction: async (action) => { calls.push(["verify", action.id]); return true; },
   };
-  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "migration_context_invalid");
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest), (error) => error.code === "migration_context_invalid");
   assert.equal(calls.length, 0);
 });
 
@@ -432,10 +494,42 @@ test("schema apply resolves IDs from complete readback, updates default primary,
     readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
-  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  let revisionReads = 0;
+  const applied = await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-schema-r1" }, manifest);
+  assert.equal(applied.schema_receipt.status, "verified");
+  assert.equal(applied.schema_receipt.manifest_sha256, manifest.sha256);
+  assert.equal(applied.schema_receipt.pre_revision, manifest.initial_schema_revision);
+  assert.equal(applied.schema_receipt.post_revision, "post-schema-r1");
+  assert.match(applied.schema_receipt.sha256, /^[a-f0-9]{64}$/);
   assert.equal(calls.some((call) => call[0] === "field" && call[2] === "账号名"), true);
   const linkCall = calls.find((call) => call[0] === "field" && call[1] === "发布记录" && call[2] === "剧");
   assert.deepEqual(linkCall[3], { targetTableId: "tbl-选剧池" });
+
+  const repos = memoryRepos();
+  await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
+    schemaReceipt: applied.schema_receipt, expectedSchemaReceiptSha256: applied.schema_receipt.sha256,
+    getSchemaRevision: async () => "post-schema-r1" }, manifest);
+  assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
+  const beforeReuseWrites = calls.length;
+  const reused = await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
+    schemaReceipt: applied.schema_receipt, expectedSchemaReceiptSha256: applied.schema_receipt.sha256,
+    getSchemaRevision: async () => "post-schema-r1" }, manifest);
+  assert.equal(reused.reused, true);
+  assert.equal(calls.length, beforeReuseWrites);
+});
+
+test("data phase requires an untampered same-manifest schema receipt at its post revision before writes", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  const receipt = {
+    version: "shortdrama-schema-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    pre_revision: manifest.initial_schema_revision, post_revision: "post-r1", action_spec_sha256: manifest.schema_spec_sha256,
+  };
+  receipt.sha256 = schemaReceiptDigest(receipt);
+  await assert.rejects(() => applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => "post-r1" }, manifest), (error) => error.code === "migration_schema_receipt_required");
+  const tampered = { ...receipt, post_revision: "evil" };
+  await assert.rejects(() => applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaReceipt: tampered, expectedSchemaReceiptSha256: receipt.sha256, getSchemaRevision: async () => "post-r1" }, manifest), (error) => error.code === "migration_schema_receipt_required");
+  assert.equal(repos.calls.length, 0);
 });
 
 test("schema apply performs an empty-table primary bootstrap and proves the renamed primary in readback", async () => {
@@ -454,7 +548,8 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
     readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
-  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  let bootstrapRevisionReads = 0;
+  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => bootstrapRevisionReads++ === 0 ? manifest.initial_schema_revision : "post-bootstrap" }, manifest);
   assert.deepEqual(calls, [["tbl-account", "fld-default", "账号台账", "账号ID"]]);
   assert.equal(tables.get("账号台账").fields.some((field) => field.name === "账号ID" && field.is_primary), true);
 });
@@ -464,18 +559,24 @@ test("presentation apply resolves views/dashboard, configures every view, and cr
   const calls = [];
   const views = new Map();
   const blocks = [];
+  const viewAction = (table, name) => manifest.presentation_actions.find((action) => action.table === table && action.name === name);
+  const blockSpec = (name) => manifest.presentation_actions.find((action) => action.kind === "configure_dashboard").blocks.find((block) => block.name === name);
   const adapter = {
     readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
     listViews: async (tableId) => ({ complete: true, items: views.get(tableId) ?? [] }),
     createView: async (tableId, _table, view) => { const created = { view_id: `view-${view}`, name: view }; views.set(tableId, [...(views.get(tableId) ?? []), created]); return created; },
     updateView: async (...args) => calls.push(["updateView", ...args]),
+    readViewConfiguration: async (_tableId, _viewId, table, name) => { const config = viewAction(table, name).configuration; return { filter: config.filter, sort: config.sort, group: config.group, visible_fields: config.visible_fields }; },
     listDashboards: async () => ({ complete: true, items: [] }),
     createDashboard: async () => ({ dashboard_id: "dash-1" }),
     listDashboardBlocks: async () => ({ complete: true, items: blocks }),
-    createDashboardBlock: async (_dashboardId, block) => { blocks.push({ block_id: `block-${block}`, name: block }); calls.push(["block", block]); },
-    verifyPresentationAction: async () => true,
+    createDashboardBlock: async (_dashboardId, block) => { const spec = blockSpec(block); const created = { block_id: `block-${block}`, ...structuredClone(spec) }; blocks.push(created); calls.push(["block", block]); return created; },
+    readDashboardBlock: async (_dashboardId, blockId) => structuredClone(blocks.find((block) => block.block_id === blockId)),
+    updateDashboardBlock: async () => { throw new Error("unexpected dashboard update"); },
   };
-  await applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  const result = await applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  assert.equal(result.presentation_receipt.status, "verified");
+  assert.match(result.presentation_receipt.semantic_sha256, /^[a-f0-9]{64}$/);
   assert.equal(calls.filter((call) => call[0] === "updateView").length, 15);
   assert.deepEqual(calls.filter((call) => call[0] === "block").map((call) => call[1]), ["活跃账号数", "待公开数", "待回填数", "按账号最新累计表现", "按剧最新累计表现", "最近一次同步终态"]);
 });
@@ -487,19 +588,52 @@ test("presentation apply rejects name-only creates missing from complete post-wr
     listViews: async () => ({ complete: true, items: [] }),
     createView: async () => ({ view_id: "created-but-not-visible" }),
     updateView: async () => {},
+    readViewConfiguration: async () => ({}),
     listDashboards: async () => ({ complete: true, items: [] }),
     createDashboard: async () => ({ dashboard_id: "dash" }),
     listDashboardBlocks: async () => ({ complete: true, items: [] }),
     createDashboardBlock: async () => ({ block_id: "block" }),
-    verifyPresentationAction: async () => true,
+    readDashboardBlock: async () => ({}),
+    updateDashboardBlock: async () => {},
   };
-  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest), (error) => error.code === "readback_mismatch");
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: adapter, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest), (error) => error.code === "readback_mismatch");
+});
+
+test("presentation converges stale same-type dashboard config and blocks immutable type drift", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const viewActions = manifest.presentation_actions.filter((action) => action.kind === "configure_view");
+  const dashboardAction = manifest.presentation_actions.find((action) => action.kind === "configure_dashboard");
+  const makeAdapter = (wrongType = false) => {
+    const blocks = dashboardAction.blocks.map((spec, index) => ({ block_id: `b${index}`, ...structuredClone(spec) }));
+    blocks[0].data_config = { stale: true };
+    if (wrongType) blocks[0].type = "column";
+    let updates = 0;
+    return {
+      get updates() { return updates; },
+      readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
+      listViews: async (_tableId, table) => ({ complete: true, items: viewActions.filter((action) => action.table === table).map((action) => ({ view_id: action.id, name: action.name })) }),
+      createView: async () => { throw new Error("unexpected"); }, updateView: async () => {},
+      readViewConfiguration: async (_tableId, _viewId, table, name) => { const config = viewActions.find((action) => action.table === table && action.name === name).configuration; return { filter: config.filter, sort: config.sort, group: config.group, visible_fields: config.visible_fields }; },
+      listDashboards: async () => ({ complete: true, items: [{ dashboard_id: "dash", name: dashboardAction.name }] }),
+      createDashboard: async () => { throw new Error("unexpected"); },
+      listDashboardBlocks: async () => ({ complete: true, items: blocks }),
+      createDashboardBlock: async () => { throw new Error("unexpected"); },
+      readDashboardBlock: async (_dashboardId, blockId) => structuredClone(blocks.find((block) => block.block_id === blockId)),
+      updateDashboardBlock: async (_dashboardId, blockId, name) => { const at = blocks.findIndex((block) => block.block_id === blockId); blocks[at] = { block_id: blockId, ...structuredClone(dashboardAction.blocks.find((block) => block.name === name)) }; updates += 1; },
+    };
+  };
+  const converging = makeAdapter();
+  await applyMigration({ phase: "presentation", presentationAdapter: converging, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  assert.equal(converging.updates, 1);
+  const wrongType = makeAdapter(true);
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: wrongType, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest), (error) => error.code === "base_schema_drift");
+  assert.equal(wrongType.updates, 0);
 });
 
 test("verify checks exact sets, every writable value, relation IDs, extras and null versus zero", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const repos = memoryRepos();
-  await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
   const report = await verifyMigration({ repos }, manifest);
   assert.equal(report.status, "verified");
   assert.equal(report.manifest_sha256, manifest.sha256);
@@ -519,7 +653,7 @@ test("data apply materializes every writable field and verification rejects stal
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const repos = memoryRepos();
   repos.accounts.rows.set("dramaexpedition", { record_id: "rec-accounts-dramaexpedition", fields: { 账号ID: "dramaexpedition", 指标同步时间: "stale", 同步状态: "failed" } });
-  await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
   const patch = repos.calls[0][2][0].patch;
   assert.deepEqual(Object.keys(patch).sort(), ["主页链接", "账号名", "所属组", "定位垂类", "表现形式", "状态", "数据日期", "指标同步时间", "粉丝数", "同步状态"].sort());
   assert.equal(patch.指标同步时间, null);
@@ -532,24 +666,21 @@ test("sequence phase requires a self-consistent same-manifest verification and s
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const seeds = [];
   await assert.rejects(() => applyMigration({
-    phase: "sequences", expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision,
+    phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest),
     seedSequence: (...args) => seeds.push(args),
   }, manifest), (error) => error.code === "migration_verification_required");
   const repos = memoryRepos();
-  await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision }, manifest);
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
   const verification = await verifyMigration({ repos, now: () => "2026-09-01T11:00:00Z" }, manifest);
   await applyMigration({
-    phase: "sequences", expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision,
+    phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest),
     verification, expectedVerificationSha256: verification.sha256,
     seedSequence: async (...args) => seeds.push(args),
   }, manifest);
   assert.deepEqual(seeds, [["drama", 1], ["release", 1]]);
   const bad = structuredClone(verification); bad.counts.accounts = 9;
   await assert.rejects(() => applyMigration({
-    phase: "sequences", expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, schemaRevision: manifest.schema_revision,
+    phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest),
     verification: bad, expectedVerificationSha256: verification.sha256,
     seedSequence: async () => {},
   }, manifest), (error) => error.code === "migration_verification_required");

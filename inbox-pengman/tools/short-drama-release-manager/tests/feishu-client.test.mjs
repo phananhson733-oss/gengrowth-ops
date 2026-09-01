@@ -462,6 +462,39 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
   assert.ok(calls[3][1].visible_fields.includes("同步状态"));
 });
 
+test("fixed presentation read/update methods use exact Base v3 paths and bodies", async () => {
+  const calls = [];
+  const viewParts = {
+    filter: { logic: "and", conditions: [["状态", "intersects", ["在用"]]] },
+    sort: { sort_config: [{ field: "指标同步时间", desc: true }] },
+    group: { group_config: [{ field: "所属组", desc: false }] },
+    visible_fields: { visible_fields: ["账号ID", "账号名"] },
+  };
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      calls.push([path, options.method ?? "GET", options.body]);
+      const part = path.split("/").at(-1);
+      if (Object.hasOwn(viewParts, part)) return { code: 0, data: { [part]: viewParts[part] } };
+      if (options.method === "PATCH") return { code: 0, data: { block: { block_id: "block", name: "待公开数", type: "statistics", data_config: options.body.data_config } } };
+      return { code: 0, data: { block: { block_id: "block", name: "待公开数", type: "statistics", data_config: { stale: true } } } };
+    },
+  });
+  assert.deepEqual(await client.readViewConfiguration("base", "tbl", "view", "账号台账", "在用账号"), viewParts);
+  assert.equal((await client.readDashboardBlock("base", "dash", "block", "待公开数")).data_config.stale, true);
+  const updated = await client.updateDashboardBlock("base", "dash", "block", "待公开数");
+  assert.equal(updated.block_id, "block");
+  assert.deepEqual(calls.slice(0, 4).map(([path]) => path), ["filter", "sort", "group", "visible_fields"].map((part) => `/open-apis/base/v3/bases/base/tables/tbl/views/view/${part}`));
+  assert.deepEqual(calls.at(-1), ["/open-apis/base/v3/bases/base/dashboards/dash/blocks/block", "PATCH", {
+    name: "待公开数",
+    data_config: {
+      table_name: "发布记录", count_all: true,
+      filter: { conjunction: "and", conditions: [{ field_name: "发布状态", operator: "is", value: "待公开" }] },
+    },
+  }]);
+});
+
 test("single-select view filters use intersects with array values", async () => {
   const filters = [];
   const client = new FeishuClient({
