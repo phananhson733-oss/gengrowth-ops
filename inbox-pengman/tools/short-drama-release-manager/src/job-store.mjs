@@ -229,6 +229,42 @@ export class JobStore {
     });
   }
 
+  enqueueIfIdle({ runId, trigger, actorId, chatId, now = new Date() }) {
+    const normalizedRunId = requiredString(runId, "runId");
+    const normalizedTrigger = requiredString(trigger, "trigger");
+    const normalizedActorId = optionalString(actorId, "actorId");
+    const normalizedChatId = optionalString(chatId, "chatId");
+    const createdAt = timestamp(now);
+    return this.immediate(() => {
+      const sameRun = this.get(normalizedRunId);
+      if (sameRun && !["queued", "running"].includes(sameRun.state)) {
+        fail("run_id_collision", "Run ID already exists", { run_id: normalizedRunId });
+      }
+      const active = jobFromRow(this.db.prepare(`
+        SELECT * FROM jobs
+        WHERE state IN ('queued', 'running')
+        ORDER BY started_at, run_id
+        LIMIT 1
+      `).get());
+      if (active) return { created: false, job: active };
+      this.db.prepare(`
+        INSERT INTO jobs(
+          run_id, trigger, actor_id, chat_id, state, step, started_at, finished_at,
+          counters_json, error_json, notification_state, worker_pid, lease_expires_at, attempt_count
+        ) VALUES (?, ?, ?, ?, 'queued', 'queued', ?, NULL, ?, ?, 'pending', NULL, NULL, 0)
+      `).run(
+        normalizedRunId,
+        normalizedTrigger,
+        normalizedActorId,
+        normalizedChatId,
+        createdAt,
+        JSON.stringify({}),
+        JSON.stringify({})
+      );
+      return { created: true, job: this.get(normalizedRunId) };
+    });
+  }
+
   get(runId) {
     return jobFromRow(this.db.prepare("SELECT * FROM jobs WHERE run_id = ?").get(requiredString(runId, "runId")));
   }
