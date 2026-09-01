@@ -45,6 +45,12 @@ const REGISTRY = Object.freeze({
     apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm"],
     verify: ["config", "manifest", "output", "actor-id", "chat-id"],
   }),
+  account: Object.freeze({
+    list: ["config", "actor-id", "chat-id"], get: ["config", "key", "actor-id", "chat-id"],
+  }),
+  capture: Object.freeze({
+    list: ["config", "actor-id", "chat-id"], get: ["config", "key", "actor-id", "chat-id"],
+  }),
   pool: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
     "update-field": ["config", "payload", "actor-id", "chat-id"],
@@ -66,7 +72,7 @@ const REGISTRY = Object.freeze({
 const REQUIRED = Object.freeze({
   "migrate:apply": ["phase", "manifest", "expectedSha256"],
   "migrate:verify": ["manifest"],
-  "pool:get": ["key"], "release:get": ["key"],
+  "account:get": ["key"], "capture:get": ["key"], "pool:get": ["key"], "release:get": ["key"],
   "sync:status": ["runId"],
 });
 
@@ -186,7 +192,7 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
       chatId: normalized(env.HERMES_SESSION_CHAT_ID, "chatId"), profile: "social",
     };
   }
-  if (["pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start") {
+  if (["account", "capture", "pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start") {
     fail("social_session_required", "Business operations require a Feishu Social session");
   }
   if (command.options.chatId) fail("session_identity_override", "Local invocations cannot choose a notification chat");
@@ -564,6 +570,20 @@ function humanRequest(identity, table, payload = {}) {
   return { ...payload, actorId: identity.actorId, ...(identity.chatId ? { chatId: identity.chatId } : {}), table };
 }
 
+function queryRequest(identity, table, extra = {}) {
+  return { actorId: identity.actorId, table, ...extra };
+}
+
+function completeReadResult(table, rows, key = null) {
+  if (!Array.isArray(rows)) fail("base_response_invalid", "HumanOps query did not return a complete row array", { table });
+  const copy = structuredClone(rows);
+  const evidence = { readback: "complete", source: "base_complete_index" };
+  if (key === null) return { status: "success", table, rows: copy, ...evidence };
+  if (copy.length === 0) return { status: "not_found", table, key, record: null, ...evidence };
+  if (copy.length !== 1) fail("base_response_invalid", "Exact primary-key query returned multiple rows", { table, key });
+  return { status: "success", table, key, record: copy[0], ...evidence };
+}
+
 async function retryNotifications(runtime) {
   const results = [];
   for (const job of runtime.jobs.listUndeliveredTerminal()) results.push(await runtime.notifier.sendTerminal(job));
@@ -578,11 +598,22 @@ export function createDispatcher(runtime) {
       if ((command.options.canary || command.options.initState) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
       return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity }) : { status: "ready" };
     }
-    if (key === "pool:list" || key === "release:list") return runtime.humanOps.query(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
+    if (key === "account:list" || key === "capture:list") {
+      const table = command.group === "account" ? "账号台账" : "采集数据";
+      return completeReadResult(table, await runtime.humanOps.query(queryRequest(identity, table)));
+    }
+    if (key === "account:get" || key === "capture:get") {
+      const table = command.group === "account" ? "账号台账" : "采集数据";
+      const primary = table === "账号台账" ? "账号ID" : "Post ID";
+      return completeReadResult(table, await runtime.humanOps.query(queryRequest(identity, table, {
+        filter: { [primary]: command.options.key },
+      })), command.options.key);
+    }
+    if (key === "pool:list" || key === "release:list") return runtime.humanOps.query(queryRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
     if (key === "pool:get" || key === "release:get") {
       const table = command.group === "pool" ? "选剧池" : "发布记录";
       const primary = table === "选剧池" ? "剧ID" : "发布ID";
-      return runtime.humanOps.query(humanRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } }));
+      return runtime.humanOps.query(queryRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } }));
     }
     if (key === "metrics:by-drama" || key === "metrics:by-account") return runtime.humanOps.queryMetrics({ actorId: identity.actorId, groupBy: command.action === "by-drama" ? "drama" : "account" });
     if (key === "pool:create" || key === "release:schedule") {
@@ -912,7 +943,7 @@ export async function execute(argv, { env = process.env, stdin = process.stdin, 
         (env.SHORTDRAMA_CAPABILITY_FILE !== undefined || env.SHORTDRAMA_INTERNAL_CAPABILITY !== undefined)) {
       fail("local_only_required", "State initialization cannot run from an internal scheduler context");
     }
-    const canResolveBeforeRuntime = isInternal(command) || hasSession || ["pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
+    const canResolveBeforeRuntime = isInternal(command) || hasSession || ["account", "capture", "pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
     const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, env) : null;
     const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
     if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");

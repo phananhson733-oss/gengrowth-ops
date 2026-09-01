@@ -88,6 +88,70 @@ test("fixed update-field actions parse without exposing generic update", () => {
   assert.throws(() => parseCommand(["pool", "update", "--payload", "-"]), (error) => error.code === "command_not_allowed");
 });
 
+test("account and capture expose only fixed list/get read commands", () => {
+  assert.deepEqual(parseCommand(["account", "list"]), { group: "account", action: "list", options: {} });
+  assert.deepEqual(parseCommand(["account", "get", "--key", "acct"]), {
+    group: "account", action: "get", options: { key: "acct" },
+  });
+  assert.deepEqual(parseCommand(["capture", "list"]), { group: "capture", action: "list", options: {} });
+  assert.deepEqual(parseCommand(["capture", "get", "--key", "123"]), {
+    group: "capture", action: "get", options: { key: "123" },
+  });
+  for (const argv of [
+    ["account", "update-field"], ["account", "delete"], ["account", "query"],
+    ["capture", "update-field"], ["capture", "delete"], ["capture", "query"],
+  ]) assert.throws(() => parseCommand(argv), (error) => error.code === "command_not_allowed");
+  assert.throws(() => parseCommand(["account", "get"]), (error) => error.code === "input_invalid");
+});
+
+test("account and capture reads require Social identity but allow readers", () => {
+  const command = parseCommand(["account", "list"]);
+  assert.throws(() => resolveInvocationIdentity(command, {}), (error) => error.code === "social_session_required");
+  assert.deepEqual(resolveInvocationIdentity(command, {
+    HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
+    HERMES_SESSION_USER_ID: "ou_reader", HERMES_SESSION_CHAT_ID: "oc_social",
+  }), { mode: "social", actorId: "ou_reader", chatId: "oc_social", profile: "social" });
+});
+
+test("account/capture list/get hard-bind complete Base query results and not_found", async () => {
+  const calls = [];
+  const sourceRows = {
+    账号台账: [{ 账号ID: "acct", 账号名: "Account" }],
+    采集数据: [{ "Post ID": "123", 播放量: 0 }],
+    选剧池: [{ 剧ID: "SD-000001" }],
+    发布记录: [{ 发布ID: "SR-000001" }],
+  };
+  const humanOps = { query: async (request) => {
+    calls.push(structuredClone(request));
+    const rows = sourceRows[request.table].filter((row) => !request.filter ||
+      Object.entries(request.filter).every(([field, value]) => row[field] === value));
+    return structuredClone(rows);
+  } };
+  const dispatch = createDispatcher({ humanOps });
+  const identity = { mode: "social", actorId: "ou_reader", chatId: "oc_social", profile: "social" };
+  const accountList = await dispatch(parseCommand(["account", "list"]), identity, null);
+  const captureGet = await dispatch(parseCommand(["capture", "get", "--key", "123"]), identity, null);
+  const missing = await dispatch(parseCommand(["account", "get", "--key", "missing"]), identity, null);
+  await dispatch(parseCommand(["pool", "list"]), identity, null);
+  await dispatch(parseCommand(["release", "list"]), identity, null);
+  assert.deepEqual(accountList, {
+    status: "success", table: "账号台账", rows: [{ 账号ID: "acct", 账号名: "Account" }],
+    readback: "complete", source: "base_complete_index",
+  });
+  assert.deepEqual(captureGet, {
+    status: "success", table: "采集数据", key: "123", record: { "Post ID": "123", 播放量: 0 },
+    readback: "complete", source: "base_complete_index",
+  });
+  assert.deepEqual(missing, {
+    status: "not_found", table: "账号台账", key: "missing", record: null,
+    readback: "complete", source: "base_complete_index",
+  });
+  accountList.rows[0].账号名 = "mutated";
+  assert.equal(sourceRows.账号台账[0].账号名, "Account");
+  assert.deepEqual(calls.map((call) => call.table), ["账号台账", "采集数据", "账号台账", "选剧池", "发布记录"]);
+  assert.deepEqual(calls[1].filter, { "Post ID": "123" });
+});
+
 test("update-field hard-binds table and Social identity to an exact one-field payload", async () => {
   const calls = [];
   const verified = {
@@ -292,6 +356,7 @@ test("later canary readback failure still cleans every earlier table", async () 
 test("every public and internal registry path parses with only its fixed shape", () => {
   const commands = [
     ["doctor"], ["migrate", "plan"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
+    ["account", "list"], ["account", "get", "--key", "acct"], ["capture", "list"], ["capture", "get", "--key", "123"],
     ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"],
     ["pool", "apply-update"], ["pool", "preview-archive", "--key", "SD-000001"], ["pool", "apply-archive"],
     ["release", "list"], ["release", "get", "--key", "SR-000001"], ["release", "schedule"], ["release", "update-field"],
