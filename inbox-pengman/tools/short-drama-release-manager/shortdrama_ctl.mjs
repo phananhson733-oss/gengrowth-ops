@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 
 import { BaseRepositories } from "./src/base-repositories.mjs";
-import { loadRuntimeConfig } from "./src/config.mjs";
+import { loadRuntimeConfig, loadRuntimeEnvironment } from "./src/config.mjs";
 import { ShortDramaError, toErrorResult } from "./src/errors.mjs";
 import { createTenantTokenProvider, FeishuClient, fixedFieldDescriptor } from "./src/feishu-client.mjs";
 import { readGoogleMigrationSource } from "./src/google-source.mjs";
@@ -130,6 +130,7 @@ export function parseCommand(argv) {
   if (options.output && (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(options.output) || options.output.includes(".."))) {
     fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
   }
+  if (group === "doctor" && options.canary && options.initState) fail("input_invalid", "doctor --canary and --init-state are mutually exclusive");
   return command;
 }
 
@@ -851,8 +852,14 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
         const sequence = jobs.peekSequenceState();
         const schema = await migrationBase();
         const readiness = schemaReadiness(schema, config);
-        const stateResult = requestedInitState ? { state_store: "initialized" } : {};
-        if (readiness.status !== "ready") return { ...readiness, ...stateResult, tables: schema.tables.length, sequence };
+        if (requestedInitState) {
+          const { status: schemaStatus, ...schemaDetails } = readiness;
+          return {
+            status: "state_initialized", state_store: "initialized", schema_status: schemaStatus,
+            ...schemaDetails, tables: schema.tables.length, sequence,
+          };
+        }
+        if (readiness.status !== "ready") return { ...readiness, tables: schema.tables.length, sequence };
         if (canary) {
           const parts = beijingParts(now());
           const fallbackId = `CANARY-SDRUN-${parts.date.replaceAll("-", "")}-${String(parts.hour).padStart(2, "0")}${String(parts.minute).padStart(2, "0")}${String(parts.second).padStart(2, "0")}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
@@ -860,10 +867,10 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
             client, appToken: config.base.appToken, tableIds: config.base.tableIds,
             canaryId: services.makeCanaryId?.() ?? fallbackId,
           });
-          return { status: "canary_verified", ...stateResult, canary: canaryResult, schema_revision: schema.revision, sequence };
+          return { status: "canary_verified", canary: canaryResult, schema_revision: schema.revision, sequence };
         }
-        if (!sequence.seeded) return { status: "sequence_unseeded", ...stateResult, schema_revision: schema.revision, sequence };
-        return { status: "ready", ...stateResult, node: process.versions.node, schema_revision: schema.revision, sequence };
+        if (!sequence.seeded) return { status: "sequence_unseeded", schema_revision: schema.revision, sequence };
+        return { status: "ready", node: process.versions.node, schema_revision: schema.revision, sequence };
       },
       async migratePlan(_payload, options) {
         const google = await readGoogle();
@@ -933,24 +940,25 @@ function sanitizeErrorResult(result) {
   return copy;
 }
 
-export async function execute(argv, { env = process.env, stdin = process.stdin, build = buildRuntime } = {}) {
+export async function execute(argv, { env = process.env, stdin = process.stdin, build = buildRuntime, loadEnvironment = loadRuntimeEnvironment } = {}) {
   let runtime;
   let outputReservation;
   try {
     const command = parseCommand(argv);
-    const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => env[key] !== undefined);
+    const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
+    if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");
+    const effectiveEnv = await loadEnvironment({ configPath, env });
+    const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => effectiveEnv[key] !== undefined);
     if (command.group === "doctor" && command.options.initState &&
-        (env.SHORTDRAMA_CAPABILITY_FILE !== undefined || env.SHORTDRAMA_INTERNAL_CAPABILITY !== undefined)) {
+        (effectiveEnv.SHORTDRAMA_CAPABILITY_FILE !== undefined || effectiveEnv.SHORTDRAMA_INTERNAL_CAPABILITY !== undefined)) {
       fail("local_only_required", "State initialization cannot run from an internal scheduler context");
     }
     const canResolveBeforeRuntime = isInternal(command) || hasSession || ["account", "capture", "pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
-    const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, env) : null;
-    const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
-    if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");
+    const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, effectiveEnv) : null;
     const migrationEvidence = await loadMigrationEvidence(command);
     if (command.options.output) outputReservation = await reserveMigrationArtifact(command.options.output);
-    runtime = await build({ configPath, env, command });
-    const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, env, runtime.config?.auth ?? {});
+    runtime = await build({ configPath, env: effectiveEnv, command });
+    const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, effectiveEnv, runtime.config?.auth ?? {});
     const payload = migrationEvidence ?? await readPayload(command.options.payload, { payloadRoot: runtime.config.paths.payloadRoot, stdin });
     if (payloadRequired(command) && !payload) fail("payload_required", "Command requires an explicit payload");
     const result = await createDispatcher(runtime)(command, identity, payload);

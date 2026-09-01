@@ -3,6 +3,7 @@
   "timezone": "Asia/Shanghai",
   "source_spreadsheet_id": "1BbOcWUVrhRsnuSAs9LcyCuYWTrauPxtJWI12Esao7p0",
   "paths": {
+    "env_file": "../tiktok-public-capture/.env",
     "metrics_sqlite": "../../output/tiktok_metrics.sqlite",
     "collector": "../tiktok-public-capture/collect_tiktok_public_data.mjs",
     "collector_summary_dir": "../../output",

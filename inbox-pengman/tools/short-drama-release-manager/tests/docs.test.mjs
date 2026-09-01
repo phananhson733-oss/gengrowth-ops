@@ -5,11 +5,13 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 const readmeUrl = new URL("README.md", root);
 const envUrl = new URL("../tiktok-public-capture/.env.example", root);
+const configUrl = new URL("shortdrama.config.example.json", root);
 
 async function docs() {
   return {
     readme: await readFile(readmeUrl, "utf8"),
     env: await readFile(envUrl, "utf8"),
+    config: await readFile(configUrl, "utf8"),
   };
 }
 
@@ -77,4 +79,14 @@ test("env example exposes blank v5 keys and keeps legacy follower sync explicitl
   assert.doesNotMatch(env, /^FEISHU_(?:WIKI_NODE_TOKEN|TABLE_ID)=.+$/m);
   assert.doesNotMatch(env, /^GOOGLE_SERVICE_ACCOUNT_JSON=.+$/m);
   assert.doesNotMatch(env, /\/Users\/|~\/\.config/);
+});
+
+test("runtime example points to the ignored local env file without embedding secrets", async () => {
+  const { config: raw, readme } = await docs();
+  const config = JSON.parse(raw);
+  assert.equal(config.paths.env_file, "../tiktok-public-capture/.env");
+  assert.match(readme, /paths\.env_file/);
+  assert.match(readme, /O_NOFOLLOW/);
+  assert.match(readme, /不.*source\/eval\/expand/);
+  assert.doesNotMatch(raw, /tenant_access_token|app-secret-must-not-be-logged/);
 });

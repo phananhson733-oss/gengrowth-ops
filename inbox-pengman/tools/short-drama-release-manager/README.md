@@ -14,6 +14,7 @@
 
 - Node：目标机 doctor 验证过的 **Node 24+**。
 - 正式配置文件名：`shortdrama.runtime.json`；从 `shortdrama.config.example.json`复制后仅在生产机安全配置，禁止提交。
+- 凭证文件：配置中的相对路径`paths.env_file`，正式指向未提交的本地`.env`；launchd/plist/argv只携带 config 与 capability 路径，不携带 secret。
 - Job/Audit state DB：配置中的 `ops_sqlite`，正式约定为 `inbox-pengman/output/short-drama-release-manager/shortdrama_ops.sqlite`。
 - payload 根目录：配置中的 `payload_root`；Social 写操作的 JSON payload heredoc 由 **Hermes Skill** 通过 stdin (`--payload -`) 提供，不在聊天里拼 shell。
 - migration artifact 固定根目录：`inbox-pengman/output/short-drama-release-manager/migrations/`。文件名必须为该目录内不可覆盖的安全 JSON 文件名。
@@ -136,7 +137,11 @@ node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 
 ## 环境变量契约
 
-真实值只进入未提交的安全环境；`.env.example`仅列空 key。`shortdrama.runtime.json`选择的固定 key 名为：
+真实值只进入未提交的安全环境；`.env.example`仅列空 key。每次 launchd/manual CLI 都先读取 runtime JSON 的`paths.env_file`，然后以`O_NOFOLLOW`单次打开该 0600（或同等无 group/other 权限）的普通文件；任何缺失、symlink/parent symlink、权限过宽、超限、重复或 malformed dotenv 都在网络前`config_invalid`。
+
+dotenv 仅按严格`KEY=value`数据解析，绝不 shell source/eval/expand，也不执行变量、反引号或命令替换。Runner 只导入 runtime config 明确引用的下列 key 加固定`SHORTDRAMA_OPS_CHAT_ID`；其他 collector/legacy/任意 key 即使出现在共享`.env`也不会进入 Runner env。调用进程显式提供的同名值优先于文件值，供受控诊断覆盖；空覆盖仍按配置校验失败，不静默回退。
+
+`shortdrama.runtime.json`选择的固定 key 名为：
 
 ```text
 FEISHU_APP_ID

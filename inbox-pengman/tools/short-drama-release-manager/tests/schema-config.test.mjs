@@ -23,7 +23,7 @@ function runtimeFixture() {
     config: {
       schema_version: "shortdrama/v1", timezone: "Asia/Shanghai",
       source_spreadsheet_id: "1BbOcWUVrhRsnuSAs9LcyCuYWTrauPxtJWI12Esao7p0",
-      paths: { metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "collector-summary", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
+      paths: { env_file: ".env", metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "collector-summary", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
       base: {
         url: "https://base.example.com/company-owned-short-drama", app_token_env: "BASE_TOKEN",
         table_id_envs: { accounts: "TBL_ACCOUNTS", dramas: "TBL_DRAMAS", captures: "TBL_CAPTURES", releases: "TBL_RELEASES" },
@@ -176,6 +176,7 @@ test("runtime config rejects missing secrets and unknown notification chats", ()
     timezone: "Asia/Shanghai",
     source_spreadsheet_id: "1BbOcWUVrhRsnuSAs9LcyCuYWTrauPxtJWI12Esao7p0",
     paths: {
+      env_file: ".env",
       metrics_sqlite: "metrics.sqlite",
       collector: "collector.mjs",
       collector_summary_dir: "collector-summary",

@@ -29,11 +29,12 @@ const INTERNAL = {
   SHORTDRAMA_INTERNAL_MARKER: "launchd:com.gengrowth.shortdrama-sync",
   SHORTDRAMA_LAUNCHD_LABEL: "com.gengrowth.shortdrama-sync",
 };
+const passthroughEnvironment = async ({ env }) => env;
 
 function runtimeFixture(root) {
   const config = {
     schema_version: "shortdrama/v1", timezone: "Asia/Shanghai", source_spreadsheet_id: "sheet",
-    paths: { metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "summaries", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
+    paths: { env_file: ".env", metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "summaries", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
     base: { url: "https://base.company.test/base", app_token_env: "BASE", table_id_envs: { accounts: "TA", dramas: "TD", captures: "TC", releases: "TR" } },
     auth: { feishu_app_id_env: "APP", feishu_app_secret_env: "SECRET", google_service_account_path_env: "GOOGLE", operator_ids_env: "OPS", privileged_ids_env: "ADMINS", notification_chat_ids_env: "CHATS" },
     acceptance: { privileged_actor_id: "ou_admin" },
@@ -213,12 +214,15 @@ test("doctor state initialization is explicit privileged local-only", () => {
   }, { isPrivilegedAllowed: () => true }), (error) => error.code === "local_only_required");
   assert.throws(() => resolveInvocationIdentity(parseCommand(["doctor", "--init-state"]), {}),
     (error) => error.code === "actor_required");
+  assert.throws(() => parseCommand(["doctor", "--init-state", "--canary", "--actor-id", "ou_admin"]),
+    (error) => error.code === "input_invalid");
 });
 
 test("internal scheduler context cannot initialize state before runtime construction", async () => {
   let builds = 0;
   const result = await execute(["doctor", "--init-state", "--actor-id", "ou_admin", "--config", "/configured/runtime.json"], {
     env: { SHORTDRAMA_CAPABILITY_FILE: "/tmp/internal.capability", SHORTDRAMA_INTERNAL_CAPABILITY: "aa".repeat(32) },
+    loadEnvironment: passthroughEnvironment,
     build: async () => { builds += 1; throw new Error("must not build"); },
   });
   assert.equal(result.result.error.code, "local_only_required");
@@ -254,7 +258,8 @@ test("doctor init-state creates only the JobStore and normal doctor remains read
   const initialized = await init.doctor({ initState: true, canary: false });
   init.close();
   assert.equal(initialized.state_store, "initialized");
-  assert.equal(initialized.status, "schema_missing");
+  assert.equal(initialized.status, "state_initialized");
+  assert.equal(initialized.schema_status, "schema_missing");
   const db = new DatabaseSync(dbPath, { readOnly: true });
   assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='jobs'").get()["1"], 1);
   assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='id_sequences'").get(), undefined);
@@ -498,6 +503,7 @@ test("migration evidence remains bound to independent expected digests", async (
       "--config", "/configured/runtime.json",
     ], {
       env: {},
+      loadEnvironment: passthroughEnvironment,
       build: async () => { builds += 1; throw new Error("must not build"); },
     });
     assert.equal(result.result.error.code, "migration_evidence_mismatch");
@@ -519,14 +525,14 @@ test("migration output is reserved before runtime side effects and stores the ex
     const blocked = await execute([
       "migrate", "verify", "--manifest", `plan-output-${suffix}.json`, "--output", `occupied-${suffix}.json`,
       "--actor-id", "admin", "--config", "/configured/runtime.json",
-    ], { env: {}, build: async () => { builds += 1; throw new Error("must not build"); } });
+    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => { builds += 1; throw new Error("must not build"); } });
     assert.equal(blocked.result.error.code, "migration_artifact_exists");
     assert.equal(builds, 0);
     const exact = { status: "verified", sha256: "c".repeat(64) };
     const completed = await execute([
       "migrate", "verify", "--manifest", `plan-output-${suffix}.json`, "--output", outputName,
       "--actor-id", "admin", "--config", "/configured/runtime.json",
-    ], { env: {}, build: async () => ({
+    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => ({
       config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
       migrateVerify: async () => exact,
       close() {},
@@ -546,7 +552,7 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   const configPath = path.join(root, "runtime.json");
   const config = {
     schema_version: "shortdrama/v1", timezone: "Asia/Shanghai", source_spreadsheet_id: "sheet",
-    paths: { metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "summaries", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
+    paths: { env_file: ".env", metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "summaries", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
     base: { url: "https://base.example.com/base", app_token_env: "BASE", table_id_envs: { accounts: "TA", dramas: "TD", captures: "TC", releases: "TR" } },
     auth: { feishu_app_id_env: "APP", feishu_app_secret_env: "SECRET", google_service_account_path_env: "GOOGLE", operator_ids_env: "RENAMED_OPS", privileged_ids_env: "RENAMED_ADMINS", notification_chat_ids_env: "RENAMED_CHATS" },
     acceptance: { privileged_actor_id: "ou_admin" },
@@ -586,6 +592,7 @@ test("schema and verification artifacts dispatch as separate independently check
       "--config", "/configured/runtime.json",
     ], {
       env: {},
+      loadEnvironment: passthroughEnvironment,
       build: async () => ({
         config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
         migrateApply: async (evidence) => { observed = evidence; return { status: "applied" }; },
@@ -617,7 +624,7 @@ test("re-digested schema receipt tampering still fails against the external rece
       "migrate", "apply", "--phase", "data", "--manifest", `plan-${suffix}.json`, "--expected-sha256", manifest.sha256,
       "--schema-receipt", `schema-tampered-${suffix}.json`, "--expected-schema-receipt-sha256", original.sha256,
       "--actor-id", "admin", "--confirm", "apply-now", "--config", "/configured/runtime.json",
-    ], { env: {}, build: async () => { builds += 1; throw new Error("must not build"); } });
+    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => { builds += 1; throw new Error("must not build"); } });
     assert.equal(result.result.error.code, "migration_evidence_mismatch");
     assert.equal(builds, 0);
   } finally {
@@ -629,7 +636,7 @@ test("main emits exactly one JSON object and sanitizes absolute error paths", as
   let output = "";
   let closed = 0;
   const code = await main(["sync", "status", "--run-id", "missing", "--config", "/configured/runtime.json"], {
-    env: {}, stdout: { write: (value) => { output += value; } },
+    env: {}, loadEnvironment: passthroughEnvironment, stdout: { write: (value) => { output += value; } },
     build: async () => ({
       config: { paths: { payloadRoot: "/tmp" }, auth: {} },
       jobs: { get: () => null },
@@ -641,7 +648,7 @@ test("main emits exactly one JSON object and sanitizes absolute error paths", as
   assert.equal(JSON.parse(output).state, "not_found");
   assert.equal(closed, 1);
   const failed = await execute(["doctor", "--config", "/configured/runtime.json"], {
-    env: {}, build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("config_invalid", "bad", { path: "/secret/local.json" }); },
+    env: {}, loadEnvironment: passthroughEnvironment, build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("config_invalid", "bad", { path: "/secret/local.json" }); },
   });
   assert.equal(failed.result.error.details.path, "[redacted]");
 });
@@ -649,7 +656,7 @@ test("main emits exactly one JSON object and sanitizes absolute error paths", as
 test("internal identity rejection happens before runtime construction", async () => {
   let builds = 0;
   const result = await execute(["queue", "drain", "--config", "/configured/runtime.json"], {
-    env: {}, build: async () => { builds += 1; throw new Error("must not build"); },
+    env: {}, loadEnvironment: passthroughEnvironment, build: async () => { builds += 1; throw new Error("must not build"); },
   });
   assert.equal(result.result.error.code, "internal_context_required");
   assert.equal(builds, 0);
