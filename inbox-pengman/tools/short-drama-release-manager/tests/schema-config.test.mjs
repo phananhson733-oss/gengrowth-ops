@@ -6,11 +6,16 @@ import test from "node:test";
 
 import { ShortDramaError, toErrorResult } from "../src/errors.mjs";
 import {
+  BASE_FIELD_SPECS,
   TABLE_ORDER,
   TABLES,
   assertPatchAllowed,
   fieldOwner,
 } from "../src/schema.mjs";
+
+function spec(table, name) {
+  return BASE_FIELD_SPECS[table].find((field) => field.name === name);
+}
 import { loadRuntimeConfig } from "../src/config.mjs";
 
 test("schema fixes the four Base tables and source ownership", () => {
@@ -20,6 +25,23 @@ test("schema fixes the four Base tables and source ownership", () => {
   assert.equal(fieldOwner("采集数据", "播放量"), "machine");
   assert.equal(fieldOwner("发布记录", "播放量"), "derived");
   assert.equal(fieldOwner("发布记录", "Post ID"), "shared");
+});
+
+test("schema uses supported system fields, writable sync storage, and Base formulas", () => {
+  assert.deepEqual(spec("选剧池", "创建人"), {
+    name: "创建人", kind: "system", phase: "system", systemType: "created_by",
+  });
+  assert.equal(spec("选剧池", "创建时间").systemType, "created_at");
+  assert.equal(spec("选剧池", "最后修改时间").systemType, "updated_at");
+  assert.deepEqual(spec("采集数据", "Base 同步时间"), {
+    name: "Base 同步时间", kind: "datetime", phase: "storage",
+  });
+  assert.equal(spec("选剧池", "是否已排期").expression, 'IF(ISBLANK([关联发布记录]), "否", "是")');
+  const releaseFormula = spec("发布记录", "发布状态").expression;
+  assert.match(releaseFormula, /\[Post ID\]/);
+  assert.match(releaseFormula, /\[视频链接\]/);
+  assert.match(releaseFormula, /\[日期\]/);
+  assert.doesNotMatch(releaseFormula, /\{[^}]+\}/);
 });
 
 test("machine patches cannot touch human fields", () => {

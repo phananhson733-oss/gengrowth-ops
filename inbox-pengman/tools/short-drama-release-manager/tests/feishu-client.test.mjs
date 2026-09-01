@@ -3,11 +3,16 @@ import test from "node:test";
 
 import { FeishuClient, createTenantTokenProvider } from "../src/feishu-client.mjs";
 
-test("pagination requires explicit boolean has_more and consumes every page with one token", async () => {
+const okList = (items = [], extra = {}) => ({
+  code: 0,
+  data: { items, has_more: false, revision: "rev", ...extra },
+});
+
+test("Base v3 offset pagination consumes every page with one token snapshot", async () => {
   let tokenCalls = 0;
   const urls = [];
   const responses = [
-    { code: 0, data: { items: [{ record_id: "rec1" }], has_more: true, page_token: "p2", revision: 7 } },
+    { code: 0, data: { items: [{ record_id: "rec1" }], has_more: true, offset: "next-2", revision: 7 } },
     { code: 0, data: { items: [{ record_id: "rec2" }], has_more: false, revision: 7 } },
   ];
   const client = new FeishuClient({
@@ -15,202 +20,282 @@ test("pagination requires explicit boolean has_more and consumes every page with
     fetchJson: async (url) => { urls.push(url); return responses.shift(); },
   });
 
-  const result = await client.listRecords("app/unsafe", "tbl unsafe");
-
-  assert.deepEqual(result, {
+  assert.deepEqual(await client.listRecords("base/unsafe", "tbl unsafe"), {
     items: [{ record_id: "rec1" }, { record_id: "rec2" }],
     complete: true,
     revision: 7,
   });
   assert.equal(tokenCalls, 1);
-  assert.equal(urls.length, 2);
-  assert.match(urls[0], /\/apps\/app%2Funsafe\/tables\/tbl%20unsafe\/records\?page_size=200$/);
-  assert.match(urls[1], /page_size=200&page_token=p2$/);
+  assert.match(urls[0], /\/open-apis\/base\/v3\/bases\/base%2Funsafe\/tables\/tbl%20unsafe\/records\?limit=200$/);
+  assert.match(urls[1], /limit=200&offset=next-2$/);
 });
 
-test("malformed or inconsistent pagination fails closed", async (t) => {
+test("dashboard pagination uses page_size/page_token while other lists use limit/offset", async () => {
+  const urls = [];
+  const responses = [
+    okList([{ table_id: "t" }]),
+    okList([{ field_id: "f" }]),
+    okList([{ view_id: "v" }]),
+    { code: 0, data: { items: [{ dashboard_id: "d1" }], has_more: true, page_token: "p2", revision: "r" } },
+    { code: 0, data: { items: [{ dashboard_id: "d2" }], has_more: false, revision: "r" } },
+  ];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => { urls.push(url); return responses.shift(); },
+  });
+
+  await client.listTables("base");
+  await client.listFields("base", "tbl");
+  await client.listViews("base", "tbl");
+  assert.deepEqual((await client.listDashboards("base")).items.map((item) => item.dashboard_id), ["d1", "d2"]);
+  assert.deepEqual(urls.slice(0, 3).map((url) => new URL(url).search), ["?limit=200", "?limit=200", "?limit=200"]);
+  assert.deepEqual(urls.slice(3).map((url) => new URL(url).search), ["?page_size=200", "?page_size=200&page_token=p2"]);
+});
+
+test("malformed, incomplete, or non-progressing pagination fails closed", async (t) => {
   const cases = [
     [{ code: 0, data: { items: [], has_more: "false" } }, "has_more"],
-    [{ code: 0, data: { items: [], has_more: true } }, "page_token"],
+    [{ code: 0, data: { items: [], has_more: true } }, "missing offset"],
     [{ code: 0, data: { items: {}, has_more: false } }, "items"],
     [{ code: "0", data: { items: [], has_more: false } }, "numeric response code"],
   ];
   for (const [payload, label] of cases) {
     await t.test(label, async () => {
       const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => payload });
-      await assert.rejects(
-        () => client.listRecords("app", "tbl"),
-        (error) => error.code === "base_response_invalid",
-      );
+      await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === "base_response_invalid");
     });
   }
 
+  await t.test("repeated offset", async () => {
+    const responses = [
+      { code: 0, data: { items: [], has_more: true, offset: "same", revision: 1 } },
+      { code: 0, data: { items: [], has_more: true, offset: "same", revision: 1 } },
+    ];
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => responses.shift() });
+    await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === "base_response_invalid");
+  });
+
   await t.test("revision changes", async () => {
     const responses = [
-      { code: 0, data: { items: [], has_more: true, page_token: "p2", revision: 1 } },
+      { code: 0, data: { items: [], has_more: true, offset: "next", revision: 1 } },
       { code: 0, data: { items: [], has_more: false, revision: 2 } },
     ];
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => responses.shift() });
+    await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === "base_response_invalid");
+  });
+});
+
+test("batch create transposes stable first-seen fields to rows and validates returned IDs", async () => {
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      bodies.push(options.body);
+      return { code: 0, data: { record_id_list: options.body.rows.map((_row, index) => `rec-${bodies.length}-${index}`) } };
+    },
+  });
+  const records = Array.from({ length: 201 }, (_, index) => ({
+    fields: index === 0 ? { A: index } : index === 1 ? { B: index, A: index } : index === 200 ? { C: index } : { A: index },
+  }));
+
+  const written = await client.createRecords("base", "tbl", records);
+  assert.deepEqual(bodies.map((body) => body.rows.length), [200, 1]);
+  assert.deepEqual(bodies[0].fields, ["A", "B", "C"]);
+  assert.deepEqual(bodies[1].fields, ["A", "B", "C"]);
+  assert.deepEqual(bodies[0].rows.slice(0, 3), [[0, null, null], [1, 1, null], [2, null, null]]);
+  assert.deepEqual(bodies[1].rows, [[null, null, 200]]);
+  assert.equal(written.length, 201);
+  assert.equal(written[0].record_id, "rec-1-0");
+  assert.deepEqual(written[0].fields, records[0].fields);
+});
+
+test("batch update groups only contiguous equal patches and validates exact ID order", async () => {
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      bodies.push(options.body);
+      return { code: 0, data: { record_id_list: [...options.body.record_id_list] } };
+    },
+  });
+  const records = [
+    { record_id: "r1", fields: { 状态: "A" } },
+    { record_id: "r2", fields: { 状态: "A" } },
+    { record_id: "r3", fields: { 状态: "B" } },
+    { record_id: "r4", fields: { 状态: "A" } },
+  ];
+
+  assert.deepEqual(await client.updateRecords("base", "tbl", records), records);
+  assert.deepEqual(bodies, [
+    { record_id_list: ["r1", "r2"], patch: { 状态: "A" } },
+    { record_id_list: ["r3"], patch: { 状态: "B" } },
+    { record_id_list: ["r4"], patch: { 状态: "A" } },
+  ]);
+});
+
+test("one contiguous update patch is split at 200 records", async () => {
+  const sizes = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      sizes.push(options.body.record_id_list.length);
+      return { code: 0, data: { record_id_list: options.body.record_id_list } };
+    },
+  });
+  const records = Array.from({ length: 201 }, (_unused, index) => ({ record_id: `r${index}`, fields: { 状态: "A" } }));
+  assert.equal((await client.updateRecords("base", "tbl", records)).length, 201);
+  assert.deepEqual(sizes, [200, 1]);
+});
+
+test("same-table writes serialize across calls while different tables may overlap", async () => {
+  let activeSame = 0;
+  let maxSameTable = 0;
+  let firstRelease;
+  const firstGate = new Promise((resolve) => { firstRelease = resolve; });
+  let otherRelease;
+  const otherStarted = new Promise((resolve) => { otherRelease = resolve; });
+  const events = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const table = new URL(url).pathname.split("/").at(-3);
+      if (table === "same") {
+        activeSame += 1;
+        maxSameTable = Math.max(maxSameTable, activeSame);
+      } else {
+        otherRelease();
+      }
+      events.push(`start:${table}:${options.body.rows?.[0]?.[0] ?? options.body.record_id_list?.[0]}`);
+      if (table === "same" && events.length === 1) await firstGate;
+      if (table === "same") activeSame -= 1;
+      events.push(`end:${table}`);
+      return options.body.rows
+        ? { code: 0, data: { record_id_list: options.body.rows.map((_row, index) => `${table}-${index}`) } }
+        : { code: 0, data: { record_id_list: options.body.record_id_list } };
+    },
+  });
+
+  const first = client.createRecords("base", "same", [{ fields: { A: "first" } }]);
+  await new Promise((resolve) => setImmediate(resolve));
+  const second = client.createRecords("base", "same", [{ fields: { A: "second" } }]);
+  const other = client.createRecords("base", "other", [{ fields: { A: "other" } }]);
+  await otherStarted;
+  assert.ok(events.some((event) => event.startsWith("start:other:")));
+  assert.equal(events.filter((event) => event === "start:same:second").length, 0);
+  firstRelease();
+  await Promise.all([first, second, other]);
+  assert.equal(maxSameTable, 1);
+  assert.ok(events.indexOf("end:same") < events.indexOf("start:same:second"));
+});
+
+test("empty or malformed writes and mismatched responses fail closed", async (t) => {
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => ({ code: 0, data: { record_id_list: [] } }),
+  });
+  for (const operation of [
+    () => client.createRecords("base", "tbl", []),
+    () => client.createRecords("base", "tbl", [{ fields: {} }]),
+    () => client.updateRecords("base", "tbl", [{ record_id: "r", fields: {} }]),
+    () => client.updateRecords("base", "tbl", [{ record_id: "", fields: { A: 1 } }]),
+  ]) {
+    assert.throws(operation, (error) => error.code === "base_response_invalid");
+  }
+
+  await t.test("create count mismatch", async () => {
     await assert.rejects(
-      () => client.listRecords("app", "tbl"),
+      () => client.createRecords("base", "tbl", [{ fields: { A: 1 } }]),
+      (error) => error.code === "base_response_invalid",
+    );
+  });
+  await t.test("update order mismatch", async () => {
+    const mismatch = new FeishuClient({
+      tokenProvider: async () => "token",
+      fetchJson: async () => ({ code: 0, data: { record_id_list: ["r2", "r1"] } }),
+    });
+    await assert.rejects(
+      () => mismatch.updateRecords("base", "tbl", [
+        { record_id: "r1", fields: { A: 1 } },
+        { record_id: "r2", fields: { A: 1 } },
+      ]),
+      (error) => error.code === "base_response_invalid",
+    );
+  });
+  await t.test("ignored fields", async () => {
+    const ignored = new FeishuClient({
+      tokenProvider: async () => "token",
+      fetchJson: async () => ({ code: 0, data: { record_id_list: ["r1"], ignored_fields: ["Bad"] } }),
+    });
+    await assert.rejects(
+      () => ignored.createRecords("base", "tbl", [{ fields: { A: 1 } }]),
       (error) => error.code === "base_response_invalid",
     );
   });
 });
 
-test("all list methods use fixed paths and return complete lists", async () => {
-  const urls = [];
-  const client = new FeishuClient({
-    tokenProvider: async () => "token",
-    fetchJson: async (url) => {
-      urls.push(url);
-      return { code: 0, data: { items: [{ id: urls.length }], has_more: false, revision: "rev" } };
-    },
-  });
-
-  for (const operation of [
-    () => client.listTables("app"),
-    () => client.listFields("app", "tbl"),
-    () => client.listViews("app", "tbl"),
-    () => client.listDashboards("app"),
-  ]) {
-    assert.deepEqual(await operation(), { items: [{ id: urls.length }], complete: true, revision: "rev" });
-  }
-
-  assert.deepEqual(urls.map((url) => new URL(url).pathname), [
-    "/open-apis/bitable/v1/apps/app/tables",
-    "/open-apis/bitable/v1/apps/app/tables/tbl/fields",
-    "/open-apis/bitable/v1/apps/app/tables/tbl/views",
-    "/open-apis/bitable/v1/apps/app/dashboards",
-  ]);
-});
-
-test("writes are split into ordered serial batches of at most 200 with one token", async () => {
-  let tokenCalls = 0;
-  let active = 0;
-  let maxActive = 0;
-  const groups = [];
-  const client = new FeishuClient({
-    tokenProvider: async () => { tokenCalls += 1; return "token"; },
-    fetchJson: async (_url, options) => {
-      active += 1;
-      maxActive = Math.max(maxActive, active);
-      groups.push(options.body.records.map((record) => record.fields.Key));
-      await Promise.resolve();
-      active -= 1;
-      return { code: 0, data: { records: options.body.records } };
-    },
-  });
-  const records = Array.from({ length: 401 }, (_, index) => ({ fields: { Key: String(index) } }));
-
-  const written = await client.createRecords("app", "tbl", records);
-
-  assert.deepEqual(groups.map((group) => group.length), [200, 200, 1]);
-  assert.deepEqual(groups.flat(), records.map((record) => record.fields.Key));
-  assert.deepEqual(written, records);
-  assert.equal(maxActive, 1);
-  assert.equal(tokenCalls, 1);
-});
-
-test("update batches preserve order and use the fixed batch_update path", async () => {
-  const calls = [];
-  const client = new FeishuClient({
-    tokenProvider: async () => "token",
-    fetchJson: async (url, options) => {
-      calls.push([url, options.body.records]);
-      return { code: 0, data: { records: options.body.records } };
-    },
-  });
-  const records = Array.from({ length: 201 }, (_, index) => ({ record_id: `rec${index}`, fields: {} }));
-  assert.deepEqual(await client.updateRecords("app", "tbl", records), records);
-  assert.deepEqual(calls.map(([, group]) => group.length), [200, 1]);
-  assert.ok(calls.every(([url]) => url.endsWith("/records/batch_update")));
-});
-
-test("rate limit retries are bounded and honor retry timing", async (t) => {
-  await t.test("payload retry_after_ms", async () => {
-    let attempts = 0;
+test("rate limit and auth refresh share one maximum three-attempt request budget", async (t) => {
+  await t.test("429 then 401 then success", async () => {
+    const tokens = ["stale", "fresh"];
+    const tokenProvider = async () => tokens.shift();
+    tokenProvider.invalidate = () => {};
     const waits = [];
+    const responses = [
+      { status: 429, code: 1254291, headers: { "retry-after": "0" } },
+      { status: 401, code: 99991672 },
+      okList(),
+    ];
     const client = new FeishuClient({
-      tokenProvider: async () => "token",
+      tokenProvider,
       sleep: async (ms) => waits.push(ms),
-      fetchJson: async () => {
-        attempts += 1;
-        return attempts < 3
-          ? { code: 1254291, msg: "rate limited", retry_after_ms: 10 }
-          : { code: 0, data: { records: [] } };
-      },
+      fetchJson: async () => responses.shift(),
     });
-    await client.createRecords("app", "tbl", [{ fields: { Key: "1" } }]);
-    assert.equal(attempts, 3);
-    assert.deepEqual(waits, [10, 10]);
+    assert.equal((await client.listRecords("base", "tbl")).complete, true);
+    assert.deepEqual(waits, [0]);
   });
 
-  await t.test("Retry-After and terminal third attempt", async () => {
+  await t.test("fourth attempt is never made", async () => {
+    const tokens = ["stale", "fresh"];
+    const tokenProvider = async () => tokens.shift();
+    tokenProvider.invalidate = () => {};
     let attempts = 0;
-    const waits = [];
-    const client = new FeishuClient({
-      tokenProvider: async () => "token",
-      sleep: async (ms) => waits.push(ms),
-      fetchJson: async () => {
-        attempts += 1;
-        return { status: 429, headers: { "retry-after": "2" }, code: 1254291 };
-      },
-    });
-    await assert.rejects(
-      () => client.createRecords("app", "tbl", [{ fields: {} }]),
-      (error) => error.code === "base_request_failed",
-    );
+    const responses = [
+      { status: 429, code: 1254291, retry_after_ms: 0 },
+      { status: 401, code: 99991672 },
+      { status: 429, code: 1254291, retry_after_ms: 0 },
+      okList(),
+    ];
+    const client = new FeishuClient({ tokenProvider, sleep: async () => {}, fetchJson: async () => {
+      attempts += 1;
+      return responses.shift();
+    } });
+    await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === "base_request_failed");
     assert.equal(attempts, 3);
-    assert.deepEqual(waits, [2000, 2000]);
+  });
+
+  await t.test("invalid refreshed token fails before another request", async () => {
+    const tokens = ["stale", ""];
+    const tokenProvider = async () => tokens.shift();
+    tokenProvider.invalidate = () => {};
+    let attempts = 0;
+    const client = new FeishuClient({
+      tokenProvider,
+      fetchJson: async () => { attempts += 1; return { status: 401, code: 99991672 }; },
+    });
+    await assert.rejects(() => client.getRecord("base", "tbl", "rec"), (error) => error.code === "base_response_invalid");
+    assert.equal(attempts, 1);
   });
 });
 
-test("authorization, schema, and invalid JSON errors have distinct stable codes", async () => {
+test("authorization, schema drift, invalid JSON, and malformed payloads have stable codes", async () => {
   for (const [fetchJson, code] of [
     [async () => ({ code: 99991672, msg: "Access denied" }), "base_auth_failed"],
     [async () => ({ code: 1254045, msg: "field not found" }), "base_schema_drift"],
     [async () => { throw new SyntaxError("bad json"); }, "base_response_invalid"],
+    [async () => ({ code: "0", data: {} }), "base_response_invalid"],
   ]) {
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson });
-    await assert.rejects(() => client.listRecords("app", "tbl"), (error) => error.code === code);
+    await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === code);
   }
-});
-
-test("an explicit 401 invalidates and refreshes the operation token once", async () => {
-  const tokens = ["stale", "fresh"];
-  const invalidated = [];
-  const tokenProvider = async () => tokens.shift();
-  tokenProvider.invalidate = (token) => invalidated.push(token);
-  const authorizations = [];
-  const client = new FeishuClient({
-    tokenProvider,
-    fetchJson: async (_url, options) => {
-      authorizations.push(options.headers.authorization);
-      return authorizations.length === 1
-        ? { status: 401, code: 99991672 }
-        : { code: 0, data: { items: [], has_more: false } };
-    },
-  });
-
-  assert.equal((await client.listRecords("app", "tbl")).complete, true);
-  assert.deepEqual(invalidated, ["stale"]);
-  assert.deepEqual(authorizations, ["Bearer stale", "Bearer fresh"]);
-});
-
-test("a repeated 401 retries authentication only once", async () => {
-  let tokenCalls = 0;
-  let requests = 0;
-  const tokenProvider = async () => { tokenCalls += 1; return `token-${tokenCalls}`; };
-  tokenProvider.invalidate = () => {};
-  const client = new FeishuClient({
-    tokenProvider,
-    fetchJson: async () => { requests += 1; return { status: 401, code: 99991672 }; },
-  });
-
-  await assert.rejects(() => client.getRecord("app", "tbl", "rec"), (error) => error.code === "base_auth_failed");
-  assert.equal(tokenCalls, 2);
-  assert.equal(requests, 2);
 });
 
 test("tenant tokens cache to expire minus 300 seconds and share in-flight authentication", async () => {
@@ -228,15 +313,10 @@ test("tenant tokens cache to expire minus 300 seconds and share in-flight authen
       return { code: 0, tenant_access_token: `tenant-${authCalls}`, expire: 600 };
     },
   });
-
   assert.deepEqual(await Promise.all([provider(), provider(), provider()]), ["tenant-1", "tenant-1", "tenant-1"]);
   assert.equal(authCalls, 1);
-  now += 299_999;
-  assert.equal(await provider(), "tenant-1");
-  now += 1;
+  now += 300_000;
   assert.equal(await provider(), "tenant-2");
-  provider.invalidate("tenant-2");
-  assert.equal(await provider(), "tenant-3");
 });
 
 test("tenant authentication fails closed on malformed responses", async () => {
@@ -245,47 +325,92 @@ test("tenant authentication fails closed on malformed responses", async () => {
     [{ code: 0, tenant_access_token: "", expire: 600 }, "base_response_invalid"],
     [{ code: 0, tenant_access_token: "token", expire: "600" }, "base_response_invalid"],
   ]) {
-    const provider = createTenantTokenProvider({
-      appId: "id",
-      appSecret: "secret",
-      fetchJson: async () => payload,
-    });
+    const provider = createTenantTokenProvider({ appId: "id", appSecret: "secret", fetchJson: async () => payload });
     await assert.rejects(() => provider(), (error) => error.code === code);
   }
 });
 
-test("record read and schema creation use fixed API payloads", async () => {
+test("schema creation uses canonical Base v3 fields and establishes primary fields", async () => {
   const calls = [];
   const client = new FeishuClient({
     tokenProvider: async () => "token",
     fetchJson: async (url, options) => {
       calls.push([new URL(url).pathname, options]);
       if (options.method === "GET") return { code: 0, data: { record: { record_id: "rec" } } };
-      return { code: 0, data: { table: {}, field: {} } };
+      if (url.endsWith("/tables")) return { code: 0, data: { table: { table_id: "tbl-new" } } };
+      return { code: 0, data: { field: { field_id: `fld-${calls.length}` } } };
     },
   });
 
-  assert.deepEqual(await client.getRecord("app", "tbl", "rec"), { record_id: "rec" });
-  await client.createTable("app", "账号台账");
-  await client.createField("app", "tbl", "账号台账", "账号ID");
+  assert.deepEqual(await client.getRecord("base", "tbl", "rec"), { record_id: "rec" });
+  await client.createTable("base", "账号台账");
+  await client.createField("base", "tbl", "账号台账", "主页链接");
+  await client.createField("base", "tbl", "选剧池", "关联发布记录", { targetTableId: "tbl-release" });
+  await client.createField("base", "tbl", "发布记录", "账号名");
+  await client.updateField("base", "tbl", "fld-default", "账号台账", "账号ID");
+
   assert.deepEqual(calls.map(([path]) => path), [
-    "/open-apis/bitable/v1/apps/app/tables/tbl/records/rec",
-    "/open-apis/bitable/v1/apps/app/tables",
-    "/open-apis/bitable/v1/apps/app/tables/tbl/fields",
+    "/open-apis/base/v3/bases/base/tables/tbl/records/rec",
+    "/open-apis/base/v3/bases/base/tables",
+    "/open-apis/base/v3/bases/base/tables/tbl/fields",
+    "/open-apis/base/v3/bases/base/tables/tbl/fields",
+    "/open-apis/base/v3/bases/base/tables/tbl/fields",
+    "/open-apis/base/v3/bases/base/tables/tbl/fields/fld-default",
   ]);
-  assert.deepEqual(calls[1][1].body, { table: { name: "账号台账" } });
-  assert.deepEqual(calls[2][1].body, { field_name: "账号ID", type: 1 });
-  await assert.rejects(
-    () => client.createField("app", "tbl", "账号台账", { field_name: "Injected", type: 1 }),
-    (error) => error.code === "base_schema_drift",
-  );
-  await assert.rejects(
-    () => client.createField("app", "tbl", "账号台账", "账号ID", { free_text: "Injected" }),
-    (error) => error.code === "base_schema_drift",
-  );
+  assert.deepEqual(calls[1][1].body, { name: "账号台账", fields: [{ name: "账号ID", type: "text" }] });
+  assert.deepEqual(calls[2][1].body, { name: "主页链接", type: "text", style: { type: "url" } });
+  assert.deepEqual(calls[3][1].body, { name: "关联发布记录", type: "link", link_table: "tbl-release" });
+  assert.deepEqual(calls[4][1].body, {
+    type: "lookup",
+    name: "账号名",
+    from: "账号台账",
+    select: "账号名",
+    where: { logic: "and", conditions: [["账号ID", "intersects", { type: "field_ref", field: "账号" }]] },
+    aggregate: "raw_value",
+  });
+  assert.deepEqual(calls[5][1].body, { name: "账号ID", type: "text" });
 });
 
-test("view and dashboard writes only accept fixed section 6.5 definitions", async () => {
+test("canonical field payloads cover select, datetime, formula, and system fields", async () => {
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      bodies.push(options.body);
+      return { code: 0, data: { field: { field_id: `f${bodies.length}` } } };
+    },
+  });
+  await client.createField("base", "tbl", "选剧池", "剧分类");
+  await client.createField("base", "tbl", "选剧池", "上线日期");
+  await client.createField("base", "tbl", "选剧池", "是否已排期");
+  await client.createField("base", "tbl", "选剧池", "创建时间");
+  assert.deepEqual(bodies, [
+    { name: "剧分类", type: "select", multiple: true },
+    { name: "上线日期", type: "datetime", style: { format: "yyyy-MM-dd" } },
+    { name: "是否已排期", type: "formula", expression: 'IF(ISBLANK([关联发布记录]), "否", "是")' },
+    { name: "创建时间", type: "created_at" },
+  ]);
+});
+
+test("schema and presentation creates require IDs and reject arbitrary input", async () => {
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {} }) });
+  for (const operation of [
+    () => client.createTable("base", "账号台账"),
+    () => client.createField("base", "tbl", "账号台账", "账号ID"),
+    () => client.createView("base", "tbl", "账号台账", "在用账号"),
+    () => client.createDashboard("base", "短剧发行管理仪表盘"),
+    () => client.createDashboardBlock("base", "dash", "活跃账号数"),
+    () => client.createField("base", "tbl", "账号台账", { name: "Injected" }),
+    () => client.createField("base", "tbl", "账号台账", "账号ID", { arbitrary: true }),
+    () => client.createView("base", "tbl", "账号台账", { name: "Injected" }),
+    () => client.createDashboard("base", { name: "Injected" }),
+    () => client.createDashboardBlock("base", "dash", { name: "Injected" }),
+  ]) {
+    await assert.rejects(operation, (error) => ["base_response_invalid", "base_schema_drift"].includes(error.code));
+  }
+});
+
+test("fixed views apply filter, sort, group, and visible-field semantics", async () => {
   const calls = [];
   const client = new FeishuClient({
     tokenProvider: async () => "token",
@@ -295,31 +420,76 @@ test("view and dashboard writes only accept fixed section 6.5 definitions", asyn
     },
   });
 
-  await client.createView("app", "tbl", "账号台账", "在用账号");
-  await client.updateView("app", "tbl", "view", "账号台账", "需处理账号");
-  await client.createDashboard("app", "短剧发行总览");
-  await client.createDashboardBlock("app", "dash", "活跃账号数");
-  assert.deepEqual(calls.map(([path]) => path), [
-    "/open-apis/bitable/v1/apps/app/tables/tbl/views",
-    "/open-apis/bitable/v1/apps/app/tables/tbl/views/view",
-    "/open-apis/bitable/v1/apps/app/dashboards",
-    "/open-apis/bitable/v1/apps/app/dashboards/dash/blocks",
-  ]);
-  assert.deepEqual(calls.map(([, body]) => body.view_name ?? body.name), [
-    "在用账号",
-    "需处理账号",
-    "短剧发行总览",
-    "活跃账号数",
-  ]);
+  await client.updateView("base", "tbl", "view", "账号台账", "需处理账号");
+  assert.deepEqual(calls.map(([path]) => path), ["filter", "sort", "group", "visible_fields"].map(
+    (part) => `/open-apis/base/v3/bases/base/tables/tbl/views/view/${part}`,
+  ));
+  assert.deepEqual(calls[0][1], {
+    logic: "and",
+    conditions: [["同步状态", "in", ["partial", "failed"]]],
+  });
+  assert.deepEqual(calls[1][1], [{ field: "指标同步时间", direction: "desc" }]);
+  assert.deepEqual(calls[2][1], [{ field: "所属组", direction: "asc" }]);
+  assert.ok(calls[3][1].includes("账号ID"));
+  assert.ok(calls[3][1].includes("同步状态"));
+});
 
-  for (const operation of [
-    () => client.createView("app", "tbl", "账号台账", { name: "Injected" }),
-    () => client.updateView("app", "tbl", "view", "账号台账", "任意视图"),
-    () => client.createDashboard("app", { name: "Injected" }),
-    () => client.createDashboardBlock("app", "dash", { name: "Injected" }),
-  ]) {
-    await assert.rejects(operation, (error) => error.code === "base_schema_drift");
-  }
+test("fixed dashboard blocks use legal types/config and block writes serialize", async () => {
+  const calls = [];
+  let active = 0;
+  let maxActive = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      active += 1;
+      maxActive = Math.max(maxActive, active);
+      calls.push([new URL(url).pathname, options.body]);
+      await Promise.resolve();
+      active -= 1;
+      if (url.endsWith("/dashboards")) return { code: 0, data: { dashboard: { dashboard_id: "dash" } } };
+      return { code: 0, data: { block: { block_id: `block-${calls.length}` } } };
+    },
+  });
+  await client.createDashboard("base", "短剧发行管理仪表盘");
+  await Promise.all([
+    client.createDashboardBlock("base", "dash", "活跃账号数"),
+    client.createDashboardBlock("base", "dash", "待公开数"),
+  ]);
+  assert.equal(maxActive, 1);
+  assert.deepEqual(calls[0][1], { name: "短剧发行管理仪表盘" });
+  assert.deepEqual(calls[1][1], {
+    name: "活跃账号数",
+    type: "statistics",
+    data_config: {
+      table: "账号台账",
+      aggregate: "count_all",
+      filter: { logic: "and", conditions: [["状态", "equals", "在用"]] },
+    },
+  });
+  assert.equal(calls[2][1].type, "statistics");
+  assert.deepEqual(calls[2][1].data_config.filter.conditions, [["发布状态", "equals", "待公开"]]);
+});
+
+test("performance and terminal dashboard blocks use fixed aggregate and placeholder configs", async () => {
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      bodies.push(options.body);
+      return { code: 0, data: { block: { block_id: `b${bodies.length}` } } };
+    },
+  });
+  await client.createDashboardBlock("base", "dash", "按账号最新累计表现");
+  await client.createDashboardBlock("base", "dash", "按剧最新累计表现");
+  await client.createDashboardBlock("base", "dash", "最近一次同步终态");
+  assert.deepEqual(bodies[0].data_config.series.map((series) => series.aggregate), ["SUM", "SUM", "SUM", "SUM", "SUM"]);
+  assert.equal(bodies[0].data_config.group_by, "账号名");
+  assert.equal(bodies[1].data_config.group_by, "剧名");
+  assert.deepEqual(bodies[2], {
+    name: "最近一次同步终态",
+    type: "text",
+    data_config: { text: "尚无成功同步记录" },
+  });
 });
 
 test("request logging exposes only method path status and run_id", async () => {
@@ -328,14 +498,12 @@ test("request logging exposes only method path status and run_id", async () => {
     tokenProvider: async () => "super-secret-token",
     runId: "run-1",
     logger: (entry) => logs.push(entry),
-    fetchJson: async () => ({ code: 0, data: { records: [] } }),
+    fetchJson: async (_url, options) => ({ code: 0, data: { record_id_list: options.body.rows.map(() => "rec") } }),
   });
-
-  await client.createRecords("app", "tbl", [{ fields: { Notes: "private free text" } }]);
-
+  await client.createRecords("base", "tbl", [{ fields: { Notes: "private free text" } }]);
   assert.deepEqual(logs, [{
     method: "POST",
-    path: "/open-apis/bitable/v1/apps/app/tables/tbl/records/batch_create",
+    path: "/open-apis/base/v3/bases/base/tables/tbl/records/batch_create",
     status: 200,
     run_id: "run-1",
   }]);

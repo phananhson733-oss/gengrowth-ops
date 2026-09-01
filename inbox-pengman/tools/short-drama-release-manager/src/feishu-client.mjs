@@ -1,57 +1,21 @@
 import { ShortDramaError } from "./errors.mjs";
-import { BASE_FIELD_SPECS, TABLE_ORDER } from "./schema.mjs";
+import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "./schema.mjs";
 
 const FEISHU_ORIGIN = "https://open.feishu.cn";
 const AUTH_PATH = "/open-apis/auth/v3/tenant_access_token/internal";
-const BITABLE_PREFIX = "/open-apis/bitable/v1/";
+const BASE_V3_PREFIX = "/open-apis/base/v3/";
 const MAX_PAGE_SIZE = 200;
-const MAX_RATE_ATTEMPTS = 3;
+const MAX_REQUEST_ATTEMPTS = 3;
 const AUTH_ERROR_CODES = new Set([99991663, 99991664, 99991668, 99991671, 99991672]);
 const SCHEMA_ERROR_CODES = new Set([1254044, 1254045, 1254060, 1254061, 1254062]);
-
-const FIELD_TYPES = Object.freeze({
-  text: 1,
-  number: 2,
-  single_select: 3,
-  multi_select: 4,
-  date: 5,
-  datetime: 5,
-  url: 15,
-  link: 21,
-  lookup: 19,
-  formula: 20,
-});
-
-const SYSTEM_FIELD_TYPES = Object.freeze({
-  created_time: 1001,
-  last_modified_time: 1002,
-  created_by: 1003,
-  last_successful_sync_time: 5,
-});
-
-const VIEW_SPECS = Object.freeze({
-  "账号台账": Object.freeze(["在用账号", "需处理账号"]),
-  "选剧池": Object.freeze(["未排期", "已排期", "按平台", "按语言"]),
-  "发布记录": Object.freeze(["已排期", "待公开", "已公开待回填", "已回填", "按账号表现", "按剧表现"]),
-  "采集数据": Object.freeze(["完整", "部分缺失", "未关联发布"]),
-});
-
-const DASHBOARD_NAMES = new Set(["短剧发行总览"]);
-const DASHBOARD_BLOCK_NAMES = new Set([
-  "活跃账号数",
-  "待公开数",
-  "待回填数",
-  "按账号最新累计表现",
-  "按剧最新累计表现",
-  "最近一次同步终态",
-]);
-
-const batches = (rows, size = MAX_PAGE_SIZE) =>
-  Array.from({ length: Math.ceil(rows.length / size) }, (_unused, index) =>
-    rows.slice(index * size, (index + 1) * size));
+const DASHBOARD_NAME = "短剧发行管理仪表盘";
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
+}
+
+function invalidResponse(message, details = {}) {
+  return new ShortDramaError("base_response_invalid", message, details);
 }
 
 function encoded(value) {
@@ -61,12 +25,15 @@ function encoded(value) {
   return encodeURIComponent(value);
 }
 
+function plainObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
 function headerValue(headers, name) {
   if (!headers) return undefined;
   if (typeof headers.get === "function") return headers.get(name);
   const target = name.toLowerCase();
-  const entry = Object.entries(headers).find(([key]) => key.toLowerCase() === target);
-  return entry?.[1];
+  return Object.entries(headers).find(([key]) => key.toLowerCase() === target)?.[1];
 }
 
 function statusOf(value) {
@@ -75,8 +42,8 @@ function statusOf(value) {
 }
 
 function codeOf(value) {
-  const code = Number(value?.code ?? value?.response?.data?.code);
-  return Number.isFinite(code) ? code : null;
+  const raw = value?.code ?? value?.response?.data?.code;
+  return typeof raw === "number" && Number.isFinite(raw) ? raw : null;
 }
 
 function isRateLimited(value) {
@@ -85,12 +52,7 @@ function isRateLimited(value) {
 
 function isAuthorizationFailure(value) {
   const status = statusOf(value);
-  const code = codeOf(value);
-  return status === 401 || status === 403 || AUTH_ERROR_CODES.has(code);
-}
-
-function isSchemaFailure(value) {
-  return SCHEMA_ERROR_CODES.has(codeOf(value));
+  return status === 401 || status === 403 || AUTH_ERROR_CODES.has(codeOf(value));
 }
 
 function retryDelay(value, attempt) {
@@ -107,98 +69,264 @@ function retryDelay(value, attempt) {
   return attempt * 1000;
 }
 
-function invalidResponse(message, details = {}) {
-  return new ShortDramaError("base_response_invalid", message, details);
-}
-
 function mappedFailure(value, path) {
   const details = { code: codeOf(value), status: statusOf(value), path };
   if (isAuthorizationFailure(value)) {
     return new ShortDramaError("base_auth_failed", "Feishu Base authorization failed", details);
   }
-  if (isSchemaFailure(value)) {
+  if (SCHEMA_ERROR_CODES.has(codeOf(value))) {
     return new ShortDramaError("base_schema_drift", "Feishu Base schema drift detected", details);
   }
   return new ShortDramaError("base_request_failed", "Feishu Base request failed", details);
 }
 
-function assertPayload(payload) {
-  if (!payload || typeof payload !== "object" || Array.isArray(payload) ||
-      typeof payload.code !== "number" || !Number.isFinite(payload.code)) {
-    throw invalidResponse("Feishu response must be an object with a numeric code");
+function validateToken(token) {
+  if (typeof token !== "string" || token.length === 0) {
+    throw invalidResponse("Feishu token provider returned an invalid token");
+  }
+  return token;
+}
+
+function assertPayload(payload, path = undefined) {
+  if (!plainObject(payload) || typeof payload.code !== "number" || !Number.isFinite(payload.code)) {
+    throw invalidResponse("Feishu response must be an object with a numeric code", path ? { path } : {});
   }
 }
 
-function assertRecords(records) {
-  if (!Array.isArray(records)) fail("base_response_invalid", "Records must be an array");
+function hasIgnoredFields(value, seen = new Set()) {
+  if (!value || typeof value !== "object" || seen.has(value)) return false;
+  seen.add(value);
+  for (const [key, child] of Object.entries(value)) {
+    if ((key === "ignored_fields" || key === "ignored_field_list") &&
+        ((Array.isArray(child) && child.length > 0) || (plainObject(child) && Object.keys(child).length > 0))) {
+      return true;
+    }
+    if (hasIgnoredFields(child, seen)) return true;
+  }
+  return false;
+}
+
+function requireEntity(payload, entityName, idName) {
+  if (hasIgnoredFields(payload.data)) {
+    throw invalidResponse("Feishu response reports ignored fields", { entity: entityName });
+  }
+  const entity = payload.data?.[entityName] ?? payload.data;
+  if (!plainObject(entity) || typeof entity[idName] !== "string" || entity[idName].length === 0) {
+    throw invalidResponse(`Feishu ${entityName} response is missing ${idName}`);
+  }
+  return entity;
+}
+
+function requireRecordIds(payload, expectedIds = null, expectedCount = null) {
+  if (hasIgnoredFields(payload.data)) throw invalidResponse("Feishu batch response reports ignored fields");
+  const ids = payload.data?.record_id_list;
+  if (!Array.isArray(ids) || ids.some((id) => typeof id !== "string" || id.length === 0) ||
+      new Set(ids).size !== ids.length) {
+    throw invalidResponse("Feishu batch response record_id_list is malformed");
+  }
+  if (expectedCount !== null && ids.length !== expectedCount) {
+    throw invalidResponse("Feishu batch create response count does not match request");
+  }
+  if (expectedIds !== null && (ids.length !== expectedIds.length || ids.some((id, index) => id !== expectedIds[index]))) {
+    throw invalidResponse("Feishu batch update response IDs do not match request order");
+  }
+  return ids;
 }
 
 function findFieldSpec(tableName, fieldName) {
   const specs = BASE_FIELD_SPECS[tableName];
   if (!specs || typeof fieldName !== "string") {
-    fail("base_schema_drift", "Field is not part of the fixed Base schema", { table: tableName });
+    fail("base_schema_drift", "Field is not part of the fixed Base schema", { table: tableName ?? null });
   }
   const spec = specs.find((candidate) => candidate.name === fieldName);
   if (!spec) {
-    fail("base_schema_drift", "Field is not part of the fixed Base schema", {
-      table: tableName,
-      field: fieldName,
-    });
+    fail("base_schema_drift", "Field is not part of the fixed Base schema", { table: tableName, field: fieldName });
   }
   return spec;
 }
 
-function requiredBinding(bindings, key, spec) {
-  const value = bindings?.[key];
-  if (typeof value !== "string" || value.length === 0) {
-    fail("base_schema_drift", "Resolved schema binding is required", { field: spec.name, binding: key });
-  }
-  return value;
-}
-
-function fieldBody(spec, bindings) {
-  if (bindings === null || typeof bindings !== "object" || Array.isArray(bindings)) {
+function assertBindings(spec, bindings) {
+  if (!plainObject(bindings)) {
     fail("base_schema_drift", "Field bindings must be a fixed identifier map", { field: spec.name });
   }
-  const allowedBindings = spec.kind === "link"
-    ? new Set(["targetTableId"])
-    : spec.kind === "lookup"
-      ? new Set(["linkFieldId", "sourceFieldId"])
-      : new Set();
-  if (Object.keys(bindings).some((key) => !allowedBindings.has(key))) {
+  const allowed = spec.kind === "link" ? ["targetTableId"] : [];
+  if (Object.keys(bindings).some((key) => !allowed.includes(key))) {
     fail("base_schema_drift", "Field bindings contain unsupported input", { field: spec.name });
   }
-  if (spec.kind === "system") {
-    const type = SYSTEM_FIELD_TYPES[spec.systemType];
-    if (!type) fail("base_schema_drift", "Unsupported fixed system field", { field: spec.name });
-    return { field_name: spec.name, type };
+  if (spec.kind === "link" && (typeof bindings.targetTableId !== "string" || bindings.targetTableId.length === 0)) {
+    fail("base_schema_drift", "Resolved link table is required", { field: spec.name });
   }
-  const type = FIELD_TYPES[spec.kind];
-  if (!type) fail("base_schema_drift", "Unsupported fixed field kind", { field: spec.name, kind: spec.kind });
-  const body = { field_name: spec.name, type };
-  if (spec.kind === "date" || spec.kind === "datetime") {
-    body.property = { date_formatter: spec.kind === "date" ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm" };
-  } else if (spec.kind === "link") {
-    body.property = { table_id: requiredBinding(bindings, "targetTableId", spec), multiple: true };
-  } else if (spec.kind === "lookup") {
-    body.property = {
-      relation_field_id: requiredBinding(bindings, "linkFieldId", spec),
-      target_field_id: requiredBinding(bindings, "sourceFieldId", spec),
-    };
-  } else if (spec.kind === "formula") {
-    body.property = { formula_expression: spec.expression };
-  }
-  return body;
 }
 
+function canonicalFieldBody(tableName, spec, bindings = {}) {
+  assertBindings(spec, bindings);
+  if (spec.kind === "system") return { name: spec.name, type: spec.systemType };
+  if (spec.kind === "text") return { name: spec.name, type: "text" };
+  if (spec.kind === "url") return { name: spec.name, type: "text", style: { type: "url" } };
+  if (spec.kind === "number") return { name: spec.name, type: "number" };
+  if (spec.kind === "single_select" || spec.kind === "multi_select") {
+    return { name: spec.name, type: "select", multiple: spec.kind === "multi_select" };
+  }
+  if (spec.kind === "date" || spec.kind === "datetime") {
+    return { name: spec.name, type: "datetime", style: { format: spec.kind === "date" ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm" } };
+  }
+  if (spec.kind === "link") {
+    return { name: spec.name, type: "link", link_table: bindings.targetTableId };
+  }
+  if (spec.kind === "formula") {
+    return { name: spec.name, type: "formula", expression: spec.expression };
+  }
+  if (spec.kind === "lookup") {
+    const linkSpec = findFieldSpec(tableName, spec.linkField);
+    if (linkSpec.kind !== "link") fail("base_schema_drift", "Lookup relationship is not a fixed link", { field: spec.name });
+    const targetPrimary = TABLES[linkSpec.targetTable]?.primaryField;
+    if (!targetPrimary) fail("base_schema_drift", "Lookup target primary field is missing", { field: spec.name });
+    return {
+      type: "lookup",
+      name: spec.name,
+      from: linkSpec.targetTable,
+      select: spec.sourceField,
+      where: {
+        logic: "and",
+        conditions: [[targetPrimary, "intersects", { type: "field_ref", field: spec.linkField }]],
+      },
+      aggregate: "raw_value",
+    };
+  }
+  fail("base_schema_drift", "Unsupported fixed field kind", { field: spec.name, kind: spec.kind });
+}
+
+const allVisibleFields = (tableName) => BASE_FIELD_SPECS[tableName].map((spec) => spec.name);
+const emptyFilter = () => ({ logic: "and", conditions: [] });
+const noGrouping = () => [];
+
+const VIEW_SPECS = Object.freeze({
+  "账号台账": Object.freeze({
+    "在用账号": { filter: { logic: "and", conditions: [["状态", "equals", "在用"]] }, sort: [{ field: "指标同步时间", direction: "desc" }], group: [{ field: "所属组", direction: "asc" }] },
+    "需处理账号": { filter: { logic: "and", conditions: [["同步状态", "in", ["partial", "failed"]]] }, sort: [{ field: "指标同步时间", direction: "desc" }], group: [{ field: "所属组", direction: "asc" }] },
+  }),
+  "选剧池": Object.freeze({
+    "未排期": { filter: { logic: "and", conditions: [["是否已排期", "equals", "否"]] }, sort: [{ field: "上线日期", direction: "desc" }], group: noGrouping() },
+    "已排期": { filter: { logic: "and", conditions: [["是否已排期", "equals", "是"]] }, sort: [{ field: "上线日期", direction: "desc" }], group: noGrouping() },
+    "按平台": { filter: emptyFilter(), sort: [{ field: "上线日期", direction: "desc" }], group: [{ field: "平台", direction: "asc" }] },
+    "按语言": { filter: emptyFilter(), sort: [{ field: "上线日期", direction: "desc" }], group: [{ field: "语言", direction: "asc" }] },
+  }),
+  "发布记录": Object.freeze({
+    "已排期": { filter: { logic: "and", conditions: [["发布状态", "equals", "已排期"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
+    "待公开": { filter: { logic: "and", conditions: [["发布状态", "equals", "待公开"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
+    "已公开待回填": { filter: { logic: "and", conditions: [["发布状态", "equals", "已公开"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
+    "已回填": { filter: { logic: "and", conditions: [["发布状态", "equals", "已回填"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
+    "按账号表现": { filter: emptyFilter(), sort: [{ field: "播放量", direction: "desc" }], group: [{ field: "账号名", direction: "asc" }] },
+    "按剧表现": { filter: emptyFilter(), sort: [{ field: "播放量", direction: "desc" }], group: [{ field: "剧名", direction: "asc" }] },
+  }),
+  "采集数据": Object.freeze({
+    "完整": { filter: { logic: "and", conditions: [["采集状态", "equals", "complete"]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
+    "部分缺失": { filter: { logic: "and", conditions: [["采集状态", "equals", "partial"]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
+    "未关联发布": { filter: { logic: "and", conditions: [["关联发布记录", "is_empty", true]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
+  }),
+});
+
 function fixedView(tableName, viewName) {
-  if (typeof viewName !== "string" || !VIEW_SPECS[tableName]?.includes(viewName)) {
+  const spec = typeof viewName === "string" ? VIEW_SPECS[tableName]?.[viewName] : null;
+  if (!spec) {
     fail("base_schema_drift", "View is not part of the fixed Base presentation schema", {
-      table: tableName,
+      table: tableName ?? null,
       view: typeof viewName === "string" ? viewName : null,
     });
   }
-  return { view_name: viewName, view_type: "grid" };
+  return {
+    name: viewName,
+    type: "grid",
+    filter: structuredClone(spec.filter),
+    sort: structuredClone(spec.sort),
+    group: structuredClone(spec.group),
+    visible_fields: allVisibleFields(tableName),
+  };
+}
+
+const performanceSeries = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论"].map((field) => ({ field, aggregate: "SUM" })));
+const DASHBOARD_BLOCK_SPECS = Object.freeze({
+  "活跃账号数": { type: "statistics", data_config: { table: "账号台账", aggregate: "count_all", filter: { logic: "and", conditions: [["状态", "equals", "在用"]] } } },
+  "待公开数": { type: "statistics", data_config: { table: "发布记录", aggregate: "count_all", filter: { logic: "and", conditions: [["发布状态", "equals", "待公开"]] } } },
+  "待回填数": { type: "statistics", data_config: { table: "发布记录", aggregate: "count_all", filter: { logic: "and", conditions: [["发布状态", "equals", "已公开"]] } } },
+  "按账号最新累计表现": { type: "column", data_config: { table: "发布记录", series: performanceSeries, group_by: "账号名" } },
+  "按剧最新累计表现": { type: "column", data_config: { table: "发布记录", series: performanceSeries, group_by: "剧名" } },
+  "最近一次同步终态": { type: "text", data_config: { text: "尚无成功同步记录" } },
+});
+
+function fixedDashboardBlock(blockName) {
+  const spec = typeof blockName === "string" ? DASHBOARD_BLOCK_SPECS[blockName] : null;
+  if (!spec) fail("base_schema_drift", "Dashboard block is not part of the fixed Base presentation schema");
+  return { name: blockName, type: spec.type, data_config: structuredClone(spec.data_config) };
+}
+
+function assertFields(fields, context) {
+  if (!plainObject(fields) || Object.keys(fields).length === 0) {
+    fail("base_response_invalid", `${context} fields must be a non-empty object`);
+  }
+}
+
+function validateCreateRecords(records) {
+  if (!Array.isArray(records) || records.length === 0) fail("base_response_invalid", "Create records must be a non-empty array");
+  for (const record of records) {
+    if (!plainObject(record) || Object.keys(record).some((key) => key !== "fields")) {
+      fail("base_response_invalid", "Create record contains unsupported keys");
+    }
+    assertFields(record.fields, "Create record");
+  }
+}
+
+function validateUpdateRecords(records) {
+  if (!Array.isArray(records) || records.length === 0) fail("base_response_invalid", "Update records must be a non-empty array");
+  for (const record of records) {
+    if (!plainObject(record) || Object.keys(record).some((key) => !["record_id", "fields"].includes(key)) ||
+        typeof record.record_id !== "string" || record.record_id.length === 0) {
+      fail("base_response_invalid", "Update record is malformed");
+    }
+    assertFields(record.fields, "Update record");
+  }
+}
+
+function firstSeenFields(records) {
+  const fields = [];
+  const seen = new Set();
+  for (const record of records) {
+    for (const field of Object.keys(record.fields)) {
+      if (!seen.has(field)) {
+        seen.add(field);
+        fields.push(field);
+      }
+    }
+  }
+  return fields;
+}
+
+function transposeCreateGroup(records, fields) {
+  return { fields, rows: records.map((record) => fields.map((field) => Object.hasOwn(record.fields, field) ? record.fields[field] : null)) };
+}
+
+function stableValue(value) {
+  if (Array.isArray(value)) return value.map(stableValue);
+  if (plainObject(value)) return Object.fromEntries(Object.keys(value).sort().map((key) => [key, stableValue(value[key])]));
+  return value;
+}
+
+function patchKey(patch) {
+  return JSON.stringify(stableValue(patch));
+}
+
+function contiguousUpdateGroups(records) {
+  const groups = [];
+  let group = null;
+  for (const record of records) {
+    const key = patchKey(record.fields);
+    if (!group || group.key !== key || group.records.length === MAX_PAGE_SIZE) {
+      group = { key, patch: record.fields, records: [] };
+      groups.push(group);
+    }
+    group.records.push(record);
+  }
+  return groups;
 }
 
 async function defaultFetchJson(url, options = {}) {
@@ -215,20 +343,14 @@ async function defaultFetchJson(url, options = {}) {
     error.headers = response.headers;
     throw error;
   }
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return payload;
+  if (!plainObject(payload)) return payload;
   return { ...payload, status: response.status, headers: response.headers };
 }
 
-export function createTenantTokenProvider({
-  appId,
-  appSecret,
-  fetchJson = defaultFetchJson,
-  now = Date.now,
-} = {}) {
+export function createTenantTokenProvider({ appId, appSecret, fetchJson = defaultFetchJson, now = Date.now } = {}) {
   if (typeof appId !== "string" || appId.length === 0 || typeof appSecret !== "string" || appSecret.length === 0) {
     fail("base_auth_failed", "Feishu application credentials are required");
   }
-
   let cachedToken = null;
   let expiresAt = 0;
   let inFlight = null;
@@ -237,7 +359,6 @@ export function createTenantTokenProvider({
     const currentTime = Number(now());
     if (cachedToken && Number.isFinite(currentTime) && currentTime < expiresAt) return cachedToken;
     if (inFlight) return inFlight;
-
     inFlight = (async () => {
       let payload;
       try {
@@ -250,15 +371,13 @@ export function createTenantTokenProvider({
         if (error instanceof ShortDramaError) throw error;
         if (error instanceof SyntaxError) throw invalidResponse("Feishu authentication response was not valid JSON");
         throw new ShortDramaError("base_auth_failed", "Feishu tenant authentication failed", {
-          status: statusOf(error),
-          code: codeOf(error),
+          status: statusOf(error), code: codeOf(error),
         });
       }
       assertPayload(payload);
       if (payload.code !== 0) {
         throw new ShortDramaError("base_auth_failed", "Feishu tenant authentication failed", {
-          status: statusOf(payload),
-          code: codeOf(payload),
+          status: statusOf(payload), code: codeOf(payload),
         });
       }
       if (typeof payload.tenant_access_token !== "string" || payload.tenant_access_token.length === 0 ||
@@ -269,14 +388,12 @@ export function createTenantTokenProvider({
       expiresAt = Number(now()) + Math.max(0, payload.expire - 300) * 1000;
       return cachedToken;
     })();
-
     try {
       return await inFlight;
     } finally {
       inFlight = null;
     }
   };
-
   provider.invalidate = (token) => {
     if (token === undefined || token === cachedToken) {
       cachedToken = null;
@@ -303,6 +420,7 @@ export class FeishuClient {
     this.sleep = sleep;
     this.logger = typeof logger === "function" ? logger : null;
     this.runId = runId;
+    this.writeQueues = new Map();
   }
 
   log(method, path, status) {
@@ -310,22 +428,29 @@ export class FeishuClient {
   }
 
   async operation(callback) {
-    const token = await this.tokenProvider();
-    if (typeof token !== "string" || token.length === 0) {
-      throw invalidResponse("Feishu token provider returned an invalid token");
-    }
+    const token = validateToken(await this.tokenProvider());
     return callback({ token, authRetried: false });
   }
 
+  async serializeWrite(key, callback) {
+    const previous = this.writeQueues.get(key) ?? Promise.resolve();
+    const run = previous.catch(() => {}).then(callback);
+    const tail = run.then(() => undefined, () => undefined);
+    this.writeQueues.set(key, tail);
+    try {
+      return await run;
+    } finally {
+      if (this.writeQueues.get(key) === tail) this.writeQueues.delete(key);
+    }
+  }
+
   async request(path, { method = "GET", body = undefined, context = undefined } = {}) {
-    if (typeof path !== "string" || !path.startsWith(BITABLE_PREFIX) || path.includes("://")) {
-      fail("base_response_invalid", "Only fixed Feishu Bitable API paths are allowed");
+    if (typeof path !== "string" || !path.startsWith(BASE_V3_PREFIX) || path.includes("://")) {
+      fail("base_response_invalid", "Only fixed Feishu Base v3 API paths are allowed");
     }
     if (!context) return this.operation((operationContext) => this.request(path, { method, body, context: operationContext }));
 
-    let rateAttempts = 0;
-    while (true) {
-      rateAttempts += 1;
+    for (let attempt = 1; attempt <= MAX_REQUEST_ATTEMPTS; attempt += 1) {
       let payload;
       try {
         payload = await this.fetchJson(`${FEISHU_ORIGIN}${path}`, {
@@ -338,15 +463,14 @@ export class FeishuClient {
         });
       } catch (error) {
         this.log(method, path, statusOf(error) ?? "error");
-        if (isRateLimited(error) && rateAttempts < MAX_RATE_ATTEMPTS) {
-          await this.sleep(retryDelay(error, rateAttempts));
+        if (isRateLimited(error) && attempt < MAX_REQUEST_ATTEMPTS) {
+          await this.sleep(retryDelay(error, attempt));
           continue;
         }
-        if (isAuthorizationFailure(error) && !context.authRetried) {
+        if (isAuthorizationFailure(error) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
           context.authRetried = true;
           this.tokenProvider.invalidate?.(context.token);
-          context.token = await this.tokenProvider();
-          rateAttempts = 0;
+          context.token = validateToken(await this.tokenProvider());
           continue;
         }
         if (error instanceof SyntaxError) throw invalidResponse("Feishu response was not valid JSON", { path });
@@ -354,41 +478,42 @@ export class FeishuClient {
         throw mappedFailure(error, path);
       }
 
-      if (!payload || typeof payload !== "object" || Array.isArray(payload) ||
-          typeof payload.code !== "number" || !Number.isFinite(payload.code)) {
-        this.log(method, path, statusOf(payload) ?? "invalid");
-        throw invalidResponse("Feishu response must be an object with a numeric code", { path });
-      }
+      assertPayload(payload, path);
       const status = statusOf(payload) ?? (payload.code === 0 ? 200 : payload.code);
       this.log(method, path, status);
-      if (payload.code === 0 && (statusOf(payload) === null || statusOf(payload) < 400)) return payload;
-      if (isRateLimited(payload) && rateAttempts < MAX_RATE_ATTEMPTS) {
-        await this.sleep(retryDelay(payload, rateAttempts));
+      if (payload.code === 0 && (statusOf(payload) === null || statusOf(payload) < 400)) {
+        if (method !== "GET" && hasIgnoredFields(payload.data)) {
+          throw invalidResponse("Feishu write response reports ignored fields", { path });
+        }
+        return payload;
+      }
+      if (isRateLimited(payload) && attempt < MAX_REQUEST_ATTEMPTS) {
+        await this.sleep(retryDelay(payload, attempt));
         continue;
       }
-      if (isAuthorizationFailure(payload) && !context.authRetried) {
+      if (isAuthorizationFailure(payload) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
         context.authRetried = true;
         this.tokenProvider.invalidate?.(context.token);
-        context.token = await this.tokenProvider();
-        rateAttempts = 0;
+        context.token = validateToken(await this.tokenProvider());
         continue;
       }
       throw mappedFailure(payload, path);
     }
+    throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path });
   }
 
-  async list(path) {
+  async list(path, { mode = "offset" } = {}) {
     return this.operation(async (context) => {
       const items = [];
-      const seenPageTokens = new Set();
-      let pageToken = "";
+      const seenCursors = new Set();
+      let cursor = "";
       let revision;
       let revisionObserved = false;
       do {
-        const query = new URLSearchParams({ page_size: String(MAX_PAGE_SIZE) });
-        if (pageToken) query.set("page_token", pageToken);
+        const query = new URLSearchParams(mode === "token" ? { page_size: String(MAX_PAGE_SIZE) } : { limit: String(MAX_PAGE_SIZE) });
+        if (cursor) query.set(mode === "token" ? "page_token" : "offset", cursor);
         const payload = await this.request(`${path}?${query}`, { context });
-        if (!payload.data || typeof payload.data !== "object" || !Array.isArray(payload.data.items)) {
+        if (!plainObject(payload.data) || !Array.isArray(payload.data.items)) {
           throw invalidResponse("Feishu list response items must be an array", { path });
         }
         if (typeof payload.data.has_more !== "boolean") {
@@ -402,152 +527,187 @@ export class FeishuClient {
         revisionObserved = true;
         items.push(...payload.data.items);
         if (!payload.data.has_more) {
-          pageToken = "";
+          cursor = "";
           continue;
         }
-        if (typeof payload.data.page_token !== "string" || payload.data.page_token.length === 0 ||
-            seenPageTokens.has(payload.data.page_token)) {
-          throw invalidResponse("Feishu list response page_token is missing or repeated", { path });
+        const rawCursor = mode === "token"
+          ? payload.data.page_token
+          : (payload.data.offset ?? payload.data.next_offset);
+        if ((typeof rawCursor !== "string" && typeof rawCursor !== "number") || String(rawCursor).length === 0 ||
+            seenCursors.has(String(rawCursor))) {
+          throw invalidResponse(`Feishu list response ${mode === "token" ? "page_token" : "offset"} is missing or repeated`, { path });
         }
-        pageToken = payload.data.page_token;
-        seenPageTokens.add(pageToken);
-      } while (pageToken);
+        cursor = String(rawCursor);
+        seenCursors.add(cursor);
+      } while (cursor);
       return { items, complete: true, revision: revision ?? null };
     });
   }
 
-  listTables(appToken) {
-    return this.list(`/open-apis/bitable/v1/apps/${encoded(appToken)}/tables`);
+  basePath(baseToken) {
+    return `/open-apis/base/v3/bases/${encoded(baseToken)}`;
   }
 
-  listFields(appToken, tableId) {
-    return this.list(`/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/fields`);
+  listTables(baseToken) {
+    return this.list(`${this.basePath(baseToken)}/tables`);
   }
 
-  listRecords(appToken, tableId) {
-    return this.list(`/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/records`);
+  listFields(baseToken, tableId) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`);
   }
 
-  listViews(appToken, tableId) {
-    return this.list(`/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/views`);
+  listRecords(baseToken, tableId) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`);
   }
 
-  listDashboards(appToken) {
-    return this.list(`/open-apis/bitable/v1/apps/${encoded(appToken)}/dashboards`);
+  listViews(baseToken, tableId) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`);
   }
 
-  async getRecord(appToken, tableId, recordId) {
+  listDashboards(baseToken) {
+    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token" });
+  }
+
+  async getRecord(baseToken, tableId, recordId) {
     return this.operation(async (context) => {
       const payload = await this.request(
-        `/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/records/${encoded(recordId)}`,
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/${encoded(recordId)}`,
         { context },
       );
-      if (!payload.data?.record || typeof payload.data.record !== "object" || Array.isArray(payload.data.record)) {
+      if (!plainObject(payload.data?.record) || typeof payload.data.record.record_id !== "string" ||
+          payload.data.record.record_id.length === 0) {
         throw invalidResponse("Feishu record response is malformed");
       }
       return payload.data.record;
     });
   }
 
-  async writeRecords(appToken, tableId, records, action) {
-    assertRecords(records);
-    if (records.length === 0) return [];
-    return this.operation(async (context) => {
+  createRecords(baseToken, tableId, records) {
+    validateCreateRecords(records);
+    const queueKey = `records:${baseToken}:${tableId}`;
+    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
       const written = [];
-      for (const group of batches(records)) {
+      const fields = firstSeenFields(records);
+      for (let start = 0; start < records.length; start += MAX_PAGE_SIZE) {
+        const group = records.slice(start, start + MAX_PAGE_SIZE);
+        const body = transposeCreateGroup(group, fields);
         const payload = await this.request(
-          `/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/records/${action}`,
-          { method: "POST", body: { records: group }, context },
+          `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
+          { method: "POST", body, context },
         );
-        if (!Array.isArray(payload.data?.records)) {
-          throw invalidResponse("Feishu batch write response records must be an array", { action });
-        }
-        written.push(...payload.data.records);
+        const ids = requireRecordIds(payload, null, group.length);
+        written.push(...group.map((record, index) => ({ record_id: ids[index], fields: record.fields })));
       }
       return written;
-    });
+    }));
   }
 
-  createRecords(appToken, tableId, records) {
-    return this.writeRecords(appToken, tableId, records, "batch_create");
+  updateRecords(baseToken, tableId, records) {
+    validateUpdateRecords(records);
+    const queueKey = `records:${baseToken}:${tableId}`;
+    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
+      const written = [];
+      for (const group of contiguousUpdateGroups(records)) {
+        const ids = group.records.map((record) => record.record_id);
+        const payload = await this.request(
+          `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_update`,
+          { method: "POST", body: { record_id_list: ids, patch: group.patch }, context },
+        );
+        requireRecordIds(payload, ids);
+        written.push(...group.records);
+      }
+      return written;
+    }));
   }
 
-  updateRecords(appToken, tableId, records) {
-    return this.writeRecords(appToken, tableId, records, "batch_update");
-  }
-
-  async createTable(appToken, tableName) {
+  async createTable(baseToken, tableName) {
     if (typeof tableName !== "string" || !TABLE_ORDER.includes(tableName)) {
       fail("base_schema_drift", "Table is not part of the fixed Base schema", { table: tableName ?? null });
     }
-    return this.operation(async (context) => {
-      const payload = await this.request(`/open-apis/bitable/v1/apps/${encoded(appToken)}/tables`, {
-        method: "POST",
-        body: { table: { name: tableName } },
-        context,
-      });
-      return payload.data?.table ?? payload.data ?? null;
-    });
+    const primary = BASE_FIELD_SPECS[tableName][0];
+    if (!primary?.primary || primary.name !== TABLES[tableName].primaryField) {
+      fail("base_schema_drift", "Fixed table primary field metadata is invalid", { table: tableName });
+    }
+    const body = { name: tableName, fields: [canonicalFieldBody(tableName, primary)] };
+    return this.serializeWrite(`schema:${baseToken}`, () => this.operation(async (context) => {
+      const payload = await this.request(`${this.basePath(baseToken)}/tables`, { method: "POST", body, context });
+      return requireEntity(payload, "table", "table_id");
+    }));
   }
 
-  async createField(appToken, tableId, tableName, fieldName, bindings = {}) {
+  async createField(baseToken, tableId, tableName, fieldName, bindings = {}) {
     const spec = findFieldSpec(tableName, fieldName);
-    const body = fieldBody(spec, bindings);
-    return this.operation(async (context) => {
+    if (spec.primary) {
+      fail("base_schema_drift", "Primary fields must be created with the table or recovered through updateField", { field: fieldName });
+    }
+    const body = canonicalFieldBody(tableName, spec, bindings);
+    return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
-        `/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/fields`,
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`,
         { method: "POST", body, context },
       );
-      return payload.data?.field ?? payload.data ?? null;
-    });
+      return requireEntity(payload, "field", "field_id");
+    }));
   }
 
-  async createView(appToken, tableId, tableName, viewName) {
-    const body = fixedView(tableName, viewName);
-    return this.operation(async (context) => {
+  async updateField(baseToken, tableId, fieldId, tableName, fieldName) {
+    const spec = findFieldSpec(tableName, fieldName);
+    if (!spec.primary || spec.name !== TABLES[tableName].primaryField) {
+      fail("base_schema_drift", "updateField is reserved for fixed primary-field recovery", { field: fieldName });
+    }
+    const body = canonicalFieldBody(tableName, spec);
+    return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
-        `/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/views`,
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields/${encoded(fieldId)}`,
+        { method: "PUT", body, context },
+      );
+      return requireEntity(payload, "field", "field_id");
+    }));
+  }
+
+  async createView(baseToken, tableId, tableName, viewName) {
+    const view = fixedView(tableName, viewName);
+    const body = { name: view.name, type: view.type };
+    return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`,
         { method: "POST", body, context },
       );
-      return payload.data?.view ?? payload.data ?? null;
-    });
+      return requireEntity(payload, "view", "view_id");
+    }));
   }
 
-  async updateView(appToken, tableId, viewId, tableName, viewName) {
-    const body = fixedView(tableName, viewName);
-    return this.operation(async (context) => {
-      const payload = await this.request(
-        `/open-apis/bitable/v1/apps/${encoded(appToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`,
-        { method: "PATCH", body, context },
-      );
-      return payload.data?.view ?? payload.data ?? null;
-    });
+  async updateView(baseToken, tableId, viewId, tableName, viewName) {
+    const view = fixedView(tableName, viewName);
+    return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
+      const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
+      for (const part of ["filter", "sort", "group", "visible_fields"]) {
+        await this.request(`${root}/${part}`, { method: "PUT", body: view[part], context });
+      }
+      return { view_id: viewId, name: view.name, configured: true };
+    }));
   }
 
-  async createDashboard(appToken, dashboardName) {
-    if (typeof dashboardName !== "string" || !DASHBOARD_NAMES.has(dashboardName)) {
+  async createDashboard(baseToken, dashboardName) {
+    if (dashboardName !== DASHBOARD_NAME) {
       fail("base_schema_drift", "Dashboard is not part of the fixed Base presentation schema");
     }
-    return this.operation(async (context) => {
-      const payload = await this.request(`/open-apis/bitable/v1/apps/${encoded(appToken)}/dashboards`, {
-        method: "POST",
-        body: { name: dashboardName },
-        context,
+    return this.serializeWrite(`dashboard:${baseToken}`, () => this.operation(async (context) => {
+      const payload = await this.request(`${this.basePath(baseToken)}/dashboards`, {
+        method: "POST", body: { name: DASHBOARD_NAME }, context,
       });
-      return payload.data?.dashboard ?? payload.data ?? null;
-    });
+      return requireEntity(payload, "dashboard", "dashboard_id");
+    }));
   }
 
-  async createDashboardBlock(appToken, dashboardId, blockName) {
-    if (typeof blockName !== "string" || !DASHBOARD_BLOCK_NAMES.has(blockName)) {
-      fail("base_schema_drift", "Dashboard block is not part of the fixed Base presentation schema");
-    }
-    return this.operation(async (context) => {
+  async createDashboardBlock(baseToken, dashboardId, blockName) {
+    const body = fixedDashboardBlock(blockName);
+    return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
-        `/open-apis/bitable/v1/apps/${encoded(appToken)}/dashboards/${encoded(dashboardId)}/blocks`,
-        { method: "POST", body: { name: blockName, type: "metric" }, context },
+        `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`,
+        { method: "POST", body, context },
       );
-      return payload.data?.block ?? payload.data ?? null;
-    });
+      return requireEntity(payload, "block", "block_id");
+    }));
   }
 }
