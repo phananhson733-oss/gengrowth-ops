@@ -330,7 +330,7 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
     if (data.timezone !== undefined && data.timezone !== "Asia/Shanghai") {
       throw invalidResponse("Feishu record list timezone is invalid");
     }
-    if (data.rev !== undefined && (!["string", "number"].includes(typeof data.rev) || String(data.rev).length === 0)) {
+    if (data.rev !== undefined && data.rev !== null && (!Number.isSafeInteger(data.rev) || data.rev < 0)) {
       throw invalidResponse("Feishu record list revision is invalid");
     }
     if (data.query_context !== undefined && (!plainObject(data.query_context) ||
@@ -369,23 +369,13 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
       ...(fieldIds === undefined ? {} : { field_ids: [...fieldIds] }),
       ...(fieldTypes === undefined ? {} : { field_types: [...fieldTypes] }),
       ...(data.timezone === undefined ? {} : { timezone: data.timezone }),
-      ...(data.rev === undefined ? {} : { rev: data.rev }),
+      ...(data.rev === undefined || data.rev === null ? {} : { rev: data.rev }),
       ...(data.query_context === undefined ? {} : {
         record_scope: data.query_context.record_scope,
         field_scope: data.query_context.field_scope,
       }),
     } : null,
   };
-}
-
-function recordSignaturesCompatible(left, right) {
-  for (const key of ["fields", "total"]) {
-    if (JSON.stringify(left[key]) !== JSON.stringify(right[key])) return false;
-  }
-  for (const key of ["field_ids", "field_types", "timezone", "rev", "record_scope", "field_scope"]) {
-    if (Object.hasOwn(left, key) && Object.hasOwn(right, key) && JSON.stringify(left[key]) !== JSON.stringify(right[key])) return false;
-  }
-  return true;
 }
 
 function viewFieldIndex(fields) {
@@ -877,7 +867,7 @@ export class FeishuClient {
       let cursor = mode === "offset" ? "0" : "";
       let revision;
       let revisionObserved = false;
-      let recordSignature = null;
+      const recordMetadataBaselines = new Map();
       do {
         assertNotAborted(signal);
         const query = new URLSearchParams(mode === "token" ? { page_size: String(pageSize) } : { limit: String(pageSize) });
@@ -895,10 +885,12 @@ export class FeishuClient {
           : null;
         const pageItems = decoded ? decoded.records : normalizedResourceItems(payload.data, resource);
         if (decoded?.signature) {
-          if (recordSignature !== null && !recordSignaturesCompatible(decoded.signature, recordSignature)) {
-            throw invalidResponse("Feishu record list schema changed during pagination", { path: diagnosticPath(path) });
+          for (const [key, value] of Object.entries(decoded.signature)) {
+            if (recordMetadataBaselines.has(key) && JSON.stringify(recordMetadataBaselines.get(key)) !== JSON.stringify(value)) {
+              throw invalidResponse("Feishu record list schema changed during pagination", { path: diagnosticPath(path) });
+            }
+            if (!recordMetadataBaselines.has(key)) recordMetadataBaselines.set(key, structuredClone(value));
           }
-          recordSignature = decoded.signature;
         }
         const pageRevision = vendorRecords ? payload.data.rev ?? null : payload.data.revision ?? payload.data.revision_id ?? null;
         if (pageRevision !== null) {

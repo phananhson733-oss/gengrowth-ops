@@ -91,7 +91,7 @@ test("vendor record matrix and total pagination fail closed on partial or mismat
     record_id_list: ["rec"], data: [["SR-000001"]], total: 1,
     ignored_fields: [{ name: "播放量", reason: "unsupported" }],
     query_context: { record_scope: "all_records", field_scope: "selected_fields" },
-    timezone: "Asia/Shanghai", rev: "r-ignored",
+    timezone: "Asia/Shanghai", rev: 7,
   };
   const strict = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: ignored }) });
   await assert.rejects(() => strict.listRecords("base", "tbl", { tableName: "发布记录" }), (error) => error.code === "base_response_invalid");
@@ -123,7 +123,7 @@ test("official fixed-table record lists are complete from the minimal matrix and
 
   const optional = completeRecordMatrix({
     field_id_list: ["fld_release", "fld_views", "fld_archive"],
-    field_type_list: ["text", "lookup", "single_select"], timezone: "Asia/Shanghai", rev: "rev-records-1",
+    field_type_list: ["text", "lookup", "single_select"], timezone: "Asia/Shanghai", rev: 7,
     query_context: { record_scope: "all_records", field_scope: "all_fields" }, ignored_fields: [],
   });
   const enriched = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: optional }) });
@@ -147,7 +147,7 @@ test("official fixed-table record lists are complete from the minimal matrix and
     (data) => { data.field_id_list[0] = "fld_other"; },
     (data) => { data.field_type_list[0] = "number"; },
     (data) => { data.timezone = "UTC"; },
-    (data) => { data.rev = "rev-records-2"; },
+    (data) => { data.rev = 8; },
     (data) => { data.query_context.field_scope = "selected_fields"; },
     (data) => { data.total = 3; },
   ]) {
@@ -171,6 +171,39 @@ test("official fixed-table record lists are complete from the minimal matrix and
   const mixedPages = [firstEnriched, secondMinimal];
   const mixed = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: mixedPages.shift() }) });
   assert.equal((await mixed.listRecords("base", "tbl", { tableName: "发布记录" })).complete, true);
+});
+
+test("optional record metadata keeps a per-key first-seen baseline across missing pages", async () => {
+  const page = (recordId, overrides = {}) => completeRecordMatrix({
+    record_id_list: [recordId], data: [[`SR-${recordId}`, "1", ["active"]]], total: 3, ...overrides,
+  });
+  const enriched = {
+    field_id_list: ["fld_release", "fld_views", "fld_archive"],
+    field_type_list: ["text", "lookup", "single_select"], timezone: "Asia/Shanghai", rev: 7,
+    query_context: { record_scope: "all_records", field_scope: "all_fields" },
+  };
+  const driftPages = [page("1", enriched), page("2"), page("3", {
+    ...enriched, field_id_list: ["fld_release_changed", "fld_views", "fld_archive"],
+  })];
+  const drift = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: driftPages.shift() }) });
+  await assert.rejects(drift.listRecords("base", "tbl", { tableName: "发布记录" }), (error) => error.code === "base_response_invalid");
+
+  const safePages = [page("1"), page("2", enriched), page("3")];
+  const safe = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: safePages.shift() }) });
+  assert.equal((await safe.listRecords("base", "tbl", { tableName: "发布记录" })).complete, true);
+});
+
+test("official record rev is optional or a nonnegative safe integer only", async () => {
+  for (const rev of [undefined, null, 0, 7]) {
+    const data = completeRecordMatrix();
+    if (rev !== undefined) data.rev = rev;
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data }) });
+    assert.equal((await client.listRecords("base", "tbl", { tableName: "发布记录" })).complete, true);
+  }
+  for (const rev of ["7", -1, 1.5, Number.MAX_SAFE_INTEGER + 1]) {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: completeRecordMatrix({ rev }) }) });
+    await assert.rejects(client.listRecords("base", "tbl", { tableName: "发布记录" }), (error) => error.code === "base_response_invalid");
+  }
 });
 
 test("writable-only record projection is explicit and permits only derived ignored fields", async () => {
