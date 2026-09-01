@@ -481,7 +481,7 @@ test("verify field drift invalidates a cached row and a valid retry preserves th
   assert.notEqual(repos.accounts.index, null);
 });
 
-test("linkCaptureSafely resolves capture IDs and rejects pre-write match-input drift", async () => {
+test("linkCaptureSafely resolves capture IDs and preserves relations on pre-write input drift", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -496,12 +496,12 @@ test("linkCaptureSafely resolves capture IDs and rejects pre-write match-input d
   );
   await assert.rejects(
     () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "100" }),
-    (error) => error.code === "match_inputs_changed",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
   assert.equal(client.calls.update.length, 0);
 });
 
-test("linkCaptureSafely invalidates its release cache on same-ID pre-read match-input drift", async () => {
+test("linkCaptureSafely invalidates its cache and preserves relation on same-ID pre-read drift", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -517,7 +517,7 @@ test("linkCaptureSafely invalidates its release cache on same-ID pre-read match-
   const repos = makeRepos(client);
   await assert.rejects(
     () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
-    (error) => error.code === "match_inputs_changed",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
   assert.equal(repos.releases.index, null);
   assert.equal(client.calls.update.length, 0);
@@ -539,7 +539,7 @@ test("linkCaptureSafely writes Base v3 relation and verifies stable match inputs
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
 });
 
-test("release evidence clears only this run relation when match inputs drift during write", async () => {
+test("release evidence preserves the relation and requires manual repair when inputs drift during write", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -556,18 +556,23 @@ test("release evidence clears only this run relation when match inputs drift dur
     return result;
   };
   const repos = makeRepos(client);
+  let caught;
   await assert.rejects(
     () => repos.releases.upsertEvidenceSafely(
       "SR-1", { 匹配方式: "exact_post_id", 匹配置信度: 1 },
       { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
       "rec-c",
     ),
-    (error) => error.code === "concurrent_human_change",
+    (error) => {
+      caught = error;
+      return error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair";
+    },
   );
   assert.equal(client.rows[tableIds.releases][0].fields["Post ID"], "100");
-  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
   assert.equal(client.rows[tableIds.releases][0].fields.备注, "keep");
-  assert.equal(client.calls.update.length, 2);
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(caught.details.relation_preserved, true);
 });
 
 test("release evidence never clears a concurrently replaced relation", async () => {
@@ -624,7 +629,7 @@ test("release evidence ignores unrelated human edits and verifies requested mach
   assert.equal(result.record.fields.匹配方式, "exact_post_id");
 });
 
-test("release evidence safely clears a stale linked relation found before its write", async () => {
+test("release evidence preserves a stale linked relation found before its write", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -638,13 +643,13 @@ test("release evidence safely clears a stale linked relation found before its wr
       { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
       "rec-c",
     ),
-    (error) => error.code === "concurrent_human_change",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
-  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
-  assert.equal(client.calls.update.length, 1);
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
+  assert.equal(client.calls.update.length, 0);
 });
 
-test("release evidence re-reads before cleanup and preserves a replacement made in the gap", async () => {
+test("release evidence preserves a replacement made before the would-be cleanup", async () => {
   const client = fakeClient({
     [tableIds.captures]: [
       { record_id: "rec-c", fields: { "Post ID": "99" } },
@@ -659,7 +664,7 @@ test("release evidence re-reads before cleanup and preserves a replacement made 
   let reads = 0;
   client.getRecord = async (...args) => {
     reads += 1;
-    if (reads === 2) client.rows[tableIds.releases][0].fields.采集记录 = [{ id: "rec-other" }];
+    if (reads === 1) client.rows[tableIds.releases][0].fields.采集记录 = [{ id: "rec-other" }];
     return baseGet(...args);
   };
   await assert.rejects(
@@ -668,7 +673,7 @@ test("release evidence re-reads before cleanup and preserves a replacement made 
       { "Post ID": "99", 视频链接: "https://video/99", 账号: [{ id: "rec-a" }], 日期: "2026-09-01" },
       "rec-c",
     ),
-    (error) => error.code === "concurrent_human_change",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-other" }]);
   assert.equal(client.calls.update.length, 0);
@@ -698,7 +703,7 @@ test("linkCaptureSafely binds its post-write readback to the release record", as
   assert.equal(repos.releases.index, null);
 });
 
-test("concurrent match-input change clears only this run's relation and preserves human input", async () => {
+test("link drift preserves this run relation and requires manual repair", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -718,14 +723,14 @@ test("concurrent match-input change clears only this run's relation and preserve
   };
   await assert.rejects(
     () => makeRepos(client).releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
-    (error) => error.code === "concurrent_human_change",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
   assert.equal(client.rows[tableIds.releases][0].fields["Post ID"], "100");
-  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
-  assert.equal(client.calls.update.length, 2);
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
+  assert.equal(client.calls.update.length, 1);
 });
 
-test("relation cleanup readback is bound to the release record", async () => {
+test("link drift performs no unsafe cleanup readback or second write", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
     [tableIds.releases]: [{ record_id: "rec-r", fields: {
@@ -740,20 +745,13 @@ test("relation cleanup readback is bound to the release record", async () => {
     if (writes === 1) client.rows[tableIds.releases][0].fields["Post ID"] = "100";
     return result;
   };
-  const baseGet = client.getRecord.bind(client);
-  let reads = 0;
-  client.getRecord = async (...args) => {
-    reads += 1;
-    const record = await baseGet(...args);
-    if (reads === 3) record.record_id = "rec-other";
-    return record;
-  };
   const repos = makeRepos(client);
   await assert.rejects(
     () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
-    (error) => error.code === "readback_mismatch",
+    (error) => error.code === "concurrent_human_change" && error.details?.next_step === "manual_repair",
   );
-  assert.equal(client.calls.update.length, 2);
+  assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
+  assert.equal(client.calls.update.length, 1);
   assert.equal(repos.releases.index, null);
 });
 

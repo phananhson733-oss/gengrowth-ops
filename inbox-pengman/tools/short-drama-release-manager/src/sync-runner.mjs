@@ -347,14 +347,24 @@ function requestedEvidence(match, startedAt) {
 }
 
 function releaseError(errors, releaseId, error, fallback = "release_sync_failed") {
-  errors.push({ step: "release_links", code: errorCode(error, fallback), target: releaseId });
+  errors.push({
+    step: "release_links",
+    code: errorCode(error, fallback),
+    target: releaseId,
+    ...(error?.details?.next_step === "manual_repair" ? { next_step: "manual_repair" } : {}),
+  });
 }
 
 function terminalError(state, errors) {
   if (state === "success") return {};
   return {
     code: state === "partial" ? "sync_partial" : errors[0]?.code ?? "sync_failed",
-    errors: errors.map((item) => ({ code: item.code, step: item.step, ...(item.target ? { target: item.target } : {}) })),
+    errors: errors.map((item) => ({
+      code: item.code,
+      step: item.step,
+      ...(item.target ? { target: item.target } : {}),
+      ...(item.next_step === "manual_repair" ? { next_step: "manual_repair" } : {}),
+    })),
   };
 }
 

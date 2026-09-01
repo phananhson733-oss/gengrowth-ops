@@ -60,7 +60,6 @@ function defaultSleep(ms, { signal } = {}) {
     };
     const onAbort = () => finish(reject, abortFailure());
     const timer = setTimeout(() => finish(resolve), ms);
-    timer.unref?.();
     signal?.addEventListener?.("abort", onAbort, { once: true });
     if (signal?.aborted) onAbort();
   });

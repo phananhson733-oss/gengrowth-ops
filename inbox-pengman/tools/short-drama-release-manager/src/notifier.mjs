@@ -40,7 +40,10 @@ function errorCodes(job) {
   return [...new Set(candidates.filter((code) => typeof code === "string" && CODE_PATTERN.test(code)))].slice(0, 10);
 }
 
-function nextStep(state) {
+function nextStep(job) {
+  if (job?.error?.next_step === "manual_repair" ||
+      job?.error?.errors?.some((item) => item?.next_step === "manual_repair")) return "manual_repair";
+  const state = job?.state;
   if (state === "success") return "none";
   if (state === "partial") return "review_errors_and_retry";
   return "fix_error_and_retry";
@@ -54,7 +57,7 @@ function terminalMessage(job) {
     `state=${job.state}`,
     ...COUNTER_NAMES.map((name) => `${name}=${counter(counters[name])}`),
     `error_codes=${errors.length > 0 ? errors.join(",") : "none"}`,
-    `next_step=${nextStep(job.state)}`,
+    `next_step=${nextStep(job)}`,
   ];
   return lines.join("\n").slice(0, 2_000);
 }

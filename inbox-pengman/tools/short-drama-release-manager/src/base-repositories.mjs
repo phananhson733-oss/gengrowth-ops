@@ -19,6 +19,14 @@ function assertNotAborted(signal) {
   if (signal?.aborted) fail("base_operation_aborted", "Feishu Base operation was aborted");
 }
 
+function concurrentHumanChange(message, phase) {
+  fail("concurrent_human_change", message, {
+    next_step: "manual_repair",
+    relation_preserved: true,
+    phase,
+  });
+}
+
 function plainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -492,31 +500,6 @@ class ReleaseRepository extends TableRepository {
     const inputsChanged = (record) => MATCH_INPUT_FIELDS.some(
       (fieldName) => !equalValue(fieldValue(record.fields, fieldName), expectedMatchInputs[fieldName]),
     );
-    const clearOwnedRelation = async (record) => {
-      if (!equalValue(fieldValue(record.fields, "采集记录"), expectedRelation)) return;
-      const current = await this.readRecordById(record.record_id, { requirePrimary: true, signal });
-      if (!equalValue(fieldValue(current.fields, "采集记录"), expectedRelation)) {
-        this.index = null;
-        return;
-      }
-      assertNotAborted(signal);
-      this.index = null;
-      const cleared = await this.client.updateRecords(this.appToken, this.tableId, [
-        { record_id: current.record_id, fields: { 采集记录: [] } },
-      ], { signal });
-      assertNotAborted(signal);
-      validateWriteResult(cleared, 1, this.tableName, [current.record_id]);
-      await this.readRecordById(current.record_id, {
-        requirePrimary: true,
-        signal,
-        validate: (readback) => {
-          if (!equalValue(fieldValue(readback.fields, "采集记录"), [])) {
-            fail("readback_mismatch", "Concurrent evidence relation cleanup was not verified", { table: this.tableName });
-          }
-        },
-      });
-    };
-
     const before = await this.readRecordById(indexed.record_id, {
       requirePrimary: true,
       signal,
@@ -527,9 +510,8 @@ class ReleaseRepository extends TableRepository {
       },
     });
     if (inputsChanged(before) || !equalValue(fieldValue(before.fields, "采集记录"), expectedRelation)) {
-      await clearOwnedRelation(before);
       this.index = null;
-      fail("concurrent_human_change", "Release match inputs or relation changed before evidence write");
+      concurrentHumanChange("Release match inputs or relation changed before evidence write", "evidence_prewrite");
     }
 
     if (Object.keys(prepared.patch).length === 0) {
@@ -543,9 +525,8 @@ class ReleaseRepository extends TableRepository {
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
     const after = await this.readRecordById(before.record_id, { requirePrimary: true, signal });
     if (inputsChanged(after) || !equalValue(fieldValue(after.fields, "采集记录"), expectedRelation)) {
-      await clearOwnedRelation(after);
       this.index = null;
-      fail("concurrent_human_change", "Release match inputs or relation changed during evidence write");
+      concurrentHumanChange("Release match inputs or relation changed during evidence write", "evidence_readback");
     }
     assertRequestedFields(after, prepared.patch, this.tableName);
     // A concurrent unrelated edit may have happened; force the next caller to reload a complete index.
@@ -578,20 +559,23 @@ class ReleaseRepository extends TableRepository {
     const verifiedIndex = this.index;
     const indexedRelease = this.index.get(releaseKey);
     if (!indexedRelease) fail("base_record_not_found", "Release record was not found");
+    const indexedRelation = clone(fieldValue(indexedRelease.fields, "采集记录"));
     const before = await this.readRecordById(indexedRelease.record_id, {
       requirePrimary: true,
       validate: (record) => {
         if (normalizeKey(record.fields[this.primaryField]) !== releaseKey) {
           fail("readback_mismatch", "Release primary key changed before relation write", { table: this.tableName });
         }
-        for (const [fieldName, expectedValue] of Object.entries(expectedMatchInputs)) {
-          if (!equalValue(fieldValue(record.fields, fieldName), expectedValue)) {
-            fail("match_inputs_changed", "Release match inputs changed before relation write", { field: fieldName });
-          }
-        }
       },
       signal,
     });
+    const prewriteInputsChanged = Object.entries(expectedMatchInputs).some(
+      ([fieldName, expectedValue]) => !equalValue(fieldValue(before.fields, fieldName), expectedValue),
+    );
+    if (prewriteInputsChanged || !equalValue(fieldValue(before.fields, "采集记录"), indexedRelation)) {
+      this.index = null;
+      concurrentHumanChange("Release match inputs or relation changed before relation write", "relation_prewrite");
+    }
     const matchSnapshot = Object.fromEntries(
       MATCH_INPUT_FIELDS.map((fieldName) => [fieldName, clone(fieldValue(before.fields, fieldName))]),
     );
@@ -606,39 +590,16 @@ class ReleaseRepository extends TableRepository {
     assertNotAborted(signal);
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
 
-    let matchChanged = false;
     const after = await this.readRecordById(before.record_id, {
       requirePrimary: true,
-      validate: (record) => {
-        matchChanged = MATCH_INPUT_FIELDS.some(
-          (fieldName) => !equalValue(fieldValue(record.fields, fieldName), matchSnapshot[fieldName]),
-        );
-        if (!matchChanged && !equalValue(fieldValue(record.fields, "采集记录"), relation)) {
-          fail("readback_mismatch", "Capture relation readback did not match the write", { table: this.tableName });
-        }
-      },
       signal,
     });
-    if (matchChanged) {
-      if (equalValue(fieldValue(after.fields, "采集记录"), relation)) {
-        assertPatchAllowed(this.tableName, { 采集记录: [] }, "machine");
-        assertNotAborted(signal);
-        const cleared = await this.client.updateRecords(this.appToken, this.tableId, [
-          { record_id: before.record_id, fields: { 采集记录: [] } },
-        ], { signal });
-        assertNotAborted(signal);
-        validateWriteResult(cleared, 1, this.tableName, [before.record_id]);
-        await this.readRecordById(before.record_id, {
-          requirePrimary: true,
-          validate: (record) => {
-            if (!equalValue(fieldValue(record.fields, "采集记录"), [])) {
-              fail("readback_mismatch", "Concurrent relation cleanup was not verified", { table: this.tableName });
-            }
-          },
-          signal,
-        });
-      }
-      fail("concurrent_human_change", "Release match inputs changed during relation write");
+    const matchChanged = MATCH_INPUT_FIELDS.some(
+      (fieldName) => !equalValue(fieldValue(after.fields, fieldName), matchSnapshot[fieldName]),
+    );
+    if (matchChanged || !equalValue(fieldValue(after.fields, "采集记录"), relation)) {
+      this.index = null;
+      concurrentHumanChange("Release match inputs or relation changed during relation write", "relation_readback");
     }
     verifiedIndex.set(releaseKey, after);
     this.index = verifiedIndex;

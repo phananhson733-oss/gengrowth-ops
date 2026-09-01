@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import test from "node:test";
 
 import { FeishuClient, createTenantTokenProvider } from "../src/feishu-client.mjs";
@@ -303,6 +304,51 @@ test("native Retry-After delay aborts promptly and clears its timer", async () =
   await new Promise((resolve) => setImmediate(resolve));
   assert.ok(Date.now() - startedAt < 250);
   assert.ok(timeoutCount() <= before);
+});
+
+test("native retry timer keeps a top-level worker alive, while abort leaves no lingering timer", () => {
+  const moduleUrl = new URL("../src/feishu-client.mjs", import.meta.url).href;
+  const retryScript = `
+    import { FeishuClient } from ${JSON.stringify(moduleUrl)};
+    let calls = 0;
+    const client = new FeishuClient({
+      tokenProvider: async () => "token",
+      fetchJson: async () => ++calls === 1
+        ? { code: 1254291, status: 429, retry_after_ms: 30, data: {} }
+        : { code: 0, data: { items: [], has_more: false, revision: "r" } },
+    });
+    await client.listRecords("base", "tbl");
+    if (calls !== 2) process.exit(2);
+  `;
+  const retried = spawnSync(process.execPath, ["--input-type=module", "--eval", retryScript], {
+    encoding: "utf8",
+    timeout: 2_000,
+  });
+  assert.equal(retried.status, 0, retried.stderr);
+
+  const abortScript = `
+    import { FeishuClient } from ${JSON.stringify(moduleUrl)};
+    const controller = new AbortController();
+    const started = Date.now();
+    const client = new FeishuClient({
+      tokenProvider: async () => "token",
+      fetchJson: async () => {
+        setTimeout(() => controller.abort(), 20);
+        return { code: 1254291, status: 429, retry_after_ms: 5_000, data: {} };
+      },
+    });
+    try { await client.listRecords("base", "tbl", { signal: controller.signal }); }
+    catch (error) {
+      if (error.code !== "base_operation_aborted" || Date.now() - started > 500) process.exit(3);
+    }
+  `;
+  const abortStarted = Date.now();
+  const aborted = spawnSync(process.execPath, ["--input-type=module", "--eval", abortScript], {
+    encoding: "utf8",
+    timeout: 1_000,
+  });
+  assert.equal(aborted.status, 0, aborted.stderr);
+  assert.ok(Date.now() - abortStarted < 750);
 });
 
 test("empty or malformed writes and mismatched responses fail closed", async (t) => {

@@ -251,6 +251,19 @@ test("notification failure preserves the persisted data terminal and is retryabl
   assert.deepEqual(marks, ["failed", "sent"]);
 });
 
+test("terminal notification surfaces a persisted manual-repair next step", async () => {
+  const persisted = terminalStoreRow({ state: "partial" });
+  persisted.error.errors[0].next_step = "manual_repair";
+  let text = "";
+  const notifier = new ShortDramaNotifier({
+    allowedChatIds: new Set(["oc_social"]),
+    sendMessage: async (payload) => { text = payload.text; },
+    jobs: { get: () => structuredClone(persisted), markNotification: () => {} },
+  });
+  await notifier.sendTerminal(persisted);
+  assert.match(text, /next_step=manual_repair/);
+});
+
 test("two file-backed starts atomically create one job and wake exactly once", async (t) => {
   const directory = mkdtempSync(join(tmpdir(), "shortdrama-start-"));
   t.after(() => rmSync(directory, { recursive: true, force: true }));
@@ -675,6 +688,30 @@ test("release evidence verifies requested machine fields while unrelated human e
   assert.equal(result.state, "success");
   assert.equal(release.fields.备注, "concurrent human edit");
   assert.deepEqual(calls.filter(([name]) => name === "releases:evidence").map((row) => row[1]), ["SR-000001"]);
+  store.close();
+});
+
+test("concurrent release drift is partial and persists the manual-repair next step", async () => {
+  const calls = [];
+  const release = { record_id: "rec-r", fields: {
+    发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null,
+    日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99" }], 归档状态: "active",
+  } };
+  const repos = successfulRepos(calls, { releases: [release] });
+  repos.releases.upsertEvidenceSafely = async () => {
+    const error = new Error("drift");
+    error.code = "concurrent_human_change";
+    error.details = { next_step: "manual_repair", relation_preserved: true };
+    throw error;
+  };
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, repos, {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.ok(result.errors.some((row) => row.code === "concurrent_human_change" && row.next_step === "manual_repair"));
+  assert.ok(store.get(RUN_ID).error.errors.some((row) => row.next_step === "manual_repair"));
+  assert.equal(calls.filter(([name]) => name === "releases:evidence").length, 0);
   store.close();
 });
 
