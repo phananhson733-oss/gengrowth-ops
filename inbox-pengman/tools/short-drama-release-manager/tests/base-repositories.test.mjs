@@ -85,6 +85,40 @@ test("loadIndex fails closed for incomplete, malformed, blank-key, duplicate-key
   }
 });
 
+test("a failed explicit index refresh discards the previous cache and every later path retries", async () => {
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-account", fields: { 账号ID: "account-1" } }],
+    [tableIds.captures]: [],
+  });
+  const repos = makeRepos(client);
+  await repos.accounts.loadIndex();
+
+  let failedRefreshes = 0;
+  client.listRecords = async (_appToken, targetTableId) => {
+    if (targetTableId === tableIds.accounts) {
+      failedRefreshes += 1;
+      return { items: [], complete: false };
+    }
+    return { items: structuredClone(client.rows[targetTableId] ?? []), complete: true, revision: "r2" };
+  };
+
+  await assert.rejects(
+    () => repos.accounts.loadIndex(),
+    (error) => error.code === "base_response_incomplete",
+  );
+  assert.equal(repos.accounts.index, null);
+  await assert.rejects(
+    () => repos.accounts.getByKey("account-1"),
+    (error) => error.code === "base_response_incomplete",
+  );
+  await assert.rejects(
+    () => repos.captures.upsertByKey("99", { 账号: [{ id: "rec-account" }] }, "machine"),
+    (error) => error.code === "base_response_incomplete",
+  );
+  assert.equal(failedRefreshes, 3);
+  assert.equal(client.calls.create.length + client.calls.update.length, 0);
+});
+
 test("keys are normalized, conflicting primary keys and duplicate batch keys are rejected before writes", async () => {
   const client = fakeClient({ [tableIds.accounts]: [] });
   const repos = makeRepos(client);
@@ -195,6 +229,32 @@ test("single-record upsert rejects missing write IDs and mismatched readback wit
   assert.equal(mismatch.calls.update.length, 1);
 });
 
+test("ordinary upsert binds empty and mutating readbacks to the requested record ID", async () => {
+  const emptyPatchClient = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  emptyPatchClient.getRecord = async () => ({ record_id: "rec-other", fields: { 账号ID: "a", 粉丝数: 1 } });
+  const emptyPatchRepos = makeRepos(emptyPatchClient);
+  await assert.rejects(
+    () => emptyPatchRepos.accounts.upsertByKey("a", {}, "machine"),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(emptyPatchRepos.accounts.index, null);
+  assert.equal(emptyPatchClient.calls.create.length + emptyPatchClient.calls.update.length, 0);
+
+  const mutationClient = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  mutationClient.getRecord = async () => ({ record_id: "rec-other", fields: { 账号ID: "a", 粉丝数: 2 } });
+  const mutationRepos = makeRepos(mutationClient);
+  await assert.rejects(
+    () => mutationRepos.accounts.upsertByKey("a", { 粉丝数: 2 }, "machine"),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(mutationRepos.accounts.index, null);
+  assert.equal(mutationClient.calls.update.length, 1);
+});
+
 test("bulk sync performs one create call and one update call, reloads twice, skips unchanged, and verifies changed keys", async () => {
   const client = fakeClient({
     [tableIds.accounts]: [
@@ -283,6 +343,27 @@ test("machine invariant protects human/shared and all non-request writable field
   );
 });
 
+test("machine invariant readback is bound to the record written", async () => {
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 账号名: "A", 粉丝数: 1 } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  let reads = 0;
+  client.getRecord = async (...args) => {
+    reads += 1;
+    const record = await baseGet(...args);
+    if (reads === 2) record.record_id = "rec-other";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.accounts.machineUpsertWithInvariant("a", { 粉丝数: 2 }),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(repos.accounts.index, null);
+});
+
 test("machine invariant forbids shared input before any write", async () => {
   const client = fakeClient({
     [tableIds.releases]: [{ record_id: "rec-r", fields: { 发布ID: "SR-1", "Post ID": "99" } }],
@@ -350,6 +431,30 @@ test("linkCaptureSafely writes Base v3 relation and verifies stable match inputs
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-c" }]);
 });
 
+test("linkCaptureSafely binds its post-write readback to the release record", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 采集记录: [],
+    } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  let reads = 0;
+  client.getRecord = async (...args) => {
+    reads += 1;
+    const record = await baseGet(...args);
+    if (reads === 2) record.record_id = "rec-other";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(repos.releases.index, null);
+});
+
 test("concurrent match-input change clears only this run's relation and preserves human input", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
@@ -375,6 +480,38 @@ test("concurrent match-input change clears only this run's relation and preserve
   assert.equal(client.rows[tableIds.releases][0].fields["Post ID"], "100");
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, []);
   assert.equal(client.calls.update.length, 2);
+});
+
+test("relation cleanup readback is bound to the release record", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 采集记录: [],
+    } }],
+  });
+  const baseUpdate = client.updateRecords.bind(client);
+  let writes = 0;
+  client.updateRecords = async (...args) => {
+    writes += 1;
+    const result = await baseUpdate(...args);
+    if (writes === 1) client.rows[tableIds.releases][0].fields["Post ID"] = "100";
+    return result;
+  };
+  const baseGet = client.getRecord.bind(client);
+  let reads = 0;
+  client.getRecord = async (...args) => {
+    reads += 1;
+    const record = await baseGet(...args);
+    if (reads === 3) record.record_id = "rec-other";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(client.calls.update.length, 2);
+  assert.equal(repos.releases.index, null);
 });
 
 test("concurrent relation replacement is never cleared by rollback", async () => {

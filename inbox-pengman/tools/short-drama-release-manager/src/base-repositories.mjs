@@ -148,6 +148,7 @@ export class TableRepository {
   }
 
   async loadIndex() {
+    this.index = null;
     const result = await this.client.listRecords(this.appToken, this.tableId);
     if (!plainObject(result) || result.complete !== true) {
       if (plainObject(result) && result.complete === false) {
@@ -173,6 +174,23 @@ export class TableRepository {
     }
     this.index = nextIndex;
     return new Map([...nextIndex].map(([key, record]) => [key, clone(record)]));
+  }
+
+  async readRecordById(recordId, { requirePrimary = false } = {}) {
+    const normalizedId = normalizeRecordId(recordId);
+    try {
+      const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId);
+      if (!plainObject(rawRecord) || !plainObject(rawRecord.fields) || rawRecord.record_id !== normalizedId) {
+        fail("readback_mismatch", "Base readback record ID does not match the request", {
+          table: this.tableName,
+          recordId: normalizedId,
+        });
+      }
+      return validateRecord(rawRecord, this.tableName, requirePrimary ? this.primaryField : null).record;
+    } catch (error) {
+      this.index = null;
+      throw error;
+    }
   }
 
   async getByKey(key) {
@@ -230,8 +248,7 @@ export class TableRepository {
     if (existing) {
       writeFields = prepared.patch;
       if (Object.keys(writeFields).length === 0) {
-        const record = await this.client.getRecord(this.appToken, this.tableId, existing.record_id);
-        const checked = validateRecord(record, this.tableName, this.primaryField).record;
+        const checked = await this.readRecordById(existing.record_id, { requirePrimary: true });
         this.index.set(prepared.key, checked);
         return { record: clone(checked), readback: "verified" };
       }
@@ -248,8 +265,8 @@ export class TableRepository {
       validateWriteResult(written, 1, this.tableName);
     }
     const recordId = written[0].record_id;
-    const readbackRaw = await this.client.getRecord(this.appToken, this.tableId, recordId);
-    const { record: readback, key: readbackKey } = validateRecord(readbackRaw, this.tableName, this.primaryField);
+    const readback = await this.readRecordById(recordId, { requirePrimary: true });
+    const readbackKey = normalizeKey(readback.fields[this.primaryField]);
     if (readbackKey !== prepared.key) {
       fail("readback_mismatch", "Base readback primary key changed", { table: this.tableName });
     }
@@ -342,8 +359,7 @@ export class TableRepository {
     const indexed = this.index.get(prepared.key);
     let before = null;
     if (indexed) {
-      const beforeRaw = await this.client.getRecord(this.appToken, this.tableId, indexed.record_id);
-      before = validateRecord(beforeRaw, this.tableName, this.primaryField).record;
+      before = await this.readRecordById(indexed.record_id, { requirePrimary: true });
       if (normalizeKey(before.fields[this.primaryField]) !== prepared.key) {
         fail("readback_mismatch", "Base record primary key changed before machine write", { table: this.tableName });
       }
@@ -367,8 +383,7 @@ export class TableRepository {
       validateWriteResult(written, 1, this.tableName);
     }
 
-    const afterRaw = await this.client.getRecord(this.appToken, this.tableId, written[0].record_id);
-    const after = validateRecord(afterRaw, this.tableName, this.primaryField).record;
+    const after = await this.readRecordById(written[0].record_id, { requirePrimary: true });
     assertRequestedFields(after, expected, this.tableName);
     const requested = new Set(Object.keys(expected));
     for (const fieldName of writableFields(this.tableName)) {
@@ -390,11 +405,7 @@ export class TableRepository {
   async verify(recordId, expected) {
     const normalizedId = normalizeRecordId(recordId);
     assertExpectedObject(expected);
-    const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId);
-    if (!plainObject(rawRecord) || !plainObject(rawRecord.fields) || rawRecord.record_id !== normalizedId) {
-      fail("readback_mismatch", "Base readback record is missing or malformed", { table: this.tableName });
-    }
-    const record = validateRecord(rawRecord, this.tableName).record;
+    const record = await this.readRecordById(normalizedId);
     assertRequestedFields(record, expected, this.tableName);
     return { record: clone(record), readback: "verified" };
   }
@@ -423,8 +434,7 @@ class ReleaseRepository extends TableRepository {
     const verifiedIndex = this.index;
     const indexedRelease = this.index.get(releaseKey);
     if (!indexedRelease) fail("base_record_not_found", "Release record was not found");
-    const beforeRaw = await this.client.getRecord(this.appToken, this.tableId, indexedRelease.record_id);
-    const before = validateRecord(beforeRaw, this.tableName, this.primaryField).record;
+    const before = await this.readRecordById(indexedRelease.record_id, { requirePrimary: true });
     if (normalizeKey(before.fields[this.primaryField]) !== releaseKey) {
       fail("readback_mismatch", "Release primary key changed before relation write", { table: this.tableName });
     }
@@ -445,8 +455,7 @@ class ReleaseRepository extends TableRepository {
     ]);
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
 
-    const afterRaw = await this.client.getRecord(this.appToken, this.tableId, before.record_id);
-    const after = validateRecord(afterRaw, this.tableName, this.primaryField).record;
+    const after = await this.readRecordById(before.record_id, { requirePrimary: true });
     const matchChanged = MATCH_INPUT_FIELDS.some(
       (fieldName) => !equalValue(fieldValue(after.fields, fieldName), matchSnapshot[fieldName]),
     );
@@ -457,8 +466,7 @@ class ReleaseRepository extends TableRepository {
           { record_id: before.record_id, fields: { 采集记录: [] } },
         ]);
         validateWriteResult(cleared, 1, this.tableName, [before.record_id]);
-        const clearReadback = await this.client.getRecord(this.appToken, this.tableId, before.record_id);
-        const checkedClear = validateRecord(clearReadback, this.tableName, this.primaryField).record;
+        const checkedClear = await this.readRecordById(before.record_id, { requirePrimary: true });
         if (!equalValue(fieldValue(checkedClear.fields, "采集记录"), [])) {
           fail("readback_mismatch", "Concurrent relation cleanup was not verified", { table: this.tableName });
         }
