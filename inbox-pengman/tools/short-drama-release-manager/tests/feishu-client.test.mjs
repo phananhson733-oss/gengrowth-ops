@@ -449,6 +449,25 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
   assert.ok(calls[3][1].visible_fields.includes("同步状态"));
 });
 
+test("single-select view filters use intersects with array values", async () => {
+  const filters = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/filter")) filters.push(options.body);
+      return { code: 0, data: {} };
+    },
+  });
+  await client.updateView("base", "accounts", "active", "账号台账", "在用账号");
+  await client.updateView("base", "captures", "complete", "采集数据", "完整");
+  await client.updateView("base", "captures", "partial", "采集数据", "部分缺失");
+  assert.deepEqual(filters, [
+    { logic: "and", conditions: [["状态", "intersects", ["在用"]]] },
+    { logic: "and", conditions: [["采集状态", "intersects", ["complete"]]] },
+    { logic: "and", conditions: [["采集状态", "intersects", ["partial"]]] },
+  ]);
+});
+
 test("fixed dashboard blocks use legal types/config and block writes serialize", async () => {
   const calls = [];
   let active = 0;
@@ -504,9 +523,11 @@ test("performance and terminal dashboard blocks use fixed aggregate and placehol
   await client.createDashboardBlock("base", "dash", "按账号最新累计表现");
   await client.createDashboardBlock("base", "dash", "按剧最新累计表现");
   await client.createDashboardBlock("base", "dash", "最近一次同步终态");
-  assert.deepEqual(bodies[0].data_config.series, ["播放量", "点赞", "收藏", "转发", "评论"].map(
+  const expectedSeries = ["播放量", "点赞", "收藏", "转发", "评论", "RS收益"].map(
     (field_name) => ({ field_name, rollup: "SUM" }),
-  ));
+  );
+  assert.deepEqual(bodies[0].data_config.series, expectedSeries);
+  assert.deepEqual(bodies[1].data_config.series, expectedSeries);
   assert.deepEqual(bodies[0].data_config.group_by, [{ field_name: "账号名", mode: "integrated" }]);
   assert.deepEqual(bodies[1].data_config.group_by, [{ field_name: "剧名", mode: "integrated" }]);
   assert.equal(bodies[0].data_config.table_name, "发布记录");

@@ -210,7 +210,7 @@ const noGrouping = () => [];
 
 const VIEW_SPECS = Object.freeze({
   "账号台账": Object.freeze({
-    "在用账号": { filter: { logic: "and", conditions: [["状态", "==", "在用"]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
+    "在用账号": { filter: { logic: "and", conditions: [["状态", "intersects", ["在用"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
     "需处理账号": { filter: { logic: "and", conditions: [["同步状态", "intersects", ["partial", "failed"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
   }),
   "选剧池": Object.freeze({
@@ -228,8 +228,8 @@ const VIEW_SPECS = Object.freeze({
     "按剧表现": { filter: emptyFilter(), sort: [{ field: "播放量", desc: true }], group: [{ field: "剧名", desc: false }] },
   }),
   "采集数据": Object.freeze({
-    "完整": { filter: { logic: "and", conditions: [["采集状态", "==", "complete"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
-    "部分缺失": { filter: { logic: "and", conditions: [["采集状态", "==", "partial"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
+    "完整": { filter: { logic: "and", conditions: [["采集状态", "intersects", ["complete"]]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
+    "部分缺失": { filter: { logic: "and", conditions: [["采集状态", "intersects", ["partial"]]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
     "未关联发布": { filter: { logic: "and", conditions: [["关联发布记录", "empty"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
   }),
 });
@@ -252,7 +252,7 @@ function fixedView(tableName, viewName) {
   };
 }
 
-const performanceSeries = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论"].map(
+const performanceSeries = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论", "RS收益"].map(
   (fieldName) => ({ field_name: fieldName, rollup: "SUM" }),
 ));
 const dashboardFilter = (fieldName, value) => ({
