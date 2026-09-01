@@ -16,6 +16,7 @@ import {
   evaluateDailyHealth,
   exitCodeFor,
   inspectTrustedLocalInvoker,
+  readMacProcessRow,
   parseCommand,
   readGoogleServiceAccount,
   main,
@@ -579,7 +580,7 @@ test("untrusted local Hermes ancestry is rejected before runtime construction ev
 test("local provenance accepts only a bounded positive Terminal chain", () => {
   const tty = { isTTY: true };
   const terminalRows = new Map([
-    [100, { pid: 100, ppid: 90, command: "/usr/local/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
+    [100, { pid: 100, ppid: 90, command: "/opt/homebrew/Cellar/node/25.9.0/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
     [90, { pid: 90, ppid: 80, command: "/bin/zsh", args: "-zsh" }],
     [80, { pid: 80, ppid: 1, command: "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal", args: "Terminal" }],
   ]);
@@ -601,6 +602,18 @@ test("local provenance accepts only a bounded positive Terminal chain", () => {
   ghosttyRows.set(80, { pid: 80, ppid: 1, command: "/Applications/Ghostty.app/Contents/MacOS/ghostty", args: "ghostty" });
   assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => ghosttyRows.get(pid) }), true);
   assert.equal(inspectTrustedLocalInvoker({ stdin: { isTTY: false }, stdout: tty, pid: 100, readProcess: (pid) => terminalRows.get(pid) }), false);
+});
+
+test("macOS process inspection reads full Cellar executables without a combined ps row", () => {
+  const calls = [];
+  const values = ["90\n", "/opt/homebrew/Cellar/node/25.9.0/bin/node\n", "node shortdrama_ctl.mjs doctor\n"];
+  const row = readMacProcessRow(100, { execFile: (file, args) => { calls.push([file, args]); return values.shift(); } });
+  assert.deepEqual(row, {
+    pid: 100, ppid: 90, command: "/opt/homebrew/Cellar/node/25.9.0/bin/node", args: "node shortdrama_ctl.mjs doctor",
+  });
+  assert.equal(calls.length, 3);
+  assert.ok(calls.every(([file, args]) => file === "/bin/ps" && args.includes("-ww")));
+  assert.equal(calls.some(([, args]) => args.some((value) => /ppid=,comm=,args=/.test(value))), false);
 });
 
 test("internal identity requires a private installation capability and old markers cannot spoof it", async () => {

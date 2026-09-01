@@ -171,20 +171,23 @@ function localActorRequired(command) {
   return command.group === "migrate" || command.group === "doctor";
 }
 
-function processRow(pid) {
-  const output = execFileSync("/bin/ps", ["-p", String(pid), "-o", "ppid=,comm=,args="], {
+export function readMacProcessRow(pid, { execFile = execFileSync } = {}) {
+  if (!Number.isSafeInteger(pid) || pid <= 1 || typeof execFile !== "function") return null;
+  const read = (column) => execFile("/bin/ps", ["-ww", "-p", String(pid), "-o", `${column}=`], {
     encoding: "utf8", timeout: 1_000, maxBuffer: 64 * 1024,
   }).trim();
-  const match = /^(\d+)\s+(\S+)\s*(.*)$/.exec(output);
-  if (!match) return null;
-  return { pid, ppid: Number(match[1]), command: match[2], args: match[3] };
+  const ppid = Number(read("ppid"));
+  const command = read("comm");
+  const args = read("args");
+  if (!Number.isSafeInteger(ppid) || ppid < 0 || command.length === 0) return null;
+  return { pid, ppid, command, args };
 }
 
 export function inspectTrustedLocalInvoker({
   stdin = process.stdin,
   stdout = process.stdout,
   pid = process.pid,
-  readProcess = processRow,
+  readProcess = readMacProcessRow,
   maxDepth = 16,
 } = {}) {
   if (stdin?.isTTY !== true || stdout?.isTTY !== true || !Number.isSafeInteger(pid) || pid <= 1 ||
@@ -539,7 +542,7 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
   for (const [binding, tableName] of CANARY_TABLES) {
     const tableId = tableIds[binding];
     if (typeof tableId !== "string" || tableId.length === 0) fail("canary_context_invalid", "Canary table binding is invalid", { table: tableName });
-    const index = canaryIndex(await client.listRecords(appToken, tableId), tableName);
+    const index = canaryIndex(await client.listRecords(appToken, tableId, { tableName }), tableName);
     if (index.has(canaryId)) fail("canary_collision", "Generated canary key already exists", { table: tableName });
     snapshots.set(tableName, index);
     originalKeys.set(tableName, [...index.keys()].sort());
@@ -580,7 +583,7 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
     }
     for (const [binding, tableName] of CANARY_TABLES) {
       try {
-        const restored = canaryIndex(await client.listRecords(appToken, tableIds[binding]), tableName);
+        const restored = canaryIndex(await client.listRecords(appToken, tableIds[binding], { tableName }), tableName);
         if (JSON.stringify([...restored.keys()].sort()) !== JSON.stringify(originalKeys.get(tableName))) {
           fail("readback_mismatch", "Canary cleanup did not restore the exact key set", { table: tableName });
         }
@@ -879,7 +882,7 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
     }
     const selectedTable = { ...table, fields: fields.items, revision: fields.revision };
     if (includeRecordEvidence) {
-      const records = await client.listRecords(config.base.appToken, table.table_id);
+      const records = await client.listRecords(config.base.appToken, table.table_id, { tableName: table.name });
       if (!records || records.complete !== true || !Array.isArray(records.items) ||
           records.items.some((record) => typeof record?.record_id !== "string" || record.record_id.length === 0)) {
         fail("base_response_incomplete", "Complete Base record metadata is required");
@@ -1009,7 +1012,7 @@ function schemaAdapters(client, config) {
     listViews: (tableId) => client.listViews(config.base.appToken, tableId),
     createView: (tableId, tableName, viewName) => client.createView(config.base.appToken, tableId, tableName, viewName),
     updateView: (tableId, viewId, tableName, viewName) => client.updateView(config.base.appToken, tableId, viewId, tableName, viewName),
-    readViewConfiguration: (tableId, viewId, tableName, viewName) => client.readViewConfiguration(config.base.appToken, tableId, viewId, tableName, viewName),
+    readViewConfiguration: (tableId, viewId, tableName, viewName, fields) => client.readViewConfiguration(config.base.appToken, tableId, viewId, tableName, viewName, { fields }),
     listDashboards: () => client.listDashboards(config.base.appToken),
     createDashboard: (name) => client.createDashboard(config.base.appToken, name),
     listDashboardBlocks: (dashboardId) => client.listDashboardBlocks(config.base.appToken, dashboardId),

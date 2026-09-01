@@ -25,7 +25,8 @@ const formula = (name, expression) => field(name, "formula", { phase: "lookup_fo
 const system = (name, details = {}) => field(name, "system", { phase: "system", ...details });
 
 const SELECT_OPTIONS = Object.freeze({
-  accountStatus: frozenArray(["发布中"]),
+  accountLedgerStatus: frozenArray(["未发", "重养", "发布中"]),
+  dramaAccountStatus: frozenArray(["未发", "重养", "发布中"]),
   syncStatus: frozenArray(["success", "partial", "failed"]),
   platform: frozenArray(["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]),
   recommender: frozenArray(["彭满", "高璇", "马博洋"]),
@@ -51,7 +52,7 @@ export const TABLES = Object.freeze({
     ["账号ID", "粉丝数", "数据日期", "指标同步时间", "同步状态"],
     ["主页链接"],
     [],
-    { 状态: SELECT_OPTIONS.accountStatus, 同步状态: SELECT_OPTIONS.syncStatus }
+    { 状态: SELECT_OPTIONS.accountLedgerStatus, 同步状态: SELECT_OPTIONS.syncStatus }
   ),
   "选剧池": table(
     "剧ID",
@@ -64,7 +65,7 @@ export const TABLES = Object.freeze({
     [],
     ["是否已排期", "关联发布记录", "创建人", "创建时间", "最后修改时间"],
     {
-      账号状态: SELECT_OPTIONS.accountStatus,
+      账号状态: SELECT_OPTIONS.dramaAccountStatus,
       平台: SELECT_OPTIONS.platform,
       推荐人: SELECT_OPTIONS.recommender,
       归档状态: SELECT_OPTIONS.archiveStatus,
@@ -100,14 +101,14 @@ export const BASE_FIELD_SPECS = Object.freeze({
   "账号台账": Object.freeze([
     storage("账号ID", "text", { primary: true }), storage("账号名", "text"), storage("主页链接", "url"),
     storage("粉丝数", "number"), storage("所属组", "single_select"), storage("定位垂类", "text"),
-    storage("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountStatus), storage("数据日期", "date"),
+    storage("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountLedgerStatus), storage("数据日期", "date"),
     storage("指标同步时间", "datetime"), selected("同步状态", "single_select", SELECT_OPTIONS.syncStatus),
   ]),
   "选剧池": Object.freeze([
     storage("剧ID", "text", { primary: true }), storage("剧名", "text"), storage("剧分类", "multi_select"),
     storage("上线日期", "date"), storage("生命周期", "single_select"), storage("备注", "text"),
     storage("推荐理由", "text"), storage("RS Boost 分类（待确认）", "multi_select"), storage("账号组", "multi_select"),
-    selected("账号状态", "single_select", SELECT_OPTIONS.accountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), storage("语言", "single_select"),
+    selected("账号状态", "single_select", SELECT_OPTIONS.dramaAccountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), storage("语言", "single_select"),
     storage("来源", "multi_select"), selected("推荐人", "multi_select", SELECT_OPTIONS.recommender), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus),
     link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "剧" }) }),
     formula("是否已排期", "IF(ISBLANK([关联发布记录]), \"否\", \"是\")"),

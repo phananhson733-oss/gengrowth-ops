@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { execFile as execFileCallback } from "node:child_process";
-import { readFile } from "node:fs/promises";
+import { chmod, mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { promisify } from "node:util";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -38,11 +40,72 @@ test("Task 12 pins lark-cli and provides a syntax-valid exact-four empty Base bo
   await execFile("/bin/zsh", ["-n", "-c", match[1]]);
   for (const term of [
     "lark-cli version 1.0.91", "+table-list", "+table-update", "+table-create", "+record-list",
-    ".data.base_token // empty", ".data.tables[0].id // empty", ".data.id // empty", ".data.total == 0",
+    ".data.base_token // empty", ".data.tables[0].id // empty", ".data.table.id // empty", ".data.total == 0",
     "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID", "FEISHU_SHORTDRAMA_POOL_TABLE_ID",
     "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID", "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID",
     "账号台账", "选剧池", "采集数据", "发布记录",
   ]) assert.match(match[1], new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  for (const [name, primary] of [["选剧池", "剧ID"], ["采集数据", "Post ID"], ["发布记录", "发布ID"]]) {
+    assert.match(match[1], new RegExp(`\\+table-create[^\\n]+--name "${name}"[^\\n]+--fields '\\[\\{"name":"${primary}","type":"text"\\}\\]'`));
+  }
+});
+
+test("Task 12 exact-four bootstrap executes only through a fake lark-cli and binds returned table IDs", async () => {
+  const { plan } = await docs();
+  const block = /# BEGIN TASK12 EXACT FOUR BOOTSTRAP\n([\s\S]*?)# END TASK12 EXACT FOUR BOOTSTRAP/.exec(plan)?.[1];
+  assert.ok(block);
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-task12-bootstrap-"));
+  const bin = path.join(root, "bin");
+  const evidence = path.join(root, "evidence");
+  await mkdir(bin);
+  await mkdir(evidence);
+  const envFile = path.join(root, "runtime.env");
+  await writeFile(envFile, [
+    "FEISHU_SHORTDRAMA_APP_TOKEN=", "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID=", "FEISHU_SHORTDRAMA_POOL_TABLE_ID=",
+    "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID=", "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID=",
+  ].join("\n") + "\n", { mode: 0o600 });
+  const config = path.join(root, "runtime.json");
+  await writeFile(config, JSON.stringify({ paths: { env_file: "runtime.env" } }));
+  const log = path.join(root, "lark.log");
+  const created = path.join(root, "created");
+  const fake = path.join(bin, "lark-cli");
+  await writeFile(fake, `#!/bin/zsh
+print -- "$*" >> "$FAKE_LARK_LOG"
+if [[ "$1" == "--version" ]]; then print -- "lark-cli version 1.0.91"; exit 0; fi
+case "$*" in
+  *"+url-resolve"*) print -- '{"data":{"base_token":"bas_fake"}}';;
+  *"+base-get"*) print -- '{"data":{"base_token":"bas_fake","name":"Formal"}}';;
+  *"+table-list"*)
+    if [[ -f "$FAKE_LARK_CREATED" ]]; then
+      print -- '{"data":{"tables":[{"id":"tbl_accounts","name":"账号台账"},{"id":"tbl_pool","name":"选剧池"},{"id":"tbl_captures","name":"采集数据"},{"id":"tbl_releases","name":"发布记录"}]}}'
+    else print -- '{"data":{"tables":[{"id":"tbl_accounts","name":"默认数据表"}]}}'; fi;;
+  *"+record-list"*) print -- '{"data":{"total":0}}';;
+  *"+table-update"*) print -- '{"data":{"table":{"id":"tbl_accounts","name":"账号台账"}}}';;
+  *"+table-create"*"选剧池"*) print -- '{"data":{"table":{"id":"tbl_pool","name":"选剧池"}}}';;
+  *"+table-create"*"采集数据"*) print -- '{"data":{"table":{"id":"tbl_captures","name":"采集数据"}}}';;
+  *"+table-create"*"发布记录"*) print created > "$FAKE_LARK_CREATED"; print -- '{"data":{"table":{"id":"tbl_releases","name":"发布记录"}}}';;
+  *) print -u2 -- "unexpected fake lark command: $*"; exit 91;;
+esac
+`, { mode: 0o700 });
+  await chmod(fake, 0o700);
+  const script = path.join(root, "bootstrap.zsh");
+  await writeFile(script, block);
+  await execFile("/bin/zsh", ["-c", 'print -- "create-four-empty-tables" | /bin/zsh "$1"', "task12", script], { env: {
+    ...process.env, PATH: `${bin}:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin`,
+    RUNTIME_CONFIG: config, EVIDENCE_DIR: evidence, SHORTDRAMA_NEW_BASE_URL: "https://example.feishu.cn/base/fake",
+    PRIVILEGED_ACTOR_ID: "ou_fixture", FAKE_LARK_LOG: log, FAKE_LARK_CREATED: created,
+  } });
+  const values = Object.fromEntries((await readFile(envFile, "utf8")).trim().split("\n").map((line) => line.split("=")));
+  assert.deepEqual(values, {
+    FEISHU_SHORTDRAMA_APP_TOKEN: "bas_fake", FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID: "tbl_accounts",
+    FEISHU_SHORTDRAMA_POOL_TABLE_ID: "tbl_pool", FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID: "tbl_captures",
+    FEISHU_SHORTDRAMA_RELEASES_TABLE_ID: "tbl_releases",
+  });
+  const calls = await readFile(log, "utf8");
+  assert.equal((calls.match(/\+table-create/g) ?? []).length, 3);
+  assert.match(calls, /\+table-create.*--name 选剧池.*--fields \[\{"name":"剧ID","type":"text"\}\]/);
+  assert.match(calls, /\+table-create.*--name 采集数据.*--fields \[\{"name":"Post ID","type":"text"\}\]/);
+  assert.match(calls, /\+table-create.*--name 发布记录.*--fields \[\{"name":"发布ID","type":"text"\}\]/);
 });
 
 test("README records the four-table source of truth and immutable runtime paths", async () => {

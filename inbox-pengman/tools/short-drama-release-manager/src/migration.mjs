@@ -972,7 +972,7 @@ async function applyPresentation(context, manifest) {
       if (finalType !== action.configuration.type || finalView.type !== undefined && finalView.view_type !== undefined && finalView.type !== finalView.view_type) {
         fail("base_schema_drift", "Configured view immutable type drifted", { action: action.id });
       }
-      const configuration = await adapter.readViewConfiguration(table.table_id, viewId, action.table, action.name);
+      const configuration = await adapter.readViewConfiguration(table.table_id, viewId, action.table, action.name, table.fields);
       const expected = {
         filter: action.configuration.filter,
         sort: action.configuration.sort,

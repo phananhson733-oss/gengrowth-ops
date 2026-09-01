@@ -24,28 +24,9 @@ old_program=""
 
 fail() { print -u2 -- "$1"; exit 1; }
 
-if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
-  fixture_root="${SHORTDRAMA_TEST_FIXTURE_ROOT:-}"
-  launchctl_bin="${SHORTDRAMA_TEST_LAUNCHCTL_BIN:-}"
-  [[ "$fixture_root" == /* && -d "$fixture_root" && ! -L "$fixture_root" &&
-     "$launchctl_bin" == /* && -x "$launchctl_bin" && ! -L "$launchctl_bin" ]] || fail "Test launchctl fixture is unsafe"
-  fixture_root="${fixture_root:A}"
-  test_home="${HOME:A}"
-  launchctl_bin="${launchctl_bin:A}"
-  [[ "$fixture_root" == /tmp/* || "$fixture_root" == /private/tmp/* ||
-     "$fixture_root" == /var/folders/* || "$fixture_root" == /private/var/folders/* ]] || fail "Test launchctl fixture is unsafe"
-  [[ "$test_home" == "$fixture_root"/* && "$launchctl_bin" == "$fixture_root"/* &&
-     "$launchctl_bin" != "/bin/launchctl" ]] || fail "Test launchctl fixture is unsafe"
-  test_home_marker="$HOME/.shortdrama-installer-test-home"
-  [[ -f "$test_home_marker" && ! -L "$test_home_marker" &&
-     "$(/usr/bin/stat -f '%Lp' "$test_home_marker")" == "600" &&
-     "$(<"$test_home_marker")" == "shortdrama-installer-test-home-v1" ]] || fail "Test launchctl fixture is unsafe"
-fi
 [[ -n "$config_path" && -f "$config_path" ]] || fail "A readable runtime config path is required"
-if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" != "1" ]]; then
-  [[ -n "$expected_base_token" ]] || fail "An independently confirmed Base token is required"
-  [[ -n "$privileged_actor_id" ]] || fail "A privileged human actor ID is required"
-fi
+[[ -n "$expected_base_token" ]] || fail "An independently confirmed Base token is required"
+[[ -n "$privileged_actor_id" ]] || fail "A privileged human actor ID is required"
 config_path="${config_path:A}"
 [[ -f "$source_plist" && -f "$script_dir/shortdrama_ctl.mjs" && -f "$script_dir/run_scheduled.sh" ]] || fail "Installer assets are missing"
 
@@ -53,14 +34,8 @@ node_bin="$(/usr/bin/env node -p 'process.execPath')"
 node_major="$($node_bin -p 'Number(process.versions.node.split(".")[0])')"
 [[ "$node_major" =~ '^[0-9]+$' && "$node_major" -ge 24 ]] || fail "Node.js 24 or later is required"
 
-if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
-  doctor="${SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON:-}"
-else
-  "$node_bin" "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path" \
-    --expected-base-token "$expected_base_token" --actor-id "$privileged_actor_id" || fail "shortdrama_ctl doctor failed"
-  doctor='{"status":"ready"}'
-fi
-[[ "$doctor" == *'"status":"ready"'* ]] || fail "shortdrama_ctl doctor is not ready"
+"$node_bin" "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path" \
+  --expected-base-token "$expected_base_token" --actor-id "$privileged_actor_id" || fail "shortdrama_ctl doctor failed"
 
 /bin/mkdir -p -m 700 "$target_dir" "$capability_dir" "$script_dir/logs"
 [[ ! -L "$target_dir" && ! -L "$capability_dir" && "${target_plist:h}" == "$target_dir" && "$target_plist" == "$HOME/Library/LaunchAgents/$label.plist" ]] || fail "Unsafe installation target"

@@ -88,7 +88,7 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
 
-正式 Base 必须先由公司用户在 UI 或动作时确认后的 **lark-cli v1.0.91** 中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把返回 `.data.id` 的真实 table ID 写入本地 env。Base 中不能残留第五张默认/未绑定表；Runner 不动态建表。任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`，任一额外表返回 schema drift。Task 12 给出重命名默认首表、创建其余三表、精确四表/total=0 读回与 env 绑定的可执行命令。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
+正式 Base 必须先由公司用户在 UI 或动作时确认后的 **lark-cli v1.0.91** 中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把 create/update 返回 `.data.table.id` 的真实 table ID 写入本地 env。新建的三张表必须通过`--fields`显式创建`剧ID / Post ID / 发布ID`文本主字段。Base 中不能残留第五张默认/未绑定表；Runner 不动态建表。任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`，任一额外表返回 schema drift。Task 12 给出重命名默认首表、创建其余三表、精确四表/total=0 读回与 env 绑定的 fake-lark-cli 行为测试命令。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
 
 首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
 
@@ -164,6 +164,7 @@ node shortdrama_ctl.mjs sync status --run-id "$RUN_ID" --config "$RUNTIME_CONFIG
 - `manual_repair` 必须明确转述并停止自动补写。数据 terminal 不因消息重试而改变。
 - terminal dashboard 更新先读取当前完成时间；旧任务的通知重试仍可发送消息，但不得覆盖更新任务已经展示的终态。Base block GET→PATCH 没有 CAS，维护窗口内的并发残余不能描述成原子保护。
 - 账号源成功的`complete`只映射为账号台账`同步状态=success`；采集不完整写`partial`。无法从 Collector 安全归因到单个账号的 failure 只进入 Job/错误摘要，不伪造账号行`failed`；所有实际写入值都属于 schema 单选枚举。
+- `账号台账.状态`与`选剧池.账号状态`使用两个独立 schema 枚举；当前分别保留`未发 / 重养 / 发布中`，不能因“在用账号”视图只筛`发布中`而把字段选项缩成单值。
 - 手动任务的 terminal 通知只发送到持久化的原始请求会话；调度健康通知只发到配置且 allowlisted 的 Ops chat，用户不能指定任意 chat。
 
 ## Internal commands
@@ -176,7 +177,7 @@ node shortdrama_ctl.mjs queue drain --config "$RUNTIME_CONFIG"
 node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 ```
 
-`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是`./install_launchd.sh "$RUNTIME_CONFIG" "$EXPECTED_BASE_TOKEN" "$PRIVILEGED_ACTOR_ID"`；installer 继承用户 Terminal TTY运行 doctor，不用 command substitution 绕过来源证明。只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
+`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是`./install_launchd.sh "$RUNTIME_CONFIG" "$EXPECTED_BASE_TOKEN" "$PRIVILEGED_ACTOR_ID"`；installer 继承用户 Terminal TTY运行 doctor，不用 command substitution 绕过来源证明。生产 installer 没有 test-mode 或 launchctl 路径注入；回滚测试只运行临时目录内的独立 fake executor harness。只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
 
 验收必须观察至少一次真实北京时间 08:00 的**自然调度**，并记录 schedule run_id、Collector terminal、Base readback 和通知。手工 `sync start`、launchctl kickstart、服务 loaded 或进程存活不能替代自然调度证据。切换验收还要求**连续七天**全绿；失败后从新的连续成功日重新计数，不能拼接非连续日期。
 
@@ -186,7 +187,7 @@ node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 
 dotenv 仅按严格`KEY=value`数据解析，绝不 shell source/eval/expand，也不执行变量、反引号或命令替换。Runner 只导入 runtime config 明确引用的下列 key 加固定`SHORTDRAMA_OPS_CHAT_ID`；其他 collector/legacy/任意 key 即使出现在共享`.env`也不会进入 Runner env。调用进程显式提供的同名值优先于文件值，供受控诊断覆盖；空覆盖仍按配置校验失败，不静默回退。
 
-Base Adapter 固定按 lark-cli v1.0.91 vendor contract 解码：record list/batch_get 使用 matrix，批量创建为`create_records`，批量更新为`update_records`映射；select 使用数组 cell，datetime 在`Asia/Shanghai`原始值与严格 ISO/date-only canonical value 间转换，link 只接受精确`[{id}]`。`ignored_fields`、不完整 query context/分页或 field type 漂移都不能返回 complete；写响应缺少 record ID 时只以完整索引读回证明成功。
+Base Adapter 固定按 lark-cli v1.0.91 vendor contract 解码：record list/batch_get 使用 matrix，batch_get 可合法省略`field_id_list/field_type_list`；正式 list 则必须同时证明`Asia/Shanghai`、field type、revision、`all_records`与完整/显式 writable projection scope，并在跨页保持字段名/ID/type/total/revision/context 完全一致。批量创建为`create_records`，批量更新为`update_records`映射；select 使用数组 cell，datetime 在`Asia/Shanghai`原始值与严格 ISO/date-only canonical value 间转换，link 只接受精确`[{id}]`。数字 Lookup 只把安全十进制字符串或 null 转为 number/null。视图 readback 必须通过完整 field index 把 filter/sort/group/visible field ID 规范成字段名；select options 只按 name 做语义比较，但 server option ID 缺失/重复和重名仍失败。`ignored_fields`、不完整 query context/分页或 field type 漂移都不能返回 complete；写响应缺少 record ID 时只以完整索引读回证明成功。
 
 `shortdrama.runtime.json`选择的固定 key 名为：
 

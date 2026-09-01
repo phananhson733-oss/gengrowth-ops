@@ -36,6 +36,8 @@ test("launchd assets use the ticker and preserve the old evidence label", async 
   assert.doesNotMatch(installer, /doctor="\$\(\$node_bin/);
   assert.match(installer, /chmod 600|chmod\s+0600/);
   assert.match(installer, /rollback_verification_failed/);
+  assert.equal(installer.includes('launchctl_bin="/bin/launchctl"'), true);
+  assert.doesNotMatch(installer, /SHORTDRAMA_INSTALL_TEST|SHORTDRAMA_TEST_LAUNCHCTL|TEST_FIXTURE_ROOT/);
   assert.match(runner, /SHORTDRAMA_INTERNAL_CAPABILITY/);
   assert.doesNotMatch(runner, /launchd:com\.gengrowth\.shortdrama-sync/);
   assert.match(plist, /<key>SHORTDRAMA_CAPABILITY_FILE<\/key>/);
@@ -46,12 +48,11 @@ test("launchd assets use the ticker and preserve the old evidence label", async 
   assert.doesNotMatch(plist, /StartCalendarInterval/);
 });
 
-test("installer restores and re-verifies a previously loaded service after bootstrap failure", async () => {
+test("offline installer harness restores and re-verifies a previously loaded service after bootstrap failure", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-installer-"));
   const home = path.join(root, "home");
   const targetDir = path.join(home, "Library", "LaunchAgents");
   await mkdir(targetDir, { recursive: true });
-  await writeFile(path.join(home, ".shortdrama-installer-test-home"), "shortdrama-installer-test-home-v1\n", { mode: 0o600 });
   const target = path.join(targetDir, "com.gengrowth.shortdrama-sync.plist");
   const oldRunner = path.join(root, "old", "bin", "zsh", "run_scheduled.sh");
   const oldConfig = path.join(root, "old", "config.json");
@@ -60,6 +61,8 @@ test("installer restores and re-verifies a previously loaded service after boots
   await writeFile(oldConfig, "{}\n");
   const oldPlist = `<?xml version="1.0" encoding="UTF-8"?>\n<plist version="1.0"><dict><key>Label</key><string>com.gengrowth.shortdrama-sync</string><key>ProgramArguments</key><array><string>/bin/zsh</string><string>${oldRunner}</string><string>${oldConfig}</string></array><key>WorkingDirectory</key><string>${oldCwd}</string></dict></plist>\n`;
   await writeFile(target, oldPlist);
+  const rendered = path.join(root, "rendered.plist");
+  await writeFile(rendered, oldPlist.replace(oldRunner, path.join(root, "new", "run_scheduled.sh")));
   const state = path.join(root, "loaded");
   const failed = path.join(root, "failed-once");
   const log = path.join(root, "launchctl.log");
@@ -67,12 +70,11 @@ test("installer restores and re-verifies a previously loaded service after boots
   const fake = path.join(root, "fake-launchctl.sh");
   await writeFile(fake, `#!/bin/zsh\nprint -- "$*" >> "$FAKE_LOG"\ncase "$1" in\nprint)\n  [[ -f "$FAKE_STATE" ]] || exit 1\n  if [[ "\${FAKE_BAD_RESTORE:-}" == "1" && -f "$FAKE_FAILED" && "$(/usr/bin/plutil -extract ProgramArguments.1 raw -o - "$FAKE_TARGET")" == "$FAKE_OLD_RUNNER" ]]; then print wrong; exit 0; fi\n  print -- "com.gengrowth.shortdrama-sync $(/usr/bin/plutil -extract ProgramArguments.1 raw -o - "$FAKE_TARGET") $(/usr/bin/plutil -extract ProgramArguments.2 raw -o - "$FAKE_TARGET") $(/usr/bin/plutil -extract WorkingDirectory raw -o - "$FAKE_TARGET")";;\nbootout) /bin/rm -f "$FAKE_STATE";;\nbootstrap)\n  if [[ ! -f "$FAKE_FAILED" ]]; then print x > "$FAKE_FAILED"; exit 9; fi\n  print loaded > "$FAKE_STATE";;\nenable) exit 0;;\n*) exit 2;;\nesac\n`);
   await chmod(fake, 0o700);
-  const installer = new URL("../install_launchd.sh", import.meta.url);
+  const harness = new URL("fixtures/install_launchd_rollback_harness.sh", import.meta.url);
   let error;
   try {
-    await execFile("/bin/zsh", [installer.pathname, oldConfig], { env: {
-      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root, SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
-      SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}', FAKE_LOG: log, FAKE_STATE: state,
+    await execFile("/bin/zsh", [harness.pathname, root, fake, "gui/501", target, rendered], { env: {
+      ...process.env, FAKE_LOG: log, FAKE_STATE: state,
       FAKE_FAILED: failed, FAKE_TARGET: target, FAKE_OLD_RUNNER: oldRunner,
     } });
   } catch (caught) { error = caught; }
@@ -86,9 +88,8 @@ test("installer restores and re-verifies a previously loaded service after boots
   await writeFile(log, "");
   let verificationError;
   try {
-    await execFile("/bin/zsh", [installer.pathname, oldConfig], { env: {
-      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root, SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
-      SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}', FAKE_LOG: log, FAKE_STATE: state,
+    await execFile("/bin/zsh", [harness.pathname, root, fake, "gui/501", target, rendered], { env: {
+      ...process.env, FAKE_LOG: log, FAKE_STATE: state,
       FAKE_FAILED: failed, FAKE_TARGET: target, FAKE_OLD_RUNNER: oldRunner, FAKE_BAD_RESTORE: "1",
     } });
   } catch (caught) { verificationError = caught; }
@@ -96,19 +97,17 @@ test("installer restores and re-verifies a previously loaded service after boots
   assert.match(verificationError?.stderr ?? "", /rollback_verification_failed: manual recovery required/);
 });
 
-test("installer test mode rejects system or out-of-fixture launchctl binaries", async () => {
+test("offline installer harness rejects system or out-of-fixture launchctl binaries", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-installer-isolation-"));
   const home = path.join(root, "home");
   await mkdir(home, { recursive: true });
-  await writeFile(path.join(home, ".shortdrama-installer-test-home"), "shortdrama-installer-test-home-v1\n", { mode: 0o600 });
-  const config = path.join(root, "runtime.json");
-  await writeFile(config, "{}\n");
-  const installer = new URL("../install_launchd.sh", import.meta.url);
-  for (const launchctl of ["/bin/launchctl", installer.pathname]) {
-    await assert.rejects(execFile("/bin/zsh", [installer.pathname, config], { env: {
-      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root,
-      SHORTDRAMA_TEST_LAUNCHCTL_BIN: launchctl, SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}',
-    } }), (error) => error.code !== 0 && /Test launchctl fixture is unsafe/.test(error.stderr));
+  const target = path.join(home, "target.plist");
+  const rendered = path.join(root, "rendered.plist");
+  await writeFile(rendered, "fixture\n");
+  const harness = new URL("fixtures/install_launchd_rollback_harness.sh", import.meta.url);
+  for (const launchctl of ["/bin/launchctl", new URL("../install_launchd.sh", import.meta.url).pathname]) {
+    await assert.rejects(execFile("/bin/zsh", [harness.pathname, root, launchctl, "gui/501", target, rendered]),
+      (error) => error.code !== 0 && /Offline launchctl fixture is unsafe/.test(error.stderr));
   }
-  await assert.rejects(readFile(path.join(home, "Library", "LaunchAgents", "com.gengrowth.shortdrama-sync.plist")));
+  await assert.rejects(readFile(target));
 });

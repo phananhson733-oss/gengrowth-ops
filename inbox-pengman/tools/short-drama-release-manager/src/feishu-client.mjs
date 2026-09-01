@@ -198,7 +198,21 @@ function normalizedResourceItems(data, resource) {
         item[idName] !== undefined && item.id !== undefined && item[idName] !== item.id) {
       throw invalidResponse(`Feishu ${resource} item identifier is malformed`);
     }
-    return { ...item, [idName]: identifier };
+    const normalized = { ...item, [idName]: identifier };
+    if (resource === "fields" && item.options !== undefined) {
+      if (!Array.isArray(item.options)) throw invalidResponse("Feishu field options are malformed");
+      const ids = new Set();
+      const names = new Set();
+      normalized.options = item.options.map((option) => {
+        if (!plainObject(option) || typeof option.id !== "string" || option.id.length === 0 ||
+            typeof option.name !== "string" || option.name.length === 0 || option.name.trim() !== option.name ||
+            ids.has(option.id) || names.has(option.name)) throw invalidResponse("Feishu field options are malformed or duplicate");
+        ids.add(option.id);
+        names.add(option.name);
+        return { name: option.name };
+      });
+    }
+    return normalized;
   });
 }
 
@@ -272,6 +286,16 @@ function decodeCell(tableName, fieldName, value) {
     return parsed.toISOString();
   }
   if (spec.kind === "link") return exactIdCells(value, "Link");
+  if (spec.kind === "lookup") {
+    const linkSpec = fieldSpecOrNull(tableName, spec.linkField);
+    const sourceSpec = linkSpec ? fieldSpecOrNull(linkSpec.targetTable, spec.sourceField) : null;
+    if (sourceSpec?.kind === "number") {
+      if (typeof value !== "string" || !/^(?:0|[1-9]\d*)$/.test(value)) throw invalidResponse("Numeric lookup read value is malformed");
+      const numeric = Number(value);
+      if (!Number.isSafeInteger(numeric) || numeric < 0) throw invalidResponse("Numeric lookup read value is unsafe");
+      return numeric;
+    }
+  }
   return value;
 }
 
@@ -288,18 +312,24 @@ function encodeFields(tableName, fields) {
   return Object.fromEntries(Object.entries(fields).map(([field, value]) => [field, encodeCell(tableName, field, value)]));
 }
 
-function decodedRecordMatrix(data, { tableName = null, writableOnly = false } = {}) {
+function decodedRecordMatrix(data, { tableName = null, writableOnly = false, strictList = false } = {}) {
   const { fields, field_id_list: fieldIds, field_type_list: fieldTypes, record_id_list: recordIds, data: rows } = data ?? {};
-  if (!Array.isArray(fields) || !Array.isArray(fieldIds) || !Array.isArray(recordIds) || !Array.isArray(rows) ||
+  if (!Array.isArray(fields) || !Array.isArray(recordIds) || !Array.isArray(rows) ||
       fields.some((field) => typeof field !== "string" || field.length === 0) ||
-      fieldIds.some((field) => typeof field !== "string" || field.length === 0) ||
+      fieldIds !== undefined && (!Array.isArray(fieldIds) || fieldIds.some((field) => typeof field !== "string" || field.length === 0)) ||
       recordIds.some((recordId) => typeof recordId !== "string" || recordId.length === 0) ||
-      fields.length !== fieldIds.length || fieldTypes !== undefined && (!Array.isArray(fieldTypes) || fieldTypes.length !== fields.length) || new Set(fields).size !== fields.length ||
-      new Set(fieldIds).size !== fieldIds.length || new Set(recordIds).size !== recordIds.length ||
+      fieldIds !== undefined && fields.length !== fieldIds.length || fieldTypes !== undefined && (!Array.isArray(fieldTypes) || fieldTypes.length !== fields.length) || new Set(fields).size !== fields.length ||
+      fieldIds !== undefined && new Set(fieldIds).size !== fieldIds.length || new Set(recordIds).size !== recordIds.length ||
       rows.length !== recordIds.length || rows.some((row) => !Array.isArray(row) || row.length !== fields.length)) {
     throw invalidResponse("Feishu record matrix response is malformed");
   }
-  if (data.query_context !== undefined && (!plainObject(data.query_context) ||
+  if (strictList && (!Array.isArray(fieldIds) || !Array.isArray(fieldTypes) || data.time_zone !== "Asia/Shanghai" ||
+      !["string", "number"].includes(typeof data.revision) || String(data.revision).length === 0 ||
+      !plainObject(data.query_context) || data.query_context.record_scope !== "all_records" ||
+      data.query_context.field_scope !== (writableOnly ? "selected_fields" : "all_fields"))) {
+    throw invalidResponse("Feishu record list completeness metadata is missing or inconsistent");
+  }
+  if (!strictList && data.query_context !== undefined && (!plainObject(data.query_context) ||
       typeof data.query_context.record_scope !== "string" || typeof data.query_context.field_scope !== "string")) {
     throw invalidResponse("Feishu record query_context is incomplete");
   }
@@ -320,10 +350,58 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false } = 
       }
     });
   }
-  return rows.map((row, index) => ({
-    record_id: recordIds[index],
-    fields: Object.fromEntries(fields.map((field, at) => [field, decodeCell(tableName, field, row[at])])),
-  }));
+  return {
+    records: rows.map((row, index) => ({
+      record_id: recordIds[index],
+      fields: Object.fromEntries(fields.map((field, at) => [field, decodeCell(tableName, field, row[at])])),
+    })),
+    signature: strictList ? {
+      fields: [...fields], field_ids: [...fieldIds], field_types: [...fieldTypes],
+      time_zone: data.time_zone, revision: data.revision, total: data.total,
+      record_scope: data.query_context.record_scope, field_scope: data.query_context.field_scope,
+    } : null,
+  };
+}
+
+function viewFieldIndex(fields) {
+  if (!Array.isArray(fields) || fields.length === 0) throw invalidResponse("Complete view field index is required");
+  const byId = new Map();
+  const names = new Set();
+  for (const field of fields) {
+    if (!plainObject(field) || typeof field.field_id !== "string" || field.field_id.length === 0 ||
+        typeof field.name !== "string" || field.name.length === 0 || byId.has(field.field_id) || names.has(field.name)) {
+      throw invalidResponse("View field index is malformed or duplicate");
+    }
+    byId.set(field.field_id, field.name);
+    names.add(field.name);
+  }
+  const resolveField = (value) => {
+    if (typeof value !== "string" || (!byId.has(value) && !names.has(value))) throw invalidResponse("View configuration references an unknown field");
+    return byId.get(value) ?? value;
+  };
+  return { resolveField };
+}
+
+function normalizeViewConfiguration(configuration, fields) {
+  const { resolveField } = viewFieldIndex(fields);
+  const result = structuredClone(configuration);
+  if (!plainObject(result.filter) || !Array.isArray(result.filter.conditions) ||
+      result.filter.conditions.some((condition) => !Array.isArray(condition) || condition.length < 2)) {
+    throw invalidResponse("View filter configuration is malformed");
+  }
+  result.filter.conditions = result.filter.conditions.map((condition) => [resolveField(condition[0]), ...condition.slice(1)]);
+  for (const [part, key] of [["sort", "sort_config"], ["group", "group_config"]]) {
+    if (!plainObject(result[part]) || !Array.isArray(result[part][key]) ||
+        result[part][key].some((item) => !plainObject(item) || typeof item.field !== "string")) {
+      throw invalidResponse(`View ${part} configuration is malformed`);
+    }
+    result[part][key] = result[part][key].map((item) => ({ ...item, field: resolveField(item.field) }));
+  }
+  if (!plainObject(result.visible_fields) || !Array.isArray(result.visible_fields.visible_fields)) {
+    throw invalidResponse("View visible fields configuration is malformed");
+  }
+  result.visible_fields.visible_fields = result.visible_fields.visible_fields.map(resolveField);
+  return result;
 }
 
 function requireRecordIds(payload, expectedIds = null, expectedCount = null) {
@@ -727,7 +805,7 @@ export class FeishuClient {
     throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path: diagnosticPath(path) });
   }
 
-  async list(path, { mode = "offset", pageSize = 200, resource = "items", tableName = null, writableOnly = false, signal = undefined } = {}) {
+  async list(path, { mode = "offset", pageSize = 200, resource = "items", tableName = null, writableOnly = false, selectFields = [], signal = undefined } = {}) {
     if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 200) {
       fail("base_response_invalid", "Feishu list page size is invalid");
     }
@@ -737,9 +815,11 @@ export class FeishuClient {
       let cursor = mode === "offset" ? "0" : "";
       let revision;
       let revisionObserved = false;
+      let recordSignature = null;
       do {
         assertNotAborted(signal);
         const query = new URLSearchParams(mode === "token" ? { page_size: String(pageSize) } : { limit: String(pageSize) });
+        for (const field of selectFields) query.append("field_id", field);
         if (cursor || mode === "offset") query.set(mode === "token" ? "page_token" : "offset", cursor);
         const payload = await this.request(`${path}?${query}`, { context, signal });
         assertNotAborted(signal);
@@ -748,9 +828,16 @@ export class FeishuClient {
         if (vendorRecords && payload.data.items !== undefined) {
           throw invalidResponse("Feishu records response is ambiguous", { path: diagnosticPath(path) });
         }
-        const pageItems = vendorRecords
-          ? decodedRecordMatrix(payload.data, { tableName, writableOnly })
-          : normalizedResourceItems(payload.data, resource);
+        const decoded = vendorRecords
+          ? decodedRecordMatrix(payload.data, { tableName, writableOnly, strictList: typeof tableName === "string" })
+          : null;
+        const pageItems = decoded ? decoded.records : normalizedResourceItems(payload.data, resource);
+        if (decoded?.signature) {
+          if (recordSignature !== null && JSON.stringify(decoded.signature) !== JSON.stringify(recordSignature)) {
+            throw invalidResponse("Feishu record list schema changed during pagination", { path: diagnosticPath(path) });
+          }
+          recordSignature = decoded.signature;
+        }
         const pageRevision = payload.data.revision ?? payload.data.revision_id ?? null;
         if (revisionObserved && pageRevision !== revision) {
           throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
@@ -810,7 +897,12 @@ export class FeishuClient {
   }
 
   listRecords(baseToken, tableId, { tableName = null, writableOnly = false, signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, { resource: "records", tableName, writableOnly, signal });
+    const selectFields = writableOnly && typeof tableName === "string"
+      ? BASE_FIELD_SPECS[tableName].filter((spec) => fieldOwner(tableName, spec.name) !== "derived").map((spec) => spec.name)
+      : [];
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, {
+      resource: "records", tableName, writableOnly, selectFields, signal,
+    });
   }
 
   listViews(baseToken, tableId, { signal } = {}) {
@@ -831,7 +923,7 @@ export class FeishuClient {
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`,
         { method: "POST", body: { record_id_list: [recordId] }, context, signal },
       );
-      const records = decodedRecordMatrix(payload.data, { tableName });
+      const records = decodedRecordMatrix(payload.data, { tableName }).records;
       if (records.length !== 1 || records[0].record_id !== recordId) {
         throw invalidResponse("Feishu record response is malformed");
       }
@@ -897,7 +989,7 @@ export class FeishuClient {
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`,
         { method: "POST", body: { record_id_list: [recordId] }, context, signal },
       );
-      const records = decodedRecordMatrix(readback.data, { tableName });
+      const records = decodedRecordMatrix(readback.data, { tableName }).records;
       const record = records.length === 1 ? records[0] : null;
       if (!plainObject(record) || record.record_id !== recordId || !plainObject(record.fields) ||
           typeof record.fields[primaryField] !== "string" || !CANARY_PRIMARY.test(record.fields[primaryField])) {
@@ -975,7 +1067,7 @@ export class FeishuClient {
     }, { signal }), { signal });
   }
 
-  readViewConfiguration(baseToken, tableId, viewId, tableName, viewName, { signal } = {}) {
+  readViewConfiguration(baseToken, tableId, viewId, tableName, viewName, { fields, signal } = {}) {
     fixedViewDescriptor(tableName, viewName);
     return this.operation(async (context) => {
       const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
@@ -993,7 +1085,7 @@ export class FeishuClient {
           result[part] = { [key]: structuredClone(payload.data) };
         } else throw invalidResponse(`Feishu view ${part} response is malformed`);
       }
-      return result;
+      return normalizeViewConfiguration(result, fields);
     }, { signal });
   }
 
