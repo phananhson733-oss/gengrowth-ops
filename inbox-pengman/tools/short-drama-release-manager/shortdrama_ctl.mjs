@@ -47,11 +47,13 @@ const REGISTRY = Object.freeze({
   }),
   pool: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
+    "update-field": ["config", "payload", "actor-id", "chat-id"],
     "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
     "preview-archive": ["config", "key", "payload", "actor-id", "chat-id"], "apply-archive": ["config", "payload", "actor-id", "chat-id"],
   }),
   release: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], schedule: ["config", "payload", "actor-id", "chat-id"],
+    "update-field": ["config", "payload", "actor-id", "chat-id"],
     "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
     "attach-post": ["config", "payload", "actor-id", "chat-id"],
   }),
@@ -214,6 +216,27 @@ function assertSafeJson(value, path = "$", seen = new WeakSet()) {
     assertSafeJson(value[key], `${path}.${key}`, seen);
   }
   seen.delete(value);
+}
+
+function exactSingleFieldPayload(payload) {
+  if (payload === null || typeof payload !== "object" || Array.isArray(payload) ||
+      ![Object.prototype, null].includes(Object.getPrototypeOf(payload))) {
+    fail("payload_invalid", "Single-field payload must be a plain object");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(payload);
+  const keys = Reflect.ownKeys(payload);
+  const expected = ["key", "field", "value"];
+  if (keys.some((key) => typeof key !== "string") || keys.length !== expected.length ||
+      expected.some((key) => !Object.hasOwn(descriptors, key)) ||
+      Object.values(descriptors).some((descriptor) => descriptor.get || descriptor.set || !descriptor.enumerable || !("value" in descriptor))) {
+    fail("payload_invalid", "Single-field payload must contain exactly key, field, and value");
+  }
+  assertSafeJson(payload);
+  return {
+    key: normalized(descriptors.key.value, "key"),
+    field: normalized(descriptors.field.value, "field"),
+    value: structuredClone(descriptors.value.value),
+  };
 }
 
 function parsePayloadBytes(bytes) {
@@ -566,6 +589,15 @@ export function createDispatcher(runtime) {
       requireSequenceSeed(runtime.jobs);
       return runtime.humanOps.previewMutation(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", { ...(payload ?? {}), action: "create" }));
     }
+    if (key === "pool:update-field" || key === "release:update-field") {
+      const single = exactSingleFieldPayload(payload);
+      return runtime.humanOps.applySingleField({
+        actorId: identity.actorId,
+        chatId: identity.chatId,
+        table: command.group === "pool" ? "选剧池" : "发布记录",
+        ...single,
+      });
+    }
     if (key === "pool:preview-update" || key === "release:preview-update") return runtime.humanOps.previewMutation(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", { ...(payload ?? {}), action: "update" }));
     if (key === "pool:apply-update" || key === "release:apply-update") return runtime.humanOps.applyPreview({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
     if (key === "pool:preview-archive") return runtime.humanOps.previewArchive(humanRequest(identity, "选剧池", { ...(payload ?? {}), key: command.options.key }));
@@ -843,7 +875,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
 function payloadRequired(command) {
   return new Set([
     "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-archive",
-    "release:schedule", "release:preview-update", "release:apply-update", "release:attach-post",
+    "pool:update-field", "release:schedule", "release:update-field", "release:preview-update", "release:apply-update", "release:attach-post",
   ]).has(`${command.group}:${command.action}`);
 }
 

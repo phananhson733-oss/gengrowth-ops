@@ -73,9 +73,65 @@ test("CLI exposes only registered command paths and fixed options", () => {
   });
   assert.deepEqual(parseCommand(["doctor"]), { group: "doctor", action: null, options: {} });
   for (const argv of [
-    ["exec", "rm", "-rf"], ["pool", "delete"], ["sync"], ["doctor", "extra"],
+    ["exec", "rm", "-rf"], ["pool", "delete"], ["pool", "update"], ["release", "update"], ["sync"], ["doctor", "extra"],
     ["pool", "list", "--wat", "x"], ["sync", "status", "--run-id", "a", "--run-id", "b"],
   ]) assert.throws(() => parseCommand(argv), (error) => ["command_not_allowed", "input_invalid"].includes(error.code));
+});
+
+test("fixed update-field actions parse without exposing generic update", () => {
+  assert.deepEqual(parseCommand(["pool", "update-field", "--payload", "-"]), {
+    group: "pool", action: "update-field", options: { payload: "-" },
+  });
+  assert.deepEqual(parseCommand(["release", "update-field", "--payload", "-"]), {
+    group: "release", action: "update-field", options: { payload: "-" },
+  });
+  assert.throws(() => parseCommand(["pool", "update", "--payload", "-"]), (error) => error.code === "command_not_allowed");
+});
+
+test("update-field hard-binds table and Social identity to an exact one-field payload", async () => {
+  const calls = [];
+  const verified = {
+    status: "updated", table: "选剧池", key: "SD-000001", field: "推荐理由",
+    before: { present: true, value: "旧" }, after: { present: true, value: "新" }, readback: "verified",
+  };
+  const dispatch = createDispatcher({ humanOps: {
+    applySingleField: async (request) => { calls.push(request); return verified; },
+  } });
+  const identity = { mode: "social", actorId: "ou_operator", chatId: "oc_social", profile: "social" };
+  const result = await dispatch(parseCommand(["pool", "update-field", "--payload", "-"]), identity, {
+    key: "SD-000001", field: "推荐理由", value: "新",
+  });
+  assert.deepEqual(result, verified);
+  assert.deepEqual(calls, [{
+    actorId: "ou_operator", chatId: "oc_social", table: "选剧池",
+    key: "SD-000001", field: "推荐理由", value: "新",
+  }]);
+});
+
+test("update-field rejects missing, extra, unsafe, reader and protected requests", async () => {
+  const dispatch = createDispatcher({ humanOps: {
+    applySingleField: async (request) => {
+      if (request.actorId === "ou_reader") throw Object.assign(new Error("reader"), { code: "actor_write_denied" });
+      if (request.field === "Post ID") throw Object.assign(new Error("protected"), { code: "field_owner_violation" });
+      return { status: "updated", before: {}, after: {}, readback: "verified" };
+    },
+  } });
+  const command = parseCommand(["release", "update-field", "--payload", "-"]);
+  const writer = { mode: "social", actorId: "ou_operator", chatId: "oc_social", profile: "social" };
+  for (const payload of [
+    { key: "SR-000001", field: "RS收益" },
+    { key: "SR-000001", field: "RS收益", value: 1, action: "update" },
+    JSON.parse('{"key":"SR-000001","field":"RS收益","value":1,"__proto__":{}}'),
+  ]) {
+    await assert.rejects(() => dispatch(command, writer, payload), (error) => error.code === "payload_invalid");
+  }
+  await assert.rejects(() => dispatch(command, { ...writer, actorId: "ou_reader" }, {
+    key: "SR-000001", field: "RS收益", value: 1,
+  }), (error) => error.code === "actor_write_denied");
+  await assert.rejects(() => dispatch(command, writer, {
+    key: "SR-000001", field: "Post ID", value: "1",
+  }), (error) => error.code === "field_owner_violation");
+  assert.throws(() => resolveInvocationIdentity(command, {}), (error) => error.code === "social_session_required");
 });
 
 test("doctor state initialization is explicit privileged local-only", () => {
@@ -236,9 +292,9 @@ test("later canary readback failure still cleans every earlier table", async () 
 test("every public and internal registry path parses with only its fixed shape", () => {
   const commands = [
     ["doctor"], ["migrate", "plan"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
-    ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "preview-update"],
+    ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"],
     ["pool", "apply-update"], ["pool", "preview-archive", "--key", "SD-000001"], ["pool", "apply-archive"],
-    ["release", "list"], ["release", "get", "--key", "SR-000001"], ["release", "schedule"],
+    ["release", "list"], ["release", "get", "--key", "SR-000001"], ["release", "schedule"], ["release", "update-field"],
     ["release", "preview-update"], ["release", "apply-update"], ["release", "attach-post"],
     ["metrics", "by-drama"], ["metrics", "by-account"], ["sync", "start"], ["sync", "status", "--run-id", "run"],
     ["schedule", "tick"], ["schedule", "health"], ["queue", "drain"],
