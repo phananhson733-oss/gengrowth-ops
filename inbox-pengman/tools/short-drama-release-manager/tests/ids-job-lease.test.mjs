@@ -57,6 +57,13 @@ function runConcurrentFileOperations(operation, dbPath) {
             "missing-terminal:2026-09-01",
             "2026-09-01T02:00:00Z"
           );
+        } else if (workerData.operation === "mutationLease") {
+          value = resource.acquireMutationLease({
+            lockKey: "human-base:worker-test",
+            ownerId: "worker-owner-" + workerData.slot,
+            now: "2026-09-01T00:00:00Z",
+            leaseSeconds: 300,
+          })?.owner_id ?? null;
         }
         parentPort.postMessage({ type: "result", slot: workerData.slot, value });
       } catch (error) {
@@ -545,6 +552,85 @@ test("two concurrent file-backed connections deduplicate one health alert", asyn
     setup.close();
     const results = await runConcurrentFileOperations("health", dbPath);
     assert.deepEqual(results.map(({ value }) => value).sort(), [false, true]);
+  } finally {
+    if (setup.db.isOpen) setup.close();
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test("mutation lease enforces live ownership, renewal, release, expiry, and stale-owner safety", () => {
+  const store = new JobStore(":memory:");
+  const first = store.acquireMutationLease({
+    lockKey: "human-base:binding-a",
+    ownerId: "owner-a",
+    now: "2026-09-01T00:00:00Z",
+    leaseSeconds: 300,
+  });
+  assert.deepEqual(first, {
+    lock_key: "human-base:binding-a",
+    owner_id: "owner-a",
+    acquired_at: "2026-09-01T00:00:00.000Z",
+    lease_expires_at: "2026-09-01T00:05:00.000Z",
+  });
+  assert.equal(store.acquireMutationLease({
+    lockKey: "human-base:binding-a", ownerId: "owner-b", now: "2026-09-01T00:01:00Z", leaseSeconds: 300,
+  }), null);
+  assert.throws(
+    () => store.renewMutationLease({
+      lockKey: "human-base:binding-a", ownerId: "owner-b", now: "2026-09-01T00:01:00Z", leaseSeconds: 300,
+    }),
+    (error) => error.code === "mutation_lease_mismatch",
+  );
+  assert.equal(store.renewMutationLease({
+    lockKey: "human-base:binding-a", ownerId: "owner-a", now: "2026-09-01T00:04:00Z", leaseSeconds: 300,
+  }).lease_expires_at, "2026-09-01T00:09:00.000Z");
+  assert.equal(store.releaseMutationLease({ lockKey: "human-base:binding-a", ownerId: "owner-b" }), false);
+  assert.equal(store.releaseMutationLease({ lockKey: "human-base:binding-a", ownerId: "owner-a" }), true);
+
+  store.acquireMutationLease({
+    lockKey: "human-base:binding-a", ownerId: "owner-a", now: "2026-09-01T01:00:00Z", leaseSeconds: 60,
+  });
+  const reclaimed = store.acquireMutationLease({
+    lockKey: "human-base:binding-a", ownerId: "owner-b", now: "2026-09-01T01:01:00Z", leaseSeconds: 60,
+  });
+  assert.equal(reclaimed.owner_id, "owner-b");
+  assert.equal(store.releaseMutationLease({ lockKey: "human-base:binding-a", ownerId: "owner-a" }), false);
+  assert.throws(
+    () => store.renewMutationLease({
+      lockKey: "human-base:binding-a", ownerId: "owner-a", now: "2026-09-01T01:01:01Z", leaseSeconds: 60,
+    }),
+    (error) => error.code === "mutation_lease_mismatch",
+  );
+  assert.equal(store.releaseMutationLease({ lockKey: "human-base:binding-a", ownerId: "owner-b" }), true);
+
+  for (const input of [
+    { lockKey: " human-base:a", ownerId: "owner" },
+    { lockKey: "human-base:a", ownerId: "owner\n" },
+    { lockKey: "", ownerId: "owner" },
+  ]) {
+    assert.throws(
+      () => store.acquireMutationLease({ ...input, now: "2026-09-01T00:00:00Z", leaseSeconds: 60 }),
+      (error) => error.code === "mutation_lease_input_invalid",
+    );
+  }
+  assert.throws(
+    () => store.acquireMutationLease({
+      lockKey: "human-base:a", ownerId: "owner", now: "2026-09-01T00:00:00Z", leaseSeconds: 1.5,
+    }),
+    (error) => error.code === "lease_duration_invalid",
+  );
+  store.close();
+});
+
+test("two worker connections allow exactly one live mutation lease owner", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-mutation-lease-two-"));
+  const dbPath = join(directory, "ops.sqlite");
+  const setup = new JobStore(dbPath);
+  try {
+    setup.close();
+    const results = await runConcurrentFileOperations("mutationLease", dbPath);
+    assert.equal(results.filter(({ value }) => value === null).length, 1);
+    assert.equal(results.filter(({ value }) => /^worker-owner-[01]$/.test(value)).length, 1);
   } finally {
     if (setup.db.isOpen) setup.close();
     rmSync(directory, { recursive: true });

@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
@@ -19,6 +19,7 @@ const ARCHIVE_KEYS = new Set(["actorId", "chatId", "table", "key"]);
 const METRICS = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论", "RS收益"]);
 const RECEIPT_VERSION = 1;
 const RECEIPT_ID_PATTERN = /^sdp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const MUTATION_LEASE_SECONDS = 300;
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const APPLY_QUEUES = new Map();
 
@@ -265,7 +266,8 @@ function assertProtectedAction(action, table, patch, { stored = false, caller = 
   if (hasArchive) {
     const internalCreateDefault = !caller && action === "create" && ["选剧池", "发布记录"].includes(table) && patch.归档状态 === "active";
     const fixedArchive = action === "archive" && patch.归档状态 === "archived";
-    if (!internalCreateDefault && !fixedArchive) reject("Archive state is reserved for fixed create/archive flows", "归档状态");
+    const fixedBatchArchive = action === "batch_update" && Object.keys(patch).length === 1 && patch.归档状态 === "archived";
+    if (!internalCreateDefault && !fixedArchive && !fixedBatchArchive) reject("Archive state is reserved for fixed create/archive flows", "归档状态");
   }
   if (!caller && action === "create" && ["选剧池", "发布记录"].includes(table) && patch.归档状态 !== "active") {
     reject("Create must carry the service-owned active archive state", "归档状态");
@@ -349,7 +351,10 @@ export class HumanOpsService {
       const repository = repos[name];
       return repository && ["loadIndex", "getByKey", "upsertByKey"].every((method) => typeof repository[method] === "function");
     });
-    const jobsValid = jobs && ["createPreview", "getPreview", "consumePreview", "appendAudit"].every((method) => typeof jobs[method] === "function");
+    const jobsValid = jobs && [
+      "createPreview", "getPreview", "consumePreview", "appendAudit",
+      "acquireMutationLease", "renewMutationLease", "releaseMutationLease",
+    ].every((method) => typeof jobs[method] === "function");
     const normalizedOperators = normalizedSet(operators);
     const normalizedPrivileged = normalizedSet(privileged);
     const binding = repositoriesValid ? baseBinding(repos) : null;
@@ -384,6 +389,38 @@ export class HumanOpsService {
 
   #assertPrivileged(actor) {
     if (!this.#privileged.has(actor)) fail("privileged_required", "Action requires a privileged actor", { actor });
+  }
+
+  async #withMutationLock(operation) {
+    return serializeBaseApply(this.#baseBinding, async () => {
+      const lockKey = `human-base:${this.#baseBinding}`;
+      const ownerId = `human-${randomUUID()}`;
+      const acquired = this.#jobs.acquireMutationLease({
+        lockKey,
+        ownerId,
+        now: this.#now(),
+        leaseSeconds: MUTATION_LEASE_SECONDS,
+      });
+      if (!acquired) fail("mutation_busy", "Another process holds the human Base mutation lease");
+      const renew = () => this.#jobs.renewMutationLease({
+        lockKey,
+        ownerId,
+        now: this.#now(),
+        leaseSeconds: MUTATION_LEASE_SECONDS,
+      });
+      try {
+        return await operation(renew);
+      } finally {
+        this.#jobs.releaseMutationLease({ lockKey, ownerId });
+      }
+    });
+  }
+
+  async #leasedStep(renew, operation) {
+    renew();
+    const result = await operation();
+    renew();
+    return result;
   }
 
   async #index(table) {
@@ -579,30 +616,32 @@ export class HumanOpsService {
     assertProtectedAction("update", table, { [field]: input.value }, { caller: true });
     validateFieldValue(table, field, input.value);
     const key = requiredString(input.key, "key");
-    const index = await this.#index(table);
-    const record = index.get(key);
-    if (!record) fail("business_record_not_found", "Business record was not found", { table, key });
-    const beforeState = cellState(record.fields, field);
-    if (equal(beforeState, { present: true, value: input.value })) {
-      return mutationResult({ status: "unchanged", actor, recordId: key, changedFields: [], nextStep: "none" });
-    }
-    const patch = { [field]: clone(input.value) };
-    const result = await tableRepository(this.#repos, table).upsertByKey(key, patch, "human");
-    const readback = result.record?.fields?.[field];
-    if (!equal(readback, input.value) || result.readback !== "verified") {
-      fail("readback_mismatch", "Human mutation readback did not match", { table, key, field });
-    }
-    this.#jobs.appendAudit({
-      actorId: actor, action: "update", targetTable: table, targetKey: key,
-      before: { [field]: beforeState },
-      after: { [field]: { present: true, value: clone(input.value) } },
-      readback: { [field]: cellState(result.record.fields, field) },
-      now: this.#now(),
-    });
-    return mutationResult({
-      actor,
-      recordId: key,
-      changedFields: [changedRecord(key, record.fields, patch, result.record.fields)],
+    return this.#withMutationLock(async (renew) => {
+      const index = await this.#leasedStep(renew, () => this.#index(table));
+      const record = index.get(key);
+      if (!record) fail("business_record_not_found", "Business record was not found", { table, key });
+      const beforeState = cellState(record.fields, field);
+      if (equal(beforeState, { present: true, value: input.value })) {
+        return mutationResult({ status: "unchanged", actor, recordId: key, changedFields: [], nextStep: "none" });
+      }
+      const patch = { [field]: clone(input.value) };
+      const result = await this.#leasedStep(renew, () => tableRepository(this.#repos, table).upsertByKey(key, patch, "human"));
+      const readback = result.record?.fields?.[field];
+      if (!equal(readback, input.value) || result.readback !== "verified") {
+        fail("readback_mismatch", "Human mutation readback did not match", { table, key, field });
+      }
+      await this.#leasedStep(renew, () => this.#jobs.appendAudit({
+        actorId: actor, action: "update", targetTable: table, targetKey: key,
+        before: { [field]: beforeState },
+        after: { [field]: { present: true, value: clone(input.value) } },
+        readback: { [field]: cellState(result.record.fields, field) },
+        now: this.#now(),
+      }));
+      return mutationResult({
+        actor,
+        recordId: key,
+        changedFields: [changedRecord(key, record.fields, patch, result.record.fields)],
+      });
     });
   }
 
@@ -622,8 +661,9 @@ export class HumanOpsService {
 
   async applyPreview(request) {
     exactKeys(request, APPLY_KEYS, "mutation_shape_invalid");
-    // Cross-process exclusion is supplied by the single launchd/job-queue worker in Task 9.
-    return serializeBaseApply(this.#baseBinding, () => this.#applyReceipt(request, false));
+    const input = clone(request);
+    // Task 9's single launchd/job-queue worker remains defense in depth over this durable lease.
+    return this.#withMutationLock((renew) => this.#applyReceipt(input, false, renew));
   }
 
   async previewArchive(request) {
@@ -639,7 +679,8 @@ export class HumanOpsService {
 
   async applyArchive(request) {
     exactKeys(request, APPLY_KEYS, "mutation_shape_invalid");
-    return serializeBaseApply(this.#baseBinding, () => this.#applyReceipt(request, true));
+    const input = clone(request);
+    return this.#withMutationLock((renew) => this.#applyReceipt(input, true, renew));
   }
 
   async #prepareEnvelope(request) {
@@ -691,6 +732,7 @@ export class HumanOpsService {
         assertProtectedAction(action, table, patch);
         targets.push({ key: resolved.key, patch, record: resolved.record });
       }
+      if (targets.some((target) => target.patch.归档状态 === "archived")) this.#assertPrivileged(request.actor);
       targets.sort((left, right) => left.key.localeCompare(right.key));
       return {
         v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table,
@@ -813,7 +855,7 @@ export class HumanOpsService {
     }
   }
 
-  async #applyReceipt(request, archiveOnly) {
+  async #applyReceipt(request, archiveOnly, renew) {
     const actor = this.#actor(request.actorId);
     const chat = this.#chat(request.chatId);
     const receiptId = receiptString(request.receiptId);
@@ -827,17 +869,22 @@ export class HumanOpsService {
     if (archiveOnly !== (envelope.action === "archive")) {
       fail("preview_action_mismatch", "Preview must be applied through its matching method");
     }
-    for (const target of envelope.targets) {
-      await this.#normalizePatch(envelope.table, target.patch, { create: envelope.action === "create", internal: true });
+    if (envelope.action === "batch_update" && envelope.targets.some((target) => target.patch.归档状态 === "archived")) {
+      this.#assertPrivileged(actor);
     }
-    const currentBefore = await this.#currentBefore(envelope);
+    for (const target of envelope.targets) {
+      await this.#leasedStep(renew, () => this.#normalizePatch(envelope.table, target.patch, { create: envelope.action === "create", internal: true }));
+    }
+    const currentBefore = await this.#leasedStep(renew, () => this.#currentBefore(envelope));
     if (envelope.action === "attach-post") {
-      const current = (await this.#index("发布记录")).get(envelope.targets[0].key);
-      if (!current) fail("preview_stale", "Preview target is stale");
-      await this.#validateAttachPost(envelope.targets[0].key, current, envelope.targets[0].patch);
+      await this.#leasedStep(renew, async () => {
+        const current = (await this.#index("发布记录")).get(envelope.targets[0].key);
+        if (!current) fail("preview_stale", "Preview target is stale");
+        await this.#validateAttachPost(envelope.targets[0].key, current, envelope.targets[0].patch);
+      });
     }
     const beforeHash = canonicalHash(currentBefore);
-    this.#jobs.consumePreview(receiptId, { actorId: actor, chatId: chat, beforeHash, now: this.#now() });
+    await this.#leasedStep(renew, () => this.#jobs.consumePreview(receiptId, { actorId: actor, chatId: chat, beforeHash, now: this.#now() }));
 
     const repository = tableRepository(this.#repos, envelope.table);
     const results = [];
@@ -856,7 +903,7 @@ export class HumanOpsService {
         results.push({ key: target.key, change: null });
         continue;
       }
-      const written = await repository.upsertByKey(target.key, target.patch, "human");
+      const written = await this.#leasedStep(renew, () => repository.upsertByKey(target.key, target.patch, "human"));
       if (written.readback !== "verified" || !plainObject(written.record?.fields)) {
         fail("readback_mismatch", "Human mutation did not return verified readback", { table: envelope.table, key: target.key });
       }
@@ -869,10 +916,10 @@ export class HumanOpsService {
       const beforeAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].before)]));
       const afterAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].after)]));
       const readbackAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].readback)]));
-      this.#jobs.appendAudit({
+      await this.#leasedStep(renew, () => this.#jobs.appendAudit({
         actorId: actor, action: envelope.action, targetTable: envelope.table, targetKey: target.key,
         before: beforeAudit, after: afterAudit, readback: readbackAudit, now: this.#now(),
-      });
+      }));
       results.push({ key: target.key, change });
     }
     const allChanged = results.map((result) => result.change).filter(Boolean);

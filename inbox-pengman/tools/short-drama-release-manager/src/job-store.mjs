@@ -41,8 +41,8 @@ function timestamp(value = new Date()) {
 }
 
 function futureTimestamp(now, seconds) {
-  if (!Number.isFinite(seconds) || seconds <= 0) {
-    fail("lease_duration_invalid", "Lease duration must be positive", { lease_seconds: seconds });
+  if (!Number.isSafeInteger(seconds) || seconds <= 0) {
+    fail("lease_duration_invalid", "Lease duration must be a positive safe integer", { lease_seconds: seconds });
   }
   return new Date(new Date(timestamp(now)).getTime() + seconds * 1000).toISOString();
 }
@@ -77,6 +77,17 @@ function auditFromRow(row) {
   delete result.after_json;
   delete result.readback_json;
   return result;
+}
+
+function mutationLeaseFromRow(row) {
+  return row ? { ...row } : null;
+}
+
+function mutationLeaseString(value, field) {
+  if (typeof value !== "string" || value.length === 0 || value.trim() !== value || value.length > 256 || /[\u0000-\u001f\u007f]/.test(value)) {
+    fail("mutation_lease_input_invalid", "Mutation lease values must be normalized bounded strings", { field });
+  }
+  return value;
 }
 
 function translateSqliteError(error) {
@@ -149,6 +160,12 @@ export class JobStore {
           created_at TEXT NOT NULL,
           sent_at TEXT,
           error TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS mutation_leases (
+          lock_key TEXT PRIMARY KEY,
+          owner_id TEXT NOT NULL,
+          acquired_at TEXT NOT NULL,
+          lease_expires_at TEXT NOT NULL
         );
       `);
     } catch (error) {
@@ -359,6 +376,59 @@ export class JobStore {
         .run(usedAt, receiptId);
       return this.getPreview(receiptId);
     });
+  }
+
+  acquireMutationLease({ lockKey, ownerId, now = new Date(), leaseSeconds = 300 } = {}) {
+    const key = mutationLeaseString(lockKey, "lockKey");
+    const owner = mutationLeaseString(ownerId, "ownerId");
+    const acquiredAt = timestamp(now);
+    const expiresAt = futureTimestamp(acquiredAt, leaseSeconds);
+    return this.immediate(() => {
+      const existing = mutationLeaseFromRow(
+        this.db.prepare("SELECT * FROM mutation_leases WHERE lock_key = ?").get(key)
+      );
+      if (existing && new Date(existing.lease_expires_at).getTime() > new Date(acquiredAt).getTime()) return null;
+      this.db.prepare(`
+        INSERT INTO mutation_leases(lock_key, owner_id, acquired_at, lease_expires_at)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(lock_key) DO UPDATE SET
+          owner_id = excluded.owner_id,
+          acquired_at = excluded.acquired_at,
+          lease_expires_at = excluded.lease_expires_at
+      `).run(key, owner, acquiredAt, expiresAt);
+      return mutationLeaseFromRow(
+        this.db.prepare("SELECT * FROM mutation_leases WHERE lock_key = ?").get(key)
+      );
+    });
+  }
+
+  renewMutationLease({ lockKey, ownerId, now = new Date(), leaseSeconds = 300 } = {}) {
+    const key = mutationLeaseString(lockKey, "lockKey");
+    const owner = mutationLeaseString(ownerId, "ownerId");
+    const renewedAt = timestamp(now);
+    const expiresAt = futureTimestamp(renewedAt, leaseSeconds);
+    return this.immediate(() => {
+      const result = this.db.prepare(`
+        UPDATE mutation_leases
+        SET lease_expires_at = ?
+        WHERE lock_key = ? AND owner_id = ?
+          AND julianday(lease_expires_at) > julianday(?)
+      `).run(expiresAt, key, owner, renewedAt);
+      if (result.changes !== 1) {
+        fail("mutation_lease_mismatch", "Mutation lease is expired or owned by another worker", { lock_key: key });
+      }
+      return mutationLeaseFromRow(
+        this.db.prepare("SELECT * FROM mutation_leases WHERE lock_key = ?").get(key)
+      );
+    });
+  }
+
+  releaseMutationLease({ lockKey, ownerId } = {}) {
+    const key = mutationLeaseString(lockKey, "lockKey");
+    const owner = mutationLeaseString(ownerId, "ownerId");
+    return this.immediate(() => this.db.prepare(
+      "DELETE FROM mutation_leases WHERE lock_key = ? AND owner_id = ?"
+    ).run(key, owner).changes === 1);
   }
 
   claimNext({ workerPid, now = new Date(), leaseSeconds = 120 }) {
