@@ -7,9 +7,11 @@ import { HumanOpsService } from "../src/human-ops.mjs";
 const clone = (value) => structuredClone(value);
 
 class FakeRepository {
-  constructor(tableName, primaryField, rows, writes) {
+  constructor(tableName, primaryField, rows, writes, { appToken, tableId }) {
     this.tableName = tableName;
     this.primaryField = primaryField;
+    this.appToken = appToken;
+    this.tableId = tableId;
     this.rows = new Map(rows.map((row) => [row.fields[primaryField], clone(row)]));
     this.writes = writes;
     this.loadCount = 0;
@@ -44,6 +46,13 @@ function fixture(options = {}) {
   let dramaSequence = 2;
   let releaseSequence = 3;
   let receiptSequence = 0;
+  const appToken = options.appToken ?? "app-base-a";
+  const tableIds = options.tableIds ?? {
+    accounts: "tbl-accounts-a",
+    dramas: "tbl-dramas-a",
+    captures: "tbl-captures-a",
+    releases: "tbl-releases-a",
+  };
   const accountRows = options.accountRows ?? [
     { record_id: "rec-account-one", fields: { 账号ID: "dramaexpedition", 账号名: "Drama Expedition", 状态: "active" } },
     { record_id: "rec-account-two", fields: { 账号ID: "dramaextra", 账号名: "Drama Extra", 状态: "active" } },
@@ -72,36 +81,39 @@ function fixture(options = {}) {
   ];
   const capturesRows = options.captureRows ?? [];
   const repos = {
-    accounts: new FakeRepository("账号台账", "账号ID", accountRows, writes),
-    dramas: new FakeRepository("选剧池", "剧ID", dramaRows, writes),
-    captures: new FakeRepository("采集数据", "Post ID", capturesRows, writes),
-    releases: new FakeRepository("发布记录", "发布ID", releaseRows, writes),
+    appToken,
+    accounts: new FakeRepository("账号台账", "账号ID", accountRows, writes, { appToken, tableId: tableIds.accounts }),
+    dramas: new FakeRepository("选剧池", "剧ID", dramaRows, writes, { appToken, tableId: tableIds.dramas }),
+    captures: new FakeRepository("采集数据", "Post ID", capturesRows, writes, { appToken, tableId: tableIds.captures }),
+    releases: new FakeRepository("发布记录", "发布ID", releaseRows, writes, { appToken, tableId: tableIds.releases }),
   };
-  const jobs = new JobStore(":memory:");
+  const jobs = options.jobs ?? new JobStore(":memory:");
   const realAppendAudit = jobs.appendAudit.bind(jobs);
   jobs.appendAudit = (event) => {
     audits.push(clone(event));
     if (options.auditFails) throw new Error("audit unavailable");
     return realAppendAudit(event);
   };
-  const service = new HumanOpsService({
-    repos,
-    jobs,
-    operators: new Set(["ou_operator"]),
-    privileged: new Set(["ou_admin"]),
-    now: () => new Date(clock),
-    makeReceiptId: () => `sdp_${++receiptSequence}`,
-    allocateDramaId: () => `SD-${String(++dramaSequence).padStart(6, "0")}`,
-    allocateReleaseId: () => `SR-${String(++releaseSequence).padStart(6, "0")}`,
-  });
+  const makeService = () => new HumanOpsService({
+      repos,
+      jobs,
+      operators: new Set(["ou_operator"]),
+      privileged: new Set(["ou_admin"]),
+      now: () => new Date(clock),
+      makeReceiptId: () => `sdp_00000000-0000-4000-8000-${String(++receiptSequence).padStart(12, "0")}`,
+      allocateDramaId: () => `SD-${String(++dramaSequence).padStart(6, "0")}`,
+      allocateReleaseId: () => `SR-${String(++releaseSequence).padStart(6, "0")}`,
+    });
+  const service = makeService();
   return {
     service,
     repos,
     jobs,
     writes,
     audits,
+    makeService,
     setNow(value) { clock = new Date(value); },
-    close() { jobs.close(); },
+    close() { if (!options.jobs) jobs.close(); },
   };
 }
 
@@ -114,7 +126,7 @@ test("constructor requires exact operational dependencies and normalized allowli
     operators: new Set([" ou_operator"]),
     privileged: new Set(["ou_admin"]),
     now: () => new Date(),
-    makeReceiptId: () => "sdp_x",
+    makeReceiptId: () => "sdp_00000000-0000-4000-8000-000000000001",
     allocateDramaId: () => "SD-000003",
     allocateReleaseId: () => "SR-000003",
   }), (error) => error.code === "human_ops_config_invalid");
@@ -217,16 +229,28 @@ test("single-field reversible write is gated, verified and audited; no-op is not
     actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "推荐理由", value: "人工新理由",
   });
   assert.deepEqual(result, {
-    status: "success", actor: "ou_operator", record_id: "SD-000001", changed_fields: ["推荐理由"], readback: "verified", next_step: "none",
+    status: "success", actor: "ou_operator", record_id: "SD-000001",
+    changed_fields: [{
+      record_id: "SD-000001",
+      fields: {
+        推荐理由: {
+          before: { present: true, value: "旧理由" },
+          after: { present: true, value: "人工新理由" },
+          readback: { present: true, value: "人工新理由" },
+        },
+      },
+    }],
+    readback: "verified", next_step: "none",
   });
   assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.推荐理由, "人工新理由");
-  assert.deepEqual(fx.audits[0].before, { 推荐理由: "旧理由" });
-  assert.deepEqual(fx.audits[0].after, { 推荐理由: "人工新理由" });
-  assert.deepEqual(fx.audits[0].readback, { 推荐理由: "人工新理由" });
+  assert.deepEqual(fx.audits[0].before, { 推荐理由: { present: true, value: "旧理由" } });
+  assert.deepEqual(fx.audits[0].after, { 推荐理由: { present: true, value: "人工新理由" } });
+  assert.deepEqual(fx.audits[0].readback, { 推荐理由: { present: true, value: "人工新理由" } });
   const noOp = await fx.service.applySingleField({
     actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "推荐理由", value: "人工新理由",
   });
   assert.equal(noOp.status, "unchanged");
+  assert.deepEqual(noOp.changed_fields, []);
   assert.equal(fx.audits.length, 1);
   assert.equal(fx.writes.length, 1);
   fx.close();
@@ -241,11 +265,18 @@ test("create reserves drama ID at preview, writes nothing, clones input and appl
   assert.equal(preview.status, "preview");
   assert.equal(preview.record_id, "SD-000003");
   assert.equal(preview.expires_at, "2026-09-01T00:15:00.000Z");
+  assert.equal(preview.patch.归档状态, "active");
   assert.deepEqual(fx.writes, []);
   patch.剧名 = "caller changed";
   const result = await fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id });
   assert.equal(result.record_id, "SD-000003");
   assert.equal(fx.repos.dramas.rows.get("SD-000003").fields.剧名, "New Drama");
+  assert.deepEqual(result.changed_fields[0].fields.归档状态, {
+    before: { present: false },
+    after: { present: true, value: "active" },
+    readback: { present: true, value: "active" },
+  });
+  assert.deepEqual(fx.audits[0].before.归档状态, { present: false });
   await assert.rejects(
     () => fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id }),
     (error) => error.code === "preview_used",
@@ -441,7 +472,7 @@ test("attach-post is release-only, validates exact TikTok URL ownership and uniq
     patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777", "Post ID": "777" },
   });
   const applied = await fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: valid.receipt_id });
-  assert.deepEqual(applied.changed_fields, ["Post ID", "视频链接"]);
+  assert.deepEqual(Object.keys(applied.changed_fields[0].fields), ["Post ID", "视频链接"]);
   await assert.rejects(
     () => fx.service.previewMutation({ actorId: "ou_operator", chatId: "oc_social", action: "attach-post", table: "选剧池", key: "SD-000001", patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/888", "Post ID": "888" } }),
     (error) => error.code === "mutation_action_invalid",
@@ -461,7 +492,7 @@ test("attach-post is release-only, validates exact TikTok URL ownership and uniq
   fx.close();
 });
 
-test("batch update validates every item before the first Base write and is privileged for batch archive", async () => {
+test("batch update validates every item before the first Base write and cannot archive", async () => {
   const fx = fixture();
   await assert.rejects(
     () => fx.service.previewMutation({
@@ -479,7 +510,7 @@ test("batch update validates every item before the first Base write and is privi
       actorId: "ou_operator", chatId: "oc_social", action: "batch_update", table: "选剧池",
       items: [{ key: "SD-000001", patch: { 归档状态: "archived" } }, { key: "SD-000002", patch: { 归档状态: "archived" } }],
     }),
-    (error) => error.code === "privileged_required",
+    (error) => error.code === "field_action_violation",
   );
   const preview = await fx.service.previewMutation({
     actorId: "ou_admin", chatId: "oc_social", action: "batch_update", table: "选剧池",
@@ -488,6 +519,8 @@ test("batch update validates every item before the first Base write and is privi
   const result = await fx.service.applyPreview({ actorId: "ou_admin", chatId: "oc_social", receiptId: preview.receipt_id });
   assert.equal(result.status, "success");
   assert.deepEqual(result.record_id, ["SD-000001", "SD-000002"]);
+  assert.deepEqual(result.changed_fields.map((item) => item.record_id), ["SD-000001", "SD-000002"]);
+  assert.deepEqual(result.changed_fields.map((item) => Object.keys(item.fields)), [["备注"], ["备注"]]);
   assert.equal(fx.audits.length, 2);
   fx.close();
 });
@@ -498,7 +531,7 @@ test("archive is previewed, writes only archived state, and service exposes no d
   assert.equal("execute" in fx.service, false);
   const preview = await fx.service.previewArchive({ actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "The Phantom Pilot" });
   const result = await fx.service.applyArchive({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id });
-  assert.deepEqual(result.changed_fields, ["归档状态"]);
+  assert.deepEqual(Object.keys(result.changed_fields[0].fields), ["归档状态"]);
   assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.归档状态, "archived");
   assert.deepEqual(fx.writes[0].patch, { 归档状态: "archived" });
   await assert.rejects(
@@ -520,5 +553,250 @@ test("unknown request and envelope keys fail closed and audit failure cannot rep
     /audit unavailable/,
   );
   assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.备注, "new");
+  fx.close();
+});
+
+test("query sorts finite numbers numerically with a deterministic tie break", async () => {
+  const releaseRows = [
+    { record_id: "rec-r100", fields: { 发布ID: "SR-000100", 播放量: 100, 归档状态: "active" } },
+    { record_id: "rec-r20", fields: { 发布ID: "SR-000020", 播放量: 20, 归档状态: "active" } },
+  ];
+  const fx = fixture({ releaseRows });
+  const rows = await fx.service.query({
+    actorId: "ou_reader", table: "发布记录", sort: { field: "播放量", direction: "asc" },
+  });
+  assert.deepEqual(rows.map((row) => row.播放量), [20, 100]);
+  fx.close();
+});
+
+test("metrics skip only archived rows and expose missing or invalid archive state", async () => {
+  const metricFields = { 剧ID: "SD-1", 播放量: 1, 点赞: 2, 收藏: 3, 转发: 4, 评论: 5, RS收益: 6 };
+  const releaseRows = [
+    { record_id: "rec-active", fields: { 发布ID: "SR-000001", ...metricFields, 归档状态: "active" } },
+    { record_id: "rec-archived", fields: { 发布ID: "SR-000002", ...metricFields, 归档状态: "archived" } },
+    { record_id: "rec-missing", fields: { 发布ID: "SR-000003", ...metricFields } },
+    { record_id: "rec-unknown", fields: { 发布ID: "SR-000004", ...metricFields, 归档状态: "paused" } },
+    { record_id: "rec-null", fields: { 发布ID: "SR-000005", ...metricFields, 归档状态: null } },
+  ];
+  const fx = fixture({ releaseRows });
+  const result = await fx.service.queryMetrics({ actorId: "ou_reader", groupBy: "drama" });
+  assert.equal(result.status, "partial");
+  assert.deepEqual(result.groups, [{
+    key: "SD-1", releases: 1, 播放量: 1, 点赞: 2, 收藏: 3, 转发: 4, 评论: 5, RS收益: 6,
+  }]);
+  assert.deepEqual(result.unavailable, [
+    { record_id: "SR-000003", field: "归档状态", reason: "archive_state_missing" },
+    { record_id: "SR-000004", field: "归档状态", reason: "archive_state_invalid" },
+    { record_id: "SR-000005", field: "归档状态", reason: "archive_state_invalid" },
+  ]);
+  fx.close();
+});
+
+test("protected fields are reachable only through fixed archive and attach-post actions", async () => {
+  const fx = fixture();
+  const singleRequests = [
+    { table: "选剧池", key: "SD-000001", field: "归档状态", value: "archived" },
+    { table: "发布记录", key: "SR-000001", field: "Post ID", value: "777" },
+    { table: "发布记录", key: "SR-000001", field: "视频链接", value: "https://www.tiktok.com/@dramaexpedition/video/777" },
+  ];
+  for (const request of singleRequests) {
+    await assert.rejects(
+      () => fx.service.applySingleField({ actorId: "ou_operator", chatId: "oc_social", ...request }),
+      (error) => error.code === "field_action_violation",
+    );
+  }
+  const previewRequests = [
+    { action: "update", table: "选剧池", key: "SD-000001", patch: { 归档状态: "archived" } },
+    { action: "update", table: "发布记录", key: "SR-000001", patch: { "Post ID": "777", 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777" } },
+    { action: "batch_update", table: "选剧池", items: [{ key: "SD-000001", patch: { 归档状态: "archived" } }] },
+    { action: "create", table: "选剧池", patch: { 剧名: "Manual state", 归档状态: "active" } },
+    { action: "create", table: "发布记录", patch: { 日期: "2026-09-02T08:00:00+08:00", 账号: "dramaexpedition", 剧: "SD-000001", "Post ID": "777", 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777" } },
+  ];
+  for (const request of previewRequests) {
+    await assert.rejects(
+      () => fx.service.previewMutation({ actorId: "ou_operator", chatId: "oc_social", ...request }),
+      (error) => error.code === "field_action_violation",
+    );
+  }
+  assert.deepEqual(fx.writes, []);
+  fx.close();
+});
+
+test("stored envelopes cannot bypass protected action fields and remain unconsumed", async () => {
+  const fx = fixture();
+  const cases = [
+    { table: "选剧池", key: "SD-000001", patch: { 归档状态: "archived" } },
+    { table: "发布记录", key: "SR-000001", patch: { "Post ID": "777", 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777" } },
+  ];
+  for (const item of cases) {
+    const preview = await fx.service.previewMutation({
+      actorId: "ou_operator", chatId: "oc_social", action: "update", table: item.table, key: item.key, patch: { 备注: "safe" },
+    });
+    const receipt = fx.jobs.getPreview(preview.receipt_id);
+    receipt.patch.targets[0].patch = item.patch;
+    fx.jobs.db.prepare("UPDATE preview_receipts SET patch_json = ? WHERE receipt_id = ?")
+      .run(JSON.stringify(receipt.patch), preview.receipt_id);
+    await assert.rejects(
+      () => fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id }),
+      (error) => error.code === "preview_payload_invalid",
+    );
+    assert.equal(fx.jobs.getPreview(preview.receipt_id).used_at, null);
+  }
+  assert.deepEqual(fx.writes, []);
+  fx.close();
+});
+
+test("release create injects active state and reports every changed cell deterministically", async () => {
+  const fx = fixture();
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "create", table: "发布记录",
+    patch: { 日期: "2026-09-02T08:00:00+08:00", 账号: "dramaexpedition", 剧: "SD-000001", 备注: "new" },
+  });
+  assert.equal(preview.patch.归档状态, "active");
+  const result = await fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id });
+  assert.deepEqual(Object.keys(result.changed_fields[0].fields), ["剧", "备注", "归档状态", "日期", "账号"]);
+  for (const detail of Object.values(result.changed_fields[0].fields)) {
+    assert.deepEqual(detail.before, { present: false });
+    assert.equal(detail.after.present, true);
+    assert.deepEqual(detail.readback, detail.after);
+  }
+  assert.equal(fx.repos.releases.rows.get(preview.record_id).fields.归档状态, "active");
+  fx.close();
+});
+
+test("single-field audit and result distinguish a missing cell from explicit null", async () => {
+  const fx = fixture();
+  const missing = await fx.service.applySingleField({
+    actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000002", field: "备注", value: "now present",
+  });
+  assert.deepEqual(missing.changed_fields[0].fields.备注.before, { present: false });
+  assert.deepEqual(fx.audits[0].before.备注, { present: false });
+  const explicitNull = await fx.service.applySingleField({
+    actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "备注", value: "from null",
+  });
+  assert.deepEqual(explicitNull.changed_fields[0].fields.备注.before, { present: true, value: null });
+  assert.deepEqual(fx.audits[1].before.备注, { present: true, value: null });
+  fx.close();
+});
+
+test("changed cell state preserves numeric zero exactly", async () => {
+  const fx = fixture();
+  fx.repos.releases.rows.get("SR-000001").fields.RS收益 = 0;
+  const result = await fx.service.applySingleField({
+    actorId: "ou_operator", chatId: "oc_social", table: "发布记录", key: "SR-000001", field: "RS收益", value: 5,
+  });
+  assert.deepEqual(result.changed_fields[0].fields.RS收益, {
+    before: { present: true, value: 0 },
+    after: { present: true, value: 5 },
+    readback: { present: true, value: 5 },
+  });
+  assert.deepEqual(fx.audits[0].before.RS收益, { present: true, value: 0 });
+  fx.close();
+});
+
+test("receipt IDs are exact randomUUID-v4 values and receipts bind to hashed Base coordinates", async () => {
+  const fx = fixture();
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "bound" },
+  });
+  const receipt = fx.jobs.getPreview(preview.receipt_id);
+  assert.match(preview.receipt_id, /^sdp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+  assert.match(receipt.patch.base_binding, /^[0-9a-f]{64}$/);
+  assert.equal(JSON.stringify(receipt.patch).includes("app-base-a"), false);
+  const previousTableId = fx.repos.captures.tableId;
+  fx.repos.captures.tableId = undefined;
+  assert.throws(() => new HumanOpsService({
+    repos: fx.repos,
+    jobs: fx.jobs, operators: new Set(), privileged: new Set(), now: () => new Date(),
+    makeReceiptId: () => "sdp_loose", allocateDramaId: () => "SD-000003", allocateReleaseId: () => "SR-000003",
+  }), (error) => error.code === "human_ops_config_invalid");
+  fx.repos.captures.tableId = previousTableId;
+  const previousAppToken = fx.repos.captures.appToken;
+  fx.repos.captures.appToken = "app-inconsistent";
+  assert.throws(() => new HumanOpsService({
+    repos: fx.repos,
+    jobs: fx.jobs, operators: new Set(), privileged: new Set(), now: () => new Date(),
+    makeReceiptId: () => "sdp_loose", allocateDramaId: () => "SD-000003", allocateReleaseId: () => "SR-000003",
+  }), (error) => error.code === "human_ops_config_invalid");
+  fx.repos.captures.appToken = previousAppToken;
+  const loose = fixture();
+  const looseService = new HumanOpsService({
+    repos: loose.repos, jobs: loose.jobs, operators: new Set(["ou_operator"]), privileged: new Set(), now: () => new Date(),
+    makeReceiptId: () => "sdp_loose", allocateDramaId: () => "SD-000003", allocateReleaseId: () => "SR-000003",
+  });
+  await assert.rejects(
+    () => looseService.previewMutation({
+      actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "loose" },
+    }),
+    (error) => error.code === "receipt_id_invalid",
+  );
+  loose.close();
+  fx.close();
+});
+
+test("receipt from another Base binding fails before consume or write", async () => {
+  const jobs = new JobStore(":memory:");
+  const first = fixture({ jobs, appToken: "app-base-a" });
+  const second = fixture({
+    jobs,
+    appToken: "app-base-b",
+    tableIds: { accounts: "tbl-accounts-b", dramas: "tbl-dramas-b", captures: "tbl-captures-b", releases: "tbl-releases-b" },
+  });
+  const preview = await first.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "other base" },
+  });
+  await assert.rejects(
+    () => second.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id }),
+    (error) => error.code === "preview_base_mismatch",
+  );
+  assert.equal(jobs.getPreview(preview.receipt_id).used_at, null);
+  assert.deepEqual(second.writes, []);
+  jobs.close();
+});
+
+test("concurrent applies across service instances serialize and stale loser does not write", async () => {
+  const fx = fixture();
+  const second = fx.makeService();
+  const one = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "one" },
+  });
+  const two = await second.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "two" },
+  });
+  const settled = await Promise.allSettled([
+    fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: one.receipt_id }),
+    second.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: two.receipt_id }),
+  ]);
+  assert.equal(settled.filter((item) => item.status === "fulfilled").length, 1);
+  assert.equal(settled.filter((item) => item.status === "rejected" && item.reason.code === "preview_stale").length, 1);
+  assert.equal(fx.writes.length, 1);
+
+  const afterRejection = await second.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 备注: "after" },
+  });
+  await second.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: afterRejection.receipt_id });
+  assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.备注, "after");
+  fx.close();
+});
+
+test("concurrent attach-post claims across service instances allow exactly one active claimant", async () => {
+  const fx = fixture();
+  const second = fx.makeService();
+  const one = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "attach-post", table: "发布记录", key: "SR-000001",
+    patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777", "Post ID": "777" },
+  });
+  const two = await second.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "attach-post", table: "发布记录", key: "SR-000002",
+    patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777", "Post ID": "777" },
+  });
+  const settled = await Promise.allSettled([
+    fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: one.receipt_id }),
+    second.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: two.receipt_id }),
+  ]);
+  assert.equal(settled.filter((item) => item.status === "fulfilled").length, 1);
+  assert.equal(settled.filter((item) => item.status === "rejected" && ["post_id_claimed", "preview_stale"].includes(item.reason.code)).length, 1);
+  const claimants = [...fx.repos.releases.rows.values()].filter((row) => row.fields.归档状态 === "active" && row.fields["Post ID"] === "777");
+  assert.equal(claimants.length, 1);
   fx.close();
 });

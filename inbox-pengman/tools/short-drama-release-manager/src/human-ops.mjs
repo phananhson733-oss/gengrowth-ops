@@ -18,7 +18,9 @@ const APPLY_KEYS = new Set(["actorId", "chatId", "receiptId"]);
 const ARCHIVE_KEYS = new Set(["actorId", "chatId", "table", "key"]);
 const METRICS = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论", "RS收益"]);
 const RECEIPT_VERSION = 1;
+const RECEIPT_ID_PATTERN = /^sdp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
+const APPLY_QUEUES = new Map();
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -39,8 +41,8 @@ function requiredString(value, field, code = "human_ops_input_invalid") {
 
 function receiptString(value) {
   const receiptId = requiredString(value, "receiptId", "receipt_id_invalid");
-  if (!/^sdp_[A-Za-z0-9-]+$/.test(receiptId)) {
-    fail("receipt_id_invalid", "Receipt ID must use the sdp_ prefix");
+  if (!RECEIPT_ID_PATTERN.test(receiptId)) {
+    fail("receipt_id_invalid", "Receipt ID must be sdp_ followed by a randomUUID v4");
   }
   return receiptId;
 }
@@ -99,8 +101,85 @@ function canonicalHash(value) {
   return createHash("sha256").update(stableJson(value)).digest("hex");
 }
 
+function baseBinding(repos) {
+  const coordinates = {};
+  const appTokens = new Set();
+  for (const [binding, table] of Object.entries(TABLE_REPOSITORIES)) {
+    const repository = repos?.[table];
+    if (!repository || repository.tableName !== binding ||
+        typeof repository.appToken !== "string" || repository.appToken.length === 0 || repository.appToken.trim() !== repository.appToken ||
+        typeof repository.tableId !== "string" || repository.tableId.length === 0 || repository.tableId.trim() !== repository.tableId) {
+      return null;
+    }
+    appTokens.add(repository.appToken);
+    coordinates[table] = repository.tableId;
+  }
+  if (appTokens.size !== 1 || new Set(Object.values(coordinates)).size !== Object.keys(TABLE_REPOSITORIES).length) return null;
+  const appToken = [...appTokens][0];
+  if (repos.appToken !== undefined && repos.appToken !== appToken) return null;
+  return canonicalHash({ appToken, tables: coordinates });
+}
+
 function equal(left, right) {
   return isDeepStrictEqual(left, right);
+}
+
+function cellState(fields, field) {
+  return Object.hasOwn(fields, field)
+    ? { present: true, value: clone(fields[field]) }
+    : { present: false };
+}
+
+function changedRecord(recordId, fields, patch, readbackFields) {
+  const changed = Object.keys(patch)
+    .filter((field) => !equal(cellState(fields, field), { present: true, value: patch[field] }))
+    .sort();
+  if (changed.length === 0) return null;
+  return {
+    record_id: recordId,
+    fields: Object.fromEntries(changed.map((field) => [field, {
+      before: cellState(fields, field),
+      after: { present: true, value: clone(patch[field]) },
+      readback: cellState(readbackFields, field),
+    }])),
+  };
+}
+
+function compareCell(left, right) {
+  if (equal(left, right)) return 0;
+  if (typeof left === "number" && Number.isFinite(left) && typeof right === "number" && Number.isFinite(right)) {
+    return left < right ? -1 : 1;
+  }
+  const rank = (value) => {
+    if (value === undefined) return 0;
+    if (value === null) return 1;
+    if (typeof value === "boolean") return 2;
+    if (typeof value === "number") return 3;
+    if (typeof value === "string") return 4;
+    if (Array.isArray(value)) return 5;
+    return 6;
+  };
+  const rankDifference = rank(left) - rank(right);
+  if (rankDifference !== 0) return rankDifference;
+  if (typeof left === "boolean") return left ? 1 : -1;
+  if (typeof left === "string") return left.localeCompare(right);
+  return stableJson(left).localeCompare(stableJson(right));
+}
+
+async function serializeBaseApply(binding, operation) {
+  const predecessor = APPLY_QUEUES.get(binding) ?? Promise.resolve();
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const wait = predecessor.catch(() => {});
+  const tail = wait.then(() => gate);
+  APPLY_QUEUES.set(binding, tail);
+  await wait;
+  try {
+    return await operation();
+  } finally {
+    release();
+    if (APPLY_QUEUES.get(binding) === tail) APPLY_QUEUES.delete(binding);
+  }
 }
 
 function normalizedSet(value) {
@@ -176,6 +255,35 @@ function assertHumanField(table, field, { allowRelation = true } = {}) {
   }
 }
 
+function assertProtectedAction(action, table, patch, { stored = false, caller = false } = {}) {
+  const code = stored ? "preview_payload_invalid" : "field_action_violation";
+  const reject = (message, field) => fail(code, message, { action, table, field });
+  const hasArchive = Object.hasOwn(patch, "归档状态");
+  const hasPostId = Object.hasOwn(patch, "Post ID");
+  const hasVideo = Object.hasOwn(patch, "视频链接");
+
+  if (hasArchive) {
+    const internalCreateDefault = !caller && action === "create" && ["选剧池", "发布记录"].includes(table) && patch.归档状态 === "active";
+    const fixedArchive = action === "archive" && patch.归档状态 === "archived";
+    if (!internalCreateDefault && !fixedArchive) reject("Archive state is reserved for fixed create/archive flows", "归档状态");
+  }
+  if (!caller && action === "create" && ["选剧池", "发布记录"].includes(table) && patch.归档状态 !== "active") {
+    reject("Create must carry the service-owned active archive state", "归档状态");
+  }
+  if (action === "archive" && (!hasArchive || Object.keys(patch).length !== 1 || patch.归档状态 !== "archived")) {
+    reject("Archive flow accepts only the fixed archived state", "归档状态");
+  }
+
+  if (table === "发布记录" && (hasPostId || hasVideo)) {
+    if (action !== "attach-post" || !hasPostId || !hasVideo || Object.keys(patch).length !== 2) {
+      reject("Post ID and video URL are reserved for exact paired attach-post", hasPostId ? "Post ID" : "视频链接");
+    }
+  }
+  if (action === "attach-post" && (table !== "发布记录" || !hasPostId || !hasVideo || Object.keys(patch).length !== 2)) {
+    reject("attach-post requires exactly Post ID and video URL on a release", "Post ID");
+  }
+}
+
 function projectedRecord(table, record) {
   if (!record || !plainObject(record.fields)) fail("base_response_invalid", "Repository record is malformed", { table });
   const names = [TABLES[table].primaryField, ...TABLES[table].human, ...TABLES[table].shared];
@@ -200,7 +308,7 @@ function mutationResult({ status = "success", actor, recordId, changedFields, re
     status,
     actor,
     record_id: recordId,
-    changed_fields: [...changedFields].sort(),
+    changed_fields: [...changedFields].sort((left, right) => left.record_id.localeCompare(right.record_id)),
     readback,
     next_step: nextStep,
   });
@@ -233,6 +341,7 @@ export class HumanOpsService {
   #makeReceiptId;
   #allocateDramaId;
   #allocateReleaseId;
+  #baseBinding;
 
   constructor({ repos, jobs, operators, privileged, now, makeReceiptId, allocateDramaId, allocateReleaseId } = {}) {
     const requiredRepos = Object.values(TABLE_REPOSITORIES);
@@ -243,8 +352,9 @@ export class HumanOpsService {
     const jobsValid = jobs && ["createPreview", "getPreview", "consumePreview", "appendAudit"].every((method) => typeof jobs[method] === "function");
     const normalizedOperators = normalizedSet(operators);
     const normalizedPrivileged = normalizedSet(privileged);
+    const binding = repositoriesValid ? baseBinding(repos) : null;
     if (!repositoriesValid || !jobsValid || !normalizedOperators || !normalizedPrivileged ||
-        ![now, makeReceiptId, allocateDramaId, allocateReleaseId].every((fn) => typeof fn === "function")) {
+        !binding || ![now, makeReceiptId, allocateDramaId, allocateReleaseId].every((fn) => typeof fn === "function")) {
       fail("human_ops_config_invalid", "Human operations configuration is invalid");
     }
     this.#repos = repos;
@@ -255,6 +365,7 @@ export class HumanOpsService {
     this.#makeReceiptId = makeReceiptId;
     this.#allocateDramaId = allocateDramaId;
     this.#allocateReleaseId = allocateReleaseId;
+    this.#baseBinding = binding;
   }
 
   #actor(value) {
@@ -370,10 +481,10 @@ export class HumanOpsService {
     }
     const direction = input.sort.direction === "asc" ? 1 : -1;
     rows.sort((left, right) => {
-      const leftSort = stableJson(left[input.sort.field] ?? null);
-      const rightSort = stableJson(right[input.sort.field] ?? null);
-      const compared = leftSort.localeCompare(rightSort) * direction;
-      return compared || stableJson(left[primary] ?? null).localeCompare(stableJson(right[primary] ?? null));
+      const leftSort = Object.hasOwn(left, input.sort.field) ? left[input.sort.field] : undefined;
+      const rightSort = Object.hasOwn(right, input.sort.field) ? right[input.sort.field] : undefined;
+      const compared = compareCell(leftSort, rightSort) * direction;
+      return compared || compareCell(left[primary], right[primary]);
     });
     return clone(rows);
   }
@@ -409,7 +520,15 @@ export class HumanOpsService {
     const unavailable = [];
     for (const [releaseId, record] of [...releases].sort(([left], [right]) => left.localeCompare(right))) {
       const fields = record.fields;
-      if (fields.归档状态 !== "active") continue;
+      if (fields.归档状态 === "archived") continue;
+      if (fields.归档状态 !== "active") {
+        unavailable.push({
+          record_id: releaseId,
+          field: "归档状态",
+          reason: Object.hasOwn(fields, "归档状态") ? "archive_state_invalid" : "archive_state_missing",
+        });
+        continue;
+      }
       let key;
       if (groupBy === "drama") {
         key = normalizeLookupStable(fields.剧ID);
@@ -457,13 +576,14 @@ export class HumanOpsService {
     const table = requiredString(input.table, "table");
     const field = requiredString(input.field, "field");
     assertHumanField(table, field, { allowRelation: false });
+    assertProtectedAction("update", table, { [field]: input.value }, { caller: true });
     validateFieldValue(table, field, input.value);
     const key = requiredString(input.key, "key");
     const index = await this.#index(table);
     const record = index.get(key);
     if (!record) fail("business_record_not_found", "Business record was not found", { table, key });
-    const beforeValue = Object.hasOwn(record.fields, field) ? clone(record.fields[field]) : undefined;
-    if (equal(beforeValue, input.value)) {
+    const beforeState = cellState(record.fields, field);
+    if (equal(beforeState, { present: true, value: input.value })) {
       return mutationResult({ status: "unchanged", actor, recordId: key, changedFields: [], nextStep: "none" });
     }
     const patch = { [field]: clone(input.value) };
@@ -474,9 +594,16 @@ export class HumanOpsService {
     }
     this.#jobs.appendAudit({
       actorId: actor, action: "update", targetTable: table, targetKey: key,
-      before: { [field]: beforeValue }, after: clone(patch), readback: { [field]: clone(readback) }, now: this.#now(),
+      before: { [field]: beforeState },
+      after: { [field]: { present: true, value: clone(input.value) } },
+      readback: { [field]: cellState(result.record.fields, field) },
+      now: this.#now(),
     });
-    return mutationResult({ actor, recordId: key, changedFields: [field] });
+    return mutationResult({
+      actor,
+      recordId: key,
+      changedFields: [changedRecord(key, record.fields, patch, result.record.fields)],
+    });
   }
 
   async previewMutation(request) {
@@ -495,7 +622,8 @@ export class HumanOpsService {
 
   async applyPreview(request) {
     exactKeys(request, APPLY_KEYS, "mutation_shape_invalid");
-    return this.#applyReceipt(request, false);
+    // Cross-process exclusion is supplied by the single launchd/job-queue worker in Task 9.
+    return serializeBaseApply(this.#baseBinding, () => this.#applyReceipt(request, false));
   }
 
   async previewArchive(request) {
@@ -511,11 +639,11 @@ export class HumanOpsService {
 
   async applyArchive(request) {
     exactKeys(request, APPLY_KEYS, "mutation_shape_invalid");
-    return this.#applyReceipt(request, true);
+    return serializeBaseApply(this.#baseBinding, () => this.#applyReceipt(request, true));
   }
 
   async #prepareEnvelope(request) {
-    const { actor, action } = request;
+    const { action } = request;
     const table = requiredString(request.table, "table");
     tableRepository(this.#repos, table);
     if (table === "采集数据") fail("mutation_action_invalid", "Capture data is machine-owned");
@@ -524,7 +652,10 @@ export class HumanOpsService {
         fail("mutation_action_invalid", "Create table or input is invalid");
       }
       let key;
+      if (plainObject(request.patch)) assertProtectedAction(action, table, request.patch, { caller: true });
       const patch = await this.#normalizePatch(table, request.patch, { create: true });
+      if (["选剧池", "发布记录"].includes(table)) patch.归档状态 = "active";
+      assertProtectedAction(action, table, patch);
       if (table === "账号台账") {
         if (typeof request.key !== "string" || request.key.length === 0 || request.key.trim() !== request.key) {
           fail("account_id_required", "Account create requires a canonical account ID");
@@ -540,7 +671,7 @@ export class HumanOpsService {
       }
       const index = await this.#index(table);
       if (index.has(key)) fail("business_key_conflict", "Business key already exists", { table, key });
-      return { v: RECEIPT_VERSION, action, table, targets: [{ key, patch }], before: [absenceSnapshot(table, key)] };
+      return { v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table, targets: [{ key, patch }], before: [absenceSnapshot(table, key)] };
     }
     if (action === "batch_update") {
       if (request.key !== undefined || request.patch !== undefined || !Array.isArray(request.items) || request.items.length === 0) {
@@ -555,14 +686,14 @@ export class HumanOpsService {
         const resolved = await this.#resolve(table, item.key);
         if (seen.has(resolved.key)) fail("duplicate_input_key", "Batch contains a duplicate target", { key: resolved.key });
         seen.add(resolved.key);
+        if (plainObject(item.patch)) assertProtectedAction(action, table, item.patch, { caller: true });
         const patch = await this.#normalizePatch(table, item.patch);
+        assertProtectedAction(action, table, patch);
         targets.push({ key: resolved.key, patch, record: resolved.record });
       }
-      const archives = targets.filter((target) => target.patch.归档状态 === "archived").length;
-      if (archives > 1) this.#assertPrivileged(actor);
       targets.sort((left, right) => left.key.localeCompare(right.key));
       return {
-        v: RECEIPT_VERSION, action, table,
+        v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table,
         targets: targets.map(({ key, patch }) => ({ key, patch })),
         before: targets.map(({ key, record }) => recordSnapshot(table, key, record)),
       };
@@ -573,7 +704,9 @@ export class HumanOpsService {
     if (action === "attach-post" && table !== "发布记录") fail("mutation_action_invalid", "attach-post is release-only");
     if (action === "archive" && !["选剧池", "发布记录"].includes(table)) fail("mutation_action_invalid", "Table cannot be archived");
     const resolved = await this.#resolve(table, request.key);
+    if (plainObject(request.patch)) assertProtectedAction(action, table, request.patch, { caller: true });
     let patch = await this.#normalizePatch(table, request.patch);
+    assertProtectedAction(action, table, patch);
     if (action === "attach-post") {
       if (Object.keys(patch).sort().join("|") !== ["Post ID", "视频链接"].sort().join("|")) {
         fail("mutation_shape_invalid", "attach-post requires exactly 视频链接 and Post ID");
@@ -584,7 +717,7 @@ export class HumanOpsService {
       fail("mutation_shape_invalid", "Archive patch is fixed");
     }
     return {
-      v: RECEIPT_VERSION, action, table,
+      v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table,
       targets: [{ key: resolved.key, patch }],
       before: [recordSnapshot(table, resolved.key, resolved.record)],
     };
@@ -635,12 +768,14 @@ export class HumanOpsService {
   }
 
   #validateReceiptEnvelope(receipt, envelope) {
-    if (!plainObject(envelope) || Object.keys(envelope).some((key) => !["v", "action", "table", "targets", "before"].includes(key)) ||
+    if (!plainObject(envelope) || Object.keys(envelope).some((key) => !["v", "base_binding", "action", "table", "targets", "before"].includes(key)) ||
         envelope.v !== RECEIPT_VERSION || !["create", "update", "batch_update", "attach-post", "archive"].includes(envelope.action) ||
+        typeof envelope.base_binding !== "string" || !/^[0-9a-f]{64}$/.test(envelope.base_binding) ||
         !TABLE_REPOSITORIES[envelope.table] || !Array.isArray(envelope.targets) || envelope.targets.length === 0 || !Array.isArray(envelope.before) ||
         envelope.before.length !== envelope.targets.length || receipt.action !== envelope.action || receipt.target_table !== envelope.table) {
       fail("preview_payload_invalid", "Preview payload is invalid");
     }
+    if (envelope.base_binding !== this.#baseBinding) fail("preview_base_mismatch", "Preview belongs to a different Base binding");
     const expectedTarget = envelope.targets.length === 1 ? envelope.targets[0].key : envelope.targets.map((target) => target.key).join(",");
     if (receipt.target_key !== expectedTarget) fail("preview_payload_invalid", "Preview target binding is invalid");
     const allowedTable = ["账号台账", "选剧池", "发布记录"].includes(envelope.table);
@@ -659,6 +794,7 @@ export class HumanOpsService {
       targetKeys.add(target.key);
       if (!plainObject(target.patch) || Object.keys(target.patch).length === 0) fail("preview_payload_invalid", "Preview patch is invalid");
       safeValue(target.patch);
+      assertProtectedAction(envelope.action, envelope.table, target.patch, { stored: true });
       if (envelope.action === "attach-post" && Object.keys(target.patch).sort().join("|") !== ["Post ID", "视频链接"].sort().join("|")) {
         fail("preview_payload_invalid", "attach-post preview patch is invalid");
       }
@@ -691,9 +827,6 @@ export class HumanOpsService {
     if (archiveOnly !== (envelope.action === "archive")) {
       fail("preview_action_mismatch", "Preview must be applied through its matching method");
     }
-    if (envelope.action === "batch_update" && envelope.targets.filter((target) => target.patch.归档状态 === "archived").length > 1) {
-      this.#assertPrivileged(actor);
-    }
     for (const target of envelope.targets) {
       await this.#normalizePatch(envelope.table, target.patch, { create: envelope.action === "create", internal: true });
     }
@@ -716,9 +849,11 @@ export class HumanOpsService {
           .filter(([, cell]) => cell.present)
           .map(([field, cell]) => [field, clone(cell.value)]))
         : {};
-      const changed = Object.keys(target.patch).filter((field) => !equal(beforeFields[field], target.patch[field])).sort();
+      const changed = Object.keys(target.patch)
+        .filter((field) => !equal(cellState(beforeFields, field), { present: true, value: target.patch[field] }))
+        .sort();
       if (changed.length === 0) {
-        results.push({ key: target.key, changed: [], record: beforeFields });
+        results.push({ key: target.key, change: null });
         continue;
       }
       const written = await repository.upsertByKey(target.key, target.patch, "human");
@@ -730,17 +865,18 @@ export class HumanOpsService {
           fail("readback_mismatch", "Human mutation readback did not match", { table: envelope.table, key: target.key, field });
         }
       }
-      const beforeAudit = Object.fromEntries(changed.map((field) => [field, Object.hasOwn(beforeFields, field) ? clone(beforeFields[field]) : null]));
-      const afterAudit = Object.fromEntries(changed.map((field) => [field, clone(target.patch[field])]));
-      const readbackAudit = Object.fromEntries(changed.map((field) => [field, clone(written.record.fields[field])]));
+      const change = changedRecord(target.key, beforeFields, target.patch, written.record.fields);
+      const beforeAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].before)]));
+      const afterAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].after)]));
+      const readbackAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].readback)]));
       this.#jobs.appendAudit({
         actorId: actor, action: envelope.action, targetTable: envelope.table, targetKey: target.key,
         before: beforeAudit, after: afterAudit, readback: readbackAudit, now: this.#now(),
       });
-      results.push({ key: target.key, changed, record: written.record.fields });
+      results.push({ key: target.key, change });
     }
-    const allChanged = new Set(results.flatMap((result) => result.changed));
-    const allUnchanged = allChanged.size === 0;
+    const allChanged = results.map((result) => result.change).filter(Boolean);
+    const allUnchanged = allChanged.length === 0;
     return mutationResult({
       status: allUnchanged ? "unchanged" : "success",
       actor,
