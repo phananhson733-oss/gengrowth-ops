@@ -174,10 +174,48 @@ function requireEntity(payload, entityName, idName) {
     throw invalidResponse("Feishu response reports ignored fields", { entity: entityName });
   }
   const entity = payload.data?.[entityName] ?? payload.data;
-  if (!plainObject(entity) || typeof entity[idName] !== "string" || entity[idName].length === 0) {
+  const identifier = entity?.[idName] ?? entity?.id;
+  if (!plainObject(entity) || typeof identifier !== "string" || identifier.length === 0 ||
+      entity[idName] !== undefined && entity.id !== undefined && entity[idName] !== entity.id) {
     throw invalidResponse(`Feishu ${entityName} response is missing ${idName}`);
   }
-  return entity;
+  return { ...entity, [idName]: identifier };
+}
+
+function normalizedResourceItems(data, resource) {
+  if (resource !== "items" && data?.[resource] !== undefined && data?.items !== undefined) {
+    throw invalidResponse(`Feishu ${resource} response is ambiguous`);
+  }
+  const raw = data?.[resource] ?? data?.items;
+  if (!Array.isArray(raw)) throw invalidResponse(`Feishu ${resource} response must be an array`);
+  const idNames = { tables: "table_id", fields: "field_id", views: "view_id", dashboards: "dashboard_id", blocks: "block_id" };
+  const idName = idNames[resource];
+  if (!idName) return raw;
+  return raw.map((item) => {
+    const identifier = item?.[idName] ?? item?.id;
+    if (!plainObject(item) || typeof identifier !== "string" || identifier.length === 0 ||
+        item[idName] !== undefined && item.id !== undefined && item[idName] !== item.id) {
+      throw invalidResponse(`Feishu ${resource} item identifier is malformed`);
+    }
+    return { ...item, [idName]: identifier };
+  });
+}
+
+function decodedRecordMatrix(data) {
+  const { fields, field_id_list: fieldIds, record_id_list: recordIds, data: rows } = data ?? {};
+  if (!Array.isArray(fields) || !Array.isArray(fieldIds) || !Array.isArray(recordIds) || !Array.isArray(rows) ||
+      fields.some((field) => typeof field !== "string" || field.length === 0) ||
+      fieldIds.some((field) => typeof field !== "string" || field.length === 0) ||
+      recordIds.some((recordId) => typeof recordId !== "string" || recordId.length === 0) ||
+      fields.length !== fieldIds.length || new Set(fields).size !== fields.length ||
+      new Set(fieldIds).size !== fieldIds.length || new Set(recordIds).size !== recordIds.length ||
+      rows.length !== recordIds.length || rows.some((row) => !Array.isArray(row) || row.length !== fields.length)) {
+    throw invalidResponse("Feishu record matrix response is malformed");
+  }
+  return rows.map((row, index) => ({
+    record_id: recordIds[index],
+    fields: Object.fromEntries(fields.map((field, at) => [field, row[at]])),
+  }));
 }
 
 function requireRecordIds(payload, expectedIds = null, expectedCount = null) {
@@ -343,6 +381,22 @@ export function fixedDashboardBlockDescriptor(blockName) {
 
 export function fixedDashboardDescriptor() {
   return { name: DASHBOARD_NAME, blocks: Object.keys(DASHBOARD_BLOCK_SPECS).map((name) => fixedDashboardBlockDescriptor(name)) };
+}
+
+export function fixedTerminalDashboardBlockDescriptor(terminal) {
+  if (!plainObject(terminal) || !["success", "partial", "failed"].includes(terminal.state) ||
+      typeof terminal.runId !== "string" || terminal.runId.length === 0 || terminal.runId.trim() !== terminal.runId ||
+      /[\r\n]/.test(terminal.runId) || typeof terminal.finishedAt !== "string" ||
+      !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(terminal.finishedAt) || !Number.isFinite(Date.parse(terminal.finishedAt)) ||
+      Object.keys(terminal).some((key) => !["state", "runId", "finishedAt"].includes(key))) {
+    fail("base_response_invalid", "Dashboard terminal state is malformed");
+  }
+  return {
+    name: "最近一次同步终态",
+    data_config: {
+      text: `**最近一次同步终态**\n状态：${terminal.state}\nrun_id：${terminal.runId}\n完成时间：${terminal.finishedAt}`,
+    },
+  };
 }
 
 function assertFields(fields, context) {
@@ -602,42 +656,65 @@ export class FeishuClient {
     throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path: diagnosticPath(path) });
   }
 
-  async list(path, { mode = "offset", pageSize = 200, signal = undefined } = {}) {
+  async list(path, { mode = "offset", pageSize = 200, resource = "items", signal = undefined } = {}) {
     if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 200) {
       fail("base_response_invalid", "Feishu list page size is invalid");
     }
     return this.operation(async (context) => {
       const items = [];
       const seenCursors = new Set();
-      let cursor = "";
+      let cursor = mode === "offset" ? "0" : "";
       let revision;
       let revisionObserved = false;
       do {
         assertNotAborted(signal);
         const query = new URLSearchParams(mode === "token" ? { page_size: String(pageSize) } : { limit: String(pageSize) });
-        if (cursor) query.set(mode === "token" ? "page_token" : "offset", cursor);
+        if (cursor || mode === "offset") query.set(mode === "token" ? "page_token" : "offset", cursor);
         const payload = await this.request(`${path}?${query}`, { context, signal });
         assertNotAborted(signal);
-        if (!plainObject(payload.data) || !Array.isArray(payload.data.items)) {
-          throw invalidResponse("Feishu list response items must be an array", { path: diagnosticPath(path) });
+        if (!plainObject(payload.data)) throw invalidResponse("Feishu list response data must be an object", { path: diagnosticPath(path) });
+        const vendorRecords = resource === "records" && payload.data.record_id_list !== undefined;
+        if (vendorRecords && payload.data.items !== undefined) {
+          throw invalidResponse("Feishu records response is ambiguous", { path: diagnosticPath(path) });
         }
-        if (typeof payload.data.has_more !== "boolean") {
-          throw invalidResponse("Feishu list response has_more must be boolean", { path: diagnosticPath(path) });
-        }
+        const pageItems = vendorRecords
+          ? decodedRecordMatrix(payload.data)
+          : normalizedResourceItems(payload.data, resource);
         const pageRevision = payload.data.revision ?? payload.data.revision_id ?? null;
         if (revisionObserved && pageRevision !== revision) {
           throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
         }
         revision = pageRevision;
         revisionObserved = true;
-        items.push(...payload.data.items);
-        if (!payload.data.has_more) {
+        items.push(...pageItems);
+        let hasMore;
+        let rawCursor;
+        const vendorOffset = mode === "offset" && (vendorRecords || payload.data[resource] !== undefined);
+        if (vendorOffset) {
+          const total = payload.data.total;
+          const offset = Number(cursor);
+          if (!Number.isSafeInteger(total) || total < 0 || !Number.isSafeInteger(offset) || offset < 0 ||
+              offset + pageItems.length > total) {
+            throw invalidResponse("Feishu offset/total pagination is malformed", { path: diagnosticPath(path) });
+          }
+          hasMore = offset + pageItems.length < total;
+          if (payload.data.has_more !== undefined &&
+              (typeof payload.data.has_more !== "boolean" || payload.data.has_more !== hasMore)) {
+            throw invalidResponse("Feishu has_more contradicts offset/total completeness", { path: diagnosticPath(path) });
+          }
+          if (hasMore && pageItems.length === 0) throw invalidResponse("Feishu pagination made no progress", { path: diagnosticPath(path) });
+          rawCursor = String(offset + pageItems.length);
+        } else {
+          if (typeof payload.data.has_more !== "boolean") {
+            throw invalidResponse("Feishu list response has_more must be boolean", { path: diagnosticPath(path) });
+          }
+          hasMore = payload.data.has_more;
+          rawCursor = mode === "token" ? payload.data.page_token : (payload.data.offset ?? payload.data.next_offset);
+        }
+        if (!hasMore) {
           cursor = "";
           continue;
         }
-        const rawCursor = mode === "token"
-          ? payload.data.page_token
-          : (payload.data.offset ?? payload.data.next_offset);
         if ((typeof rawCursor !== "string" && typeof rawCursor !== "number") || String(rawCursor).length === 0 ||
             seenCursors.has(String(rawCursor))) {
           throw invalidResponse(`Feishu list response ${mode === "token" ? "page_token" : "offset"} is missing or repeated`, { path: diagnosticPath(path) });
@@ -654,27 +731,27 @@ export class FeishuClient {
   }
 
   listTables(baseToken, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100, signal });
+    return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100, resource: "tables", signal });
   }
 
   listFields(baseToken, tableId, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`, { signal });
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`, { resource: "fields", signal });
   }
 
   listRecords(baseToken, tableId, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, { signal });
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, { resource: "records", signal });
   }
 
   listViews(baseToken, tableId, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`, { signal });
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`, { resource: "views", signal });
   }
 
   listDashboards(baseToken, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100, signal });
+    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100, resource: "items", signal });
   }
 
   listDashboardBlocks(baseToken, dashboardId, { signal } = {}) {
-    return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100, signal });
+    return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100, resource: "items", signal });
   }
 
   async getRecord(baseToken, tableId, recordId, { signal } = {}) {
@@ -868,7 +945,7 @@ export class FeishuClient {
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
         { context, signal },
       );
-      const block = payload.data?.block;
+      const block = payload.data?.block ?? payload.data;
       if (!plainObject(block) || block.block_id !== blockId || block.name !== blockName || typeof block.type !== "string" || !plainObject(block.data_config)) {
         throw invalidResponse("Feishu dashboard block response is malformed");
       }
@@ -891,19 +968,7 @@ export class FeishuClient {
   }
 
   updateDashboardTerminalBlock(baseToken, dashboardId, blockId, terminal, { signal } = {}) {
-    if (!plainObject(terminal) || !["success", "partial", "failed"].includes(terminal.state) ||
-        typeof terminal.runId !== "string" || terminal.runId.length === 0 || terminal.runId.trim() !== terminal.runId ||
-        /[\r\n]/.test(terminal.runId) || typeof terminal.finishedAt !== "string" ||
-        !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(terminal.finishedAt) || !Number.isFinite(Date.parse(terminal.finishedAt)) ||
-        Object.keys(terminal).some((key) => !["state", "runId", "finishedAt"].includes(key))) {
-      fail("base_response_invalid", "Dashboard terminal state is malformed");
-    }
-    const body = {
-      name: "最近一次同步终态",
-      data_config: {
-        text: `**最近一次同步终态**\n状态：${terminal.state}\nrun_id：${terminal.runId}\n完成时间：${terminal.finishedAt}`,
-      },
-    };
+    const body = fixedTerminalDashboardBlockDescriptor(terminal);
     return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,

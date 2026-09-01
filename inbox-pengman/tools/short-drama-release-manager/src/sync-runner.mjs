@@ -239,13 +239,20 @@ function collectorErrors(summary) {
   return (codes.length > 0 ? codes : ["capture_partial"]).map((code) => ({ step: "collector", code }));
 }
 
-function accountEntry(row) {
+function syncTimestamp(now) {
+  const value = now();
+  const parsed = value instanceof Date ? value : new Date(value);
+  if (!Number.isFinite(parsed.getTime())) fail("sync_context_invalid", "Worker clock is invalid");
+  return parsed.toISOString();
+}
+
+function accountEntry(row, writtenAt) {
   const key = normalizeAccountId(row?.username);
   const patch = { 账号ID: key };
   const fields = [
     ["粉丝数", row.followers],
     ["数据日期", row.snapshot_date],
-    ["指标同步时间", row.captured_at],
+    ["指标同步时间", writtenAt],
     ["同步状态", row.collection_status === "complete" ? "success" : row.collection_status],
   ];
   for (const [field, value] of fields) {
@@ -415,7 +422,8 @@ export async function runSyncWorker(context, runId) {
       context.workerPid <= 0 || typeof context.collector !== "function" || !context.source ||
       !context.repos || !context.repos.accounts || !context.repos.captures || !context.repos.releases ||
       typeof context.repos.releases.linkCaptureSafely !== "function" ||
-      typeof context.repos.releases.upsertEvidenceSafely !== "function") {
+      typeof context.repos.releases.upsertEvidenceSafely !== "function" ||
+      typeof context.assertSchemaReady !== "function") {
     fail("sync_context_invalid", "Sync worker context is invalid");
   }
   const expectedDate = runIdDate(runId);
@@ -460,6 +468,9 @@ export async function runSyncWorker(context, runId) {
   };
 
   try {
+    currentStep = "schema";
+    await context.assertSchemaReady();
+    beat.assertOwned();
     ownStep("collector");
     const rawSummary = await context.collector({ runId, beijingDate: expectedDate, signal: beat.signal });
     beat.assertOwned();
@@ -485,7 +496,8 @@ export async function runSyncWorker(context, runId) {
     }
 
     ownStep("accounts");
-    const accountEntries = accountRows.map(accountEntry);
+    const accountWrittenAt = syncTimestamp(now);
+    const accountEntries = accountRows.map((row) => accountEntry(row, accountWrittenAt));
     let accountWrite = { created: 0, updated: 0, unchanged: 0, readback: "verified" };
     if (accountEntries.length > 0) {
       accountWrite = validateBulkResult(
@@ -530,9 +542,10 @@ export async function runSyncWorker(context, runId) {
         "采集数据",
       );
       beat.assertOwned();
+      const captureWrittenAt = syncTimestamp(now);
       const timestampEntries = captureEntries.map((entry) => ({
         key: entry.key,
-        patch: { "Base 同步时间": initial.started_at },
+        patch: { "Base 同步时间": captureWrittenAt },
       }));
       validateBulkResult(
         await context.repos.captures.syncManyMachine(timestampEntries, { signal: beat.signal }),
@@ -549,11 +562,25 @@ export async function runSyncWorker(context, runId) {
     const releaseIndex = mapIndex(await context.repos.releases.loadIndex({ signal: beat.signal }), "发布记录");
     beat.assertOwned();
     const capturePostByRecordId = capturePostReverseIndex(captureIndex);
+    const reservations = new Map();
+    const reserve = (postId, row) => {
+      const rows = reservations.get(postId) ?? [];
+      rows.push(row);
+      reservations.set(postId, rows);
+    };
+    for (const [releaseId, record] of [...releaseIndex].sort(([left], [right]) => left.localeCompare(right))) {
+      if (record?.fields?.归档状态 === "active") continue;
+      const relation = classifyCaptureRelation(record?.fields?.采集记录);
+      const claims = new Set([
+        ...rawExplicitPostIds(record?.fields),
+        ...relation.ids.map((recordId) => capturePostByRecordId.get(recordId)).filter(Boolean),
+      ]);
+      for (const postId of claims) reserve(postId, { releaseId, inactive: true });
+    }
     const active = [...releaseIndex]
       .filter(([, record]) => plainObject(record?.fields) && record.fields.归档状态 === "active")
       .sort(([left], [right]) => left.localeCompare(right));
     const candidates = [];
-    const reservations = new Map();
 
     // Pass one only validates and reserves human-explicit and already-linked claims.
     for (const [releaseId, rawRecord] of active) {
@@ -568,9 +595,7 @@ export async function runSyncWorker(context, runId) {
       const rawClaims = rawExplicitPostIds(fields);
       const reserveInvalidClaims = () => {
         for (const claimed of [...rawClaims, ...resolvableExistingPostIds]) {
-          const rows = reservations.get(claimed) ?? [];
-          rows.push({ releaseId, invalid: true });
-          reservations.set(claimed, rows);
+          reserve(claimed, { releaseId, invalid: true });
         }
       };
       if (captureRelation.state === "multiple" || captureRelation.state === "malformed") {
@@ -588,9 +613,7 @@ export async function runSyncWorker(context, runId) {
       if (existingCapture && !existingPostId) {
         releaseError(errors, releaseId, { code: "relation_target_not_found" });
         for (const claimed of rawClaims) {
-          const rows = reservations.get(claimed) ?? [];
-          rows.push({ releaseId, invalid: true });
-          reservations.set(claimed, rows);
+          reserve(claimed, { releaseId, invalid: true });
         }
         continue;
       }
@@ -608,9 +631,7 @@ export async function runSyncWorker(context, runId) {
         else {
           releaseError(errors, releaseId, { code: explicitMatch.reason }, "release_unmatched");
           for (const rawPostId of rawClaims) {
-            const rows = reservations.get(rawPostId) ?? [];
-            rows.push({ releaseId, invalid: true });
-            reservations.set(rawPostId, rows);
+            reserve(rawPostId, { releaseId, invalid: true });
           }
           continue;
         }
@@ -618,9 +639,7 @@ export async function runSyncWorker(context, runId) {
       if (explicitPostId && existingPostId && explicitPostId !== existingPostId) {
         releaseError(errors, releaseId, { code: "release_claim_conflict" });
         for (const claimed of [explicitPostId, existingPostId]) {
-          const rows = reservations.get(claimed) ?? [];
-          rows.push({ releaseId, invalid: true });
-          reservations.set(claimed, rows);
+          reserve(claimed, { releaseId, invalid: true });
         }
         continue;
       }
@@ -628,9 +647,7 @@ export async function runSyncWorker(context, runId) {
       const candidate = { releaseId, fields, accountId, existingCapture, explicitMatch, reservedPostId };
       candidates.push(candidate);
       if (reservedPostId) {
-        const rows = reservations.get(reservedPostId) ?? [];
-        rows.push(candidate);
-        reservations.set(reservedPostId, rows);
+        reserve(reservedPostId, candidate);
       }
     }
 
@@ -701,7 +718,7 @@ export async function runSyncWorker(context, runId) {
         }
         await context.repos.releases.upsertEvidenceSafely(
           item.releaseId,
-          requestedEvidence(item.match, initial.started_at),
+          requestedEvidence(item.match, syncTimestamp(now)),
           expected,
           captureRecordId,
           { signal: beat.signal },

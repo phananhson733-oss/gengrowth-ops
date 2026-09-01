@@ -115,6 +115,25 @@ test("runtime env binds validation and read to one nofollow descriptor", async (
   }), (error) => error.code === "config_invalid");
 });
 
+test("runtime env rejects a symlinked starting config directory and inspects dot-dot hops", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-env-ancestor-"));
+  const actual = path.join(root, "actual");
+  await mkdir(actual);
+  await writeFile(path.join(actual, "runtime.json"), JSON.stringify(config(".env")));
+  await writeFile(path.join(actual, ".env"), dotenv(), { mode: 0o600 });
+  const linked = path.join(root, "linked-config");
+  await symlink(actual, linked);
+  await assert.rejects(
+    () => loadRuntimeEnvironment({ configPath: path.join(linked, "runtime.json"), env: {} }),
+    (error) => error.code === "config_invalid",
+  );
+
+  const nested = path.join(actual, "nested");
+  await mkdir(nested);
+  await writeFile(path.join(nested, "runtime.json"), JSON.stringify(config("../.env")));
+  assert.equal((await loadRuntimeEnvironment({ configPath: path.join(nested, "runtime.json"), env: {} })).APP_ID, "file-app");
+});
+
 test("launchd-like minimal env reaches privileged init without network and init exits success", async () => {
   const fx = await fixture();
   let remoteCalls = 0;
@@ -128,6 +147,7 @@ test("launchd-like minimal env reaches privileged init without network and init 
     "doctor", "--init-state", "--actor-id", "ou_admin", "--config", fx.configPath,
   ], {
     env: { SHORTDRAMA_CONFIG: fx.configPath },
+    isTrustedLocalInvoker: () => true,
     build: (options) => buildRuntime({
       ...options,
       services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },

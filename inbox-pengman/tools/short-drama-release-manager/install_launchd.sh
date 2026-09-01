@@ -6,6 +6,7 @@ script_dir="${0:A:h}"
 source_plist="$script_dir/launchd/$label.plist"
 config_path="${1:-${SHORTDRAMA_CONFIG:-}}"
 expected_base_token="${2:-${SHORTDRAMA_EXPECTED_BASE_TOKEN:-}}"
+privileged_actor_id="${3:-${SHORTDRAMA_PRIVILEGED_ACTOR_ID:-}}"
 target_dir="$HOME/Library/LaunchAgents"
 target_plist="$target_dir/$label.plist"
 capability_dir="$HOME/Library/Application Support/GenGrowth/shortdrama-sync"
@@ -30,6 +31,7 @@ fi
 [[ -n "$config_path" && -f "$config_path" ]] || fail "A readable runtime config path is required"
 if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" != "1" ]]; then
   [[ -n "$expected_base_token" ]] || fail "An independently confirmed Base token is required"
+  [[ -n "$privileged_actor_id" ]] || fail "A privileged human actor ID is required"
 fi
 config_path="${config_path:A}"
 [[ -f "$source_plist" && -f "$script_dir/shortdrama_ctl.mjs" && -f "$script_dir/run_scheduled.sh" ]] || fail "Installer assets are missing"
@@ -41,7 +43,9 @@ node_major="$($node_bin -p 'Number(process.versions.node.split(".")[0])')"
 if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
   doctor="${SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON:-}"
 else
-  doctor="$($node_bin "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path" --expected-base-token "$expected_base_token")" || fail "shortdrama_ctl doctor failed"
+  "$node_bin" "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path" \
+    --expected-base-token "$expected_base_token" --actor-id "$privileged_actor_id" || fail "shortdrama_ctl doctor failed"
+  doctor='{"status":"ready"}'
 fi
 [[ "$doctor" == *'"status":"ready"'* ]] || fail "shortdrama_ctl doctor is not ready"
 

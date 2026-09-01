@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, rm, stat, symlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
@@ -12,6 +13,7 @@ import {
 import {
   applyMigration as applyMigrationRaw,
   canaryReceiptDigest,
+  createPermissionAttestation,
   manifestDigest,
   permissionAttestationDigest,
   planMigration as planMigrationRaw,
@@ -28,18 +30,19 @@ const DRAMA_HEADERS = ["剧名", "剧ID", "剧分类", "上线日期", "生命�
 const RELEASE_HEADERS = ["日期", "账号名", "主页链接", "剧名", "剧ID（RS Boost）", "剧分类", "视频链接", "Post ID", "播放量", "点赞", "收藏", "转发", "评论", "RS收益", "备注", "归档状态"];
 const CAPTURE_HEADERS = ["快照日期", "账号名", "Post ID", "视频链接", "播放量", "点赞", "评论", "收藏", "转发", "采集状态"];
 const BASE_BINDING_SHA256 = "b".repeat(64);
+const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
 
 function canaryProof() {
-  return Object.fromEntries(TABLE_ORDER.map((tableName, index) => [tableName, {
-    before_key_set_sha256: String(index + 1).repeat(64),
+  return Object.fromEntries(TABLE_ORDER.map((tableName) => [tableName, {
+    before_key_set_sha256: EMPTY_KEY_SET_SHA256,
     canary_primary_sha256: "a".repeat(64),
     created: true,
     readback_verified: true,
     record_id_sha256: "d".repeat(64),
     deleted: true,
-    after_key_set_sha256: String(index + 1).repeat(64),
-    count_before: index,
-    count_after: index,
+    after_key_set_sha256: EMPTY_KEY_SET_SHA256,
+    count_before: 0,
+    count_after: 0,
   }]));
 }
 
@@ -50,6 +53,7 @@ function emptyPrecreatedSchema(revision = "precreated-r1") {
       name,
       table_id: `tbl-precreated-${index}`,
       record_count: 0,
+      primary_key_set_sha256: EMPTY_KEY_SET_SHA256,
       fields: [{ field_id: `fld-primary-${index}`, name: "文本", type: "text", is_primary: true }],
     })),
   };
@@ -58,14 +62,23 @@ function emptyPrecreatedSchema(revision = "precreated-r1") {
 function precreatedWith(tables, revision = "precreated-r1") {
   const byName = new Map(tables.map((table) => [table.name, table]));
   const base = emptyPrecreatedSchema(revision);
-  return { revision, tables: base.tables.map((table) => structuredClone(byName.get(table.name) ?? table)) };
+  return { revision, tables: base.tables.map((table) => structuredClone({ ...table, ...(byName.get(table.name) ?? {}) })) };
 }
 
 function planMigration(context) {
+  const suppliedSchema = context.baseSchema;
+  const baseSchema = suppliedSchema ? {
+    ...suppliedSchema,
+    tables: suppliedSchema.tables.map((table) => ({
+      record_count: 0,
+      primary_key_set_sha256: EMPTY_KEY_SET_SHA256,
+      ...table,
+    })),
+  } : emptyPrecreatedSchema();
   return planMigrationRaw({
     baseBindingSha256: BASE_BINDING_SHA256,
-    baseSchema: emptyPrecreatedSchema(),
     ...context,
+    baseSchema,
   });
 }
 
@@ -95,6 +108,7 @@ function applyMigration(context, manifest) {
     tableBindingsSha256: "c".repeat(64),
     actorId: "ou_admin",
     now: () => manifest.generated_at,
+    readEmptyTableEvidence: async () => structuredClone(manifest.initial_empty_table_evidence),
     ...(phase === "schema" ? {} : {
       canaryReceipt,
       expectedCanaryReceiptSha256: canaryReceipt.sha256,
@@ -332,6 +346,60 @@ test("migration requires four pre-created configured tables and never plans dyna
   ));
 });
 
+test("one-time plan blocks any nonempty or unproven formal Base before schema actions", async () => {
+  for (const recordCount of [1, -1, null, undefined]) {
+    const schema = emptyPrecreatedSchema(`count-${String(recordCount)}`);
+    schema.tables[0].record_count = recordCount;
+    if (recordCount !== 0) schema.tables[0].primary_key_set_sha256 = "f".repeat(64);
+    const manifest = await planMigrationRaw({
+      google: normalizedSource(), captures: [latestCapture()],
+      baseBindingSha256: BASE_BINDING_SHA256, baseSchema: schema,
+    });
+    assert.ok(manifest.blocked.some((item) => item.code === "base_not_empty" && item.table === "账号台账"));
+    assert.equal(manifest.schema_actions.some((item) => item.table === "账号台账"), false);
+    if (recordCount === 1) {
+      const repos = memoryRepos();
+      await assert.rejects(
+        () => applyMigrationRaw({
+          baseBindingSha256: BASE_BINDING_SHA256,
+          expectedSha256: manifest.sha256,
+          sourceRevision: manifest.source_revision,
+          repos,
+        }, manifest),
+        (error) => error.code === "migration_blocked",
+      );
+      assert.equal(repos.calls.length, 0);
+    }
+  }
+  const allNonempty = emptyPrecreatedSchema("all-nonempty");
+  for (const table of allNonempty.tables) {
+    table.record_count = 1;
+    table.primary_key_set_sha256 = "e".repeat(64);
+  }
+  const allBlocked = await planMigrationRaw({
+    google: normalizedSource(), captures: [latestCapture()],
+    baseBindingSha256: BASE_BINDING_SHA256, baseSchema: allNonempty,
+  });
+  assert.equal(allBlocked.blocked.filter((item) => item.code === "base_not_empty").length, 4);
+  assert.equal(allBlocked.schema_actions.length, 0);
+});
+
+test("data revalidates the manifest-bound empty key sets before the first repository write", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  assert.deepEqual(Object.keys(manifest.initial_empty_table_evidence).sort(), [...TABLE_ORDER].sort());
+  const repos = memoryRepos();
+  const drifted = structuredClone(manifest.initial_empty_table_evidence);
+  drifted.账号台账 = { record_count: 1, key_set_sha256: "e".repeat(64) };
+  await assert.rejects(
+    () => applyMigration({
+      repos, expectedSha256: manifest.sha256, ...schemaGate(manifest),
+      readEmptyTableEvidence: async () => drifted,
+    }, manifest),
+    (error) => error.code === "base_not_empty",
+  );
+  assert.equal(repos.calls.length, 0);
+});
+
 test("Base binding and canary/permission evidence stop cross-Base or ungated data writes", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const repos = memoryRepos();
@@ -411,6 +479,39 @@ test("Base binding and canary/permission evidence stop cross-Base or ungated dat
     );
   }
   assert.equal(repos.calls.length, 0);
+});
+
+test("offline permission helper creates a strict actor/Base/schema-bound attestation", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const gate = schemaGate(manifest, "post-r1");
+  const observations = {
+    version: "shortdrama-permission-observations/v1",
+    observed_via: "lark-cli-user-readback",
+    advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true,
+    company_user_access_verified: true,
+    checked_by: "ou_admin",
+    checked_at: manifest.generated_at,
+  };
+  const attestation = createPermissionAttestation({
+    manifest, schemaReceipt: gate.schemaReceipt, observations,
+    actorId: "ou_admin", now: () => manifest.generated_at,
+  });
+  assert.equal(attestation.base_binding_sha256, manifest.base_binding_sha256);
+  assert.equal(attestation.schema_revision, "post-r1");
+  assert.equal(attestation.sha256, permissionAttestationDigest(attestation));
+  for (const mutate of [
+    (value) => { value.checked_by = "ou_other"; },
+    (value) => { value.observed_via = "runner-self-asserted"; },
+    (value) => { value.extra = true; },
+  ]) {
+    const invalid = structuredClone(observations);
+    mutate(invalid);
+    assert.throws(
+      () => createPermissionAttestation({ manifest, schemaReceipt: gate.schemaReceipt, observations: invalid, actorId: "ou_admin", now: () => manifest.generated_at }),
+      (error) => error.code === "migration_permission_attestation_required",
+    );
+  }
 });
 
 test("plan blocks duplicate identities, missing targets, and URL/account disagreement without guessing", async () => {
@@ -526,7 +627,7 @@ test("fresh Base plan creates every fixed field in phase order and bootstraps on
   const unsafe = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: precreatedWith([
     { name: "账号台账", table_id: "t1", record_count: 1, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] },
   ], "nonempty-default") });
-  assert.equal(unsafe.blocked.some((entry) => entry.code === "base_schema_drift" && entry.field === "账号ID"), true);
+  assert.equal(unsafe.blocked.some((entry) => entry.code === "base_not_empty" && entry.table === "账号台账"), true);
 });
 
 test("release planning uses the matcher and blocks due/ambiguous/claimed evidence while allowing a truly future unlinked row", async () => {

@@ -15,6 +15,7 @@ import {
   createWakeWorker,
   evaluateDailyHealth,
   exitCodeFor,
+  inspectTrustedLocalInvoker,
   parseCommand,
   main,
   readPayload,
@@ -31,6 +32,7 @@ const INTERNAL = {
   SHORTDRAMA_LAUNCHD_LABEL: "com.gengrowth.shortdrama-sync",
 };
 const passthroughEnvironment = async ({ env }) => env;
+const trustedLocalInvoker = () => true;
 
 function runtimeFixture(root) {
   const config = {
@@ -129,7 +131,7 @@ test("account/capture list/get hard-bind complete Base query results and not_fou
       Object.entries(request.filter).every(([field, value]) => row[field] === value));
     return structuredClone(rows);
   } };
-  const dispatch = createDispatcher({ humanOps });
+  const dispatch = createDispatcher({ humanOps, assertRuntimeSchemaReady: async () => {} });
   const identity = { mode: "social", actorId: "ou_reader", chatId: "oc_social", profile: "social" };
   const accountList = await dispatch(parseCommand(["account", "list"]), identity, null);
   const captureGet = await dispatch(parseCommand(["capture", "get", "--key", "123"]), identity, null);
@@ -160,7 +162,7 @@ test("update-field hard-binds table and Social identity to an exact one-field pa
     status: "updated", table: "选剧池", key: "SD-000001", field: "推荐理由",
     before: { present: true, value: "旧" }, after: { present: true, value: "新" }, readback: "verified",
   };
-  const dispatch = createDispatcher({ humanOps: {
+  const dispatch = createDispatcher({ assertRuntimeSchemaReady: async () => {}, humanOps: {
     applySingleField: async (request) => { calls.push(request); return verified; },
   } });
   const identity = { mode: "social", actorId: "ou_operator", chatId: "oc_social", profile: "social" };
@@ -175,7 +177,7 @@ test("update-field hard-binds table and Social identity to an exact one-field pa
 });
 
 test("update-field rejects missing, extra, unsafe, reader and protected requests", async () => {
-  const dispatch = createDispatcher({ humanOps: {
+  const dispatch = createDispatcher({ assertRuntimeSchemaReady: async () => {}, humanOps: {
     applySingleField: async (request) => {
       if (request.actorId === "ou_reader") throw Object.assign(new Error("reader"), { code: "actor_write_denied" });
       if (request.field === "Post ID") throw Object.assign(new Error("protected"), { code: "field_owner_violation" });
@@ -203,7 +205,7 @@ test("update-field rejects missing, extra, unsafe, reader and protected requests
 test("doctor state initialization is explicit privileged local-only", () => {
   const command = parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]);
   assert.equal(command.options.initState, true);
-  assert.deepEqual(resolveInvocationIdentity(command, {}, { isPrivilegedAllowed: (id) => id === "ou_admin" }), {
+  assert.deepEqual(resolveInvocationIdentity(command, {}, { isPrivilegedAllowed: (id) => id === "ou_admin", isTrustedLocalInvoker: trustedLocalInvoker }), {
     mode: "local", actorId: "ou_admin", chatId: null, profile: null,
   });
   assert.throws(() => resolveInvocationIdentity(command, {
@@ -373,6 +375,7 @@ test("later canary readback failure still cleans every earlier table", async () 
 test("every public and internal registry path parses with only its fixed shape", () => {
   const commands = [
     ["doctor"], ["migrate", "plan"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
+    ["migrate", "attest-permissions", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--schema-receipt", "schema.json", "--expected-schema-receipt-sha256", "b".repeat(64), "--observations", "observations.json", "--expected-observations-file-sha256", "c".repeat(64), "--output", "permission.json", "--expected-base-token", "base"],
     ["account", "list"], ["account", "get", "--key", "acct"], ["capture", "list"], ["capture", "get", "--key", "123"],
     ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"], ["pool", "preview-batch"],
     ["pool", "apply-update"], ["pool", "preview-archive", "--key", "SD-000001"], ["pool", "apply-archive"],
@@ -388,7 +391,7 @@ test("every public and internal registry path parses with only its fixed shape",
 
 test("fixed preview-batch routes exact items to the bound table and Social identity", async () => {
   const calls = [];
-  const dispatch = createDispatcher({ humanOps: {
+  const dispatch = createDispatcher({ assertRuntimeSchemaReady: async () => {}, humanOps: {
     previewMutation: async (request) => { calls.push(request); return { status: "preview" }; },
   } });
   const identity = { mode: "social", actorId: "ou_admin", chatId: "oc_social", profile: "social" };
@@ -412,7 +415,7 @@ test("pool and release list/get return the same complete readback envelope", asy
     选剧池: [{ 剧ID: "SD-000001", 剧名: "One" }],
     发布记录: [{ 发布ID: "SR-000001", 备注: "One" }],
   };
-  const dispatch = createDispatcher({ humanOps: {
+  const dispatch = createDispatcher({ assertRuntimeSchemaReady: async () => {}, humanOps: {
     query: async ({ table, filter }) => {
       const rows = source[table];
       if (!filter) return structuredClone(rows);
@@ -427,6 +430,55 @@ test("pool and release list/get return the same complete readback envelope", asy
     status: "not_found", table: "发布记录", key: "missing", record: null,
     readback: "complete", source: "base_complete_index",
   });
+});
+
+test("query payload cannot override fixed actor/table/key authority or add unknown keys", async () => {
+  const calls = [];
+  const dispatch = createDispatcher({
+    assertRuntimeSchemaReady: async () => {},
+    humanOps: { query: async (request) => { calls.push(request); return []; } },
+  });
+  const identity = { mode: "social", actorId: "ou_reader", chatId: "oc_social", profile: "social" };
+  for (const payload of [
+    { actorId: "ou_forged" }, { table: "发布记录" }, { extra: true },
+  ]) {
+    await assert.rejects(
+      () => dispatch(parseCommand(["pool", "list", "--payload", "-"]), identity, payload),
+      (error) => error.code === "payload_invalid",
+    );
+  }
+  await dispatch(parseCommand(["release", "get", "--key", "SR-000001", "--payload", "-"]), identity, {
+    filter: { 发布ID: "SR-FORGED" }, sort: { field: "发布ID", direction: "desc" },
+  });
+  assert.deepEqual(calls, [{
+    actorId: "ou_reader", table: "发布记录", filter: { 发布ID: "SR-000001" },
+    sort: { field: "发布ID", direction: "desc" },
+  }]);
+});
+
+test("schema drift after doctor blocks every normal Base command before business or enqueue side effects", async () => {
+  let drifted = false;
+  let sideEffects = 0;
+  const runtime = {
+    config: { auth: { isOperatorAllowed: () => true, isPrivilegedAllowed: () => false } },
+    doctor: async () => ({ status: "ready" }),
+    assertRuntimeSchemaReady: async () => {
+      if (drifted) throw Object.assign(new Error("drift"), { code: "base_schema_drift" });
+    },
+    humanOps: new Proxy({}, { get: () => async () => { sideEffects += 1; return []; } }),
+    syncContext: { jobs: {}, makeRunId() {}, wakeWorker() {} },
+  };
+  const dispatch = createDispatcher(runtime);
+  const social = { mode: "social", actorId: "ou_operator", chatId: "oc_social", profile: "social" };
+  assert.equal((await dispatch(parseCommand(["doctor", "--expected-base-token", "base"]), { mode: "local", actorId: "ou_admin" }, null)).status, "ready");
+  drifted = true;
+  for (const argv of [
+    ["account", "list"], ["capture", "list"], ["pool", "list"], ["release", "list"],
+    ["metrics", "by-drama"], ["sync", "start"],
+  ]) {
+    await assert.rejects(() => dispatch(parseCommand(argv), social, null), (error) => error.code === "base_schema_drift");
+  }
+  assert.equal(sideEffects, 0);
 });
 
 test("real Feishu Social sessions cannot reach doctor, migration, or internal runner commands", async () => {
@@ -490,15 +542,51 @@ test("local privileged and internal identities fail closed", () => {
     (error) => error.code === "actor_required");
   assert.deepEqual(resolveInvocationIdentity(parseCommand([
     "migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--actor-id", "ou_admin",
-  ]), {}, { isPrivilegedAllowed: (id) => id === "ou_admin" }), {
+  ]), {}, { isPrivilegedAllowed: (id) => id === "ou_admin", isTrustedLocalInvoker: () => true }), {
     mode: "local", actorId: "ou_admin", chatId: null, profile: null,
   });
+  assert.throws(() => resolveInvocationIdentity(parseCommand([
+    "migrate", "plan", "--expected-base-token", "base", "--actor-id", "ou_admin",
+  ]), {}, { isPrivilegedAllowed: () => true, isTrustedLocalInvoker: () => false }),
+  (error) => error.code === "local_invoker_untrusted");
+  assert.throws(() => resolveInvocationIdentity(parseCommand([
+    "doctor", "--expected-base-token", "base",
+  ]), {}, { isPrivilegedAllowed: () => true, isTrustedLocalInvoker: () => true }),
+  (error) => error.code === "actor_required");
   assert.throws(() => resolveInvocationIdentity(parseCommand(["schedule", "tick"]), {}),
     (error) => error.code === "internal_context_required");
   assert.throws(() => resolveInvocationIdentity(parseCommand(["schedule", "tick"]), INTERNAL),
     (error) => error.code === "internal_context_required");
   assert.throws(() => resolveInvocationIdentity(parseCommand(["pool", "list", "--actor-id", "ou"]), {}),
     (error) => error.code === "social_session_required");
+});
+
+test("untrusted local Hermes ancestry is rejected before runtime construction even without session env", async () => {
+  let builds = 0;
+  const result = await execute([
+    "migrate", "plan", "--expected-base-token", "base", "--actor-id", "ou_admin",
+    "--config", "/configured/runtime.json",
+  ], {
+    env: {}, loadEnvironment: passthroughEnvironment,
+    isTrustedLocalInvoker: () => false,
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(result.result.error.code, "local_invoker_untrusted");
+  assert.equal(builds, 0);
+});
+
+test("local provenance accepts a bounded Terminal chain and rejects Hermes ancestry", () => {
+  const tty = { isTTY: true };
+  const terminalRows = new Map([
+    [100, { pid: 100, ppid: 90, command: "/usr/local/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
+    [90, { pid: 90, ppid: 80, command: "/bin/zsh", args: "-zsh" }],
+    [80, { pid: 80, ppid: 1, command: "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal", args: "Terminal" }],
+  ]);
+  assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => terminalRows.get(pid) }), true);
+  const hermesRows = new Map(terminalRows);
+  hermesRows.set(90, { pid: 90, ppid: 80, command: "/usr/bin/python3", args: "python run_agent.py" });
+  assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => hermesRows.get(pid) }), false);
+  assert.equal(inspectTrustedLocalInvoker({ stdin: { isTTY: false }, stdout: tty, pid: 100, readProcess: (pid) => terminalRows.get(pid) }), false);
 });
 
 test("internal identity requires a private installation capability and old markers cannot spoof it", async () => {
@@ -583,7 +671,7 @@ test("migration evidence remains bound to independent expected digests", async (
       "--config", "/configured/runtime.json",
     ], {
       env: {},
-      loadEnvironment: passthroughEnvironment,
+      loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker,
       build: async () => { builds += 1; throw new Error("must not build"); },
     });
     assert.equal(result.result.error.code, "migration_evidence_mismatch");
@@ -605,14 +693,14 @@ test("migration output is reserved before runtime side effects and stores the ex
     const blocked = await execute([
       "migrate", "verify", "--manifest", `plan-output-${suffix}.json`, "--output", `occupied-${suffix}.json`,
       "--actor-id", "admin", "--config", "/configured/runtime.json",
-    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => { builds += 1; throw new Error("must not build"); } });
+    ], { env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker, build: async () => { builds += 1; throw new Error("must not build"); } });
     assert.equal(blocked.result.error.code, "migration_artifact_exists");
     assert.equal(builds, 0);
     const exact = { status: "verified", sha256: "c".repeat(64) };
     const completed = await execute([
       "migrate", "verify", "--manifest", `plan-output-${suffix}.json`, "--output", outputName,
       "--actor-id", "admin", "--config", "/configured/runtime.json",
-    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => ({
+    ], { env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker, build: async () => ({
       config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
       migrateVerify: async () => exact,
       close() {},
@@ -647,6 +735,35 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   }, services: { HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture } });
   runtime.close();
   assert.deepEqual(observed, { operators: ["ou_a", "ou_b"], privileged: ["ou_admin"], chats: ["oc_ops", "oc_social"] });
+});
+
+test("runtime terminal dashboard resolver updates the fixed block and verifies readback", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-dashboard-runtime-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const calls = [];
+  const expectedText = "**最近一次同步终态**\n状态：partial\nrun_id：SDRUN-20260901-080001\n完成时间：2026-09-01T00:01:00.000Z";
+  const client = repositoryClient({
+    listDashboards: async () => ({ complete: true, items: [{ dashboard_id: "dash", name: "短剧发行管理仪表盘" }] }),
+    listDashboardBlocks: async () => ({ complete: true, items: [{ block_id: "block", name: "最近一次同步终态" }] }),
+    updateDashboardTerminalBlock: async (...args) => { calls.push(["update", ...args]); },
+    readDashboardBlock: async () => ({ block_id: "block", name: "最近一次同步终态", type: "text", data_config: { text: expectedText } }),
+  });
+  let updateTerminalDashboard;
+  class NotifierFixture { constructor(args) { updateTerminalDashboard = args.updateTerminalDashboard; } }
+  class HumanOpsFixture {}
+  const runtime = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, readSchema: async () => readySchema(env), NotifierFixture, ShortDramaNotifier: NotifierFixture, HumanOpsService: HumanOpsFixture },
+  });
+  try {
+    await updateTerminalDashboard({
+      state: "partial", run_id: "SDRUN-20260901-080001", finished_at: "2026-09-01T00:01:00.000Z",
+    });
+    assert.equal(calls.length, 1);
+    assert.deepEqual(calls[0].slice(1, 4), ["base", "dash", "block"]);
+  } finally { runtime.close(); }
 });
 
 test("independent Base token mismatch fails before JobStore or Base network activity", async () => {
@@ -701,6 +818,7 @@ test("schema and verification artifacts dispatch as separate independently check
     ], {
       env: {},
       loadEnvironment: passthroughEnvironment,
+      isTrustedLocalInvoker: trustedLocalInvoker,
       build: async () => ({
         config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
         migrateApply: async (evidence) => { observed = evidence; return { status: "applied" }; },
@@ -754,14 +872,14 @@ test("data evidence requires independent canary and permission semantic/file dig
     const wrong = [...argv];
     wrong[wrong.indexOf(permissionFileSha)] = "d".repeat(64);
     const rejected = await execute(wrong, {
-      env: {}, loadEnvironment: passthroughEnvironment,
+      env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker,
       build: async () => { builds += 1; throw new Error("must not build"); },
     });
     assert.equal(rejected.result.error.code, "migration_evidence_mismatch");
     assert.equal(builds, 0);
     let observed;
     const accepted = await execute(argv, {
-      env: {}, loadEnvironment: passthroughEnvironment,
+      env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker,
       build: async () => ({
         config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
         migrateApply: async (evidence) => { observed = evidence; return { status: "applied" }; },
@@ -772,6 +890,58 @@ test("data evidence requires independent canary and permission semantic/file dig
     assert.deepEqual(observed, { manifest, schemaReceipt: schema, canaryReceipt: canary, permissionAttestation: permission });
   } finally {
     await Promise.all(files.map((file) => rm(file.path, { force: true })));
+  }
+});
+
+test("offline permission helper writes an immutable artifact and prints independent semantic/file digests", async () => {
+  const suffix = `${process.pid}-${Date.now()}`;
+  const manifest = { version: "fixture", rows: [] };
+  manifest.sha256 = manifestDigest(manifest);
+  const schema = { version: "fixture-schema", manifest_sha256: manifest.sha256 };
+  schema.sha256 = schemaReceiptDigest(schema);
+  const observations = {
+    version: "shortdrama-permission-observations/v1", observed_via: "lark-cli-user-readback",
+    advanced_permissions_enabled: true, primary_and_machine_fields_protected: true,
+    company_user_access_verified: true, checked_by: "ou_admin", checked_at: "2026-09-01T00:00:00.000Z",
+  };
+  const files = [
+    await writeMigrationArtifact(manifest, { fileName: `attest-plan-${suffix}.json` }),
+    await writeMigrationArtifact(schema, { fileName: `attest-schema-${suffix}.json` }),
+    await writeMigrationArtifact(observations, { fileName: `attest-observations-${suffix}.json` }),
+  ];
+  const output = `attestation-${suffix}.json`;
+  const observationsFileSha = createHash("sha256").update(await readFile(files[2].path)).digest("hex");
+  const attestation = {
+    version: "shortdrama-permission-attestation/v1", base_binding_sha256: "b".repeat(64), schema_revision: "post",
+    advanced_permissions_enabled: true, primary_and_machine_fields_protected: true,
+    company_user_access_verified: true, checked_by: "ou_admin", checked_at: observations.checked_at,
+  };
+  attestation.sha256 = permissionAttestationDigest(attestation);
+  try {
+    let observed;
+    const result = await execute([
+      "migrate", "attest-permissions", "--manifest", path.basename(files[0].path), "--expected-sha256", manifest.sha256,
+      "--schema-receipt", path.basename(files[1].path), "--expected-schema-receipt-sha256", schema.sha256,
+      "--observations", path.basename(files[2].path), "--expected-observations-file-sha256", observationsFileSha,
+      "--output", output, "--expected-base-token", "base", "--actor-id", "ou_admin", "--config", "/configured/runtime.json",
+    ], {
+      env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker,
+      build: async () => ({
+        config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
+        attestPermissions: async (payload, _options, identity) => { observed = { payload, identity }; return attestation; },
+        close() {},
+      }),
+    });
+    assert.equal(result.exitCode, 0);
+    assert.equal(result.result.status, "created");
+    assert.equal(result.result.artifact_file, output);
+    assert.equal(result.result.semantic_sha256, attestation.sha256);
+    assert.match(result.result.file_sha256, /^[a-f0-9]{64}$/);
+    assert.deepEqual(observed.payload, { manifest, schemaReceipt: schema, observations });
+    assert.equal(observed.identity.actorId, "ou_admin");
+    assert.deepEqual(JSON.parse(await readFile(path.join(path.dirname(files[0].path), output), "utf8")), attestation);
+  } finally {
+    await Promise.all([...files.map((file) => file.path), path.join(path.dirname(files[0].path), output)].map((file) => rm(file, { force: true })));
   }
 });
 
@@ -793,7 +963,7 @@ test("re-digested schema receipt tampering still fails against the external rece
       "migrate", "apply", "--phase", "data", "--manifest", `plan-${suffix}.json`, "--expected-sha256", manifest.sha256,
       "--schema-receipt", `schema-tampered-${suffix}.json`, "--expected-schema-receipt-sha256", original.sha256,
       "--actor-id", "admin", "--confirm", "apply-now", "--config", "/configured/runtime.json",
-    ], { env: {}, loadEnvironment: passthroughEnvironment, build: async () => { builds += 1; throw new Error("must not build"); } });
+    ], { env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker, build: async () => { builds += 1; throw new Error("must not build"); } });
     assert.equal(result.result.error.code, "migration_evidence_mismatch");
     assert.equal(builds, 0);
   } finally {
@@ -816,16 +986,17 @@ test("main emits exactly one JSON object and sanitizes absolute error paths", as
   assert.equal(output.trim().split("\n").length, 1);
   assert.equal(JSON.parse(output).state, "not_found");
   assert.equal(closed, 1);
-  const failed = await execute(["doctor", "--config", "/configured/runtime.json"], {
-    env: {}, loadEnvironment: passthroughEnvironment, build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("config_invalid", "bad", { path: "/secret/local.json" }); },
+  const failed = await execute(["doctor", "--actor-id", "ou_admin", "--config", "/configured/runtime.json"], {
+    env: {}, loadEnvironment: passthroughEnvironment, isTrustedLocalInvoker: trustedLocalInvoker, build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("config_invalid", "bad", { path: "/secret/local.json" }); },
   });
   assert.equal(failed.result.error.details.path, "[redacted]");
 });
 
 test("public error JSON redacts actor, chat, Base, table, record, path, and secret identifiers", async () => {
-  const failed = await execute(["doctor", "--expected-base-token", "base_confirmed", "--config", "/configured/runtime.json"], {
+  const failed = await execute(["doctor", "--actor-id", "ou_admin", "--expected-base-token", "base_confirmed", "--config", "/configured/runtime.json"], {
     env: {},
     loadEnvironment: passthroughEnvironment,
+    isTrustedLocalInvoker: trustedLocalInvoker,
     build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("base_request_failed", "fixed", {
       actor: "ou_privateactor",
       user_id: "ou_privateuser",
@@ -885,7 +1056,7 @@ test("dispatcher maps HumanOps methods and queue claims current PID only", async
     claimNext: ({ workerPid }) => ({ run_id: "SDRUN-20260901-000001", worker_pid: workerPid }),
     listUndeliveredTerminal: () => [],
   };
-  const dispatch = createDispatcher({ humanOps, jobs, workerPid: 4321, runWorker: async (_ctx, runId) => ({ state: "success", run_id: runId }) });
+  const dispatch = createDispatcher({ humanOps, jobs, workerPid: 4321, assertRuntimeSchemaReady: async () => {}, runWorker: async (_ctx, runId) => ({ state: "success", run_id: runId }) });
   const identity = { mode: "social", actorId: "ou", chatId: "oc", profile: "social" };
   await dispatch(parseCommand(["pool", "list"]), identity, null);
   assert.equal(calls[0][0], "query");
@@ -901,6 +1072,7 @@ test("dispatcher makes registry action and session identity authoritative over p
   };
   const dispatch = createDispatcher({
     humanOps,
+    assertRuntimeSchemaReady: async () => {},
     jobs: { peekSequenceState: () => ({ seeded: true }) },
   });
   await dispatch(parseCommand(["release", "attach-post", "--payload", "-"]), {
@@ -962,6 +1134,7 @@ test("manual synchronization is write-allowlisted while status remains readable"
   const runtime = {
     config: { auth: { isOperatorAllowed: () => false, isPrivilegedAllowed: () => false } },
     syncContext: {},
+    assertRuntimeSchemaReady: async () => {},
   };
   const dispatch = createDispatcher(runtime);
   await assert.rejects(dispatch(parseCommand(["sync", "start"]), { actorId: "reader", chatId: "oc" }, null),

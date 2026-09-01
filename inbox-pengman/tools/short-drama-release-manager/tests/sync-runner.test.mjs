@@ -10,6 +10,7 @@ import { getSyncStatus, runSyncWorker, startSyncJob } from "../src/sync-runner.m
 
 const RUN_ID = "SDRUN-20260901-080001";
 const NOW = "2026-09-01T00:00:10Z";
+const dashboardOk = async () => {};
 
 function makeClaimedStore({ runId = RUN_ID, workerPid = 4242, chatId = "oc_social" } = {}) {
   const store = new JobStore(":memory:");
@@ -163,6 +164,7 @@ function workerContext(store, repos, overrides = {}) {
     },
     repos,
     notifier: { sendTerminal: async () => ({ notification_state: "sent" }) },
+    assertSchemaReady: async () => {},
     ...overrides,
   };
 }
@@ -174,6 +176,7 @@ test("notifier resolves the persisted terminal destination and ignores caller ov
   const notifier = new ShortDramaNotifier({
     allowedChatIds: new Set(["oc_social"]),
     sendMessage: async (payload) => sent.push(payload),
+    updateTerminalDashboard: dashboardOk,
     jobs: {
       get: (runId) => runId === RUN_ID ? structuredClone(persisted) : null,
       markNotification: (runId, state) => marks.push([runId, state]),
@@ -196,6 +199,7 @@ test("notifier persists failed for malformed and non-allowlisted persisted desti
     const notifier = new ShortDramaNotifier({
       allowedChatIds: new Set(["oc_social"]),
       sendMessage: async () => { sent += 1; },
+      updateTerminalDashboard: dashboardOk,
       jobs: { get: () => structuredClone(persisted), markNotification: (runId, state) => marks.push([runId, state]) },
     });
     assert.deepEqual(await notifier.sendTerminal(persisted), {
@@ -214,6 +218,7 @@ test("notifier surfaces failure to persist notification state", async () => {
   const notifier = new ShortDramaNotifier({
     allowedChatIds: new Set(["oc_social"]),
     sendMessage: async () => assert.fail("must not send"),
+    updateTerminalDashboard: dashboardOk,
     jobs: {
       get: () => structuredClone(persisted),
       markNotification: () => { throw new Error("sqlite unavailable"); },
@@ -235,6 +240,7 @@ test("notification failure preserves the persisted data terminal and is retryabl
       attempts += 1;
       if (attempts === 1) throw new Error("network with secret free text");
     },
+    updateTerminalDashboard: dashboardOk,
     jobs: {
       get: () => structuredClone(persisted),
       markNotification: (_runId, state) => marks.push(state),
@@ -258,10 +264,43 @@ test("terminal notification surfaces a persisted manual-repair next step", async
   const notifier = new ShortDramaNotifier({
     allowedChatIds: new Set(["oc_social"]),
     sendMessage: async (payload) => { text = payload.text; },
+    updateTerminalDashboard: dashboardOk,
     jobs: { get: () => structuredClone(persisted), markNotification: () => {} },
   });
   await notifier.sendTerminal(persisted);
   assert.match(text, /next_step=manual_repair/);
+});
+
+test("terminal dashboard updates from persisted success/partial/failed jobs and retries independently", async () => {
+  for (const state of ["success", "partial", "failed"]) {
+    const persisted = terminalStoreRow({ state, notificationState: "pending" });
+    const order = [];
+    const notifier = new ShortDramaNotifier({
+      allowedChatIds: new Set(["oc_social"]),
+      updateTerminalDashboard: async (job) => order.push(["dashboard", job.state, job.run_id, job.finished_at]),
+      sendMessage: async () => order.push(["message"]),
+      jobs: { get: () => structuredClone(persisted), markNotification: (_runId, status) => order.push(["mark", status]) },
+    });
+    assert.equal((await notifier.sendTerminal(persisted)).notification_state, "sent");
+    assert.deepEqual(order.map((item) => item[0]), ["dashboard", "message", "mark"]);
+  }
+
+  const persisted = terminalStoreRow({ state: "partial", notificationState: "pending" });
+  let attempts = 0;
+  let messages = 0;
+  const marks = [];
+  const notifier = new ShortDramaNotifier({
+    allowedChatIds: new Set(["oc_social"]),
+    updateTerminalDashboard: async () => { attempts += 1; if (attempts === 1) throw new Error("dashboard unavailable"); },
+    sendMessage: async () => { messages += 1; },
+    jobs: { get: () => structuredClone(persisted), markNotification: (_runId, status) => marks.push(status) },
+  });
+  assert.equal((await notifier.sendTerminal(persisted)).error.code, "dashboard_update_failed");
+  assert.equal(persisted.state, "partial");
+  assert.equal(messages, 0);
+  assert.equal((await notifier.sendTerminal(persisted)).notification_state, "sent");
+  assert.equal(messages, 1);
+  assert.deepEqual(marks, ["failed", "sent"]);
 });
 
 test("two file-backed starts atomically create one job and wake exactly once", async (t) => {
@@ -364,6 +403,9 @@ test("worker writes accounts then source captures then timestamp then links, wit
   const link = calls.find(([name]) => name === "releases:link");
   assert.deepEqual(link.slice(1, 3), ["SR-000001", "rec-capture-99"]);
   assert.deepEqual(Object.keys(link[3]).sort(), ["Post ID", "账号", "日期", "视频链接"].sort());
+  assert.equal(calls.find(([name]) => name === "accounts:sync")[1][0].patch.指标同步时间, "2026-09-01T00:00:10.000Z");
+  assert.equal(calls.find(([name]) => name === "captures:timestamp")[1][0].patch["Base 同步时间"], "2026-09-01T00:00:10.000Z");
+  assert.equal(calls.find(([name]) => name === "releases:evidence")[2].指标同步时间, "2026-09-01T00:00:10.000Z");
   assert.equal(result.state, "partial");
   assert.deepEqual(result.counters, {
     accounts_updated: 1,
@@ -827,7 +869,25 @@ test("source/schema failures keep their named code and never become a valid zero
   store.close();
 });
 
-test("an exact existing relation is idempotent and archived rows are ignored", async () => {
+test("worker schema drift fails before Collector and every Base side effect", async () => {
+  const store = makeClaimedStore();
+  let collectors = 0;
+  let baseCalls = 0;
+  const repos = successfulRepos([]);
+  repos.accounts.syncManyMachine = async () => { baseCalls += 1; throw new Error("must not write"); };
+  repos.accounts.loadIndex = async () => { baseCalls += 1; throw new Error("must not read"); };
+  const result = await runSyncWorker(workerContext(store, repos, {
+    assertSchemaReady: async () => { throw Object.assign(new Error("schema drift"), { code: "base_schema_drift" }); },
+    collector: async () => { collectors += 1; return collectorSummary(); },
+  }), RUN_ID);
+  assert.equal(result.state, "failed");
+  assert.deepEqual(result.errors, [{ step: "schema", code: "base_schema_drift" }]);
+  assert.equal(collectors, 0);
+  assert.equal(baseCalls, 0);
+  store.close();
+});
+
+test("an active/archived duplicate claim is partial and neither row is rewritten", async () => {
   const calls = [];
   const releases = [
     {
@@ -866,10 +926,32 @@ test("an exact existing relation is idempotent and archived rows are ignored", a
       })],
     },
   }), RUN_ID);
-  assert.equal(result.state, "success");
+  assert.equal(result.state, "partial");
   assert.equal(result.counters.releases_linked, 0);
   assert.equal(calls.filter(([name]) => name === "releases:link").length, 0);
-  assert.deepEqual(calls.filter(([name]) => name === "releases:evidence").map((row) => row[1]), ["SR-000001"]);
+  assert.equal(calls.filter(([name]) => name === "releases:evidence").length, 0);
+  store.close();
+});
+
+test("archived Post claims reserve global uniqueness before active inference", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-active", fields: {
+      发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null,
+      日期: "2026-09-01", 采集记录: [], 归档状态: "active",
+    } },
+    { record_id: "rec-archived", fields: {
+      发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null,
+      日期: "2026-09-01", 采集记录: [], 归档状态: "archived",
+    } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.ok(result.errors.length > 0);
+  assert.equal(calls.filter(([name]) => name === "releases:link" || name === "releases:evidence").length, 0);
   store.close();
 });
 

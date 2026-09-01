@@ -32,6 +32,7 @@ const ARTIFACT_TRUST_ROOT = resolve(ARTIFACT_ROOT, "../..");
 const POST_ID = /^\d+$/;
 const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
+const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -392,16 +393,31 @@ function schemaPlan(baseSchema, blocks) {
     ids.add(table.table_id);
   }
   const tableIds = Object.fromEntries([...byName].map(([name, table]) => [name, table.table_id]));
-  const tableActions = [];
   const fieldActions = [];
+  const emptyEvidence = {};
   for (const tableName of TABLE_ORDER) {
     const table = byName.get(tableName);
     if (!table) {
+      emptyEvidence[tableName] = { record_count: null, key_set_sha256: null };
       blocks.push(blocked("base_table_missing", tableName, null, {
         next_step: "create_four_empty_tables_and_bind_ids",
       }));
       continue;
     }
+    const countValid = Number.isSafeInteger(table.record_count) && table.record_count >= 0;
+    const keySetValid = typeof table.primary_key_set_sha256 === "string" && /^[a-f0-9]{64}$/.test(table.primary_key_set_sha256);
+    emptyEvidence[tableName] = {
+      record_count: countValid ? table.record_count : null,
+      key_set_sha256: keySetValid ? table.primary_key_set_sha256 : null,
+    };
+    if (!countValid || table.record_count !== 0 || !keySetValid ||
+        table.primary_key_set_sha256 !== EMPTY_KEY_SET_SHA256) {
+      blocks.push(blocked("base_not_empty", tableName, null, {
+        reason: "formal_base_must_be_proven_empty",
+      }));
+      continue;
+    }
+    emptyEvidence[tableName] = { record_count: 0, key_set_sha256: table.primary_key_set_sha256 };
     const fields = new Map();
     for (const field of table?.fields ?? []) {
       if (!plainObject(field) || typeof field.name !== "string" || fields.has(field.name)) fail("base_schema_drift", "Base field metadata is malformed or duplicate", { table: tableName });
@@ -443,12 +459,12 @@ function schemaPlan(baseSchema, blocks) {
       if (!configMatches(existing, expected)) blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name }));
     }
   }
-  const actions = [...tableActions, ...fieldActions.sort((left, right) =>
+  const actions = fieldActions.sort((left, right) =>
     SCHEMA_APPLY_ORDER.indexOf(left.phase) - SCHEMA_APPLY_ORDER.indexOf(right.phase) ||
     TABLE_ORDER.indexOf(left.table) - TABLE_ORDER.indexOf(right.table) ||
     BASE_FIELD_SPECS[left.table].findIndex((spec) => spec.name === left.field) - BASE_FIELD_SPECS[right.table].findIndex((spec) => spec.name === right.field),
-  )];
-  return { revision, actions };
+  );
+  return { revision, actions, emptyEvidence };
 }
 
 function presentationActions() {
@@ -504,6 +520,7 @@ export async function planMigration(context = {}) {
     source_revision: sourceRevision,
     source_backup: clone(google.raw_backup, "migration_source_invalid"),
     initial_schema_revision: schema.revision,
+    initial_empty_table_evidence: schema.emptyEvidence,
     generated_at: generatedAtValue,
     schema_actions: schema.actions,
     presentation_actions: presentationActions(),
@@ -532,13 +549,14 @@ export async function planMigration(context = {}) {
 
 function assertManifest(manifest) {
   const expectedKeys = [
-    "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
+    "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_empty_table_evidence", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
     "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
       !Array.isArray(manifest.blocked) || !plainObject(manifest.counts) || !Array.isArray(manifest.accounts) ||
       !Array.isArray(manifest.dramas) || !Array.isArray(manifest.captures) || !Array.isArray(manifest.releases) ||
-      !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds) || !plainObject(manifest.source_backup)) {
+      !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds) || !plainObject(manifest.source_backup) ||
+      !plainObject(manifest.initial_empty_table_evidence)) {
     fail("migration_manifest_invalid", "Migration manifest shape is invalid");
   }
   if (!isDeepStrictEqual(Object.keys(manifest).sort(), expectedKeys)) fail("migration_manifest_invalid", "Migration manifest contains unsupported fields");
@@ -548,6 +566,20 @@ function assertManifest(manifest) {
       typeof manifest.initial_schema_revision !== "string" || manifest.initial_schema_revision === "" ||
       typeof manifest.generated_at !== "string" || !Number.isFinite(Date.parse(manifest.generated_at))) {
     fail("migration_manifest_invalid", "Migration manifest metadata is invalid");
+  }
+  const evidenceShapeValid = isDeepStrictEqual(Object.keys(manifest.initial_empty_table_evidence).sort(), [...TABLE_ORDER].sort()) &&
+    TABLE_ORDER.every((tableName) => {
+      const evidence = manifest.initial_empty_table_evidence[tableName];
+      return plainObject(evidence) && isDeepStrictEqual(Object.keys(evidence).sort(), ["key_set_sha256", "record_count"]) &&
+        (evidence.record_count === null && evidence.key_set_sha256 === null ||
+          Number.isSafeInteger(evidence.record_count) && evidence.record_count >= 0 &&
+          typeof evidence.key_set_sha256 === "string" && /^[a-f0-9]{64}$/.test(evidence.key_set_sha256));
+    });
+  const allEmpty = TABLE_ORDER.every((tableName) => isDeepStrictEqual(manifest.initial_empty_table_evidence[tableName], {
+    record_count: 0, key_set_sha256: EMPTY_KEY_SET_SHA256,
+  }));
+  if (!evidenceShapeValid || manifest.blocked.length === 0 && !allEmpty) {
+    fail("migration_manifest_invalid", "Migration manifest empty Base evidence is invalid");
   }
   const actualCounts = {
     accounts: manifest.accounts.length,
@@ -639,6 +671,8 @@ function assertCanaryReceipt(context, manifest, schemaReceipt) {
       ]) && proof.created === true && proof.readback_verified === true && proof.deleted === true &&
         Number.isSafeInteger(proof.count_before) && proof.count_before >= 0 && proof.count_after === proof.count_before &&
         proof.after_key_set_sha256 === proof.before_key_set_sha256 &&
+        proof.count_before === manifest.initial_empty_table_evidence[tableName]?.record_count &&
+        proof.before_key_set_sha256 === manifest.initial_empty_table_evidence[tableName]?.key_set_sha256 &&
         [proof.before_key_set_sha256, proof.canary_primary_sha256, proof.record_id_sha256]
           .every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value));
     });
@@ -657,6 +691,16 @@ function assertCanaryReceipt(context, manifest, schemaReceipt) {
     fail("migration_canary_required", "An authentic same-Base canary receipt is required");
   }
   return receipt;
+}
+
+async function assertBaseEmptyBeforeData(context, manifest) {
+  if (typeof context.readEmptyTableEvidence !== "function") {
+    fail("migration_context_invalid", "Fresh empty Base evidence reader is required");
+  }
+  const actual = await context.readEmptyTableEvidence();
+  if (!plainObject(actual) || !isDeepStrictEqual(canonicalize(actual), canonicalize(manifest.initial_empty_table_evidence))) {
+    fail("base_not_empty", "Formal Base is no longer the empty migration target");
+  }
 }
 
 function assertPermissionAttestation(context, manifest, schemaReceipt) {
@@ -682,6 +726,39 @@ function assertPermissionAttestation(context, manifest, schemaReceipt) {
     fail("migration_permission_attestation_required", "Recent externally observed Base permission evidence is required");
   }
   return attestation;
+}
+
+export function createPermissionAttestation({ manifest, schemaReceipt, observations, actorId, now = () => new Date() } = {}) {
+  assertManifest(manifest);
+  const receipt = assertSchemaReceipt({ expectedSchemaReceiptSha256: schemaReceipt?.sha256 }, manifest, schemaReceipt);
+  const expectedKeys = [
+    "advanced_permissions_enabled", "checked_at", "checked_by", "company_user_access_verified",
+    "observed_via", "primary_and_machine_fields_protected", "version",
+  ];
+  const checkedAt = parseQualifiedInstantMs(observations?.checked_at);
+  const current = typeof now === "function" ? now() : null;
+  const currentMs = current instanceof Date ? current.getTime() : parseQualifiedInstantMs(current);
+  const age = checkedAt === null || !Number.isFinite(currentMs) ? null : currentMs - checkedAt;
+  if (!plainObject(observations) || !isDeepStrictEqual(Object.keys(observations).sort(), expectedKeys) ||
+      observations.version !== "shortdrama-permission-observations/v1" ||
+      !["company-user-ui", "lark-cli-user-readback"].includes(observations.observed_via) ||
+      observations.advanced_permissions_enabled !== true || observations.primary_and_machine_fields_protected !== true ||
+      observations.company_user_access_verified !== true || observations.checked_by !== actorId ||
+      checkedAt === null || age === null || age < -5 * 60_000 || age > 24 * 60 * 60_000) {
+    fail("migration_permission_attestation_required", "Explicit recent company-user permission observations are required");
+  }
+  const attestation = {
+    version: "shortdrama-permission-attestation/v1",
+    base_binding_sha256: manifest.base_binding_sha256,
+    schema_revision: receipt.post_revision,
+    advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true,
+    company_user_access_verified: true,
+    checked_by: actorId,
+    checked_at: observations.checked_at,
+  };
+  attestation.sha256 = permissionAttestationDigest(attestation);
+  return clone(attestation);
 }
 
 function assertRepoSet(repos, { write = true } = {}) {
@@ -988,7 +1065,10 @@ export async function applyMigration(context = {}, manifest) {
   if (await currentSchemaRevision(context) !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision changed after schema verification");
   assertCanaryReceipt(context, manifest, receipt);
   if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
-  if (phase === "data") await applyData(context, manifest);
+  if (phase === "data") {
+    await assertBaseEmptyBeforeData(context, manifest);
+    await applyData(context, manifest);
+  }
   if (phase === "presentation") {
     const readbacks = await applyPresentation(context, manifest);
     const presentationReceipt = {

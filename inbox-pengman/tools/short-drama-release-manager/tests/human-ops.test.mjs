@@ -414,6 +414,54 @@ test("human date and datetime inputs reject invalid calendars before preview all
   fx.close();
 });
 
+test("fixed option enums and drama-name invariants apply to direct, create, batch, and stored writes", async () => {
+  const fx = fixture();
+  await assert.rejects(
+    () => fx.service.applySingleField({
+      actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "平台", value: "InjectedPlatform",
+    }),
+    (error) => error.code === "mutation_value_invalid",
+  );
+  for (const patch of [
+    { 剧名: " ", 平台: "ReelShort" },
+    { 剧名: null, 平台: "ReelShort" },
+    { 剧名: "Valid", 平台: "InjectedPlatform" },
+    { 剧名: "Valid", 推荐人: ["Unknown"] },
+  ]) {
+    await assert.rejects(
+      () => fx.service.previewMutation({ actorId: "ou_operator", chatId: "oc_social", action: "create", table: "选剧池", patch }),
+      (error) => error.code === "mutation_value_invalid",
+    );
+  }
+  await assert.rejects(
+    () => fx.service.previewMutation({
+      actorId: "ou_operator", chatId: "oc_social", action: "batch_update", table: "选剧池",
+      items: [{ key: "SD-000001", patch: { 平台: "InjectedPlatform" } }],
+    }),
+    (error) => error.code === "mutation_value_invalid",
+  );
+  fx.repos.dramas.rows.get("SD-000001").fields.剧名 = null;
+  await assert.rejects(
+    () => fx.service.applySingleField({
+      actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "SD-000001", field: "备注", value: "blocked",
+    }),
+    (error) => error.code === "mutation_value_invalid",
+  );
+  fx.repos.dramas.rows.get("SD-000001").fields.剧名 = "Restored";
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "选剧池", key: "SD-000001", patch: { 平台: "ReelShort" },
+  });
+  const receipt = fx.jobs.getPreview(preview.receipt_id);
+  receipt.patch.targets[0].patch.平台 = "InjectedPlatform";
+  fx.jobs.db.prepare("UPDATE preview_receipts SET patch_json = ? WHERE receipt_id = ?").run(JSON.stringify(receipt.patch), preview.receipt_id);
+  await assert.rejects(
+    () => fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id }),
+    (error) => error.code === "mutation_value_invalid",
+  );
+  assert.deepEqual(fx.writes, []);
+  fx.close();
+});
+
 test("date-only release scheduling stays date-only and qualified instants normalize deterministically", async () => {
   const fx = fixture();
   const dateOnly = await fx.service.previewMutation({
@@ -587,6 +635,22 @@ test("attach-post is release-only, validates exact TikTok URL ownership and uniq
     () => fx.service.previewMutation({ actorId: "ou_operator", chatId: "oc_social", action: "attach-post", table: "发布记录", key: "SR-000002", patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777", "Post ID": "777" } }),
     (error) => error.code === "post_id_claimed",
   );
+  fx.close();
+});
+
+test("attach-post enforces Post ID uniqueness across archived releases", async () => {
+  const fx = fixture({ releaseRows: [
+    { record_id: "rec-active", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account-one" }], 归档状态: "active" } },
+    { record_id: "rec-archived", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account-one" }], "Post ID": "777", 归档状态: "archived" } },
+  ] });
+  await assert.rejects(
+    () => fx.service.previewMutation({
+      actorId: "ou_operator", chatId: "oc_social", action: "attach-post", table: "发布记录", key: "SR-000001",
+      patch: { 视频链接: "https://www.tiktok.com/@dramaexpedition/video/777", "Post ID": "777" },
+    }),
+    (error) => error.code === "post_id_claimed" && error.details.release_id === "SR-000002",
+  );
+  assert.deepEqual(fx.writes, []);
   fx.close();
 });
 

@@ -27,8 +27,65 @@ test("Base v3 offset pagination consumes every page with one token snapshot", as
     revision: 7,
   });
   assert.equal(tokenCalls, 1);
-  assert.match(urls[0], /\/open-apis\/base\/v3\/bases\/base%2Funsafe\/tables\/tbl%20unsafe\/records\?limit=200$/);
+  assert.match(urls[0], /\/open-apis\/base\/v3\/bases\/base%2Funsafe\/tables\/tbl%20unsafe\/records\?limit=200&offset=0$/);
   assert.match(urls[1], /limit=200&offset=next-2$/);
+});
+
+test("v1.0.91 vendor decoders normalize resource arrays, ids, totals, and record matrices", async () => {
+  const calls = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const parsed = new URL(url);
+      calls.push(parsed.pathname + parsed.search);
+      if (parsed.pathname.endsWith("/tables") && options.method === "GET") {
+        const offset = Number(parsed.searchParams.get("offset"));
+        return { code: 0, data: { tables: [{ id: offset === 0 ? "tbl_a" : "tbl_b", name: offset === 0 ? "A" : "B" }], total: 2 } };
+      }
+      if (parsed.pathname.endsWith("/fields") && options.method === "GET") {
+        return { code: 0, data: { fields: [{ id: "fld_a", name: "Name", type: "text" }], total: 1 } };
+      }
+      if (parsed.pathname.endsWith("/views")) {
+        return { code: 0, data: { views: [{ id: "vew_a", name: "Main", type: "grid" }], total: 1 } };
+      }
+      if (parsed.pathname.endsWith("/records")) {
+        return { code: 0, data: {
+          fields: ["Name", "Age"], field_id_list: ["fld_name", "fld_age"],
+          record_id_list: ["rec_a"], data: [["Alice", 18]], total: 1,
+        } };
+      }
+      if (parsed.pathname.endsWith("/fields") && options.method === "POST") {
+        return { code: 0, data: { id: "fld_new", name: "主页链接", type: "text" } };
+      }
+      assert.fail(`unexpected ${options.method} ${parsed.pathname}`);
+    },
+  });
+  assert.deepEqual((await client.listTables("base")).items.map((item) => [item.table_id, item.name]), [["tbl_a", "A"], ["tbl_b", "B"]]);
+  assert.deepEqual((await client.listFields("base", "tbl_a")).items[0].field_id, "fld_a");
+  assert.deepEqual((await client.listViews("base", "tbl_a")).items[0].view_id, "vew_a");
+  assert.deepEqual((await client.listRecords("base", "tbl_a")).items, [{ record_id: "rec_a", fields: { Name: "Alice", Age: 18 } }]);
+  assert.equal((await client.createField("base", "tbl_a", "账号台账", "主页链接")).field_id, "fld_new");
+  assert.ok(calls.some((url) => url.includes("offset=0")));
+  assert.ok(calls.some((url) => url.includes("offset=1")));
+});
+
+test("vendor record matrix and total pagination fail closed on partial or mismatched shapes", async () => {
+  for (const data of [
+    { fields: ["Name"], record_id_list: ["rec"], data: [], total: 1 },
+    { fields: ["Name"], field_id_list: ["fld", "extra"], record_id_list: ["rec"], data: [["A"]], total: 1 },
+    { fields: ["Name"], record_id_list: ["rec"], data: [["A", "extra"]], total: 1 },
+    { fields: ["Name"], record_id_list: ["rec"], data: [["A"]], total: 2, has_more: false },
+  ]) {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data }) });
+    await assert.rejects(() => client.listRecords("base", "tbl"), (error) => error.code === "base_response_invalid");
+  }
+  for (const data of [
+    { tables: [{ id: "tbl_a", table_id: "tbl_b", name: "bad" }], total: 1 },
+    { tables: [{ id: "tbl_a", name: "bad" }], items: [], total: 1 },
+  ]) {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data }) });
+    await assert.rejects(() => client.listTables("base"), (error) => error.code === "base_response_invalid");
+  }
 });
 
 test("dashboard pagination uses page_size/page_token while other lists use limit/offset", async () => {
@@ -49,7 +106,7 @@ test("dashboard pagination uses page_size/page_token while other lists use limit
   await client.listFields("base", "tbl");
   await client.listViews("base", "tbl");
   assert.deepEqual((await client.listDashboards("base")).items.map((item) => item.dashboard_id), ["d1", "d2"]);
-  assert.deepEqual(urls.slice(0, 3).map((url) => new URL(url).search), ["?limit=100", "?limit=200", "?limit=200"]);
+  assert.deepEqual(urls.slice(0, 3).map((url) => new URL(url).search), ["?limit=100&offset=0", "?limit=200&offset=0", "?limit=200&offset=0"]);
   assert.deepEqual(urls.slice(3).map((url) => new URL(url).search), ["?page_size=100", "?page_size=100&page_token=p2"]);
   assert.ok(urls.filter((url) => /\/tables(?:\?|$)|\/dashboards(?:\?|$)/.test(new URL(url).pathname + new URL(url).search))
     .every((url) => !/[?&](?:limit|page_size)=200(?:&|$)/.test(new URL(url).search)));

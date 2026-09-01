@@ -145,16 +145,19 @@ function parseDotenv(bytes) {
 async function assertRelativeParents(configDirectory, relativePath, target) {
   if (isAbsolute(relativePath)) invalid("paths.env_file must be relative to runtime config");
   let cursor = configDirectory;
-  const parts = relativePath.split(/[\\/]+/);
-  for (let index = 0; index < parts.length - 1; index += 1) {
-    const part = parts[index];
-    if (part === "" || part === ".") continue;
-    if (part === "..") { cursor = dirname(cursor); continue; }
-    cursor = resolve(cursor, part);
+  const inspectDirectory = async () => {
     let info;
     try { info = await lstat(cursor); }
     catch { invalid("Dotenv parent directory is unavailable"); }
     if (info.isSymbolicLink() || !info.isDirectory()) invalid("Dotenv parent directory is unsafe");
+  };
+  await inspectDirectory();
+  const parts = relativePath.split(/[\\/]+/);
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    const part = parts[index];
+    if (part === "" || part === ".") continue;
+    cursor = part === ".." ? dirname(cursor) : resolve(cursor, part);
+    await inspectDirectory();
   }
   if (resolve(configDirectory, relativePath) !== target) invalid("Dotenv path resolution failed");
 }

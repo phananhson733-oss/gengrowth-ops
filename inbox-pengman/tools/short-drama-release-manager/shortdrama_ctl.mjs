@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import { constants as fsConstants, lstatSync, readFileSync } from "node:fs";
 import { lstat, open, readFile, realpath } from "node:fs/promises";
@@ -11,7 +11,7 @@ import { DatabaseSync } from "node:sqlite";
 import { BaseRepositories } from "./src/base-repositories.mjs";
 import { loadRuntimeConfig, loadRuntimeEnvironment } from "./src/config.mjs";
 import { ShortDramaError, toErrorResult } from "./src/errors.mjs";
-import { createTenantTokenProvider, FeishuClient, fixedFieldDescriptor } from "./src/feishu-client.mjs";
+import { createTenantTokenProvider, FeishuClient, fixedFieldDescriptor, fixedTerminalDashboardBlockDescriptor } from "./src/feishu-client.mjs";
 import { readGoogleMigrationSource } from "./src/google-source.mjs";
 import { HumanOpsService } from "./src/human-ops.mjs";
 import { allocateBusinessId, makeRunId, seedBusinessIdSequence } from "./src/ids.mjs";
@@ -20,6 +20,7 @@ import {
   MIGRATION_ARTIFACT_ROOT,
   applyMigration,
   canaryReceiptDigest,
+  createPermissionAttestation,
   manifestDigest,
   permissionAttestationDigest,
   planMigration,
@@ -44,6 +45,7 @@ const REGISTRY = Object.freeze({
   doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
   migrate: Object.freeze({
     plan: ["config", "output", "actor-id", "chat-id", "expected-base-token"],
+    "attest-permissions": ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "observations", "expected-observations-file-sha256", "output", "actor-id", "expected-base-token"],
     apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "canary-receipt", "expected-canary-sha256", "permission-attestation", "expected-permission-attestation-sha256", "expected-permission-attestation-file-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm", "expected-base-token"],
     verify: ["config", "manifest", "output", "actor-id", "chat-id", "expected-base-token"],
   }),
@@ -74,6 +76,7 @@ const REGISTRY = Object.freeze({
 const REQUIRED = Object.freeze({
   "migrate:apply": ["phase", "manifest", "expectedSha256"],
   "migrate:verify": ["manifest"],
+  "migrate:attest-permissions": ["manifest", "expectedSha256", "schemaReceipt", "expectedSchemaReceiptSha256", "observations", "expectedObservationsFileSha256", "output", "expectedBaseToken"],
   "account:get": ["key"], "capture:get": ["key"], "pool:get": ["key"], "release:get": ["key"],
   "sync:status": ["runId"],
 });
@@ -165,8 +168,50 @@ function readInstalledCapability(capabilityPath) {
 }
 
 function localActorRequired(command) {
-  return command.group === "migrate" && ["apply", "verify"].includes(command.action) ||
-    command.group === "doctor" && (command.options.canary || command.options.initState);
+  return command.group === "migrate" || command.group === "doctor";
+}
+
+function processRow(pid) {
+  const output = execFileSync("/bin/ps", ["-p", String(pid), "-o", "ppid=,comm=,args="], {
+    encoding: "utf8", timeout: 1_000, maxBuffer: 64 * 1024,
+  }).trim();
+  const match = /^(\d+)\s+(\S+)\s*(.*)$/.exec(output);
+  if (!match) return null;
+  return { pid, ppid: Number(match[1]), command: match[2], args: match[3] };
+}
+
+export function inspectTrustedLocalInvoker({
+  stdin = process.stdin,
+  stdout = process.stdout,
+  pid = process.pid,
+  readProcess = processRow,
+  maxDepth = 16,
+} = {}) {
+  if (stdin?.isTTY !== true || stdout?.isTTY !== true || !Number.isSafeInteger(pid) || pid <= 1 ||
+      typeof readProcess !== "function" || !Number.isSafeInteger(maxDepth) || maxDepth < 2 || maxDepth > 32) return false;
+  const blockedExecutable = /^(?:hermes|codex|electron|run_agent\.py|tui_gateway|process-registry|backend-command)(?:$|[._-])/i;
+  const terminalExecutable = /^(?:terminal|iterm2?|wezterm-gui|alacritty|kitty)$/i;
+  const seen = new Set();
+  let current = pid;
+  let sawTerminal = false;
+  try {
+    for (let depth = 0; depth < maxDepth && current > 1; depth += 1) {
+      if (seen.has(current)) return false;
+      seen.add(current);
+      const row = readProcess(current);
+      if (!row || row.pid !== current || !Number.isSafeInteger(row.ppid) || row.ppid < 0 ||
+          typeof row.command !== "string" || typeof row.args !== "string") return false;
+      const executable = row.command.split("/").pop();
+      const argumentExecutables = row.args.split(/\s+/).filter(Boolean).map((value) => value.replace(/^['"]|['"]$/g, "").split("/").pop());
+      if (blockedExecutable.test(executable) || argumentExecutables.some((value) => blockedExecutable.test(value))) return false;
+      if (terminalExecutable.test(executable)) sawTerminal = true;
+      if (row.ppid <= 1) return sawTerminal;
+      current = row.ppid;
+    }
+  } catch {
+    return false;
+  }
+  return false;
 }
 
 export function resolveInvocationIdentity(command, env = {}, policy = {}) {
@@ -213,6 +258,9 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
     if (!actorId) fail("actor_required", "Privileged local action requires an explicit actor");
     if (typeof policy.isPrivilegedAllowed !== "function" || !policy.isPrivilegedAllowed(actorId)) {
       fail("privileged_required", "Local action requires a privileged actor", { actor: actorId });
+    }
+    if (typeof policy.isTrustedLocalInvoker !== "function" || policy.isTrustedLocalInvoker({ command, actorId }) !== true) {
+      fail("local_invoker_untrusted", "Local admin actions require a standalone interactive human Terminal ancestry");
     }
   }
   return { mode: "local", actorId, chatId: null, profile: null };
@@ -379,6 +427,14 @@ async function loadMigrationEvidence(command) {
       evidenceMismatch("Schema receipt does not match the independently supplied digest and manifest");
     }
     evidence.schemaReceipt = receipt;
+    if (key === "migrate:attest-permissions") {
+      const loadedObservations = await readMigrationFile(command.options.observations);
+      const expectedObservationsFile = exactDigest(command.options.expectedObservationsFileSha256, "expectedObservationsFileSha256");
+      const actualObservationsFile = createHash("sha256").update(loadedObservations.bytes).digest("hex");
+      if (actualObservationsFile !== expectedObservationsFile) evidenceMismatch("Permission observations file does not match its independent digest");
+      evidence.observations = loadedObservations.value;
+      return evidence;
+    }
     if (!command.options.canaryReceipt || !command.options.expectedCanarySha256) {
       fail("migration_canary_required", "Canary receipt and its independent digest are required");
     }
@@ -640,8 +696,18 @@ function humanRequest(identity, table, payload = {}) {
   return { ...payload, actorId: identity.actorId, ...(identity.chatId ? { chatId: identity.chatId } : {}), table };
 }
 
-function queryRequest(identity, table, extra = {}) {
-  return { actorId: identity.actorId, table, ...extra };
+function queryRequest(identity, table, extra = {}, fixedFilter = null) {
+  if (extra === null || typeof extra !== "object" || Array.isArray(extra) ||
+      ![Object.prototype, null].includes(Object.getPrototypeOf(extra)) ||
+      Object.keys(extra).some((key) => !["filter", "sort"].includes(key))) {
+    fail("payload_invalid", "Query payload accepts only filter and sort");
+  }
+  assertSafeJson(extra);
+  const request = {};
+  if (extra.sort !== undefined) request.sort = structuredClone(extra.sort);
+  const filter = fixedFilter ?? extra.filter;
+  if (filter !== undefined) request.filter = structuredClone(filter);
+  return { actorId: identity.actorId, table, ...request };
 }
 
 function completeReadResult(table, rows, key = null) {
@@ -664,6 +730,12 @@ export function createDispatcher(runtime) {
   if (!runtime || typeof runtime !== "object") fail("runtime_invalid", "Dispatcher runtime is invalid");
   return async (command, identity, payload) => {
     const key = `${command.group}:${command.action}`;
+    const schemaGuarded = ["account", "capture", "pool", "release", "metrics"].includes(command.group) ||
+      key === "sync:start" || key === "schedule:tick";
+    if (schemaGuarded) {
+      if (typeof runtime.assertRuntimeSchemaReady !== "function") fail("runtime_invalid", "Runtime schema guard is required");
+      await runtime.assertRuntimeSchemaReady();
+    }
     if (command.group === "doctor") {
       if ((command.options.canary || command.options.initState) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
       return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity, payload }) : { status: "ready" };
@@ -686,7 +758,9 @@ export function createDispatcher(runtime) {
     if (key === "pool:get" || key === "release:get") {
       const table = command.group === "pool" ? "选剧池" : "发布记录";
       const primary = table === "选剧池" ? "剧ID" : "发布ID";
-      return completeReadResult(table, await runtime.humanOps.query(queryRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } })), command.options.key);
+      return completeReadResult(table, await runtime.humanOps.query(queryRequest(
+        identity, table, payload ?? {}, { [primary]: command.options.key },
+      )), command.options.key);
     }
     if (key === "metrics:by-drama" || key === "metrics:by-account") return runtime.humanOps.queryMetrics({ actorId: identity.actorId, groupBy: command.action === "by-drama" ? "drama" : "account" });
     if (key === "pool:create" || key === "release:schedule") {
@@ -764,6 +838,10 @@ export function createDispatcher(runtime) {
       return { status: "alerted", beijing_date: parts.date, ...state };
     }
     if (key === "migrate:plan") return runtime.migratePlan(payload, command.options);
+    if (key === "migrate:attest-permissions") {
+      if (!runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Permission attestation requires a privileged actor");
+      return runtime.attestPermissions(payload, command.options, identity);
+    }
     if (key === "migrate:apply") {
       if (!runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Migration apply requires a privileged actor");
       if (command.options.confirm !== "apply-now") fail("action_confirmation_required", "Migration apply requires --confirm apply-now");
@@ -777,14 +855,28 @@ export function createDispatcher(runtime) {
   };
 }
 
-async function baseSchemaMetadata(client, config) {
+async function baseSchemaMetadata(client, config, { includeRecordEvidence = false } = {}) {
   const tables = await client.listTables(config.base.appToken);
   if (!tables || tables.complete !== true || !Array.isArray(tables.items)) fail("base_response_incomplete", "Complete configured Base table metadata is required");
   const selected = [];
   for (const table of tables.items) {
     if (!Object.values(config.base.tableIds).includes(table.table_id)) continue;
     const fields = await client.listFields(config.base.appToken, table.table_id);
-    selected.push({ ...table, fields: fields.items, revision: fields.revision });
+    if (!fields || fields.complete !== true || !Array.isArray(fields.items)) {
+      fail("base_response_incomplete", "Complete Base field metadata is required");
+    }
+    const selectedTable = { ...table, fields: fields.items, revision: fields.revision };
+    if (includeRecordEvidence) {
+      const records = await client.listRecords(config.base.appToken, table.table_id);
+      if (!records || records.complete !== true || !Array.isArray(records.items) ||
+          records.items.some((record) => typeof record?.record_id !== "string" || record.record_id.length === 0)) {
+        fail("base_response_incomplete", "Complete Base record metadata is required");
+      }
+      const recordKeys = records.items.map((record) => record.record_id).sort();
+      selectedTable.record_count = recordKeys.length;
+      selectedTable.primary_key_set_sha256 = createHash("sha256").update(JSON.stringify(recordKeys)).digest("hex");
+    }
+    selected.push(selectedTable);
   }
   const canonical = JSON.stringify(selected.map((table) => ({
     table_id: table.table_id, name: table.name, revision: table.revision ?? null,
@@ -918,7 +1010,24 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       allocateReleaseId: () => allocateBusinessId(jobs.db, "release"),
     });
     const sendMessage = createFeishuMessageSender({ tokenProvider, isChatAllowed: config.auth.isNotificationChatAllowed });
-    const notifier = new NotifierConstructor({ allowedChatIds: notificationChatIds, sendMessage, jobs });
+    const updateTerminalDashboard = async (job) => {
+      const dashboards = await client.listDashboards(config.base.appToken);
+      if (dashboards?.complete !== true || !Array.isArray(dashboards.items)) fail("base_response_incomplete", "Complete dashboard list is required");
+      const matches = dashboards.items.filter((item) => item.name === "短剧发行管理仪表盘");
+      if (matches.length !== 1 || typeof matches[0].dashboard_id !== "string") fail("base_schema_drift", "Fixed terminal dashboard is missing or duplicate");
+      const dashboardId = matches[0].dashboard_id;
+      const blocks = await client.listDashboardBlocks(config.base.appToken, dashboardId);
+      if (blocks?.complete !== true || !Array.isArray(blocks.items)) fail("base_response_incomplete", "Complete dashboard block list is required");
+      const blockMatches = blocks.items.filter((item) => item.name === "最近一次同步终态");
+      if (blockMatches.length !== 1 || typeof blockMatches[0].block_id !== "string") fail("base_schema_drift", "Fixed terminal dashboard block is missing or duplicate");
+      const blockId = blockMatches[0].block_id;
+      const terminal = { state: job.state, runId: job.run_id, finishedAt: job.finished_at };
+      const expected = fixedTerminalDashboardBlockDescriptor(terminal);
+      await client.updateDashboardTerminalBlock(config.base.appToken, dashboardId, blockId, terminal);
+      const readback = await client.readDashboardBlock(config.base.appToken, dashboardId, blockId, expected.name);
+      if (JSON.stringify(readback.data_config) !== JSON.stringify(expected.data_config)) fail("readback_mismatch", "Terminal dashboard readback did not match persisted job");
+    };
+    const notifier = new NotifierConstructor({ allowedChatIds: notificationChatIds, sendMessage, updateTerminalDashboard, jobs });
     const opsChatId = normalized(env.SHORTDRAMA_OPS_CHAT_ID, "opsChatId");
     if (!config.auth.isNotificationChatAllowed(opsChatId)) fail("notification_target_denied", "Ops chat is not allowlisted");
     const wakeWorker = createWakeWorker({ spawnFile });
@@ -928,8 +1037,23 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     });
     const syncContext = { jobs, makeRunId, wakeWorker, now };
     const workerPid = process.pid;
-    const workerContext = { jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts }, workerPid, now, metricsSqlitePath: config.paths.metricsSqlite };
-    const migrationBase = services.readSchema ?? (async () => baseSchemaMetadata(client, config));
+    const runtimeSchema = services.readSchema ?? (async () => baseSchemaMetadata(client, config));
+    const migrationBase = services.readMigrationSchema ?? services.readSchema ??
+      (async () => baseSchemaMetadata(client, config, { includeRecordEvidence: true }));
+    const assertRuntimeSchemaReady = async () => {
+      const schema = await runtimeSchema();
+      const readiness = schemaReadiness(schema, config);
+      if (readiness.status === "ready") return schema.revision;
+      if (["base_table_missing", "schema_missing"].includes(readiness.status)) {
+        fail("schema_missing", "Runtime Base schema is incomplete", readiness);
+      }
+      fail("base_schema_drift", "Runtime Base schema does not match the fixed contract", readiness);
+    };
+    const workerContext = {
+      jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts },
+      workerPid, now, metricsSqlitePath: config.paths.metricsSqlite,
+      assertSchemaReady: assertRuntimeSchemaReady,
+    };
     const baseBindingSha256 = createHash("sha256").update(JSON.stringify({
       app_token: config.base.appToken,
       table_ids: Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
@@ -944,12 +1068,13 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     });
     const runtime = {
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
+      assertRuntimeSchemaReady,
       runWorker: runSyncWorker,
       sendOpsHealth: sendMessage,
       async doctor({ canary, initState: requestedInitState, payload, identity }) {
         if (requestedInitState === true && !initState) fail("state_init_context_invalid", "State initialization requires its explicit CLI command");
         const sequence = jobs.peekSequenceState();
-        const schema = await migrationBase();
+        const schema = await runtimeSchema();
         const readiness = schemaReadiness(schema, config);
         if (requestedInitState) {
           const { status: schemaStatus, ...schemaDetails } = readiness;
@@ -987,9 +1112,24 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
         const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), baseBindingSha256, now: () => now().toISOString() });
         return manifest;
       },
+      async attestPermissions(payload, _options, identity) {
+        return createPermissionAttestation({
+          manifest: payload.manifest,
+          schemaReceipt: payload.schemaReceipt,
+          observations: payload.observations,
+          actorId: identity.actorId,
+          now,
+        });
+      },
       async migrateApply(payload, options) {
         const manifest = payload.manifest;
         const google = await readGoogle();
+        let schemaSnapshotPromise;
+        const schemaSnapshot = () => {
+          if (options.phase === "schema") return migrationBase();
+          schemaSnapshotPromise ??= migrationBase();
+          return schemaSnapshotPromise;
+        };
         const context = { repos, phase: options.phase, baseBindingSha256, tableBindingsSha256, actorId: options.actorId ?? payload.actorId,
           expectedSha256: manifest.sha256, sourceRevision: google.revision, schemaReceipt: payload.schemaReceipt,
           expectedSchemaReceiptSha256: payload.schemaReceipt?.sha256,
@@ -997,7 +1137,17 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           permissionAttestation: payload.permissionAttestation,
           expectedPermissionAttestationSha256: payload.permissionAttestation?.sha256,
           verification: payload.verification, expectedVerificationSha256: payload.verification?.sha256,
-          getSchemaRevision: async () => (await migrationBase()).revision,
+          getSchemaRevision: async () => (await schemaSnapshot()).revision,
+          readEmptyTableEvidence: async () => {
+            const snapshot = await schemaSnapshot();
+            return Object.fromEntries(TABLE_ORDER.map((tableName) => {
+              const table = snapshot.tables.find((candidate) => candidate.name === tableName);
+              return [tableName, {
+                record_count: table?.record_count,
+                key_set_sha256: table?.primary_key_set_sha256,
+              }];
+            }));
+          },
           schemaAdapter: adapters.schemaAdapter, presentationAdapter: adapters.presentationAdapter,
           seedSequence: (kind, value) => seedBusinessIdSequence(jobs.db, kind, value), now,
         };
@@ -1056,7 +1206,13 @@ function sanitizeErrorResult(result) {
   return copy;
 }
 
-export async function execute(argv, { env = process.env, stdin = process.stdin, build = buildRuntime, loadEnvironment = loadRuntimeEnvironment } = {}) {
+export async function execute(argv, {
+  env = process.env,
+  stdin = process.stdin,
+  build = buildRuntime,
+  loadEnvironment = loadRuntimeEnvironment,
+  isTrustedLocalInvoker = inspectTrustedLocalInvoker,
+} = {}) {
   let runtime;
   let outputReservation;
   try {
@@ -1070,17 +1226,31 @@ export async function execute(argv, { env = process.env, stdin = process.stdin, 
       fail("local_only_required", "State initialization cannot run from an internal scheduler context");
     }
     const canResolveBeforeRuntime = isInternal(command) || hasSession || ["account", "capture", "pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
+    if (!canResolveBeforeRuntime && localActorRequired(command) && isTrustedLocalInvoker({ command, actorId: command.options.actorId ?? null }) !== true) {
+      fail("local_invoker_untrusted", "Local admin actions require a standalone interactive human Terminal ancestry");
+    }
     const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, effectiveEnv) : null;
     const migrationEvidence = await loadMigrationEvidence(command);
     if (command.options.output) outputReservation = await reserveMigrationArtifact(command.options.output);
     runtime = await build({ configPath, env: effectiveEnv, command });
-    const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, effectiveEnv, runtime.config?.auth ?? {});
+    const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, effectiveEnv, {
+      ...(runtime.config?.auth ?? {}),
+      isTrustedLocalInvoker: () => true,
+    });
     const payload = migrationEvidence ?? await readPayload(command.options.payload, { payloadRoot: runtime.config.paths.payloadRoot, stdin });
     if (payloadRequired(command) && !payload) fail("payload_required", "Command requires an explicit payload");
-    const result = await createDispatcher(runtime)(command, identity, payload);
+    let result = await createDispatcher(runtime)(command, identity, payload);
     if (outputReservation) {
-      await outputReservation.write(result);
+      const written = await outputReservation.write(result);
       outputReservation = null;
+      if (command.group === "migrate" && command.action === "attest-permissions") {
+        result = {
+          status: "created",
+          artifact_file: command.options.output,
+          semantic_sha256: result.sha256,
+          file_sha256: written.sha256,
+        };
+      }
     }
     return { result, exitCode: exitCodeFor(result) };
   } catch (error) {

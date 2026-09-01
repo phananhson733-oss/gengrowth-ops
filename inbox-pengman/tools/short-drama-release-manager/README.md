@@ -26,18 +26,18 @@
 ```bash
 export RUNTIME_CONFIG="$PWD/shortdrama.runtime.json"
 export EXPECTED_BASE_TOKEN="<动作时从正式 Base URL/资源信息独立核对的 token>"
-node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN"
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN" --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
 
 ## Public commands
 
-普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用 `--actor-id` 或 `--chat-id`冒充。Runner 自身拒绝任何 Feishu Social 会话调用 doctor、migration、schedule 或 queue，即使 actor 是 privileged，也不能只依赖 Skill/plugin 拦截。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
+普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用`--actor-id`或`--chat-id`冒充。Runner 自身拒绝任何 Feishu Social 会话调用 doctor、migration、permission helper、schedule 或 queue。所有本地 doctor/migrate 管理命令只能由用户在独立 macOS Terminal/iTerm 等真实 TTY 中直接执行，Runner 会有界检查进程祖先；Hermes gateway、run_agent、TUI/desktop backend、Codex task 或来源未知的间接 shell 即使清空全部`HERMES_*`变量也会被拒绝。Task 12/13 的管理员命令必须由用户动作时确认后亲自在独立 Terminal 执行，不能由 Social Bot/Codex 代跑。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
 
 ### Doctor 与迁移
 
 ```bash
 # 只读 doctor
-node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN"
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN" --actor-id "$PRIVILEGED_ACTOR_ID"
 
 # 首次初始化本地 state DB：local-only + privileged + 动作时确认
 node shortdrama_ctl.mjs doctor --init-state --config "$RUNTIME_CONFIG" --actor-id "$PRIVILEGED_ACTOR_ID"
@@ -50,7 +50,7 @@ node shortdrama_ctl.mjs doctor --canary --config "$RUNTIME_CONFIG" \
 
 # 只读 migration plan
 node shortdrama_ctl.mjs migrate plan --config "$RUNTIME_CONFIG" \
-  --expected-base-token "$EXPECTED_BASE_TOKEN" --output "$PLAN_FILE"
+  --expected-base-token "$EXPECTED_BASE_TOKEN" --output "$PLAN_FILE" --actor-id "$PRIVILEGED_ACTOR_ID"
 
 # privileged apply；每次均需动作时确认、manifest digest 和对应 receipt 链
 node shortdrama_ctl.mjs migrate apply --phase schema --config "$RUNTIME_CONFIG" \
@@ -90,7 +90,28 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
 
 正式 Base 必须先由公司用户在 UI 或已授权的`lark-cli`中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把真实 table ID 写入本地 env。Runner 不动态建表；任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
 
-`doctor --init-state`、`doctor --canary`、所有`migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation/sequences 需要独立 manifest、schema receipt 和同 Base canary receipt；sequences 还需要 verification 文件字节 digest。data 另需公司用户通过 Base UI/`lark-cli`读回后制作的外部 permission attestation，精确证明高级权限已启用、主键/机器字段已保护、公司用户访问已验证，并提供独立语义 digest 与文件字节 digest。Runner 只验证这份外部用户权限证据的结构、Base/schema/actor 绑定和 24 小时新鲜度，不宣称能独立验证 UI 字段保护。schema receipt 丢失或无法证明时必须停止，返回/遵循`replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
+首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
+
+`doctor --init-state`、`doctor --canary`、所有`migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation/sequences 需要独立 manifest、schema receipt 和同 Base canary receipt；sequences 还需要 verification 文件字节 digest。data 另需公司用户通过 Base UI/`lark-cli`读回后形成显式 observations 文件，再用下方离线固定命令生成 permission attestation。Runner 只验证外部观察的结构、Base/schema/actor 绑定和 24 小时新鲜度，不宣称能独立验证 UI 字段保护。schema receipt 丢失或无法证明时必须停止，返回/遵循`replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
+
+```bash
+export OBSERVATIONS_FILE="permission-observations-$(date +%Y%m%d-%H%M%S).json"
+# 公司用户先在 UI/lark-cli 逐项读回；确认后生成 exact observations JSON。
+umask 077
+jq -n --arg actor "$PRIVILEGED_ACTOR_ID" --arg checked_at "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)" \
+  '{version:"shortdrama-permission-observations/v1",observed_via:"lark-cli-user-readback",advanced_permissions_enabled:true,primary_and_machine_fields_protected:true,company_user_access_verified:true,checked_by:$actor,checked_at:$checked_at}' \
+  > "$MIGRATION_ROOT/$OBSERVATIONS_FILE"
+export OBSERVATIONS_FILE_SHA256="$(shasum -a 256 "$MIGRATION_ROOT/$OBSERVATIONS_FILE" | awk '{print $1}')"
+export PERMISSION_ATTESTATION_FILE="permission-attestation-$(date +%Y%m%d-%H%M%S).json"
+node shortdrama_ctl.mjs migrate attest-permissions --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --schema-receipt "$SCHEMA_RECEIPT_FILE" --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --observations "$OBSERVATIONS_FILE" --expected-observations-file-sha256 "$OBSERVATIONS_FILE_SHA256" \
+  --output "$PERMISSION_ATTESTATION_FILE" --expected-base-token "$EXPECTED_BASE_TOKEN" --actor-id "$PRIVILEGED_ACTOR_ID"
+export PERMISSION_ATTESTATION_SHA256="$(jq -er '.sha256' "$MIGRATION_ROOT/$PERMISSION_ATTESTATION_FILE")"
+export PERMISSION_ATTESTATION_FILE_SHA256="$(shasum -a 256 "$MIGRATION_ROOT/$PERMISSION_ATTESTATION_FILE" | awk '{print $1}')"
+# stdout 同时显示 artifact_file、semantic_sha256、file_sha256；不得重定向，否则会失去管理员 TTY 证明。
+```
 
 canary 是唯一允许物理清理的 **canary-only** 路径：在动作时确认的维护窗口内，只删除本次固定 canary record ID，并为四表记录 create/read/delete、前后 count 和 key-set hash，输出绑定 manifest/Base/table IDs/schema revision 的不可覆盖 receipt。Base API 没有为该删除提供 CAS；GET→delete 仍有并发窗口，因此 receipt 证明的是受控维护窗口与最终集合恢复，不是原子 CAS。业务路径不做物理删除；归档是逻辑状态变化，任何`canary_cleanup_failed`都按`manual_repair`停止。
 
@@ -127,6 +148,8 @@ node shortdrama_ctl.mjs metrics by-account --config "$RUNTIME_CONFIG"
 
 四个`list|get`族都返回统一的`table + rows/record + readback=complete + source=base_complete_index`，缺失精确返回`not_found`。`pool/release update-field`只接受精确`{key,field,value}`；`preview-batch`只接受精确`{items:[{key,patch},...]}`并固定 action/table/actor/chat，继续用`apply-update`的 receipt 落地；多字段/归档必须先 preview，再用 receipt apply。`account/capture`严格只读。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
 
+每个普通 Base 查询/人工 mutation、`sync start`入队和 worker Collector/Base 副作用前都在该次 CLI 进程内重新读取并验证四表绑定和完整字段 descriptor，不跨进程缓存 doctor 结果。任一 schema drift/missing 均在业务副作用前失败。`Post ID`在全部发布记录中全局唯一，archived 记录同样保留 claim；同步不会写 archived，但会在 active inference 前预留其 Post。
+
 ### 异步同步
 
 ```bash
@@ -152,13 +175,13 @@ node shortdrama_ctl.mjs queue drain --config "$RUNTIME_CONFIG"
 node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 ```
 
-`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是`./install_launchd.sh "$RUNTIME_CONFIG" "$EXPECTED_BASE_TOKEN"`，但只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
+`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是`./install_launchd.sh "$RUNTIME_CONFIG" "$EXPECTED_BASE_TOKEN" "$PRIVILEGED_ACTOR_ID"`；installer 继承用户 Terminal TTY运行 doctor，不用 command substitution 绕过来源证明。只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
 
 验收必须观察至少一次真实北京时间 08:00 的**自然调度**，并记录 schedule run_id、Collector terminal、Base readback 和通知。手工 `sync start`、launchctl kickstart、服务 loaded 或进程存活不能替代自然调度证据。切换验收还要求**连续七天**全绿；失败后从新的连续成功日重新计数，不能拼接非连续日期。
 
 ## 环境变量契约
 
-真实值只进入未提交的安全环境；`.env.example`仅列空 key。每次 launchd/manual CLI 都先读取 runtime JSON 的`paths.env_file`，然后以`O_NOFOLLOW`单次打开该 0600（或同等无 group/other 权限）的普通文件；任何缺失、symlink/parent symlink、权限过宽、超限、重复或 malformed dotenv 都在网络前`config_invalid`。
+真实值只进入未提交的安全环境；`.env.example`仅列空 key。每次 launchd/manual CLI 都先读取 runtime JSON 的`paths.env_file`，从 config 起始目录开始逐级检查每个父目录和每个`..`跳转，再以`O_NOFOLLOW`单次打开该 0600（或同等无 group/other 权限）的普通文件；任何缺失、symlink/parent symlink、权限过宽、超限、重复或 malformed dotenv 都在网络前`config_invalid`。
 
 dotenv 仅按严格`KEY=value`数据解析，绝不 shell source/eval/expand，也不执行变量、反引号或命令替换。Runner 只导入 runtime config 明确引用的下列 key 加固定`SHORTDRAMA_OPS_CHAT_ID`；其他 collector/legacy/任意 key 即使出现在共享`.env`也不会进入 Runner env。调用进程显式提供的同名值优先于文件值，供受控诊断覆盖；空覆盖仍按配置校验失败，不静默回退。
 

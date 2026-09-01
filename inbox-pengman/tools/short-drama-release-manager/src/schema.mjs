@@ -47,8 +47,8 @@ export const TABLES = Object.freeze({
     [],
     ["是否已排期", "关联发布记录", "创建人", "创建时间", "最后修改时间"],
     {
-      platform: ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"],
-      recommender: ["彭满", "高璇", "马博洋"],
+      平台: ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"],
+      推荐人: ["彭满", "高璇", "马博洋"],
     }
   ),
   "采集数据": table(

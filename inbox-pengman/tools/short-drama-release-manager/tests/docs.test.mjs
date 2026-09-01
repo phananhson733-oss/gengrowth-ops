@@ -41,7 +41,7 @@ test("README lists the exact public and internal Runner command surface", async 
   const { readme } = await docs();
   for (const command of [
     "doctor --config", "doctor --init-state", "doctor --canary",
-    "migrate plan", "migrate apply", "migrate verify",
+    "migrate plan", "migrate apply", "migrate verify", "migrate attest-permissions",
     "account list", "account get", "capture list", "capture get",
     "pool list", "pool get", "pool create", "pool update-field", "pool preview-update", "pool apply-update", "pool preview-archive", "pool apply-archive",
     "pool preview-batch",
@@ -61,6 +61,7 @@ test("README documents migration gates, async truth, natural schedule acceptance
     "queued", "already_running", "worker_wakeup_failed", "started", "manual_repair", "原始请求会话",
     "08:00", "10:00", "自然调度", "连续七天", "不能", "单写者", "回滚",
     "expected-base-token", "canary receipt", "permission attestation", "四张空表", "create_four_empty_tables_and_bind_ids",
+    "base_not_empty", "独立 macOS Terminal", "schema drift", "observations", "semantic_sha256", "file_sha256",
   ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
   assert.match(readme, /不做物理删除/);
   assert.match(readme, /canary-only/);

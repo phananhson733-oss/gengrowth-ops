@@ -48,6 +48,10 @@ test("schema fixes the four Base tables and source ownership", () => {
   assert.equal(fieldOwner("采集数据", "播放量"), "machine");
   assert.equal(fieldOwner("发布记录", "播放量"), "derived");
   assert.equal(fieldOwner("发布记录", "Post ID"), "shared");
+  assert.deepEqual(TABLES["选剧池"].options, {
+    平台: ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"],
+    推荐人: ["彭满", "高璇", "马博洋"],
+  });
 });
 
 test("schema uses supported system fields, writable sync storage, and Base formulas", () => {

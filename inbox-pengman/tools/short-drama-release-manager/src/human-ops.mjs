@@ -225,6 +225,7 @@ function exactCalendarDate(value) {
 function normalizeFieldValue(table, field, value, { internalRelation = false } = {}) {
   safeValue(value, field);
   const spec = fieldSpec(table, field);
+  const fixedOptions = TABLES[table]?.options?.[field];
   if (spec.kind === "link") {
     if (!internalRelation || !Array.isArray(value) || value.length !== 1 || !plainObject(value[0]) ||
         Object.keys(value[0]).length !== 1 || typeof value[0].id !== "string" ||
@@ -232,6 +233,16 @@ function normalizeFieldValue(table, field, value, { internalRelation = false } =
       fail("relation_value_invalid", "Relation must be resolved internally to one record", { table, field });
     }
     return value;
+  }
+  if (fixedOptions) {
+    const values = spec.kind === "multi_select" && Array.isArray(value) ? value : [value];
+    if (values.some((item) => typeof item !== "string" || !fixedOptions.includes(item))) {
+      fail("mutation_value_invalid", "Select value is outside the fixed schema options", { table, field });
+    }
+  }
+  if (table === "选剧池" && field === "剧名" &&
+      (typeof value !== "string" || value.trim() !== value || value.length === 0)) {
+    fail("mutation_value_invalid", "Drama name must be a nonblank normalized string", { table, field });
   }
   if (value === null) return value;
   if (spec.kind === "number") {
@@ -274,6 +285,14 @@ function normalizeFieldValue(table, field, value, { internalRelation = false } =
 
 function validateFieldValue(table, field, value, options) {
   normalizeFieldValue(table, field, value, options);
+}
+
+function assertDramaNameInvariant(table, patch, currentFields = null) {
+  if (table !== "选剧池") return;
+  const value = Object.hasOwn(patch, "剧名") ? patch.剧名 : currentFields?.剧名;
+  if (typeof value !== "string" || value.trim() !== value || value.length === 0) {
+    fail("mutation_value_invalid", "Every drama mutation requires a nonblank existing or patched 剧名");
+  }
 }
 
 function assertHumanField(table, field, { allowRelation = true } = {}) {
@@ -687,11 +706,12 @@ export class HumanOpsService {
       const index = await this.#leasedStep(renew, () => this.#index(table));
       const record = index.get(key);
       if (!record) fail("business_record_not_found", "Business record was not found", { table, key });
+      const patch = { [field]: clone(normalizedValue) };
+      assertDramaNameInvariant(table, patch, record.fields);
       const beforeState = cellState(record.fields, field);
       if (equal(beforeState, { present: true, value: normalizedValue })) {
         return mutationResult({ status: "unchanged", actor, recordId: key, changedFields: [], nextStep: "none" });
       }
-      const patch = { [field]: clone(normalizedValue) };
       const result = await this.#leasedStep(renew, () => tableRepository(this.#repos, table).upsertByKey(key, patch, "human"));
       const readback = result.record?.fields?.[field];
       if (!equal(readback, normalizedValue) || result.readback !== "verified") {
@@ -762,6 +782,7 @@ export class HumanOpsService {
       let key;
       if (plainObject(request.patch)) assertProtectedAction(action, table, request.patch, { caller: true });
       const patch = await this.#normalizePatch(table, request.patch, { create: true });
+      assertDramaNameInvariant(table, patch);
       if (["选剧池", "发布记录"].includes(table)) patch.归档状态 = "active";
       assertProtectedAction(action, table, patch);
       if (table === "账号台账") {
@@ -796,6 +817,7 @@ export class HumanOpsService {
         seen.add(resolved.key);
         if (plainObject(item.patch)) assertProtectedAction(action, table, item.patch, { caller: true });
         const patch = await this.#normalizePatch(table, item.patch);
+        assertDramaNameInvariant(table, patch, resolved.record.fields);
         assertProtectedAction(action, table, patch);
         targets.push({ key: resolved.key, patch, record: resolved.record });
       }
@@ -815,6 +837,7 @@ export class HumanOpsService {
     const resolved = await this.#resolve(table, request.key);
     if (plainObject(request.patch)) assertProtectedAction(action, table, request.patch, { caller: true });
     let patch = await this.#normalizePatch(table, request.patch);
+    assertDramaNameInvariant(table, patch, resolved.record.fields);
     assertProtectedAction(action, table, patch);
     if (action === "attach-post") {
       if (Object.keys(patch).sort().join("|") !== ["Post ID", "视频链接"].sort().join("|")) {
@@ -847,8 +870,14 @@ export class HumanOpsService {
     if (!account) fail("post_account_unavailable", "Release account relation cannot be resolved");
     if (parsed.handle !== account) fail("post_account_mismatch", "TikTok URL handle does not match the stable account ID", { expected: account });
     const releases = await this.#index("发布记录");
-    const claimant = [...releases].find(([key, record]) => key !== releaseKey && record.fields?.归档状态 === "active" && record.fields?.["Post ID"] === patch["Post ID"]);
-    if (claimant) fail("post_id_claimed", "Post ID is already claimed by another active release", { release_id: claimant[0] });
+    const claimant = [...releases].find(([key, record]) => {
+      if (key === releaseKey) return false;
+      if (record.fields?.["Post ID"] === patch["Post ID"]) return true;
+      if (typeof record.fields?.视频链接 !== "string") return false;
+      try { return parseTikTokPost(record.fields.视频链接).postId === patch["Post ID"]; }
+      catch { return false; }
+    });
+    if (claimant) fail("post_id_claimed", "Post ID is already claimed by another release", { release_id: claimant[0] });
   }
 
   #savePreview(actor, chat, envelope) {
@@ -949,6 +978,15 @@ export class HumanOpsService {
       }
     }
     const currentBefore = await this.#leasedStep(renew, () => this.#currentBefore(envelope));
+    for (let index = 0; index < envelope.targets.length; index += 1) {
+      const before = currentBefore[index];
+      const currentFields = before.exists
+        ? Object.fromEntries(Object.entries(before.record.fields)
+          .filter(([, cell]) => cell.present)
+          .map(([field, cell]) => [field, cell.value]))
+        : null;
+      assertDramaNameInvariant(envelope.table, envelope.targets[index].patch, currentFields);
+    }
     if (envelope.action === "attach-post") {
       await this.#leasedStep(renew, async () => {
         const current = (await this.#index("发布记录")).get(envelope.targets[0].key);

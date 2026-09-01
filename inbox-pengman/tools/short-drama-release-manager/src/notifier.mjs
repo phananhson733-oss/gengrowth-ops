@@ -65,16 +65,18 @@ function terminalMessage(job) {
 export class ShortDramaNotifier {
   #allowedChatIds;
   #sendMessage;
+  #updateTerminalDashboard;
   #jobs;
 
-  constructor({ allowedChatIds, sendMessage, jobs } = {}) {
+  constructor({ allowedChatIds, sendMessage, updateTerminalDashboard, jobs } = {}) {
     const allowlist = normalizedAllowlist(allowedChatIds);
-    if (!allowlist || typeof sendMessage !== "function" || !jobs ||
+    if (!allowlist || typeof sendMessage !== "function" || typeof updateTerminalDashboard !== "function" || !jobs ||
         typeof jobs.get !== "function" || typeof jobs.markNotification !== "function") {
       fail("notifier_config_invalid", "Short-drama notifier configuration is invalid");
     }
     this.#allowedChatIds = allowlist;
     this.#sendMessage = sendMessage;
+    this.#updateTerminalDashboard = updateTerminalDashboard;
     this.#jobs = jobs;
   }
 
@@ -92,6 +94,11 @@ export class ShortDramaNotifier {
       }
       return { run_id: runId, state: persisted.state, notification_state: "failed", error: { code } };
     };
+    try {
+      await this.#updateTerminalDashboard(persisted);
+    } catch {
+      return failed("dashboard_update_failed");
+    }
     if (!normalizedString(persisted.chat_id) || !this.#allowedChatIds.has(persisted.chat_id)) {
       return failed("notification_target_denied");
     }
