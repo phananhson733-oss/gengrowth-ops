@@ -2,22 +2,42 @@ import { existsSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 
 import { ShortDramaError } from "./errors.mjs";
+import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 
-const ACCOUNT_COLUMNS = Object.freeze([
-  "snapshot_date", "captured_at", "username", "account_url", "nickname", "followers",
-  "following", "total_likes", "total_posts", "bio", "collection_status",
-]);
-const POST_COLUMNS = Object.freeze([
-  "post_id", "username", "post_url", "content_type", "published_at", "caption",
-  "first_seen_at", "last_seen_at",
-]);
-const SNAPSHOT_COLUMNS = Object.freeze([
-  "snapshot_date", "captured_at", "post_id", "username", "views", "likes", "comments",
-  "favorites", "shares", "collection_status", "missing_fields",
-]);
+const TABLE_SPECS = Object.freeze({
+  account_snapshots: Object.freeze({
+    columns: Object.freeze({
+      snapshot_date: ["TEXT", 1, 2], captured_at: ["TEXT", 1, 0], username: ["TEXT", 1, 1],
+      account_url: ["TEXT", 1, 0], nickname: ["TEXT", 0, 0], followers: ["INTEGER", 0, 0],
+      following: ["INTEGER", 0, 0], total_likes: ["INTEGER", 0, 0],
+      total_posts: ["INTEGER", 0, 0], bio: ["TEXT", 0, 0], collection_status: ["TEXT", 1, 0],
+    }),
+    primaryKey: Object.freeze(["username", "snapshot_date"]),
+  }),
+  posts: Object.freeze({
+    columns: Object.freeze({
+      post_id: ["TEXT", 0, 1], username: ["TEXT", 1, 0], post_url: ["TEXT", 1, 0],
+      content_type: ["TEXT", 0, 0], published_at: ["TEXT", 0, 0], caption: ["TEXT", 0, 0],
+      first_seen_at: ["TEXT", 1, 0], last_seen_at: ["TEXT", 1, 0],
+    }),
+    primaryKey: Object.freeze(["post_id"]),
+  }),
+  post_snapshots: Object.freeze({
+    columns: Object.freeze({
+      snapshot_date: ["TEXT", 1, 2], captured_at: ["TEXT", 1, 0], post_id: ["TEXT", 1, 1],
+      username: ["TEXT", 1, 0], views: ["INTEGER", 0, 0], likes: ["INTEGER", 0, 0],
+      comments: ["INTEGER", 0, 0], favorites: ["INTEGER", 0, 0], shares: ["INTEGER", 0, 0],
+      collection_status: ["TEXT", 1, 0], missing_fields: ["TEXT", 1, 0],
+    }),
+    primaryKey: Object.freeze(["post_id", "snapshot_date"]),
+    postForeignKey: Object.freeze({
+      seq: 0, table: "posts", from: "post_id", to: "post_id",
+      on_update: "NO ACTION", on_delete: "NO ACTION", match: "NONE",
+    }),
+  }),
+});
 const METRIC_FIELDS = Object.freeze(["views", "likes", "comments", "favorites", "shares"]);
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
-const QUALIFIED_TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2})$/;
 const POST_ID = /^\d+$/;
 const ACCOUNT_ID = /^[a-z0-9._]+$/;
 
@@ -65,7 +85,7 @@ function assertDate(value, field) {
 }
 
 function validTimestamp(value) {
-  return typeof value === "string" && QUALIFIED_TIMESTAMP.test(value) && !Number.isNaN(Date.parse(value));
+  return parseQualifiedInstantMs(value) !== null;
 }
 
 function assertTimestamp(value, field, { nullable = false } = {}) {
@@ -145,16 +165,48 @@ function parseMissingFields(post) {
   return parsed;
 }
 
-function assertColumns(db, tableName, required) {
-  let rows;
+function assertTableSchema(db, tableName) {
+  const spec = TABLE_SPECS[tableName];
+  let objectRow;
+  let columns;
+  let foreignKeys = [];
   try {
-    rows = db.prepare(`PRAGMA table_info(${tableName})`).all();
+    objectRow = db.prepare("SELECT type FROM sqlite_master WHERE name=? COLLATE BINARY").get(tableName);
+    columns = db.prepare(`PRAGMA table_info(${tableName})`).all();
+    if (spec.postForeignKey) foreignKeys = db.prepare(`PRAGMA foreign_key_list(${tableName})`).all();
   } catch {
     fail("source_schema_invalid", "Source schema cannot be inspected", { table: tableName });
   }
-  const columns = new Set(rows.map((row) => row.name));
-  if (rows.length === 0 || required.some((column) => !columns.has(column))) {
-    fail("source_schema_invalid", "Source schema is missing required columns", { table: tableName });
+  if (objectRow?.type !== "table" || columns.length === 0) {
+    fail("source_schema_invalid", "Source schema object is not an authoritative table", { table: tableName });
+  }
+  const byName = new Map(columns.map((column) => [column.name, column]));
+  for (const [name, [type, notnull, pk]] of Object.entries(spec.columns)) {
+    const actual = byName.get(name);
+    if (!actual || String(actual.type).trim().toUpperCase() !== type ||
+        Number(actual.notnull) !== notnull || Number(actual.pk) !== pk) {
+      fail("source_schema_invalid", "Source table metadata does not match collector schema", {
+        table: tableName, column: name,
+      });
+    }
+  }
+  const primaryKey = columns
+    .filter((column) => Number(column.pk) > 0)
+    .sort((left, right) => Number(left.pk) - Number(right.pk))
+    .map((column) => column.name);
+  if (primaryKey.length !== spec.primaryKey.length ||
+      primaryKey.some((name, index) => name !== spec.primaryKey[index])) {
+    fail("source_schema_invalid", "Source table primary key does not match collector schema", { table: tableName });
+  }
+  if (spec.postForeignKey) {
+    const candidates = foreignKeys.filter((row) => row.from === "post_id");
+    const expected = spec.postForeignKey;
+    const matches = candidates.length === 1 && Object.entries(expected).every(
+      ([key, value]) => candidates[0][key] === value,
+    );
+    if (!matches) {
+      fail("source_schema_invalid", "Source post foreign key does not match collector schema", { table: tableName });
+    }
   }
 }
 
@@ -226,7 +278,7 @@ function validatePostRow(row) {
 
 export function readLatestAccounts(dbPath) {
   return withSourceDatabase(dbPath, (db) => {
-    assertColumns(db, "account_snapshots", ACCOUNT_COLUMNS);
+    assertTableSchema(db, "account_snapshots");
     const statement = db.prepare(`
       SELECT snapshot_date,captured_at,username,account_url,nickname,followers,following,
              total_likes,total_posts,bio,collection_status
@@ -252,8 +304,8 @@ export function readLatestAccounts(dbPath) {
 
 export function readLatestPosts(dbPath) {
   return withSourceDatabase(dbPath, (db) => {
-    assertColumns(db, "posts", POST_COLUMNS);
-    assertColumns(db, "post_snapshots", SNAPSHOT_COLUMNS);
+    assertTableSchema(db, "posts");
+    assertTableSchema(db, "post_snapshots");
     const statement = db.prepare(`
       SELECT p.post_id,p.username,p.post_url,p.content_type,p.published_at,p.caption,
              p.first_seen_at,p.last_seen_at,s.snapshot_date,s.captured_at,

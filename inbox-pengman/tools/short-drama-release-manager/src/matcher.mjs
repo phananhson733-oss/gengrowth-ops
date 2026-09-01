@@ -1,9 +1,9 @@
 import { ShortDramaError } from "./errors.mjs";
+import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
 
 const POST_ID = /^\d+$/;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
-const QUALIFIED_TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2})$/;
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
 function fail(code, message, details = {}) {
@@ -44,7 +44,7 @@ function matched(method, reason, post, confidence) {
 }
 
 function validQualifiedTimestamp(value) {
-  return typeof value === "string" && QUALIFIED_TIMESTAMP.test(value) && !Number.isNaN(Date.parse(value));
+  return parseQualifiedInstantMs(value) !== null;
 }
 
 function validDate(value) {
@@ -106,7 +106,7 @@ function parseManualUrl(value) {
 }
 
 function beijingDate(timestamp) {
-  return new Date(Date.parse(timestamp) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return new Date(parseQualifiedInstantMs(timestamp) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }
 
 export function matchReleaseToCapture(release, captures, claimedPostIds) {
@@ -156,9 +156,9 @@ export function matchReleaseToCapture(release, captures, claimedPostIds) {
   if (validDate(releaseDate)) {
     candidates = available.filter((post) => post.published_at && beijingDate(post.published_at) === releaseDate);
   } else if (validQualifiedTimestamp(releaseDate)) {
-    const releaseMs = Date.parse(releaseDate);
+    const releaseMs = parseQualifiedInstantMs(releaseDate);
     candidates = available.filter((post) =>
-      post.published_at && Math.abs(Date.parse(post.published_at) - releaseMs) <= SIX_HOURS_MS,
+      post.published_at && Math.abs(parseQualifiedInstantMs(post.published_at) - releaseMs) <= SIX_HOURS_MS,
     );
   } else {
     return unmatched("release_datetime_invalid");

@@ -43,7 +43,8 @@ function createSourceDb({ accountTable = true, postTables = true } = {}) {
         snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
         username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
         favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
-        missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date)
+        missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date),
+        FOREIGN KEY (post_id) REFERENCES posts(post_id)
       );
     `);
   }
@@ -113,6 +114,120 @@ test("partial source schemas fail closed instead of returning an empty result", 
   assert.throws(() => readLatestAccounts(path), (error) => error.code === "source_schema_invalid");
 });
 
+test("an empty authoritative collector schema is a valid zero", () => {
+  const { path, db } = createSourceDb();
+  db.close();
+  assert.deepEqual(readLatestAccounts(path), []);
+  assert.deepEqual(readLatestPosts(path), []);
+});
+
+test("source schema validation rejects type, nullability, and key drift before returning zero", async (t) => {
+  await t.test("all-BLOB columns without primary keys", () => {
+    const path = sourcePath();
+    const db = new DatabaseSync(path);
+    db.exec(`
+      CREATE TABLE account_snapshots (
+        snapshot_date BLOB, captured_at BLOB, username BLOB, account_url BLOB,
+        nickname BLOB, followers BLOB, following BLOB, total_likes BLOB,
+        total_posts BLOB, bio BLOB, collection_status BLOB
+      );
+      CREATE TABLE posts (
+        post_id BLOB, username BLOB, post_url BLOB, content_type BLOB,
+        published_at BLOB, caption BLOB, first_seen_at BLOB, last_seen_at BLOB
+      );
+      CREATE TABLE post_snapshots (
+        snapshot_date BLOB, captured_at BLOB, post_id BLOB, username BLOB,
+        views BLOB, likes BLOB, comments BLOB, favorites BLOB, shares BLOB,
+        collection_status BLOB, missing_fields BLOB
+      );
+    `);
+    db.close();
+    assert.throws(() => readLatestAccounts(path), (error) => error.code === "source_schema_invalid");
+    assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+  });
+
+  await t.test("view masquerading as posts table", () => {
+    const path = sourcePath();
+    const db = new DatabaseSync(path);
+    db.exec(`
+      CREATE TABLE posts_backing (
+        post_id TEXT PRIMARY KEY, username TEXT NOT NULL, post_url TEXT NOT NULL,
+        content_type TEXT, published_at TEXT, caption TEXT,
+        first_seen_at TEXT NOT NULL, last_seen_at TEXT NOT NULL
+      );
+      CREATE VIEW posts AS SELECT * FROM posts_backing;
+      CREATE TABLE post_snapshots (
+        snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
+        username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
+        favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
+        missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date),
+        FOREIGN KEY (post_id) REFERENCES posts(post_id)
+      );
+    `);
+    db.close();
+    assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+  });
+
+  const postsDdl = ({ postIdType = "TEXT", usernameNotNull = true } = {}) => `
+    CREATE TABLE posts (
+      post_id ${postIdType} PRIMARY KEY, username TEXT${usernameNotNull ? " NOT NULL" : ""},
+      post_url TEXT NOT NULL, content_type TEXT, published_at TEXT, caption TEXT,
+      first_seen_at TEXT NOT NULL, last_seen_at TEXT NOT NULL
+    );
+  `;
+  for (const [name, ddl] of [
+    ["wrong declared type", postsDdl({ postIdType: "BLOB" })],
+    ["wrong NOT NULL flag", postsDdl({ usernameNotNull: false })],
+  ]) {
+    await t.test(name, () => {
+      const path = sourcePath();
+      const db = new DatabaseSync(path);
+      db.exec(ddl);
+      db.close();
+      assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+    });
+  }
+
+  await t.test("wrong composite primary-key order", () => {
+    const { path, db } = createSourceDb();
+    db.exec(`
+      DROP TABLE post_snapshots;
+      CREATE TABLE post_snapshots (
+        snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
+        username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
+        favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
+        missing_fields TEXT NOT NULL, PRIMARY KEY(snapshot_date, post_id),
+        FOREIGN KEY (post_id) REFERENCES posts(post_id)
+      );
+    `);
+    db.close();
+    assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+  });
+});
+
+test("post snapshot schema requires the collector post foreign key", async (t) => {
+  for (const [name, foreignKey] of [
+    ["missing", ""],
+    ["wrong target", ", FOREIGN KEY (post_id) REFERENCES posts(username)"],
+  ]) {
+    await t.test(name, () => {
+      const { path, db } = createSourceDb();
+      db.exec(`
+        DROP TABLE post_snapshots;
+        CREATE TABLE post_snapshots (
+          snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
+          username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
+          favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
+          missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date)
+          ${foreignKey}
+        );
+      `);
+      db.close();
+      assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+    });
+  }
+});
+
 test("latest accounts use the collector's successful non-null-follower semantics and canonical order", () => {
   const { path, db } = createSourceDb();
   insertAccount(db, { username: "Zed", snapshotDate: "2026-08-30", followers: 9 });
@@ -165,7 +280,7 @@ test("latest posts have deterministic account, published_at, Post ID order", () 
   assert.deepEqual(readLatestPosts(path).map((row) => row.post_id), ["1", "2", "100"]);
 });
 
-test("source readers reject malformed rows, duplicate Post IDs, and account disagreement", async (t) => {
+test("source readers reject malformed rows and account disagreement", async (t) => {
   const cases = [
     ["non-numeric Post ID", ({ db }) => {
       insertPost(db, { postId: "not-a-number" });
@@ -179,12 +294,6 @@ test("source readers reject malformed rows, duplicate Post IDs, and account disa
       insertPost(db, { username: "one" });
       insertSnapshot(db, { username: "two" });
     }, "source_account_mismatch"],
-    ["duplicate Post IDs", ({ db }) => {
-      db.exec("DROP TABLE posts; CREATE TABLE posts (post_id TEXT, username TEXT, post_url TEXT, content_type TEXT, published_at TEXT, caption TEXT, first_seen_at TEXT, last_seen_at TEXT)");
-      insertPost(db);
-      insertPost(db);
-      insertSnapshot(db);
-    }, "source_post_duplicate"],
   ];
   for (const [name, seed, code] of cases) {
     await t.test(name, () => {
@@ -202,6 +311,36 @@ test("source readers reject malformed dates and URLs rather than guessing", () =
   insertSnapshot(db);
   db.close();
   assert.throws(() => readLatestPosts(path), (error) => ["source_url_invalid", "source_timestamp_invalid"].includes(error.code));
+});
+
+test("source timestamps reject calendar, clock, and timezone normalization", async (t) => {
+  const invalidTimestamps = [
+    "2026-02-30T00:00:00Z",
+    "2026-02-29T00:00:00Z",
+    "2026-01-01T24:00:00Z",
+    "2026-01-01T00:60:00Z",
+    "2026-01-01T00:00:60Z",
+    "2026-01-01T00:00:00+14:01",
+    "2026-01-01T00:00:00+15:00",
+  ];
+  for (const timestamp of invalidTimestamps) {
+    await t.test(timestamp, () => {
+      const { path, db } = createSourceDb();
+      insertPost(db, { publishedAt: timestamp });
+      insertSnapshot(db);
+      db.close();
+      assert.throws(() => readLatestPosts(path), (error) => error.code === "source_timestamp_invalid");
+    });
+  }
+
+  const { path, db } = createSourceDb();
+  insertPost(db, {
+    publishedAt: "2024-02-29T23:59:59.123456789+14:00",
+    firstSeenAt: "0099-01-01T00:00Z",
+  });
+  insertSnapshot(db);
+  db.close();
+  assert.equal(readLatestPosts(path)[0].published_at, "2024-02-29T23:59:59.123456789+14:00");
 });
 
 test("source URL handles use the same canonical account boundary", async (t) => {
@@ -339,6 +478,64 @@ test("timezone-qualified datetime matches exactly one same-account unclaimed pos
   assert.equal(result.status, "matched");
   assert.equal(result.method, "account_time");
   assert.equal(result.post.post_id, "1");
+});
+
+test("qualified datetime parsing is calendar-exact and shared by release and capture validation", async (t) => {
+  const invalid = [
+    "2026-02-30T00:00:00Z",
+    "2026-02-29T00:00:00Z",
+    "2026-01-01T24:00:00Z",
+    "2026-01-01T00:60:00Z",
+    "2026-01-01T00:00:60Z",
+    "2026-01-01T00:00:00-14:01",
+    "2026-01-01T00:00:00-15:00",
+  ];
+  for (const timestamp of invalid) {
+    await t.test(`release ${timestamp}`, () => {
+      const result = matchReleaseToCapture(
+        { 账号ID: "dramaexpedition", 日期: timestamp },
+        [capture({ published_at: "2026-03-02T00:00:00Z" })],
+        new Set(),
+      );
+      assert.deepEqual(result, { status: "unmatched", reason: "release_datetime_invalid", candidates: [] });
+    });
+    await t.test(`capture ${timestamp}`, () => {
+      assert.throws(
+        () => matchReleaseToCapture(
+          { 账号ID: "dramaexpedition", 日期: "2026-03-02T00:00:00Z" },
+          [capture({ published_at: timestamp })],
+          new Set(),
+        ),
+        (error) => error.code === "matcher_capture_invalid",
+      );
+    });
+  }
+
+  for (const timestamp of [
+    "2024-02-29T12:34Z",
+    "0099-01-01T00:00:00Z",
+    "2026-01-01T14:00:00+14:00",
+    "2026-01-01T00:00:00.123456789Z",
+  ]) {
+    await t.test(`valid ${timestamp}`, () => {
+      const result = matchReleaseToCapture(
+        { 账号ID: "dramaexpedition", 日期: timestamp },
+        [capture({ published_at: timestamp })],
+        new Set(),
+      );
+      assert.equal(result.status, "matched");
+      assert.equal(result.post.post_id, "99");
+    });
+  }
+});
+
+test("an invalid normalized release timestamp never auto-matches the normalized later-day post", () => {
+  const result = matchReleaseToCapture(
+    { 账号ID: "dramaexpedition", 日期: "2026-02-30T00:00:00Z" },
+    [capture({ published_at: "2026-03-02T00:00:00Z" })],
+    new Set(),
+  );
+  assert.deepEqual(result, { status: "unmatched", reason: "release_datetime_invalid", candidates: [] });
 });
 
 test("multiple datetime candidates are ambiguous and deterministically sorted", () => {
