@@ -165,7 +165,9 @@ export class JobStore {
           state TEXT NOT NULL,
           created_at TEXT NOT NULL,
           sent_at TEXT,
-          error TEXT NOT NULL
+          error TEXT NOT NULL,
+          owner_id TEXT,
+          lease_expires_at TEXT
         );
         CREATE TABLE IF NOT EXISTS mutation_leases (
           lock_key TEXT PRIMARY KEY,
@@ -174,6 +176,14 @@ export class JobStore {
           lease_expires_at TEXT NOT NULL
         );
       `);
+      const healthColumns = new Set(this.db.prepare("PRAGMA table_info(health_alerts)").all().map((column) => column.name));
+      if (!healthColumns.has("owner_id")) this.db.exec("ALTER TABLE health_alerts ADD COLUMN owner_id TEXT");
+      if (!healthColumns.has("lease_expires_at")) this.db.exec("ALTER TABLE health_alerts ADD COLUMN lease_expires_at TEXT");
+      this.db.prepare(`
+        UPDATE health_alerts
+        SET state = 'failed', error = 'legacy_claim_without_lease'
+        WHERE state = 'claimed' AND (owner_id IS NULL OR lease_expires_at IS NULL)
+      `).run();
     } catch (error) {
       try {
         this.db?.close();
@@ -639,8 +649,11 @@ export class JobStore {
     });
   }
 
-  claimHealthAlert(alertKey, now = new Date()) {
+  claimHealthAlert(alertKey, { ownerId, now = new Date(), leaseSeconds = 120 } = {}) {
     const key = requiredString(alertKey, "alertKey");
+    const owner = requiredString(ownerId, "ownerId");
+    const claimedAt = timestamp(now);
+    const leaseExpiresAt = futureTimestamp(now, leaseSeconds);
     if (!/^missing-terminal:\d{4}-\d{2}-\d{2}$/.test(key)) {
       fail("health_alert_key_invalid", "Health alert key must use the missing-terminal Beijing-date format", {
         alert_key: key,
@@ -648,22 +661,24 @@ export class JobStore {
     }
     return this.immediate(() => {
       const result = this.db.prepare(`
-        INSERT INTO health_alerts(alert_key, state, created_at, sent_at, error)
-        VALUES (?, 'claimed', ?, NULL, '')
+        INSERT INTO health_alerts(alert_key, state, created_at, sent_at, error, owner_id, lease_expires_at)
+        VALUES (?, 'claimed', ?, NULL, '', ?, ?)
         ON CONFLICT(alert_key) DO NOTHING
-      `).run(key, timestamp(now));
+      `).run(key, claimedAt, owner, leaseExpiresAt);
       if (result.changes === 1) return true;
       const retry = this.db.prepare(`
         UPDATE health_alerts
-        SET state = 'claimed', created_at = ?, sent_at = NULL, error = ''
-        WHERE alert_key = ? AND state = 'failed'
-      `).run(timestamp(now), key);
+        SET state = 'claimed', created_at = ?, sent_at = NULL, error = '', owner_id = ?, lease_expires_at = ?
+        WHERE alert_key = ? AND (state = 'failed' OR (state = 'claimed' AND lease_expires_at <= ?))
+      `).run(claimedAt, owner, leaseExpiresAt, key, claimedAt);
       return retry.changes === 1;
     });
   }
 
-  markHealthAlert(alertKey, state, { now = new Date(), error = "" } = {}) {
+  markHealthAlert(alertKey, state, { ownerId, now = new Date(), error = "" } = {}) {
     const key = requiredString(alertKey, "alertKey");
+    const owner = requiredString(ownerId, "ownerId");
+    const markedAt = timestamp(now);
     if (!/^missing-terminal:\d{4}-\d{2}-\d{2}$/.test(key) || !["sent", "failed"].includes(state) ||
         typeof error !== "string" || error.length > 128 || /[\r\n]/.test(error)) {
       fail("health_alert_input_invalid", "Health alert result is invalid");
@@ -671,9 +686,9 @@ export class JobStore {
     return this.immediate(() => {
       const result = this.db.prepare(`
         UPDATE health_alerts
-        SET state = ?, sent_at = ?, error = ?
-        WHERE alert_key = ? AND state = 'claimed'
-      `).run(state, state === "sent" ? timestamp(now) : null, error, key);
+        SET state = ?, sent_at = ?, error = ?, lease_expires_at = NULL
+        WHERE alert_key = ? AND state = 'claimed' AND owner_id = ? AND lease_expires_at > ?
+      `).run(state, state === "sent" ? markedAt : null, error, key, owner, markedAt);
       if (result.changes !== 1) fail("health_alert_claim_mismatch", "Health alert is not currently claimed");
       return { alert_key: key, state, error };
     });

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
-import { lstat, mkdir, open, readFile, realpath } from "node:fs/promises";
+import { lstat, mkdir, open, readFile, realpath, unlink } from "node:fs/promises";
 import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
@@ -25,7 +25,8 @@ const PRESENTATION = Object.freeze([
   ["发布记录", "按账号表现"], ["发布记录", "按剧表现"],
   ["采集数据", "完整"], ["采集数据", "部分缺失"], ["采集数据", "未关联发布"],
 ]);
-const ARTIFACT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../output/short-drama-release-manager/migrations");
+export const MIGRATION_ARTIFACT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../output/short-drama-release-manager/migrations");
+const ARTIFACT_ROOT = MIGRATION_ARTIFACT_ROOT;
 const ARTIFACT_TRUST_ROOT = resolve(ARTIFACT_ROOT, "../..");
 const POST_ID = /^\d+$/;
 const DRAMA_ID = /^SD-(\d{6})$/;
@@ -998,6 +999,101 @@ export async function verifyMigration(context = {}, manifest) {
   };
   report.sha256 = verificationDigest(report);
   return clone(report);
+}
+
+function artifactFileName(fileName) {
+  if (typeof fileName !== "string" || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(fileName) || fileName.includes("..")) {
+    fail("migration_artifact_invalid", "Migration artifact file name is invalid");
+  }
+  return fileName;
+}
+
+async function inspectArtifactDirectory(path, { create = false } = {}) {
+  let info;
+  try { info = await lstat(path); }
+  catch (error) {
+    if (error?.code !== "ENOENT" || !create) fail("migration_artifact_invalid", "Migration artifact directory is unavailable");
+    try { await mkdir(path, { mode: 0o700 }); } catch (cause) {
+      if (cause?.code !== "EEXIST") fail("migration_artifact_invalid", "Migration artifact directory could not be created");
+    }
+    info = await lstat(path);
+  }
+  if (info.isSymbolicLink() || !info.isDirectory()) fail("migration_artifact_invalid", "Migration artifact directory must not be a symlink");
+}
+
+async function secureArtifactRoot() {
+  await inspectArtifactDirectory(ARTIFACT_TRUST_ROOT);
+  let cursor = ARTIFACT_TRUST_ROOT;
+  for (const component of ["short-drama-release-manager", "migrations"]) {
+    cursor = resolve(cursor, component);
+    await inspectArtifactDirectory(cursor, { create: true });
+  }
+  const trustedReal = await realpath(ARTIFACT_TRUST_ROOT);
+  const rootReal = await realpath(ARTIFACT_ROOT);
+  const remainder = relative(trustedReal, rootReal);
+  if (remainder === "" || remainder === ".." || remainder.startsWith(`..${sep}`) || resolve(rootReal) !== ARTIFACT_ROOT) {
+    fail("migration_artifact_invalid", "Migration artifact directory escaped the trusted output root");
+  }
+  const info = await lstat(rootReal);
+  return { path: rootReal, dev: info.dev, ino: info.ino };
+}
+
+export async function reserveMigrationArtifact(fileName) {
+  const safeName = artifactFileName(fileName);
+  const initialRoot = await secureArtifactRoot();
+  const path = resolve(initialRoot.path, safeName);
+  if (dirname(path) !== initialRoot.path) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
+  let handle;
+  try {
+    handle = await open(path, fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW, 0o600);
+  } catch (error) {
+    if (error?.code === "EEXIST") fail("migration_artifact_exists", "Migration artifact already exists", { file_name: safeName });
+    if (error?.code === "ELOOP") fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
+    fail("migration_artifact_write_failed", "Migration artifact could not be reserved", { cause: error?.code ?? "unknown" });
+  }
+  const reserved = await handle.stat();
+  let complete = false;
+  let closed = false;
+  const close = async () => {
+    if (!closed) { closed = true; await handle.close(); }
+  };
+  return Object.freeze({
+    path,
+    async write(value) {
+      if (complete) fail("migration_artifact_invalid", "Migration artifact reservation is already complete");
+      canonicalize(value);
+      const bytes = `${JSON.stringify(value, null, 2)}\n`;
+      try {
+        await handle.writeFile(bytes);
+        await handle.sync();
+        await close();
+        const root = await secureArtifactRoot();
+        const target = await lstat(path);
+        if (root.dev !== initialRoot.dev || root.ino !== initialRoot.ino || target.isSymbolicLink() || !target.isFile() || target.dev !== reserved.dev || target.ino !== reserved.ino) {
+          fail("migration_artifact_readback_mismatch", "Migration artifact path changed during write");
+        }
+        const readback = await readFile(path);
+        const expectedHash = createHash("sha256").update(bytes).digest("hex");
+        const actualHash = createHash("sha256").update(readback).digest("hex");
+        if (actualHash !== expectedHash) fail("migration_artifact_readback_mismatch", "Migration artifact readback hash does not match");
+        complete = true;
+        return { path, sha256: actualHash, bytes: readback.length };
+      } catch (error) {
+        await this.abort();
+        throw error;
+      }
+    },
+    async abort() {
+      if (complete) return;
+      await close();
+      try {
+        const current = await lstat(path);
+        if (current.dev === reserved.dev && current.ino === reserved.ino && current.isFile() && !current.isSymbolicLink()) await unlink(path);
+      } catch (error) {
+        if (error?.code !== "ENOENT") fail("migration_artifact_write_failed", "Migration artifact reservation could not be cleaned up");
+      }
+    },
+  });
 }
 
 export async function writeMigrationArtifact(value, { fileName } = {}) {

@@ -33,6 +33,11 @@ function allowlistMatcher(allowlist) {
   return Object.freeze((value) => typeof value === "string" && allowlist.has(value));
 }
 
+function allowlistValues(allowlist) {
+  const values = Object.freeze([...allowlist]);
+  return Object.freeze(() => values);
+}
+
 function loadConfig({ config, configPath }) {
   if (config !== undefined) {
     if (!config || typeof config !== "object" || Array.isArray(config)) {
@@ -134,6 +139,9 @@ export function loadRuntimeConfig({
       isOperatorAllowed: allowlistMatcher(operatorIds),
       isPrivilegedAllowed: allowlistMatcher(privilegedIds),
       isNotificationChatAllowed,
+      getOperatorIds: allowlistValues(operatorIds),
+      getPrivilegedIds: allowlistValues(privilegedIds),
+      getNotificationChatIds: allowlistValues(notificationChatIds),
     }),
     acceptance: Object.freeze({ privilegedActorId }),
   };

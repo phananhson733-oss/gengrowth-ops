@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
-import { createHash, randomUUID } from "node:crypto";
-import { lstat, readFile, realpath } from "node:fs/promises";
-import { createReadStream, readFileSync } from "node:fs";
+import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
+import { constants as fsConstants, lstatSync, readFileSync } from "node:fs";
+import { lstat, open, readFile, realpath } from "node:fs/promises";
+import { homedir } from "node:os";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
@@ -15,14 +16,23 @@ import { readGoogleMigrationSource } from "./src/google-source.mjs";
 import { HumanOpsService } from "./src/human-ops.mjs";
 import { allocateBusinessId, makeRunId, seedBusinessIdSequence } from "./src/ids.mjs";
 import { JobStore } from "./src/job-store.mjs";
-import { applyMigration, planMigration, verifyMigration, writeMigrationArtifact } from "./src/migration.mjs";
+import {
+  MIGRATION_ARTIFACT_ROOT,
+  applyMigration,
+  manifestDigest,
+  planMigration,
+  schemaReceiptDigest,
+  reserveMigrationArtifact,
+  verificationDigest,
+  verifyMigration,
+} from "./src/migration.mjs";
 import { ShortDramaNotifier } from "./src/notifier.mjs";
 import { readLatestAccounts, readLatestPosts } from "./src/source-sqlite.mjs";
 import { BASE_FIELD_SPECS, TABLE_ORDER } from "./src/schema.mjs";
 import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mjs";
 
 const LABEL = "com.gengrowth.shortdrama-sync";
-const INTERNAL_MARKER = `launchd:${LABEL}`;
+const DEFAULT_CAPABILITY_PATH = resolve(homedir(), "Library/Application Support/GenGrowth/shortdrama-sync/internal.capability");
 const MAX_PAYLOAD_BYTES = 1024 * 1024;
 const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
@@ -32,8 +42,8 @@ const REGISTRY = Object.freeze({
   doctor: Object.freeze({ null: ["config", "canary", "actor-id"] }),
   migrate: Object.freeze({
     plan: ["config", "output", "actor-id", "chat-id"],
-    apply: ["config", "payload", "phase", "actor-id", "chat-id", "confirm"],
-    verify: ["config", "payload", "output", "actor-id", "chat-id"],
+    apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm"],
+    verify: ["config", "manifest", "output", "actor-id", "chat-id"],
   }),
   pool: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
@@ -52,8 +62,8 @@ const REGISTRY = Object.freeze({
 });
 
 const REQUIRED = Object.freeze({
-  "migrate:apply": ["phase"],
-  "migrate:verify": ["payload"],
+  "migrate:apply": ["phase", "manifest", "expectedSha256"],
+  "migrate:verify": ["manifest"],
   "pool:get": ["key"], "release:get": ["key"],
   "sync:status": ["runId"],
 });
@@ -109,11 +119,32 @@ export function parseCommand(argv) {
   if (options.phase && !["schema", "data", "presentation", "sequences"].includes(options.phase)) {
     fail("input_invalid", "Migration phase is invalid", { phase: options.phase });
   }
+  if (options.output && (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(options.output) || options.output.includes(".."))) {
+    fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
+  }
   return command;
 }
 
 function isInternal(command) {
   return command.group === "schedule" || command.group === "queue";
+}
+
+function readInstalledCapability(capabilityPath) {
+  const path = resolve(capabilityPath);
+  let info;
+  let value;
+  try {
+    info = lstatSync(path);
+    if (info.isSymbolicLink() || !info.isFile() || (info.mode & 0o777) !== 0o600 || info.size < 64 || info.size > 128) {
+      fail("internal_capability_invalid", "Internal capability file is not a private regular file");
+    }
+    value = readFileSync(path, { encoding: "utf8", flag: fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW }).trim();
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    fail("internal_capability_invalid", "Internal capability file is unavailable");
+  }
+  if (!/^[a-f0-9]{64}$/.test(value)) fail("internal_capability_invalid", "Internal capability is malformed");
+  return value;
 }
 
 function localActorRequired(command) {
@@ -125,7 +156,13 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
   const hasSession = sessionKeys.some((key) => env[key] !== undefined);
   if (isInternal(command)) {
     if (hasSession || command.options.actorId || command.options.chatId) fail("internal_context_invalid", "Internal commands reject session and actor overrides");
-    if (env.SHORTDRAMA_INTERNAL_MARKER !== INTERNAL_MARKER || env.SHORTDRAMA_LAUNCHD_LABEL !== LABEL) {
+    const capabilityPath = policy.capabilityPath ?? DEFAULT_CAPABILITY_PATH;
+    if (env.SHORTDRAMA_CAPABILITY_FILE !== capabilityPath || typeof env.SHORTDRAMA_INTERNAL_CAPABILITY !== "string") {
+      fail("internal_context_required", "Internal command requires the installed launchd context");
+    }
+    const expected = Buffer.from(readInstalledCapability(capabilityPath));
+    const presented = Buffer.from(env.SHORTDRAMA_INTERNAL_CAPABILITY);
+    if (expected.length !== presented.length || !timingSafeEqual(expected, presented)) {
       fail("internal_context_required", "Internal command requires the installed launchd context");
     }
     return { mode: "internal", actorId: null, chatId: null, profile: null };
@@ -195,9 +232,13 @@ async function readBoundedStream(stream) {
   return Buffer.concat(chunks);
 }
 
-export async function readPayload(source, { payloadRoot, stdin = process.stdin } = {}) {
+export async function readPayload(source, { payloadRoot, stdin = process.stdin, openFile = open, includeBytes = false } = {}) {
   if (source === undefined || source === null) return null;
-  if (source === "-") return parsePayloadBytes(await readBoundedStream(stdin));
+  if (source === "-") {
+    const bytes = await readBoundedStream(stdin);
+    const value = parsePayloadBytes(bytes);
+    return includeBytes ? { value, bytes } : value;
+  }
   const root = resolve(normalized(payloadRoot, "payloadRoot"));
   const inputPath = normalized(source, "payload");
   const candidate = isAbsolute(inputPath) ? resolve(inputPath) : resolve(root, inputPath);
@@ -221,7 +262,73 @@ export async function readPayload(source, { payloadRoot, stdin = process.stdin }
     if (parent.isSymbolicLink() || !parent.isDirectory()) fail("payload_path_invalid", "Payload path contains an untrusted parent");
   }
   if (info.size > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
-  return parsePayloadBytes(await readFile(candidateReal));
+  let handle;
+  try {
+    handle = await openFile(candidateReal, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const opened = await handle.stat();
+    if (!opened.isFile() || opened.dev !== info.dev || opened.ino !== info.ino || opened.size !== info.size || opened.size > MAX_PAYLOAD_BYTES) {
+      fail("payload_path_invalid", "Payload file changed between validation and open");
+    }
+    const bytes = await handle.readFile();
+    const value = parsePayloadBytes(bytes);
+    return includeBytes ? { value, bytes } : value;
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    if (["ELOOP", "ENOENT"].includes(error?.code)) fail("payload_path_invalid", "Payload file changed before open");
+    throw error;
+  } finally {
+    await handle?.close();
+  }
+}
+
+function evidenceMismatch(message) {
+  fail("migration_evidence_mismatch", message);
+}
+
+function exactDigest(value, field) {
+  if (typeof value !== "string" || !/^[a-f0-9]{64}$/.test(value)) fail("input_invalid", "Expected digest must be lowercase SHA-256", { field });
+  return value;
+}
+
+async function readMigrationFile(source) {
+  return readPayload(source, { payloadRoot: MIGRATION_ARTIFACT_ROOT, includeBytes: true });
+}
+
+async function loadMigrationEvidence(command) {
+  const key = `${command.group}:${command.action}`;
+  if (!key.startsWith("migrate:") || key === "migrate:plan") return null;
+  const loadedManifest = await readMigrationFile(command.options.manifest);
+  const manifest = loadedManifest.value;
+  if (typeof manifest.sha256 !== "string" || manifestDigest(manifest) !== manifest.sha256) evidenceMismatch("Migration manifest self-digest is invalid");
+  if (key === "migrate:verify") return { manifest };
+  const expectedManifest = exactDigest(command.options.expectedSha256, "expectedSha256");
+  if (manifest.sha256 !== expectedManifest) evidenceMismatch("Migration manifest does not match the independently supplied digest");
+  const evidence = { manifest };
+  if (command.options.phase !== "schema") {
+    if (!command.options.schemaReceipt || !command.options.expectedSchemaReceiptSha256) {
+      fail("schema_receipt_lost", "Schema receipt is required", { next_step: "replan_reconfirm" });
+    }
+    const loadedReceipt = await readMigrationFile(command.options.schemaReceipt);
+    const receipt = loadedReceipt.value;
+    const expectedReceipt = exactDigest(command.options.expectedSchemaReceiptSha256, "expectedSchemaReceiptSha256");
+    if (typeof receipt.sha256 !== "string" || schemaReceiptDigest(receipt) !== receipt.sha256 || receipt.sha256 !== expectedReceipt || receipt.manifest_sha256 !== manifest.sha256) {
+      evidenceMismatch("Schema receipt does not match the independently supplied digest and manifest");
+    }
+    evidence.schemaReceipt = receipt;
+  }
+  if (command.options.phase === "sequences") {
+    if (!command.options.verification || !command.options.expectedVerificationSha256) evidenceMismatch("Sequence migration requires independent verification evidence");
+    const loadedVerification = await readMigrationFile(command.options.verification);
+    const verification = loadedVerification.value;
+    const expectedFileDigest = exactDigest(command.options.expectedVerificationSha256, "expectedVerificationSha256");
+    const actualFileDigest = createHash("sha256").update(loadedVerification.bytes).digest("hex");
+    if (actualFileDigest !== expectedFileDigest || typeof verification.sha256 !== "string" || verificationDigest(verification) !== verification.sha256 ||
+        verification.manifest_sha256 !== manifest.sha256) {
+      evidenceMismatch("Verification artifact does not match its independent file digest and manifest");
+    }
+    evidence.verification = verification;
+  }
+  return evidence;
 }
 
 export function beijingParts(now = new Date()) {
@@ -336,10 +443,6 @@ export function createWakeWorker({ uid = process.getuid?.(), spawnFile = default
   };
 }
 
-function parseEnvSet(value) {
-  return new Set(String(value ?? "").split(",").map((item) => item.trim()).filter(Boolean));
-}
-
 function requireSequenceSeed(jobs) {
   const state = jobs.peekSequenceState();
   if (!state.seeded) fail("sequence_unseeded", "Business ID sequences require verified migration seeds");
@@ -417,12 +520,13 @@ export function createDispatcher(runtime) {
       const state = evaluateDailyHealth(now, jobs);
       if (!state.alert) return { status: "no_op", beijing_date: parts.date, ...state };
       const alertKey = `missing-terminal:${parts.date}`;
-      if (!runtime.jobs.claimHealthAlert(alertKey, now)) return { status: "no_op", reason: "alert_already_claimed", beijing_date: parts.date };
+      const ownerId = randomUUID();
+      if (!runtime.jobs.claimHealthAlert(alertKey, { ownerId, now, leaseSeconds: 120 })) return { status: "no_op", reason: "alert_already_claimed", beijing_date: parts.date };
       try {
         await runtime.sendOpsHealth({ chatId: runtime.opsChatId, text: `shortdrama health\nbeijing_date=${parts.date}\nreason=${state.reason}\nstep=${state.step ?? "none"}\nlease=${state.lease_expires_at ?? "none"}` });
-        runtime.jobs.markHealthAlert(alertKey, "sent", { now });
+        runtime.jobs.markHealthAlert(alertKey, "sent", { ownerId, now });
       } catch (error) {
-        runtime.jobs.markHealthAlert(alertKey, "failed", { now, error: typeof error?.code === "string" ? error.code : "notification_delivery_failed" });
+        runtime.jobs.markHealthAlert(alertKey, "failed", { ownerId, now, error: typeof error?.code === "string" ? error.code : "notification_delivery_failed" });
         throw error;
       }
       return { status: "alerted", beijing_date: parts.date, ...state };
@@ -431,7 +535,6 @@ export function createDispatcher(runtime) {
     if (key === "migrate:apply") {
       if (!runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Migration apply requires a privileged actor");
       if (command.options.confirm !== "apply-now") fail("action_confirmation_required", "Migration apply requires --confirm apply-now");
-      if (command.options.phase !== "schema" && !payload?.schemaReceipt) fail("schema_receipt_lost", "Schema receipt is required", { next_step: "replan_reconfirm" });
       return runtime.migrateApply(payload, command.options);
     }
     if (key === "migrate:verify") {
@@ -545,24 +648,26 @@ function schemaReadiness(schema, config) {
   return { status: "ready" };
 }
 
-export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null } = {}) {
+export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null, services = {} } = {}) {
   const config = loadRuntimeConfig({ env, configPath, notificationChatId: env.SHORTDRAMA_OPS_CHAT_ID });
   const jobs = new JobStore(config.paths.opsSqlite, { readOnly: command?.group === "doctor" });
   try {
     const tokenProvider = createTenantTokenProvider({ appId: config.auth.feishuAppId, appSecret: config.getFeishuAppSecret() });
     const client = new FeishuClient({ tokenProvider });
     const repos = new BaseRepositories({ client, appToken: config.base.appToken, tableIds: config.base.tableIds });
-    const operatorIds = parseEnvSet(env.SHORTDRAMA_OPERATOR_IDS);
-    const privilegedIds = parseEnvSet(env.SHORTDRAMA_PRIVILEGED_IDS);
-    const notificationChatIds = parseEnvSet(env.SHORTDRAMA_NOTIFICATION_CHAT_IDS);
-    const humanOps = new HumanOpsService({
+    const operatorIds = new Set(config.auth.getOperatorIds());
+    const privilegedIds = new Set(config.auth.getPrivilegedIds());
+    const notificationChatIds = new Set(config.auth.getNotificationChatIds());
+    const HumanOpsConstructor = services.HumanOpsService ?? HumanOpsService;
+    const NotifierConstructor = services.ShortDramaNotifier ?? ShortDramaNotifier;
+    const humanOps = new HumanOpsConstructor({
       repos, jobs, operators: operatorIds, privileged: privilegedIds, now,
       makeReceiptId: () => `sdp_${randomUUID()}`,
       allocateDramaId: () => allocateBusinessId(jobs.db, "drama"),
       allocateReleaseId: () => allocateBusinessId(jobs.db, "release"),
     });
     const sendMessage = createFeishuMessageSender({ tokenProvider, isChatAllowed: config.auth.isNotificationChatAllowed });
-    const notifier = new ShortDramaNotifier({ allowedChatIds: notificationChatIds, sendMessage, jobs });
+    const notifier = new NotifierConstructor({ allowedChatIds: notificationChatIds, sendMessage, jobs });
     const opsChatId = normalized(env.SHORTDRAMA_OPS_CHAT_ID, "opsChatId");
     if (!config.auth.isNotificationChatAllowed(opsChatId)) fail("notification_target_denied", "Ops chat is not allowlisted");
     const wakeWorker = createWakeWorker({ spawnFile });
@@ -579,7 +684,6 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       spreadsheetId: config.sourceSpreadsheetId,
       serviceAccount: safeServiceAccount(config.paths.googleServiceAccountPath),
     });
-    const artifact = async (value, output) => output ? { value, artifact: await writeMigrationArtifact(value, { fileName: output.split("/").at(-1) }) } : value;
     const runtime = {
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
       runWorker: runSyncWorker,
@@ -596,20 +700,24 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       async migratePlan(_payload, options) {
         const google = await readGoogle();
         const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), now: () => now().toISOString() });
-        return artifact(manifest, options.output);
+        return manifest;
       },
       async migrateApply(payload, options) {
-        const manifest = payload?.manifest ?? payload;
+        const manifest = payload.manifest;
         const google = await readGoogle();
         const context = { repos, phase: options.phase,
-          expectedSha256: manifest?.sha256, sourceRevision: google.revision, schemaReceipt: payload?.schemaReceipt,
-          expectedSchemaReceiptSha256: payload?.schemaReceipt?.sha256, presentationReceipt: payload?.presentationReceipt,
-          verification: payload?.verification, expectedVerificationSha256: payload?.verification?.sha256,
+          expectedSha256: manifest.sha256, sourceRevision: google.revision, schemaReceipt: payload.schemaReceipt,
+          expectedSchemaReceiptSha256: payload.schemaReceipt?.sha256,
+          verification: payload.verification, expectedVerificationSha256: payload.verification?.sha256,
           getSchemaRevision: async () => (await migrationBase()).revision,
           schemaAdapter: adapters.schemaAdapter, presentationAdapter: adapters.presentationAdapter,
           seedSequence: (kind, value) => seedBusinessIdSequence(jobs.db, kind, value),
         };
-        try { return await applyMigration(context, manifest); }
+        try {
+          const result = await applyMigration(context, manifest);
+          if (options.phase === "schema") return result.schema_receipt;
+          return result;
+        }
         catch (error) {
           if (options.phase === "schema" && error?.code === "schema_revision_drift" && !payload?.schemaReceipt) {
             fail("schema_receipt_lost", "Schema receipt is unavailable after Base schema changed", { next_step: "replan_reconfirm" });
@@ -617,7 +725,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           throw error;
         }
       },
-      async migrateVerify(payload, options) { return artifact(await verifyMigration({ repos, now: () => now().toISOString() }, payload?.manifest ?? payload), options.output); },
+      async migrateVerify(payload) { return verifyMigration({ repos, now: () => now().toISOString() }, payload.manifest); },
       close() { jobs.close(); },
     };
     return runtime;
@@ -631,7 +739,6 @@ function payloadRequired(command) {
   return new Set([
     "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-archive",
     "release:schedule", "release:preview-update", "release:apply-update", "release:attach-post",
-    "migrate:apply", "migrate:verify",
   ]).has(`${command.group}:${command.action}`);
 }
 
@@ -660,6 +767,7 @@ function sanitizeErrorResult(result) {
 
 export async function execute(argv, { env = process.env, stdin = process.stdin, build = buildRuntime } = {}) {
   let runtime;
+  let outputReservation;
   try {
     const command = parseCommand(argv);
     const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => env[key] !== undefined);
@@ -667,13 +775,23 @@ export async function execute(argv, { env = process.env, stdin = process.stdin, 
     const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, env) : null;
     const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
     if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");
+    const migrationEvidence = await loadMigrationEvidence(command);
+    if (command.options.output) outputReservation = await reserveMigrationArtifact(command.options.output);
     runtime = await build({ configPath, env, command });
     const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, env, runtime.config?.auth ?? {});
-    const payload = await readPayload(command.options.payload, { payloadRoot: runtime.config.paths.payloadRoot, stdin });
+    const payload = migrationEvidence ?? await readPayload(command.options.payload, { payloadRoot: runtime.config.paths.payloadRoot, stdin });
     if (payloadRequired(command) && !payload) fail("payload_required", "Command requires an explicit payload");
     const result = await createDispatcher(runtime)(command, identity, payload);
+    if (outputReservation) {
+      await outputReservation.write(result);
+      outputReservation = null;
+    }
     return { result, exitCode: exitCodeFor(result) };
   } catch (error) {
+    if (outputReservation) {
+      try { await outputReservation.abort(); }
+      catch (cleanupError) { error = cleanupError; }
+    }
     return { result: sanitizeErrorResult(toErrorResult(error)), exitCode: 1 };
   } finally {
     runtime?.close?.();

@@ -18,6 +18,29 @@ function spec(table, name) {
 }
 import { loadRuntimeConfig } from "../src/config.mjs";
 
+function runtimeFixture() {
+  return {
+    config: {
+      schema_version: "shortdrama/v1", timezone: "Asia/Shanghai",
+      source_spreadsheet_id: "1BbOcWUVrhRsnuSAs9LcyCuYWTrauPxtJWI12Esao7p0",
+      paths: { metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "collector-summary", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
+      base: {
+        url: "https://base.example.com/company-owned-short-drama", app_token_env: "BASE_TOKEN",
+        table_id_envs: { accounts: "TBL_ACCOUNTS", dramas: "TBL_DRAMAS", captures: "TBL_CAPTURES", releases: "TBL_RELEASES" },
+      },
+      auth: {
+        feishu_app_id_env: "APP_ID", feishu_app_secret_env: "APP_SECRET", google_service_account_path_env: "GOOGLE_JSON",
+        operator_ids_env: "OPERATORS", privileged_ids_env: "PRIVILEGED", notification_chat_ids_env: "CHATS",
+      },
+      acceptance: { privileged_actor_id: "ou_admin" },
+    },
+    env: {
+      BASE_TOKEN: "app_token", TBL_ACCOUNTS: "tbl_accounts", TBL_DRAMAS: "tbl_dramas", TBL_CAPTURES: "tbl_captures", TBL_RELEASES: "tbl_releases",
+      APP_ID: "app_id", APP_SECRET: "secret", GOOGLE_JSON: "/tmp/google.json", OPERATORS: "ou_one", PRIVILEGED: "ou_admin", CHATS: "oc_ops",
+    },
+  };
+}
+
 test("schema fixes the four Base tables and source ownership", () => {
   assert.deepEqual(TABLE_ORDER, ["账号台账", "选剧池", "采集数据", "发布记录"]);
   assert.equal(TABLES["采集数据"].primaryField, "Post ID");
@@ -215,6 +238,21 @@ test("runtime config rejects missing secrets and unknown notification chats", ()
   }, TypeError);
   assert.equal(JSON.stringify(runtime).includes("app-secret-must-not-be-logged"), false);
   assert.equal(JSON.stringify(runtime).includes("oc_social"), false);
+});
+
+test("runtime config exposes immutable allowlist values from renamed env keys", () => {
+  const { config, env } = runtimeFixture();
+  config.auth.operator_ids_env = "RENAMED_OPERATORS";
+  config.auth.privileged_ids_env = "RENAMED_PRIVILEGED";
+  config.auth.notification_chat_ids_env = "RENAMED_CHATS";
+  env.RENAMED_OPERATORS = "ou_one,ou_two";
+  env.RENAMED_PRIVILEGED = "ou_admin";
+  env.RENAMED_CHATS = "oc_ops,oc_social";
+  const runtime = loadRuntimeConfig({ config, env });
+  assert.deepEqual(runtime.auth.getOperatorIds(), ["ou_one", "ou_two"]);
+  assert.deepEqual(runtime.auth.getPrivilegedIds(), ["ou_admin"]);
+  assert.deepEqual(runtime.auth.getNotificationChatIds(), ["oc_ops", "oc_social"]);
+  assert.throws(() => runtime.auth.getOperatorIds().push("forged"), TypeError);
 });
 
 test("errors have stable public JSON", () => {

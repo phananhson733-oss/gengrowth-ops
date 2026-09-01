@@ -55,7 +55,7 @@ function runConcurrentFileOperations(operation, dbPath) {
         } else if (workerData.operation === "health") {
           value = resource.claimHealthAlert(
             "missing-terminal:2026-09-01",
-            "2026-09-01T02:00:00Z"
+            { ownerId: "worker-owner-" + workerData.slot, now: "2026-09-01T02:00:00Z", leaseSeconds: 120 }
           );
         } else if (workerData.operation === "mutationLease") {
           value = resource.acquireMutationLease({
@@ -402,7 +402,7 @@ test("accepted timestamps are stored as UTC ISO and queue order is chronological
 
   assert.equal(store.claimHealthAlert(
     "missing-terminal:2026-09-01",
-    "2026-09-01T10:04:00+08:00"
+    { ownerId: "owner-canonical", now: "2026-09-01T10:04:00+08:00", leaseSeconds: 120 }
   ), true);
   assert.equal(
     store.db.prepare("SELECT created_at FROM health_alerts WHERE alert_key = ?")
@@ -431,8 +431,8 @@ test("accepted timestamps are stored as UTC ISO and queue order is chronological
 
 test("daily missing-terminal alert is deduplicated", () => {
   const store = new JobStore(":memory:");
-  assert.equal(store.claimHealthAlert("missing-terminal:2026-09-01", "2026-09-01T02:00:00Z"), true);
-  assert.equal(store.claimHealthAlert("missing-terminal:2026-09-01", "2026-09-01T02:01:00Z"), false);
+  assert.equal(store.claimHealthAlert("missing-terminal:2026-09-01", { ownerId: "owner-a", now: "2026-09-01T02:00:00Z", leaseSeconds: 120 }), true);
+  assert.equal(store.claimHealthAlert("missing-terminal:2026-09-01", { ownerId: "owner-b", now: "2026-09-01T02:01:00Z", leaseSeconds: 120 }), false);
   store.close();
 });
 
