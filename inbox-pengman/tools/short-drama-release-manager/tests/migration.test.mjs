@@ -18,6 +18,8 @@ import {
   verifyMigration,
   writeMigrationArtifact,
 } from "../src/migration.mjs";
+import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
+import { BASE_FIELD_SPECS, TABLE_ORDER } from "../src/schema.mjs";
 
 const ACCOUNT_HEADERS = ["账号名", "主页链接", "粉丝数", "所属组", "定位垂类", "表现形式", "状态", "数据日期"];
 const DRAMA_HEADERS = ["剧名", "剧ID", "剧分类", "上线日期", "生命周期", "是否已排期", "备注", "推荐理由", "RS Boost 分类（待确认）", "账号组", "账号状态", "平台", "语言", "来源", "推荐人", "归档状态"];
@@ -286,7 +288,42 @@ test("schema plan blocks same-name type/config drift and creates fixed missing f
     { name: "账号台账", table_id: "ta", record_count: 0, fields: [{ field_id: "not-primary", name: "账号ID", type: "text", is_primary: false }, { field_id: "primary", name: "文本", type: "text", is_primary: true }] },
   ] } });
   assert.equal(falsePrimary.blocked.some((item) => item.code === "base_schema_drift" && item.table === "账号台账" && item.field === "账号ID"), true);
+
+  for (const mutate of [
+    (field) => { field.where = { logic: "or", conditions: [] }; },
+    (field) => { field.aggregate = "count"; },
+  ]) {
+    const lookup = fixedFieldDescriptor("发布记录", "账号名");
+    mutate(lookup);
+    const wrongLookup = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "lookup", tables: [
+      { name: "发布记录", table_id: "tr", fields: [{ field_id: "lookup-account", ...lookup }] },
+    ] } });
+    assert.equal(wrongLookup.blocked.some((item) => item.code === "base_schema_drift" && item.table === "发布记录" && item.field === "账号名"), true);
+  }
 });
+
+function completeFixedSchema(revision = "complete-r1") {
+  const tableIds = Object.fromEntries(TABLE_ORDER.map((table, index) => [table, `tbl-${index}`]));
+  return {
+    revision,
+    tables: TABLE_ORDER.map((table) => ({
+      name: table,
+      table_id: tableIds[table],
+      record_count: 0,
+      fields: BASE_FIELD_SPECS[table].map((spec, index) => ({
+        field_id: `${tableIds[table]}-f${index}`,
+        ...fixedFieldDescriptor(table, spec.name, spec.kind === "link" ? { targetTableId: tableIds[spec.targetTable] } : {}),
+        ...(spec.primary ? { is_primary: true } : {}),
+      })),
+    })),
+  };
+}
+
+function fixedFieldForTables(tables, table, field, fieldId, { primary = false } = {}) {
+  const spec = BASE_FIELD_SPECS[table].find((item) => item.name === field);
+  const bindings = spec.kind === "link" ? { targetTableId: tables.get(spec.targetTable).table_id } : {};
+  return { field_id: fieldId, ...fixedFieldDescriptor(table, field, bindings), ...(primary ? { is_primary: true } : {}) };
+}
 
 test("fresh Base plan creates every fixed field in phase order and bootstraps only an empty default primary", async () => {
   const fresh = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "new", tables: [] } });
@@ -483,11 +520,11 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   const calls = [];
   const tables = new Map();
   const adapter = {
-    createTable: async (name) => { tables.set(name, { table_id: `tbl-${name}`, fields: [{ field_id: `primary-${name}`, name: { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], is_primary: true }] }); calls.push(["table", name]); },
+    createTable: async (name) => { const table = { table_id: `tbl-${name}`, fields: [] }; tables.set(name, table); table.fields.push(fixedFieldForTables(tables, name, { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], `primary-${name}`, { primary: true })); calls.push(["table", name]); },
     createField: async (tableId, table, field, bindings) => {
-      tables.get(table).fields.push({ field_id: `${tableId}-${field}`, name: field });
-      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push({ field_id: "reverse-drama", name: "关联发布记录" });
-      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push({ field_id: "reverse-capture", name: "关联发布记录" });
+      tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
+      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
+      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
       calls.push(["field", table, field, bindings]);
     },
     updateField: async (...args) => calls.push(["update", ...args]),
@@ -538,13 +575,13 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
   const tables = new Map([["账号台账", structuredClone(baseSchema.tables[0])]]);
   const calls = [];
   const adapter = {
-    createTable: async (name) => tables.set(name, { table_id: `tbl-${name}`, fields: [{ field_id: `primary-${name}`, name: { "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], is_primary: true }] }),
+    createTable: async (name) => { const table = { table_id: `tbl-${name}`, fields: [] }; tables.set(name, table); table.fields.push(fixedFieldForTables(tables, name, { "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], `primary-${name}`, { primary: true })); },
     createField: async (tableId, table, field) => {
-      tables.get(table).fields.push({ field_id: `${tableId}-${field}`, name: field });
-      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push({ field_id: "reverse-drama", name: "关联发布记录" });
-      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push({ field_id: "reverse-capture", name: "关联发布记录" });
+      tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
+      if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
+      if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
     },
-    updateField: async (tableId, fieldId, table, field) => { const target = tables.get(table).fields.find((item) => item.field_id === fieldId); target.name = field; calls.push([tableId, fieldId, table, field]); },
+    updateField: async (tableId, fieldId, table, field) => { const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId); tables.get(table).fields[at] = fixedFieldForTables(tables, table, field, fieldId, { primary: true }); calls.push([tableId, fieldId, table, field]); },
     readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
@@ -552,6 +589,25 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
   await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => bootstrapRevisionReads++ === 0 ? manifest.initial_schema_revision : "post-bootstrap" }, manifest);
   assert.deepEqual(calls, [["tbl-account", "fld-default", "账号台账", "账号ID"]]);
   assert.equal(tables.get("账号台账").fields.some((field) => field.name === "账号ID" && field.is_primary), true);
+});
+
+test("schema receipt is refused when an unchanged preexisting field drifts in final semantic readback", async () => {
+  const baseSchema = completeFixedSchema();
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
+  assert.equal(manifest.schema_actions.length, 0);
+  assert.equal(manifest.blocked.length, 0);
+  const drifted = structuredClone(baseSchema);
+  const accountName = drifted.tables.find((table) => table.name === "账号台账").fields.find((field) => field.name === "账号名");
+  accountName.type = "number";
+  const adapter = {
+    createTable: async () => { throw new Error("unexpected"); }, createField: async () => { throw new Error("unexpected"); },
+    updateField: async () => { throw new Error("unexpected"); }, verifySchemaAction: async () => true,
+    readSchema: async () => ({ complete: true, tables: structuredClone(drifted.tables) }),
+  };
+  let revisionReads = 0;
+  await assert.rejects(() => applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256,
+    sourceRevision: manifest.source_revision, getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-r1" }, manifest),
+  (error) => error.code === "readback_mismatch");
 });
 
 test("presentation apply resolves views/dashboard, configures every view, and creates all six dashboard blocks", async () => {
@@ -564,7 +620,7 @@ test("presentation apply resolves views/dashboard, configures every view, and cr
   const adapter = {
     readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
     listViews: async (tableId) => ({ complete: true, items: views.get(tableId) ?? [] }),
-    createView: async (tableId, _table, view) => { const created = { view_id: `view-${view}`, name: view }; views.set(tableId, [...(views.get(tableId) ?? []), created]); return created; },
+    createView: async (tableId, _table, view) => { const created = { view_id: `view-${view}`, name: view, type: "grid" }; views.set(tableId, [...(views.get(tableId) ?? []), created]); return created; },
     updateView: async (...args) => calls.push(["updateView", ...args]),
     readViewConfiguration: async (_tableId, _viewId, table, name) => { const config = viewAction(table, name).configuration; return { filter: config.filter, sort: config.sort, group: config.group, visible_fields: config.visible_fields }; },
     listDashboards: async () => ({ complete: true, items: [] }),
@@ -611,7 +667,7 @@ test("presentation converges stale same-type dashboard config and blocks immutab
     return {
       get updates() { return updates; },
       readSchema: async () => ({ complete: true, tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name) => ({ name, table_id: `tbl-${name}` })) }),
-      listViews: async (_tableId, table) => ({ complete: true, items: viewActions.filter((action) => action.table === table).map((action) => ({ view_id: action.id, name: action.name })) }),
+      listViews: async (_tableId, table) => ({ complete: true, items: viewActions.filter((action) => action.table === table).map((action) => ({ view_id: action.id, name: action.name, type: "grid" })) }),
       createView: async () => { throw new Error("unexpected"); }, updateView: async () => {},
       readViewConfiguration: async (_tableId, _viewId, table, name) => { const config = viewActions.find((action) => action.table === table && action.name === name).configuration; return { filter: config.filter, sort: config.sort, group: config.group, visible_fields: config.visible_fields }; },
       listDashboards: async () => ({ complete: true, items: [{ dashboard_id: "dash", name: dashboardAction.name }] }),
@@ -628,6 +684,15 @@ test("presentation converges stale same-type dashboard config and blocks immutab
   const wrongType = makeAdapter(true);
   await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: wrongType, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest), (error) => error.code === "base_schema_drift");
   assert.equal(wrongType.updates, 0);
+
+  const wrongViewType = makeAdapter();
+  const originalListViews = wrongViewType.listViews;
+  wrongViewType.listViews = async (tableId, table) => {
+    const listed = await originalListViews(tableId, table);
+    if (table === "账号台账") listed.items[0].type = "calendar";
+    return listed;
+  };
+  await assert.rejects(() => applyMigration({ phase: "presentation", presentationAdapter: wrongViewType, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest), (error) => error.code === "base_schema_drift");
 });
 
 test("verify checks exact sets, every writable value, relation IDs, extras and null versus zero", async () => {

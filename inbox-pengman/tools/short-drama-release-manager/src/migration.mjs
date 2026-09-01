@@ -332,19 +332,9 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
 }
 
 function expectedFieldConfig(tableName, spec, tableIds) {
-  if (spec.kind === "system") return { type: spec.systemType };
-  if (spec.kind === "text") return { type: "text" };
-  if (spec.kind === "url") return { type: "text", style: { type: "url" } };
-  if (spec.kind === "number") return { type: "number" };
-  if (spec.kind === "single_select" || spec.kind === "multi_select") return { type: "select", multiple: spec.kind === "multi_select" };
-  if (spec.kind === "date" || spec.kind === "datetime") return { type: "datetime", style: { format: spec.kind === "date" ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm" } };
-  if (spec.kind === "link") return {
-    type: "link", link_table: tableIds[spec.targetTable] ?? null,
-    ...(spec.bidirectional ? { bidirectional: true, bidirectional_link_field_name: spec.reverseField } : {}),
-  };
-  if (spec.kind === "formula") return { type: "formula", expression: spec.expression };
-  if (spec.kind === "lookup") return { type: "lookup", from: BASE_FIELD_SPECS[tableName].find((item) => item.name === spec.linkField)?.targetTable, select: spec.sourceField };
-  fail("base_schema_drift", "Fixed schema contains an unsupported field kind", { table: tableName, field: spec.name });
+  const bindings = spec.kind === "link" ? { targetTableId: tableIds[spec.targetTable] } : {};
+  if (spec.kind === "link" && typeof bindings.targetTableId !== "string") fail("base_schema_drift", "Fixed link target table is unresolved", { table: tableName, field: spec.name });
+  return fixedFieldDescriptor(tableName, spec.name, bindings);
 }
 
 function fixedSchemaDescriptor(tableName, spec) {
@@ -398,6 +388,13 @@ function schemaPlan(baseSchema, blocks) {
     for (const field of table?.fields ?? []) {
       if (!plainObject(field) || typeof field.name !== "string" || fields.has(field.name)) fail("base_schema_drift", "Base field metadata is malformed or duplicate", { table: tableName });
       fields.set(field.name, field);
+    }
+    const fixedNames = new Set(BASE_FIELD_SPECS[tableName].map((spec) => spec.name));
+    const targetPrimary = TABLES[tableName].primaryField;
+    const primaryFields = table?.fields?.filter((field) => field.is_primary === true || field.primary === true) ?? [];
+    const recoverablePrimaryName = table?.record_count === 0 && !fields.has(targetPrimary) && primaryFields.length === 1 ? primaryFields[0].name : null;
+    for (const fieldName of fields.keys()) {
+      if (!fixedNames.has(fieldName) && fieldName !== recoverablePrimaryName) blocks.push(blocked("base_schema_drift", tableName, null, { field: fieldName, reason: "unexpected_field" }));
     }
     for (const spec of BASE_FIELD_SPECS[tableName]) {
       const existing = fields.get(spec.name);
@@ -756,9 +753,20 @@ async function applySchema(context, manifest) {
     if (verified !== true) fail("readback_mismatch", "Schema action readback failed", { action: action.id });
   }
   const final = await readSchema();
+  const finalTableIds = Object.fromEntries([...final.tables].map(([name, table]) => [name, table.table_id]));
   for (const tableName of TABLE_ORDER) {
-    const names = new Set(final.tables.get(tableName)?.fields?.map((field) => field.name) ?? []);
-    for (const spec of BASE_FIELD_SPECS[tableName]) if (!names.has(spec.name)) fail("readback_mismatch", "Fixed Base field is missing after schema apply", { table: tableName, field: spec.name });
+    const fields = final.tables.get(tableName)?.fields ?? [];
+    const names = fields.map((field) => field.name).sort();
+    const expectedNames = BASE_FIELD_SPECS[tableName].map((spec) => spec.name).sort();
+    if (!isDeepStrictEqual(names, expectedNames)) fail("readback_mismatch", "Final Base field set does not match the fixed schema", { table: tableName, expected: expectedNames, actual: names });
+    const byName = new Map(fields.map((field) => [field.name, field]));
+    for (const spec of BASE_FIELD_SPECS[tableName]) {
+      const actual = byName.get(spec.name);
+      if (!plainObject(actual) || !configMatches(actual, expectedFieldConfig(tableName, spec, finalTableIds)) ||
+          spec.primary && actual.is_primary !== true && actual.primary !== true) {
+        fail("readback_mismatch", "Final Base field semantics do not match the fixed schema", { table: tableName, field: spec.name });
+      }
+    }
   }
 }
 
@@ -786,6 +794,11 @@ async function applyPresentation(context, manifest) {
       if (!plainObject(listed) || listed.complete !== true || !Array.isArray(listed.items)) fail("readback_mismatch", "Complete view readback is required", { action: action.id });
       const matches = listed.items.filter((view) => view.name === action.name);
       if (matches.length > 1) fail("base_schema_drift", "Duplicate fixed view name", { action: action.id });
+      const existingType = matches[0]?.type ?? matches[0]?.view_type;
+      if (matches.length === 1 && (existingType !== action.configuration.type ||
+          matches[0].type !== undefined && matches[0].view_type !== undefined && matches[0].type !== matches[0].view_type)) {
+        fail("base_schema_drift", "View immutable type does not match the fixed presentation schema", { action: action.id });
+      }
       const created = matches[0] ?? await adapter.createView(table.table_id, action.table, action.name);
       const viewId = created?.view_id;
       if (typeof viewId !== "string" || viewId === "") fail("readback_mismatch", "View ID is unresolved", { action: action.id });
@@ -795,6 +808,11 @@ async function applyPresentation(context, manifest) {
           readback.items.filter((view) => view.name === action.name && view.view_id === viewId).length !== 1) {
         fail("readback_mismatch", "Configured view is missing from complete readback", { action: action.id });
       }
+      const finalView = readback.items.find((view) => view.name === action.name && view.view_id === viewId);
+      const finalType = finalView.type ?? finalView.view_type;
+      if (finalType !== action.configuration.type || finalView.type !== undefined && finalView.view_type !== undefined && finalView.type !== finalView.view_type) {
+        fail("base_schema_drift", "Configured view immutable type drifted", { action: action.id });
+      }
       const configuration = await adapter.readViewConfiguration(table.table_id, viewId, action.table, action.name);
       const expected = {
         filter: action.configuration.filter,
@@ -803,7 +821,7 @@ async function applyPresentation(context, manifest) {
         visible_fields: action.configuration.visible_fields,
       };
       if (!isDeepStrictEqual(canonicalize(configuration), canonicalize(expected))) fail("readback_mismatch", "View configuration does not match the fixed semantic contract", { action: action.id });
-      semanticReadbacks.push({ id: action.id, sha256: sha256(configuration) });
+      semanticReadbacks.push({ id: action.id, sha256: sha256({ type: finalType, ...configuration }) });
     } else if (action.kind === "configure_dashboard") {
       const listed = await adapter.listDashboards();
       if (!plainObject(listed) || listed.complete !== true || !Array.isArray(listed.items)) fail("readback_mismatch", "Complete dashboard readback is required");
