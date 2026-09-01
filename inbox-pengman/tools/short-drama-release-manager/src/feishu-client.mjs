@@ -323,13 +323,22 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
       rows.length !== recordIds.length || rows.some((row) => !Array.isArray(row) || row.length !== fields.length)) {
     throw invalidResponse("Feishu record matrix response is malformed");
   }
-  if (strictList && (!Array.isArray(fieldIds) || !Array.isArray(fieldTypes) || data.time_zone !== "Asia/Shanghai" ||
-      !["string", "number"].includes(typeof data.revision) || String(data.revision).length === 0 ||
-      !plainObject(data.query_context) || data.query_context.record_scope !== "all_records" ||
-      data.query_context.field_scope !== (writableOnly ? "selected_fields" : "all_fields"))) {
-    throw invalidResponse("Feishu record list completeness metadata is missing or inconsistent");
-  }
-  if (!strictList && data.query_context !== undefined && (!plainObject(data.query_context) ||
+  if (strictList) {
+    if (data.time_zone !== undefined || data.revision !== undefined || data.revision_id !== undefined) {
+      throw invalidResponse("Feishu record list uses unsupported metadata aliases");
+    }
+    if (data.timezone !== undefined && data.timezone !== "Asia/Shanghai") {
+      throw invalidResponse("Feishu record list timezone is invalid");
+    }
+    if (data.rev !== undefined && (!["string", "number"].includes(typeof data.rev) || String(data.rev).length === 0)) {
+      throw invalidResponse("Feishu record list revision is invalid");
+    }
+    if (data.query_context !== undefined && (!plainObject(data.query_context) ||
+        data.query_context.record_scope !== "all_records" ||
+        data.query_context.field_scope !== (writableOnly ? "selected_fields" : "all_fields"))) {
+      throw invalidResponse("Feishu record query_context scope is invalid");
+    }
+  } else if (data.query_context !== undefined && (!plainObject(data.query_context) ||
       typeof data.query_context.record_scope !== "string" || typeof data.query_context.field_scope !== "string")) {
     throw invalidResponse("Feishu record query_context is incomplete");
   }
@@ -356,11 +365,27 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
       fields: Object.fromEntries(fields.map((field, at) => [field, decodeCell(tableName, field, row[at])])),
     })),
     signature: strictList ? {
-      fields: [...fields], field_ids: [...fieldIds], field_types: [...fieldTypes],
-      time_zone: data.time_zone, revision: data.revision, total: data.total,
-      record_scope: data.query_context.record_scope, field_scope: data.query_context.field_scope,
+      fields: [...fields], total: data.total,
+      ...(fieldIds === undefined ? {} : { field_ids: [...fieldIds] }),
+      ...(fieldTypes === undefined ? {} : { field_types: [...fieldTypes] }),
+      ...(data.timezone === undefined ? {} : { timezone: data.timezone }),
+      ...(data.rev === undefined ? {} : { rev: data.rev }),
+      ...(data.query_context === undefined ? {} : {
+        record_scope: data.query_context.record_scope,
+        field_scope: data.query_context.field_scope,
+      }),
     } : null,
   };
+}
+
+function recordSignaturesCompatible(left, right) {
+  for (const key of ["fields", "total"]) {
+    if (JSON.stringify(left[key]) !== JSON.stringify(right[key])) return false;
+  }
+  for (const key of ["field_ids", "field_types", "timezone", "rev", "record_scope", "field_scope"]) {
+    if (Object.hasOwn(left, key) && Object.hasOwn(right, key) && JSON.stringify(left[key]) !== JSON.stringify(right[key])) return false;
+  }
+  return true;
 }
 
 function viewFieldIndex(fields) {
@@ -385,11 +410,48 @@ function viewFieldIndex(fields) {
 function normalizeViewConfiguration(configuration, fields) {
   const { resolveField } = viewFieldIndex(fields);
   const result = structuredClone(configuration);
-  if (!plainObject(result.filter) || !Array.isArray(result.filter.conditions) ||
-      result.filter.conditions.some((condition) => !Array.isArray(condition) || condition.length < 2)) {
+  if (!plainObject(result.filter) || Object.keys(result.filter).some((key) => !["logic", "conditions"].includes(key)) ||
+      !["and", "or"].includes(result.filter.logic) || !Array.isArray(result.filter.conditions)) {
     throw invalidResponse("View filter configuration is malformed");
   }
-  result.filter.conditions = result.filter.conditions.map((condition) => [resolveField(condition[0]), ...condition.slice(1)]);
+  const operators = new Set(["==", "!=", ">", ">=", "<", "<=", "intersects", "disjoint", "empty", "non_empty"]);
+  const validateValue = (value) => {
+    const validScalar = (item) => item === null || typeof item === "string" || typeof item === "boolean" ||
+      typeof item === "number" && Number.isFinite(item);
+    if (Array.isArray(value)) {
+      if (value.length === 0 || value.some((item) => !validScalar(item))) throw invalidResponse("View filter value is malformed");
+    } else if (!validScalar(value)) throw invalidResponse("View filter value is malformed");
+    return structuredClone(value);
+  };
+  result.filter.conditions = result.filter.conditions.map((condition) => {
+    let field;
+    let operator;
+    let hasValue;
+    let value;
+    if (Array.isArray(condition)) {
+      [field, operator] = condition;
+      hasValue = condition.length === 3;
+      value = condition[2];
+      const expectedLength = ["empty", "non_empty"].includes(operator) ? 2 : 3;
+      if (condition.length !== expectedLength) throw invalidResponse("View filter tuple condition is malformed");
+    } else if (plainObject(condition)) {
+      const keys = Object.keys(condition);
+      field = condition.field_name;
+      operator = condition.operator;
+      hasValue = Object.hasOwn(condition, "value");
+      value = condition.value;
+      const expectedKeys = ["empty", "non_empty"].includes(operator)
+        ? ["field_name", "operator"]
+        : ["field_name", "operator", "value"];
+      if (keys.length !== expectedKeys.length || keys.some((key) => !expectedKeys.includes(key))) {
+        throw invalidResponse("View filter object condition is malformed");
+      }
+    } else throw invalidResponse("View filter condition is malformed");
+    if (!operators.has(operator) || typeof field !== "string") throw invalidResponse("View filter condition is malformed");
+    const normalized = [resolveField(field), operator];
+    if (hasValue) normalized.push(validateValue(value));
+    return normalized;
+  });
   for (const [part, key] of [["sort", "sort_config"], ["group", "group_config"]]) {
     if (!plainObject(result[part]) || !Array.isArray(result[part][key]) ||
         result[part][key].some((item) => !plainObject(item) || typeof item.field !== "string")) {
@@ -833,17 +895,19 @@ export class FeishuClient {
           : null;
         const pageItems = decoded ? decoded.records : normalizedResourceItems(payload.data, resource);
         if (decoded?.signature) {
-          if (recordSignature !== null && JSON.stringify(decoded.signature) !== JSON.stringify(recordSignature)) {
+          if (recordSignature !== null && !recordSignaturesCompatible(decoded.signature, recordSignature)) {
             throw invalidResponse("Feishu record list schema changed during pagination", { path: diagnosticPath(path) });
           }
           recordSignature = decoded.signature;
         }
-        const pageRevision = payload.data.revision ?? payload.data.revision_id ?? null;
-        if (revisionObserved && pageRevision !== revision) {
-          throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
+        const pageRevision = vendorRecords ? payload.data.rev ?? null : payload.data.revision ?? payload.data.revision_id ?? null;
+        if (pageRevision !== null) {
+          if (revisionObserved && pageRevision !== revision) {
+            throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
+          }
+          revision = pageRevision;
+          revisionObserved = true;
         }
-        revision = pageRevision;
-        revisionObserved = true;
         items.push(...pageItems);
         let hasMore;
         let rawCursor;
