@@ -18,14 +18,54 @@ import {
   main,
   readPayload,
   resolveInvocationIdentity,
+  runBaseCanary,
   shouldEnqueueSchedule,
 } from "../shortdrama_ctl.mjs";
 import { manifestDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
+import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
+import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "../src/schema.mjs";
 
 const INTERNAL = {
   SHORTDRAMA_INTERNAL_MARKER: "launchd:com.gengrowth.shortdrama-sync",
   SHORTDRAMA_LAUNCHD_LABEL: "com.gengrowth.shortdrama-sync",
 };
+
+function runtimeFixture(root) {
+  const config = {
+    schema_version: "shortdrama/v1", timezone: "Asia/Shanghai", source_spreadsheet_id: "sheet",
+    paths: { metrics_sqlite: "metrics.sqlite", collector: "collector.mjs", collector_summary_dir: "summaries", ops_sqlite: "ops.sqlite", payload_root: "payloads" },
+    base: { url: "https://base.company.test/base", app_token_env: "BASE", table_id_envs: { accounts: "TA", dramas: "TD", captures: "TC", releases: "TR" } },
+    auth: { feishu_app_id_env: "APP", feishu_app_secret_env: "SECRET", google_service_account_path_env: "GOOGLE", operator_ids_env: "OPS", privileged_ids_env: "ADMINS", notification_chat_ids_env: "CHATS" },
+    acceptance: { privileged_actor_id: "ou_admin" },
+  };
+  const env = {
+    BASE: "base", TA: "tbl-accounts", TD: "tbl-dramas", TC: "tbl-captures", TR: "tbl-releases",
+    APP: "app", SECRET: "secret", GOOGLE: path.join(root, "google.json"), OPS: "ou_operator", ADMINS: "ou_admin", CHATS: "oc_ops", SHORTDRAMA_OPS_CHAT_ID: "oc_ops",
+  };
+  return { config, env };
+}
+
+function repositoryClient(overrides = {}) {
+  return {
+    listRecords: async () => ({ complete: true, revision: "r", items: [] }),
+    createRecords: async () => [], updateRecords: async () => [], getRecord: async () => null,
+    ...overrides,
+  };
+}
+
+function readySchema(env) {
+  const idByTable = { "账号台账": env.TA, "选剧池": env.TD, "采集数据": env.TC, "发布记录": env.TR };
+  return {
+    complete: true, revision: "base-schema-ready", tables: TABLE_ORDER.map((tableName) => ({
+      table_id: idByTable[tableName], name: tableName,
+      fields: BASE_FIELD_SPECS[tableName].map((spec) => ({
+        field_id: `fld-${tableName}-${spec.name}`,
+        ...fixedFieldDescriptor(tableName, spec.name, spec.kind === "link" ? { targetTableId: idByTable[spec.targetTable] } : {}),
+        ...(spec.primary ? { is_primary: true } : {}),
+      })),
+    })),
+  };
+}
 
 test("CLI exposes only registered command paths and fixed options", () => {
   assert.deepEqual(parseCommand(["sync", "status", "--run-id", "run"]), {
@@ -36,6 +76,161 @@ test("CLI exposes only registered command paths and fixed options", () => {
     ["exec", "rm", "-rf"], ["pool", "delete"], ["sync"], ["doctor", "extra"],
     ["pool", "list", "--wat", "x"], ["sync", "status", "--run-id", "a", "--run-id", "b"],
   ]) assert.throws(() => parseCommand(argv), (error) => ["command_not_allowed", "input_invalid"].includes(error.code));
+});
+
+test("doctor state initialization is explicit privileged local-only", () => {
+  const command = parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]);
+  assert.equal(command.options.initState, true);
+  assert.deepEqual(resolveInvocationIdentity(command, {}, { isPrivilegedAllowed: (id) => id === "ou_admin" }), {
+    mode: "local", actorId: "ou_admin", chatId: null, profile: null,
+  });
+  assert.throws(() => resolveInvocationIdentity(command, {
+    HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
+    HERMES_SESSION_USER_ID: "ou_admin", HERMES_SESSION_CHAT_ID: "oc_social",
+  }), (error) => error.code === "local_only_required");
+  assert.throws(() => resolveInvocationIdentity(command, {
+    SHORTDRAMA_CAPABILITY_FILE: "/tmp/internal.capability", SHORTDRAMA_INTERNAL_CAPABILITY: "aa".repeat(32),
+  }, { isPrivilegedAllowed: () => true }), (error) => error.code === "local_only_required");
+  assert.throws(() => resolveInvocationIdentity(parseCommand(["doctor", "--init-state"]), {}),
+    (error) => error.code === "actor_required");
+});
+
+test("internal scheduler context cannot initialize state before runtime construction", async () => {
+  let builds = 0;
+  const result = await execute(["doctor", "--init-state", "--actor-id", "ou_admin", "--config", "/configured/runtime.json"], {
+    env: { SHORTDRAMA_CAPABILITY_FILE: "/tmp/internal.capability", SHORTDRAMA_INTERNAL_CAPABILITY: "aa".repeat(32) },
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(result.result.error.code, "local_only_required");
+  assert.equal(builds, 0);
+});
+
+test("doctor init-state creates only the JobStore and normal doctor remains read-only", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-init-state-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const dbPath = path.join(root, "ops.sqlite");
+  await assert.rejects(access(dbPath));
+  const client = repositoryClient();
+  await assert.rejects(() => buildRuntime({
+    configPath, env, command: parseCommand(["doctor"]), services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+  }));
+  await assert.rejects(access(dbPath));
+  await assert.rejects(() => buildRuntime({
+    configPath, env, command: parseCommand(["sync", "status", "--run-id", "missing"]),
+    services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+  }), (error) => error.code === "state_store_schema_missing");
+  await assert.rejects(access(dbPath));
+  await assert.rejects(() => buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_reader"]),
+    services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+  }), (error) => error.code === "privileged_required");
+  await assert.rejects(access(dbPath));
+  const init = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+  });
+  const initialized = await init.doctor({ initState: true, canary: false });
+  init.close();
+  assert.equal(initialized.state_store, "initialized");
+  assert.equal(initialized.status, "schema_missing");
+  const db = new DatabaseSync(dbPath, { readOnly: true });
+  assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='jobs'").get()["1"], 1);
+  assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='id_sequences'").get(), undefined);
+  db.close();
+  const normal = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor"]),
+    services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+  });
+  assert.equal((await normal.doctor({ initState: false, canary: false })).status, "schema_missing");
+  normal.close();
+});
+
+test("four-table doctor canary restores exact keys and runs before sequence seeding", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-canary-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const tableNameById = new Map([[env.TA, "账号台账"], [env.TD, "选剧池"], [env.TC, "采集数据"], [env.TR, "发布记录"]]);
+  const rows = new Map([...tableNameById].map(([id, name], index) => [id, [{
+    record_id: `existing-${index}`, fields: { [TABLES[name].primaryField]: `EXISTING-${index}` },
+  }]]));
+  const calls = [];
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
+    createRecords: async (_base, tableId, records) => {
+      const record = { record_id: `canary-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record); calls.push(["create", tableNameById.get(tableId)]); return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows.get(tableId).find((row) => row.record_id === recordId)),
+    deleteCanaryRecords: async (_base, tableId, tableName, recordIds) => {
+      calls.push(["delete", tableName]);
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
+      return recordIds;
+    },
+  });
+  const initialized = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, readSchema: async () => readySchema(env), makeCanaryId: () => "CANARY-SDRUN-20260901-120000-A1B2" },
+  });
+  await initialized.doctor({ initState: true, canary: false });
+  initialized.close();
+  const runtime = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--canary", "--actor-id", "ou_admin"]),
+    services: { client, readSchema: async () => readySchema(env), makeCanaryId: () => "CANARY-SDRUN-20260901-120000-A1B2" },
+  });
+  const result = await runtime.doctor({ initState: false, canary: true });
+  runtime.close();
+  assert.equal(result.status, "canary_verified");
+  assert.equal(result.canary.status, "verified");
+  assert.equal(result.sequence.seeded, false);
+  assert.deepEqual(calls, [
+    ...TABLE_ORDER.map((name) => ["create", name]),
+    ...TABLE_ORDER.map((name) => ["delete", name]),
+  ]);
+  assert.equal([...rows.values()].every((items) => items.length === 1 && items[0].record_id.startsWith("existing-")), true);
+});
+
+test("canary cleanup failure is manual-repair terminal and never verified", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
+  const rows = new Map([...tableNameById.keys()].map((id) => [id, []]));
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
+    createRecords: async (_base, tableId, records) => {
+      const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record);
+      return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows.get(tableId).find((row) => row.record_id === recordId)),
+    deleteCanaryRecords: async () => { throw Object.assign(new Error("cleanup"), { code: "base_request_failed" }); },
+  });
+  await assert.rejects(() => runBaseCanary({
+    client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
+  }), (error) => error.code === "canary_cleanup_failed" && error.details.next_step === "manual_repair");
+});
+
+test("later canary readback failure still cleans every earlier table", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const rows = new Map(Object.values(tableIds).map((id) => [id, []]));
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
+    createRecords: async (_base, tableId, records) => {
+      const row = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(row); return [structuredClone(row)];
+    },
+    getRecord: async (_base, tableId, recordId) => {
+      if (tableId === "tr") throw Object.assign(new Error("late readback"), { code: "readback_mismatch" });
+      return structuredClone(rows.get(tableId).find((row) => row.record_id === recordId));
+    },
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id))); return recordIds;
+    },
+  });
+  await assert.rejects(() => runBaseCanary({ client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260901-120000-A1B2" }),
+    (error) => error.code === "readback_mismatch");
+  assert.equal([...rows.values()].every((items) => items.length === 0), true);
 });
 
 test("every public and internal registry path parses with only its fixed shape", () => {
@@ -239,7 +434,7 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   const observed = {};
   class HumanOpsFixture { constructor(args) { observed.operators = [...args.operators]; observed.privileged = [...args.privileged]; } }
   class NotifierFixture { constructor(args) { observed.chats = [...args.allowedChatIds]; } }
-  const runtime = await buildRuntime({ configPath, env: {
+  const runtime = await buildRuntime({ configPath, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]), env: {
     BASE: "base", TA: "ta", TD: "td", TC: "tc", TR: "tr", APP: "app", SECRET: "secret", GOOGLE: path.join(root, "google.json"),
     RENAMED_OPS: "ou_a,ou_b", RENAMED_ADMINS: "ou_admin", RENAMED_CHATS: "oc_ops,oc_social", SHORTDRAMA_OPS_CHAT_ID: "oc_ops",
   }, services: { HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture } });

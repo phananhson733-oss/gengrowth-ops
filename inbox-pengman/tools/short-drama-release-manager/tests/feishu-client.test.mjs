@@ -547,6 +547,56 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
   );
 });
 
+test("canary deletion pre-reads a fixed table record and uses exact Base v3 batch_delete", async () => {
+  const calls = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      calls.push([new URL(url).pathname, options]);
+      if (options.method === "GET") return { code: 0, data: { record: {
+        record_id: "rec-canary", fields: { 剧ID: "CANARY-SDRUN-20260901-120000-A1B2" },
+      } } };
+      return { code: 0, data: { record_id_list: ["rec-canary"] } };
+    },
+  });
+  assert.deepEqual(await client.deleteCanaryRecords("base", "tbl-drama", "选剧池", ["rec-canary"]), ["rec-canary"]);
+  assert.deepEqual(calls.map(([url]) => url), [
+    "/open-apis/base/v3/bases/base/tables/tbl-drama/records/rec-canary",
+    "/open-apis/base/v3/bases/base/tables/tbl-drama/records/batch_delete",
+  ]);
+  assert.deepEqual(calls[1][1].body, { record_id_list: ["rec-canary"] });
+});
+
+test("canary deletion rejects non-canary and arbitrary table targets before delete", async () => {
+  let deletes = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      if (options.method === "GET") return { code: 0, data: { record: { record_id: "rec", fields: { 剧ID: "SD-000001" } } } };
+      deletes += 1;
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"]),
+    (error) => error.code === "canary_target_invalid");
+  assert.throws(() => client.deleteCanaryRecords("base", "tbl", "任意表", ["rec"]),
+    (error) => error.code === "canary_target_invalid");
+  assert.throws(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec", "another"]),
+    (error) => error.code === "canary_target_invalid");
+  assert.equal(deletes, 0);
+});
+
+test("canary deletion requires the exact deleted record ID response", async () => {
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => options.method === "GET"
+      ? { code: 0, data: { record: { record_id: "rec", fields: { 剧ID: "CANARY-SDRUN-20260901-120000" } } } }
+      : { code: 0, data: { record_id_list: ["different"] } },
+  });
+  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"]),
+    (error) => error.code === "base_response_invalid");
+});
+
 test("canonical field payloads cover select, datetime, formula, and system fields", async () => {
   const bodies = [];
   const client = new FeishuClient({

@@ -10,6 +10,8 @@
 
 迁移 plan/schema receipt/verification 只读写固定的`inbox-pengman/output/short-drama-release-manager/migrations/`，输出文件不可覆盖。`migrate apply`必须同时提供独立 expected digest；data/presentation/sequences 还必须提供独立 schema receipt，sequences 另需独立 verification 文件字节 SHA-256。
 
+首次部署必须由 privileged 本地操作者显式运行`doctor --init-state --actor-id <id>`初始化 JobStore；普通`doctor`永远只读且不会创建缺失数据库，其他业务/迁移/调度命令也只接受已经完成初始化的 schema，不得隐式创建或迁移。Schema 完成后，`doctor --canary`会在 sequence 尚未播种时先对四张正式表执行主键-only canary、逐条读回、专用清理和完整 count/key-set 恢复验证；该路径不向 HumanOps 暴露删除能力。
+
 Google Sheets 是唯一录入源；本工具把账号台账、发布记录和选剧池单向同步到飞书多维表格。飞书中的改动不会写回 Google。
 
 ## 运行方式

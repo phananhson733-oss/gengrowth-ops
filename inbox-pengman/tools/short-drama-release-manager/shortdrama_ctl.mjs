@@ -28,7 +28,7 @@ import {
 } from "./src/migration.mjs";
 import { ShortDramaNotifier } from "./src/notifier.mjs";
 import { readLatestAccounts, readLatestPosts } from "./src/source-sqlite.mjs";
-import { BASE_FIELD_SPECS, TABLE_ORDER } from "./src/schema.mjs";
+import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "./src/schema.mjs";
 import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mjs";
 
 const LABEL = "com.gengrowth.shortdrama-sync";
@@ -39,7 +39,7 @@ const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 
 const REGISTRY = Object.freeze({
-  doctor: Object.freeze({ null: ["config", "canary", "actor-id"] }),
+  doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id"] }),
   migrate: Object.freeze({
     plan: ["config", "output", "actor-id", "chat-id"],
     apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm"],
@@ -102,9 +102,9 @@ export function parseCommand(argv) {
     }
     const key = camel(flag.slice(2));
     if (Object.hasOwn(options, key)) fail("input_invalid", "Duplicate CLI option is not allowed", { option: flag });
-    if (flag === "--canary") {
-      if (argv[index + 1] !== undefined && !argv[index + 1].startsWith("--")) fail("input_invalid", "Canary is a boolean flag");
-      options.canary = true;
+    if (["--canary", "--init-state"].includes(flag)) {
+      if (argv[index + 1] !== undefined && !argv[index + 1].startsWith("--")) fail("input_invalid", "Boolean CLI flag does not accept a value", { option: flag });
+      options[key] = true;
       index -= 1;
       continue;
     }
@@ -148,7 +148,8 @@ function readInstalledCapability(capabilityPath) {
 }
 
 function localActorRequired(command) {
-  return command.group === "migrate" && ["apply", "verify"].includes(command.action) || command.group === "doctor" && command.options.canary;
+  return command.group === "migrate" && ["apply", "verify"].includes(command.action) ||
+    command.group === "doctor" && (command.options.canary || command.options.initState);
 }
 
 export function resolveInvocationIdentity(command, env = {}, policy = {}) {
@@ -167,7 +168,12 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
     }
     return { mode: "internal", actorId: null, chatId: null, profile: null };
   }
+  if (command.group === "doctor" && command.options.initState &&
+      (env.SHORTDRAMA_CAPABILITY_FILE !== undefined || env.SHORTDRAMA_INTERNAL_CAPABILITY !== undefined)) {
+    fail("local_only_required", "State initialization cannot run from an internal scheduler context");
+  }
   if (hasSession) {
+    if (command.group === "doctor" && command.options.initState) fail("local_only_required", "State initialization is a privileged local-only command");
     if (command.options.actorId || command.options.chatId) fail("session_identity_override", "Social session identity cannot be overridden");
     if (env.HERMES_SESSION_PLATFORM !== "feishu" || env.HERMES_SESSION_PROFILE !== "social" ||
         !env.HERMES_SESSION_USER_ID || !env.HERMES_SESSION_CHAT_ID) {
@@ -356,6 +362,88 @@ export function evaluateDailyHealth(now, jobs) {
   return { alert: true, reason: "missing_terminal" };
 }
 
+const CANARY_ID = /^CANARY-SDRUN-\d{8}-\d{6}(?:-[A-F0-9]+)?$/;
+const CANARY_TABLES = Object.freeze([
+  ["accounts", "账号台账"], ["dramas", "选剧池"], ["captures", "采集数据"], ["releases", "发布记录"],
+]);
+
+function canaryIndex(result, tableName) {
+  if (!result || result.complete !== true || !Array.isArray(result.items)) fail("base_response_incomplete", "Complete Base list is required for canary", { table: tableName });
+  const primary = TABLES[tableName].primaryField;
+  const byKey = new Map();
+  for (const record of result.items) {
+    const key = record?.fields?.[primary];
+    if (typeof record?.record_id !== "string" || record.record_id.length === 0 || typeof key !== "string" || key.length === 0 || byKey.has(key)) {
+      fail("base_response_invalid", "Canary Base list contains malformed or duplicate keys", { table: tableName });
+    }
+    byKey.set(key, record.record_id);
+  }
+  return byKey;
+}
+
+export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {}) {
+  if (!client || ["listRecords", "createRecords", "getRecord", "deleteCanaryRecords"].some((method) => typeof client[method] !== "function") ||
+      typeof appToken !== "string" || appToken.length === 0 || !tableIds || !CANARY_ID.test(canaryId ?? "")) {
+    fail("canary_context_invalid", "Fixed four-table canary context is invalid");
+  }
+  const snapshots = new Map();
+  const originalKeys = new Map();
+  let operationError = null;
+  let cleanupError = null;
+  for (const [binding, tableName] of CANARY_TABLES) {
+    const tableId = tableIds[binding];
+    if (typeof tableId !== "string" || tableId.length === 0) fail("canary_context_invalid", "Canary table binding is invalid", { table: tableName });
+    const index = canaryIndex(await client.listRecords(appToken, tableId), tableName);
+    if (index.has(canaryId)) fail("canary_collision", "Generated canary key already exists", { table: tableName });
+    snapshots.set(tableName, index);
+    originalKeys.set(tableName, [...index.keys()].sort());
+  }
+  try {
+    for (const [binding, tableName] of CANARY_TABLES) {
+      const tableId = tableIds[binding];
+      const primary = TABLES[tableName].primaryField;
+      const created = await client.createRecords(appToken, tableId, [{ fields: { [primary]: canaryId } }]);
+      if (!Array.isArray(created) || created.length !== 1 || typeof created[0]?.record_id !== "string") {
+        fail("readback_mismatch", "Canary create did not return exactly one record ID", { table: tableName });
+      }
+      const recordId = created[0].record_id;
+      const readback = await client.getRecord(appToken, tableId, recordId);
+      if (readback?.record_id !== recordId || readback?.fields?.[primary] !== canaryId) {
+        fail("readback_mismatch", "Canary readback did not match primary and record ID", { table: tableName });
+      }
+    }
+  } catch (error) {
+    operationError = error;
+  } finally {
+    for (const [binding, tableName] of CANARY_TABLES) {
+      const tableId = tableIds[binding];
+      try {
+        const current = canaryIndex(await client.listRecords(appToken, tableId), tableName);
+        const recordId = current.get(canaryId);
+        if (recordId) await client.deleteCanaryRecords(appToken, tableId, tableName, [recordId]);
+      } catch (error) {
+        cleanupError ??= error;
+      }
+    }
+    for (const [binding, tableName] of CANARY_TABLES) {
+      try {
+        const restored = canaryIndex(await client.listRecords(appToken, tableIds[binding]), tableName);
+        if (JSON.stringify([...restored.keys()].sort()) !== JSON.stringify(originalKeys.get(tableName))) {
+          fail("readback_mismatch", "Canary cleanup did not restore the exact key set", { table: tableName });
+        }
+      } catch (error) {
+        cleanupError ??= error;
+      }
+    }
+  }
+  if (cleanupError) fail("canary_cleanup_failed", "Canary cleanup or restoration could not be proven", { next_step: "manual_repair" });
+  if (operationError) throw operationError;
+  return {
+    status: "verified", canary_id: canaryId,
+    tables: Object.fromEntries(CANARY_TABLES.map(([, name]) => [name, { count_before: snapshots.get(name).size, count_after: snapshots.get(name).size }])),
+  };
+}
+
 async function defaultSpawnFile(file, args, options = {}) {
   return new Promise((resolvePromise, reject) => {
     const { signal: abortSignal, ...spawnOptions } = options;
@@ -464,8 +552,8 @@ export function createDispatcher(runtime) {
   return async (command, identity, payload) => {
     const key = `${command.group}:${command.action}`;
     if (command.group === "doctor") {
-      if (command.options.canary && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor canary requires a privileged actor");
-      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, identity }) : { status: "ready" };
+      if ((command.options.canary || command.options.initState) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
+      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity }) : { status: "ready" };
     }
     if (key === "pool:list" || key === "release:list") return runtime.humanOps.query(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
     if (key === "pool:get" || key === "release:get") {
@@ -650,10 +738,17 @@ function schemaReadiness(schema, config) {
 
 export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null, services = {} } = {}) {
   const config = loadRuntimeConfig({ env, configPath, notificationChatId: env.SHORTDRAMA_OPS_CHAT_ID });
-  const jobs = new JobStore(config.paths.opsSqlite, { readOnly: command?.group === "doctor" });
+  const initState = command?.group === "doctor" && command.options?.initState === true;
+  if (initState && !config.auth.isPrivilegedAllowed(command.options.actorId)) {
+    fail("privileged_required", "State initialization requires a privileged actor");
+  }
+  const jobs = new JobStore(config.paths.opsSqlite, {
+    readOnly: command?.group === "doctor" && !initState,
+    initialize: initState,
+  });
   try {
     const tokenProvider = createTenantTokenProvider({ appId: config.auth.feishuAppId, appSecret: config.getFeishuAppSecret() });
-    const client = new FeishuClient({ tokenProvider });
+    const client = services.client ?? new FeishuClient({ tokenProvider });
     const repos = new BaseRepositories({ client, appToken: config.base.appToken, tableIds: config.base.tableIds });
     const operatorIds = new Set(config.auth.getOperatorIds());
     const privilegedIds = new Set(config.auth.getPrivilegedIds());
@@ -678,7 +773,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     const syncContext = { jobs, makeRunId, wakeWorker, now };
     const workerPid = process.pid;
     const workerContext = { jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts }, workerPid, now, metricsSqlitePath: config.paths.metricsSqlite };
-    const migrationBase = async () => baseSchemaMetadata(client, config);
+    const migrationBase = services.readSchema ?? (async () => baseSchemaMetadata(client, config));
     const adapters = schemaAdapters(client, config);
     const readGoogle = () => readGoogleMigrationSource({
       spreadsheetId: config.sourceSpreadsheetId,
@@ -688,14 +783,24 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
       runWorker: runSyncWorker,
       sendOpsHealth: sendMessage,
-      async doctor({ canary }) {
+      async doctor({ canary, initState: requestedInitState }) {
+        if (requestedInitState === true && !initState) fail("state_init_context_invalid", "State initialization requires its explicit CLI command");
         const sequence = jobs.peekSequenceState();
         const schema = await migrationBase();
         const readiness = schemaReadiness(schema, config);
-        if (readiness.status !== "ready") return { ...readiness, tables: schema.tables.length, sequence };
-        if (!sequence.seeded) return { status: "sequence_unseeded", schema_revision: schema.revision, sequence };
-        if (canary) await Promise.all(Object.values(repos).filter((value) => value?.loadIndex).map((repo) => repo.loadIndex()));
-        return { status: "ready", node: process.versions.node, schema_revision: schema.revision, sequence };
+        const stateResult = requestedInitState ? { state_store: "initialized" } : {};
+        if (readiness.status !== "ready") return { ...readiness, ...stateResult, tables: schema.tables.length, sequence };
+        if (canary) {
+          const parts = beijingParts(now());
+          const fallbackId = `CANARY-SDRUN-${parts.date.replaceAll("-", "")}-${String(parts.hour).padStart(2, "0")}${String(parts.minute).padStart(2, "0")}${String(parts.second).padStart(2, "0")}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
+          const canaryResult = await runBaseCanary({
+            client, appToken: config.base.appToken, tableIds: config.base.tableIds,
+            canaryId: services.makeCanaryId?.() ?? fallbackId,
+          });
+          return { status: "canary_verified", ...stateResult, canary: canaryResult, schema_revision: schema.revision, sequence };
+        }
+        if (!sequence.seeded) return { status: "sequence_unseeded", ...stateResult, schema_revision: schema.revision, sequence };
+        return { status: "ready", ...stateResult, node: process.versions.node, schema_revision: schema.revision, sequence };
       },
       async migratePlan(_payload, options) {
         const google = await readGoogle();
@@ -771,6 +876,10 @@ export async function execute(argv, { env = process.env, stdin = process.stdin, 
   try {
     const command = parseCommand(argv);
     const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => env[key] !== undefined);
+    if (command.group === "doctor" && command.options.initState &&
+        (env.SHORTDRAMA_CAPABILITY_FILE !== undefined || env.SHORTDRAMA_INTERNAL_CAPABILITY !== undefined)) {
+      fail("local_only_required", "State initialization cannot run from an internal scheduler context");
+    }
     const canResolveBeforeRuntime = isInternal(command) || hasSession || ["pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
     const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, env) : null;
     const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;

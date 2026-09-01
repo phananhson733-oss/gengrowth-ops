@@ -9,6 +9,7 @@ const MAX_REQUEST_ATTEMPTS = 3;
 const AUTH_ERROR_CODES = new Set([99991663, 99991664, 99991668, 99991671, 99991672]);
 const SCHEMA_ERROR_CODES = new Set([1254044, 1254045, 1254060, 1254061, 1254062]);
 const DASHBOARD_NAME = "短剧发行管理仪表盘";
+const CANARY_PRIMARY = /^CANARY-SDRUN-\d{8}-\d{6}(?:-[A-F0-9]+)?$/;
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -714,6 +715,35 @@ export class FeishuClient {
         written.push(...group.records);
       }
       return written;
+    }, { signal }), { signal });
+  }
+
+  deleteCanaryRecords(baseToken, tableId, tableName, recordIds, { signal } = {}) {
+    if (!TABLE_ORDER.includes(tableName) || !Array.isArray(recordIds) || recordIds.length !== 1 ||
+        typeof recordIds[0] !== "string" || recordIds[0].length === 0 || recordIds[0].trim() !== recordIds[0]) {
+      fail("canary_target_invalid", "Canary cleanup accepts exactly one fixed-table record ID");
+    }
+    const recordId = recordIds[0];
+    const primaryField = TABLES[tableName].primaryField;
+    const queueKey = `records:${baseToken}:${tableId}`;
+    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
+      const readback = await this.request(
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/${encoded(recordId)}`,
+        { context, signal },
+      );
+      const record = readback.data?.record;
+      if (!plainObject(record) || record.record_id !== recordId || !plainObject(record.fields) ||
+          typeof record.fields[primaryField] !== "string" || !CANARY_PRIMARY.test(record.fields[primaryField])) {
+        fail("canary_target_invalid", "Canary cleanup target did not read back as the fixed canary record", {
+          table: tableName,
+        });
+      }
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_delete`,
+        { method: "POST", body: { record_id_list: [recordId] }, context, signal },
+      );
+      requireRecordIds(payload, [recordId]);
+      return [recordId];
     }, { signal }), { signal });
   }
 

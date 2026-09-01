@@ -1,4 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
+import { lstatSync } from "node:fs";
 
 import { ShortDramaError } from "./errors.mjs";
 
@@ -106,16 +107,26 @@ function transitionCounters(data) {
 }
 
 export class JobStore {
-  constructor(path, { readOnly = false } = {}) {
+  constructor(path, { readOnly = false, initialize = true } = {}) {
     this.path = requiredString(path, "path");
     try {
+      if (!initialize && this.path !== ":memory:") {
+        let info;
+        try { info = lstatSync(this.path); }
+        catch { fail("state_store_schema_missing", "SQLite state store must be initialized explicitly"); }
+        if (info.isSymbolicLink() || !info.isFile()) fail("state_store_schema_missing", "SQLite state store must be a regular initialized file");
+      }
       this.db = new DatabaseSync(this.path, readOnly ? { readOnly: true } : {});
       this.db.exec(readOnly ? "PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON" : "PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL");
       if (!readOnly && this.path !== ":memory:") this.db.exec("PRAGMA journal_mode=WAL");
-      if (readOnly) {
+      if (readOnly || !initialize) {
         const required = ["jobs", "audit_events", "preview_receipts", "health_alerts", "mutation_leases"];
         const tables = new Set(this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((row) => row.name));
         if (required.some((name) => !tables.has(name))) fail("state_store_schema_missing", "SQLite state store schema is incomplete");
+        const healthColumns = new Set(this.db.prepare("PRAGMA table_info(health_alerts)").all().map((column) => column.name));
+        if (!["owner_id", "lease_expires_at"].every((name) => healthColumns.has(name))) {
+          fail("state_store_schema_missing", "SQLite state store requires explicit schema migration");
+        }
         return;
       }
       this.db.exec(`
