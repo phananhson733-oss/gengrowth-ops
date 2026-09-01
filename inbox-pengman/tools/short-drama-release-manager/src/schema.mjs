@@ -22,6 +22,7 @@ const system = (name, details = {}) => field(name, "system", { phase: "system", 
 
 export const TABLE_ORDER = ["账号台账", "选剧池", "采集数据", "发布记录"];
 export const SCHEMA_APPLY_ORDER = Object.freeze(["storage", "link", "lookup_formula", "system", "view_dashboard"]);
+const PATCH_ACTOR_KINDS = Object.freeze(["human", "machine", "migration"]);
 
 export const TABLES = {
   "账号台账": table(
@@ -116,11 +117,16 @@ export function fieldOwner(tableName, fieldName) {
 }
 
 export function assertPatchAllowed(tableName, patch, actorKind) {
+  if (!PATCH_ACTOR_KINDS.includes(actorKind)) {
+    throw new ShortDramaError("actor_kind_not_allowed", "Actor kind is not allowed", {
+      actor_kind: actorKind,
+    });
+  }
   for (const fieldName of Object.keys(patch)) {
     const owner = fieldOwner(tableName, fieldName);
     const allowed =
       (actorKind === "migration" && ["human", "machine", "shared"].includes(owner)) ||
-      owner === actorKind ||
+      (owner === actorKind && actorKind !== "migration") ||
       (owner === "shared" && actorKind === "human");
     if (!allowed) {
       throw new ShortDramaError("field_owner_violation", "Field owner mismatch", {

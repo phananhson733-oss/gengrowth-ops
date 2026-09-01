@@ -46,6 +46,36 @@ test("machine patches cannot touch human fields", () => {
   );
 });
 
+test("derived actors are rejected before a patch is inspected", () => {
+  assert.throws(
+    () => assertPatchAllowed("发布记录", {}, "derived"),
+    (error) => error.code === "actor_kind_not_allowed"
+  );
+  assert.throws(
+    () => assertPatchAllowed("发布记录", new Proxy({}, {
+      ownKeys() {
+        throw new Error("patch must not be inspected for a rejected actor");
+      },
+    }), "derived"),
+    (error) => error.code === "actor_kind_not_allowed"
+  );
+});
+
+test("unknown actors are rejected before a patch is inspected", () => {
+  assert.throws(
+    () => assertPatchAllowed("发布记录", {}, "untrusted"),
+    (error) => error.code === "actor_kind_not_allowed"
+  );
+  assert.throws(
+    () => assertPatchAllowed("发布记录", new Proxy({}, {
+      ownKeys() {
+        throw new Error("patch must not be inspected for a rejected actor");
+      },
+    }), "untrusted"),
+    (error) => error.code === "actor_kind_not_allowed"
+  );
+});
+
 test("runtime config rejects missing secrets and unknown notification chats", () => {
   assert.throws(
     () => loadRuntimeConfig({ env: {}, config: {} }),
@@ -101,8 +131,24 @@ test("runtime config rejects missing secrets and unknown notification chats", ()
     (error) => error.code === "notification_target_denied"
   );
   const runtime = loadRuntimeConfig({ env, config, notificationChatId: "oc_social" });
-  assert.equal(runtime.auth.notificationChats.has("oc_social"), true);
+  assert.equal(runtime.auth.isOperatorAllowed("ou_operator"), true);
+  assert.equal(runtime.auth.isPrivilegedAllowed("ou_privileged"), true);
+  assert.equal(runtime.auth.isNotificationChatAllowed("oc_social"), true);
+  assert.equal(runtime.auth.isNotificationChatAllowed("oc_unknown"), false);
+  assert.equal(runtime.auth.notificationChats, undefined);
+  for (const matcher of [
+    runtime.auth.isOperatorAllowed,
+    runtime.auth.isPrivilegedAllowed,
+    runtime.auth.isNotificationChatAllowed,
+  ]) {
+    assert.equal(matcher.add, undefined);
+    assert.equal(matcher.delete, undefined);
+  }
+  assert.throws(() => {
+    runtime.auth.isNotificationChatAllowed = () => true;
+  }, TypeError);
   assert.equal(JSON.stringify(runtime).includes("app-secret-must-not-be-logged"), false);
+  assert.equal(JSON.stringify(runtime).includes("oc_social"), false);
 });
 
 test("errors have stable public JSON", () => {

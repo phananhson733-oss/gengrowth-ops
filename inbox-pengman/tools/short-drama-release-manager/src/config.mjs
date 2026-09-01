@@ -29,6 +29,10 @@ function parseAllowlist(env, key) {
   return new Set(values);
 }
 
+function allowlistMatcher(allowlist) {
+  return Object.freeze((value) => typeof value === "string" && allowlist.has(value));
+}
+
 function loadConfig({ config, configPath }) {
   if (config !== undefined) {
     if (!config || typeof config !== "object" || Array.isArray(config)) {
@@ -95,8 +99,11 @@ export function loadRuntimeConfig({
     production
   );
   const appSecret = envValue(env, auth.feishu_app_secret_env);
-  const notificationChats = parseAllowlist(env, auth.notification_chat_ids_env);
-  if (notificationChatId && !notificationChats.has(notificationChatId)) {
+  const operatorIds = parseAllowlist(env, auth.operator_ids_env);
+  const privilegedIds = parseAllowlist(env, auth.privileged_ids_env);
+  const notificationChatIds = parseAllowlist(env, auth.notification_chat_ids_env);
+  const isNotificationChatAllowed = allowlistMatcher(notificationChatIds);
+  if (notificationChatId && !isNotificationChatAllowed(notificationChatId)) {
     throw new ShortDramaError("notification_target_denied", "Notification chat is not allowlisted", {
       chat_id: notificationChatId,
     });
@@ -124,9 +131,9 @@ export function loadRuntimeConfig({
     }),
     auth: Object.freeze({
       feishuAppId: envValue(env, auth.feishu_app_id_env),
-      operators: parseAllowlist(env, auth.operator_ids_env),
-      privileged: parseAllowlist(env, auth.privileged_ids_env),
-      notificationChats,
+      isOperatorAllowed: allowlistMatcher(operatorIds),
+      isPrivilegedAllowed: allowlistMatcher(privilegedIds),
+      isNotificationChatAllowed,
     }),
     acceptance: Object.freeze({ privilegedActorId }),
   };
