@@ -15,7 +15,7 @@ const table = (primaryField, human, machine, shared, derived, options = {}) => O
 
 const field = (name, kind, details = {}) => Object.freeze({ name, kind, ...details });
 const storage = (name, kind, details = {}) => field(name, kind, { phase: "storage", ...details });
-const link = (name, targetTable) => field(name, "link", { phase: "link", targetTable });
+const link = (name, targetTable, details = {}) => field(name, "link", { phase: "link", targetTable, ...details });
 const lookup = (name, linkField, sourceField) => field(name, "lookup", {
   phase: "lookup_formula",
   linkField,
@@ -84,7 +84,7 @@ export const BASE_FIELD_SPECS = Object.freeze({
     storage("推荐理由", "text"), storage("RS Boost 分类（待确认）", "multi_select"), storage("账号组", "multi_select"),
     storage("账号状态", "single_select"), storage("平台", "single_select"), storage("语言", "single_select"),
     storage("来源", "multi_select"), storage("推荐人", "multi_select"), storage("归档状态", "single_select"),
-    link("关联发布记录", "发布记录"),
+    link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "剧" }) }),
     formula("是否已排期", "IF(ISBLANK([关联发布记录]), \"否\", \"是\")"),
     system("创建人", { systemType: "created_by" }), system("创建时间", { systemType: "created_at" }),
     system("最后修改时间", { systemType: "updated_at" }),
@@ -95,14 +95,17 @@ export const BASE_FIELD_SPECS = Object.freeze({
     storage("点赞", "number"), storage("评论", "number"), storage("收藏", "number"), storage("转发", "number"),
     storage("业务", "single_select"), storage("采集状态", "single_select"), storage("缺失字段", "multi_select"),
     storage("来源 run_id", "text"), storage("Base 同步时间", "datetime"), link("账号", "账号台账"),
-    link("关联发布记录", "发布记录"), lookup("账号名", "账号", "账号名"),
+    link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "采集记录" }) }),
+    lookup("账号名", "账号", "账号名"),
   ]),
   "发布记录": Object.freeze([
     storage("发布ID", "text", { primary: true }), storage("日期", "datetime"), storage("剧ID（RS Boost）", "text"),
     storage("视频链接", "url"), storage("Post ID", "text"), storage("RS收益", "number"), storage("备注", "text"),
     storage("匹配方式", "single_select"), storage("匹配置信度", "number"), storage("指标同步时间", "datetime"),
     storage("同步错误", "text"), storage("归档状态", "single_select"), link("账号", "账号台账"),
-    link("剧", "选剧池"), link("采集记录", "采集数据"), lookup("账号名", "账号", "账号名"),
+    link("剧", "选剧池", { bidirectional: true, reverseField: "关联发布记录" }),
+    link("采集记录", "采集数据", { bidirectional: true, reverseField: "关联发布记录" }),
+    lookup("账号名", "账号", "账号名"),
     lookup("主页链接", "账号", "主页链接"), lookup("剧ID", "剧", "剧ID"), lookup("剧名", "剧", "剧名"),
     lookup("剧分类", "剧", "剧分类"), lookup("播放量", "采集记录", "播放量"), lookup("点赞", "采集记录", "点赞"),
     lookup("收藏", "采集记录", "收藏"), lookup("转发", "采集记录", "转发"), lookup("评论", "采集记录", "评论"),

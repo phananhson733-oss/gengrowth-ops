@@ -48,8 +48,10 @@ test("dashboard pagination uses page_size/page_token while other lists use limit
   await client.listFields("base", "tbl");
   await client.listViews("base", "tbl");
   assert.deepEqual((await client.listDashboards("base")).items.map((item) => item.dashboard_id), ["d1", "d2"]);
-  assert.deepEqual(urls.slice(0, 3).map((url) => new URL(url).search), ["?limit=200", "?limit=200", "?limit=200"]);
-  assert.deepEqual(urls.slice(3).map((url) => new URL(url).search), ["?page_size=200", "?page_size=200&page_token=p2"]);
+  assert.deepEqual(urls.slice(0, 3).map((url) => new URL(url).search), ["?limit=100", "?limit=200", "?limit=200"]);
+  assert.deepEqual(urls.slice(3).map((url) => new URL(url).search), ["?page_size=100", "?page_size=100&page_token=p2"]);
+  assert.ok(urls.filter((url) => /\/tables(?:\?|$)|\/dashboards(?:\?|$)/.test(new URL(url).pathname + new URL(url).search))
+    .every((url) => !/[?&](?:limit|page_size)=200(?:&|$)/.test(new URL(url).search)));
 });
 
 test("malformed, incomplete, or non-progressing pagination fails closed", async (t) => {
@@ -345,7 +347,8 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
   assert.deepEqual(await client.getRecord("base", "tbl", "rec"), { record_id: "rec" });
   await client.createTable("base", "账号台账");
   await client.createField("base", "tbl", "账号台账", "主页链接");
-  await client.createField("base", "tbl", "选剧池", "关联发布记录", { targetTableId: "tbl-release" });
+  await client.createField("base", "tbl", "发布记录", "账号", { targetTableId: "tbl-account" });
+  await client.createField("base", "tbl", "发布记录", "剧", { targetTableId: "tbl-drama" });
   await client.createField("base", "tbl", "发布记录", "账号名");
   await client.updateField("base", "tbl", "fld-default", "账号台账", "账号ID");
 
@@ -355,12 +358,20 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
+    "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields/fld-default",
   ]);
   assert.deepEqual(calls[1][1].body, { name: "账号台账", fields: [{ name: "账号ID", type: "text" }] });
   assert.deepEqual(calls[2][1].body, { name: "主页链接", type: "text", style: { type: "url" } });
-  assert.deepEqual(calls[3][1].body, { name: "关联发布记录", type: "link", link_table: "tbl-release" });
+  assert.deepEqual(calls[3][1].body, { name: "账号", type: "link", link_table: "tbl-account" });
   assert.deepEqual(calls[4][1].body, {
+    name: "剧",
+    type: "link",
+    link_table: "tbl-drama",
+    bidirectional: true,
+    bidirectional_link_field_name: "关联发布记录",
+  });
+  assert.deepEqual(calls[5][1].body, {
     type: "lookup",
     name: "账号名",
     from: "账号台账",
@@ -368,7 +379,11 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
     where: { logic: "and", conditions: [["账号ID", "intersects", { type: "field_ref", field: "账号" }]] },
     aggregate: "raw_value",
   });
-  assert.deepEqual(calls[5][1].body, { name: "账号ID", type: "text" });
+  assert.deepEqual(calls[6][1].body, { name: "账号ID", type: "text" });
+  await assert.rejects(
+    () => client.createField("base", "tbl", "选剧池", "关联发布记录", { targetTableId: "tbl-release" }),
+    (error) => error.code === "base_schema_drift",
+  );
 });
 
 test("canonical field payloads cover select, datetime, formula, and system fields", async () => {
@@ -426,12 +441,12 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
   ));
   assert.deepEqual(calls[0][1], {
     logic: "and",
-    conditions: [["同步状态", "in", ["partial", "failed"]]],
+    conditions: [["同步状态", "intersects", ["partial", "failed"]]],
   });
-  assert.deepEqual(calls[1][1], [{ field: "指标同步时间", direction: "desc" }]);
-  assert.deepEqual(calls[2][1], [{ field: "所属组", direction: "asc" }]);
-  assert.ok(calls[3][1].includes("账号ID"));
-  assert.ok(calls[3][1].includes("同步状态"));
+  assert.deepEqual(calls[1][1], { sort_config: [{ field: "指标同步时间", desc: true }] });
+  assert.deepEqual(calls[2][1], { group_config: [{ field: "所属组", desc: false }] });
+  assert.ok(calls[3][1].visible_fields.includes("账号ID"));
+  assert.ok(calls[3][1].visible_fields.includes("同步状态"));
 });
 
 test("fixed dashboard blocks use legal types/config and block writes serialize", async () => {
@@ -461,13 +476,20 @@ test("fixed dashboard blocks use legal types/config and block writes serialize",
     name: "活跃账号数",
     type: "statistics",
     data_config: {
-      table: "账号台账",
-      aggregate: "count_all",
-      filter: { logic: "and", conditions: [["状态", "equals", "在用"]] },
+      table_name: "账号台账",
+      count_all: true,
+      filter: {
+        conjunction: "and",
+        conditions: [{ field_name: "状态", operator: "is", value: "在用" }],
+      },
     },
   });
   assert.equal(calls[2][1].type, "statistics");
-  assert.deepEqual(calls[2][1].data_config.filter.conditions, [["发布状态", "equals", "待公开"]]);
+  assert.equal(calls[2][1].data_config.count_all, true);
+  assert.equal("series" in calls[2][1].data_config, false);
+  assert.deepEqual(calls[2][1].data_config.filter.conditions, [
+    { field_name: "发布状态", operator: "is", value: "待公开" },
+  ]);
 });
 
 test("performance and terminal dashboard blocks use fixed aggregate and placeholder configs", async () => {
@@ -482,14 +504,64 @@ test("performance and terminal dashboard blocks use fixed aggregate and placehol
   await client.createDashboardBlock("base", "dash", "按账号最新累计表现");
   await client.createDashboardBlock("base", "dash", "按剧最新累计表现");
   await client.createDashboardBlock("base", "dash", "最近一次同步终态");
-  assert.deepEqual(bodies[0].data_config.series.map((series) => series.aggregate), ["SUM", "SUM", "SUM", "SUM", "SUM"]);
-  assert.equal(bodies[0].data_config.group_by, "账号名");
-  assert.equal(bodies[1].data_config.group_by, "剧名");
+  assert.deepEqual(bodies[0].data_config.series, ["播放量", "点赞", "收藏", "转发", "评论"].map(
+    (field_name) => ({ field_name, rollup: "SUM" }),
+  ));
+  assert.deepEqual(bodies[0].data_config.group_by, [{ field_name: "账号名", mode: "integrated" }]);
+  assert.deepEqual(bodies[1].data_config.group_by, [{ field_name: "剧名", mode: "integrated" }]);
+  assert.equal(bodies[0].data_config.table_name, "发布记录");
+  assert.equal("count_all" in bodies[0].data_config, false);
   assert.deepEqual(bodies[2], {
     name: "最近一次同步终态",
     type: "text",
     data_config: { text: "尚无成功同步记录" },
   });
+});
+
+test("terminal dashboard block update is fixed, validated, and response-bound", async () => {
+  const calls = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      calls.push([new URL(url).pathname, options]);
+      return { code: 0, data: { block: { block_id: "block-terminal" } } };
+    },
+  });
+  await client.updateDashboardTerminalBlock("base", "dash", "block-terminal", {
+    state: "partial",
+    runId: "shortdrama-20260901T080000+0800",
+    finishedAt: "2026-09-01T08:04:03+08:00",
+  });
+  assert.equal(calls[0][0], "/open-apis/base/v3/bases/base/dashboards/dash/blocks/block-terminal");
+  assert.equal(calls[0][1].method, "PATCH");
+  assert.deepEqual(calls[0][1].body, {
+    name: "最近一次同步终态",
+    data_config: {
+      text: "**最近一次同步终态**\n状态：partial\nrun_id：shortdrama-20260901T080000+0800\n完成时间：2026-09-01T08:04:03+08:00",
+    },
+  });
+
+  for (const value of [
+    { state: "running", runId: "run", finishedAt: "2026-09-01T08:04:03+08:00" },
+    { state: "success", runId: "", finishedAt: "2026-09-01T08:04:03+08:00" },
+    { state: "success", runId: "run", finishedAt: "2026-09-01T08:04:03" },
+  ]) {
+    assert.throws(
+      () => client.updateDashboardTerminalBlock("base", "dash", "block-terminal", value),
+      (error) => error.code === "base_response_invalid",
+    );
+  }
+
+  const mismatch = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => ({ code: 0, data: { block: { block_id: "another" } } }),
+  });
+  await assert.rejects(
+    () => mismatch.updateDashboardTerminalBlock("base", "dash", "block-terminal", {
+      state: "failed", runId: "run", finishedAt: "2026-09-01T08:04:03Z",
+    }),
+    (error) => error.code === "base_response_invalid",
+  );
 });
 
 test("request logging exposes only method path status and run_id", async () => {

@@ -4,7 +4,7 @@ import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "./schema.mjs";
 const FEISHU_ORIGIN = "https://open.feishu.cn";
 const AUTH_PATH = "/open-apis/auth/v3/tenant_access_token/internal";
 const BASE_V3_PREFIX = "/open-apis/base/v3/";
-const MAX_PAGE_SIZE = 200;
+const MAX_WRITE_BATCH = 200;
 const MAX_REQUEST_ATTEMPTS = 3;
 const AUTH_ERROR_CODES = new Set([99991663, 99991664, 99991668, 99991671, 99991672]);
 const SCHEMA_ERROR_CODES = new Set([1254044, 1254045, 1254060, 1254061, 1254062]);
@@ -171,7 +171,15 @@ function canonicalFieldBody(tableName, spec, bindings = {}) {
     return { name: spec.name, type: "datetime", style: { format: spec.kind === "date" ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm" } };
   }
   if (spec.kind === "link") {
-    return { name: spec.name, type: "link", link_table: bindings.targetTableId };
+    const body = { name: spec.name, type: "link", link_table: bindings.targetTableId };
+    if (spec.bidirectional) {
+      if (typeof spec.reverseField !== "string" || spec.reverseField.length === 0) {
+        fail("base_schema_drift", "Bidirectional link reverse field is missing", { field: spec.name });
+      }
+      body.bidirectional = true;
+      body.bidirectional_link_field_name = spec.reverseField;
+    }
+    return body;
   }
   if (spec.kind === "formula") {
     return { name: spec.name, type: "formula", expression: spec.expression };
@@ -202,27 +210,27 @@ const noGrouping = () => [];
 
 const VIEW_SPECS = Object.freeze({
   "账号台账": Object.freeze({
-    "在用账号": { filter: { logic: "and", conditions: [["状态", "equals", "在用"]] }, sort: [{ field: "指标同步时间", direction: "desc" }], group: [{ field: "所属组", direction: "asc" }] },
-    "需处理账号": { filter: { logic: "and", conditions: [["同步状态", "in", ["partial", "failed"]]] }, sort: [{ field: "指标同步时间", direction: "desc" }], group: [{ field: "所属组", direction: "asc" }] },
+    "在用账号": { filter: { logic: "and", conditions: [["状态", "==", "在用"]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
+    "需处理账号": { filter: { logic: "and", conditions: [["同步状态", "intersects", ["partial", "failed"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
   }),
   "选剧池": Object.freeze({
-    "未排期": { filter: { logic: "and", conditions: [["是否已排期", "equals", "否"]] }, sort: [{ field: "上线日期", direction: "desc" }], group: noGrouping() },
-    "已排期": { filter: { logic: "and", conditions: [["是否已排期", "equals", "是"]] }, sort: [{ field: "上线日期", direction: "desc" }], group: noGrouping() },
-    "按平台": { filter: emptyFilter(), sort: [{ field: "上线日期", direction: "desc" }], group: [{ field: "平台", direction: "asc" }] },
-    "按语言": { filter: emptyFilter(), sort: [{ field: "上线日期", direction: "desc" }], group: [{ field: "语言", direction: "asc" }] },
+    "未排期": { filter: { logic: "and", conditions: [["是否已排期", "==", "否"]] }, sort: [{ field: "上线日期", desc: true }], group: noGrouping() },
+    "已排期": { filter: { logic: "and", conditions: [["是否已排期", "==", "是"]] }, sort: [{ field: "上线日期", desc: true }], group: noGrouping() },
+    "按平台": { filter: emptyFilter(), sort: [{ field: "上线日期", desc: true }], group: [{ field: "平台", desc: false }] },
+    "按语言": { filter: emptyFilter(), sort: [{ field: "上线日期", desc: true }], group: [{ field: "语言", desc: false }] },
   }),
   "发布记录": Object.freeze({
-    "已排期": { filter: { logic: "and", conditions: [["发布状态", "equals", "已排期"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
-    "待公开": { filter: { logic: "and", conditions: [["发布状态", "equals", "待公开"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
-    "已公开待回填": { filter: { logic: "and", conditions: [["发布状态", "equals", "已公开"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
-    "已回填": { filter: { logic: "and", conditions: [["发布状态", "equals", "已回填"]] }, sort: [{ field: "播放量", direction: "desc" }], group: noGrouping() },
-    "按账号表现": { filter: emptyFilter(), sort: [{ field: "播放量", direction: "desc" }], group: [{ field: "账号名", direction: "asc" }] },
-    "按剧表现": { filter: emptyFilter(), sort: [{ field: "播放量", direction: "desc" }], group: [{ field: "剧名", direction: "asc" }] },
+    "已排期": { filter: { logic: "and", conditions: [["发布状态", "==", "已排期"]] }, sort: [{ field: "播放量", desc: true }], group: noGrouping() },
+    "待公开": { filter: { logic: "and", conditions: [["发布状态", "==", "待公开"]] }, sort: [{ field: "播放量", desc: true }], group: noGrouping() },
+    "已公开待回填": { filter: { logic: "and", conditions: [["发布状态", "==", "已公开"]] }, sort: [{ field: "播放量", desc: true }], group: noGrouping() },
+    "已回填": { filter: { logic: "and", conditions: [["发布状态", "==", "已回填"]] }, sort: [{ field: "播放量", desc: true }], group: noGrouping() },
+    "按账号表现": { filter: emptyFilter(), sort: [{ field: "播放量", desc: true }], group: [{ field: "账号名", desc: false }] },
+    "按剧表现": { filter: emptyFilter(), sort: [{ field: "播放量", desc: true }], group: [{ field: "剧名", desc: false }] },
   }),
   "采集数据": Object.freeze({
-    "完整": { filter: { logic: "and", conditions: [["采集状态", "equals", "complete"]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
-    "部分缺失": { filter: { logic: "and", conditions: [["采集状态", "equals", "partial"]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
-    "未关联发布": { filter: { logic: "and", conditions: [["关联发布记录", "is_empty", true]] }, sort: [{ field: "采集时间", direction: "desc" }], group: noGrouping() },
+    "完整": { filter: { logic: "and", conditions: [["采集状态", "==", "complete"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
+    "部分缺失": { filter: { logic: "and", conditions: [["采集状态", "==", "partial"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
+    "未关联发布": { filter: { logic: "and", conditions: [["关联发布记录", "empty"]] }, sort: [{ field: "采集时间", desc: true }], group: noGrouping() },
   }),
 });
 
@@ -238,19 +246,25 @@ function fixedView(tableName, viewName) {
     name: viewName,
     type: "grid",
     filter: structuredClone(spec.filter),
-    sort: structuredClone(spec.sort),
-    group: structuredClone(spec.group),
-    visible_fields: allVisibleFields(tableName),
+    sort: { sort_config: structuredClone(spec.sort) },
+    group: { group_config: structuredClone(spec.group) },
+    visible_fields: { visible_fields: allVisibleFields(tableName) },
   };
 }
 
-const performanceSeries = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论"].map((field) => ({ field, aggregate: "SUM" })));
+const performanceSeries = Object.freeze(["播放量", "点赞", "收藏", "转发", "评论"].map(
+  (fieldName) => ({ field_name: fieldName, rollup: "SUM" }),
+));
+const dashboardFilter = (fieldName, value) => ({
+  conjunction: "and",
+  conditions: [{ field_name: fieldName, operator: "is", value }],
+});
 const DASHBOARD_BLOCK_SPECS = Object.freeze({
-  "活跃账号数": { type: "statistics", data_config: { table: "账号台账", aggregate: "count_all", filter: { logic: "and", conditions: [["状态", "equals", "在用"]] } } },
-  "待公开数": { type: "statistics", data_config: { table: "发布记录", aggregate: "count_all", filter: { logic: "and", conditions: [["发布状态", "equals", "待公开"]] } } },
-  "待回填数": { type: "statistics", data_config: { table: "发布记录", aggregate: "count_all", filter: { logic: "and", conditions: [["发布状态", "equals", "已公开"]] } } },
-  "按账号最新累计表现": { type: "column", data_config: { table: "发布记录", series: performanceSeries, group_by: "账号名" } },
-  "按剧最新累计表现": { type: "column", data_config: { table: "发布记录", series: performanceSeries, group_by: "剧名" } },
+  "活跃账号数": { type: "statistics", data_config: { table_name: "账号台账", count_all: true, filter: dashboardFilter("状态", "在用") } },
+  "待公开数": { type: "statistics", data_config: { table_name: "发布记录", count_all: true, filter: dashboardFilter("发布状态", "待公开") } },
+  "待回填数": { type: "statistics", data_config: { table_name: "发布记录", count_all: true, filter: dashboardFilter("发布状态", "已公开") } },
+  "按账号最新累计表现": { type: "column", data_config: { table_name: "发布记录", series: performanceSeries, group_by: [{ field_name: "账号名", mode: "integrated" }] } },
+  "按剧最新累计表现": { type: "column", data_config: { table_name: "发布记录", series: performanceSeries, group_by: [{ field_name: "剧名", mode: "integrated" }] } },
   "最近一次同步终态": { type: "text", data_config: { text: "尚无成功同步记录" } },
 });
 
@@ -320,7 +334,7 @@ function contiguousUpdateGroups(records) {
   let group = null;
   for (const record of records) {
     const key = patchKey(record.fields);
-    if (!group || group.key !== key || group.records.length === MAX_PAGE_SIZE) {
+    if (!group || group.key !== key || group.records.length === MAX_WRITE_BATCH) {
       group = { key, patch: record.fields, records: [] };
       groups.push(group);
     }
@@ -502,7 +516,10 @@ export class FeishuClient {
     throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path });
   }
 
-  async list(path, { mode = "offset" } = {}) {
+  async list(path, { mode = "offset", pageSize = 200 } = {}) {
+    if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 200) {
+      fail("base_response_invalid", "Feishu list page size is invalid");
+    }
     return this.operation(async (context) => {
       const items = [];
       const seenCursors = new Set();
@@ -510,7 +527,7 @@ export class FeishuClient {
       let revision;
       let revisionObserved = false;
       do {
-        const query = new URLSearchParams(mode === "token" ? { page_size: String(MAX_PAGE_SIZE) } : { limit: String(MAX_PAGE_SIZE) });
+        const query = new URLSearchParams(mode === "token" ? { page_size: String(pageSize) } : { limit: String(pageSize) });
         if (cursor) query.set(mode === "token" ? "page_token" : "offset", cursor);
         const payload = await this.request(`${path}?${query}`, { context });
         if (!plainObject(payload.data) || !Array.isArray(payload.data.items)) {
@@ -549,7 +566,7 @@ export class FeishuClient {
   }
 
   listTables(baseToken) {
-    return this.list(`${this.basePath(baseToken)}/tables`);
+    return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100 });
   }
 
   listFields(baseToken, tableId) {
@@ -565,7 +582,7 @@ export class FeishuClient {
   }
 
   listDashboards(baseToken) {
-    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token" });
+    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100 });
   }
 
   async getRecord(baseToken, tableId, recordId) {
@@ -588,8 +605,8 @@ export class FeishuClient {
     return this.serializeWrite(queueKey, () => this.operation(async (context) => {
       const written = [];
       const fields = firstSeenFields(records);
-      for (let start = 0; start < records.length; start += MAX_PAGE_SIZE) {
-        const group = records.slice(start, start + MAX_PAGE_SIZE);
+      for (let start = 0; start < records.length; start += MAX_WRITE_BATCH) {
+        const group = records.slice(start, start + MAX_WRITE_BATCH);
         const body = transposeCreateGroup(group, fields);
         const payload = await this.request(
           `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
@@ -637,6 +654,13 @@ export class FeishuClient {
 
   async createField(baseToken, tableId, tableName, fieldName, bindings = {}) {
     const spec = findFieldSpec(tableName, fieldName);
+    if (spec.managedReverseOf) {
+      fail("base_schema_drift", "Managed reverse links are created only with their bidirectional owner", {
+        table: tableName,
+        field: fieldName,
+        owner: spec.managedReverseOf,
+      });
+    }
     if (spec.primary) {
       fail("base_schema_drift", "Primary fields must be created with the table or recovered through updateField", { field: fieldName });
     }
@@ -708,6 +732,33 @@ export class FeishuClient {
         { method: "POST", body, context },
       );
       return requireEntity(payload, "block", "block_id");
+    }));
+  }
+
+  updateDashboardTerminalBlock(baseToken, dashboardId, blockId, terminal) {
+    if (!plainObject(terminal) || !["success", "partial", "failed"].includes(terminal.state) ||
+        typeof terminal.runId !== "string" || terminal.runId.length === 0 || terminal.runId.trim() !== terminal.runId ||
+        /[\r\n]/.test(terminal.runId) || typeof terminal.finishedAt !== "string" ||
+        !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(terminal.finishedAt) || !Number.isFinite(Date.parse(terminal.finishedAt)) ||
+        Object.keys(terminal).some((key) => !["state", "runId", "finishedAt"].includes(key))) {
+      fail("base_response_invalid", "Dashboard terminal state is malformed");
+    }
+    const body = {
+      name: "最近一次同步终态",
+      data_config: {
+        text: `**最近一次同步终态**\n状态：${terminal.state}\nrun_id：${terminal.runId}\n完成时间：${terminal.finishedAt}`,
+      },
+    };
+    return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
+        { method: "PATCH", body, context },
+      );
+      const block = requireEntity(payload, "block", "block_id");
+      if (block.block_id !== blockId) {
+        throw invalidResponse("Feishu dashboard block response ID does not match request");
+      }
+      return block;
     }));
   }
 }

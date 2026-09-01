@@ -44,6 +44,36 @@ test("schema uses supported system fields, writable sync storage, and Base formu
   assert.doesNotMatch(releaseFormula, /\{[^}]+\}/);
 });
 
+test("schema owns reverse links through fixed bidirectional release fields", () => {
+  assert.deepEqual(spec("发布记录", "剧"), {
+    name: "剧",
+    kind: "link",
+    phase: "link",
+    targetTable: "选剧池",
+    bidirectional: true,
+    reverseField: "关联发布记录",
+  });
+  assert.deepEqual(spec("发布记录", "采集记录"), {
+    name: "采集记录",
+    kind: "link",
+    phase: "link",
+    targetTable: "采集数据",
+    bidirectional: true,
+    reverseField: "关联发布记录",
+  });
+  assert.deepEqual(spec("选剧池", "关联发布记录").managedReverseOf, {
+    table: "发布记录",
+    field: "剧",
+  });
+  assert.deepEqual(spec("采集数据", "关联发布记录").managedReverseOf, {
+    table: "发布记录",
+    field: "采集记录",
+  });
+  assert.equal(Object.isFrozen(spec("选剧池", "关联发布记录").managedReverseOf), true);
+  assert.equal(Object.isFrozen(spec("采集数据", "关联发布记录").managedReverseOf), true);
+  assert.equal(spec("发布记录", "账号").bidirectional, undefined);
+});
+
 test("machine patches cannot touch human fields", () => {
   assert.throws(
     () => assertPatchAllowed("选剧池", { 推荐理由: "自动生成" }, "machine"),
