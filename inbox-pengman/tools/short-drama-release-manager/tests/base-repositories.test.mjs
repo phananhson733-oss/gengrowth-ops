@@ -330,6 +330,33 @@ test("bulk failed readback does not report verified", async () => {
   );
 });
 
+test("repository abort is threaded to the client and leaves cache fail-closed", async () => {
+  const controller = new AbortController();
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  const baseUpdate = client.updateRecords.bind(client);
+  let remoteMutations = 0;
+  client.updateRecords = async (appToken, tableId, records, options) => {
+    assert.equal(options.signal, controller.signal);
+    controller.abort();
+    if (options.signal.aborted) {
+      const error = new Error("aborted");
+      error.code = "base_operation_aborted";
+      throw error;
+    }
+    remoteMutations += 1;
+    return baseUpdate(appToken, tableId, records, options);
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.accounts.syncManyMachine([{ key: "a", patch: { 粉丝数: 2 } }], { signal: controller.signal }),
+    (error) => error.code === "base_operation_aborted",
+  );
+  assert.equal(remoteMutations, 0);
+  assert.equal(repos.accounts.index, null);
+});
+
 test("machine invariant protects human/shared and all non-request writable fields on only the target record", async () => {
   const client = fakeClient({
     [tableIds.accounts]: [

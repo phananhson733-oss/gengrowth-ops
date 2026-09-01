@@ -162,6 +162,48 @@ test("one contiguous update patch is split at 200 records", async () => {
   assert.deepEqual(sizes, [200, 1]);
 });
 
+test("an aborted batch stops before the next remote mutation", async () => {
+  const controller = new AbortController();
+  let remoteMutations = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      assert.equal(options.signal, controller.signal);
+      remoteMutations += 1;
+      controller.abort();
+      return { code: 0, data: { record_id_list: options.body.rows.map((_row, index) => `r${index}`) } };
+    },
+  });
+  const records = Array.from({ length: 201 }, (_unused, index) => ({ fields: { A: index } }));
+  await assert.rejects(
+    () => client.createRecords("base", "tbl", records, { signal: controller.signal }),
+    (error) => error.code === "base_operation_aborted",
+  );
+  assert.equal(remoteMutations, 1);
+});
+
+test("abort interrupts rate-limit wait and prevents auth retry", async () => {
+  const controller = new AbortController();
+  let requests = 0;
+  let sleeps = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (_url, options) => {
+      assert.equal(options.signal, controller.signal);
+      requests += 1;
+      controller.abort();
+      return { code: 1254291, status: 429, data: {} };
+    },
+    sleep: async () => { sleeps += 1; },
+  });
+  await assert.rejects(
+    () => client.listRecords("base", "tbl", { signal: controller.signal }),
+    (error) => error.code === "base_operation_aborted",
+  );
+  assert.equal(requests, 1);
+  assert.equal(sleeps, 0);
+});
+
 test("same-table writes serialize across calls while different tables may overlap", async () => {
   let activeSame = 0;
   let maxSameTable = 0;

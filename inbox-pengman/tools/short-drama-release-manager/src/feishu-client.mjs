@@ -18,6 +18,35 @@ function invalidResponse(message, details = {}) {
   return new ShortDramaError("base_response_invalid", message, details);
 }
 
+function abortFailure() {
+  return new ShortDramaError("base_operation_aborted", "Feishu Base operation was aborted");
+}
+
+function assertNotAborted(signal) {
+  if (signal === undefined || signal === null) return;
+  if (typeof signal.aborted !== "boolean" || typeof signal.addEventListener !== "function") {
+    fail("base_response_invalid", "Abort signal is invalid");
+  }
+  if (signal.aborted) throw abortFailure();
+}
+
+async function awaitWithAbort(value, signal) {
+  assertNotAborted(signal);
+  if (!signal) return await value;
+  let onAbort;
+  const aborted = new Promise((_resolve, reject) => {
+    onAbort = () => reject(abortFailure());
+    signal.addEventListener("abort", onAbort, { once: true });
+  });
+  try {
+    const result = await Promise.race([Promise.resolve(value), aborted]);
+    assertNotAborted(signal);
+    return result;
+  } finally {
+    signal.removeEventListener?.("abort", onAbort);
+  }
+}
+
 function encoded(value) {
   if (typeof value !== "string" || value.length === 0) {
     fail("base_response_invalid", "Feishu identifier must be a non-empty string");
@@ -449,50 +478,65 @@ export class FeishuClient {
     this.logger?.({ method, path, status, run_id: this.runId });
   }
 
-  async operation(callback) {
-    const token = validateToken(await this.tokenProvider());
+  async operation(callback, { signal } = {}) {
+    assertNotAborted(signal);
+    const token = validateToken(await awaitWithAbort(this.tokenProvider(), signal));
+    assertNotAborted(signal);
     return callback({ token, authRetried: false });
   }
 
-  async serializeWrite(key, callback) {
+  async serializeWrite(key, callback, { signal } = {}) {
+    assertNotAborted(signal);
     const previous = this.writeQueues.get(key) ?? Promise.resolve();
-    const run = previous.catch(() => {}).then(callback);
+    const run = previous.catch(() => {}).then(() => {
+      assertNotAborted(signal);
+      return callback();
+    });
     const tail = run.then(() => undefined, () => undefined);
     this.writeQueues.set(key, tail);
     try {
-      return await run;
+      return await awaitWithAbort(run, signal);
     } finally {
       if (this.writeQueues.get(key) === tail) this.writeQueues.delete(key);
     }
   }
 
-  async request(path, { method = "GET", body = undefined, context = undefined } = {}) {
+  async request(path, { method = "GET", body = undefined, context = undefined, signal = undefined } = {}) {
     if (typeof path !== "string" || !path.startsWith(BASE_V3_PREFIX) || path.includes("://")) {
       fail("base_response_invalid", "Only fixed Feishu Base v3 API paths are allowed");
     }
-    if (!context) return this.operation((operationContext) => this.request(path, { method, body, context: operationContext }));
+    assertNotAborted(signal);
+    if (!context) return this.operation(
+      (operationContext) => this.request(path, { method, body, context: operationContext, signal }),
+      { signal },
+    );
 
     for (let attempt = 1; attempt <= MAX_REQUEST_ATTEMPTS; attempt += 1) {
       let payload;
       try {
-        payload = await this.fetchJson(`${FEISHU_ORIGIN}${path}`, {
+        assertNotAborted(signal);
+        payload = await awaitWithAbort(this.fetchJson(`${FEISHU_ORIGIN}${path}`, {
           method,
           headers: {
             authorization: `Bearer ${context.token}`,
             "content-type": "application/json; charset=utf-8",
           },
           body,
-        });
+          signal,
+        }), signal);
+        assertNotAborted(signal);
       } catch (error) {
+        assertNotAborted(signal);
         this.log(method, path, statusOf(error) ?? "error");
         if (isRateLimited(error) && attempt < MAX_REQUEST_ATTEMPTS) {
-          await this.sleep(retryDelay(error, attempt));
+          await awaitWithAbort(this.sleep(retryDelay(error, attempt)), signal);
           continue;
         }
         if (isAuthorizationFailure(error) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
           context.authRetried = true;
           this.tokenProvider.invalidate?.(context.token);
-          context.token = validateToken(await this.tokenProvider());
+          context.token = validateToken(await awaitWithAbort(this.tokenProvider(), signal));
+          assertNotAborted(signal);
           continue;
         }
         if (error instanceof SyntaxError) throw invalidResponse("Feishu response was not valid JSON", { path });
@@ -510,13 +554,14 @@ export class FeishuClient {
         return payload;
       }
       if (isRateLimited(payload) && attempt < MAX_REQUEST_ATTEMPTS) {
-        await this.sleep(retryDelay(payload, attempt));
+        await awaitWithAbort(this.sleep(retryDelay(payload, attempt)), signal);
         continue;
       }
       if (isAuthorizationFailure(payload) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
         context.authRetried = true;
         this.tokenProvider.invalidate?.(context.token);
-        context.token = validateToken(await this.tokenProvider());
+        context.token = validateToken(await awaitWithAbort(this.tokenProvider(), signal));
+        assertNotAborted(signal);
         continue;
       }
       throw mappedFailure(payload, path);
@@ -524,7 +569,7 @@ export class FeishuClient {
     throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path });
   }
 
-  async list(path, { mode = "offset", pageSize = 200 } = {}) {
+  async list(path, { mode = "offset", pageSize = 200, signal = undefined } = {}) {
     if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 200) {
       fail("base_response_invalid", "Feishu list page size is invalid");
     }
@@ -535,9 +580,11 @@ export class FeishuClient {
       let revision;
       let revisionObserved = false;
       do {
+        assertNotAborted(signal);
         const query = new URLSearchParams(mode === "token" ? { page_size: String(pageSize) } : { limit: String(pageSize) });
         if (cursor) query.set(mode === "token" ? "page_token" : "offset", cursor);
-        const payload = await this.request(`${path}?${query}`, { context });
+        const payload = await this.request(`${path}?${query}`, { context, signal });
+        assertNotAborted(signal);
         if (!plainObject(payload.data) || !Array.isArray(payload.data.items)) {
           throw invalidResponse("Feishu list response items must be an array", { path });
         }
@@ -566,90 +613,94 @@ export class FeishuClient {
         seenCursors.add(cursor);
       } while (cursor);
       return { items, complete: true, revision: revision ?? null };
-    });
+    }, { signal });
   }
 
   basePath(baseToken) {
     return `/open-apis/base/v3/bases/${encoded(baseToken)}`;
   }
 
-  listTables(baseToken) {
-    return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100 });
+  listTables(baseToken, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100, signal });
   }
 
-  listFields(baseToken, tableId) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`);
+  listFields(baseToken, tableId, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`, { signal });
   }
 
-  listRecords(baseToken, tableId) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`);
+  listRecords(baseToken, tableId, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, { signal });
   }
 
-  listViews(baseToken, tableId) {
-    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`);
+  listViews(baseToken, tableId, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`, { signal });
   }
 
-  listDashboards(baseToken) {
-    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100 });
+  listDashboards(baseToken, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/dashboards`, { mode: "token", pageSize: 100, signal });
   }
 
-  listDashboardBlocks(baseToken, dashboardId) {
-    return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100 });
+  listDashboardBlocks(baseToken, dashboardId, { signal } = {}) {
+    return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100, signal });
   }
 
-  async getRecord(baseToken, tableId, recordId) {
+  async getRecord(baseToken, tableId, recordId, { signal } = {}) {
     return this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/${encoded(recordId)}`,
-        { context },
+        { context, signal },
       );
       if (!plainObject(payload.data?.record) || typeof payload.data.record.record_id !== "string" ||
           payload.data.record.record_id.length === 0) {
         throw invalidResponse("Feishu record response is malformed");
       }
       return payload.data.record;
-    });
+    }, { signal });
   }
 
-  createRecords(baseToken, tableId, records) {
+  createRecords(baseToken, tableId, records, { signal } = {}) {
     validateCreateRecords(records);
     const queueKey = `records:${baseToken}:${tableId}`;
     return this.serializeWrite(queueKey, () => this.operation(async (context) => {
       const written = [];
       const fields = firstSeenFields(records);
       for (let start = 0; start < records.length; start += MAX_WRITE_BATCH) {
+        assertNotAborted(signal);
         const group = records.slice(start, start + MAX_WRITE_BATCH);
         const body = transposeCreateGroup(group, fields);
         const payload = await this.request(
           `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
-          { method: "POST", body, context },
+          { method: "POST", body, context, signal },
         );
+        assertNotAborted(signal);
         const ids = requireRecordIds(payload, null, group.length);
         written.push(...group.map((record, index) => ({ record_id: ids[index], fields: record.fields })));
       }
       return written;
-    }));
+    }, { signal }), { signal });
   }
 
-  updateRecords(baseToken, tableId, records) {
+  updateRecords(baseToken, tableId, records, { signal } = {}) {
     validateUpdateRecords(records);
     const queueKey = `records:${baseToken}:${tableId}`;
     return this.serializeWrite(queueKey, () => this.operation(async (context) => {
       const written = [];
       for (const group of contiguousUpdateGroups(records)) {
+        assertNotAborted(signal);
         const ids = group.records.map((record) => record.record_id);
         const payload = await this.request(
           `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_update`,
-          { method: "POST", body: { record_id_list: ids, patch: group.patch }, context },
+          { method: "POST", body: { record_id_list: ids, patch: group.patch }, context, signal },
         );
+        assertNotAborted(signal);
         requireRecordIds(payload, ids);
         written.push(...group.records);
       }
       return written;
-    }));
+    }, { signal }), { signal });
   }
 
-  async createTable(baseToken, tableName) {
+  async createTable(baseToken, tableName, { signal } = {}) {
     if (typeof tableName !== "string" || !TABLE_ORDER.includes(tableName)) {
       fail("base_schema_drift", "Table is not part of the fixed Base schema", { table: tableName ?? null });
     }
@@ -659,12 +710,12 @@ export class FeishuClient {
     }
     const body = { name: tableName, fields: [canonicalFieldBody(tableName, primary)] };
     return this.serializeWrite(`schema:${baseToken}`, () => this.operation(async (context) => {
-      const payload = await this.request(`${this.basePath(baseToken)}/tables`, { method: "POST", body, context });
+      const payload = await this.request(`${this.basePath(baseToken)}/tables`, { method: "POST", body, context, signal });
       return requireEntity(payload, "table", "table_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  async createField(baseToken, tableId, tableName, fieldName, bindings = {}) {
+  async createField(baseToken, tableId, tableName, fieldName, bindings = {}, { signal } = {}) {
     const spec = findFieldSpec(tableName, fieldName);
     if (spec.managedReverseOf) {
       fail("base_schema_drift", "Managed reverse links are created only with their bidirectional owner", {
@@ -680,13 +731,13 @@ export class FeishuClient {
     return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`,
-        { method: "POST", body, context },
+        { method: "POST", body, context, signal },
       );
       return requireEntity(payload, "field", "field_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  async updateField(baseToken, tableId, fieldId, tableName, fieldName) {
+  async updateField(baseToken, tableId, fieldId, tableName, fieldName, { signal } = {}) {
     const spec = findFieldSpec(tableName, fieldName);
     if (!spec.primary || spec.name !== TABLES[tableName].primaryField) {
       fail("base_schema_drift", "updateField is reserved for fixed primary-field recovery", { field: fieldName });
@@ -695,102 +746,104 @@ export class FeishuClient {
     return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields/${encoded(fieldId)}`,
-        { method: "PUT", body, context },
+        { method: "PUT", body, context, signal },
       );
       return requireEntity(payload, "field", "field_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  async createView(baseToken, tableId, tableName, viewName) {
+  async createView(baseToken, tableId, tableName, viewName, { signal } = {}) {
     const view = fixedViewDescriptor(tableName, viewName);
     const body = { name: view.name, type: view.type };
     return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views`,
-        { method: "POST", body, context },
+        { method: "POST", body, context, signal },
       );
       return requireEntity(payload, "view", "view_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  async updateView(baseToken, tableId, viewId, tableName, viewName) {
+  async updateView(baseToken, tableId, viewId, tableName, viewName, { signal } = {}) {
     const view = fixedViewDescriptor(tableName, viewName);
     return this.serializeWrite(`presentation:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
       for (const part of ["filter", "sort", "group", "visible_fields"]) {
-        await this.request(`${root}/${part}`, { method: "PUT", body: view[part], context });
+        assertNotAborted(signal);
+        await this.request(`${root}/${part}`, { method: "PUT", body: view[part], context, signal });
       }
       return { view_id: viewId, name: view.name, configured: true };
-    }));
+    }, { signal }), { signal });
   }
 
-  readViewConfiguration(baseToken, tableId, viewId, tableName, viewName) {
+  readViewConfiguration(baseToken, tableId, viewId, tableName, viewName, { signal } = {}) {
     fixedViewDescriptor(tableName, viewName);
     return this.operation(async (context) => {
       const root = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/views/${encoded(viewId)}`;
       const result = {};
       for (const part of ["filter", "sort", "group", "visible_fields"]) {
-        const payload = await this.request(`${root}/${part}`, { context });
+        assertNotAborted(signal);
+        const payload = await this.request(`${root}/${part}`, { context, signal });
         if (!plainObject(payload.data?.[part])) throw invalidResponse(`Feishu view ${part} response is malformed`);
         result[part] = structuredClone(payload.data[part]);
       }
       return result;
-    });
+    }, { signal });
   }
 
-  async createDashboard(baseToken, dashboardName) {
+  async createDashboard(baseToken, dashboardName, { signal } = {}) {
     if (dashboardName !== DASHBOARD_NAME) {
       fail("base_schema_drift", "Dashboard is not part of the fixed Base presentation schema");
     }
     return this.serializeWrite(`dashboard:${baseToken}`, () => this.operation(async (context) => {
       const payload = await this.request(`${this.basePath(baseToken)}/dashboards`, {
-        method: "POST", body: { name: DASHBOARD_NAME }, context,
+        method: "POST", body: { name: DASHBOARD_NAME }, context, signal,
       });
       return requireEntity(payload, "dashboard", "dashboard_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  async createDashboardBlock(baseToken, dashboardId, blockName) {
+  async createDashboardBlock(baseToken, dashboardId, blockName, { signal } = {}) {
     const body = fixedDashboardBlockDescriptor(blockName);
     return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`,
-        { method: "POST", body, context },
+        { method: "POST", body, context, signal },
       );
       return requireEntity(payload, "block", "block_id");
-    }));
+    }, { signal }), { signal });
   }
 
-  readDashboardBlock(baseToken, dashboardId, blockId, blockName) {
+  readDashboardBlock(baseToken, dashboardId, blockId, blockName, { signal } = {}) {
     fixedDashboardBlockDescriptor(blockName);
     return this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
-        { context },
+        { context, signal },
       );
       const block = payload.data?.block;
       if (!plainObject(block) || block.block_id !== blockId || block.name !== blockName || typeof block.type !== "string" || !plainObject(block.data_config)) {
         throw invalidResponse("Feishu dashboard block response is malformed");
       }
       return structuredClone(block);
-    });
+    }, { signal });
   }
 
-  updateDashboardBlock(baseToken, dashboardId, blockId, blockName) {
+  updateDashboardBlock(baseToken, dashboardId, blockId, blockName, { signal } = {}) {
     const fixed = fixedDashboardBlockDescriptor(blockName);
     const body = { name: fixed.name, data_config: fixed.data_config };
     return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
-        { method: "PATCH", body, context },
+        { method: "PATCH", body, context, signal },
       );
       const block = requireEntity(payload, "block", "block_id");
       if (block.block_id !== blockId) throw invalidResponse("Feishu dashboard block response ID does not match request");
       return block;
-    }));
+    }, { signal }), { signal });
   }
 
-  updateDashboardTerminalBlock(baseToken, dashboardId, blockId, terminal) {
+  updateDashboardTerminalBlock(baseToken, dashboardId, blockId, terminal, { signal } = {}) {
     if (!plainObject(terminal) || !["success", "partial", "failed"].includes(terminal.state) ||
         typeof terminal.runId !== "string" || terminal.runId.length === 0 || terminal.runId.trim() !== terminal.runId ||
         /[\r\n]/.test(terminal.runId) || typeof terminal.finishedAt !== "string" ||
@@ -807,13 +860,13 @@ export class FeishuClient {
     return this.serializeWrite(`dashboard:${baseToken}:${dashboardId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks/${encoded(blockId)}`,
-        { method: "PATCH", body, context },
+        { method: "PATCH", body, context, signal },
       );
       const block = requireEntity(payload, "block", "block_id");
       if (block.block_id !== blockId) {
         throw invalidResponse("Feishu dashboard block response ID does not match request");
       }
       return block;
-    }));
+    }, { signal }), { signal });
   }
 }

@@ -81,22 +81,23 @@ export class ShortDramaNotifier {
     if (!persisted || persisted.run_id !== runId || !TERMINAL_STATES.has(persisted.state)) {
       fail("notification_job_invalid", "Notification requires a persisted terminal job");
     }
+    const failed = (code) => {
+      try {
+        this.#jobs.markNotification(runId, "failed");
+      } catch {
+        fail("notification_state_persist_failed", "Notification failure state could not be persisted", { run_id: runId });
+      }
+      return { run_id: runId, state: persisted.state, notification_state: "failed", error: { code } };
+    };
     if (!normalizedString(persisted.chat_id) || !this.#allowedChatIds.has(persisted.chat_id)) {
-      fail("notification_target_denied", "Notification chat is not allowlisted", {
-        run_id: runId,
-      });
+      return failed("notification_target_denied");
     }
     try {
       await this.#sendMessage({ chatId: persisted.chat_id, text: terminalMessage(persisted) });
       this.#jobs.markNotification(runId, "sent");
       return { run_id: runId, state: persisted.state, notification_state: "sent" };
     } catch {
-      try {
-        this.#jobs.markNotification(runId, "failed");
-      } catch {
-        // The data terminal remains authoritative even if notification bookkeeping also fails.
-      }
-      return { run_id: runId, state: persisted.state, notification_state: "failed" };
+      return failed("notification_delivery_failed");
     }
   }
 }

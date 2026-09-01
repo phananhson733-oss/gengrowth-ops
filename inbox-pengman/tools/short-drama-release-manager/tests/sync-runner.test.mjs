@@ -141,7 +141,8 @@ function successfulRepos(calls, { releases = [], captureIds = [["99", "rec-captu
         calls.push(["releases:link", releaseId, captureRecordId, structuredClone(expected)]);
         return { readback: "verified" };
       },
-      async machineUpsertWithInvariant(releaseId, patch) {
+      async upsertByKey(releaseId, patch, actorKind) {
+        assert.equal(actorKind, "machine");
         calls.push(["releases:evidence", releaseId, structuredClone(patch)]);
         return { readback: "verified" };
       },
@@ -186,21 +187,41 @@ test("notifier resolves the persisted terminal destination and ignores caller ov
   assert.deepEqual(marks, [[RUN_ID, "sent"]]);
 });
 
-test("notifier refuses malformed and non-allowlisted persisted destinations without sending", async () => {
+test("notifier persists failed for malformed and non-allowlisted persisted destinations without sending", async () => {
   for (const chatId of ["oc_attacker", " oc_social ", "", null]) {
     let sent = 0;
+    const marks = [];
     const persisted = terminalStoreRow({ chatId });
     const notifier = new ShortDramaNotifier({
       allowedChatIds: new Set(["oc_social"]),
       sendMessage: async () => { sent += 1; },
-      jobs: { get: () => structuredClone(persisted), markNotification: () => assert.fail("must not mark") },
+      jobs: { get: () => structuredClone(persisted), markNotification: (runId, state) => marks.push([runId, state]) },
     });
-    await assert.rejects(
-      () => notifier.sendTerminal(persisted),
-      (error) => error.code === "notification_target_denied",
-    );
+    assert.deepEqual(await notifier.sendTerminal(persisted), {
+      run_id: RUN_ID,
+      state: "success",
+      notification_state: "failed",
+      error: { code: "notification_target_denied" },
+    });
     assert.equal(sent, 0);
+    assert.deepEqual(marks, [[RUN_ID, "failed"]]);
   }
+});
+
+test("notifier surfaces failure to persist notification state", async () => {
+  const persisted = terminalStoreRow({ chatId: null });
+  const notifier = new ShortDramaNotifier({
+    allowedChatIds: new Set(["oc_social"]),
+    sendMessage: async () => assert.fail("must not send"),
+    jobs: {
+      get: () => structuredClone(persisted),
+      markNotification: () => { throw new Error("sqlite unavailable"); },
+    },
+  });
+  await assert.rejects(
+    () => notifier.sendTerminal(persisted),
+    (error) => error.code === "notification_state_persist_failed",
+  );
 });
 
 test("notification failure preserves the persisted data terminal and is retryable", async () => {
@@ -218,7 +239,12 @@ test("notification failure preserves the persisted data terminal and is retryabl
       markNotification: (_runId, state) => marks.push(state),
     },
   });
-  assert.deepEqual(await notifier.sendTerminal(persisted), { run_id: RUN_ID, state: "partial", notification_state: "failed" });
+  assert.deepEqual(await notifier.sendTerminal(persisted), {
+    run_id: RUN_ID,
+    state: "partial",
+    notification_state: "failed",
+    error: { code: "notification_delivery_failed" },
+  });
   assert.equal(persisted.state, "partial");
   assert.deepEqual(await notifier.sendTerminal(persisted), { run_id: RUN_ID, state: "partial", notification_state: "sent" });
   assert.deepEqual(marks, ["failed", "sent"]);
@@ -406,11 +432,75 @@ test("one release failure and a duplicate claimed match are partial while safe r
     },
   }), RUN_ID);
   assert.equal(result.state, "partial");
-  assert.equal(result.counters.releases_linked, 1);
+  assert.equal(result.counters.releases_linked, 0);
   assert.ok(result.errors.some((row) => row.code === "manual_post_claimed"));
   assert.ok(result.errors.some((row) => row.code === "concurrent_human_change"));
   assert.equal(result.counters.manual_fields_changed_by_sync, 0);
-  assert.deepEqual(calls.filter(([name]) => name === "releases:link").map((row) => row[1]), ["SR-000001", "SR-000003"]);
+  assert.deepEqual(calls.filter(([name]) => name === "releases:link").map((row) => row[1]), ["SR-000003"]);
+  store.close();
+});
+
+test("explicit claims are reserved before inference regardless of release order", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-inferred", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+    { record_id: "rec-explicit", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.deepEqual(calls.filter(([name]) => name === "releases:link").map((row) => row[1]), ["SR-000002"]);
+  assert.ok(result.errors.some((row) => row.target === "SR-000001"));
+  store.close();
+});
+
+test("a valid-form manual URL reserves its Post ID even when account validation fails", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-date", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+    { record_id: "rec-url", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: "https://www.tiktok.com/@other/video/99", 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.ok(result.errors.some((row) => row.target === "SR-000002" && row.code === "manual_account_mismatch"));
+  assert.equal(calls.filter(([name]) => name === "releases:link").length, 0);
+  store.close();
+});
+
+test("duplicate explicit claims conflict deterministically and perform no release writes", async () => {
+  const calls = [];
+  const releases = ["SR-000002", "SR-000001"].map((releaseId) => ({
+    record_id: `rec-${releaseId}`,
+    fields: { 发布ID: releaseId, 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" },
+  }));
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.deepEqual(result.errors.filter((row) => row.code === "manual_post_claimed").map((row) => row.target), ["SR-000001", "SR-000002"]);
+  assert.equal(calls.filter(([name]) => name === "releases:link" || name === "releases:evidence").length, 0);
+  store.close();
+});
+
+test("an existing capture relation reserves its Post ID before date inference", async () => {
+  const calls = [];
+  const releases = [
+    { record_id: "rec-date", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [], 归档状态: "active" } },
+    { record_id: "rec-linked", fields: { 发布ID: "SR-000002", 账号: [{ id: "rec-account" }], "Post ID": null, 视频链接: null, 日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99" }], 归档状态: "active" } },
+  ];
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, successfulRepos(calls, { releases }), {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.deepEqual(calls.filter(([name]) => name === "releases:evidence").map((row) => row[1]), ["SR-000002"]);
+  assert.equal(calls.filter(([name]) => name === "releases:link").length, 0);
   store.close();
 });
 
@@ -478,6 +568,63 @@ test("heartbeat loss aborts the awaited collector and prevents all later side ef
   store.close();
 });
 
+test("heartbeat loss aborts an in-flight Base write before remote mutation", async () => {
+  const store = makeClaimedStore();
+  let timerCallback;
+  let renewals = 0;
+  let remoteMutations = 0;
+  let captureWrites = 0;
+  const jobs = new Proxy(store, {
+    get(target, property) {
+      if (property === "renewLease") return (...args) => {
+        renewals += 1;
+        if (renewals >= 3) { const error = new Error("lost"); error.code = "worker_claim_mismatch"; throw error; }
+        return target.renewLease(...args);
+      };
+      const value = target[property];
+      return typeof value === "function" ? value.bind(target) : value;
+    },
+  });
+  const repos = successfulRepos([]);
+  repos.accounts.syncManyMachine = async (_entries, { signal }) => {
+    timerCallback();
+    await new Promise((resolve) => setImmediate(resolve));
+    if (signal.aborted) { const error = new Error("aborted"); error.code = "base_operation_aborted"; throw error; }
+    remoteMutations += 1;
+  };
+  repos.captures.syncManyMachine = async () => { captureWrites += 1; };
+  await assert.rejects(() => runSyncWorker(workerContext(jobs, repos, {
+    setTimer: (callback) => { timerCallback = callback; return { unref() {} }; },
+    clearTimer: () => {},
+  }), RUN_ID), (error) => error.code === "worker_claim_mismatch");
+  assert.equal(remoteMutations, 0);
+  assert.equal(captureWrites, 0);
+  assert.equal(store.get(RUN_ID).state, "running");
+  store.close();
+});
+
+test("release evidence verifies requested machine fields while unrelated human edits survive", async () => {
+  const calls = [];
+  const release = { record_id: "rec-r", fields: { 发布ID: "SR-000001", 账号: [{ id: "rec-account" }], "Post ID": "99", 视频链接: null, 日期: "2026-09-01", 采集记录: [{ id: "rec-capture-99" }], 归档状态: "active", 备注: "before" } };
+  const repos = successfulRepos(calls, { releases: [release] });
+  repos.releases.machineUpsertWithInvariant = async () => { throw Object.assign(new Error("unrelated human edit"), { code: "machine_invariant_violation" }); };
+  repos.releases.upsertByKey = async (releaseId, patch, actorKind) => {
+    assert.equal(actorKind, "machine");
+    release.fields.备注 = "concurrent human edit";
+    Object.assign(release.fields, structuredClone(patch));
+    calls.push(["releases:evidence", releaseId]);
+    return { record: structuredClone(release), readback: "verified" };
+  };
+  const store = makeClaimedStore();
+  const result = await runSyncWorker(workerContext(store, repos, {
+    source: { readLatestAccounts: () => [accountSource()], readLatestPosts: () => [captureSource("99", { comments: 0, collection_status: "complete", missing_fields: "[]" })] },
+  }), RUN_ID);
+  assert.equal(result.state, "success");
+  assert.equal(release.fields.备注, "concurrent human edit");
+  assert.deepEqual(calls.filter(([name]) => name === "releases:evidence").map((row) => row[1]), ["SR-000001"]);
+  store.close();
+});
+
 test("collector evidence mismatch fails before Base, while notification failure preserves failed terminal", async () => {
   const store = makeClaimedStore();
   let writes = 0;
@@ -492,6 +639,20 @@ test("collector evidence mismatch fails before Base, while notification failure 
   assert.equal(result.notification_state, "failed");
   assert.equal(writes, 0);
   assert.equal(store.get(RUN_ID).state, "failed");
+  store.close();
+});
+
+test("worker surfaces notification failure-state persistence after keeping the data terminal", async () => {
+  const store = makeClaimedStore();
+  const error = new Error("notification state write failed");
+  error.code = "notification_state_persist_failed";
+  await assert.rejects(
+    () => runSyncWorker(workerContext(store, successfulRepos([]), {
+      notifier: { sendTerminal: async () => { throw error; } },
+    }), RUN_ID),
+    (caught) => caught.code === "notification_state_persist_failed",
+  );
+  assert.equal(store.get(RUN_ID).state, "partial");
   store.close();
 });
 

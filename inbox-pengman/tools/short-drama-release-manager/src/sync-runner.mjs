@@ -279,6 +279,53 @@ function accountReverseIndex(index) {
   return result;
 }
 
+function hasExplicitClaim(fields) {
+  return [fields?.["Post ID"], fields?.["视频链接"]].some(
+    (value) => value !== undefined && value !== null && value !== "",
+  );
+}
+
+function rawExplicitPostIds(fields) {
+  const ids = new Set();
+  if (typeof fields?.["Post ID"] === "string" && /^\d+$/.test(fields["Post ID"])) {
+    ids.add(fields["Post ID"]);
+  }
+  if (typeof fields?.["视频链接"] === "string" && fields["视频链接"].trim() === fields["视频链接"]) {
+    try {
+      const url = new URL(fields["视频链接"]);
+      const hostname = url.hostname.toLowerCase();
+      const match = url.pathname.match(/^\/@[^/]+\/(?:video|photo)\/(\d+)\/?$/);
+      if ((url.protocol === "https:" || url.protocol === "http:") &&
+          (hostname === "tiktok.com" || hostname.endsWith(".tiktok.com")) && match) {
+        ids.add(match[1]);
+      }
+    } catch {
+      // Invalid URLs carry no claim; the matcher emits the stable validation error.
+    }
+  }
+  return ids;
+}
+
+function capturePostReverseIndex(index) {
+  const result = new Map();
+  for (const [postId, record] of index) {
+    if (!plainObject(record) || !normalizedString(record.record_id) || result.has(record.record_id)) {
+      fail("base_response_invalid", "Capture relation index is malformed");
+    }
+    result.set(record.record_id, postId);
+  }
+  return result;
+}
+
+function requestedEvidence(match, startedAt) {
+  return {
+    匹配方式: match.method,
+    匹配置信度: match.confidence ?? 1,
+    指标同步时间: startedAt,
+    同步错误: null,
+  };
+}
+
 function releaseError(errors, releaseId, error, fallback = "release_sync_failed") {
   errors.push({ step: "release_links", code: errorCode(error, fallback), target: releaseId });
 }
@@ -297,7 +344,8 @@ async function notifyTerminal(context, terminal) {
   }
   try {
     return await context.notifier.sendTerminal(terminal);
-  } catch {
+  } catch (error) {
+    if (errorCode(error) === "notification_state_persist_failed") throw error;
     return { notification_state: "failed" };
   }
 }
@@ -451,56 +499,159 @@ export async function runSyncWorker(context, runId) {
     ownStep("release_links");
     const releaseIndex = mapIndex(await context.repos.releases.loadIndex({ signal: beat.signal }), "发布记录");
     beat.assertOwned();
-    const claimedPostIds = new Set();
-    for (const [releaseId, rawRecord] of releaseIndex) {
+    const capturePostByRecordId = capturePostReverseIndex(captureIndex);
+    const active = [...releaseIndex]
+      .filter(([, record]) => plainObject(record?.fields) && record.fields.归档状态 === "active")
+      .sort(([left], [right]) => left.localeCompare(right));
+    const candidates = [];
+    const reservations = new Map();
+
+    // Pass one only validates and reserves human-explicit and already-linked claims.
+    for (const [releaseId, rawRecord] of active) {
       beat.assertOwned();
       const fields = rawRecord?.fields;
-      if (!plainObject(fields) || fields.归档状态 !== "active") continue;
+      const existingCapture = relationId(fields.采集记录);
+      const existingPostId = existingCapture ? capturePostByRecordId.get(existingCapture) : null;
+      const rawClaims = rawExplicitPostIds(fields);
+      const reserveInvalidClaims = () => {
+        for (const claimed of [...rawClaims, ...(existingPostId ? [existingPostId] : [])]) {
+          const rows = reservations.get(claimed) ?? [];
+          rows.push({ releaseId, invalid: true });
+          reservations.set(claimed, rows);
+        }
+      };
       const accountRecordId = relationId(fields.账号);
       const accountId = accountRecordId ? accountIds.get(accountRecordId) : null;
       if (!accountId) {
         releaseError(errors, releaseId, { code: "release_account_invalid" });
+        reserveInvalidClaims();
         continue;
       }
-      let match;
-      try {
-        match = matchReleaseToCapture({ ...clone(fields), 账号ID: accountId }, postRows, claimedPostIds);
-      } catch (error) {
-        releaseError(errors, releaseId, error, "matcher_failed");
+      if (existingCapture && !existingPostId) {
+        releaseError(errors, releaseId, { code: "relation_target_not_found" });
+        for (const claimed of rawClaims) {
+          const rows = reservations.get(claimed) ?? [];
+          rows.push({ releaseId, invalid: true });
+          reservations.set(claimed, rows);
+        }
         continue;
+      }
+      const explicit = hasExplicitClaim(fields);
+      let explicitMatch = null;
+      let explicitPostId = null;
+      if (explicit) {
+        try {
+          explicitMatch = matchReleaseToCapture({ ...clone(fields), 账号ID: accountId }, postRows, new Set());
+        } catch (error) {
+          releaseError(errors, releaseId, error, "matcher_failed");
+          continue;
+        }
+        if (explicitMatch.status === "matched") explicitPostId = explicitMatch.post.post_id;
+        else {
+          releaseError(errors, releaseId, { code: explicitMatch.reason }, "release_unmatched");
+          for (const rawPostId of rawClaims) {
+            const rows = reservations.get(rawPostId) ?? [];
+            rows.push({ releaseId, invalid: true });
+            reservations.set(rawPostId, rows);
+          }
+          continue;
+        }
+      }
+      if (explicitPostId && existingPostId && explicitPostId !== existingPostId) {
+        releaseError(errors, releaseId, { code: "release_claim_conflict" });
+        for (const claimed of [explicitPostId, existingPostId]) {
+          const rows = reservations.get(claimed) ?? [];
+          rows.push({ releaseId, invalid: true });
+          reservations.set(claimed, rows);
+        }
+        continue;
+      }
+      const reservedPostId = explicitPostId ?? existingPostId ?? null;
+      const candidate = { releaseId, fields, accountId, existingCapture, explicitMatch, reservedPostId };
+      candidates.push(candidate);
+      if (reservedPostId) {
+        const rows = reservations.get(reservedPostId) ?? [];
+        rows.push(candidate);
+        reservations.set(reservedPostId, rows);
+      }
+    }
+
+    const conflicts = new Set();
+    for (const [, rows] of [...reservations].sort(([left], [right]) => left.localeCompare(right))) {
+      const uniqueRows = [...new Map(rows.map((row) => [row.releaseId, row])).values()];
+      if (uniqueRows.length <= 1) continue;
+      for (const row of uniqueRows.sort((left, right) => left.releaseId.localeCompare(right.releaseId))) {
+        releaseError(errors, row.releaseId, { code: "manual_post_claimed" });
+        conflicts.add(row.releaseId);
+      }
+    }
+
+    // Pass two matches only unreserved rows after every explicit/existing claim is known.
+    const claimedPostIds = new Set(reservations.keys());
+    const plan = [];
+    for (const candidate of candidates) {
+      beat.assertOwned();
+      if (conflicts.has(candidate.releaseId)) continue;
+      let match = candidate.explicitMatch;
+      if (!match && candidate.reservedPostId) {
+        const post = postRows.find((row) => row.post_id === candidate.reservedPostId);
+        if (!post) {
+          releaseError(errors, candidate.releaseId, { code: "manual_post_not_found" });
+          continue;
+        }
+        if (normalizeAccountId(post.username) !== candidate.accountId) {
+          releaseError(errors, candidate.releaseId, { code: "manual_post_account_mismatch" });
+          continue;
+        }
+        match = { status: "matched", method: "existing_relation", confidence: 1, post };
+      }
+      if (!match) {
+        try {
+          match = matchReleaseToCapture(
+            { ...clone(candidate.fields), 账号ID: candidate.accountId },
+            postRows,
+            claimedPostIds,
+          );
+        } catch (error) {
+          releaseError(errors, candidate.releaseId, error, "matcher_failed");
+          continue;
+        }
       }
       if (match.status !== "matched") {
         if (match.status === "unmatched" && match.reason === "no_account_time_candidate" &&
-            validDate(fields.日期) && fields.日期 > expectedDate) {
-          continue;
-        }
-        releaseError(errors, releaseId, { code: match.reason }, "release_unmatched");
+            validDate(candidate.fields.日期) && candidate.fields.日期 > expectedDate) continue;
+        releaseError(errors, candidate.releaseId, { code: match.reason }, "release_unmatched");
         continue;
       }
-      const postId = match.post.post_id;
+      claimedPostIds.add(match.post.post_id);
+      plan.push({ ...candidate, match });
+    }
+
+    // No relation or evidence mutation occurs until the complete deterministic plan exists.
+    for (const item of plan) {
+      beat.assertOwned();
+      const postId = item.match.post.post_id;
       const captureRecordId = recordIdByKey(captureIndex, postId, "采集数据");
       const expected = Object.fromEntries(
-        ["Post ID", "视频链接", "账号", "日期"].map((field) => [field, clone(fields[field])]),
+        ["Post ID", "视频链接", "账号", "日期"].map((field) => [field, clone(item.fields[field])]),
       );
-      const existingCapture = relationId(fields.采集记录);
       try {
-        if (existingCapture !== captureRecordId) {
-          await context.repos.releases.linkCaptureSafely(releaseId, captureRecordId, expected, { signal: beat.signal });
+        if (item.existingCapture !== captureRecordId) {
+          await context.repos.releases.linkCaptureSafely(item.releaseId, captureRecordId, expected, { signal: beat.signal });
           beat.assertOwned();
           totals.releases_linked += 1;
         }
-        claimedPostIds.add(postId);
-        if (typeof context.repos.releases.machineUpsertWithInvariant === "function") {
-          await context.repos.releases.machineUpsertWithInvariant(releaseId, {
-            匹配方式: match.method,
-            匹配置信度: match.confidence ?? 1,
-            指标同步时间: initial.started_at,
-            同步错误: null,
-          }, { signal: beat.signal });
+        if (typeof context.repos.releases.upsertByKey === "function") {
+          await context.repos.releases.upsertByKey(
+            item.releaseId,
+            requestedEvidence(item.match, initial.started_at),
+            "machine",
+            { signal: beat.signal },
+          );
           beat.assertOwned();
         }
       } catch (error) {
-        releaseError(errors, releaseId, error);
+        releaseError(errors, item.releaseId, error);
       }
     }
 
@@ -515,6 +666,7 @@ export async function runSyncWorker(context, runId) {
     totals.errors = errors.length;
     return await finish(errors.length > 0 ? "partial" : "success");
   } catch (error) {
+    beat.assertOwned();
     const code = errorCode(error);
     if (code === "worker_claim_mismatch" || code === "worker_claim_lost") {
       beat.stop();

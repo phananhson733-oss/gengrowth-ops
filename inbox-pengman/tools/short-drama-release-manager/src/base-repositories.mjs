@@ -15,6 +15,10 @@ function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
 }
 
+function assertNotAborted(signal) {
+  if (signal?.aborted) fail("base_operation_aborted", "Feishu Base operation was aborted");
+}
+
 function plainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -147,9 +151,11 @@ export class TableRepository {
     this.index = null;
   }
 
-  async loadIndex() {
+  async loadIndex({ signal } = {}) {
+    assertNotAborted(signal);
     this.index = null;
-    const result = await this.client.listRecords(this.appToken, this.tableId);
+    const result = await this.client.listRecords(this.appToken, this.tableId, { signal });
+    assertNotAborted(signal);
     if (!plainObject(result) || result.complete !== true) {
       if (plainObject(result) && result.complete === false) {
         fail("base_response_incomplete", "Base list response is incomplete", { table: this.tableName });
@@ -176,10 +182,12 @@ export class TableRepository {
     return new Map([...nextIndex].map(([key, record]) => [key, clone(record)]));
   }
 
-  async readRecordById(recordId, { requirePrimary = false, validate = null } = {}) {
+  async readRecordById(recordId, { requirePrimary = false, validate = null, signal = undefined } = {}) {
+    assertNotAborted(signal);
     const normalizedId = normalizeRecordId(recordId);
     try {
-      const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId);
+      const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId, { signal });
+      assertNotAborted(signal);
       if (!plainObject(rawRecord) || !plainObject(rawRecord.fields) || rawRecord.record_id !== normalizedId) {
         fail("readback_mismatch", "Base readback record ID does not match the request", {
           table: this.tableName,
@@ -195,9 +203,11 @@ export class TableRepository {
     }
   }
 
-  async getByKey(key) {
+  async getByKey(key, { signal } = {}) {
     const normalizedKey = normalizeKey(key);
-    if (!this.index) await this.loadIndex();
+    assertNotAborted(signal);
+    if (!this.index) await this.loadIndex({ signal });
+    assertNotAborted(signal);
     const record = this.index.get(normalizedKey);
     return record ? clone(record) : null;
   }
@@ -217,8 +227,9 @@ export class TableRepository {
     return { key: normalizedKey, patch: fields };
   }
 
-  async validateRelations(patch) {
+  async validateRelations(patch, { signal } = {}) {
     for (const [fieldName, targetTable] of this.linkTargets) {
+      assertNotAborted(signal);
       if (!Object.hasOwn(patch, fieldName)) continue;
       const relation = patch[fieldName];
       if (!exactRelation(relation)) {
@@ -228,7 +239,8 @@ export class TableRepository {
         });
       }
       const targetRepository = this.owner.repositoryForTable(targetTable);
-      if (!targetRepository.index) await targetRepository.loadIndex();
+      if (!targetRepository.index) await targetRepository.loadIndex({ signal });
+      assertNotAborted(signal);
       const knownIds = new Set([...targetRepository.index.values()].map((record) => record.record_id));
       if (relation.some((cell) => !knownIds.has(cell.id))) {
         fail("relation_target_not_found", "Relation target was not found in a complete index", {
@@ -239,10 +251,13 @@ export class TableRepository {
     }
   }
 
-  async upsertByKey(key, patch, actorKind) {
+  async upsertByKey(key, patch, actorKind, { signal } = {}) {
+    assertNotAborted(signal);
     const prepared = this.preparePatch(key, patch, actorKind);
-    await this.validateRelations(prepared.patch);
-    if (!this.index) await this.loadIndex();
+    await this.validateRelations(prepared.patch, { signal });
+    assertNotAborted(signal);
+    if (!this.index) await this.loadIndex({ signal });
+    assertNotAborted(signal);
     const verifiedIndex = this.index;
     const existing = this.index.get(prepared.key);
     let writeFields;
@@ -257,6 +272,7 @@ export class TableRepository {
               fail("readback_mismatch", "Base readback primary key changed", { table: this.tableName });
             }
           },
+          signal,
         });
         this.index.set(prepared.key, checked);
         return { record: clone(checked), readback: "verified" };
@@ -264,13 +280,15 @@ export class TableRepository {
       this.index = null;
       written = await this.client.updateRecords(this.appToken, this.tableId, [
         { record_id: existing.record_id, fields: clone(writeFields) },
-      ]);
+      ], { signal });
+      assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName, [existing.record_id]);
     } else {
       assertPatchAllowed(this.tableName, { [this.primaryField]: prepared.key }, "migration");
       writeFields = { ...prepared.patch, [this.primaryField]: prepared.key };
       this.index = null;
-      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(writeFields) }]);
+      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(writeFields) }], { signal });
+      assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName);
     }
     const recordId = written[0].record_id;
@@ -282,13 +300,15 @@ export class TableRepository {
         }
         assertRequestedFields(record, writeFields, this.tableName);
       },
+      signal,
     });
     verifiedIndex.set(prepared.key, readback);
     this.index = verifiedIndex;
     return { record: clone(readback), readback: "verified" };
   }
 
-  async syncManyByKey(entries, actorKind) {
+  async syncManyByKey(entries, actorKind, { signal } = {}) {
+    assertNotAborted(signal);
     if (!Array.isArray(entries)) fail("base_response_invalid", "Bulk sync entries must be an array");
     const prepared = [];
     const keys = new Set();
@@ -303,9 +323,13 @@ export class TableRepository {
       keys.add(item.key);
       prepared.push(item);
     }
-    for (const item of prepared) await this.validateRelations(item.patch);
+    for (const item of prepared) {
+      assertNotAborted(signal);
+      await this.validateRelations(item.patch, { signal });
+    }
 
-    await this.loadIndex();
+    await this.loadIndex({ signal });
+    assertNotAborted(signal);
     const creates = [];
     const updates = [];
     const expectations = new Map();
@@ -332,16 +356,21 @@ export class TableRepository {
 
     if (creates.length > 0 || updates.length > 0) this.index = null;
     if (creates.length > 0) {
-      const result = await this.client.createRecords(this.appToken, this.tableId, creates);
+      assertNotAborted(signal);
+      const result = await this.client.createRecords(this.appToken, this.tableId, creates, { signal });
+      assertNotAborted(signal);
       validateWriteResult(result, creates.length, this.tableName);
     }
     if (updates.length > 0) {
-      const result = await this.client.updateRecords(this.appToken, this.tableId, updates);
+      assertNotAborted(signal);
+      const result = await this.client.updateRecords(this.appToken, this.tableId, updates, { signal });
+      assertNotAborted(signal);
       validateWriteResult(result, updates.length, this.tableName, updates.map((record) => record.record_id));
     }
 
     try {
-      await this.loadIndex();
+      await this.loadIndex({ signal });
+      assertNotAborted(signal);
       for (const [changedKey, expected] of expectations) {
         const readback = this.index.get(changedKey);
         if (!readback) fail("readback_mismatch", "Changed Base record is missing after bulk sync", { table: this.tableName });
@@ -359,14 +388,16 @@ export class TableRepository {
     };
   }
 
-  syncManyMachine(entries) {
-    return this.syncManyByKey(entries, "machine");
+  syncManyMachine(entries, options = {}) {
+    return this.syncManyByKey(entries, "machine", options);
   }
 
-  async machineUpsertWithInvariant(key, patch) {
+  async machineUpsertWithInvariant(key, patch, { signal } = {}) {
+    assertNotAborted(signal);
     const prepared = this.preparePatch(key, patch, "machine");
-    await this.validateRelations(prepared.patch);
-    if (!this.index) await this.loadIndex();
+    await this.validateRelations(prepared.patch, { signal });
+    if (!this.index) await this.loadIndex({ signal });
+    assertNotAborted(signal);
     const verifiedIndex = this.index;
     const indexed = this.index.get(prepared.key);
     let before = null;
@@ -378,6 +409,7 @@ export class TableRepository {
             fail("readback_mismatch", "Base record primary key changed before machine write", { table: this.tableName });
           }
         },
+        signal,
       });
     }
 
@@ -389,13 +421,15 @@ export class TableRepository {
       this.index = null;
       written = await this.client.updateRecords(this.appToken, this.tableId, [
         { record_id: before.record_id, fields: clone(prepared.patch) },
-      ]);
+      ], { signal });
+      assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName, [before.record_id]);
     } else {
       assertPatchAllowed(this.tableName, { [this.primaryField]: prepared.key }, "migration");
       expected = { ...prepared.patch, [this.primaryField]: prepared.key };
       this.index = null;
-      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(expected) }]);
+      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(expected) }], { signal });
+      assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName);
     }
 
@@ -416,24 +450,27 @@ export class TableRepository {
           }
         }
       },
+      signal,
     });
     verifiedIndex.set(prepared.key, after);
     this.index = verifiedIndex;
     return { record: clone(after), readback: "verified" };
   }
 
-  async verify(recordId, expected) {
+  async verify(recordId, expected, { signal } = {}) {
     const normalizedId = normalizeRecordId(recordId);
     assertExpectedObject(expected);
     const record = await this.readRecordById(normalizedId, {
       validate: (readback) => assertRequestedFields(readback, expected, this.tableName),
+      signal,
     });
     return { record: clone(record), readback: "verified" };
   }
 }
 
 class ReleaseRepository extends TableRepository {
-  async linkCaptureSafely(releaseId, captureRecordId, expectedMatchInputs) {
+  async linkCaptureSafely(releaseId, captureRecordId, expectedMatchInputs, { signal } = {}) {
+    assertNotAborted(signal);
     const releaseKey = normalizeKey(releaseId);
     const captureId = normalizeRecordId(captureRecordId);
     assertExpectedObject(expectedMatchInputs);
@@ -442,7 +479,8 @@ class ReleaseRepository extends TableRepository {
       fail("base_response_invalid", "Expected match inputs are missing or contain unsupported fields");
     }
 
-    if (!this.owner.captures.index) await this.owner.captures.loadIndex();
+    if (!this.owner.captures.index) await this.owner.captures.loadIndex({ signal });
+    assertNotAborted(signal);
     const captureExists = [...this.owner.captures.index.values()].some((record) => record.record_id === captureId);
     if (!captureExists) {
       fail("relation_target_not_found", "Capture relation target was not found in a complete index", {
@@ -451,7 +489,8 @@ class ReleaseRepository extends TableRepository {
       });
     }
 
-    if (!this.index) await this.loadIndex();
+    if (!this.index) await this.loadIndex({ signal });
+    assertNotAborted(signal);
     const verifiedIndex = this.index;
     const indexedRelease = this.index.get(releaseKey);
     if (!indexedRelease) fail("base_record_not_found", "Release record was not found");
@@ -467,17 +506,20 @@ class ReleaseRepository extends TableRepository {
           }
         }
       },
+      signal,
     });
     const matchSnapshot = Object.fromEntries(
       MATCH_INPUT_FIELDS.map((fieldName) => [fieldName, clone(fieldValue(before.fields, fieldName))]),
     );
     const relation = [{ id: captureId }];
     assertPatchAllowed(this.tableName, { 采集记录: relation }, "machine");
-    await this.validateRelations({ 采集记录: relation });
+    await this.validateRelations({ 采集记录: relation }, { signal });
+    assertNotAborted(signal);
     this.index = null;
     const written = await this.client.updateRecords(this.appToken, this.tableId, [
       { record_id: before.record_id, fields: { 采集记录: clone(relation) } },
-    ]);
+    ], { signal });
+    assertNotAborted(signal);
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
 
     let matchChanged = false;
@@ -491,13 +533,16 @@ class ReleaseRepository extends TableRepository {
           fail("readback_mismatch", "Capture relation readback did not match the write", { table: this.tableName });
         }
       },
+      signal,
     });
     if (matchChanged) {
       if (equalValue(fieldValue(after.fields, "采集记录"), relation)) {
         assertPatchAllowed(this.tableName, { 采集记录: [] }, "machine");
+        assertNotAborted(signal);
         const cleared = await this.client.updateRecords(this.appToken, this.tableId, [
           { record_id: before.record_id, fields: { 采集记录: [] } },
-        ]);
+        ], { signal });
+        assertNotAborted(signal);
         validateWriteResult(cleared, 1, this.tableName, [before.record_id]);
         await this.readRecordById(before.record_id, {
           requirePrimary: true,
@@ -506,6 +551,7 @@ class ReleaseRepository extends TableRepository {
               fail("readback_mismatch", "Concurrent relation cleanup was not verified", { table: this.tableName });
             }
           },
+          signal,
         });
       }
       fail("concurrent_human_change", "Release match inputs changed during relation write");
