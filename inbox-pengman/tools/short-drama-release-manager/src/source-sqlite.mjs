@@ -142,11 +142,10 @@ function normalizeMetric(value, field, { nullable = true } = {}) {
 }
 
 function parseMissingFields(post) {
-  let parsed;
-  try {
-    parsed = JSON.parse(post.missing_fields);
-  } catch {
-    fail("source_missing_fields_invalid", "Missing fields must be a JSON array");
+  let parsed = post.missing_fields;
+  if (typeof parsed === "string") {
+    try { parsed = JSON.parse(parsed); }
+    catch { fail("source_missing_fields_invalid", "Missing fields must be a JSON array"); }
   }
   if (!Array.isArray(parsed) || parsed.some((name) => typeof name !== "string" || !METRIC_FIELDS.includes(name)) ||
       new Set(parsed).size !== parsed.length) {
@@ -280,9 +279,9 @@ function validatePostRow(row) {
   const normalizedMetrics = Object.fromEntries(
     METRIC_FIELDS.map((field) => [field, normalizeMetric(row[field], field)]),
   );
-  parseMissingFields({ ...row, ...normalizedMetrics });
+  const missingFields = parseMissingFields({ ...row, ...normalizedMetrics });
   const { snapshot_username: _snapshotUsername, ...projected } = row;
-  return { ...projected, ...normalizedMetrics, post_id: postId, username };
+  return { ...projected, ...normalizedMetrics, missing_fields: missingFields, post_id: postId, username };
 }
 
 export function readLatestAccounts(dbPath) {

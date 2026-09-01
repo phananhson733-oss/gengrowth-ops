@@ -377,6 +377,78 @@ test("invalid create requests do not consume a business ID reservation", async (
   fx.close();
 });
 
+test("human date and datetime inputs reject invalid calendars before preview allocation or writes", async () => {
+  const fx = fixture();
+  for (const value of ["2026-02-30", "2026-2-03", "2026-13-01", "not-a-date"]) {
+    await assert.rejects(
+      () => fx.service.applySingleField({
+        actorId: "ou_operator", chatId: "oc_social", table: "选剧池",
+        key: "SD-000001", field: "上线日期", value,
+      }),
+      (error) => error.code === "mutation_value_invalid",
+    );
+  }
+  for (const value of ["2026-02-30T08:00:00+08:00", "2026-09-02 08:00", "2026-09-02T08:00:00", "tomorrow"] ) {
+    await assert.rejects(
+      () => fx.service.previewMutation({
+        actorId: "ou_operator", chatId: "oc_social", action: "create", table: "发布记录",
+        patch: { 日期: value, 账号: "dramaexpedition", 剧: "SD-000001" },
+      }),
+      (error) => error.code === "mutation_value_invalid",
+    );
+  }
+  await assert.rejects(
+    () => fx.service.previewMutation({
+      actorId: "ou_operator", chatId: "oc_social", action: "batch_update", table: "选剧池",
+      items: [{ key: "SD-000001", patch: { 上线日期: "2026-02-30" } }],
+    }),
+    (error) => error.code === "mutation_value_invalid",
+  );
+  assert.deepEqual(fx.writes, []);
+  const valid = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "create", table: "发布记录",
+    patch: { 日期: "2026-09-02T08:00:00+08:00", 账号: "dramaexpedition", 剧: "SD-000001" },
+  });
+  assert.equal(valid.record_id, "SR-000004");
+  assert.equal(valid.patch.日期, "2026-09-02T00:00:00.000Z");
+  fx.close();
+});
+
+test("date-only release scheduling stays date-only and qualified instants normalize deterministically", async () => {
+  const fx = fixture();
+  const dateOnly = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "create", table: "发布记录",
+    patch: { 日期: "2026-09-02", 账号: "dramaexpedition", 剧: "SD-000001" },
+  });
+  assert.equal(dateOnly.patch.日期, "2026-09-02");
+  const updated = await fx.service.applySingleField({
+    actorId: "ou_operator", chatId: "oc_social", table: "发布记录",
+    key: "SR-000001", field: "日期", value: "2026-09-03T08:00:00+08:00",
+  });
+  assert.equal(fx.repos.releases.rows.get("SR-000001").fields.日期, "2026-09-03T00:00:00.000Z");
+  assert.equal(updated.changed_fields[0].fields.日期.after.value, "2026-09-03T00:00:00.000Z");
+  fx.close();
+});
+
+test("persisted datetime previews must remain in canonical storage form before consume", async () => {
+  const fx = fixture();
+  const preview = await fx.service.previewMutation({
+    actorId: "ou_operator", chatId: "oc_social", action: "update", table: "发布记录",
+    key: "SR-000001", patch: { 日期: "2026-09-03T08:00:00+08:00" },
+  });
+  const receipt = fx.jobs.getPreview(preview.receipt_id);
+  receipt.patch.targets[0].patch.日期 = "2026-09-03T08:00:00+08:00";
+  fx.jobs.db.prepare("UPDATE preview_receipts SET patch_json = ? WHERE receipt_id = ?")
+    .run(JSON.stringify(receipt.patch), preview.receipt_id);
+  await assert.rejects(
+    () => fx.service.applyPreview({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id }),
+    (error) => error.code === "preview_payload_invalid",
+  );
+  assert.equal(fx.jobs.getPreview(preview.receipt_id).used_at, null);
+  assert.deepEqual(fx.writes, []);
+  fx.close();
+});
+
 test("account create requires explicit canonical ID and all creates detect collision before and after preview", async () => {
   const fx = fixture();
   await assert.rejects(

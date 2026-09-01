@@ -3,6 +3,7 @@ import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
 import { BASE_FIELD_SPECS, TABLES, fieldOwner } from "./schema.mjs";
+import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 
 const TABLE_REPOSITORIES = Object.freeze({
   "账号台账": "accounts",
@@ -215,7 +216,13 @@ function fieldSpec(table, field) {
   return BASE_FIELD_SPECS[table].find((spec) => spec.name === field);
 }
 
-function validateFieldValue(table, field, value, { internalRelation = false } = {}) {
+function exactCalendarDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+function normalizeFieldValue(table, field, value, { internalRelation = false } = {}) {
   safeValue(value, field);
   const spec = fieldSpec(table, field);
   if (spec.kind === "link") {
@@ -224,21 +231,21 @@ function validateFieldValue(table, field, value, { internalRelation = false } = 
         value[0].id.length === 0 || value[0].id.trim() !== value[0].id) {
       fail("relation_value_invalid", "Relation must be resolved internally to one record", { table, field });
     }
-    return;
+    return value;
   }
-  if (value === null) return;
+  if (value === null) return value;
   if (spec.kind === "number") {
     if (typeof value !== "number" || !Number.isFinite(value)) {
       fail("mutation_value_invalid", "Numeric field requires a finite number", { table, field });
     }
-    return;
+    return value;
   }
   if (spec.kind === "multi_select") {
     if (!Array.isArray(value) || value.some((item) => typeof item !== "string" || item.length === 0 || item.trim() !== item) ||
         new Set(value).size !== value.length) {
       fail("mutation_value_invalid", "Multi-select field requires unique normalized strings", { table, field });
     }
-    return;
+    return value;
   }
   if (["text", "url", "date", "datetime", "single_select"].includes(spec.kind)) {
     if (typeof value !== "string" || value.trim() !== value || value.length > 10_000) {
@@ -249,9 +256,24 @@ function validateFieldValue(table, field, value, { internalRelation = false } = 
       try { parsed = new URL(value); } catch { fail("mutation_value_invalid", "URL field is invalid", { table, field }); }
       if (parsed.protocol !== "https:") fail("mutation_value_invalid", "URL field must use HTTPS", { table, field });
     }
-    return;
+    if (spec.kind === "date" && !exactCalendarDate(value)) {
+      fail("mutation_value_invalid", "Date field requires an exact calendar YYYY-MM-DD", { table, field });
+    }
+    if (spec.kind === "datetime") {
+      if (exactCalendarDate(value)) return value;
+      const milliseconds = parseQualifiedInstantMs(value);
+      if (milliseconds === null) {
+        fail("mutation_value_invalid", "Datetime field requires a date or timezone-qualified ISO instant", { table, field });
+      }
+      return new Date(milliseconds).toISOString();
+    }
+    return value;
   }
   fail("field_not_allowed", "Field is not writable", { table, field });
+}
+
+function validateFieldValue(table, field, value, options) {
+  normalizeFieldValue(table, field, value, options);
 }
 
 function assertHumanField(table, field, { allowRelation = true } = {}) {
@@ -511,7 +533,7 @@ export class HumanOpsService {
         if (!target) fail("field_owner_violation", "Relation is not human-writable", { table, field });
         value = (await this.#resolveRelation(target, value)).relation;
       }
-      validateFieldValue(table, field, value, { internalRelation: internal || spec.kind === "link" });
+      value = normalizeFieldValue(table, field, value, { internalRelation: internal || spec.kind === "link" });
       if (spec.kind === "link" && internal) {
         const target = field === "账号" ? "账号台账" : field === "剧" ? "选剧池" : null;
         if (!target) fail("field_owner_violation", "Relation is not human-writable", { table, field });
@@ -659,26 +681,26 @@ export class HumanOpsService {
     const field = requiredString(input.field, "field");
     assertHumanField(table, field, { allowRelation: false });
     assertProtectedAction("update", table, { [field]: input.value }, { caller: true });
-    validateFieldValue(table, field, input.value);
+    const normalizedValue = normalizeFieldValue(table, field, input.value);
     const key = requiredString(input.key, "key");
     return this.#withMutationLock(async (renew) => {
       const index = await this.#leasedStep(renew, () => this.#index(table));
       const record = index.get(key);
       if (!record) fail("business_record_not_found", "Business record was not found", { table, key });
       const beforeState = cellState(record.fields, field);
-      if (equal(beforeState, { present: true, value: input.value })) {
+      if (equal(beforeState, { present: true, value: normalizedValue })) {
         return mutationResult({ status: "unchanged", actor, recordId: key, changedFields: [], nextStep: "none" });
       }
-      const patch = { [field]: clone(input.value) };
+      const patch = { [field]: clone(normalizedValue) };
       const result = await this.#leasedStep(renew, () => tableRepository(this.#repos, table).upsertByKey(key, patch, "human"));
       const readback = result.record?.fields?.[field];
-      if (!equal(readback, input.value) || result.readback !== "verified") {
+      if (!equal(readback, normalizedValue) || result.readback !== "verified") {
         fail("readback_mismatch", "Human mutation readback did not match", { table, key, field });
       }
       await this.#leasedStep(renew, () => this.#jobs.appendAudit({
         actorId: actor, action: "update", targetTable: table, targetKey: key,
         before: { [field]: beforeState },
-        after: { [field]: { present: true, value: clone(input.value) } },
+        after: { [field]: { present: true, value: clone(normalizedValue) } },
         readback: { [field]: cellState(result.record.fields, field) },
         now: this.#now(),
       }));
@@ -918,7 +940,13 @@ export class HumanOpsService {
       this.#assertPrivileged(actor);
     }
     for (const target of envelope.targets) {
-      await this.#leasedStep(renew, () => this.#normalizePatch(envelope.table, target.patch, { create: envelope.action === "create", internal: true }));
+      const normalizedPatch = await this.#leasedStep(
+        renew,
+        () => this.#normalizePatch(envelope.table, target.patch, { create: envelope.action === "create", internal: true }),
+      );
+      if (!equal(normalizedPatch, target.patch)) {
+        fail("preview_payload_invalid", "Preview patch is not in canonical storage form");
+      }
     }
     const currentBefore = await this.#leasedStep(renew, () => this.#currentBefore(envelope));
     if (envelope.action === "attach-post") {

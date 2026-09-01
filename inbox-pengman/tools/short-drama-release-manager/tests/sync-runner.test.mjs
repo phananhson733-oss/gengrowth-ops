@@ -393,7 +393,7 @@ test("worker preserves null versus zero and an unchanged retry is not counted as
     captureCall += 1;
     if (captureCall === 1) {
       assert.equal(entries[0].patch.点赞, 0);
-      assert.equal(entries[0].patch.评论, null);
+      assert.equal(Object.hasOwn(entries[0].patch, "评论"), false);
       return { created: 0, updated: 0, unchanged: 1, readback: "verified" };
     }
     return { created: 0, updated: 0, unchanged: 1, readback: "verified" };
@@ -409,6 +409,68 @@ test("worker preserves null versus zero and an unchanged retry is not counted as
   assert.equal(result.counters.accounts_updated, 0);
   assert.equal(result.counters.capture_rows_upserted, 0);
   assert.ok(result.errors.some((row) => row.code === "account_partial"));
+  store.close();
+});
+
+test("worker preserves prior valid metrics for partial existing captures and keeps null for new captures", async () => {
+  const calls = [];
+  const store = makeClaimedStore();
+  const rows = new Map([
+    ["99", { record_id: "rec-capture-99", fields: { "Post ID": "99", 评论: 7, 播放量: 10 } }],
+  ]);
+  let indexReads = 0;
+  const repos = successfulRepos(calls, {
+    captureIds: [["99", "rec-capture-99"], ["100", "rec-capture-100"]],
+  });
+  repos.captures.loadIndex = async () => {
+    indexReads += 1;
+    return structuredClone(rows);
+  };
+  let writes = 0;
+  repos.captures.syncManyMachine = async (entries) => {
+    writes += 1;
+    if (writes === 1) {
+      assert.equal(entries.length, 2);
+      const existing = entries.find((entry) => entry.key === "99").patch;
+      const fresh = entries.find((entry) => entry.key === "100").patch;
+      assert.equal(Object.hasOwn(existing, "评论"), false);
+      assert.equal(existing.播放量, 20);
+      assert.equal(existing.采集状态, "partial");
+      assert.deepEqual(existing.缺失字段, ["comments"]);
+      assert.equal(fresh.评论, null);
+      for (const entry of entries) {
+        const previous = rows.get(entry.key) ?? { record_id: `rec-capture-${entry.key}`, fields: { "Post ID": entry.key } };
+        Object.assign(previous.fields, structuredClone(entry.patch));
+        rows.set(entry.key, previous);
+      }
+      return { created: 1, updated: 1, unchanged: 0, readback: "verified" };
+    }
+    for (const entry of entries) Object.assign(rows.get(entry.key).fields, structuredClone(entry.patch));
+    return { created: 0, updated: entries.length, unchanged: 0, readback: "verified" };
+  };
+  const result = await runSyncWorker(workerContext(store, repos, {
+    source: {
+      readLatestAccounts: () => [accountSource()],
+      readLatestPosts: () => [captureSource("99"), captureSource("100")],
+    },
+  }), RUN_ID);
+  assert.equal(result.state, "partial");
+  assert.equal(rows.get("99").fields.评论, 7);
+  assert.equal(rows.get("100").fields.评论, null);
+  assert.equal(indexReads, 3);
+  store.close();
+});
+
+test("successful account collection maps to the Base success enum and never writes complete", async () => {
+  const calls = [];
+  const store = makeClaimedStore();
+  const repos = successfulRepos(calls);
+  repos.accounts.syncManyMachine = async (entries) => {
+    assert.equal(entries[0].patch.同步状态, "success");
+    assert.notEqual(entries[0].patch.同步状态, "complete");
+    return { created: 0, updated: 1, unchanged: 0, readback: "verified" };
+  };
+  await runSyncWorker(workerContext(store, repos), RUN_ID);
   store.close();
 });
 

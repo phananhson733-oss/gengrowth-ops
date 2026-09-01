@@ -246,7 +246,7 @@ function accountEntry(row) {
     ["粉丝数", row.followers],
     ["数据日期", row.snapshot_date],
     ["指标同步时间", row.captured_at],
-    ["同步状态", row.collection_status],
+    ["同步状态", row.collection_status === "complete" ? "success" : row.collection_status],
   ];
   for (const [field, value] of fields) {
     if (value !== undefined) patch[field] = value;
@@ -501,10 +501,27 @@ export async function runSyncWorker(context, runId) {
     const accountIds = accountReverseIndex(accountIndex);
 
     ownStep("captures");
-    const captureEntries = postRows.map((post) => ({
-      key: post.post_id,
-      patch: toCaptureFields(post, runId, recordIdByKey(accountIndex, normalizeAccountId(post.username), "账号台账")),
-    }));
+    const existingCaptureIndex = mapIndex(
+      await context.repos.captures.loadIndex({ signal: beat.signal }),
+      "采集数据",
+    );
+    beat.assertOwned();
+    const metricNames = Object.freeze({
+      views: "播放量", likes: "点赞", comments: "评论", favorites: "收藏", shares: "转发",
+    });
+    const captureEntries = postRows.map((post) => {
+      const patch = toCaptureFields(
+        post,
+        runId,
+        recordIdByKey(accountIndex, normalizeAccountId(post.username), "账号台账"),
+      );
+      if (existingCaptureIndex.has(post.post_id)) {
+        for (const [sourceField, baseField] of Object.entries(metricNames)) {
+          if (post[sourceField] === null || post[sourceField] === undefined) delete patch[baseField];
+        }
+      }
+      return { key: post.post_id, patch };
+    });
     let captureWrite = { created: 0, updated: 0, unchanged: 0, readback: "verified" };
     if (captureEntries.length > 0) {
       captureWrite = validateBulkResult(

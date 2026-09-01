@@ -118,7 +118,7 @@ function retryDelay(value, attempt) {
 }
 
 function mappedFailure(value, path) {
-  const details = { code: codeOf(value), status: statusOf(value), path };
+  const details = { code: codeOf(value), status: statusOf(value), path: diagnosticPath(path) };
   if (isAuthorizationFailure(value)) {
     return new ShortDramaError("base_auth_failed", "Feishu Base authorization failed", details);
   }
@@ -126,6 +126,21 @@ function mappedFailure(value, path) {
     return new ShortDramaError("base_schema_drift", "Feishu Base schema drift detected", details);
   }
   return new ShortDramaError("base_request_failed", "Feishu Base request failed", details);
+}
+
+function diagnosticPath(path) {
+  if (typeof path !== "string") return "[redacted]";
+  const [pathname] = path.split("?", 1);
+  const parts = pathname.split("/");
+  const resourceIds = new Set(["bases", "tables", "dashboards", "blocks", "views", "fields"]);
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    const segment = parts[index];
+    const next = parts[index + 1];
+    if (resourceIds.has(segment) || segment === "records" && !next.startsWith("batch_")) {
+      parts[index + 1] = "[redacted]";
+    }
+  }
+  return parts.join("/");
 }
 
 function validateToken(token) {
@@ -137,7 +152,7 @@ function validateToken(token) {
 
 function assertPayload(payload, path = undefined) {
   if (!plainObject(payload) || typeof payload.code !== "number" || !Number.isFinite(payload.code)) {
-    throw invalidResponse("Feishu response must be an object with a numeric code", path ? { path } : {});
+    throw invalidResponse("Feishu response must be an object with a numeric code", path ? { path: diagnosticPath(path) } : {});
   }
 }
 
@@ -262,7 +277,7 @@ const noGrouping = () => [];
 
 const VIEW_SPECS = Object.freeze({
   "账号台账": Object.freeze({
-    "在用账号": { filter: { logic: "and", conditions: [["状态", "intersects", ["在用"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
+    "在用账号": { filter: { logic: "and", conditions: [["状态", "intersects", ["发布中"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
     "需处理账号": { filter: { logic: "and", conditions: [["同步状态", "intersects", ["partial", "failed"]]] }, sort: [{ field: "指标同步时间", desc: true }], group: [{ field: "所属组", desc: false }] },
   }),
   "选剧池": Object.freeze({
@@ -312,7 +327,7 @@ const dashboardFilter = (fieldName, value) => ({
   conditions: [{ field_name: fieldName, operator: "is", value }],
 });
 const DASHBOARD_BLOCK_SPECS = Object.freeze({
-  "活跃账号数": { type: "statistics", data_config: { table_name: "账号台账", count_all: true, filter: dashboardFilter("状态", "在用") } },
+  "活跃账号数": { type: "statistics", data_config: { table_name: "账号台账", count_all: true, filter: dashboardFilter("状态", "发布中") } },
   "待公开数": { type: "statistics", data_config: { table_name: "发布记录", count_all: true, filter: dashboardFilter("发布状态", "待公开") } },
   "待回填数": { type: "statistics", data_config: { table_name: "发布记录", count_all: true, filter: dashboardFilter("发布状态", "已公开") } },
   "按账号最新累计表现": { type: "column", data_config: { table_name: "发布记录", series: performanceSeries, group_by: [{ field_name: "账号名", mode: "integrated" }] } },
@@ -494,7 +509,7 @@ export class FeishuClient {
   }
 
   log(method, path, status) {
-    this.logger?.({ method, path, status, run_id: this.runId });
+    this.logger?.({ method, path: diagnosticPath(path), status, run_id: this.runId });
   }
 
   async operation(callback, { signal } = {}) {
@@ -557,7 +572,7 @@ export class FeishuClient {
           assertNotAborted(signal);
           continue;
         }
-        if (error instanceof SyntaxError) throw invalidResponse("Feishu response was not valid JSON", { path });
+        if (error instanceof SyntaxError) throw invalidResponse("Feishu response was not valid JSON", { path: diagnosticPath(path) });
         if (error instanceof ShortDramaError) throw error;
         throw mappedFailure(error, path);
       }
@@ -567,7 +582,7 @@ export class FeishuClient {
       this.log(method, path, status);
       if (payload.code === 0 && (statusOf(payload) === null || statusOf(payload) < 400)) {
         if (method !== "GET" && hasIgnoredFields(payload.data)) {
-          throw invalidResponse("Feishu write response reports ignored fields", { path });
+          throw invalidResponse("Feishu write response reports ignored fields", { path: diagnosticPath(path) });
         }
         return payload;
       }
@@ -584,7 +599,7 @@ export class FeishuClient {
       }
       throw mappedFailure(payload, path);
     }
-    throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path });
+    throw new ShortDramaError("base_request_failed", "Feishu Base request attempt budget exhausted", { path: diagnosticPath(path) });
   }
 
   async list(path, { mode = "offset", pageSize = 200, signal = undefined } = {}) {
@@ -604,14 +619,14 @@ export class FeishuClient {
         const payload = await this.request(`${path}?${query}`, { context, signal });
         assertNotAborted(signal);
         if (!plainObject(payload.data) || !Array.isArray(payload.data.items)) {
-          throw invalidResponse("Feishu list response items must be an array", { path });
+          throw invalidResponse("Feishu list response items must be an array", { path: diagnosticPath(path) });
         }
         if (typeof payload.data.has_more !== "boolean") {
-          throw invalidResponse("Feishu list response has_more must be boolean", { path });
+          throw invalidResponse("Feishu list response has_more must be boolean", { path: diagnosticPath(path) });
         }
         const pageRevision = payload.data.revision ?? payload.data.revision_id ?? null;
         if (revisionObserved && pageRevision !== revision) {
-          throw invalidResponse("Feishu list revision changed during pagination", { path });
+          throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
         }
         revision = pageRevision;
         revisionObserved = true;
@@ -625,7 +640,7 @@ export class FeishuClient {
           : (payload.data.offset ?? payload.data.next_offset);
         if ((typeof rawCursor !== "string" && typeof rawCursor !== "number") || String(rawCursor).length === 0 ||
             seenCursors.has(String(rawCursor))) {
-          throw invalidResponse(`Feishu list response ${mode === "token" ? "page_token" : "offset"} is missing or repeated`, { path });
+          throw invalidResponse(`Feishu list response ${mode === "token" ? "page_token" : "offset"} is missing or repeated`, { path: diagnosticPath(path) });
         }
         cursor = String(rawCursor);
         seenCursors.add(cursor);
@@ -744,21 +759,6 @@ export class FeishuClient {
       );
       requireRecordIds(payload, [recordId]);
       return [recordId];
-    }, { signal }), { signal });
-  }
-
-  async createTable(baseToken, tableName, { signal } = {}) {
-    if (typeof tableName !== "string" || !TABLE_ORDER.includes(tableName)) {
-      fail("base_schema_drift", "Table is not part of the fixed Base schema", { table: tableName ?? null });
-    }
-    const primary = BASE_FIELD_SPECS[tableName][0];
-    if (!primary?.primary || primary.name !== TABLES[tableName].primaryField) {
-      fail("base_schema_drift", "Fixed table primary field metadata is invalid", { table: tableName });
-    }
-    const body = { name: tableName, fields: [canonicalFieldBody(tableName, primary)] };
-    return this.serializeWrite(`schema:${baseToken}`, () => this.operation(async (context) => {
-      const payload = await this.request(`${this.basePath(baseToken)}/tables`, { method: "POST", body, context, signal });
-      return requireEntity(payload, "table", "table_id");
     }, { signal }), { signal });
   }
 

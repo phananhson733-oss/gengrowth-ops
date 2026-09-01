@@ -12,6 +12,7 @@ import {
   toCaptureFields,
 } from "../src/source-sqlite.mjs";
 import { matchReleaseToCapture } from "../src/matcher.mjs";
+import { planMigration } from "../src/migration.mjs";
 
 const METRICS = ["views", "likes", "comments", "favorites", "shares"];
 
@@ -299,6 +300,42 @@ test("latest posts return one canonical row per Post ID and never project daily 
   assert.equal(rows[0].views, 20);
   assert.equal(rows[0].snapshot_date, "2026-09-01");
   assert.equal(rows[0].username, "dramaexpedition");
+  assert.deepEqual(rows[0].missing_fields, []);
+  assert.equal(typeof rows[0].missing_fields, "object");
+});
+
+test("real SQLite reader output is accepted by migration planning without shape translation", async () => {
+  const { path, db } = createSourceDb();
+  insertPost(db);
+  insertSnapshot(db, {
+    comments: null,
+    collectionStatus: "partial",
+    missingFields: '["comments"]',
+  });
+  db.close();
+  const rows = readLatestPosts(path);
+  assert.deepEqual(rows[0].missing_fields, ["comments"]);
+  const baseSchema = {
+    revision: "precreated-r1",
+    tables: ["账号台账", "选剧池", "采集数据", "发布记录"].map((name, index) => ({
+      name, table_id: `tbl-${index}`, record_count: 0,
+      fields: [{ field_id: `fld-${index}`, name: "文本", type: "text", is_primary: true }],
+    })),
+  };
+  const manifest = await planMigration({
+    baseBindingSha256: "b".repeat(64),
+    baseSchema,
+    google: {
+      revision: "google-r1",
+      raw_backup: {},
+      accounts: [{ 账号ID: "dramaexpedition", 账号名: "dramaexpedition", 主页链接: "https://www.tiktok.com/@dramaexpedition" }],
+      dramas: [],
+      releases: [],
+    },
+    captures: rows,
+  });
+  assert.deepEqual(manifest.captures[0].缺失字段, ["comments"]);
+  assert.equal(manifest.blocked.some((item) => item.code === "migration_source_invalid"), false);
 });
 
 test("latest posts have deterministic account, published_at, Post ID order", () => {
@@ -400,7 +437,7 @@ test("capture mapping emits only writable v3 fields and preserves zero versus nu
     post_url: "https://www.tiktok.com/@dramaexpedition/video/99",
     snapshot_date: "2026-09-01", captured_at: "2026-09-01T13:00:00Z", published_at: null,
     views: 20, likes: 0, comments: null, favorites: 1, shares: 0,
-    collection_status: "partial", missing_fields: "[\"comments\"]",
+    collection_status: "partial", missing_fields: ["comments"],
   }, " run-1 ", " rec-account ");
   assert.deepEqual(fields, {
     "Post ID": "99", "快照日期": "2026-09-01", "采集时间": "2026-09-01T13:00:00Z",
@@ -418,12 +455,12 @@ test("capture mapping validates missing fields, status, metrics, and identifiers
     post_id: "99", username: "a", post_url: "https://www.tiktok.com/@a/video/99",
     snapshot_date: "2026-09-01", captured_at: "2026-09-01T13:00:00Z", published_at: null,
     views: 1, likes: 2, comments: 3, favorites: 4, shares: 5,
-    collection_status: "complete", missing_fields: "[]",
+    collection_status: "complete", missing_fields: [],
   };
   const cases = [
-    [{ ...base, comments: null, missing_fields: "[]", collection_status: "partial" }, "source_missing_fields_invalid"],
-    [{ ...base, comments: null, missing_fields: "[\"comments\",\"comments\"]", collection_status: "partial" }, "source_missing_fields_invalid"],
-    [{ ...base, missing_fields: "[\"unknown\"]", collection_status: "partial" }, "source_missing_fields_invalid"],
+    [{ ...base, comments: null, missing_fields: [], collection_status: "partial" }, "source_missing_fields_invalid"],
+    [{ ...base, comments: null, missing_fields: ["comments", "comments"], collection_status: "partial" }, "source_missing_fields_invalid"],
+    [{ ...base, missing_fields: ["unknown"], collection_status: "partial" }, "source_missing_fields_invalid"],
     [{ ...base, missing_fields: "not-json" }, "source_missing_fields_invalid"],
     [{ ...base, collection_status: "partial" }, "source_collection_status_invalid"],
     [{ ...base, views: -1 }, "source_metric_invalid"],

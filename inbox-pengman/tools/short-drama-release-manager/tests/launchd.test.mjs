@@ -30,6 +30,8 @@ test("launchd assets use the ticker and preserve the old evidence label", async 
   assert.match(installer, /trap .*rollback/);
   assert.match(installer, /SHORTDRAMA_NODE_BIN/);
   assert.match(installer, /internal\.capability/);
+  assert.match(installer, /expected-base-token/);
+  assert.match(installer, /expected_base_token/);
   assert.match(installer, /chmod 600|chmod\s+0600/);
   assert.match(installer, /rollback_verification_failed/);
   assert.match(runner, /SHORTDRAMA_INTERNAL_CAPABILITY/);

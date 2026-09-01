@@ -44,7 +44,8 @@ test("README lists the exact public and internal Runner command surface", async 
     "migrate plan", "migrate apply", "migrate verify",
     "account list", "account get", "capture list", "capture get",
     "pool list", "pool get", "pool create", "pool update-field", "pool preview-update", "pool apply-update", "pool preview-archive", "pool apply-archive",
-    "release list", "release get", "release schedule", "release update-field", "release preview-update", "release apply-update", "release attach-post",
+    "pool preview-batch",
+    "release list", "release get", "release schedule", "release update-field", "release preview-update", "release preview-batch", "release apply-update", "release attach-post",
     "metrics by-drama", "metrics by-account", "sync start", "sync status",
     "schedule tick", "queue drain", "schedule health",
   ]) assert.match(readme, new RegExp(command.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
@@ -59,6 +60,7 @@ test("README documents migration gates, async truth, natural schedule acceptance
     "migrate plan", "只读", "digest", "schema receipt", "replan_reconfirm", "privileged", "动作时确认",
     "queued", "already_running", "worker_wakeup_failed", "started", "manual_repair", "原始请求会话",
     "08:00", "10:00", "自然调度", "连续七天", "不能", "单写者", "回滚",
+    "expected-base-token", "canary receipt", "permission attestation", "四张空表", "create_four_empty_tables_and_bind_ids",
   ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
   assert.match(readme, /不做物理删除/);
   assert.match(readme, /canary-only/);
@@ -76,6 +78,7 @@ test("env example exposes blank v5 keys and keeps legacy follower sync explicitl
   for (const key of keys) assert.match(env, new RegExp(`^${key}=$`, "m"));
   assert.match(env, /v5 Runner/);
   assert.match(env, /historical.*follower sync/i);
+  assert.match(env, /Non-sensitive legacy flags may retain documented defaults/);
   assert.doesNotMatch(env, /^FEISHU_(?:WIKI_NODE_TOKEN|TABLE_ID)=.+$/m);
   assert.doesNotMatch(env, /^GOOGLE_SERVICE_ACCOUNT_JSON=.+$/m);
   assert.doesNotMatch(env, /\/Users\/|~\/\.config/);

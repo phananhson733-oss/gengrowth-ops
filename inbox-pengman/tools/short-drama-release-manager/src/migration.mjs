@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
-import { lstat, mkdir, open, readFile, realpath, unlink } from "node:fs/promises";
+import { chmod, lstat, mkdir, open, readFile, realpath, unlink } from "node:fs/promises";
 import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
@@ -8,6 +8,7 @@ import { isDeepStrictEqual } from "node:util";
 import { ShortDramaError } from "./errors.mjs";
 import { fixedDashboardDescriptor, fixedFieldDescriptor, fixedViewDescriptor } from "./feishu-client.mjs";
 import { matchReleaseToCapture } from "./matcher.mjs";
+import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
 
@@ -90,6 +91,11 @@ function sha256(value) {
   return createHash("sha256").update(stableJson(value)).digest("hex");
 }
 
+function digestWithoutSha(value) {
+  if (!plainObject(value)) fail("migration_manifest_invalid", "Evidence envelope must be an object");
+  return sha256(Object.fromEntries(Object.entries(value).filter(([key]) => key !== "sha256")));
+}
+
 function withoutDigestEnvelope(value) {
   if (!plainObject(value)) fail("migration_manifest_invalid", "Migration envelope must be an object");
   const copy = {};
@@ -113,6 +119,14 @@ export function schemaReceiptDigest(receipt) {
 
 export function presentationReceiptDigest(receipt) {
   return sha256(withoutDigestEnvelope(receipt));
+}
+
+export function canaryReceiptDigest(receipt) {
+  return digestWithoutSha(receipt);
+}
+
+export function permissionAttestationDigest(attestation) {
+  return digestWithoutSha(attestation);
 }
 
 function text(value, field, { nullable = false } = {}) {
@@ -383,7 +397,10 @@ function schemaPlan(baseSchema, blocks) {
   for (const tableName of TABLE_ORDER) {
     const table = byName.get(tableName);
     if (!table) {
-      tableActions.push({ id: `table:${tableName}`, kind: "create_table", table: tableName, phase: "storage", spec: fixedSchemaDescriptor(tableName, BASE_FIELD_SPECS[tableName][0]) });
+      blocks.push(blocked("base_table_missing", tableName, null, {
+        next_step: "create_four_empty_tables_and_bind_ids",
+      }));
+      continue;
     }
     const fields = new Map();
     for (const field of table?.fields ?? []) {
@@ -462,6 +479,9 @@ function generatedAt(now) {
 
 export async function planMigration(context = {}) {
   if (!plainObject(context) || !plainObject(context.google)) fail("migration_source_invalid", "Normalized Google source is required");
+  if (typeof context.baseBindingSha256 !== "string" || !/^[a-f0-9]{64}$/.test(context.baseBindingSha256)) {
+    fail("base_target_mismatch", "A confirmed Base binding fingerprint is required");
+  }
   const google = clone(context.google, "migration_source_invalid");
   const sourceRevision = text(google.revision, "source_revision");
   if (!plainObject(google.raw_backup)) fail("migration_source_invalid", "Token-free Google recovery backup is required");
@@ -480,6 +500,7 @@ export async function planMigration(context = {}) {
   );
   const manifest = {
     version: VERSION,
+    base_binding_sha256: context.baseBindingSha256,
     source_revision: sourceRevision,
     source_backup: clone(google.raw_backup, "migration_source_invalid"),
     initial_schema_revision: schema.revision,
@@ -511,7 +532,7 @@ export async function planMigration(context = {}) {
 
 function assertManifest(manifest) {
   const expectedKeys = [
-    "accounts", "blocked", "captures", "counts", "dramas", "generated_at", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
+    "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
     "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
@@ -523,6 +544,7 @@ function assertManifest(manifest) {
   if (!isDeepStrictEqual(Object.keys(manifest).sort(), expectedKeys)) fail("migration_manifest_invalid", "Migration manifest contains unsupported fields");
   if (manifestDigest(manifest) !== manifest.sha256) fail("migration_digest_mismatch", "Migration manifest self-digest does not match");
   if (typeof manifest.source_revision !== "string" || manifest.source_revision === "" ||
+      typeof manifest.base_binding_sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.base_binding_sha256) ||
       typeof manifest.initial_schema_revision !== "string" || manifest.initial_schema_revision === "" ||
       typeof manifest.generated_at !== "string" || !Number.isFinite(Date.parse(manifest.generated_at))) {
     fail("migration_manifest_invalid", "Migration manifest metadata is invalid");
@@ -557,12 +579,7 @@ function assertManifest(manifest) {
       fail("migration_manifest_invalid", "Migration schema action is malformed or duplicate");
     }
     actionIds.add(action.id);
-    if (action.kind === "create_table") {
-      const runtime = fixedSchemaDescriptor(action.table, BASE_FIELD_SPECS[action.table][0]);
-      if (!isDeepStrictEqual(Object.keys(action).sort(), ["id", "kind", "phase", "spec", "table"]) || action.id !== `table:${action.table}` || action.phase !== "storage" || !isDeepStrictEqual(action.spec, runtime)) {
-        fail("migration_manifest_invalid", "Migration table action is not fixed");
-      }
-    } else if (action.kind === "create_field") {
+    if (action.kind === "create_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
       if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "spec", "table"]) ||
           action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
@@ -582,6 +599,9 @@ function assertManifest(manifest) {
 
 function assertApplyEnvelope(context, manifest) {
   assertManifest(manifest);
+  if (typeof context.baseBindingSha256 !== "string" || context.baseBindingSha256 !== manifest.base_binding_sha256) {
+    fail("base_target_mismatch", "Runtime Base does not match the confirmed migration target");
+  }
   if (typeof context.expectedSha256 !== "string" || context.expectedSha256 === "") fail("migration_digest_required", "Expected migration digest is required");
   if (context.expectedSha256 !== manifest.sha256) fail("migration_digest_mismatch", "Expected migration digest does not match");
   if (context.sourceRevision !== manifest.source_revision) fail("source_revision_drift", "Google source revision changed after planning");
@@ -599,12 +619,69 @@ async function currentSchemaRevision(context) {
 function assertSchemaReceipt(context, manifest, receipt = context.schemaReceipt) {
   if (!plainObject(receipt) || receipt.version !== "shortdrama-schema-receipt/v1" || receipt.status !== "verified" ||
       receipt.manifest_sha256 !== manifest.sha256 || receipt.pre_revision !== manifest.initial_schema_revision ||
+      receipt.base_binding_sha256 !== manifest.base_binding_sha256 ||
       receipt.action_spec_sha256 !== manifest.schema_spec_sha256 || typeof receipt.post_revision !== "string" || receipt.post_revision === "" ||
       typeof receipt.sha256 !== "string" || receipt.sha256 !== context.expectedSchemaReceiptSha256 || schemaReceiptDigest(receipt) !== receipt.sha256 ||
-      !isDeepStrictEqual(Object.keys(receipt).sort(), ["action_spec_sha256", "manifest_sha256", "post_revision", "pre_revision", "sha256", "status", "version"])) {
+      !isDeepStrictEqual(Object.keys(receipt).sort(), ["action_spec_sha256", "base_binding_sha256", "manifest_sha256", "post_revision", "pre_revision", "sha256", "status", "version"])) {
     fail("migration_schema_receipt_required", "An authentic schema receipt for this manifest is required");
   }
   return receipt;
+}
+
+function assertCanaryReceipt(context, manifest, schemaReceipt) {
+  const receipt = context.canaryReceipt;
+  const proofValid = plainObject(receipt?.proof) && isDeepStrictEqual(Object.keys(receipt.proof).sort(), [...TABLE_ORDER].sort()) &&
+    TABLE_ORDER.every((tableName) => {
+      const proof = receipt.proof[tableName];
+      return plainObject(proof) && isDeepStrictEqual(Object.keys(proof).sort(), [
+        "after_key_set_sha256", "before_key_set_sha256", "canary_primary_sha256", "count_after",
+        "count_before", "created", "deleted", "readback_verified", "record_id_sha256",
+      ]) && proof.created === true && proof.readback_verified === true && proof.deleted === true &&
+        Number.isSafeInteger(proof.count_before) && proof.count_before >= 0 && proof.count_after === proof.count_before &&
+        proof.after_key_set_sha256 === proof.before_key_set_sha256 &&
+        [proof.before_key_set_sha256, proof.canary_primary_sha256, proof.record_id_sha256]
+          .every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value));
+    });
+  if (!plainObject(receipt) || receipt.version !== "shortdrama-canary-receipt/v1" || receipt.status !== "verified" ||
+      receipt.manifest_sha256 !== manifest.sha256 || receipt.base_binding_sha256 !== manifest.base_binding_sha256 ||
+      receipt.schema_revision !== schemaReceipt.post_revision || typeof receipt.table_bindings_sha256 !== "string" ||
+      !/^[a-f0-9]{64}$/.test(receipt.table_bindings_sha256) ||
+      receipt.table_bindings_sha256 !== context.tableBindingsSha256 || !proofValid ||
+      typeof receipt.generated_at !== "string" || parseQualifiedInstantMs(receipt.generated_at) === null ||
+      typeof receipt.sha256 !== "string" || receipt.sha256 !== context.expectedCanaryReceiptSha256 ||
+      canaryReceiptDigest(receipt) !== receipt.sha256 ||
+      !isDeepStrictEqual(Object.keys(receipt).sort(), [
+        "base_binding_sha256", "generated_at", "manifest_sha256", "proof", "schema_revision", "sha256",
+        "status", "table_bindings_sha256", "version",
+      ])) {
+    fail("migration_canary_required", "An authentic same-Base canary receipt is required");
+  }
+  return receipt;
+}
+
+function assertPermissionAttestation(context, manifest, schemaReceipt) {
+  const attestation = context.permissionAttestation;
+  const checkedAt = parseQualifiedInstantMs(attestation?.checked_at);
+  const nowValue = typeof context.now === "function" ? context.now() : new Date();
+  const nowMs = nowValue instanceof Date ? nowValue.getTime() : parseQualifiedInstantMs(nowValue);
+  const age = checkedAt === null || !Number.isFinite(nowMs) ? null : nowMs - checkedAt;
+  if (!plainObject(attestation) || attestation.version !== "shortdrama-permission-attestation/v1" ||
+      attestation.base_binding_sha256 !== manifest.base_binding_sha256 ||
+      attestation.schema_revision !== schemaReceipt.post_revision ||
+      attestation.advanced_permissions_enabled !== true ||
+      attestation.primary_and_machine_fields_protected !== true ||
+      attestation.company_user_access_verified !== true ||
+      typeof context.actorId !== "string" || attestation.checked_by !== context.actorId ||
+      checkedAt === null || age === null || age < -5 * 60_000 || age > 24 * 60 * 60_000 ||
+      typeof attestation.sha256 !== "string" || attestation.sha256 !== context.expectedPermissionAttestationSha256 ||
+      permissionAttestationDigest(attestation) !== attestation.sha256 ||
+      !isDeepStrictEqual(Object.keys(attestation).sort(), [
+        "advanced_permissions_enabled", "base_binding_sha256", "checked_at", "checked_by",
+        "company_user_access_verified", "primary_and_machine_fields_protected", "schema_revision", "sha256", "version",
+      ])) {
+    fail("migration_permission_attestation_required", "Recent externally observed Base permission evidence is required");
+  }
+  return attestation;
 }
 
 function assertRepoSet(repos, { write = true } = {}) {
@@ -708,7 +785,7 @@ async function applyData(context, manifest) {
 
 async function applySchema(context, manifest) {
   const adapter = context.schemaAdapter;
-  if (!objectLike(adapter) || typeof adapter.createTable !== "function" || typeof adapter.createField !== "function" ||
+  if (!objectLike(adapter) || typeof adapter.createField !== "function" ||
       typeof adapter.updateField !== "function" || typeof adapter.readSchema !== "function" || typeof adapter.verifySchemaAction !== "function") {
     fail("migration_context_invalid", "Fixed schema adapter is required");
   }
@@ -726,9 +803,7 @@ async function applySchema(context, manifest) {
   };
   for (const action of manifest.schema_actions) {
     const before = await readSchema();
-    if (action.kind === "create_table") {
-      if (!before.tables.has(action.table)) await adapter.createTable(action.table);
-    } else if (action.kind === "create_field") {
+    if (action.kind === "create_field") {
       const table = before.tables.get(action.table);
       if (!table) fail("readback_mismatch", "Schema action target table is missing", { action: action.id });
       const spec = BASE_FIELD_SPECS[action.table].find((item) => item.name === action.field && !item.primary && !item.managedReverseOf);
@@ -747,7 +822,7 @@ async function applySchema(context, manifest) {
     } else fail("migration_manifest_invalid", "Schema action is unsupported");
     const after = await readSchema();
     const tableAfter = after.tables.get(action.table);
-    if (!tableAfter || action.kind !== "create_table" && !(tableAfter.fields ?? []).some((field) => field.name === action.field)) {
+    if (!tableAfter || !(tableAfter.fields ?? []).some((field) => field.name === action.field)) {
       fail("readback_mismatch", "Schema action did not appear in complete readback", { action: action.id });
     }
     const verified = await adapter.verifySchemaAction(clone(action), clone(after.schema));
@@ -870,6 +945,7 @@ function assertVerificationProof(context, manifest) {
     releases: manifest.releases.length,
   };
   if (!plainObject(report) || report.status !== "verified" || report.manifest_sha256 !== manifest.sha256 ||
+      report.base_binding_sha256 !== manifest.base_binding_sha256 ||
       typeof report.sha256 !== "string" || report.sha256 !== context.expectedVerificationSha256 ||
       verificationDigest(report) !== report.sha256 ||
       !isDeepStrictEqual(canonicalize(report.counts), canonicalize(expectedCounts)) ||
@@ -900,6 +976,7 @@ export async function applyMigration(context = {}, manifest) {
       version: "shortdrama-schema-receipt/v1",
       status: "verified",
       manifest_sha256: manifest.sha256,
+      base_binding_sha256: manifest.base_binding_sha256,
       pre_revision: manifest.initial_schema_revision,
       post_revision: postRevision,
       action_spec_sha256: manifest.schema_spec_sha256,
@@ -909,6 +986,8 @@ export async function applyMigration(context = {}, manifest) {
   }
   const receipt = assertSchemaReceipt(context, manifest);
   if (await currentSchemaRevision(context) !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision changed after schema verification");
+  assertCanaryReceipt(context, manifest, receipt);
+  if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
   if (phase === "data") await applyData(context, manifest);
   if (phase === "presentation") {
     const readbacks = await applyPresentation(context, manifest);
@@ -916,6 +995,7 @@ export async function applyMigration(context = {}, manifest) {
       version: "shortdrama-presentation-receipt/v1",
       status: "verified",
       manifest_sha256: manifest.sha256,
+      base_binding_sha256: manifest.base_binding_sha256,
       schema_receipt_sha256: receipt.sha256,
       presentation_spec_sha256: manifest.presentation_spec_sha256,
       semantic_readbacks: readbacks,
@@ -960,6 +1040,7 @@ function assertExpectedFields(index, entries, primary, tableName) {
 
 export async function verifyMigration(context = {}, manifest) {
   assertManifest(manifest);
+  if (context.baseBindingSha256 !== manifest.base_binding_sha256) fail("base_target_mismatch", "Runtime Base does not match the verified migration target");
   assertRepoSet(context.repos, { write: false });
   validateStableRelations(manifest);
   const indexes = {};
@@ -983,6 +1064,7 @@ export async function verifyMigration(context = {}, manifest) {
   const report = {
     status: "verified",
     manifest_sha256: manifest.sha256,
+    base_binding_sha256: manifest.base_binding_sha256,
     generated_at: generatedAt(context.now),
     counts: {
       accounts: indexes.accounts.size,
@@ -1008,7 +1090,7 @@ function artifactFileName(fileName) {
   return fileName;
 }
 
-async function inspectArtifactDirectory(path, { create = false } = {}) {
+async function inspectArtifactDirectory(path, { create = false, privateDirectory = false } = {}) {
   let info;
   try { info = await lstat(path); }
   catch (error) {
@@ -1019,6 +1101,18 @@ async function inspectArtifactDirectory(path, { create = false } = {}) {
     info = await lstat(path);
   }
   if (info.isSymbolicLink() || !info.isDirectory()) fail("migration_artifact_invalid", "Migration artifact directory must not be a symlink");
+  if (privateDirectory) {
+    const uid = process.getuid?.();
+    if (Number.isSafeInteger(uid) && info.uid !== uid) fail("migration_artifact_invalid", "Migration artifact directory must be owned by the current user");
+    if ((info.mode & 0o777) !== 0o700) {
+      try { await chmod(path, 0o700); }
+      catch { fail("migration_artifact_invalid", "Migration artifact directory permissions could not be restricted"); }
+      info = await lstat(path);
+      if ((info.mode & 0o777) !== 0o700 || Number.isSafeInteger(uid) && info.uid !== uid) {
+        fail("migration_artifact_invalid", "Migration artifact directory must remain private and owned");
+      }
+    }
+  }
 }
 
 async function secureArtifactRoot() {
@@ -1026,7 +1120,7 @@ async function secureArtifactRoot() {
   let cursor = ARTIFACT_TRUST_ROOT;
   for (const component of ["short-drama-release-manager", "migrations"]) {
     cursor = resolve(cursor, component);
-    await inspectArtifactDirectory(cursor, { create: true });
+    await inspectArtifactDirectory(cursor, { create: true, privateDirectory: true });
   }
   const trustedReal = await realpath(ARTIFACT_TRUST_ROOT);
   const rootReal = await realpath(ARTIFACT_ROOT);
@@ -1043,6 +1137,14 @@ export async function reserveMigrationArtifact(fileName) {
   const initialRoot = await secureArtifactRoot();
   const path = resolve(initialRoot.path, safeName);
   if (dirname(path) !== initialRoot.path) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
+  try {
+    const existing = await lstat(path);
+    if (existing.isSymbolicLink()) fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
+    fail("migration_artifact_exists", "Migration artifact already exists", { file_name: safeName });
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    if (error?.code !== "ENOENT") fail("migration_artifact_invalid", "Migration artifact target could not be inspected");
+  }
   let handle;
   try {
     handle = await open(path, fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW, 0o600);
@@ -1061,9 +1163,9 @@ export async function reserveMigrationArtifact(fileName) {
     path,
     async write(value) {
       if (complete) fail("migration_artifact_invalid", "Migration artifact reservation is already complete");
-      canonicalize(value);
-      const bytes = `${JSON.stringify(value, null, 2)}\n`;
       try {
+        canonicalize(value);
+        const bytes = `${JSON.stringify(value, null, 2)}\n`;
         await handle.writeFile(bytes);
         await handle.sync();
         await close();
@@ -1097,77 +1199,6 @@ export async function reserveMigrationArtifact(fileName) {
 }
 
 export async function writeMigrationArtifact(value, { fileName } = {}) {
-  if (typeof fileName !== "string" || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(fileName) || fileName.includes("..")) {
-    fail("migration_artifact_invalid", "Migration artifact file name is invalid");
-  }
-  canonicalize(value);
-  const inspectDirectory = async (path, { create = false } = {}) => {
-    let info;
-    try { info = await lstat(path); }
-    catch (error) {
-      if (error?.code !== "ENOENT" || !create) fail("migration_artifact_invalid", "Migration artifact directory is unavailable");
-      try { await mkdir(path, { mode: 0o700 }); } catch (cause) {
-        if (cause?.code !== "EEXIST") fail("migration_artifact_invalid", "Migration artifact directory could not be created");
-      }
-      info = await lstat(path);
-    }
-    if (info.isSymbolicLink() || !info.isDirectory()) fail("migration_artifact_invalid", "Migration artifact directory must not be a symlink");
-  };
-  const secureRoot = async () => {
-    await inspectDirectory(ARTIFACT_TRUST_ROOT);
-    let cursor = ARTIFACT_TRUST_ROOT;
-    for (const component of ["short-drama-release-manager", "migrations"]) {
-      cursor = resolve(cursor, component);
-      await inspectDirectory(cursor, { create: true });
-    }
-    const trustedReal = await realpath(ARTIFACT_TRUST_ROOT);
-    const rootReal = await realpath(ARTIFACT_ROOT);
-    const remainder = relative(trustedReal, rootReal);
-    if (remainder === "" || remainder === ".." || remainder.startsWith(`..${sep}`) || resolve(rootReal) !== ARTIFACT_ROOT) {
-      fail("migration_artifact_invalid", "Migration artifact directory escaped the trusted output root");
-    }
-    const info = await lstat(rootReal);
-    return { path: rootReal, dev: info.dev, ino: info.ino };
-  };
-  const initialRoot = await secureRoot();
-  const root = initialRoot.path;
-  const path = resolve(root, fileName);
-  if (dirname(path) !== root) fail("migration_artifact_invalid", "Migration artifact path escaped the fixed output root");
-  const bytes = `${JSON.stringify(value, null, 2)}\n`;
-  try {
-    const info = await lstat(path);
-    if (info.isSymbolicLink()) fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
-    fail("migration_artifact_exists", "Migration artifact already exists", { file_name: fileName });
-  } catch (error) {
-    if (error instanceof ShortDramaError) throw error;
-    if (error?.code !== "ENOENT") fail("migration_artifact_invalid", "Migration artifact target could not be inspected");
-  }
-  const beforeOpen = await secureRoot();
-  if (beforeOpen.path !== root || beforeOpen.dev !== initialRoot.dev || beforeOpen.ino !== initialRoot.ino) {
-    fail("migration_artifact_invalid", "Migration artifact parent changed before write");
-  }
-  let handle;
-  try {
-    const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW;
-    handle = await open(path, flags, 0o600);
-    await handle.writeFile(bytes);
-    await handle.sync();
-  } catch (error) {
-    if (error?.code === "EEXIST") fail("migration_artifact_exists", "Migration artifact already exists", { file_name: fileName });
-    if (error?.code === "ELOOP") fail("migration_artifact_invalid", "Migration artifact target must not be a symlink");
-    fail("migration_artifact_write_failed", "Migration artifact could not be written", { cause: error?.code ?? "unknown" });
-  } finally {
-    await handle?.close();
-  }
-  const afterWrite = await secureRoot();
-  if (afterWrite.path !== root || afterWrite.dev !== initialRoot.dev || afterWrite.ino !== initialRoot.ino) {
-    fail("migration_artifact_readback_mismatch", "Migration artifact parent changed during write");
-  }
-  const targetInfo = await lstat(path);
-  if (targetInfo.isSymbolicLink() || !targetInfo.isFile()) fail("migration_artifact_readback_mismatch", "Migration artifact target changed during write");
-  const readback = await readFile(path);
-  const expectedHash = createHash("sha256").update(bytes).digest("hex");
-  const actualHash = createHash("sha256").update(readback).digest("hex");
-  if (actualHash !== expectedHash) fail("migration_artifact_readback_mismatch", "Migration artifact readback hash does not match");
-  return { path, sha256: actualHash, bytes: readback.length };
+  const reservation = await reserveMigrationArtifact(fileName);
+  return reservation.write(value);
 }

@@ -25,56 +25,74 @@
 
 ```bash
 export RUNTIME_CONFIG="$PWD/shortdrama.runtime.json"
-node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG"
+export EXPECTED_BASE_TOKEN="<动作时从正式 Base URL/资源信息独立核对的 token>"
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN"
 ```
 
 ## Public commands
 
-普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用 `--actor-id` 或 `--chat-id`冒充。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
+普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用 `--actor-id` 或 `--chat-id`冒充。Runner 自身拒绝任何 Feishu Social 会话调用 doctor、migration、schedule 或 queue，即使 actor 是 privileged，也不能只依赖 Skill/plugin 拦截。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
 
 ### Doctor 与迁移
 
 ```bash
 # 只读 doctor
-node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token "$EXPECTED_BASE_TOKEN"
 
 # 首次初始化本地 state DB：local-only + privileged + 动作时确认
 node shortdrama_ctl.mjs doctor --init-state --config "$RUNTIME_CONFIG" --actor-id "$PRIVILEGED_ACTOR_ID"
 
 # Schema 完成后的四表 canary：privileged + 动作时确认
-node shortdrama_ctl.mjs doctor --canary --config "$RUNTIME_CONFIG" --actor-id "$PRIVILEGED_ACTOR_ID"
+node shortdrama_ctl.mjs doctor --canary --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" --output "$CANARY_RECEIPT_FILE" \
+  --actor-id "$PRIVILEGED_ACTOR_ID"
 
 # 只读 migration plan
-node shortdrama_ctl.mjs migrate plan --config "$RUNTIME_CONFIG" --output "$PLAN_FILE"
+node shortdrama_ctl.mjs migrate plan --config "$RUNTIME_CONFIG" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" --output "$PLAN_FILE"
 
 # privileged apply；每次均需动作时确认、manifest digest 和对应 receipt 链
 node shortdrama_ctl.mjs migrate apply --phase schema --config "$RUNTIME_CONFIG" \
   --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" \
   --output "$SCHEMA_RECEIPT_FILE" --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
   --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
   --schema-receipt "$SCHEMA_RECEIPT_FILE" \
   --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --canary-receipt "$CANARY_RECEIPT_FILE" --expected-canary-sha256 "$CANARY_RECEIPT_SHA256" \
+  --permission-attestation "$PERMISSION_ATTESTATION_FILE" \
+  --expected-permission-attestation-sha256 "$PERMISSION_ATTESTATION_SHA256" \
+  --expected-permission-attestation-file-sha256 "$PERMISSION_ATTESTATION_FILE_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" \
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 node shortdrama_ctl.mjs migrate apply --phase presentation --config "$RUNTIME_CONFIG" \
   --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
   --schema-receipt "$SCHEMA_RECEIPT_FILE" \
   --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --canary-receipt "$CANARY_RECEIPT_FILE" --expected-canary-sha256 "$CANARY_RECEIPT_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" \
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 node shortdrama_ctl.mjs migrate verify --config "$RUNTIME_CONFIG" \
-  --manifest "$PLAN_FILE" --output "$VERIFICATION_FILE" --actor-id "$PRIVILEGED_ACTOR_ID"
+  --manifest "$PLAN_FILE" --output "$VERIFICATION_FILE" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" --actor-id "$PRIVILEGED_ACTOR_ID"
 node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFIG" \
   --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
   --schema-receipt "$SCHEMA_RECEIPT_FILE" \
   --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --canary-receipt "$CANARY_RECEIPT_FILE" --expected-canary-sha256 "$CANARY_RECEIPT_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" \
   --verification "$VERIFICATION_FILE" \
   --expected-verification-sha256 "$VERIFICATION_SHA256" \
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
 
-`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。`doctor --init-state`、`doctor --canary`、所有 `migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation 需要独立 manifest digest + schema receipt；sequences 还需要 verification 文件字节 digest。schema receipt 丢失或无法证明时必须停止，返回/遵循 `replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
+正式 Base 必须先由公司用户在 UI 或已授权的`lark-cli`中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把真实 table ID 写入本地 env。Runner 不动态建表；任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
 
-canary 是唯一允许物理清理的 **canary-only** 路径：只删除本次固定 canary 主键并证明四表 count/key-set 完整恢复。业务路径不做物理删除；归档是逻辑状态变化，任何 `canary_cleanup_failed` 都按 `manual_repair` 停止。
+`doctor --init-state`、`doctor --canary`、所有`migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation/sequences 需要独立 manifest、schema receipt 和同 Base canary receipt；sequences 还需要 verification 文件字节 digest。data 另需公司用户通过 Base UI/`lark-cli`读回后制作的外部 permission attestation，精确证明高级权限已启用、主键/机器字段已保护、公司用户访问已验证，并提供独立语义 digest 与文件字节 digest。Runner 只验证这份外部用户权限证据的结构、Base/schema/actor 绑定和 24 小时新鲜度，不宣称能独立验证 UI 字段保护。schema receipt 丢失或无法证明时必须停止，返回/遵循`replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
+
+canary 是唯一允许物理清理的 **canary-only** 路径：在动作时确认的维护窗口内，只删除本次固定 canary record ID，并为四表记录 create/read/delete、前后 count 和 key-set hash，输出绑定 manifest/Base/table IDs/schema revision 的不可覆盖 receipt。Base API 没有为该删除提供 CAS；GET→delete 仍有并发窗口，因此 receipt 证明的是受控维护窗口与最终集合恢复，不是原子 CAS。业务路径不做物理删除；归档是逻辑状态变化，任何`canary_cleanup_failed`都按`manual_repair`停止。
 
 ### 四表读取与人工维护
 
@@ -89,6 +107,7 @@ node shortdrama_ctl.mjs pool get --key "$DRAMA_ID" --config "$RUNTIME_CONFIG" --
 node shortdrama_ctl.mjs pool create --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs pool update-field --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs pool preview-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool preview-batch --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs pool apply-update --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs pool preview-archive --key "$DRAMA_ID" --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs pool apply-archive --config "$RUNTIME_CONFIG" --payload -
@@ -98,6 +117,7 @@ node shortdrama_ctl.mjs release get --key "$RELEASE_ID" --config "$RUNTIME_CONFI
 node shortdrama_ctl.mjs release schedule --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs release update-field --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs release preview-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release preview-batch --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs release apply-update --config "$RUNTIME_CONFIG" --payload -
 node shortdrama_ctl.mjs release attach-post --config "$RUNTIME_CONFIG" --payload -
 
@@ -105,7 +125,7 @@ node shortdrama_ctl.mjs metrics by-drama --config "$RUNTIME_CONFIG"
 node shortdrama_ctl.mjs metrics by-account --config "$RUNTIME_CONFIG"
 ```
 
-`pool/release update-field`只接受精确 `{key,field,value}`；多字段/归档必须先 preview，再用 receipt apply。`account/capture`严格只读。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
+四个`list|get`族都返回统一的`table + rows/record + readback=complete + source=base_complete_index`，缺失精确返回`not_found`。`pool/release update-field`只接受精确`{key,field,value}`；`preview-batch`只接受精确`{items:[{key,patch},...]}`并固定 action/table/actor/chat，继续用`apply-update`的 receipt 落地；多字段/归档必须先 preview，再用 receipt apply。`account/capture`严格只读。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
 
 ### 异步同步
 
@@ -119,6 +139,7 @@ node shortdrama_ctl.mjs sync status --run-id "$RUN_ID" --config "$RUNTIME_CONFIG
 - launchctl wakeup 失败时任务仍保持 queued，并返回 `worker_wakeup_failed`；300 秒 ticker 可继续领取。wakeup 或进程启动都不是同步成功。
 - `started` 不等于成功。只有持久化的 `success|partial|failed`、步骤、计数、读回与错误摘要才是 terminal truth。
 - `manual_repair` 必须明确转述并停止自动补写。数据 terminal 不因消息重试而改变。
+- 账号源成功的`complete`只映射为账号台账`同步状态=success`；采集不完整写`partial`。无法从 Collector 安全归因到单个账号的 failure 只进入 Job/错误摘要，不伪造账号行`failed`；所有实际写入值都属于 schema 单选枚举。
 - 手动任务的 terminal 通知只发送到持久化的原始请求会话；调度健康通知只发到配置且 allowlisted 的 Ops chat，用户不能指定任意 chat。
 
 ## Internal commands
@@ -131,7 +152,7 @@ node shortdrama_ctl.mjs queue drain --config "$RUNTIME_CONFIG"
 node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 ```
 
-`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是 `./install_launchd.sh "$RUNTIME_CONFIG"`，但只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
+`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是`./install_launchd.sh "$RUNTIME_CONFIG" "$EXPECTED_BASE_TOKEN"`，但只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
 
 验收必须观察至少一次真实北京时间 08:00 的**自然调度**，并记录 schedule run_id、Collector terminal、Base readback 和通知。手工 `sync start`、launchctl kickstart、服务 loaded 或进程存活不能替代自然调度证据。切换验收还要求**连续七天**全绿；失败后从新的连续成功日重新计数，不能拼接非连续日期。
 
@@ -159,6 +180,8 @@ SHORTDRAMA_OPS_CHAT_ID
 ```
 
 actor/chat allowlist 使用逗号分隔 ID；`SHORTDRAMA_OPS_CHAT_ID`必须同时属于 `SHORTDRAMA_NOTIFICATION_CHAT_IDS`。app secret、token、授权头、真实 table/base ID、actor/chat ID、凭证路径不得写入 Git、日志、审计正文或聊天回复。
+
+迁移 artifact 目录必须由当前用户持有并保持 0700，文件用 0600、`O_EXCL|O_NOFOLLOW`不可覆盖写入并做 inode/hash 读回。Node 当前没有 dirfd/openat 路径绑定能力，因此目录检查到 pathname open 之间仍存在极小的同用户本地 TOCTOU 残余；这不是原子 openat 保证，正式操作需保持目标机同用户会话受控。
 
 ## 单写者切换、恢复与回滚
 

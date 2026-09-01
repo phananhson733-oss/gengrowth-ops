@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { access, chmod, mkdtemp, mkdir, open, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -21,7 +22,7 @@ import {
   runBaseCanary,
   shouldEnqueueSchedule,
 } from "../shortdrama_ctl.mjs";
-import { manifestDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
+import { canaryReceiptDigest, manifestDigest, permissionAttestationDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
 import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
 import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "../src/schema.mjs";
 
@@ -208,13 +209,15 @@ test("doctor state initialization is explicit privileged local-only", () => {
   assert.throws(() => resolveInvocationIdentity(command, {
     HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
     HERMES_SESSION_USER_ID: "ou_admin", HERMES_SESSION_CHAT_ID: "oc_social",
-  }), (error) => error.code === "local_only_required");
+  }), (error) => error.code === "social_command_denied");
   assert.throws(() => resolveInvocationIdentity(command, {
     SHORTDRAMA_CAPABILITY_FILE: "/tmp/internal.capability", SHORTDRAMA_INTERNAL_CAPABILITY: "aa".repeat(32),
   }, { isPrivilegedAllowed: () => true }), (error) => error.code === "local_only_required");
   assert.throws(() => resolveInvocationIdentity(parseCommand(["doctor", "--init-state"]), {}),
     (error) => error.code === "actor_required");
   assert.throws(() => parseCommand(["doctor", "--init-state", "--canary", "--actor-id", "ou_admin"]),
+    (error) => error.code === "input_invalid");
+  assert.throws(() => parseCommand(["doctor", "--canary", "--actor-id", "ou_admin"]),
     (error) => error.code === "input_invalid");
 });
 
@@ -238,7 +241,7 @@ test("doctor init-state creates only the JobStore and normal doctor remains read
   await assert.rejects(access(dbPath));
   const client = repositoryClient();
   await assert.rejects(() => buildRuntime({
-    configPath, env, command: parseCommand(["doctor"]), services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
+    configPath, env, command: parseCommand(["doctor", "--expected-base-token", "base"]), services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
   }));
   await assert.rejects(access(dbPath));
   await assert.rejects(() => buildRuntime({
@@ -259,16 +262,16 @@ test("doctor init-state creates only the JobStore and normal doctor remains read
   init.close();
   assert.equal(initialized.state_store, "initialized");
   assert.equal(initialized.status, "state_initialized");
-  assert.equal(initialized.schema_status, "schema_missing");
+  assert.equal(initialized.schema_status, "base_table_missing");
   const db = new DatabaseSync(dbPath, { readOnly: true });
   assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='jobs'").get()["1"], 1);
   assert.equal(db.prepare("SELECT 1 FROM sqlite_master WHERE name='id_sequences'").get(), undefined);
   db.close();
   const normal = await buildRuntime({
-    configPath, env, command: parseCommand(["doctor"]),
+    configPath, env, command: parseCommand(["doctor", "--expected-base-token", "base"]),
     services: { client, readSchema: async () => ({ complete: true, revision: "empty", tables: [] }) },
   });
-  assert.equal((await normal.doctor({ initState: false, canary: false })).status, "schema_missing");
+  assert.equal((await normal.doctor({ initState: false, canary: false })).status, "base_table_missing");
   normal.close();
 });
 
@@ -302,14 +305,23 @@ test("four-table doctor canary restores exact keys and runs before sequence seed
   await initialized.doctor({ initState: true, canary: false });
   initialized.close();
   const runtime = await buildRuntime({
-    configPath, env, command: parseCommand(["doctor", "--canary", "--actor-id", "ou_admin"]),
+    configPath, env, command: parseCommand(["doctor", "--canary", "--actor-id", "ou_admin", "--expected-base-token", "base", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--output", "canary.json"]),
     services: { client, readSchema: async () => readySchema(env), makeCanaryId: () => "CANARY-SDRUN-20260901-120000-A1B2" },
   });
-  const result = await runtime.doctor({ initState: false, canary: true });
+  const baseBinding = createHash("sha256").update(JSON.stringify({
+    app_token: env.BASE,
+    table_ids: { accounts: env.TA, captures: env.TC, dramas: env.TD, releases: env.TR },
+  })).digest("hex");
+  const result = await runtime.doctor({
+    initState: false, canary: true, identity: { actorId: "ou_admin" },
+    payload: { manifest: { sha256: "a".repeat(64), base_binding_sha256: baseBinding } },
+  });
   runtime.close();
-  assert.equal(result.status, "canary_verified");
-  assert.equal(result.canary.status, "verified");
-  assert.equal(result.sequence.seeded, false);
+  assert.equal(result.status, "verified");
+  assert.equal(result.version, "shortdrama-canary-receipt/v1");
+  assert.equal(result.base_binding_sha256, baseBinding);
+  assert.equal(result.sha256, canaryReceiptDigest(result));
+  assert.ok(Object.values(result.proof).every((proof) => proof.created && proof.readback_verified && proof.deleted && proof.before_key_set_sha256 === proof.after_key_set_sha256));
   assert.deepEqual(calls, [
     ...TABLE_ORDER.map((name) => ["create", name]),
     ...TABLE_ORDER.map((name) => ["delete", name]),
@@ -362,16 +374,84 @@ test("every public and internal registry path parses with only its fixed shape",
   const commands = [
     ["doctor"], ["migrate", "plan"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
     ["account", "list"], ["account", "get", "--key", "acct"], ["capture", "list"], ["capture", "get", "--key", "123"],
-    ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"],
+    ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"], ["pool", "preview-batch"],
     ["pool", "apply-update"], ["pool", "preview-archive", "--key", "SD-000001"], ["pool", "apply-archive"],
     ["release", "list"], ["release", "get", "--key", "SR-000001"], ["release", "schedule"], ["release", "update-field"],
-    ["release", "preview-update"], ["release", "apply-update"], ["release", "attach-post"],
+    ["release", "preview-update"], ["release", "preview-batch"], ["release", "apply-update"], ["release", "attach-post"],
     ["metrics", "by-drama"], ["metrics", "by-account"], ["sync", "start"], ["sync", "status", "--run-id", "run"],
     ["schedule", "tick"], ["schedule", "health"], ["queue", "drain"],
   ];
   for (const argv of commands) assert.equal(parseCommand(argv).group, argv[0]);
   assert.throws(() => parseCommand(["queue", "drain", "--run-id", "forged"]), (error) => error.code === "input_invalid");
   assert.throws(() => parseCommand(["schedule", "tick", "--actor-id", "forged"]), (error) => error.code === "input_invalid");
+});
+
+test("fixed preview-batch routes exact items to the bound table and Social identity", async () => {
+  const calls = [];
+  const dispatch = createDispatcher({ humanOps: {
+    previewMutation: async (request) => { calls.push(request); return { status: "preview" }; },
+  } });
+  const identity = { mode: "social", actorId: "ou_admin", chatId: "oc_social", profile: "social" };
+  const items = [{ key: "SD-000001", patch: { 备注: "new" } }];
+  await dispatch(parseCommand(["pool", "preview-batch", "--payload", "-"]), identity, { items });
+  assert.deepEqual(calls, [{
+    actorId: "ou_admin", chatId: "oc_social", table: "选剧池", action: "batch_update", items,
+  }]);
+  await assert.rejects(
+    () => dispatch(parseCommand(["release", "preview-batch", "--payload", "-"]), identity, { items, table: "选剧池" }),
+    (error) => error.code === "payload_invalid",
+  );
+  await assert.rejects(
+    () => dispatch(parseCommand(["release", "preview-batch", "--payload", "-"]), identity, { action: "batch_update" }),
+    (error) => error.code === "payload_invalid",
+  );
+});
+
+test("pool and release list/get return the same complete readback envelope", async () => {
+  const source = {
+    选剧池: [{ 剧ID: "SD-000001", 剧名: "One" }],
+    发布记录: [{ 发布ID: "SR-000001", 备注: "One" }],
+  };
+  const dispatch = createDispatcher({ humanOps: {
+    query: async ({ table, filter }) => {
+      const rows = source[table];
+      if (!filter) return structuredClone(rows);
+      return structuredClone(rows.filter((row) => Object.entries(filter).every(([field, value]) => row[field] === value)));
+    },
+  } });
+  const identity = { mode: "social", actorId: "ou_reader", chatId: "oc_social", profile: "social" };
+  assert.deepEqual(await dispatch(parseCommand(["pool", "list"]), identity, null), {
+    status: "success", table: "选剧池", rows: source.选剧池, readback: "complete", source: "base_complete_index",
+  });
+  assert.deepEqual(await dispatch(parseCommand(["release", "get", "--key", "missing"]), identity, null), {
+    status: "not_found", table: "发布记录", key: "missing", record: null,
+    readback: "complete", source: "base_complete_index",
+  });
+});
+
+test("real Feishu Social sessions cannot reach doctor, migration, or internal runner commands", async () => {
+  const session = {
+    HERMES_SESSION_PLATFORM: "feishu", HERMES_SESSION_PROFILE: "social",
+    HERMES_SESSION_USER_ID: "ou_admin", HERMES_SESSION_CHAT_ID: "oc_social",
+  };
+  for (const command of [
+    parseCommand(["doctor", "--expected-base-token", "base"]),
+    parseCommand(["doctor", "--canary", "--actor-id", "ou_admin", "--expected-base-token", "base", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--output", "canary.json"]),
+    parseCommand(["migrate", "plan", "--expected-base-token", "base"]),
+    parseCommand(["migrate", "verify", "--manifest", "plan.json", "--expected-base-token", "base"]),
+    parseCommand(["schedule", "tick"]),
+    parseCommand(["queue", "drain"]),
+  ]) {
+    assert.throws(() => resolveInvocationIdentity(command, session), (error) => error.code === "social_command_denied");
+  }
+  let builds = 0;
+  const result = await execute(["migrate", "plan", "--expected-base-token", "base", "--config", "/configured/runtime.json"], {
+    env: session,
+    loadEnvironment: passthroughEnvironment,
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(result.result.error.code, "social_command_denied");
+  assert.equal(builds, 0);
 });
 
 test("migration registry accepts the independent evidence flags used by the runbook", () => {
@@ -569,6 +649,27 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   assert.deepEqual(observed, { operators: ["ou_a", "ou_b"], privileged: ["ou_admin"], chats: ["oc_ops", "oc_social"] });
 });
 
+test("independent Base token mismatch fails before JobStore or Base network activity", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-base-target-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  let network = 0;
+  const client = repositoryClient({ listTables: async () => { network += 1; throw new Error("must not reach Base"); } });
+  for (const argv of [
+    ["doctor"],
+    ["doctor", "--expected-base-token", "base-other"],
+    ["migrate", "plan", "--expected-base-token", "base-other"],
+  ]) {
+    await assert.rejects(
+      () => buildRuntime({ configPath, env, command: parseCommand(argv), services: { client } }),
+      (error) => error.code === "base_target_mismatch",
+    );
+  }
+  assert.equal(network, 0);
+  await assert.rejects(access(path.join(root, "ops.sqlite")));
+});
+
 test("schema and verification artifacts dispatch as separate independently checked files", async () => {
   const suffix = `${process.pid}-${Date.now()}`;
   const manifest = { version: "fixture", rows: [] };
@@ -577,8 +678,14 @@ test("schema and verification artifacts dispatch as separate independently check
   receipt.sha256 = schemaReceiptDigest(receipt);
   const verification = { status: "verified", manifest_sha256: manifest.sha256 };
   verification.sha256 = verificationDigest(verification);
+  const canary = {
+    version: "shortdrama-canary-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    base_binding_sha256: "b".repeat(64), schema_revision: "post", table_bindings_sha256: "c".repeat(64),
+    proof: {}, generated_at: "2026-09-01T00:00:00.000Z",
+  };
+  canary.sha256 = canaryReceiptDigest(canary);
   const files = [];
-  for (const [name, value] of [[`plan-${suffix}.json`, manifest], [`schema-${suffix}.json`, receipt], [`verification-${suffix}.json`, verification]]) {
+  for (const [name, value] of [[`plan-${suffix}.json`, manifest], [`schema-${suffix}.json`, receipt], [`verification-${suffix}.json`, verification], [`canary-${suffix}.json`, canary]]) {
     files.push(await writeMigrationArtifact(value, { fileName: name }));
   }
   try {
@@ -587,9 +694,10 @@ test("schema and verification artifacts dispatch as separate independently check
     const result = await execute([
       "migrate", "apply", "--phase", "sequences", "--manifest", `plan-${suffix}.json`,
       "--expected-sha256", manifest.sha256, "--schema-receipt", `schema-${suffix}.json`,
-      "--expected-schema-receipt-sha256", receipt.sha256, "--verification", `verification-${suffix}.json`,
+      "--expected-schema-receipt-sha256", receipt.sha256, "--canary-receipt", `canary-${suffix}.json`,
+      "--expected-canary-sha256", canary.sha256, "--verification", `verification-${suffix}.json`,
       "--expected-verification-sha256", byteHash, "--actor-id", "admin", "--confirm", "apply-now",
-      "--config", "/configured/runtime.json",
+      "--expected-base-token", "base", "--config", "/configured/runtime.json",
     ], {
       env: {},
       loadEnvironment: passthroughEnvironment,
@@ -600,7 +708,68 @@ test("schema and verification artifacts dispatch as separate independently check
       }),
     });
     assert.equal(result.exitCode, 0);
-    assert.deepEqual(observed, { manifest, schemaReceipt: receipt, verification });
+    assert.deepEqual(observed, { manifest, schemaReceipt: receipt, canaryReceipt: canary, verification });
+  } finally {
+    await Promise.all(files.map((file) => rm(file.path, { force: true })));
+  }
+});
+
+test("data evidence requires independent canary and permission semantic/file digests before runtime", async () => {
+  const suffix = `${process.pid}-${Date.now()}`;
+  const manifest = { version: "fixture", rows: [] };
+  manifest.sha256 = manifestDigest(manifest);
+  const schema = { version: "fixture-schema", manifest_sha256: manifest.sha256 };
+  schema.sha256 = schemaReceiptDigest(schema);
+  const canary = {
+    version: "shortdrama-canary-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    base_binding_sha256: "b".repeat(64), schema_revision: "post", table_bindings_sha256: "c".repeat(64),
+    proof: {}, generated_at: "2026-09-01T00:00:00.000Z",
+  };
+  canary.sha256 = canaryReceiptDigest(canary);
+  const permission = {
+    version: "shortdrama-permission-attestation/v1", base_binding_sha256: "b".repeat(64),
+    schema_revision: "post", advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true, company_user_access_verified: true,
+    checked_by: "ou_admin", checked_at: "2026-09-01T00:00:00.000Z",
+  };
+  permission.sha256 = permissionAttestationDigest(permission);
+  const specs = [
+    [`data-plan-${suffix}.json`, manifest], [`data-schema-${suffix}.json`, schema],
+    [`data-canary-${suffix}.json`, canary], [`data-permission-${suffix}.json`, permission],
+  ];
+  const files = [];
+  for (const [name, value] of specs) files.push(await writeMigrationArtifact(value, { fileName: name }));
+  const permissionFileSha = createHash("sha256").update(await readFile(files[3].path)).digest("hex");
+  const argv = [
+    "migrate", "apply", "--phase", "data", "--manifest", specs[0][0], "--expected-sha256", manifest.sha256,
+    "--schema-receipt", specs[1][0], "--expected-schema-receipt-sha256", schema.sha256,
+    "--canary-receipt", specs[2][0], "--expected-canary-sha256", canary.sha256,
+    "--permission-attestation", specs[3][0], "--expected-permission-attestation-sha256", permission.sha256,
+    "--expected-permission-attestation-file-sha256", permissionFileSha,
+    "--expected-base-token", "base", "--actor-id", "ou_admin", "--confirm", "apply-now",
+    "--config", "/configured/runtime.json",
+  ];
+  try {
+    let builds = 0;
+    const wrong = [...argv];
+    wrong[wrong.indexOf(permissionFileSha)] = "d".repeat(64);
+    const rejected = await execute(wrong, {
+      env: {}, loadEnvironment: passthroughEnvironment,
+      build: async () => { builds += 1; throw new Error("must not build"); },
+    });
+    assert.equal(rejected.result.error.code, "migration_evidence_mismatch");
+    assert.equal(builds, 0);
+    let observed;
+    const accepted = await execute(argv, {
+      env: {}, loadEnvironment: passthroughEnvironment,
+      build: async () => ({
+        config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
+        migrateApply: async (evidence) => { observed = evidence; return { status: "applied" }; },
+        close() {},
+      }),
+    });
+    assert.equal(accepted.exitCode, 0);
+    assert.deepEqual(observed, { manifest, schemaReceipt: schema, canaryReceipt: canary, permissionAttestation: permission });
   } finally {
     await Promise.all(files.map((file) => rm(file.path, { force: true })));
   }
@@ -653,6 +822,32 @@ test("main emits exactly one JSON object and sanitizes absolute error paths", as
   assert.equal(failed.result.error.details.path, "[redacted]");
 });
 
+test("public error JSON redacts actor, chat, Base, table, record, path, and secret identifiers", async () => {
+  const failed = await execute(["doctor", "--expected-base-token", "base_confirmed", "--config", "/configured/runtime.json"], {
+    env: {},
+    loadEnvironment: passthroughEnvironment,
+    build: async () => { throw new (await import("../src/errors.mjs")).ShortDramaError("base_request_failed", "fixed", {
+      actor: "ou_privateactor",
+      user_id: "ou_privateuser",
+      chat_id: "oc_privatechat",
+      base_token: "base_private",
+      app_token: "app_private",
+      table: "tbl_private",
+      table_id: "tbl_private2",
+      record_id: "rec_private",
+      path: "/Users/private/secret.json",
+      field: "备注",
+      nested: [{ target: "rec_nested" }, { table: "选剧池" }],
+    }); },
+  });
+  const serialized = JSON.stringify(failed.result);
+  for (const secret of ["ou_private", "oc_private", "base_private", "app_private", "tbl_private", "rec_private", "/Users/private"]) {
+    assert.equal(serialized.includes(secret), false);
+  }
+  assert.equal(failed.result.error.details.field, "备注");
+  assert.equal(failed.result.error.details.nested[1].table, "选剧池");
+});
+
 test("internal identity rejection happens before runtime construction", async () => {
   let builds = 0;
   const result = await execute(["queue", "drain", "--config", "/configured/runtime.json"], {
@@ -685,7 +880,7 @@ test("exit map makes partial and failed wake/status nonzero", () => {
 
 test("dispatcher maps HumanOps methods and queue claims current PID only", async () => {
   const calls = [];
-  const humanOps = new Proxy({}, { get: (_target, method) => async (request) => { calls.push([method, request]); return { status: "ok" }; } });
+  const humanOps = new Proxy({}, { get: (_target, method) => async (request) => { calls.push([method, request]); return method === "query" ? [] : { status: "ok" }; } });
   const jobs = {
     claimNext: ({ workerPid }) => ({ run_id: "SDRUN-20260901-000001", worker_pid: workerPid }),
     listUndeliveredTerminal: () => [],
@@ -757,7 +952,7 @@ test("privileged migration and doctor canary are checked for Social actors", asy
     migrateVerify: async () => ({ status: "verified" }),
   };
   const dispatch = createDispatcher(runtime);
-  await assert.rejects(dispatch(parseCommand(["doctor", "--canary"]), { actorId: "operator" }, null),
+  await assert.rejects(dispatch(parseCommand(["doctor", "--canary", "--expected-base-token", "base", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--output", "canary.json"]), { actorId: "operator" }, null),
     (error) => error.code === "privileged_required");
   await assert.rejects(dispatch(parseCommand(["migrate", "verify", "--manifest", "plan.json"]), { actorId: "operator" }, {}),
     (error) => error.code === "privileged_required");

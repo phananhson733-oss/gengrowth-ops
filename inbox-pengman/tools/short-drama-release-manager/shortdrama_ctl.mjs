@@ -19,7 +19,9 @@ import { JobStore } from "./src/job-store.mjs";
 import {
   MIGRATION_ARTIFACT_ROOT,
   applyMigration,
+  canaryReceiptDigest,
   manifestDigest,
+  permissionAttestationDigest,
   planMigration,
   schemaReceiptDigest,
   reserveMigrationArtifact,
@@ -39,11 +41,11 @@ const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 
 const REGISTRY = Object.freeze({
-  doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id"] }),
+  doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
   migrate: Object.freeze({
-    plan: ["config", "output", "actor-id", "chat-id"],
-    apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm"],
-    verify: ["config", "manifest", "output", "actor-id", "chat-id"],
+    plan: ["config", "output", "actor-id", "chat-id", "expected-base-token"],
+    apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "canary-receipt", "expected-canary-sha256", "permission-attestation", "expected-permission-attestation-sha256", "expected-permission-attestation-file-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm", "expected-base-token"],
+    verify: ["config", "manifest", "output", "actor-id", "chat-id", "expected-base-token"],
   }),
   account: Object.freeze({
     list: ["config", "actor-id", "chat-id"], get: ["config", "key", "actor-id", "chat-id"],
@@ -54,13 +56,13 @@ const REGISTRY = Object.freeze({
   pool: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
     "update-field": ["config", "payload", "actor-id", "chat-id"],
-    "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
     "preview-archive": ["config", "key", "payload", "actor-id", "chat-id"], "apply-archive": ["config", "payload", "actor-id", "chat-id"],
   }),
   release: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], schedule: ["config", "payload", "actor-id", "chat-id"],
     "update-field": ["config", "payload", "actor-id", "chat-id"],
-    "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
     "attach-post": ["config", "payload", "actor-id", "chat-id"],
   }),
   metrics: Object.freeze({ "by-drama": ["config", "actor-id", "chat-id"], "by-account": ["config", "actor-id", "chat-id"] }),
@@ -131,6 +133,12 @@ export function parseCommand(argv) {
     fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
   }
   if (group === "doctor" && options.canary && options.initState) fail("input_invalid", "doctor --canary and --init-state are mutually exclusive");
+  if (group === "doctor" && options.canary &&
+      ["manifest", "expectedSha256", "expectedBaseToken", "output"].some((key) => !Object.hasOwn(options, key))) {
+    fail("input_invalid", "doctor --canary requires manifest, independent digests/Base target, and fixed-root output", {
+      option: "canary_evidence",
+    });
+  }
   return command;
 }
 
@@ -165,7 +173,8 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
   const sessionKeys = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"];
   const hasSession = sessionKeys.some((key) => env[key] !== undefined);
   if (isInternal(command)) {
-    if (hasSession || command.options.actorId || command.options.chatId) fail("internal_context_invalid", "Internal commands reject session and actor overrides");
+    if (hasSession) fail("social_command_denied", "Feishu Social sessions cannot invoke internal commands");
+    if (command.options.actorId || command.options.chatId) fail("internal_context_invalid", "Internal commands reject actor overrides");
     const capabilityPath = policy.capabilityPath ?? DEFAULT_CAPABILITY_PATH;
     if (env.SHORTDRAMA_CAPABILITY_FILE !== capabilityPath || typeof env.SHORTDRAMA_INTERNAL_CAPABILITY !== "string") {
       fail("internal_context_required", "Internal command requires the installed launchd context");
@@ -182,7 +191,9 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
     fail("local_only_required", "State initialization cannot run from an internal scheduler context");
   }
   if (hasSession) {
-    if (command.group === "doctor" && command.options.initState) fail("local_only_required", "State initialization is a privileged local-only command");
+    if (["doctor", "migrate", "schedule", "queue"].includes(command.group)) {
+      fail("social_command_denied", "Feishu Social sessions cannot invoke privileged or internal commands");
+    }
     if (command.options.actorId || command.options.chatId) fail("session_identity_override", "Social session identity cannot be overridden");
     if (env.HERMES_SESSION_PLATFORM !== "feishu" || env.HERMES_SESSION_PROFILE !== "social" ||
         !env.HERMES_SESSION_USER_ID || !env.HERMES_SESSION_CHAT_ID) {
@@ -244,6 +255,16 @@ function exactSingleFieldPayload(payload) {
     field: normalized(descriptors.field.value, "field"),
     value: structuredClone(descriptors.value.value),
   };
+}
+
+function exactBatchPayload(payload) {
+  if (payload === null || typeof payload !== "object" || Array.isArray(payload) ||
+      ![Object.prototype, null].includes(Object.getPrototypeOf(payload)) ||
+      Reflect.ownKeys(payload).length !== 1 || !Object.hasOwn(payload, "items") || !Array.isArray(payload.items)) {
+    fail("payload_invalid", "Batch payload must contain exactly items");
+  }
+  assertSafeJson(payload);
+  return { items: structuredClone(payload.items) };
 }
 
 function parsePayloadBytes(bytes) {
@@ -332,10 +353,17 @@ async function readMigrationFile(source) {
 
 async function loadMigrationEvidence(command) {
   const key = `${command.group}:${command.action}`;
-  if (!key.startsWith("migrate:") || key === "migrate:plan") return null;
+  const doctorCanary = command.group === "doctor" && command.options.canary === true;
+  if ((!key.startsWith("migrate:") || key === "migrate:plan") && !doctorCanary) return null;
+  if (!command.options.manifest) evidenceMismatch("Migration manifest evidence is required");
   const loadedManifest = await readMigrationFile(command.options.manifest);
   const manifest = loadedManifest.value;
   if (typeof manifest.sha256 !== "string" || manifestDigest(manifest) !== manifest.sha256) evidenceMismatch("Migration manifest self-digest is invalid");
+  if (doctorCanary) {
+    const expectedManifest = exactDigest(command.options.expectedSha256, "expectedSha256");
+    if (manifest.sha256 !== expectedManifest) evidenceMismatch("Migration manifest does not match the independently supplied digest");
+    return { manifest };
+  }
   if (key === "migrate:verify") return { manifest };
   const expectedManifest = exactDigest(command.options.expectedSha256, "expectedSha256");
   if (manifest.sha256 !== expectedManifest) evidenceMismatch("Migration manifest does not match the independently supplied digest");
@@ -351,6 +379,31 @@ async function loadMigrationEvidence(command) {
       evidenceMismatch("Schema receipt does not match the independently supplied digest and manifest");
     }
     evidence.schemaReceipt = receipt;
+    if (!command.options.canaryReceipt || !command.options.expectedCanarySha256) {
+      fail("migration_canary_required", "Canary receipt and its independent digest are required");
+    }
+    const canaryReceipt = (await readMigrationFile(command.options.canaryReceipt)).value;
+    const expectedCanary = exactDigest(command.options.expectedCanarySha256, "expectedCanarySha256");
+    if (canaryReceipt?.sha256 !== expectedCanary || canaryReceiptDigest(canaryReceipt) !== expectedCanary ||
+        canaryReceipt.manifest_sha256 !== manifest.sha256) {
+      evidenceMismatch("Canary receipt does not match its independent digest and manifest");
+    }
+    evidence.canaryReceipt = canaryReceipt;
+  }
+  if (command.options.phase === "data") {
+    if (!command.options.permissionAttestation || !command.options.expectedPermissionAttestationSha256 ||
+        !command.options.expectedPermissionAttestationFileSha256) {
+      fail("migration_permission_attestation_required", "Permission attestation and independent digests are required");
+    }
+    const loaded = await readMigrationFile(command.options.permissionAttestation);
+    const attestation = loaded.value;
+    const expectedSemantic = exactDigest(command.options.expectedPermissionAttestationSha256, "expectedPermissionAttestationSha256");
+    const expectedFile = exactDigest(command.options.expectedPermissionAttestationFileSha256, "expectedPermissionAttestationFileSha256");
+    const actualFile = createHash("sha256").update(loaded.bytes).digest("hex");
+    if (attestation?.sha256 !== expectedSemantic || permissionAttestationDigest(attestation) !== expectedSemantic || actualFile !== expectedFile) {
+      evidenceMismatch("Permission attestation does not match its independent semantic and file digests");
+    }
+    evidence.permissionAttestation = attestation;
   }
   if (command.options.phase === "sequences") {
     if (!command.options.verification || !command.options.expectedVerificationSha256) evidenceMismatch("Sequence migration requires independent verification evidence");
@@ -418,6 +471,8 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
   }
   const snapshots = new Map();
   const originalKeys = new Map();
+  const createdRecordIds = new Map();
+  const proofs = new Map();
   let operationError = null;
   let cleanupError = null;
   for (const [binding, tableName] of CANARY_TABLES) {
@@ -437,10 +492,18 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
         fail("readback_mismatch", "Canary create did not return exactly one record ID", { table: tableName });
       }
       const recordId = created[0].record_id;
+      createdRecordIds.set(tableName, recordId);
       const readback = await client.getRecord(appToken, tableId, recordId);
       if (readback?.record_id !== recordId || readback?.fields?.[primary] !== canaryId) {
         fail("readback_mismatch", "Canary readback did not match primary and record ID", { table: tableName });
       }
+      proofs.set(tableName, {
+        before_key_set_sha256: createHash("sha256").update(JSON.stringify(originalKeys.get(tableName))).digest("hex"),
+        canary_primary_sha256: createHash("sha256").update(canaryId).digest("hex"),
+        created: true,
+        readback_verified: true,
+        record_id_sha256: createHash("sha256").update(recordId).digest("hex"),
+      });
     }
   } catch (error) {
     operationError = error;
@@ -448,8 +511,7 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
     for (const [binding, tableName] of CANARY_TABLES) {
       const tableId = tableIds[binding];
       try {
-        const current = canaryIndex(await client.listRecords(appToken, tableId), tableName);
-        const recordId = current.get(canaryId);
+        const recordId = createdRecordIds.get(tableName);
         if (recordId) await client.deleteCanaryRecords(appToken, tableId, tableName, [recordId]);
       } catch (error) {
         cleanupError ??= error;
@@ -461,6 +523,13 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
         if (JSON.stringify([...restored.keys()].sort()) !== JSON.stringify(originalKeys.get(tableName))) {
           fail("readback_mismatch", "Canary cleanup did not restore the exact key set", { table: tableName });
         }
+        const proof = proofs.get(tableName);
+        if (proof) {
+          proof.deleted = true;
+          proof.after_key_set_sha256 = createHash("sha256").update(JSON.stringify([...restored.keys()].sort())).digest("hex");
+          proof.count_before = snapshots.get(tableName).size;
+          proof.count_after = restored.size;
+        }
       } catch (error) {
         cleanupError ??= error;
       }
@@ -470,7 +539,7 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
   if (operationError) throw operationError;
   return {
     status: "verified", canary_id: canaryId,
-    tables: Object.fromEntries(CANARY_TABLES.map(([, name]) => [name, { count_before: snapshots.get(name).size, count_after: snapshots.get(name).size }])),
+    tables: Object.fromEntries(CANARY_TABLES.map(([, name]) => [name, proofs.get(name)])),
   };
 }
 
@@ -597,7 +666,7 @@ export function createDispatcher(runtime) {
     const key = `${command.group}:${command.action}`;
     if (command.group === "doctor") {
       if ((command.options.canary || command.options.initState) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
-      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity }) : { status: "ready" };
+      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity, payload }) : { status: "ready" };
     }
     if (key === "account:list" || key === "capture:list") {
       const table = command.group === "account" ? "账号台账" : "采集数据";
@@ -610,11 +679,14 @@ export function createDispatcher(runtime) {
         filter: { [primary]: command.options.key },
       })), command.options.key);
     }
-    if (key === "pool:list" || key === "release:list") return runtime.humanOps.query(queryRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
+    if (key === "pool:list" || key === "release:list") {
+      const table = command.group === "pool" ? "选剧池" : "发布记录";
+      return completeReadResult(table, await runtime.humanOps.query(queryRequest(identity, table, payload ?? {})));
+    }
     if (key === "pool:get" || key === "release:get") {
       const table = command.group === "pool" ? "选剧池" : "发布记录";
       const primary = table === "选剧池" ? "剧ID" : "发布ID";
-      return runtime.humanOps.query(queryRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } }));
+      return completeReadResult(table, await runtime.humanOps.query(queryRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } })), command.options.key);
     }
     if (key === "metrics:by-drama" || key === "metrics:by-account") return runtime.humanOps.queryMetrics({ actorId: identity.actorId, groupBy: command.action === "by-drama" ? "drama" : "account" });
     if (key === "pool:create" || key === "release:schedule") {
@@ -631,6 +703,14 @@ export function createDispatcher(runtime) {
       });
     }
     if (key === "pool:preview-update" || key === "release:preview-update") return runtime.humanOps.previewMutation(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", { ...(payload ?? {}), action: "update" }));
+    if (key === "pool:preview-batch" || key === "release:preview-batch") {
+      const batch = exactBatchPayload(payload);
+      return runtime.humanOps.previewMutation(humanRequest(
+        identity,
+        command.group === "pool" ? "选剧池" : "发布记录",
+        { ...batch, action: "batch_update" },
+      ));
+    }
     if (key === "pool:apply-update" || key === "release:apply-update") return runtime.humanOps.applyPreview({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
     if (key === "pool:preview-archive") return runtime.humanOps.previewArchive(humanRequest(identity, "选剧池", { ...(payload ?? {}), key: command.options.key }));
     if (key === "pool:apply-archive") return runtime.humanOps.applyArchive({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
@@ -699,6 +779,7 @@ export function createDispatcher(runtime) {
 
 async function baseSchemaMetadata(client, config) {
   const tables = await client.listTables(config.base.appToken);
+  if (!tables || tables.complete !== true || !Array.isArray(tables.items)) fail("base_response_incomplete", "Complete configured Base table metadata is required");
   const selected = [];
   for (const table of tables.items) {
     if (!Object.values(config.base.tableIds).includes(table.table_id)) continue;
@@ -748,13 +829,11 @@ function schemaAdapters(client, config) {
   const readSchema = () => baseSchemaMetadata(client, config);
   const schemaAdapter = {
     readSchema,
-    createTable: (tableName) => client.createTable(config.base.appToken, tableName),
     createField: (tableId, tableName, fieldName, bindings) => client.createField(config.base.appToken, tableId, tableName, fieldName, bindings),
     updateField: (tableId, fieldId, tableName, fieldName) => client.updateField(config.base.appToken, tableId, fieldId, tableName, fieldName),
     async verifySchemaAction(action, schema) {
       const table = schema?.tables?.find((candidate) => candidate.name === action.table);
       if (!table) return false;
-      if (action.kind === "create_table") return true;
       return table.fields.some((field) => field.name === action.field);
     },
   };
@@ -780,7 +859,11 @@ function schemaReadiness(schema, config) {
   for (const tableName of TABLE_ORDER) {
     const binding = { "账号台账": "accounts", "选剧池": "dramas", "采集数据": "captures", "发布记录": "releases" }[tableName];
     const table = byId.get(config.base.tableIds[binding]);
-    if (!table || table.name !== tableName) return { status: "schema_missing", table: tableName };
+    if (!table || table.name !== tableName) return {
+      status: "base_table_missing",
+      table: tableName,
+      next_step: "create_four_empty_tables_and_bind_ids",
+    };
     tableIdsByName[tableName] = table.table_id;
   }
   for (const tableName of TABLE_ORDER) {
@@ -803,6 +886,15 @@ function schemaReadiness(schema, config) {
 export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null, services = {} } = {}) {
   const config = loadRuntimeConfig({ env, configPath, notificationChatId: env.SHORTDRAMA_OPS_CHAT_ID });
   const initState = command?.group === "doctor" && command.options?.initState === true;
+  const baseConfirmationRequired = command && (command.group === "migrate" || command.group === "doctor" && !initState);
+  if (baseConfirmationRequired) {
+    const expected = command.options?.expectedBaseToken;
+    const configured = config.base.appToken;
+    if (typeof expected !== "string") fail("base_target_mismatch", "An independent expected Base token is required");
+    const left = Buffer.from(expected);
+    const right = Buffer.from(configured);
+    if (left.length !== right.length || !timingSafeEqual(left, right)) fail("base_target_mismatch", "Configured Base does not match the independently confirmed target");
+  }
   if (initState && !config.auth.isPrivilegedAllowed(command.options.actorId)) {
     fail("privileged_required", "State initialization requires a privileged actor");
   }
@@ -838,6 +930,13 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     const workerPid = process.pid;
     const workerContext = { jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts }, workerPid, now, metricsSqlitePath: config.paths.metricsSqlite };
     const migrationBase = services.readSchema ?? (async () => baseSchemaMetadata(client, config));
+    const baseBindingSha256 = createHash("sha256").update(JSON.stringify({
+      app_token: config.base.appToken,
+      table_ids: Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
+    })).digest("hex");
+    const tableBindingsSha256 = createHash("sha256").update(JSON.stringify(
+      Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
+    )).digest("hex");
     const adapters = schemaAdapters(client, config);
     const readGoogle = () => readGoogleMigrationSource({
       spreadsheetId: config.sourceSpreadsheetId,
@@ -847,7 +946,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
       runWorker: runSyncWorker,
       sendOpsHealth: sendMessage,
-      async doctor({ canary, initState: requestedInitState }) {
+      async doctor({ canary, initState: requestedInitState, payload, identity }) {
         if (requestedInitState === true && !initState) fail("state_init_context_invalid", "State initialization requires its explicit CLI command");
         const sequence = jobs.peekSequenceState();
         const schema = await migrationBase();
@@ -861,32 +960,46 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
         }
         if (readiness.status !== "ready") return { ...readiness, tables: schema.tables.length, sequence };
         if (canary) {
+          if (!payload?.manifest || payload.manifest.base_binding_sha256 !== baseBindingSha256) fail("base_target_mismatch", "Canary manifest belongs to a different Base");
           const parts = beijingParts(now());
           const fallbackId = `CANARY-SDRUN-${parts.date.replaceAll("-", "")}-${String(parts.hour).padStart(2, "0")}${String(parts.minute).padStart(2, "0")}${String(parts.second).padStart(2, "0")}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
           const canaryResult = await runBaseCanary({
             client, appToken: config.base.appToken, tableIds: config.base.tableIds,
             canaryId: services.makeCanaryId?.() ?? fallbackId,
           });
-          return { status: "canary_verified", canary: canaryResult, schema_revision: schema.revision, sequence };
+          const receipt = {
+            version: "shortdrama-canary-receipt/v1", status: "verified",
+            manifest_sha256: payload.manifest.sha256,
+            base_binding_sha256: baseBindingSha256,
+            schema_revision: schema.revision,
+            table_bindings_sha256: tableBindingsSha256,
+            proof: canaryResult.tables,
+            generated_at: now().toISOString(),
+          };
+          receipt.sha256 = canaryReceiptDigest(receipt);
+          return receipt;
         }
         if (!sequence.seeded) return { status: "sequence_unseeded", schema_revision: schema.revision, sequence };
         return { status: "ready", node: process.versions.node, schema_revision: schema.revision, sequence };
       },
       async migratePlan(_payload, options) {
         const google = await readGoogle();
-        const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), now: () => now().toISOString() });
+        const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), baseBindingSha256, now: () => now().toISOString() });
         return manifest;
       },
       async migrateApply(payload, options) {
         const manifest = payload.manifest;
         const google = await readGoogle();
-        const context = { repos, phase: options.phase,
+        const context = { repos, phase: options.phase, baseBindingSha256, tableBindingsSha256, actorId: options.actorId ?? payload.actorId,
           expectedSha256: manifest.sha256, sourceRevision: google.revision, schemaReceipt: payload.schemaReceipt,
           expectedSchemaReceiptSha256: payload.schemaReceipt?.sha256,
+          canaryReceipt: payload.canaryReceipt, expectedCanaryReceiptSha256: payload.canaryReceipt?.sha256,
+          permissionAttestation: payload.permissionAttestation,
+          expectedPermissionAttestationSha256: payload.permissionAttestation?.sha256,
           verification: payload.verification, expectedVerificationSha256: payload.verification?.sha256,
           getSchemaRevision: async () => (await migrationBase()).revision,
           schemaAdapter: adapters.schemaAdapter, presentationAdapter: adapters.presentationAdapter,
-          seedSequence: (kind, value) => seedBusinessIdSequence(jobs.db, kind, value),
+          seedSequence: (kind, value) => seedBusinessIdSequence(jobs.db, kind, value), now,
         };
         try {
           const result = await applyMigration(context, manifest);
@@ -900,7 +1013,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           throw error;
         }
       },
-      async migrateVerify(payload) { return verifyMigration({ repos, now: () => now().toISOString() }, payload.manifest); },
+      async migrateVerify(payload) { return verifyMigration({ repos, baseBindingSha256, now: () => now().toISOString() }, payload.manifest); },
       close() { jobs.close(); },
     };
     return runtime;
@@ -913,7 +1026,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
 function payloadRequired(command) {
   return new Set([
     "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-archive",
-    "pool:update-field", "release:schedule", "release:update-field", "release:preview-update", "release:apply-update", "release:attach-post",
+    "pool:preview-batch", "pool:update-field", "release:schedule", "release:update-field", "release:preview-update", "release:preview-batch", "release:apply-update", "release:attach-post",
   ]).has(`${command.group}:${command.action}`);
 }
 
@@ -921,17 +1034,20 @@ export function exitCodeFor(result) {
   const state = result?.state ?? result?.status;
   if (result?.error) return 1;
   if (state === "partial") return 2;
-  if (["failed", "error", "schema_missing", "schema_drift", "sequence_unseeded", "unavailable", "not_found"].includes(state)) return 1;
+  if (["failed", "error", "base_table_missing", "schema_missing", "schema_drift", "sequence_unseeded", "unavailable", "not_found"].includes(state)) return 1;
   return 0;
 }
 
 function sanitizeErrorResult(result) {
   const copy = structuredClone(result);
+  const identifierKey = /^(?:actor|actor_id|user|user_id|chat|chat_id|base|base_id|base_token|app|app_id|app_token|table_id|record_id)$/i;
+  const identifierValue = /^(?:ou|oc|tbl|rec)_[A-Za-z0-9._-]+$/;
   const walk = (value) => {
     if (!value || typeof value !== "object") return;
     for (const key of Object.keys(value)) {
       const child = value[key];
-      if (/secret|token|authorization|credential/i.test(key) || typeof child === "string" && isAbsolute(child)) {
+      if (/secret|token|authorization|credential/i.test(key) || identifierKey.test(key) ||
+          typeof child === "string" && (isAbsolute(child) || identifierValue.test(child))) {
         value[key] = "[redacted]";
       } else walk(child);
     }

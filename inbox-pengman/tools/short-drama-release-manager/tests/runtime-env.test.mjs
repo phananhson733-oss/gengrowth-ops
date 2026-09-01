@@ -136,7 +136,7 @@ test("launchd-like minimal env reaches privileged init without network and init 
   assert.equal(result.exitCode, 0);
   assert.equal(result.result.status, "state_initialized");
   assert.equal(result.result.state_store, "initialized");
-  assert.equal(result.result.schema_status, "schema_missing");
+  assert.equal(result.result.schema_status, "base_table_missing");
   assert.equal(remoteCalls, 0);
   await access(path.join(fx.root, "ops.sqlite"));
 });

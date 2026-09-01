@@ -5,6 +5,7 @@ label="com.gengrowth.shortdrama-sync"
 script_dir="${0:A:h}"
 source_plist="$script_dir/launchd/$label.plist"
 config_path="${1:-${SHORTDRAMA_CONFIG:-}}"
+expected_base_token="${2:-${SHORTDRAMA_EXPECTED_BASE_TOKEN:-}}"
 target_dir="$HOME/Library/LaunchAgents"
 target_plist="$target_dir/$label.plist"
 capability_dir="$HOME/Library/Application Support/GenGrowth/shortdrama-sync"
@@ -27,6 +28,9 @@ if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
   [[ "$launchctl_bin" == /* && -x "$launchctl_bin" && ! -L "$launchctl_bin" ]] || fail "Test launchctl fixture is unsafe"
 fi
 [[ -n "$config_path" && -f "$config_path" ]] || fail "A readable runtime config path is required"
+if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" != "1" ]]; then
+  [[ -n "$expected_base_token" ]] || fail "An independently confirmed Base token is required"
+fi
 config_path="${config_path:A}"
 [[ -f "$source_plist" && -f "$script_dir/shortdrama_ctl.mjs" && -f "$script_dir/run_scheduled.sh" ]] || fail "Installer assets are missing"
 
@@ -37,7 +41,7 @@ node_major="$($node_bin -p 'Number(process.versions.node.split(".")[0])')"
 if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
   doctor="${SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON:-}"
 else
-  doctor="$($node_bin "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path")" || fail "shortdrama_ctl doctor failed"
+  doctor="$($node_bin "$script_dir/shortdrama_ctl.mjs" doctor --config "$config_path" --expected-base-token "$expected_base_token")" || fail "shortdrama_ctl doctor failed"
 fi
 [[ "$doctor" == *'"status":"ready"'* ]] || fail "shortdrama_ctl doctor is not ready"
 

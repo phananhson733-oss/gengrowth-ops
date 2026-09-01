@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, rename, rm, symlink } from "node:fs/promises";
+import { mkdir, readFile, rename, rm, stat, symlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -10,12 +10,14 @@ import {
   readGoogleMigrationSource,
 } from "../src/google-source.mjs";
 import {
-  applyMigration,
+  applyMigration as applyMigrationRaw,
+  canaryReceiptDigest,
   manifestDigest,
-  planMigration,
+  permissionAttestationDigest,
+  planMigration as planMigrationRaw,
   schemaReceiptDigest,
   verificationDigest,
-  verifyMigration,
+  verifyMigration as verifyMigrationRaw,
   writeMigrationArtifact,
 } from "../src/migration.mjs";
 import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
@@ -25,6 +27,89 @@ const ACCOUNT_HEADERS = ["账号名", "主页链接", "粉丝数", "所属组", 
 const DRAMA_HEADERS = ["剧名", "剧ID", "剧分类", "上线日期", "生命周期", "是否已排期", "备注", "推荐理由", "RS Boost 分类（待确认）", "账号组", "账号状态", "平台", "语言", "来源", "推荐人", "归档状态"];
 const RELEASE_HEADERS = ["日期", "账号名", "主页链接", "剧名", "剧ID（RS Boost）", "剧分类", "视频链接", "Post ID", "播放量", "点赞", "收藏", "转发", "评论", "RS收益", "备注", "归档状态"];
 const CAPTURE_HEADERS = ["快照日期", "账号名", "Post ID", "视频链接", "播放量", "点赞", "评论", "收藏", "转发", "采集状态"];
+const BASE_BINDING_SHA256 = "b".repeat(64);
+
+function canaryProof() {
+  return Object.fromEntries(TABLE_ORDER.map((tableName, index) => [tableName, {
+    before_key_set_sha256: String(index + 1).repeat(64),
+    canary_primary_sha256: "a".repeat(64),
+    created: true,
+    readback_verified: true,
+    record_id_sha256: "d".repeat(64),
+    deleted: true,
+    after_key_set_sha256: String(index + 1).repeat(64),
+    count_before: index,
+    count_after: index,
+  }]));
+}
+
+function emptyPrecreatedSchema(revision = "precreated-r1") {
+  return {
+    revision,
+    tables: TABLE_ORDER.map((name, index) => ({
+      name,
+      table_id: `tbl-precreated-${index}`,
+      record_count: 0,
+      fields: [{ field_id: `fld-primary-${index}`, name: "文本", type: "text", is_primary: true }],
+    })),
+  };
+}
+
+function precreatedWith(tables, revision = "precreated-r1") {
+  const byName = new Map(tables.map((table) => [table.name, table]));
+  const base = emptyPrecreatedSchema(revision);
+  return { revision, tables: base.tables.map((table) => structuredClone(byName.get(table.name) ?? table)) };
+}
+
+function planMigration(context) {
+  return planMigrationRaw({
+    baseBindingSha256: BASE_BINDING_SHA256,
+    baseSchema: emptyPrecreatedSchema(),
+    ...context,
+  });
+}
+
+function applyMigration(context, manifest) {
+  const phase = context.phase ?? "data";
+  const schemaRevision = context.schemaReceipt?.post_revision ?? "post-r1";
+  const canaryReceipt = {
+    version: "shortdrama-canary-receipt/v1", status: "verified",
+    manifest_sha256: manifest.sha256, base_binding_sha256: BASE_BINDING_SHA256,
+    schema_revision: schemaRevision, table_bindings_sha256: "c".repeat(64),
+    proof: canaryProof(), generated_at: manifest.generated_at,
+  };
+  canaryReceipt.sha256 = canaryReceiptDigest(canaryReceipt);
+  const permissionAttestation = {
+    version: "shortdrama-permission-attestation/v1",
+    base_binding_sha256: BASE_BINDING_SHA256,
+    schema_revision: schemaRevision,
+    advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true,
+    company_user_access_verified: true,
+    checked_by: "ou_admin",
+    checked_at: manifest.generated_at,
+  };
+  permissionAttestation.sha256 = permissionAttestationDigest(permissionAttestation);
+  return applyMigrationRaw({
+    baseBindingSha256: BASE_BINDING_SHA256,
+    tableBindingsSha256: "c".repeat(64),
+    actorId: "ou_admin",
+    now: () => manifest.generated_at,
+    ...(phase === "schema" ? {} : {
+      canaryReceipt,
+      expectedCanaryReceiptSha256: canaryReceipt.sha256,
+    }),
+    ...(phase === "data" ? {
+      permissionAttestation,
+      expectedPermissionAttestationSha256: permissionAttestation.sha256,
+    } : {}),
+    ...context,
+  }, manifest);
+}
+
+function verifyMigration(context, manifest) {
+  return verifyMigrationRaw({ baseBindingSha256: BASE_BINDING_SHA256, ...context }, manifest);
+}
 
 function matrices() {
   const unformatted = {
@@ -211,6 +296,8 @@ test("plan is pure and deterministic, uses visible/source order, and never impor
   const first = await planMigration({ google, captures: [latestCapture()], now: () => "2026-09-01T10:00:00Z" });
   const second = await planMigration({ google, captures: [latestCapture()], now: () => "2027-01-01T00:00:00Z" });
   assert.deepEqual(first.dramas.map((row) => row.剧ID), ["SD-000001", "SD-000002"]);
+  assert.equal(first.accounts[0].状态, "发布中");
+  assert.notEqual(first.accounts[0].状态, "在用");
   assert.deepEqual(first.releases.map((row) => row.发布ID), ["SR-000001"]);
   assert.deepEqual(first.captures.map((row) => row["Post ID"]), ["99"]);
   assert.equal(first.captures.some((row) => row["Post ID"] === "old-99"), false);
@@ -220,12 +307,110 @@ test("plan is pure and deterministic, uses visible/source order, and never impor
   assert.equal(first.generated_at === second.generated_at, false);
   assert.equal(first.sha256, manifestDigest(first));
   assert.equal(first.source_backup.grid.accounts[0].values[0].dataValidation.condition.type, "ONE_OF_LIST");
-  assert.deepEqual(first.schema_actions.filter((action) => action.kind === "create_table").map((action) => action.table), ["账号台账", "选剧池", "采集数据", "发布记录"]);
+  assert.deepEqual(first.schema_actions.filter((action) => action.kind === "create_table"), []);
+  assert.equal(first.base_binding_sha256, BASE_BINDING_SHA256);
   assert.deepEqual(first.presentation_actions.map((action) => action.name), [
     "在用账号", "需处理账号", "未排期", "已排期", "按平台", "按语言",
     "已排期", "待公开", "已公开待回填", "已回填", "按账号表现", "按剧表现",
     "完整", "部分缺失", "未关联发布", "短剧发行管理仪表盘",
   ]);
+});
+
+test("migration requires four pre-created configured tables and never plans dynamic table creation", async () => {
+  const manifest = await planMigrationRaw({
+    google: normalizedSource(), captures: [latestCapture()],
+    baseBindingSha256: BASE_BINDING_SHA256,
+    baseSchema: { revision: "missing-tables", tables: [] },
+  });
+  assert.equal(manifest.schema_actions.some((action) => action.kind === "create_table"), false);
+  assert.deepEqual(
+    manifest.blocked.filter((item) => item.code === "base_table_missing").map((item) => item.table),
+    [...TABLE_ORDER].sort((left, right) => left.localeCompare(right)),
+  );
+  assert.ok(manifest.blocked.filter((item) => item.code === "base_table_missing").every(
+    (item) => item.next_step === "create_four_empty_tables_and_bind_ids",
+  ));
+});
+
+test("Base binding and canary/permission evidence stop cross-Base or ungated data writes", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  const receipt = {
+    version: "shortdrama-schema-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    base_binding_sha256: BASE_BINDING_SHA256,
+    pre_revision: manifest.initial_schema_revision, post_revision: "post-r1", action_spec_sha256: manifest.schema_spec_sha256,
+  };
+  receipt.sha256 = schemaReceiptDigest(receipt);
+  const base = {
+    repos, phase: "data", expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
+    schemaReceipt: receipt, expectedSchemaReceiptSha256: receipt.sha256,
+    getSchemaRevision: async () => "post-r1", actorId: "ou_admin", now: () => manifest.generated_at,
+  };
+  await assert.rejects(
+    () => applyMigrationRaw({ ...base, baseBindingSha256: "d".repeat(64) }, manifest),
+    (error) => error.code === "base_target_mismatch",
+  );
+  await assert.rejects(
+    () => applyMigrationRaw({ ...base, baseBindingSha256: BASE_BINDING_SHA256 }, manifest),
+    (error) => error.code === "migration_canary_required",
+  );
+  const canaryReceipt = {
+    version: "shortdrama-canary-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    base_binding_sha256: BASE_BINDING_SHA256, schema_revision: "post-r1",
+    table_bindings_sha256: "c".repeat(64), proof: canaryProof(), generated_at: manifest.generated_at,
+  };
+  canaryReceipt.sha256 = canaryReceiptDigest(canaryReceipt);
+  const canaryGate = {
+    ...base,
+    baseBindingSha256: BASE_BINDING_SHA256,
+    tableBindingsSha256: "c".repeat(64),
+    canaryReceipt,
+    expectedCanaryReceiptSha256: canaryReceipt.sha256,
+  };
+  const incompleteCanary = structuredClone(canaryReceipt);
+  incompleteCanary.proof.账号台账.deleted = false;
+  incompleteCanary.sha256 = canaryReceiptDigest(incompleteCanary);
+  await assert.rejects(
+    () => applyMigrationRaw({
+      ...canaryGate,
+      canaryReceipt: incompleteCanary,
+      expectedCanaryReceiptSha256: incompleteCanary.sha256,
+    }, manifest),
+    (error) => error.code === "migration_canary_required",
+  );
+  await assert.rejects(
+    () => applyMigrationRaw(canaryGate, manifest),
+    (error) => error.code === "migration_permission_attestation_required",
+  );
+  const permissionAttestation = {
+    version: "shortdrama-permission-attestation/v1",
+    base_binding_sha256: BASE_BINDING_SHA256,
+    schema_revision: "post-r1",
+    advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true,
+    company_user_access_verified: true,
+    checked_by: "ou_admin",
+    checked_at: manifest.generated_at,
+  };
+  permissionAttestation.sha256 = permissionAttestationDigest(permissionAttestation);
+  for (const mutate of [
+    (value) => { value.checked_by = "ou_other"; },
+    (value) => { value.checked_at = "2026-08-01T00:00:00.000Z"; },
+    (value) => { value.primary_and_machine_fields_protected = false; },
+    (value) => { value.extra = true; },
+  ]) {
+    const bad = structuredClone(permissionAttestation);
+    mutate(bad);
+    await assert.rejects(
+      () => applyMigrationRaw({
+        ...canaryGate,
+        permissionAttestation: bad,
+        expectedPermissionAttestationSha256: permissionAttestation.sha256,
+      }, manifest),
+      (error) => error.code === "migration_permission_attestation_required",
+    );
+  }
+  assert.equal(repos.calls.length, 0);
 });
 
 test("plan blocks duplicate identities, missing targets, and URL/account disagreement without guessing", async () => {
@@ -327,24 +512,20 @@ function fixedFieldForTables(tables, table, field, fieldId, { primary = false } 
 
 test("fresh Base plan creates every fixed field in phase order and bootstraps only an empty default primary", async () => {
   const fresh = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "new", tables: [] } });
-  assert.equal(fresh.schema_actions.filter((action) => action.kind === "create_table").length, 4);
-  assert.equal(fresh.schema_actions.some((action) => action.kind === "create_field" && action.field === "账号名"), true);
-  assert.equal(fresh.schema_actions.some((action) => action.kind === "create_field" && action.field === { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[action.table]), false);
-  assert.equal(fresh.schema_actions.some((action) => action.field === "关联发布记录"), false);
-  const accountFields = fresh.schema_actions.filter((action) => action.table === "账号台账");
-  assert.ok(accountFields.length > 2);
+  assert.equal(fresh.schema_actions.length, 0);
+  assert.equal(fresh.blocked.filter((entry) => entry.code === "base_table_missing").length, 4);
 
-  const bootstrap = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
-    revision: "empty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
-  } });
+  const bootstrap = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: precreatedWith([
+    { name: "账号台账", table_id: "t1", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] },
+  ], "empty-default") });
   const primaryAction = bootstrap.schema_actions.find((action) => action.kind === "update_primary_field");
   assert.deepEqual({ ...primaryAction, spec: undefined }, {
     id: "primary:账号台账:账号ID", kind: "update_primary_field", table: "账号台账", field: "账号ID", field_id: "fld-default", phase: "storage", spec: undefined,
   });
   assert.deepEqual(primaryAction.spec.canonical, { name: "账号ID", type: "text" });
-  const unsafe = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: {
-    revision: "nonempty-default", tables: [{ name: "账号台账", table_id: "t1", record_count: 1, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }],
-  } });
+  const unsafe = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: precreatedWith([
+    { name: "账号台账", table_id: "t1", record_count: 1, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] },
+  ], "nonempty-default") });
   assert.equal(unsafe.blocked.some((entry) => entry.code === "base_schema_drift" && entry.field === "账号ID"), true);
 });
 
@@ -390,7 +571,7 @@ test("manifest binds full schema and presentation semantics, not only action nam
   assert.equal(bidirectional.spec.canonical.bidirectional, true);
   assert.equal(bidirectional.spec.canonical.bidirectional_link_field_name, "关联发布记录");
   const view = manifest.presentation_actions.find((action) => action.id === "view:账号台账:在用账号");
-  assert.deepEqual(view.configuration.filter, { logic: "and", conditions: [["状态", "intersects", ["在用"]]] });
+  assert.deepEqual(view.configuration.filter, { logic: "and", conditions: [["状态", "intersects", ["发布中"]]] });
   assert.ok(view.configuration.visible_fields.visible_fields.includes("同步状态"));
   const dashboard = manifest.presentation_actions.find((action) => action.id.startsWith("dashboard:"));
   assert.equal(dashboard.blocks.length, 6);
@@ -441,6 +622,7 @@ function schemaGate(manifest, postRevision = "post-schema-r1") {
     version: "shortdrama-schema-receipt/v1",
     status: "verified",
     manifest_sha256: manifest.sha256,
+    base_binding_sha256: manifest.base_binding_sha256,
     pre_revision: manifest.initial_schema_revision,
     post_revision: postRevision,
     action_spec_sha256: manifest.schema_spec_sha256,
@@ -501,7 +683,6 @@ test("schema and presentation phases reject incomplete adapters before writes", 
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const calls = [];
   const schemaAdapter = {
-    createTable: async (table) => calls.push(["createTable", table]),
     createField: async () => { throw new Error("unexpected field action"); },
     verifySchemaAction: async (action) => { calls.push(["verifySchema", action.id]); return true; },
   };
@@ -516,18 +697,22 @@ test("schema and presentation phases reject incomplete adapters before writes", 
 });
 
 test("schema apply resolves IDs from complete readback, updates default primary, and creates dependent links after storage", async () => {
-  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema: { revision: "new", tables: [] } });
+  const baseSchema = emptyPrecreatedSchema("new");
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
   const calls = [];
-  const tables = new Map();
+  const tables = new Map(baseSchema.tables.map((table) => [table.name, structuredClone(table)]));
   const adapter = {
-    createTable: async (name) => { const table = { table_id: `tbl-${name}`, fields: [] }; tables.set(name, table); table.fields.push(fixedFieldForTables(tables, name, { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], `primary-${name}`, { primary: true })); calls.push(["table", name]); },
     createField: async (tableId, table, field, bindings) => {
       tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
       if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
       calls.push(["field", table, field, bindings]);
     },
-    updateField: async (...args) => calls.push(["update", ...args]),
+    updateField: async (tableId, fieldId, table, field) => {
+      const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId);
+      tables.get(table).fields[at] = fixedFieldForTables(tables, table, field, fieldId, { primary: true });
+      calls.push(["update", tableId, fieldId, table, field]);
+    },
     readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
@@ -540,7 +725,7 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   assert.match(applied.schema_receipt.sha256, /^[a-f0-9]{64}$/);
   assert.equal(calls.some((call) => call[0] === "field" && call[2] === "账号名"), true);
   const linkCall = calls.find((call) => call[0] === "field" && call[1] === "发布记录" && call[2] === "剧");
-  assert.deepEqual(linkCall[3], { targetTableId: "tbl-选剧池" });
+  assert.deepEqual(linkCall[3], { targetTableId: "tbl-precreated-1" });
 
   const repos = memoryRepos();
   await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
@@ -560,6 +745,7 @@ test("data phase requires an untampered same-manifest schema receipt at its post
   const repos = memoryRepos();
   const receipt = {
     version: "shortdrama-schema-receipt/v1", status: "verified", manifest_sha256: manifest.sha256,
+    base_binding_sha256: manifest.base_binding_sha256,
     pre_revision: manifest.initial_schema_revision, post_revision: "post-r1", action_spec_sha256: manifest.schema_spec_sha256,
   };
   receipt.sha256 = schemaReceiptDigest(receipt);
@@ -570,12 +756,13 @@ test("data phase requires an untampered same-manifest schema receipt at its post
 });
 
 test("schema apply performs an empty-table primary bootstrap and proves the renamed primary in readback", async () => {
-  const baseSchema = { revision: "bootstrap", tables: [{ name: "账号台账", table_id: "tbl-account", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] }] };
+  const baseSchema = precreatedWith([
+    { name: "账号台账", table_id: "tbl-account", record_count: 0, fields: [{ field_id: "fld-default", name: "文本", type: "text", is_primary: true }] },
+  ], "bootstrap");
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
-  const tables = new Map([["账号台账", structuredClone(baseSchema.tables[0])]]);
+  const tables = new Map(baseSchema.tables.map((table) => [table.name, structuredClone(table)]));
   const calls = [];
   const adapter = {
-    createTable: async (name) => { const table = { table_id: `tbl-${name}`, fields: [] }; tables.set(name, table); table.fields.push(fixedFieldForTables(tables, name, { "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" }[name], `primary-${name}`, { primary: true })); },
     createField: async (tableId, table, field) => {
       tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
@@ -587,7 +774,12 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
   };
   let bootstrapRevisionReads = 0;
   await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => bootstrapRevisionReads++ === 0 ? manifest.initial_schema_revision : "post-bootstrap" }, manifest);
-  assert.deepEqual(calls, [["tbl-account", "fld-default", "账号台账", "账号ID"]]);
+  assert.deepEqual(calls, [
+    ["tbl-account", "fld-default", "账号台账", "账号ID"],
+    ["tbl-precreated-1", "fld-primary-1", "选剧池", "剧ID"],
+    ["tbl-precreated-2", "fld-primary-2", "采集数据", "Post ID"],
+    ["tbl-precreated-3", "fld-primary-3", "发布记录", "发布ID"],
+  ]);
   assert.equal(tables.get("账号台账").fields.some((field) => field.name === "账号ID" && field.is_primary), true);
 });
 
@@ -600,7 +792,7 @@ test("schema receipt is refused when an unchanged preexisting field drifts in fi
   const accountName = drifted.tables.find((table) => table.name === "账号台账").fields.find((field) => field.name === "账号名");
   accountName.type = "number";
   const adapter = {
-    createTable: async () => { throw new Error("unexpected"); }, createField: async () => { throw new Error("unexpected"); },
+    createField: async () => { throw new Error("unexpected"); },
     updateField: async () => { throw new Error("unexpected"); }, verifySchemaAction: async () => true,
     readSchema: async () => ({ complete: true, tables: structuredClone(drifted.tables) }),
   };
@@ -758,6 +950,7 @@ test("artifact writer is exclusive, fixed-root and verifies readback without acc
   assert.equal(written.path.endsWith(`/output/short-drama-release-manager/migrations/${name}`), true);
   assert.equal(JSON.parse(await readFile(written.path, "utf8")).sha256, manifest.sha256);
   assert.equal(JSON.parse(await readFile(written.path, "utf8")).source_backup.grid.accounts[0].values[0].effectiveFormat.numberFormat.pattern, "@");
+  assert.equal((await stat(dirname(written.path))).mode & 0o777, 0o700);
   await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: name }), (error) => error.code === "migration_artifact_exists");
   await assert.rejects(() => writeMigrationArtifact(manifest, { fileName: "../escape.json" }), (error) => error.code === "migration_artifact_invalid");
   await rm(written.path);
@@ -783,4 +976,17 @@ test("artifact writer is exclusive, fixed-root and verifies readback without acc
     await rm(escape, { recursive: true });
     await rm(outside, { force: true });
   }
+});
+
+test("invalid artifact content releases its exclusive reservation", async () => {
+  const name = `invalid-content-${process.pid}-${Date.now()}.json`;
+  const cyclic = {};
+  cyclic.self = cyclic;
+  await assert.rejects(
+    () => writeMigrationArtifact(cyclic, { fileName: name }),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+  const written = await writeMigrationArtifact({ status: "safe" }, { fileName: name });
+  assert.deepEqual(JSON.parse(await readFile(written.path, "utf8")), { status: "safe" });
+  await rm(written.path, { force: true });
 });

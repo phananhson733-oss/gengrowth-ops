@@ -500,13 +500,11 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
     fetchJson: async (url, options) => {
       calls.push([new URL(url).pathname, options]);
       if (options.method === "GET") return { code: 0, data: { record: { record_id: "rec" } } };
-      if (url.endsWith("/tables")) return { code: 0, data: { table: { table_id: "tbl-new" } } };
       return { code: 0, data: { field: { field_id: `fld-${calls.length}` } } };
     },
   });
 
   assert.deepEqual(await client.getRecord("base", "tbl", "rec"), { record_id: "rec" });
-  await client.createTable("base", "账号台账");
   await client.createField("base", "tbl", "账号台账", "主页链接");
   await client.createField("base", "tbl", "发布记录", "账号", { targetTableId: "tbl-account" });
   await client.createField("base", "tbl", "发布记录", "剧", { targetTableId: "tbl-drama" });
@@ -515,24 +513,22 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
 
   assert.deepEqual(calls.map(([path]) => path), [
     "/open-apis/base/v3/bases/base/tables/tbl/records/rec",
-    "/open-apis/base/v3/bases/base/tables",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields",
     "/open-apis/base/v3/bases/base/tables/tbl/fields/fld-default",
   ]);
-  assert.deepEqual(calls[1][1].body, { name: "账号台账", fields: [{ name: "账号ID", type: "text" }] });
-  assert.deepEqual(calls[2][1].body, { name: "主页链接", type: "text", style: { type: "url" } });
-  assert.deepEqual(calls[3][1].body, { name: "账号", type: "link", link_table: "tbl-account" });
-  assert.deepEqual(calls[4][1].body, {
+  assert.deepEqual(calls[1][1].body, { name: "主页链接", type: "text", style: { type: "url" } });
+  assert.deepEqual(calls[2][1].body, { name: "账号", type: "link", link_table: "tbl-account" });
+  assert.deepEqual(calls[3][1].body, {
     name: "剧",
     type: "link",
     link_table: "tbl-drama",
     bidirectional: true,
     bidirectional_link_field_name: "关联发布记录",
   });
-  assert.deepEqual(calls[5][1].body, {
+  assert.deepEqual(calls[4][1].body, {
     type: "lookup",
     name: "账号名",
     from: "账号台账",
@@ -540,11 +536,16 @@ test("schema creation uses canonical Base v3 fields and establishes primary fiel
     where: { logic: "and", conditions: [["账号ID", "intersects", { type: "field_ref", field: "账号" }]] },
     aggregate: "raw_value",
   });
-  assert.deepEqual(calls[6][1].body, { name: "账号ID", type: "text" });
+  assert.deepEqual(calls[5][1].body, { name: "账号ID", type: "text" });
   await assert.rejects(
     () => client.createField("base", "tbl", "选剧池", "关联发布记录", { targetTableId: "tbl-release" }),
     (error) => error.code === "base_schema_drift",
   );
+});
+
+test("client exposes no dynamic Base table creation path", () => {
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => assert.fail("no network") });
+  assert.equal(typeof client.createTable, "undefined");
 });
 
 test("canary deletion pre-reads a fixed table record and uses exact Base v3 batch_delete", async () => {
@@ -621,7 +622,6 @@ test("canonical field payloads cover select, datetime, formula, and system field
 test("schema and presentation creates require IDs and reject arbitrary input", async () => {
   const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {} }) });
   for (const operation of [
-    () => client.createTable("base", "账号台账"),
     () => client.createField("base", "tbl", "账号台账", "账号ID"),
     () => client.createView("base", "tbl", "账号台账", "在用账号"),
     () => client.createDashboard("base", "短剧发行管理仪表盘"),
@@ -663,7 +663,7 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
 test("fixed presentation read/update methods use exact Base v3 paths and bodies", async () => {
   const calls = [];
   const viewParts = {
-    filter: { logic: "and", conditions: [["状态", "intersects", ["在用"]]] },
+    filter: { logic: "and", conditions: [["状态", "intersects", ["发布中"]]] },
     sort: { sort_config: [{ field: "指标同步时间", desc: true }] },
     group: { group_config: [{ field: "所属组", desc: false }] },
     visible_fields: { visible_fields: ["账号ID", "账号名"] },
@@ -706,7 +706,7 @@ test("single-select view filters use intersects with array values", async () => 
   await client.updateView("base", "captures", "complete", "采集数据", "完整");
   await client.updateView("base", "captures", "partial", "采集数据", "部分缺失");
   assert.deepEqual(filters, [
-    { logic: "and", conditions: [["状态", "intersects", ["在用"]]] },
+    { logic: "and", conditions: [["状态", "intersects", ["发布中"]]] },
     { logic: "and", conditions: [["采集状态", "intersects", ["complete"]]] },
     { logic: "and", conditions: [["采集状态", "intersects", ["partial"]]] },
   ]);
@@ -743,7 +743,7 @@ test("fixed dashboard blocks use legal types/config and block writes serialize",
       count_all: true,
       filter: {
         conjunction: "and",
-        conditions: [{ field_name: "状态", operator: "is", value: "在用" }],
+        conditions: [{ field_name: "状态", operator: "is", value: "发布中" }],
       },
     },
   });
@@ -837,12 +837,12 @@ test("request logging exposes only method path status and run_id", async () => {
     logger: (entry) => logs.push(entry),
     fetchJson: async (_url, options) => ({ code: 0, data: { record_id_list: options.body.rows.map(() => "rec") } }),
   });
-  await client.createRecords("base", "tbl", [{ fields: { Notes: "private free text" } }]);
+  await client.createRecords("base_private", "tbl_private", [{ fields: { Notes: "private free text" } }]);
   assert.deepEqual(logs, [{
     method: "POST",
-    path: "/open-apis/base/v3/bases/base/tables/tbl/records/batch_create",
+    path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/records/batch_create",
     status: 200,
     run_id: "run-1",
   }]);
-  assert.doesNotMatch(JSON.stringify(logs), /super-secret-token|private free text|authorization/i);
+  assert.doesNotMatch(JSON.stringify(logs), /super-secret-token|private free text|authorization|base_private|tbl_private/i);
 });
