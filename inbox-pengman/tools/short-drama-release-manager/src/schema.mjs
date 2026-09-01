@@ -1,12 +1,16 @@
 import { ShortDramaError } from "./errors.mjs";
 
-const table = (primaryField, human, machine, shared, derived, options = {}) => ({
+const frozenArray = (values) => Object.freeze([...values]);
+const frozenOptions = (options) => Object.freeze(Object.fromEntries(
+  Object.entries(options).map(([name, values]) => [name, frozenArray(values)])
+));
+const table = (primaryField, human, machine, shared, derived, options = {}) => Object.freeze({
   primaryField,
-  human: new Set(human),
-  machine: new Set(machine),
-  shared: new Set(shared),
-  derived: new Set(derived),
-  options,
+  human: frozenArray(human),
+  machine: frozenArray(machine),
+  shared: frozenArray(shared),
+  derived: frozenArray(derived),
+  options: frozenOptions(options),
 });
 
 const field = (name, kind, details = {}) => Object.freeze({ name, kind, ...details });
@@ -20,11 +24,11 @@ const lookup = (name, linkField, sourceField) => field(name, "lookup", {
 const formula = (name, expression) => field(name, "formula", { phase: "lookup_formula", expression });
 const system = (name, details = {}) => field(name, "system", { phase: "system", ...details });
 
-export const TABLE_ORDER = ["账号台账", "选剧池", "采集数据", "发布记录"];
+export const TABLE_ORDER = Object.freeze(["账号台账", "选剧池", "采集数据", "发布记录"]);
 export const SCHEMA_APPLY_ORDER = Object.freeze(["storage", "link", "lookup_formula", "system", "view_dashboard"]);
 const PATCH_ACTOR_KINDS = Object.freeze(["human", "machine", "migration"]);
 
-export const TABLES = {
+export const TABLES = Object.freeze({
   "账号台账": table(
     "账号ID",
     ["账号名", "所属组", "定位垂类", "表现形式", "状态"],
@@ -65,7 +69,7 @@ export const TABLES = {
     ["视频链接", "Post ID"],
     ["账号名", "主页链接", "剧ID", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论", "发布状态", "指标日期"]
   ),
-};
+});
 
 export const BASE_FIELD_SPECS = Object.freeze({
   "账号台账": Object.freeze([
@@ -111,7 +115,7 @@ export function fieldOwner(tableName, fieldName) {
   const definition = TABLES[tableName];
   if (!definition) throw new ShortDramaError("table_not_allowed", "Unknown table", { table: tableName });
   for (const owner of ["human", "machine", "shared", "derived"]) {
-    if (definition[owner].has(fieldName)) return owner;
+    if (definition[owner].includes(fieldName)) return owner;
   }
   throw new ShortDramaError("field_not_allowed", "Unknown field", { table: tableName, field: fieldName });
 }

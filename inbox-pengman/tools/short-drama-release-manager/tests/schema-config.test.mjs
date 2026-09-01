@@ -46,6 +46,20 @@ test("machine patches cannot touch human fields", () => {
   );
 });
 
+test("exported ownership metadata cannot be mutated to bypass patch guards", () => {
+  const releaseTable = TABLES["发布记录"];
+  assert.throws(() => {
+    releaseTable.machine.add("播放量");
+  }, TypeError);
+  assert.equal(Object.isFrozen(TABLES), true);
+  assert.equal(Object.isFrozen(releaseTable), true);
+  assert.equal(Object.isFrozen(releaseTable.machine), true);
+  assert.throws(
+    () => assertPatchAllowed("发布记录", { 播放量: 20 }, "machine"),
+    (error) => error.code === "field_owner_violation"
+  );
+});
+
 test("derived actors are rejected before a patch is inspected", () => {
   assert.throws(
     () => assertPatchAllowed("发布记录", {}, "derived"),
