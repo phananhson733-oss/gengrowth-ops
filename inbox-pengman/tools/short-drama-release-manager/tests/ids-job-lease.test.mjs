@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 import { DatabaseSync } from "node:sqlite";
+import { Worker } from "node:worker_threads";
 
 import {
   allocateBusinessId,
@@ -12,6 +13,93 @@ import {
   seedBusinessIdSequence,
 } from "../src/ids.mjs";
 import { JobStore } from "../src/job-store.mjs";
+
+const JOB_STORE_URL = new URL("../src/job-store.mjs", import.meta.url).href;
+const IDS_URL = new URL("../src/ids.mjs", import.meta.url).href;
+
+function runConcurrentFileOperations(operation, dbPath) {
+  const gate = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT);
+  const workerSource = String.raw`
+    const { parentPort, workerData } = require("node:worker_threads");
+
+    (async () => {
+      const gate = new Int32Array(workerData.gate);
+      let resource;
+      try {
+        if (workerData.operation === "sequence") {
+          const { DatabaseSync } = require("node:sqlite");
+          resource = new DatabaseSync(workerData.dbPath);
+        } else {
+          const { JobStore } = await import(workerData.jobStoreUrl);
+          resource = new JobStore(workerData.dbPath);
+        }
+        parentPort.postMessage({ type: "ready", slot: workerData.slot });
+        Atomics.wait(gate, 0, 0);
+
+        let value;
+        if (workerData.operation === "claim") {
+          value = resource.claimNext({
+            workerPid: 101 + workerData.slot,
+            now: "2026-09-01T00:00:00Z",
+          })?.worker_pid ?? null;
+        } else if (workerData.operation === "preview") {
+          value = resource.consumePreview("sdp_two_connections", {
+            actorId: "ou_operator",
+            chatId: "oc_social",
+            beforeHash: "before",
+            now: "2026-09-01T00:01:00Z",
+          }).used_at;
+        } else if (workerData.operation === "sequence") {
+          const { allocateBusinessId } = await import(workerData.idsUrl);
+          value = allocateBusinessId(resource, "drama");
+        } else if (workerData.operation === "health") {
+          value = resource.claimHealthAlert(
+            "missing-terminal:2026-09-01",
+            "2026-09-01T02:00:00Z"
+          );
+        }
+        parentPort.postMessage({ type: "result", slot: workerData.slot, value });
+      } catch (error) {
+        parentPort.postMessage({
+          type: "result",
+          slot: workerData.slot,
+          error: { code: error.code, message: error.message },
+        });
+      } finally {
+        resource?.close();
+      }
+    })();
+  `;
+
+  return new Promise((resolve, reject) => {
+    const results = new Array(2);
+    let ready = 0;
+    let completed = 0;
+    const workers = [0, 1].map((slot) => new Worker(workerSource, {
+      eval: true,
+      workerData: { operation, dbPath, gate, slot, jobStoreUrl: JOB_STORE_URL, idsUrl: IDS_URL },
+    }));
+    for (const worker of workers) {
+      worker.on("message", (message) => {
+        if (message.type === "ready") {
+          ready += 1;
+          if (ready === workers.length) {
+            Atomics.store(new Int32Array(gate), 0, 1);
+            Atomics.notify(new Int32Array(gate), 0, workers.length);
+          }
+          return;
+        }
+        results[message.slot] = message.error ? { error: message.error } : { value: message.value };
+        completed += 1;
+        if (completed === workers.length) resolve(results);
+      });
+      worker.on("error", reject);
+      worker.on("exit", (code) => {
+        if (code !== 0 && completed < workers.length) reject(new Error(`worker exited with code ${code}`));
+      });
+    }
+  });
+}
 
 test("business IDs are monotonic and readable", () => {
   const db = new DatabaseSync(":memory:");
@@ -60,7 +148,7 @@ test("jobs follow the state machine and terminal notification is independent", (
     counters: { accounts_updated: 11 },
     now: "2026-09-01T00:00:02Z",
   });
-  assert.equal(success.finished_at, "2026-09-01T00:00:02Z");
+  assert.equal(success.finished_at, "2026-09-01T00:00:02.000Z");
   assert.deepEqual(success.counters, { accounts_updated: 11 });
   assert.deepEqual(store.listActive(), []);
   assert.throws(() => store.transition(job.run_id, "failed", {}), /terminal/);
@@ -232,6 +320,108 @@ test("lease renewal and finish require the current worker", () => {
   store.close();
 });
 
+test("an expired worker cannot renew or finish at the lease boundary", () => {
+  const store = new JobStore(":memory:");
+  store.create({ runId: "run-expired-owner", trigger: "manual", now: "2026-09-01T00:00:00Z" });
+  store.claimNext({ workerPid: 101, now: "2026-09-01T00:00:00Z", leaseSeconds: 120 });
+
+  assert.throws(() => store.renewLease("run-expired-owner", {
+    workerPid: 101,
+    now: "2026-09-01T08:02:00+08:00",
+    leaseSeconds: 120,
+  }));
+
+  const recovered = store.claimNext({
+    workerPid: 202,
+    now: "2026-09-01T08:02:00+08:00",
+    leaseSeconds: 120,
+  });
+  assert.equal(recovered.attempt_count, 2);
+  assert.throws(() => store.finishClaim("run-expired-owner", {
+    workerPid: 202,
+    state: "success",
+    now: "2026-09-01T08:04:00+08:00",
+  }));
+
+  assert.equal(store.claimNext({ workerPid: 303, now: "2026-09-01T08:04:00+08:00" }), null);
+  const terminal = store.get("run-expired-owner");
+  assert.equal(terminal.state, "failed");
+  assert.equal(terminal.error.code, "worker_crash_retries_exhausted");
+  store.close();
+});
+
+test("accepted timestamps are stored as UTC ISO and queue order is chronological", () => {
+  const store = new JobStore(":memory:");
+  const earlier = store.create({
+    runId: "run-earlier",
+    trigger: "manual",
+    now: "2026-09-01T09:00:00+08:00",
+  });
+  const later = store.create({
+    runId: "run-later",
+    trigger: "manual",
+    now: "2026-09-01T02:00:00Z",
+  });
+  assert.equal(earlier.started_at, "2026-09-01T01:00:00.000Z");
+  assert.equal(later.started_at, "2026-09-01T02:00:00.000Z");
+  const claimed = store.claimNext({ workerPid: 101, now: "2026-09-01T10:00:00+08:00" });
+  assert.equal(claimed.run_id, "run-earlier");
+  assert.equal(claimed.lease_expires_at, "2026-09-01T02:02:00.000Z");
+
+  const audit = store.appendAudit({
+    action: "update",
+    now: "2026-09-01T10:01:00+08:00",
+  });
+  assert.equal(audit.created_at, "2026-09-01T02:01:00.000Z");
+
+  const preview = store.createPreview({
+    receiptId: "sdp_canonical",
+    actorId: "ou_operator",
+    chatId: "oc_social",
+    action: "update",
+    targetTable: "选剧池",
+    beforeHash: "before",
+    patch: {},
+    now: "2026-09-01T10:02:00+08:00",
+  });
+  assert.equal(preview.created_at, "2026-09-01T02:02:00.000Z");
+  assert.equal(preview.expires_at, "2026-09-01T02:17:00.000Z");
+  assert.equal(store.consumePreview("sdp_canonical", {
+    actorId: "ou_operator",
+    chatId: "oc_social",
+    beforeHash: "before",
+    now: "2026-09-01T10:03:00+08:00",
+  }).used_at, "2026-09-01T02:03:00.000Z");
+
+  assert.equal(store.claimHealthAlert(
+    "missing-terminal:2026-09-01",
+    "2026-09-01T10:04:00+08:00"
+  ), true);
+  assert.equal(
+    store.db.prepare("SELECT created_at FROM health_alerts WHERE alert_key = ?")
+      .get("missing-terminal:2026-09-01").created_at,
+    "2026-09-01T02:04:00.000Z"
+  );
+
+  assert.throws(
+    () => store.create({ runId: "run-ambiguous-date", trigger: "manual", now: "09/01/2026" }),
+    (error) => error.code === "state_store_time_invalid"
+  );
+  for (const invalid of [
+    "2026-13-01T00:00:00Z",
+    "2026-02-30T00:00:00Z",
+    "2026-09-01T24:00:00Z",
+    "2026-09-01T00:00:00+24:00",
+    new Date("invalid"),
+  ]) {
+    assert.throws(
+      () => store.appendAudit({ action: "invalid-time", now: invalid }),
+      (error) => error.code === "state_store_time_invalid"
+    );
+  }
+  store.close();
+});
+
 test("daily missing-terminal alert is deduplicated", () => {
   const store = new JobStore(":memory:");
   assert.equal(store.claimHealthAlert("missing-terminal:2026-09-01", "2026-09-01T02:00:00Z"), true);
@@ -269,4 +459,94 @@ test("file-backed writes fail closed after the SQLite busy timeout", () => {
   locker.close();
   store.close();
   rmSync(directory, { recursive: true });
+});
+
+test("ID helpers configure a real five-second busy timeout on passed connections", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-id-busy-"));
+  const dbPath = join(directory, "ops.sqlite");
+  const setup = new DatabaseSync(dbPath);
+  const worker = new DatabaseSync(dbPath);
+  try {
+    assert.equal(allocateBusinessId(setup, "drama"), "SD-000001");
+    assert.equal(worker.prepare("PRAGMA busy_timeout").get().timeout, 0);
+    setup.exec("BEGIN IMMEDIATE");
+    const started = Date.now();
+    assert.throws(
+      () => allocateBusinessId(worker, "drama"),
+      (error) => error.code === "state_store_busy"
+    );
+    assert.ok(Date.now() - started >= 4_500);
+    assert.equal(worker.prepare("PRAGMA busy_timeout").get().timeout, 5000);
+  } finally {
+    if (setup.isTransaction) setup.exec("ROLLBACK");
+    worker.close();
+    setup.close();
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test("two concurrent file-backed connections serialize job claims", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-claim-two-"));
+  const dbPath = join(directory, "ops.sqlite");
+  const setup = new JobStore(dbPath);
+  try {
+    setup.create({ runId: "run-two-claim", trigger: "manual", now: "2026-09-01T00:00:00Z" });
+    setup.close();
+    const results = await runConcurrentFileOperations("claim", dbPath);
+    assert.equal(results.filter(({ value }) => value === null).length, 1);
+    assert.equal(results.filter(({ value }) => value === 101 || value === 102).length, 1);
+  } finally {
+    if (setup.db.isOpen) setup.close();
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test("two concurrent file-backed connections cannot consume one preview twice", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-preview-two-"));
+  const dbPath = join(directory, "ops.sqlite");
+  const setup = new JobStore(dbPath);
+  try {
+    setup.createPreview({
+      receiptId: "sdp_two_connections",
+      actorId: "ou_operator",
+      chatId: "oc_social",
+      action: "update",
+      targetTable: "选剧池",
+      beforeHash: "before",
+      patch: {},
+      now: "2026-09-01T00:00:00Z",
+    });
+    setup.close();
+    const results = await runConcurrentFileOperations("preview", dbPath);
+    assert.equal(results.filter(({ value }) => value === "2026-09-01T00:01:00.000Z").length, 1);
+    assert.equal(results.filter(({ error }) => error?.code === "preview_used").length, 1);
+  } finally {
+    if (setup.db.isOpen) setup.close();
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test("two concurrent file-backed connections allocate one monotonic ID sequence", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-sequence-two-"));
+  const dbPath = join(directory, "ops.sqlite");
+  try {
+    const results = await runConcurrentFileOperations("sequence", dbPath);
+    assert.deepEqual(results.map(({ value }) => value).sort(), ["SD-000001", "SD-000002"]);
+  } finally {
+    rmSync(directory, { recursive: true });
+  }
+});
+
+test("two concurrent file-backed connections deduplicate one health alert", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-health-two-"));
+  const dbPath = join(directory, "ops.sqlite");
+  const setup = new JobStore(dbPath);
+  try {
+    setup.close();
+    const results = await runConcurrentFileOperations("health", dbPath);
+    assert.deepEqual(results.map(({ value }) => value).sort(), [false, true]);
+  } finally {
+    if (setup.db.isOpen) setup.close();
+    rmSync(directory, { recursive: true });
+  }
 });

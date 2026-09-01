@@ -21,7 +21,25 @@ function stateStoreError(error) {
   return error;
 }
 
+function configureDatabase(db) {
+  if (!db || typeof db.exec !== "function" || typeof db.prepare !== "function") {
+    throw new ShortDramaError("state_store_db_invalid", "Business ID helpers require a DatabaseSync connection");
+  }
+  try {
+    db.exec("PRAGMA busy_timeout=5000");
+    const timeout = db.prepare("PRAGMA busy_timeout").get().timeout;
+    if (timeout !== 5000) {
+      throw new ShortDramaError("state_store_db_invalid", "DatabaseSync connection rejected the busy timeout", {
+        busy_timeout: timeout,
+      });
+    }
+  } catch (error) {
+    throw stateStoreError(error);
+  }
+}
+
 function ensureSequenceTable(db) {
+  configureDatabase(db);
   try {
     db.exec(`
       CREATE TABLE IF NOT EXISTS id_sequences (

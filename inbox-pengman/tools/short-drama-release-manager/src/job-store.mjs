@@ -5,6 +5,7 @@ import { ShortDramaError } from "./errors.mjs";
 const TERMINAL_STATES = new Set(["success", "partial", "failed"]);
 const JOB_STATES = new Set(["queued", "running", ...TERMINAL_STATES]);
 const NOTIFICATION_STATES = new Set(["pending", "sent", "failed"]);
+const ISO_INSTANT_PATTERN = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -23,11 +24,20 @@ function optionalString(value, field) {
 }
 
 function timestamp(value = new Date()) {
-  const date = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(date.getTime())) {
+  const match = typeof value === "string" ? ISO_INSTANT_PATTERN.exec(value) : null;
+  const date = value instanceof Date || match ? new Date(value) : null;
+  const calendarIsValid = !match || (
+    Number(match[2]) >= 1 && Number(match[2]) <= 12 &&
+    Number(match[3]) >= 1 &&
+    Number(match[3]) <= new Date(Date.UTC(Number(match[1]), Number(match[2]), 0)).getUTCDate() &&
+    Number(match[4]) <= 23 &&
+    Number(match[5]) <= 59 &&
+    Number(match[6]) <= 59
+  );
+  if (!date || Number.isNaN(date.getTime()) || !calendarIsValid) {
     fail("state_store_time_invalid", "State-store timestamp must be valid", { value });
   }
-  return typeof value === "string" ? value : date.toISOString();
+  return date.toISOString();
 }
 
 function futureTimestamp(now, seconds) {
@@ -403,7 +413,9 @@ export class JobStore {
         UPDATE jobs
         SET lease_expires_at = ?
         WHERE run_id = ? AND state = 'running' AND worker_pid = ?
-      `).run(leaseExpiresAt, requiredString(runId, "runId"), workerPid);
+          AND lease_expires_at IS NOT NULL
+          AND julianday(lease_expires_at) > julianday(?)
+      `).run(leaseExpiresAt, requiredString(runId, "runId"), workerPid, renewedAt);
       if (result.changes !== 1) {
         fail("worker_claim_mismatch", "Job is not owned by this worker", { run_id: runId, worker_pid: workerPid });
       }
@@ -430,6 +442,8 @@ export class JobStore {
         SET state = ?, step = ?, finished_at = ?, counters_json = ?, error_json = ?,
             worker_pid = NULL, lease_expires_at = NULL
         WHERE run_id = ? AND state = 'running' AND worker_pid = ?
+          AND lease_expires_at IS NOT NULL
+          AND julianday(lease_expires_at) > julianday(?)
       `).run(
         targetState,
         step ?? targetState,
@@ -437,7 +451,8 @@ export class JobStore {
         JSON.stringify(counters),
         JSON.stringify(error),
         requiredString(runId, "runId"),
-        workerPid
+        workerPid,
+        finishedAt
       );
       if (result.changes !== 1) {
         fail("worker_claim_mismatch", "Job is not owned by this worker", { run_id: runId, worker_pid: workerPid });
