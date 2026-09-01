@@ -1,27 +1,166 @@
-# 短剧发行管理同步
+# `shortdrama_ctl.mjs` 是短剧发行管理 v5 唯一新生产入口
 
-> v5 Runner 说明：`shortdrama_ctl.mjs`、`run_scheduled.sh`和`com.gengrowth.shortdrama-sync`是新流程；下方`sync_shortdrama_to_feishu.mjs`及旧 label 仅保留为历史证据，不得用于 v5 正式同步。
+`sync_shortdrama_to_feishu.mjs` 与 `com.gengrowth.shortdrama-feishu-sync` 均为 **historical/disabled** 证据：保留、不删除、不运行，也不是 v5 或回滚入口。v5 只使用 `shortdrama_ctl.mjs`、`run_scheduled.sh` 和新 label `com.gengrowth.shortdrama-sync`。
 
-## v5 内部调度安全边界
+## 数据边界与 source of truth
 
-安装器在当前用户的`~/Library/Application Support/GenGrowth/shortdrama-sync/internal.capability`创建并保留 0600、256-bit 随机 capability。plist 只保存该固定文件路径；ticker 读取后仅通过子进程环境传给 CLI，仓库和 plist 均不保存 capability 值。CLI 会重新检查文件类型、symlink、权限、大小并进行常量时间比较，旧 marker 或手工伪造参数不能获得内部调度身份。
+- Google 的账号台账、发布记录、选剧池三个人工 source sheet 只用于一次性 read-only migration；切换后不再作为人工入口，并且始终 **no Google writeback**。
+- 本地 SQLite 是账号和帖子机器源。Base `采集数据`只投影按 `Post ID` 去重的 latest 帖子及最新指标；每日采集历史 stays in SQLite，不向 Base 追加日快照。
+- 公司持有的 Feishu Base 是正式业务载体，固定四表：`账号台账`、`发布记录`、`选剧池`、`采集数据`。
+- 字段所有权不可混用：human 字段只接受实名 allowlist 的 Social 操作；machine 字段只由同步写；derived 字段由 Base 公式/Lookup 计算。**Runner only writes**，不得由 Skill、脚本或人工绕过 Runner 直接调用 Base 写接口。
+- 旧 Google 业务表、历史脚本、历史 plist 和试验 Base 都只保留为证据；旧的 TikTok Daily Metrics 及既有 Social OS 流程不变。
 
-此机制的边界是 macOS 用户账户隔离：它防止 Social 会话、普通 CLI 和其他账户伪造 launchd 内部命令，不承诺防御已取得同一 macOS 用户权限的进程。安装、恢复或排障均不得复制 capability 到日志、聊天、plist 或版本库。
+## 固定运行资产
 
-迁移 plan/schema receipt/verification 只读写固定的`inbox-pengman/output/short-drama-release-manager/migrations/`，输出文件不可覆盖。`migrate apply`必须同时提供独立 expected digest；data/presentation/sequences 还必须提供独立 schema receipt，sequences 另需独立 verification 文件字节 SHA-256。
+- Node：目标机 doctor 验证过的 **Node 24+**。
+- 正式配置文件名：`shortdrama.runtime.json`；从 `shortdrama.config.example.json`复制后仅在生产机安全配置，禁止提交。
+- Job/Audit state DB：配置中的 `ops_sqlite`，正式约定为 `inbox-pengman/output/short-drama-release-manager/shortdrama_ops.sqlite`。
+- payload 根目录：配置中的 `payload_root`；Social 写操作的 JSON payload heredoc 由 **Hermes Skill** 通过 stdin (`--payload -`) 提供，不在聊天里拼 shell。
+- migration artifact 固定根目录：`inbox-pengman/output/short-drama-release-manager/migrations/`。文件名必须为该目录内不可覆盖的安全 JSON 文件名。
+- launchd 内部 capability：当前用户 Application Support 下 `GenGrowth/shortdrama-sync/internal.capability`，0600、非 symlink、256-bit；值不得进入日志、聊天、plist 或 Git。
+- 新 launchd label：`com.gengrowth.shortdrama-sync`，每 300 秒运行 ticker；历史 label 不得安装、kickstart 或用于回滚。
 
-首次部署必须由 privileged 本地操作者显式运行`doctor --init-state --actor-id <id>`初始化 JobStore；普通`doctor`永远只读且不会创建缺失数据库，其他业务/迁移/调度命令也只接受已经完成初始化的 schema，不得隐式创建或迁移。Schema 完成后，`doctor --canary`会在 sequence 尚未播种时先对四张正式表执行主键-only canary、逐条读回、专用清理和完整 count/key-set 恢复验证；该路径不向 HumanOps 暴露删除能力。
+以下示例均从本目录运行：
 
-Google Sheets 是唯一录入源；本工具把账号台账、发布记录和选剧池单向同步到飞书多维表格。飞书中的改动不会写回 Google。
+```bash
+export RUNTIME_CONFIG="$PWD/shortdrama.runtime.json"
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG"
+```
 
-## 运行方式
+## Public commands
 
-- `sync_shortdrama_to_feishu.mjs --google-canary`：Google 单格写入和读回验证，验证后恢复空白。
-- `sync_shortdrama_to_feishu.mjs --setup-google`：把采集数据改为实时引用，并安装发布状态和账号粉丝公式。
-- `sync_shortdrama_to_feishu.mjs --setup-feishu`：建立短剧发行管理多维表格和三张数据表。
-- `sync_shortdrama_to_feishu.mjs --canary`：每张有数据的表写入一行、读回并删除。
-- `sync_shortdrama_to_feishu.mjs --sync`：全量重建三张飞书表的数据。
+普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用 `--actor-id` 或 `--chat-id`冒充。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
 
-首次启用 `IMPORTRANGE` 如果 Google 显示 `#REF!`，在短剧发行管理表的“采集数据”标签页点一次“允许访问”。
+### Doctor 与迁移
 
-定时任务每天按 Mac 本地时间 10:30 运行。安装入口：`install_launchd.sh`。
+```bash
+# 只读 doctor
+node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG"
+
+# 首次初始化本地 state DB：local-only + privileged + 动作时确认
+node shortdrama_ctl.mjs doctor --init-state --config "$RUNTIME_CONFIG" --actor-id "$PRIVILEGED_ACTOR_ID"
+
+# Schema 完成后的四表 canary：privileged + 动作时确认
+node shortdrama_ctl.mjs doctor --canary --config "$RUNTIME_CONFIG" --actor-id "$PRIVILEGED_ACTOR_ID"
+
+# 只读 migration plan
+node shortdrama_ctl.mjs migrate plan --config "$RUNTIME_CONFIG" --output "$PLAN_FILE"
+
+# privileged apply；每次均需动作时确认、manifest digest 和对应 receipt 链
+node shortdrama_ctl.mjs migrate apply --phase schema --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --output "$SCHEMA_RECEIPT_FILE" --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
+node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --schema-receipt "$SCHEMA_RECEIPT_FILE" \
+  --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
+node shortdrama_ctl.mjs migrate apply --phase presentation --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --schema-receipt "$SCHEMA_RECEIPT_FILE" \
+  --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
+node shortdrama_ctl.mjs migrate verify --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --output "$VERIFICATION_FILE" --actor-id "$PRIVILEGED_ACTOR_ID"
+node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --schema-receipt "$SCHEMA_RECEIPT_FILE" \
+  --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --verification "$VERIFICATION_FILE" \
+  --expected-verification-sha256 "$VERIFICATION_SHA256" \
+  --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
+```
+
+`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。`doctor --init-state`、`doctor --canary`、所有 `migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation 需要独立 manifest digest + schema receipt；sequences 还需要 verification 文件字节 digest。schema receipt 丢失或无法证明时必须停止，返回/遵循 `replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
+
+canary 是唯一允许物理清理的 **canary-only** 路径：只删除本次固定 canary 主键并证明四表 count/key-set 完整恢复。业务路径不做物理删除；归档是逻辑状态变化，任何 `canary_cleanup_failed` 都按 `manual_repair` 停止。
+
+### 四表读取与人工维护
+
+```bash
+node shortdrama_ctl.mjs account list --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs account get --key "$ACCOUNT_ID" --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs capture list --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs capture get --key "$POST_ID" --config "$RUNTIME_CONFIG"
+
+node shortdrama_ctl.mjs pool list --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool get --key "$DRAMA_ID" --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool create --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool update-field --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool preview-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool apply-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool preview-archive --key "$DRAMA_ID" --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs pool apply-archive --config "$RUNTIME_CONFIG" --payload -
+
+node shortdrama_ctl.mjs release list --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release get --key "$RELEASE_ID" --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release schedule --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release update-field --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release preview-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release apply-update --config "$RUNTIME_CONFIG" --payload -
+node shortdrama_ctl.mjs release attach-post --config "$RUNTIME_CONFIG" --payload -
+
+node shortdrama_ctl.mjs metrics by-drama --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs metrics by-account --config "$RUNTIME_CONFIG"
+```
+
+`pool/release update-field`只接受精确 `{key,field,value}`；多字段/归档必须先 preview，再用 receipt apply。`account/capture`严格只读。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
+
+### 异步同步
+
+```bash
+node shortdrama_ctl.mjs sync start --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs sync status --run-id "$RUN_ID" --config "$RUNTIME_CONFIG"
+```
+
+- 新任务立即返回 `state=queued` 和 `run_id`；这只证明已持久化入队。
+- 若已有 queued/running 任务，返回 `state=already_running` 和现有 `run_id`，不会启动第二轮。
+- launchctl wakeup 失败时任务仍保持 queued，并返回 `worker_wakeup_failed`；300 秒 ticker 可继续领取。wakeup 或进程启动都不是同步成功。
+- `started` 不等于成功。只有持久化的 `success|partial|failed`、步骤、计数、读回与错误摘要才是 terminal truth。
+- `manual_repair` 必须明确转述并停止自动补写。数据 terminal 不因消息重试而改变。
+- 手动任务的 terminal 通知只发送到持久化的原始请求会话；调度健康通知只发到配置且 allowlisted 的 Ops chat，用户不能指定任意 chat。
+
+## Internal commands
+
+下列命令只供已安装的 launchd capability 调用，拒绝 Social/local actor 参数，不是人工运维入口：
+
+```bash
+node shortdrama_ctl.mjs schedule tick --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs queue drain --config "$RUNTIME_CONFIG"
+node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
+```
+
+`schedule tick`只在北京时间 **08:00–08:09** 幂等入队当天任务；`queue drain`凭 SQLite lease 领取最多一项；`schedule health`在北京时间 **10:00** 后对当天缺少 success/partial terminal 的情况向固定 Ops chat 去重告警。安装命令是 `./install_launchd.sh "$RUNTIME_CONFIG"`，但只有 doctor ready、生产动作时确认、备份和 readback 条件全部满足后才能执行。
+
+验收必须观察至少一次真实北京时间 08:00 的**自然调度**，并记录 schedule run_id、Collector terminal、Base readback 和通知。手工 `sync start`、launchctl kickstart、服务 loaded 或进程存活不能替代自然调度证据。切换验收还要求**连续七天**全绿；失败后从新的连续成功日重新计数，不能拼接非连续日期。
+
+## 环境变量契约
+
+真实值只进入未提交的安全环境；`.env.example`仅列空 key。`shortdrama.runtime.json`选择的固定 key 名为：
+
+```text
+FEISHU_APP_ID
+FEISHU_APP_SECRET
+FEISHU_SHORTDRAMA_APP_TOKEN
+FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID
+FEISHU_SHORTDRAMA_POOL_TABLE_ID
+FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID
+FEISHU_SHORTDRAMA_RELEASES_TABLE_ID
+GOOGLE_SERVICE_ACCOUNT_JSON
+SHORTDRAMA_OPERATOR_IDS
+SHORTDRAMA_PRIVILEGED_IDS
+SHORTDRAMA_NOTIFICATION_CHAT_IDS
+SHORTDRAMA_OPS_CHAT_ID
+```
+
+actor/chat allowlist 使用逗号分隔 ID；`SHORTDRAMA_OPS_CHAT_ID`必须同时属于 `SHORTDRAMA_NOTIFICATION_CHAT_IDS`。app secret、token、授权头、真实 table/base ID、actor/chat ID、凭证路径不得写入 Git、日志、审计正文或聊天回复。
+
+## 单写者切换、恢复与回滚
+
+1. 切换前备份旧采集机的 SQLite、凭证、launchd 定义和最近 terminal，记录 checksum/readback；正式 Base 与 Google 也保留不可变迁移证据。
+2. 先暂停旧采集机写入口并证明它已停止，再启用 Mac mini 的新 Collector/Runner。任何时刻只能有一个 writer；禁止两台主机重叠运行。
+3. 安装器会备份新 label 的既有 plist；安装失败按原 loaded 状态恢复并 read back。若出现 `rollback_verification_failed`，保持停止并人工修复，不能声称恢复完成。
+4. 观察期故障时暂停新 Runner/launchd 写入，导出并保存 Base 人工变化和 Job/Audit，再按审计恢复旧入口。保留 Base、SQLite、旧 Google、plist、脚本及错误证据，不删除、不清空。
+5. 连续七天验收通过后，旧 Google 三张人工业务表仅 archived/read-only；TikTok Daily Metrics 继续保留。
+
+任何无法证明 schema、receipt、readback、单写者状态或回滚结果的情况都 fail closed，并转入 `manual_repair`。

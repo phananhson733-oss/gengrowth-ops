@@ -1,0 +1,80 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+
+const root = new URL("../", import.meta.url);
+const readmeUrl = new URL("README.md", root);
+const envUrl = new URL("../tiktok-public-capture/.env.example", root);
+
+async function docs() {
+  return {
+    readme: await readFile(readmeUrl, "utf8"),
+    env: await readFile(envUrl, "utf8"),
+  };
+}
+
+test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {
+  const { readme } = await docs();
+  const firstLine = readme.split("\n", 1)[0];
+  assert.match(firstLine, /shortdrama_ctl/);
+  assert.match(firstLine, /唯一.*生产入口/);
+  assert.match(readme, /sync_shortdrama_to_feishu\.mjs.*historical\/disabled/);
+  assert.match(readme, /com\.gengrowth\.shortdrama-feishu-sync.*historical\/disabled/);
+  assert.doesNotMatch(readme, /sync_shortdrama_to_feishu\.mjs --(?:google-canary|setup-google|setup-feishu|canary|sync)/);
+  assert.doesNotMatch(readme, /10:30|每 15 分钟|每隔 15 分钟/);
+});
+
+test("README records the four-table source of truth and immutable runtime paths", async () => {
+  const { readme } = await docs();
+  for (const term of [
+    "账号台账", "发布记录", "选剧池", "采集数据", "SQLite", "latest", "历史", "read-only",
+    "Runner only writes", "no Google writeback", "shortdrama.runtime.json", "Node 24+",
+    "shortdrama_ops.sqlite", "internal.capability", "com.gengrowth.shortdrama-sync",
+    "inbox-pengman/output/short-drama-release-manager/migrations/",
+  ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.doesNotMatch(readme, /Google Sheets 是唯一录入源/);
+});
+
+test("README lists the exact public and internal Runner command surface", async () => {
+  const { readme } = await docs();
+  for (const command of [
+    "doctor --config", "doctor --init-state", "doctor --canary",
+    "migrate plan", "migrate apply", "migrate verify",
+    "account list", "account get", "capture list", "capture get",
+    "pool list", "pool get", "pool create", "pool update-field", "pool preview-update", "pool apply-update", "pool preview-archive", "pool apply-archive",
+    "release list", "release get", "release schedule", "release update-field", "release preview-update", "release apply-update", "release attach-post",
+    "metrics by-drama", "metrics by-account", "sync start", "sync status",
+    "schedule tick", "queue drain", "schedule health",
+  ]) assert.match(readme, new RegExp(command.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(readme, /public commands/i);
+  assert.match(readme, /internal commands/i);
+  assert.match(readme, /payload.*heredoc.*Hermes Skill/i);
+});
+
+test("README documents migration gates, async truth, natural schedule acceptance, and recovery", async () => {
+  const { readme } = await docs();
+  for (const term of [
+    "migrate plan", "只读", "digest", "schema receipt", "replan_reconfirm", "privileged", "动作时确认",
+    "queued", "already_running", "worker_wakeup_failed", "started", "manual_repair", "原始请求会话",
+    "08:00", "10:00", "自然调度", "连续七天", "不能", "单写者", "回滚",
+  ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
+  assert.match(readme, /不做物理删除/);
+  assert.match(readme, /canary-only/);
+});
+
+test("env example exposes blank v5 keys and keeps legacy follower sync explicitly historical", async () => {
+  const { env } = await docs();
+  const keys = [
+    "FEISHU_APP_ID", "FEISHU_APP_SECRET", "FEISHU_SHORTDRAMA_APP_TOKEN",
+    "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID", "FEISHU_SHORTDRAMA_POOL_TABLE_ID",
+    "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID", "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID",
+    "GOOGLE_SERVICE_ACCOUNT_JSON", "SHORTDRAMA_OPERATOR_IDS", "SHORTDRAMA_PRIVILEGED_IDS",
+    "SHORTDRAMA_NOTIFICATION_CHAT_IDS", "SHORTDRAMA_OPS_CHAT_ID",
+  ];
+  for (const key of keys) assert.match(env, new RegExp(`^${key}=$`, "m"));
+  assert.match(env, /v5 Runner/);
+  assert.match(env, /historical.*follower sync/i);
+  assert.doesNotMatch(env, /^FEISHU_(?:WIKI_NODE_TOKEN|TABLE_ID)=.+$/m);
+  assert.doesNotMatch(env, /^GOOGLE_SERVICE_ACCOUNT_JSON=.+$/m);
+  assert.doesNotMatch(env, /\/Users\/|~\/\.config/);
+});
