@@ -1,0 +1,691 @@
+#!/usr/bin/env node
+import { spawn } from "node:child_process";
+import { createHash, randomUUID } from "node:crypto";
+import { lstat, readFile, realpath } from "node:fs/promises";
+import { createReadStream, readFileSync } from "node:fs";
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import { DatabaseSync } from "node:sqlite";
+
+import { BaseRepositories } from "./src/base-repositories.mjs";
+import { loadRuntimeConfig } from "./src/config.mjs";
+import { ShortDramaError, toErrorResult } from "./src/errors.mjs";
+import { createTenantTokenProvider, FeishuClient, fixedFieldDescriptor } from "./src/feishu-client.mjs";
+import { readGoogleMigrationSource } from "./src/google-source.mjs";
+import { HumanOpsService } from "./src/human-ops.mjs";
+import { allocateBusinessId, makeRunId, seedBusinessIdSequence } from "./src/ids.mjs";
+import { JobStore } from "./src/job-store.mjs";
+import { applyMigration, planMigration, verifyMigration, writeMigrationArtifact } from "./src/migration.mjs";
+import { ShortDramaNotifier } from "./src/notifier.mjs";
+import { readLatestAccounts, readLatestPosts } from "./src/source-sqlite.mjs";
+import { BASE_FIELD_SPECS, TABLE_ORDER } from "./src/schema.mjs";
+import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mjs";
+
+const LABEL = "com.gengrowth.shortdrama-sync";
+const INTERNAL_MARKER = `launchd:${LABEL}`;
+const MAX_PAYLOAD_BYTES = 1024 * 1024;
+const TERMINAL = new Set(["success", "partial", "failed"]);
+const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
+
+const REGISTRY = Object.freeze({
+  doctor: Object.freeze({ null: ["config", "canary", "actor-id"] }),
+  migrate: Object.freeze({
+    plan: ["config", "output", "actor-id", "chat-id"],
+    apply: ["config", "payload", "phase", "actor-id", "chat-id", "confirm"],
+    verify: ["config", "payload", "output", "actor-id", "chat-id"],
+  }),
+  pool: Object.freeze({
+    list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "preview-archive": ["config", "key", "payload", "actor-id", "chat-id"], "apply-archive": ["config", "payload", "actor-id", "chat-id"],
+  }),
+  release: Object.freeze({
+    list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], schedule: ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "attach-post": ["config", "payload", "actor-id", "chat-id"],
+  }),
+  metrics: Object.freeze({ "by-drama": ["config", "actor-id", "chat-id"], "by-account": ["config", "actor-id", "chat-id"] }),
+  sync: Object.freeze({ start: ["config", "actor-id", "chat-id"], status: ["config", "run-id", "actor-id", "chat-id"] }),
+  schedule: Object.freeze({ tick: ["config"], health: ["config"] }),
+  queue: Object.freeze({ drain: ["config"] }),
+});
+
+const REQUIRED = Object.freeze({
+  "migrate:apply": ["phase"],
+  "migrate:verify": ["payload"],
+  "pool:get": ["key"], "release:get": ["key"],
+  "sync:status": ["runId"],
+});
+
+function fail(code, message, details = {}) {
+  throw new ShortDramaError(code, message, details);
+}
+
+function camel(name) {
+  return name.replace(/-([a-z])/g, (_all, char) => char.toUpperCase());
+}
+
+function normalized(value, field = "value") {
+  if (typeof value !== "string" || value.length === 0 || value.trim() !== value || value.length > 4_096 || /[\u0000-\u001f\u007f]/.test(value)) {
+    fail("input_invalid", "CLI value must be a normalized bounded string", { field });
+  }
+  return value;
+}
+
+export function parseCommand(argv) {
+  if (!Array.isArray(argv) || argv.length === 0 || argv.some((item) => typeof item !== "string")) {
+    fail("command_not_allowed", "A registered command is required");
+  }
+  const group = argv[0];
+  const groupSpec = REGISTRY[group];
+  if (!groupSpec) fail("command_not_allowed", "Command group is not registered", { group });
+  const action = group === "doctor" ? null : argv[1];
+  const allowed = groupSpec[String(action)];
+  if (!allowed) fail("command_not_allowed", "Command action is not registered", { group, action: action ?? null });
+  const start = group === "doctor" ? 1 : 2;
+  const options = {};
+  for (let index = start; index < argv.length; index += 2) {
+    const flag = argv[index];
+    if (!/^--[a-z][a-z0-9-]*$/.test(flag) || !allowed.includes(flag.slice(2))) {
+      fail("input_invalid", "CLI option is not allowed", { option: flag ?? null });
+    }
+    const key = camel(flag.slice(2));
+    if (Object.hasOwn(options, key)) fail("input_invalid", "Duplicate CLI option is not allowed", { option: flag });
+    if (flag === "--canary") {
+      if (argv[index + 1] !== undefined && !argv[index + 1].startsWith("--")) fail("input_invalid", "Canary is a boolean flag");
+      options.canary = true;
+      index -= 1;
+      continue;
+    }
+    const value = argv[index + 1];
+    if (value === undefined || value.startsWith("--")) fail("input_invalid", "CLI option requires a value", { option: flag });
+    options[key] = normalized(value, key);
+  }
+  const command = { group, action, options };
+  for (const key of REQUIRED[`${group}:${action}`] ?? []) {
+    if (!Object.hasOwn(options, key)) fail("input_invalid", "Required CLI option is missing", { option: key });
+  }
+  if (options.phase && !["schema", "data", "presentation", "sequences"].includes(options.phase)) {
+    fail("input_invalid", "Migration phase is invalid", { phase: options.phase });
+  }
+  return command;
+}
+
+function isInternal(command) {
+  return command.group === "schedule" || command.group === "queue";
+}
+
+function localActorRequired(command) {
+  return command.group === "migrate" && ["apply", "verify"].includes(command.action) || command.group === "doctor" && command.options.canary;
+}
+
+export function resolveInvocationIdentity(command, env = {}, policy = {}) {
+  const sessionKeys = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"];
+  const hasSession = sessionKeys.some((key) => env[key] !== undefined);
+  if (isInternal(command)) {
+    if (hasSession || command.options.actorId || command.options.chatId) fail("internal_context_invalid", "Internal commands reject session and actor overrides");
+    if (env.SHORTDRAMA_INTERNAL_MARKER !== INTERNAL_MARKER || env.SHORTDRAMA_LAUNCHD_LABEL !== LABEL) {
+      fail("internal_context_required", "Internal command requires the installed launchd context");
+    }
+    return { mode: "internal", actorId: null, chatId: null, profile: null };
+  }
+  if (hasSession) {
+    if (command.options.actorId || command.options.chatId) fail("session_identity_override", "Social session identity cannot be overridden");
+    if (env.HERMES_SESSION_PLATFORM !== "feishu" || env.HERMES_SESSION_PROFILE !== "social" ||
+        !env.HERMES_SESSION_USER_ID || !env.HERMES_SESSION_CHAT_ID) {
+      fail("session_identity_invalid", "A complete Feishu Social session is required");
+    }
+    return {
+      mode: "social", actorId: normalized(env.HERMES_SESSION_USER_ID, "actorId"),
+      chatId: normalized(env.HERMES_SESSION_CHAT_ID, "chatId"), profile: "social",
+    };
+  }
+  if (["pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start") {
+    fail("social_session_required", "Business operations require a Feishu Social session");
+  }
+  if (command.options.chatId) fail("session_identity_override", "Local invocations cannot choose a notification chat");
+  const actorId = command.options.actorId ?? null;
+  if (localActorRequired(command)) {
+    if (!actorId) fail("actor_required", "Privileged local action requires an explicit actor");
+    if (typeof policy.isPrivilegedAllowed !== "function" || !policy.isPrivilegedAllowed(actorId)) {
+      fail("privileged_required", "Local action requires a privileged actor", { actor: actorId });
+    }
+  }
+  return { mode: "local", actorId, chatId: null, profile: null };
+}
+
+function assertSafeJson(value, path = "$", seen = new WeakSet()) {
+  if (value === null || typeof value === "string" || typeof value === "boolean") return;
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) fail("payload_invalid", "Payload contains a non-finite number", { path });
+    return;
+  }
+  if (typeof value !== "object") fail("payload_invalid", "Payload contains a non-JSON value", { path });
+  if (seen.has(value)) fail("payload_invalid", "Payload must be acyclic", { path });
+  const prototype = Object.getPrototypeOf(value);
+  if (!Array.isArray(value) && prototype !== Object.prototype && prototype !== null) fail("payload_invalid", "Payload object prototype is unsafe", { path });
+  seen.add(value);
+  for (const key of Object.keys(value)) {
+    if (UNSAFE_KEYS.has(key)) fail("payload_invalid", "Payload contains an unsafe property", { path });
+    assertSafeJson(value[key], `${path}.${key}`, seen);
+  }
+  seen.delete(value);
+}
+
+function parsePayloadBytes(bytes) {
+  if (bytes.length > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+  let value;
+  try { value = JSON.parse(bytes.toString("utf8")); }
+  catch { fail("payload_invalid", "Payload must be strict JSON"); }
+  assertSafeJson(value);
+  if (value === null || typeof value !== "object" || Array.isArray(value)) fail("payload_invalid", "Payload root must be an object");
+  return value;
+}
+
+async function readBoundedStream(stream) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of stream) {
+    const bytes = Buffer.from(chunk);
+    size += bytes.length;
+    if (size > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+    chunks.push(bytes);
+  }
+  return Buffer.concat(chunks);
+}
+
+export async function readPayload(source, { payloadRoot, stdin = process.stdin } = {}) {
+  if (source === undefined || source === null) return null;
+  if (source === "-") return parsePayloadBytes(await readBoundedStream(stdin));
+  const root = resolve(normalized(payloadRoot, "payloadRoot"));
+  const inputPath = normalized(source, "payload");
+  const candidate = isAbsolute(inputPath) ? resolve(inputPath) : resolve(root, inputPath);
+  const lexical = relative(root, candidate);
+  if (lexical === ".." || lexical.startsWith(`..${sep}`) || isAbsolute(lexical)) fail("payload_path_invalid", "Payload path escaped the configured root");
+  let rootReal;
+  let candidateReal;
+  let info;
+  try {
+    [rootReal, candidateReal, info] = await Promise.all([realpath(root), realpath(candidate), lstat(candidate)]);
+  } catch { fail("payload_path_invalid", "Payload path is unavailable"); }
+  const contained = relative(rootReal, candidateReal);
+  if (contained === ".." || contained.startsWith(`..${sep}`) || isAbsolute(contained) || info.isSymbolicLink() || !info.isFile()) {
+    fail("payload_path_invalid", "Payload must be a regular non-symlink file within the configured root");
+  }
+  const components = relative(root, dirname(candidate)).split(sep).filter(Boolean);
+  let cursor = root;
+  for (const component of components) {
+    cursor = resolve(cursor, component);
+    const parent = await lstat(cursor);
+    if (parent.isSymbolicLink() || !parent.isDirectory()) fail("payload_path_invalid", "Payload path contains an untrusted parent");
+  }
+  if (info.size > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+  return parsePayloadBytes(await readFile(candidateReal));
+}
+
+export function beijingParts(now = new Date()) {
+  const instant = now instanceof Date ? now : new Date(now);
+  if (!Number.isFinite(instant.getTime())) fail("input_invalid", "Clock returned an invalid instant");
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(instant).map(({ type, value }) => [type, value]));
+  return { date: `${parts.year}-${parts.month}-${parts.day}`, hour: Number(parts.hour), minute: Number(parts.minute), second: Number(parts.second) };
+}
+
+export function shouldEnqueueSchedule(now, jobs) {
+  const parts = beijingParts(now);
+  return parts.hour === 8 && parts.minute <= 9 && !jobs.some((job) => job?.trigger === "schedule" && job?.beijing_date === parts.date);
+}
+
+export function evaluateDailyHealth(now, jobs) {
+  const parts = beijingParts(now);
+  if (parts.hour < 10) return { alert: false, reason: "before_health_window" };
+  if (jobs.some((job) => job?.state === "success" || job?.state === "partial")) return { alert: false, reason: "terminal_present" };
+  const running = jobs.find((job) => job?.state === "running");
+  if (running) return { alert: true, reason: "still_running", step: running.step, lease_expires_at: running.lease_expires_at };
+  if (jobs.some((job) => job?.state === "failed")) return { alert: true, reason: "failed_terminal" };
+  return { alert: true, reason: "missing_terminal" };
+}
+
+async function defaultSpawnFile(file, args, options = {}) {
+  return new Promise((resolvePromise, reject) => {
+    const { signal: abortSignal, ...spawnOptions } = options;
+    const child = spawn(file, args, { ...spawnOptions, shell: false, detached: false, stdio: "ignore" });
+    const abort = () => child.kill("SIGTERM");
+    abortSignal?.addEventListener("abort", abort, { once: true });
+    child.once("error", reject);
+    child.once("close", (code, signal) => {
+      abortSignal?.removeEventListener("abort", abort);
+      resolvePromise({ code, signal });
+    });
+  });
+}
+
+function assertNode24(nodePath = process.execPath) {
+  if (!isAbsolute(nodePath) || Number(process.versions.node.split(".")[0]) < 24) fail("node_unsupported", "Absolute Node.js 24+ runtime is required");
+}
+
+function sqliteCollectorEvidence(sqlitePath, collectorRunId) {
+  let db;
+  try {
+    db = new DatabaseSync(sqlitePath, { readOnly: true });
+    const table = db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='runs'").get();
+    const row = table ? db.prepare("SELECT run_id FROM runs WHERE run_id = ?").get(collectorRunId) : null;
+    return row?.run_id === collectorRunId;
+  } catch { return false; }
+  finally { db?.close(); }
+}
+
+export function createCollectorAdapter({
+  nodePath = process.execPath, collectorPath, collectorCwd, summaryDir, metricsSqlitePath,
+  spawnFile = defaultSpawnFile, now = () => new Date(), verifySqliteEvidence = sqliteCollectorEvidence,
+} = {}) {
+  assertNode24(nodePath);
+  for (const [value, field] of [[collectorPath, "collectorPath"], [collectorCwd, "collectorCwd"], [summaryDir, "summaryDir"], [metricsSqlitePath, "metricsSqlitePath"]]) {
+    if (!isAbsolute(value ?? "")) fail("collector_config_invalid", "Collector paths must be absolute", { field });
+  }
+  return async ({ runId, beijingDate, signal } = {}) => {
+    const summaryPath = resolve(summaryDir, `capture_summary_${beijingDate}.json`);
+    const startedAt = now();
+    const startedMs = new Date(startedAt).getTime();
+    let before = null;
+    try { const stat = await lstat(summaryPath); before = { dev: stat.dev, ino: stat.ino, mtimeMs: stat.mtimeMs, size: stat.size }; } catch {}
+    let collectorInfo;
+    let cwdInfo;
+    let collectorReal;
+    let cwdReal;
+    try { [collectorInfo, cwdInfo, collectorReal, cwdReal] = await Promise.all([lstat(collectorPath), lstat(collectorCwd), realpath(collectorPath), realpath(collectorCwd)]); } catch { fail("collector_config_invalid", "Collector path is unavailable"); }
+    if (!collectorInfo.isFile() || collectorInfo.isSymbolicLink() || !cwdInfo.isDirectory() || cwdInfo.isSymbolicLink() ||
+        dirname(collectorReal) !== cwdReal) fail("collector_config_invalid", "Collector path is not trusted");
+    let outcome;
+    try { outcome = await spawnFile(nodePath, [collectorPath], { cwd: collectorCwd, shell: false, detached: false, signal }); }
+    catch { fail("capture_failed", "Collector process could not be started"); }
+    if (signal?.aborted) fail("worker_claim_mismatch", "Collector was aborted after lease loss");
+    if (outcome?.code !== 0) fail("capture_failed", "Collector process did not exit successfully", { exit_code: outcome?.code ?? null });
+    let after;
+    let summary;
+    try {
+      after = await lstat(summaryPath);
+      summary = JSON.parse(await readFile(summaryPath, "utf8"));
+    } catch { fail("capture_failed", "Collector summary is missing or invalid"); }
+    const changed = !before || before.dev !== after.dev || before.ino !== after.ino || before.mtimeMs !== after.mtimeMs || before.size !== after.size;
+    const capturedMs = Date.parse(summary?.captured_at);
+    const collectorRunId = summary?.run_id;
+    if (!changed || !after.isFile() || after.isSymbolicLink() || after.mtimeMs < startedMs || !Number.isFinite(capturedMs) || capturedMs < startedMs ||
+        summary?.capture_date !== beijingDate || typeof collectorRunId !== "string" || collectorRunId.length === 0 ||
+        resolve(summary?.files?.sqlite ?? "") !== metricsSqlitePath || !Array.isArray(summary?.errors) ||
+        !verifySqliteEvidence(metricsSqlitePath, collectorRunId)) {
+      fail("capture_failed", "Collector did not produce fresh same-run SQLite evidence");
+    }
+    const status = summary.errors.length > 0 ? "partial" : "success";
+    return {
+      status, run_id: runId, collector_run_id: collectorRunId, beijing_date: beijingDate,
+      summary_path: summaryPath, sqlite_path: metricsSqlitePath,
+      errors: summary.errors.map((error) => ({ code: typeof error?.code === "string" ? error.code : "capture_partial" })),
+    };
+  };
+}
+
+export function createWakeWorker({ uid = process.getuid?.(), spawnFile = defaultSpawnFile } = {}) {
+  if (!Number.isSafeInteger(uid) || uid < 0) fail("launchd_context_invalid", "A valid uid is required");
+  return async () => {
+    const outcome = await spawnFile("/bin/launchctl", ["kickstart", `gui/${uid}/${LABEL}`], { shell: false, detached: false });
+    if (outcome?.code !== 0) fail("worker_wakeup_failed", "launchd worker wake failed", { exit_code: outcome?.code ?? null });
+  };
+}
+
+function parseEnvSet(value) {
+  return new Set(String(value ?? "").split(",").map((item) => item.trim()).filter(Boolean));
+}
+
+function requireSequenceSeed(jobs) {
+  const state = jobs.peekSequenceState();
+  if (!state.seeded) fail("sequence_unseeded", "Business ID sequences require verified migration seeds");
+  return state;
+}
+
+function humanRequest(identity, table, payload = {}) {
+  return { ...payload, actorId: identity.actorId, ...(identity.chatId ? { chatId: identity.chatId } : {}), table };
+}
+
+async function retryNotifications(runtime) {
+  const results = [];
+  for (const job of runtime.jobs.listUndeliveredTerminal()) results.push(await runtime.notifier.sendTerminal(job));
+  return results;
+}
+
+export function createDispatcher(runtime) {
+  if (!runtime || typeof runtime !== "object") fail("runtime_invalid", "Dispatcher runtime is invalid");
+  return async (command, identity, payload) => {
+    const key = `${command.group}:${command.action}`;
+    if (command.group === "doctor") {
+      if (command.options.canary && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor canary requires a privileged actor");
+      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, identity }) : { status: "ready" };
+    }
+    if (key === "pool:list" || key === "release:list") return runtime.humanOps.query(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
+    if (key === "pool:get" || key === "release:get") {
+      const table = command.group === "pool" ? "选剧池" : "发布记录";
+      const primary = table === "选剧池" ? "剧ID" : "发布ID";
+      return runtime.humanOps.query(humanRequest(identity, table, { ...(payload ?? {}), filter: { [primary]: command.options.key } }));
+    }
+    if (key === "metrics:by-drama" || key === "metrics:by-account") return runtime.humanOps.queryMetrics({ actorId: identity.actorId, groupBy: command.action === "by-drama" ? "drama" : "account" });
+    if (key === "pool:create" || key === "release:schedule") {
+      requireSequenceSeed(runtime.jobs);
+      return runtime.humanOps.previewMutation(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", { ...(payload ?? {}), action: "create" }));
+    }
+    if (key === "pool:preview-update" || key === "release:preview-update") return runtime.humanOps.previewMutation(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", { ...(payload ?? {}), action: "update" }));
+    if (key === "pool:apply-update" || key === "release:apply-update") return runtime.humanOps.applyPreview({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
+    if (key === "pool:preview-archive") return runtime.humanOps.previewArchive(humanRequest(identity, "选剧池", { ...(payload ?? {}), key: command.options.key }));
+    if (key === "pool:apply-archive") return runtime.humanOps.applyArchive({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
+    if (key === "release:attach-post") return runtime.humanOps.previewMutation(humanRequest(identity, "发布记录", { ...(payload ?? {}), action: "attach-post" }));
+    if (key === "sync:start") {
+      const auth = runtime.config?.auth;
+      if (!auth?.isOperatorAllowed?.(identity.actorId) && !auth?.isPrivilegedAllowed?.(identity.actorId)) {
+        fail("actor_write_denied", "Actor is not allowed to start synchronization", { actor: identity.actorId });
+      }
+      return startSyncJob(runtime.syncContext, { trigger: "manual", actorId: identity.actorId, chatId: identity.chatId });
+    }
+    if (key === "sync:status") return getSyncStatus(runtime.jobs, command.options.runId);
+    if (key === "schedule:tick") {
+      const now = runtime.now();
+      const parts = beijingParts(now);
+      const rows = runtime.jobs.listByBeijingDate(parts.date).map((job) => ({ ...job, beijing_date: parts.date }));
+      if (!shouldEnqueueSchedule(now, rows)) return { status: "no_op", reason: "outside_window_or_already_scheduled", beijing_date: parts.date };
+      requireSequenceSeed(runtime.jobs);
+      return startSyncJob(runtime.syncContext, { trigger: "schedule", chatId: runtime.opsChatId, beijingDate: parts.date });
+    }
+    if (key === "queue:drain") {
+      const clock = typeof runtime.now === "function" ? runtime.now : () => new Date();
+      const claim = runtime.jobs.claimNext({ workerPid: runtime.workerPid, now: clock(), leaseSeconds: 120 });
+      let result = { status: "no_op", reason: "queue_empty" };
+      let workerError = null;
+      try {
+        if (claim) result = await runtime.runWorker(runtime.workerContext, claim.run_id);
+      } catch (error) {
+        workerError = error;
+      }
+      const notifications = await retryNotifications(runtime);
+      if (workerError) throw workerError;
+      return { ...result, notification_retries: notifications.length };
+    }
+    if (key === "schedule:health") {
+      const now = runtime.now();
+      const parts = beijingParts(now);
+      const jobs = runtime.jobs.listByBeijingDate(parts.date).filter((job) => job.trigger === "schedule");
+      const state = evaluateDailyHealth(now, jobs);
+      if (!state.alert) return { status: "no_op", beijing_date: parts.date, ...state };
+      const alertKey = `missing-terminal:${parts.date}`;
+      if (!runtime.jobs.claimHealthAlert(alertKey, now)) return { status: "no_op", reason: "alert_already_claimed", beijing_date: parts.date };
+      try {
+        await runtime.sendOpsHealth({ chatId: runtime.opsChatId, text: `shortdrama health\nbeijing_date=${parts.date}\nreason=${state.reason}\nstep=${state.step ?? "none"}\nlease=${state.lease_expires_at ?? "none"}` });
+        runtime.jobs.markHealthAlert(alertKey, "sent", { now });
+      } catch (error) {
+        runtime.jobs.markHealthAlert(alertKey, "failed", { now, error: typeof error?.code === "string" ? error.code : "notification_delivery_failed" });
+        throw error;
+      }
+      return { status: "alerted", beijing_date: parts.date, ...state };
+    }
+    if (key === "migrate:plan") return runtime.migratePlan(payload, command.options);
+    if (key === "migrate:apply") {
+      if (!runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Migration apply requires a privileged actor");
+      if (command.options.confirm !== "apply-now") fail("action_confirmation_required", "Migration apply requires --confirm apply-now");
+      if (command.options.phase !== "schema" && !payload?.schemaReceipt) fail("schema_receipt_lost", "Schema receipt is required", { next_step: "replan_reconfirm" });
+      return runtime.migrateApply(payload, command.options);
+    }
+    if (key === "migrate:verify") {
+      if (!runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Migration verify requires a privileged actor");
+      return runtime.migrateVerify(payload, command.options);
+    }
+    fail("command_not_allowed", "Command dispatch is not registered", { command: key });
+  };
+}
+
+async function baseSchemaMetadata(client, config) {
+  const tables = await client.listTables(config.base.appToken);
+  const selected = [];
+  for (const table of tables.items) {
+    if (!Object.values(config.base.tableIds).includes(table.table_id)) continue;
+    const fields = await client.listFields(config.base.appToken, table.table_id);
+    selected.push({ ...table, fields: fields.items, revision: fields.revision });
+  }
+  const canonical = JSON.stringify(selected.map((table) => ({
+    table_id: table.table_id, name: table.name, revision: table.revision ?? null,
+    fields: table.fields.map((field) => field).sort((left, right) => String(left.name).localeCompare(String(right.name))),
+  })).sort((left, right) => String(left.name).localeCompare(String(right.name))));
+  return { complete: true, revision: `base-schema-v1:${createHash("sha256").update(canonical).digest("hex")}`, tables: selected };
+}
+
+function safeServiceAccount(path) {
+  try { return JSON.parse(readFileSync(path, "utf8")); }
+  catch { fail("google_source_invalid", "Google service account could not be read"); }
+}
+
+async function defaultFeishuFetch(url, options) {
+  const response = await fetch(url, options);
+  const payload = await response.json();
+  if (!response.ok || payload?.code !== 0) fail("notification_delivery_failed", "Feishu notification request failed", { status: response.status });
+  return payload;
+}
+
+export function createFeishuMessageSender({ tokenProvider, isChatAllowed, fetchJson = defaultFeishuFetch } = {}) {
+  if (typeof tokenProvider !== "function" || typeof isChatAllowed !== "function" || typeof fetchJson !== "function") {
+    fail("notifier_config_invalid", "Feishu message adapter configuration is invalid");
+  }
+  return async ({ chatId, text }) => {
+    if (!isChatAllowed(chatId) || typeof text !== "string" || text.length === 0 || text.length > 2_000) {
+      fail("notification_target_denied", "Notification destination or body is invalid");
+    }
+    const token = await tokenProvider();
+    if (typeof token !== "string" || token.length === 0) fail("base_auth_failed", "Feishu tenant token is invalid");
+    const result = await fetchJson("https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id", {
+      method: "POST",
+      headers: { authorization: `Bearer ${token}`, "content-type": "application/json; charset=utf-8" },
+      body: JSON.stringify({ receive_id: chatId, msg_type: "text", content: JSON.stringify({ text }) }),
+    });
+    if (!result || result.code !== 0) fail("notification_delivery_failed", "Feishu notification response is invalid");
+    return result;
+  };
+}
+
+function schemaAdapters(client, config) {
+  const readSchema = () => baseSchemaMetadata(client, config);
+  const schemaAdapter = {
+    readSchema,
+    createTable: (tableName) => client.createTable(config.base.appToken, tableName),
+    createField: (tableId, tableName, fieldName, bindings) => client.createField(config.base.appToken, tableId, tableName, fieldName, bindings),
+    updateField: (tableId, fieldId, tableName, fieldName) => client.updateField(config.base.appToken, tableId, fieldId, tableName, fieldName),
+    async verifySchemaAction(action, schema) {
+      const table = schema?.tables?.find((candidate) => candidate.name === action.table);
+      if (!table) return false;
+      if (action.kind === "create_table") return true;
+      return table.fields.some((field) => field.name === action.field);
+    },
+  };
+  const presentationAdapter = {
+    readSchema,
+    listViews: (tableId) => client.listViews(config.base.appToken, tableId),
+    createView: (tableId, tableName, viewName) => client.createView(config.base.appToken, tableId, tableName, viewName),
+    updateView: (tableId, viewId, tableName, viewName) => client.updateView(config.base.appToken, tableId, viewId, tableName, viewName),
+    readViewConfiguration: (tableId, viewId, tableName, viewName) => client.readViewConfiguration(config.base.appToken, tableId, viewId, tableName, viewName),
+    listDashboards: () => client.listDashboards(config.base.appToken),
+    createDashboard: (name) => client.createDashboard(config.base.appToken, name),
+    listDashboardBlocks: (dashboardId) => client.listDashboardBlocks(config.base.appToken, dashboardId),
+    createDashboardBlock: (dashboardId, name) => client.createDashboardBlock(config.base.appToken, dashboardId, name),
+    readDashboardBlock: (dashboardId, blockId, name) => client.readDashboardBlock(config.base.appToken, dashboardId, blockId, name),
+    updateDashboardBlock: (dashboardId, blockId, name) => client.updateDashboardBlock(config.base.appToken, dashboardId, blockId, name),
+  };
+  return { schemaAdapter, presentationAdapter };
+}
+
+function schemaReadiness(schema, config) {
+  const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+  const tableIdsByName = {};
+  for (const tableName of TABLE_ORDER) {
+    const binding = { "账号台账": "accounts", "选剧池": "dramas", "采集数据": "captures", "发布记录": "releases" }[tableName];
+    const table = byId.get(config.base.tableIds[binding]);
+    if (!table || table.name !== tableName) return { status: "schema_missing", table: tableName };
+    tableIdsByName[tableName] = table.table_id;
+  }
+  for (const tableName of TABLE_ORDER) {
+    const table = schema.tables.find((candidate) => candidate.name === tableName);
+    const actualNames = table.fields.map((field) => field.name).sort();
+    const expectedNames = BASE_FIELD_SPECS[tableName].map((field) => field.name).sort();
+    if (JSON.stringify(actualNames) !== JSON.stringify(expectedNames)) return { status: "schema_missing", table: tableName };
+    for (const spec of BASE_FIELD_SPECS[tableName]) {
+      const field = table.fields.find((candidate) => candidate.name === spec.name);
+      const expected = fixedFieldDescriptor(tableName, spec.name, spec.kind === "link" ? { targetTableId: tableIdsByName[spec.targetTable] } : {});
+      if (spec.primary && field?.is_primary !== true && field?.primary !== true ||
+          !Object.entries(expected).every(([key, value]) => JSON.stringify(field?.[key]) === JSON.stringify(value))) {
+        return { status: "schema_drift", table: tableName, field: spec.name };
+      }
+    }
+  }
+  return { status: "ready" };
+}
+
+export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null } = {}) {
+  const config = loadRuntimeConfig({ env, configPath, notificationChatId: env.SHORTDRAMA_OPS_CHAT_ID });
+  const jobs = new JobStore(config.paths.opsSqlite, { readOnly: command?.group === "doctor" });
+  try {
+    const tokenProvider = createTenantTokenProvider({ appId: config.auth.feishuAppId, appSecret: config.getFeishuAppSecret() });
+    const client = new FeishuClient({ tokenProvider });
+    const repos = new BaseRepositories({ client, appToken: config.base.appToken, tableIds: config.base.tableIds });
+    const operatorIds = parseEnvSet(env.SHORTDRAMA_OPERATOR_IDS);
+    const privilegedIds = parseEnvSet(env.SHORTDRAMA_PRIVILEGED_IDS);
+    const notificationChatIds = parseEnvSet(env.SHORTDRAMA_NOTIFICATION_CHAT_IDS);
+    const humanOps = new HumanOpsService({
+      repos, jobs, operators: operatorIds, privileged: privilegedIds, now,
+      makeReceiptId: () => `sdp_${randomUUID()}`,
+      allocateDramaId: () => allocateBusinessId(jobs.db, "drama"),
+      allocateReleaseId: () => allocateBusinessId(jobs.db, "release"),
+    });
+    const sendMessage = createFeishuMessageSender({ tokenProvider, isChatAllowed: config.auth.isNotificationChatAllowed });
+    const notifier = new ShortDramaNotifier({ allowedChatIds: notificationChatIds, sendMessage, jobs });
+    const opsChatId = normalized(env.SHORTDRAMA_OPS_CHAT_ID, "opsChatId");
+    if (!config.auth.isNotificationChatAllowed(opsChatId)) fail("notification_target_denied", "Ops chat is not allowlisted");
+    const wakeWorker = createWakeWorker({ spawnFile });
+    const collector = createCollectorAdapter({
+      nodePath: process.execPath, collectorPath: config.paths.collector, collectorCwd: dirname(config.paths.collector),
+      summaryDir: config.paths.collectorSummaryDir, metricsSqlitePath: config.paths.metricsSqlite, spawnFile, now,
+    });
+    const syncContext = { jobs, makeRunId, wakeWorker, now };
+    const workerPid = process.pid;
+    const workerContext = { jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts }, workerPid, now, metricsSqlitePath: config.paths.metricsSqlite };
+    const migrationBase = async () => baseSchemaMetadata(client, config);
+    const adapters = schemaAdapters(client, config);
+    const readGoogle = () => readGoogleMigrationSource({
+      spreadsheetId: config.sourceSpreadsheetId,
+      serviceAccount: safeServiceAccount(config.paths.googleServiceAccountPath),
+    });
+    const artifact = async (value, output) => output ? { value, artifact: await writeMigrationArtifact(value, { fileName: output.split("/").at(-1) }) } : value;
+    const runtime = {
+      config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
+      runWorker: runSyncWorker,
+      sendOpsHealth: sendMessage,
+      async doctor({ canary }) {
+        const sequence = jobs.peekSequenceState();
+        const schema = await migrationBase();
+        const readiness = schemaReadiness(schema, config);
+        if (readiness.status !== "ready") return { ...readiness, tables: schema.tables.length, sequence };
+        if (!sequence.seeded) return { status: "sequence_unseeded", schema_revision: schema.revision, sequence };
+        if (canary) await Promise.all(Object.values(repos).filter((value) => value?.loadIndex).map((repo) => repo.loadIndex()));
+        return { status: "ready", node: process.versions.node, schema_revision: schema.revision, sequence };
+      },
+      async migratePlan(_payload, options) {
+        const google = await readGoogle();
+        const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), now: () => now().toISOString() });
+        return artifact(manifest, options.output);
+      },
+      async migrateApply(payload, options) {
+        const manifest = payload?.manifest ?? payload;
+        const google = await readGoogle();
+        const context = { repos, phase: options.phase,
+          expectedSha256: manifest?.sha256, sourceRevision: google.revision, schemaReceipt: payload?.schemaReceipt,
+          expectedSchemaReceiptSha256: payload?.schemaReceipt?.sha256, presentationReceipt: payload?.presentationReceipt,
+          verification: payload?.verification, expectedVerificationSha256: payload?.verification?.sha256,
+          getSchemaRevision: async () => (await migrationBase()).revision,
+          schemaAdapter: adapters.schemaAdapter, presentationAdapter: adapters.presentationAdapter,
+          seedSequence: (kind, value) => seedBusinessIdSequence(jobs.db, kind, value),
+        };
+        try { return await applyMigration(context, manifest); }
+        catch (error) {
+          if (options.phase === "schema" && error?.code === "schema_revision_drift" && !payload?.schemaReceipt) {
+            fail("schema_receipt_lost", "Schema receipt is unavailable after Base schema changed", { next_step: "replan_reconfirm" });
+          }
+          throw error;
+        }
+      },
+      async migrateVerify(payload, options) { return artifact(await verifyMigration({ repos, now: () => now().toISOString() }, payload?.manifest ?? payload), options.output); },
+      close() { jobs.close(); },
+    };
+    return runtime;
+  } catch (error) {
+    jobs.close();
+    throw error;
+  }
+}
+
+function payloadRequired(command) {
+  return new Set([
+    "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-archive",
+    "release:schedule", "release:preview-update", "release:apply-update", "release:attach-post",
+    "migrate:apply", "migrate:verify",
+  ]).has(`${command.group}:${command.action}`);
+}
+
+export function exitCodeFor(result) {
+  const state = result?.state ?? result?.status;
+  if (result?.error) return 1;
+  if (state === "partial") return 2;
+  if (["failed", "error", "schema_missing", "schema_drift", "sequence_unseeded", "unavailable", "not_found"].includes(state)) return 1;
+  return 0;
+}
+
+function sanitizeErrorResult(result) {
+  const copy = structuredClone(result);
+  const walk = (value) => {
+    if (!value || typeof value !== "object") return;
+    for (const key of Object.keys(value)) {
+      const child = value[key];
+      if (/secret|token|authorization|credential/i.test(key) || typeof child === "string" && isAbsolute(child)) {
+        value[key] = "[redacted]";
+      } else walk(child);
+    }
+  };
+  walk(copy);
+  return copy;
+}
+
+export async function execute(argv, { env = process.env, stdin = process.stdin, build = buildRuntime } = {}) {
+  let runtime;
+  try {
+    const command = parseCommand(argv);
+    const hasSession = ["HERMES_SESSION_PLATFORM", "HERMES_SESSION_PROFILE", "HERMES_SESSION_USER_ID", "HERMES_SESSION_CHAT_ID"].some((key) => env[key] !== undefined);
+    const canResolveBeforeRuntime = isInternal(command) || hasSession || ["pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start";
+    const preliminaryIdentity = canResolveBeforeRuntime ? resolveInvocationIdentity(command, env) : null;
+    const configPath = command.options.config ?? env.SHORTDRAMA_CONFIG;
+    if (!configPath) fail("config_invalid", "--config or SHORTDRAMA_CONFIG is required");
+    runtime = await build({ configPath, env, command });
+    const identity = preliminaryIdentity ?? resolveInvocationIdentity(command, env, runtime.config?.auth ?? {});
+    const payload = await readPayload(command.options.payload, { payloadRoot: runtime.config.paths.payloadRoot, stdin });
+    if (payloadRequired(command) && !payload) fail("payload_required", "Command requires an explicit payload");
+    const result = await createDispatcher(runtime)(command, identity, payload);
+    return { result, exitCode: exitCodeFor(result) };
+  } catch (error) {
+    return { result: sanitizeErrorResult(toErrorResult(error)), exitCode: 1 };
+  } finally {
+    runtime?.close?.();
+  }
+}
+
+export async function main(argv = process.argv.slice(2), io = {}) {
+  const { result, exitCode } = await execute(argv, io);
+  (io.stdout ?? process.stdout).write(`${JSON.stringify(result)}\n`);
+  return exitCode;
+}
+
+if (resolve(process.argv[1] ?? "") === resolve(SCRIPT_PATH)) {
+  process.exitCode = await main();
+}

@@ -106,12 +106,18 @@ function transitionCounters(data) {
 }
 
 export class JobStore {
-  constructor(path) {
+  constructor(path, { readOnly = false } = {}) {
     this.path = requiredString(path, "path");
     try {
-      this.db = new DatabaseSync(this.path);
-      this.db.exec("PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL");
-      if (this.path !== ":memory:") this.db.exec("PRAGMA journal_mode=WAL");
+      this.db = new DatabaseSync(this.path, readOnly ? { readOnly: true } : {});
+      this.db.exec(readOnly ? "PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON" : "PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL");
+      if (!readOnly && this.path !== ":memory:") this.db.exec("PRAGMA journal_mode=WAL");
+      if (readOnly) {
+        const required = ["jobs", "audit_events", "preview_receipts", "health_alerts", "mutation_leases"];
+        const tables = new Set(this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((row) => row.name));
+        if (required.some((name) => !tables.has(name))) fail("state_store_schema_missing", "SQLite state store schema is incomplete");
+        return;
+      }
       this.db.exec(`
         CREATE TABLE IF NOT EXISTS jobs (
           run_id TEXT PRIMARY KEY,
@@ -236,6 +242,17 @@ export class JobStore {
     const normalizedChatId = optionalString(chatId, "chatId");
     const createdAt = timestamp(now);
     return this.immediate(() => {
+      if (normalizedTrigger === "schedule") {
+        const match = /^SDRUN-(\d{8})-\d{6}$/.exec(normalizedRunId);
+        if (!match) fail("run_id_invalid", "Scheduled run ID is invalid", { run_id: normalizedRunId });
+        const scheduled = jobFromRow(this.db.prepare(`
+          SELECT * FROM jobs
+          WHERE trigger = 'schedule' AND run_id LIKE ?
+          ORDER BY started_at, run_id
+          LIMIT 1
+        `).get(`SDRUN-${match[1]}-%`));
+        if (scheduled) return { created: false, job: scheduled };
+      }
       const sameRun = this.get(normalizedRunId);
       if (sameRun && !["queued", "running"].includes(sameRun.state)) {
         fail("run_id_collision", "Run ID already exists", { run_id: normalizedRunId });
@@ -275,6 +292,37 @@ export class JobStore {
       WHERE state IN ('queued', 'running')
       ORDER BY started_at, run_id
     `).all().map(jobFromRow);
+  }
+
+  listByBeijingDate(beijingDate) {
+    const date = requiredString(beijingDate, "beijingDate");
+    const parsed = /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(`${date}T00:00:00Z`) : null;
+    if (!parsed || Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) {
+      fail("state_store_input_invalid", "Beijing date must use YYYY-MM-DD", { beijing_date: date });
+    }
+    const prefix = `SDRUN-${date.replaceAll("-", "")}-`;
+    return this.db.prepare(`
+      SELECT * FROM jobs
+      WHERE run_id LIKE ? ESCAPE '\\'
+      ORDER BY started_at, run_id
+    `).all(`${prefix}%`).map(jobFromRow);
+  }
+
+  hasScheduledForDate(beijingDate) {
+    return this.listByBeijingDate(beijingDate).some((job) => job.trigger === "schedule");
+  }
+
+  peekSequenceState() {
+    const table = this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='id_sequences'").get();
+    if (!table) return { seeded: false, drama_next: null, release_next: null };
+    const rows = new Map(this.db.prepare("SELECT kind, last_value FROM id_sequences WHERE kind IN ('drama', 'release')").all()
+      .map((row) => [row.kind, row.last_value]));
+    const valid = ["drama", "release"].every((kind) => Number.isSafeInteger(rows.get(kind)) && rows.get(kind) >= 0);
+    return {
+      seeded: valid,
+      drama_next: valid ? `SD-${String(rows.get("drama") + 1).padStart(6, "0")}` : null,
+      release_next: valid ? `SR-${String(rows.get("release") + 1).padStart(6, "0")}` : null,
+    };
   }
 
   transition(runId, state, data = {}) {
@@ -604,7 +652,30 @@ export class JobStore {
         VALUES (?, 'claimed', ?, NULL, '')
         ON CONFLICT(alert_key) DO NOTHING
       `).run(key, timestamp(now));
-      return result.changes === 1;
+      if (result.changes === 1) return true;
+      const retry = this.db.prepare(`
+        UPDATE health_alerts
+        SET state = 'claimed', created_at = ?, sent_at = NULL, error = ''
+        WHERE alert_key = ? AND state = 'failed'
+      `).run(timestamp(now), key);
+      return retry.changes === 1;
+    });
+  }
+
+  markHealthAlert(alertKey, state, { now = new Date(), error = "" } = {}) {
+    const key = requiredString(alertKey, "alertKey");
+    if (!/^missing-terminal:\d{4}-\d{2}-\d{2}$/.test(key) || !["sent", "failed"].includes(state) ||
+        typeof error !== "string" || error.length > 128 || /[\r\n]/.test(error)) {
+      fail("health_alert_input_invalid", "Health alert result is invalid");
+    }
+    return this.immediate(() => {
+      const result = this.db.prepare(`
+        UPDATE health_alerts
+        SET state = ?, sent_at = ?, error = ?
+        WHERE alert_key = ? AND state = 'claimed'
+      `).run(state, state === "sent" ? timestamp(now) : null, error, key);
+      if (result.changes !== 1) fail("health_alert_claim_mismatch", "Health alert is not currently claimed");
+      return { alert_key: key, state, error };
     });
   }
 

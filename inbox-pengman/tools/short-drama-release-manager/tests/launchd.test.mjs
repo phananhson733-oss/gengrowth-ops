@@ -1,0 +1,30 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+
+test("launchd assets use the ticker and preserve the old evidence label", async () => {
+  const installer = await readFile(new URL("../install_launchd.sh", import.meta.url), "utf8");
+  const runner = await readFile(new URL("../run_scheduled.sh", import.meta.url), "utf8");
+  const plist = await readFile(new URL("../launchd/com.gengrowth.shortdrama-sync.plist", import.meta.url), "utf8");
+  const old = await readFile(new URL("../launchd/com.gengrowth.shortdrama-feishu-sync.plist", import.meta.url), "utf8");
+  for (const text of [installer, runner, plist]) assert.doesNotMatch(text, /\/Users\/pengman/);
+  assert.match(old, /com\.gengrowth\.shortdrama-feishu-sync/);
+  assert.match(runner, /TZ=Asia\/Shanghai/);
+  assert.match(runner, /schedule tick/);
+  assert.match(runner, /queue drain/);
+  assert.match(runner, /schedule health/);
+  assert.match(runner, /SHORTDRAMA_NODE_BIN/);
+  assert.doesNotMatch(runner, /nohup|spawnWorker|detached/);
+  assert.doesNotMatch(installer, /kickstart\s+-k/);
+  assert.match(installer, /plutil\s+-lint/);
+  assert.match(installer, /launchctl\s+bootout/);
+  assert.match(installer, /launchctl\s+bootstrap/);
+  assert.match(installer, /launchctl\s+print/);
+  assert.match(installer, /backup_plist/);
+  assert.match(installer, /trap .*restore/);
+  assert.match(installer, /SHORTDRAMA_NODE_BIN/);
+  assert.match(plist, /<string>com\.gengrowth\.shortdrama-sync<\/string>/);
+  assert.match(plist, /<key>StartInterval<\/key>\s*<integer>300<\/integer>/s);
+  assert.match(plist, /<key>SHORTDRAMA_NODE_BIN<\/key>/);
+  assert.doesNotMatch(plist, /StartCalendarInterval/);
+});
