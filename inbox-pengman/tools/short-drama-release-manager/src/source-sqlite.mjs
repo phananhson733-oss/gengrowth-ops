@@ -199,11 +199,20 @@ function assertTableSchema(db, tableName) {
     fail("source_schema_invalid", "Source table primary key does not match collector schema", { table: tableName });
   }
   if (spec.postForeignKey) {
-    const candidates = foreignKeys.filter((row) => row.from === "post_id");
-    const expected = spec.postForeignKey;
-    const matches = candidates.length === 1 && Object.entries(expected).every(
-      ([key, value]) => candidates[0][key] === value,
+    const groups = new Map();
+    for (const row of foreignKeys) {
+      const group = groups.get(row.id) ?? [];
+      group.push(row);
+      groups.set(row.id, group);
+    }
+    const candidates = [...groups.values()].filter((group) =>
+      group.some((row) => row.from === "post_id"),
     );
+    const expected = spec.postForeignKey;
+    const matches = candidates.length === 1 && candidates[0].length === 1 &&
+      Object.entries(expected).every(
+        ([key, value]) => candidates[0][0][key] === value,
+      );
     if (!matches) {
       fail("source_schema_invalid", "Source post foreign key does not match collector schema", { table: tableName });
     }

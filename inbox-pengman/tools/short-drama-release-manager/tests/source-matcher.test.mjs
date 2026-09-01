@@ -226,6 +226,41 @@ test("post snapshot schema requires the collector post foreign key", async (t) =
       assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
     });
   }
+
+  await t.test("composite foreign key cannot masquerade as the required single-column group", () => {
+    const { path, db } = createSourceDb();
+    db.exec(`
+      DROP TABLE post_snapshots;
+      CREATE UNIQUE INDEX posts_post_id_username ON posts(post_id, username);
+      CREATE TABLE post_snapshots (
+        snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
+        username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
+        favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
+        missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date),
+        FOREIGN KEY (post_id, username) REFERENCES posts(post_id, username)
+      );
+    `);
+    db.close();
+    assert.throws(() => readLatestPosts(path), (error) => error.code === "source_schema_invalid");
+  });
+
+  await t.test("unrelated additive foreign-key group remains safe", () => {
+    const { path, db } = createSourceDb();
+    db.exec(`
+      DROP TABLE post_snapshots;
+      CREATE UNIQUE INDEX posts_username ON posts(username);
+      CREATE TABLE post_snapshots (
+        snapshot_date TEXT NOT NULL, captured_at TEXT NOT NULL, post_id TEXT NOT NULL,
+        username TEXT NOT NULL, views INTEGER, likes INTEGER, comments INTEGER,
+        favorites INTEGER, shares INTEGER, collection_status TEXT NOT NULL,
+        missing_fields TEXT NOT NULL, PRIMARY KEY(post_id, snapshot_date),
+        FOREIGN KEY (post_id) REFERENCES posts(post_id),
+        FOREIGN KEY (username) REFERENCES posts(username)
+      );
+    `);
+    db.close();
+    assert.deepEqual(readLatestPosts(path), []);
+  });
 });
 
 test("latest accounts use the collector's successful non-null-follower semantics and canonical order", () => {
