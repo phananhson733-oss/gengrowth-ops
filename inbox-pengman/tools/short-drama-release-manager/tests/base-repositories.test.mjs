@@ -255,6 +255,25 @@ test("ordinary upsert binds empty and mutating readbacks to the requested record
   assert.equal(mutationClient.calls.update.length, 1);
 });
 
+test("empty-patch upsert rejects same-ID primary-key drift and discards the cached old key", async () => {
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  client.getRecord = async (...args) => {
+    const record = await baseGet(...args);
+    record.fields.账号ID = "b";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.accounts.upsertByKey("a", {}, "machine"),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(repos.accounts.index, null);
+  assert.equal(client.calls.create.length + client.calls.update.length, 0);
+});
+
 test("bulk sync performs one create call and one update call, reloads twice, skips unchanged, and verifies changed keys", async () => {
   const client = fakeClient({
     [tableIds.accounts]: [
@@ -364,6 +383,25 @@ test("machine invariant readback is bound to the record written", async () => {
   assert.equal(repos.accounts.index, null);
 });
 
+test("machine invariant primary-key drift during pre-read invalidates its cache", async () => {
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  client.getRecord = async (...args) => {
+    const record = await baseGet(...args);
+    record.fields.账号ID = "b";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.accounts.machineUpsertWithInvariant("a", { 粉丝数: 2 }),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(repos.accounts.index, null);
+  assert.equal(client.calls.create.length + client.calls.update.length, 0);
+});
+
 test("machine invariant forbids shared input before any write", async () => {
   const client = fakeClient({
     [tableIds.releases]: [{ record_id: "rec-r", fields: { 发布ID: "SR-1", "Post ID": "99" } }],
@@ -395,6 +433,27 @@ test("verify uses exact canonical deep comparison for only requested fields", as
   );
 });
 
+test("verify field drift invalidates a cached row and a valid retry preserves the refreshed cache", async () => {
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", 粉丝数: 1 } }],
+  });
+  const repos = makeRepos(client);
+  await repos.accounts.loadIndex();
+  client.rows[tableIds.accounts][0].fields.粉丝数 = 2;
+
+  await assert.rejects(
+    () => repos.accounts.verify("rec-a", { 粉丝数: 1 }),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(repos.accounts.index, null);
+
+  const refreshed = await repos.accounts.getByKey("a");
+  assert.equal(refreshed.fields.粉丝数, 2);
+  assert.equal(client.calls.list.filter((call) => call.tableId === tableIds.accounts).length, 2);
+  await repos.accounts.verify("rec-a", { 粉丝数: 2 });
+  assert.notEqual(repos.accounts.index, null);
+});
+
 test("linkCaptureSafely resolves capture IDs and rejects pre-write match-input drift", async () => {
   const client = fakeClient({
     [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
@@ -412,6 +471,28 @@ test("linkCaptureSafely resolves capture IDs and rejects pre-write match-input d
     () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "100" }),
     (error) => error.code === "match_inputs_changed",
   );
+  assert.equal(client.calls.update.length, 0);
+});
+
+test("linkCaptureSafely invalidates its release cache on same-ID pre-read match-input drift", async () => {
+  const client = fakeClient({
+    [tableIds.captures]: [{ record_id: "rec-c", fields: { "Post ID": "99" } }],
+    [tableIds.releases]: [{ record_id: "rec-r", fields: {
+      发布ID: "SR-1", "Post ID": "99", 视频链接: "https://video/99", 采集记录: [],
+    } }],
+  });
+  const baseGet = client.getRecord.bind(client);
+  client.getRecord = async (...args) => {
+    const record = await baseGet(...args);
+    record.fields["Post ID"] = "100";
+    return record;
+  };
+  const repos = makeRepos(client);
+  await assert.rejects(
+    () => repos.releases.linkCaptureSafely("SR-1", "rec-c", { "Post ID": "99" }),
+    (error) => error.code === "match_inputs_changed",
+  );
+  assert.equal(repos.releases.index, null);
   assert.equal(client.calls.update.length, 0);
 });
 
