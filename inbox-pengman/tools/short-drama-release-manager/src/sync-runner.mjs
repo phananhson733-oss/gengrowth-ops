@@ -678,7 +678,9 @@ export async function runSyncWorker(context, runId) {
           releaseError(errors, candidate.releaseId, { code: "manual_post_account_mismatch" });
           continue;
         }
-        match = { status: "matched", method: "existing_relation", confidence: 1, post };
+        const method = candidate.fields["Post ID"] ? "exact_post_id" :
+          candidate.fields.视频链接 ? "manual_url" : "account_time";
+        match = { status: "matched", method, confidence: 1, post };
       }
       if (!match) {
         try {

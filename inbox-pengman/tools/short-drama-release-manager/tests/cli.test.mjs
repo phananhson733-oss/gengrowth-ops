@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { access, chmod, mkdtemp, mkdir, open, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import { access, chmod, mkdtemp, mkdir, open, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -17,6 +17,7 @@ import {
   exitCodeFor,
   inspectTrustedLocalInvoker,
   parseCommand,
+  readGoogleServiceAccount,
   main,
   readPayload,
   resolveInvocationIdentity,
@@ -575,7 +576,7 @@ test("untrusted local Hermes ancestry is rejected before runtime construction ev
   assert.equal(builds, 0);
 });
 
-test("local provenance accepts a bounded Terminal chain and rejects Hermes ancestry", () => {
+test("local provenance accepts only a bounded positive Terminal chain", () => {
   const tty = { isTTY: true };
   const terminalRows = new Map([
     [100, { pid: 100, ppid: 90, command: "/usr/local/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
@@ -586,6 +587,19 @@ test("local provenance accepts a bounded Terminal chain and rejects Hermes ances
   const hermesRows = new Map(terminalRows);
   hermesRows.set(90, { pid: 90, ppid: 80, command: "/usr/bin/python3", args: "python run_agent.py" });
   assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => hermesRows.get(pid) }), false);
+  const unknownWrapperRows = new Map([
+    [100, { pid: 100, ppid: 95, command: "/usr/local/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
+    [95, { pid: 95, ppid: 90, command: "/usr/bin/python3", args: "python unknown-wrapper.py" }],
+    [90, { pid: 90, ppid: 80, command: "/bin/zsh", args: "-zsh" }],
+    [80, { pid: 80, ppid: 1, command: "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal", args: "Terminal" }],
+  ]);
+  assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => unknownWrapperRows.get(pid) }), false);
+  const missingAnchorRows = new Map(terminalRows);
+  missingAnchorRows.set(80, { pid: 80, ppid: 1, command: "/bin/zsh", args: "-zsh" });
+  assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => missingAnchorRows.get(pid) }), false);
+  const ghosttyRows = new Map(terminalRows);
+  ghosttyRows.set(80, { pid: 80, ppid: 1, command: "/Applications/Ghostty.app/Contents/MacOS/ghostty", args: "ghostty" });
+  assert.equal(inspectTrustedLocalInvoker({ stdin: tty, stdout: tty, pid: 100, readProcess: (pid) => ghosttyRows.get(pid) }), true);
   assert.equal(inspectTrustedLocalInvoker({ stdin: { isTTY: false }, stdout: tty, pid: 100, readProcess: (pid) => terminalRows.get(pid) }), false);
 });
 
@@ -737,7 +751,38 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   assert.deepEqual(observed, { operators: ["ou_a", "ou_b"], privileged: ["ou_admin"], chats: ["oc_ops", "oc_social"] });
 });
 
-test("runtime terminal dashboard resolver updates the fixed block and verifies readback", async () => {
+test("Google service-account loader requires a private owned no-symlink strict credential", async () => {
+  const root = await realpath(await mkdtemp(path.join(os.tmpdir(), "shortdrama-google-credential-")));
+  const secure = path.join(root, "secure");
+  await mkdir(secure);
+  const file = path.join(secure, "service-account.json");
+  const valid = {
+    type: "service_account",
+    client_email: "shortdrama@test-project.iam.gserviceaccount.com",
+    private_key: "-----BEGIN PRIVATE KEY-----\nYWJj\n-----END PRIVATE KEY-----\n",
+    token_uri: "https://oauth2.googleapis.com/token",
+  };
+  await writeFile(file, JSON.stringify(valid), { mode: 0o600 });
+  assert.deepEqual(await readGoogleServiceAccount(file), valid);
+
+  await chmod(file, 0o644);
+  await assert.rejects(readGoogleServiceAccount(file), (error) => error.code === "google_source_invalid" && !JSON.stringify(error).includes(root));
+  await chmod(file, 0o600);
+
+  const link = path.join(root, "credential-link.json");
+  await symlink(file, link);
+  await assert.rejects(readGoogleServiceAccount(link), (error) => error.code === "google_source_invalid");
+  const linkedParent = path.join(root, "linked-parent");
+  await symlink(secure, linkedParent);
+  await assert.rejects(readGoogleServiceAccount(path.join(linkedParent, "service-account.json")), (error) => error.code === "google_source_invalid");
+
+  await writeFile(file, JSON.stringify({ ...valid, token_uri: "https://evil.example/token" }), { mode: 0o600 });
+  await assert.rejects(readGoogleServiceAccount(file), (error) => error.code === "google_source_invalid");
+  await writeFile(file, JSON.stringify({ ...valid, unexpected: "value" }), { mode: 0o600 });
+  await assert.rejects(readGoogleServiceAccount(file), (error) => error.code === "google_source_invalid");
+});
+
+test("runtime terminal dashboard resolver verifies readback and never overwrites a newer terminal", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-dashboard-runtime-"));
   const { config, env } = runtimeFixture(root);
   const configPath = path.join(root, "runtime.json");
@@ -763,6 +808,36 @@ test("runtime terminal dashboard resolver updates the fixed block and verifies r
     });
     assert.equal(calls.length, 1);
     assert.deepEqual(calls[0].slice(1, 4), ["base", "dash", "block"]);
+    await updateTerminalDashboard({
+      state: "failed", run_id: "SDRUN-20260901-075959", finished_at: "2026-08-31T23:59:59.000Z",
+    });
+    assert.equal(calls.length, 1);
+  } finally { runtime.close(); }
+});
+
+test("runtime schema metadata rejects an unexpected unbound fifth Base table before field reads", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-extra-table-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  let fieldReads = 0;
+  const names = [
+    [env.TA, "账号台账"], [env.TD, "选剧池"], [env.TC, "采集数据"], [env.TR, "发布记录"],
+    ["tbl-default", "默认数据表"],
+  ];
+  const client = repositoryClient({
+    listTables: async () => ({ complete: true, items: names.map(([table_id, name]) => ({ table_id, name })) }),
+    listFields: async () => { fieldReads += 1; return { complete: true, revision: "r", items: [] }; },
+  });
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture },
+  });
+  try {
+    await assert.rejects(runtime.doctor({ initState: true, canary: false }), (error) => error.code === "base_schema_drift");
+    assert.equal(fieldReads, 0);
   } finally { runtime.close(); }
 });
 

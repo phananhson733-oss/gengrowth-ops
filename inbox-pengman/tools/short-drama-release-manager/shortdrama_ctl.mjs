@@ -189,11 +189,12 @@ export function inspectTrustedLocalInvoker({
 } = {}) {
   if (stdin?.isTTY !== true || stdout?.isTTY !== true || !Number.isSafeInteger(pid) || pid <= 1 ||
       typeof readProcess !== "function" || !Number.isSafeInteger(maxDepth) || maxDepth < 2 || maxDepth > 32) return false;
-  const blockedExecutable = /^(?:hermes|codex|electron|run_agent\.py|tui_gateway|process-registry|backend-command)(?:$|[._-])/i;
-  const terminalExecutable = /^(?:terminal|iterm2?|wezterm-gui|alacritty|kitty)$/i;
+  const runnerExecutables = new Set(["node"]);
+  const shellExecutables = new Set(["bash", "fish", "sh", "zsh"]);
+  const terminalExecutables = new Set(["ghostty", "iterm2", "kitty", "terminal", "wezterm-gui"]);
   const seen = new Set();
   let current = pid;
-  let sawTerminal = false;
+  let expected = "runner";
   try {
     for (let depth = 0; depth < maxDepth && current > 1; depth += 1) {
       if (seen.has(current)) return false;
@@ -201,11 +202,15 @@ export function inspectTrustedLocalInvoker({
       const row = readProcess(current);
       if (!row || row.pid !== current || !Number.isSafeInteger(row.ppid) || row.ppid < 0 ||
           typeof row.command !== "string" || typeof row.args !== "string") return false;
-      const executable = row.command.split("/").pop();
-      const argumentExecutables = row.args.split(/\s+/).filter(Boolean).map((value) => value.replace(/^['"]|['"]$/g, "").split("/").pop());
-      if (blockedExecutable.test(executable) || argumentExecutables.some((value) => blockedExecutable.test(value))) return false;
-      if (terminalExecutable.test(executable)) sawTerminal = true;
-      if (row.ppid <= 1) return sawTerminal;
+      const executable = row.command.split("/").pop().toLowerCase();
+      if (expected === "runner") {
+        if (!runnerExecutables.has(executable)) return false;
+        expected = "shell_or_terminal";
+      } else if (expected === "shell_or_terminal") {
+        if (terminalExecutables.has(executable)) return row.ppid === 1;
+        if (!shellExecutables.has(executable)) return false;
+      } else return false;
+      if (row.ppid <= 1) return false;
       current = row.ppid;
     }
   } catch {
@@ -858,9 +863,16 @@ export function createDispatcher(runtime) {
 async function baseSchemaMetadata(client, config, { includeRecordEvidence = false } = {}) {
   const tables = await client.listTables(config.base.appToken);
   if (!tables || tables.complete !== true || !Array.isArray(tables.items)) fail("base_response_incomplete", "Complete configured Base table metadata is required");
+  const expectedBindings = new Map(CANARY_TABLES.map(([binding, tableName]) => [config.base.tableIds[binding], tableName]));
+  if (tables.items.length !== TABLE_ORDER.length || expectedBindings.size !== TABLE_ORDER.length ||
+      new Set(tables.items.map((table) => table?.table_id)).size !== TABLE_ORDER.length ||
+      new Set(tables.items.map((table) => table?.name)).size !== TABLE_ORDER.length ||
+      tables.items.some((table) => typeof table?.table_id !== "string" ||
+        expectedBindings.get(table.table_id) !== table.name)) {
+    fail("base_schema_drift", "Base must contain exactly the four configured tables");
+  }
   const selected = [];
   for (const table of tables.items) {
-    if (!Object.values(config.base.tableIds).includes(table.table_id)) continue;
     const fields = await client.listFields(config.base.appToken, table.table_id);
     if (!fields || fields.complete !== true || !Array.isArray(fields.items)) {
       fail("base_response_incomplete", "Complete Base field metadata is required");
@@ -885,9 +897,72 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
   return { complete: true, revision: `base-schema-v1:${createHash("sha256").update(canonical).digest("hex")}`, tables: selected };
 }
 
-function safeServiceAccount(path) {
-  try { return JSON.parse(readFileSync(path, "utf8")); }
-  catch { fail("google_source_invalid", "Google service account could not be read"); }
+const MAX_GOOGLE_CREDENTIAL_BYTES = 64 * 1024;
+const GOOGLE_TOKEN_URIS = new Set([
+  "https://oauth2.googleapis.com/token",
+  "https://www.googleapis.com/oauth2/v4/token",
+]);
+const GOOGLE_CREDENTIAL_KEYS = new Set([
+  "type", "project_id", "private_key_id", "private_key", "client_email", "client_id", "auth_uri", "token_uri",
+  "auth_provider_x509_cert_url", "client_x509_cert_url", "universe_domain",
+]);
+
+export async function readGoogleServiceAccount(path, { openFile = open } = {}) {
+  const candidate = resolve(typeof path === "string" ? path : "");
+  let cursor = dirname(candidate);
+  let before;
+  let handle;
+  try {
+    while (true) {
+      const parent = await lstat(cursor);
+      if (parent.isSymbolicLink() || !parent.isDirectory()) fail("google_source_invalid", "Google service account parent is unsafe");
+      const next = dirname(cursor);
+      if (next === cursor) break;
+      cursor = next;
+    }
+    before = await lstat(candidate);
+    const uid = typeof process.getuid === "function" ? process.getuid() : null;
+    if (before.isSymbolicLink() || !before.isFile() || uid === null || before.uid !== uid ||
+        (before.mode & 0o777) !== 0o600 || before.size === 0 || before.size > MAX_GOOGLE_CREDENTIAL_BYTES) {
+      fail("google_source_invalid", "Google service account file is unsafe");
+    }
+    handle = await openFile(candidate, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const opened = await handle.stat();
+    if (!opened.isFile() || opened.dev !== before.dev || opened.ino !== before.ino || opened.size !== before.size ||
+        opened.uid !== uid || (opened.mode & 0o777) !== 0o600 || opened.size > MAX_GOOGLE_CREDENTIAL_BYTES) {
+      fail("google_source_invalid", "Google service account file changed during validation");
+    }
+    const bytes = await handle.readFile();
+    let parsed;
+    try { parsed = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)); }
+    catch { fail("google_source_invalid", "Google service account JSON is invalid"); }
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed) || Object.getPrototypeOf(parsed) !== Object.prototype ||
+        Object.keys(parsed).some((key) => !GOOGLE_CREDENTIAL_KEYS.has(key)) || parsed.type !== "service_account" ||
+        typeof parsed.client_email !== "string" || parsed.client_email.trim() !== parsed.client_email ||
+        !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.iam\.gserviceaccount\.com$/.test(parsed.client_email) ||
+        typeof parsed.private_key !== "string" || !/^-----BEGIN PRIVATE KEY-----\n[A-Za-z0-9+/=\n]+\n-----END PRIVATE KEY-----\n?$/.test(parsed.private_key) ||
+        !GOOGLE_TOKEN_URIS.has(parsed.token_uri) ||
+        Object.entries(parsed).some(([key, value]) => !["private_key"].includes(key) && typeof value !== "string")) {
+      fail("google_source_invalid", "Google service account fields are invalid");
+    }
+    return structuredClone(parsed);
+  } catch (error) {
+    if (error instanceof ShortDramaError) throw error;
+    fail("google_source_invalid", "Google service account could not be read");
+  } finally {
+    await handle?.close();
+  }
+}
+
+function terminalDashboardFinishedAt(block) {
+  const text = block?.data_config?.text;
+  if (text === "尚无成功同步记录") return null;
+  const match = typeof text === "string" ? /^\*\*最近一次同步终态\*\*\n状态：(success|partial|failed)\nrun_id：[^\r\n]+\n完成时间：([^\r\n]+)$/.exec(text) : null;
+  const parsed = match ? Date.parse(match[2]) : Number.NaN;
+  if (!match || !Number.isFinite(parsed) || !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(match[2])) {
+    fail("base_response_invalid", "Terminal dashboard state is malformed");
+  }
+  return parsed;
 }
 
 async function defaultFeishuFetch(url, options) {
@@ -946,6 +1021,13 @@ function schemaAdapters(client, config) {
 }
 
 function schemaReadiness(schema, config) {
+  if (!schema || schema.complete !== true || !Array.isArray(schema.tables)) {
+    return { status: "schema_drift", reason: "unexpected_table_set" };
+  }
+  const expectedNamesById = new Map(CANARY_TABLES.map(([binding, tableName]) => [config.base.tableIds[binding], tableName]));
+  if (schema.tables.some((table) => expectedNamesById.get(table?.table_id) !== table?.name)) {
+    return { status: "schema_drift", reason: "unexpected_table_set" };
+  }
   const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
   const tableIdsByName = {};
   for (const tableName of TABLE_ORDER) {
@@ -1023,6 +1105,10 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       const blockId = blockMatches[0].block_id;
       const terminal = { state: job.state, runId: job.run_id, finishedAt: job.finished_at };
       const expected = fixedTerminalDashboardBlockDescriptor(terminal);
+      const current = await client.readDashboardBlock(config.base.appToken, dashboardId, blockId, expected.name);
+      const currentFinishedAt = terminalDashboardFinishedAt(current);
+      const candidateFinishedAt = Date.parse(job.finished_at);
+      if (currentFinishedAt !== null && candidateFinishedAt < currentFinishedAt) return;
       await client.updateDashboardTerminalBlock(config.base.appToken, dashboardId, blockId, terminal);
       const readback = await client.readDashboardBlock(config.base.appToken, dashboardId, blockId, expected.name);
       if (JSON.stringify(readback.data_config) !== JSON.stringify(expected.data_config)) fail("readback_mismatch", "Terminal dashboard readback did not match persisted job");
@@ -1062,9 +1148,9 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
     )).digest("hex");
     const adapters = schemaAdapters(client, config);
-    const readGoogle = () => readGoogleMigrationSource({
+    const readGoogle = async () => readGoogleMigrationSource({
       spreadsheetId: config.sourceSpreadsheetId,
-      serviceAccount: safeServiceAccount(config.paths.googleServiceAccountPath),
+      serviceAccount: await readGoogleServiceAccount(config.paths.googleServiceAccountPath),
     });
     const runtime = {
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
@@ -1139,7 +1225,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           verification: payload.verification, expectedVerificationSha256: payload.verification?.sha256,
           getSchemaRevision: async () => (await schemaSnapshot()).revision,
           readEmptyTableEvidence: async () => {
-            const snapshot = await schemaSnapshot();
+            const snapshot = await migrationBase();
             return Object.fromEntries(TABLE_ORDER.map((tableName) => {
               const table = snapshot.tables.find((candidate) => candidate.name === tableName);
               return [tableName, {

@@ -100,9 +100,11 @@ function validateWriteResult(result, expectedCount, tableName, expectedIds = nul
   }
   const ids = result.map((record) => {
     if (!plainObject(record)) fail("base_response_invalid", "Base write result is malformed", { table: tableName });
+    if (record.record_id === null && expectedIds === null) return null;
     return normalizeRecordId(record.record_id);
   });
-  if (new Set(ids).size !== ids.length) {
+  const knownIds = ids.filter((id) => id !== null);
+  if (new Set(knownIds).size !== knownIds.length) {
     fail("base_response_invalid", "Base write result contains duplicate record IDs", { table: tableName });
   }
   if (expectedIds && ids.some((id, index) => id !== expectedIds[index])) {
@@ -162,7 +164,7 @@ export class TableRepository {
   async loadIndex({ signal } = {}) {
     assertNotAborted(signal);
     this.index = null;
-    const result = await this.client.listRecords(this.appToken, this.tableId, { signal });
+    const result = await this.client.listRecords(this.appToken, this.tableId, { signal, tableName: this.tableName });
     assertNotAborted(signal);
     if (!plainObject(result) || result.complete !== true) {
       if (plainObject(result) && result.complete === false) {
@@ -194,7 +196,7 @@ export class TableRepository {
     assertNotAborted(signal);
     const normalizedId = normalizeRecordId(recordId);
     try {
-      const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId, { signal });
+      const rawRecord = await this.client.getRecord(this.appToken, this.tableId, normalizedId, { signal, tableName: this.tableName });
       assertNotAborted(signal);
       if (!plainObject(rawRecord) || !plainObject(rawRecord.fields) || rawRecord.record_id !== normalizedId) {
         fail("readback_mismatch", "Base readback record ID does not match the request", {
@@ -288,18 +290,25 @@ export class TableRepository {
       this.index = null;
       written = await this.client.updateRecords(this.appToken, this.tableId, [
         { record_id: existing.record_id, fields: clone(writeFields) },
-      ], { signal });
+      ], { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName, [existing.record_id]);
     } else {
       assertPatchAllowed(this.tableName, { [this.primaryField]: prepared.key }, "migration");
       writeFields = { ...prepared.patch, [this.primaryField]: prepared.key };
       this.index = null;
-      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(writeFields) }], { signal });
+      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(writeFields) }], { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName);
     }
     const recordId = written[0].record_id;
+    if (recordId === null) {
+      await this.loadIndex({ signal });
+      const readback = this.index.get(prepared.key);
+      if (!readback) fail("readback_mismatch", "Created Base record is missing after acknowledged write", { table: this.tableName });
+      assertRequestedFields(readback, writeFields, this.tableName);
+      return { record: clone(readback), readback: "verified" };
+    }
     const readback = await this.readRecordById(recordId, {
       requirePrimary: true,
       validate: (record) => {
@@ -365,13 +374,13 @@ export class TableRepository {
     if (creates.length > 0 || updates.length > 0) this.index = null;
     if (creates.length > 0) {
       assertNotAborted(signal);
-      const result = await this.client.createRecords(this.appToken, this.tableId, creates, { signal });
+      const result = await this.client.createRecords(this.appToken, this.tableId, creates, { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(result, creates.length, this.tableName);
     }
     if (updates.length > 0) {
       assertNotAborted(signal);
-      const result = await this.client.updateRecords(this.appToken, this.tableId, updates, { signal });
+      const result = await this.client.updateRecords(this.appToken, this.tableId, updates, { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(result, updates.length, this.tableName, updates.map((record) => record.record_id));
     }
@@ -429,19 +438,25 @@ export class TableRepository {
       this.index = null;
       written = await this.client.updateRecords(this.appToken, this.tableId, [
         { record_id: before.record_id, fields: clone(prepared.patch) },
-      ], { signal });
+      ], { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName, [before.record_id]);
     } else {
       assertPatchAllowed(this.tableName, { [this.primaryField]: prepared.key }, "migration");
       expected = { ...prepared.patch, [this.primaryField]: prepared.key };
       this.index = null;
-      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(expected) }], { signal });
+      written = await this.client.createRecords(this.appToken, this.tableId, [{ fields: clone(expected) }], { signal, tableName: this.tableName });
       assertNotAborted(signal);
       validateWriteResult(written, 1, this.tableName);
     }
 
-    const after = await this.readRecordById(written[0].record_id, {
+    let after;
+    if (written[0].record_id === null) {
+      await this.loadIndex({ signal });
+      after = this.index.get(prepared.key);
+      if (!after) fail("readback_mismatch", "Created Base record is missing after acknowledged machine write", { table: this.tableName });
+      assertRequestedFields(after, expected, this.tableName);
+    } else after = await this.readRecordById(written[0].record_id, {
       requirePrimary: true,
       validate: (record) => {
         assertRequestedFields(record, expected, this.tableName);
@@ -520,7 +535,7 @@ class ReleaseRepository extends TableRepository {
     this.index = null;
     const written = await this.client.updateRecords(this.appToken, this.tableId, [
       { record_id: before.record_id, fields: clone(prepared.patch) },
-    ], { signal });
+    ], { signal, tableName: this.tableName });
     assertNotAborted(signal);
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
     const after = await this.readRecordById(before.record_id, { requirePrimary: true, signal });
@@ -586,7 +601,7 @@ class ReleaseRepository extends TableRepository {
     this.index = null;
     const written = await this.client.updateRecords(this.appToken, this.tableId, [
       { record_id: before.record_id, fields: { 采集记录: clone(relation) } },
-    ], { signal });
+    ], { signal, tableName: this.tableName });
     assertNotAborted(signal);
     validateWriteResult(written, 1, this.tableName, [before.record_id]);
 

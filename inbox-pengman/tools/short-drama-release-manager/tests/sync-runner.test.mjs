@@ -191,6 +191,22 @@ test("notifier resolves the persisted terminal destination and ignores caller ov
   assert.deepEqual(marks, [[RUN_ID, "sent"]]);
 });
 
+test("notification renders absent or invalid counters unavailable while preserving real zero", async () => {
+  const persisted = terminalStoreRow({ state: "failed" });
+  persisted.counters = { accounts_updated: 0, capture_rows_upserted: "0" };
+  let text = "";
+  const notifier = new ShortDramaNotifier({
+    allowedChatIds: new Set(["oc_social"]), updateTerminalDashboard: dashboardOk,
+    sendMessage: async (payload) => { text = payload.text; },
+    jobs: { get: () => structuredClone(persisted), markNotification: () => {} },
+  });
+  await notifier.sendTerminal(persisted);
+  assert.match(text, /accounts_updated=0/);
+  for (const name of ["capture_rows_upserted", "releases_linked", "manual_fields_changed_by_sync", "errors"]) {
+    assert.match(text, new RegExp(`${name}=unavailable`));
+  }
+});
+
 test("notifier persists failed for malformed and non-allowlisted persisted destinations without sending", async () => {
   for (const chatId of ["oc_attacker", " oc_social ", "", null]) {
     let sent = 0;
@@ -618,6 +634,8 @@ test("an existing capture relation reserves its Post ID before date inference", 
   }), RUN_ID);
   assert.equal(result.state, "partial");
   assert.deepEqual(calls.filter(([name]) => name === "releases:evidence").map((row) => row[1]), ["SR-000002"]);
+  assert.equal(calls.find(([name]) => name === "releases:evidence")[2].匹配方式, "account_time");
+  assert.equal(calls.some(([, , patch]) => patch?.匹配方式 === "existing_relation"), false);
   assert.equal(calls.filter(([name]) => name === "releases:link").length, 0);
   store.close();
 });

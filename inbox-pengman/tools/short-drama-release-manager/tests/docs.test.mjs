@@ -1,17 +1,22 @@
 import assert from "node:assert/strict";
+import { execFile as execFileCallback } from "node:child_process";
 import { readFile } from "node:fs/promises";
+import { promisify } from "node:util";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 const readmeUrl = new URL("README.md", root);
 const envUrl = new URL("../tiktok-public-capture/.env.example", root);
 const configUrl = new URL("shortdrama.config.example.json", root);
+const planUrl = new URL("../../06-requirements/2026-09-01-短剧发行管理-v5-实施计划.md", root);
+const execFile = promisify(execFileCallback);
 
 async function docs() {
   return {
     readme: await readFile(readmeUrl, "utf8"),
     env: await readFile(envUrl, "utf8"),
     config: await readFile(configUrl, "utf8"),
+    plan: await readFile(planUrl, "utf8"),
   };
 }
 
@@ -24,6 +29,20 @@ test("README makes shortdrama_ctl the sole v5 production entry and retires histo
   assert.match(readme, /com\.gengrowth\.shortdrama-feishu-sync.*historical\/disabled/);
   assert.doesNotMatch(readme, /sync_shortdrama_to_feishu\.mjs --(?:google-canary|setup-google|setup-feishu|canary|sync)/);
   assert.doesNotMatch(readme, /10:30|每 15 分钟|每隔 15 分钟/);
+});
+
+test("Task 12 pins lark-cli and provides a syntax-valid exact-four empty Base bootstrap", async () => {
+  const { plan } = await docs();
+  const match = /# BEGIN TASK12 EXACT FOUR BOOTSTRAP\n([\s\S]*?)# END TASK12 EXACT FOUR BOOTSTRAP/.exec(plan);
+  assert.ok(match, "Task 12 bootstrap block is missing");
+  await execFile("/bin/zsh", ["-n", "-c", match[1]]);
+  for (const term of [
+    "lark-cli version 1.0.91", "+table-list", "+table-update", "+table-create", "+record-list",
+    ".data.base_token // empty", ".data.tables[0].id // empty", ".data.id // empty", ".data.total == 0",
+    "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID", "FEISHU_SHORTDRAMA_POOL_TABLE_ID",
+    "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID", "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID",
+    "账号台账", "选剧池", "采集数据", "发布记录",
+  ]) assert.match(match[1], new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
 });
 
 test("README records the four-table source of truth and immutable runtime paths", async () => {

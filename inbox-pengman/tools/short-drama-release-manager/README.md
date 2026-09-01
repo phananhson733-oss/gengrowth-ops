@@ -14,7 +14,7 @@
 
 - Node：目标机 doctor 验证过的 **Node 24+**。
 - 正式配置文件名：`shortdrama.runtime.json`；从 `shortdrama.config.example.json`复制后仅在生产机安全配置，禁止提交。
-- 凭证文件：配置中的相对路径`paths.env_file`，正式指向未提交的本地`.env`；launchd/plist/argv只携带 config 与 capability 路径，不携带 secret。
+- 凭证文件：配置中的相对路径`paths.env_file`，正式指向未提交的本地`.env`；Google service-account JSON 同样只允许当前用户持有的 0600 有界普通文件，拒绝文件/父目录 symlink、未知字段、非 service-account 邮箱/私钥以及非 allowlist HTTPS token URI。launchd/plist/argv只携带 config 与 capability 路径，不携带 secret。
 - Job/Audit state DB：配置中的 `ops_sqlite`，正式约定为 `inbox-pengman/output/short-drama-release-manager/shortdrama_ops.sqlite`。
 - payload 根目录：配置中的 `payload_root`；Social 写操作的 JSON payload heredoc 由 **Hermes Skill** 通过 stdin (`--payload -`) 提供，不在聊天里拼 shell。
 - migration artifact 固定根目录：`inbox-pengman/output/short-drama-release-manager/migrations/`。文件名必须为该目录内不可覆盖的安全 JSON 文件名。
@@ -31,7 +31,7 @@ node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token 
 
 ## Public commands
 
-普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用`--actor-id`或`--chat-id`冒充。Runner 自身拒绝任何 Feishu Social 会话调用 doctor、migration、permission helper、schedule 或 queue。所有本地 doctor/migrate 管理命令只能由用户在独立 macOS Terminal/iTerm 等真实 TTY 中直接执行，Runner 会有界检查进程祖先；Hermes gateway、run_agent、TUI/desktop backend、Codex task 或来源未知的间接 shell 即使清空全部`HERMES_*`变量也会被拒绝。Task 12/13 的管理员命令必须由用户动作时确认后亲自在独立 Terminal 执行，不能由 Social Bot/Codex 代跑。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
+普通查询和业务操作由 Feishu Social 会话调用。`HERMES_SESSION_*` actor/chat 由 gateway 注入；不得用`--actor-id`或`--chat-id`冒充。Runner 自身拒绝任何 Feishu Social 会话调用 doctor、migration、permission helper、schedule 或 queue。所有本地 doctor/migrate 管理命令只能由用户在独立 macOS Terminal/iTerm/WezTerm/kitty/Ghostty 真实 TTY 中直接执行；Runner 的有界进程检查是纯正向 allowlist：当前 Node 后只能出现固定 shell，随后必须到达已知 GUI Terminal 锚点并终止于 launchd/root。未知 Python/Node wrapper、IDE、Hermes gateway/run_agent、TUI/desktop backend、Codex task 或来源未知的间接 shell 即使清空全部`HERMES_*`变量也会被拒绝。Task 12/13 的管理员命令必须由用户动作时确认后亲自在独立 Terminal 执行，不能由 Social Bot/Codex 代跑。除 doctor 与迁移外，下面省略的 payload 内容都由 Hermes Skill 的严格 heredoc 生成。
 
 ### Doctor 与迁移
 
@@ -88,7 +88,7 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
 
-正式 Base 必须先由公司用户在 UI 或已授权的`lark-cli`中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把真实 table ID 写入本地 env。Runner 不动态建表；任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
+正式 Base 必须先由公司用户在 UI 或动作时确认后的 **lark-cli v1.0.91** 中创建四张空表，名称精确为`账号台账 / 选剧池 / 采集数据 / 发布记录`，再把返回 `.data.id` 的真实 table ID 写入本地 env。Base 中不能残留第五张默认/未绑定表；Runner 不动态建表。任一绑定缺失会在写前返回`base_table_missing + next_step=create_four_empty_tables_and_bind_ids`，任一额外表返回 schema drift。Task 12 给出重命名默认首表、创建其余三表、精确四表/total=0 读回与 env 绑定的可执行命令。`migrate plan`只读 Google/SQLite/Base 元数据并写不可覆盖的计划证据，不写业务数据。doctor（除 init-state）、plan/apply/verify/canary 每次还必须用独立取得的`--expected-base-token`与配置做常量时间核对；manifest 和后续 receipt 都绑定非敏感 Base SHA-256。
 
 首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
 
@@ -146,7 +146,7 @@ node shortdrama_ctl.mjs metrics by-drama --config "$RUNTIME_CONFIG"
 node shortdrama_ctl.mjs metrics by-account --config "$RUNTIME_CONFIG"
 ```
 
-四个`list|get`族都返回统一的`table + rows/record + readback=complete + source=base_complete_index`，缺失精确返回`not_found`。`pool/release update-field`只接受精确`{key,field,value}`；`preview-batch`只接受精确`{items:[{key,patch},...]}`并固定 action/table/actor/chat，继续用`apply-update`的 receipt 落地；多字段/归档必须先 preview，再用 receipt apply。`account/capture`严格只读。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
+四个`list|get`族都返回统一的`table + rows/record + readback=complete + source=base_complete_index`，缺失精确返回`not_found`。`pool/release update-field`只接受精确`{key,field,value}`；`preview-batch`只接受精确`{items:[{key,patch},...]}`并固定 action/table/actor/chat，继续用`apply-update`的 receipt 落地；多字段/归档必须先 preview，再用 receipt apply，apply 结果回传被消费的`receipt_id`。`account/capture`严格只读。固定 select 字段的 options 属于 schema descriptor 并在每次 readiness/write 重验，匹配方式只允许`exact_post_id / manual_url / account_time`，不得写内部占位值`existing_relation`。所有成功写入必须有 write-after-readback；不完整分页、字段漂移或并发人工变化不能解释为成功或有效零。
 
 每个普通 Base 查询/人工 mutation、`sync start`入队和 worker Collector/Base 副作用前都在该次 CLI 进程内重新读取并验证四表绑定和完整字段 descriptor，不跨进程缓存 doctor 结果。任一 schema drift/missing 均在业务副作用前失败。`Post ID`在全部发布记录中全局唯一，archived 记录同样保留 claim；同步不会写 archived，但会在 active inference 前预留其 Post。
 
@@ -162,6 +162,7 @@ node shortdrama_ctl.mjs sync status --run-id "$RUN_ID" --config "$RUNTIME_CONFIG
 - launchctl wakeup 失败时任务仍保持 queued，并返回 `worker_wakeup_failed`；300 秒 ticker 可继续领取。wakeup 或进程启动都不是同步成功。
 - `started` 不等于成功。只有持久化的 `success|partial|failed`、步骤、计数、读回与错误摘要才是 terminal truth。
 - `manual_repair` 必须明确转述并停止自动补写。数据 terminal 不因消息重试而改变。
+- terminal dashboard 更新先读取当前完成时间；旧任务的通知重试仍可发送消息，但不得覆盖更新任务已经展示的终态。Base block GET→PATCH 没有 CAS，维护窗口内的并发残余不能描述成原子保护。
 - 账号源成功的`complete`只映射为账号台账`同步状态=success`；采集不完整写`partial`。无法从 Collector 安全归因到单个账号的 failure 只进入 Job/错误摘要，不伪造账号行`failed`；所有实际写入值都属于 schema 单选枚举。
 - 手动任务的 terminal 通知只发送到持久化的原始请求会话；调度健康通知只发到配置且 allowlisted 的 Ops chat，用户不能指定任意 chat。
 
@@ -184,6 +185,8 @@ node shortdrama_ctl.mjs schedule health --config "$RUNTIME_CONFIG"
 真实值只进入未提交的安全环境；`.env.example`仅列空 key。每次 launchd/manual CLI 都先读取 runtime JSON 的`paths.env_file`，从 config 起始目录开始逐级检查每个父目录和每个`..`跳转，再以`O_NOFOLLOW`单次打开该 0600（或同等无 group/other 权限）的普通文件；任何缺失、symlink/parent symlink、权限过宽、超限、重复或 malformed dotenv 都在网络前`config_invalid`。
 
 dotenv 仅按严格`KEY=value`数据解析，绝不 shell source/eval/expand，也不执行变量、反引号或命令替换。Runner 只导入 runtime config 明确引用的下列 key 加固定`SHORTDRAMA_OPS_CHAT_ID`；其他 collector/legacy/任意 key 即使出现在共享`.env`也不会进入 Runner env。调用进程显式提供的同名值优先于文件值，供受控诊断覆盖；空覆盖仍按配置校验失败，不静默回退。
+
+Base Adapter 固定按 lark-cli v1.0.91 vendor contract 解码：record list/batch_get 使用 matrix，批量创建为`create_records`，批量更新为`update_records`映射；select 使用数组 cell，datetime 在`Asia/Shanghai`原始值与严格 ISO/date-only canonical value 间转换，link 只接受精确`[{id}]`。`ignored_fields`、不完整 query context/分页或 field type 漂移都不能返回 complete；写响应缺少 record ID 时只以完整索引读回证明成功。
 
 `shortdrama.runtime.json`选择的固定 key 名为：
 

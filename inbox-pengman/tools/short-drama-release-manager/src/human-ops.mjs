@@ -357,10 +357,11 @@ function recordSnapshot(table, key, record) {
   return { table, key, exists: true, record: projectedRecord(table, record) };
 }
 
-function mutationResult({ status = "success", actor, recordId, changedFields, readback = "verified", nextStep = "none" }) {
+function mutationResult({ status = "success", actor, recordId, changedFields, readback = "verified", nextStep = "none", receiptId = null }) {
   return clone({
     status,
     actor,
+    ...(receiptId === null ? {} : { receipt_id: receiptId }),
     record_id: recordId,
     changed_fields: [...changedFields].sort((left, right) => left.record_id.localeCompare(right.record_id)),
     readback,
@@ -1040,6 +1041,7 @@ export class HumanOpsService {
       actor,
       recordId: results.length === 1 ? results[0].key : results.map((result) => result.key),
       changedFields: allChanged,
+      receiptId,
       nextStep: "none",
     });
   }

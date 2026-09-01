@@ -12,6 +12,7 @@ import {
   assertPatchAllowed,
   fieldOwner,
 } from "../src/schema.mjs";
+import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
 
 function spec(table, name) {
   return BASE_FIELD_SPECS[table].find((field) => field.name === name);
@@ -49,8 +50,10 @@ test("schema fixes the four Base tables and source ownership", () => {
   assert.equal(fieldOwner("发布记录", "播放量"), "derived");
   assert.equal(fieldOwner("发布记录", "Post ID"), "shared");
   assert.deepEqual(TABLES["选剧池"].options, {
+    账号状态: ["发布中"],
     平台: ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"],
     推荐人: ["彭满", "高璇", "马博洋"],
+    归档状态: ["active", "archived"],
   });
 });
 
@@ -74,6 +77,31 @@ test("schema uses supported system fields, writable sync storage, and Base formu
   assert.match(releaseFormula, /"已回填"/);
   assert.match(releaseFormula, /"已公开"/);
   assert.doesNotMatch(releaseFormula, /\{[^}]+\}/);
+});
+
+test("fixed select fields expose closed options in schema descriptors", () => {
+  const expected = new Map([
+    ["账号台账.状态", ["发布中"]],
+    ["账号台账.同步状态", ["success", "partial", "failed"]],
+    ["选剧池.账号状态", ["发布中"]],
+    ["选剧池.平台", ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]],
+    ["选剧池.推荐人", ["彭满", "高璇", "马博洋"]],
+    ["选剧池.归档状态", ["active", "archived"]],
+    ["采集数据.业务", ["short-drama"]],
+    ["采集数据.采集状态", ["complete", "partial"]],
+    ["采集数据.缺失字段", ["views", "likes", "comments", "favorites", "shares"]],
+    ["发布记录.匹配方式", ["exact_post_id", "manual_url", "account_time"]],
+    ["发布记录.归档状态", ["active", "archived"]],
+  ]);
+  for (const [key, options] of expected) {
+    const [table, field] = key.split(".");
+    assert.deepEqual(spec(table, field).options, options);
+    assert.deepEqual(fixedFieldDescriptor(table, field).options, options.map((name) => ({ name })));
+  }
+  assert.throws(
+    () => assertPatchAllowed("发布记录", { 匹配方式: "existing_relation" }, "machine"),
+    (error) => error.code === "field_option_violation",
+  );
 });
 
 test("schema owns reverse links through fixed bidirectional release fields", () => {

@@ -51,6 +51,7 @@ test("installer restores and re-verifies a previously loaded service after boots
   const home = path.join(root, "home");
   const targetDir = path.join(home, "Library", "LaunchAgents");
   await mkdir(targetDir, { recursive: true });
+  await writeFile(path.join(home, ".shortdrama-installer-test-home"), "shortdrama-installer-test-home-v1\n", { mode: 0o600 });
   const target = path.join(targetDir, "com.gengrowth.shortdrama-sync.plist");
   const oldRunner = path.join(root, "old", "bin", "zsh", "run_scheduled.sh");
   const oldConfig = path.join(root, "old", "config.json");
@@ -70,7 +71,7 @@ test("installer restores and re-verifies a previously loaded service after boots
   let error;
   try {
     await execFile("/bin/zsh", [installer.pathname, oldConfig], { env: {
-      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
+      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root, SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
       SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}', FAKE_LOG: log, FAKE_STATE: state,
       FAKE_FAILED: failed, FAKE_TARGET: target, FAKE_OLD_RUNNER: oldRunner,
     } });
@@ -86,11 +87,28 @@ test("installer restores and re-verifies a previously loaded service after boots
   let verificationError;
   try {
     await execFile("/bin/zsh", [installer.pathname, oldConfig], { env: {
-      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
+      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root, SHORTDRAMA_TEST_LAUNCHCTL_BIN: fake,
       SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}', FAKE_LOG: log, FAKE_STATE: state,
       FAKE_FAILED: failed, FAKE_TARGET: target, FAKE_OLD_RUNNER: oldRunner, FAKE_BAD_RESTORE: "1",
     } });
   } catch (caught) { verificationError = caught; }
   assert.equal(verificationError?.code, 70);
   assert.match(verificationError?.stderr ?? "", /rollback_verification_failed: manual recovery required/);
+});
+
+test("installer test mode rejects system or out-of-fixture launchctl binaries", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-installer-isolation-"));
+  const home = path.join(root, "home");
+  await mkdir(home, { recursive: true });
+  await writeFile(path.join(home, ".shortdrama-installer-test-home"), "shortdrama-installer-test-home-v1\n", { mode: 0o600 });
+  const config = path.join(root, "runtime.json");
+  await writeFile(config, "{}\n");
+  const installer = new URL("../install_launchd.sh", import.meta.url);
+  for (const launchctl of ["/bin/launchctl", installer.pathname]) {
+    await assert.rejects(execFile("/bin/zsh", [installer.pathname, config], { env: {
+      ...process.env, HOME: home, SHORTDRAMA_INSTALL_TEST_MODE: "1", SHORTDRAMA_TEST_FIXTURE_ROOT: root,
+      SHORTDRAMA_TEST_LAUNCHCTL_BIN: launchctl, SHORTDRAMA_INSTALL_TEST_DOCTOR_JSON: '{"status":"ready"}',
+    } }), (error) => error.code !== 0 && /Test launchctl fixture is unsafe/.test(error.stderr));
+  }
+  await assert.rejects(readFile(path.join(home, "Library", "LaunchAgents", "com.gengrowth.shortdrama-sync.plist")));
 });

@@ -605,6 +605,15 @@ function completeFixedSchema(revision = "complete-r1") {
   };
 }
 
+test("migration schema rejects an unexpected fifth Base table", async () => {
+  const baseSchema = completeFixedSchema("extra-table");
+  baseSchema.tables.push({ name: "默认数据表", table_id: "tbl-default", record_count: 0, fields: [] });
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
+  assert.equal(manifest.blocked.some((entry) =>
+    entry.code === "base_schema_drift" && entry.table === "默认数据表" && entry.reason === "unexpected_table"), true);
+  assert.equal(manifest.schema_actions.length, 0);
+});
+
 function fixedFieldForTables(tables, table, field, fieldId, { primary = false } = {}) {
   const spec = BASE_FIELD_SPECS[table].find((item) => item.name === field);
   const bindings = spec.kind === "link" ? { targetTableId: tables.get(spec.targetTable).table_id } : {};

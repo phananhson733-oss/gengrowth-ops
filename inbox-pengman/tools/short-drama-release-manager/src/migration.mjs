@@ -385,9 +385,15 @@ function schemaPlan(baseSchema, blocks) {
   if (typeof revision !== "string" || revision.trim() === "" || !Array.isArray(tables)) fail("base_schema_drift", "Base schema metadata is malformed");
   const byName = new Map();
   const ids = new Set();
+  let unexpectedTable = false;
   for (const table of tables) {
     if (!plainObject(table) || typeof table.name !== "string" || typeof table.table_id !== "string" || !Array.isArray(table.fields) || byName.has(table.name) || ids.has(table.table_id)) {
       fail("base_schema_drift", "Base table metadata is malformed or duplicate");
+    }
+    if (!TABLE_ORDER.includes(table.name)) {
+      blocks.push(blocked("base_schema_drift", table.name, null, { reason: "unexpected_table" }));
+      unexpectedTable = true;
+      continue;
     }
     byName.set(table.name, table);
     ids.add(table.table_id);
@@ -464,7 +470,7 @@ function schemaPlan(baseSchema, blocks) {
     TABLE_ORDER.indexOf(left.table) - TABLE_ORDER.indexOf(right.table) ||
     BASE_FIELD_SPECS[left.table].findIndex((spec) => spec.name === left.field) - BASE_FIELD_SPECS[right.table].findIndex((spec) => spec.name === right.field),
   );
-  return { revision, actions, emptyEvidence };
+  return { revision, actions: unexpectedTable ? [] : actions, emptyEvidence };
 }
 
 function presentationActions() {

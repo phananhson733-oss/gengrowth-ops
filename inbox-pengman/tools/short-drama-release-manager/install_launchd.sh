@@ -25,8 +25,21 @@ old_program=""
 fail() { print -u2 -- "$1"; exit 1; }
 
 if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" == "1" ]]; then
+  fixture_root="${SHORTDRAMA_TEST_FIXTURE_ROOT:-}"
   launchctl_bin="${SHORTDRAMA_TEST_LAUNCHCTL_BIN:-}"
-  [[ "$launchctl_bin" == /* && -x "$launchctl_bin" && ! -L "$launchctl_bin" ]] || fail "Test launchctl fixture is unsafe"
+  [[ "$fixture_root" == /* && -d "$fixture_root" && ! -L "$fixture_root" &&
+     "$launchctl_bin" == /* && -x "$launchctl_bin" && ! -L "$launchctl_bin" ]] || fail "Test launchctl fixture is unsafe"
+  fixture_root="${fixture_root:A}"
+  test_home="${HOME:A}"
+  launchctl_bin="${launchctl_bin:A}"
+  [[ "$fixture_root" == /tmp/* || "$fixture_root" == /private/tmp/* ||
+     "$fixture_root" == /var/folders/* || "$fixture_root" == /private/var/folders/* ]] || fail "Test launchctl fixture is unsafe"
+  [[ "$test_home" == "$fixture_root"/* && "$launchctl_bin" == "$fixture_root"/* &&
+     "$launchctl_bin" != "/bin/launchctl" ]] || fail "Test launchctl fixture is unsafe"
+  test_home_marker="$HOME/.shortdrama-installer-test-home"
+  [[ -f "$test_home_marker" && ! -L "$test_home_marker" &&
+     "$(/usr/bin/stat -f '%Lp' "$test_home_marker")" == "600" &&
+     "$(<"$test_home_marker")" == "shortdrama-installer-test-home-v1" ]] || fail "Test launchctl fixture is unsafe"
 fi
 [[ -n "$config_path" && -f "$config_path" ]] || fail "A readable runtime config path is required"
 if [[ "${SHORTDRAMA_INSTALL_TEST_MODE:-}" != "1" ]]; then

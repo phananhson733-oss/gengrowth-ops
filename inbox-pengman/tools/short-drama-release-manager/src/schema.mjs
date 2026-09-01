@@ -24,6 +24,22 @@ const lookup = (name, linkField, sourceField) => field(name, "lookup", {
 const formula = (name, expression) => field(name, "formula", { phase: "lookup_formula", expression });
 const system = (name, details = {}) => field(name, "system", { phase: "system", ...details });
 
+const SELECT_OPTIONS = Object.freeze({
+  accountStatus: frozenArray(["发布中"]),
+  syncStatus: frozenArray(["success", "partial", "failed"]),
+  platform: frozenArray(["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]),
+  recommender: frozenArray(["彭满", "高璇", "马博洋"]),
+  archiveStatus: frozenArray(["active", "archived"]),
+  business: frozenArray(["short-drama"]),
+  collectionStatus: frozenArray(["complete", "partial"]),
+  missingField: frozenArray(["views", "likes", "comments", "favorites", "shares"]),
+  matchMethod: frozenArray(["exact_post_id", "manual_url", "account_time"]),
+});
+const selected = (name, kind, options, details = {}) => storage(name, kind, {
+  ...details,
+  options,
+});
+
 export const TABLE_ORDER = Object.freeze(["账号台账", "选剧池", "采集数据", "发布记录"]);
 export const SCHEMA_APPLY_ORDER = Object.freeze(["storage", "link", "lookup_formula", "system", "view_dashboard"]);
 const PATCH_ACTOR_KINDS = Object.freeze(["human", "machine", "migration"]);
@@ -34,7 +50,8 @@ export const TABLES = Object.freeze({
     ["账号名", "所属组", "定位垂类", "表现形式", "状态"],
     ["账号ID", "粉丝数", "数据日期", "指标同步时间", "同步状态"],
     ["主页链接"],
-    []
+    [],
+    { 状态: SELECT_OPTIONS.accountStatus, 同步状态: SELECT_OPTIONS.syncStatus }
   ),
   "选剧池": table(
     "剧ID",
@@ -47,8 +64,10 @@ export const TABLES = Object.freeze({
     [],
     ["是否已排期", "关联发布记录", "创建人", "创建时间", "最后修改时间"],
     {
-      平台: ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"],
-      推荐人: ["彭满", "高璇", "马博洋"],
+      账号状态: SELECT_OPTIONS.accountStatus,
+      平台: SELECT_OPTIONS.platform,
+      推荐人: SELECT_OPTIONS.recommender,
+      归档状态: SELECT_OPTIONS.archiveStatus,
     }
   ),
   "采集数据": table(
@@ -60,14 +79,20 @@ export const TABLES = Object.freeze({
       "缺失字段", "来源 run_id", "Base 同步时间",
     ],
     [],
-    ["账号名", "关联发布记录"]
+    ["账号名", "关联发布记录"],
+    {
+      业务: SELECT_OPTIONS.business,
+      采集状态: SELECT_OPTIONS.collectionStatus,
+      缺失字段: SELECT_OPTIONS.missingField,
+    }
   ),
   "发布记录": table(
     "发布ID",
     ["日期", "账号", "剧", "剧ID（RS Boost）", "RS收益", "备注", "归档状态"],
     ["发布ID", "采集记录", "匹配方式", "匹配置信度", "指标同步时间", "同步错误"],
     ["视频链接", "Post ID"],
-    ["账号名", "主页链接", "剧ID", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论", "发布状态", "指标日期"]
+    ["账号名", "主页链接", "剧ID", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论", "发布状态", "指标日期"],
+    { 匹配方式: SELECT_OPTIONS.matchMethod, 归档状态: SELECT_OPTIONS.archiveStatus }
   ),
 });
 
@@ -75,15 +100,15 @@ export const BASE_FIELD_SPECS = Object.freeze({
   "账号台账": Object.freeze([
     storage("账号ID", "text", { primary: true }), storage("账号名", "text"), storage("主页链接", "url"),
     storage("粉丝数", "number"), storage("所属组", "single_select"), storage("定位垂类", "text"),
-    storage("表现形式", "single_select"), storage("状态", "single_select"), storage("数据日期", "date"),
-    storage("指标同步时间", "datetime"), storage("同步状态", "single_select"),
+    storage("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountStatus), storage("数据日期", "date"),
+    storage("指标同步时间", "datetime"), selected("同步状态", "single_select", SELECT_OPTIONS.syncStatus),
   ]),
   "选剧池": Object.freeze([
     storage("剧ID", "text", { primary: true }), storage("剧名", "text"), storage("剧分类", "multi_select"),
     storage("上线日期", "date"), storage("生命周期", "single_select"), storage("备注", "text"),
     storage("推荐理由", "text"), storage("RS Boost 分类（待确认）", "multi_select"), storage("账号组", "multi_select"),
-    storage("账号状态", "single_select"), storage("平台", "single_select"), storage("语言", "single_select"),
-    storage("来源", "multi_select"), storage("推荐人", "multi_select"), storage("归档状态", "single_select"),
+    selected("账号状态", "single_select", SELECT_OPTIONS.accountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), storage("语言", "single_select"),
+    storage("来源", "multi_select"), selected("推荐人", "multi_select", SELECT_OPTIONS.recommender), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus),
     link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "剧" }) }),
     formula("是否已排期", "IF(ISBLANK([关联发布记录]), \"否\", \"是\")"),
     system("创建人", { systemType: "created_by" }), system("创建时间", { systemType: "created_at" }),
@@ -93,7 +118,7 @@ export const BASE_FIELD_SPECS = Object.freeze({
     storage("Post ID", "text", { primary: true }), storage("快照日期", "date"), storage("采集时间", "datetime"),
     storage("视频链接", "url"), storage("发布时间", "datetime"), storage("播放量", "number"),
     storage("点赞", "number"), storage("评论", "number"), storage("收藏", "number"), storage("转发", "number"),
-    storage("业务", "single_select"), storage("采集状态", "single_select"), storage("缺失字段", "multi_select"),
+    selected("业务", "single_select", SELECT_OPTIONS.business), selected("采集状态", "single_select", SELECT_OPTIONS.collectionStatus), selected("缺失字段", "multi_select", SELECT_OPTIONS.missingField),
     storage("来源 run_id", "text"), storage("Base 同步时间", "datetime"), link("账号", "账号台账"),
     link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "采集记录" }) }),
     lookup("账号名", "账号", "账号名"),
@@ -101,8 +126,8 @@ export const BASE_FIELD_SPECS = Object.freeze({
   "发布记录": Object.freeze([
     storage("发布ID", "text", { primary: true }), storage("日期", "datetime"), storage("剧ID（RS Boost）", "text"),
     storage("视频链接", "url"), storage("Post ID", "text"), storage("RS收益", "number"), storage("备注", "text"),
-    storage("匹配方式", "single_select"), storage("匹配置信度", "number"), storage("指标同步时间", "datetime"),
-    storage("同步错误", "text"), storage("归档状态", "single_select"), link("账号", "账号台账"),
+    selected("匹配方式", "single_select", SELECT_OPTIONS.matchMethod), storage("匹配置信度", "number"), storage("指标同步时间", "datetime"),
+    storage("同步错误", "text"), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus), link("账号", "账号台账"),
     link("剧", "选剧池", { bidirectional: true, reverseField: "关联发布记录" }),
     link("采集记录", "采集数据", { bidirectional: true, reverseField: "关联发布记录" }),
     lookup("账号名", "账号", "账号名"),
@@ -142,6 +167,18 @@ export function assertPatchAllowed(tableName, patch, actorKind) {
         expected_owner: owner,
         actor_kind: actorKind,
       });
+    }
+    const options = TABLES[tableName].options[fieldName];
+    if (options && patch[fieldName] !== null) {
+      const spec = BASE_FIELD_SPECS[tableName].find((candidate) => candidate.name === fieldName);
+      const values = spec?.kind === "multi_select" ? patch[fieldName] : [patch[fieldName]];
+      if (!Array.isArray(values) || values.some((value) => typeof value !== "string" || !options.includes(value)) ||
+          spec?.kind === "multi_select" && new Set(values).size !== values.length) {
+        throw new ShortDramaError("field_option_violation", "Field value is outside the fixed select options", {
+          table: tableName,
+          field: fieldName,
+        });
+      }
     }
   }
 }

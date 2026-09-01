@@ -29,7 +29,7 @@ function normalizedAllowlist(value) {
 }
 
 function counter(value) {
-  return Number.isSafeInteger(value) && value >= 0 ? value : 0;
+  return Number.isSafeInteger(value) && value >= 0 ? String(value) : "unavailable";
 }
 
 function errorCodes(job) {

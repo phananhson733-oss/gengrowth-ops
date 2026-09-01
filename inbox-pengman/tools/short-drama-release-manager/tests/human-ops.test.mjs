@@ -680,6 +680,7 @@ test("batch update validates every item and permits exact archive patches only f
   });
   const result = await fx.service.applyPreview({ actorId: "ou_admin", chatId: "oc_social", receiptId: preview.receipt_id });
   assert.equal(result.status, "success");
+  assert.equal(result.receipt_id, preview.receipt_id);
   assert.deepEqual(result.record_id, ["SD-000001", "SD-000002"]);
   assert.deepEqual(result.changed_fields.map((item) => item.record_id), ["SD-000001", "SD-000002"]);
   assert.deepEqual(result.changed_fields.map((item) => Object.keys(item.fields)), [["归档状态"], ["备注"]]);
@@ -730,6 +731,7 @@ test("archive is previewed, writes only archived state, and service exposes no d
   assert.equal("execute" in fx.service, false);
   const preview = await fx.service.previewArchive({ actorId: "ou_operator", chatId: "oc_social", table: "选剧池", key: "The Phantom Pilot" });
   const result = await fx.service.applyArchive({ actorId: "ou_operator", chatId: "oc_social", receiptId: preview.receipt_id });
+  assert.equal(result.receipt_id, preview.receipt_id);
   assert.deepEqual(Object.keys(result.changed_fields[0].fields), ["归档状态"]);
   assert.equal(fx.repos.dramas.rows.get("SD-000001").fields.归档状态, "archived");
   assert.deepEqual(fx.writes[0].patch, { 归档状态: "archived" });
