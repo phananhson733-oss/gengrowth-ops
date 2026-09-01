@@ -144,9 +144,9 @@ Route 只是研究来源，不是生产状态，也不要求每周平均分配�
 
 包括已知天象、节日、发布日、赛事日程，以及正在发生的名人、娱乐、关系、工作、生活方式、平台讨论和公共事件。Hot 必须有当前来源；Predictable 必须有准确日期和过期窗口。
 
-### Route C：Placement identity
+### Route C：Sun Sign identity
 
-以一个低门槛 placement/sign 和具体行为开场，目标是“被说中”、评论和 tag。早期大众测试优先 Sun Sign；Moon/Venus/Rising 只有在账号定位、用户认知和本轮实验目的匹配时使用，不能把 Sun Sign 与 Moon Sign 当成单变量对照。
+以明确的 Sun Sign 和具体行为开场，目标是“被说中”、评论和 tag。Miraa 的候选生成和账号路由必须遵守下方 Sun Sign only 边界；其他 placements 不再作为 Miraa 的默认研究或选题入口。
 
 候选最终归入：
 
@@ -163,8 +163,16 @@ Route 只是研究来源，不是生产状态，也不要求每周平均分配�
 | 账号 | 当前状态 | 主要任务 | 固定边界 |
 |---|---|---|---|
 | `@astrologywiki` | active | 可信天象、知识解释、工具或页面承接 | 非宿命，事实准确，不复制 Miraa 心理口播 |
-| `@miraaastrology` | active / 当前增长重点 | 单一 sign/placement、具体关系行为、心理机制 | 固定核心人设和形式，不做病理化标签或无依据排行 |
+| `@miraaastrology` | active / 当前增长重点 | 一个明确 Sun Sign，或两个明确 Sun Signs；具体关系、友情、沟通或生活行为及其心理机制 | 只做 Sun Sign；不做其他 placements、天象预测或泛占星内容；不做病理化标签或无依据排行 |
 | 历史热点号、普通爱好者号及未来账号 | paused / retired / not activated | 当前不分配候选和产能 | 只有 Pengman 通过账号 Playbook 的启用门并写入周计划后才能恢复 |
+
+### `@miraaastrology`：Sun Sign only
+
+候选必须以一个明确的 Sun Sign，或两个明确的 Sun Signs 为内容主体，讨论具体关系、友情、沟通或生活行为及其心理机制。
+
+禁止路由到 Miraa：Moon Sign、Venus Sign、Rising、其他 placements、行星过境、新月/满月、水逆、天象预测、月运，以及没有明确 Sun Sign 主体的泛占星内容。
+
+若来源包含上述元素，只能提取其中独立成立的 Sun Sign 行为证据；无法剥离时，改路由到 `@astrologywiki` 或淘汰。
 
 规则：
 
@@ -240,7 +248,7 @@ Hook 检查：
 
 - 优先用“目标身份／性格判断 + 广泛可认领的行为、关系张力或后果”直接开场；可以从 `Scorpio...`、`Scorpios...` 或目标配对开始；
 - 在前 2–3 秒让用户知道在说谁、核心判断或冲突是什么，以及为什么值得继续听；
-- 性格判断必须落到普通观众马上能理解的行为、关系问题或结果，不能只给抽象标签；
+- 性格判断必须落到普通观众马上能理解的行为、关系问题或结果，不能只给抽象标签；Miraa 的主体只能是一个或两个明确 Sun Signs，具体路由边界以 §6 的「Sun Sign only」为准；
 - 使用自然、简单的美式英语，能直接被放上首屏大字幕；
 - Hook 保持宽、直、容易认领；具体时间、地点、人物和生活细节默认放进正文证明 Hook，不强制塞进首句；
 - 先给身份判断或广泛矛盾，再解释心理机制；不把“深刻”误写成含糊。
@@ -329,29 +337,29 @@ Hook 检查：
 - **偏好训练确认 · 2026-08-18**：优先“偏好更简洁的 Hook”。适用范围：适用于后续关系类短 Hook，在保留关系张力的前提下压缩长度。。
 <!-- /preference-rule:4d648243-9ffa-4dd7-a93e-ea92d2af866d -->
 
-## 8.2 刺激度与留存（竞品学习）
+### 8.2 刺激度与留存（竞品学习）
 
 当前 `@miraaastrology` 视频缺少刺激、播放量下滑。以下手法提炼自竞品调研（[[inbox-pengman/02-生产/01-reference/竞品高播放学习要点-刺激度与留存]]），用于提升 Hook 刺激度和完播留存。它们与 8.1 的已确认偏好**叠加，不替代**；冲突时单条主生产记录优先，其次本节 canary 验证结论。
 
-### Hook 刺激度
+#### Hook 刺激度
 
 - 允许并优先使用更强的断言、警告或反常识式 Hook：`Never ...`、`Don't ...`、极端判断、`Why ...` 问题式、反问判词式（`The [最高级] ... in the zodiac? [Sign A] and [Sign B].`），以及"不是 X，而是 Y"的意外翻转。给出"具体越界行为 + 立即后果"，不先解释星座背景。
 - 禁止升级为博眼球标题党：不用 `most dangerous / dark side / worst ... exposed` 等耸动标签，不用病理化标签，不用脏话。
 - 断言必须落到可认领的行为或关系后果，抽象标签仍用简单直白的词。已确认示例：`Scorpio never lets a fight end.` / `The loneliest couple in the zodiac? Cancer and Virgo.` / `Why Cancer and Capricorn both feel unloved.`
 
-### 身份认领续看钩子
+#### 身份认领续看钩子
 
 - 每条正式脚本在 Hook 后 3–10 秒补一句轻量身份认领，明确"这是给你看的"：`If you're a Scorpio, keep listening.` / `If this sounds like you, stay to the end.`
 - 续看钩子只点身份，不剧透结论，不写成标题党。
 
-### 正文留存结构
+#### 正文留存结构
 
 - 结果先行、原因后补：先给关系结局或后果，再倒推观众此前忽略的信号。
 - 用"他们 X，但 Y"短对仗替代长因果解释；平均句长缩短，避免复杂从句。
 - 星座即主语：正文短句尽量以该星座为主语，新观众 1 秒识别"关于谁"。
 - 数字清单仅限 3 点，且 3 点都证明同一个核心机制；把最有情绪、最能引发评论的一点放最后。
 
-### 正文反例与避坑
+#### 正文反例与避坑
 
 强 Hook 之后，正文不能"叛变"回旧的克制科普风格。以下写法会泄掉钩子张力、拉低留存，且读起来像 AI：
 
@@ -366,12 +374,12 @@ Hook 检查：
 
 竞品式替代（描述/认领，非上课、非对称）：`They watch more than they speak.` / `They forgive, but they never forget.` / `Scorpio comes back to fix it — or to keep score.`
 
-### 收尾
+#### 收尾
 
 - 可用警告后果式强收束，但只用于"明显越界行为"语境，保留"保护自己"的公平落点，不写宿命式 `once you do, you're out`。
 - 也可停在隐藏需求或保护目标，不强加 CTA。
 
-### caption 与 hashtags
+#### caption 与 hashtags
 
 提炼自 [[inbox-pengman/02-生产/01-reference/竞品-caption-hashtags-对照与模式]]：
 
@@ -381,7 +389,7 @@ Hook 检查：
 - 不用流量标签 `#fyp / #uktiktok / #tiktokgrowth`，不用 `#podcast / #podcastclips`（语义不符），不复制标题党 caption。
 - caption 用 1–2 个星座符号或互动 emoji（♏️ 💬 👇），保持克制，不堆砌。
 
-### 边界与验证
+#### 边界与验证
 
 - 全部手法遵守第 7 节 Topic and Safety Rules 与账号指南红线。
 - 只学结构与节奏，不复制竞品句子、顺序、隐喻、CTA 或未经核验的主张。
@@ -406,7 +414,7 @@ Hook 检查：
 
 先执行 Mandatory Internet Research Gate：读取固定 CSV、尝试访问 Library 页面、查看与目标账号/缺口相关的当前公开内容，并写出 Evidence Preflight。研究完成前不开始生成候选。
 
-若目标包含 `@miraaastrology` 的 Mode B 或 Mode C 候选池，再按 [references/community-topic-research.md](references/community-topic-research.md) 完成社区话题研究，先保存 Research receipt、话题分层、生活细节库、语言库和完整来源清单。Social OS 执行时先用 `source-ingest` 将可用证据写入证据池，再由 `research` 生成候选；社区研究结果不得直接自动通过 H1 或 H3。
+若目标包含 `@miraaastrology` 的 Mode B 或 Mode C 候选池，再按 [references/community-topic-research.md](references/community-topic-research.md) 完成社区话题研究，先保存 Research receipt、话题分层、生活细节库、语言库和完整来源清单。研究和候选生成时先应用本 Skill 的 Sun Sign only 路由边界：每条 Miraa 候选必须有明确的一个或两个 Sun Signs 作为主体；无法从来源剥离 Moon Sign、Venus Sign、Rising、其他 placements 或天象内容时，不生成 Miraa 候选。Social OS 执行时先用 `source-ingest` 将可用证据写入证据池，再由 `research` 生成候选；社区研究结果不得直接自动通过 H1 或 H3。
 
 ### Step 3：收集候选
 
@@ -415,6 +423,7 @@ Hook 检查：
 每条候选记录：
 
 - title / account / pool / pillar / format；
+- 对 `@miraaastrology`：校验主体是一个或两个明确 Sun Signs；任何仅由 Moon Sign、Venus Sign、Rising、其他 placements、行星过境或泛占星内容支撑的候选，改路由到 `@astrologywiki` 或淘汰；
 - Hook；
 - 双人口播候选在 `angle` 或制作说明中记录 `question_first` / `verdict_echo` 与第二人回应方向；`Hook` 本身只保留第一人的开场句；
 - priority / effort；
@@ -553,6 +562,8 @@ AI 口播类视频（数字人、AI 占星师等所有需要“说话”的脚�
 - 历史题库和历史流程：`02-调研资料/历史流程/`，只在明确追溯时读取
 
 ## Change Log
+
+- 2026-08-31 · v1.8.0 · 将 `@miraaastrology` 的账号路由和候选生成收敛为 Sun Sign only：允许一个或两个明确 Sun Signs，禁止其他 placements、天象预测和无明确 Sun Sign 主体的泛占星内容；无法剥离时改路由至 `@astrologywiki` 或淘汰。
 
 - 2026-08-26 · v1.7.5 · 扩充 8.2「正文反例与避坑」：新增精确时间点"一睡一醒"对比、"They're not X. They're Y."完整主谓对称句、"One... the other..."对称分类三类 AI 味句式，并修正此前把 midnight 场景当正例的错误；统一用竞品式"描述/认领"替代。
 - 2026-08-26 · v1.7.4 · 在 8.2 新增「正文反例与避坑」：强 Hook 后不得泄气平反/教学定义式/抽象术语堆叠/工整对偶/结尾给建议；正文必须是"描述认领"而非"上课"，配具体反例与对照句。
