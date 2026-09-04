@@ -987,15 +987,16 @@ test("migration plan stores the full manifest but returns only a bounded summary
   const suffix = `${process.pid}-${Date.now()}`;
   const outputName = `plan-summary-${suffix}.json`;
   const manifest = {
-    version: "shortdrama-migration/v1",
+    version: "shortdrama-migration/v2",
     accounts: [{ 账号ID: "account" }],
     dramas: [{ 剧ID: "SD-000001" }],
     captures: [{ "Post ID": "123" }],
     releases: [{ 发布ID: "SR-000001" }],
     schema_actions: [{ id: "field:账号台账:账号名" }],
     presentation_actions: [{ id: "view:账号台账:在用账号" }],
-    counts: { accounts: 1, dramas: 1, captures: 1, releases: 1, blocked: 2 },
+    counts: { accounts: 1, dramas: 1, captures: 1, releases: 1, blocked: 2, warnings: 2 },
     blocked: [{ code: "manual_post_not_found" }, { code: "manual_post_not_found" }],
+    warnings: [{ code: "ambiguous_post_match" }, { code: "no_account_time_candidate" }],
   };
   manifest.sha256 = manifestDigest(manifest);
   const outputPath = path.join(path.dirname((await writeMigrationArtifact({ probe: true }, { fileName: `plan-summary-probe-${suffix}.json` })).path), outputName);
@@ -1022,6 +1023,7 @@ test("migration plan stores the full manifest but returns only a bounded summary
       schema_actions: 1,
       presentation_actions: 1,
       blocked_by_code: { manual_post_not_found: 2 },
+      warnings_by_code: { ambiguous_post_match: 1, no_account_time_candidate: 1 },
     });
     assert.deepEqual(JSON.parse(await readFile(outputPath, "utf8")), manifest);
   } finally {
@@ -1050,6 +1052,61 @@ test("buildRuntime wires renamed config allowlists into HumanOps and notifier", 
   }, services: { HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture } });
   runtime.close();
   assert.deepEqual(observed, { operators: ["ou_a", "ou_b"], privileged: ["ou_admin"], chats: ["oc_ops", "oc_social"] });
+});
+
+test("runtime migration planning reads both SQLite accounts and posts", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-migration-sources-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const calls = [];
+  const google = {
+    revision: "google-evidence-v1:" + "a".repeat(64),
+    raw_backup: {},
+    accounts: [{ source_row: 2, 账号ID: "dramaexpedition", 账号名: "dramaexpedition", 主页链接: "https://www.tiktok.com/@dramaexpedition" }],
+    dramas: [{ source_row: 2, 剧名: "Drama" }],
+    releases: [],
+    captures: [],
+  };
+  const sqliteAccount = {
+    snapshot_date: "2026-09-01", captured_at: "2026-09-01T00:00:00Z",
+    username: "dramaexpedition", account_url: "https://www.tiktok.com/@dramaexpedition",
+    nickname: "Drama", followers: 1, following: 0, total_likes: 0, total_posts: 1,
+    bio: "", collection_status: "complete",
+  };
+  const sqlitePost = {
+    post_id: "99", username: "dramaexpedition",
+    post_url: "https://www.tiktok.com/@dramaexpedition/video/99",
+    snapshot_date: "2026-09-01", captured_at: "2026-09-01T00:00:00Z", published_at: null,
+    views: 1, likes: 0, comments: 0, favorites: 0, shares: 0,
+    collection_status: "complete", missing_fields: [],
+  };
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: {
+      client: repositoryClient(),
+      HumanOpsService: HumanOpsFixture,
+      ShortDramaNotifier: NotifierFixture,
+      readGoogleMigrationSource: async () => { calls.push("google"); return google; },
+      source: {
+        readLatestAccounts: () => { calls.push("accounts"); return [sqliteAccount]; },
+        readLatestPosts: () => { calls.push("posts"); return [sqlitePost]; },
+      },
+      readMigrationSchema: async () => ({ revision: "empty", tables: [] }),
+    },
+  });
+  try {
+    const manifest = await runtime.migratePlan({}, {});
+    assert.deepEqual(calls, ["google", "accounts", "posts"]);
+    assert.equal(manifest.source_evidence.counts.sqlite_accounts, 1);
+    assert.equal(manifest.source_evidence.counts.sqlite_posts, 1);
+  } finally {
+    runtime.close();
+  }
 });
 
 test("Google service-account loader requires a private owned no-symlink strict credential", async () => {

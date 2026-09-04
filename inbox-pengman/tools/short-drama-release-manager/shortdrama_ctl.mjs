@@ -22,6 +22,7 @@ import {
   canaryReceiptDigest,
   createPermissionAttestation,
   manifestDigest,
+  migrationSourceRevision,
   permissionAttestationDigest,
   planMigration,
   schemaReceiptDigest,
@@ -1329,8 +1330,9 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       }
       fail("base_schema_drift", "Runtime Base schema does not match the fixed contract", readiness);
     };
+    const sourceReaders = services.source ?? { readLatestAccounts, readLatestPosts };
     const workerContext = {
-      jobs, repos, notifier, collector, source: { readLatestAccounts, readLatestPosts },
+      jobs, repos, notifier, collector, source: sourceReaders,
       workerPid, now, metricsSqlitePath: config.paths.metricsSqlite,
       assertSchemaReady: assertRuntimeSchemaReady,
     };
@@ -1342,10 +1344,10 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
     )).digest("hex");
     const adapters = schemaAdapters(client, config);
-    const readGoogle = async () => readGoogleMigrationSource({
+    const readGoogle = services.readGoogleMigrationSource ?? (async () => readGoogleMigrationSource({
       spreadsheetId: config.sourceSpreadsheetId,
       serviceAccount: await readGoogleServiceAccount(config.paths.googleServiceAccountPath),
-    });
+    }));
     const runtime = {
       config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
       assertRuntimeSchemaReady,
@@ -1389,7 +1391,9 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       },
       async migratePlan(_payload, options) {
         const google = await readGoogle();
-        const manifest = await planMigration({ google, captures: readLatestPosts(config.paths.metricsSqlite), baseSchema: await migrationBase(), baseBindingSha256, now: () => now().toISOString() });
+        const sqliteAccounts = await sourceReaders.readLatestAccounts(config.paths.metricsSqlite);
+        const sqlitePosts = await sourceReaders.readLatestPosts(config.paths.metricsSqlite);
+        const manifest = await planMigration({ google, sqliteAccounts, sqlitePosts, baseSchema: await migrationBase(), baseBindingSha256, now: () => now().toISOString() });
         return manifest;
       },
       async attestPermissions(payload, _options, identity) {
@@ -1404,6 +1408,11 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       async migrateApply(payload, options) {
         const manifest = payload.manifest;
         const google = await readGoogle();
+        const sourceRevision = migrationSourceRevision({
+          google,
+          sqliteAccounts: await sourceReaders.readLatestAccounts(config.paths.metricsSqlite),
+          sqlitePosts: await sourceReaders.readLatestPosts(config.paths.metricsSqlite),
+        }).revision;
         let schemaSnapshotPromise;
         const schemaSnapshot = () => {
           if (options.phase === "schema") return migrationBase();
@@ -1411,7 +1420,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           return schemaSnapshotPromise;
         };
         const context = { repos, phase: options.phase, baseBindingSha256, tableBindingsSha256, actorId: options.actorId ?? payload.actorId,
-          expectedSha256: manifest.sha256, sourceRevision: google.revision, schemaReceipt: payload.schemaReceipt,
+          expectedSha256: manifest.sha256, sourceRevision, schemaReceipt: payload.schemaReceipt,
           expectedSchemaReceiptSha256: payload.schemaReceipt?.sha256,
           canaryReceipt: payload.canaryReceipt, expectedCanaryReceiptSha256: payload.canaryReceipt?.sha256,
           permissionAttestation: payload.permissionAttestation,
@@ -1538,6 +1547,8 @@ export async function execute(argv, {
       if (command.group === "migrate" && command.action === "plan") {
         const blockedByCode = {};
         for (const item of result.blocked) blockedByCode[item.code] = (blockedByCode[item.code] ?? 0) + 1;
+        const warningsByCode = {};
+        for (const item of result.warnings ?? []) warningsByCode[item.code] = (warningsByCode[item.code] ?? 0) + 1;
         result = {
           status: result.blocked.length === 0 ? "planned" : "blocked",
           artifact_file: command.options.output,
@@ -1546,6 +1557,7 @@ export async function execute(argv, {
           schema_actions: result.schema_actions.length,
           presentation_actions: result.presentation_actions.length,
           blocked_by_code: blockedByCode,
+          warnings_by_code: warningsByCode,
         };
       } else if (command.group === "migrate" && command.action === "attest-permissions") {
         result = {

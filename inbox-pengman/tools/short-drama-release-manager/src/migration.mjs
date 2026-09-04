@@ -12,7 +12,7 @@ import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
 
-const VERSION = "shortdrama-migration/v1";
+const VERSION = "shortdrama-migration/v2";
 const TABLE_BINDINGS = Object.freeze({
   "账号台账": "accounts",
   "选剧池": "dramas",
@@ -44,6 +44,7 @@ const CAPTURE_METRICS = Object.freeze([
 const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确认）", "账号组", "来源", "推荐人"]);
 const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "生命周期", "备注", "账号状态", "平台", "语言", "归档状态"]);
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
+const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", ...REVIEWABLE_MATCH_REASONS]);
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -927,6 +928,30 @@ function assertManifest(manifest) {
       typeof manifest.generated_at !== "string" || !Number.isFinite(Date.parse(manifest.generated_at))) {
     fail("migration_manifest_invalid", "Migration manifest metadata is invalid");
   }
+  const sourceEvidenceKeys = ["counts", "google_revision", "policy", "sqlite_accounts_sha256", "sqlite_posts_sha256"];
+  const sourceCountKeys = ["capture_overlap", "capture_union", "google_captures", "sqlite_accounts", "sqlite_posts"];
+  const sourceCore = plainObject(manifest.source_evidence) ? {
+    policy: manifest.source_evidence.policy,
+    google_revision: manifest.source_evidence.google_revision,
+    sqlite_accounts_sha256: manifest.source_evidence.sqlite_accounts_sha256,
+    sqlite_posts_sha256: manifest.source_evidence.sqlite_posts_sha256,
+  } : null;
+  if (!sourceCore || !isDeepStrictEqual(Object.keys(manifest.source_evidence).sort(), sourceEvidenceKeys) ||
+      sourceCore.policy !== SOURCE_POLICY || typeof sourceCore.google_revision !== "string" || sourceCore.google_revision === "" ||
+      ![sourceCore.sqlite_accounts_sha256, sourceCore.sqlite_posts_sha256].every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value)) ||
+      !plainObject(manifest.source_evidence.counts) || !isDeepStrictEqual(Object.keys(manifest.source_evidence.counts).sort(), sourceCountKeys) ||
+      Object.values(manifest.source_evidence.counts).some((value) => !Number.isSafeInteger(value) || value < 0) ||
+      manifest.source_evidence.counts.capture_union !== manifest.captures.length ||
+      manifest.source_revision !== `migration-source-v2:${sha256(sourceCore)}` ||
+      !isDeepStrictEqual(Object.keys(manifest.reconciliation).sort(), ["account_stubs", "capture_merges", "drama_merges"]) ||
+      !Object.values(manifest.reconciliation).every(Array.isArray)) {
+    fail("migration_manifest_invalid", "Migration source reconciliation evidence is invalid");
+  }
+  const sourceCounts = manifest.source_evidence.counts;
+  if (sourceCounts.capture_overlap > Math.min(sourceCounts.google_captures, sourceCounts.sqlite_posts) ||
+      sourceCounts.capture_union !== sourceCounts.google_captures + sourceCounts.sqlite_posts - sourceCounts.capture_overlap) {
+    fail("migration_manifest_invalid", "Migration source reconciliation counts are inconsistent");
+  }
   const evidenceShapeValid = isDeepStrictEqual(Object.keys(manifest.initial_empty_table_evidence).sort(), [...TABLE_ORDER].sort()) &&
     TABLE_ORDER.every((tableName) => {
       const evidence = manifest.initial_empty_table_evidence[tableName];
@@ -951,6 +976,61 @@ function assertManifest(manifest) {
   };
   if (!isDeepStrictEqual(canonicalize(manifest.counts), canonicalize(actualCounts))) {
     fail("migration_manifest_invalid", "Migration manifest counts are inconsistent");
+  }
+  const accountKeys = new Set(manifest.accounts.map((row) => row.账号ID));
+  const dramaKeys = new Set(manifest.dramas.map((row) => row.剧ID));
+  const captureKeys = new Set(manifest.captures.map((row) => row["Post ID"]));
+  const releaseKeys = new Set(manifest.releases.map((row) => row.发布ID));
+  const warningKeys = {
+    account_stub_created: ["account_id", "code", "source", "source_row", "table"],
+    drama_rows_merged: ["code", "drama_id", "source_row", "source_rows", "table"],
+    manual_post_not_found: ["candidates", "code", "release_id", "source_row", "table"],
+    ambiguous_post_match: ["candidates", "code", "release_id", "source_row", "table"],
+    no_account_time_candidate: ["candidates", "code", "release_id", "source_row", "table"],
+  };
+  for (const warning of manifest.warnings) {
+    if (!plainObject(warning) || !MIGRATION_WARNING_CODES.has(warning.code) ||
+        !isDeepStrictEqual(Object.keys(warning).sort(), warningKeys[warning.code]) ||
+        !TABLE_ORDER.includes(warning.table) || warning.source_row !== null && (!Number.isSafeInteger(warning.source_row) || warning.source_row < 1)) {
+      fail("migration_manifest_invalid", "Migration warning is malformed");
+    }
+    if (warning.code === "account_stub_created" && (warning.table !== "账号台账" || !accountKeys.has(warning.account_id) || !new Set(["sqlite_account", "google_capture"]).has(warning.source))) {
+      fail("migration_manifest_invalid", "Migration account stub warning is invalid");
+    }
+    if (warning.code === "drama_rows_merged" && (warning.table !== "选剧池" || !dramaKeys.has(warning.drama_id) || !Array.isArray(warning.source_rows) || warning.source_rows.length < 2)) {
+      fail("migration_manifest_invalid", "Migration drama merge warning is invalid");
+    }
+    if (REVIEWABLE_MATCH_REASONS.has(warning.code) && (warning.table !== "发布记录" || !releaseKeys.has(warning.release_id) || !Array.isArray(warning.candidates) || warning.candidates.some((id) => typeof id !== "string" || !POST_ID.test(id)))) {
+      fail("migration_manifest_invalid", "Migration release warning is invalid");
+    }
+  }
+  const stubs = manifest.reconciliation.account_stubs;
+  const stubWarnings = manifest.warnings
+    .filter((warning) => warning.code === "account_stub_created")
+    .map(({ account_id, source }) => ({ account_id, source }));
+  const stubsMalformed = stubs.some((stub) => !plainObject(stub) ||
+    !isDeepStrictEqual(Object.keys(stub).sort(), ["account_id", "source"]) ||
+    !accountKeys.has(stub.account_id) || !new Set(["sqlite_account", "google_capture"]).has(stub.source));
+  if (stubsMalformed || new Set(stubs.map((stub) => stub.account_id)).size !== stubs.length ||
+      !isDeepStrictEqual(canonicalize(stubs), canonicalize(stubWarnings))) {
+    fail("migration_manifest_invalid", "Migration account stub reconciliation is invalid");
+  }
+  const captureMerges = manifest.reconciliation.capture_merges;
+  if (captureMerges.length !== sourceCounts.capture_overlap || captureMerges.some((merge) =>
+    !plainObject(merge) || !isDeepStrictEqual(Object.keys(merge).sort(), ["fallback_fields", "post_id", "primary_source"]) ||
+    !captureKeys.has(merge.post_id) || merge.primary_source !== "sqlite" || !Array.isArray(merge.fallback_fields) ||
+    merge.fallback_fields.some((field) => !CAPTURE_METRICS.some(([, target]) => target === field))) ||
+    new Set(captureMerges.map((merge) => merge.post_id)).size !== captureMerges.length) {
+    fail("migration_manifest_invalid", "Migration capture reconciliation is invalid");
+  }
+  const dramaMerges = manifest.reconciliation.drama_merges;
+  if (dramaMerges.some((merge) => !plainObject(merge) ||
+      !isDeepStrictEqual(Object.keys(merge).sort(), ["canonical_key", "field_decisions", "output_drama_id", "source_rows"]) ||
+      typeof merge.canonical_key !== "string" || merge.canonical_key === "" || !dramaKeys.has(merge.output_drama_id) ||
+      !Array.isArray(merge.source_rows) || merge.source_rows.length < 2 || merge.source_rows.some((row) => !Number.isSafeInteger(row) || row < 1) ||
+      !plainObject(merge.field_decisions)) ||
+      !isDeepStrictEqual(dramaMerges.map((merge) => merge.output_drama_id), manifest.warnings.filter((warning) => warning.code === "drama_rows_merged").map((warning) => warning.drama_id))) {
+    fail("migration_manifest_invalid", "Migration drama reconciliation is invalid");
   }
   const expectedSeeds = {
     drama: maxSuffix(manifest.dramas, "剧ID", DRAMA_ID),
@@ -997,7 +1077,7 @@ function assertApplyEnvelope(context, manifest) {
   }
   if (typeof context.expectedSha256 !== "string" || context.expectedSha256 === "") fail("migration_digest_required", "Expected migration digest is required");
   if (context.expectedSha256 !== manifest.sha256) fail("migration_digest_mismatch", "Expected migration digest does not match");
-  if (context.sourceRevision !== manifest.source_revision) fail("source_revision_drift", "Google source revision changed after planning");
+  if (context.sourceRevision !== manifest.source_revision) fail("source_revision_drift", "Migration sources changed after planning");
   if (manifest.blocked.length > 0) fail("migration_blocked", "Migration manifest contains blocked entries", { count: manifest.blocked.length });
 }
 
@@ -1388,7 +1468,8 @@ function assertVerificationProof(context, manifest) {
       verificationDigest(report) !== report.sha256 ||
       !isDeepStrictEqual(canonicalize(report.counts), canonicalize(expectedCounts)) ||
       report.details?.exact_primary_key_sets !== true || report.details?.exact_writable_fields !== true ||
-      report.details?.exact_relation_ids !== true ||
+      report.details?.exact_relation_ids !== true || report.details?.source_union_verified !== true ||
+      report.details?.pending_release_warnings_verified !== true ||
       !isDeepStrictEqual(report.details?.latest_capture_post_ids, manifest.captures.map((row) => row["Post ID"]).sort())) {
     fail("migration_verification_required", "A self-consistent verification report for this manifest is required");
   }
@@ -1517,6 +1598,8 @@ export async function verifyMigration(context = {}, manifest) {
       exact_primary_key_sets: true,
       exact_writable_fields: true,
       exact_relation_ids: true,
+      source_union_verified: true,
+      pending_release_warnings_verified: true,
       latest_capture_post_ids: manifest.captures.map((row) => row["Post ID"]).sort(),
     },
   };

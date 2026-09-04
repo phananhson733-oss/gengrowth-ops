@@ -795,6 +795,83 @@ test("manifest canonical digest distinguishes null/missing/zero and rejects tamp
   assert.throws(() => manifestDigest(cyclic), (error) => error.code === "migration_manifest_invalid");
 });
 
+test("v2 manifest binds reconciliation and permits warnings but not blockers", async () => {
+  const google = normalizedSource();
+  google.captures = [];
+  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+    now: () => "2026-09-01T00:00:00Z",
+  });
+  assert.equal(manifest.version, "shortdrama-migration/v2");
+  assert.equal(manifest.blocked.length, 0);
+  assert.equal(manifest.counts.warnings, manifest.warnings.length);
+
+  const tampered = structuredClone(manifest);
+  tampered.warnings[0].code = "forged";
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: manifest.sha256, ...schemaGate(manifest) }, tampered),
+    (error) => error.code === "migration_digest_mismatch",
+  );
+
+  const old = structuredClone(manifest);
+  old.version = "shortdrama-migration/v1";
+  old.sha256 = manifestDigest(old);
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: old.sha256, ...schemaGate(old) }, old),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+
+  const result = await applyMigration({ repos: memoryRepos(), expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  assert.equal(result.status, "applied");
+});
+
+test("re-digested v2 warning and reconciliation forgeries fail closed", async () => {
+  const google = normalizedSource();
+  google.captures.push(googleCapture({
+    "Post ID": "88",
+    账号名: "historyonly",
+    视频链接: "https://www.tiktok.com/@historyonly/video/88",
+  }));
+  const manifest = await planMigration({ google, sqliteAccounts: [latestAccount()], sqlitePosts: [latestCapture()] });
+  for (const mutate of [
+    (value) => { value.warnings[0].code = "forged_warning"; },
+    (value) => { value.reconciliation.account_stubs.push({ account_id: "forged", source: "google_capture" }); },
+    (value) => { value.source_evidence.counts.capture_overlap = 2; },
+  ]) {
+    const forged = structuredClone(manifest);
+    mutate(forged);
+    forged.sha256 = manifestDigest(forged);
+    await assert.rejects(
+      () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+      (error) => error.code === "migration_manifest_invalid",
+    );
+  }
+});
+
+test("verify proves the reconciled capture union and pending relations", async () => {
+  const google = normalizedSource();
+  google.captures.push(googleCapture({
+    "Post ID": "88",
+    视频链接: "https://www.tiktok.com/@dramaexpedition/video/88",
+  }));
+  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+    now: () => "2026-09-01T00:00:00Z",
+  });
+  const repos = memoryRepos();
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  const report = await verifyMigration({ repos }, manifest);
+  assert.deepEqual(report.details.latest_capture_post_ids, ["88", "99"]);
+  assert.equal(report.details.source_union_verified, true);
+  assert.equal(report.details.pending_release_warnings_verified, true);
+});
+
 test("schema plan blocks same-name type/config drift and creates fixed missing fields without reverse-link recreation", async () => {
   const tableIds = Object.fromEntries(["账号台账", "选剧池", "采集数据", "发布记录"].map((name, index) => [name, `tbl-${index}`]));
   const fields = ACCOUNT_HEADERS.map((name) => ({ name, type: name === "粉丝数" ? "text" : undefined }));
