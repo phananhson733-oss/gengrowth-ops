@@ -590,10 +590,30 @@ function beijingDate(iso) {
   return new Date(Date.parse(iso) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }
 
+function manualClaimIds(source) {
+  const result = new Set();
+  if (typeof source?.["Post ID"] === "string" && POST_ID.test(source["Post ID"])) result.add(source["Post ID"]);
+  if (typeof source?.视频链接 === "string" && source.视频链接 !== "") {
+    try {
+      const url = new URL(source.视频链接);
+      const hostname = url.hostname.toLowerCase();
+      const match = url.pathname.match(/^\/@[^/]+\/(?:video|photo)\/(\d+)\/?$/);
+      if ((url.protocol === "https:" || url.protocol === "http:") &&
+          (hostname === "tiktok.com" || hostname.endsWith(".tiktok.com")) && match) result.add(match[1]);
+    } catch {}
+  }
+  return result;
+}
+
 function validateReleases(rows, accountIds, dramasByName, captureSources, capturesByPost, blocks, warnings, generatedAtValue) {
   if (!Array.isArray(rows)) fail("migration_source_invalid", "Google release rows are missing");
   const result = [];
-  const claimedPostIds = new Set();
+  const manualClaims = rows.map((source) => manualClaimIds(source));
+  const manualClaimCounts = new Map();
+  for (const claims of manualClaims) {
+    for (const claim of claims) manualClaimCounts.set(claim, (manualClaimCounts.get(claim) ?? 0) + 1);
+  }
+  const inferredPostIds = new Set();
   rows.forEach((source, at) => {
     if (!plainObject(source)) fail("migration_source_invalid", "Google release row is malformed");
     const releaseId = businessId("SR", at + 1);
@@ -607,6 +627,10 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     catch {}
     const dramaId = dramaKey ? dramasByName.get(dramaKey) ?? null : null;
     if (!dramaId) blocks.push(blocked("missing_drama_target", "发布记录", source.source_row, { release_id: releaseId, drama_name: dramaName }));
+    const claimedPostIds = new Set(inferredPostIds);
+    for (const [claim, count] of manualClaimCounts) {
+      if (count > 1 || !manualClaims[at].has(claim)) claimedPostIds.add(claim);
+    }
     const match = matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
     const hasManual = source["Post ID"] !== null && source["Post ID"] !== undefined && source["Post ID"] !== "" ||
       source.视频链接 !== null && source.视频链接 !== undefined && source.视频链接 !== "";
@@ -616,7 +640,7 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     let pendingReason = null;
     if (match.status === "matched") {
       resolvedPost = match.post.post_id;
-      claimedPostIds.add(resolvedPost);
+      inferredPostIds.add(resolvedPost);
     } else if (REVIEWABLE_MATCH_REASONS.has(match.reason) && !futureUnlinked) {
       pendingReason = match.reason;
       warnings.push(blocked(match.reason, "发布记录", source.source_row, {
