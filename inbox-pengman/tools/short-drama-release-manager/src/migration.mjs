@@ -33,6 +33,14 @@ const POST_ID = /^\d+$/;
 const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
 const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
+const SOURCE_POLICY = "shortdrama-source-reconciliation/v1";
+const CAPTURE_METRICS = Object.freeze([
+  Object.freeze(["views", "播放量"]),
+  Object.freeze(["likes", "点赞"]),
+  Object.freeze(["comments", "评论"]),
+  Object.freeze(["favorites", "收藏"]),
+  Object.freeze(["shares", "转发"]),
+]);
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -90,6 +98,25 @@ function stableJson(value) {
 
 function sha256(value) {
   return createHash("sha256").update(stableJson(value)).digest("hex");
+}
+
+export function migrationSourceRevision({ google, sqliteAccounts, sqlitePosts } = {}) {
+  if (!plainObject(google) || typeof google.revision !== "string" || google.revision === "" ||
+      !Array.isArray(sqliteAccounts) || !Array.isArray(sqlitePosts)) {
+    fail("migration_source_invalid", "Complete Google and SQLite migration sources are required");
+  }
+  let evidence;
+  try {
+    evidence = {
+      policy: SOURCE_POLICY,
+      google_revision: google.revision,
+      sqlite_accounts_sha256: sha256(sqliteAccounts),
+      sqlite_posts_sha256: sha256(sqlitePosts),
+    };
+  } catch {
+    fail("migration_source_invalid", "Migration source evidence is invalid");
+  }
+  return { evidence, revision: `migration-source-v2:${sha256(evidence)}` };
 }
 
 function digestWithoutSha(value) {
@@ -209,7 +236,81 @@ function validateAccountRows(rows, blocks) {
   for (const [accountId, sourceRows] of byId) {
     if (sourceRows.length > 1) blocks.push(blocked("duplicate_account_key", "账号台账", sourceRows[0], { account_id: accountId, source_rows: sourceRows }));
   }
-  return { rows: manifestRows, unique: new Set([...byId].filter(([, sourceRows]) => sourceRows.length === 1).map(([id]) => id)) };
+  return {
+    rows: manifestRows,
+    all: new Set(byId.keys()),
+    unique: new Set([...byId].filter(([, sourceRows]) => sourceRows.length === 1).map(([id]) => id)),
+  };
+}
+
+function normalizedSqliteAccounts(rows) {
+  if (!Array.isArray(rows)) fail("migration_source_invalid", "Latest SQLite accounts are missing");
+  const result = new Map();
+  for (const row of rows) {
+    if (!plainObject(row)) fail("migration_source_invalid", "Latest SQLite account is malformed");
+    let accountId;
+    try { accountId = normalizeAccountId(row.username); }
+    catch { fail("migration_source_invalid", "Latest SQLite account key is invalid"); }
+    if (result.has(accountId)) fail("migration_source_invalid", "Latest SQLite accounts contain a duplicate key", { account_id: accountId });
+    let identity;
+    try { identity = tiktokIdentity(row.account_url, "account"); }
+    catch { fail("migration_source_invalid", "Latest SQLite account URL is invalid", { account_id: accountId }); }
+    if (!identity || identity.accountId !== accountId || row.collection_status !== "complete" ||
+        !Number.isSafeInteger(row.followers) || row.followers < 0) {
+      fail("migration_source_invalid", "Latest SQLite account is invalid", { account_id: accountId });
+    }
+    result.set(accountId, clone(row, "migration_source_invalid"));
+  }
+  return result;
+}
+
+function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, warnings) {
+  const sqlite = normalizedSqliteAccounts(sqliteRows);
+  const rows = googleResult.rows.map((row) => {
+    const latest = sqlite.get(row.账号ID);
+    if (!latest) return row;
+    return {
+      ...row,
+      粉丝数: latest.followers,
+      数据日期: latest.snapshot_date,
+      指标同步时间: latest.captured_at,
+      同步状态: "success",
+    };
+  });
+  const captureEvidence = new Map();
+  for (const source of captureSources) {
+    const list = captureEvidence.get(source.username) ?? [];
+    list.push(source);
+    captureEvidence.set(source.username, list);
+  }
+  const stubs = [];
+  for (const accountId of [...captureEvidence.keys()].sort()) {
+    if (googleResult.all.has(accountId)) continue;
+    const latest = sqlite.get(accountId);
+    let homepage = latest?.account_url ?? null;
+    if (!homepage) {
+      const identities = captureEvidence.get(accountId).map((source) => tiktokIdentity(source.post_url, "post"));
+      if (identities.some((identity) => !identity || identity.accountId !== accountId)) {
+        blocks.push(blocked("account_stub_evidence_missing", "账号台账", null, { account_id: accountId }));
+        continue;
+      }
+      homepage = `https://www.tiktok.com/@${accountId}`;
+    }
+    const row = writableProjection("账号台账", {
+      账号ID: accountId,
+      账号名: accountId,
+      主页链接: homepage,
+      粉丝数: latest?.followers ?? null,
+      数据日期: latest?.snapshot_date ?? null,
+      指标同步时间: latest?.captured_at ?? null,
+      同步状态: latest ? "success" : null,
+    });
+    rows.push(row);
+    const evidence = { account_id: accountId, source: latest ? "sqlite_account" : "google_capture" };
+    stubs.push(evidence);
+    warnings.push(blocked("account_stub_created", "账号台账", null, evidence));
+  }
+  return { rows, unique: new Set(rows.map((row) => row.账号ID)), stubs };
 }
 
 function validateDramaRows(rows, blocks) {
@@ -234,6 +335,124 @@ function validateDramaRows(rows, blocks) {
   return {
     rows: manifestRows,
     unique: new Map([...byName].filter(([, matches]) => matches.length === 1).map(([name, matches]) => [name, matches[0].id])),
+  };
+}
+
+function migrationMetric(value, field, postId) {
+  if (value !== null && (!Number.isSafeInteger(value) || value < 0)) {
+    fail("migration_source_invalid", "Capture metric is invalid", { field, post_id: postId });
+  }
+  return value;
+}
+
+function normalizedGoogleCapture(source) {
+  if (!plainObject(source)) fail("migration_source_invalid", "Google capture is malformed");
+  const key = postId(source["Post ID"]);
+  let accountId;
+  try { accountId = normalizeAccountId(source.账号名); }
+  catch { fail("migration_source_invalid", "Google capture account is invalid", { post_id: key }); }
+  let identity;
+  try { identity = tiktokIdentity(source.视频链接, "post"); }
+  catch { fail("migration_source_invalid", "Google capture URL is invalid", { post_id: key }); }
+  if (!identity || identity.accountId !== accountId || identity.postId !== key) {
+    fail("migration_source_invalid", "Google capture identity disagrees", { post_id: key });
+  }
+  const metrics = Object.fromEntries(CAPTURE_METRICS.map(([target, field]) => [target, migrationMetric(source[field], field, key)]));
+  const missingFields = CAPTURE_METRICS.filter(([target]) => metrics[target] === null).map(([target]) => target);
+  return {
+    post_id: key,
+    username: accountId,
+    post_url: source.视频链接,
+    snapshot_date: source.快照日期,
+    captured_at: null,
+    published_at: null,
+    ...metrics,
+    collection_status: missingFields.length === 0 ? "complete" : "partial",
+    missing_fields: missingFields,
+    migration_source: "google",
+    source_row: source.source_row ?? null,
+  };
+}
+
+function normalizedSqliteCapture(source) {
+  if (!plainObject(source)) fail("migration_source_invalid", "Latest SQLite capture is malformed");
+  const key = postId(source.post_id);
+  let accountId;
+  try { accountId = normalizeAccountId(source.username); }
+  catch { fail("migration_source_invalid", "Latest SQLite capture account is invalid", { post_id: key }); }
+  let identity;
+  try { identity = tiktokIdentity(source.post_url, "post"); }
+  catch { fail("migration_source_invalid", "Latest SQLite capture URL is invalid", { post_id: key }); }
+  if (!identity || identity.accountId !== accountId || identity.postId !== key) {
+    fail("migration_source_invalid", "Latest SQLite capture identity disagrees", { post_id: key });
+  }
+  const metrics = Object.fromEntries(CAPTURE_METRICS.map(([field]) => [field, migrationMetric(source[field], field, key)]));
+  if (!new Set(["complete", "partial"]).has(source.collection_status) || !Array.isArray(source.missing_fields) ||
+      source.missing_fields.some((field) => !CAPTURE_METRICS.some(([name]) => name === field))) {
+    fail("migration_source_invalid", "Latest SQLite capture completeness is invalid", { post_id: key });
+  }
+  return {
+    ...clone(source, "migration_source_invalid"),
+    ...metrics,
+    post_id: key,
+    username: accountId,
+    missing_fields: [...source.missing_fields],
+    migration_source: "sqlite",
+  };
+}
+
+function uniqueCaptureMap(rows, normalize, sourceName) {
+  if (!Array.isArray(rows)) fail("migration_source_invalid", `${sourceName} captures are missing`);
+  const result = new Map();
+  for (const raw of rows) {
+    const row = normalize(raw);
+    if (result.has(row.post_id)) fail("migration_source_invalid", `${sourceName} captures contain a duplicate Post ID`, { post_id: row.post_id });
+    result.set(row.post_id, row);
+  }
+  return result;
+}
+
+function reconcileCaptureSources(googleRows, sqliteRows, blocks) {
+  const google = uniqueCaptureMap(googleRows, normalizedGoogleCapture, "Google");
+  const sqlite = uniqueCaptureMap(sqliteRows, normalizedSqliteCapture, "SQLite");
+  const sources = [];
+  const merges = [];
+  let overlap = 0;
+  for (const key of [...new Set([...google.keys(), ...sqlite.keys()])].sort()) {
+    const historical = google.get(key);
+    const latest = sqlite.get(key);
+    if (!latest) {
+      sources.push(historical);
+      continue;
+    }
+    if (!historical) {
+      sources.push(latest);
+      continue;
+    }
+    overlap += 1;
+    if (historical.username !== latest.username) {
+      blocks.push(blocked("capture_source_conflict", "采集数据", historical.source_row, { post_id: key }));
+    }
+    const merged = { ...historical, ...latest, migration_source: "sqlite" };
+    const fallbackFields = [];
+    for (const [field, target] of CAPTURE_METRICS) {
+      if (latest[field] === null && historical[field] !== null) {
+        merged[field] = historical[field];
+        fallbackFields.push(target);
+      }
+    }
+    sources.push(merged);
+    merges.push({ post_id: key, primary_source: "sqlite", fallback_fields: fallbackFields });
+  }
+  return {
+    sources,
+    merges,
+    counts: {
+      google_captures: google.size,
+      sqlite_posts: sqlite.size,
+      capture_overlap: overlap,
+      capture_union: sources.length,
+    },
   };
 }
 
@@ -291,7 +510,7 @@ function validateCaptures(rows, accountIds, blocks, sourceRevision) {
       "业务": "short-drama",
       "采集状态": optionalValue(source.collection_status),
       "缺失字段": [...source.missing_fields],
-      "来源 run_id": optionalValue(source.run_id) ?? `migration:${sourceRevision}`,
+      "来源 run_id": optionalValue(source.run_id) ?? `migration:${source.migration_source ?? "sqlite"}:${sourceRevision.replace(/^migration-source-v2:/, "")}`,
       "Base 同步时间": optionalValue(source.base_sync_time),
     }));
   }
@@ -505,14 +724,20 @@ export async function planMigration(context = {}) {
     fail("base_target_mismatch", "A confirmed Base binding fingerprint is required");
   }
   const google = clone(context.google, "migration_source_invalid");
-  const sourceRevision = text(google.revision, "source_revision");
   if (!plainObject(google.raw_backup)) fail("migration_source_invalid", "Token-free Google recovery backup is required");
   const generatedAtValue = generatedAt(context.now);
   const blocks = [];
-  const accountResult = validateAccountRows(google.accounts, blocks);
+  const warnings = [];
+  const googleAccounts = validateAccountRows(google.accounts, blocks);
   const dramaResult = validateDramaRows(google.dramas, blocks);
-  const capturesInput = context.captures ?? (typeof context.readLatestPosts === "function" ? await context.readLatestPosts() : null);
-  const captureSources = clone(capturesInput, "migration_source_invalid");
+  const sqliteAccounts = clone(context.sqliteAccounts ?? [], "migration_source_invalid");
+  const sqlitePostsInput = context.sqlitePosts ?? context.captures ?? (typeof context.readLatestPosts === "function" ? await context.readLatestPosts() : null);
+  const sqlitePosts = clone(sqlitePostsInput, "migration_source_invalid");
+  const source = migrationSourceRevision({ google, sqliteAccounts, sqlitePosts });
+  const sourceRevision = source.revision;
+  const captureResult = reconcileCaptureSources(google.captures, sqlitePosts, blocks);
+  const captureSources = captureResult.sources;
+  const accountResult = reconcileAccounts(googleAccounts, sqliteAccounts, captureSources, blocks, warnings);
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, generatedAtValue);
@@ -520,10 +745,23 @@ export async function planMigration(context = {}) {
   const orderedBlocks = blocks.sort((left, right) =>
     left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
   );
+  const orderedWarnings = warnings.sort((left, right) =>
+    left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
+  );
   const manifest = {
     version: VERSION,
     base_binding_sha256: context.baseBindingSha256,
     source_revision: sourceRevision,
+    source_evidence: {
+      ...source.evidence,
+      counts: {
+        google_captures: captureResult.counts.google_captures,
+        sqlite_accounts: sqliteAccounts.length,
+        sqlite_posts: captureResult.counts.sqlite_posts,
+        capture_overlap: captureResult.counts.capture_overlap,
+        capture_union: captureResult.counts.capture_union,
+      },
+    },
     source_backup: clone(google.raw_backup, "migration_source_invalid"),
     initial_schema_revision: schema.revision,
     initial_empty_table_evidence: schema.emptyEvidence,
@@ -540,12 +778,19 @@ export async function planMigration(context = {}) {
       captures: captures.length,
       releases: releases.length,
       blocked: orderedBlocks.length,
+      warnings: orderedWarnings.length,
     },
     accounts: accountResult.rows,
     dramas: dramaResult.rows,
     captures,
     releases,
     blocked: orderedBlocks,
+    warnings: orderedWarnings,
+    reconciliation: {
+      account_stubs: accountResult.stubs,
+      capture_merges: captureResult.merges,
+      drama_merges: [],
+    },
   };
   manifest.schema_spec_sha256 = sha256({ actions: manifest.schema_actions, contract: fixedSchemaContract() });
   manifest.presentation_spec_sha256 = sha256(manifest.presentation_actions);
@@ -556,12 +801,13 @@ export async function planMigration(context = {}) {
 function assertManifest(manifest) {
   const expectedKeys = [
     "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_empty_table_evidence", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
-    "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_revision", "version",
+    "reconciliation", "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_evidence", "source_revision", "version", "warnings",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
       !Array.isArray(manifest.blocked) || !plainObject(manifest.counts) || !Array.isArray(manifest.accounts) ||
       !Array.isArray(manifest.dramas) || !Array.isArray(manifest.captures) || !Array.isArray(manifest.releases) ||
       !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds) || !plainObject(manifest.source_backup) ||
+      !plainObject(manifest.source_evidence) || !plainObject(manifest.reconciliation) || !Array.isArray(manifest.warnings) ||
       !plainObject(manifest.initial_empty_table_evidence)) {
     fail("migration_manifest_invalid", "Migration manifest shape is invalid");
   }
@@ -593,6 +839,7 @@ function assertManifest(manifest) {
     captures: manifest.captures.length,
     releases: manifest.releases.length,
     blocked: manifest.blocked.length,
+    warnings: manifest.warnings.length,
   };
   if (!isDeepStrictEqual(canonicalize(manifest.counts), canonicalize(actualCounts))) {
     fail("migration_manifest_invalid", "Migration manifest counts are inconsistent");
