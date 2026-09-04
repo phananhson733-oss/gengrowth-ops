@@ -37,6 +37,7 @@ import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mj
 const LABEL = "com.gengrowth.shortdrama-sync";
 const DEFAULT_CAPABILITY_PATH = resolve(homedir(), "Library/Application Support/GenGrowth/shortdrama-sync/internal.capability");
 const MAX_PAYLOAD_BYTES = 1024 * 1024;
+const MAX_SOCIAL_HEREDOC_BYTES = 64 * 1024;
 const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
@@ -254,7 +255,27 @@ function hermesCachePath(value, kind, sessionId = null) {
   return allowedDirectory ? match[1] : null;
 }
 
-function exactHermesShell(row, { runnerPath, directCommand }) {
+function exactHermesEval(lines, at, directCommand, payloadStdin) {
+  if (!payloadStdin) return lines[at] === `eval '${directCommand}'` ? at + 1 : null;
+  const expectedStart = `eval '${directCommand} <<'\\''SHORTDRAMA_PAYLOAD'\\''`;
+  if (lines[at] !== expectedStart) return null;
+  const closing = lines.indexOf("SHORTDRAMA_PAYLOAD'", at + 1);
+  if (closing < 0) return null;
+  const body = lines.slice(at + 1, closing).join("\n");
+  const bytes = Buffer.from(body, "utf8");
+  if (bytes.length === 0 || bytes.length > MAX_SOCIAL_HEREDOC_BYTES || bytes.toString("utf8") !== body ||
+      body.includes("\0") || body.includes("$()") || /\$\(|`|<<\s*['"]?[A-Za-z_]/.test(body)) return null;
+  try {
+    const parsed = JSON.parse(body);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    assertSafeJson(parsed);
+  } catch {
+    return null;
+  }
+  return closing + 1;
+}
+
+function exactHermesShell(row, { directCommand, payloadStdin }) {
   if (!exactProcessRow(row, row?.pid) || row.command.split("/").pop().toLowerCase() !== "bash") return false;
   let script;
   let login;
@@ -279,9 +300,11 @@ function exactHermesShell(row, { runnerPath, directCommand }) {
   } else if (!login) return false;
   const cd = /^builtin cd -- (?:'([^'\r\n]+)'|(\/[^\s'"\\;|&<>`\r\n]*)) \|\| exit 126$/.exec(lines[at++] ?? "");
   const workingDirectory = cd?.[1] ?? cd?.[2];
-  if (!workingDirectory || !isAbsolute(workingDirectory) || resolve(workingDirectory) !== workingDirectory ||
-      lines[at++] !== `eval '${directCommand}'` ||
-      lines[at++] !== "__hermes_ec=$?" || lines[at++] !== "umask 077") return false;
+  if (!workingDirectory || !isAbsolute(workingDirectory) || resolve(workingDirectory) !== workingDirectory) return false;
+  const afterEval = exactHermesEval(lines, at, directCommand, payloadStdin);
+  if (afterEval === null) return false;
+  at = afterEval;
+  if (lines[at++] !== "__hermes_ec=$?" || lines[at++] !== "umask 077") return false;
   if (snapshot !== null) {
     const temp = `${snapshot}.tmp.$BASHPID`;
     if (lines[at++] !== `{ export -p > ${temp} && mv -f ${temp} ${snapshot}; } 2>/dev/null || rm -f ${temp} 2>/dev/null || true`) return false;
@@ -314,12 +337,15 @@ export function inspectTrustedSocialInvoker({
   if (!Array.isArray(argv) || argv.length < 2 || argv.some((value) => !safeDirectToken(value)) ||
       !command || typeof configPath !== "string" || resolve(configPath) !== SOCIAL_RUNTIME_CONFIG_PATH && resolve(configPath) !== resolve(dirname(runnerPath), "shortdrama.runtime.json") ||
       !Number.isSafeInteger(pid) || pid <= 1 || typeof readProcess !== "function") return false;
+  const payloadIndexes = argv.flatMap((value, index) => value === "--payload" ? [index] : []);
+  if (payloadIndexes.length > 1 || payloadIndexes.length === 1 && argv[payloadIndexes[0] + 1] !== "-") return false;
+  const payloadStdin = payloadIndexes.length === 1;
   const directCommand = `/usr/bin/env node ${resolve(runnerPath)} ${argv.join(" ")}`;
   try {
     const runner = readProcess(pid);
     if (!exactProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
     const shell = readProcess(runner.ppid);
-    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { runnerPath, directCommand })) return false;
+    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin })) return false;
     const gateway = readProcess(shell.ppid);
     const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway) : null;
     return gatewayTokens !== null && gateway.ppid === 1;

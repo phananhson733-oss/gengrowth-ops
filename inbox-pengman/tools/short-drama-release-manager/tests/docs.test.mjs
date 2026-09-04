@@ -144,7 +144,7 @@ test("README documents migration gates, async truth, natural schedule acceptance
     "08:00", "10:00", "自然调度", "连续七天", "不能", "单写者", "回滚",
     "expected-base-token", "canary receipt", "permission attestation", "四张空表", "create_four_empty_tables_and_bind_ids",
     "base_not_empty", "独立 macOS Terminal", "schema drift", "observations", "semantic_sha256", "file_sha256",
-    "direct Hermes gateway", "fixed production runtime config",
+    "direct Hermes gateway", "fixed production runtime config", "SHORTDRAMA_PAYLOAD",
   ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
   assert.match(readme, /不做物理删除/);
   assert.match(readme, /canary-only/);

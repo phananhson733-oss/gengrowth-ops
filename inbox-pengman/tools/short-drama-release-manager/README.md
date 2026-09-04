@@ -35,6 +35,8 @@ node shortdrama_ctl.mjs doctor --config "$RUNTIME_CONFIG" --expected-base-token 
 
 Social 业务命令另有独立的 **direct Hermes gateway** 来源证明：只接受当前固定 Node → LocalEnvironment 单次 bash wrapper（wrapper 内唯一 eval 必须等于本次固定 Runner argv）→ `python -m hermes_cli.main --profile social gateway run --replace` → launchd/root 的真实短链。macOS wrapper 的 snapshot/cwd 元数据允许 Hermes 源码实际使用的规范系统 `$TMPDIR`（`/var/folders/.../T/hermes-{snap,cwd}-<session>`）或固定 Social cache basename/pattern；不存在的`--external-supervisor`与`stderr_timestamp`进程不再被要求，stderr 由 launchd plist 的`StandardErrorPath`负责。wrapper 的 cwd 只做规范绝对路径/安全 shell 语法校验，不是权限锚点；实际值可以是 Social profile/session cwd，无需等于 Runner 目录。process registry/persistent shell、Python/Ruby/Perl/PHP/Lua/Node REPL、Codex/IDE、其他 profile、其他命令、多余 wrapper 行或解释器均在 env/config/payload/runtime/network 前拒绝。Social 还只能使用 Runner 同目录、resolved exact、无 symlink 的 **fixed production runtime config** `shortdrama.runtime.json`；`/tmp`或其他 alternate config 即使内容相同也拒绝。actor/chat 仍只来自 session，Hermes `actor_access`负责 reader 角色，Runner config 的 operator/privileged allowlist继续约束写操作。
 
+带`--payload -`的 Social 命令只接受 Hermes `_wrap_command()`生成的固定 quoted heredoc：首行必须是从当前 process argv 重建的 direct command 加`<<'SHORTDRAMA_PAYLOAD'`，结束行必须紧邻 payload，UTF-8 JSON object body 不超过 64 KiB、无 NUL/命令替换/第二 heredoc。未 quoted/其他 delimiter、尾随或额外命令均拒绝；不带 payload 的读命令仍要求精确单行 eval，并不得夹带 heredoc。后续`readPayload`还会重新执行完整 JSON/shape 校验。
+
 ### Doctor 与迁移
 
 ```bash
