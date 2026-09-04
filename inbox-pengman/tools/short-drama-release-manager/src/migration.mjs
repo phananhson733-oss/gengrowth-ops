@@ -1041,6 +1041,25 @@ function assertManifest(manifest) {
       fail("migration_manifest_invalid", "Migration release warning is invalid");
     }
   }
+  const releaseById = new Map(manifest.releases.map((row) => [row.发布ID, row]));
+  const reviewWarnings = manifest.warnings.filter((warning) => REVIEWABLE_MATCH_REASONS.has(warning.code));
+  if (new Set(reviewWarnings.map((warning) => warning.release_id)).size !== reviewWarnings.length) {
+    fail("migration_manifest_invalid", "Migration release warnings are duplicate");
+  }
+  const reviewByRelease = new Map(reviewWarnings.map((warning) => [warning.release_id, warning]));
+  for (const warning of reviewWarnings) {
+    const release = releaseById.get(warning.release_id);
+    if (!release || release.采集记录 !== null || release.匹配方式 !== null || release.匹配置信度 !== null ||
+        release.同步错误 !== `待人工关联：${warning.code}` || new Set(warning.candidates).size !== warning.candidates.length) {
+      fail("migration_manifest_invalid", "Migration release warning does not match its data row");
+    }
+  }
+  for (const release of manifest.releases) {
+    const pending = typeof release.同步错误 === "string" && release.同步错误.startsWith("待人工关联：");
+    if (pending !== reviewByRelease.has(release.发布ID)) {
+      fail("migration_manifest_invalid", "Migration pending release evidence is incomplete");
+    }
+  }
   const stubs = manifest.reconciliation.account_stubs;
   const stubWarnings = manifest.warnings
     .filter((warning) => warning.code === "account_stub_created")

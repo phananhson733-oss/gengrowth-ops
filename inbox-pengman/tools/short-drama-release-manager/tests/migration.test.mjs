@@ -898,6 +898,25 @@ test("re-digested v2 warning and reconciliation forgeries fail closed", async ()
   }
 });
 
+test("re-digested review warnings must match their release evidence", async () => {
+  const google = normalizedSource();
+  google.captures = [];
+  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+    now: () => "2026-09-01T00:00:00Z",
+  });
+  const forged = structuredClone(manifest);
+  forged.warnings.find((row) => row.table === "发布记录").code = "manual_post_not_found";
+  forged.sha256 = manifestDigest(forged);
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+});
+
 test("verify proves the reconciled capture union and pending relations", async () => {
   const google = normalizedSource();
   google.captures.push(googleCapture({
