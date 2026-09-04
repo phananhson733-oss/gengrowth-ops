@@ -1093,16 +1093,22 @@ test("view filter object conditions reject ambiguous or malformed official shape
   }
 });
 
-test("field option readback compares names but validates server IDs and duplicates", async () => {
+test("field option readback accepts official idless options and rejects mixed or duplicate identity", async () => {
   const response = (options) => ({ code: 0, data: { fields: [{ id: "fld_status", name: "状态", type: "select", multiple: false, options }], total: 1 } });
   const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => response([
     { id: "opt_unpublished", name: "未发", color: "grey" }, { id: "opt_live", name: "发布中", color: "green" },
   ]) });
   assert.deepEqual((await client.listFields("base", "tbl")).items[0].options, [{ name: "未发" }, { name: "发布中" }]);
+  const officialIdless = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => response([
+    { name: "未发", hue: "Carmine", lightness: "Lighter" },
+    { name: "发布中", hue: "Orange", lightness: "Lighter" },
+  ]) });
+  assert.deepEqual((await officialIdless.listFields("base", "tbl")).items[0].options, [{ name: "未发" }, { name: "发布中" }]);
   for (const options of [
-    [{ name: "未发" }],
+    [{ id: "one", name: "未发" }, { name: "发布中" }],
     [{ id: "same", name: "未发" }, { id: "same", name: "发布中" }],
     [{ id: "one", name: "未发" }, { id: "two", name: "未发" }],
+    [{ name: "未发" }, { name: "未发" }],
   ]) {
     const invalid = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => response(options) });
     await assert.rejects(invalid.listFields("base", "tbl"), (error) => error.code === "base_response_invalid");

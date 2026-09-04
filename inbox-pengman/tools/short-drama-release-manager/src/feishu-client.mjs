@@ -201,13 +201,19 @@ function normalizedResourceItems(data, resource) {
     const normalized = { ...item, [idName]: identifier };
     if (resource === "fields" && item.options !== undefined) {
       if (!Array.isArray(item.options)) throw invalidResponse("Feishu field options are malformed");
+      const optionIdPresence = item.options.map((option) => plainObject(option) && Object.hasOwn(option, "id"));
+      if (optionIdPresence.some(Boolean) && !optionIdPresence.every(Boolean)) {
+        throw invalidResponse("Feishu field options are malformed or duplicate");
+      }
+      const requireIds = optionIdPresence.length > 0 && optionIdPresence.every(Boolean);
       const ids = new Set();
       const names = new Set();
       normalized.options = item.options.map((option) => {
-        if (!plainObject(option) || typeof option.id !== "string" || option.id.length === 0 ||
-            typeof option.name !== "string" || option.name.length === 0 || option.name.trim() !== option.name ||
-            ids.has(option.id) || names.has(option.name)) throw invalidResponse("Feishu field options are malformed or duplicate");
-        ids.add(option.id);
+        if (!plainObject(option) || requireIds && (typeof option.id !== "string" || option.id.length === 0 || ids.has(option.id)) ||
+            typeof option.name !== "string" || option.name.length === 0 || option.name.trim() !== option.name || names.has(option.name)) {
+          throw invalidResponse("Feishu field options are malformed or duplicate");
+        }
+        if (requireIds) ids.add(option.id);
         names.add(option.name);
         return { name: option.name };
       });
