@@ -450,6 +450,75 @@ test("a capture-only account without URL evidence is blocked instead of guessed"
   assert.equal(manifest.accounts.some((row) => row.账号ID === "historyonly"), false);
 });
 
+test("drama canonical keys merge complementary rows with provenance", async () => {
+  const google = normalizedSource();
+  const original = google.dramas[0];
+  google.dramas = [
+    {
+      ...original,
+      source_row: 27,
+      剧名: "The Alpha Princess Is Gone for Good",
+      剧分类: ["爱情"],
+      来源: ["Reelshort榜单"],
+      推荐人: ["高璇"],
+      推荐理由: "榜单表现",
+    },
+    {
+      ...original,
+      source_row: 38,
+      剧名: " the  alpha princess is gone for good ",
+      剧分类: ["复仇"],
+      来源: ["Google Trends"],
+      推荐人: ["马博洋"],
+      推荐理由: "搜索趋势",
+    },
+  ];
+  google.releases[0].剧名 = "THE ALPHA PRINCESS IS GONE FOR GOOD";
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  assert.equal(manifest.dramas.length, 1);
+  assert.equal(manifest.dramas[0].剧ID, "SD-000001");
+  assert.equal(manifest.releases[0].剧, "SD-000001");
+  assert.deepEqual(manifest.dramas[0].剧分类, ["爱情", "复仇"]);
+  assert.deepEqual(manifest.dramas[0].来源, ["Reelshort榜单", "Google Trends"]);
+  assert.deepEqual(manifest.dramas[0].推荐人, ["高璇", "马博洋"]);
+  assert.match(manifest.dramas[0].推荐理由, /第 27 行[\s\S]*第 38 行/);
+  assert.deepEqual(manifest.reconciliation.drama_merges[0].source_rows, [27, 38]);
+  assert.equal(manifest.warnings.some((row) => row.code === "drama_rows_merged"), true);
+});
+
+test("ambiguous and missing safe matches migrate unlinked with review evidence", async () => {
+  const google = normalizedSource();
+  google.captures = [];
+  google.releases = [
+    { ...google.releases[0], source_row: 2, 视频链接: null, "Post ID": null, 日期: "2026-08-24" },
+    { ...google.releases[0], source_row: 3, 视频链接: null, "Post ID": null, 日期: "2026-08-25" },
+  ];
+  const sqlitePosts = [
+    latestCapture({ post_id: "99", post_url: "https://www.tiktok.com/@dramaexpedition/video/99", published_at: "2026-08-24T01:00:00Z" }),
+    latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100", published_at: "2026-08-24T02:00:00Z" }),
+  ];
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts,
+    now: () => "2026-09-01T00:00:00Z",
+  });
+  assert.equal(manifest.blocked.length, 0);
+  assert.deepEqual(manifest.releases.map((row) => row.采集记录), [null, null]);
+  assert.deepEqual(manifest.releases.map((row) => row.同步错误), [
+    "待人工关联：ambiguous_post_match",
+    "待人工关联：no_account_time_candidate",
+  ]);
+  assert.deepEqual(manifest.warnings.filter((row) => row.table === "发布记录").map((row) => row.code), [
+    "ambiguous_post_match",
+    "no_account_time_candidate",
+  ]);
+});
+
 test("plan is pure and deterministic, uses visible/source order, and reconciles Google capture data", async () => {
   const google = normalizedSource();
   google.dramas.push({ ...google.dramas[0], source_row: 3, 剧名: "The Phantom Pilot", 剧分类: ["逆袭"] });
