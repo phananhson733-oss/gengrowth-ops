@@ -215,6 +215,12 @@ function blocked(code, table, sourceRow, details = {}) {
   return { code, table, source_row: sourceRow ?? null, ...details };
 }
 
+function orderDiagnostics(rows) {
+  return rows.sort((left, right) =>
+    left.code.localeCompare(right.code) || left.table.localeCompare(right.table) ||
+    (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)));
+}
+
 function writableProjection(tableName, row, { exclude = [] } = {}) {
   const ignored = new Set(exclude);
   const result = {};
@@ -904,13 +910,10 @@ export async function planMigration(context = {}) {
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
-  const schema = schemaPlan(context.baseSchema, blocks);
-  const orderedBlocks = blocks.sort((left, right) =>
-    left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
-  );
-  const orderedWarnings = warnings.sort((left, right) =>
-    left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
-  );
+  const initialBaseSchema = clone(context.baseSchema, "migration_source_invalid");
+  const schema = schemaPlan(initialBaseSchema, blocks);
+  const orderedBlocks = orderDiagnostics(blocks);
+  const orderedWarnings = orderDiagnostics(warnings);
   const manifest = {
     version: VERSION,
     base_binding_sha256: context.baseBindingSha256,
@@ -926,6 +929,7 @@ export async function planMigration(context = {}) {
       },
     },
     source_backup: clone(google.raw_backup, "migration_source_invalid"),
+    initial_base_schema: initialBaseSchema,
     initial_schema_revision: schema.revision,
     initial_empty_table_evidence: schema.emptyEvidence,
     generated_at: generatedAtValue,
@@ -963,7 +967,7 @@ export async function planMigration(context = {}) {
 
 function assertManifest(manifest) {
   const expectedKeys = [
-    "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_empty_table_evidence", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
+    "accounts", "base_binding_sha256", "blocked", "captures", "counts", "dramas", "generated_at", "initial_base_schema", "initial_empty_table_evidence", "initial_schema_revision", "presentation_actions", "presentation_spec_sha256",
     "reconciliation", "releases", "schema_actions", "schema_spec_sha256", "sequence_seeds", "sha256", "source_backup", "source_evidence", "source_revision", "version", "warnings",
   ];
   if (!plainObject(manifest) || manifest.version !== VERSION || typeof manifest.sha256 !== "string" || !/^[a-f0-9]{64}$/.test(manifest.sha256) ||
@@ -971,7 +975,7 @@ function assertManifest(manifest) {
       !Array.isArray(manifest.dramas) || !Array.isArray(manifest.captures) || !Array.isArray(manifest.releases) ||
       !Array.isArray(manifest.schema_actions) || !Array.isArray(manifest.presentation_actions) || !plainObject(manifest.sequence_seeds) || !plainObject(manifest.source_backup) ||
       !plainObject(manifest.source_evidence) || !plainObject(manifest.reconciliation) || !Array.isArray(manifest.warnings) ||
-      !plainObject(manifest.initial_empty_table_evidence)) {
+      !plainObject(manifest.initial_base_schema) || !plainObject(manifest.initial_empty_table_evidence)) {
     fail("migration_manifest_invalid", "Migration manifest shape is invalid");
   }
   if (!isDeepStrictEqual(Object.keys(manifest).sort(), expectedKeys)) fail("migration_manifest_invalid", "Migration manifest contains unsupported fields");
@@ -1033,6 +1037,42 @@ function assertManifest(manifest) {
       sourceCounts.capture_overlap > Math.min(sourceCounts.google_captures, sourceCounts.sqlite_posts) ||
       sourceCounts.capture_union !== sourceCounts.google_captures + sourceCounts.sqlite_posts - sourceCounts.capture_overlap) {
     fail("migration_manifest_invalid", "Migration source reconciliation counts are inconsistent");
+  }
+  const replayBlocks = [];
+  const replayWarnings = [];
+  const replayGoogleAccounts = validateAccountRows(backupGoogle.accounts, replayBlocks);
+  const replayDramas = validateDramaRows(backupGoogle.dramas, replayBlocks, replayWarnings);
+  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks);
+  const replayAccounts = reconcileAccounts(replayGoogleAccounts, sourceCore.sqlite_accounts, replayCaptureResult.sources, replayBlocks, replayWarnings);
+  const replayCaptures = validateCaptures(replayCaptureResult.sources, replayAccounts.unique, replayBlocks, manifest.source_revision);
+  const replayCapturesByPost = new Map(replayCaptures.map((row) => [row["Post ID"], row]));
+  const replayReleases = validateReleases(
+    backupGoogle.releases,
+    replayAccounts.unique,
+    replayDramas.unique,
+    replayCaptureResult.sources,
+    replayCapturesByPost,
+    replayBlocks,
+    replayWarnings,
+    manifest.generated_at,
+  );
+  const replaySchema = schemaPlan(manifest.initial_base_schema, replayBlocks);
+  const replayReconciliation = {
+    account_stubs: replayAccounts.stubs,
+    capture_merges: replayCaptureResult.merges,
+    drama_merges: replayDramas.merges,
+  };
+  if (!isDeepStrictEqual(canonicalize(replayAccounts.rows), canonicalize(manifest.accounts)) ||
+      !isDeepStrictEqual(canonicalize(replayDramas.rows), canonicalize(manifest.dramas)) ||
+      !isDeepStrictEqual(canonicalize(replayCaptures), canonicalize(manifest.captures)) ||
+      !isDeepStrictEqual(canonicalize(replayReleases), canonicalize(manifest.releases)) ||
+      !isDeepStrictEqual(canonicalize(replayReconciliation), canonicalize(manifest.reconciliation)) ||
+      !isDeepStrictEqual(canonicalize(orderDiagnostics(replayBlocks)), canonicalize(manifest.blocked)) ||
+      !isDeepStrictEqual(canonicalize(orderDiagnostics(replayWarnings)), canonicalize(manifest.warnings)) ||
+      replaySchema.revision !== manifest.initial_schema_revision ||
+      !isDeepStrictEqual(canonicalize(replaySchema.emptyEvidence), canonicalize(manifest.initial_empty_table_evidence)) ||
+      !isDeepStrictEqual(canonicalize(replaySchema.actions), canonicalize(manifest.schema_actions))) {
+    fail("migration_manifest_invalid", "Migration manifest does not match replayed source and schema planning");
   }
   const evidenceShapeValid = isDeepStrictEqual(Object.keys(manifest.initial_empty_table_evidence).sort(), [...TABLE_ORDER].sort()) &&
     TABLE_ORDER.every((tableName) => {
@@ -1141,13 +1181,6 @@ function assertManifest(manifest) {
     merge.fallback_fields.some((field) => !CAPTURE_METRICS.some(([, target]) => target === field))) ||
     new Set(captureMerges.map((merge) => merge.post_id)).size !== captureMerges.length) {
     fail("migration_manifest_invalid", "Migration capture reconciliation is invalid");
-  }
-  const replayBlocks = [];
-  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks);
-  const replayCaptures = validateCaptures(replayCaptureResult.sources, accountKeys, replayBlocks, manifest.source_revision);
-  if (!isDeepStrictEqual(canonicalize(replayCaptures), canonicalize(manifest.captures)) ||
-      !isDeepStrictEqual(canonicalize(replayCaptureResult.merges), canonicalize(captureMerges))) {
-    fail("migration_manifest_invalid", "Migration capture union does not match its bound sources");
   }
   const dramaMerges = manifest.reconciliation.drama_merges;
   if (dramaMerges.some((merge) => !plainObject(merge) ||

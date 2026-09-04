@@ -226,6 +226,15 @@ function sourceWithCaptures(rows) {
   return normalizeGoogleSource(backup);
 }
 
+function sourceWithDramas(rows) {
+  const backup = structuredClone(normalizedSource().raw_backup);
+  const values = rows.map((row) => DRAMA_HEADERS.map((field) => row[field] ?? null));
+  for (const render of ["unformatted", "formatted", "formulas"]) {
+    backup[render].dramas = [[...DRAMA_HEADERS], ...structuredClone(values)];
+  }
+  return normalizeGoogleSource(backup);
+}
+
 test("Google normalization returns capture values without copying formulas", () => {
   const result = normalizedSource();
   assert.equal(result.accounts.length, 1);
@@ -981,6 +990,42 @@ test("re-digested manifests cannot remove a Google backup Post from the union", 
     () => applyMigration({ repos: memoryRepos(), expectedSha256: substituted.sha256, ...schemaGate(substituted) }, substituted),
     (error) => error.code === "migration_manifest_invalid",
   );
+});
+
+test("re-digested manifests cannot remove replayed source or drama blockers", async () => {
+  const captureConflictGoogle = sourceWithCaptures([googleCapture({
+    账号名: "other",
+    视频链接: "https://www.tiktok.com/@other/video/99",
+  })]);
+  const captureConflict = await planMigration({
+    google: captureConflictGoogle,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  assert.equal(captureConflict.blocked.some((row) => row.code === "capture_source_conflict"), true);
+
+  const originalDrama = normalizedSource().dramas[0];
+  const dramaConflictGoogle = sourceWithDramas([
+    { ...originalDrama, source_row: 2, 剧名: "Conflict Drama", 平台: "ReelShort" },
+    { ...originalDrama, source_row: 3, 剧名: " conflict drama ", 平台: "DramaBox" },
+  ]);
+  const dramaConflict = await planMigration({
+    google: dramaConflictGoogle,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  assert.equal(dramaConflict.blocked.some((row) => row.code === "drama_merge_conflict"), true);
+
+  for (const manifest of [captureConflict, dramaConflict]) {
+    const forged = structuredClone(manifest);
+    forged.blocked = [];
+    forged.counts.blocked = 0;
+    forged.sha256 = manifestDigest(forged);
+    await assert.rejects(
+      () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+      (error) => error.code === "migration_manifest_invalid",
+    );
+  }
 });
 
 test("verify proves the reconciled capture union and pending relations", async () => {
