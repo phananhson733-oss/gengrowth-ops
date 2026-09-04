@@ -272,8 +272,9 @@ function exactHermesShell(row, { runnerPath, directCommand }) {
     if (!sessionId || login) return false;
     at += 1;
   } else if (!login) return false;
-  const runnerDirectory = dirname(resolve(runnerPath));
-  if (lines[at++] !== `builtin cd -- ${runnerDirectory} || exit 126` ||
+  const cd = /^builtin cd -- (?:'([^'\r\n]+)'|(\/[^\s'"\\;|&<>`\r\n]*)) \|\| exit 126$/.exec(lines[at++] ?? "");
+  const workingDirectory = cd?.[1] ?? cd?.[2];
+  if (!workingDirectory || !isAbsolute(workingDirectory) || resolve(workingDirectory) !== workingDirectory ||
       lines[at++] !== `eval '${directCommand}'` ||
       lines[at++] !== "__hermes_ec=$?" || lines[at++] !== "umask 077") return false;
   if (snapshot !== null) {

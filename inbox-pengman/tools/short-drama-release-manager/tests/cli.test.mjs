@@ -627,10 +627,11 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
   const cache = "/Users/awayer_mini/.hermes/profiles/social/cache/terminal";
   const snapshot = `${cache}/hermes-snap-${sessionId}.sh`;
   const cwdFile = `${cache}/hermes-cwd-${sessionId}.txt`;
+  const hermesCwd = "/Users/awayer_mini/.hermes/profiles/social";
   const direct = `/usr/bin/env node ${runner} ${argv.join(" ")}`;
   const wrapped = [
     `source ${snapshot} >/dev/null 2>&1 || true`,
-    `builtin cd -- ${path.dirname(runner)} || exit 126`,
+    `builtin cd -- ${hermesCwd} || exit 126`,
     `eval '${direct}'`,
     "__hermes_ec=$?",
     "umask 077",
@@ -652,6 +653,19 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
     runnerPath: runner, nodePath: process.execPath, readProcess: (pid) => candidate.get(pid),
   });
   assert.equal(inspect(rows), true);
+
+  const extraWrapperLine = new Map(rows);
+  extraWrapperLine.set(90, {
+    ...rows.get(90),
+    args: rows.get(90).args.replace("exit $__hermes_ec", "python3 persistent_process.py\nexit $__hermes_ec"),
+  });
+  assert.equal(inspect(extraWrapperLine), false);
+  const unsafeCwd = new Map(rows);
+  unsafeCwd.set(90, {
+    ...rows.get(90),
+    args: rows.get(90).args.replace(hermesCwd, "/Users/awayer_mini/.hermes/profiles/social/../escape"),
+  });
+  assert.equal(inspect(unsafeCwd), false);
 
   const persistentPython = new Map(rows);
   persistentPython.set(80, { pid: 80, ppid: 75, command: "/usr/bin/python3", args: "python3 persistent_process.py" });
