@@ -111,7 +111,7 @@ export const BASE_FIELD_SPECS = Object.freeze({
     selected("账号状态", "single_select", SELECT_OPTIONS.dramaAccountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), storage("语言", "single_select"),
     storage("来源", "multi_select"), selected("推荐人", "multi_select", SELECT_OPTIONS.recommender), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus),
     link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "剧" }) }),
-    formula("是否已排期", "IF(ISBLANK([关联发布记录]), \"否\", \"是\")"),
+    formula("是否已排期", "IF(ISBLANK([关联发布记录]),\"否\",\"是\")"),
     system("创建人", { systemType: "created_by" }), system("创建时间", { systemType: "created_at" }),
     system("最后修改时间", { systemType: "updated_at" }),
   ]),
@@ -136,7 +136,7 @@ export const BASE_FIELD_SPECS = Object.freeze({
     lookup("剧分类", "剧", "剧分类"), lookup("播放量", "采集记录", "播放量"), lookup("点赞", "采集记录", "点赞"),
     lookup("收藏", "采集记录", "收藏"), lookup("转发", "采集记录", "转发"), lookup("评论", "采集记录", "评论"),
     lookup("指标日期", "采集记录", "快照日期"),
-    formula("发布状态", "IF(AND(OR([Post ID] = \"\", ISBLANK([Post ID])), OR([视频链接] = \"\", ISBLANK([视频链接])), ISBLANK([采集记录])), IF([日期] > NOW(), \"已排期\", \"待公开\"), IF(AND(NOT(ISBLANK([播放量])), NOT(ISBLANK([点赞])), NOT(ISBLANK([收藏])), NOT(ISBLANK([转发])), NOT(ISBLANK([评论]))), \"已回填\", \"已公开\"))"),
+    formula("发布状态", "IF(AND(OR([Post ID]=\"\",ISBLANK([Post ID])),OR([视频链接]=\"\",ISBLANK([视频链接])),ISBLANK([采集记录])),IF([日期]>NOW(),\"已排期\",\"待公开\"),IF(AND(NOT(ISBLANK([播放量])),NOT(ISBLANK([点赞])),NOT(ISBLANK([收藏])),NOT(ISBLANK([转发])),NOT(ISBLANK([评论]))),\"已回填\",\"已公开\"))"),
   ]),
 });
 

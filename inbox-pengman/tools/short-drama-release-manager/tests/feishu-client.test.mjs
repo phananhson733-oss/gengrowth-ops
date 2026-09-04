@@ -942,7 +942,7 @@ test("canonical field payloads cover select, datetime, formula, and system field
   assert.deepEqual(bodies, [
     { name: "剧分类", type: "select", multiple: true },
     { name: "上线日期", type: "datetime", style: { format: "yyyy-MM-dd" } },
-    { name: "是否已排期", type: "formula", expression: 'IF(ISBLANK([关联发布记录]), "否", "是")' },
+    { name: "是否已排期", type: "formula", expression: 'IF(ISBLANK([关联发布记录]),"否","是")' },
     { name: "创建时间", type: "created_at" },
   ]);
 });

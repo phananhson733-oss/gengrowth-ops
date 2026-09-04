@@ -66,9 +66,9 @@ test("schema uses supported system fields, writable sync storage, and Base formu
   assert.deepEqual(spec("采集数据", "Base 同步时间"), {
     name: "Base 同步时间", kind: "datetime", phase: "storage",
   });
-  assert.equal(spec("选剧池", "是否已排期").expression, 'IF(ISBLANK([关联发布记录]), "否", "是")');
+  assert.equal(spec("选剧池", "是否已排期").expression, 'IF(ISBLANK([关联发布记录]),"否","是")');
   const releaseFormula = spec("发布记录", "发布状态").expression;
-  assert.equal(releaseFormula, 'IF(AND(OR([Post ID] = "", ISBLANK([Post ID])), OR([视频链接] = "", ISBLANK([视频链接])), ISBLANK([采集记录])), IF([日期] > NOW(), "已排期", "待公开"), IF(AND(NOT(ISBLANK([播放量])), NOT(ISBLANK([点赞])), NOT(ISBLANK([收藏])), NOT(ISBLANK([转发])), NOT(ISBLANK([评论]))), "已回填", "已公开"))');
+  assert.equal(releaseFormula, 'IF(AND(OR([Post ID]="",ISBLANK([Post ID])),OR([视频链接]="",ISBLANK([视频链接])),ISBLANK([采集记录])),IF([日期]>NOW(),"已排期","待公开"),IF(AND(NOT(ISBLANK([播放量])),NOT(ISBLANK([点赞])),NOT(ISBLANK([收藏])),NOT(ISBLANK([转发])),NOT(ISBLANK([评论]))),"已回填","已公开"))');
   assert.match(releaseFormula, /\[Post ID\]/);
   assert.match(releaseFormula, /\[视频链接\]/);
   assert.match(releaseFormula, /\[采集记录\]/);
