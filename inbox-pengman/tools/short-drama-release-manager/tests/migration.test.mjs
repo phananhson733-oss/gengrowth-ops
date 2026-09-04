@@ -412,7 +412,45 @@ test("partial SQLite rows retain old valid metrics but keep current missing evid
   }]);
 });
 
-test("plan is pure and deterministic, uses visible/source order, and never imports Google capture data", async () => {
+test("Google-only captures preserve zero and expose exact missing metrics", async () => {
+  const google = normalizedSource();
+  google.captures = [googleCapture({
+    "Post ID": "88",
+    视频链接: "https://www.tiktok.com/@dramaexpedition/video/88",
+    点赞: 0,
+    评论: null,
+  })];
+  const manifest = await planMigration({ google, sqliteAccounts: [], sqlitePosts: [] });
+  assert.equal(manifest.captures[0].点赞, 0);
+  assert.equal(manifest.captures[0].评论, null);
+  assert.equal(manifest.captures[0].采集状态, "partial");
+  assert.deepEqual(manifest.captures[0].缺失字段, ["comments"]);
+  assert.match(manifest.captures[0]["来源 run_id"], /^migration:google:[a-f0-9]{64}$/);
+});
+
+test("cross-source capture identity conflicts block without selecting a relationship", async () => {
+  const google = normalizedSource();
+  google.captures = [googleCapture({
+    账号名: "other",
+    视频链接: "https://www.tiktok.com/@other/video/99",
+  })];
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  assert.equal(manifest.blocked.some((row) => row.code === "capture_source_conflict" && row.post_id === "99"), true);
+});
+
+test("a capture-only account without URL evidence is blocked instead of guessed", async () => {
+  const google = normalizedSource();
+  google.captures = [googleCapture({ "Post ID": "88", 账号名: "historyonly", 视频链接: null })];
+  const manifest = await planMigration({ google, sqliteAccounts: [], sqlitePosts: [] });
+  assert.equal(manifest.blocked.some((row) => row.code === "account_stub_evidence_missing" && row.account_id === "historyonly"), true);
+  assert.equal(manifest.accounts.some((row) => row.账号ID === "historyonly"), false);
+});
+
+test("plan is pure and deterministic, uses visible/source order, and reconciles Google capture data", async () => {
   const google = normalizedSource();
   google.dramas.push({ ...google.dramas[0], source_row: 3, 剧名: "The Phantom Pilot", 剧分类: ["逆袭"] });
   const first = await planMigration({ google, captures: [latestCapture()], now: () => "2026-09-01T10:00:00Z" });
@@ -423,7 +461,7 @@ test("plan is pure and deterministic, uses visible/source order, and never impor
   assert.deepEqual(first.releases.map((row) => row.发布ID), ["SR-000001"]);
   assert.deepEqual(first.captures.map((row) => row["Post ID"]), ["99"]);
   assert.equal(first.captures.some((row) => row["Post ID"] === "old-99"), false);
-  assert.deepEqual(first.counts, { accounts: 1, dramas: 2, captures: 1, releases: 1, blocked: 0 });
+  assert.deepEqual(first.counts, { accounts: 1, dramas: 2, captures: 1, releases: 1, blocked: 0, warnings: 0 });
   assert.deepEqual(first.sequence_seeds, { drama: 2, release: 1 });
   assert.equal(first.sha256, second.sha256);
   assert.equal(first.generated_at === second.generated_at, false);

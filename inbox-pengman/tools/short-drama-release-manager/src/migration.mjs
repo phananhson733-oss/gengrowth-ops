@@ -289,7 +289,10 @@ function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, war
     const latest = sqlite.get(accountId);
     let homepage = latest?.account_url ?? null;
     if (!homepage) {
-      const identities = captureEvidence.get(accountId).map((source) => tiktokIdentity(source.post_url, "post"));
+      const identities = captureEvidence.get(accountId).map((source) => {
+        try { return tiktokIdentity(source.post_url, "post"); }
+        catch { return null; }
+      });
       if (identities.some((identity) => !identity || identity.accountId !== accountId)) {
         blocks.push(blocked("account_stub_evidence_missing", "账号台账", null, { account_id: accountId }));
         continue;
@@ -351,12 +354,9 @@ function normalizedGoogleCapture(source) {
   let accountId;
   try { accountId = normalizeAccountId(source.账号名); }
   catch { fail("migration_source_invalid", "Google capture account is invalid", { post_id: key }); }
-  let identity;
+  let identity = null;
   try { identity = tiktokIdentity(source.视频链接, "post"); }
-  catch { fail("migration_source_invalid", "Google capture URL is invalid", { post_id: key }); }
-  if (!identity || identity.accountId !== accountId || identity.postId !== key) {
-    fail("migration_source_invalid", "Google capture identity disagrees", { post_id: key });
-  }
+  catch {}
   const metrics = Object.fromEntries(CAPTURE_METRICS.map(([target, field]) => [target, migrationMetric(source[field], field, key)]));
   const missingFields = CAPTURE_METRICS.filter(([target]) => metrics[target] === null).map(([target]) => target);
   return {
@@ -370,6 +370,7 @@ function normalizedGoogleCapture(source) {
     collection_status: missingFields.length === 0 ? "complete" : "partial",
     missing_fields: missingFields,
     migration_source: "google",
+    identity_valid: identity?.accountId === accountId && identity?.postId === key,
     source_row: source.source_row ?? null,
   };
 }
@@ -383,9 +384,6 @@ function normalizedSqliteCapture(source) {
   let identity;
   try { identity = tiktokIdentity(source.post_url, "post"); }
   catch { fail("migration_source_invalid", "Latest SQLite capture URL is invalid", { post_id: key }); }
-  if (!identity || identity.accountId !== accountId || identity.postId !== key) {
-    fail("migration_source_invalid", "Latest SQLite capture identity disagrees", { post_id: key });
-  }
   const metrics = Object.fromEntries(CAPTURE_METRICS.map(([field]) => [field, migrationMetric(source[field], field, key)]));
   if (!new Set(["complete", "partial"]).has(source.collection_status) || !Array.isArray(source.missing_fields) ||
       source.missing_fields.some((field) => !CAPTURE_METRICS.some(([name]) => name === field))) {
@@ -430,7 +428,7 @@ function reconcileCaptureSources(googleRows, sqliteRows, blocks) {
       continue;
     }
     overlap += 1;
-    if (historical.username !== latest.username) {
+    if (historical.identity_valid !== true || historical.username !== latest.username) {
       blocks.push(blocked("capture_source_conflict", "采集数据", historical.source_row, { post_id: key }));
     }
     const merged = { ...historical, ...latest, migration_source: "sqlite" };
