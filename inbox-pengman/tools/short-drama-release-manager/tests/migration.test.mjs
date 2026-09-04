@@ -490,6 +490,19 @@ test("drama canonical keys merge complementary rows with provenance", async () =
   assert.equal(manifest.warnings.some((row) => row.code === "drama_rows_merged"), true);
 });
 
+test("drama canonical merge blocks conflicting nonblank scalar values", async () => {
+  const google = normalizedSource();
+  google.dramas.push({
+    ...google.dramas[0],
+    source_row: 38,
+    剧名: ` ${google.dramas[0].剧名.toUpperCase()} `,
+    平台: "DramaBox",
+  });
+  const manifest = await planMigration({ google, sqliteAccounts: [latestAccount()], sqlitePosts: [latestCapture()] });
+  assert.equal(manifest.blocked.some((row) =>
+    row.code === "drama_merge_conflict" && row.field === "平台" && row.source_rows.includes(38)), true);
+});
+
 test("ambiguous and missing safe matches migrate unlinked with review evidence", async () => {
   const google = normalizedSource();
   google.captures = [];
@@ -517,6 +530,25 @@ test("ambiguous and missing safe matches migrate unlinked with review evidence",
     "ambiguous_post_match",
     "no_account_time_candidate",
   ]);
+});
+
+test("manual Post claims are reserved before earlier automatic time matching", async () => {
+  const google = normalizedSource();
+  google.captures = [];
+  google.releases = [
+    { ...google.releases[0], source_row: 2, 视频链接: null, "Post ID": null, 日期: "2026-08-24" },
+    { ...google.releases[0], source_row: 3, 日期: "2026-08-30" },
+  ];
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ published_at: "2026-08-24T01:00:00Z" })],
+    now: () => "2026-09-01T00:00:00Z",
+  });
+  assert.equal(manifest.blocked.some((row) => row.code === "manual_post_claimed"), false);
+  assert.equal(manifest.releases[0].采集记录, null);
+  assert.equal(manifest.releases[1].采集记录, "99");
+  assert.equal(manifest.releases[1].匹配方式, "manual_url");
 });
 
 test("plan is pure and deterministic, uses visible/source order, and reconciles Google capture data", async () => {
@@ -736,8 +768,9 @@ test("plan blocks duplicate identities, missing targets, and URL/account disagre
   google.releases.push({ ...google.releases[0], source_row: 5, 账号名: "missing", 剧名: "missing", 视频链接: null, "Post ID": null });
   const manifest = await planMigration({ google, captures: [latestCapture({ post_url: "https://www.tiktok.com/@other/video/99" })] });
   assert.deepEqual(new Set(manifest.blocked.map((item) => item.code)), new Set([
-    "duplicate_account_key", "ambiguous_drama_key", "missing_account_target", "missing_drama_target", "source_account_mismatch", "no_account_time_candidate",
+    "duplicate_account_key", "missing_account_target", "missing_drama_target", "source_account_mismatch",
   ]));
+  assert.deepEqual(new Set(manifest.warnings.map((item) => item.code)), new Set(["drama_rows_merged", "no_account_time_candidate"]));
   await assert.rejects(
     () => applyMigration({ expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision }, manifest),
     (error) => error.code === "migration_blocked",
@@ -854,7 +887,7 @@ test("fresh Base plan creates every fixed field in phase order and bootstraps on
   assert.equal(unsafe.blocked.some((entry) => entry.code === "base_not_empty" && entry.table === "账号台账"), true);
 });
 
-test("release planning uses the matcher and blocks due/ambiguous/claimed evidence while allowing a truly future unlinked row", async () => {
+test("release planning warns on ambiguous evidence while allowing a truly future unlinked row", async () => {
   const google = normalizedSource();
   google.releases = [
     { ...google.releases[0], source_row: 2, 视频链接: null, "Post ID": null, 日期: "2026-08-24" },
@@ -863,7 +896,7 @@ test("release planning uses the matcher and blocks due/ambiguous/claimed evidenc
   ];
   const captures = [latestCapture({ published_at: "2026-08-24T01:00:00Z" }), latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100", published_at: "2026-08-24T02:00:00Z" })];
   const manifest = await planMigration({ google, captures, now: () => "2026-09-01T00:00:00Z" });
-  assert.equal(manifest.blocked.filter((entry) => entry.code === "ambiguous_post_match").length, 2);
+  assert.equal(manifest.warnings.filter((entry) => entry.code === "ambiguous_post_match").length, 2);
   assert.equal(manifest.releases[2].采集记录, null);
 });
 
@@ -883,7 +916,7 @@ test("archived releases still claim Post IDs and future dates never swallow non-
     latestCapture({ published_at: "2026-09-10T01:00:00Z" }),
     latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100", published_at: "2026-09-10T02:00:00Z" }),
   ], now: () => "2026-09-01T00:00:00Z" });
-  assert.equal(ambiguous.blocked.some((entry) => entry.code === "ambiguous_post_match"), true);
+  assert.equal(ambiguous.warnings.some((entry) => entry.code === "ambiguous_post_match"), true);
 });
 
 test("manifest binds full schema and presentation semantics, not only action names", async () => {

@@ -41,6 +41,9 @@ const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["favorites", "收藏"]),
   Object.freeze(["shares", "转发"]),
 ]);
+const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确认）", "账号组", "来源", "推荐人"]);
+const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "生命周期", "备注", "账号状态", "平台", "语言", "归档状态"]);
+const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -316,29 +319,97 @@ function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, war
   return { rows, unique: new Set(rows.map((row) => row.账号ID)), stubs };
 }
 
-function validateDramaRows(rows, blocks) {
+export function canonicalDramaName(value) {
+  return text(value, "剧名").normalize("NFKC").trim().replace(/\s+/gu, " ").toLocaleLowerCase("en-US");
+}
+
+function stableUnion(rows, field) {
+  const result = [];
+  const seen = new Set();
+  for (const row of rows) {
+    const values = row.projected[field];
+    if (!Array.isArray(values)) fail("migration_source_invalid", "Drama multi-select value is invalid", { field });
+    for (const value of values) {
+      if (typeof value !== "string" || value === "") fail("migration_source_invalid", "Drama multi-select option is invalid", { field });
+      if (!seen.has(value)) {
+        seen.add(value);
+        result.push(value);
+      }
+    }
+  }
+  return result;
+}
+
+function distinctValues(rows, field) {
+  const result = [];
+  for (const row of rows) {
+    const value = row.projected[field];
+    if (value === null || value === undefined || value === "") continue;
+    if (!result.some((candidate) => isDeepStrictEqual(candidate.value, value))) result.push({ value, sourceRow: row.sourceRow });
+  }
+  return result;
+}
+
+function validateDramaRows(rows, blocks, warnings) {
   if (!Array.isArray(rows)) fail("migration_source_invalid", "Google drama rows are missing");
-  const manifestRows = [];
-  const byName = new Map();
+  const groups = new Map();
   rows.forEach((source, at) => {
     if (!plainObject(source)) fail("migration_source_invalid", "Google drama row is malformed");
     let name;
     try { name = text(source.剧名, "剧名"); }
     catch { blocks.push(blocked("invalid_drama_key", "选剧池", source.source_row)); return; }
-    const id = businessId("SD", at + 1);
+    const key = canonicalDramaName(name);
     const projected = writableProjection("选剧池", source, { exclude: ["剧ID", "是否已排期"] });
-    manifestRows.push({ ...projected, 剧ID: id, 剧名: name, 归档状态: projected.归档状态 ?? "active" });
-    const list = byName.get(name) ?? [];
-    list.push({ id, sourceRow: source.source_row ?? null });
-    byName.set(name, list);
+    const list = groups.get(key) ?? [];
+    list.push({ name, projected, sourceRow: source.source_row ?? null, sourceIndex: at });
+    groups.set(key, list);
   });
-  for (const [name, matches] of byName) {
-    if (matches.length > 1) blocks.push(blocked("ambiguous_drama_key", "选剧池", matches[0].sourceRow, { drama_name: name, source_rows: matches.map((item) => item.sourceRow) }));
+  const manifestRows = [];
+  const unique = new Map();
+  const merges = [];
+  const orderedGroups = [...groups].sort(([, left], [, right]) => left[0].sourceIndex - right[0].sourceIndex);
+  for (const [key, matches] of orderedGroups) {
+    const id = businessId("SD", manifestRows.length + 1);
+    const merged = { ...matches[0].projected, 剧ID: id, 剧名: matches[0].name };
+    const fieldDecisions = {};
+    for (const field of DRAMA_MULTI_FIELDS) {
+      merged[field] = stableUnion(matches, field);
+      fieldDecisions[field] = { strategy: "stable_union", source_rows: matches.map((item) => item.sourceRow) };
+    }
+    const reasons = distinctValues(matches, "推荐理由");
+    if (reasons.length === 1) merged.推荐理由 = reasons[0].value;
+    else if (reasons.length > 1) merged.推荐理由 = reasons.map((item) => `[来源：Google 选剧池第 ${item.sourceRow} 行] ${item.value}`).join("\n\n");
+    else merged.推荐理由 = null;
+    fieldDecisions.推荐理由 = { strategy: reasons.length > 1 ? "provenance_join" : "single_value", source_rows: reasons.map((item) => item.sourceRow) };
+    for (const field of DRAMA_SCALAR_FIELDS) {
+      const values = distinctValues(matches, field);
+      if (values.length > 1) {
+        blocks.push(blocked("drama_merge_conflict", "选剧池", matches[0].sourceRow, {
+          drama_name: matches[0].name,
+          field,
+          source_rows: values.map((item) => item.sourceRow),
+        }));
+      }
+      merged[field] = values[0]?.value ?? (field === "归档状态" ? "active" : null);
+      fieldDecisions[field] = { strategy: values.length > 1 ? "blocked_conflict" : "single_value", source_rows: values.map((item) => item.sourceRow) };
+    }
+    manifestRows.push(merged);
+    unique.set(key, id);
+    if (matches.length > 1) {
+      const evidence = {
+        canonical_key: key,
+        output_drama_id: id,
+        source_rows: matches.map((item) => item.sourceRow),
+        field_decisions: fieldDecisions,
+      };
+      merges.push(evidence);
+      warnings.push(blocked("drama_rows_merged", "选剧池", matches[0].sourceRow, {
+        drama_id: id,
+        source_rows: evidence.source_rows,
+      }));
+    }
   }
-  return {
-    rows: manifestRows,
-    unique: new Map([...byName].filter(([, matches]) => matches.length === 1).map(([name, matches]) => [name, matches[0].id])),
-  };
+  return { rows: manifestRows, unique, merges };
 }
 
 function migrationMetric(value, field, postId) {
@@ -519,7 +590,7 @@ function beijingDate(iso) {
   return new Date(Date.parse(iso) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }
 
-function validateReleases(rows, accountIds, dramasByName, captureSources, capturesByPost, blocks, generatedAtValue) {
+function validateReleases(rows, accountIds, dramasByName, captureSources, capturesByPost, blocks, warnings, generatedAtValue) {
   if (!Array.isArray(rows)) fail("migration_source_invalid", "Google release rows are missing");
   const result = [];
   const claimedPostIds = new Set();
@@ -531,7 +602,10 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     catch { blocks.push(blocked("missing_account_target", "发布记录", source.source_row, { release_id: releaseId })); }
     if (accountId && !accountIds.has(accountId)) blocks.push(blocked("missing_account_target", "发布记录", source.source_row, { release_id: releaseId, account_id: accountId }));
     const dramaName = typeof source.剧名 === "string" ? source.剧名.trim() : "";
-    const dramaId = dramasByName.get(dramaName) ?? null;
+    let dramaKey = null;
+    try { dramaKey = canonicalDramaName(dramaName); }
+    catch {}
+    const dramaId = dramaKey ? dramasByName.get(dramaKey) ?? null : null;
     if (!dramaId) blocks.push(blocked("missing_drama_target", "发布记录", source.source_row, { release_id: releaseId, drama_name: dramaName }));
     const match = matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
     const hasManual = source["Post ID"] !== null && source["Post ID"] !== undefined && source["Post ID"] !== "" ||
@@ -539,9 +613,16 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     const futureUnlinked = !hasManual && match.status === "unmatched" && match.reason === "no_account_time_candidate" &&
       typeof source.日期 === "string" && /^\d{4}-\d{2}-\d{2}$/.test(source.日期) && source.日期 > beijingDate(generatedAtValue);
     let resolvedPost = null;
+    let pendingReason = null;
     if (match.status === "matched") {
       resolvedPost = match.post.post_id;
       claimedPostIds.add(resolvedPost);
+    } else if (REVIEWABLE_MATCH_REASONS.has(match.reason) && !futureUnlinked) {
+      pendingReason = match.reason;
+      warnings.push(blocked(match.reason, "发布记录", source.source_row, {
+        release_id: releaseId,
+        candidates: match.candidates?.map((item) => item.post_id) ?? [],
+      }));
     } else if (!futureUnlinked) {
       blocks.push(blocked(match.reason, "发布记录", source.source_row, { release_id: releaseId, candidates: match.candidates?.map((item) => item.post_id) ?? [] }));
     }
@@ -551,6 +632,11 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
       projected.视频链接 = match.post.post_url ?? projected.视频链接;
       projected.匹配方式 = match.method;
       projected.匹配置信度 = match.confidence ?? 1;
+    }
+    if (pendingReason) {
+      projected.匹配方式 = null;
+      projected.匹配置信度 = null;
+      projected.同步错误 = `待人工关联：${pendingReason}`;
     }
     result.push(writableProjection("发布记录", {
       ...projected,
@@ -727,7 +813,7 @@ export async function planMigration(context = {}) {
   const blocks = [];
   const warnings = [];
   const googleAccounts = validateAccountRows(google.accounts, blocks);
-  const dramaResult = validateDramaRows(google.dramas, blocks);
+  const dramaResult = validateDramaRows(google.dramas, blocks, warnings);
   const sqliteAccounts = clone(context.sqliteAccounts ?? [], "migration_source_invalid");
   const sqlitePostsInput = context.sqlitePosts ?? context.captures ?? (typeof context.readLatestPosts === "function" ? await context.readLatestPosts() : null);
   const sqlitePosts = clone(sqlitePostsInput, "migration_source_invalid");
@@ -738,7 +824,7 @@ export async function planMigration(context = {}) {
   const accountResult = reconcileAccounts(googleAccounts, sqliteAccounts, captureSources, blocks, warnings);
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
-  const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, generatedAtValue);
+  const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
   const schema = schemaPlan(context.baseSchema, blocks);
   const orderedBlocks = blocks.sort((left, right) =>
     left.code.localeCompare(right.code) || left.table.localeCompare(right.table) || (left.source_row ?? 0) - (right.source_row ?? 0) || stableJson(left).localeCompare(stableJson(right)),
@@ -787,7 +873,7 @@ export async function planMigration(context = {}) {
     reconciliation: {
       account_stubs: accountResult.stubs,
       capture_merges: captureResult.merges,
-      drama_merges: [],
+      drama_merges: dramaResult.merges,
     },
   };
   manifest.schema_spec_sha256 = sha256({ actions: manifest.schema_actions, contract: fixedSchemaContract() });
