@@ -113,6 +113,45 @@ function completeRecordMatrix(overrides = {}) {
   };
 }
 
+test("official record lists paginate by has_more when total and response offset are omitted", async () => {
+  const calls = [];
+  const pages = [
+    {
+      fields: ["发布ID", "播放量", "归档状态"],
+      field_id_list: ["fld_release", "fld_views", "fld_archive"],
+      field_type_list: ["text", "lookup", "single_select"],
+      record_id_list: ["rec_1"],
+      data: [["SR-000001", "10", ["active"]]],
+      has_more: true,
+      query_context: { record_scope: "all_records", field_scope: "all_fields" },
+      timezone: "Asia/Shanghai",
+      rev: 7,
+    },
+    {
+      fields: ["发布ID", "播放量", "归档状态"],
+      field_id_list: ["fld_release", "fld_views", "fld_archive"],
+      field_type_list: ["text", "lookup", "single_select"],
+      record_id_list: ["rec_2"],
+      data: [["SR-000002", "20", ["active"]]],
+      has_more: false,
+      query_context: { record_scope: "all_records", field_scope: "all_fields" },
+      timezone: "Asia/Shanghai",
+      rev: 7,
+    },
+  ];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      calls.push(new URL(url).searchParams.get("offset"));
+      return { code: 0, data: pages.shift() };
+    },
+  });
+  const result = await client.listRecords("base", "tbl", { tableName: "发布记录" });
+  assert.equal(result.complete, true);
+  assert.deepEqual(calls, ["0", "1"]);
+  assert.deepEqual(result.items.map((record) => record.fields.播放量), [10, 20]);
+});
+
 test("official fixed-table record lists are complete from the minimal matrix and stable total", async () => {
   const pages = [
     completeRecordMatrix({ record_id_list: ["rec_1"], data: [["SR-000001", "0", ["active"]]], total: 2 }),

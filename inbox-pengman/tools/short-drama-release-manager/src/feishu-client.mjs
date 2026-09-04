@@ -365,7 +365,8 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
       fields: Object.fromEntries(fields.map((field, at) => [field, decodeCell(tableName, field, row[at])])),
     })),
     signature: strictList ? {
-      fields: [...fields], total: data.total,
+      fields: [...fields],
+      ...(data.total === undefined ? {} : { total: data.total }),
       ...(fieldIds === undefined ? {} : { field_ids: [...fieldIds] }),
       ...(fieldTypes === undefined ? {} : { field_types: [...fieldTypes] }),
       ...(data.timezone === undefined ? {} : { timezone: data.timezone }),
@@ -904,7 +905,17 @@ export class FeishuClient {
         let hasMore;
         let rawCursor;
         const vendorOffset = mode === "offset" && (vendorRecords || payload.data[resource] !== undefined);
-        if (vendorOffset) {
+        if (vendorRecords && mode === "offset" && payload.data.total === undefined) {
+          const offset = Number(cursor);
+          if (!Number.isSafeInteger(offset) || offset < 0 || typeof payload.data.has_more !== "boolean") {
+            throw invalidResponse("Feishu record pagination is malformed", { path: diagnosticPath(path) });
+          }
+          hasMore = payload.data.has_more;
+          if (hasMore && pageItems.length === 0) {
+            throw invalidResponse("Feishu pagination made no progress", { path: diagnosticPath(path) });
+          }
+          rawCursor = String(offset + pageItems.length);
+        } else if (vendorOffset) {
           const total = payload.data.total;
           const offset = Number(cursor);
           if (!Number.isSafeInteger(total) || total < 0 || !Number.isSafeInteger(offset) || offset < 0 ||
