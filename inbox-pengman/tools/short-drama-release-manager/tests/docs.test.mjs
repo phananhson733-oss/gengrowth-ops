@@ -35,6 +35,7 @@ test("requirements and Task 12 bind the reconciled v2 migration contract", async
     "blocked=0",
   ]) assert.match(combined, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.doesNotMatch(requirements, /Post ID 集合与 SQLite 最新帖子集合一致/);
+  assert.doesNotMatch(plan, /16 个现有剧/);
 });
 
 test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {

@@ -7,6 +7,7 @@ import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
 import { fixedDashboardDescriptor, fixedFieldDescriptor, fixedViewDescriptor } from "./feishu-client.mjs";
+import { normalizeGoogleSource } from "./google-source.mjs";
 import { matchReleaseToCapture } from "./matcher.mjs";
 import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
@@ -105,18 +106,36 @@ function sha256(value) {
   return createHash("sha256").update(stableJson(value)).digest("hex");
 }
 
+function exactSourceIds(rows, field, normalize) {
+  const result = rows.map((row) => {
+    if (!plainObject(row)) fail("migration_source_invalid", "Migration source row is malformed", { field });
+    try { return normalize(row[field]); }
+    catch { fail("migration_source_invalid", "Migration source identifier is invalid", { field }); }
+  });
+  if (new Set(result).size !== result.length) fail("migration_source_invalid", "Migration source identifiers are duplicate", { field });
+  return result.sort();
+}
+
 export function migrationSourceRevision({ google, sqliteAccounts, sqlitePosts } = {}) {
   if (!plainObject(google) || typeof google.revision !== "string" || google.revision === "" ||
-      !Array.isArray(sqliteAccounts) || !Array.isArray(sqlitePosts)) {
+      !Array.isArray(google.captures) || !Array.isArray(sqliteAccounts) || !Array.isArray(sqlitePosts)) {
     fail("migration_source_invalid", "Complete Google and SQLite migration sources are required");
   }
   let evidence;
   try {
+    const capturedAccounts = clone(sqliteAccounts, "migration_source_invalid");
+    const capturedPosts = clone(sqlitePosts, "migration_source_invalid");
     evidence = {
       policy: SOURCE_POLICY,
       google_revision: google.revision,
-      sqlite_accounts_sha256: sha256(sqliteAccounts),
-      sqlite_posts_sha256: sha256(sqlitePosts),
+      google_capture_post_ids: exactSourceIds(google.captures, "Post ID", (value) => postId(value)),
+      google_captures_sha256: sha256(google.captures),
+      sqlite_account_ids: exactSourceIds(capturedAccounts, "username", (value) => normalizeAccountId(value)),
+      sqlite_accounts: capturedAccounts,
+      sqlite_accounts_sha256: sha256(capturedAccounts),
+      sqlite_post_ids: exactSourceIds(capturedPosts, "post_id", (value) => postId(value)),
+      sqlite_posts: capturedPosts,
+      sqlite_posts_sha256: sha256(capturedPosts),
     };
   } catch {
     fail("migration_source_invalid", "Migration source evidence is invalid");
@@ -314,7 +333,12 @@ function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, war
       同步状态: latest ? "success" : null,
     });
     rows.push(row);
-    const evidence = { account_id: accountId, source: latest ? "sqlite_account" : "google_capture" };
+    const evidence = {
+      account_id: accountId,
+      evidence_url: homepage,
+      source: latest ? "sqlite_account" : "google_capture",
+      source_post_ids: captureEvidence.get(accountId).map((source) => source.post_id).sort(),
+    };
     stubs.push(evidence);
     warnings.push(blocked("account_stub_created", "账号台账", null, evidence));
   }
@@ -958,17 +982,30 @@ function assertManifest(manifest) {
       typeof manifest.generated_at !== "string" || !Number.isFinite(Date.parse(manifest.generated_at))) {
     fail("migration_manifest_invalid", "Migration manifest metadata is invalid");
   }
-  const sourceEvidenceKeys = ["counts", "google_revision", "policy", "sqlite_accounts_sha256", "sqlite_posts_sha256"];
+  const sourceEvidenceKeys = [
+    "counts", "google_capture_post_ids", "google_captures_sha256", "google_revision", "policy",
+    "sqlite_account_ids", "sqlite_accounts", "sqlite_accounts_sha256",
+    "sqlite_post_ids", "sqlite_posts", "sqlite_posts_sha256",
+  ];
   const sourceCountKeys = ["capture_overlap", "capture_union", "google_captures", "sqlite_accounts", "sqlite_posts"];
   const sourceCore = plainObject(manifest.source_evidence) ? {
     policy: manifest.source_evidence.policy,
     google_revision: manifest.source_evidence.google_revision,
+    google_capture_post_ids: manifest.source_evidence.google_capture_post_ids,
+    google_captures_sha256: manifest.source_evidence.google_captures_sha256,
+    sqlite_account_ids: manifest.source_evidence.sqlite_account_ids,
+    sqlite_accounts: manifest.source_evidence.sqlite_accounts,
     sqlite_accounts_sha256: manifest.source_evidence.sqlite_accounts_sha256,
+    sqlite_post_ids: manifest.source_evidence.sqlite_post_ids,
+    sqlite_posts: manifest.source_evidence.sqlite_posts,
     sqlite_posts_sha256: manifest.source_evidence.sqlite_posts_sha256,
   } : null;
   if (!sourceCore || !isDeepStrictEqual(Object.keys(manifest.source_evidence).sort(), sourceEvidenceKeys) ||
       sourceCore.policy !== SOURCE_POLICY || typeof sourceCore.google_revision !== "string" || sourceCore.google_revision === "" ||
-      ![sourceCore.sqlite_accounts_sha256, sourceCore.sqlite_posts_sha256].every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value)) ||
+      ![sourceCore.google_captures_sha256, sourceCore.sqlite_accounts_sha256, sourceCore.sqlite_posts_sha256].every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value)) ||
+      !Array.isArray(sourceCore.google_capture_post_ids) || !Array.isArray(sourceCore.sqlite_account_ids) ||
+      !Array.isArray(sourceCore.sqlite_accounts) || !Array.isArray(sourceCore.sqlite_post_ids) || !Array.isArray(sourceCore.sqlite_posts) ||
+      sourceCore.sqlite_accounts_sha256 !== sha256(sourceCore.sqlite_accounts) || sourceCore.sqlite_posts_sha256 !== sha256(sourceCore.sqlite_posts) ||
       !plainObject(manifest.source_evidence.counts) || !isDeepStrictEqual(Object.keys(manifest.source_evidence.counts).sort(), sourceCountKeys) ||
       Object.values(manifest.source_evidence.counts).some((value) => !Number.isSafeInteger(value) || value < 0) ||
       manifest.source_evidence.counts.capture_union !== manifest.captures.length ||
@@ -978,7 +1015,22 @@ function assertManifest(manifest) {
     fail("migration_manifest_invalid", "Migration source reconciliation evidence is invalid");
   }
   const sourceCounts = manifest.source_evidence.counts;
-  if (sourceCounts.capture_overlap > Math.min(sourceCounts.google_captures, sourceCounts.sqlite_posts) ||
+  let backupGoogle;
+  try { backupGoogle = normalizeGoogleSource(manifest.source_backup); }
+  catch { fail("migration_manifest_invalid", "Migration Google backup cannot be normalized"); }
+  const backupGooglePostIds = exactSourceIds(backupGoogle.captures, "Post ID", (value) => postId(value));
+  const sqliteAccountIds = exactSourceIds(sourceCore.sqlite_accounts, "username", (value) => normalizeAccountId(value));
+  const sqlitePostIds = exactSourceIds(sourceCore.sqlite_posts, "post_id", (value) => postId(value));
+  const expectedUnion = [...new Set([...backupGooglePostIds, ...sqlitePostIds])].sort();
+  const actualCaptureIds = manifest.captures.map((row) => row["Post ID"]).sort();
+  const expectedOverlap = backupGooglePostIds.filter((id) => new Set(sqlitePostIds).has(id)).length;
+  if (backupGoogle.revision !== sourceCore.google_revision || sourceCore.google_captures_sha256 !== sha256(backupGoogle.captures) ||
+      !isDeepStrictEqual(sourceCore.google_capture_post_ids, backupGooglePostIds) ||
+      !isDeepStrictEqual(sourceCore.sqlite_account_ids, sqliteAccountIds) || !isDeepStrictEqual(sourceCore.sqlite_post_ids, sqlitePostIds) ||
+      sourceCounts.google_captures !== backupGooglePostIds.length || sourceCounts.sqlite_accounts !== sqliteAccountIds.length ||
+      sourceCounts.sqlite_posts !== sqlitePostIds.length || sourceCounts.capture_overlap !== expectedOverlap ||
+      sourceCounts.capture_union !== expectedUnion.length || !isDeepStrictEqual(actualCaptureIds, expectedUnion) ||
+      sourceCounts.capture_overlap > Math.min(sourceCounts.google_captures, sourceCounts.sqlite_posts) ||
       sourceCounts.capture_union !== sourceCounts.google_captures + sourceCounts.sqlite_posts - sourceCounts.capture_overlap) {
     fail("migration_manifest_invalid", "Migration source reconciliation counts are inconsistent");
   }
@@ -1019,7 +1071,7 @@ function assertManifest(manifest) {
     fail("migration_manifest_invalid", "Migration release Post claims are invalid or duplicate");
   }
   const warningKeys = {
-    account_stub_created: ["account_id", "code", "source", "source_row", "table"],
+    account_stub_created: ["account_id", "code", "evidence_url", "source", "source_post_ids", "source_row", "table"],
     drama_rows_merged: ["code", "drama_id", "source_row", "source_rows", "table"],
     manual_post_not_found: ["candidates", "code", "release_id", "source_row", "table"],
     ambiguous_post_match: ["candidates", "code", "release_id", "source_row", "table"],
@@ -1031,7 +1083,9 @@ function assertManifest(manifest) {
         !TABLE_ORDER.includes(warning.table) || warning.source_row !== null && (!Number.isSafeInteger(warning.source_row) || warning.source_row < 1)) {
       fail("migration_manifest_invalid", "Migration warning is malformed");
     }
-    if (warning.code === "account_stub_created" && (warning.table !== "账号台账" || !accountKeys.has(warning.account_id) || !new Set(["sqlite_account", "google_capture"]).has(warning.source))) {
+    if (warning.code === "account_stub_created" && (warning.table !== "账号台账" || !accountKeys.has(warning.account_id) ||
+        !new Set(["sqlite_account", "google_capture"]).has(warning.source) || typeof warning.evidence_url !== "string" ||
+        !Array.isArray(warning.source_post_ids) || warning.source_post_ids.length === 0)) {
       fail("migration_manifest_invalid", "Migration account stub warning is invalid");
     }
     if (warning.code === "drama_rows_merged" && (warning.table !== "选剧池" || !dramaKeys.has(warning.drama_id) || !Array.isArray(warning.source_rows) || warning.source_rows.length < 2)) {
@@ -1063,10 +1117,19 @@ function assertManifest(manifest) {
   const stubs = manifest.reconciliation.account_stubs;
   const stubWarnings = manifest.warnings
     .filter((warning) => warning.code === "account_stub_created")
-    .map(({ account_id, source }) => ({ account_id, source }));
+    .map(({ account_id, evidence_url, source, source_post_ids }) => ({ account_id, evidence_url, source, source_post_ids }));
+  const accountById = new Map(manifest.accounts.map((row) => [row.账号ID, row]));
+  const sqliteAccountById = new Map(sourceCore.sqlite_accounts.map((row) => [normalizeAccountId(row.username), row]));
+  const sourceCaptureIds = new Set([...backupGooglePostIds, ...sqlitePostIds]);
   const stubsMalformed = stubs.some((stub) => !plainObject(stub) ||
-    !isDeepStrictEqual(Object.keys(stub).sort(), ["account_id", "source"]) ||
-    !accountKeys.has(stub.account_id) || !new Set(["sqlite_account", "google_capture"]).has(stub.source));
+    !isDeepStrictEqual(Object.keys(stub).sort(), ["account_id", "evidence_url", "source", "source_post_ids"]) ||
+    !accountKeys.has(stub.account_id) || !new Set(["sqlite_account", "google_capture"]).has(stub.source) ||
+    typeof stub.evidence_url !== "string" || accountById.get(stub.account_id)?.主页链接 !== stub.evidence_url ||
+    !Array.isArray(stub.source_post_ids) || stub.source_post_ids.length === 0 ||
+    new Set(stub.source_post_ids).size !== stub.source_post_ids.length ||
+    stub.source_post_ids.some((id) => !sourceCaptureIds.has(id) || !manifest.captures.some((row) => row["Post ID"] === id && row.账号 === stub.account_id)) ||
+    stub.source === "sqlite_account" && (!sqliteAccountIds.includes(stub.account_id) || sqliteAccountById.get(stub.account_id)?.account_url !== stub.evidence_url) ||
+    stub.source === "google_capture" && (!stub.source_post_ids.some((id) => backupGooglePostIds.includes(id)) || stub.evidence_url !== `https://www.tiktok.com/@${stub.account_id}`));
   if (stubsMalformed || new Set(stubs.map((stub) => stub.account_id)).size !== stubs.length ||
       !isDeepStrictEqual(canonicalize(stubs), canonicalize(stubWarnings))) {
     fail("migration_manifest_invalid", "Migration account stub reconciliation is invalid");
@@ -1078,6 +1141,13 @@ function assertManifest(manifest) {
     merge.fallback_fields.some((field) => !CAPTURE_METRICS.some(([, target]) => target === field))) ||
     new Set(captureMerges.map((merge) => merge.post_id)).size !== captureMerges.length) {
     fail("migration_manifest_invalid", "Migration capture reconciliation is invalid");
+  }
+  const replayBlocks = [];
+  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks);
+  const replayCaptures = validateCaptures(replayCaptureResult.sources, accountKeys, replayBlocks, manifest.source_revision);
+  if (!isDeepStrictEqual(canonicalize(replayCaptures), canonicalize(manifest.captures)) ||
+      !isDeepStrictEqual(canonicalize(replayCaptureResult.merges), canonicalize(captureMerges))) {
+    fail("migration_manifest_invalid", "Migration capture union does not match its bound sources");
   }
   const dramaMerges = manifest.reconciliation.drama_merges;
   if (dramaMerges.some((merge) => !plainObject(merge) ||

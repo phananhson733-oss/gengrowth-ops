@@ -230,8 +230,8 @@ function multiSelect(value, field) {
 function cell(value, formatted, field) {
   if (DATE_FIELDS.has(field)) return calendarDate(value, formatted, field);
   if (MULTI_SELECT_FIELDS.has(field)) return multiSelect(value, field);
-  if (value === undefined && formatted !== undefined) value = formatted;
-  if (value === undefined || value === null) return null;
+  if (blank(value)) value = formatted;
+  if (blank(value)) return null;
   if (typeof value === "string") return value.trim();
   if (typeof value === "number") {
     if (!Number.isFinite(value)) fail("Google numeric value is invalid", { field });

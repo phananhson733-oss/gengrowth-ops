@@ -77,6 +77,7 @@ const REGISTRY = Object.freeze({
 });
 
 const REQUIRED = Object.freeze({
+  "migrate:plan": ["output"],
   "migrate:apply": ["phase", "manifest", "expectedSha256"],
   "migrate:verify": ["manifest"],
   "migrate:attest-permissions": ["manifest", "expectedSha256", "schemaReceipt", "expectedSchemaReceiptSha256", "observations", "expectedObservationsFileSha256", "output", "expectedBaseToken"],

@@ -15,6 +15,7 @@ import {
   canaryReceiptDigest,
   createPermissionAttestation,
   manifestDigest,
+  migrationSourceRevision,
   permissionAttestationDigest,
   planMigration as planMigrationRaw,
   schemaReceiptDigest,
@@ -216,6 +217,15 @@ function googleCapture(overrides = {}) {
   };
 }
 
+function sourceWithCaptures(rows) {
+  const backup = structuredClone(normalizedSource().raw_backup);
+  const values = rows.map((row) => CAPTURE_HEADERS.map((field) => row[field] ?? null));
+  for (const render of ["unformatted", "formatted", "formulas"]) {
+    backup[render].captures = [[...CAPTURE_HEADERS], ...structuredClone(values)];
+  }
+  return normalizeGoogleSource(backup);
+}
+
 test("Google normalization returns capture values without copying formulas", () => {
   const result = normalizedSource();
   assert.equal(result.accounts.length, 1);
@@ -277,6 +287,22 @@ test("Google capture normalization rejects invalid identifiers, dates, and metri
       (error) => error.code === "google_source_invalid" && error.details.field === field,
     );
   }
+});
+
+test("Google capture blank metric cells normalize to null partial evidence", () => {
+  const backup = normalizedSource().raw_backup;
+  const data = structuredClone(backup);
+  data.unformatted.captures[1][6] = "";
+  data.formatted.captures[1][6] = "";
+  const result = normalizeGoogleSource(data);
+  assert.equal(result.captures[0].评论, null);
+
+  const trailing = structuredClone(backup);
+  trailing.unformatted.captures[1] = trailing.unformatted.captures[1].slice(0, 7);
+  trailing.formatted.captures[1] = trailing.formatted.captures[1].slice(0, 7);
+  const trailingResult = normalizeGoogleSource(trailing);
+  assert.equal(trailingResult.captures[0].收藏, null);
+  assert.equal(trailingResult.captures[0].转发, null);
 });
 
 test("readGoogleMigrationSource uses readonly JWT and four bounded GETs with exact complete ranges", async () => {
@@ -843,8 +869,7 @@ test("manifest canonical digest distinguishes null/missing/zero and rejects tamp
 });
 
 test("v2 manifest binds reconciliation and permits warnings but not blockers", async () => {
-  const google = normalizedSource();
-  google.captures = [];
+  const google = sourceWithCaptures([]);
   google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
   const manifest = await planMigration({
     google,
@@ -887,6 +912,14 @@ test("re-digested v2 warning and reconciliation forgeries fail closed", async ()
     (value) => { value.warnings[0].code = "forged_warning"; },
     (value) => { value.reconciliation.account_stubs.push({ account_id: "forged", source: "google_capture" }); },
     (value) => { value.source_evidence.counts.capture_overlap = 2; },
+    (value) => {
+      const stub = value.reconciliation.account_stubs[0];
+      const warning = value.warnings.find((row) => row.code === "account_stub_created");
+      const account = value.accounts.find((row) => row.账号ID === stub.account_id);
+      stub.evidence_url = "https://www.tiktok.com/@forged";
+      warning.evidence_url = stub.evidence_url;
+      account.主页链接 = stub.evidence_url;
+    },
   ]) {
     const forged = structuredClone(manifest);
     mutate(forged);
@@ -917,12 +950,47 @@ test("re-digested review warnings must match their release evidence", async () =
   );
 });
 
+test("re-digested manifests cannot remove a Google backup Post from the union", async () => {
+  const google = sourceWithCaptures([
+    googleCapture(),
+    googleCapture({ "Post ID": "88", 视频链接: "https://www.tiktok.com/@dramaexpedition/video/88" }),
+  ]);
+  const sqliteAccounts = [latestAccount()];
+  const sqlitePosts = [latestCapture()];
+  const manifest = await planMigration({ google, sqliteAccounts, sqlitePosts });
+  const forgedGoogle = { ...google, captures: google.captures.filter((row) => row["Post ID"] !== "88") };
+  const forgedSource = migrationSourceRevision({ google: forgedGoogle, sqliteAccounts, sqlitePosts });
+  const forged = structuredClone(manifest);
+  forged.captures = forged.captures.filter((row) => row["Post ID"] !== "88");
+  forged.counts.captures = 1;
+  forged.source_evidence = {
+    ...forgedSource.evidence,
+    counts: { ...forged.source_evidence.counts, google_captures: 1, capture_union: 1 },
+  };
+  forged.source_revision = forgedSource.revision;
+  forged.sha256 = manifestDigest(forged);
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+
+  const substituted = structuredClone(manifest);
+  substituted.captures.find((row) => row["Post ID"] === "88").播放量 = 999;
+  substituted.sha256 = manifestDigest(substituted);
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: substituted.sha256, ...schemaGate(substituted) }, substituted),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+});
+
 test("verify proves the reconciled capture union and pending relations", async () => {
-  const google = normalizedSource();
-  google.captures.push(googleCapture({
-    "Post ID": "88",
-    视频链接: "https://www.tiktok.com/@dramaexpedition/video/88",
-  }));
+  const google = sourceWithCaptures([
+    googleCapture(),
+    googleCapture({
+      "Post ID": "88",
+      视频链接: "https://www.tiktok.com/@dramaexpedition/video/88",
+    }),
+  ]);
   google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
   const manifest = await planMigration({
     google,

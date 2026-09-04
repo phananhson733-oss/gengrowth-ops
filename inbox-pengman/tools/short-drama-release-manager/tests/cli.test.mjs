@@ -84,7 +84,7 @@ test("CLI exposes only registered command paths and fixed options", () => {
   assert.deepEqual(parseCommand(["doctor"]), { group: "doctor", action: null, options: {} });
   for (const argv of [
     ["exec", "rm", "-rf"], ["pool", "delete"], ["pool", "update"], ["release", "update"], ["sync"], ["doctor", "extra"],
-    ["pool", "list", "--wat", "x"], ["sync", "status", "--run-id", "a", "--run-id", "b"],
+    ["pool", "list", "--wat", "x"], ["sync", "status", "--run-id", "a", "--run-id", "b"], ["migrate", "plan"],
   ]) assert.throws(() => parseCommand(argv), (error) => ["command_not_allowed", "input_invalid"].includes(error.code));
 });
 
@@ -380,7 +380,7 @@ test("later canary readback failure still cleans every earlier table", async () 
 
 test("every public and internal registry path parses with only its fixed shape", () => {
   const commands = [
-    ["doctor"], ["migrate", "plan"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
+    ["doctor"], ["migrate", "plan", "--output", "plan.json"], ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)], ["migrate", "verify", "--manifest", "plan.json"],
     ["migrate", "attest-permissions", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--schema-receipt", "schema.json", "--expected-schema-receipt-sha256", "b".repeat(64), "--observations", "observations.json", "--expected-observations-file-sha256", "c".repeat(64), "--output", "permission.json", "--expected-base-token", "base"],
     ["account", "list"], ["account", "get", "--key", "acct"], ["capture", "list"], ["capture", "get", "--key", "123"],
     ["pool", "list"], ["pool", "get", "--key", "SD-000001"], ["pool", "create"], ["pool", "update-field"], ["pool", "preview-update"], ["pool", "preview-batch"],
@@ -495,7 +495,7 @@ test("real Feishu Social sessions cannot reach doctor, migration, or internal ru
   for (const command of [
     parseCommand(["doctor", "--expected-base-token", "base"]),
     parseCommand(["doctor", "--canary", "--actor-id", "ou_admin", "--expected-base-token", "base", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--output", "canary.json"]),
-    parseCommand(["migrate", "plan", "--expected-base-token", "base"]),
+    parseCommand(["migrate", "plan", "--expected-base-token", "base", "--output", "social-denied.json"]),
     parseCommand(["migrate", "verify", "--manifest", "plan.json", "--expected-base-token", "base"]),
     parseCommand(["schedule", "tick"]),
     parseCommand(["queue", "drain"]),
@@ -503,7 +503,7 @@ test("real Feishu Social sessions cannot reach doctor, migration, or internal ru
     assert.throws(() => resolveInvocationIdentity(command, session), (error) => error.code === "social_command_denied");
   }
   let builds = 0;
-  const result = await execute(["migrate", "plan", "--expected-base-token", "base", "--config", "/configured/runtime.json"], {
+  const result = await execute(["migrate", "plan", "--expected-base-token", "base", "--output", "social-denied.json", "--config", "/configured/runtime.json"], {
     env: session,
     loadEnvironment: passthroughEnvironment,
     build: async () => { builds += 1; throw new Error("must not build"); },
@@ -552,7 +552,7 @@ test("local privileged and internal identities fail closed", () => {
     mode: "local", actorId: "ou_admin", chatId: null, profile: null,
   });
   assert.throws(() => resolveInvocationIdentity(parseCommand([
-    "migrate", "plan", "--expected-base-token", "base", "--actor-id", "ou_admin",
+    "migrate", "plan", "--expected-base-token", "base", "--output", "local-denied.json", "--actor-id", "ou_admin",
   ]), {}, { isPrivilegedAllowed: () => true, isTrustedLocalInvoker: () => false }),
   (error) => error.code === "local_invoker_untrusted");
   assert.throws(() => resolveInvocationIdentity(parseCommand([
@@ -570,7 +570,7 @@ test("local privileged and internal identities fail closed", () => {
 test("untrusted local Hermes ancestry is rejected before runtime construction even without session env", async () => {
   let builds = 0;
   const result = await execute([
-    "migrate", "plan", "--expected-base-token", "base", "--actor-id", "ou_admin",
+    "migrate", "plan", "--expected-base-token", "base", "--output", "local-denied.json", "--actor-id", "ou_admin",
     "--config", "/configured/runtime.json",
   ], {
     env: {}, loadEnvironment: passthroughEnvironment,
@@ -1032,6 +1032,21 @@ test("migration plan stores the full manifest but returns only a bounded summary
   }
 });
 
+test("migration plan without an output artifact fails before runtime and cannot leak a manifest", async () => {
+  let builds = 0;
+  const completed = await execute([
+    "migrate", "plan", "--expected-base-token", "base",
+    "--actor-id", "admin", "--config", "/configured/runtime.json",
+  ], {
+    env: {},
+    loadEnvironment: passthroughEnvironment,
+    isTrustedLocalInvoker: trustedLocalInvoker,
+    build: async () => { builds += 1; throw new Error("must not build"); },
+  });
+  assert.equal(completed.result.error.code, "input_invalid");
+  assert.equal(builds, 0);
+});
+
 test("buildRuntime wires renamed config allowlists into HumanOps and notifier", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-runtime-allowlists-"));
   const configPath = path.join(root, "runtime.json");
@@ -1253,7 +1268,7 @@ test("independent Base token mismatch fails before JobStore or Base network acti
   for (const argv of [
     ["doctor"],
     ["doctor", "--expected-base-token", "base-other"],
-    ["migrate", "plan", "--expected-base-token", "base-other"],
+    ["migrate", "plan", "--expected-base-token", "base-other", "--output", "base-mismatch.json"],
   ]) {
     await assert.rejects(
       () => buildRuntime({ configPath, env, command: parseCommand(argv), services: { client } }),
