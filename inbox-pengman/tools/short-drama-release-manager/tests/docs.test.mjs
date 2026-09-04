@@ -10,6 +10,7 @@ const root = new URL("../", import.meta.url);
 const readmeUrl = new URL("README.md", root);
 const envUrl = new URL("../tiktok-public-capture/.env.example", root);
 const configUrl = new URL("shortdrama.config.example.json", root);
+const requirementsUrl = new URL("../../06-requirements/2026-08-30-短剧数据采集迁移与发行管理平台需求文档.md", root);
 const planUrl = new URL("../../06-requirements/2026-09-01-短剧发行管理-v5-实施计划.md", root);
 const execFile = promisify(execFileCallback);
 
@@ -18,9 +19,23 @@ async function docs() {
     readme: await readFile(readmeUrl, "utf8"),
     env: await readFile(envUrl, "utf8"),
     config: await readFile(configUrl, "utf8"),
+    requirements: await readFile(requirementsUrl, "utf8"),
     plan: await readFile(planUrl, "utf8"),
   };
 }
+
+test("requirements and Task 12 bind the reconciled v2 migration contract", async () => {
+  const { requirements, plan } = await docs();
+  const combined = `${requirements}\n${plan}`;
+  for (const term of [
+    "Google 历史 ∪ SQLite latest",
+    "shortdrama-migration/v2",
+    "warnings_by_code",
+    "Google-only 历史 Post",
+    "blocked=0",
+  ]) assert.match(combined, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.doesNotMatch(requirements, /Post ID 集合与 SQLite 最新帖子集合一致/);
+});
 
 test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {
   const { readme } = await docs();
