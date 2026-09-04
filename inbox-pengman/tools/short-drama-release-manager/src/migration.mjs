@@ -631,6 +631,15 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
   for (const claims of manualClaims) {
     for (const claim of claims) manualClaimCounts.set(claim, (manualClaimCounts.get(claim) ?? 0) + 1);
   }
+  const duplicateManualClaims = new Set();
+  for (const [claim, count] of manualClaimCounts) {
+    if (count < 2) continue;
+    duplicateManualClaims.add(claim);
+    const sourceRows = rows
+      .map((source, at) => manualClaims[at].has(claim) ? source.source_row ?? null : null)
+      .filter((sourceRow) => sourceRow !== null);
+    blocks.push(blocked("manual_post_claimed", "发布记录", sourceRows[0] ?? null, { post_id: claim, source_rows: sourceRows }));
+  }
   const inferredPostIds = new Set();
   rows.forEach((source, at) => {
     if (!plainObject(source)) fail("migration_source_invalid", "Google release row is malformed");
@@ -649,7 +658,9 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     for (const [claim, count] of manualClaimCounts) {
       if (count > 1 || !manualClaims[at].has(claim)) claimedPostIds.add(claim);
     }
-    const match = matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
+    const duplicateClaim = [...manualClaims[at]].find((claim) => duplicateManualClaims.has(claim)) ?? null;
+    const match = duplicateClaim ? { status: "unmatched", reason: "manual_post_claimed", candidates: [] } :
+      matchReleaseToCapture({ ...source, 账号ID: accountId }, captureSources, claimedPostIds);
     const hasManual = source["Post ID"] !== null && source["Post ID"] !== undefined && source["Post ID"] !== "" ||
       source.视频链接 !== null && source.视频链接 !== undefined && source.视频链接 !== "";
     const futureUnlinked = !hasManual && match.status === "unmatched" && match.reason === "no_account_time_candidate" &&
@@ -659,6 +670,8 @@ function validateReleases(rows, accountIds, dramasByName, captureSources, captur
     if (match.status === "matched") {
       resolvedPost = match.post.post_id;
       inferredPostIds.add(resolvedPost);
+    } else if (duplicateClaim) {
+      // The one deterministic duplicate block was emitted before any matching.
     } else if (REVIEWABLE_MATCH_REASONS.has(match.reason) && !futureUnlinked) {
       pendingReason = match.reason;
       warnings.push(blocked(match.reason, "发布记录", source.source_row, {
@@ -998,6 +1011,13 @@ function assertManifest(manifest) {
   const dramaKeys = new Set(manifest.dramas.map((row) => row.剧ID));
   const captureKeys = new Set(manifest.captures.map((row) => row["Post ID"]));
   const releaseKeys = new Set(manifest.releases.map((row) => row.发布ID));
+  const releasePostClaims = manifest.releases
+    .map((row) => row["Post ID"])
+    .filter((value) => value !== null && value !== undefined && value !== "");
+  if (releasePostClaims.some((value) => typeof value !== "string" || !POST_ID.test(value)) ||
+      new Set(releasePostClaims).size !== releasePostClaims.length) {
+    fail("migration_manifest_invalid", "Migration release Post claims are invalid or duplicate");
+  }
   const warningKeys = {
     account_stub_created: ["account_id", "code", "source", "source_row", "table"],
     drama_rows_merged: ["code", "drama_id", "source_row", "source_rows", "table"],

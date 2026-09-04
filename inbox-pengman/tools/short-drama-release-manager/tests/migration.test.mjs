@@ -565,6 +565,39 @@ test("manual Post claims are reserved before earlier automatic time matching", a
   assert.equal(manifest.releases[1].匹配方式, "manual_url");
 });
 
+test("duplicate active and archived manual claims block even when the Post is absent", async () => {
+  const google = normalizedSource();
+  google.captures = [];
+  google.releases = [
+    {
+      ...google.releases[0],
+      source_row: 2,
+      视频链接: "https://www.tiktok.com/@dramaexpedition/video/999",
+      "Post ID": "999",
+      归档状态: "active",
+    },
+    {
+      ...google.releases[0],
+      source_row: 3,
+      视频链接: "https://www.tiktok.com/@dramaexpedition/video/999",
+      "Post ID": "999",
+      归档状态: "archived",
+    },
+  ];
+  const manifest = await planMigration({ google, sqliteAccounts: [latestAccount()], sqlitePosts: [] });
+  assert.equal(manifest.blocked.some((row) => row.code === "manual_post_claimed" && row.post_id === "999"), true);
+  assert.equal(manifest.warnings.some((row) => row.code === "manual_post_not_found"), false);
+
+  const forged = structuredClone(manifest);
+  forged.blocked = [];
+  forged.counts.blocked = 0;
+  forged.sha256 = manifestDigest(forged);
+  await assert.rejects(
+    () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+    (error) => error.code === "migration_manifest_invalid",
+  );
+});
+
 test("plan is pure and deterministic, uses visible/source order, and reconciles Google capture data", async () => {
   const google = normalizedSource();
   google.dramas.push({ ...google.dramas[0], source_row: 3, 剧名: "The Phantom Pilot", 剧分类: ["逆袭"] });
