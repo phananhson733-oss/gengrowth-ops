@@ -255,16 +255,31 @@ function hermesCachePath(value, kind, sessionId = null) {
   return allowedDirectory ? match[1] : null;
 }
 
+function decodeHermesSingleQuotedData(value) {
+  let decoded = "";
+  for (let index = 0; index < value.length; index += 1) {
+    if (value[index] !== "'") {
+      decoded += value[index];
+      continue;
+    }
+    if (value.slice(index, index + 4) !== "'\\''") return null;
+    decoded += "'";
+    index += 3;
+  }
+  return decoded;
+}
+
 function exactHermesEval(lines, at, directCommand, payloadStdin) {
   if (!payloadStdin) return lines[at] === `eval '${directCommand}'` ? at + 1 : null;
   const expectedStart = `eval '${directCommand} <<'\\''SHORTDRAMA_PAYLOAD'\\''`;
   if (lines[at] !== expectedStart) return null;
   const closing = lines.indexOf("SHORTDRAMA_PAYLOAD'", at + 1);
   if (closing < 0) return null;
-  const body = lines.slice(at + 1, closing).join("\n");
+  const body = decodeHermesSingleQuotedData(lines.slice(at + 1, closing).join("\n"));
+  if (body === null) return null;
   const bytes = Buffer.from(body, "utf8");
   if (bytes.length === 0 || bytes.length > MAX_SOCIAL_HEREDOC_BYTES || bytes.toString("utf8") !== body ||
-      body.includes("\0") || body.includes("$()") || /\$\(|`|<<\s*['"]?[A-Za-z_]/.test(body)) return null;
+      body.includes("\0") || body.includes("\uFFFD") || body.includes("$()") || /\$\(|`|<<\s*['"]?[A-Za-z_]/.test(body)) return null;
   try {
     const parsed = JSON.parse(body);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;

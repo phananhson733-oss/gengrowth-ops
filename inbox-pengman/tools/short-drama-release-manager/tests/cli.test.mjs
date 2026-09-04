@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { access, chmod, mkdtemp, mkdir, open, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
@@ -721,10 +722,10 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
     `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"`,
     "exit $__hermes_ec",
   ].join("\n");
-  const inspect = (argv, commandText) => {
+  const inspectWrapped = (argv, wrappedScript) => {
     const rows = new Map([
       [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} ${argv.join(" ")}` }],
-      [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrap(commandText)}` }],
+      [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrappedScript}` }],
       [80, { pid: 80, ppid: 1, command: python, args: gateway }],
     ]);
     return inspectTrustedSocialInvoker({
@@ -732,6 +733,7 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
       runnerPath: runner, nodePath: process.execPath, readProcess: (pid) => rows.get(pid),
     });
   };
+  const inspect = (argv, commandText) => inspectWrapped(argv, wrap(commandText));
   const cases = [
     [["pool", "update-field", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"key":"SD-000001","field":"备注","value":"中文"}'],
     [["pool", "create", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"patch":{"剧名":"New Drama","平台":"ReelShort"}}'],
@@ -743,6 +745,25 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
     const direct = `/usr/bin/env node ${runner} ${argv.join(" ")}`;
     assert.equal(inspect(argv, `${direct} <<'SHORTDRAMA_PAYLOAD'\n${body}\nSHORTDRAMA_PAYLOAD`), true);
   }
+
+  const apostropheArgv = cases[0][0];
+  const apostropheDirect = `/usr/bin/env node ${runner} ${apostropheArgv.join(" ")}`;
+  const apostropheCommand = `${apostropheDirect} <<'SHORTDRAMA_PAYLOAD'\n{"key":"SD-000001","field":"备注","value":"Bob's note"}\nSHORTDRAMA_PAYLOAD`;
+  const hermesRoot = process.env.HERMES_SOURCE_ROOT ?? "/Users/awayer_mini/hermes-agent";
+  const realWrapper = execFileSync(path.join(hermesRoot, ".venv", "bin", "python"), ["-c", `
+import sys
+sys.path.insert(0, ${JSON.stringify(hermesRoot)})
+from tools.environments.local import LocalEnvironment
+environment = object.__new__(LocalEnvironment)
+environment._snapshot_path = ${JSON.stringify(snapshot)}
+environment._cwd_file = ${JSON.stringify(cwdFile)}
+environment._cwd_marker = ${JSON.stringify(`__HERMES_CWD_${sessionId}__`)}
+environment._snapshot_ready = True
+print(environment._wrap_command(sys.argv[1], ${JSON.stringify("/Users/awayer_mini/.hermes/profiles/social")}), end="")
+`, apostropheCommand], { encoding: "utf8" });
+  assert.equal(inspectWrapped(apostropheArgv, realWrapper), true);
+  assert.equal(inspectWrapped(apostropheArgv, realWrapper.replace("Bob'\\''s note", "Bob\\'s note")), false);
+  assert.equal(inspectWrapped(apostropheArgv, realWrapper.replace("Bob'\\''s note", "Bob's note")), false);
 
   const argv = cases[0][0];
   const direct = `/usr/bin/env node ${runner} ${argv.join(" ")}`;
