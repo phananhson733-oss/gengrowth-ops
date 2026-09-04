@@ -7,6 +7,7 @@ import { homedir, userInfo } from "node:os";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
+import { isDeepStrictEqual } from "node:util";
 
 import { BaseRepositories } from "./src/base-repositories.mjs";
 import { loadRuntimeConfig, loadRuntimeEnvironment } from "./src/config.mjs";
@@ -1111,6 +1112,28 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
     }
     selected.push(selectedTable);
   }
+  const fieldsById = new Map();
+  for (const table of selected) {
+    for (const field of table.fields) {
+      if (typeof field.field_id !== "string" || field.field_id === "" || fieldsById.has(field.field_id)) {
+        fail("base_response_invalid", "Base field identifiers are missing or duplicate");
+      }
+      fieldsById.set(field.field_id, { table, field });
+    }
+  }
+  for (const table of selected) {
+    table.fields = table.fields.map((field) => {
+      if (field.bidirectional_link_field_id === undefined) return field;
+      const reverse = fieldsById.get(field.bidirectional_link_field_id);
+      if (field.bidirectional !== true || !reverse || reverse.field.bidirectional !== true ||
+          reverse.field.bidirectional_link_field_id !== field.field_id || field.link_table !== reverse.table.table_id ||
+          reverse.field.link_table !== table.table_id ||
+          field.bidirectional_link_field_name !== undefined && field.bidirectional_link_field_name !== reverse.field.name) {
+        fail("base_response_invalid", "Base bidirectional link metadata is inconsistent");
+      }
+      return { ...field, bidirectional_link_field_name: reverse.field.name };
+    });
+  }
   const canonical = JSON.stringify(selected.map((table) => ({
     table_id: table.table_id, name: table.name, revision: table.revision ?? null,
     fields: table.fields.map((field) => field).sort((left, right) => String(left.name).localeCompare(String(right.name))),
@@ -1270,7 +1293,7 @@ function schemaReadiness(schema, config) {
       const field = table.fields.find((candidate) => candidate.name === spec.name);
       const expected = fixedFieldDescriptor(tableName, spec.name, spec.kind === "link" ? { targetTableId: tableIdsByName[spec.targetTable] } : {});
       if (spec.primary && field?.is_primary !== true && field?.primary !== true ||
-          !Object.entries(expected).every(([key, value]) => JSON.stringify(field?.[key]) === JSON.stringify(value))) {
+          !Object.entries(expected).every(([key, value]) => isDeepStrictEqual(field?.[key], value))) {
         return { status: "schema_drift", table: tableName, field: spec.name };
       }
     }

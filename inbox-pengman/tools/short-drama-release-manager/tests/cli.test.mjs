@@ -1283,6 +1283,52 @@ test("runtime schema metadata marks the primary field from table detail", async 
   } finally { runtime.close(); }
 });
 
+test("runtime schema resolves live reverse-link IDs and ignores JSON object key order", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-live-schema-shape-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const schema = readySchema(env);
+  const tableByName = new Map(schema.tables.map((table) => [table.name, table]));
+  const field = (table, name) => tableByName.get(table).fields.find((item) => item.name === name);
+  for (const [ownerTable, ownerField, reverseTable, reverseField] of [
+    ["发布记录", "剧", "选剧池", "关联发布记录"],
+    ["发布记录", "采集记录", "采集数据", "关联发布记录"],
+  ]) {
+    const owner = field(ownerTable, ownerField);
+    const reverse = field(reverseTable, reverseField);
+    delete owner.bidirectional_link_field_name;
+    owner.bidirectional_link_field_id = reverse.field_id;
+    reverse.bidirectional = true;
+    reverse.bidirectional_link_field_id = owner.field_id;
+  }
+  const lookup = field("采集数据", "账号名");
+  lookup.where = { conditions: lookup.where.conditions, logic: lookup.where.logic };
+  const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+  const client = repositoryClient({
+    listTables: async () => ({ complete: true, items: schema.tables.map(({ table_id, name }) => ({ table_id, name })) }),
+    getTable: async (_base, tableId) => {
+      const table = byId.get(tableId);
+      return { table_id: tableId, name: table.name, primary_field: table.fields.find((item) => item.is_primary).field_id };
+    },
+    listFields: async (_base, tableId) => ({ complete: true, revision: `r-${tableId}`, items: structuredClone(byId.get(tableId).fields) }),
+  });
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture },
+  });
+  try {
+    const result = await runtime.doctor({ initState: true, canary: false });
+    assert.equal(result.schema_status, "ready");
+  } finally {
+    runtime.close();
+  }
+});
+
 test("independent Base token mismatch fails before JobStore or Base network activity", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-base-target-"));
   const { config, env } = runtimeFixture(root);
