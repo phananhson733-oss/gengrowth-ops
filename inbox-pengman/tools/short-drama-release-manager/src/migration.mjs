@@ -42,7 +42,8 @@ const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["shares", "转发"]),
 ]);
 const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确认）", "账号组", "来源", "推荐人"]);
-const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "生命周期", "备注", "账号状态", "平台", "语言", "归档状态"]);
+const DRAMA_PROVENANCE_TEXT_FIELDS = Object.freeze(["推荐理由", "备注"]);
+const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "账号状态", "平台", "语言", "归档状态"]);
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
 const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", ...REVIEWABLE_MATCH_REASONS]);
 
@@ -377,11 +378,27 @@ function validateDramaRows(rows, blocks, warnings) {
       merged[field] = stableUnion(matches, field);
       fieldDecisions[field] = { strategy: "stable_union", source_rows: matches.map((item) => item.sourceRow) };
     }
-    const reasons = distinctValues(matches, "推荐理由");
-    if (reasons.length === 1) merged.推荐理由 = reasons[0].value;
-    else if (reasons.length > 1) merged.推荐理由 = reasons.map((item) => `[来源：Google 选剧池第 ${item.sourceRow} 行] ${item.value}`).join("\n\n");
-    else merged.推荐理由 = null;
-    fieldDecisions.推荐理由 = { strategy: reasons.length > 1 ? "provenance_join" : "single_value", source_rows: reasons.map((item) => item.sourceRow) };
+    for (const field of DRAMA_PROVENANCE_TEXT_FIELDS) {
+      const values = distinctValues(matches, field);
+      if (values.length === 1) merged[field] = values[0].value;
+      else if (values.length > 1) merged[field] = values.map((item) => `[来源：Google 选剧池第 ${item.sourceRow} 行] ${item.value}`).join("\n\n");
+      else merged[field] = null;
+      fieldDecisions[field] = { strategy: values.length > 1 ? "provenance_join" : "single_value", source_rows: values.map((item) => item.sourceRow) };
+    }
+    const lifecycleValues = distinctValues(matches, "生命周期");
+    const fixedLifecycleProgression = lifecycleValues.length > 1 && lifecycleValues.every((item) => new Set(["新剧", "在推"]).has(item.value));
+    if (lifecycleValues.length > 1 && !fixedLifecycleProgression) {
+      blocks.push(blocked("drama_merge_conflict", "选剧池", matches[0].sourceRow, {
+        drama_name: matches[0].name,
+        field: "生命周期",
+        source_rows: lifecycleValues.map((item) => item.sourceRow),
+      }));
+    }
+    merged.生命周期 = fixedLifecycleProgression ? "在推" : lifecycleValues[0]?.value ?? null;
+    fieldDecisions.生命周期 = {
+      strategy: fixedLifecycleProgression ? "lifecycle_progression" : lifecycleValues.length > 1 ? "blocked_conflict" : "single_value",
+      source_rows: lifecycleValues.map((item) => item.sourceRow),
+    };
     for (const field of DRAMA_SCALAR_FIELDS) {
       const values = distinctValues(matches, field);
       if (values.length > 1) {
