@@ -6,6 +6,7 @@ const AUTH_PATH = "/open-apis/auth/v3/tenant_access_token/internal";
 const BASE_V3_PREFIX = "/open-apis/base/v3/";
 const MAX_WRITE_BATCH = 200;
 const MAX_REQUEST_ATTEMPTS = 3;
+const MAX_RECORD_VISIBILITY_ATTEMPTS = 3;
 const AUTH_ERROR_CODES = new Set([99991663, 99991664, 99991668, 99991671, 99991672]);
 const SCHEMA_ERROR_CODES = new Set([1254044, 1254045, 1254060, 1254061, 1254062]);
 const DASHBOARD_NAME = "短剧发行管理仪表盘";
@@ -357,6 +358,22 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
   } else if (data.ignored_fields !== undefined && !Array.isArray(data.ignored_fields)) {
     throw invalidResponse("Feishu ignored_fields is malformed");
   }
+  let recordNotFound = [];
+  if (data.record_not_found !== undefined) {
+    if (!Array.isArray(data.record_not_found) || data.record_not_found.some((recordId) =>
+      typeof recordId !== "string" || recordId.length === 0 || recordId.trim() !== recordId) ||
+      new Set(data.record_not_found).size !== data.record_not_found.length ||
+      data.record_not_found.some((recordId) => !recordIds.includes(recordId))) {
+      throw invalidResponse("Feishu record_not_found metadata is malformed");
+    }
+    recordNotFound = [...data.record_not_found];
+    for (const recordId of recordNotFound) {
+      const row = rows[recordIds.indexOf(recordId)];
+      if (row.some((value) => value !== null)) {
+        throw invalidResponse("Feishu record_not_found metadata contradicts returned values");
+      }
+    }
+  }
   if (fieldTypes !== undefined && typeof tableName === "string") {
     fields.forEach((field, index) => {
       const spec = fieldSpecOrNull(tableName, field);
@@ -382,6 +399,7 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
         field_scope: data.query_context.field_scope,
       }),
     } : null,
+    recordNotFound,
   };
 }
 
@@ -1005,17 +1023,41 @@ export class FeishuClient {
     return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100, resource: "items", signal });
   }
 
-  async getRecord(baseToken, tableId, recordId, { tableName = null, signal } = {}) {
+  async getRecord(baseToken, tableId, recordId, { tableName = null, waitForVisibility = false, signal } = {}) {
+    if (typeof waitForVisibility !== "boolean" || waitForVisibility && !TABLES[tableName]) {
+      throw invalidResponse("Feishu record visibility options are invalid");
+    }
     return this.operation(async (context) => {
-      const payload = await this.request(
-        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`,
-        { method: "POST", body: { record_id_list: [recordId] }, context, signal },
-      );
-      const records = decodedRecordMatrix(payload.data, { tableName }).records;
-      if (records.length !== 1 || records[0].record_id !== recordId) {
-        throw invalidResponse("Feishu record response is malformed");
+      const path = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`;
+      const attempts = waitForVisibility ? MAX_RECORD_VISIBILITY_ATTEMPTS : 1;
+      const primaryField = waitForVisibility ? TABLES[tableName].primaryField : null;
+      for (let attempt = 1; attempt <= attempts; attempt += 1) {
+        const payload = await this.request(path, {
+          method: "POST", body: { record_id_list: [recordId] }, context, signal,
+        });
+        const decoded = decodedRecordMatrix(payload.data, { tableName });
+        if (decoded.records.length !== 1 || decoded.records[0].record_id !== recordId) {
+          throw invalidResponse("Feishu record response is malformed");
+        }
+        if (decoded.recordNotFound.length > 0) {
+          if (decoded.recordNotFound.length !== 1 || decoded.recordNotFound[0] !== recordId) {
+            throw invalidResponse("Feishu record_not_found metadata does not match the requested record");
+          }
+        }
+        const record = decoded.records[0];
+        if (waitForVisibility && !Object.hasOwn(record.fields, primaryField)) {
+          throw invalidResponse("Feishu record visibility readback omitted the fixed primary field");
+        }
+        const pending = decoded.recordNotFound.length === 1 || waitForVisibility && record.fields[primaryField] === null;
+        if (!pending) return record;
+        if (attempt === attempts) {
+          throw new ShortDramaError("readback_mismatch", "Feishu record remained unavailable after bounded visibility polling", {
+            path: diagnosticPath(path), attempts: attempt,
+          });
+        }
+        await awaitWithAbort(this.sleep(attempt * 1_000, { signal }), signal);
       }
-      return records[0];
+      throw new ShortDramaError("readback_mismatch", "Feishu record visibility polling exhausted unexpectedly");
     }, { signal });
   }
 

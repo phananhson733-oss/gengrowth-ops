@@ -817,6 +817,122 @@ test("tenant authentication fails closed on malformed responses", async () => {
   }
 });
 
+test("record get polls an official transient record_not_found matrix until the created record is visible", async () => {
+  const waits = [];
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async (ms) => waits.push(ms),
+    fetchJson: async (_url, options) => {
+      requests += 1;
+      assert.deepEqual(options.body, { record_id_list: ["rec-canary"] });
+      return requests === 1
+        ? { code: 0, data: {
+          fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]],
+          record_not_found: ["rec-canary"],
+        } }
+        : { code: 0, data: {
+          fields: ["账号ID"], record_id_list: ["rec-canary"], data: [["CANARY-SDRUN-20260904-213000-A1B2"]],
+        } };
+    },
+  });
+
+  assert.deepEqual(await client.getRecord("base", "tbl-account", "rec-canary", { tableName: "账号台账", waitForVisibility: true }), {
+    record_id: "rec-canary", fields: { 账号ID: "CANARY-SDRUN-20260904-213000-A1B2" },
+  });
+  assert.equal(requests, 2);
+  assert.deepEqual(waits, [1_000]);
+});
+
+test("record visibility polling is bounded when official record_not_found persists", async () => {
+  const waits = [];
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async (ms) => waits.push(ms),
+    fetchJson: async () => {
+      requests += 1;
+      return { code: 0, data: {
+        fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]],
+        record_not_found: ["rec-canary"],
+      } };
+    },
+  });
+
+  await assert.rejects(
+    () => client.getRecord("base", "tbl-account", "rec-canary", { tableName: "账号台账", waitForVisibility: true }),
+    (error) => error.code === "readback_mismatch" && error.details.attempts === 3,
+  );
+  assert.equal(requests, 3);
+  assert.deepEqual(waits, [1_000, 2_000]);
+});
+
+test("record visibility uses one shared three-attempt budget across not-found and null-primary states", async () => {
+  const waits = [];
+  let requests = 0;
+  const responses = [
+    { code: 0, data: {
+      fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]], record_not_found: ["rec-canary"],
+    } },
+    { code: 0, data: { fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]] } },
+    { code: 0, data: {
+      fields: ["账号ID"], record_id_list: ["rec-canary"], data: [["CANARY-SDRUN-20260904-213000-A1B2"]],
+    } },
+  ];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async (ms) => waits.push(ms),
+    fetchJson: async () => { requests += 1; return responses.shift(); },
+  });
+
+  assert.equal((await client.getRecord("base", "tbl-account", "rec-canary", {
+    tableName: "账号台账", waitForVisibility: true,
+  })).fields.账号ID, "CANARY-SDRUN-20260904-213000-A1B2");
+  assert.equal(requests, 3);
+  assert.deepEqual(waits, [1_000, 2_000]);
+});
+
+test("ordinary record get does not opt into visibility polling", async () => {
+  let requests = 0;
+  let waits = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async () => { waits += 1; },
+    fetchJson: async () => {
+      requests += 1;
+      return { code: 0, data: {
+        fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]], record_not_found: ["rec-canary"],
+      } };
+    },
+  });
+  await assert.rejects(() => client.getRecord("base", "tbl-account", "rec-canary", { tableName: "账号台账" }),
+    (error) => error.code === "readback_mismatch" && error.details.attempts === 1);
+  assert.equal(requests, 1);
+  assert.equal(waits, 0);
+});
+
+test("record get rejects malformed or contradictory record_not_found metadata without retry", async () => {
+  for (const data of [
+    { fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]], record_not_found: "rec-canary" },
+    { fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]], record_not_found: null },
+    { fields: ["账号ID"], record_id_list: ["rec-canary"], data: [[null]], record_not_found: ["rec-other"] },
+    { fields: ["账号ID"], record_id_list: ["rec-canary", "rec-other"], data: [[null], [null]], record_not_found: ["rec-canary"] },
+    { fields: ["账号ID"], record_id_list: ["rec-canary"], data: [["visible"]], record_not_found: ["rec-canary"] },
+  ]) {
+    let requests = 0;
+    let waits = 0;
+    const client = new FeishuClient({
+      tokenProvider: async () => "token",
+      sleep: async () => { waits += 1; },
+      fetchJson: async () => { requests += 1; return { code: 0, data }; },
+    });
+    await assert.rejects(() => client.getRecord("base", "tbl-account", "rec-canary", { tableName: "账号台账" }),
+      (error) => error.code === "base_response_invalid");
+    assert.equal(requests, 1);
+    assert.equal(waits, 0);
+  }
+});
+
 test("schema creation uses canonical Base v3 fields and establishes primary fields", async () => {
   const calls = [];
   const client = new FeishuClient({

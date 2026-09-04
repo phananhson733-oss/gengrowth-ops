@@ -756,13 +756,13 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
     for (const [binding, tableName] of CANARY_TABLES) {
       const tableId = tableIds[binding];
       const primary = TABLES[tableName].primaryField;
-      const created = await client.createRecords(appToken, tableId, [{ fields: { [primary]: canaryId } }]);
+      const created = await client.createRecords(appToken, tableId, [{ fields: { [primary]: canaryId } }], { tableName });
       if (!Array.isArray(created) || created.length !== 1 || typeof created[0]?.record_id !== "string") {
         fail("readback_mismatch", "Canary create did not return exactly one record ID", { table: tableName });
       }
       const recordId = created[0].record_id;
       createdRecordIds.set(tableName, recordId);
-      const readback = await client.getRecord(appToken, tableId, recordId);
+      const readback = await client.getRecord(appToken, tableId, recordId, { tableName, waitForVisibility: true });
       if (readback?.record_id !== recordId || readback?.fields?.[primary] !== canaryId) {
         fail("readback_mismatch", "Canary readback did not match primary and record ID", { table: tableName });
       }

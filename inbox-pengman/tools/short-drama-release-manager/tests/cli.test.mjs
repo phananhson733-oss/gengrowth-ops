@@ -337,6 +337,37 @@ test("four-table doctor canary restores exact keys and runs before sequence seed
   assert.equal([...rows.values()].every((items) => items.length === 1 && items[0].record_id.startsWith("existing-")), true);
 });
 
+test("canary explicitly opts into one client-side visibility budget for fixed-table readback", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
+  const rows = new Map([...tableNameById.keys()].map((id) => [id, []]));
+  const getOptions = [];
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
+    createRecords: async (_base, tableId, records, options) => {
+      assert.equal(options?.tableName, tableNameById.get(tableId));
+      const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record);
+      return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId, options) => {
+      getOptions.push(options);
+      return structuredClone(rows.get(tableId).find((row) => row.record_id === recordId));
+    },
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
+      return recordIds;
+    },
+  });
+
+  const result = await runBaseCanary({
+    client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
+  });
+  assert.equal(result.status, "verified");
+  assert.deepEqual(getOptions, TABLE_ORDER.map((tableName) => ({ tableName, waitForVisibility: true })));
+  assert.equal([...rows.values()].every((items) => items.length === 0), true);
+});
+
 test("canary cleanup failure is manual-repair terminal and never verified", async () => {
   const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
   const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
