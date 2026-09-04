@@ -70,6 +70,16 @@ function clone(value, code = "migration_manifest_invalid") {
   }
 }
 
+function omitUndefined(value, seen = new Set()) {
+  if (value === null || typeof value !== "object") return value;
+  if (seen.has(value)) fail("migration_source_invalid", "Migration evidence is cyclic");
+  seen.add(value);
+  const result = Array.isArray(value) ? value.map((item) => omitUndefined(item, seen)) :
+    Object.fromEntries(Object.entries(value).filter(([, child]) => child !== undefined).map(([key, child]) => [key, omitUndefined(child, seen)]));
+  seen.delete(value);
+  return result;
+}
+
 function canonicalize(value, seen = new Set()) {
   if (value === null || typeof value === "string" || typeof value === "boolean") return value;
   if (typeof value === "number") {
@@ -910,7 +920,7 @@ export async function planMigration(context = {}) {
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
-  const initialBaseSchema = clone(context.baseSchema, "migration_source_invalid");
+  const initialBaseSchema = omitUndefined(clone(context.baseSchema, "migration_source_invalid"));
   const schema = schemaPlan(initialBaseSchema, blocks);
   const orderedBlocks = orderDiagnostics(blocks);
   const orderedWarnings = orderDiagnostics(warnings);

@@ -217,23 +217,28 @@ function googleCapture(overrides = {}) {
   };
 }
 
-function sourceWithCaptures(rows) {
-  const backup = structuredClone(normalizedSource().raw_backup);
-  const values = rows.map((row) => CAPTURE_HEADERS.map((field) => row[field] ?? null));
-  for (const render of ["unformatted", "formatted", "formulas"]) {
-    backup[render].captures = [[...CAPTURE_HEADERS], ...structuredClone(values)];
+function sourceWithTables(overrides = {}) {
+  const current = normalizedSource();
+  const backup = structuredClone(current.raw_backup);
+  const headers = { accounts: ACCOUNT_HEADERS, dramas: DRAMA_HEADERS, releases: RELEASE_HEADERS, captures: CAPTURE_HEADERS };
+  const sources = {
+    accounts: current.accounts,
+    dramas: current.dramas,
+    releases: current.releases,
+    captures: current.captures,
+    ...overrides,
+  };
+  for (const key of Object.keys(headers)) {
+    const values = sources[key].map((row) => headers[key].map((field) => row[field] ?? null));
+    for (const render of ["unformatted", "formatted", "formulas"]) {
+      backup[render][key] = [[...headers[key]], ...structuredClone(values)];
+    }
   }
   return normalizeGoogleSource(backup);
 }
 
-function sourceWithDramas(rows) {
-  const backup = structuredClone(normalizedSource().raw_backup);
-  const values = rows.map((row) => DRAMA_HEADERS.map((field) => row[field] ?? null));
-  for (const render of ["unformatted", "formatted", "formulas"]) {
-    backup[render].dramas = [[...DRAMA_HEADERS], ...structuredClone(values)];
-  }
-  return normalizeGoogleSource(backup);
-}
+const sourceWithCaptures = (rows) => sourceWithTables({ captures: rows });
+const sourceWithDramas = (rows) => sourceWithTables({ dramas: rows });
 
 test("Google normalization returns capture values without copying formulas", () => {
   const result = normalizedSource();
@@ -601,24 +606,25 @@ test("manual Post claims are reserved before earlier automatic time matching", a
 });
 
 test("duplicate active and archived manual claims block even when the Post is absent", async () => {
-  const google = normalizedSource();
-  google.captures = [];
-  google.releases = [
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    captures: [],
+    releases: [
     {
-      ...google.releases[0],
+      ...base.releases[0],
       source_row: 2,
       视频链接: "https://www.tiktok.com/@dramaexpedition/video/999",
       "Post ID": "999",
       归档状态: "active",
     },
     {
-      ...google.releases[0],
+      ...base.releases[0],
       source_row: 3,
       视频链接: "https://www.tiktok.com/@dramaexpedition/video/999",
       "Post ID": "999",
       归档状态: "archived",
     },
-  ];
+  ] });
   const manifest = await planMigration({ google, sqliteAccounts: [latestAccount()], sqlitePosts: [] });
   assert.equal(manifest.blocked.some((row) => row.code === "manual_post_claimed" && row.post_id === "999"), true);
   assert.equal(manifest.warnings.some((row) => row.code === "manual_post_not_found"), false);
@@ -844,10 +850,12 @@ test("offline permission helper creates a strict actor/Base/schema-bound attesta
 });
 
 test("plan blocks duplicate identities, missing targets, and URL/account disagreement without guessing", async () => {
-  const google = normalizedSource();
-  google.accounts.push({ ...google.accounts[0], source_row: 4, 账号名: "@DRAMAEXPEDITION" });
-  google.dramas.push({ ...google.dramas[0], source_row: 4 });
-  google.releases.push({ ...google.releases[0], source_row: 5, 账号名: "missing", 剧名: "missing", 视频链接: null, "Post ID": null });
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    accounts: [base.accounts[0], { ...base.accounts[0], 账号名: "@DRAMAEXPEDITION" }],
+    dramas: [base.dramas[0], { ...base.dramas[0] }],
+    releases: [base.releases[0], { ...base.releases[0], 账号名: "missing", 剧名: "missing", 视频链接: null, "Post ID": null }],
+  });
   const manifest = await planMigration({ google, captures: [latestCapture({ post_url: "https://www.tiktok.com/@other/video/99" })] });
   assert.deepEqual(new Set(manifest.blocked.map((item) => item.code)), new Set([
     "duplicate_account_key", "missing_account_target", "missing_drama_target", "source_account_mismatch",
@@ -878,8 +886,11 @@ test("manifest canonical digest distinguishes null/missing/zero and rejects tamp
 });
 
 test("v2 manifest binds reconciliation and permits warnings but not blockers", async () => {
-  const google = sourceWithCaptures([]);
-  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    captures: [],
+    releases: [{ ...base.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" }],
+  });
   const manifest = await planMigration({
     google,
     sqliteAccounts: [latestAccount()],
@@ -941,9 +952,11 @@ test("re-digested v2 warning and reconciliation forgeries fail closed", async ()
 });
 
 test("re-digested review warnings must match their release evidence", async () => {
-  const google = normalizedSource();
-  google.captures = [];
-  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    captures: [],
+    releases: [{ ...base.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" }],
+  });
   const manifest = await planMigration({
     google,
     sqliteAccounts: [latestAccount()],
@@ -1029,14 +1042,17 @@ test("re-digested manifests cannot remove replayed source or drama blockers", as
 });
 
 test("verify proves the reconciled capture union and pending relations", async () => {
-  const google = sourceWithCaptures([
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    captures: [
     googleCapture(),
     googleCapture({
       "Post ID": "88",
       视频链接: "https://www.tiktok.com/@dramaexpedition/video/88",
     }),
-  ]);
-  google.releases[0] = { ...google.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" };
+  ],
+    releases: [{ ...base.releases[0], 视频链接: null, "Post ID": null, 日期: "2026-08-25" }],
+  });
   const manifest = await planMigration({
     google,
     sqliteAccounts: [latestAccount()],
@@ -1053,7 +1069,7 @@ test("verify proves the reconciled capture union and pending relations", async (
 
 test("schema plan blocks same-name type/config drift and creates fixed missing fields without reverse-link recreation", async () => {
   const tableIds = Object.fromEntries(["账号台账", "选剧池", "采集数据", "发布记录"].map((name, index) => [name, `tbl-${index}`]));
-  const fields = ACCOUNT_HEADERS.map((name) => ({ name, type: name === "粉丝数" ? "text" : undefined }));
+  const fields = ACCOUNT_HEADERS.map((name) => ({ name, ...(name === "粉丝数" ? { type: "text" } : {}) }));
   const manifest = await planMigration({
     google: normalizedSource(), captures: [latestCapture()],
     baseSchema: { revision: "base-r1", tables: [
