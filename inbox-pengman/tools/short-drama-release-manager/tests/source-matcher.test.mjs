@@ -331,6 +331,7 @@ test("real SQLite reader output is accepted by migration planning without shape 
       accounts: [{ 账号ID: "dramaexpedition", 账号名: "dramaexpedition", 主页链接: "https://www.tiktok.com/@dramaexpedition" }],
       dramas: [],
       releases: [],
+      captures: [],
     },
     captures: rows,
   });
