@@ -983,6 +983,53 @@ test("migration output is reserved before runtime side effects and stores the ex
   }
 });
 
+test("migration plan stores the full manifest but returns only a bounded summary", async () => {
+  const suffix = `${process.pid}-${Date.now()}`;
+  const outputName = `plan-summary-${suffix}.json`;
+  const manifest = {
+    version: "shortdrama-migration/v1",
+    accounts: [{ 账号ID: "account" }],
+    dramas: [{ 剧ID: "SD-000001" }],
+    captures: [{ "Post ID": "123" }],
+    releases: [{ 发布ID: "SR-000001" }],
+    schema_actions: [{ id: "field:账号台账:账号名" }],
+    presentation_actions: [{ id: "view:账号台账:在用账号" }],
+    counts: { accounts: 1, dramas: 1, captures: 1, releases: 1, blocked: 2 },
+    blocked: [{ code: "manual_post_not_found" }, { code: "manual_post_not_found" }],
+  };
+  manifest.sha256 = manifestDigest(manifest);
+  const outputPath = path.join(path.dirname((await writeMigrationArtifact({ probe: true }, { fileName: `plan-summary-probe-${suffix}.json` })).path), outputName);
+  const probePath = path.join(path.dirname(outputPath), `plan-summary-probe-${suffix}.json`);
+  try {
+    const completed = await execute([
+      "migrate", "plan", "--expected-base-token", "base", "--output", outputName,
+      "--actor-id", "admin", "--config", "/configured/runtime.json",
+    ], {
+      env: {},
+      loadEnvironment: passthroughEnvironment,
+      isTrustedLocalInvoker: trustedLocalInvoker,
+      build: async () => ({
+        config: { paths: { payloadRoot: "/tmp" }, auth: { isPrivilegedAllowed: () => true } },
+        migratePlan: async () => manifest,
+        close() {},
+      }),
+    });
+    assert.deepEqual(completed.result, {
+      status: "blocked",
+      artifact_file: outputName,
+      sha256: manifest.sha256,
+      counts: manifest.counts,
+      schema_actions: 1,
+      presentation_actions: 1,
+      blocked_by_code: { manual_post_not_found: 2 },
+    });
+    assert.deepEqual(JSON.parse(await readFile(outputPath, "utf8")), manifest);
+  } finally {
+    await rm(outputPath, { force: true });
+    await rm(probePath, { force: true });
+  }
+});
+
 test("buildRuntime wires renamed config allowlists into HumanOps and notifier", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-runtime-allowlists-"));
   const configPath = path.join(root, "runtime.json");

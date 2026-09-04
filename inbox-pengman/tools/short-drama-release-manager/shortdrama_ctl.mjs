@@ -1535,7 +1535,19 @@ export async function execute(argv, {
     if (outputReservation) {
       const written = await outputReservation.write(result);
       outputReservation = null;
-      if (command.group === "migrate" && command.action === "attest-permissions") {
+      if (command.group === "migrate" && command.action === "plan") {
+        const blockedByCode = {};
+        for (const item of result.blocked) blockedByCode[item.code] = (blockedByCode[item.code] ?? 0) + 1;
+        result = {
+          status: result.blocked.length === 0 ? "planned" : "blocked",
+          artifact_file: command.options.output,
+          sha256: result.sha256,
+          counts: structuredClone(result.counts),
+          schema_actions: result.schema_actions.length,
+          presentation_actions: result.presentation_actions.length,
+          blocked_by_code: blockedByCode,
+        };
+      } else if (command.group === "migrate" && command.action === "attest-permissions") {
         result = {
           status: "created",
           artifact_file: command.options.output,
