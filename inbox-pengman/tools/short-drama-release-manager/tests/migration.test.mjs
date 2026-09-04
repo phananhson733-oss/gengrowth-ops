@@ -503,6 +503,20 @@ test("drama canonical merge blocks conflicting nonblank scalar values", async ()
     row.code === "drama_merge_conflict" && row.field === "平台" && row.source_rows.includes(38)), true);
 });
 
+test("drama merge preserves distinct notes and advances only the fixed lifecycle", async () => {
+  const google = normalizedSource();
+  google.dramas = [
+    { ...google.dramas[0], source_row: 20, 剧名: "A Spicy Text to My Nemesis", 生命周期: "新剧", 备注: "放弃推广" },
+    { ...google.dramas[0], source_row: 25, 剧名: "a spicy text to my nemesis", 生命周期: "在推", 备注: "66232" },
+  ];
+  const manifest = await planMigration({ google, sqliteAccounts: [latestAccount()], sqlitePosts: [latestCapture()] });
+  assert.equal(manifest.blocked.some((row) => row.code === "drama_merge_conflict"), false);
+  assert.equal(manifest.dramas[0].生命周期, "在推");
+  assert.match(manifest.dramas[0].备注, /\[来源：Google 选剧池第 20 行\] 放弃推广[\s\S]*\[来源：Google 选剧池第 25 行\] 66232/);
+  assert.equal(manifest.reconciliation.drama_merges[0].field_decisions.生命周期.strategy, "lifecycle_progression");
+  assert.equal(manifest.reconciliation.drama_merges[0].field_decisions.备注.strategy, "provenance_join");
+});
+
 test("ambiguous and missing safe matches migrate unlinked with review evidence", async () => {
   const google = normalizedSource();
   google.captures = [];
