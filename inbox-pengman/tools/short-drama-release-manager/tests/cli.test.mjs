@@ -608,6 +608,38 @@ test("local provenance accepts only a bounded positive Terminal chain", () => {
   assert.equal(inspectTrustedLocalInvoker({ stdin: { isTTY: false }, stdout: tty, pid: 100, readProcess: (pid) => terminalRows.get(pid) }), false);
 });
 
+test("local provenance accepts only the exact macOS login wrapper used by Ghostty", () => {
+  const tty = { isTTY: true };
+  const rows = new Map([
+    [100, { pid: 100, ppid: 90, command: "/opt/homebrew/Cellar/node/25.9.0/bin/node", args: "node shortdrama_ctl.mjs doctor" }],
+    [90, { pid: 90, ppid: 85, command: "-/bin/zsh", args: "-/bin/zsh" }],
+    [85, {
+      pid: 85,
+      ppid: 80,
+      command: "/usr/bin/login",
+      args: "/usr/bin/login -flp awayer_mini /bin/bash --noprofile --norc -c exec -l /bin/zsh",
+    }],
+    [80, { pid: 80, ppid: 1, command: "/Applications/Ghostty.app/Contents/MacOS/ghostty", args: "/Applications/Ghostty.app/Contents/MacOS/ghostty" }],
+  ]);
+  assert.equal(inspectTrustedLocalInvoker({
+    stdin: tty,
+    stdout: tty,
+    pid: 100,
+    username: "awayer_mini",
+    readProcess: (pid) => rows.get(pid),
+  }), true);
+
+  const altered = new Map(rows);
+  altered.set(85, { ...rows.get(85), args: "/usr/bin/login -flp other_user /bin/bash --noprofile --norc -c exec -l /bin/zsh" });
+  assert.equal(inspectTrustedLocalInvoker({
+    stdin: tty,
+    stdout: tty,
+    pid: 100,
+    username: "awayer_mini",
+    readProcess: (pid) => altered.get(pid),
+  }), false);
+});
+
 test("macOS process inspection reads full Cellar executables without a combined ps row", () => {
   const calls = [];
   const values = ["90\n", "/opt/homebrew/Cellar/node/25.9.0/bin/node\n", "node shortdrama_ctl.mjs doctor\n"];

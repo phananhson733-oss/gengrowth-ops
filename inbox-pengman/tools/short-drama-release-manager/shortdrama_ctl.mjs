@@ -3,7 +3,7 @@ import { execFileSync, spawn } from "node:child_process";
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import { constants as fsConstants, lstatSync, readFileSync } from "node:fs";
 import { lstat, open, readFile, realpath } from "node:fs/promises";
-import { homedir } from "node:os";
+import { homedir, userInfo } from "node:os";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
@@ -191,6 +191,7 @@ export function inspectTrustedLocalInvoker({
   pid = process.pid,
   readProcess = readMacProcessRow,
   maxDepth = 16,
+  username = null,
 } = {}) {
   if (stdin?.isTTY !== true || stdout?.isTTY !== true || !Number.isSafeInteger(pid) || pid <= 1 ||
       typeof readProcess !== "function" || !Number.isSafeInteger(maxDepth) || maxDepth < 2 || maxDepth > 32) return false;
@@ -201,6 +202,9 @@ export function inspectTrustedLocalInvoker({
   let current = pid;
   let expected = "runner";
   try {
+    const currentUsername = username ?? userInfo().username;
+    if (typeof currentUsername !== "string" || !/^[A-Za-z0-9._-]+$/.test(currentUsername)) return false;
+    const terminalLoginArgs = `/usr/bin/login -flp ${currentUsername} /bin/bash --noprofile --norc -c exec -l /bin/zsh`;
     for (let depth = 0; depth < maxDepth && current > 1; depth += 1) {
       if (seen.has(current)) return false;
       seen.add(current);
@@ -213,7 +217,14 @@ export function inspectTrustedLocalInvoker({
         expected = "shell_or_terminal";
       } else if (expected === "shell_or_terminal") {
         if (terminalExecutables.has(executable)) return row.ppid === 1;
-        if (!shellExecutables.has(executable)) return false;
+        if (shellExecutables.has(executable)) {
+          // Continue through the user's login shell.
+        } else if (row.command === "/usr/bin/login" && row.args === terminalLoginArgs) {
+          expected = "terminal";
+        } else return false;
+      } else if (expected === "terminal") {
+        if (terminalExecutables.has(executable)) return row.ppid === 1;
+        return false;
       } else return false;
       if (row.ppid <= 1) return false;
       current = row.ppid;
