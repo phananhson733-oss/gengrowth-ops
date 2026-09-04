@@ -69,6 +69,22 @@ test("v1.0.91 vendor decoders normalize resource arrays, ids, totals, and record
   assert.ok(calls.some((url) => url.includes("offset=1")));
 });
 
+test("table detail exposes the authoritative primary field id", async () => {
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => ({
+      code: 0,
+      data: { id: "tbl_accounts", name: "账号台账", primary_field: "fld_account_id" },
+    }),
+  });
+  assert.deepEqual(await client.getTable("base", "tbl_accounts"), {
+    id: "tbl_accounts",
+    name: "账号台账",
+    primary_field: "fld_account_id",
+    table_id: "tbl_accounts",
+  });
+});
+
 test("vendor record matrix and total pagination fail closed on partial or mismatched shapes", async () => {
   for (const data of [
     { fields: ["Name"], record_id_list: ["rec"], data: [], total: 1 },

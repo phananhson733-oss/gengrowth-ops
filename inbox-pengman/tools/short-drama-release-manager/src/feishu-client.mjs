@@ -955,6 +955,21 @@ export class FeishuClient {
     return `/open-apis/base/v3/bases/${encoded(baseToken)}`;
   }
 
+  async getTable(baseToken, tableId, { signal } = {}) {
+    return this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}`,
+        { context, signal },
+      );
+      const table = requireEntity(payload, "table", "table_id");
+      if (table.table_id !== tableId || typeof table.name !== "string" || table.name.length === 0 ||
+          typeof table.primary_field !== "string" || table.primary_field.length === 0) {
+        throw invalidResponse("Feishu table detail is incomplete");
+      }
+      return table;
+    }, { signal });
+  }
+
   listTables(baseToken, { signal } = {}) {
     return this.list(`${this.basePath(baseToken)}/tables`, { pageSize: 100, resource: "tables", signal });
   }

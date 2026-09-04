@@ -1053,11 +1053,25 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
   }
   const selected = [];
   for (const table of tables.items) {
+    if (typeof client.getTable !== "function") fail("base_response_incomplete", "Complete Base table detail is required");
+    const detail = await client.getTable(config.base.appToken, table.table_id);
+    if (!detail || detail.table_id !== table.table_id || detail.name !== table.name ||
+        typeof detail.primary_field !== "string" || detail.primary_field.length === 0) {
+      fail("base_response_incomplete", "Base table detail does not match the configured table");
+    }
     const fields = await client.listFields(config.base.appToken, table.table_id);
     if (!fields || fields.complete !== true || !Array.isArray(fields.items)) {
       fail("base_response_incomplete", "Complete Base field metadata is required");
     }
-    const selectedTable = { ...table, fields: fields.items, revision: fields.revision };
+    if (!fields.items.some((field) => field?.field_id === detail.primary_field)) {
+      fail("base_response_incomplete", "Base primary field is missing from field metadata");
+    }
+    const selectedTable = {
+      ...table,
+      primary_field: detail.primary_field,
+      fields: fields.items.map((field) => ({ ...field, ...(field.field_id === detail.primary_field ? { is_primary: true } : {}) })),
+      revision: fields.revision,
+    };
     if (includeRecordEvidence) {
       const records = await client.listRecords(config.base.appToken, table.table_id, { tableName: table.name });
       if (!records || records.complete !== true || !Array.isArray(records.items) ||

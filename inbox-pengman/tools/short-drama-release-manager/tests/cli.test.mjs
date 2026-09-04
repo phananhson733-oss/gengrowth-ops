@@ -1095,6 +1095,50 @@ test("runtime schema metadata rejects an unexpected unbound fifth Base table bef
   } finally { runtime.close(); }
 });
 
+test("runtime schema metadata marks the primary field from table detail", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-primary-detail-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const bindings = [
+    [env.TA, "账号台账", "账号ID"],
+    [env.TD, "选剧池", "剧ID"],
+    [env.TC, "采集数据", "Post ID"],
+    [env.TR, "发布记录", "发布ID"],
+  ];
+  const byId = new Map(bindings.map(([tableId, name, primary]) => [tableId, { name, primary }]));
+  let detailReads = 0;
+  const client = repositoryClient({
+    listTables: async () => ({ complete: true, items: bindings.map(([table_id, name]) => ({ table_id, name })) }),
+    getTable: async (_base, tableId) => {
+      detailReads += 1;
+      return {
+        table_id: tableId,
+        name: byId.get(tableId).name,
+        primary_field: `fld-${tableId}-primary`,
+      };
+    },
+    listFields: async (_base, tableId) => ({
+      complete: true,
+      revision: "r",
+      items: [{ field_id: `fld-${tableId}-primary`, name: byId.get(tableId).primary, type: "text", style: { type: "plain" } }],
+    }),
+  });
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client, HumanOpsService: HumanOpsFixture, ShortDramaNotifier: NotifierFixture },
+  });
+  try {
+    const result = await runtime.doctor({ initState: true, canary: false });
+    assert.equal(result.schema_status, "schema_missing");
+    assert.equal(detailReads, 4);
+  } finally { runtime.close(); }
+});
+
 test("independent Base token mismatch fails before JobStore or Base network activity", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-base-target-"));
   const { config, env } = runtimeFixture(root);
