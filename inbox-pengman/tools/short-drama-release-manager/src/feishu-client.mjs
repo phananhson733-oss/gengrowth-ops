@@ -209,7 +209,7 @@ function normalizedResourceItems(data, resource) {
       const ids = new Set();
       const names = new Set();
       normalized.options = item.options.map((option) => {
-        if (!plainObject(option) || requireIds && (typeof option.id !== "string" || option.id.length === 0 || ids.has(option.id)) ||
+        if (!plainObject(option) || requireIds && (typeof option.id !== "string" || option.id.length === 0 || option.id.trim() !== option.id || ids.has(option.id)) ||
             typeof option.name !== "string" || option.name.length === 0 || option.name.trim() !== option.name || names.has(option.name)) {
           throw invalidResponse("Feishu field options are malformed or duplicate");
         }

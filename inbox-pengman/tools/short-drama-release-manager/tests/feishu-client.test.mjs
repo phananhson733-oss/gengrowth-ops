@@ -1106,6 +1106,9 @@ test("field option readback accepts official idless options and rejects mixed or
   assert.deepEqual((await officialIdless.listFields("base", "tbl")).items[0].options, [{ name: "未发" }, { name: "发布中" }]);
   for (const options of [
     [{ id: "one", name: "未发" }, { name: "发布中" }],
+    [{ id: " ", name: "未发" }],
+    [{ id: " padded ", name: "未发" }],
+    [{ id: "one", name: "未发" }, { id: " one ", name: "发布中" }],
     [{ id: "same", name: "未发" }, { id: "same", name: "发布中" }],
     [{ id: "one", name: "未发" }, { id: "two", name: "未发" }],
     [{ name: "未发" }, { name: "未发" }],
