@@ -297,6 +297,7 @@ function decodeCell(tableName, fieldName, value) {
     const linkSpec = fieldSpecOrNull(tableName, spec.linkField);
     const sourceSpec = linkSpec ? fieldSpecOrNull(linkSpec.targetTable, spec.sourceField) : null;
     if (sourceSpec?.kind === "number") {
+      if (value === "") return null;
       if (typeof value !== "string" || !/^(?:0|[1-9]\d*)$/.test(value)) throw invalidResponse("Numeric lookup read value is malformed");
       const numeric = Number(value);
       if (!Number.isSafeInteger(numeric) || numeric < 0) throw invalidResponse("Numeric lookup read value is unsafe");
@@ -319,7 +320,15 @@ function encodeFields(tableName, fields) {
   return Object.fromEntries(Object.entries(fields).map(([field, value]) => [field, encodeCell(tableName, field, value)]));
 }
 
-function decodedRecordMatrix(data, { tableName = null, writableOnly = false, strictList = false } = {}) {
+function recordProjection(value) {
+  if (!Array.isArray(value) || value.some((field) =>
+    typeof field !== "string" || field.length === 0 || field.trim() !== field) || new Set(value).size !== value.length) {
+    throw invalidResponse("Feishu record projection is malformed or duplicate");
+  }
+  return [...value];
+}
+
+function decodedRecordMatrix(data, { tableName = null, writableOnly = false, projectionActive = false, strictList = false } = {}) {
   const { fields, field_id_list: fieldIds, field_type_list: fieldTypes, record_id_list: recordIds, data: rows } = data ?? {};
   if (!Array.isArray(fields) || !Array.isArray(recordIds) || !Array.isArray(rows) ||
       fields.some((field) => typeof field !== "string" || field.length === 0) ||
@@ -342,7 +351,7 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, str
     }
     if (data.query_context !== undefined && (!plainObject(data.query_context) ||
         data.query_context.record_scope !== "all_records" ||
-        data.query_context.field_scope !== (writableOnly ? "selected_fields" : "all_fields"))) {
+        data.query_context.field_scope !== (writableOnly || projectionActive ? "selected_fields" : "all_fields"))) {
       throw invalidResponse("Feishu record query_context scope is invalid");
     }
   } else if (data.query_context !== undefined && (!plainObject(data.query_context) ||
@@ -906,7 +915,9 @@ export class FeishuClient {
           throw invalidResponse("Feishu records response is ambiguous", { path: diagnosticPath(path) });
         }
         const decoded = vendorRecords
-          ? decodedRecordMatrix(payload.data, { tableName, writableOnly, strictList: typeof tableName === "string" })
+          ? decodedRecordMatrix(payload.data, {
+            tableName, writableOnly, projectionActive: selectFields.length > 0, strictList: typeof tableName === "string",
+          })
           : null;
         const pageItems = decoded ? decoded.records : normalizedResourceItems(payload.data, resource);
         if (decoded?.signature) {
@@ -1002,12 +1013,15 @@ export class FeishuClient {
     return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`, { resource: "fields", signal });
   }
 
-  listRecords(baseToken, tableId, { tableName = null, writableOnly = false, signal } = {}) {
-    const selectFields = writableOnly && typeof tableName === "string"
-      ? BASE_FIELD_SPECS[tableName].filter((spec) => fieldOwner(tableName, spec.name) !== "derived").map((spec) => spec.name)
-      : [];
+  listRecords(baseToken, tableId, { tableName = null, writableOnly = false, selectFields = null, signal } = {}) {
+    if (selectFields !== null && writableOnly) throw invalidResponse("Explicit and writable-only record projections cannot be combined");
+    const projection = selectFields === null
+      ? writableOnly && typeof tableName === "string"
+        ? BASE_FIELD_SPECS[tableName].filter((spec) => fieldOwner(tableName, spec.name) !== "derived").map((spec) => spec.name)
+        : []
+      : recordProjection(selectFields);
     return this.list(`${this.basePath(baseToken)}/tables/${encoded(tableId)}/records`, {
-      resource: "records", tableName, writableOnly, selectFields, signal,
+      resource: "records", tableName, writableOnly, selectFields: projection, signal,
     });
   }
 
@@ -1023,9 +1037,13 @@ export class FeishuClient {
     return this.list(`${this.basePath(baseToken)}/dashboards/${encoded(dashboardId)}/blocks`, { mode: "token", pageSize: 100, resource: "items", signal });
   }
 
-  async getRecord(baseToken, tableId, recordId, { tableName = null, waitForVisibility = false, signal } = {}) {
+  async getRecord(baseToken, tableId, recordId, { tableName = null, waitForVisibility = false, selectFields = [], signal } = {}) {
     if (typeof waitForVisibility !== "boolean" || waitForVisibility && !TABLES[tableName]) {
       throw invalidResponse("Feishu record visibility options are invalid");
+    }
+    const projection = recordProjection(selectFields);
+    if (waitForVisibility && projection.length > 0 && !projection.includes(TABLES[tableName].primaryField)) {
+      throw invalidResponse("Feishu visibility projection must include the fixed primary field");
     }
     return this.operation(async (context) => {
       const path = `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`;
@@ -1033,7 +1051,10 @@ export class FeishuClient {
       const primaryField = waitForVisibility ? TABLES[tableName].primaryField : null;
       for (let attempt = 1; attempt <= attempts; attempt += 1) {
         const payload = await this.request(path, {
-          method: "POST", body: { record_id_list: [recordId] }, context, signal,
+          method: "POST",
+          body: { record_id_list: [recordId], ...(projection.length > 0 ? { select_fields: projection } : {}) },
+          context,
+          signal,
         });
         const decoded = decodedRecordMatrix(payload.data, { tableName });
         if (decoded.records.length !== 1 || decoded.records[0].record_id !== recordId) {
@@ -1106,34 +1127,34 @@ export class FeishuClient {
     }, { signal }), { signal });
   }
 
-  deleteCanaryRecords(baseToken, tableId, tableName, recordIds, { signal } = {}) {
+  deleteCanaryRecords(baseToken, tableId, tableName, recordIds, { canaryId = null, signal } = {}) {
     if (!TABLE_ORDER.includes(tableName) || !Array.isArray(recordIds) || recordIds.length !== 1 ||
-        typeof recordIds[0] !== "string" || recordIds[0].length === 0 || recordIds[0].trim() !== recordIds[0]) {
+        typeof recordIds[0] !== "string" || recordIds[0].length === 0 || recordIds[0].trim() !== recordIds[0] ||
+        typeof canaryId !== "string" || !CANARY_PRIMARY.test(canaryId)) {
       fail("canary_target_invalid", "Canary cleanup accepts exactly one fixed-table record ID");
     }
     const recordId = recordIds[0];
     const primaryField = TABLES[tableName].primaryField;
     const queueKey = `records:${baseToken}:${tableId}`;
-    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
-      const readback = await this.request(
-        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_get`,
-        { method: "POST", body: { record_id_list: [recordId] }, context, signal },
-      );
-      const records = decodedRecordMatrix(readback.data, { tableName }).records;
-      const record = records.length === 1 ? records[0] : null;
+    return this.serializeWrite(queueKey, async () => {
+      const record = await this.getRecord(baseToken, tableId, recordId, {
+        tableName, waitForVisibility: true, selectFields: [primaryField], signal,
+      });
       if (!plainObject(record) || record.record_id !== recordId || !plainObject(record.fields) ||
-          typeof record.fields[primaryField] !== "string" || !CANARY_PRIMARY.test(record.fields[primaryField])) {
+          record.fields[primaryField] !== canaryId) {
         fail("canary_target_invalid", "Canary cleanup target did not read back as the fixed canary record", {
           table: tableName,
         });
       }
-      const payload = await this.request(
-        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_delete`,
-        { method: "POST", body: { record_id_list: [recordId] }, context, signal },
-      );
-      requireRecordIds(payload, [recordId]);
-      return [recordId];
-    }, { signal }), { signal });
+      return this.operation(async (context) => {
+        const payload = await this.request(
+          `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_delete`,
+          { method: "POST", body: { record_id_list: [recordId] }, context, signal },
+        );
+        requireRecordIds(payload, [recordId]);
+        return [recordId];
+      }, { signal });
+    }, { signal });
   }
 
   async createField(baseToken, tableId, tableName, fieldName, bindings = {}, { signal } = {}) {

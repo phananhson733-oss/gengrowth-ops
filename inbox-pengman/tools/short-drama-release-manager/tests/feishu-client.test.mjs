@@ -281,6 +281,26 @@ test("writable-only record projection is explicit and permits only derived ignor
   assert.equal(requested.searchParams.getAll("field_id").includes("播放量"), false);
 });
 
+test("an explicit record-list projection requires the official selected_fields query scope", async () => {
+  let requested;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      requested = new URL(url);
+      return { code: 0, data: completeRecordMatrix({
+        fields: ["发布ID"], field_id_list: ["fld_release"], field_type_list: ["text"],
+        data: [["SR-000001"]],
+        query_context: { record_scope: "all_records", field_scope: "selected_fields" },
+      }) };
+    },
+  });
+
+  assert.equal((await client.listRecords("base", "tbl-release", {
+    tableName: "发布记录", selectFields: ["发布ID"],
+  })).items[0].fields.发布ID, "SR-000001");
+  assert.deepEqual(requested.searchParams.getAll("field_id"), ["发布ID"]);
+});
+
 test("numeric lookup strings decode safely while nonnumeric or unsafe values fail", async () => {
   for (const value of ["NaN", "1e3", "-1", "9007199254740992", " 1", 1]) {
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: completeRecordMatrix({
@@ -288,6 +308,21 @@ test("numeric lookup strings decode safely while nonnumeric or unsafe values fai
     }) }) });
     await assert.rejects(client.listRecords("base", "tbl", { tableName: "发布记录" }), (error) => error.code === "base_response_invalid");
   }
+});
+
+test("live empty numeric lookup strings decode as missing null rather than invalid or zero", async () => {
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: completeRecordMatrix({
+    fields: ["发布ID", "播放量", "点赞", "收藏", "转发", "评论"],
+    field_id_list: ["fld_release", "fld_views", "fld_likes", "fld_favorites", "fld_shares", "fld_comments"],
+    field_type_list: ["text", "lookup", "lookup", "lookup", "lookup", "lookup"],
+    data: [["CANARY-SDRUN-20260904-222659-60211CE4", "", "", "", "", ""]],
+  }) }) });
+
+  const [record] = (await client.listRecords("base", "tbl-release", { tableName: "发布记录" })).items;
+  assert.deepEqual(record.fields, {
+    发布ID: "CANARY-SDRUN-20260904-222659-60211CE4",
+    播放量: null, 点赞: null, 收藏: null, 转发: null, 评论: null,
+  });
 });
 
 test("official cell codec preserves select, Shanghai datetime, links, null, and numeric zero", async () => {
@@ -1002,19 +1037,140 @@ test("canary deletion pre-reads a fixed table record and uses exact Base v3 batc
       return { code: 0, data: { record_id_list: ["rec-canary"] } };
     },
   });
-  assert.deepEqual(await client.deleteCanaryRecords("base", "tbl-drama", "选剧池", ["rec-canary"]), ["rec-canary"]);
+  assert.deepEqual(await client.deleteCanaryRecords("base", "tbl-drama", "选剧池", ["rec-canary"], {
+    canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
+  }), ["rec-canary"]);
   assert.deepEqual(calls.map(([url]) => url), [
     "/open-apis/base/v3/bases/base/tables/tbl-drama/records/batch_get",
     "/open-apis/base/v3/bases/base/tables/tbl-drama/records/batch_delete",
   ]);
+  assert.deepEqual(calls[0][1].body, { record_id_list: ["rec-canary"], select_fields: ["剧ID"] });
   assert.deepEqual(calls[1][1].body, { record_id_list: ["rec-canary"] });
+});
+
+test("release canary deletion accepts the live empty numeric lookup readback before exact delete", async () => {
+  let deletes = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/batch_get")) {
+        assert.deepEqual(options.body, { record_id_list: ["rec-canary"], select_fields: ["发布ID"] });
+        return { code: 0, data: {
+          fields: ["发布ID"], field_id_list: ["fld_release"], field_type_list: ["text"],
+          record_id_list: ["rec-canary"], data: [["CANARY-SDRUN-20260904-222659-60211CE4"]],
+        } };
+      }
+      deletes += 1;
+      return { code: 0, data: { record_id_list: ["rec-canary"] } };
+    },
+  });
+
+  assert.deepEqual(await client.deleteCanaryRecords("base", "tbl-release", "发布记录", ["rec-canary"], {
+    canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+  }), ["rec-canary"]);
+  assert.equal(deletes, 1);
+});
+
+test("canary deletion is bound to this run's exact canary primary value", async () => {
+  let deletes = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/batch_get")) return { code: 0, data: {
+        fields: ["发布ID"], record_id_list: ["rec-canary"],
+        data: [["CANARY-SDRUN-20260904-222700-FFFFFFFF"]],
+      } };
+      deletes += 1;
+      return { code: 0, data: { record_id_list: ["rec-canary"] } };
+    },
+  });
+
+  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl-release", "发布记录", ["rec-canary"], {
+    canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+  }), (error) => error.code === "canary_target_invalid");
+  assert.equal(deletes, 0);
+});
+
+test("canary deletion polls transient pre-delete visibility before issuing one exact delete", async () => {
+  const calls = [];
+  const waits = [];
+  let reads = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async (ms) => waits.push(ms),
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      calls.push([path, options.body]);
+      if (path.endsWith("/batch_get")) {
+        reads += 1;
+        if (reads === 1) return { code: 0, data: {
+            fields: ["发布ID"], record_id_list: ["rec-canary"], data: [[null]],
+            record_not_found: ["rec-canary"],
+          } };
+        if (reads === 2) return { code: 0, data: {
+          fields: ["发布ID"], record_id_list: ["rec-canary"], data: [[null]],
+        } };
+        return { code: 0, data: {
+          fields: ["发布ID"], record_id_list: ["rec-canary"], data: [["CANARY-SDRUN-20260904-222659-60211CE4"]],
+        } };
+      }
+      return { code: 0, data: { record_id_list: ["rec-canary"] } };
+    },
+  });
+
+  assert.deepEqual(await client.deleteCanaryRecords("base", "tbl-release", "发布记录", ["rec-canary"], {
+    canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+  }), ["rec-canary"]);
+  assert.deepEqual(calls.map(([path]) => path), [
+    "/open-apis/base/v3/bases/base/tables/tbl-release/records/batch_get",
+    "/open-apis/base/v3/bases/base/tables/tbl-release/records/batch_get",
+    "/open-apis/base/v3/bases/base/tables/tbl-release/records/batch_get",
+    "/open-apis/base/v3/bases/base/tables/tbl-release/records/batch_delete",
+  ]);
+  assert.deepEqual(calls[0][1], { record_id_list: ["rec-canary"], select_fields: ["发布ID"] });
+  assert.deepEqual(calls[1][1], { record_id_list: ["rec-canary"], select_fields: ["发布ID"] });
+  assert.deepEqual(calls[2][1], { record_id_list: ["rec-canary"], select_fields: ["发布ID"] });
+  assert.deepEqual(waits, [1_000, 2_000]);
+});
+
+test("canary deletion never sends delete when pre-delete visibility stays unresolved", async () => {
+  let reads = 0;
+  let deletes = 0;
+  const waits = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    sleep: async (ms) => waits.push(ms),
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/batch_delete")) {
+        deletes += 1;
+        return { code: 0, data: { record_id_list: ["rec-canary"] } };
+      }
+      reads += 1;
+      return { code: 0, data: {
+        fields: ["发布ID"], record_id_list: ["rec-canary"], data: [[null]],
+        record_not_found: ["rec-canary"],
+      } };
+    },
+  });
+
+  await assert.rejects(
+    () => client.deleteCanaryRecords("base", "tbl-release", "发布记录", ["rec-canary"], {
+      canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+    }),
+    (error) => error.code === "readback_mismatch" && error.details.attempts === 3,
+  );
+  assert.equal(reads, 3);
+  assert.equal(deletes, 0);
+  assert.deepEqual(waits, [1_000, 2_000]);
 });
 
 test("canary deletion rejects non-canary and arbitrary table targets before delete", async () => {
   let deletes = 0;
+  let requests = 0;
   const client = new FeishuClient({
     tokenProvider: async () => "token",
     fetchJson: async (_url, options) => {
+      requests += 1;
       if (new URL(_url).pathname.endsWith("/batch_get")) return { code: 0, data: {
         fields: ["剧ID"], field_id_list: ["fld"], field_type_list: ["text"], record_id_list: ["rec"], data: [["SD-000001"]],
       } };
@@ -1022,13 +1178,21 @@ test("canary deletion rejects non-canary and arbitrary table targets before dele
       return { code: 0, data: { record_id_list: ["rec"] } };
     },
   });
-  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"]),
+  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"], {
+    canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
+  }),
     (error) => error.code === "canary_target_invalid");
+  assert.equal(requests, 1);
   assert.throws(() => client.deleteCanaryRecords("base", "tbl", "任意表", ["rec"]),
     (error) => error.code === "canary_target_invalid");
   assert.throws(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec", "another"]),
     (error) => error.code === "canary_target_invalid");
+  assert.throws(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"]),
+    (error) => error.code === "canary_target_invalid");
+  assert.throws(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"], { canaryId: "CANARY-bad" }),
+    (error) => error.code === "canary_target_invalid");
   assert.equal(deletes, 0);
+  assert.equal(requests, 1);
 });
 
 test("canary deletion requires the exact deleted record ID response", async () => {
@@ -1038,7 +1202,9 @@ test("canary deletion requires the exact deleted record ID response", async () =
       ? { code: 0, data: { fields: ["剧ID"], field_id_list: ["fld"], field_type_list: ["text"], record_id_list: ["rec"], data: [["CANARY-SDRUN-20260901-120000"]] } }
       : { code: 0, data: { record_id_list: ["different"] } },
   });
-  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"]),
+  await assert.rejects(() => client.deleteCanaryRecords("base", "tbl", "选剧池", ["rec"], {
+    canaryId: "CANARY-SDRUN-20260901-120000",
+  }),
     (error) => error.code === "base_response_invalid");
 });
 

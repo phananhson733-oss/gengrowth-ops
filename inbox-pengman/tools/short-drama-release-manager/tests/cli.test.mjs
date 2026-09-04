@@ -342,8 +342,12 @@ test("canary explicitly opts into one client-side visibility budget for fixed-ta
   const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
   const rows = new Map([...tableNameById.keys()].map((id) => [id, []]));
   const getOptions = [];
+  const listOptions = [];
   const client = repositoryClient({
-    listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
+    listRecords: async (_base, tableId, options) => {
+      listOptions.push([tableNameById.get(tableId), options]);
+      return { complete: true, revision: "r", items: structuredClone(rows.get(tableId)) };
+    },
     createRecords: async (_base, tableId, records, options) => {
       assert.equal(options?.tableName, tableNameById.get(tableId));
       const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
@@ -354,7 +358,8 @@ test("canary explicitly opts into one client-side visibility budget for fixed-ta
       getOptions.push(options);
       return structuredClone(rows.get(tableId).find((row) => row.record_id === recordId));
     },
-    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds, options) => {
+      assert.deepEqual(options, { canaryId: "CANARY-SDRUN-20260901-120000-A1B2" });
       rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
       return recordIds;
     },
@@ -364,14 +369,130 @@ test("canary explicitly opts into one client-side visibility budget for fixed-ta
     client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
   });
   assert.equal(result.status, "verified");
-  assert.deepEqual(getOptions, TABLE_ORDER.map((tableName) => ({ tableName, waitForVisibility: true })));
+  assert.deepEqual(getOptions, TABLE_ORDER.map((tableName) => ({
+    tableName, waitForVisibility: true, selectFields: [TABLES[tableName].primaryField],
+  })));
+  assert.deepEqual(listOptions, [
+    ...TABLE_ORDER.map((tableName) => [tableName, { tableName, selectFields: [TABLES[tableName].primaryField] }]),
+    ...TABLE_ORDER.map((tableName) => [tableName, { tableName, selectFields: [TABLES[tableName].primaryField] }]),
+  ]);
   assert.equal([...rows.values()].every((items) => items.length === 0), true);
+});
+
+test("canary restoration polls a stale list only while it contains the just-deleted canary key", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
+  const rows = new Map([...tableNameById].map(([id, tableName]) => [id, [{
+    record_id: `existing-${id}`, fields: { [TABLES[tableName].primaryField]: `EXISTING-${id}` },
+  }]]));
+  const deletedRows = new Map();
+  const staleReturned = new Set();
+  const sleeps = [];
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => {
+      if (deletedRows.has(tableId) && !staleReturned.has(tableId)) {
+        staleReturned.add(tableId);
+        return {
+          complete: true, revision: "stale",
+          items: [...structuredClone(rows.get(tableId)), structuredClone(deletedRows.get(tableId))],
+        };
+      }
+      return { complete: true, revision: "fresh", items: structuredClone(rows.get(tableId)) };
+    },
+    createRecords: async (_base, tableId, records) => {
+      const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record);
+      return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows.get(tableId).find((row) => row.record_id === recordId)),
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+      const record = rows.get(tableId).find((row) => recordIds.includes(row.record_id));
+      deletedRows.set(tableId, structuredClone(record));
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
+      return recordIds;
+    },
+  });
+
+  const result = await runBaseCanary({
+    client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+    sleep: async (ms) => sleeps.push(ms),
+  });
+  assert.equal(result.status, "verified");
+  assert.deepEqual(sleeps, [1_000, 1_000, 1_000, 1_000]);
+  assert.equal([...rows.values()].every((items) => items.length === 1 && items[0].record_id.startsWith("existing-")), true);
+});
+
+test("canary restoration does not poll the same canary key on a different record ID", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
+  const rows = new Map([...tableNameById.keys()].map((id) => [id, []]));
+  let deleted = false;
+  let sleeps = 0;
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => {
+      if (deleted && tableId === "ta") return {
+        complete: true, revision: "changed", items: [{
+          record_id: "replacement", fields: { 账号ID: "CANARY-SDRUN-20260904-222659-60211CE4" },
+        }],
+      };
+      return { complete: true, revision: "r", items: structuredClone(rows.get(tableId)) };
+    },
+    createRecords: async (_base, tableId, records) => {
+      const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record);
+      return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows.get(tableId).find((row) => row.record_id === recordId)),
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
+      deleted = true;
+      return recordIds;
+    },
+  });
+
+  await assert.rejects(() => runBaseCanary({
+    client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+    sleep: async () => { sleeps += 1; },
+  }), (error) => error.code === "canary_cleanup_failed" && error.details.phase === "restoration" &&
+    error.details.table === "账号台账" && error.details.cause_code === "readback_mismatch");
+  assert.equal(sleeps, 0);
+});
+
+test("canary restoration rejects an unrelated key change without polling", async () => {
+  const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
+  const rows = new Map(Object.values(tableIds).map((id) => [id, []]));
+  let deleted = false;
+  let sleeps = 0;
+  const client = repositoryClient({
+    listRecords: async (_base, tableId) => deleted && tableId === "ta"
+      ? { complete: true, revision: "changed", items: [{ record_id: "human", fields: { 账号ID: "human-change" } }] }
+      : { complete: true, revision: "r", items: structuredClone(rows.get(tableId)) },
+    createRecords: async (_base, tableId, records) => {
+      const record = { record_id: `rec-${tableId}`, fields: structuredClone(records[0].fields) };
+      rows.get(tableId).push(record);
+      return [structuredClone(record)];
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows.get(tableId).find((row) => row.record_id === recordId)),
+    deleteCanaryRecords: async (_base, tableId, _tableName, recordIds) => {
+      rows.set(tableId, rows.get(tableId).filter((row) => !recordIds.includes(row.record_id)));
+      deleted = true;
+      return recordIds;
+    },
+  });
+
+  await assert.rejects(() => runBaseCanary({
+    client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260904-222659-60211CE4",
+    sleep: async () => { sleeps += 1; },
+  }), (error) => error.code === "canary_cleanup_failed" && error.details.phase === "restoration" &&
+    error.details.table === "账号台账" && error.details.cause_code === "readback_mismatch");
+  assert.equal(sleeps, 0);
 });
 
 test("canary cleanup failure is manual-repair terminal and never verified", async () => {
   const tableIds = { accounts: "ta", dramas: "td", captures: "tc", releases: "tr" };
   const tableNameById = new Map([["ta", "账号台账"], ["td", "选剧池"], ["tc", "采集数据"], ["tr", "发布记录"]]);
   const rows = new Map([...tableNameById.keys()].map((id) => [id, []]));
+  let sleeps = 0;
   const client = repositoryClient({
     listRecords: async (_base, tableId) => ({ complete: true, revision: "r", items: structuredClone(rows.get(tableId)) }),
     createRecords: async (_base, tableId, records) => {
@@ -384,7 +505,10 @@ test("canary cleanup failure is manual-repair terminal and never verified", asyn
   });
   await assert.rejects(() => runBaseCanary({
     client, appToken: "base", tableIds, canaryId: "CANARY-SDRUN-20260901-120000-A1B2",
-  }), (error) => error.code === "canary_cleanup_failed" && error.details.next_step === "manual_repair");
+    sleep: async () => { sleeps += 1; },
+  }), (error) => error.code === "canary_cleanup_failed" && error.details.next_step === "manual_repair" &&
+    error.details.phase === "delete" && error.details.table === "账号台账" && error.details.cause_code === "base_request_failed");
+  assert.equal(sleeps, 0);
 });
 
 test("later canary readback failure still cleans every earlier table", async () => {

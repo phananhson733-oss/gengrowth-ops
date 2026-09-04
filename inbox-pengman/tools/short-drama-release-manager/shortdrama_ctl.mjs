@@ -715,9 +715,12 @@ export function evaluateDailyHealth(now, jobs) {
 }
 
 const CANARY_ID = /^CANARY-SDRUN-\d{8}-\d{6}(?:-[A-F0-9]+)?$/;
+const CANARY_RESTORATION_ATTEMPTS = 3;
 const CANARY_TABLES = Object.freeze([
   ["accounts", "账号台账"], ["dramas", "选剧池"], ["captures", "采集数据"], ["releases", "发布记录"],
 ]);
+
+const defaultCanarySleep = (ms) => new Promise((resolvePromise) => setTimeout(resolvePromise, ms));
 
 function canaryIndex(result, tableName) {
   if (!result || result.complete !== true || !Array.isArray(result.items)) fail("base_response_incomplete", "Complete Base list is required for canary", { table: tableName });
@@ -733,21 +736,23 @@ function canaryIndex(result, tableName) {
   return byKey;
 }
 
-export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {}) {
+export async function runBaseCanary({ client, appToken, tableIds, canaryId, sleep = defaultCanarySleep } = {}) {
   if (!client || ["listRecords", "createRecords", "getRecord", "deleteCanaryRecords"].some((method) => typeof client[method] !== "function") ||
-      typeof appToken !== "string" || appToken.length === 0 || !tableIds || !CANARY_ID.test(canaryId ?? "")) {
+      typeof appToken !== "string" || appToken.length === 0 || !tableIds || !CANARY_ID.test(canaryId ?? "") || typeof sleep !== "function") {
     fail("canary_context_invalid", "Fixed four-table canary context is invalid");
   }
   const snapshots = new Map();
   const originalKeys = new Map();
   const createdRecordIds = new Map();
+  const deletedRecordIds = new Map();
   const proofs = new Map();
   let operationError = null;
-  let cleanupError = null;
+  let cleanupFailure = null;
   for (const [binding, tableName] of CANARY_TABLES) {
     const tableId = tableIds[binding];
     if (typeof tableId !== "string" || tableId.length === 0) fail("canary_context_invalid", "Canary table binding is invalid", { table: tableName });
-    const index = canaryIndex(await client.listRecords(appToken, tableId, { tableName }), tableName);
+    const primary = TABLES[tableName].primaryField;
+    const index = canaryIndex(await client.listRecords(appToken, tableId, { tableName, selectFields: [primary] }), tableName);
     if (index.has(canaryId)) fail("canary_collision", "Generated canary key already exists", { table: tableName });
     snapshots.set(tableName, index);
     originalKeys.set(tableName, [...index.keys()].sort());
@@ -762,7 +767,9 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
       }
       const recordId = created[0].record_id;
       createdRecordIds.set(tableName, recordId);
-      const readback = await client.getRecord(appToken, tableId, recordId, { tableName, waitForVisibility: true });
+      const readback = await client.getRecord(appToken, tableId, recordId, {
+        tableName, waitForVisibility: true, selectFields: [primary],
+      });
       if (readback?.record_id !== recordId || readback?.fields?.[primary] !== canaryId) {
         fail("readback_mismatch", "Canary readback did not match primary and record ID", { table: tableName });
       }
@@ -781,16 +788,33 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
       const tableId = tableIds[binding];
       try {
         const recordId = createdRecordIds.get(tableName);
-        if (recordId) await client.deleteCanaryRecords(appToken, tableId, tableName, [recordId]);
+        if (recordId) {
+          await client.deleteCanaryRecords(appToken, tableId, tableName, [recordId], { canaryId });
+          deletedRecordIds.set(tableName, recordId);
+        }
       } catch (error) {
-        cleanupError ??= error;
+        cleanupFailure ??= { error, phase: "delete", table: tableName };
       }
     }
     for (const [binding, tableName] of CANARY_TABLES) {
       try {
-        const restored = canaryIndex(await client.listRecords(appToken, tableIds[binding], { tableName }), tableName);
-        if (JSON.stringify([...restored.keys()].sort()) !== JSON.stringify(originalKeys.get(tableName))) {
-          fail("readback_mismatch", "Canary cleanup did not restore the exact key set", { table: tableName });
+        const expectedKeys = originalKeys.get(tableName);
+        const primary = TABLES[tableName].primaryField;
+        const deletedRecordId = deletedRecordIds.get(tableName) ?? null;
+        const pendingKeys = deletedRecordId === null ? null : [...expectedKeys, canaryId].sort();
+        let restored = null;
+        for (let attempt = 1; attempt <= CANARY_RESTORATION_ATTEMPTS; attempt += 1) {
+          restored = canaryIndex(await client.listRecords(appToken, tableIds[binding], {
+            tableName, selectFields: [primary],
+          }), tableName);
+          const actualKeys = [...restored.keys()].sort();
+          if (JSON.stringify(actualKeys) === JSON.stringify(expectedKeys)) break;
+          const onlyDeletedCanaryRemains = pendingKeys !== null && restored.get(canaryId) === deletedRecordId &&
+            JSON.stringify(actualKeys) === JSON.stringify(pendingKeys);
+          if (!onlyDeletedCanaryRemains || attempt === CANARY_RESTORATION_ATTEMPTS) {
+            fail("readback_mismatch", "Canary cleanup did not restore the exact key set", { table: tableName });
+          }
+          await sleep(attempt * 1_000);
         }
         const proof = proofs.get(tableName);
         if (proof) {
@@ -800,11 +824,16 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId } = {
           proof.count_after = restored.size;
         }
       } catch (error) {
-        cleanupError ??= error;
+        cleanupFailure ??= { error, phase: "restoration", table: tableName };
       }
     }
   }
-  if (cleanupError) fail("canary_cleanup_failed", "Canary cleanup or restoration could not be proven", { next_step: "manual_repair" });
+  if (cleanupFailure) fail("canary_cleanup_failed", "Canary cleanup or restoration could not be proven", {
+    next_step: "manual_repair",
+    phase: cleanupFailure.phase,
+    table: cleanupFailure.table,
+    cause_code: typeof cleanupFailure.error?.code === "string" ? cleanupFailure.error.code : "internal_error",
+  });
   if (operationError) throw operationError;
   return {
     status: "verified", canary_id: canaryId,
