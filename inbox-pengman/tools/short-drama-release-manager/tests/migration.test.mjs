@@ -184,6 +184,38 @@ function latestCapture(overrides = {}) {
   };
 }
 
+function latestAccount(overrides = {}) {
+  return {
+    snapshot_date: "2026-08-24",
+    captured_at: "2026-08-24T01:02:03Z",
+    username: "dramaexpedition",
+    account_url: "https://www.tiktok.com/@dramaexpedition",
+    nickname: "Drama Expedition",
+    followers: 100,
+    following: 0,
+    total_likes: 0,
+    total_posts: 1,
+    bio: "",
+    collection_status: "complete",
+    ...overrides,
+  };
+}
+
+function googleCapture(overrides = {}) {
+  return {
+    ...normalizedSource().captures[0],
+    "Post ID": "99",
+    账号名: "dramaexpedition",
+    视频链接: "https://www.tiktok.com/@dramaexpedition/video/99",
+    播放量: 10,
+    点赞: 0,
+    评论: 7,
+    收藏: 1,
+    转发: 2,
+    ...overrides,
+  };
+}
+
 test("Google normalization returns capture values without copying formulas", () => {
   const result = normalizedSource();
   assert.equal(result.accounts.length, 1);
@@ -332,6 +364,52 @@ test("Google reader rejects incomplete/mismatched ranges and duplicate sheet met
       signJwt: () => "signature", fetchJson: makeFetch(mutation),
     }), (error) => error.code === "google_source_invalid");
   }
+});
+
+test("migration unions Google history with SQLite latest and creates evidenced account stubs", async () => {
+  const google = normalizedSource();
+  google.captures = [
+    googleCapture({ "Post ID": "99", 播放量: 10 }),
+    googleCapture({
+      "Post ID": "88",
+      账号名: "historyonly",
+      视频链接: "https://www.tiktok.com/@historyonly/video/88",
+    }),
+  ];
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ post_id: "99", views: 20 })],
+  });
+  assert.deepEqual(manifest.captures.map((row) => row["Post ID"]), ["88", "99"]);
+  assert.equal(manifest.captures.find((row) => row["Post ID"] === "99").播放量, 20);
+  assert.equal(manifest.accounts.some((row) => row.账号ID === "historyonly"), true);
+  assert.equal(manifest.warnings.some((row) => row.code === "account_stub_created" && row.account_id === "historyonly"), true);
+  assert.deepEqual(manifest.source_evidence.counts, {
+    google_captures: 2,
+    sqlite_accounts: 1,
+    sqlite_posts: 1,
+    capture_overlap: 1,
+    capture_union: 2,
+  });
+});
+
+test("partial SQLite rows retain old valid metrics but keep current missing evidence", async () => {
+  const google = normalizedSource();
+  google.captures = [googleCapture({ 评论: 7 })];
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ comments: null, missing_fields: ["comments"], collection_status: "partial" })],
+  });
+  assert.equal(manifest.captures[0].评论, 7);
+  assert.equal(manifest.captures[0].采集状态, "partial");
+  assert.deepEqual(manifest.captures[0].缺失字段, ["comments"]);
+  assert.deepEqual(manifest.reconciliation.capture_merges, [{
+    post_id: "99",
+    primary_source: "sqlite",
+    fallback_fields: ["评论"],
+  }]);
 });
 
 test("plan is pure and deterministic, uses visible/source order, and never imports Google capture data", async () => {
