@@ -949,6 +949,31 @@ test("migration evidence remains bound to independent expected digests", async (
   }
 });
 
+test("migration evidence has a bounded large-artifact limit independent from Social payloads", async () => {
+  const suffix = `${process.pid}-${Date.now()}`;
+  const name = `large-manifest-${suffix}.json`;
+  const manifest = { version: "fixture", rows: [{ value: "x".repeat(2 * 1024 * 1024) }] };
+  manifest.sha256 = manifestDigest(manifest);
+  const written = await writeMigrationArtifact(manifest, { fileName: name });
+  try {
+    let builds = 0;
+    const result = await execute([
+      "migrate", "apply", "--phase", "schema", "--manifest", name,
+      "--expected-sha256", "f".repeat(64), "--actor-id", "admin", "--confirm", "apply-now",
+      "--config", "/configured/runtime.json",
+    ], {
+      env: {},
+      loadEnvironment: passthroughEnvironment,
+      isTrustedLocalInvoker: trustedLocalInvoker,
+      build: async () => { builds += 1; throw new Error("must not build"); },
+    });
+    assert.equal(result.result.error.code, "migration_evidence_mismatch");
+    assert.equal(builds, 0);
+  } finally {
+    await rm(written.path, { force: true });
+  }
+});
+
 test("migration output is reserved before runtime side effects and stores the exact top-level value", async () => {
   const suffix = `${process.pid}-${Date.now()}`;
   const manifest = { version: "fixture", rows: [] };

@@ -38,6 +38,7 @@ import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mj
 const LABEL = "com.gengrowth.shortdrama-sync";
 const DEFAULT_CAPABILITY_PATH = resolve(homedir(), "Library/Application Support/GenGrowth/shortdrama-sync/internal.capability");
 const MAX_PAYLOAD_BYTES = 1024 * 1024;
+const MAX_MIGRATION_ARTIFACT_BYTES = 64 * 1024 * 1024;
 const MAX_SOCIAL_HEREDOC_BYTES = 64 * 1024;
 const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
@@ -502,8 +503,8 @@ function exactBatchPayload(payload) {
   return { items: structuredClone(payload.items) };
 }
 
-function parsePayloadBytes(bytes) {
-  if (bytes.length > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+function parsePayloadBytes(bytes, { maxBytes, tooLargeCode, tooLargeMessage }) {
+  if (bytes.length > maxBytes) fail(tooLargeCode, tooLargeMessage);
   let value;
   try { value = JSON.parse(bytes.toString("utf8")); }
   catch { fail("payload_invalid", "Payload must be strict JSON"); }
@@ -512,23 +513,27 @@ function parsePayloadBytes(bytes) {
   return value;
 }
 
-async function readBoundedStream(stream) {
+async function readBoundedStream(stream, limit) {
   const chunks = [];
   let size = 0;
   for await (const chunk of stream) {
     const bytes = Buffer.from(chunk);
     size += bytes.length;
-    if (size > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+    if (size > limit.maxBytes) fail(limit.tooLargeCode, limit.tooLargeMessage);
     chunks.push(bytes);
   }
   return Buffer.concat(chunks);
 }
 
-export async function readPayload(source, { payloadRoot, stdin = process.stdin, openFile = open, includeBytes = false } = {}) {
+async function readPayloadWithLimit(source, {
+  payloadRoot, stdin = process.stdin, openFile = open, includeBytes = false, allowStdin = true,
+  maxBytes, tooLargeCode, tooLargeMessage,
+} = {}) {
   if (source === undefined || source === null) return null;
   if (source === "-") {
-    const bytes = await readBoundedStream(stdin);
-    const value = parsePayloadBytes(bytes);
+    if (!allowStdin) fail("payload_path_invalid", "Migration evidence must be a fixed-root JSON file");
+    const bytes = await readBoundedStream(stdin, { maxBytes, tooLargeCode, tooLargeMessage });
+    const value = parsePayloadBytes(bytes, { maxBytes, tooLargeCode, tooLargeMessage });
     return includeBytes ? { value, bytes } : value;
   }
   const root = resolve(normalized(payloadRoot, "payloadRoot"));
@@ -553,16 +558,16 @@ export async function readPayload(source, { payloadRoot, stdin = process.stdin, 
     const parent = await lstat(cursor);
     if (parent.isSymbolicLink() || !parent.isDirectory()) fail("payload_path_invalid", "Payload path contains an untrusted parent");
   }
-  if (info.size > MAX_PAYLOAD_BYTES) fail("payload_too_large", "Payload exceeds the one MiB limit");
+  if (info.size > maxBytes) fail(tooLargeCode, tooLargeMessage);
   let handle;
   try {
     handle = await openFile(candidateReal, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
     const opened = await handle.stat();
-    if (!opened.isFile() || opened.dev !== info.dev || opened.ino !== info.ino || opened.size !== info.size || opened.size > MAX_PAYLOAD_BYTES) {
+    if (!opened.isFile() || opened.dev !== info.dev || opened.ino !== info.ino || opened.size !== info.size || opened.size > maxBytes) {
       fail("payload_path_invalid", "Payload file changed between validation and open");
     }
     const bytes = await handle.readFile();
-    const value = parsePayloadBytes(bytes);
+    const value = parsePayloadBytes(bytes, { maxBytes, tooLargeCode, tooLargeMessage });
     return includeBytes ? { value, bytes } : value;
   } catch (error) {
     if (error instanceof ShortDramaError) throw error;
@@ -571,6 +576,16 @@ export async function readPayload(source, { payloadRoot, stdin = process.stdin, 
   } finally {
     await handle?.close();
   }
+}
+
+export async function readPayload(source, options = {}) {
+  return readPayloadWithLimit(source, {
+    ...options,
+    allowStdin: true,
+    maxBytes: MAX_PAYLOAD_BYTES,
+    tooLargeCode: "payload_too_large",
+    tooLargeMessage: "Payload exceeds the one MiB limit",
+  });
 }
 
 function evidenceMismatch(message) {
@@ -583,7 +598,17 @@ function exactDigest(value, field) {
 }
 
 async function readMigrationFile(source) {
-  return readPayload(source, { payloadRoot: MIGRATION_ARTIFACT_ROOT, includeBytes: true });
+  if (typeof source !== "string" || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(source) || source.includes("..")) {
+    fail("input_invalid", "Migration evidence must be a safe JSON file name in the fixed evidence directory");
+  }
+  return readPayloadWithLimit(source, {
+    payloadRoot: MIGRATION_ARTIFACT_ROOT,
+    includeBytes: true,
+    allowStdin: false,
+    maxBytes: MAX_MIGRATION_ARTIFACT_BYTES,
+    tooLargeCode: "migration_artifact_too_large",
+    tooLargeMessage: "Migration artifact exceeds the 64 MiB limit",
+  });
 }
 
 async function loadMigrationEvidence(command) {
