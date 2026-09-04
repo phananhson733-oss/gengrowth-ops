@@ -29,6 +29,8 @@ const ROW_ANCHORS = Object.freeze({
 });
 const DATE_FIELDS = new Set(["日期", "数据日期", "上线日期", "快照日期"]);
 const MULTI_SELECT_FIELDS = new Set(["剧分类", "RS Boost 分类（待确认）", "账号组", "来源", "推荐人", "缺失字段"]);
+const CAPTURE_METRIC_FIELDS = Object.freeze(["播放量", "点赞", "评论", "收藏", "转发"]);
+const POST_ID = /^\d+$/;
 
 function fail(message, details = {}) {
   throw new ShortDramaError("google_source_invalid", message, details);
@@ -280,6 +282,27 @@ function normalizeTable(key, unformatted, formatted) {
   return result;
 }
 
+function validateCaptureRows(rows) {
+  for (const row of rows) {
+    if (typeof row["Post ID"] !== "string" || !POST_ID.test(row["Post ID"])) {
+      fail("Google capture Post ID is invalid", { sheet: "captures", source_row: row.source_row, field: "Post ID" });
+    }
+    if (typeof row.账号名 !== "string" || row.账号名 === "") {
+      fail("Google capture account is invalid", { sheet: "captures", source_row: row.source_row, field: "账号名" });
+    }
+    if (row.视频链接 !== null && typeof row.视频链接 !== "string") {
+      fail("Google capture URL is invalid", { sheet: "captures", source_row: row.source_row, field: "视频链接" });
+    }
+    for (const field of CAPTURE_METRIC_FIELDS) {
+      const value = row[field];
+      if (value !== null && (!Number.isSafeInteger(value) || value < 0)) {
+        fail("Google capture metric is invalid", { sheet: "captures", source_row: row.source_row, field });
+      }
+    }
+  }
+  return rows;
+}
+
 export function normalizeGoogleSource(input) {
   if (!plainObject(input)) fail("Google source must be an object");
   const metadata = normalizedMetadata(clone(input.metadata));
@@ -295,7 +318,7 @@ export function normalizeGoogleSource(input) {
     unformatted: input.unformatted,
     formatted: input.formatted,
   });
-  const captures = normalizeTable("captures", input.unformatted.captures, input.formatted.captures);
+  const captures = validateCaptureRows(normalizeTable("captures", input.unformatted.captures, input.formatted.captures));
   return {
     revision: evidenceRevision(rawBackup),
     timezone: metadata.properties.timeZone,
@@ -303,6 +326,7 @@ export function normalizeGoogleSource(input) {
     accounts: normalizeTable("accounts", input.unformatted.accounts, input.formatted.accounts),
     releases: normalizeTable("releases", input.unformatted.releases, input.formatted.releases),
     dramas: normalizeTable("dramas", input.unformatted.dramas, input.formatted.dramas),
+    captures,
     capture_audit_rows: captures.length,
     raw_backup: rawBackup,
   };

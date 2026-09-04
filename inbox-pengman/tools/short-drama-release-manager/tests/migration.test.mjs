@@ -28,7 +28,7 @@ import { BASE_FIELD_SPECS, TABLE_ORDER } from "../src/schema.mjs";
 const ACCOUNT_HEADERS = ["账号名", "主页链接", "粉丝数", "所属组", "定位垂类", "表现形式", "状态", "数据日期"];
 const DRAMA_HEADERS = ["剧名", "剧ID", "剧分类", "上线日期", "生命周期", "是否已排期", "备注", "推荐理由", "RS Boost 分类（待确认）", "账号组", "账号状态", "平台", "语言", "来源", "推荐人", "归档状态"];
 const RELEASE_HEADERS = ["日期", "账号名", "主页链接", "剧名", "剧ID（RS Boost）", "剧分类", "视频链接", "Post ID", "播放量", "点赞", "收藏", "转发", "评论", "RS收益", "备注", "归档状态"];
-const CAPTURE_HEADERS = ["快照日期", "账号名", "Post ID", "视频链接", "播放量", "点赞", "评论", "收藏", "转发", "采集状态"];
+const CAPTURE_HEADERS = ["快照日期", "账号名", "Post ID", "视频链接", "播放量", "点赞", "评论", "收藏", "转发", "业务"];
 const BASE_BINDING_SHA256 = "b".repeat(64);
 const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
 
@@ -130,7 +130,7 @@ function matrices() {
     accounts: [[...ACCOUNT_HEADERS], ["DramaExpedition", "https://www.tiktok.com/@dramaexpedition", 1161, "A纯切片", " 短剧 ", "AI真人剧", "发布中", 46239], [null, null, null]],
     dramas: [[...DRAMA_HEADERS], ["Broken contract and four cubs", "legacy", "狼人，复仇", 46240, "新剧", "是", "", "推荐", "狼人,复仇", "A纯切片", "发布中", "ReelShort", "英语", "Google Trends, 至真选剧台", "彭满", "active"], [null, null, null]],
     releases: [[...RELEASE_HEADERS], [46258, "DramaExpedition", "https://www.tiktok.com/@dramaexpedition", "Broken contract and four cubs", "RS-7", "狼人", "https://www.tiktok.com/@dramaexpedition/video/99", "99", 9, 0, null, 1, 2, 0, "首发", "active"], [null, null, null]],
-    captures: [[...CAPTURE_HEADERS], [46258, "dramaexpedition", "old-99", "https://example.invalid", 20, 0, 0, 0, 0, "complete"]],
+    captures: [[...CAPTURE_HEADERS], [46258, "dramaexpedition", "99", "https://www.tiktok.com/@dramaexpedition/video/99", 20, 0, null, 1, 2, null]],
   };
   const formatted = structuredClone(unformatted);
   formatted.accounts[1][7] = "8/5/2026";
@@ -184,7 +184,7 @@ function latestCapture(overrides = {}) {
   };
 }
 
-test("Google normalization ignores formula-only rows, preserves null/zero, and keeps capture audit-only", () => {
+test("Google normalization returns capture values without copying formulas", () => {
   const result = normalizedSource();
   assert.equal(result.accounts.length, 1);
   assert.equal(result.dramas.length, 1);
@@ -196,7 +196,20 @@ test("Google normalization ignores formula-only rows, preserves null/zero, and k
   assert.equal(result.releases[0].点赞, 0);
   assert.equal(result.releases[0].收藏, null);
   assert.equal(result.capture_audit_rows, 1);
-  assert.equal("captures" in result, false);
+  assert.deepEqual(result.captures, [{
+    source_row: 2,
+    快照日期: "2026-08-24",
+    账号名: "dramaexpedition",
+    "Post ID": "99",
+    视频链接: "https://www.tiktok.com/@dramaexpedition/video/99",
+    播放量: 20,
+    点赞: 0,
+    评论: null,
+    收藏: 1,
+    转发: 2,
+    业务: null,
+  }]);
+  assert.equal(JSON.stringify(result.captures).includes("QUERY"), false);
   assert.match(result.revision, /^google-evidence-v1:[a-f0-9]{64}$/);
   assert.equal(result.raw_backup.grid.accounts[0].values[0].dataValidation.condition.type, "ONE_OF_LIST");
   assert.equal(result.raw_backup.grid.accounts[0].values[0].effectiveFormat.numberFormat.pattern, "@");
@@ -214,6 +227,23 @@ test("Google normalization rejects duplicate/missing headers, ambiguous dates an
     const data = { metadata: backup.metadata, grid: backup.grid, ...matrices() };
     mutate(data);
     assert.throws(() => normalizeGoogleSource(data), (error) => error.code === "google_source_invalid" && Object.entries(expected).every(([key, value]) => error.details[key] === value));
+  }
+});
+
+test("Google capture normalization rejects invalid identifiers, dates, and metrics", () => {
+  for (const [mutate, field] of [
+    [(data) => { data.unformatted.captures[1][2] = "post-99"; }, "Post ID"],
+    [(data) => { data.unformatted.captures[1][0] = "2026-02-30"; data.formatted.captures[1][0] = "2026-02-30"; }, "快照日期"],
+    [(data) => { data.unformatted.captures[1][4] = -1; }, "播放量"],
+    [(data) => { data.unformatted.captures[1][5] = Number.MAX_SAFE_INTEGER + 1; }, "点赞"],
+  ]) {
+    const backup = normalizedSource().raw_backup;
+    const data = { metadata: backup.metadata, grid: backup.grid, ...matrices() };
+    mutate(data);
+    assert.throws(
+      () => normalizeGoogleSource(data),
+      (error) => error.code === "google_source_invalid" && error.details.field === field,
+    );
   }
 });
 
