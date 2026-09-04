@@ -1005,7 +1005,7 @@ test("re-digested manifests cannot remove a Google backup Post from the union", 
   );
 });
 
-test("re-digested manifests cannot remove replayed source or drama blockers", async () => {
+test("re-digested manifests cannot remove replayed source, drama, release, or schema blockers", async () => {
   const captureConflictGoogle = sourceWithCaptures([googleCapture({
     账号名: "other",
     视频链接: "https://www.tiktok.com/@other/video/99",
@@ -1029,7 +1029,32 @@ test("re-digested manifests cannot remove replayed source or drama blockers", as
   });
   assert.equal(dramaConflict.blocked.some((row) => row.code === "drama_merge_conflict"), true);
 
-  for (const manifest of [captureConflict, dramaConflict]) {
+  const releaseBase = normalizedSource();
+  const releaseConflictGoogle = sourceWithTables({
+    releases: [{
+      ...releaseBase.releases[0],
+      视频链接: "https://www.tiktok.com/@dramaexpedition/video/99",
+      "Post ID": "100",
+    }],
+  });
+  const releaseConflict = await planMigration({
+    google: releaseConflictGoogle,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  assert.equal(releaseConflict.blocked.some((row) => row.code === "manual_identifier_conflict"), true);
+
+  const driftSchema = emptyPrecreatedSchema("drifted-schema");
+  driftSchema.tables[0].fields = [{ field_id: "wrong-primary", name: "账号ID", type: "number", is_primary: true }];
+  const schemaConflict = await planMigration({
+    google: normalizedSource(),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+    baseSchema: driftSchema,
+  });
+  assert.equal(schemaConflict.blocked.some((row) => row.code === "base_schema_drift"), true);
+
+  for (const manifest of [captureConflict, dramaConflict, releaseConflict, schemaConflict]) {
     const forged = structuredClone(manifest);
     forged.blocked = [];
     forged.counts.blocked = 0;
