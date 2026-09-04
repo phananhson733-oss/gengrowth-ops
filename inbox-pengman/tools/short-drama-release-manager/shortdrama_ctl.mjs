@@ -241,12 +241,17 @@ function directNodeInvocation(row, { nodePath, runnerPath, argv }) {
 }
 
 function hermesCachePath(value, kind, sessionId = null) {
-  const pattern = kind === "snapshot"
-    ? /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal\/hermes-snap-([a-f0-9]{12})\.sh$/
-    : /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal\/hermes-cwd-([a-f0-9]{12})\.txt$/;
-  const match = pattern.exec(value);
+  if (!isAbsolute(value) || resolve(value) !== value) return null;
+  const basenamePattern = kind === "snapshot"
+    ? /^hermes-snap-([a-f0-9]{12})\.sh$/
+    : /^hermes-cwd-([a-f0-9]{12})\.txt$/;
+  const name = value.split("/").pop();
+  const match = basenamePattern.exec(name);
   if (!match || sessionId !== null && match[1] !== sessionId) return null;
-  return match[1];
+  const directory = dirname(value);
+  const allowedDirectory = /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal$/.test(directory) ||
+    /^\/(?:private\/)?var\/folders\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\/T$/.test(directory);
+  return allowedDirectory ? match[1] : null;
 }
 
 function exactHermesShell(row, { runnerPath, directCommand }) {
@@ -293,18 +298,8 @@ function exactHermesShell(row, { runnerPath, directCommand }) {
 function exactGatewayProcess(row) {
   if (!exactProcessRow(row, row?.pid) || !/^python(?:3(?:\.\d+)?)?$/.test(row.command.split("/").pop().toLowerCase())) return null;
   const tokens = row.args.trim().split(/\s+/);
-  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace", "--external-supervisor"];
+  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace"];
   return tokens.length === expected.length && tokens.every((value, index) => value === expected[index]) ? tokens : null;
-}
-
-function exactGatewayWrapper(row, gatewayTokens) {
-  if (!exactProcessRow(row, row?.pid) || row.ppid !== 1 || row.command !== gatewayTokens[0]) return false;
-  const tokens = row.args.trim().split(/\s+/);
-  const separator = tokens.indexOf("--");
-  if (separator !== 5 || tokens[0] !== row.command || tokens[1] !== "-m" || tokens[2] !== "hermes_cli.stderr_timestamp" ||
-      tokens[3] !== "--error-log" || !/^\/Users\/[^/]+\/\.hermes\/profiles\/social\/logs\/gateway\.error\.log$/.test(tokens[4])) return false;
-  const child = tokens.slice(separator + 1);
-  return child.length === gatewayTokens.length && child.every((value, index) => value === gatewayTokens[index]);
 }
 
 export function inspectTrustedSocialInvoker({
@@ -327,9 +322,7 @@ export function inspectTrustedSocialInvoker({
     if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { runnerPath, directCommand })) return false;
     const gateway = readProcess(shell.ppid);
     const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway) : null;
-    if (!gatewayTokens) return false;
-    const wrapper = readProcess(gateway.ppid);
-    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens);
+    return gatewayTokens !== null && gateway.ppid === 1;
   } catch {
     return false;
   }

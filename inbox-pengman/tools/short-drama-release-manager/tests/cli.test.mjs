@@ -624,7 +624,8 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
   const command = parseCommand(argv);
   const runner = path.resolve(new URL("../shortdrama_ctl.mjs", import.meta.url).pathname);
   const sessionId = "a1b2c3d4e5f6";
-  const cache = "/Users/awayer_mini/.hermes/profiles/social/cache/terminal";
+  // Generated from Hermes f6923bae5c LocalEnvironment._wrap_command() with its real macOS TMPDIR.
+  const cache = "/var/folders/c8/k7q0dcp13rd8590xbtxs_9n80000gn/T";
   const snapshot = `${cache}/hermes-snap-${sessionId}.sh`;
   const cwdFile = `${cache}/hermes-cwd-${sessionId}.txt`;
   const hermesCwd = "/Users/awayer_mini/.hermes/profiles/social";
@@ -641,12 +642,12 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
     "exit $__hermes_ec",
   ].join("\n");
   const python = "/Users/awayer_mini/hermes-agent/.venv/bin/python";
-  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace --external-supervisor`;
+  // Generated from Hermes f6923bae5c launchd ProgramArguments for the Social profile.
+  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace`;
   const rows = new Map([
     [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} pool list --config ${SOCIAL_RUNTIME_CONFIG_PATH}` }],
     [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
-    [80, { pid: 80, ppid: 70, command: python, args: gatewayArgs }],
-    [70, { pid: 70, ppid: 1, command: python, args: `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gatewayArgs}` }],
+    [80, { pid: 80, ppid: 1, command: python, args: gatewayArgs }],
   ]);
   const inspect = (candidate) => inspectTrustedSocialInvoker({
     argv, command, configPath: SOCIAL_RUNTIME_CONFIG_PATH, pid: 100,
@@ -669,7 +670,7 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
 
   const persistentPython = new Map(rows);
   persistentPython.set(80, { pid: 80, ppid: 75, command: "/usr/bin/python3", args: "python3 persistent_process.py" });
-  persistentPython.set(75, rows.get(80));
+  persistentPython.set(75, { ...rows.get(80), pid: 75 });
   assert.equal(inspect(persistentPython), false);
   let loads = 0;
   let builds = 0;
@@ -692,7 +693,7 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
     ["/Applications/Visual Studio Code.app/Contents/MacOS/Electron", "Electron"],
   ]) {
     const invalid = new Map(rows);
-    invalid.set(80, { pid: 80, ppid: 70, command: commandPath, args });
+    invalid.set(80, { pid: 80, ppid: 1, command: commandPath, args });
     assert.equal(inspect(invalid), false);
   }
   const persistentShell = new Map(rows);
