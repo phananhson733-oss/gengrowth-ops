@@ -91,6 +91,24 @@ date: 2026-08-20
 
 **修正后的操作方法**：具体剧名内容不能一次性列清单，要建立"每周查 3–5 个当下正在播、正在涨的剧"这样的滚动流程，写之前必须先过 Google Trends 确认曲线还在涨或至少没跌到零，不能只看 Semrush 报的月搜数字。
 
+### 🔴 2026-08-27 第一轮滚动检查（ReelShort 侧，方法论首次真正执行）
+
+ReelShort 官网没有 DramaBox 那样的独立 `/trending` 页面，首页 hero 轮播区打了统一的"Trending"标签，轮播里抓到的真实剧名作为候选池，逐个过 Google Trends（`hl=en&gl=us&pws=0` 真实 Google + trends.google.com 实测，不用工具代替）：
+
+| 剧名 | Trends 曲线 | Semrush（美国）| 判断 |
+|---|---|---|---|
+| **the great and powerful genie** | 峰值在近几天，末端是虚线（数据仍在更新，说明还在涨）| KD 28%（容易），月搜"不可用"（库覆盖不到，非无搜索量）| ✅ 当下热度最强，优先 |
+| **sold to the warlord born for the sky** | 峰值约 1 个月前，现回落到 ~25（100 为峰值基准），仍有活跃信号，未归零 | KD 25%（容易），月搜"不可用" | ✅ 仍在有效窗口内，可写 |
+| the lycan's savage luna | 峰值与上面两部同期，现已回落至接近 0 | 未查（Trends 已否决，不必再查）| 🔴 已过气，不写 |
+
+**"the great and powerful genie" 的额外发现（真实 Google SERP 实测）**：
+- 有 AI 概览，且完整答了"这部剧讲什么"（Core Premise/The Entity/The Rules）——**标题/主攻角度不要对着"what is..."，这个问题已经被答完**
+- 第 2 位是 **reelshort.com 官网自己的 Fandom 页面，发布于 2026-08-14（查询时 13 天前）**——反向印证了这部剧确实是"当下正热"，且意味着我们要避开跟官方自己撞同一个"剧情简介"角度，改走"去哪儿正版观看/演员/集数进度"这类实用信息角度
+- 前十有 UGC 位（TikTok 第 1、Facebook 第 3），符合"具体剧名"类词典型 SERP 结构
+- 🔴 **关键词建议第一条是 `the great and powerful genie dailymotion`**——按 3.4 节规则，无论主标题怎么写，正文和推荐链接里都不能出现这个组合，也不能给它开单独的页面
+
+**两部都过了四问里的第 3 问（UGC 位）；第一、二问未命中典型新站小站信号（前排是 TikTok/reelshort.com 自己/Facebook 这类大平台）；第四问是折价项，已经在上面处理成"换角度不换词"。综合判断：两部具体剧名内容可以排进下一批生产，`the great and powerful genie` 优先级更高。**
+
 ⚠️ 无论写哪部剧，都必须排除"dailymotion"修饰词组合（如 `american sniper the last round dailymotion`）——那是盗版意图，见 SOP 分级文档 2.5 节。
 
 ---
@@ -162,7 +180,7 @@ SOP 来源 2「内容缺口分析」要求"至少两个竞品在排名但你没�
 | 2   | DramaBox App 档案页（需补 #45）                                                                     | B 组 + H组#45           |           9 | —         |
 | 3   | DramaBox vs ReelShort 对比测评                                                                   | C 组                   | 1（备注 1 个不做） | —         |
 | 4   | ReelShort/DramaBox 必看剧单（合并 H组#44/46/47 的"剧单列表"意图）                                            | D 组品牌衍生 + H组#44/46/47 |           4 | —         |
-| 5   | 🔴 建立"具体剧名"滚动选题流程——**不要先写 American Sniper / Silver Fox**，先用 Google Trends 筛出当下真正在涨的 2–3 部剧再写 | E 组                   |    3（待重新选题） | 排期顺延，方法先行 |
+| 5   | ✅ 具体剧名滚动选题第一轮已完成筛选：`the great and powerful genie`（优先）+ `sold to the warlord born for the sky`，均为近期真实上涨、Trends 未归零、KD 低（25/28%）。~~American Sniper / Silver Fox~~ 已过气不写；同期检查的 `the lycan's savage luna` 也已过气 | E 组（新一批）| 2（可排期）| 写之前需再核一次 dailymotion 类修饰词、且 genie 一篇要避开跟 reelshort.com 自己 Fandom 页撞角度 |
 | 6   | 演员档案页（4 篇批量写）                                                                                | F 组                   |           4 | —         |
 | 7   | "我看了 N 集短剧"读者视角桥接文 + BL 推荐                                                                   | G 组                   |           4 | —         |
 

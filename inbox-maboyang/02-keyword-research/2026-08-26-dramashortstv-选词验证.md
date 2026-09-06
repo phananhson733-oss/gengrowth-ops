@@ -69,6 +69,8 @@ American Sniper一部剧的搜索量是整个`drama shorts`词根（3,600）的5
 
 **这条推翻了"具体剧名内容只是理论存在的补充选题池"这个此前的保守判断**——它可能是这个垂类里单一体量最大的类型，超过其他已验证类别之和。**但不受标准KD/月搜阈值约束，需要建立滚动选题流程**（每周查一次哪些剧名搜索量在涨），不适合放进一次性关键词表格。🔴 **不要先写American Sniper/Silver Fox这两个已经过气的代表词，先用Google Trends筛出当下真正在涨的2-3部剧再写**——这条排期靠后，方法先行。
 
+🔴 **2026-08-27 第一轮滚动检查已执行**（此前只是方法论，未真正跑过一轮）：用ReelShort首页Trending轮播找候选、逐个过真实Google Trends筛新鲜度，筛出`the great and powerful genie`+`sold to the warlord born for the sky`两部当下真实在涨的剧；详细过程、Semrush数据、SERP实测（含发现ReelShort官方自己13天前刚发的Fandom页、`dailymotion`风险修饰词）见关键词清单-40个.md E组新增小节，不在此重复。
+
 ### 3.4 🔴🔴 必须排除的模式："[剧名] + dailymotion"——盗版意图
 
 ```
