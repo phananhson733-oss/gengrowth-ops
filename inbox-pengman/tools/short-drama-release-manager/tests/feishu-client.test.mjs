@@ -687,6 +687,124 @@ test("managed record writes require an exact fixed tableName", () => {
   assert.equal(requests, 0);
 });
 
+test("managed record creates synchronously reject explicit undefined fields before network", () => {
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+  assert.throws(
+    () => client.createRecords("base", "tbl", [{ fields: { 状态: undefined } }], { tableName: "账号台账" }),
+    (error) => error.code === "base_response_invalid",
+  );
+  assert.equal(fieldGets, 0);
+  assert.equal(recordPosts, 0);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("managed record updates synchronously reject explicit undefined fields before network", () => {
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+  assert.throws(
+    () => client.updateRecords("base", "tbl", [{ record_id: "rec", fields: { 状态: undefined } }], { tableName: "账号台账" }),
+    (error) => error.code === "base_response_invalid",
+  );
+  assert.equal(fieldGets, 0);
+  assert.equal(recordPosts, 0);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("managed record creates synchronously reject unknown fields before network", () => {
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+  assert.throws(
+    () => client.createRecords("base", "tbl", [{ fields: { 任意字段: "smuggled" } }], { tableName: "账号台账" }),
+    (error) => error.code === "base_response_invalid",
+  );
+  assert.equal(fieldGets, 0);
+  assert.equal(recordPosts, 0);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("managed record updates synchronously reject unknown fields before network", () => {
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url) => {
+      if (new URL(url).pathname.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+  assert.throws(
+    () => client.updateRecords("base", "tbl", [{ record_id: "rec", fields: { 任意字段: "smuggled" } }], { tableName: "账号台账" }),
+    (error) => error.code === "base_response_invalid",
+  );
+  assert.equal(fieldGets, 0);
+  assert.equal(recordPosts, 0);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("managed record writes preserve explicit null and empty multi-select clearing", async () => {
+  const bodies = [];
+  let fieldGets = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("采集数据");
+      }
+      bodies.push(structuredClone(options.body));
+      return path.endsWith("/batch_create")
+        ? { code: 0, data: { record_id_list: ["rec-created"] } }
+        : { code: 0, data: { record_id_list: ["rec-updated"] } };
+    },
+  });
+  await client.createRecords("base", "tbl", [{ fields: { 业务: null } }], { tableName: "采集数据" });
+  await client.updateRecords("base", "tbl", [{ record_id: "rec-updated", fields: { 缺失字段: [] } }], { tableName: "采集数据" });
+  assert.equal(fieldGets, 2);
+  assert.deepEqual(bodies, [
+    { create_records: [{ 业务: null }] },
+    { update_records: { "rec-updated": { 缺失字段: [] } } },
+  ]);
+});
+
 test("managed record writes synchronously encode the complete call before queueing", () => {
   let requests = 0;
   const client = new FeishuClient({

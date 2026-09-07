@@ -347,6 +347,20 @@ function fixedRecordTableName(tableName) {
 }
 
 function snapshotRecordWrites(tableName, records) {
+  for (const record of records) {
+    for (const [fieldName, value] of Object.entries(record.fields)) {
+      if (value === undefined) {
+        throw invalidResponse("Managed record fields cannot contain explicit undefined values", {
+          table: tableName, field: fieldName,
+        });
+      }
+      if (!fieldSpecOrNull(tableName, fieldName)) {
+        throw invalidResponse("Managed record field is outside the fixed Base schema", {
+          table: tableName, field: fieldName,
+        });
+      }
+    }
+  }
   let rawRecords;
   try {
     rawRecords = structuredClone(records);
