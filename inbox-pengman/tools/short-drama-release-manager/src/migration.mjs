@@ -1698,7 +1698,7 @@ function entriesFor(rows, tableName, relationIds = {}) {
   });
 }
 
-async function applyData(context, manifest, schemaReceipt) {
+async function applyData(context, manifest, schemaReceipt, { resumeMode = null } = {}) {
   await assertDataSelectCoverage(context, manifest, schemaReceipt);
   assertRepoSet(context.repos);
   validateStableRelations(manifest);
@@ -1710,10 +1710,16 @@ async function applyData(context, manifest, schemaReceipt) {
   const summaries = {};
   for (const [tableName, rows] of ordered) {
     const name = TABLE_BINDINGS[tableName];
-    const entries = entriesFor(rows, tableName, relationIds);
-    summaries[name] = await context.repos[name].syncManyByKey(entries, "migration");
-    if (!plainObject(summaries[name]) || summaries[name].readback !== "verified") {
-      fail("readback_mismatch", "Bulk migration sync did not return verified readback", { table: tableName });
+    // An accounts-prefix resume has already proven this table field-for-field. Never
+    // re-sync it: the written rows stay untouched by construction, not by timing.
+    if (resumeMode === "accounts-prefix" && tableName === "账号台账") {
+      summaries[name] = { created: 0, updated: 0, unchanged: rows.length, readback: "verified", source: "resume_prefix" };
+    } else {
+      const entries = entriesFor(rows, tableName, relationIds);
+      summaries[name] = await context.repos[name].syncManyByKey(entries, "migration");
+      if (!plainObject(summaries[name]) || summaries[name].readback !== "verified") {
+        fail("readback_mismatch", "Bulk migration sync did not return verified readback", { table: tableName });
+      }
     }
     relationIds[name] = recordIdMap(await context.repos[name].loadIndex(), tableName);
   }
@@ -2126,7 +2132,7 @@ export async function applyMigration(context = {}, manifest) {
   if (phase === "data") {
     if (resumeMode === null) await assertBaseStillEmpty(context, manifest);
     else await assertResumableAccountsPrefix(context, manifest);
-    await applyData(context, manifest, receipt);
+    await applyData(context, manifest, receipt, { resumeMode });
   }
   if (phase === "presentation") {
     const readbacks = await applyPresentation(context, manifest);

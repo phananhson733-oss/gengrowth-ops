@@ -98,7 +98,7 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
 
 首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
 
-`--phase data`默认要求四表全空。若 data 已部分写入（例如`账号台账`写入成功后读回失败），唯一允许的续跑是精确前缀恢复：在原 data 命令上追加`--resume-partial-data accounts-prefix`。该模式保留并复用已写入的`账号台账`记录，不删除、不重建、也不盲目重跑；写前先完整读回四张表，要求`账号台账`的主键集合与每一个可写字段在规范化解码后与 manifest 逐字段相同，且`选剧池 / 采集数据 / 发布记录`仍然为空。任何多余、缺失或被改动的账号行，以及任何下游表非空，都返回`resume_prefix_mismatch`并保持零写入。该选项只接受`accounts-prefix`一个值、只在`--phase data`可用，不放宽 digest、source revision、schema receipt、canary receipt、permission attestation 中的任何一道门禁；已存在且完全一致的账号行在续跑中判定为 unchanged，不会产生第二次写入。续跑成功后仍必须运行`migrate verify`完成 472 行全量核验。
+`--phase data`默认要求四表全空。若 data 已部分写入（例如`账号台账`写入成功后读回失败），唯一允许的续跑是精确前缀恢复：在原 data 命令上追加`--resume-partial-data accounts-prefix`。该模式保留并复用已写入的`账号台账`记录，不删除、不重建、也不盲目重跑；写前先完整读回四张表，要求`账号台账`的主键集合与每一个可写字段在规范化解码后与 manifest 逐字段相同，且`选剧池 / 采集数据 / 发布记录`仍然为空。任何多余、缺失或被改动的账号行，以及任何下游表非空，都返回`resume_prefix_mismatch`并保持零写入。该选项只接受`accounts-prefix`一个值、只在`--phase data`可用，不放宽 digest、source revision、schema receipt、canary receipt、permission attestation 中的任何一道门禁；续跑对`账号台账`是**结构性零写入**：该表在续跑中完全不进入 upsert 路径，已写入的行不会被更新、重建或删除。因此即使门禁通过后账号表在写入下游三表期间发生漂移，续跑也不会改写它；漂移会在`migrate verify`阶段暴露而不是被静默覆盖。续跑成功后仍必须运行`migrate verify`完成 472 行全量核验。注意：Base v3 的读取接口不提供跨表快照或 CAS，门禁读取与后续写入之间存在无法消除的时间窗；因此续跑必须在受控维护窗口内执行（与 canary 的同一前提），最终由`migrate verify`给出一致性结论。
 
 ```bash
 # 仅在 data 已写入且只写完 账号台账 时使用；其余情况不得追加该选项

@@ -1958,17 +1958,27 @@ test("accounts-prefix resume accepts the exact written prefix and reuses its Bas
   const result = await applyMigration(resumeContext(manifest, repos), manifest);
 
   assert.equal(result.status, "applied");
-  assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
+  // The written prefix is proven by the gate, never re-synced: no upsert can touch it
+  // even if the account table drifts between the proof and the downstream writes.
+  assert.deepEqual(repos.calls.map(([name]) => name), ["dramas", "captures", "releases"]);
   assert.deepEqual(
-    repos.calls[0][2],
-    manifest.accounts.map((row) => {
-      const patch = structuredClone(row);
-      delete patch.账号ID;
-      return { key: row.账号ID, patch };
-    }),
+    [...repos.accounts.rows].map(([key, record]) => [key, record.record_id]),
+    manifest.accounts.map((row) => [row.账号ID, `rec-existing-${row.账号ID}`]),
   );
+  assert.deepEqual(repos.calls[1][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
   assert.deepEqual(repos.calls[2][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
-  assert.deepEqual(repos.calls[3][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
+});
+
+test("accounts-prefix resume reports the untouched prefix without a second write", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  seedAccountsPrefix(repos, manifest);
+  const before = new Map([...repos.accounts.rows].map(([key, record]) => [key, structuredClone(record)]));
+
+  await applyMigration(resumeContext(manifest, repos), manifest);
+
+  assert.deepEqual([...repos.accounts.rows], [...before]);
+  assert.equal(repos.calls.some(([name]) => name === "accounts"), false);
 });
 
 test("accounts-prefix resume refuses every inexact prefix before any write", async () => {

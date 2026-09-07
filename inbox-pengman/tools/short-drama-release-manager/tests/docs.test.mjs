@@ -226,7 +226,7 @@ test("README documents the accounts-prefix data resume as an exact fail-closed p
   const { readme } = await docs();
   for (const term of [
     "--resume-partial-data accounts-prefix", "resume_prefix_mismatch", "零写入",
-    "不删除", "选剧池 / 采集数据 / 发布记录", "migrate verify",
+    "不删除", "选剧池 / 采集数据 / 发布记录", "migrate verify", "结构性零写入",
   ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.doesNotMatch(readme, /--resume-partial-data\s+(?!accounts-prefix)/);
 });
