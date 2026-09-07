@@ -1664,11 +1664,24 @@ function recordIdMap(index, tableName) {
   return result;
 }
 
+/**
+ * Base writes datetime cells as Shanghai wall-clock seconds, so sub-second source
+ * precision cannot survive a write. Reduce the manifest value to what Base can
+ * actually store, so writes, readback and verification all compare the same thing.
+ */
+function storableCell(tableName, fieldName, value) {
+  const spec = BASE_FIELD_SPECS[tableName]?.find((candidate) => candidate.name === fieldName);
+  if (spec?.kind !== "datetime" || typeof value !== "string") return value;
+  const instantMs = parseQualifiedInstantMs(value);
+  return instantMs === null ? value : new Date(Math.floor(instantMs / 1000) * 1000).toISOString();
+}
+
 function entriesFor(rows, tableName, relationIds = {}) {
   const primary = TABLES[tableName].primaryField;
   return rows.map((row) => {
     const patch = clone(row);
     delete patch[primary];
+    for (const field of Object.keys(patch)) patch[field] = storableCell(tableName, field, patch[field]);
     if (tableName === "采集数据") {
       const accountId = patch.账号;
       patch.账号 = [{ id: relationIds.accounts.get(accountId) }];

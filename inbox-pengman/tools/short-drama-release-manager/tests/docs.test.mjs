@@ -231,6 +231,13 @@ test("README documents the accounts-prefix data resume as an exact fail-closed p
   assert.doesNotMatch(readme, /--resume-partial-data\s+(?!accounts-prefix)/);
 });
 
+test("README states that Base datetime cells only store Shanghai second precision", async () => {
+  const { readme } = await docs();
+  for (const term of ["秒级", "亚秒", "指标同步时间", "采集时间"]) {
+    assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+});
+
 test("env example exposes blank v5 keys and keeps legacy follower sync explicitly historical", async () => {
   const { env } = await docs();
   const keys = [

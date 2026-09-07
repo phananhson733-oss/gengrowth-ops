@@ -115,6 +115,8 @@ node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
 
+Base 的 datetime 单元格以 Asia/Shanghai 墙钟秒级精度写入，无法保存亚秒精度：来自采集时间戳的`指标同步时间`与`采集时间`在写入前即被规范化为整秒。migration 的写入、写后读回比对、accounts 前缀续跑校验和`migrate verify`统一使用同一个 Base 可存储值，因此不会出现"写进去和读回来不一致"的假不匹配；manifest 本身不因此改写，其 digest 与签名证据保持不变。
+
 Base v3 的 record 读回把 datetime 单元格返回为带时区的 ISO（例如`2026-09-04T00:00:00.000+08:00`），URL 单元格可能返回`[目标](目标)`形式的 markdown。Runner 只接受这两种精确形状与既有的`YYYY-MM-DD HH:mm:ss`写回形状，并规范化为 Shanghai 日历日 / UTC ISO / 裸 URL；缺时区的时间戳、越界日历或偏移、以及 label 与目标不一致的 markdown 一律按`base_response_invalid`拒绝，不做宽松解析。
 
 `doctor --init-state`、`doctor --canary`、所有`migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation/sequences 需要独立 manifest、schema receipt 和同 Base canary receipt；sequences 还需要 verification 文件字节 digest。data 另需公司用户通过 Base UI/`lark-cli`读回后形成显式 observations 文件，再用下方离线固定命令生成 permission attestation。Runner 只验证外部观察的结构、Base/schema/actor 绑定和 24 小时新鲜度，不宣称能独立验证 UI 字段保护。schema receipt 丢失或无法证明时必须停止，返回/遵循`replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。

@@ -2034,6 +2034,51 @@ test("accounts-prefix resume keeps every envelope gate and rejects unknown or mi
   }
 });
 
+function baseStoredFields(tableName, row) {
+  const fields = structuredClone(row);
+  for (const spec of BASE_FIELD_SPECS[tableName]) {
+    const value = fields[spec.name];
+    if (spec.kind !== "datetime" || typeof value !== "string" || !value.includes("T")) continue;
+    fields[spec.name] = new Date(Math.floor(Date.parse(value) / 1000) * 1000).toISOString();
+  }
+  return fields;
+}
+
+test("sub-second source timestamps are written, verified, and resumed at Base-storable second precision", async () => {
+  const subSecond = "2026-08-24T01:02:03.838Z";
+  const truncated = "2026-08-24T01:02:03.000Z";
+  const manifest = await planMigration({
+    google: normalizedSource(),
+    sqliteAccounts: [latestAccount({ captured_at: subSecond })],
+    sqlitePosts: [latestCapture({ captured_at: subSecond })],
+  });
+  assert.equal(manifest.accounts[0].指标同步时间, subSecond);
+  assert.equal(manifest.captures[0].采集时间, subSecond);
+
+  const repos = memoryRepos();
+  await applyMigration({ phase: "data", repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  assert.equal(repos.calls[0][2][0].patch.指标同步时间, truncated);
+  assert.equal(repos.calls[2][2][0].patch.采集时间, truncated);
+
+  // Base stores Shanghai wall-clock seconds, so verification must accept exactly
+  // what a real readback can return.
+  for (const [tableName, name] of [["账号台账", "accounts"], ["选剧池", "dramas"], ["采集数据", "captures"], ["发布记录", "releases"]]) {
+    for (const [key, record] of repos[name].rows) {
+      repos[name].rows.set(key, { ...record, fields: baseStoredFields(tableName, record.fields) });
+    }
+  }
+  assert.equal((await verifyMigration({ repos }, manifest)).status, "verified");
+
+  const resumeRepos = memoryRepos();
+  for (const row of manifest.accounts) {
+    resumeRepos.accounts.rows.set(row.账号ID, {
+      record_id: `rec-existing-${row.账号ID}`,
+      fields: baseStoredFields("账号台账", row),
+    });
+  }
+  assert.equal((await applyMigration(resumeContext(manifest, resumeRepos), manifest)).status, "applied");
+});
+
 test("data apply rejects a re-digested late derived field before the first bulk write", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   manifest.releases[0].播放量 = 999;
