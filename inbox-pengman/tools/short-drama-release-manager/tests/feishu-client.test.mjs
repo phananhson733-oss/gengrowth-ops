@@ -1310,6 +1310,7 @@ test("updateSelectFieldOptions rejects mismatched response IDs and ignored field
     { code: 0, data: { field: { field_id: "fld-other" } } },
     { code: 0, data: { field: { field_id: "fld" }, nested: { ignored_fields: ["options"] } } },
     { code: 0, data: { field: { field_id: "fld" }, nested: { ignored_fields: [] } } },
+    { code: 0, ignored_fields: [], data: { field: { field_id: "fld" } } },
   ]) {
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => response });
     await assert.rejects(

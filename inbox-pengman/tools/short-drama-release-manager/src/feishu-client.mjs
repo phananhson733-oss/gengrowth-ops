@@ -1265,7 +1265,7 @@ export class FeishuClient {
         { method: "PUT", body, context, signal },
       );
       const field = requireEntity(payload, "field", "field_id");
-      if (hasIgnoredFieldMarker(payload.data)) {
+      if (hasIgnoredFieldMarker(payload)) {
         throw invalidResponse("Feishu field response reports ignored fields");
       }
       if (field.field_id !== fieldId) {
