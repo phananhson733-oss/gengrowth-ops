@@ -46,7 +46,8 @@ const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确
 const DRAMA_PROVENANCE_TEXT_FIELDS = Object.freeze(["推荐理由", "备注"]);
 const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "账号状态", "平台", "语言", "归档状态"]);
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
-const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", ...REVIEWABLE_MATCH_REASONS]);
+const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", ...REVIEWABLE_MATCH_REASONS]);
+const FIXED_PLATFORMS = new Set(TABLES["选剧池"].options.平台);
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -223,6 +224,16 @@ function tiktokIdentity(value, kind) {
 
 function blocked(code, table, sourceRow, details = {}) {
   return { code, table, source_row: sourceRow ?? null, ...details };
+}
+
+function normalizeDramaPlatform(value, sourceRow, blocks) {
+  if (value === null) return { value: null, mapped: false };
+  if (FIXED_PLATFORMS.has(value)) return { value, mapped: false };
+  if (value === "MoboReels") return { value: "其他", mapped: true };
+  blocks.push(blocked("platform_not_allowed", "选剧池", sourceRow, {
+    source_value: value,
+  }));
+  return { value, mapped: false };
 }
 
 function orderDiagnostics(rows) {
@@ -402,8 +413,10 @@ function validateDramaRows(rows, blocks, warnings) {
     catch { blocks.push(blocked("invalid_drama_key", "选剧池", source.source_row)); return; }
     const key = canonicalDramaName(name);
     const projected = writableProjection("选剧池", source, { exclude: ["剧ID", "是否已排期"] });
+    const platform = normalizeDramaPlatform(projected.平台, source.source_row, blocks);
+    projected.平台 = platform.value;
     const list = groups.get(key) ?? [];
-    list.push({ name, projected, sourceRow: source.source_row ?? null, sourceIndex: at });
+    list.push({ name, projected, mapped: platform.mapped, sourceRow: source.source_row ?? null, sourceIndex: at });
     groups.set(key, list);
   });
   const manifestRows = [];
@@ -453,6 +466,14 @@ function validateDramaRows(rows, blocks, warnings) {
     }
     manifestRows.push(merged);
     unique.set(key, id);
+    for (const match of matches) {
+      if (!match.mapped) continue;
+      warnings.push(blocked("platform_mapped_to_other", "选剧池", match.sourceRow, {
+        drama_id: id,
+        source_value: "MoboReels",
+        target_value: "其他",
+      }));
+    }
     if (matches.length > 1) {
       const evidence = {
         canonical_key: key,
@@ -1123,6 +1144,7 @@ function assertManifest(manifest) {
   const warningKeys = {
     account_stub_created: ["account_id", "code", "evidence_url", "source", "source_post_ids", "source_row", "table"],
     drama_rows_merged: ["code", "drama_id", "source_row", "source_rows", "table"],
+    platform_mapped_to_other: ["code", "drama_id", "source_row", "source_value", "table", "target_value"],
     manual_post_not_found: ["candidates", "code", "release_id", "source_row", "table"],
     ambiguous_post_match: ["candidates", "code", "release_id", "source_row", "table"],
     no_account_time_candidate: ["candidates", "code", "release_id", "source_row", "table"],
@@ -1140,6 +1162,11 @@ function assertManifest(manifest) {
     }
     if (warning.code === "drama_rows_merged" && (warning.table !== "选剧池" || !dramaKeys.has(warning.drama_id) || !Array.isArray(warning.source_rows) || warning.source_rows.length < 2)) {
       fail("migration_manifest_invalid", "Migration drama merge warning is invalid");
+    }
+    if (warning.code === "platform_mapped_to_other" && (warning.table !== "选剧池" || !dramaKeys.has(warning.drama_id) ||
+        warning.source_value !== "MoboReels" || warning.target_value !== "其他" ||
+        manifest.dramas.find((row) => row.剧ID === warning.drama_id)?.平台 !== "其他")) {
+      fail("migration_manifest_invalid", "Migration platform normalization warning is invalid");
     }
     if (REVIEWABLE_MATCH_REASONS.has(warning.code) && (warning.table !== "发布记录" || !releaseKeys.has(warning.release_id) || !Array.isArray(warning.candidates) || warning.candidates.some((id) => typeof id !== "string" || !POST_ID.test(id)))) {
       fail("migration_manifest_invalid", "Migration release warning is invalid");

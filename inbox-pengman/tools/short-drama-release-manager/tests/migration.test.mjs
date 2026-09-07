@@ -543,6 +543,50 @@ test("drama canonical merge blocks conflicting nonblank scalar values", async ()
     row.code === "drama_merge_conflict" && row.field === "平台" && row.source_rows.includes(38)), true);
 });
 
+test("MoboReels maps to 其他 per source row and preserves signed source evidence", async () => {
+  const original = normalizedSource().dramas[0];
+  const google = sourceWithDramas([
+    { ...original, source_row: 2, 剧名: "Legacy Platform Drama", 平台: "MoboReels" },
+    { ...original, source_row: 3, 剧名: " legacy platform drama ", 平台: "MoboReels" },
+    { ...original, source_row: 4, 剧名: "LEGACY PLATFORM DRAMA", 平台: "其他" },
+  ]);
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+
+  assert.equal(manifest.blocked.some((row) => row.code === "drama_merge_conflict" && row.field === "平台"), false);
+  assert.deepEqual(manifest.dramas.map((row) => row.平台), ["其他"]);
+  assert.deepEqual(manifest.warnings.filter((row) => row.code === "platform_mapped_to_other").map((row) => ({
+    drama_id: row.drama_id,
+    source_row: row.source_row,
+    source_value: row.source_value,
+    target_value: row.target_value,
+    table: row.table,
+  })), [
+    { drama_id: "SD-000001", source_row: 2, source_value: "MoboReels", target_value: "其他", table: "选剧池" },
+    { drama_id: "SD-000001", source_row: 3, source_value: "MoboReels", target_value: "其他", table: "选剧池" },
+  ]);
+  assert.equal(JSON.stringify(manifest.source_backup).includes("MoboReels"), true);
+});
+
+test("an unknown nonblank drama platform blocks instead of widening the fixed enum", async () => {
+  const google = sourceWithDramas([
+    { ...normalizedSource().dramas[0], 平台: "UnknownPlatform" },
+  ]);
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+
+  assert.equal(manifest.blocked.some((row) =>
+    row.code === "platform_not_allowed" && row.table === "选剧池" && row.source_value === "UnknownPlatform"), true);
+  assert.deepEqual(BASE_FIELD_SPECS["选剧池"].find((field) => field.name === "平台").options,
+    ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]);
+});
+
 test("drama merge preserves distinct notes and advances only the fixed lifecycle", async () => {
   const google = normalizedSource();
   google.dramas = [
@@ -940,6 +984,34 @@ test("re-digested v2 warning and reconciliation forgeries fail closed", async ()
       warning.evidence_url = stub.evidence_url;
       account.主页链接 = stub.evidence_url;
     },
+  ]) {
+    const forged = structuredClone(manifest);
+    mutate(forged);
+    forged.sha256 = manifestDigest(forged);
+    await assert.rejects(
+      () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+      (error) => error.code === "migration_manifest_invalid",
+    );
+  }
+});
+
+test("replay rejects re-digested legacy platform business, warning, and source-backup tampering", async () => {
+  const original = normalizedSource().dramas[0];
+  const manifest = await planMigration({
+    google: sourceWithDramas([
+      { ...original, 剧名: "Legacy Replay Drama", 平台: "MoboReels" },
+      { ...original, 剧名: "legacy replay drama", 平台: "其他" },
+    ]),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  const warning = manifest.warnings.find((row) => row.code === "platform_mapped_to_other");
+  assert.ok(warning);
+
+  for (const mutate of [
+    (value) => { value.dramas.find((row) => row.剧ID === warning.drama_id).平台 = "ReelShort"; },
+    (value) => { value.warnings.find((row) => row.code === "platform_mapped_to_other").target_value = "ReelShort"; },
+    (value) => { value.source_backup.unformatted.dramas[1][11] = "其他"; },
   ]) {
     const forged = structuredClone(manifest);
     mutate(forged);
