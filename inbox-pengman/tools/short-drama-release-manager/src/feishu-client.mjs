@@ -11,6 +11,7 @@ const AUTH_ERROR_CODES = new Set([99991663, 99991664, 99991668, 99991671, 999916
 const SCHEMA_ERROR_CODES = new Set([1254044, 1254045, 1254060, 1254061, 1254062]);
 const DASHBOARD_NAME = "短剧发行管理仪表盘";
 const CANARY_PRIMARY = /^CANARY-SDRUN-\d{8}-\d{6}(?:-[A-F0-9]+)?$/;
+const OPTION_CONTROL = /[\u0000-\u001f\u007f-\u009f]/u;
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -531,18 +532,44 @@ function assertBindings(spec, bindings) {
   }
 }
 
-function canonicalFieldBody(tableName, spec, bindings = {}) {
+function assertInitialOptions(initialOptions, field) {
+  if (!Array.isArray(initialOptions)) fail("base_schema_drift", "Initial Select options must be an array", { field });
+  const seen = new Set();
+  for (const name of initialOptions) {
+    if (typeof name !== "string" || name === "" || name.trim() !== name || OPTION_CONTROL.test(name) || seen.has(name)) {
+      fail("base_schema_drift", "Initial Select options must contain unique normalized names", { field });
+    }
+    seen.add(name);
+  }
+  return [...initialOptions];
+}
+
+function canonicalFieldBody(tableName, spec, bindings = {}, optionInput = {}) {
   assertBindings(spec, bindings);
+  if (!plainObject(optionInput) || Object.keys(optionInput).some((key) => key !== "initialOptions")) {
+    fail("base_schema_drift", "Field option input is unsupported", { field: spec.name });
+  }
+  const hasInitialOptions = Object.hasOwn(optionInput, "initialOptions");
+  if (hasInitialOptions && spec.kind !== "single_select" && spec.kind !== "multi_select") {
+    fail("base_schema_drift", "Initial Select options require a Select field", { field: spec.name });
+  }
   if (spec.kind === "system") return { name: spec.name, type: spec.systemType };
   if (spec.kind === "text") return { name: spec.name, type: "text" };
   if (spec.kind === "url") return { name: spec.name, type: "text", style: { type: "url" } };
   if (spec.kind === "number") return { name: spec.name, type: "number" };
   if (spec.kind === "single_select" || spec.kind === "multi_select") {
+    if (spec.options && hasInitialOptions) {
+      fail("base_schema_drift", "Fixed Select options cannot be replaced", { field: spec.name });
+    }
+    if (!spec.options && spec.optionPolicy !== "manifest_append") {
+      fail("base_schema_drift", "Select field has no fixed option policy", { field: spec.name });
+    }
     return {
       name: spec.name,
       type: "select",
       multiple: spec.kind === "multi_select",
-      ...(spec.options ? { options: spec.options.map((name) => ({ name })) } : {}),
+      ...(spec.options ? { options: spec.options.map((name) => ({ name })) } :
+        hasInitialOptions ? { options: assertInitialOptions(optionInput.initialOptions, spec.name).map((name) => ({ name })) } : {}),
     };
   }
   if (spec.kind === "date" || spec.kind === "datetime") {
@@ -582,8 +609,13 @@ function canonicalFieldBody(tableName, spec, bindings = {}) {
   fail("base_schema_drift", "Unsupported fixed field kind", { field: spec.name, kind: spec.kind });
 }
 
-export function fixedFieldDescriptor(tableName, fieldName, bindings = {}) {
-  return structuredClone(canonicalFieldBody(tableName, findFieldSpec(tableName, fieldName), bindings));
+export function fixedFieldDescriptor(tableName, fieldName, bindings = {}, { initialOptions } = {}) {
+  return structuredClone(canonicalFieldBody(
+    tableName,
+    findFieldSpec(tableName, fieldName),
+    bindings,
+    initialOptions === undefined ? {} : { initialOptions },
+  ));
 }
 
 const allVisibleFields = (tableName) => BASE_FIELD_SPECS[tableName].map((spec) => spec.name);

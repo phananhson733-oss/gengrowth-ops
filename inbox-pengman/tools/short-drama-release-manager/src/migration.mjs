@@ -48,6 +48,7 @@ const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "账号状态", "平�
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
 const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", ...REVIEWABLE_MATCH_REASONS]);
 const FIXED_PLATFORMS = new Set(TABLES["选剧池"].options.平台);
+const OPTION_CONTROL = /[\u0000-\u001f\u007f-\u009f]/u;
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -69,6 +70,37 @@ function clone(value, code = "migration_manifest_invalid") {
   } catch {
     fail(code, "Migration value is not cloneable");
   }
+}
+
+function assertNormalizedOptionNames(values, code) {
+  if (!Array.isArray(values)) fail(code, "Select option names must be an array");
+  const seen = new Set();
+  for (const name of values) {
+    if (typeof name !== "string" || name === "" || name.trim() !== name || OPTION_CONTROL.test(name) || seen.has(name)) {
+      fail(code, "Select option names must be unique and normalized");
+    }
+    seen.add(name);
+  }
+  return [...values];
+}
+
+function optionNamesFromRows(rows, spec) {
+  const result = [];
+  const seen = new Set();
+  for (const row of rows) {
+    const raw = row[spec.name];
+    const values = spec.kind === "multi_select"
+      ? raw ?? []
+      : raw === null || raw === undefined ? [] : [raw];
+    assertNormalizedOptionNames(values, "migration_source_invalid");
+    for (const name of values) {
+      if (!seen.has(name)) {
+        seen.add(name);
+        result.push(name);
+      }
+    }
+  }
+  return result;
 }
 
 function omitUndefined(value, seen = new Set()) {
@@ -772,13 +804,14 @@ function expectedFieldConfig(tableName, spec, tableIds) {
   return fixedFieldDescriptor(tableName, spec.name, bindings);
 }
 
-function fixedSchemaDescriptor(tableName, spec) {
+function fixedSchemaDescriptor(tableName, spec, { initialOptions } = {}) {
   const descriptor = { name: spec.name, kind: spec.kind, phase: spec.phase };
-  for (const key of ["primary", "targetTable", "bidirectional", "reverseField", "managedReverseOf", "linkField", "sourceField", "expression", "systemType"]) {
+  for (const key of ["primary", "targetTable", "bidirectional", "reverseField", "managedReverseOf", "linkField", "sourceField", "expression", "systemType", "optionPolicy"]) {
     if (spec[key] !== undefined) descriptor[key] = clone(spec[key]);
   }
   const bindings = spec.kind === "link" ? { targetTableId: `table:${spec.targetTable}` } : {};
-  descriptor.canonical = fixedFieldDescriptor(tableName, spec.name, bindings);
+  descriptor.canonical = fixedFieldDescriptor(tableName, spec.name, bindings,
+    initialOptions === undefined ? {} : { initialOptions });
   return canonicalize(descriptor);
 }
 
@@ -798,7 +831,33 @@ function configMatches(actual, expected) {
   return true;
 }
 
-function schemaPlan(baseSchema, blocks) {
+function optionRowsForTable(tableName, { accounts, dramas }) {
+  if (tableName === "账号台账") return accounts;
+  if (tableName === "选剧池") return dramas;
+  fail("migration_source_invalid", "Manifest-append Select field has no source rows", { table: tableName });
+}
+
+function manifestAppendOptions(tableName, spec, rows) {
+  return optionNamesFromRows(optionRowsForTable(tableName, rows), spec);
+}
+
+function existingOptionNames(field) {
+  if (typeof field.field_id !== "string" || field.field_id === "" || !Array.isArray(field.options) ||
+      field.options.some((option) => !plainObject(option) || typeof option.name !== "string")) {
+    return null;
+  }
+  try {
+    return assertNormalizedOptionNames(field.options.map((option) => option.name), "base_schema_drift");
+  } catch (error) {
+    if (error?.code === "base_schema_drift") return null;
+    throw error;
+  }
+}
+
+function schemaPlan(baseSchema, blocks, rows) {
+  if (!plainObject(rows) || !Array.isArray(rows.accounts) || !Array.isArray(rows.dramas)) {
+    fail("migration_source_invalid", "Final account and drama rows are required for Select option planning");
+  }
   const revision = baseSchema?.revision ?? "base:new";
   const tables = baseSchema?.tables ?? [];
   if (typeof revision !== "string" || revision.trim() === "" || !Array.isArray(tables)) fail("base_schema_drift", "Base schema metadata is malformed");
@@ -857,6 +916,7 @@ function schemaPlan(baseSchema, blocks) {
     }
     for (const spec of BASE_FIELD_SPECS[tableName]) {
       const existing = fields.get(spec.name);
+      const initialOptions = spec.optionPolicy === "manifest_append" ? manifestAppendOptions(tableName, spec, rows) : undefined;
       if (!existing) {
         if (spec.primary) {
           if (!table) continue;
@@ -872,7 +932,14 @@ function schemaPlan(baseSchema, blocks) {
             blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name, reason: "managed_reverse_missing" }));
           }
         } else {
-          fieldActions.push({ id: `field:${tableName}:${spec.name}`, kind: "create_field", table: tableName, field: spec.name, phase: spec.phase, spec: fixedSchemaDescriptor(tableName, spec) });
+          fieldActions.push({
+            id: `field:${tableName}:${spec.name}`,
+            kind: "create_field",
+            table: tableName,
+            field: spec.name,
+            phase: spec.phase,
+            spec: fixedSchemaDescriptor(tableName, spec, initialOptions === undefined ? {} : { initialOptions }),
+          });
         }
         continue;
       }
@@ -881,7 +948,32 @@ function schemaPlan(baseSchema, blocks) {
         continue;
       }
       const expected = expectedFieldConfig(tableName, spec, tableIds);
-      if (!configMatches(existing, expected)) blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name }));
+      if (!configMatches(existing, expected)) {
+        blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name }));
+        continue;
+      }
+      if (spec.optionPolicy === "manifest_append") {
+        const beforeOptions = existingOptionNames(existing);
+        if (beforeOptions === null) {
+          blocks.push(blocked("base_schema_drift", tableName, null, { field: spec.name }));
+          continue;
+        }
+        const beforeSet = new Set(beforeOptions);
+        const missing = initialOptions.filter((name) => !beforeSet.has(name));
+        if (missing.length > 0) {
+          fieldActions.push({
+            id: `options:${tableName}:${spec.name}`,
+            kind: "update_select_options",
+            table: tableName,
+            field: spec.name,
+            field_id: existing.field_id,
+            phase: "storage",
+            before_options: beforeOptions,
+            after_options: [...beforeOptions, ...missing],
+            spec: fixedSchemaDescriptor(tableName, spec),
+          });
+        }
+      }
     }
   }
   const actions = fieldActions.sort((left, right) =>
@@ -942,7 +1034,10 @@ export async function planMigration(context = {}) {
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
   const initialBaseSchema = omitUndefined(clone(context.baseSchema, "migration_source_invalid"));
-  const schema = schemaPlan(initialBaseSchema, blocks);
+  const schema = schemaPlan(initialBaseSchema, blocks, {
+    accounts: accountResult.rows,
+    dramas: dramaResult.rows,
+  });
   const orderedBlocks = orderDiagnostics(blocks);
   const orderedWarnings = orderDiagnostics(warnings);
   const manifest = {
@@ -1087,7 +1182,10 @@ function assertManifest(manifest) {
     replayWarnings,
     manifest.generated_at,
   );
-  const replaySchema = schemaPlan(manifest.initial_base_schema, replayBlocks);
+  const replaySchema = schemaPlan(manifest.initial_base_schema, replayBlocks, {
+    accounts: replayAccounts.rows,
+    dramas: replayDramas.rows,
+  });
   const replayReconciliation = {
     account_stubs: replayAccounts.stubs,
     capture_merges: replayCaptureResult.merges,
@@ -1251,7 +1349,10 @@ function assertManifest(manifest) {
     if (action.kind === "create_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
       if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "spec", "table"]) ||
-          action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
+          action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec,
+            spec.optionPolicy === "manifest_append" ? {
+              initialOptions: manifestAppendOptions(action.table, spec, { accounts: manifest.accounts, dramas: manifest.dramas }),
+            } : {}))) {
         fail("migration_manifest_invalid", "Migration field action is not fixed");
       }
     } else if (action.kind === "update_primary_field") {

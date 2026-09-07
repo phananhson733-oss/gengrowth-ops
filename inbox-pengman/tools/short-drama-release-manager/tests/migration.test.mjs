@@ -1205,7 +1205,7 @@ test("schema plan blocks same-name type/config drift and creates fixed missing f
   }
 });
 
-function completeFixedSchema(revision = "complete-r1") {
+function completeFixedSchema(revision = "complete-r1", optionNamesByField = {}) {
   const tableIds = Object.fromEntries(TABLE_ORDER.map((table, index) => [table, `tbl-${index}`]));
   return {
     revision,
@@ -1215,12 +1215,102 @@ function completeFixedSchema(revision = "complete-r1") {
       record_count: 0,
       fields: BASE_FIELD_SPECS[table].map((spec, index) => ({
         field_id: `${tableIds[table]}-f${index}`,
-        ...fixedFieldDescriptor(table, spec.name, spec.kind === "link" ? { targetTableId: tableIds[spec.targetTable] } : {}),
+        ...fixedFieldDescriptor(
+          table,
+          spec.name,
+          spec.kind === "link" ? { targetTableId: tableIds[spec.targetTable] } : {},
+          spec.optionPolicy === "manifest_append" ? { initialOptions: optionNamesByField[`${table}:${spec.name}`] ?? [] } : {},
+        ),
         ...(spec.primary ? { is_primary: true } : {}),
       })),
     })),
   };
 }
+
+test("manifest-append planning emits exactly six current nonempty option actions in first-seen order", async () => {
+  const google = sourceWithTables({
+    accounts: [{ ...normalizedSource().accounts[0], 所属组: "North", 表现形式: "Narrated" }],
+    dramas: [{
+      ...normalizedSource().dramas[0],
+      剧分类: ["Romance", "Revenge"],
+      生命周期: "Fresh",
+      "RS Boost 分类（待确认）": [],
+      账号组: [],
+      语言: "English",
+      来源: ["Editorial", "Trend"],
+    }],
+  });
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema: completeFixedSchema() });
+  const actions = manifest.schema_actions.filter((action) => action.kind === "update_select_options");
+  assert.deepEqual(actions.map((action) => action.id), [
+    "options:账号台账:所属组",
+    "options:账号台账:表现形式",
+    "options:选剧池:剧分类",
+    "options:选剧池:生命周期",
+    "options:选剧池:语言",
+    "options:选剧池:来源",
+  ]);
+  assert.deepEqual(actions.map((action) => action.after_options), [
+    ["North"], ["Narrated"], ["Romance", "Revenge"], ["Fresh"], ["English"], ["Editorial", "Trend"],
+  ]);
+});
+
+test("manifest-append planning preserves live options and replans only remaining gaps", async () => {
+  const google = sourceWithTables({
+    accounts: [{ ...normalizedSource().accounts[0], 所属组: "North", 表现形式: "Narrated" }],
+    dramas: [{
+      ...normalizedSource().dramas[0],
+      剧分类: ["Romance", "Revenge"],
+      生命周期: "Fresh",
+      "RS Boost 分类（待确认）": [],
+      账号组: [],
+      语言: "English",
+      来源: ["Editorial", "Trend"],
+    }],
+  });
+  const baseSchema = completeFixedSchema("complete-r2", {
+    "账号台账:所属组": ["Existing", "North"],
+    "选剧池:剧分类": ["Legacy", "Romance"],
+    "选剧池:来源": ["Editorial"],
+  });
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema });
+  const actions = manifest.schema_actions.filter((action) => action.kind === "update_select_options");
+  assert.deepEqual(actions.map((action) => [action.id, action.before_options, action.after_options]), [
+    ["options:账号台账:表现形式", [], ["Narrated"]],
+    ["options:选剧池:剧分类", ["Legacy", "Romance"], ["Legacy", "Romance", "Revenge"]],
+    ["options:选剧池:生命周期", [], ["Fresh"]],
+    ["options:选剧池:语言", [], ["English"]],
+    ["options:选剧池:来源", ["Editorial"], ["Editorial", "Trend"]],
+  ]);
+  for (const action of actions) {
+    const table = baseSchema.tables.find((item) => item.name === action.table);
+    const field = table.fields.find((item) => item.field_id === action.field_id);
+    field.options = action.after_options.map((name) => ({ name }));
+  }
+  const replanned = await planMigration({ google, captures: [latestCapture()], baseSchema });
+  assert.equal(replanned.schema_actions.filter((action) => action.kind === "update_select_options").length, 0);
+});
+
+test("missing manifest-append fields carry source-derived options in create_field actions", async () => {
+  const google = sourceWithTables({
+    dramas: [{
+      ...normalizedSource().dramas[0],
+      剧分类: ["Romance", "Revenge"],
+      "RS Boost 分类（待确认）": [],
+      账号组: [],
+    }],
+  });
+  const baseSchema = completeFixedSchema();
+  const dramaTable = baseSchema.tables.find((table) => table.name === "选剧池");
+  dramaTable.fields = dramaTable.fields.filter((field) => !["剧分类", "RS Boost 分类（待确认）", "账号组"].includes(field.name));
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema });
+  const created = new Map(manifest.schema_actions
+    .filter((action) => action.kind === "create_field")
+    .map((action) => [action.field, action]));
+  assert.deepEqual(created.get("剧分类").spec.canonical.options, [{ name: "Romance" }, { name: "Revenge" }]);
+  assert.deepEqual(created.get("RS Boost 分类（待确认）").spec.canonical.options, []);
+  assert.deepEqual(created.get("账号组").spec.canonical.options, []);
+});
 
 test("migration schema rejects an unexpected fifth Base table", async () => {
   const baseSchema = completeFixedSchema("extra-table");
@@ -1511,8 +1601,18 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
 });
 
 test("schema receipt is refused when an unchanged preexisting field drifts in final semantic readback", async () => {
-  const baseSchema = completeFixedSchema();
-  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
+  const google = normalizedSource();
+  const baseSchema = completeFixedSchema("complete-r1", {
+    "账号台账:所属组": [google.accounts[0].所属组],
+    "账号台账:表现形式": [google.accounts[0].表现形式],
+    "选剧池:剧分类": google.dramas[0].剧分类,
+    "选剧池:生命周期": [google.dramas[0].生命周期],
+    "选剧池:RS Boost 分类（待确认）": google.dramas[0]["RS Boost 分类（待确认）"],
+    "选剧池:账号组": google.dramas[0].账号组,
+    "选剧池:语言": [google.dramas[0].语言],
+    "选剧池:来源": google.dramas[0].来源,
+  });
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema });
   assert.equal(manifest.schema_actions.length, 0);
   assert.equal(manifest.blocked.length, 0);
   const drifted = structuredClone(baseSchema);

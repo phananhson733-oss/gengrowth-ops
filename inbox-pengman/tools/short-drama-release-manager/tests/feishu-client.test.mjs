@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 
-import { FeishuClient, createTenantTokenProvider } from "../src/feishu-client.mjs";
+import { FeishuClient, createTenantTokenProvider, fixedFieldDescriptor } from "../src/feishu-client.mjs";
 
 const okList = (items = [], extra = {}) => ({
   code: 0,
@@ -1227,6 +1227,20 @@ test("canonical field payloads cover select, datetime, formula, and system field
     { name: "是否已排期", type: "formula", expression: 'IF(ISBLANK([关联发布记录]),"否","是")' },
     { name: "创建时间", type: "created_at" },
   ]);
+  assert.deepEqual(fixedFieldDescriptor("选剧池", "剧分类", {}, { initialOptions: ["Romance", "Revenge"] }), {
+    name: "剧分类", type: "select", multiple: true, options: [{ name: "Romance" }, { name: "Revenge" }],
+  });
+  assert.deepEqual(fixedFieldDescriptor("选剧池", "剧分类"), {
+    name: "剧分类", type: "select", multiple: true,
+  });
+  assert.throws(
+    () => fixedFieldDescriptor("选剧池", "平台", {}, { initialOptions: [] }),
+    (error) => error.code === "base_schema_drift",
+  );
+  assert.throws(
+    () => fixedFieldDescriptor("选剧池", "剧名", {}, { initialOptions: [] }),
+    (error) => error.code === "base_schema_drift",
+  );
 });
 
 test("schema and presentation creates require IDs and reject arbitrary input", async () => {
