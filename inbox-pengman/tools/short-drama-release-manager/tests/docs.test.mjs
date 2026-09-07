@@ -46,9 +46,9 @@ test("three authoritative docs state the shipped Select-option migration contrac
     "MoboReels → 其他仅用于迁移；其他未知平台必须 blocked",
     "record write 不隐式创建 options",
     "普通用户当前对四张表只读；人工业务写只经 Social Bot",
-    "每次 data apply 必须重新执行 fresh schema receipt 和 data preflight",
+    "每次 data apply 必须验证新鲜且绑定相同 manifest/Base/schema 的 schema receipt，并完成 data preflight",
     "schema partial failure 必须 replan_reconfirm，不回滚",
-    "20260907 旧证据链无效且不可复用",
+    "migration-plan-20260907*.json、schema-receipt-20260907*.json、canary-receipt-20260907*.json、permission-observations-20260907*.json 和 permission-attestation-20260907*.json",
   ];
 
   for (const [name, text] of Object.entries({ readme, requirements, plan })) {
@@ -56,6 +56,33 @@ test("three authoritative docs state the shipped Select-option migration contrac
       assert.ok(text.includes(clause), `${name} must state: ${clause}`);
     }
   }
+});
+
+test("requirements makes Base the read-only system-of-record display and routes business writes through Social Bot Runner", async () => {
+  const { requirements } = await docs();
+  assert.match(requirements, /Base 是系统记录和展示界面/);
+  assert.match(requirements, /普通用户（四表 Base UI）\s*\| 只读查询 \| 任何业务写入/);
+  assert.match(requirements, /授权 Ops 经 Social Bot → Runner/);
+  assert.match(requirements, /privileged Base UI 仅用于明确的 schema\/recovery 管理/);
+  assert.doesNotMatch(requirements, /唯一人工录入口|选剧池只能由人直接|Base UI 中的业务人员/);
+});
+
+test("plan treats unaudited Base UI changes as drift, not a normal write route", async () => {
+  const { plan } = await docs();
+  const taskEight = plan.slice(plan.indexOf("### Task 8:"), plan.indexOf("### Task 9:"));
+  assert.match(taskEight, /未经 Social Bot→Runner 审计的 Base UI 变更.*未预期 drift/);
+  assert.match(taskEight, /受影响行.*privileged recovery/);
+  assert.doesNotMatch(taskEight, /Base UI 编辑不影响本轮/);
+});
+
+test("README names every obsolete 20260907 artifact and never calls receipt validation an execution step", async () => {
+  const { readme } = await docs();
+  for (const artifact of [
+    "migration-plan-20260907*.json", "schema-receipt-20260907*.json", "canary-receipt-20260907*.json",
+    "permission-observations-20260907*.json", "permission-attestation-20260907*.json",
+  ]) assert.ok(readme.includes(artifact), `README must name obsolete ${artifact}`);
+  assert.match(readme, /必须验证新鲜且绑定相同 manifest\/Base\/schema 的 schema receipt/);
+  assert.doesNotMatch(readme, /执行 fresh schema receipt|20260907 旧证据链/);
 });
 
 test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {
