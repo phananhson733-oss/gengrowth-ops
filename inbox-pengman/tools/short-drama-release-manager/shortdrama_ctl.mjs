@@ -1126,7 +1126,17 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
     const selectedTable = {
       ...table,
       primary_field: detail.primary_field,
-      fields: fields.items.map((field) => ({ ...field, ...(field.field_id === detail.primary_field ? { is_primary: true } : {}) })),
+      fields: fields.items.map((field) => {
+        const normalizedField = { ...field, ...(field.field_id === detail.primary_field ? { is_primary: true } : {}) };
+        if (field.options === undefined) return normalizedField;
+        if (!Array.isArray(field.options) || field.options.some((option) => !option || typeof option !== "object" ||
+            Array.isArray(option) || typeof option.name !== "string" || option.name === "" || option.name.trim() !== option.name) ||
+            new Set(field.options.map((option) => option.name)).size !== field.options.length) {
+          fail("base_response_invalid", "Base field options are malformed or duplicate");
+        }
+        normalizedField.options = field.options.map((option) => ({ name: option.name }));
+        return normalizedField;
+      }),
       revision: fields.revision,
     };
     if (includeRecordEvidence) {
@@ -1265,7 +1275,63 @@ export function createFeishuMessageSender({ tokenProvider, isChatAllowed, fetchJ
   };
 }
 
-export function schemaAdapters(client, config) {
+function schemaActionOptionNames(action) {
+  const raw = action?.spec?.canonical?.options;
+  if (!Array.isArray(raw) || raw.some((option) => !option || typeof option !== "object" ||
+      Array.isArray(option) || typeof option.name !== "string")) return null;
+  return raw.map((option) => option.name);
+}
+
+function schemaActionFieldMatches(actual, expected) {
+  return Object.entries(expected).every(([key, value]) => {
+    if (key !== "options") return isDeepStrictEqual(actual?.[key], value);
+    return Array.isArray(actual?.options) && isDeepStrictEqual(
+      actual.options.map((option) => option?.name),
+      value.map((option) => option.name),
+    );
+  });
+}
+
+function verifySchemaActionReadback(action, schema) {
+  try {
+    const spec = BASE_FIELD_SPECS[action?.table]?.find((candidate) => candidate.name === action?.field);
+    const table = schema?.tables?.find((candidate) => candidate.name === action?.table);
+    if (!spec || !table || !Array.isArray(table.fields)) return false;
+    const byName = table.fields.filter((field) => field?.name === action.field);
+    const byId = action.field_id === undefined
+      ? byName
+      : table.fields.filter((field) => field?.field_id === action.field_id);
+    if (byName.length !== 1 || byId.length !== 1 || byName[0] !== byId[0] ||
+        typeof byName[0].field_id !== "string" || byName[0].field_id === "") return false;
+    const bindings = spec.kind === "link"
+      ? { targetTableId: schema.tables.find((candidate) => candidate.name === spec.targetTable)?.table_id }
+      : {};
+    if (spec.kind === "link" && typeof bindings.targetTableId !== "string") return false;
+    const initialOptions = action.kind === "create_field" && spec.optionPolicy === "manifest_append"
+      ? schemaActionOptionNames(action)
+      : undefined;
+    if (action.kind === "create_field" && spec.optionPolicy === "manifest_append" && initialOptions === null) return false;
+    const expected = fixedFieldDescriptor(
+      action.table,
+      action.field,
+      bindings,
+      initialOptions === undefined ? {} : { initialOptions },
+    );
+    if (!schemaActionFieldMatches(byName[0], expected)) return false;
+    if (spec.primary && byName[0].is_primary !== true && byName[0].primary !== true) return false;
+    if (action.kind === "update_select_options") {
+      return Array.isArray(byName[0].options) && isDeepStrictEqual(
+        byName[0].options.map((option) => option?.name),
+        action.after_options,
+      );
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function createSchemaAdapters(client, config) {
   const readSchema = () => baseSchemaMetadata(client, config);
   const schemaAdapter = {
     readSchema,
@@ -1278,11 +1344,15 @@ export function schemaAdapters(client, config) {
       { initialOptions },
     ),
     updateField: (tableId, fieldId, tableName, fieldName) => client.updateField(config.base.appToken, tableId, fieldId, tableName, fieldName),
-    async verifySchemaAction(action, schema) {
-      const table = schema?.tables?.find((candidate) => candidate.name === action.table);
-      if (!table) return false;
-      return table.fields.some((field) => field.name === action.field);
-    },
+    updateSelectFieldOptions: (tableId, fieldId, tableName, fieldName, optionNames) => client.updateSelectFieldOptions(
+      config.base.appToken,
+      tableId,
+      fieldId,
+      tableName,
+      fieldName,
+      optionNames,
+    ),
+    verifySchemaAction: (action, schema) => verifySchemaActionReadback(action, schema),
   };
   const presentationAdapter = {
     readSchema,
@@ -1428,7 +1498,7 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     const tableBindingsSha256 = createHash("sha256").update(JSON.stringify(
       Object.fromEntries(Object.entries(config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
     )).digest("hex");
-    const adapters = schemaAdapters(client, config);
+    const adapters = createSchemaAdapters(client, config);
     const readGoogle = services.readGoogleMigrationSource ?? (async () => readGoogleMigrationSource({
       spreadsheetId: config.sourceSpreadsheetId,
       serviceAccount: await readGoogleServiceAccount(config.paths.googleServiceAccountPath),
@@ -1531,7 +1601,8 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           return result;
         }
         catch (error) {
-          if (options.phase === "schema" && error?.code === "schema_revision_drift" && !payload?.schemaReceipt) {
+          if (options.phase === "schema" && error?.code === "schema_revision_drift" && !payload?.schemaReceipt &&
+              error.details?.reason !== "select_options_third_state") {
             fail("schema_receipt_lost", "Schema receipt is unavailable after Base schema changed", { next_step: "replan_reconfirm" });
           }
           throw error;

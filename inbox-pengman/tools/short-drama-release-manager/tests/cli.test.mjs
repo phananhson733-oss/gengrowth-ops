@@ -7,6 +7,8 @@ import path from "node:path";
 import test from "node:test";
 import { DatabaseSync } from "node:sqlite";
 
+import * as shortdramaControl from "../shortdrama_ctl.mjs";
+
 import {
   createCollectorAdapter,
   buildRuntime,
@@ -27,10 +29,10 @@ import {
   readPayload,
   resolveInvocationIdentity,
   runBaseCanary,
-  schemaAdapters,
   shouldEnqueueSchedule,
 } from "../shortdrama_ctl.mjs";
 import { canaryReceiptDigest, manifestDigest, permissionAttestationDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
+import { normalizeGoogleSource } from "../src/google-source.mjs";
 import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
 import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "../src/schema.mjs";
 
@@ -78,18 +80,148 @@ function readySchema(env) {
   };
 }
 
-test("runtime schema adapter forwards manifest-append initial options to Feishu field creation", async () => {
+function runtimeMigrationGoogle() {
+  const headers = {
+    accounts: ["账号名", "主页链接", "粉丝数", "所属组", "定位垂类", "表现形式", "状态", "数据日期"],
+    releases: ["日期", "账号名", "主页链接", "剧名", "剧ID（RS Boost）", "剧分类", "视频链接", "Post ID", "播放量", "点赞", "收藏", "转发", "评论", "RS收益", "备注", "归档状态"],
+    dramas: ["剧名", "剧ID", "剧分类", "上线日期", "生命周期", "是否已排期", "备注", "推荐理由", "RS Boost 分类（待确认）", "账号组", "账号状态", "平台", "语言", "来源", "推荐人", "归档状态"],
+    captures: ["快照日期", "账号名", "Post ID", "视频链接", "播放量", "点赞", "评论", "收藏", "转发", "业务"],
+  };
+  const values = {
+    accounts: [headers.accounts, ["dramaexpedition", "https://www.tiktok.com/@dramaexpedition", 1, null, null, null, "发布中", "2026-09-01"]],
+    releases: [headers.releases],
+    dramas: [headers.dramas, ["Drama", null, "Romance", "2026-09-01", null, null, null, null, null, null, "发布中", "ReelShort", null, null, "彭满", "active"]],
+    captures: [headers.captures],
+  };
+  const sheets = [
+    ["账号台账", 8], ["发布记录", 16], ["选剧池", 19], ["采集数据", 10],
+  ].map(([title, columnCount], index) => ({
+    properties: { title, sheetId: index + 1, index, gridProperties: { rowCount: 100, columnCount } },
+  }));
+  return normalizeGoogleSource({
+    metadata: {
+      spreadsheetId: "sheet",
+      properties: { title: "Short Drama", locale: "zh_CN", timeZone: "Asia/Shanghai" },
+      sheets,
+    },
+    grid: { accounts: [], releases: [], dramas: [], captures: [] },
+    formulas: structuredClone(values),
+    unformatted: structuredClone(values),
+    formatted: structuredClone(values),
+  });
+}
+
+function readyMigrationSchema(env, revision = "planned-options-r1") {
+  const schema = readySchema(env);
+  schema.revision = revision;
+  for (const table of schema.tables) {
+    table.record_count = 0;
+    table.primary_key_set_sha256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
+    for (const spec of BASE_FIELD_SPECS[table.name]) {
+      if (spec.optionPolicy !== "manifest_append") continue;
+      table.fields.find((field) => field.name === spec.name).options = [];
+    }
+  }
+  schema.tables.find((table) => table.name === "选剧池").fields.find((field) => field.name === "剧分类").options = [{ name: "Legacy" }];
+  return schema;
+}
+
+test("schema adapter forwards only positional manifest_append option updates", async () => {
   const calls = [];
   const client = {
     createField: async (...args) => { calls.push(args); return { field_id: "fld-new" }; },
+    updateSelectFieldOptions: async (...args) => { calls.push(args); return { field_id: "fld-select" }; },
   };
-  const { schemaAdapter } = schemaAdapters(client, { base: { appToken: "base" } });
+  assert.equal(typeof shortdramaControl.createSchemaAdapters, "function");
+  const { schemaAdapter } = shortdramaControl.createSchemaAdapters(client, { base: { appToken: "base" } });
   await schemaAdapter.createField("tbl-drama", "选剧池", "剧分类", {}, ["Romance", "Revenge"]);
   await schemaAdapter.createField("tbl-drama", "选剧池", "平台", {}, undefined);
+  const names = ["Legacy", "Romance", "Revenge"];
+  await schemaAdapter.updateSelectFieldOptions("tbl-drama", "fld-select", "选剧池", "剧分类", names);
   assert.deepEqual(calls, [
     ["base", "tbl-drama", "选剧池", "剧分类", {}, { initialOptions: ["Romance", "Revenge"] }],
     ["base", "tbl-drama", "选剧池", "平台", {}, { initialOptions: undefined }],
+    ["base", "tbl-drama", "fld-select", "选剧池", "剧分类", ["Legacy", "Romance", "Revenge"]],
   ]);
+  assert.deepEqual(Object.keys(schemaAdapter).sort(), [
+    "createField", "readSchema", "updateField", "updateSelectFieldOptions", "verifySchemaAction",
+  ]);
+});
+
+test("schema adapter verifies exact option action semantics", async () => {
+  assert.equal(typeof shortdramaControl.createSchemaAdapters, "function");
+  const { schemaAdapter } = shortdramaControl.createSchemaAdapters({}, { base: { appToken: "base" } });
+  const action = {
+    id: "options:选剧池:剧分类", kind: "update_select_options", table: "选剧池", field: "剧分类",
+    field_id: "fld-category", before_options: ["Legacy"], after_options: ["Legacy", "Romance"],
+  };
+  const schema = {
+    complete: true,
+    tables: [{
+      table_id: "tbl-drama", name: "选剧池", fields: [{
+        field_id: "fld-category", name: "剧分类", type: "select", multiple: true,
+        options: [
+          { id: "opt-old", name: "Legacy", color: 1 },
+          { id: "opt-new", name: "Romance", color: 2 },
+        ],
+      }],
+    }],
+  };
+  assert.equal(await schemaAdapter.verifySchemaAction(action, schema), true);
+  for (const mutate of [
+    (field) => { field.field_id = "fld-other"; },
+    (field) => { field.name = "Other"; },
+    (field) => { field.type = "text"; },
+    (field) => { field.multiple = false; },
+    (field) => { field.options.reverse(); },
+    (field) => { field.options.pop(); },
+    (field) => { field.options.push({ id: "opt-extra", name: "Extra", color: 3 }); },
+  ]) {
+    const drifted = structuredClone(schema);
+    mutate(drifted.tables[0].fields[0]);
+    assert.equal(await schemaAdapter.verifySchemaAction(action, drifted), false);
+  }
+});
+
+test("runtime schema revision changes when live Select option order or contents change", async () => {
+  assert.equal(typeof shortdramaControl.createSchemaAdapters, "function");
+  const env = { TA: "tbl-accounts", TD: "tbl-dramas", TC: "tbl-captures", TR: "tbl-releases" };
+  const config = {
+    base: {
+      appToken: "base",
+      tableIds: { accounts: env.TA, dramas: env.TD, captures: env.TC, releases: env.TR },
+    },
+  };
+  const source = readySchema(env);
+  const schemaClient = (schema) => {
+    const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+    return {
+      listTables: async () => ({ complete: true, items: schema.tables.map(({ table_id, name }) => ({ table_id, name })) }),
+      getTable: async (_base, tableId) => {
+        const table = byId.get(tableId);
+        return {
+          table_id: tableId,
+          name: table.name,
+          primary_field: table.fields.find((field) => field.is_primary === true).field_id,
+        };
+      },
+      listFields: async (_base, tableId) => ({ complete: true, revision: `r-${tableId}`, items: structuredClone(byId.get(tableId).fields) }),
+    };
+  };
+  const revision = async (schema) => (await shortdramaControl.createSchemaAdapters(schemaClient(schema), config).schemaAdapter.readSchema()).revision;
+  const baseline = structuredClone(source);
+  const select = baseline.tables.find((table) => table.name === "选剧池").fields.find((field) => field.name === "平台");
+  select.options = select.options.map((option, index) => ({ ...option, id: `old-${index}`, color: index }));
+  const cosmetic = structuredClone(baseline);
+  cosmetic.tables.find((table) => table.name === "选剧池").fields.find((field) => field.name === "平台").options =
+    select.options.map((option, index) => ({ ...option, id: `new-${index}`, color: index + 10 }));
+  const reordered = structuredClone(baseline);
+  reordered.tables.find((table) => table.name === "选剧池").fields.find((field) => field.name === "平台").options.reverse();
+  const renamed = structuredClone(baseline);
+  renamed.tables.find((table) => table.name === "选剧池").fields.find((field) => field.name === "平台").options[0].name = "Other";
+  assert.equal(await revision(cosmetic), await revision(baseline));
+  assert.notEqual(await revision(reordered), await revision(baseline));
+  assert.notEqual(await revision(renamed), await revision(baseline));
 });
 
 test("CLI exposes only registered command paths and fixed options", () => {
@@ -1314,6 +1446,61 @@ test("runtime migration planning reads both SQLite accounts and posts", async ()
     assert.deepEqual(calls, ["google", "accounts", "posts"]);
     assert.equal(manifest.source_evidence.counts.sqlite_accounts, 1);
     assert.equal(manifest.source_evidence.counts.sqlite_posts, 1);
+  } finally {
+    runtime.close();
+  }
+});
+
+test("runtime preserves select-option third-state drift without misreporting a lost receipt", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-option-third-state-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const google = runtimeMigrationGoogle();
+  const plannedSchema = readyMigrationSchema(env);
+  const liveSchema = structuredClone(plannedSchema);
+  const byId = new Map(liveSchema.tables.map((table) => [table.table_id, table]));
+  let optionUpdates = 0;
+  const client = repositoryClient({
+    listTables: async () => ({ complete: true, items: liveSchema.tables.map(({ table_id, name }) => ({ table_id, name })) }),
+    getTable: async (_base, tableId) => {
+      const table = byId.get(tableId);
+      return {
+        table_id: tableId,
+        name: table.name,
+        primary_field: table.fields.find((field) => field.is_primary === true).field_id,
+      };
+    },
+    listFields: async (_base, tableId) => ({ complete: true, revision: `r-${tableId}`, items: structuredClone(byId.get(tableId).fields) }),
+    createField: async () => { throw new Error("unexpected create"); },
+    updateField: async () => { throw new Error("unexpected primary update"); },
+    updateSelectFieldOptions: async () => { optionUpdates += 1; },
+  });
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: {
+      client,
+      HumanOpsService: HumanOpsFixture,
+      ShortDramaNotifier: NotifierFixture,
+      readGoogleMigrationSource: async () => structuredClone(google),
+      source: { readLatestAccounts: async () => [], readLatestPosts: async () => [] },
+      readMigrationSchema: async () => structuredClone(plannedSchema),
+    },
+  });
+  try {
+    const manifest = await runtime.migratePlan({}, {});
+    const action = manifest.schema_actions.find((candidate) => candidate.kind === "update_select_options");
+    assert.ok(action);
+    const liveField = liveSchema.tables.find((table) => table.name === action.table).fields
+      .find((field) => field.field_id === action.field_id);
+    liveField.options = [{ id: "outside", name: "Outside", color: 9 }];
+    await assert.rejects(() => runtime.migrateApply({ manifest }, { phase: "schema" }),
+      (error) => error.code === "schema_revision_drift" && error.details.reason === "select_options_third_state");
+    assert.equal(optionUpdates, 0);
   } finally {
     runtime.close();
   }

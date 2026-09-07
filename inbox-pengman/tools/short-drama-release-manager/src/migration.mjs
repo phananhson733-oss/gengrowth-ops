@@ -1461,7 +1461,7 @@ function assertCanaryReceipt(context, manifest, schemaReceipt) {
   return receipt;
 }
 
-async function assertBaseEmptyBeforeData(context, manifest) {
+async function assertBaseStillEmpty(context, manifest) {
   if (typeof context.readEmptyTableEvidence !== "function") {
     fail("migration_context_invalid", "Fresh empty Base evidence reader is required");
   }
@@ -1628,55 +1628,38 @@ async function applyData(context, manifest) {
   return summaries;
 }
 
-async function applySchema(context, manifest) {
-  const adapter = context.schemaAdapter;
+function requireSchemaAdapter(adapter) {
   if (!objectLike(adapter) || typeof adapter.createField !== "function" ||
-      typeof adapter.updateField !== "function" || typeof adapter.readSchema !== "function" || typeof adapter.verifySchemaAction !== "function") {
+      typeof adapter.updateField !== "function" || typeof adapter.updateSelectFieldOptions !== "function" ||
+      typeof adapter.readSchema !== "function" || typeof adapter.verifySchemaAction !== "function") {
     fail("migration_context_invalid", "Fixed schema adapter is required");
   }
-  const readSchema = async () => {
-    const schema = await adapter.readSchema();
-    if (!plainObject(schema) || schema.complete !== true || !Array.isArray(schema.tables)) fail("readback_mismatch", "Complete Base schema readback is required");
-    const tables = new Map();
-    for (const table of schema.tables) {
-      if (!plainObject(table) || typeof table.name !== "string" || typeof table.table_id !== "string" || tables.has(table.name) || !Array.isArray(table.fields ?? [])) {
-        fail("readback_mismatch", "Base schema readback is malformed");
-      }
-      tables.set(table.name, table);
+  return adapter;
+}
+
+async function readCompleteSchema(adapter) {
+  const schema = await adapter.readSchema();
+  if (!plainObject(schema) || schema.complete !== true || !Array.isArray(schema.tables)) fail("readback_mismatch", "Complete Base schema readback is required");
+  const tables = new Map();
+  for (const table of schema.tables) {
+    if (!plainObject(table) || typeof table.name !== "string" || typeof table.table_id !== "string" || tables.has(table.name) || !Array.isArray(table.fields ?? [])) {
+      fail("readback_mismatch", "Base schema readback is malformed");
     }
-    return { schema, tables };
-  };
-  for (const action of manifest.schema_actions) {
-    const before = await readSchema();
-    if (action.kind === "create_field") {
-      const table = before.tables.get(action.table);
-      if (!table) fail("readback_mismatch", "Schema action target table is missing", { action: action.id });
-      const spec = BASE_FIELD_SPECS[action.table].find((item) => item.name === action.field && !item.primary && !item.managedReverseOf);
-      if (!spec) fail("migration_manifest_invalid", "Schema field action is unsupported");
-      if (!(table.fields ?? []).some((field) => field.name === action.field)) {
-        const bindings = spec.kind === "link" ? { targetTableId: before.tables.get(spec.targetTable)?.table_id } : {};
-        if (spec.kind === "link" && typeof bindings.targetTableId !== "string") fail("readback_mismatch", "Link target table is unresolved", { action: action.id });
-        const initialOptions = spec.optionPolicy === "manifest_append"
-          ? action.spec.canonical.options.map((option) => option.name)
-          : undefined;
-        await adapter.createField(table.table_id, action.table, action.field, bindings, initialOptions);
-      }
-    } else if (action.kind === "update_primary_field") {
-      const table = before.tables.get(action.table);
-      if (!table || !(table.fields ?? []).some((field) => field.field_id === action.field_id)) fail("readback_mismatch", "Primary bootstrap field is unresolved", { action: action.id });
-      if (!(table.fields ?? []).some((field) => field.field_id === action.field_id && field.name === action.field)) {
-        await adapter.updateField(table.table_id, action.field_id, action.table, action.field);
-      }
-    } else fail("migration_manifest_invalid", "Schema action is unsupported");
-    const after = await readSchema();
-    const tableAfter = after.tables.get(action.table);
-    if (!tableAfter || !(tableAfter.fields ?? []).some((field) => field.name === action.field)) {
-      fail("readback_mismatch", "Schema action did not appear in complete readback", { action: action.id });
-    }
-    const verified = await adapter.verifySchemaAction(clone(action), clone(after.schema));
-    if (verified !== true) fail("readback_mismatch", "Schema action readback failed", { action: action.id });
+    tables.set(table.name, table);
   }
-  const final = await readSchema();
+  return { schema, tables };
+}
+
+function selectOptionNames(field, action) {
+  if (!plainObject(field) || !Array.isArray(field.options) ||
+      field.options.some((option) => !plainObject(option) || typeof option.name !== "string")) {
+    fail("readback_mismatch", "Select option readback is malformed", { action: action.id });
+  }
+  return assertNormalizedOptionNames(field.options.map((option) => option.name), "readback_mismatch");
+}
+
+async function verifyFinalSchema(adapter) {
+  const final = await readCompleteSchema(adapter);
   const finalTableIds = Object.fromEntries([...final.tables].map(([name, table]) => [name, table.table_id]));
   for (const tableName of TABLE_ORDER) {
     const fields = final.tables.get(tableName)?.fields ?? [];
@@ -1692,6 +1675,73 @@ async function applySchema(context, manifest) {
       }
     }
   }
+  return final.schema;
+}
+
+async function applySchema(context, manifest) {
+  const adapter = requireSchemaAdapter(context.schemaAdapter);
+  for (const action of manifest.schema_actions) {
+    const before = await readCompleteSchema(adapter);
+    if (action.kind === "create_field") {
+      const table = before.tables.get(action.table);
+      if (!table) fail("readback_mismatch", "Schema action target table is missing", { action: action.id });
+      const spec = BASE_FIELD_SPECS[action.table].find((item) => item.name === action.field && !item.primary && !item.managedReverseOf);
+      if (!spec) fail("migration_manifest_invalid", "Schema field action is unsupported");
+      if (!(table.fields ?? []).some((field) => field.name === action.field)) {
+        const bindings = spec.kind === "link" ? { targetTableId: before.tables.get(spec.targetTable)?.table_id } : {};
+        if (spec.kind === "link" && typeof bindings.targetTableId !== "string") fail("readback_mismatch", "Link target table is unresolved", { action: action.id });
+        const initialOptions = spec.optionPolicy === "manifest_append"
+          ? action.spec.canonical.options.map((option) => option.name)
+          : undefined;
+        await assertBaseStillEmpty(context, manifest);
+        await adapter.createField(table.table_id, action.table, action.field, bindings, initialOptions);
+      }
+    } else if (action.kind === "update_primary_field") {
+      const table = before.tables.get(action.table);
+      if (!table || !(table.fields ?? []).some((field) => field.field_id === action.field_id)) fail("readback_mismatch", "Primary bootstrap field is unresolved", { action: action.id });
+      if (!(table.fields ?? []).some((field) => field.field_id === action.field_id && field.name === action.field)) {
+        await assertBaseStillEmpty(context, manifest);
+        await adapter.updateField(table.table_id, action.field_id, action.table, action.field);
+      }
+    } else if (action.kind === "update_select_options") {
+      const table = before.tables.get(action.table);
+      const matchesById = table?.fields?.filter((field) => field.field_id === action.field_id) ?? [];
+      const matchesByName = table?.fields?.filter((field) => field.name === action.field) ?? [];
+      if (!table || matchesById.length !== 1 || matchesByName.length !== 1 || matchesById[0] !== matchesByName[0]) {
+        fail("schema_revision_drift", "Select field identity changed outside the manifest", {
+          action: action.id,
+          reason: "select_field_identity_changed",
+        });
+      }
+      const currentOptions = selectOptionNames(matchesById[0], action);
+      if (isDeepStrictEqual(currentOptions, action.before_options)) {
+        await assertBaseStillEmpty(context, manifest);
+        await adapter.updateSelectFieldOptions(
+          table.table_id,
+          action.field_id,
+          action.table,
+          action.field,
+          [...action.after_options],
+        );
+      } else if (!isDeepStrictEqual(currentOptions, action.after_options)) {
+        fail("schema_revision_drift", "Select options changed outside the manifest", {
+          action: action.id,
+          reason: "select_options_third_state",
+        });
+      }
+    } else fail("migration_manifest_invalid", "Schema action is unsupported");
+    const after = await readCompleteSchema(adapter);
+    const tableAfter = after.tables.get(action.table);
+    const actionFieldPresent = action.field_id === undefined
+      ? (tableAfter?.fields ?? []).filter((field) => field.name === action.field).length === 1
+      : (tableAfter?.fields ?? []).filter((field) => field.field_id === action.field_id && field.name === action.field).length === 1;
+    if (!tableAfter || !actionFieldPresent) {
+      fail("readback_mismatch", "Schema action did not appear in complete readback", { action: action.id });
+    }
+    const verified = await adapter.verifySchemaAction(clone(action), clone(after.schema));
+    if (verified !== true) fail("readback_mismatch", "Schema action readback failed", { action: action.id });
+  }
+  await verifyFinalSchema(adapter);
 }
 
 async function applyPresentation(context, manifest) {
@@ -1815,11 +1865,12 @@ export async function applyMigration(context = {}, manifest) {
     if (context.schemaReceipt !== undefined || context.expectedSchemaReceiptSha256 !== undefined) {
       const receipt = assertSchemaReceipt(context, manifest);
       if (current !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision does not match the completed schema receipt");
-      await applySchema(context, manifest);
+      await verifyFinalSchema(requireSchemaAdapter(context.schemaAdapter));
       return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt: clone(receipt), reused: true };
     }
     if (current !== manifest.initial_schema_revision) fail("schema_revision_drift", "Base schema revision changed after planning");
     await applySchema(context, manifest);
+    await assertBaseStillEmpty(context, manifest);
     const postRevision = await currentSchemaRevision(context);
     const receipt = {
       version: "shortdrama-schema-receipt/v1",
@@ -1838,7 +1889,7 @@ export async function applyMigration(context = {}, manifest) {
   assertCanaryReceipt(context, manifest, receipt);
   if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
   if (phase === "data") {
-    await assertBaseEmptyBeforeData(context, manifest);
+    await assertBaseStillEmpty(context, manifest);
     await applyData(context, manifest);
   }
   if (phase === "presentation") {
