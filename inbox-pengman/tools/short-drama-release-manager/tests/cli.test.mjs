@@ -1504,6 +1504,170 @@ test("runtime preserves select-option third-state drift without misreporting a l
   }
 });
 
+test("data Select coverage blocks fake Base 800030005 before Repository writes and succeeds after complete readback", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-data-select-coverage-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const google = runtimeMigrationGoogle();
+  const liveSchema = readyMigrationSchema(env);
+  const byId = new Map(liveSchema.tables.map((table) => [table.table_id, table]));
+  const rows = Object.fromEntries(liveSchema.tables.map((table) => [table.table_id, []]));
+  const events = [];
+  let nextRecord = 1;
+  const client = repositoryClient({
+    listTables: async () => {
+      events.push("schema:tables");
+      return { complete: true, items: liveSchema.tables.map(({ table_id, name }) => ({ table_id, name })) };
+    },
+    getTable: async (_base, tableId) => {
+      const table = byId.get(tableId);
+      events.push(`schema:table:${table.name}`);
+      return {
+        table_id: tableId,
+        name: table.name,
+        primary_field: table.fields.find((field) => field.is_primary === true).field_id,
+      };
+    },
+    listFields: async (_base, tableId) => {
+      const table = byId.get(tableId);
+      events.push(`schema:fields:${table.name}`);
+      return { complete: true, revision: `r-${tableId}`, items: structuredClone(table.fields) };
+    },
+    listRecords: async (_base, tableId, { tableName } = {}) => {
+      events.push(`records:list:${tableName ?? byId.get(tableId).name}`);
+      return { complete: true, revision: "records-r1", items: structuredClone(rows[tableId]) };
+    },
+    createRecords: async (_base, tableId, records, { tableName } = {}) => {
+      events.push(`records:create:${tableName}`);
+      if (tableName === "选剧池") {
+        const category = byId.get(tableId).fields.find((field) => field.name === "剧分类");
+        const allowed = new Set(category.options.map((option) => option.name));
+        const missing = records.flatMap((record) => record.fields.剧分类 ?? []).find((option) => !allowed.has(option));
+        if (missing !== undefined) {
+          throw Object.assign(new Error("fake Base rejected a missing Select option"), { code: 800030005 });
+        }
+      }
+      return records.map((record) => {
+        const stored = { record_id: `rec-${nextRecord++}`, fields: structuredClone(record.fields) };
+        rows[tableId].push(stored);
+        return structuredClone(stored);
+      });
+    },
+    updateRecords: async () => { throw new Error("unexpected update"); },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows[tableId].find((row) => row.record_id === recordId)),
+    createField: async () => { throw new Error("unexpected create field"); },
+    updateField: async () => { throw new Error("unexpected update field"); },
+    updateSelectFieldOptions: async () => { throw new Error("unexpected option update"); },
+  });
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const fixedNow = new Date("2026-09-01T00:00:00.000Z");
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    now: () => new Date(fixedNow),
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: {
+      client,
+      HumanOpsService: HumanOpsFixture,
+      ShortDramaNotifier: NotifierFixture,
+      readGoogleMigrationSource: async () => structuredClone(google),
+      source: { readLatestAccounts: async () => [], readLatestPosts: async () => [] },
+    },
+  });
+  const evidenceFor = (manifest, revision) => {
+    const schemaReceipt = {
+      version: "shortdrama-schema-receipt/v1",
+      status: "verified",
+      manifest_sha256: manifest.sha256,
+      base_binding_sha256: manifest.base_binding_sha256,
+      pre_revision: manifest.initial_schema_revision,
+      post_revision: revision,
+      action_spec_sha256: manifest.schema_spec_sha256,
+    };
+    schemaReceipt.sha256 = schemaReceiptDigest(schemaReceipt);
+    const tableBindingsSha256 = createHash("sha256").update(JSON.stringify(
+      Object.fromEntries(Object.entries(runtime.config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
+    )).digest("hex");
+    const proof = Object.fromEntries(TABLE_ORDER.map((tableName) => [tableName, {
+      before_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
+      canary_primary_sha256: "a".repeat(64),
+      created: true,
+      readback_verified: true,
+      record_id_sha256: "d".repeat(64),
+      deleted: true,
+      after_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
+      count_before: manifest.initial_empty_table_evidence[tableName].record_count,
+      count_after: manifest.initial_empty_table_evidence[tableName].record_count,
+    }]));
+    const canaryReceipt = {
+      version: "shortdrama-canary-receipt/v1",
+      status: "verified",
+      manifest_sha256: manifest.sha256,
+      base_binding_sha256: manifest.base_binding_sha256,
+      schema_revision: revision,
+      table_bindings_sha256: tableBindingsSha256,
+      proof,
+      generated_at: manifest.generated_at,
+    };
+    canaryReceipt.sha256 = canaryReceiptDigest(canaryReceipt);
+    const permissionAttestation = {
+      version: "shortdrama-permission-attestation/v1",
+      base_binding_sha256: manifest.base_binding_sha256,
+      schema_revision: revision,
+      advanced_permissions_enabled: true,
+      primary_and_machine_fields_protected: true,
+      company_user_access_verified: true,
+      checked_by: "ou_admin",
+      checked_at: manifest.generated_at,
+    };
+    permissionAttestation.sha256 = permissionAttestationDigest(permissionAttestation);
+    return { schemaReceipt, canaryReceipt, permissionAttestation };
+  };
+  try {
+    const manifest = await runtime.migratePlan({}, {});
+    assert.equal(manifest.blocked.length, 0);
+    const adapters = shortdramaControl.createSchemaAdapters(client, runtime.config);
+    const missingSnapshot = await adapters.schemaAdapter.readSchema();
+    const missingEvidence = evidenceFor(manifest, missingSnapshot.revision);
+    events.length = 0;
+    await assert.rejects(
+      () => runtime.migrateApply({ manifest, ...missingEvidence }, { phase: "data", actorId: "ou_admin" }),
+      (error) => {
+        assert.equal(error.code, "base_schema_drift");
+        assert.deepEqual(error.details, { table: "选剧池", field: "剧分类", option: "Romance" });
+        return true;
+      },
+    );
+    assert.deepEqual(events.filter((event) => event.startsWith("records:create:")), []);
+    assert.equal(Object.values(rows).every((records) => records.length === 0), true);
+
+    byId.get(env.TD).fields.find((field) => field.name === "剧分类").options.push({ name: "Romance" });
+    const completeSnapshot = await adapters.schemaAdapter.readSchema();
+    const completeEvidence = evidenceFor(manifest, completeSnapshot.revision);
+    events.length = 0;
+    const result = await runtime.migrateApply({ manifest, ...completeEvidence }, { phase: "data", actorId: "ou_admin" });
+    assert.equal(result.status, "applied");
+    const firstMutation = events.findIndex((event) => event.startsWith("records:create:"));
+    const finalSchemaRead = events.lastIndexOf("schema:tables", firstMutation);
+    assert.deepEqual(events.slice(finalSchemaRead, firstMutation), [
+      "schema:tables",
+      "schema:table:账号台账", "schema:fields:账号台账",
+      "schema:table:选剧池", "schema:fields:选剧池",
+      "schema:table:采集数据", "schema:fields:采集数据",
+      "schema:table:发布记录", "schema:fields:发布记录",
+      "records:list:账号台账",
+    ]);
+    assert.deepEqual(events.filter((event) => event.startsWith("records:create:")), [
+      "records:create:账号台账",
+      "records:create:选剧池",
+    ]);
+  } finally {
+    runtime.close();
+  }
+});
+
 test("Google service-account loader requires a private owned no-symlink strict credential", async () => {
   const root = await realpath(await mkdtemp(path.join(os.tmpdir(), "shortdrama-google-credential-")));
   const secure = path.join(root, "secure");

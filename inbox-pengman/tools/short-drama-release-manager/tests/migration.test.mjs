@@ -1266,8 +1266,9 @@ function redigestSchemaManifest(manifest) {
 function sourceOptionNames(rows, spec) {
   const names = [];
   for (const row of rows) {
-    const values = spec.kind === "multi_select" ? row[spec.name] : [row[spec.name]];
-    for (const name of values ?? []) if (!names.includes(name)) names.push(name);
+    const raw = row[spec.name];
+    const values = spec.kind === "multi_select" ? raw ?? [] : raw === null || raw === undefined ? [] : [raw];
+    for (const name of values) if (typeof name === "string" && name !== "" && !names.includes(name)) names.push(name);
   }
   return names;
 }
@@ -1281,6 +1282,24 @@ function completeSchemaWithSourceOptions(google) {
     }
   }
   return completeFixedSchema("complete-source-options", optionNames);
+}
+
+function completeDataSchema(manifest, revision = "post-schema-r1") {
+  const rowsByTable = {
+    "账号台账": manifest.accounts,
+    "选剧池": manifest.dramas,
+    "采集数据": manifest.captures,
+    "发布记录": manifest.releases,
+  };
+  const optionNames = {};
+  for (const table of TABLE_ORDER) {
+    for (const spec of BASE_FIELD_SPECS[table]) {
+      if (spec.optionPolicy === "manifest_append") {
+        optionNames[`${table}:${spec.name}`] = sourceOptionNames(rowsByTable[table], spec);
+      }
+    }
+  }
+  return { complete: true, ...completeFixedSchema(revision, optionNames) };
 }
 
 function optionApplyScenario({ actionCount = 1 } = {}) {
@@ -1520,10 +1539,14 @@ test("migration schema rejects an unexpected fifth Base table", async () => {
   assert.equal(manifest.schema_actions.length, 0);
 });
 
-function fixedFieldForTables(tables, table, field, fieldId, { primary = false } = {}) {
+function fixedFieldForTables(tables, table, field, fieldId, { primary = false, initialOptions } = {}) {
   const spec = BASE_FIELD_SPECS[table].find((item) => item.name === field);
   const bindings = spec.kind === "link" ? { targetTableId: tables.get(spec.targetTable).table_id } : {};
-  return { field_id: fieldId, ...fixedFieldDescriptor(table, field, bindings), ...(primary ? { is_primary: true } : {}) };
+  return {
+    field_id: fieldId,
+    ...fixedFieldDescriptor(table, field, bindings, initialOptions === undefined ? {} : { initialOptions }),
+    ...(primary ? { is_primary: true } : {}),
+  };
 }
 
 test("fresh Base plan creates every fixed field in phase order and bootstraps only an empty default primary", async () => {
@@ -1633,7 +1656,7 @@ function memoryRepos() {
   };
 }
 
-function schemaGate(manifest, postRevision = "post-schema-r1") {
+function schemaGate(manifest, postRevision = "post-schema-r1", liveSchema = completeDataSchema(manifest, postRevision)) {
   const schemaReceipt = {
     version: "shortdrama-schema-receipt/v1",
     status: "verified",
@@ -1649,8 +1672,215 @@ function schemaGate(manifest, postRevision = "post-schema-r1") {
     schemaReceipt,
     expectedSchemaReceiptSha256: schemaReceipt.sha256,
     getSchemaRevision: async () => postRevision,
+    schemaAdapter: {
+      readSchema: async () => structuredClone(liveSchema),
+    },
   };
 }
+
+test("data Select coverage rejects every one of the 19 managed Select fields before repository writes", async (t) => {
+  const manifest = await planMigration({
+    google: normalizedSource(),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  const rowsByTable = {
+    "账号台账": manifest.accounts,
+    "选剧池": manifest.dramas,
+    "采集数据": manifest.captures,
+    "发布记录": manifest.releases,
+  };
+  const cases = [];
+  for (const table of TABLE_ORDER) {
+    for (const spec of BASE_FIELD_SPECS[table]) {
+      if (!["single_select", "multi_select"].includes(spec.kind)) continue;
+      const values = rowsByTable[table].flatMap((row) => {
+        const raw = row[spec.name];
+        return spec.kind === "multi_select" ? raw ?? [] : raw === null || raw === undefined ? [] : [raw];
+      });
+      assert.ok(values.length > 0, `${table}:${spec.name} must have a nonempty fixture value`);
+      cases.push({
+        table,
+        field: spec.name,
+        option: values[0],
+        kind: spec.kind,
+        policy: spec.optionPolicy === "manifest_append" ? "dynamic" : "fixed",
+      });
+    }
+  }
+  assert.deepEqual({
+    total: cases.length,
+    dynamic: cases.filter((item) => item.policy === "dynamic").length,
+    fixed: cases.filter((item) => item.policy === "fixed").length,
+    tables: [...new Set(cases.map((item) => item.table))],
+    dynamicKinds: [...new Set(cases.filter((item) => item.policy === "dynamic").map((item) => item.kind))].sort(),
+    fixedKinds: [...new Set(cases.filter((item) => item.policy === "fixed").map((item) => item.kind))].sort(),
+  }, {
+    total: 19,
+    dynamic: 8,
+    fixed: 11,
+    tables: [...TABLE_ORDER],
+    dynamicKinds: ["multi_select", "single_select"],
+    fixedKinds: ["multi_select", "single_select"],
+  });
+
+  for (const [index, current] of cases.entries()) {
+    await t.test(`${current.table}:${current.field}`, async () => {
+      const revision = `data-coverage-${index}`;
+      const liveSchema = completeDataSchema(manifest, revision);
+      const field = liveSchema.tables.find((table) => table.name === current.table).fields
+        .find((candidate) => candidate.name === current.field);
+      field.options = field.options.filter((option) => option.name !== current.option);
+      const repos = memoryRepos();
+      await assert.rejects(
+        () => applyMigration({
+          phase: "data",
+          repos,
+          expectedSha256: manifest.sha256,
+          ...schemaGate(manifest, revision, liveSchema),
+        }, manifest),
+        (error) => {
+          assert.equal(error.code, "base_schema_drift");
+          assert.deepEqual(error.details, {
+            table: current.table,
+            field: current.field,
+            option: current.option,
+          });
+          return true;
+        },
+      );
+      assert.equal(repos.calls.length, 0);
+    });
+  }
+
+  await t.test("deterministic first missing value", async () => {
+    const revision = "data-coverage-deterministic";
+    const liveSchema = completeDataSchema(manifest, revision);
+    for (const current of cases) {
+      const field = liveSchema.tables.find((table) => table.name === current.table).fields
+        .find((candidate) => candidate.name === current.field);
+      field.options = field.options.filter((option) => option.name !== current.option);
+    }
+    const repos = memoryRepos();
+    await assert.rejects(
+      () => applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest, revision, liveSchema) }, manifest),
+      (error) => {
+        assert.deepEqual(error.details, {
+          table: cases[0].table,
+          field: cases[0].field,
+          option: cases[0].option,
+        });
+        return error.code === "base_schema_drift";
+      },
+    );
+    assert.equal(repos.calls.length, 0);
+  });
+
+  await t.test("null single-select and empty multi-select values are skipped", async () => {
+    const current = normalizedSource();
+    const sparseGoogle = sourceWithTables({
+      accounts: [{ ...current.accounts[0], 所属组: null, 表现形式: null }],
+      dramas: [{
+        ...current.dramas[0],
+        剧分类: [],
+        生命周期: null,
+        "RS Boost 分类（待确认）": [],
+        账号组: [],
+        语言: null,
+        来源: [],
+      }],
+    });
+    const sparseManifest = await planMigration({
+      google: sparseGoogle,
+      sqliteAccounts: [latestAccount()],
+      sqlitePosts: [latestCapture()],
+    });
+    assert.equal(sparseManifest.accounts[0].所属组, null);
+    assert.deepEqual(sparseManifest.dramas[0].剧分类, []);
+    const repos = memoryRepos();
+    await applyMigration({ repos, expectedSha256: sparseManifest.sha256, ...schemaGate(sparseManifest) }, sparseManifest);
+    assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
+  });
+
+  await t.test("complete schema preserves the four-table repository order", async () => {
+    const repos = memoryRepos();
+    await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+    assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
+  });
+});
+
+test("data Select coverage rejects live catalog structural drift before repository writes", async (t) => {
+  const manifest = await planMigration({
+    google: normalizedSource(),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  const cases = [
+    ["unexpected table", (schema) => { schema.tables.push({ name: "默认数据表", table_id: "tbl-extra", fields: [] }); }],
+    ["missing field", (schema) => {
+      const table = schema.tables.find((candidate) => candidate.name === "账号台账");
+      table.fields = table.fields.filter((field) => field.name !== "所属组");
+    }],
+    ["duplicate field", (schema) => {
+      const table = schema.tables.find((candidate) => candidate.name === "账号台账");
+      table.fields.push({ ...structuredClone(table.fields.find((field) => field.name === "所属组")), field_id: "fld-duplicate" });
+    }],
+    ["wrong Select type", (schema) => {
+      schema.tables.find((table) => table.name === "账号台账").fields
+        .find((field) => field.name === "所属组").type = "text";
+    }],
+    ["wrong Select multiplicity", (schema) => {
+      schema.tables.find((table) => table.name === "选剧池").fields
+        .find((field) => field.name === "剧分类").multiple = false;
+    }],
+    ["missing Select options", (schema) => {
+      delete schema.tables.find((table) => table.name === "账号台账").fields
+        .find((field) => field.name === "所属组").options;
+    }],
+    ["duplicate Select option", (schema) => {
+      const field = schema.tables.find((table) => table.name === "账号台账").fields
+        .find((candidate) => candidate.name === "所属组");
+      field.options.push(structuredClone(field.options[0]));
+    }],
+    ["expanded fixed catalog", (schema) => {
+      schema.tables.find((table) => table.name === "账号台账").fields
+        .find((field) => field.name === "状态").options.push({ name: "外部状态" });
+    }],
+  ];
+  for (const [label, mutate] of cases) {
+    await t.test(label, async () => {
+      const revision = `data-structure-${label}`;
+      const liveSchema = completeDataSchema(manifest, revision);
+      mutate(liveSchema);
+      const repos = memoryRepos();
+      await assert.rejects(
+        () => applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest, revision, liveSchema) }, manifest),
+        (error) => error.code === "base_schema_drift",
+      );
+      assert.equal(repos.calls.length, 0);
+    });
+  }
+});
+
+test("data Select coverage rejects a fresh schema revision that differs from the schema receipt", async () => {
+  const manifest = await planMigration({
+    google: normalizedSource(),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture()],
+  });
+  const receiptRevision = "data-receipt-r1";
+  const freshSchema = completeDataSchema(manifest, "data-fresh-r2");
+  const repos = memoryRepos();
+  await assert.rejects(
+    () => applyMigration({
+      repos,
+      expectedSha256: manifest.sha256,
+      ...schemaGate(manifest, receiptRevision, freshSchema),
+    }, manifest),
+    (error) => error.code === "schema_revision_drift",
+  );
+  assert.equal(repos.calls.length, 0);
+});
 
 test("data apply prevalidates, bulk-syncs once per table in order, and resolves stable relations to Base v3 IDs", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
@@ -1720,7 +1950,7 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   let liveRevision = manifest.initial_schema_revision;
   const adapter = {
     createField: async (tableId, table, field, bindings, initialOptions) => {
-      tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
+      tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`, { initialOptions }));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
       if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
       liveRevision = "post-schema-r1";
@@ -1755,7 +1985,7 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   const repos = memoryRepos();
   await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
     schemaReceipt: applied.schema_receipt, expectedSchemaReceiptSha256: applied.schema_receipt.sha256,
-    getSchemaRevision: async () => "post-schema-r1" }, manifest);
+    getSchemaRevision: async () => "post-schema-r1", schemaAdapter: adapter }, manifest);
   assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
   const beforeReuseWrites = calls.length;
   const reused = await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,
@@ -1956,9 +2186,9 @@ test("schema option mutation requires fresh empty evidence and no reusable schem
   let separateRevisionReads = 0;
   const reused = await applyMigration({
     phase: "schema",
-    schemaAdapter: reusedAdapter.adapter,
     expectedSha256: reusedManifest.sha256,
     ...gate,
+    schemaAdapter: reusedAdapter.adapter,
     getSchemaRevision: async () => {
       separateRevisionReads += 1;
       throw new Error("receipt reuse must not use a separate revision read");

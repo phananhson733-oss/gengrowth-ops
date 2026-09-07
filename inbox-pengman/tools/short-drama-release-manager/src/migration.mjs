@@ -1607,7 +1607,8 @@ function entriesFor(rows, tableName, relationIds = {}) {
   });
 }
 
-async function applyData(context, manifest) {
+async function applyData(context, manifest, schemaReceipt) {
+  await assertDataSelectCoverage(context, manifest, schemaReceipt);
   assertRepoSet(context.repos);
   validateStableRelations(manifest);
   const relationIds = {};
@@ -1650,12 +1651,12 @@ async function readCompleteSchema(adapter) {
   return { schema, tables };
 }
 
-function selectOptionNames(field, action) {
+function selectOptionNames(field, action, { code = "readback_mismatch", details = { action: action.id } } = {}) {
   if (!plainObject(field) || !Array.isArray(field.options) ||
       field.options.some((option) => !plainObject(option) || typeof option.name !== "string")) {
-    fail("readback_mismatch", "Select option readback is malformed", { action: action.id });
+    fail(code, "Select option readback is malformed", details);
   }
-  return assertNormalizedOptionNames(field.options.map((option) => option.name), "readback_mismatch");
+  return assertNormalizedOptionNames(field.options.map((option) => option.name), code);
 }
 
 function schemaSnapshotRevision(snapshot) {
@@ -1666,19 +1667,117 @@ function schemaSnapshotRevision(snapshot) {
   return revision;
 }
 
-function verifyFinalSchema(final) {
+function verifyFinalSchema(final, { includeSelectOptions = true, errorCode = "readback_mismatch" } = {}) {
+  const expectedTables = [...TABLE_ORDER].sort();
+  const actualTables = [...final.tables.keys()].sort();
+  if (!isDeepStrictEqual(actualTables, expectedTables)) {
+    fail(errorCode, "Final Base table set does not match the fixed schema",
+      errorCode === "base_schema_drift" ? {} : { expected: expectedTables, actual: actualTables });
+  }
+  const fieldIds = new Set();
   const finalTableIds = Object.fromEntries([...final.tables].map(([name, table]) => [name, table.table_id]));
+  if (new Set(Object.values(finalTableIds)).size !== TABLE_ORDER.length) {
+    fail(errorCode, "Final Base table identifiers are duplicate");
+  }
   for (const tableName of TABLE_ORDER) {
     const fields = final.tables.get(tableName)?.fields ?? [];
     const names = fields.map((field) => field.name).sort();
     const expectedNames = BASE_FIELD_SPECS[tableName].map((spec) => spec.name).sort();
-    if (!isDeepStrictEqual(names, expectedNames)) fail("readback_mismatch", "Final Base field set does not match the fixed schema", { table: tableName, expected: expectedNames, actual: names });
+    if (!isDeepStrictEqual(names, expectedNames)) {
+      fail(errorCode, "Final Base field set does not match the fixed schema",
+        errorCode === "base_schema_drift" ? { table: tableName } : { table: tableName, expected: expectedNames, actual: names });
+    }
     const byName = new Map(fields.map((field) => [field.name, field]));
     for (const spec of BASE_FIELD_SPECS[tableName]) {
       const actual = byName.get(spec.name);
-      if (!plainObject(actual) || !configMatches(actual, expectedFieldConfig(tableName, spec, finalTableIds)) ||
+      if (!plainObject(actual) || typeof actual.field_id !== "string" || actual.field_id === "" ||
+          actual.field_id.trim() !== actual.field_id || fieldIds.has(actual.field_id)) {
+        fail(errorCode, "Final Base field identity does not match the fixed schema", { table: tableName, field: spec.name });
+      }
+      fieldIds.add(actual.field_id);
+      const expected = expectedFieldConfig(tableName, spec, finalTableIds);
+      if (!includeSelectOptions && ["single_select", "multi_select"].includes(spec.kind)) delete expected.options;
+      if (!configMatches(actual, expected) ||
           spec.primary && actual.is_primary !== true && actual.primary !== true) {
-        fail("readback_mismatch", "Final Base field semantics do not match the fixed schema", { table: tableName, field: spec.name });
+        fail(errorCode, "Final Base field semantics do not match the fixed schema", { table: tableName, field: spec.name });
+      }
+    }
+  }
+}
+
+async function assertDataSelectCoverage(context, manifest, schemaReceipt) {
+  if (!objectLike(context.schemaAdapter) || typeof context.schemaAdapter.readSchema !== "function") {
+    fail("migration_context_invalid", "Complete Base schema reader is required for data Select coverage");
+  }
+  let snapshot;
+  try {
+    snapshot = await readCompleteSchema(context.schemaAdapter);
+  } catch (error) {
+    if (error?.code !== "readback_mismatch") throw error;
+    fail("base_schema_drift", "Complete live Base schema is required before data writes");
+  }
+  if (schemaSnapshotRevision(snapshot) !== schemaReceipt.post_revision) {
+    fail("schema_revision_drift", "Fresh Base schema revision does not match the completed schema receipt");
+  }
+  verifyFinalSchema(snapshot, { includeSelectOptions: false, errorCode: "base_schema_drift" });
+
+  const rowsByTable = {
+    "账号台账": manifest.accounts,
+    "选剧池": manifest.dramas,
+    "采集数据": manifest.captures,
+    "发布记录": manifest.releases,
+  };
+  const catalogs = new Map();
+  for (const tableName of TABLE_ORDER) {
+    const fields = snapshot.tables.get(tableName).fields;
+    const fieldsByName = new Map(fields.map((field) => [field.name, field]));
+    const tableCatalogs = new Map();
+    for (const spec of BASE_FIELD_SPECS[tableName]) {
+      if (!["single_select", "multi_select"].includes(spec.kind)) continue;
+      const details = { table: tableName, field: spec.name };
+      const names = selectOptionNames(fieldsByName.get(spec.name), null, {
+        code: "base_schema_drift",
+        details,
+      });
+      tableCatalogs.set(spec.name, { names, values: new Set(names) });
+    }
+    catalogs.set(tableName, tableCatalogs);
+  }
+
+  for (const tableName of TABLE_ORDER) {
+    for (const spec of BASE_FIELD_SPECS[tableName]) {
+      if (!["single_select", "multi_select"].includes(spec.kind)) continue;
+      const fixedOptions = Array.isArray(spec.options) ? spec.options : null;
+      const manifestAppend = spec.optionPolicy === "manifest_append";
+      for (const row of rowsByTable[tableName]) {
+        const raw = row[spec.name];
+        const values = spec.kind === "multi_select"
+          ? raw ?? []
+          : raw === null || raw === undefined ? [] : [raw];
+        assertNormalizedOptionNames(values, "migration_manifest_invalid");
+        for (const option of values) {
+          if (fixedOptions === null && !manifestAppend ||
+              fixedOptions !== null && !fixedOptions.includes(option) ||
+              !catalogs.get(tableName).get(spec.name).values.has(option)) {
+            fail("base_schema_drift", "Select write option is missing from the live field catalog", {
+              table: tableName,
+              field: spec.name,
+              option,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  for (const tableName of TABLE_ORDER) {
+    for (const spec of BASE_FIELD_SPECS[tableName]) {
+      if (!Array.isArray(spec.options)) continue;
+      if (!isDeepStrictEqual(catalogs.get(tableName).get(spec.name).names, spec.options)) {
+        fail("base_schema_drift", "Fixed Select options changed outside the schema contract", {
+          table: tableName,
+          field: spec.name,
+        });
       }
     }
   }
@@ -1931,7 +2030,7 @@ export async function applyMigration(context = {}, manifest) {
   if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
   if (phase === "data") {
     await assertBaseStillEmpty(context, manifest);
-    await applyData(context, manifest);
+    await applyData(context, manifest, receipt);
   }
   if (phase === "presentation") {
     const readbacks = await applyPresentation(context, manifest);
