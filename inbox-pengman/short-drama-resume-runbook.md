@@ -62,7 +62,13 @@ node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
 ```
 
 期望：`{"status":"applied","phase":"data",...}`。
-已存在的 11 条 `账号台账` 记录会被判定为 unchanged，不会被重写或删除。
+
+已存在的 11 条 `账号台账` 记录**结构性零写入**：续跑证明该表逐字段等于 manifest 之后，
+就把它整个排除在 upsert 路径之外，只读取它的索引来解析下游三表的关联 ID。
+即使门禁通过后账号表发生漂移，续跑也不会改写它——漂移会在第 4 步 `migrate verify` 暴露。
+
+> Base v3 没有跨表快照或 CAS，门禁读取与后续写入之间存在无法消除的时间窗。
+> 请在受控维护窗口内执行（与 canary 相同的前提），执行期间不要有人在 Base 里手工改这四张表。
 
 ## 4. 全量核验（presentation / sequences 之前必须通过）
 
