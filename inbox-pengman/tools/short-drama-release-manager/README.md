@@ -98,6 +98,25 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
 
 首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
 
+`--phase data`默认要求四表全空。若 data 已部分写入（例如`账号台账`写入成功后读回失败），唯一允许的续跑是精确前缀恢复：在原 data 命令上追加`--resume-partial-data accounts-prefix`。该模式保留并复用已写入的`账号台账`记录，不删除、不重建、也不盲目重跑；写前先完整读回四张表，要求`账号台账`的主键集合与每一个可写字段在规范化解码后与 manifest 逐字段相同，且`选剧池 / 采集数据 / 发布记录`仍然为空。任何多余、缺失或被改动的账号行，以及任何下游表非空，都返回`resume_prefix_mismatch`并保持零写入。该选项只接受`accounts-prefix`一个值、只在`--phase data`可用，不放宽 digest、source revision、schema receipt、canary receipt、permission attestation 中的任何一道门禁；已存在且完全一致的账号行在续跑中判定为 unchanged，不会产生第二次写入。续跑成功后仍必须运行`migrate verify`完成 472 行全量核验。
+
+```bash
+# 仅在 data 已写入且只写完 账号台账 时使用；其余情况不得追加该选项
+node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
+  --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
+  --schema-receipt "$SCHEMA_RECEIPT_FILE" \
+  --expected-schema-receipt-sha256 "$SCHEMA_RECEIPT_SHA256" \
+  --canary-receipt "$CANARY_RECEIPT_FILE" --expected-canary-sha256 "$CANARY_RECEIPT_SHA256" \
+  --permission-attestation "$PERMISSION_ATTESTATION_FILE" \
+  --expected-permission-attestation-sha256 "$PERMISSION_ATTESTATION_SHA256" \
+  --expected-permission-attestation-file-sha256 "$PERMISSION_ATTESTATION_FILE_SHA256" \
+  --expected-base-token "$EXPECTED_BASE_TOKEN" \
+  --resume-partial-data accounts-prefix \
+  --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
+```
+
+Base v3 的 record 读回把 datetime 单元格返回为带时区的 ISO（例如`2026-09-04T00:00:00.000+08:00`），URL 单元格可能返回`[目标](目标)`形式的 markdown。Runner 只接受这两种精确形状与既有的`YYYY-MM-DD HH:mm:ss`写回形状，并规范化为 Shanghai 日历日 / UTC ISO / 裸 URL；缺时区的时间戳、越界日历或偏移、以及 label 与目标不一致的 markdown 一律按`base_response_invalid`拒绝，不做宽松解析。
+
 `doctor --init-state`、`doctor --canary`、所有`migrate apply`、launchd install，以及首次迁移/部署产生的 live Base write，都必须在动作发生时由 privileged 操作者再次确认；切换后的日常人工业务写仍按 Social operator/privileged 字段权限和 preview/apply 契约执行。data/presentation/sequences 需要独立 manifest、schema receipt 和同 Base canary receipt；sequences 还需要 verification 文件字节 digest。data 另需公司用户通过 Base UI/`lark-cli`读回后形成显式 observations 文件，再用下方离线固定命令生成 permission attestation。Runner 只验证外部观察的结构、Base/schema/actor 绑定和 24 小时新鲜度，不宣称能独立验证 UI 字段保护。schema receipt 丢失或无法证明时必须停止，返回/遵循`replan_reconfirm`，重新 plan、重新确认，禁止猜测或补写 receipt。
 
 ```bash

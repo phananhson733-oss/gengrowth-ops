@@ -51,7 +51,7 @@ const REGISTRY = Object.freeze({
   migrate: Object.freeze({
     plan: ["config", "output", "actor-id", "chat-id", "expected-base-token"],
     "attest-permissions": ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "observations", "expected-observations-file-sha256", "output", "actor-id", "expected-base-token"],
-    apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "canary-receipt", "expected-canary-sha256", "permission-attestation", "expected-permission-attestation-sha256", "expected-permission-attestation-file-sha256", "verification", "expected-verification-sha256", "output", "phase", "actor-id", "chat-id", "confirm", "expected-base-token"],
+    apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "canary-receipt", "expected-canary-sha256", "permission-attestation", "expected-permission-attestation-sha256", "expected-permission-attestation-file-sha256", "verification", "expected-verification-sha256", "output", "phase", "resume-partial-data", "actor-id", "chat-id", "confirm", "expected-base-token"],
     verify: ["config", "manifest", "output", "actor-id", "chat-id", "expected-base-token"],
   }),
   account: Object.freeze({
@@ -137,6 +137,10 @@ export function parseCommand(argv) {
   }
   if (options.phase && !["schema", "data", "presentation", "sequences"].includes(options.phase)) {
     fail("input_invalid", "Migration phase is invalid", { phase: options.phase });
+  }
+  if (Object.hasOwn(options, "resumePartialData") &&
+      (options.resumePartialData !== "accounts-prefix" || options.phase !== "data")) {
+    fail("input_invalid", "Partial-data resume is limited to the data-phase accounts prefix", { option: "resume-partial-data" });
   }
   if (options.output && (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(options.output) || options.output.includes(".."))) {
     fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
@@ -1574,7 +1578,8 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           schemaSnapshotPromise ??= migrationBase();
           return schemaSnapshotPromise;
         };
-        const context = { repos, phase: options.phase, baseBindingSha256, tableBindingsSha256, actorId: options.actorId ?? payload.actorId,
+        const context = { repos, phase: options.phase, resumePartialData: options.resumePartialData ?? null,
+          baseBindingSha256, tableBindingsSha256, actorId: options.actorId ?? payload.actorId,
           expectedSha256: manifest.sha256, sourceRevision, schemaReceipt: payload.schemaReceipt,
           expectedSchemaReceiptSha256: payload.schemaReceipt?.sha256,
           canaryReceipt: payload.canaryReceipt, expectedCanaryReceiptSha256: payload.canaryReceipt?.sha256,

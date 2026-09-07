@@ -35,6 +35,7 @@ const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
 const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
 const SOURCE_POLICY = "shortdrama-source-reconciliation/v1";
+const PARTIAL_RESUME_MODES = Object.freeze(new Set(["accounts-prefix"]));
 const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["views", "播放量"]),
   Object.freeze(["likes", "点赞"]),
@@ -1508,6 +1509,46 @@ async function assertBaseStillEmpty(context, manifest) {
   }
 }
 
+/**
+ * Accept exactly one partial state: every manifest account row already written
+ * and byte-identical, with all three downstream tables still empty. Anything
+ * else fails closed before a single write.
+ */
+async function assertResumableAccountsPrefix(context, manifest) {
+  if (typeof context.readEmptyTableEvidence !== "function") {
+    fail("migration_context_invalid", "Fresh empty Base evidence reader is required");
+  }
+  assertRepoSet(context.repos, { write: false });
+  const evidence = await context.readEmptyTableEvidence();
+  if (!plainObject(evidence) || !isDeepStrictEqual(Object.keys(evidence).sort(), [...TABLE_ORDER].sort())) {
+    fail("resume_prefix_mismatch", "Fresh Base evidence does not describe the migration tables");
+  }
+  for (const tableName of TABLE_ORDER) {
+    const actual = evidence[tableName];
+    const expectedCount = tableName === "账号台账"
+      ? manifest.accounts.length
+      : manifest.initial_empty_table_evidence[tableName]?.record_count;
+    if (!plainObject(actual) || !isDeepStrictEqual(Object.keys(actual).sort(), ["key_set_sha256", "record_count"]) ||
+        actual.record_count !== expectedCount ||
+        typeof actual.key_set_sha256 !== "string" || !/^[a-f0-9]{64}$/.test(actual.key_set_sha256) ||
+        tableName !== "账号台账" && actual.key_set_sha256 !== manifest.initial_empty_table_evidence[tableName]?.key_set_sha256) {
+      fail("resume_prefix_mismatch", "Formal Base is not the exact accounts-only migration prefix", { table: tableName });
+    }
+  }
+  const indexes = {};
+  for (const tableName of TABLE_ORDER) {
+    const name = TABLE_BINDINGS[tableName];
+    indexes[name] = await context.repos[name].loadIndex();
+    if (!(indexes[name] instanceof Map)) fail("resume_prefix_mismatch", "Repository index is incomplete", { table: tableName });
+    if (tableName !== "账号台账" && indexes[name].size !== 0) {
+      fail("resume_prefix_mismatch", "Downstream migration table is not empty", { table: tableName });
+    }
+  }
+  const primary = TABLES["账号台账"].primaryField;
+  assertExactKeys(indexes.accounts, manifest.accounts, primary, "账号台账", "resume_prefix_mismatch");
+  assertExpectedFields(indexes.accounts, entriesFor(manifest.accounts, "账号台账"), primary, "账号台账", "resume_prefix_mismatch");
+}
+
 function assertPermissionAttestation(context, manifest, schemaReceipt) {
   const attestation = context.permissionAttestation;
   const checkedAt = parseQualifiedInstantMs(attestation?.checked_at);
@@ -2033,6 +2074,10 @@ export async function applyMigration(context = {}, manifest) {
   assertApplyEnvelope(context, manifest);
   const phase = context.phase ?? "data";
   if (!new Set(["schema", "data", "presentation", "sequences"]).has(phase)) fail("migration_phase_invalid", "Migration phase is invalid");
+  const resumeMode = context.resumePartialData ?? null;
+  if (resumeMode !== null && (typeof resumeMode !== "string" || !PARTIAL_RESUME_MODES.has(resumeMode) || phase !== "data")) {
+    fail("migration_resume_invalid", "Partial-data resume mode is invalid", { phase });
+  }
   if (phase === "schema") {
     const adapter = requireSchemaAdapter(context.schemaAdapter);
     if (context.schemaReceipt !== undefined || context.expectedSchemaReceiptSha256 !== undefined) {
@@ -2066,7 +2111,8 @@ export async function applyMigration(context = {}, manifest) {
   assertCanaryReceipt(context, manifest, receipt);
   if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
   if (phase === "data") {
-    await assertBaseStillEmpty(context, manifest);
+    if (resumeMode === null) await assertBaseStillEmpty(context, manifest);
+    else await assertResumableAccountsPrefix(context, manifest);
     await applyData(context, manifest, receipt);
   }
   if (phase === "presentation") {
@@ -2093,26 +2139,26 @@ export async function applyMigration(context = {}, manifest) {
   return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt_sha256: receipt.sha256 };
 }
 
-function assertExactKeys(index, expectedRows, primary, tableName) {
-  if (!(index instanceof Map)) fail("readback_mismatch", "Repository index is incomplete", { table: tableName });
+function assertExactKeys(index, expectedRows, primary, tableName, errorCode = "readback_mismatch") {
+  if (!(index instanceof Map)) fail(errorCode, "Repository index is incomplete", { table: tableName });
   const expected = expectedRows.map((row) => row[primary]).sort();
   const actual = [...index.keys()].sort();
-  if (!isDeepStrictEqual(actual, expected)) fail("readback_mismatch", "Base primary-key set does not match the manifest", { table: tableName, expected, actual });
+  if (!isDeepStrictEqual(actual, expected)) fail(errorCode, "Base primary-key set does not match the manifest", { table: tableName, expected, actual });
 }
 
-function assertExpectedFields(index, entries, primary, tableName) {
+function assertExpectedFields(index, entries, primary, tableName, errorCode = "readback_mismatch") {
   const writable = new Set([primary, ...TABLES[tableName].human, ...TABLES[tableName].machine, ...TABLES[tableName].shared]);
   for (const entry of entries) {
     const record = index.get(entry.key);
-    if (!plainObject(record) || !plainObject(record.fields) || record.fields[primary] !== entry.key) fail("readback_mismatch", "Base record is malformed", { table: tableName, key: entry.key });
+    if (!plainObject(record) || !plainObject(record.fields) || record.fields[primary] !== entry.key) fail(errorCode, "Base record is malformed", { table: tableName, key: entry.key });
     const expectedKeys = [primary, ...Object.keys(entry.patch)].sort();
     const actualKeys = Object.keys(record.fields).filter((field) => writable.has(field)).sort();
     if (!isDeepStrictEqual(actualKeys, expectedKeys)) {
-      fail("readback_mismatch", "Base writable field set does not match the migration manifest", { table: tableName, key: entry.key, expected: expectedKeys, actual: actualKeys });
+      fail(errorCode, "Base writable field set does not match the migration manifest", { table: tableName, key: entry.key, expected: expectedKeys, actual: actualKeys });
     }
     for (const [field, expected] of Object.entries(entry.patch)) {
       if (!Object.hasOwn(record.fields, field) || !isDeepStrictEqual(canonicalize(record.fields[field]), canonicalize(expected))) {
-        fail("readback_mismatch", "Base field does not match the migration manifest", { table: tableName, key: entry.key, field });
+        fail(errorCode, "Base field does not match the migration manifest", { table: tableName, key: entry.key, field });
       }
     }
   }

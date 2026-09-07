@@ -396,6 +396,76 @@ test("official cell codec preserves select, Shanghai datetime, links, null, and 
   await assert.rejects(wrongType.listRecords("base", "tbl", { tableName: "发布记录" }), (error) => error.code === "base_response_invalid");
 });
 
+test("record decoder accepts timezone-qualified Feishu date and datetime cells", async () => {
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+    fields: ["数据日期", "指标同步时间"], field_id_list: ["fld-date", "fld-sync"], field_type_list: ["datetime", "datetime"],
+    record_id_list: ["rec-account"], data: [["2026-09-04T00:00:00.000+08:00", "2026-09-04T15:37:10.000+08:00"]], total: 1,
+  } }) });
+
+  assert.deepEqual((await client.listRecords("base", "tbl", { tableName: "账号台账" })).items[0].fields, {
+    数据日期: "2026-09-04",
+    指标同步时间: "2026-09-04T07:37:10.000Z",
+  });
+});
+
+test("record decoder maps timezone-qualified release dates to Shanghai calendar days", async () => {
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+    fields: ["日期"], field_id_list: ["fld-date"], field_type_list: ["datetime"],
+    record_id_list: ["rec-midnight", "rec-evening"],
+    data: [["2026-09-03T00:00:00.000+08:00"], ["2026-09-03T20:30:00.000+08:00"]], total: 2,
+  } }) });
+
+  const { items } = await client.listRecords("base", "tbl", { tableName: "发布记录" });
+  assert.equal(items[0].fields.日期, "2026-09-03");
+  assert.equal(items[1].fields.日期, "2026-09-03T12:30:00.000Z");
+});
+
+test("record decoder rejects naive, out-of-range, and malformed datetime cells", async () => {
+  for (const value of [
+    "2026-09-04T15:37:10.000",
+    "2026-09-04T15:37:10",
+    "2026-09-04",
+    "2026-02-30T00:00:00.000+08:00",
+    "2026-09-04T24:00:00.000+08:00",
+    "2026-09-04T15:37:60.000+08:00",
+    "2026-09-04T15:37:10.000+15:00",
+    "2026-09-04T15:37:10.000+08:60",
+    " 2026-09-04T15:37:10.000+08:00",
+    "2026-09-04T15:37:10.000+08:00 ",
+    "2026-09-04 15:37:10+08:00",
+    "2026-09-04 15:37",
+    1757000000000,
+  ]) {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+      fields: ["指标同步时间"], field_id_list: ["fld-sync"], field_type_list: ["datetime"],
+      record_id_list: ["rec-account"], data: [[value]], total: 1,
+    } }) });
+
+    await assert.rejects(client.listRecords("base", "tbl", { tableName: "账号台账" }), (error) =>
+      error.code === "base_response_invalid" && error.message === "Datetime read value is malformed");
+  }
+});
+
+test("record decoder unwraps only exact same-target markdown URL cells", async () => {
+  const read = async (value) => {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+      fields: ["主页链接"], field_id_list: ["fld-url"], field_type_list: ["url"],
+      record_id_list: ["rec-account"], data: [[value]], total: 1,
+    } }) });
+    return (await client.listRecords("base", "tbl", { tableName: "账号台账" })).items[0].fields.主页链接;
+  };
+
+  assert.equal(
+    await read("[https://www.tiktok.com/@astrologywiki](https://www.tiktok.com/@astrologywiki)"),
+    "https://www.tiktok.com/@astrologywiki",
+  );
+  assert.equal(await read("https://www.tiktok.com/@astrologywiki"), "https://www.tiktok.com/@astrologywiki");
+  assert.equal(await read("[主页](https://www.tiktok.com/@astrologywiki)"), "[主页](https://www.tiktok.com/@astrologywiki)");
+  assert.equal(await read("[https://a](https://a) 尾巴"), "[https://a](https://a) 尾巴");
+  assert.equal(await read("[https://a](https://b)"), "[https://a](https://b)");
+  assert.equal(await read(null), null);
+});
+
 test("dashboard pagination uses page_size/page_token while other lists use limit/offset", async () => {
   const urls = [];
   const responses = [

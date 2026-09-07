@@ -222,6 +222,15 @@ test("README documents migration gates, async truth, natural schedule acceptance
   assert.match(readme, /canary-only/);
 });
 
+test("README documents the accounts-prefix data resume as an exact fail-closed prefix proof", async () => {
+  const { readme } = await docs();
+  for (const term of [
+    "--resume-partial-data accounts-prefix", "resume_prefix_mismatch", "零写入",
+    "不删除", "选剧池 / 采集数据 / 发布记录", "migrate verify",
+  ]) assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.doesNotMatch(readme, /--resume-partial-data\s+(?!accounts-prefix)/);
+});
+
 test("env example exposes blank v5 keys and keeps legacy follower sync explicitly historical", async () => {
   const { env } = await docs();
   const keys = [

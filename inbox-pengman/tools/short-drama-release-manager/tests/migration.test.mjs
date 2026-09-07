@@ -1928,6 +1928,112 @@ test("data apply prevalidates, bulk-syncs once per table in order, and resolves 
   assert.deepEqual(releasePatch.采集记录, [{ id: "rec-captures-99" }]);
 });
 
+function seedAccountsPrefix(repos, manifest, { recordPrefix = "rec-existing", mutate = null } = {}) {
+  for (const row of manifest.accounts) {
+    const fields = structuredClone(row);
+    if (mutate) mutate(fields);
+    repos.accounts.rows.set(fields.账号ID, { record_id: `${recordPrefix}-${row.账号ID}`, fields });
+  }
+}
+
+function accountsPrefixEvidence(manifest) {
+  const evidence = structuredClone(manifest.initial_empty_table_evidence);
+  evidence["账号台账"] = { record_count: manifest.accounts.length, key_set_sha256: "e".repeat(64) };
+  return evidence;
+}
+
+function resumeContext(manifest, repos, overrides = {}) {
+  return {
+    phase: "data", repos, expectedSha256: manifest.sha256, resumePartialData: "accounts-prefix",
+    readEmptyTableEvidence: async () => accountsPrefixEvidence(manifest),
+    ...schemaGate(manifest), ...overrides,
+  };
+}
+
+test("accounts-prefix resume accepts the exact written prefix and reuses its Base record IDs", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  seedAccountsPrefix(repos, manifest);
+
+  const result = await applyMigration(resumeContext(manifest, repos), manifest);
+
+  assert.equal(result.status, "applied");
+  assert.deepEqual(repos.calls.map(([name]) => name), ["accounts", "dramas", "captures", "releases"]);
+  assert.deepEqual(
+    repos.calls[0][2],
+    manifest.accounts.map((row) => {
+      const patch = structuredClone(row);
+      delete patch.账号ID;
+      return { key: row.账号ID, patch };
+    }),
+  );
+  assert.deepEqual(repos.calls[2][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
+  assert.deepEqual(repos.calls[3][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
+});
+
+test("accounts-prefix resume refuses every inexact prefix before any write", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const cases = [
+    ["field drift", (repos) => seedAccountsPrefix(repos, manifest, { mutate: (fields) => { fields.粉丝数 += 1; } })],
+    ["extra writable field", (repos) => seedAccountsPrefix(repos, manifest, { mutate: (fields) => { fields.定位垂类 = "手工新增"; } })],
+    ["missing row", () => {}],
+    ["extra row", (repos) => {
+      seedAccountsPrefix(repos, manifest);
+      repos.accounts.rows.set("intruder", { record_id: "rec-existing-intruder", fields: { 账号ID: "intruder" } });
+    }],
+    ["nonempty downstream table", (repos) => {
+      seedAccountsPrefix(repos, manifest);
+      repos.dramas.rows.set("SD-000001", { record_id: "rec-existing-SD-000001", fields: { 剧ID: "SD-000001" } });
+    }],
+    ["evidence count drift", (repos) => {
+      seedAccountsPrefix(repos, manifest);
+      repos.evidenceOverride = { "账号台账": { record_count: manifest.accounts.length + 1, key_set_sha256: "e".repeat(64) } };
+    }],
+    ["evidence downstream drift", (repos) => {
+      seedAccountsPrefix(repos, manifest);
+      repos.evidenceOverride = { "选剧池": { record_count: 1, key_set_sha256: "f".repeat(64) } };
+    }],
+  ];
+
+  for (const [label, prepare] of cases) {
+    const repos = memoryRepos();
+    prepare(repos);
+    await assert.rejects(
+      () => applyMigration(resumeContext(manifest, repos, {
+        readEmptyTableEvidence: async () => ({ ...accountsPrefixEvidence(manifest), ...(repos.evidenceOverride ?? {}) }),
+      }), manifest),
+      (error) => error.code === "resume_prefix_mismatch",
+      label,
+    );
+    assert.equal(repos.calls.length, 0, label);
+  }
+});
+
+test("accounts-prefix resume keeps every envelope gate and rejects unknown or misphased resume modes", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const cases = [
+    [{ sourceRevision: "changed" }, "source_revision_drift"],
+    [{ getSchemaRevision: async () => "changed" }, "schema_revision_drift"],
+    [{ expectedSha256: "0".repeat(64) }, "migration_digest_mismatch"],
+    [{ permissionAttestation: undefined, expectedPermissionAttestationSha256: undefined }, "migration_permission_attestation_required"],
+    [{ canaryReceipt: undefined, expectedCanaryReceiptSha256: undefined }, "migration_canary_required"],
+    [{ resumePartialData: "everything" }, "migration_resume_invalid"],
+    [{ resumePartialData: true }, "migration_resume_invalid"],
+    [{ phase: "presentation" }, "migration_resume_invalid"],
+  ];
+
+  for (const [overrides, code] of cases) {
+    const repos = memoryRepos();
+    seedAccountsPrefix(repos, manifest);
+    await assert.rejects(
+      () => applyMigration(resumeContext(manifest, repos, overrides), manifest),
+      (error) => error.code === code,
+      code,
+    );
+    assert.equal(repos.calls.length, 0, code);
+  }
+});
+
 test("data apply rejects a re-digested late derived field before the first bulk write", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   manifest.releases[0].播放量 = 999;

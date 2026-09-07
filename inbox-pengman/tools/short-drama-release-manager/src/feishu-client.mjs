@@ -1,5 +1,6 @@
 import { ShortDramaError } from "./errors.mjs";
 import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
+import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 
 const FEISHU_ORIGIN = "https://open.feishu.cn";
 const AUTH_PATH = "/open-apis/auth/v3/tenant_access_token/internal";
@@ -256,6 +257,16 @@ function shanghaiRaw(value) {
   return new Date(parsed.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 19).replace("T", " ");
 }
 
+/**
+ * Read either the legacy Shanghai wall-clock shape or a timezone-qualified ISO
+ * timestamp into epoch milliseconds. Returns null for every other input.
+ */
+function readInstantMs(value) {
+  if (typeof value !== "string") return null;
+  const legacy = /^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})$/.exec(value);
+  return parseQualifiedInstantMs(legacy ? `${legacy[1]}T${legacy[2]}+08:00` : value);
+}
+
 function exactIdCells(value, context) {
   if (!Array.isArray(value) || value.some((item) => !plainObject(item) || Object.keys(item).length !== 1 ||
       typeof item.id !== "string" || item.id.length === 0 || item.id.trim() !== item.id) ||
@@ -295,13 +306,19 @@ function decodeCell(tableName, fieldName, value) {
     return value;
   }
   if (spec.kind === "date" || spec.kind === "datetime") {
-    const raw = typeof value === "string" ? /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/.exec(value) : null;
-    if (!raw || !validCalendarParts(...raw.slice(1).map(Number))) throw invalidResponse("Datetime read value is malformed");
-    if (spec.kind === "date") return value.slice(0, 10);
-    if (tableName === "发布记录" && fieldName === "日期" && value.endsWith(" 00:00:00")) return value.slice(0, 10);
-    const parsed = new Date(`${value.replace(" ", "T")}+08:00`);
-    if (!Number.isFinite(parsed.getTime())) throw invalidResponse("Datetime read value is invalid");
-    return parsed.toISOString();
+    const instantMs = readInstantMs(value);
+    if (instantMs === null) throw invalidResponse("Datetime read value is malformed");
+    const shanghai = new Date(instantMs + 8 * 60 * 60 * 1000).toISOString();
+    if (spec.kind === "date") return shanghai.slice(0, 10);
+    if (tableName === "发布记录" && fieldName === "日期" && shanghai.endsWith("T00:00:00.000Z")) return shanghai.slice(0, 10);
+    return new Date(instantMs).toISOString();
+  }
+  if (spec.kind === "url") {
+    // Base v3 renders hyperlink cells as markdown. Unwrap only when the label and
+    // the target are byte-identical; anything else stays verbatim so readback
+    // comparison still fails closed.
+    const markdown = typeof value === "string" ? /^\[([^\][]+)\]\(([^()]+)\)$/.exec(value) : null;
+    return markdown && markdown[1] === markdown[2] ? markdown[1] : value;
   }
   if (spec.kind === "link") return exactIdCells(value, "Link");
   if (spec.kind === "lookup") {

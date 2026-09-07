@@ -80,6 +80,90 @@ function readySchema(env) {
   };
 }
 
+function migrationEvidenceFor(manifest, revision, tableIds) {
+  const schemaReceipt = {
+    version: "shortdrama-schema-receipt/v1",
+    status: "verified",
+    manifest_sha256: manifest.sha256,
+    base_binding_sha256: manifest.base_binding_sha256,
+    pre_revision: manifest.initial_schema_revision,
+    post_revision: revision,
+    action_spec_sha256: manifest.schema_spec_sha256,
+  };
+  schemaReceipt.sha256 = schemaReceiptDigest(schemaReceipt);
+  const tableBindingsSha256 = createHash("sha256").update(JSON.stringify(
+    Object.fromEntries(Object.entries(tableIds).sort(([left], [right]) => left.localeCompare(right))),
+  )).digest("hex");
+  const proof = Object.fromEntries(TABLE_ORDER.map((tableName) => [tableName, {
+    before_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
+    canary_primary_sha256: "a".repeat(64),
+    created: true,
+    readback_verified: true,
+    record_id_sha256: "d".repeat(64),
+    deleted: true,
+    after_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
+    count_before: manifest.initial_empty_table_evidence[tableName].record_count,
+    count_after: manifest.initial_empty_table_evidence[tableName].record_count,
+  }]));
+  const canaryReceipt = {
+    version: "shortdrama-canary-receipt/v1",
+    status: "verified",
+    manifest_sha256: manifest.sha256,
+    base_binding_sha256: manifest.base_binding_sha256,
+    schema_revision: revision,
+    table_bindings_sha256: tableBindingsSha256,
+    proof,
+    generated_at: manifest.generated_at,
+  };
+  canaryReceipt.sha256 = canaryReceiptDigest(canaryReceipt);
+  const permissionAttestation = {
+    version: "shortdrama-permission-attestation/v1",
+    base_binding_sha256: manifest.base_binding_sha256,
+    schema_revision: revision,
+    advanced_permissions_enabled: true,
+    primary_and_machine_fields_protected: true,
+    company_user_access_verified: true,
+    checked_by: "ou_admin",
+    checked_at: manifest.generated_at,
+  };
+  permissionAttestation.sha256 = permissionAttestationDigest(permissionAttestation);
+  return { schemaReceipt, canaryReceipt, permissionAttestation };
+}
+
+function migrationRecordClient(liveSchema, byId, rows, events) {
+  let nextRecord = 1;
+  return repositoryClient({
+    listTables: async () => ({ complete: true, items: liveSchema.tables.map(({ table_id, name }) => ({ table_id, name })) }),
+    getTable: async (_base, tableId) => ({
+      table_id: tableId,
+      name: byId.get(tableId).name,
+      primary_field: byId.get(tableId).fields.find((field) => field.is_primary === true).field_id,
+    }),
+    listFields: async (_base, tableId) => ({ complete: true, revision: `r-${tableId}`, items: structuredClone(byId.get(tableId).fields) }),
+    listRecords: async (_base, tableId, { tableName } = {}) => {
+      events.push(`records:list:${tableName ?? byId.get(tableId).name}`);
+      return { complete: true, revision: "records-r1", items: structuredClone(rows[tableId]) };
+    },
+    createRecords: async (_base, tableId, records, { tableName } = {}) => {
+      events.push(`records:create:${tableName}`);
+      return records.map((record) => {
+        const stored = { record_id: `rec-${nextRecord++}`, fields: structuredClone(record.fields) };
+        rows[tableId].push(stored);
+        return structuredClone(stored);
+      });
+    },
+    updateRecords: async (_base, tableId, records, { tableName } = {}) => {
+      events.push(`records:update:${tableName}`);
+      return records.map((record) => {
+        const stored = rows[tableId].find((row) => row.record_id === record.record_id);
+        Object.assign(stored.fields, structuredClone(record.fields));
+        return structuredClone(stored);
+      });
+    },
+    getRecord: async (_base, tableId, recordId) => structuredClone(rows[tableId].find((row) => row.record_id === recordId)),
+  });
+}
+
 function runtimeMigrationGoogle() {
   const headers = {
     accounts: ["账号名", "主页链接", "粉丝数", "所属组", "定位垂类", "表现形式", "状态", "数据日期"],
@@ -1576,55 +1660,7 @@ test("data Select coverage blocks fake Base 800030005 before Repository writes a
       source: { readLatestAccounts: async () => [], readLatestPosts: async () => [] },
     },
   });
-  const evidenceFor = (manifest, revision) => {
-    const schemaReceipt = {
-      version: "shortdrama-schema-receipt/v1",
-      status: "verified",
-      manifest_sha256: manifest.sha256,
-      base_binding_sha256: manifest.base_binding_sha256,
-      pre_revision: manifest.initial_schema_revision,
-      post_revision: revision,
-      action_spec_sha256: manifest.schema_spec_sha256,
-    };
-    schemaReceipt.sha256 = schemaReceiptDigest(schemaReceipt);
-    const tableBindingsSha256 = createHash("sha256").update(JSON.stringify(
-      Object.fromEntries(Object.entries(runtime.config.base.tableIds).sort(([left], [right]) => left.localeCompare(right))),
-    )).digest("hex");
-    const proof = Object.fromEntries(TABLE_ORDER.map((tableName) => [tableName, {
-      before_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
-      canary_primary_sha256: "a".repeat(64),
-      created: true,
-      readback_verified: true,
-      record_id_sha256: "d".repeat(64),
-      deleted: true,
-      after_key_set_sha256: manifest.initial_empty_table_evidence[tableName].key_set_sha256,
-      count_before: manifest.initial_empty_table_evidence[tableName].record_count,
-      count_after: manifest.initial_empty_table_evidence[tableName].record_count,
-    }]));
-    const canaryReceipt = {
-      version: "shortdrama-canary-receipt/v1",
-      status: "verified",
-      manifest_sha256: manifest.sha256,
-      base_binding_sha256: manifest.base_binding_sha256,
-      schema_revision: revision,
-      table_bindings_sha256: tableBindingsSha256,
-      proof,
-      generated_at: manifest.generated_at,
-    };
-    canaryReceipt.sha256 = canaryReceiptDigest(canaryReceipt);
-    const permissionAttestation = {
-      version: "shortdrama-permission-attestation/v1",
-      base_binding_sha256: manifest.base_binding_sha256,
-      schema_revision: revision,
-      advanced_permissions_enabled: true,
-      primary_and_machine_fields_protected: true,
-      company_user_access_verified: true,
-      checked_by: "ou_admin",
-      checked_at: manifest.generated_at,
-    };
-    permissionAttestation.sha256 = permissionAttestationDigest(permissionAttestation);
-    return { schemaReceipt, canaryReceipt, permissionAttestation };
-  };
+  const evidenceFor = (manifest, revision) => migrationEvidenceFor(manifest, revision, runtime.config.base.tableIds);
   try {
     const manifest = await runtime.migratePlan({}, {});
     assert.equal(manifest.blocked.length, 0);
@@ -1663,6 +1699,91 @@ test("data Select coverage blocks fake Base 800030005 before Repository writes a
       "records:create:账号台账",
       "records:create:选剧池",
     ]);
+  } finally {
+    runtime.close();
+  }
+});
+
+test("migrate apply accepts the accounts-prefix resume only as an exact data-phase option", () => {
+  const dataArgv = ["migrate", "apply", "--phase", "data", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)];
+  assert.equal(
+    parseCommand([...dataArgv, "--resume-partial-data", "accounts-prefix"]).options.resumePartialData,
+    "accounts-prefix",
+  );
+  assert.equal(Object.hasOwn(parseCommand(dataArgv).options, "resumePartialData"), false);
+
+  for (const argv of [
+    [...dataArgv, "--resume-partial-data", "everything"],
+    [...dataArgv, "--resume-partial-data", "true"],
+    [...dataArgv, "--resume-partial-data", "accounts-prefix", "--resume-partial-data", "accounts-prefix"],
+    ["migrate", "apply", "--phase", "presentation", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "accounts-prefix"],
+    ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "accounts-prefix"],
+    ["migrate", "verify", "--manifest", "plan.json", "--resume-partial-data", "accounts-prefix"],
+  ]) {
+    assert.throws(() => parseCommand(argv), (error) => error.code === "input_invalid", JSON.stringify(argv));
+  }
+});
+
+test("data resume continues from the written account prefix without recreating accounts", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-data-resume-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const google = runtimeMigrationGoogle();
+  const liveSchema = readyMigrationSchema(env);
+  const byId = new Map(liveSchema.tables.map((table) => [table.table_id, table]));
+  byId.get(env.TD).fields.find((field) => field.name === "剧分类").options.push({ name: "Romance" });
+  const rows = Object.fromEntries(liveSchema.tables.map((table) => [table.table_id, []]));
+  const events = [];
+  class HumanOpsFixture {}
+  class NotifierFixture {}
+  const runtime = await buildRuntime({
+    configPath,
+    env,
+    now: () => new Date("2026-09-01T00:00:00.000Z"),
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: {
+      client: migrationRecordClient(liveSchema, byId, rows, events),
+      HumanOpsService: HumanOpsFixture,
+      ShortDramaNotifier: NotifierFixture,
+      readGoogleMigrationSource: async () => structuredClone(google),
+      source: { readLatestAccounts: async () => [], readLatestPosts: async () => [] },
+    },
+  });
+  try {
+    const manifest = await runtime.migratePlan({}, {});
+    assert.equal(manifest.accounts.length, 1);
+    const adapters = shortdramaControl.createSchemaAdapters(runtime.client, runtime.config);
+    const evidence = migrationEvidenceFor(manifest, (await adapters.schemaAdapter.readSchema()).revision, runtime.config.base.tableIds);
+    for (const [index, row] of manifest.accounts.entries()) {
+      rows[env.TA].push({ record_id: `rec-existing-${index + 1}`, fields: structuredClone(row) });
+    }
+
+    events.length = 0;
+    await assert.rejects(
+      () => runtime.migrateApply({ manifest, ...evidence }, { phase: "data", actorId: "ou_admin" }),
+      (error) => error.code === "base_not_empty",
+    );
+    assert.deepEqual(events.filter((event) => /^records:(create|update)/.test(event)), []);
+
+    events.length = 0;
+    await assert.rejects(
+      () => runtime.migrateApply({ manifest, ...evidence }, { phase: "data", actorId: "ou_admin", resumePartialData: "everything" }),
+      (error) => error.code === "migration_resume_invalid",
+    );
+    assert.deepEqual(events.filter((event) => /^records:(create|update)/.test(event)), []);
+
+    events.length = 0;
+    const result = await runtime.migrateApply(
+      { manifest, ...evidence },
+      { phase: "data", actorId: "ou_admin", resumePartialData: "accounts-prefix" },
+    );
+
+    assert.equal(result.status, "applied");
+    assert.deepEqual(events.filter((event) => event.startsWith("records:create:")), ["records:create:选剧池"]);
+    assert.deepEqual(events.filter((event) => event.startsWith("records:update:")), []);
+    assert.deepEqual(rows[env.TA].map((row) => row.record_id), ["rec-existing-1"]);
+    assert.equal(rows[env.TD].length, manifest.dramas.length);
   } finally {
     runtime.close();
   }
