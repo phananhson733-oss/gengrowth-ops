@@ -13,6 +13,13 @@ const configUrl = new URL("shortdrama.config.example.json", root);
 const requirementsUrl = new URL("../../06-requirements/2026-08-30-短剧数据采集迁移与发行管理平台需求文档.md", root);
 const planUrl = new URL("../../06-requirements/2026-09-01-短剧发行管理-v5-实施计划.md", root);
 const execFile = promisify(execFileCallback);
+const obsolete20260907Artifacts = Object.freeze([
+  "migration-plan-20260907-110158.json",
+  "schema-receipt-20260907-110617.json",
+  "canary-receipt-20260907-111102.json",
+  "permission-observations-20260907-112253.json",
+  "permission-attestation-20260907-112253.json",
+]);
 
 async function docs() {
   return {
@@ -48,13 +55,16 @@ test("three authoritative docs state the shipped Select-option migration contrac
     "普通用户当前对四张表只读；人工业务写只经 Social Bot",
     "每次 data apply 必须验证新鲜且绑定相同 manifest/Base/schema 的 schema receipt，并完成 data preflight",
     "schema partial failure 必须 replan_reconfirm，不回滚",
-    "migration-plan-20260907*.json、schema-receipt-20260907*.json、canary-receipt-20260907*.json、permission-observations-20260907*.json 和 permission-attestation-20260907*.json",
   ];
 
   for (const [name, text] of Object.entries({ readme, requirements, plan })) {
     for (const clause of clauses) {
       assert.ok(text.includes(clause), `${name} must state: ${clause}`);
     }
+    for (const artifact of obsolete20260907Artifacts) {
+      assert.ok(text.includes(artifact), `${name} must name obsolete ${artifact}`);
+    }
+    assert.doesNotMatch(text, /20260907\*\.json/);
   }
 });
 
@@ -77,12 +87,11 @@ test("plan treats unaudited Base UI changes as drift, not a normal write route",
 
 test("README names every obsolete 20260907 artifact and never calls receipt validation an execution step", async () => {
   const { readme } = await docs();
-  for (const artifact of [
-    "migration-plan-20260907*.json", "schema-receipt-20260907*.json", "canary-receipt-20260907*.json",
-    "permission-observations-20260907*.json", "permission-attestation-20260907*.json",
-  ]) assert.ok(readme.includes(artifact), `README must name obsolete ${artifact}`);
+  for (const artifact of obsolete20260907Artifacts) {
+    assert.ok(readme.includes(artifact), `README must name obsolete ${artifact}`);
+  }
   assert.match(readme, /必须验证新鲜且绑定相同 manifest\/Base\/schema 的 schema receipt/);
-  assert.doesNotMatch(readme, /执行 fresh schema receipt|20260907 旧证据链/);
+  assert.doesNotMatch(readme, /执行 fresh schema receipt|20260907 旧证据链|20260907\*\.json/);
 });
 
 test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {

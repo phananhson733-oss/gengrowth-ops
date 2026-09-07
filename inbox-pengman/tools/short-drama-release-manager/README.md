@@ -9,7 +9,7 @@
 - 公司持有的 Feishu Base 是正式业务载体，固定四表：`账号台账`、`发布记录`、`选剧池`、`采集数据`。
 - 字段所有权不可混用：human 字段只接受实名 allowlist 的 Social 操作；machine 字段只由同步写；derived 字段由 Base 公式/Lookup 计算。**Runner only writes**，不得由 Skill、脚本或人工绕过 Runner 直接调用 Base 写接口。
 - `manifest_append` allowlist 仅限：账号台账.所属组、账号台账.表现形式、选剧池.剧分类、选剧池.生命周期、选剧池.RS Boost 分类（待确认）、选剧池.账号组、选剧池.语言、选剧池.来源；这些字段仅由 migration manifest 的实际数据追加，不把当前派生词表固化为永久 enum。选剧池.平台和选剧池.推荐人是固定闭集；MoboReels → 其他仅用于迁移；其他未知平台必须 blocked；record write 不隐式创建 options。
-- 普通用户当前对四张表只读；人工业务写只经 Social Bot。每次 data apply 必须验证新鲜且绑定相同 manifest/Base/schema 的 schema receipt，并完成 data preflight；schema partial failure 必须 replan_reconfirm，不回滚；migration-plan-20260907*.json、schema-receipt-20260907*.json、canary-receipt-20260907*.json、permission-observations-20260907*.json 和 permission-attestation-20260907*.json 已过时且不可复用。
+- 普通用户当前对四张表只读；人工业务写只经 Social Bot。每次 data apply 必须验证新鲜且绑定相同 manifest/Base/schema 的 schema receipt，并完成 data preflight；schema partial failure 必须 replan_reconfirm，不回滚；migration-plan-20260907-110158.json、schema-receipt-20260907-110617.json、canary-receipt-20260907-111102.json、permission-observations-20260907-112253.json 和 permission-attestation-20260907-112253.json 已过时且不可复用。
 - 旧 Google 业务表、历史脚本、历史 plist 和试验 Base 都只保留为证据；旧的 TikTok Daily Metrics 及既有 Social OS 流程不变。
 
 ## 固定运行资产
