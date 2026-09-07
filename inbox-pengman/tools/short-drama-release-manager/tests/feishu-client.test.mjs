@@ -1257,6 +1257,81 @@ test("canonical field payloads cover select, datetime, formula, and system field
   );
 });
 
+test("updateSelectFieldOptions sends one exact allowlisted full PUT body", async () => {
+  const calls = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      calls.push([new URL(url).pathname, options.method, options.body]);
+      return { code: 0, data: { field: { field_id: options.body.multiple ? "fld-multi" : "fld-single" } } };
+    },
+  });
+
+  assert.equal((await client.updateSelectFieldOptions(
+    "base", "tbl", "fld-multi", "选剧池", "剧分类", ["Romance", "Revenge"],
+  )).field_id, "fld-multi");
+  assert.equal((await client.updateSelectFieldOptions(
+    "base", "tbl", "fld-single", "账号台账", "所属组", ["US"],
+  )).field_id, "fld-single");
+  assert.deepEqual(calls, [
+    ["/open-apis/base/v3/bases/base/tables/tbl/fields/fld-multi", "PUT", {
+      name: "剧分类", type: "select", multiple: true, options: [{ name: "Romance" }, { name: "Revenge" }],
+    }],
+    ["/open-apis/base/v3/bases/base/tables/tbl/fields/fld-single", "PUT", {
+      name: "所属组", type: "select", multiple: false, options: [{ name: "US" }],
+    }],
+  ]);
+});
+
+test("updateSelectFieldOptions rejects unsupported or malformed options before network", async () => {
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => { requests += 1; return { code: 0, data: {} }; },
+  });
+  for (const operation of [
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "平台", ["TikTok"]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧名", ["Drama"]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "账号台账", "状态", ["发布中"]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", []),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", [""]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", [" Romance"]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", ["Romance\n"]),
+    () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", ["Romance", "Romance"]),
+  ]) {
+    await assert.rejects(operation, (error) => error.code === "base_schema_drift");
+  }
+  assert.equal(requests, 0);
+});
+
+test("updateSelectFieldOptions rejects mismatched response IDs and ignored fields", async () => {
+  for (const response of [
+    { code: 0, data: { field: {} } },
+    { code: 0, data: { field: { field_id: "fld-other" } } },
+    { code: 0, data: { field: { field_id: "fld" }, nested: { ignored_fields: ["options"] } } },
+    { code: 0, data: { field: { field_id: "fld" }, nested: { ignored_fields: [] } } },
+  ]) {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => response });
+    await assert.rejects(
+      () => client.updateSelectFieldOptions("base", "tbl", "fld", "选剧池", "剧分类", ["Romance"]),
+      (error) => error.code === "base_response_invalid",
+    );
+  }
+});
+
+test("createField requires initialOptions for manifest_append fields", async () => {
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => { requests += 1; return { code: 0, data: { field: { field_id: "fld" } } }; },
+  });
+  await assert.rejects(
+    () => client.createField("base", "tbl", "选剧池", "剧分类"),
+    (error) => error.code === "base_schema_drift",
+  );
+  assert.equal(requests, 0);
+});
+
 test("schema and presentation creates require IDs and reject arbitrary input", async () => {
   const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {} }) });
   for (const operation of [

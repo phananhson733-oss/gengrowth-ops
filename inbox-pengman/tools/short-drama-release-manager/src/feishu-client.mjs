@@ -172,6 +172,16 @@ function hasIgnoredFields(value, seen = new Set()) {
   return false;
 }
 
+function hasIgnoredFieldMarker(value, seen = new Set()) {
+  if (!value || typeof value !== "object" || seen.has(value)) return false;
+  seen.add(value);
+  for (const [key, child] of Object.entries(value)) {
+    if (key === "ignored_fields" || key === "ignored_field_list") return true;
+    if (hasIgnoredFieldMarker(child, seen)) return true;
+  }
+  return false;
+}
+
 function requireEntity(payload, entityName, idName) {
   if (hasIgnoredFields(payload.data)) {
     throw invalidResponse("Feishu response reports ignored fields", { entity: entityName });
@@ -542,6 +552,13 @@ function assertInitialOptions(initialOptions, field) {
     seen.add(name);
   }
   return [...initialOptions];
+}
+
+function assertUpdatedSelectOptions(optionNames, field) {
+  if (!Array.isArray(optionNames) || optionNames.length === 0) {
+    fail("base_schema_drift", "Select option updates require a nonempty array", { field });
+  }
+  return assertInitialOptions(optionNames, field);
 }
 
 function canonicalFieldBody(tableName, spec, bindings = {}, optionInput = {}) {
@@ -1227,6 +1244,34 @@ export class FeishuClient {
         { method: "PUT", body, context, signal },
       );
       return requireEntity(payload, "field", "field_id");
+    }, { signal }), { signal });
+  }
+
+  async updateSelectFieldOptions(baseToken, tableId, fieldId, tableName, fieldName, optionNames, { signal } = {}) {
+    const spec = findFieldSpec(tableName, fieldName);
+    if (spec.optionPolicy !== "manifest_append" || !["single_select", "multi_select"].includes(spec.kind)) {
+      fail("base_schema_drift", "Select option updates are reserved for manifest-append fields", { field: fieldName });
+    }
+    const names = assertUpdatedSelectOptions(optionNames, fieldName);
+    const body = {
+      name: fieldName,
+      type: "select",
+      multiple: spec.kind === "multi_select",
+      options: names.map((name) => ({ name })),
+    };
+    return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
+      const payload = await this.request(
+        `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields/${encoded(fieldId)}`,
+        { method: "PUT", body, context, signal },
+      );
+      const field = requireEntity(payload, "field", "field_id");
+      if (hasIgnoredFieldMarker(payload.data)) {
+        throw invalidResponse("Feishu field response reports ignored fields");
+      }
+      if (field.field_id !== fieldId) {
+        throw invalidResponse("Feishu field response ID does not match request");
+      }
+      return field;
     }, { signal }), { signal });
   }
 
