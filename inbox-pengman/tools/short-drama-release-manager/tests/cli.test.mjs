@@ -1704,27 +1704,28 @@ test("data Select coverage blocks fake Base 800030005 before Repository writes a
   }
 });
 
-test("migrate apply accepts the accounts-prefix resume only as an exact data-phase option", () => {
+test("migrate apply accepts the manifest-subset resume only as an exact data-phase option", () => {
   const dataArgv = ["migrate", "apply", "--phase", "data", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64)];
   assert.equal(
-    parseCommand([...dataArgv, "--resume-partial-data", "accounts-prefix"]).options.resumePartialData,
-    "accounts-prefix",
+    parseCommand([...dataArgv, "--resume-partial-data", "manifest-subset"]).options.resumePartialData,
+    "manifest-subset",
   );
   assert.equal(Object.hasOwn(parseCommand(dataArgv).options, "resumePartialData"), false);
 
   for (const argv of [
     [...dataArgv, "--resume-partial-data", "everything"],
+    [...dataArgv, "--resume-partial-data", "accounts-prefix"],
     [...dataArgv, "--resume-partial-data", "true"],
-    [...dataArgv, "--resume-partial-data", "accounts-prefix", "--resume-partial-data", "accounts-prefix"],
-    ["migrate", "apply", "--phase", "presentation", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "accounts-prefix"],
-    ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "accounts-prefix"],
-    ["migrate", "verify", "--manifest", "plan.json", "--resume-partial-data", "accounts-prefix"],
+    [...dataArgv, "--resume-partial-data", "manifest-subset", "--resume-partial-data", "manifest-subset"],
+    ["migrate", "apply", "--phase", "presentation", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "manifest-subset"],
+    ["migrate", "apply", "--phase", "schema", "--manifest", "plan.json", "--expected-sha256", "a".repeat(64), "--resume-partial-data", "manifest-subset"],
+    ["migrate", "verify", "--manifest", "plan.json", "--resume-partial-data", "manifest-subset"],
   ]) {
     assert.throws(() => parseCommand(argv), (error) => error.code === "input_invalid", JSON.stringify(argv));
   }
 });
 
-test("data resume continues from the written account prefix without recreating accounts", async () => {
+test("data resume continues from the written manifest subset without recreating what landed", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-data-resume-"));
   const { config, env } = runtimeFixture(root);
   const configPath = path.join(root, "runtime.json");
@@ -1776,7 +1777,7 @@ test("data resume continues from the written account prefix without recreating a
     events.length = 0;
     const result = await runtime.migrateApply(
       { manifest, ...evidence },
-      { phase: "data", actorId: "ou_admin", resumePartialData: "accounts-prefix" },
+      { phase: "data", actorId: "ou_admin", resumePartialData: "manifest-subset" },
     );
 
     assert.equal(result.status, "applied");

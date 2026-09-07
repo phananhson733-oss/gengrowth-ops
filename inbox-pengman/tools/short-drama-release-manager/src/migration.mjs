@@ -35,7 +35,7 @@ const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
 const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
 const SOURCE_POLICY = "shortdrama-source-reconciliation/v1";
-const PARTIAL_RESUME_MODES = Object.freeze(new Set(["accounts-prefix"]));
+const PARTIAL_RESUME_MODES = Object.freeze(new Set(["manifest-subset"]));
 const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["views", "播放量"]),
   Object.freeze(["likes", "点赞"]),
@@ -1510,11 +1510,13 @@ async function assertBaseStillEmpty(context, manifest) {
 }
 
 /**
- * Accept exactly one partial state: every manifest account row already written
- * and byte-identical, with all three downstream tables still empty. Anything
- * else fails closed before a single write.
+ * Accept any state whose rows are an exact subset of the manifest: every row that is
+ * present must be byte-identical to its manifest counterpart, and no row may exist that
+ * the manifest does not define. That covers the accounts-only prefix and every mid-table
+ * interruption, so a run that dies partway is always resumable rather than wedged.
+ * Returns the tables that are already complete, so the writer can skip them entirely.
  */
-async function assertResumableAccountsPrefix(context, manifest) {
+async function assertResumableManifestSubset(context, manifest) {
   if (typeof context.readEmptyTableEvidence !== "function") {
     fail("migration_context_invalid", "Fresh empty Base evidence reader is required");
   }
@@ -1525,14 +1527,12 @@ async function assertResumableAccountsPrefix(context, manifest) {
   }
   for (const tableName of TABLE_ORDER) {
     const actual = evidence[tableName];
-    const expectedCount = tableName === "账号台账"
-      ? manifest.accounts.length
-      : manifest.initial_empty_table_evidence[tableName]?.record_count;
+    const limit = manifest[TABLE_BINDINGS[tableName]].length;
     if (!plainObject(actual) || !isDeepStrictEqual(Object.keys(actual).sort(), ["key_set_sha256", "record_count"]) ||
-        actual.record_count !== expectedCount ||
+        !Number.isSafeInteger(actual.record_count) || actual.record_count < 0 || actual.record_count > limit ||
         typeof actual.key_set_sha256 !== "string" || !/^[a-f0-9]{64}$/.test(actual.key_set_sha256) ||
-        tableName !== "账号台账" && actual.key_set_sha256 !== manifest.initial_empty_table_evidence[tableName]?.key_set_sha256) {
-      fail("resume_prefix_mismatch", "Formal Base is not the exact accounts-only migration prefix", { table: tableName });
+        actual.record_count === 0 && actual.key_set_sha256 !== EMPTY_KEY_SET_SHA256) {
+      fail("resume_prefix_mismatch", "Formal Base is not a subset of the migration manifest", { table: tableName });
     }
   }
   const indexes = {};
@@ -1540,13 +1540,27 @@ async function assertResumableAccountsPrefix(context, manifest) {
     const name = TABLE_BINDINGS[tableName];
     indexes[name] = await context.repos[name].loadIndex();
     if (!(indexes[name] instanceof Map)) fail("resume_prefix_mismatch", "Repository index is incomplete", { table: tableName });
-    if (tableName !== "账号台账" && indexes[name].size !== 0) {
-      fail("resume_prefix_mismatch", "Downstream migration table is not empty", { table: tableName });
-    }
   }
-  const primary = TABLES["账号台账"].primaryField;
-  assertExactKeys(indexes.accounts, manifest.accounts, primary, "账号台账", "resume_prefix_mismatch");
-  assertExpectedFields(indexes.accounts, entriesFor(manifest.accounts, "账号台账"), primary, "账号台账", "resume_prefix_mismatch");
+  const relationIds = {
+    accounts: recordIdMap(indexes.accounts, "账号台账"),
+    dramas: recordIdMap(indexes.dramas, "选剧池"),
+    captures: recordIdMap(indexes.captures, "采集数据"),
+  };
+  const complete = new Set();
+  for (const tableName of TABLE_ORDER) {
+    const name = TABLE_BINDINGS[tableName];
+    const rows = manifest[name];
+    const primary = TABLES[tableName].primaryField;
+    const defined = new Set(rows.map((row) => row[primary]));
+    const extra = [...indexes[name].keys()].filter((key) => !defined.has(key)).sort();
+    if (extra.length > 0) {
+      fail("resume_prefix_mismatch", "Base contains rows the migration manifest does not define", { table: tableName, extra });
+    }
+    const present = entriesFor(rows, tableName, relationIds).filter((entry) => indexes[name].has(entry.key));
+    assertExpectedFields(indexes[name], present, primary, tableName, "resume_prefix_mismatch");
+    if (indexes[name].size === rows.length) complete.add(tableName);
+  }
+  return { complete };
 }
 
 function assertPermissionAttestation(context, manifest, schemaReceipt) {
@@ -1698,7 +1712,7 @@ function entriesFor(rows, tableName, relationIds = {}) {
   });
 }
 
-async function applyData(context, manifest, schemaReceipt, { resumeMode = null } = {}) {
+async function applyData(context, manifest, schemaReceipt, { completeTables = new Set() } = {}) {
   await assertDataSelectCoverage(context, manifest, schemaReceipt);
   assertRepoSet(context.repos);
   validateStableRelations(manifest);
@@ -1710,10 +1724,10 @@ async function applyData(context, manifest, schemaReceipt, { resumeMode = null }
   const summaries = {};
   for (const [tableName, rows] of ordered) {
     const name = TABLE_BINDINGS[tableName];
-    // An accounts-prefix resume has already proven this table field-for-field. Never
-    // re-sync it: the written rows stay untouched by construction, not by timing.
-    if (resumeMode === "accounts-prefix" && tableName === "账号台账") {
-      summaries[name] = { created: 0, updated: 0, unchanged: rows.length, readback: "verified", source: "resume_prefix" };
+    // The resume gate already proved this table complete and field-for-field. Never
+    // re-sync it: those rows stay untouched by construction, not by timing.
+    if (completeTables.has(tableName)) {
+      summaries[name] = { created: 0, updated: 0, unchanged: rows.length, readback: "verified", source: "resume_subset" };
     } else {
       const entries = entriesFor(rows, tableName, relationIds);
       summaries[name] = await context.repos[name].syncManyByKey(entries, "migration");
@@ -2130,9 +2144,10 @@ export async function applyMigration(context = {}, manifest) {
   assertCanaryReceipt(context, manifest, receipt);
   if (phase === "data") assertPermissionAttestation(context, manifest, receipt);
   if (phase === "data") {
+    let completeTables = new Set();
     if (resumeMode === null) await assertBaseStillEmpty(context, manifest);
-    else await assertResumableAccountsPrefix(context, manifest);
-    await applyData(context, manifest, receipt, { resumeMode });
+    else ({ complete: completeTables } = await assertResumableManifestSubset(context, manifest));
+    await applyData(context, manifest, receipt, { completeTables });
   }
   if (phase === "presentation") {
     const readbacks = await applyPresentation(context, manifest);

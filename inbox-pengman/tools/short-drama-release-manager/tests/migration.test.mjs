@@ -1928,80 +1928,119 @@ test("data apply prevalidates, bulk-syncs once per table in order, and resolves 
   assert.deepEqual(releasePatch.采集记录, [{ id: "rec-captures-99" }]);
 });
 
-function seedAccountsPrefix(repos, manifest, { recordPrefix = "rec-existing", mutate = null } = {}) {
-  for (const row of manifest.accounts) {
-    const fields = structuredClone(row);
-    if (mutate) mutate(fields);
-    repos.accounts.rows.set(fields.账号ID, { record_id: `${recordPrefix}-${row.账号ID}`, fields });
+const TABLE_KEYS = { "账号台账": ["accounts", "账号ID"], "选剧池": ["dramas", "剧ID"], "采集数据": ["captures", "Post ID"], "发布记录": ["发布记录"] };
+const BINDING = { "账号台账": "accounts", "选剧池": "dramas", "采集数据": "captures", "发布记录": "releases" };
+const PRIMARY = { "账号台账": "账号ID", "选剧池": "剧ID", "采集数据": "Post ID", "发布记录": "发布ID" };
+
+// Reproduce what a real Base holds after a partial run: rows written by the same
+// encoder, keyed by their Base record IDs, with relation cells already resolved.
+function seedWritten(repos, manifest, plan, { mutate = null } = {}) {
+  const recordId = (table, key) => `rec-existing-${BINDING[table]}-${key}`;
+  for (const [table, count] of Object.entries(plan)) {
+    const rows = manifest[BINDING[table]].slice(0, count);
+    for (const row of rows) {
+      const fields = structuredClone(row);
+      for (const spec of BASE_FIELD_SPECS[table]) {
+        const value = fields[spec.name];
+        if (spec.kind === "datetime" && typeof value === "string" && value.includes("T")) {
+          fields[spec.name] = new Date(Math.floor(Date.parse(value) / 1000) * 1000).toISOString();
+        }
+      }
+      if (table === "采集数据") fields.账号 = [{ id: recordId("账号台账", row.账号) }];
+      if (table === "发布记录") {
+        fields.账号 = [{ id: recordId("账号台账", row.账号) }];
+        fields.剧 = [{ id: recordId("选剧池", row.剧) }];
+        fields.采集记录 = row.采集记录 === null ? [] : [{ id: recordId("采集数据", row.采集记录) }];
+      }
+      if (mutate) mutate(fields, table);
+      repos[BINDING[table]].rows.set(row[PRIMARY[table]], { record_id: recordId(table, row[PRIMARY[table]]), fields });
+    }
   }
 }
 
-function accountsPrefixEvidence(manifest) {
-  const evidence = structuredClone(manifest.initial_empty_table_evidence);
-  evidence["账号台账"] = { record_count: manifest.accounts.length, key_set_sha256: "e".repeat(64) };
-  return evidence;
+function subsetEvidence(manifest, plan = {}) {
+  return Object.fromEntries(TABLE_ORDER.map((table) => {
+    const count = plan[table] ?? 0;
+    return [table, {
+      record_count: count,
+      key_set_sha256: count === 0 ? EMPTY_KEY_SET_SHA256 : "e".repeat(64),
+    }];
+  }));
 }
 
-function resumeContext(manifest, repos, overrides = {}) {
+function resumeContext(manifest, repos, overrides = {}, plan = {}) {
   return {
-    phase: "data", repos, expectedSha256: manifest.sha256, resumePartialData: "accounts-prefix",
-    readEmptyTableEvidence: async () => accountsPrefixEvidence(manifest),
+    phase: "data", repos, expectedSha256: manifest.sha256, resumePartialData: "manifest-subset",
+    readEmptyTableEvidence: async () => subsetEvidence(manifest, plan),
     ...schemaGate(manifest), ...overrides,
   };
 }
 
-test("accounts-prefix resume accepts the exact written prefix and reuses its Base record IDs", async () => {
+test("manifest-subset resume continues from a mid-table interruption without rewriting what landed", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const repos = memoryRepos();
-  seedAccountsPrefix(repos, manifest);
+  // accounts fully written, dramas fully written, captures/releases still empty —
+  // i.e. the run died right after 选剧池.
+  const plan = { "账号台账": manifest.accounts.length, "选剧池": manifest.dramas.length };
+  seedWritten(repos, manifest, plan);
 
-  const result = await applyMigration(resumeContext(manifest, repos), manifest);
+  const result = await applyMigration(resumeContext(manifest, repos, {}, plan), manifest);
 
   assert.equal(result.status, "applied");
-  // The written prefix is proven by the gate, never re-synced: no upsert can touch it
-  // even if the account table drifts between the proof and the downstream writes.
-  assert.deepEqual(repos.calls.map(([name]) => name), ["dramas", "captures", "releases"]);
+  // Tables already complete are excluded from the upsert path entirely.
+  assert.deepEqual(repos.calls.map(([name]) => name), ["captures", "releases"]);
   assert.deepEqual(
     [...repos.accounts.rows].map(([key, record]) => [key, record.record_id]),
-    manifest.accounts.map((row) => [row.账号ID, `rec-existing-${row.账号ID}`]),
+    manifest.accounts.map((row) => [row.账号ID, `rec-existing-accounts-${row.账号ID}`]),
   );
-  assert.deepEqual(repos.calls[1][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
-  assert.deepEqual(repos.calls[2][2][0].patch.账号, [{ id: "rec-existing-dramaexpedition" }]);
+  // Downstream relations resolve to the record IDs that already exist in the Base.
+  assert.deepEqual(repos.calls[0][2][0].patch.账号, [{ id: "rec-existing-accounts-dramaexpedition" }]);
+  assert.deepEqual(repos.calls[1][2][0].patch.剧, [{ id: "rec-existing-dramas-SD-000001" }]);
 });
 
-test("accounts-prefix resume reports the untouched prefix without a second write", async () => {
-  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+test("manifest-subset resume accepts a partially written table and only creates the gap", async () => {
+  const manifest = await planMigration({
+    google: normalizedSource(),
+    sqlitePosts: [latestCapture(), latestCapture({ post_id: "100", post_url: "https://www.tiktok.com/@dramaexpedition/video/100" })],
+  });
+  assert.equal(manifest.captures.length, 2);
   const repos = memoryRepos();
-  seedAccountsPrefix(repos, manifest);
-  const before = new Map([...repos.accounts.rows].map(([key, record]) => [key, structuredClone(record)]));
+  // The run died mid-way through 采集数据: one of its two rows landed.
+  const plan = { "账号台账": manifest.accounts.length, "选剧池": manifest.dramas.length, "采集数据": 1 };
+  seedWritten(repos, manifest, plan);
+  const survivor = manifest.captures[0]["Post ID"];
 
-  await applyMigration(resumeContext(manifest, repos), manifest);
+  const result = await applyMigration(resumeContext(manifest, repos, {}, plan), manifest);
 
-  assert.deepEqual([...repos.accounts.rows], [...before]);
-  assert.equal(repos.calls.some(([name]) => name === "accounts"), false);
+  assert.equal(result.status, "applied");
+  // Complete tables are skipped; the partially written one goes through the upsert.
+  assert.deepEqual(repos.calls.map(([name]) => name), ["captures", "releases"]);
+  // The row that already landed keeps its Base record ID — it is never recreated.
+  assert.equal(repos.captures.rows.get(survivor).record_id, `rec-existing-captures-${survivor}`);
+  assert.equal(repos.captures.rows.size, manifest.captures.length);
 });
 
-test("accounts-prefix resume refuses every inexact prefix before any write", async () => {
+test("manifest-subset resume refuses every state that is not an exact manifest subset", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const full = { "账号台账": manifest.accounts.length };
   const cases = [
-    ["field drift", (repos) => seedAccountsPrefix(repos, manifest, { mutate: (fields) => { fields.粉丝数 += 1; } })],
-    ["extra writable field", (repos) => seedAccountsPrefix(repos, manifest, { mutate: (fields) => { fields.定位垂类 = "手工新增"; } })],
-    ["missing row", () => {}],
-    ["extra row", (repos) => {
-      seedAccountsPrefix(repos, manifest);
-      repos.accounts.rows.set("intruder", { record_id: "rec-existing-intruder", fields: { 账号ID: "intruder" } });
+    ["field drift", (repos) => seedWritten(repos, manifest, full, { mutate: (f, t) => { if (t === "账号台账") f.粉丝数 += 1; } })],
+    ["extra writable field", (repos) => seedWritten(repos, manifest, full, { mutate: (f, t) => { if (t === "账号台账") f.定位垂类 = "手工新增"; } })],
+    ["row outside the manifest", (repos) => {
+      seedWritten(repos, manifest, full);
+      repos.accounts.rows.set("intruder", { record_id: "rec-x", fields: { 账号ID: "intruder" } });
     }],
-    ["nonempty downstream table", (repos) => {
-      seedAccountsPrefix(repos, manifest);
-      repos.dramas.rows.set("SD-000001", { record_id: "rec-existing-SD-000001", fields: { 剧ID: "SD-000001" } });
+    ["downstream row outside the manifest", (repos) => {
+      seedWritten(repos, manifest, full);
+      repos.dramas.rows.set("SD-999999", { record_id: "rec-y", fields: { 剧ID: "SD-999999" } });
     }],
-    ["evidence count drift", (repos) => {
-      seedAccountsPrefix(repos, manifest);
+    ["evidence count exceeds the manifest", (repos) => {
+      seedWritten(repos, manifest, full);
       repos.evidenceOverride = { "账号台账": { record_count: manifest.accounts.length + 1, key_set_sha256: "e".repeat(64) } };
     }],
-    ["evidence downstream drift", (repos) => {
-      seedAccountsPrefix(repos, manifest);
-      repos.evidenceOverride = { "选剧池": { record_count: 1, key_set_sha256: "f".repeat(64) } };
+    ["empty table claims a non-empty key set", (repos) => {
+      seedWritten(repos, manifest, full);
+      repos.evidenceOverride = { "选剧池": { record_count: 0, key_set_sha256: "f".repeat(64) } };
     }],
   ];
 
@@ -2010,8 +2049,8 @@ test("accounts-prefix resume refuses every inexact prefix before any write", asy
     prepare(repos);
     await assert.rejects(
       () => applyMigration(resumeContext(manifest, repos, {
-        readEmptyTableEvidence: async () => ({ ...accountsPrefixEvidence(manifest), ...(repos.evidenceOverride ?? {}) }),
-      }), manifest),
+        readEmptyTableEvidence: async () => ({ ...subsetEvidence(manifest, full), ...(repos.evidenceOverride ?? {}) }),
+      }, full), manifest),
       (error) => error.code === "resume_prefix_mismatch",
       label,
     );
@@ -2019,14 +2058,16 @@ test("accounts-prefix resume refuses every inexact prefix before any write", asy
   }
 });
 
-test("accounts-prefix resume keeps every envelope gate and rejects unknown or misphased resume modes", async () => {
+test("manifest-subset resume keeps every envelope gate and rejects unknown or misphased resume modes", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const full = { "账号台账": manifest.accounts.length };
   const cases = [
     [{ sourceRevision: "changed" }, "source_revision_drift"],
     [{ getSchemaRevision: async () => "changed" }, "schema_revision_drift"],
     [{ expectedSha256: "0".repeat(64) }, "migration_digest_mismatch"],
     [{ permissionAttestation: undefined, expectedPermissionAttestationSha256: undefined }, "migration_permission_attestation_required"],
     [{ canaryReceipt: undefined, expectedCanaryReceiptSha256: undefined }, "migration_canary_required"],
+    [{ resumePartialData: "accounts-prefix" }, "migration_resume_invalid"],
     [{ resumePartialData: "everything" }, "migration_resume_invalid"],
     [{ resumePartialData: true }, "migration_resume_invalid"],
     [{ phase: "presentation" }, "migration_resume_invalid"],
@@ -2034,59 +2075,14 @@ test("accounts-prefix resume keeps every envelope gate and rejects unknown or mi
 
   for (const [overrides, code] of cases) {
     const repos = memoryRepos();
-    seedAccountsPrefix(repos, manifest);
+    seedWritten(repos, manifest, full);
     await assert.rejects(
-      () => applyMigration(resumeContext(manifest, repos, overrides), manifest),
+      () => applyMigration(resumeContext(manifest, repos, overrides, full), manifest),
       (error) => error.code === code,
       code,
     );
     assert.equal(repos.calls.length, 0, code);
   }
-});
-
-function baseStoredFields(tableName, row) {
-  const fields = structuredClone(row);
-  for (const spec of BASE_FIELD_SPECS[tableName]) {
-    const value = fields[spec.name];
-    if (spec.kind !== "datetime" || typeof value !== "string" || !value.includes("T")) continue;
-    fields[spec.name] = new Date(Math.floor(Date.parse(value) / 1000) * 1000).toISOString();
-  }
-  return fields;
-}
-
-test("sub-second source timestamps are written, verified, and resumed at Base-storable second precision", async () => {
-  const subSecond = "2026-08-24T01:02:03.838Z";
-  const truncated = "2026-08-24T01:02:03.000Z";
-  const manifest = await planMigration({
-    google: normalizedSource(),
-    sqliteAccounts: [latestAccount({ captured_at: subSecond })],
-    sqlitePosts: [latestCapture({ captured_at: subSecond })],
-  });
-  assert.equal(manifest.accounts[0].指标同步时间, subSecond);
-  assert.equal(manifest.captures[0].采集时间, subSecond);
-
-  const repos = memoryRepos();
-  await applyMigration({ phase: "data", repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
-  assert.equal(repos.calls[0][2][0].patch.指标同步时间, truncated);
-  assert.equal(repos.calls[2][2][0].patch.采集时间, truncated);
-
-  // Base stores Shanghai wall-clock seconds, so verification must accept exactly
-  // what a real readback can return.
-  for (const [tableName, name] of [["账号台账", "accounts"], ["选剧池", "dramas"], ["采集数据", "captures"], ["发布记录", "releases"]]) {
-    for (const [key, record] of repos[name].rows) {
-      repos[name].rows.set(key, { ...record, fields: baseStoredFields(tableName, record.fields) });
-    }
-  }
-  assert.equal((await verifyMigration({ repos }, manifest)).status, "verified");
-
-  const resumeRepos = memoryRepos();
-  for (const row of manifest.accounts) {
-    resumeRepos.accounts.rows.set(row.账号ID, {
-      record_id: `rec-existing-${row.账号ID}`,
-      fields: baseStoredFields("账号台账", row),
-    });
-  }
-  assert.equal((await applyMigration(resumeContext(manifest, resumeRepos), manifest)).status, "applied");
 });
 
 test("data apply rejects a re-digested late derived field before the first bulk write", async () => {

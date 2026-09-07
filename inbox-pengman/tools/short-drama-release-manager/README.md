@@ -98,10 +98,18 @@ node shortdrama_ctl.mjs migrate apply --phase sequences --config "$RUNTIME_CONFI
 
 首次 plan 还要求四张正式表的完整 record count 与 key-set 均证明为空；任一表非空、count 缺失或空集合证据缺失时返回`base_not_empty`且不产生可执行 schema/data action。manifest 和 canary 都绑定四表空集合证据，data 第一笔写入前再完整读取并比对，防止 plan/canary 后被提前写入。
 
-`--phase data`默认要求四表全空。若 data 已部分写入（例如`账号台账`写入成功后读回失败），唯一允许的续跑是精确前缀恢复：在原 data 命令上追加`--resume-partial-data accounts-prefix`。该模式保留并复用已写入的`账号台账`记录，不删除、不重建、也不盲目重跑；写前先完整读回四张表，要求`账号台账`的主键集合与每一个可写字段在规范化解码后与 manifest 逐字段相同，且`选剧池 / 采集数据 / 发布记录`仍然为空。任何多余、缺失或被改动的账号行，以及任何下游表非空，都返回`resume_prefix_mismatch`并保持零写入。该选项只接受`accounts-prefix`一个值、只在`--phase data`可用，不放宽 digest、source revision、schema receipt、canary receipt、permission attestation 中的任何一道门禁；续跑对`账号台账`是**结构性零写入**：该表在续跑中完全不进入 upsert 路径，已写入的行不会被更新、重建或删除。因此即使门禁通过后账号表在写入下游三表期间发生漂移，续跑也不会改写它；漂移会在`migrate verify`阶段暴露而不是被静默覆盖。续跑成功后仍必须运行`migrate verify`完成 472 行全量核验。注意：Base v3 的读取接口不提供跨表快照或 CAS，门禁读取与后续写入之间存在无法消除的时间窗；因此续跑必须在受控维护窗口内执行（与 canary 的同一前提），最终由`migrate verify`给出一致性结论。
+`--phase data`默认要求四表全空。若 data 已部分写入（无论是某张表写完后中断，还是某张表写了一半），唯一允许的续跑是子集恢复：在原 data 命令上追加`--resume-partial-data manifest-subset`。
+
+该模式的规则只有一条：**Base 里现存的每一行都必须是 manifest 里定义的行，并且逐字段完全一致**。写前完整读回四张表，要求每张表的现有主键集合是 manifest 主键集合的子集，且每个现存行在规范化解码后与 manifest 逐字段相同。任何 manifest 未定义的行、任何字段偏差、任何超出 manifest 行数的记录数，都返回`resume_prefix_mismatch`并保持零写入。缺失的行由既有的 upsert 补齐。
+
+已经完整写完的表是**结构性零写入**：门禁证明它等于 manifest 之后就把它整个排除在 upsert 路径之外，只读取它的索引来解析下游表的关联 ID。因此即使门禁通过后该表发生漂移，续跑也不会改写它；漂移会在`migrate verify`阶段暴露而不是被静默覆盖。
+
+这个子集规则同时覆盖两种情况：账号表已写完而下游全空（本次事故的状态），以及任意一次续跑自身中途失败后留下的状态——**后者是关键**：如果门禁只接受"下游必须全空"，那么写下游过程中的任何一次中断都会让续跑和普通 apply 双双拒绝，操作者将没有任何受支持的恢复路径。`采集数据`的 229 行要分两批写入，这个中断窗口是真实存在的。
+
+该选项只接受`manifest-subset`一个值、只在`--phase data`可用，不放宽 digest、source revision、schema receipt、canary receipt、permission attestation 中的任何一道门禁。续跑成功后仍必须运行`migrate verify`完成 472 行全量核验。注意：Base v3 的读取接口不提供跨表快照或 CAS，门禁读取与后续写入之间存在无法消除的时间窗；因此续跑必须在受控维护窗口内执行（与 canary 的同一前提），最终由`migrate verify`给出一致性结论。
 
 ```bash
-# 仅在 data 已写入且只写完 账号台账 时使用；其余情况不得追加该选项
+# data 已部分写入时使用；其余情况不得追加该选项
 node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
   --manifest "$PLAN_FILE" --expected-sha256 "$MIGRATION_SHA256" \
   --schema-receipt "$SCHEMA_RECEIPT_FILE" \
@@ -111,9 +119,11 @@ node shortdrama_ctl.mjs migrate apply --phase data --config "$RUNTIME_CONFIG" \
   --expected-permission-attestation-sha256 "$PERMISSION_ATTESTATION_SHA256" \
   --expected-permission-attestation-file-sha256 "$PERMISSION_ATTESTATION_FILE_SHA256" \
   --expected-base-token "$EXPECTED_BASE_TOKEN" \
-  --resume-partial-data accounts-prefix \
+  --resume-partial-data manifest-subset \
   --confirm apply-now --actor-id "$PRIVILEGED_ACTOR_ID"
 ```
+
+Base 把空的 multi-select 与关联字段读回为`null`、`""`或`[]`三种形状中的任意一种，而 manifest 对空集合一律写`[]`。解码器把这三种形状统一规范化为`[]`，因此比对不依赖 vendor 当次返回哪一种；single-select 与标量字段的空值仍然是`null`，与 manifest 一致。
 
 Base 的 datetime 单元格以 Asia/Shanghai 墙钟秒级精度写入，无法保存亚秒精度：来自采集时间戳的`指标同步时间`与`采集时间`在写入前即被规范化为整秒。migration 的写入、写后读回比对、accounts 前缀续跑校验和`migrate verify`统一使用同一个 Base 可存储值，因此不会出现"写进去和读回来不一致"的假不匹配；manifest 本身不因此改写，其 digest 与签名证据保持不变。
 

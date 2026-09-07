@@ -466,6 +466,36 @@ test("record decoder unwraps only exact same-target markdown URL cells", async (
   assert.equal(await read(null), null);
 });
 
+test("empty multi-select and link cells decode to an empty list whatever shape Base returns", async () => {
+  const read = async (tableName, field, fieldType, value) => {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+      fields: [field], field_id_list: ["fld"], field_type_list: [fieldType],
+      record_id_list: ["rec"], data: [[value]], total: 1,
+    } }) });
+    return (await client.listRecords("base", "tbl", { tableName })).items[0].fields[field];
+  };
+
+  // The manifest writes [] for an empty collection. Base may hand back null, "" or [].
+  for (const shape of [null, "", []]) {
+    assert.deepEqual(await read("选剧池", "账号组", "multi_select", shape), [], `multi_select ${JSON.stringify(shape)}`);
+    assert.deepEqual(await read("采集数据", "缺失字段", "multi_select", shape), [], `missing-fields ${JSON.stringify(shape)}`);
+    assert.deepEqual(await read("发布记录", "采集记录", "link", shape), [], `link ${JSON.stringify(shape)}`);
+  }
+
+  // Scalar kinds keep null: that is what the manifest uses for them.
+  assert.equal(await read("选剧池", "平台", "single_select", null), null);
+  assert.equal(await read("发布记录", "备注", "text", null), null);
+  assert.equal(await read("发布记录", "RS收益", "number", null), null);
+  assert.equal(await read("账号台账", "主页链接", "url", null), null);
+
+  // A populated collection is still validated, not blindly accepted.
+  assert.deepEqual(await read("发布记录", "采集记录", "link", [{ id: "rec_c" }]), [{ id: "rec_c" }]);
+  await assert.rejects(
+    read("发布记录", "采集记录", "link", [{ id: "rec_c", name: "smuggled" }]),
+    (error) => error.code === "base_response_invalid",
+  );
+});
+
 test("dashboard pagination uses page_size/page_token while other lists use limit/offset", async () => {
   const urls = [];
   const responses = [

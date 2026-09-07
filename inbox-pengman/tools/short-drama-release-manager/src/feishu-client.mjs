@@ -295,6 +295,11 @@ function encodeCell(tableName, fieldName, value) {
 
 function decodeCell(tableName, fieldName, value) {
   const spec = fieldSpecOrNull(tableName, fieldName);
+  // Base renders an absent collection as null, "" or []. The manifest always writes []
+  // for an empty multi-select or link, so normalize the set-valued kinds instead of
+  // depending on which of the three shapes the vendor happens to return.
+  if (spec && (spec.kind === "multi_select" || spec.kind === "link") &&
+      (value === null || value === undefined || value === "")) return [];
   if (!spec || value === null || value === undefined) return value;
   if (spec.kind === "single_select") {
     if (!Array.isArray(value) || value.length > 1 || value.some((item) => typeof item !== "string" || spec.options && !spec.options.includes(item))) throw invalidResponse("Single-select read value is malformed");

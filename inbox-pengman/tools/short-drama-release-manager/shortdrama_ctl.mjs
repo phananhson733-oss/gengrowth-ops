@@ -139,8 +139,8 @@ export function parseCommand(argv) {
     fail("input_invalid", "Migration phase is invalid", { phase: options.phase });
   }
   if (Object.hasOwn(options, "resumePartialData") &&
-      (options.resumePartialData !== "accounts-prefix" || options.phase !== "data")) {
-    fail("input_invalid", "Partial-data resume is limited to the data-phase accounts prefix", { option: "resume-partial-data" });
+      (options.resumePartialData !== "manifest-subset" || options.phase !== "data")) {
+    fail("input_invalid", "Partial-data resume is limited to the data-phase manifest subset", { option: "resume-partial-data" });
   }
   if (options.output && (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(options.output) || options.output.includes(".."))) {
     fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
