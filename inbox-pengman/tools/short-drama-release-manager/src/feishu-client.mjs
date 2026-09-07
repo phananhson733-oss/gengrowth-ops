@@ -346,8 +346,19 @@ function fixedRecordTableName(tableName) {
   return tableName;
 }
 
-function snapshotRecordWrites(tableName, records) {
-  for (const record of records) {
+function snapshotRecordInputs(records, context) {
+  if (!Array.isArray(records) || records.length === 0) {
+    fail("base_response_invalid", `${context} records must be a non-empty array`);
+  }
+  try {
+    return structuredClone(records);
+  } catch {
+    throw invalidResponse("Managed record write values must be cloneable");
+  }
+}
+
+function encodeRecordWrites(tableName, rawRecords) {
+  for (const record of rawRecords) {
     for (const [fieldName, value] of Object.entries(record.fields)) {
       if (value === undefined) {
         throw invalidResponse("Managed record fields cannot contain explicit undefined values", {
@@ -361,17 +372,11 @@ function snapshotRecordWrites(tableName, records) {
       }
     }
   }
-  let rawRecords;
-  try {
-    rawRecords = structuredClone(records);
-  } catch {
-    throw invalidResponse("Managed record write values must be cloneable");
-  }
   const encodedRecords = rawRecords.map((record) => freezeDeep({
     ...(record.record_id === undefined ? {} : { record_id: record.record_id }),
     fields: encodeFields(tableName, record.fields),
   }));
-  return { rawRecords, encodedRecords: freezeDeep(encodedRecords) };
+  return freezeDeep(encodedRecords);
 }
 
 function liveSelectCatalog(tableName, fieldReadback) {
@@ -1228,9 +1233,10 @@ export class FeishuClient {
   }
 
   createRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
-    validateCreateRecords(records);
+    const rawRecords = snapshotRecordInputs(records, "Create");
+    validateCreateRecords(rawRecords);
     fixedRecordTableName(tableName);
-    const { rawRecords, encodedRecords } = snapshotRecordWrites(tableName, records);
+    const encodedRecords = encodeRecordWrites(tableName, rawRecords);
     const queueKey = `records:${baseToken}:${tableId}`;
     return this.serializeWrite(queueKey, async () => {
       const fieldReadback = await this.listFields(baseToken, tableId, { signal });
@@ -1257,9 +1263,10 @@ export class FeishuClient {
   }
 
   updateRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
-    validateUpdateRecords(records);
+    const rawRecords = snapshotRecordInputs(records, "Update");
+    validateUpdateRecords(rawRecords);
     fixedRecordTableName(tableName);
-    const { rawRecords, encodedRecords } = snapshotRecordWrites(tableName, records);
+    const encodedRecords = encodeRecordWrites(tableName, rawRecords);
     const queueKey = `records:${baseToken}:${tableId}`;
     return this.serializeWrite(queueKey, async () => {
       const fieldReadback = await this.listFields(baseToken, tableId, { signal });

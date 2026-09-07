@@ -805,6 +805,76 @@ test("managed record writes preserve explicit null and empty multi-select cleari
   ]);
 });
 
+test("managed record create validates and posts one structured accessor snapshot", async () => {
+  let fieldReads = 0;
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const bodies = [];
+  const record = {
+    get fields() {
+      fieldReads += 1;
+      return fieldReads <= 2 ? { 状态: "未发" } : { 状态: undefined };
+    },
+  };
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      bodies.push(structuredClone(options.body));
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+
+  await client.createRecords("base", "tbl", [record], { tableName: "账号台账" });
+  assert.equal(fieldReads, 1);
+  assert.equal(fieldGets, 1);
+  assert.equal(recordPosts, 1);
+  assert.deepEqual(bodies, [{ create_records: [{ 状态: ["未发"] }] }]);
+});
+
+test("managed record update validates and posts one structured accessor snapshot", async () => {
+  let idReads = 0;
+  let fieldReads = 0;
+  let fieldGets = 0;
+  let recordPosts = 0;
+  const bodies = [];
+  const record = {
+    get record_id() {
+      idReads += 1;
+      return idReads <= 2 ? "rec" : "";
+    },
+    get fields() {
+      fieldReads += 1;
+      return fieldReads <= 2 ? { 账号名: "safe" } : { 任意字段: "smuggled" };
+    },
+  };
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
+      recordPosts += 1;
+      bodies.push(structuredClone(options.body));
+      return { code: 0, data: { record_id_list: ["rec"] } };
+    },
+  });
+
+  await client.updateRecords("base", "tbl", [record], { tableName: "账号台账" });
+  assert.equal(idReads, 1);
+  assert.equal(fieldReads, 1);
+  assert.equal(fieldGets, 1);
+  assert.equal(recordPosts, 1);
+  assert.deepEqual(bodies, [{ update_records: { rec: { 账号名: "safe" } } }]);
+});
+
 test("managed record writes synchronously encode the complete call before queueing", () => {
   let requests = 0;
   const client = new FeishuClient({
