@@ -496,6 +496,33 @@ test("empty multi-select and link cells decode to an empty list whatever shape B
   );
 });
 
+test("numeric lookups accept Base's formatted decimals for whole numbers only", async () => {
+  const read = async (value) => {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+      fields: ["评论"], field_id_list: ["fld"], field_type_list: ["lookup"],
+      record_id_list: ["rec"], data: [[value]], total: 1,
+    } }) });
+    return (await client.listRecords("base", "tbl", { tableName: "发布记录" })).items[0].fields.评论;
+  };
+
+  // Base renders a number lookup with the field's display precision.
+  assert.equal(await read("0.00"), 0);
+  assert.equal(await read("20.00"), 20);
+  assert.equal(await read("1234.000"), 1234);
+  // The plain integer shape keeps working.
+  assert.equal(await read("0"), 0);
+  assert.equal(await read("20"), 20);
+  assert.equal(await read(""), null);
+  assert.equal(await read(null), null);
+
+  // These counts are whole numbers by definition; a real fraction is a disagreement,
+  // not a formatting artifact, and must still fail closed.
+  for (const value of ["20.50", "0.01", "1,234.00", "01.00", ".5", "20.", "-1.00", "2e3"]) {
+    await assert.rejects(read(value), (error) =>
+      error.code === "base_response_invalid" && error.details.field === "评论", value);
+  }
+});
+
 test("a malformed numeric lookup reports the table, field and the shape it actually saw", async () => {
   const read = async (value) => {
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
@@ -510,7 +537,7 @@ test("a malformed numeric lookup reports the table, field and the shape it actua
     [123, "number", "123"],
     [[123], "array", "[123]"],
     ["1,234", "string", '"1,234"'],
-    ["20.0", "string", '"20.0"'],
+    ["20.5", "string", '"20.5"'],
     [{ value: 1 }, "object", '{"value":1}'],
   ]) {
     await assert.rejects(read(value), (error) =>

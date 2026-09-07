@@ -338,7 +338,10 @@ function decodeCell(tableName, fieldName, value) {
         value_type: Array.isArray(value) ? "array" : typeof value,
         sample: JSON.stringify(value)?.slice(0, 120) ?? String(value),
       });
-      if (typeof value !== "string" || !/^(?:0|[1-9]\d*)$/.test(value)) {
+      // Base renders a number lookup at the field's display precision ("0.00"), so accept
+      // a trailing all-zero fraction. These sources are counts, so a non-zero fraction is
+      // a real disagreement and still fails closed.
+      if (typeof value !== "string" || !/^(?:0|[1-9]\d*)(?:\.0+)?$/.test(value)) {
         throw invalidResponse("Numeric lookup read value is malformed", seen());
       }
       const numeric = Number(value);
