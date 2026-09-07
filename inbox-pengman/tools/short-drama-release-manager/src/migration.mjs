@@ -1626,7 +1626,10 @@ async function applySchema(context, manifest) {
       if (!(table.fields ?? []).some((field) => field.name === action.field)) {
         const bindings = spec.kind === "link" ? { targetTableId: before.tables.get(spec.targetTable)?.table_id } : {};
         if (spec.kind === "link" && typeof bindings.targetTableId !== "string") fail("readback_mismatch", "Link target table is unresolved", { action: action.id });
-        await adapter.createField(table.table_id, action.table, action.field, bindings);
+        const initialOptions = spec.optionPolicy === "manifest_append"
+          ? action.spec.canonical.options.map((option) => option.name)
+          : undefined;
+        await adapter.createField(table.table_id, action.table, action.field, bindings, initialOptions);
       }
     } else if (action.kind === "update_primary_field") {
       const table = before.tables.get(action.table);

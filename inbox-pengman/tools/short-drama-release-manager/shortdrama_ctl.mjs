@@ -1265,11 +1265,18 @@ export function createFeishuMessageSender({ tokenProvider, isChatAllowed, fetchJ
   };
 }
 
-function schemaAdapters(client, config) {
+export function schemaAdapters(client, config) {
   const readSchema = () => baseSchemaMetadata(client, config);
   const schemaAdapter = {
     readSchema,
-    createField: (tableId, tableName, fieldName, bindings) => client.createField(config.base.appToken, tableId, tableName, fieldName, bindings),
+    createField: (tableId, tableName, fieldName, bindings, initialOptions) => client.createField(
+      config.base.appToken,
+      tableId,
+      tableName,
+      fieldName,
+      bindings,
+      { initialOptions },
+    ),
     updateField: (tableId, fieldId, tableName, fieldName) => client.updateField(config.base.appToken, tableId, fieldId, tableName, fieldName),
     async verifySchemaAction(action, schema) {
       const table = schema?.tables?.find((candidate) => candidate.name === action.table);

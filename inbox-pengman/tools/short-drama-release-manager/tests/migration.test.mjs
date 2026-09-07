@@ -1519,11 +1519,11 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   const calls = [];
   const tables = new Map(baseSchema.tables.map((table) => [table.name, structuredClone(table)]));
   const adapter = {
-    createField: async (tableId, table, field, bindings) => {
+    createField: async (tableId, table, field, bindings, initialOptions) => {
       tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
       if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
-      calls.push(["field", table, field, bindings]);
+      calls.push(["field", table, field, bindings, initialOptions]);
     },
     updateField: async (tableId, fieldId, table, field) => {
       const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId);
@@ -1543,6 +1543,12 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   assert.equal(calls.some((call) => call[0] === "field" && call[2] === "账号名"), true);
   const linkCall = calls.find((call) => call[0] === "field" && call[1] === "发布记录" && call[2] === "剧");
   assert.deepEqual(linkCall[3], { targetTableId: "tbl-precreated-1" });
+  assert.equal(linkCall[4], undefined);
+  const dynamicSelectCall = calls.find((call) => call[0] === "field" && call[1] === "账号台账" && call[2] === "所属组");
+  const dynamicSelectAction = manifest.schema_actions.find((action) => action.id === "field:账号台账:所属组");
+  assert.deepEqual(dynamicSelectCall[4], dynamicSelectAction.spec.canonical.options.map((option) => option.name));
+  const fixedSelectCall = calls.find((call) => call[0] === "field" && call[1] === "账号台账" && call[2] === "状态");
+  assert.equal(fixedSelectCall[4], undefined);
 
   const repos = memoryRepos();
   await applyMigration({ repos, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision,

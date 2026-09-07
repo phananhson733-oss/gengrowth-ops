@@ -27,6 +27,7 @@ import {
   readPayload,
   resolveInvocationIdentity,
   runBaseCanary,
+  schemaAdapters,
   shouldEnqueueSchedule,
 } from "../shortdrama_ctl.mjs";
 import { canaryReceiptDigest, manifestDigest, permissionAttestationDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
@@ -76,6 +77,20 @@ function readySchema(env) {
     })),
   };
 }
+
+test("runtime schema adapter forwards manifest-append initial options to Feishu field creation", async () => {
+  const calls = [];
+  const client = {
+    createField: async (...args) => { calls.push(args); return { field_id: "fld-new" }; },
+  };
+  const { schemaAdapter } = schemaAdapters(client, { base: { appToken: "base" } });
+  await schemaAdapter.createField("tbl-drama", "选剧池", "剧分类", {}, ["Romance", "Revenge"]);
+  await schemaAdapter.createField("tbl-drama", "选剧池", "平台", {}, undefined);
+  assert.deepEqual(calls, [
+    ["base", "tbl-drama", "选剧池", "剧分类", {}, { initialOptions: ["Romance", "Revenge"] }],
+    ["base", "tbl-drama", "选剧池", "平台", {}, { initialOptions: undefined }],
+  ]);
+});
 
 test("CLI exposes only registered command paths and fixed options", () => {
   assert.deepEqual(parseCommand(["sync", "status", "--run-id", "run"]), {

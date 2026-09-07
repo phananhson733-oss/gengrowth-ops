@@ -1189,7 +1189,7 @@ export class FeishuClient {
     }, { signal });
   }
 
-  async createField(baseToken, tableId, tableName, fieldName, bindings = {}, { signal } = {}) {
+  async createField(baseToken, tableId, tableName, fieldName, bindings = {}, { initialOptions = undefined, signal } = {}) {
     const spec = findFieldSpec(tableName, fieldName);
     if (spec.managedReverseOf) {
       fail("base_schema_drift", "Managed reverse links are created only with their bidirectional owner", {
@@ -1201,7 +1201,11 @@ export class FeishuClient {
     if (spec.primary) {
       fail("base_schema_drift", "Primary fields must be created with the table or recovered through updateField", { field: fieldName });
     }
-    const body = canonicalFieldBody(tableName, spec, bindings);
+    if (spec.optionPolicy === "manifest_append" && initialOptions === undefined) {
+      fail("base_schema_drift", "Manifest-append Select fields require explicit initial options", { field: fieldName });
+    }
+    const body = canonicalFieldBody(tableName, spec, bindings,
+      initialOptions === undefined ? {} : { initialOptions });
     return this.serializeWrite(`schema:${baseToken}:${tableId}`, () => this.operation(async (context) => {
       const payload = await this.request(
         `${this.basePath(baseToken)}/tables/${encoded(tableId)}/fields`,

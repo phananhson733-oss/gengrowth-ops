@@ -1217,12 +1217,18 @@ test("canonical field payloads cover select, datetime, formula, and system field
       return { code: 0, data: { field: { field_id: `f${bodies.length}` } } };
     },
   });
-  await client.createField("base", "tbl", "选剧池", "剧分类");
+  await assert.rejects(
+    () => client.createField("base", "tbl", "选剧池", "剧分类"),
+    (error) => error.code === "base_schema_drift",
+  );
+  await client.createField("base", "tbl", "选剧池", "剧分类", {}, { initialOptions: ["Romance", "Revenge"] });
+  await client.createField("base", "tbl", "选剧池", "账号组", {}, { initialOptions: [] });
   await client.createField("base", "tbl", "选剧池", "上线日期");
   await client.createField("base", "tbl", "选剧池", "是否已排期");
   await client.createField("base", "tbl", "选剧池", "创建时间");
   assert.deepEqual(bodies, [
-    { name: "剧分类", type: "select", multiple: true },
+    { name: "剧分类", type: "select", multiple: true, options: [{ name: "Romance" }, { name: "Revenge" }] },
+    { name: "账号组", type: "select", multiple: true, options: [] },
     { name: "上线日期", type: "datetime", style: { format: "yyyy-MM-dd" } },
     { name: "是否已排期", type: "formula", expression: 'IF(ISBLANK([关联发布记录]),"否","是")' },
     { name: "创建时间", type: "created_at" },
@@ -1239,6 +1245,14 @@ test("canonical field payloads cover select, datetime, formula, and system field
   );
   assert.throws(
     () => fixedFieldDescriptor("选剧池", "剧名", {}, { initialOptions: [] }),
+    (error) => error.code === "base_schema_drift",
+  );
+  await assert.rejects(
+    () => client.createField("base", "tbl", "选剧池", "平台", {}, { initialOptions: [] }),
+    (error) => error.code === "base_schema_drift",
+  );
+  await assert.rejects(
+    () => client.createField("base", "tbl", "选剧池", "剧名", {}, { initialOptions: [] }),
     (error) => error.code === "base_schema_drift",
   );
 });
