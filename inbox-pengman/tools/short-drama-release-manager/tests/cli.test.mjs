@@ -1457,8 +1457,7 @@ test("runtime preserves select-option third-state drift without misreporting a l
   const configPath = path.join(root, "runtime.json");
   await writeFile(configPath, JSON.stringify(config));
   const google = runtimeMigrationGoogle();
-  const plannedSchema = readyMigrationSchema(env);
-  const liveSchema = structuredClone(plannedSchema);
+  const liveSchema = readyMigrationSchema(env);
   const byId = new Map(liveSchema.tables.map((table) => [table.table_id, table]));
   let optionUpdates = 0;
   const client = repositoryClient({
@@ -1488,7 +1487,6 @@ test("runtime preserves select-option third-state drift without misreporting a l
       ShortDramaNotifier: NotifierFixture,
       readGoogleMigrationSource: async () => structuredClone(google),
       source: { readLatestAccounts: async () => [], readLatestPosts: async () => [] },
-      readMigrationSchema: async () => structuredClone(plannedSchema),
     },
   });
   try {

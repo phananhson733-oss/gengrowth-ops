@@ -1315,7 +1315,7 @@ function optionActionAdapter(liveSchema, { update, verify } = {}) {
     updateField: async () => { throw new Error("unexpected primary update"); },
     readSchema: async () => {
       calls.reads += 1;
-      return { complete: true, tables: structuredClone(liveSchema.tables) };
+      return { complete: true, revision: liveSchema.revision, tables: structuredClone(liveSchema.tables) };
     },
     updateSelectFieldOptions: async (tableId, fieldId, tableName, fieldName, optionNames) => {
       calls.updates.push([tableId, fieldId, tableName, fieldName, structuredClone(optionNames)]);
@@ -1323,6 +1323,7 @@ function optionActionAdapter(liveSchema, { update, verify } = {}) {
       const field = optionField(liveSchema, action);
       if (typeof update === "function") return update({ action, field, optionNames: [...optionNames], liveSchema, calls });
       field.options = optionNames.map((name, index) => ({ id: `new-${index}`, name, color: index }));
+      liveSchema.revision = `live-options-r${calls.updates.length}`;
     },
     verifySchemaAction: async (action, schema) => {
       calls.verifies += 1;
@@ -1716,24 +1717,26 @@ test("schema apply resolves IDs from complete readback, updates default primary,
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
   const calls = [];
   const tables = new Map(baseSchema.tables.map((table) => [table.name, structuredClone(table)]));
+  let liveRevision = manifest.initial_schema_revision;
   const adapter = {
     createField: async (tableId, table, field, bindings, initialOptions) => {
       tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
       if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
+      liveRevision = "post-schema-r1";
       calls.push(["field", table, field, bindings, initialOptions]);
     },
     updateField: async (tableId, fieldId, table, field) => {
       const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId);
       tables.get(table).fields[at] = fixedFieldForTables(tables, table, field, fieldId, { primary: true });
+      liveRevision = "post-schema-r1";
       calls.push(["update", tableId, fieldId, table, field]);
     },
     updateSelectFieldOptions: async () => { throw new Error("unexpected option update"); },
-    readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
+    readSchema: async () => ({ complete: true, revision: liveRevision, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
-  let revisionReads = 0;
-  const applied = await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-schema-r1" }, manifest);
+  const applied = await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision }, manifest);
   assert.equal(applied.schema_receipt.status, "verified");
   assert.equal(applied.schema_receipt.manifest_sha256, manifest.sha256);
   assert.equal(applied.schema_receipt.pre_revision, manifest.initial_schema_revision);
@@ -1770,20 +1773,24 @@ test("schema apply appends options with exact before and after readback", async 
   assert.deepEqual(action.before_options, ["Legacy", "Romance"]);
   assert.deepEqual(action.after_options, ["Legacy", "Romance", "Revenge"]);
   const { adapter, calls } = optionActionAdapter(liveSchema);
-  let revisionReads = 0;
+  let separateRevisionReads = 0;
   let emptyReads = 0;
   const applied = await applyMigration({
     phase: "schema",
     schemaAdapter: adapter,
     expectedSha256: manifest.sha256,
     sourceRevision: manifest.source_revision,
-    getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-options-r1",
+    getSchemaRevision: async () => {
+      separateRevisionReads += 1;
+      throw new Error("schema receipt must not use a separate revision read");
+    },
     readEmptyTableEvidence: async () => {
       emptyReads += 1;
       return structuredClone(manifest.initial_empty_table_evidence);
     },
   }, manifest);
-  assert.equal(applied.schema_receipt.post_revision, "post-options-r1");
+  assert.equal(applied.schema_receipt.post_revision, liveSchema.revision);
+  assert.equal(separateRevisionReads, 0);
   assert.deepEqual(calls.updates, [[
     liveSchema.tables.find((table) => table.name === action.table).table_id,
     action.field_id,
@@ -1793,8 +1800,8 @@ test("schema apply appends options with exact before and after readback", async 
   ]]);
   assert.deepEqual(optionField(liveSchema, action).options.map((option) => option.name), action.after_options);
   assert.deepEqual({ schemaReads: calls.reads, verifies: calls.verifies, emptyReads }, {
-    schemaReads: 3,
-    verifies: 1,
+    schemaReads: 4,
+    verifies: 2,
     emptyReads: 2,
   });
 
@@ -1818,6 +1825,36 @@ test("schema apply appends options with exact before and after readback", async 
   }
 });
 
+test("schema receipt binds the final empty gate to one exact final schema snapshot", async () => {
+  const state = optionApplyScenario({ actionCount: 2 });
+  const manifest = await planMigration({ google: state.google, captures: [latestCapture()], baseSchema: state.baseSchema });
+  const actions = manifest.schema_actions.filter((action) => action.kind === "update_select_options");
+  const { adapter, calls } = optionActionAdapter(state.liveSchema);
+  let emptyReads = 0;
+  let separateRevisionReads = 0;
+  await assert.rejects(() => applyMigration({
+    phase: "schema",
+    schemaAdapter: adapter,
+    expectedSha256: manifest.sha256,
+    sourceRevision: manifest.source_revision,
+    getSchemaRevision: async () => {
+      separateRevisionReads += 1;
+      return separateRevisionReads === 1 ? manifest.initial_schema_revision : "separate-post-revision";
+    },
+    readEmptyTableEvidence: async () => {
+      emptyReads += 1;
+      if (emptyReads === 3) {
+        optionField(state.liveSchema, actions[0]).options = [{ name: "Drifted after immediate readback" }];
+        state.liveSchema.revision = "drifted-before-final-snapshot";
+      }
+      return structuredClone(manifest.initial_empty_table_evidence);
+    },
+  }, manifest), (error) => error.code === "readback_mismatch");
+  assert.equal(calls.updates.length, 2);
+  assert.equal(emptyReads, 3);
+  assert.equal(separateRevisionReads, 0);
+});
+
 test("schema apply skips exact-after option actions and rejects third-state drift", async () => {
   const exact = optionApplyScenario();
   const manifest = await planMigration({ google: exact.google, captures: [latestCapture()], baseSchema: exact.baseSchema });
@@ -1826,24 +1863,28 @@ test("schema apply skips exact-after option actions and rejects third-state drif
     id: `existing-${index}`, name, color: index,
   }));
   const { adapter, calls } = optionActionAdapter(exact.liveSchema);
-  let revisionReads = 0;
+  let separateRevisionReads = 0;
   let emptyReads = 0;
   const applied = await applyMigration({
     phase: "schema",
     schemaAdapter: adapter,
     expectedSha256: manifest.sha256,
     sourceRevision: manifest.source_revision,
-    getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-exact-after",
+    getSchemaRevision: async () => {
+      separateRevisionReads += 1;
+      throw new Error("schema receipt must not use a separate revision read");
+    },
     readEmptyTableEvidence: async () => {
       emptyReads += 1;
       return structuredClone(manifest.initial_empty_table_evidence);
     },
   }, manifest);
-  assert.equal(applied.schema_receipt.post_revision, "post-exact-after");
+  assert.equal(applied.schema_receipt.post_revision, exact.liveSchema.revision);
+  assert.equal(separateRevisionReads, 0);
   assert.equal(calls.updates.length, 0);
   assert.deepEqual({ schemaReads: calls.reads, verifies: calls.verifies, emptyReads }, {
-    schemaReads: 3,
-    verifies: 1,
+    schemaReads: 4,
+    verifies: 2,
     emptyReads: 1,
   });
 
@@ -1911,54 +1952,77 @@ test("schema option mutation requires fresh empty evidence and no reusable schem
     update: () => { throw new Error("receipt reuse must not mutate schema"); },
   });
   const gate = schemaGate(reusedManifest, "post-reused");
+  reusedState.liveSchema.revision = gate.schemaReceipt.post_revision;
+  let separateRevisionReads = 0;
   const reused = await applyMigration({
     phase: "schema",
     schemaAdapter: reusedAdapter.adapter,
     expectedSha256: reusedManifest.sha256,
     ...gate,
+    getSchemaRevision: async () => {
+      separateRevisionReads += 1;
+      throw new Error("receipt reuse must not use a separate revision read");
+    },
     readEmptyTableEvidence: async () => { throw new Error("receipt reuse must not inspect mutation emptiness"); },
   }, reusedManifest);
   assert.equal(reused.reused, true);
   assert.equal(reusedAdapter.calls.updates.length, 0);
   assert.equal(reusedAdapter.calls.reads, 1);
-  assert.equal(reusedAdapter.calls.verifies, 0);
+  assert.equal(reusedAdapter.calls.verifies, 1);
+  assert.equal(separateRevisionReads, 0);
 });
 
 test("partial multi-action schema failure produces no receipt and replans only remaining gaps", async () => {
-  const interrupted = optionApplyScenario({ actionCount: 2 });
-  const manifest = await planMigration({ google: interrupted.google, captures: [latestCapture()], baseSchema: interrupted.baseSchema });
-  const actions = manifest.schema_actions.filter((candidate) => candidate.kind === "update_select_options");
-  assert.deepEqual(actions.map((action) => action.field), ["剧分类", "语言"]);
-  const interruptedAdapter = optionActionAdapter(interrupted.liveSchema, {
-    update: ({ field, optionNames }) => {
-      field.options = optionNames.map((name) => ({ name }));
-      throw Object.assign(new Error("response lost after server mutation"), { code: "base_request_failed" });
-    },
-  });
-  await assert.rejects(() => applyMigration({
-    phase: "schema",
-    schemaAdapter: interruptedAdapter.adapter,
-    expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision,
-    getSchemaRevision: async () => manifest.initial_schema_revision,
-  }, manifest), (error) => error.code === "base_request_failed");
-  assert.equal(interruptedAdapter.calls.updates.length, 1);
-  assert.deepEqual(optionField(interrupted.liveSchema, actions[0]).options.map((option) => option.name), actions[0].after_options);
-  const replanned = await planMigration({
-    google: interrupted.google,
-    captures: [latestCapture()],
-    baseSchema: interrupted.liveSchema,
-  });
-  assert.deepEqual(replanned.schema_actions.filter((action) => action.kind === "update_select_options").map((action) => action.id), [actions[1].id]);
-  const repos = memoryRepos();
-  await assert.rejects(() => applyMigration({
-    phase: "data",
-    repos,
-    expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision,
-    getSchemaRevision: async () => "post-unreceipted",
-  }, manifest), (error) => error.code === "migration_schema_receipt_required");
-  assert.equal(repos.calls.length, 0);
+  for (const [secondMutation, expectedRemaining] of [[false, 1], [true, 0]]) {
+    const interrupted = optionApplyScenario({ actionCount: 2 });
+    const manifest = await planMigration({ google: interrupted.google, captures: [latestCapture()], baseSchema: interrupted.baseSchema });
+    const actions = manifest.schema_actions.filter((candidate) => candidate.kind === "update_select_options");
+    assert.deepEqual(actions.map((action) => action.field), ["剧分类", "语言"]);
+    let rollbackCalls = 0;
+    const interruptedAdapter = optionActionAdapter(interrupted.liveSchema, {
+      update: ({ field, optionNames, liveSchema, calls }) => {
+        if (calls.updates.length === 1 || secondMutation) {
+          field.options = optionNames.map((name) => ({ name }));
+          liveSchema.revision = `interrupted-options-r${calls.updates.length}`;
+        }
+        if (calls.updates.length === 2) {
+          throw Object.assign(new Error(secondMutation
+            ? "response lost after second server mutation"
+            : "second mutation failed before reaching the server"), { code: "base_request_failed" });
+        }
+      },
+    });
+    interruptedAdapter.adapter.deleteField = async () => { rollbackCalls += 1; };
+    await assert.rejects(() => applyMigration({
+      phase: "schema",
+      schemaAdapter: interruptedAdapter.adapter,
+      expectedSha256: manifest.sha256,
+      sourceRevision: manifest.source_revision,
+      getSchemaRevision: async () => manifest.initial_schema_revision,
+    }, manifest), (error) => error.code === "base_request_failed");
+    assert.equal(interruptedAdapter.calls.updates.length, 2);
+    assert.equal(rollbackCalls, 0);
+    assert.deepEqual(optionField(interrupted.liveSchema, actions[0]).options.map((option) => option.name), actions[0].after_options);
+    assert.deepEqual(optionField(interrupted.liveSchema, actions[1]).options.map((option) => option.name),
+      secondMutation ? actions[1].after_options : actions[1].before_options);
+    const replanned = await planMigration({
+      google: interrupted.google,
+      captures: [latestCapture()],
+      baseSchema: interrupted.liveSchema,
+    });
+    const remaining = replanned.schema_actions.filter((action) => action.kind === "update_select_options");
+    assert.equal(remaining.length, expectedRemaining);
+    if (expectedRemaining === 1) assert.equal(remaining[0].id, actions[1].id);
+    const repos = memoryRepos();
+    await assert.rejects(() => applyMigration({
+      phase: "data",
+      repos,
+      expectedSha256: manifest.sha256,
+      sourceRevision: manifest.source_revision,
+      getSchemaRevision: async () => "post-unreceipted",
+    }, manifest), (error) => error.code === "migration_schema_receipt_required");
+    assert.equal(repos.calls.length, 0);
+  }
 
   const raced = optionApplyScenario({ actionCount: 2 });
   const racedManifest = await planMigration({ google: raced.google, captures: [latestCapture()], baseSchema: raced.baseSchema });
@@ -2002,19 +2066,20 @@ test("schema apply performs an empty-table primary bootstrap and proves the rena
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()], baseSchema });
   const tables = new Map(baseSchema.tables.map((table) => [table.name, structuredClone(table)]));
   const calls = [];
+  let liveRevision = manifest.initial_schema_revision;
   const adapter = {
     createField: async (tableId, table, field) => {
       tables.get(table).fields.push(fixedFieldForTables(tables, table, field, `${tableId}-${field}`));
       if (table === "发布记录" && field === "剧") tables.get("选剧池").fields.push(fixedFieldForTables(tables, "选剧池", "关联发布记录", "reverse-drama"));
       if (table === "发布记录" && field === "采集记录") tables.get("采集数据").fields.push(fixedFieldForTables(tables, "采集数据", "关联发布记录", "reverse-capture"));
+      liveRevision = "post-bootstrap";
     },
-    updateField: async (tableId, fieldId, table, field) => { const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId); tables.get(table).fields[at] = fixedFieldForTables(tables, table, field, fieldId, { primary: true }); calls.push([tableId, fieldId, table, field]); },
+    updateField: async (tableId, fieldId, table, field) => { const at = tables.get(table).fields.findIndex((item) => item.field_id === fieldId); tables.get(table).fields[at] = fixedFieldForTables(tables, table, field, fieldId, { primary: true }); liveRevision = "post-bootstrap"; calls.push([tableId, fieldId, table, field]); },
     updateSelectFieldOptions: async () => { throw new Error("unexpected option update"); },
-    readSchema: async () => ({ complete: true, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
+    readSchema: async () => ({ complete: true, revision: liveRevision, tables: [...tables].map(([name, value]) => ({ name, ...value })) }),
     verifySchemaAction: async () => true,
   };
-  let bootstrapRevisionReads = 0;
-  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision, getSchemaRevision: async () => bootstrapRevisionReads++ === 0 ? manifest.initial_schema_revision : "post-bootstrap" }, manifest);
+  await applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256, sourceRevision: manifest.source_revision }, manifest);
   assert.deepEqual(calls, [
     ["tbl-account", "fld-default", "账号台账", "账号ID"],
     ["tbl-precreated-1", "fld-primary-1", "选剧池", "剧ID"],
@@ -2047,11 +2112,10 @@ test("schema receipt is refused when an unchanged preexisting field drifts in fi
     updateField: async () => { throw new Error("unexpected"); },
     updateSelectFieldOptions: async () => { throw new Error("unexpected"); },
     verifySchemaAction: async () => true,
-    readSchema: async () => ({ complete: true, tables: structuredClone(drifted.tables) }),
+    readSchema: async () => ({ complete: true, revision: manifest.initial_schema_revision, tables: structuredClone(drifted.tables) }),
   };
-  let revisionReads = 0;
   await assert.rejects(() => applyMigration({ phase: "schema", schemaAdapter: adapter, expectedSha256: manifest.sha256,
-    sourceRevision: manifest.source_revision, getSchemaRevision: async () => revisionReads++ === 0 ? manifest.initial_schema_revision : "post-r1" }, manifest),
+    sourceRevision: manifest.source_revision }, manifest),
   (error) => error.code === "readback_mismatch");
 });
 

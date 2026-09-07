@@ -1658,8 +1658,15 @@ function selectOptionNames(field, action) {
   return assertNormalizedOptionNames(field.options.map((option) => option.name), "readback_mismatch");
 }
 
-async function verifyFinalSchema(adapter) {
-  const final = await readCompleteSchema(adapter);
+function schemaSnapshotRevision(snapshot) {
+  const revision = snapshot?.schema?.revision;
+  if (typeof revision !== "string" || revision.trim() === "") {
+    fail("schema_revision_drift", "Current Base schema revision is invalid");
+  }
+  return revision;
+}
+
+function verifyFinalSchema(final) {
   const finalTableIds = Object.fromEntries([...final.tables].map(([name, table]) => [name, table.table_id]));
   for (const tableName of TABLE_ORDER) {
     const fields = final.tables.get(tableName)?.fields ?? [];
@@ -1675,11 +1682,42 @@ async function verifyFinalSchema(adapter) {
       }
     }
   }
-  return final.schema;
 }
 
-async function applySchema(context, manifest) {
-  const adapter = requireSchemaAdapter(context.schemaAdapter);
+async function verifySchemaSnapshot(adapter, manifest, snapshot) {
+  verifyFinalSchema(snapshot);
+  for (const action of manifest.schema_actions) {
+    const verified = await adapter.verifySchemaAction(clone(action), clone(snapshot.schema));
+    if (verified !== true) fail("readback_mismatch", "Final schema action readback failed", { action: action.id });
+  }
+}
+
+function classifyInitialSchemaDrift(manifest, snapshot) {
+  for (const action of manifest.schema_actions) {
+    if (action.kind !== "update_select_options") continue;
+    const table = snapshot.tables.get(action.table);
+    const matchesById = table?.fields?.filter((field) => field.field_id === action.field_id) ?? [];
+    const matchesByName = table?.fields?.filter((field) => field.name === action.field) ?? [];
+    if (matchesById.length !== 1 || matchesByName.length !== 1 || matchesById[0] !== matchesByName[0]) continue;
+    let currentOptions;
+    try {
+      currentOptions = selectOptionNames(matchesById[0], action);
+    } catch (error) {
+      if (error?.code !== "readback_mismatch") throw error;
+      currentOptions = null;
+    }
+    if (!isDeepStrictEqual(currentOptions, action.before_options) &&
+        !isDeepStrictEqual(currentOptions, action.after_options)) {
+      fail("schema_revision_drift", "Select options changed outside the manifest", {
+        action: action.id,
+        reason: "select_options_third_state",
+      });
+    }
+  }
+  fail("schema_revision_drift", "Base schema revision changed after planning");
+}
+
+async function applySchema(context, manifest, adapter) {
   for (const action of manifest.schema_actions) {
     const before = await readCompleteSchema(adapter);
     if (action.kind === "create_field") {
@@ -1741,7 +1779,6 @@ async function applySchema(context, manifest) {
     const verified = await adapter.verifySchemaAction(clone(action), clone(after.schema));
     if (verified !== true) fail("readback_mismatch", "Schema action readback failed", { action: action.id });
   }
-  await verifyFinalSchema(adapter);
 }
 
 async function applyPresentation(context, manifest) {
@@ -1861,17 +1898,21 @@ export async function applyMigration(context = {}, manifest) {
   const phase = context.phase ?? "data";
   if (!new Set(["schema", "data", "presentation", "sequences"]).has(phase)) fail("migration_phase_invalid", "Migration phase is invalid");
   if (phase === "schema") {
-    const current = await currentSchemaRevision(context);
+    const adapter = requireSchemaAdapter(context.schemaAdapter);
     if (context.schemaReceipt !== undefined || context.expectedSchemaReceiptSha256 !== undefined) {
       const receipt = assertSchemaReceipt(context, manifest);
-      if (current !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision does not match the completed schema receipt");
-      await verifyFinalSchema(requireSchemaAdapter(context.schemaAdapter));
+      const final = await readCompleteSchema(adapter);
+      await verifySchemaSnapshot(adapter, manifest, final);
+      if (schemaSnapshotRevision(final) !== receipt.post_revision) fail("schema_revision_drift", "Base schema revision does not match the completed schema receipt");
       return { status: "applied", phase, manifest_sha256: manifest.sha256, schema_receipt: clone(receipt), reused: true };
     }
-    if (current !== manifest.initial_schema_revision) fail("schema_revision_drift", "Base schema revision changed after planning");
-    await applySchema(context, manifest);
+    const initial = await readCompleteSchema(adapter);
+    if (schemaSnapshotRevision(initial) !== manifest.initial_schema_revision) classifyInitialSchemaDrift(manifest, initial);
+    await applySchema(context, manifest, adapter);
     await assertBaseStillEmpty(context, manifest);
-    const postRevision = await currentSchemaRevision(context);
+    const final = await readCompleteSchema(adapter);
+    await verifySchemaSnapshot(adapter, manifest, final);
+    const postRevision = schemaSnapshotRevision(final);
     const receipt = {
       version: "shortdrama-schema-receipt/v1",
       status: "verified",
