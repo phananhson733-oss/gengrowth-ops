@@ -49,6 +49,75 @@ function makeRepos(client = fakeClient()) {
   return new BaseRepositories({ client, appToken: "app-token", tableIds });
 }
 
+// Base makes a freshly created record visible asynchronously. This client reproduces
+// that: creates succeed and return record IDs, but the next `lag` listings omit them.
+function laggingClient(lag) {
+  const base = fakeClient();
+  const hidden = new Set();
+  let remaining = lag;
+  return {
+    ...base,
+    async createRecords(appToken, tableId, records) {
+      const created = await base.createRecords(appToken, tableId, records);
+      for (const record of created) hidden.add(record.record_id);
+      return created;
+    },
+    async listRecords(appToken, tableId) {
+      const result = await base.listRecords(appToken, tableId);
+      if (hidden.size > 0 && remaining > 0) {
+        remaining -= 1;
+        return { ...result, items: result.items.filter((item) => !hidden.has(item.record_id)) };
+      }
+      return result;
+    },
+  };
+}
+
+function repoWithSleep(client, sleeps) {
+  return new BaseRepositories({ client, appToken: "app-token", tableIds, sleep: async (ms) => { sleeps.push(ms); } });
+}
+
+test("bulk sync polls for a lagging write instead of calling it a lost record", async () => {
+  const sleeps = [];
+  const repos = repoWithSleep(laggingClient(1), sleeps);
+
+  const summary = await repos.dramas.syncManyByKey([{ key: "SD-000001", patch: { 剧名: "Drama" } }], "migration");
+
+  assert.equal(summary.readback, "verified");
+  assert.equal(summary.created, 1);
+  assert.equal(sleeps.length, 1, "should have waited once before the second read");
+});
+
+test("bulk sync gives up on a record that never becomes visible, after bounded polling", async () => {
+  const sleeps = [];
+  const repos = repoWithSleep(laggingClient(99), sleeps);
+
+  await assert.rejects(
+    () => repos.dramas.syncManyByKey([{ key: "SD-000001", patch: { 剧名: "Drama" } }], "migration"),
+    (error) => error.code === "readback_mismatch" && /missing after bulk sync/.test(error.message),
+  );
+  assert.equal(sleeps.length, 2, "three reads means two waits, not an unbounded retry");
+});
+
+test("bulk sync does not retry a readback whose fields disagree", async () => {
+  const sleeps = [];
+  const client = fakeClient();
+  const original = client.createRecords.bind(client);
+  client.createRecords = async (appToken, tableId, records) => {
+    // The Base stores something other than what was requested.
+    const tampered = records.map((record) => ({ fields: { ...record.fields, 剧名: "Different" } }));
+    return original(appToken, tableId, tampered);
+  };
+  const repos = repoWithSleep(client, sleeps);
+
+  await assert.rejects(
+    () => repos.dramas.syncManyByKey([{ key: "SD-000001", patch: { 剧名: "Drama" } }], "migration"),
+    (error) => error.code === "readback_mismatch",
+  );
+  assert.equal(sleeps.length, 0, "a field mismatch is not a visibility lag — no waiting");
+});
+
+
 test("constructor requires one non-empty app token, four unique table IDs, and a compatible client", () => {
   const client = fakeClient();
   for (const options of [

@@ -10,6 +10,11 @@ const TABLE_BINDINGS = Object.freeze({
   releases: "发布记录",
 });
 const MATCH_INPUT_FIELDS = Object.freeze(["Post ID", "视频链接", "账号", "日期"]);
+// Base makes a freshly written record visible asynchronously. The single-record reader
+// already polls for it (MAX_RECORD_VISIBILITY_ATTEMPTS in feishu-client); the bulk
+// readback needs the same, otherwise a lagging row reads as a lost write.
+const MAX_BULK_READBACK_ATTEMPTS = 3;
+const defaultSleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
 
 function fail(code, message, details = {}) {
   throw new ShortDramaError(code, message, details);
@@ -150,9 +155,10 @@ function assertRequestedFields(record, expected, tableName) {
 }
 
 export class TableRepository {
-  constructor({ owner, client, appToken, tableId, tableName }) {
+  constructor({ owner, client, appToken, tableId, tableName, sleep = defaultSleep }) {
     this.owner = owner;
     this.client = client;
+    this.sleep = sleep;
     this.appToken = appToken;
     this.tableId = tableId;
     this.tableName = tableName;
@@ -386,12 +392,23 @@ export class TableRepository {
     }
 
     try {
-      await this.loadIndex({ signal });
-      assertNotAborted(signal);
+      for (let attempt = 1; ; attempt += 1) {
+        await this.loadIndex({ signal });
+        assertNotAborted(signal);
+        const missing = [...expectations.keys()].filter((key) => !this.index.has(key));
+        if (missing.length === 0) break;
+        // Absent rows are the visibility case, so poll. A row that is present but wrong
+        // is a real disagreement and is reported below without waiting.
+        if (attempt >= MAX_BULK_READBACK_ATTEMPTS) {
+          fail("readback_mismatch", "Changed Base record is missing after bulk sync", {
+            table: this.tableName, missing: missing.length, attempts: attempt,
+          });
+        }
+        await this.sleep(attempt * 1_000, { signal });
+        assertNotAborted(signal);
+      }
       for (const [changedKey, expected] of expectations) {
-        const readback = this.index.get(changedKey);
-        if (!readback) fail("readback_mismatch", "Changed Base record is missing after bulk sync", { table: this.tableName });
-        assertRequestedFields(readback, expected, this.tableName);
+        assertRequestedFields(this.index.get(changedKey), expected, this.tableName);
       }
     } catch (error) {
       this.index = null;
@@ -623,7 +640,7 @@ class ReleaseRepository extends TableRepository {
 }
 
 export class BaseRepositories {
-  constructor({ client, appToken, tableIds } = {}) {
+  constructor({ client, appToken, tableIds, sleep = defaultSleep } = {}) {
     const clientMethods = ["listRecords", "createRecords", "updateRecords", "getRecord"];
     const tableIdKeys = Object.keys(TABLE_BINDINGS);
     const validClient = plainObject(client) && clientMethods.every((method) => typeof client[method] === "function");
@@ -637,10 +654,10 @@ export class BaseRepositories {
     }
     this.client = client;
     this.appToken = appToken;
-    this.accounts = new TableRepository({ owner: this, client, appToken, tableId: tableIds.accounts, tableName: TABLE_BINDINGS.accounts });
-    this.dramas = new TableRepository({ owner: this, client, appToken, tableId: tableIds.dramas, tableName: TABLE_BINDINGS.dramas });
-    this.captures = new TableRepository({ owner: this, client, appToken, tableId: tableIds.captures, tableName: TABLE_BINDINGS.captures });
-    this.releases = new ReleaseRepository({ owner: this, client, appToken, tableId: tableIds.releases, tableName: TABLE_BINDINGS.releases });
+    this.accounts = new TableRepository({ owner: this, client, appToken, tableId: tableIds.accounts, tableName: TABLE_BINDINGS.accounts, sleep });
+    this.dramas = new TableRepository({ owner: this, client, appToken, tableId: tableIds.dramas, tableName: TABLE_BINDINGS.dramas, sleep });
+    this.captures = new TableRepository({ owner: this, client, appToken, tableId: tableIds.captures, tableName: TABLE_BINDINGS.captures, sleep });
+    this.releases = new ReleaseRepository({ owner: this, client, appToken, tableId: tableIds.releases, tableName: TABLE_BINDINGS.releases, sleep });
   }
 
   repositoryForTable(tableName) {
