@@ -57,6 +57,35 @@ test("schema fixes the four Base tables and source ownership", () => {
   });
 });
 
+test("schema marks exactly the eight approved Select fields as manifest_append", () => {
+  const actual = TABLE_ORDER.flatMap((tableName) =>
+    BASE_FIELD_SPECS[tableName]
+      .filter((spec) => spec.optionPolicy === "manifest_append")
+      .map((spec) => [tableName, spec.name, spec.kind]),
+  );
+  assert.deepEqual(actual, [
+    ["账号台账", "所属组", "single_select"],
+    ["账号台账", "表现形式", "single_select"],
+    ["选剧池", "剧分类", "multi_select"],
+    ["选剧池", "生命周期", "single_select"],
+    ["选剧池", "RS Boost 分类（待确认）", "multi_select"],
+    ["选剧池", "账号组", "multi_select"],
+    ["选剧池", "语言", "single_select"],
+    ["选剧池", "来源", "multi_select"],
+  ]);
+
+  const manifestAppendSpecs = TABLE_ORDER.flatMap((tableName) =>
+    BASE_FIELD_SPECS[tableName].filter((spec) => spec.optionPolicy === "manifest_append"),
+  );
+  assert.equal(manifestAppendSpecs.length, 8);
+  assert.ok(manifestAppendSpecs.every((spec) => spec.options === undefined));
+  assert.ok(TABLE_ORDER.flatMap((tableName) => BASE_FIELD_SPECS[tableName])
+    .filter((spec) => spec.options !== undefined)
+    .every((spec) => spec.optionPolicy === undefined));
+  assert.deepEqual(TABLES["选剧池"].options.推荐人, ["彭满", "高璇", "马博洋"]);
+  assert.deepEqual(TABLES["选剧池"].options.平台, ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]);
+});
+
 test("schema uses supported system fields, writable sync storage, and Base formulas", () => {
   assert.deepEqual(spec("选剧池", "创建人"), {
     name: "创建人", kind: "system", phase: "system", systemType: "created_by",

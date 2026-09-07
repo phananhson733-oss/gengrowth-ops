@@ -15,6 +15,8 @@ const table = (primaryField, human, machine, shared, derived, options = {}) => O
 
 const field = (name, kind, details = {}) => Object.freeze({ name, kind, ...details });
 const storage = (name, kind, details = {}) => field(name, kind, { phase: "storage", ...details });
+const manifestAppendSelect = (name, kind, details = {}) =>
+  storage(name, kind, { ...details, optionPolicy: "manifest_append" });
 const link = (name, targetTable, details = {}) => field(name, "link", { phase: "link", targetTable, ...details });
 const lookup = (name, linkField, sourceField) => field(name, "lookup", {
   phase: "lookup_formula",
@@ -100,16 +102,16 @@ export const TABLES = Object.freeze({
 export const BASE_FIELD_SPECS = Object.freeze({
   "账号台账": Object.freeze([
     storage("账号ID", "text", { primary: true }), storage("账号名", "text"), storage("主页链接", "url"),
-    storage("粉丝数", "number"), storage("所属组", "single_select"), storage("定位垂类", "text"),
-    storage("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountLedgerStatus), storage("数据日期", "date"),
+    storage("粉丝数", "number"), manifestAppendSelect("所属组", "single_select"), storage("定位垂类", "text"),
+    manifestAppendSelect("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountLedgerStatus), storage("数据日期", "date"),
     storage("指标同步时间", "datetime"), selected("同步状态", "single_select", SELECT_OPTIONS.syncStatus),
   ]),
   "选剧池": Object.freeze([
-    storage("剧ID", "text", { primary: true }), storage("剧名", "text"), storage("剧分类", "multi_select"),
-    storage("上线日期", "date"), storage("生命周期", "single_select"), storage("备注", "text"),
-    storage("推荐理由", "text"), storage("RS Boost 分类（待确认）", "multi_select"), storage("账号组", "multi_select"),
-    selected("账号状态", "single_select", SELECT_OPTIONS.dramaAccountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), storage("语言", "single_select"),
-    storage("来源", "multi_select"), selected("推荐人", "multi_select", SELECT_OPTIONS.recommender), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus),
+    storage("剧ID", "text", { primary: true }), storage("剧名", "text"), manifestAppendSelect("剧分类", "multi_select"),
+    storage("上线日期", "date"), manifestAppendSelect("生命周期", "single_select"), storage("备注", "text"),
+    storage("推荐理由", "text"), manifestAppendSelect("RS Boost 分类（待确认）", "multi_select"), manifestAppendSelect("账号组", "multi_select"),
+    selected("账号状态", "single_select", SELECT_OPTIONS.dramaAccountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), manifestAppendSelect("语言", "single_select"),
+    manifestAppendSelect("来源", "multi_select"), selected("推荐人", "multi_select", SELECT_OPTIONS.recommender), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus),
     link("关联发布记录", "发布记录", { managedReverseOf: Object.freeze({ table: "发布记录", field: "剧" }) }),
     formula("是否已排期", "IF(ISBLANK([关联发布记录]),\"否\",\"是\")"),
     system("创建人", { systemType: "created_by" }), system("创建时间", { systemType: "created_at" }),
