@@ -38,6 +38,26 @@ test("requirements and Task 12 bind the reconciled v2 migration contract", async
   assert.doesNotMatch(plan, /16 个现有剧/);
 });
 
+test("three authoritative docs state the shipped Select-option migration contract", async () => {
+  const { readme, requirements, plan } = await docs();
+  const clauses = [
+    "`manifest_append` allowlist 仅限：账号台账.所属组、账号台账.表现形式、选剧池.剧分类、选剧池.生命周期、选剧池.RS Boost 分类（待确认）、选剧池.账号组、选剧池.语言、选剧池.来源",
+    "选剧池.平台和选剧池.推荐人是固定闭集",
+    "MoboReels → 其他仅用于迁移；其他未知平台必须 blocked",
+    "record write 不隐式创建 options",
+    "普通用户当前对四张表只读；人工业务写只经 Social Bot",
+    "每次 data apply 必须重新执行 fresh schema receipt 和 data preflight",
+    "schema partial failure 必须 replan_reconfirm，不回滚",
+    "20260907 旧证据链无效且不可复用",
+  ];
+
+  for (const [name, text] of Object.entries({ readme, requirements, plan })) {
+    for (const clause of clauses) {
+      assert.ok(text.includes(clause), `${name} must state: ${clause}`);
+    }
+  }
+});
+
 test("README makes shortdrama_ctl the sole v5 production entry and retires historical execution guidance", async () => {
   const { readme } = await docs();
   const firstLine = readme.split("\n", 1)[0];
