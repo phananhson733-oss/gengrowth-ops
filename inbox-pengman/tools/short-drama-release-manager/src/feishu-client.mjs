@@ -582,15 +582,22 @@ function normalizeViewConfiguration(configuration, fields) {
   const result = structuredClone(configuration);
   if (!plainObject(result.filter) || Object.keys(result.filter).some((key) => !["logic", "conditions"].includes(key)) ||
       !["and", "or"].includes(result.filter.logic) || !Array.isArray(result.filter.conditions)) {
-    throw invalidResponse("View filter configuration is malformed");
+    throw invalidResponse("View filter configuration is malformed", {
+      keys: plainObject(result.filter) ? Object.keys(result.filter).sort() : null,
+      logic: result.filter?.logic ?? null, sample: JSON.stringify(result.filter)?.slice(0, 160) ?? String(result.filter),
+    });
   }
   const operators = new Set(["==", "!=", ">", ">=", "<", "<=", "intersects", "disjoint", "empty", "non_empty"]);
-  const validateValue = (value) => {
+  // These decoders are the only place that sees the vendor's view shape, so every
+  // rejection carries what it actually saw. Bounded so a large config cannot flood a log.
+  const sampleOf = (value) => JSON.stringify(value)?.slice(0, 160) ?? String(value);
+  const validateValue = (value, field) => {
     const validScalar = (item) => item === null || typeof item === "string" || typeof item === "boolean" ||
       typeof item === "number" && Number.isFinite(item);
+    const reject = () => { throw invalidResponse("View filter value is malformed", { field, value_type: Array.isArray(value) ? "array" : typeof value, sample: sampleOf(value) }); };
     if (Array.isArray(value)) {
-      if (value.length === 0 || value.some((item) => !validScalar(item))) throw invalidResponse("View filter value is malformed");
-    } else if (!validScalar(value)) throw invalidResponse("View filter value is malformed");
+      if (value.length === 0 || value.some((item) => !validScalar(item))) reject();
+    } else if (!validScalar(value)) reject();
     return structuredClone(value);
   };
   result.filter.conditions = result.filter.conditions.map((condition) => {
@@ -603,7 +610,12 @@ function normalizeViewConfiguration(configuration, fields) {
       hasValue = condition.length === 3;
       value = condition[2];
       const expectedLength = ["empty", "non_empty"].includes(operator) ? 2 : 3;
-      if (condition.length !== expectedLength) throw invalidResponse("View filter tuple condition is malformed");
+      if (condition.length !== expectedLength) {
+        throw invalidResponse("View filter tuple condition is malformed", {
+          operator: typeof operator === "string" ? operator : null,
+          length: condition.length, expected_length: expectedLength, sample: sampleOf(condition),
+        });
+      }
     } else if (plainObject(condition)) {
       const keys = Object.keys(condition);
       field = condition.field_name;
@@ -614,23 +626,31 @@ function normalizeViewConfiguration(configuration, fields) {
         ? ["field_name", "operator"]
         : ["field_name", "operator", "value"];
       if (keys.length !== expectedKeys.length || keys.some((key) => !expectedKeys.includes(key))) {
-        throw invalidResponse("View filter object condition is malformed");
+        throw invalidResponse("View filter object condition is malformed", {
+          operator: typeof operator === "string" ? operator : null,
+          keys: [...keys].sort(), expected_keys: expectedKeys, sample: sampleOf(condition),
+        });
       }
-    } else throw invalidResponse("View filter condition is malformed");
-    if (!operators.has(operator) || typeof field !== "string") throw invalidResponse("View filter condition is malformed");
+    } else throw invalidResponse("View filter condition is malformed", { condition_type: typeof condition, sample: sampleOf(condition) });
+    if (!operators.has(operator) || typeof field !== "string") {
+      throw invalidResponse("View filter condition is malformed", {
+        operator: typeof operator === "string" ? operator : null,
+        field_type: typeof field, sample: sampleOf(condition),
+      });
+    }
     const normalized = [resolveField(field), operator];
-    if (hasValue) normalized.push(validateValue(value));
+    if (hasValue) normalized.push(validateValue(value, field));
     return normalized;
   });
   for (const [part, key] of [["sort", "sort_config"], ["group", "group_config"]]) {
     if (!plainObject(result[part]) || !Array.isArray(result[part][key]) ||
         result[part][key].some((item) => !plainObject(item) || typeof item.field !== "string")) {
-      throw invalidResponse(`View ${part} configuration is malformed`);
+      throw invalidResponse(`View ${part} configuration is malformed`, { part, sample: sampleOf(result[part]) });
     }
     result[part][key] = result[part][key].map((item) => ({ ...item, field: resolveField(item.field) }));
   }
   if (!plainObject(result.visible_fields) || !Array.isArray(result.visible_fields.visible_fields)) {
-    throw invalidResponse("View visible fields configuration is malformed");
+    throw invalidResponse("View visible fields configuration is malformed", { sample: sampleOf(result.visible_fields) });
   }
   result.visible_fields.visible_fields = result.visible_fields.visible_fields.map(resolveField);
   return result;

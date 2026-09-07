@@ -1966,6 +1966,41 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
   assert.ok(calls[3][1].visible_fields.includes("同步状态"));
 });
 
+test("a malformed view filter condition reports the shape Base actually returned", async () => {
+  const parts = (conditions) => ({
+    filter: { logic: "and", conditions },
+    sort: { sort_config: [{ field: "指标同步时间", desc: true }] },
+    group: { group_config: [{ field: "所属组", desc: false }] },
+    visible_fields: { visible_fields: ["账号ID"] },
+  });
+  const readWith = async (conditions) => {
+    const viewParts = parts(conditions);
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async (url) => {
+      const part = new URL(url).pathname.split("/").at(-1);
+      return { code: 0, data: { [part]: viewParts[part] } };
+    } });
+    const fields = ["状态", "指标同步时间", "所属组", "账号ID"].map((name, index) => ({ field_id: `f${index}`, name }));
+    return client.readViewConfiguration("base", "tbl", "view", "账号台账", "在用账号", { fields });
+  };
+
+  // The decoder is the only place that sees the vendor shape; a bare "malformed"
+  // leaves the operator with nothing to act on.
+  await assert.rejects(readWith([["状态", "intersects", ["发布中"], "extra"]]), (error) =>
+    error.code === "base_response_invalid" &&
+    error.message === "View filter tuple condition is malformed" &&
+    error.details.operator === "intersects" && error.details.length === 4 &&
+    error.details.expected_length === 3 && error.details.sample.includes("extra"));
+
+  await assert.rejects(readWith([["状态", "empty", null]]), (error) =>
+    error.details.operator === "empty" && error.details.length === 3 && error.details.expected_length === 2);
+
+  await assert.rejects(readWith(["状态 intersects 发布中"]), (error) =>
+    error.message === "View filter condition is malformed" && error.details.sample.includes("状态"));
+
+  await assert.rejects(readWith([["状态", "intersects", []]]), (error) =>
+    error.message === "View filter value is malformed" && error.details.field === "状态");
+});
+
 test("fixed presentation read/update methods use exact Base v3 paths and bodies", async () => {
   const calls = [];
   const viewParts = {
