@@ -331,9 +331,18 @@ function decodeCell(tableName, fieldName, value) {
     const sourceSpec = linkSpec ? fieldSpecOrNull(linkSpec.targetTable, spec.sourceField) : null;
     if (sourceSpec?.kind === "number") {
       if (value === "") return null;
-      if (typeof value !== "string" || !/^(?:0|[1-9]\d*)$/.test(value)) throw invalidResponse("Numeric lookup read value is malformed");
+      // Report what the vendor actually returned: this decoder is the only place that
+      // sees the shape, and a bare "malformed" leaves the operator with nothing to act on.
+      const seen = () => ({
+        table: tableName, field: fieldName,
+        value_type: Array.isArray(value) ? "array" : typeof value,
+        sample: JSON.stringify(value)?.slice(0, 120) ?? String(value),
+      });
+      if (typeof value !== "string" || !/^(?:0|[1-9]\d*)$/.test(value)) {
+        throw invalidResponse("Numeric lookup read value is malformed", seen());
+      }
       const numeric = Number(value);
-      if (!Number.isSafeInteger(numeric) || numeric < 0) throw invalidResponse("Numeric lookup read value is unsafe");
+      if (!Number.isSafeInteger(numeric) || numeric < 0) throw invalidResponse("Numeric lookup read value is unsafe", seen());
       return numeric;
     }
   }

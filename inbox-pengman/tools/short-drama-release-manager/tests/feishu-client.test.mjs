@@ -496,6 +496,38 @@ test("empty multi-select and link cells decode to an empty list whatever shape B
   );
 });
 
+test("a malformed numeric lookup reports the table, field and the shape it actually saw", async () => {
+  const read = async (value) => {
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {
+      fields: ["播放量"], field_id_list: ["fld"], field_type_list: ["lookup"],
+      record_id_list: ["rec"], data: [[value]], total: 1,
+    } }) });
+    return (await client.listRecords("base", "tbl", { tableName: "发布记录" })).items[0].fields.播放量;
+  };
+
+  // Whatever Base hands back, the operator must be able to see it from the error alone.
+  for (const [value, type, sample] of [
+    [123, "number", "123"],
+    [[123], "array", "[123]"],
+    ["1,234", "string", '"1,234"'],
+    ["20.0", "string", '"20.0"'],
+    [{ value: 1 }, "object", '{"value":1}'],
+  ]) {
+    await assert.rejects(read(value), (error) =>
+      error.code === "base_response_invalid" &&
+      error.message === "Numeric lookup read value is malformed" &&
+      error.details.table === "发布记录" && error.details.field === "播放量" &&
+      error.details.value_type === type && error.details.sample === sample,
+      `${type} ${sample}`);
+  }
+
+  // The shapes that already worked keep working.
+  assert.equal(await read("20"), 20);
+  assert.equal(await read("0"), 0);
+  assert.equal(await read(""), null);
+  assert.equal(await read(null), null);
+});
+
 test("dashboard pagination uses page_size/page_token while other lists use limit/offset", async () => {
   const urls = [];
   const responses = [
