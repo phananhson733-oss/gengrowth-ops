@@ -1,0 +1,41 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [
+    "src-001bde3c69",
+    "src-00f8f6a93f",
+    "src-14c2b86350",
+    "src-727f75788e",
+    "src-a5f2c60971",
+    "src-bc77083267",
+    "src-d57215cb20",
+    "src-d66e35e5ea"
+  ],
+  "created_topic_ids": [
+    "miraa-中年之后被迫重启的不确定感",
+    "miraa-困难期看清谁可依靠谁消失",
+    "miraa-旧情人带着重大承诺回归的压力",
+    "miraa-漫长沉重期把希望押在行星转向"
+  ],
+  "failure_reason": "",
+  "finished_at": "2026-09-07T02:25:13.916479+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "0b5037784ae5b00ccb9c58262d78eba06bce16e748f0653c6e14ecfbd12c5a13",
+  "kb_version_before": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "mode": "weekly",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts/weekly-2026-W36-20260907T021521Z.json",
+  "receipt_sha256": "6d56fd77b6d0a3d2bb445cd37bd7e19821e42568c6577f2ceef2a835c11a499e",
+  "run_id": "krun-20260907T022513Z-77c283",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-09-07T02:25:13.201335+00:00",
+  "status": "success",
+  "updated_source_ids": [
+    "src-267587face",
+    "src-ba363cbf98"
+  ],
+  "updated_topic_ids": [
+    "miraa-scorpio-金星入座的期待与现实落差",
+    "miraa-virgo-新月的清理与重启仪式"
+  ]
+}

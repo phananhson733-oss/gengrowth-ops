@@ -3,15 +3,14 @@ access_status: readable
 account: '@miraaastrology'
 author_or_account: ''
 canonical_url: https://youtube.com/watch?v=Y3V8Pzd6Xqs
-content_fingerprint: a3f27fa87e5486a6e28c8daf5f53c86f92b222e06ef97dff2e881651a5b3dac4
+content_fingerprint: 97c2fdbd1519d650cf9e66e4032bea24d9d18b6a1b91de625e67292352afd846
 first_observed_at: '2026-08-31T00:00:00+00:00'
-last_checked_at: '2026-08-31T00:00:00+00:00'
-last_verified_at: '2026-08-31T00:00:00+00:00'
+last_checked_at: '2026-09-07T00:00:00+00:00'
+last_verified_at: '2026-09-07T00:00:00+00:00'
 platform: youtube
 product: astrologywiki
-published_at: '2026-08-23'
-quote_verbatim: I'm holding onto this with a white knuckle grip cuz I feel the opposite
-  but have faith the energy will shift
+published_at: '2026-08-22'
+quote_verbatim: I have a feeling September is going to blow my socks off. Send prayers
 readable_layers:
 - body
 - comments
@@ -25,10 +24,11 @@ url: https://www.youtube.com/watch?v=Y3V8Pzd6Xqs
 # SCORPIO Sun Moon Rising SEPTEMBER 2026 ♏ The Glow-Up Is REAL — Money, Love & Major Breakthroughs
 
 ## Findings
-> I'm holding onto this with a white knuckle grip cuz I feel the opposite but have faith the energy will shift
+> I have a feeling September is going to blow my socks off. Send prayers
 
-Visible engagement: "22K views; 951 likes; 51 comments"
+Visible engagement: "37,213 views; 1,103 likes; 59 comments; quote 24 likes 3 replies"
 
 ## Timeline
 
+- 2026-09-07: verified via weekly ingest (mode B, week 2026-W36, receipt sha256:6d56fd77b6d0)
 - 2026-08-31: verified via weekly ingest (mode B, week 2026-W35, receipt sha256:11b59582f4ed)

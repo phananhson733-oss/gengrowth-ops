@@ -1038,13 +1038,14 @@
       "formats": [
         "ai-host-single"
       ],
-      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
       "path": "topics/miraa-scorpio-金星入座的期待与现实落差.md",
       "research_scope": "evergreen_community",
       "signs": [
         "scorpio"
       ],
       "source_ids": [
+        "src-001bde3c69",
         "src-267587face"
       ],
       "status": "active",
@@ -1061,7 +1062,7 @@
       "used_content_ids": [
         "miraa-w36-traffic-20260831-01"
       ],
-      "valid_until": "2026-09-07T00:00:00+00:00"
+      "valid_until": "2026-09-14T00:00:00+00:00"
     },
     {
       "aliases": [],
@@ -1203,13 +1204,14 @@
       "formats": [
         "ai-host-single"
       ],
-      "last_verified_at": "2026-08-31T00:00:00+00:00",
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
       "path": "topics/miraa-virgo-新月的清理与重启仪式.md",
       "research_scope": "evergreen_community",
       "signs": [
         "virgo"
       ],
       "source_ids": [
+        "src-727f75788e",
         "src-ba363cbf98"
       ],
       "status": "active",
@@ -1225,7 +1227,7 @@
       "used_content_ids": [
         "miraa-w36-traffic-20260831-03"
       ],
-      "valid_until": "2026-09-07T00:00:00+00:00"
+      "valid_until": "2026-09-14T00:00:00+00:00"
     },
     {
       "aliases": [],
@@ -1247,6 +1249,34 @@
       "topic_id": "miraa-virgo-看错感受",
       "used_content_ids": [],
       "valid_until": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "medium",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
+      "path": "topics/miraa-中年之后被迫重启的不确定感.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-727f75788e",
+        "src-bc77083267",
+        "src-d57215cb20"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen"
+      ],
+      "themes": [
+        "midlife-restart",
+        "uncertainty"
+      ],
+      "title": "中年之后被迫重启的不确定感",
+      "topic_id": "miraa-中年之后被迫重启的不确定感",
+      "used_content_ids": [],
+      "valid_until": "2026-09-14T00:00:00+00:00"
     },
     {
       "aliases": [],
@@ -1363,6 +1393,65 @@
     },
     {
       "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
+      "path": "topics/miraa-困难期看清谁可依靠谁消失.md",
+      "research_scope": "evergreen_community",
+      "signs": [],
+      "source_ids": [
+        "src-bc77083267"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen"
+      ],
+      "themes": [
+        "friendship",
+        "hard-times",
+        "reliability"
+      ],
+      "title": "困难期看清谁可依靠谁消失",
+      "topic_id": "miraa-困难期看清谁可依靠谁消失",
+      "used_content_ids": [],
+      "valid_until": "2026-09-14T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "weak",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
+      "path": "topics/miraa-旧情人带着重大承诺回归的压力.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "cancer",
+        "scorpio"
+      ],
+      "source_ids": [
+        "src-14c2b86350"
+      ],
+      "status": "active",
+      "tags": [
+        "evergreen",
+        "relationship-mechanism"
+      ],
+      "themes": [
+        "boundaries",
+        "grand-gestures",
+        "relationships",
+        "reunion"
+      ],
+      "title": "旧情人带着重大承诺回归的压力",
+      "topic_id": "miraa-旧情人带着重大承诺回归的压力",
+      "used_content_ids": [],
+      "valid_until": "2026-09-14T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
       "evidence_strength": "medium",
       "formats": [],
       "last_verified_at": "2026-08-21T00:00:00+00:00",
@@ -1400,6 +1489,38 @@
       "topic_id": "miraa-清洁与气味如何成为安全感和关系信号",
       "used_content_ids": [],
       "valid_until": "2026-08-24T00:00:00+00:00"
+    },
+    {
+      "aliases": [],
+      "evidence_strength": "strong",
+      "formats": [
+        "ai-host-single"
+      ],
+      "last_verified_at": "2026-09-07T00:00:00+00:00",
+      "path": "topics/miraa-漫长沉重期把希望押在行星转向.md",
+      "research_scope": "evergreen_community",
+      "signs": [
+        "virgo"
+      ],
+      "source_ids": [
+        "src-00f8f6a93f",
+        "src-a5f2c60971",
+        "src-d66e35e5ea"
+      ],
+      "status": "active",
+      "tags": [
+        "anti-doom",
+        "evergreen"
+      ],
+      "themes": [
+        "heavy-period",
+        "hope-for-shift",
+        "predictable-events"
+      ],
+      "title": "漫长沉重期把希望押在行星转向",
+      "topic_id": "miraa-漫长沉重期把希望押在行星转向",
+      "used_content_ids": [],
+      "valid_until": "2026-09-14T00:00:00+00:00"
     },
     {
       "aliases": [],
