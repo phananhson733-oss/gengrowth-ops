@@ -3,11 +3,27 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 
 import { FeishuClient, createTenantTokenProvider, fixedFieldDescriptor } from "../src/feishu-client.mjs";
+import { BASE_FIELD_SPECS } from "../src/schema.mjs";
 
 const okList = (items = [], extra = {}) => ({
   code: 0,
   data: { items, has_more: false, revision: "rev", ...extra },
 });
+
+const liveSelectFields = (tableName, dynamicOptions = {}) => BASE_FIELD_SPECS[tableName]
+  .filter((spec) => ["single_select", "multi_select"].includes(spec.kind))
+  .map((spec, index) => ({
+    field_id: `fld_${index}`,
+    name: spec.name,
+    type: "select",
+    multiple: spec.kind === "multi_select",
+    options: (spec.options ?? dynamicOptions[spec.name] ?? []).map((name) => ({ name })),
+  }));
+
+const liveSelectResponse = (tableName, dynamicOptions = {}) => {
+  const fields = liveSelectFields(tableName, dynamicOptions);
+  return { code: 0, data: { fields, total: fields.length } };
+};
 
 test("Base v3 offset pagination consumes every page with one token snapshot", async () => {
   let tokenCalls = 0;
@@ -330,15 +346,19 @@ test("official cell codec preserves select, Shanghai datetime, links, null, and 
   const client = new FeishuClient({
     tokenProvider: async () => "token",
     fetchJson: async (url, options) => {
-      bodies.push(options.body);
-      if (new URL(url).pathname.endsWith("/records") && options.method === "GET") return { code: 0, data: {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/records") && options.method === "GET") return { code: 0, data: {
         fields: ["日期", "归档状态", "账号", "RS收益", "备注"],
         field_id_list: ["f1", "f2", "f3", "f4", "f5"],
         field_type_list: ["datetime", "single_select", "link", "number", "text"],
         record_id_list: ["rec_release"],
         data: [["2026-09-01 08:00:00", ["active"], [{ id: "rec_account" }], 0, null]], total: 1,
       } };
-      if (new URL(url).pathname.endsWith("/batch_update")) return { code: 0, data: {} };
+      if (path.endsWith("/fields")) return liveSelectResponse("发布记录");
+      if (path.endsWith("/batch_update")) {
+        bodies.push(options.body);
+        return { code: 0, data: {} };
+      }
       assert.fail("unexpected request");
     },
   });
@@ -348,7 +368,7 @@ test("official cell codec preserves select, Shanghai datetime, links, null, and 
   await client.updateRecords("base", "tbl", [{ record_id: "rec_release", fields: {
     日期: "2026-09-02T00:00:00.000Z", 归档状态: "archived", 账号: [{ id: "rec_account" }], RS收益: 0,
   } }], { tableName: "发布记录" });
-  assert.deepEqual(bodies[1], { update_records: { rec_release: {
+  assert.deepEqual(bodies[0], { update_records: { rec_release: {
     日期: "2026-09-02 08:00:00", 归档状态: ["archived"], 账号: [{ id: "rec_account" }], RS收益: 0,
   } } });
 
@@ -357,8 +377,8 @@ test("official cell codec preserves select, Shanghai datetime, links, null, and 
     { 账号: [{ id: "rec_account", name: "smuggled" }] },
     { 归档状态: "paused" },
   ]) {
-    await assert.rejects(
-      client.updateRecords("base", "tbl", [{ record_id: "rec_release", fields }], { tableName: "发布记录" }),
+    assert.throws(
+      () => client.updateRecords("base", "tbl", [{ record_id: "rec_release", fields }], { tableName: "发布记录" }),
       (error) => error.code === "base_response_invalid",
     );
   }
@@ -450,19 +470,20 @@ test("batch create uses official create_records rows and validates optional retu
   const bodies = [];
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async (_url, options) => {
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/fields")) return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
       bodies.push(options.body);
       return { code: 0, data: { record_id_list: options.body.create_records.map((_row, index) => `rec-${bodies.length}-${index}`) } };
     },
   });
   const records = Array.from({ length: 201 }, (_, index) => ({
-    fields: index === 0 ? { A: index } : index === 1 ? { B: index, A: index } : index === 200 ? { C: index } : { A: index },
+    fields: index === 0 ? { 粉丝数: index } : index === 1 ? { 账号名: `A-${index}`, 粉丝数: index } : index === 200 ? { 主页链接: `https://example.com/${index}` } : { 粉丝数: index },
   }));
 
-  const written = await client.createRecords("base", "tbl", records);
+  const written = await client.createRecords("base", "tbl", records, { tableName: "账号台账" });
   assert.deepEqual(bodies.map((body) => body.create_records.length), [200, 1]);
-  assert.deepEqual(bodies[0].create_records.slice(0, 3), [{ A: 0 }, { B: 1, A: 1 }, { A: 2 }]);
-  assert.deepEqual(bodies[1].create_records, [{ C: 200 }]);
+  assert.deepEqual(bodies[0].create_records.slice(0, 3), [{ 粉丝数: 0 }, { 账号名: "A-1", 粉丝数: 1 }, { 粉丝数: 2 }]);
+  assert.deepEqual(bodies[1].create_records, [{ 主页链接: "https://example.com/200" }]);
   assert.equal(written.length, 201);
   assert.equal(written[0].record_id, "rec-1-0");
   assert.deepEqual(written[0].fields, records[0].fields);
@@ -472,36 +493,249 @@ test("batch update uses the official record map and validates optional returned 
   const bodies = [];
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async (_url, options) => {
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/fields")) return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
       bodies.push(options.body);
       return { code: 0, data: { record_id_list: Object.keys(options.body.update_records) } };
     },
   });
   const records = [
-    { record_id: "r1", fields: { 状态: "A" } },
-    { record_id: "r2", fields: { 状态: "A" } },
-    { record_id: "r3", fields: { 状态: "B" } },
-    { record_id: "r4", fields: { 状态: "A" } },
+    { record_id: "r1", fields: { 状态: "未发" } },
+    { record_id: "r2", fields: { 状态: "未发" } },
+    { record_id: "r3", fields: { 状态: "重养" } },
+    { record_id: "r4", fields: { 状态: "未发" } },
   ];
 
-  assert.deepEqual(await client.updateRecords("base", "tbl", records), records);
+  assert.deepEqual(await client.updateRecords("base", "tbl", records, { tableName: "账号台账" }), records);
   assert.deepEqual(bodies, [{ update_records: {
-    r1: { 状态: "A" }, r2: { 状态: "A" }, r3: { 状态: "B" }, r4: { 状态: "A" },
+    r1: { 状态: ["未发"] }, r2: { 状态: ["未发"] }, r3: { 状态: ["重养"] }, r4: { 状态: ["未发"] },
   } }]);
 });
 
 test("one official update_records map is split at 200 records", async () => {
   const sizes = [];
+  let fieldGets = 0;
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async (_url, options) => {
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
+      }
       sizes.push(Object.keys(options.body.update_records).length);
       return { code: 0, data: {} };
     },
   });
-  const records = Array.from({ length: 201 }, (_unused, index) => ({ record_id: `r${index}`, fields: { 状态: "A" } }));
-  assert.equal((await client.updateRecords("base", "tbl", records)).length, 201);
+  const records = Array.from({ length: 201 }, (_unused, index) => ({ record_id: `r${index}`, fields: { 账号名: `A-${index}` } }));
+  assert.equal((await client.updateRecords("base", "tbl", records, { tableName: "账号台账" })).length, 201);
+  assert.equal(fieldGets, 1);
   assert.deepEqual(sizes, [200, 1]);
+});
+
+test("managed record create reads the complete live Select catalog before mutation", async () => {
+  const events = [];
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/fields")) {
+        events.push("fields");
+        return liveSelectResponse("账号台账", { 所属组: ["US"], 表现形式: ["口播"] });
+      }
+      if (path.endsWith("/batch_create")) {
+        events.push("create");
+        bodies.push(structuredClone(options.body));
+        return { code: 0, data: { record_id_list: options.body.create_records.map((_record, index) => `rec-${bodies.length}-${index}`) } };
+      }
+      assert.fail(`unexpected ${options.method} ${path}`);
+    },
+  });
+  const records = Array.from({ length: 201 }, (_unused, index) => ({ fields: {
+    账号ID: `A-${index}`,
+    所属组: "US",
+    表现形式: "口播",
+    状态: "发布中",
+    同步状态: "success",
+  } }));
+
+  assert.equal((await client.createRecords("base", "tbl", records, { tableName: "账号台账" })).length, 201);
+  assert.deepEqual(events, ["fields", "create", "create"]);
+  assert.deepEqual(bodies.map((body) => body.create_records.length), [200, 1]);
+  assert.deepEqual(bodies[0].create_records[0], {
+    账号ID: "A-0", 所属组: ["US"], 表现形式: ["口播"], 状态: ["发布中"], 同步状态: ["success"],
+  });
+});
+
+test("managed record create and update reject missing live options with zero record mutations", async (t) => {
+  const cases = [
+    ["create dynamic single", "账号台账", { 所属组: "新组" }, { 所属组: ["旧组"], 表现形式: [] }, "所属组", "新组"],
+    ["update fixed single", "账号台账", { 状态: "发布中" }, { 所属组: [], 表现形式: [] }, "状态", "发布中"],
+  ];
+  for (const [label, tableName, fields, dynamicOptions, field, option] of cases) {
+    await t.test(label, async () => {
+      let fieldGets = 0;
+      let recordPosts = 0;
+      const client = new FeishuClient({
+        tokenProvider: async () => "token",
+        fetchJson: async (url) => {
+          const path = new URL(url).pathname;
+          if (path.endsWith("/fields")) {
+            fieldGets += 1;
+            const response = liveSelectResponse(tableName, dynamicOptions);
+            response.data.fields.find((item) => item.name === "状态").options = [{ name: "未发" }, { name: "重养" }];
+            return response;
+          }
+          recordPosts += 1;
+          return { code: 0, data: {} };
+        },
+      });
+      const operation = label.startsWith("create")
+        ? client.createRecords("base", "tbl", [{ fields }], { tableName })
+        : client.updateRecords("base", "tbl", [{ record_id: "rec", fields }], { tableName });
+      await assert.rejects(operation, (error) => {
+        assert.deepEqual(error.details, { table: tableName, field, option });
+        return true;
+      });
+      assert.equal(fieldGets, 1);
+      assert.equal(recordPosts, 0);
+    });
+  }
+});
+
+test("the 201st invalid Select value prevents every create and update batch", async (t) => {
+  const cases = [
+    ["create dynamic multi", "剧分类", ["Missing genre"]],
+    ["update fixed multi", "推荐人", ["彭满", "高璇"]],
+  ];
+  for (const [label, field, invalidValue] of cases) {
+    await t.test(label, async () => {
+      let fieldGets = 0;
+      let recordPosts = 0;
+      const client = new FeishuClient({
+        tokenProvider: async () => "token",
+        fetchJson: async (url) => {
+          const path = new URL(url).pathname;
+          if (path.endsWith("/fields")) {
+            fieldGets += 1;
+            const response = liveSelectResponse("选剧池", {
+              剧分类: ["Romance"], 生命周期: [], "RS Boost 分类（待确认）": [], 账号组: [], 语言: [], 来源: [],
+            });
+            if (field === "推荐人") response.data.fields.find((item) => item.name === "推荐人").options = [{ name: "彭满" }];
+            return response;
+          }
+          recordPosts += 1;
+          return { code: 0, data: {} };
+        },
+      });
+      const records = Array.from({ length: 201 }, (_unused, index) => ({
+        ...(label.startsWith("update") ? { record_id: `rec-${index}` } : {}),
+        fields: { [field]: index === 200 ? invalidValue : field === "剧分类" ? ["Romance"] : ["彭满"] },
+      }));
+      const operation = label.startsWith("create")
+        ? client.createRecords("base", "tbl", records, { tableName: "选剧池" })
+        : client.updateRecords("base", "tbl", records, { tableName: "选剧池" });
+      await assert.rejects(operation, (error) => error.details?.field === field && error.details?.option === invalidValue.at(-1));
+      assert.equal(fieldGets, 1);
+      assert.equal(recordPosts, 0);
+    });
+  }
+});
+
+test("managed record writes reject an incomplete or malformed field catalog", async (t) => {
+  const valid = liveSelectFields("账号台账", { 所属组: ["US"], 表现形式: [] });
+  const cases = [
+    ["incomplete", { items: valid, complete: false }],
+    ["missing Select", { items: valid.filter((field) => field.name !== "状态"), complete: true }],
+    ["duplicate name", { items: [...valid, { ...valid[0], field_id: "fld_extra" }], complete: true }],
+    ["duplicate id", { items: [...valid, { ...valid[0], name: "extra" }], complete: true }],
+    ["wrong type", { items: valid.map((field) => field.name === "状态" ? { ...field, type: "text" } : field), complete: true }],
+    ["wrong multiple", { items: valid.map((field) => field.name === "状态" ? { ...field, multiple: true } : field), complete: true }],
+    ["missing options", { items: valid.map((field) => field.name === "状态" ? { ...field, options: undefined } : field), complete: true }],
+  ];
+  for (const [label, readback] of cases) {
+    await t.test(label, async () => {
+      let recordPosts = 0;
+      const client = new FeishuClient({
+        tokenProvider: async () => "token",
+        fetchJson: async () => { recordPosts += 1; return { code: 0, data: {} }; },
+      });
+      client.listFields = async () => structuredClone(readback);
+      await assert.rejects(
+        client.createRecords("base", "tbl", [{ fields: { 所属组: "US" } }], { tableName: "账号台账" }),
+        (error) => error.code === "base_response_invalid",
+      );
+      assert.equal(recordPosts, 0);
+    });
+  }
+});
+
+test("managed record writes require an exact fixed tableName", () => {
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => { requests += 1; return { code: 0, data: {} }; },
+  });
+  for (const operation of [
+    () => client.createRecords("base", "tbl", [{ fields: { 账号ID: "A" } }]),
+    () => client.createRecords("base", "tbl", [{ fields: { 账号ID: "A" } }], { tableName: "账号台账 " }),
+    () => client.updateRecords("base", "tbl", [{ record_id: "rec", fields: { 账号ID: "A" } }]),
+    () => client.updateRecords("base", "tbl", [{ record_id: "rec", fields: { 账号ID: "A" } }], { tableName: "accounts" }),
+  ]) {
+    assert.throws(operation, (error) => error.code === "base_response_invalid");
+  }
+  assert.equal(requests, 0);
+});
+
+test("managed record writes synchronously encode the complete call before queueing", () => {
+  let requests = 0;
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async () => { requests += 1; return { code: 0, data: {} }; },
+  });
+  const records = Array.from({ length: 201 }, (_unused, index) => ({
+    record_id: `rec-${index}`,
+    fields: { 日期: index === 200 ? "2026-02-30" : "2026-09-01" },
+  }));
+  assert.throws(
+    () => client.updateRecords("base", "tbl", records, { tableName: "发布记录" }),
+    (error) => error.code === "base_response_invalid",
+  );
+  assert.equal(requests, 0);
+  assert.equal(client.writeQueues.size, 0);
+});
+
+test("queued record writes snapshot raw Select values before the first await", async () => {
+  let releaseFirst;
+  const firstGate = new Promise((resolve) => { releaseFirst = resolve; });
+  let posts = 0;
+  let fieldGets = 0;
+  const bodies = [];
+  const client = new FeishuClient({
+    tokenProvider: async () => "token",
+    fetchJson: async (url, options) => {
+      const path = new URL(url).pathname;
+      if (path.endsWith("/fields")) {
+        fieldGets += 1;
+        return liveSelectResponse("选剧池", {
+          剧分类: ["Romance"], 生命周期: [], "RS Boost 分类（待确认）": [], 账号组: [], 语言: [], 来源: [],
+        });
+      }
+      posts += 1;
+      bodies.push(structuredClone(options.body));
+      if (posts === 1) await firstGate;
+      return { code: 0, data: { record_id_list: options.body.create_records.map((_record, index) => `rec-${posts}-${index}`) } };
+    },
+  });
+  const first = client.createRecords("base", "tbl", [{ fields: { 剧分类: ["Romance"] } }], { tableName: "选剧池" });
+  await new Promise((resolve) => setImmediate(resolve));
+  const queuedRecords = [{ fields: { 剧分类: ["Romance"] } }];
+  const second = client.createRecords("base", "tbl", queuedRecords, { tableName: "选剧池" });
+  queuedRecords[0].fields.剧分类[0] = "mutated while queued";
+  releaseFirst();
+  await Promise.all([first, second]);
+  assert.equal(fieldGets, 2);
+  assert.deepEqual(bodies[1], { create_records: [{ 剧分类: ["Romance"] }] });
 });
 
 test("an aborted batch stops before the next remote mutation", async () => {
@@ -509,16 +743,17 @@ test("an aborted batch stops before the next remote mutation", async () => {
   let remoteMutations = 0;
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async (_url, options) => {
+    fetchJson: async (url, options) => {
       assert.equal(options.signal, controller.signal);
+      if (new URL(url).pathname.endsWith("/fields")) return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
       remoteMutations += 1;
       controller.abort();
       return { code: 0, data: { record_id_list: options.body.create_records.map((_row, index) => `r${index}`) } };
     },
   });
-  const records = Array.from({ length: 201 }, (_unused, index) => ({ fields: { A: index } }));
+  const records = Array.from({ length: 201 }, (_unused, index) => ({ fields: { 粉丝数: index } }));
   await assert.rejects(
-    () => client.createRecords("base", "tbl", records, { signal: controller.signal }),
+    () => client.createRecords("base", "tbl", records, { signal: controller.signal, tableName: "账号台账" }),
     (error) => error.code === "base_operation_aborted",
   );
   assert.equal(remoteMutations, 1);
@@ -558,13 +793,14 @@ test("same-table writes serialize across calls while different tables may overla
     tokenProvider: async () => "token",
     fetchJson: async (url, options) => {
       const table = new URL(url).pathname.split("/").at(-3);
+      if (new URL(url).pathname.endsWith("/fields")) return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
       if (table === "same") {
         activeSame += 1;
         maxSameTable = Math.max(maxSameTable, activeSame);
       } else {
         otherRelease();
       }
-      events.push(`start:${table}:${options.body.create_records?.[0]?.A ?? Object.keys(options.body.update_records ?? {})[0]}`);
+      events.push(`start:${table}:${options.body.create_records?.[0]?.账号名 ?? Object.keys(options.body.update_records ?? {})[0]}`);
       if (table === "same" && events.length === 1) await firstGate;
       if (table === "same") activeSame -= 1;
       events.push(`end:${table}`);
@@ -574,10 +810,10 @@ test("same-table writes serialize across calls while different tables may overla
     },
   });
 
-  const first = client.createRecords("base", "same", [{ fields: { A: "first" } }]);
+  const first = client.createRecords("base", "same", [{ fields: { 账号名: "first" } }], { tableName: "账号台账" });
   await new Promise((resolve) => setImmediate(resolve));
-  const second = client.createRecords("base", "same", [{ fields: { A: "second" } }]);
-  const other = client.createRecords("base", "other", [{ fields: { A: "other" } }]);
+  const second = client.createRecords("base", "same", [{ fields: { 账号名: "second" } }], { tableName: "账号台账" });
+  const other = client.createRecords("base", "other", [{ fields: { 账号名: "other" } }], { tableName: "账号台账" });
   await otherStarted;
   assert.ok(events.some((event) => event.startsWith("start:other:")));
   assert.equal(events.filter((event) => event === "start:same:second").length, 0);
@@ -597,7 +833,8 @@ test("an aborted queued write cannot unlink the same-table serialization tail", 
   const started = new Promise((resolve) => { firstStarted = resolve; });
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async (_url, options) => {
+    fetchJson: async (url, options) => {
+      if (new URL(url).pathname.endsWith("/fields")) return liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] });
       requests += 1;
       active += 1;
       maxActive = Math.max(maxActive, active);
@@ -610,7 +847,9 @@ test("an aborted queued write cannot unlink the same-table serialization tail", 
       return { code: 0, data: { record_id_list: Object.keys(options.body.update_records) } };
     },
   });
-  const write = (id, options) => client.updateRecords("base", "same", [{ record_id: id, fields: { A: id } }], options);
+  const write = (id, options = {}) => client.updateRecords("base", "same", [{ record_id: id, fields: { 账号名: id } }], {
+    ...options, tableName: "账号台账",
+  });
   const first = write("r1");
   await started;
   const controller = new AbortController();
@@ -695,7 +934,9 @@ test("native retry timer keeps a top-level worker alive, while abort leaves no l
 test("empty or malformed writes and mismatched responses fail closed", async (t) => {
   const client = new FeishuClient({
     tokenProvider: async () => "token",
-    fetchJson: async () => ({ code: 0, data: { record_id_list: [] } }),
+    fetchJson: async (url) => new URL(url).pathname.endsWith("/fields")
+      ? liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] })
+      : ({ code: 0, data: { record_id_list: [] } }),
   });
   for (const operation of [
     () => client.createRecords("base", "tbl", []),
@@ -708,30 +949,34 @@ test("empty or malformed writes and mismatched responses fail closed", async (t)
 
   await t.test("create count mismatch", async () => {
     await assert.rejects(
-      () => client.createRecords("base", "tbl", [{ fields: { A: 1 } }]),
+      () => client.createRecords("base", "tbl", [{ fields: { 粉丝数: 1 } }], { tableName: "账号台账" }),
       (error) => error.code === "base_response_invalid",
     );
   });
   await t.test("update order mismatch", async () => {
     const mismatch = new FeishuClient({
       tokenProvider: async () => "token",
-      fetchJson: async () => ({ code: 0, data: { record_id_list: ["r2", "r1"] } }),
+      fetchJson: async (url) => new URL(url).pathname.endsWith("/fields")
+        ? liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] })
+        : ({ code: 0, data: { record_id_list: ["r2", "r1"] } }),
     });
     await assert.rejects(
       () => mismatch.updateRecords("base", "tbl", [
-        { record_id: "r1", fields: { A: 1 } },
-        { record_id: "r2", fields: { A: 1 } },
-      ]),
+        { record_id: "r1", fields: { 粉丝数: 1 } },
+        { record_id: "r2", fields: { 粉丝数: 1 } },
+      ], { tableName: "账号台账" }),
       (error) => error.code === "base_response_invalid",
     );
   });
   await t.test("ignored fields", async () => {
     const ignored = new FeishuClient({
       tokenProvider: async () => "token",
-      fetchJson: async () => ({ code: 0, data: { record_id_list: ["r1"], ignored_fields: ["Bad"] } }),
+      fetchJson: async (url) => new URL(url).pathname.endsWith("/fields")
+        ? liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] })
+        : ({ code: 0, data: { record_id_list: ["r1"], ignored_fields: ["Bad"] } }),
     });
     await assert.rejects(
-      () => ignored.createRecords("base", "tbl", [{ fields: { A: 1 } }]),
+      () => ignored.createRecords("base", "tbl", [{ fields: { 粉丝数: 1 } }], { tableName: "账号台账" }),
       (error) => error.code === "base_response_invalid",
     );
   });
@@ -1646,14 +1891,24 @@ test("request logging exposes only method path status and run_id", async () => {
     tokenProvider: async () => "super-secret-token",
     runId: "run-1",
     logger: (entry) => logs.push(entry),
-    fetchJson: async (_url, options) => ({ code: 0, data: { record_id_list: options.body.create_records.map(() => "rec") } }),
+    fetchJson: async (url, options) => new URL(url).pathname.endsWith("/fields")
+      ? liveSelectResponse("账号台账", { 所属组: [], 表现形式: [] })
+      : ({ code: 0, data: { record_id_list: options.body.create_records.map(() => "rec") } }),
   });
-  await client.createRecords("base_private", "tbl_private", [{ fields: { Notes: "private free text" } }]);
-  assert.deepEqual(logs, [{
-    method: "POST",
-    path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/records/batch_create",
-    status: 200,
-    run_id: "run-1",
-  }]);
+  await client.createRecords("base_private", "tbl_private", [{ fields: { 账号名: "private free text" } }], { tableName: "账号台账" });
+  assert.deepEqual(logs, [
+    {
+      method: "GET",
+      path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/fields",
+      status: 200,
+      run_id: "run-1",
+    },
+    {
+      method: "POST",
+      path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/records/batch_create",
+      status: 200,
+      run_id: "run-1",
+    },
+  ]);
   assert.doesNotMatch(JSON.stringify(logs), /super-secret-token|private free text|authorization|base_private|tbl_private/i);
 });

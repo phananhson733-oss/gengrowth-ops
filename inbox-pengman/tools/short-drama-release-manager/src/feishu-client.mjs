@@ -331,6 +331,88 @@ function encodeFields(tableName, fields) {
   return Object.fromEntries(Object.entries(fields).map(([field, value]) => [field, encodeCell(tableName, field, value)]));
 }
 
+function freezeDeep(value) {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) freezeDeep(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function fixedRecordTableName(tableName) {
+  if (!TABLE_ORDER.includes(tableName)) {
+    throw invalidResponse("Managed record writes require an exact fixed tableName");
+  }
+  return tableName;
+}
+
+function snapshotRecordWrites(tableName, records) {
+  let rawRecords;
+  try {
+    rawRecords = structuredClone(records);
+  } catch {
+    throw invalidResponse("Managed record write values must be cloneable");
+  }
+  const encodedRecords = rawRecords.map((record) => freezeDeep({
+    ...(record.record_id === undefined ? {} : { record_id: record.record_id }),
+    fields: encodeFields(tableName, record.fields),
+  }));
+  return { rawRecords, encodedRecords: freezeDeep(encodedRecords) };
+}
+
+function liveSelectCatalog(tableName, fieldReadback) {
+  if (!plainObject(fieldReadback) || fieldReadback.complete !== true || !Array.isArray(fieldReadback.items)) {
+    throw invalidResponse("Complete live field catalog is required before managed record writes");
+  }
+  const fieldsByName = new Map();
+  const fieldIds = new Set();
+  for (const field of fieldReadback.items) {
+    if (!plainObject(field) || typeof field.field_id !== "string" || field.field_id.length === 0 ||
+        field.field_id.trim() !== field.field_id || typeof field.name !== "string" || field.name.length === 0 ||
+        field.name.trim() !== field.name || fieldIds.has(field.field_id) || fieldsByName.has(field.name)) {
+      throw invalidResponse("Live field catalog is malformed or duplicate");
+    }
+    fieldIds.add(field.field_id);
+    fieldsByName.set(field.name, field);
+  }
+  const catalog = new Map();
+  for (const spec of BASE_FIELD_SPECS[tableName].filter((candidate) =>
+    candidate.kind === "single_select" || candidate.kind === "multi_select")) {
+    const field = fieldsByName.get(spec.name);
+    if (!field || field.type !== "select" || field.multiple !== (spec.kind === "multi_select") || !Array.isArray(field.options)) {
+      throw invalidResponse("Managed Select field catalog is missing or malformed", { table: tableName, field: spec.name });
+    }
+    const options = new Set();
+    for (const option of field.options) {
+      if (!plainObject(option) || typeof option.name !== "string" || option.name.length === 0 ||
+          option.name.trim() !== option.name || OPTION_CONTROL.test(option.name) || options.has(option.name)) {
+        throw invalidResponse("Managed Select field options are malformed or duplicate", { table: tableName, field: spec.name });
+      }
+      options.add(option.name);
+    }
+    catalog.set(spec.name, options);
+  }
+  return catalog;
+}
+
+function assertRecordSelectCoverage(tableName, rawRecords, fieldReadback) {
+  const catalog = liveSelectCatalog(tableName, fieldReadback);
+  for (const record of rawRecords) {
+    for (const [fieldName, value] of Object.entries(record.fields)) {
+      const spec = fieldSpecOrNull(tableName, fieldName);
+      if (!spec || !["single_select", "multi_select"].includes(spec.kind) || value === null || value === undefined) continue;
+      const values = spec.kind === "multi_select" ? value : [value];
+      for (const option of values) {
+        if (!catalog.get(fieldName).has(option)) {
+          fail("base_schema_drift", "Select write option is missing from the live field catalog", {
+            table: tableName, field: fieldName, option,
+          });
+        }
+      }
+    }
+  }
+}
+
 function recordProjection(value) {
   if (!Array.isArray(value) || value.some((field) =>
     typeof field !== "string" || field.length === 0 || field.trim() !== field) || new Set(value).size !== value.length) {
@@ -1133,47 +1215,60 @@ export class FeishuClient {
 
   createRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
     validateCreateRecords(records);
+    fixedRecordTableName(tableName);
+    const { rawRecords, encodedRecords } = snapshotRecordWrites(tableName, records);
     const queueKey = `records:${baseToken}:${tableId}`;
-    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
-      const written = [];
-      for (let start = 0; start < records.length; start += MAX_WRITE_BATCH) {
-        assertNotAborted(signal);
-        const group = records.slice(start, start + MAX_WRITE_BATCH);
-        const body = { create_records: group.map((record) => encodeFields(tableName, record.fields)) };
-        const payload = await this.request(
-          `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
-          { method: "POST", body, context, signal },
-        );
-        assertNotAborted(signal);
-        const ids = payload.data?.record_id_list === undefined ? null : requireRecordIds(payload, null, group.length);
-        if (ids === null && hasIgnoredFields(payload.data)) throw invalidResponse("Feishu batch create reports ignored fields");
-        written.push(...group.map((record, index) => ({ record_id: ids?.[index] ?? null, fields: record.fields })));
-      }
-      return written;
-    }, { signal }), { signal });
+    return this.serializeWrite(queueKey, async () => {
+      const fieldReadback = await this.listFields(baseToken, tableId, { signal });
+      assertRecordSelectCoverage(tableName, rawRecords, fieldReadback);
+      return this.operation(async (context) => {
+        const written = [];
+        for (let start = 0; start < encodedRecords.length; start += MAX_WRITE_BATCH) {
+          assertNotAborted(signal);
+          const group = encodedRecords.slice(start, start + MAX_WRITE_BATCH);
+          const rawGroup = rawRecords.slice(start, start + MAX_WRITE_BATCH);
+          const body = { create_records: group.map((record) => record.fields) };
+          const payload = await this.request(
+            `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
+            { method: "POST", body, context, signal },
+          );
+          assertNotAborted(signal);
+          const ids = payload.data?.record_id_list === undefined ? null : requireRecordIds(payload, null, group.length);
+          if (ids === null && hasIgnoredFields(payload.data)) throw invalidResponse("Feishu batch create reports ignored fields");
+          written.push(...rawGroup.map((record, index) => ({ record_id: ids?.[index] ?? null, fields: record.fields })));
+        }
+        return written;
+      }, { signal });
+    }, { signal });
   }
 
   updateRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
     validateUpdateRecords(records);
+    fixedRecordTableName(tableName);
+    const { rawRecords, encodedRecords } = snapshotRecordWrites(tableName, records);
     const queueKey = `records:${baseToken}:${tableId}`;
-    return this.serializeWrite(queueKey, () => this.operation(async (context) => {
-      const written = [];
-      for (let start = 0; start < records.length; start += MAX_WRITE_BATCH) {
-        assertNotAborted(signal);
-        const group = records.slice(start, start + MAX_WRITE_BATCH);
-        const ids = group.map((record) => record.record_id);
-        const body = { update_records: Object.fromEntries(group.map((record) => [record.record_id, encodeFields(tableName, record.fields)])) };
-        const payload = await this.request(
-          `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_update`,
-          { method: "POST", body, context, signal },
-        );
-        assertNotAborted(signal);
-        if (payload.data?.record_id_list !== undefined) requireRecordIds(payload, ids);
-        if (hasIgnoredFields(payload.data)) throw invalidResponse("Feishu batch update reports ignored fields");
-        written.push(...group);
-      }
-      return written;
-    }, { signal }), { signal });
+    return this.serializeWrite(queueKey, async () => {
+      const fieldReadback = await this.listFields(baseToken, tableId, { signal });
+      assertRecordSelectCoverage(tableName, rawRecords, fieldReadback);
+      return this.operation(async (context) => {
+        const written = [];
+        for (let start = 0; start < encodedRecords.length; start += MAX_WRITE_BATCH) {
+          assertNotAborted(signal);
+          const group = encodedRecords.slice(start, start + MAX_WRITE_BATCH);
+          const ids = group.map((record) => record.record_id);
+          const body = { update_records: Object.fromEntries(group.map((record) => [record.record_id, record.fields])) };
+          const payload = await this.request(
+            `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_update`,
+            { method: "POST", body, context, signal },
+          );
+          assertNotAborted(signal);
+          if (payload.data?.record_id_list !== undefined) requireRecordIds(payload, ids);
+          if (hasIgnoredFields(payload.data)) throw invalidResponse("Feishu batch update reports ignored fields");
+          written.push(...rawRecords.slice(start, start + MAX_WRITE_BATCH));
+        }
+        return written;
+      }, { signal });
+    }, { signal });
   }
 
   deleteCanaryRecords(baseToken, tableId, tableName, recordIds, { canaryId = null, signal } = {}) {
