@@ -1227,6 +1227,61 @@ function completeFixedSchema(revision = "complete-r1", optionNamesByField = {}) 
   };
 }
 
+function canonicalDigestValue(value) {
+  if (Array.isArray(value)) return value.map(canonicalDigestValue);
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonicalDigestValue(value[key])]));
+  }
+  return value;
+}
+
+function fixedSchemaDescriptorForDigest(table, spec, { initialOptions } = {}) {
+  const descriptor = { name: spec.name, kind: spec.kind, phase: spec.phase };
+  for (const key of ["primary", "targetTable", "bidirectional", "reverseField", "managedReverseOf", "linkField", "sourceField", "expression", "systemType", "optionPolicy"]) {
+    if (spec[key] !== undefined) descriptor[key] = structuredClone(spec[key]);
+  }
+  const bindings = spec.kind === "link" ? { targetTableId: `table:${spec.targetTable}` } : {};
+  descriptor.canonical = fixedFieldDescriptor(table, spec.name, bindings,
+    initialOptions === undefined ? {} : { initialOptions });
+  return canonicalDigestValue(descriptor);
+}
+
+function schemaSpecDigest(actions) {
+  const contract = Object.fromEntries(TABLE_ORDER.map((table) => [
+    table,
+    BASE_FIELD_SPECS[table].map((spec) => fixedSchemaDescriptorForDigest(table, spec)),
+  ]));
+  return createHash("sha256")
+    .update(JSON.stringify(canonicalDigestValue({ actions, contract })))
+    .digest("hex");
+}
+
+function redigestSchemaManifest(manifest) {
+  manifest.schema_spec_sha256 = schemaSpecDigest(manifest.schema_actions);
+  manifest.sha256 = manifestDigest(manifest);
+  return manifest;
+}
+
+function sourceOptionNames(rows, spec) {
+  const names = [];
+  for (const row of rows) {
+    const values = spec.kind === "multi_select" ? row[spec.name] : [row[spec.name]];
+    for (const name of values ?? []) if (!names.includes(name)) names.push(name);
+  }
+  return names;
+}
+
+function completeSchemaWithSourceOptions(google) {
+  const optionNames = {};
+  for (const table of TABLE_ORDER) {
+    const rows = table === "账号台账" ? google.accounts : table === "选剧池" ? google.dramas : [];
+    for (const spec of BASE_FIELD_SPECS[table]) {
+      if (spec.optionPolicy === "manifest_append") optionNames[`${table}:${spec.name}`] = sourceOptionNames(rows, spec);
+    }
+  }
+  return completeFixedSchema("complete-source-options", optionNames);
+}
+
 test("manifest-append planning emits exactly six current nonempty option actions in first-seen order", async () => {
   const google = sourceWithTables({
     accounts: [{ ...normalizedSource().accounts[0], 所属组: "North", 表现形式: "Narrated" }],
@@ -1310,6 +1365,95 @@ test("missing manifest-append fields carry source-derived options in create_fiel
   assert.deepEqual(created.get("剧分类").spec.canonical.options, [{ name: "Romance" }, { name: "Revenge" }]);
   assert.deepEqual(created.get("RS Boost 分类（待确认）").spec.canonical.options, []);
   assert.deepEqual(created.get("账号组").spec.canonical.options, []);
+});
+
+test("re-digested manifests cannot forge option transitions or platform mapping evidence", async () => {
+  const originalDrama = normalizedSource().dramas[0];
+  const google = sourceWithDramas([{
+    ...originalDrama,
+    平台: "MoboReels",
+    剧分类: ["Romance", "Revenge"],
+    生命周期: "Fresh",
+    语言: "English",
+    来源: ["Editorial", "Trend"],
+  }]);
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema: completeFixedSchema() });
+  const optionAction = manifest.schema_actions.find((action) => action.kind === "update_select_options");
+  assert.ok(optionAction);
+  await assert.doesNotReject(() => applyMigration({
+    repos: memoryRepos(), expectedSha256: manifest.sha256, ...schemaGate(manifest),
+  }, manifest));
+
+  const mutations = [
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").field_id = "forged-field"; },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").before_options = ["Forged"]; },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").after_options.push("Forged"); },
+    (value) => { value.schema_actions.reverse(); },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").id = "options:forged"; },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").kind = "create_field"; },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").phase = "link"; },
+    (value) => { value.schema_actions.find((action) => action.kind === "update_select_options").spec.canonical.type = "number"; },
+    (value) => { value.warnings.find((warning) => warning.code === "platform_mapped_to_other").target_value = "ReelShort"; },
+  ];
+  for (const mutate of mutations) {
+    const forged = structuredClone(manifest);
+    mutate(forged);
+    redigestSchemaManifest(forged);
+    await assert.rejects(
+      () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+      (error) => error.code === "migration_manifest_invalid",
+    );
+  }
+});
+
+test("re-digested manifests cannot forge manifest-append create options", async () => {
+  const originalDrama = normalizedSource().dramas[0];
+  const google = sourceWithDramas([{
+    ...originalDrama,
+    剧分类: ["Romance", "Revenge"],
+    "RS Boost 分类（待确认）": [],
+    账号组: [],
+  }]);
+  const baseSchema = completeSchemaWithSourceOptions(google);
+  const dramaTable = baseSchema.tables.find((table) => table.name === "选剧池");
+  dramaTable.fields = dramaTable.fields.filter((field) => field.name !== "剧分类");
+  const manifest = await planMigration({ google, captures: [latestCapture()], baseSchema });
+  const createAction = manifest.schema_actions.find((action) => action.id === "field:选剧池:剧分类");
+  assert.ok(createAction);
+  assert.equal(manifest.schema_actions.some((action) => action.kind === "update_select_options"), false);
+  await assert.doesNotReject(() => applyMigration({
+    repos: memoryRepos(), expectedSha256: manifest.sha256, ...schemaGate(manifest),
+  }, manifest));
+
+  const mutations = [
+    (value) => { value.schema_actions.find((action) => action.id === "field:选剧池:剧分类").spec.canonical.options.push({ name: "Forged" }); },
+    (value) => { value.schema_actions.find((action) => action.id === "field:选剧池:剧分类").spec.canonical.options.pop(); },
+    (value) => { value.schema_actions.find((action) => action.id === "field:选剧池:剧分类").spec.canonical.options[0] = { name: "Forged" }; },
+    (value) => { value.schema_actions.find((action) => action.id === "field:选剧池:剧分类").spec.canonical.options.reverse(); },
+    (value) => {
+      const create = value.schema_actions.find((action) => action.id === "field:选剧池:剧分类");
+      value.schema_actions.push({
+        id: "options:选剧池:剧分类",
+        kind: "update_select_options",
+        table: create.table,
+        field: create.field,
+        field_id: "forged-field",
+        phase: "storage",
+        before_options: [],
+        after_options: create.spec.canonical.options.map((option) => option.name),
+        spec: fixedSchemaDescriptorForDigest(create.table, BASE_FIELD_SPECS[create.table].find((spec) => spec.name === create.field)),
+      });
+    },
+  ];
+  for (const mutate of mutations) {
+    const forged = structuredClone(manifest);
+    mutate(forged);
+    redigestSchemaManifest(forged);
+    await assert.rejects(
+      () => applyMigration({ repos: memoryRepos(), expectedSha256: forged.sha256, ...schemaGate(forged) }, forged),
+      (error) => error.code === "migration_manifest_invalid",
+    );
+  }
 });
 
 test("migration schema rejects an unexpected fifth Base table", async () => {

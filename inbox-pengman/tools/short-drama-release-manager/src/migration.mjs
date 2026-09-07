@@ -1348,11 +1348,18 @@ function assertManifest(manifest) {
     actionIds.add(action.id);
     if (action.kind === "create_field") {
       const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
+      let initialOptions;
+      if (spec?.optionPolicy === "manifest_append") {
+        const options = action.spec?.canonical?.options;
+        if (!Array.isArray(options) || options.some((option) => !plainObject(option) ||
+            !isDeepStrictEqual(Object.keys(option).sort(), ["name"]))) {
+          fail("migration_manifest_invalid", "Migration manifest-append field options are malformed");
+        }
+        initialOptions = assertNormalizedOptionNames(options.map((option) => option.name), "migration_manifest_invalid");
+      }
       if (!spec || spec.primary || spec.managedReverseOf || !isDeepStrictEqual(Object.keys(action).sort(), ["field", "id", "kind", "phase", "spec", "table"]) ||
           action.id !== `field:${action.table}:${action.field}` || action.phase !== spec.phase || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec,
-            spec.optionPolicy === "manifest_append" ? {
-              initialOptions: manifestAppendOptions(action.table, spec, { accounts: manifest.accounts, dramas: manifest.dramas }),
-            } : {}))) {
+            initialOptions === undefined ? {} : { initialOptions }))) {
         fail("migration_manifest_invalid", "Migration field action is not fixed");
       }
     } else if (action.kind === "update_primary_field") {
@@ -1360,6 +1367,29 @@ function assertManifest(manifest) {
       if (!spec?.primary || typeof action.field_id !== "string" || action.field_id === "" || action.phase !== "storage" ||
           !isDeepStrictEqual(Object.keys(action).sort(), ["field", "field_id", "id", "kind", "phase", "spec", "table"]) || action.id !== `primary:${action.table}:${action.field}` || !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
         fail("migration_manifest_invalid", "Migration primary-field action is not fixed");
+      }
+    } else if (action.kind === "update_select_options") {
+      const spec = BASE_FIELD_SPECS[action.table]?.find((field) => field.name === action.field);
+      const initialTable = manifest.initial_base_schema.tables?.find((table) => table?.name === action.table);
+      const initialField = initialTable?.fields?.find((field) => field?.name === action.field);
+      let beforeOptions;
+      let afterOptions;
+      try {
+        beforeOptions = assertNormalizedOptionNames(action.before_options, "migration_manifest_invalid");
+        afterOptions = assertNormalizedOptionNames(action.after_options, "migration_manifest_invalid");
+      } catch (error) {
+        if (error?.code === "migration_manifest_invalid") throw error;
+        fail("migration_manifest_invalid", "Migration Select option transition is malformed");
+      }
+      const isStrictPrefix = beforeOptions.length < afterOptions.length &&
+        beforeOptions.every((name, index) => name === afterOptions[index]);
+      if (!spec || spec.optionPolicy !== "manifest_append" || !["single_select", "multi_select"].includes(spec.kind) ||
+          !plainObject(initialField) || typeof initialField.field_id !== "string" || initialField.field_id === "" ||
+          action.field_id !== initialField.field_id || !isStrictPrefix ||
+          !isDeepStrictEqual(Object.keys(action).sort(), ["after_options", "before_options", "field", "field_id", "id", "kind", "phase", "spec", "table"]) ||
+          action.id !== `options:${action.table}:${action.field}` || action.phase !== "storage" ||
+          !isDeepStrictEqual(action.spec, fixedSchemaDescriptor(action.table, spec))) {
+        fail("migration_manifest_invalid", "Migration Select option action is not fixed");
       }
     } else {
       fail("migration_manifest_invalid", "Migration schema action is unsupported");
