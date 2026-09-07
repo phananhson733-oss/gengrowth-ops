@@ -841,6 +841,43 @@ function manifestAppendOptions(tableName, spec, rows) {
   return optionNamesFromRows(optionRowsForTable(tableName, rows), spec);
 }
 
+function compareSchemaText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function schemaIdentityPart(value) {
+  return typeof value === "string" ? value : "";
+}
+
+function compareInitialBaseTables(left, right) {
+  const leftName = schemaIdentityPart(left?.name);
+  const rightName = schemaIdentityPart(right?.name);
+  const leftOrder = TABLE_ORDER.indexOf(leftName);
+  const rightOrder = TABLE_ORDER.indexOf(rightName);
+  const leftKnown = leftOrder !== -1;
+  const rightKnown = rightOrder !== -1;
+  if (leftKnown !== rightKnown) return leftKnown ? -1 : 1;
+  if (leftKnown && leftOrder !== rightOrder) return leftOrder - rightOrder;
+  return compareSchemaText(leftName, rightName) ||
+    compareSchemaText(schemaIdentityPart(left?.table_id), schemaIdentityPart(right?.table_id));
+}
+
+function compareInitialBaseFields(left, right) {
+  return compareSchemaText(schemaIdentityPart(left?.name), schemaIdentityPart(right?.name)) ||
+    compareSchemaText(schemaIdentityPart(left?.field_id), schemaIdentityPart(right?.field_id));
+}
+
+function canonicalInitialBaseSchema(baseSchema) {
+  if (!plainObject(baseSchema) || !Array.isArray(baseSchema.tables)) return baseSchema;
+  return {
+    ...baseSchema,
+    tables: baseSchema.tables.map((table) => {
+      if (!plainObject(table) || !Array.isArray(table.fields)) return table;
+      return { ...table, fields: [...table.fields].sort(compareInitialBaseFields) };
+    }).sort(compareInitialBaseTables),
+  };
+}
+
 function existingOptionNames(field) {
   if (typeof field.field_id !== "string" || field.field_id === "" || !Array.isArray(field.options) ||
       field.options.some((option) => !plainObject(option) || typeof option.name !== "string")) {
@@ -1033,7 +1070,7 @@ export async function planMigration(context = {}) {
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
-  const initialBaseSchema = omitUndefined(clone(context.baseSchema, "migration_source_invalid"));
+  const initialBaseSchema = canonicalInitialBaseSchema(omitUndefined(clone(context.baseSchema, "migration_source_invalid")));
   const schema = schemaPlan(initialBaseSchema, blocks, {
     accounts: accountResult.rows,
     dramas: dramaResult.rows,

@@ -710,6 +710,33 @@ test("plan is pure and deterministic, uses visible/source order, and reconciles 
   ]);
 });
 
+test("plan canonicalizes Base table and field transport order without reordering Select options", async () => {
+  const baseSchema = completeFixedSchema("transport-order-r1");
+  const reordered = structuredClone(baseSchema);
+  reordered.tables.reverse();
+  for (const table of reordered.tables) table.fields.reverse();
+  const context = {
+    google: normalizedSource(),
+    captures: [latestCapture()],
+    now: () => "2026-09-01T10:00:00Z",
+  };
+
+  const first = await planMigration({ ...context, baseSchema });
+  const second = await planMigration({ ...context, baseSchema: reordered });
+
+  assert.equal(second.sha256, first.sha256);
+  assert.deepEqual(second.initial_base_schema, first.initial_base_schema);
+  assert.deepEqual(second.schema_actions, first.schema_actions);
+
+  const optionReordered = structuredClone(reordered);
+  optionReordered.tables.find((table) => table.name === "选剧池").fields
+    .find((field) => field.name === "平台").options.reverse();
+  const optionChanged = await planMigration({ ...context, baseSchema: optionReordered });
+
+  assert.notDeepEqual(optionChanged.initial_base_schema, first.initial_base_schema);
+  assert.notEqual(optionChanged.sha256, first.sha256);
+});
+
 test("migration requires four pre-created configured tables and never plans dynamic table creation", async () => {
   const manifest = await planMigrationRaw({
     google: normalizedSource(), captures: [latestCapture()],
