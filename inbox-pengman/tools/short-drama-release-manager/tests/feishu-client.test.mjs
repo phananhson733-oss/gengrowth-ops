@@ -523,6 +523,36 @@ test("numeric lookups accept Base's formatted decimals for whole numbers only", 
   }
 });
 
+test("a nested vendor error surfaces its real code and message, not just the envelope", async () => {
+  // Base wraps the real failure inside data.error while the envelope code stays 1.
+  // Reporting only the envelope leaves the operator with {"code":1,"status":200}.
+  const nested = {
+    code: 1,
+    msg: "",
+    data: { error: { code: "800004011", message: "no permission to access this base", retryable: false } },
+  };
+  const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => nested });
+
+  await assert.rejects(client.listTables("base"), (error) => {
+    assert.equal(error.code, "base_permission_denied", "a permission refusal must not read as a generic request failure");
+    assert.equal(error.details.vendor_code, "800004011");
+    assert.match(error.details.vendor_message, /no permission/);
+    assert.equal(error.details.retryable, false);
+    return true;
+  });
+
+  // A nested error that is not a permission refusal keeps the generic code but still
+  // carries the vendor detail.
+  const other = { code: 1, data: { error: { code: "800004001", message: "not a valid dashboard" } } };
+  const client2 = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => other });
+  await assert.rejects(client2.listTables("base"), (error) => {
+    assert.equal(error.code, "base_request_failed");
+    assert.equal(error.details.vendor_code, "800004001");
+    assert.match(error.details.vendor_message, /not a valid dashboard/);
+    return true;
+  });
+});
+
 test("a malformed numeric lookup reports the table, field and the shape it actually saw", async () => {
   const read = async (value) => {
     const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async () => ({ code: 0, data: {

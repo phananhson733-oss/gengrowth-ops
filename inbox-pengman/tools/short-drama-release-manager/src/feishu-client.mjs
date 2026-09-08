@@ -120,8 +120,30 @@ function retryDelay(value, attempt) {
   return attempt * 1000;
 }
 
+// Base nests the real failure under data.error while the envelope code stays 1, so an
+// envelope-only report reads as {"code":1,"status":200} and says nothing. Surface the
+// nested code and message, and name a permission refusal for what it is.
+const PERMISSION_VENDOR_CODES = new Set(["800004011"]);
+
+function vendorError(value) {
+  const nested = value?.data?.error ?? value?.response?.data?.error;
+  if (!plainObject(nested)) return null;
+  const code = typeof nested.code === "string" || typeof nested.code === "number" ? String(nested.code) : null;
+  const message = typeof nested.message === "string" ? nested.message.slice(0, 200) : null;
+  if (code === null && message === null) return null;
+  return {
+    ...(code === null ? {} : { vendor_code: code }),
+    ...(message === null ? {} : { vendor_message: message }),
+    ...(typeof nested.retryable === "boolean" ? { retryable: nested.retryable } : {}),
+  };
+}
+
 function mappedFailure(value, path, attempts = null) {
-  const details = { code: codeOf(value), status: statusOf(value), path: diagnosticPath(path), ...(attempts ? { attempts } : {}) };
+  const vendor = vendorError(value);
+  const details = { code: codeOf(value), status: statusOf(value), path: diagnosticPath(path), ...(attempts ? { attempts } : {}), ...(vendor ?? {}) };
+  if (vendor?.vendor_code !== undefined && PERMISSION_VENDOR_CODES.has(vendor.vendor_code)) {
+    return new ShortDramaError("base_permission_denied", "Feishu Base refused the request for lack of permission", details);
+  }
   if (isRateLimited(value)) return new ShortDramaError("base_rate_limited", "Feishu Base rate limit retry budget exhausted", details);
   if (isAuthorizationFailure(value)) {
     return new ShortDramaError("base_auth_failed", "Feishu Base authorization failed", details);
