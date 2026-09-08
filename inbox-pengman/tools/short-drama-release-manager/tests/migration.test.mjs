@@ -16,6 +16,7 @@ import {
   canaryReceiptDigest,
   createPermissionAttestation,
   manifestDigest,
+  googleSnapshotIsNewer,
   migrationSourceRevision,
   permissionAttestationDigest,
   planMigration as planMigrationRaw,
@@ -487,6 +488,51 @@ test("a newer Google capture still falls back to SQLite for metrics it lacks", a
     primary_source: "google",
     fallback_fields: ["评论"],
   }]);
+});
+
+test("a newer Google capture keeps the collection timestamps only SQLite knows", async () => {
+  const google = sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })]);
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({
+      snapshot_date: "2026-09-04",
+      captured_at: "2026-09-04T01:02:03Z",
+      published_at: "2026-08-20T00:00:00Z",
+      comments: 3, missing_fields: [], collection_status: "complete",
+    })],
+  });
+  assert.equal(manifest.captures[0].播放量, 1000);
+  assert.equal(manifest.captures[0].采集时间, "2026-09-04T01:02:03Z");
+  assert.equal(manifest.captures[0].发布时间, "2026-08-20T00:00:00Z");
+});
+
+test("googleSnapshotIsNewer swaps sources only for two well-formed dates", () => {
+  assert.equal(googleSnapshotIsNewer("2026-09-07", "2026-09-04"), true);
+  assert.equal(googleSnapshotIsNewer("2027-01-01", "2026-12-31"), true);
+  assert.equal(googleSnapshotIsNewer("2026-09-04", "2026-09-04"), false);
+  assert.equal(googleSnapshotIsNewer("2026-09-01", "2026-09-04"), false);
+  // Upstream Google normalization already rejects these shapes; the guard is defence in
+  // depth so a future source path cannot open the gate with a lexicographic accident.
+  // "2026/09/07" > "2026-09-04" and "2026-9-7" > "2026-12-31" both compare true as strings.
+  for (const malformed of ["2026/09/07", "2026-9-7", "20260907", "2026-09-07T00:00:00Z", "", " 2026-09-07", null, undefined, 20260907, ["2026-09-07"]]) {
+    assert.equal(googleSnapshotIsNewer(malformed, "2026-09-04"), false, `google ${JSON.stringify(malformed)}`);
+    assert.equal(googleSnapshotIsNewer("2026-09-07", malformed), false, `sqlite ${JSON.stringify(malformed)}`);
+  }
+});
+
+test("a Google capture without a snapshot date cannot unseat SQLite as the primary source", async () => {
+  for (const snapshot of [null]) {
+    const google = sourceWithCaptures([googleCapture({ 快照日期: snapshot, 播放量: 1000 })]);
+    const manifest = await planMigration({
+      google,
+      sqliteAccounts: [latestAccount()],
+      sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+    });
+    assert.equal(manifest.captures[0].播放量, 20, `snapshot ${JSON.stringify(snapshot)}`);
+    assert.equal(manifest.reconciliation.capture_merges[0].primary_source, "sqlite");
+    assert.equal(manifest.warnings.some((row) => row.code === "stale_sqlite_snapshot"), false);
+  }
 });
 
 test("an equal or newer SQLite capture snapshot stays primary and raises no staleness warning", async () => {
