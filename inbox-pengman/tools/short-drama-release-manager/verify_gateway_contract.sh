@@ -1,15 +1,23 @@
 #!/bin/bash
-# Does the Social provenance gate still match the Hermes that is actually running?
+# Compare the provenance gate against the Hermes release that is actually running.
 #
-# inspectTrustedSocialInvoker matches the Hermes wrapper script line by line. The suite
-# generates that wrapper by calling the real LocalEnvironment._wrap_command(), but from
-# HERMES_SOURCE_ROOT, which defaults to ~/hermes-agent. The gateway that actually serves the
-# bot runs from ~/.hermes/versions/<release>/. When those two diverge, every Social call is
-# refused with social_invoker_untrusted / stage=shell while the whole suite stays green.
+# READ THIS BEFORE BELIEVING A FAILURE.
 #
-# That is exactly what happened on 2026-09-08.
+# The suite builds its wrapper fixture by calling LocalEnvironment._wrap_command() on an
+# instance made with object.__new__ and a few hand-set attributes. That construction is tied to
+# Hermes internals and goes stale: on 2026-09-08 the running release raised
+# _snapshot_excluded_passthrough_names() inside _wrap_command, so the test errored out while
+# the gate itself was fine — verified by feeding it a wrapper the live gateway really emitted,
+# which it ACCEPTED.
 #
-# Run this after any Hermes upgrade, and before concluding that a refusal is the caller's fault.
+# So this script reports three outcomes, not two, and never claims the gate is broken on the
+# strength of a fixture that would not build.
+#
+#   OK            gate matches the running release
+#   INCONCLUSIVE  the fixture could not be generated for that release; run verify_gateway_live.mjs
+#   BROKEN        the fixture built and the gate rejected it
+#
+# Run after every Hermes upgrade, and before concluding a Social refusal is the caller's fault.
 
 set -u
 cd "$(dirname "$0")"
@@ -28,15 +36,27 @@ echo "running gateway : $root"
 echo "suite default   : ${HERMES_SOURCE_ROOT:-/Users/awayer_mini/hermes-agent}"
 echo
 
-if HERMES_SOURCE_ROOT="$root" node --test tests/cli.test.mjs >/tmp/gateway-contract.$$ 2>&1; then
+log=$(mktemp)
+if HERMES_SOURCE_ROOT="$root" node --test tests/cli.test.mjs >"$log" 2>&1; then
   echo "OK    the gate matches the Hermes release that is actually running"
-  rm -f /tmp/gateway-contract.$$
+  rm -f "$log"
   exit 0
 fi
 
-echo "BROKEN  the gate does NOT match the running Hermes release."
-echo "        Every Social bot call will fail with social_invoker_untrusted, stage=shell,"
-echo "        no matter how the command is written. Failing cases:"
-grep -E '^✖' /tmp/gateway-contract.$$ | sed 's/^/        /' | head
-rm -f /tmp/gateway-contract.$$
+# A fixture that cannot even be generated proves nothing about the gate.
+if grep -q "Command failed:.*\.venv/bin/python" "$log"; then
+  echo "INCONCLUSIVE  the wrapper fixture could not be generated for this release:"
+  grep -oE "line [0-9]+, in [a-z_]+" "$log" | tail -2 | sed 's/^/              /'
+  echo
+  echo "              This says the test's construction of LocalEnvironment is out of date."
+  echo "              It says NOTHING about whether the gate accepts real wrappers."
+  echo "              To find out, capture a wrapper the live gateway emitted and run:"
+  echo "                node verify_gateway_live.mjs <captured-bash-row.txt>"
+  rm -f "$log"
+  exit 2
+fi
+
+echo "BROKEN  the fixture built and the gate rejected it. Failing cases:"
+grep -E '^✖' "$log" | sed 's/^/        /' | head
+rm -f "$log"
 exit 1
