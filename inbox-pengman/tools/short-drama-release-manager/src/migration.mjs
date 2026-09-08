@@ -354,7 +354,7 @@ const CAPTURE_METADATA_FALLBACK = Object.freeze(["captured_at", "published_at"])
 // SQLite is the default primary source because it is machine-collected. It stops being
 // primary when the manual sheet carries a strictly newer snapshot date: taking the stale
 // row would silently roll metrics backwards. Unreadable or absent dates keep SQLite primary.
-function googleSnapshotIsNewer(googleDate, sqliteDate) {
+export function googleSnapshotIsNewer(googleDate, sqliteDate) {
   if (typeof googleDate !== "string" || typeof sqliteDate !== "string") return false;
   if (!SNAPSHOT_DATE_SHAPE.test(googleDate) || !SNAPSHOT_DATE_SHAPE.test(sqliteDate)) return false;
   return googleDate > sqliteDate;
