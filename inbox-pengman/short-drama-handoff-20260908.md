@@ -62,18 +62,25 @@
 仪表盘                                                              0
 ```
 
-**卡点：创建仪表盘缺权限。** 直接调 API 拿到的原始错误：
+**卡点：应用身份对该 Base 的仪表盘资源没有任何权限。** 实测（直接调 API 对比两种身份）：
 
-```
-POST .../dashboards              → 800004011  no permission to access this base  (retryable:false)
-POST .../dashboards/{id}/blocks  → 800004001  "dsh…" is not a valid dashboard
-```
+| 调用 | 应用身份（tenant token） | 用户身份 |
+| --- | --- | --- |
+| `GET  /dashboards` | `code=0, count=0`（**不报错，但看不见**） | 正常返回 1 个 |
+| `POST /dashboards` | `800004011 no permission to access this base`（`retryable:false`） | 创建成功 |
 
-两者报错层级不同：创建仪表盘在最外层被权限拦；创建 block 走到了"dashboard 不存在"才报错，说明 block 写入没有在最外层撞权限墙。
+**手工建仪表盘解决不了问题。** 我用用户身份建了 `短剧发行管理仪表盘`（`blkEtDTg3msqlX97`），
+应用身份 `listDashboards` 仍然返回 0 个。所以 `applyPresentation` 的"存在即复用"分支
+（`src/migration.mjs:2060`）永远走不到，它会再次尝试创建并再次被拒。
 
-**因此优先走这条：在 Base UI 手工创建一个名为 `短剧发行管理仪表盘` 的仪表盘，再跑 finish.sh。**
-`applyPresentation` 是"存在即复用"（`src/migration.mjs:2060` `matches[0] ?? createDashboard(...)`），会跳过创建直接建 block。若 block 也报 800004011，则必须在飞书开放平台补仪表盘写权限。
+**唯一解法：在飞书开放平台给应用 `cli_aa8edad1a6785bea` 补仪表盘的读写权限。**
 
+补权限后重跑 `finish.sh`，会直接复用已存在的 `blkEtDTg3msqlX97`，把 6 个 block 建完。
+若要清掉它：`lark-cli base +dashboard-delete --as user --base-token <base> --dashboard-id blkEtDTg3msqlX97`
+
+**顺带暴露的代码问题（建议排期）**：`listDashboards` 在无权限时返回空列表而非错误，
+使 `applyPresentation` 把"没权限看"误判成"还没建"。与今晚另外四处"空 details"同类——
+失败被伪装成正常的空状态。
 
 建好仪表盘后重跑（presentation 幂等，同名视图复用，重跑安全）：
 
