@@ -508,6 +508,60 @@ test("a newer Google capture keeps the collection timestamps only SQLite knows",
   assert.equal(manifest.captures[0].发布时间, "2026-08-20T00:00:00Z");
 });
 
+// A v1 manifest cannot be produced by the current planner, and the real one is business
+// data that does not belong in the repo. This rebuilds the exact v1 reconciliation of the
+// same source so the replay path can be exercised: sqlite stays primary despite the newer
+// Google snapshot. policy is hashed into source_revision, which is in turn embedded in every
+// 来源 run_id, so all three have to be rewritten together for the manifest to be self-consistent.
+const SOURCE_CORE_KEYS = Object.freeze([
+  "policy", "google_revision", "google_capture_post_ids", "google_captures_sha256",
+  "sqlite_account_ids", "sqlite_accounts", "sqlite_accounts_sha256",
+  "sqlite_post_ids", "sqlite_posts", "sqlite_posts_sha256",
+]);
+
+function sourceEvidenceDigest(evidence) {
+  const core = Object.fromEntries(SOURCE_CORE_KEYS.map((key) => [key, evidence[key]]));
+  return createHash("sha256").update(JSON.stringify(canonicalDigestValue(core))).digest("hex");
+}
+
+async function legacyV1Manifest() {
+  const manifest = await planMigration({
+    google: sourceWithTables({ captures: [googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })], releases: [] }),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+  });
+  assert.equal(manifest.captures[0].播放量, 1000, "v2 plan must disagree with v1 for this to prove anything");
+  const legacy = structuredClone(manifest);
+  legacy.source_evidence.policy = "shortdrama-source-reconciliation/v1";
+  const digest = sourceEvidenceDigest(legacy.source_evidence);
+  legacy.source_revision = `migration-source-v2:${digest}`;
+  Object.assign(legacy.captures[0], {
+    快照日期: "2026-09-04",
+    播放量: 20,
+    评论: 3,
+    "来源 run_id": `migration:sqlite:${digest}`,
+  });
+  legacy.reconciliation.capture_merges = [{ post_id: "99", primary_source: "sqlite", fallback_fields: [] }];
+  legacy.warnings = [];
+  legacy.counts.warnings = 0;
+  legacy.sha256 = manifestDigest(legacy);
+  return legacy;
+}
+
+test("a v1 manifest replays under the policy it declares, not the current code version", async () => {
+  const legacy = await legacyV1Manifest();
+  // assertManifest runs before any Base access, so reaching the binding check proves the
+  // replay reproduced every stored row under sqlite-primary.
+  await assert.rejects(() => verifyMigrationRaw({}, legacy), (error) => error.code === "base_target_mismatch");
+});
+
+test("a v1 manifest carrying v2 reconciliation output is still rejected", async () => {
+  const forged = await legacyV1Manifest();
+  forged.captures[0].播放量 = 1000;
+  forged.sha256 = manifestDigest(forged);
+  await assert.rejects(() => verifyMigrationRaw({}, forged), (error) => error.code === "migration_manifest_invalid");
+});
+
 test("source policies map to exactly one reconciliation strategy each", () => {
   assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v1"), "sqlite-primary");
   assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v2"), "snapshot-date");
@@ -2924,3 +2978,4 @@ test("invalid artifact content releases its exclusive reservation", async () => 
   assert.deepEqual(JSON.parse(await readFile(written.path, "utf8")), { status: "safe" });
   await rm(written.path, { force: true });
 });
+
