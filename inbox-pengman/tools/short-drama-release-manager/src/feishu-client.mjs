@@ -144,7 +144,10 @@ function diagnosticPath(path) {
       parts[index + 1] = "[redacted]";
     }
   }
-  return parts.join("/");
+  // Return without a leading slash: this route is already fully templated, and the CLI
+  // error sanitiser erases anything that looks like an absolute filesystem path, which
+  // would otherwise reduce a live Base failure to "[redacted]".
+  return parts.join("/").replace(/^\/+/, "");
 }
 
 function validateToken(token) {

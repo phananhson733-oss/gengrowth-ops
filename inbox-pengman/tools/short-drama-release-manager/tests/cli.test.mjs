@@ -2199,6 +2199,28 @@ test("re-digested schema receipt tampering still fails against the external rece
   }
 });
 
+test("the sanitiser keeps an already-redacted Base API path readable", async () => {
+  const { sanitizeErrorResult } = shortdramaControl;
+  // diagnosticPath() has already templated every resource id; the sanitiser must not
+  // mistake the remaining API route for a filesystem path and erase the whole thing,
+  // or a live Base failure reports nothing the operator can act on.
+  const sanitised = sanitizeErrorResult({
+    status: "failed",
+    error: { code: "base_request_failed", details: { code: 1, status: 200, attempts: 1,
+      path: "open-apis/base/v3/bases/[redacted]/dashboards/[redacted]/blocks" } },
+  });
+  assert.equal(sanitised.error.details.path, "open-apis/base/v3/bases/[redacted]/dashboards/[redacted]/blocks");
+
+  // Real secrets and identifiers are still erased.
+  const secrets = sanitizeErrorResult({
+    error: { details: { app_token: "OtnsbnRn", actor: "ou_abc", home: "/Users/someone/secret", chat_id: "oc_x" } },
+  });
+  assert.equal(secrets.error.details.app_token, "[redacted]");
+  assert.equal(secrets.error.details.actor, "[redacted]");
+  assert.equal(secrets.error.details.home, "[redacted]");
+  assert.equal(secrets.error.details.chat_id, "[redacted]");
+});
+
 test("main emits exactly one JSON object and sanitizes absolute error paths", async () => {
   let output = "";
   let closed = 0;

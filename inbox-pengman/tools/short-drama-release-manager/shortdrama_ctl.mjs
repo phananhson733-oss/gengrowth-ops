@@ -1656,7 +1656,7 @@ export function exitCodeFor(result) {
   return 0;
 }
 
-function sanitizeErrorResult(result) {
+export function sanitizeErrorResult(result) {
   const copy = structuredClone(result);
   const identifierKey = /^(?:actor|actor_id|user|user_id|chat|chat_id|base|base_id|base_token|app|app_id|app_token|table_id|record_id)$/i;
   const identifierValue = /^(?:ou|oc|tbl|rec)_[A-Za-z0-9._-]+$/;

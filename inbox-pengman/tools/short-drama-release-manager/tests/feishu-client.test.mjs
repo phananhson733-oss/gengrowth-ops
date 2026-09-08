@@ -2320,13 +2320,13 @@ test("request logging exposes only method path status and run_id", async () => {
   assert.deepEqual(logs, [
     {
       method: "GET",
-      path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/fields",
+      path: "open-apis/base/v3/bases/[redacted]/tables/[redacted]/fields",
       status: 200,
       run_id: "run-1",
     },
     {
       method: "POST",
-      path: "/open-apis/base/v3/bases/[redacted]/tables/[redacted]/records/batch_create",
+      path: "open-apis/base/v3/bases/[redacted]/tables/[redacted]/records/batch_create",
       status: 200,
       run_id: "run-1",
     },
