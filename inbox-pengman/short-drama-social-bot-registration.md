@@ -104,6 +104,45 @@ Hermes gateway (profile=social)
 
 ---
 
+## 0b. 「改了却没生效」的排查清单
+
+管理员改过一次，`/reset` 后 Bot 仍列出只有 §4.1 / §4.2，所以**改动没落到 Bot 实际加载的那个文件**。
+下面是从仓库里能确认的线索，用来核对上次改的是不是同一个地方。
+标注"推断"的部分我没有权限直接核实（`CLAUDE.md` 禁止读写 OpenClaw 配置），需要你在机器上确认。
+
+**profile 目录结构**（确认自 `task-collab/tasks/2026-06-06-hr-bot-v0/sandbox-home/profiles/hr-lead/`）：
+
+```
+profiles/<profile>/
+├── SOUL.md        ← 人格与规则，§4 例外章节在这里
+├── config.yaml
+└── skills/
+```
+
+所以 Social 的对应位置是 `profiles/social/SOUL.md`。**注意旁边还有 `config.yaml`**——
+如果工具权限实际由它控制，改 SOUL.md 就不会生效，反之亦然。这是最可能的错改点。
+
+**Skill 是独立的一层**（推断，但有两处佐证）：
+
+- `inbox-pengman/06-requirements/Social OS 分层 Skill 写作与 Hook 锁定修改需求.md` 把
+  `competitor-analysis` 列为一个 **Skill**，与 `social-pipeline-core` 等并列——
+  也就是说 §4.1 / §4.2 这两条例外指向的是**已安装的 Skill**，不是凭空的一段文字。
+- `inbox-maboyang/social-media/2026-07-11-竞品账号近24h爆款自动分析-自动化需求草稿.md`
+  给出 Skill 的安装路径格式 `tools/internal/skills/<name>/SKILL`，并提到
+  "当前 Social **可见技能目录**中未找到名为 social-daily 的已安装技能"。
+- Bot 自己也说 `/reload-skills` 只刷新技能、`/reset` 才刷新 `SOUL.md` 与工具权限——
+  两条独立的加载路径。
+
+**因此完整注册很可能是两步，只做一步不会生效**：
+
+1. 让短剧 Runner 成为 Social 可见的技能（`tools/internal/skills/short-drama-release-manager/SKILL`），
+2. 再在 `profiles/social/SOUL.md` 第 4 章加 §4.3 例外条目（正文见 §0）。
+
+改完发 `/reset`（技能若也改了，先 `/reload-skills` 再 `/reset`），然后让 Bot 复述一次它当前的
+允许列表——它会原样列出来，一眼就能看出有没有生效。
+
+---
+
 ## 5b. 改完配置必须重置会话（否则看不到新配置）
 
 **这是最容易踩的坑。** Social Bot 的工具权限来自会话启动时注入的 `SOUL.md`/权限规则，
