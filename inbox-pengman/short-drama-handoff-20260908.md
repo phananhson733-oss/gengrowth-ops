@@ -228,7 +228,10 @@ Runner 侧已验证的门禁（真实进程链 + 真实固定配置 + 真实生�
 **代码层（不阻塞，建议排期）**
 
 - `verifyMigration` 的 `details.source_union_verified` / `pending_release_warnings_verified` 是硬编码字面量；它证明的是"manifest 等于自己嵌入的快照"，不是"等于实时表格"。命名误导。
-- 写入重试没有幂等令牌，429/auth 重试在提交后重放理论上可产生重复行。
+- 迁移写入没有幂等令牌。**但业务写路径（Bot 用的 preview → apply）已经是幂等的**——回执一次性、
+  before_hash CAS、互斥租约，且有跨进程并发测试证明重放拿到 `preview_used`。重试也只发生在
+  429 与 auth 失败，这两种情况请求都未被执行。飞书 API 不提供可用的幂等键（实测 `client_token`
+  被静默忽略）。详见 runbook §7b。
 
 **顺带发现的运维问题（与短剧无关，但你可能不知道）**
 
