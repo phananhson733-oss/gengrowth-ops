@@ -152,6 +152,25 @@ export PERMISSION_ATTESTATION_FILE_SHA256="$(shasum -a 256 "$MIGRATION_ROOT/$PER
 
 canary 是唯一允许物理清理的 **canary-only** 路径：在动作时确认的维护窗口内，只删除本次固定 canary record ID，并为四表记录 create/read/delete、前后 count 和 key-set hash，输出绑定 manifest/Base/table IDs/schema revision 的不可覆盖 receipt。Base API 没有为该删除提供 CAS；GET→delete 仍有并发窗口，因此 receipt 证明的是受控维护窗口与最终集合恢复，不是原子 CAS。业务路径不做物理删除；归档是逻辑状态变化，任何`canary_cleanup_failed`都按`manual_repair`停止。
 
+### manifest 重放自检（改动 reconciliation / validation / schema planning 后必跑）
+
+`assertManifest` 会用 manifest 自带的 `source_backup` 重放一遍，再和已存的行逐字段比对；它是
+`verifyMigration` 的第一条语句，在任何 Base 访问之前。所以只要重放结果变了，**该 manifest 的
+所有剩余阶段都会被拒**——而 Base 非空时无法 replan，已应用的行就此搁浅。
+
+```bash
+node verify_manifest_replay.mjs "$MIGRATION_ROOT"/migration-plan-*.json
+```
+
+`REPLAY OK` 表示重放复现了每一行（它停在 base binding 检查，因为传的是空 context）；
+`REPLAY FAIL` 表示这份 manifest 在当前代码下已经失效。**任何已经 apply 过的 manifest 出现
+FAIL 都是发布阻断项**，未 apply 的旧计划 FAIL 属正常。只读，不碰 Base、网络和凭据。
+
+manifest 的重放策略取自它自己声明的 `source_evidence.policy`，不取当前代码常量：
+`v1` = SQLite 无条件优先，`v2` = 按 `snapshot_date` 取新，planner 只产出 `v2`。policy 参与
+`source_revision` 哈希，而 `source_revision` 又嵌在每行的 `来源 run_id` 里，所以不能靠改标签
+来挑选重放策略。
+
 ### 四表读取与人工维护
 
 ```bash
