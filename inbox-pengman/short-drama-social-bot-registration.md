@@ -70,76 +70,85 @@ Hermes gateway (profile=social)
 
 ---
 
-## 0. 要改的确切位置（2026-09-08 14:36 实测得到）
+## 0. 要改哪个文件（2026-09-08 14:47 Bot 原样确认）
 
-`/reset` 后的新会话里，Bot 原样列出了它当前的 terminal 允许流程：
-
-> 1. `§4.1 例外：竞品分析自动流程（预授权，直接执行）`
-> 2. `§4.2 例外：社媒流水线 social-pipeline（预授权，直接执行）`
->
-> 当前规则中没有 `short-drama-release-manager`。
-
-所以规则住在 Social profile 的 **`SOUL.md` 第 4 章「例外」**，条目格式是
-`§4.x 例外：<流程名>（预授权，直接执行）`。需要新增 §4.3。
-
-**下面这段可以直接粘进去**，它就是 Runner 已经在执行的边界（第 1–5 节逐条对应），
-所以不是额外放权，只是把 Runner 自己的门禁在 Bot 侧声明一遍：
-
-```markdown
-### §4.3 例外：短剧发行管理 short-drama-release-manager（预授权，直接执行）
-
-可执行对象（node 直接调起，中间不套 npm/npx/包装脚本）：
-  /usr/bin/env node ~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs
-
-配置固定为 Runner 同目录的 shortdrama.runtime.json，不接受任何其它 --config 路径。
-
-允许的命令组：account、capture、pool、release、metrics、sync start
-禁止的命令组：doctor、migrate、schedule、queue（Runner 自身也会拒绝，无需重复把关）
-
-写操作一律两段式：先 pool/release preview-*，把回执贴给用户，用户确认后才执行 apply-*。
-不得跳过 preview 直接 apply，不得使用 --actor-id / --chat-id 覆盖会话身份。
+```
+/Users/awayer_mini/.hermes/profiles/social/SOUL.md
 ```
 
-改完记得按 §5b 发 `/reset`，否则当前会话看不到。
+Bot 的原话：「如果管理员修改的是默认 profile 的 `~/.hermes/SOUL.md`、`~/.hermes/config.yaml`，
+或者其他 profile，**不会改变** Social Bot 新会话注入的规则。」——上次改动没生效，最可能就是这里。
+
+**同目录的 `config.yaml` 不用动。** 两者是交集关系，不是覆盖关系：
+
+| 文件 | 管什么 |
+| --- | --- |
+| `config.yaml` | `terminal` 工具集**是否启用**、backend、审批模式 |
+| `SOUL.md` | 业务上**允许在哪些流程**调用 `terminal` |
+
+`config.yaml` 那层已经是开的（§4.1 / §4.2 正在用 terminal 跑 python 脚本），
+所以只差 SOUL.md 里的一条例外。反过来只改 `config.yaml` 也没用——
+挡住短剧的是 SOUL.md「只允许两个例外」这条硬规则。
+
+### 要改两处，漏一处规则会自相矛盾
+
+**(1) §4.1 和 §4.2 的开头措辞**。两条现在都写着：
+
+> §4.1：以下是 CEO 预授权的**两个**工具/写入例外之一（另一个见 §4.2）
+> §4.2：第二个 CEO 预授权例外。与 §4.1 是两条独立流程
+
+加了第三条就得同步改成「三个」/「§4.2、§4.3」/「三条独立流程」。
+
+**(2) 新增 §4.3**，下面这段按 §4.1 / §4.2 的原文结构写好了，可直接粘：
+
+```markdown
+## 4.3 例外：短剧发行管理 short-drama-release-manager（预授权，直接执行）
+
+第三个 CEO 预授权例外。与 §4.1、§4.2 是三条独立流程，别混用彼此的脚本、Sheet 和 Base。
+
+**触发**：短剧业务的查看或修改请求——「选剧池有哪些 / 看一下账号台账 / 采集数据」
+「把 SD-xxxxxx 的 X 改成 Y」「给 xxx 排期」「归档 xxx」「回填发布记录」。
+
+**与 §4.1、§4.2 的一个结构差异**：这条例外的脚本不在 `~/.hermes/profiles/social/skills/` 下，
+而在 `~/gengrowth-ops/` 内，解释器是 `node` 而不是 venv 里的 python。这是本例外明确允许的。
+
+1. 允许用 `terminal` 跑**唯一入口**
+   `~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs`，
+   用 `node` 直接调起，中间不套 npm / npx / 包装脚本。
+   `--config` 只能是它同目录的 `shortdrama.runtime.json`，不接受任何其它路径（Runner 会逐字比对）。
+2. 允许的命令组：`account`、`capture`、`metrics`（只读）；`pool`、`release`（业务读写）；`sync start`。
+3. **禁止**：`doctor`、`migrate`、`schedule`、`queue` 及任何 internal 命令。
+   Runner 自己也会返回 `social_command_denied`，不要试图绕过它直连 Base API。
+4. **写操作一律两段式**：先跑对应的 `preview-*`，把回执（含 `before` 快照）发到飞书，
+   等人明确确认后才跑 `apply-*`。**不得跳过 preview 直接 apply**。
+   飞书里的「确认 / 可以」只对本次预览有效，不能预先批准后续写入。
+5. 不得用 `--actor-id` / `--chat-id` 覆盖会话身份；身份只从 Hermes 会话变量取，
+   Runner 会拒绝任何覆盖（`session_identity_override`）。
+6. 四张表里 `账号台账` 和 `采集数据` 对本流程是**只读**的（只有 list / get）。
+7. 完成后在飞书回一句摘要（改了哪张表哪条记录 + 关键字段的前后值）。
+
+**例外边界**：只允许上述这一个 Runner + 它固定配置指向的那一个 Base。
+不借此例外访问其它 Base / Sheet / 凭证 / 目录，不做迁移、调度或物理删除类操作。
+```
+
+第 1–6 条**没有放宽任何东西**——每一条都是 `shortdrama_ctl.mjs` 已经在强制执行的门禁
+（对应下面第 1–5 节），写进 SOUL.md 只是让 Bot 提前知道边界，少一次无谓的尝试。
+
+改完发 `/reset`，然后让 Bot 复述一次允许列表——它会原样列出来，一眼看得出有没有生效。
 
 ---
 
-## 0b. 「改了却没生效」的排查清单
+## 0b. 上次为什么没生效（可能的三种）
 
-管理员改过一次，`/reset` 后 Bot 仍列出只有 §4.1 / §4.2，所以**改动没落到 Bot 实际加载的那个文件**。
-下面是从仓库里能确认的线索，用来核对上次改的是不是同一个地方。
-标注"推断"的部分我没有权限直接核实（`CLAUDE.md` 禁止读写 OpenClaw 配置），需要你在机器上确认。
+1. **改错了文件**——最可能。Bot 明说改 `~/.hermes/SOUL.md`（默认 profile）或
+   `~/.hermes/profiles/social/config.yaml` 都不会影响它。必须是
+   `~/.hermes/profiles/social/SOUL.md`。
+2. **改完没 `/reset`**——见 §5b，工具权限只在会话启动时注入。
+3. **只加了 §4.3、没改 §4.1/§4.2 的「两个」**——这一条不一定导致失效，
+   但会让规则自相矛盾，Bot 可能仍按「只有两个例外」执行。
 
-**profile 目录结构**（确认自 `task-collab/tasks/2026-06-06-hr-bot-v0/sandbox-home/profiles/hr-lead/`）：
-
-```
-profiles/<profile>/
-├── SOUL.md        ← 人格与规则，§4 例外章节在这里
-├── config.yaml
-└── skills/
-```
-
-所以 Social 的对应位置是 `profiles/social/SOUL.md`。**注意旁边还有 `config.yaml`**——
-如果工具权限实际由它控制，改 SOUL.md 就不会生效，反之亦然。这是最可能的错改点。
-
-**Skill 是独立的一层**（推断，但有两处佐证）：
-
-- `inbox-pengman/06-requirements/Social OS 分层 Skill 写作与 Hook 锁定修改需求.md` 把
-  `competitor-analysis` 列为一个 **Skill**，与 `social-pipeline-core` 等并列——
-  也就是说 §4.1 / §4.2 这两条例外指向的是**已安装的 Skill**，不是凭空的一段文字。
-- `inbox-maboyang/social-media/2026-07-11-竞品账号近24h爆款自动分析-自动化需求草稿.md`
-  给出 Skill 的安装路径格式 `tools/internal/skills/<name>/SKILL`，并提到
-  "当前 Social **可见技能目录**中未找到名为 social-daily 的已安装技能"。
-- Bot 自己也说 `/reload-skills` 只刷新技能、`/reset` 才刷新 `SOUL.md` 与工具权限——
-  两条独立的加载路径。
-
-**因此完整注册很可能是两步，只做一步不会生效**：
-
-1. 让短剧 Runner 成为 Social 可见的技能（`tools/internal/skills/short-drama-release-manager/SKILL`），
-2. 再在 `profiles/social/SOUL.md` 第 4 章加 §4.3 例外条目（正文见 §0）。
-
-改完发 `/reset`（技能若也改了，先 `/reload-skills` 再 `/reset`），然后让 Bot 复述一次它当前的
-允许列表——它会原样列出来，一眼就能看出有没有生效。
+核对方法：改完 `/reset` 后在群里问一句「你现在允许用 terminal 的流程有哪些」，
+它会把条目原样列出来。
 
 ---
 
