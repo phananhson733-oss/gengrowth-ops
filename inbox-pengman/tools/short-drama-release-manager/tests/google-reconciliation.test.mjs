@@ -47,3 +47,26 @@ test('partial writer failure remains partial and never reports verified',async()
  const f=fixture();const p=planGoogleReconciliation(f);let calls=0;
  await assert.rejects(()=>applyGoogleReconciliation({plan:p,expectedSha256:p.sha256,current:f,writer:{apply:async()=>{calls++;throw new Error('transport');}}}));assert.equal(calls,1);
 });
+
+test('writer changes only planned fields, reads back, audits, and never repeats a write for lag',async()=>{
+ const {createGoogleReconciliationWriter}=await import('../src/google-reconciliation.mjs');
+ const {JobStore}=await import('../src/job-store.mjs');
+ const {BaseRepositories}=await import('../src/base-repositories.mjs');
+ const f=fixture();const p=planGoogleReconciliation(f);const rows=clone(f.snapshot);const fields=clone(f.schema.tables);const writes=[];let lag=0;
+ const client={
+  async listRecords(_base,key){const items=clone(rows[key]);if(key==='accounts'&&lag-->0)items[0].fields.粉丝数=10;return {complete:true,items};},
+  async getRecord(_base,key,id){return clone(rows[key].find(r=>r.record_id===id));},
+  async listFields(_base,key){return {complete:true,items:clone(fields.find(t=>t.table_id===key).fields)};},
+  async updateSelectFieldOptions(_base,key,id,_table,_name,options){fields.find(t=>t.table_id===key).fields.find(f=>f.field_id===id).options=options.map(name=>({name}));},
+  async updateRecords(_base,key,updates){writes.push(key);for(const u of updates)Object.assign(rows[key].find(r=>r.record_id===u.record_id).fields,clone(u.fields));if(key==='accounts')lag=1;return clone(updates);},
+  async createRecords(_base,key,creates){writes.push(key);const created=creates.map((r,i)=>({record_id:`new-${key}-${i}`,fields:clone(r.fields)}));rows[key].push(...created);return created;}
+ };
+ const jobs=new JobStore(':memory:');const config={base:{appToken:'base',tableIds:{accounts:'accounts',dramas:'dramas',captures:'captures',releases:'releases'}},auth:{isPrivilegedAllowed:actor=>actor==='admin'}};
+ const repos=new BaseRepositories({client,appToken:'base',tableIds:config.base.tableIds});
+ try{
+  const writer=createGoogleReconciliationWriter({client,repos,config,jobs,actorId:'admin',sleep:async()=>{}});
+  const result=await writer.apply(p);assert.equal(result.status,'success');assert.equal(result.readback,'verified');
+  assert.equal(writes.filter(k=>k==='accounts').length,1);assert.equal(rows.accounts[0].fields.粉丝数,20);
+  assert.equal(rows.releases[0].fields.剧.length,0);assert.equal(jobs.db.prepare('select count(*) as n from audit_events').get().n,4);
+ }finally{jobs.close();}
+});

@@ -1,8 +1,9 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { BASE_FIELD_SPECS, TABLES } from './schema.mjs';
 import { canonicalDramaName } from './migration.mjs';
 import { ShortDramaError } from './errors.mjs';
+import { seedBusinessIdSequence } from './ids.mjs';
 
 export const RECONCILE_TABLES = Object.freeze({accounts:'账号台账',dramas:'选剧池',captures:'采集数据',releases:'发布记录'});
 const METRICS = ['播放量','点赞','评论','收藏','转发'];
@@ -59,7 +60,7 @@ function validateValues(table,patch){
   if(spec.options){const values=Array.isArray(value)?value:[value];if(values.some(v=>!spec.options.includes(v)))fail('reconcile_value_invalid','Source value outside fixed options',{table,field:f});}
  }
 }
-export function planGoogleReconciliation({google,snapshot,schema,baseline,baseBindingSha256,now}) {
+export function planGoogleReconciliation({google,snapshot,schema,baseline,baseBindingSha256,now,sequences={}}) {
  if(!/^[a-f0-9]{64}$/.test(baseBindingSha256)||!Number.isFinite(Date.parse(now)))fail('reconcile_input_invalid','Binding and timestamp required');
  for(const k of Object.keys(RECONCILE_TABLES))if(!Array.isArray(google[k])||!Array.isArray(snapshot[k]))fail('reconcile_input_invalid','Complete four-table snapshots required');
  const indexes=Object.fromEntries(Object.entries(RECONCILE_TABLES).map(([k,t])=>[k,unique(snapshot[k],r=>r.fields[TABLES[t].primaryField])]));
@@ -76,7 +77,7 @@ export function planGoogleReconciliation({google,snapshot,schema,baseline,baseBi
   const patch=Object.fromEntries(['账号名','主页链接','粉丝数','所属组','定位垂类','表现形式','状态','数据日期'].map(f=>[f,normalize(row[f])]));
   add('accounts',key,patch);
  }
- let dramaId=maxId(snapshot.dramas,'剧ID','SD');
+ let dramaId=Math.max(maxId(snapshot.dramas,'剧ID','SD'),sequences.drama??0);
  const dramasByName=unique(snapshot.dramas,r=>canonicalDramaName(r.fields.剧名));
  for(const row of mergedDramas(google.dramas)){const existing=dramasByName.get(canonicalDramaName(row.剧名));add('dramas',existing?.fields.剧ID??formatId('SD',++dramaId),row);}
  const accountRelation=name=>{const r=indexes.accounts.get(String(name).replace(/^@/,'').toLowerCase());if(!r)fail('reconcile_account_missing','Source account relation is unresolved',{account:name});return [{id:r.record_id}];};
@@ -86,15 +87,16 @@ export function planGoogleReconciliation({google,snapshot,schema,baseline,baseBi
   const patch={账号:accountRelation(row.账号名),快照日期:row.快照日期,视频链接:normalize(row.视频链接),...Object.fromEntries(METRICS.map(f=>[f,normalize(row[f])]))};
   const missing=METRICS.map((f,i)=>patch[f]===null?['views','likes','comments','favorites','shares'][i]:null).filter(Boolean);
   patch.采集状态=missing.length?'partial':'complete';patch.缺失字段=missing;
-  if(!indexes.captures.has(key))Object.assign(patch,{业务:normalize(row.业务)??'short-drama',发布时间:null,采集时间:null,'来源 run_id':`reconcile:google:${hash(google.captures)}`,'Base 同步时间':new Date(now).toISOString().replace(/\.\d{3}Z$/,'Z')});
+  if(!indexes.captures.has(key))Object.assign(patch,{业务:normalize(row.业务)??'short-drama',发布时间:null,采集时间:null,'来源 run_id':`reconcile:google:${hash(google.captures)}`,'Base 同步时间':new Date(Math.floor(Date.parse(now)/1000)*1000).toISOString()});
   add('captures',key,patch);
  }
  const previous=originalReleases(baseline);
+ if(snapshot.releases.length!==previous.length)fail('reconcile_release_mapping_changed','Existing release rows no longer match the migration baseline; review partial reconciliation before retry');
  if(google.releases.length<previous.length)fail('reconcile_release_mapping_changed','Google source removed release rows; manual mapping required');
  for(let i=0;i<previous.length;i++){
   if(!equal(releaseSignature(previous[i]),releaseSignature(google.releases[i]))||!indexes.releases.has(formatId('SR',i+1)))fail('reconcile_release_mapping_changed','Existing source release identity changed; do not guess the mapping',{source_row:i+2});
  }
- let releaseId=maxId(snapshot.releases,'发布ID','SR');
+ let releaseId=Math.max(maxId(snapshot.releases,'发布ID','SR'),sequences.release??0);
  for(const row of google.releases.slice(previous.length)){
   // Newly added incomplete rows are preserved as incomplete, never invented.
   const dramaName=normalize(row.剧名);const linked=dramaName?dramasByName.get(canonicalDramaName(dramaName)):null;
@@ -112,10 +114,11 @@ export function planGoogleReconciliation({google,snapshot,schema,baseline,baseBi
   }
  }
  const plan={version:'shortdrama-google-reconciliation/v1',generated_at:now,base_binding_sha256:baseBindingSha256,source_sha256:hash(Object.fromEntries(Object.keys(RECONCILE_TABLES).map(k=>[k,google[k]]))),base_sha256:hash(writableSnapshot(snapshot)),schema_sha256:hash(schema),baseline_sha256:hash(baseline),operations,schema_changes,sequence_seeds:{drama:dramaId,release:releaseId},source_backup:google.raw_backup??google,base_backup:snapshot};
- plan.sha256=reconciliationDigest(plan);return plan;
+ plan.sha256=reconciliationDigest(plan);return structuredClone(plan);
 }
 export async function applyGoogleReconciliation({plan,expectedSha256,current,writer}){
  if(plan?.version!=='shortdrama-google-reconciliation/v1'||plan.sha256!==expectedSha256||reconciliationDigest(plan)!==expectedSha256)fail('reconcile_plan_invalid','Reconciliation plan digest mismatch');
+ if(Date.parse(current.now)-Date.parse(plan.generated_at)>30*60*1000 || Date.parse(current.now)<Date.parse(plan.generated_at))fail('reconcile_stale','Reconciliation plan expired');
  const fresh=planGoogleReconciliation({...current,now:plan.generated_at});
  if(fresh.sha256!==expectedSha256)fail('reconcile_stale','Source, Base, schema or baseline changed; generate and review a new plan');
  return writer.apply(plan);
