@@ -47,7 +47,7 @@ const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确
 const DRAMA_PROVENANCE_TEXT_FIELDS = Object.freeze(["推荐理由", "备注"]);
 const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "账号状态", "平台", "语言", "归档状态"]);
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
-const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", ...REVIEWABLE_MATCH_REASONS]);
+const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", "stale_sqlite_snapshot", ...REVIEWABLE_MATCH_REASONS]);
 const FIXED_PLATFORMS = new Set(TABLES["选剧池"].options.平台);
 const OPTION_CONTROL = /[\u0000-\u001f\u007f-\u009f]/u;
 
@@ -348,11 +348,32 @@ function normalizedSqliteAccounts(rows) {
   return result;
 }
 
+const SNAPSHOT_DATE_SHAPE = /^\d{4}-\d{2}-\d{2}$/u;
+const CAPTURE_METADATA_FALLBACK = Object.freeze(["captured_at", "published_at"]);
+
+// SQLite is the default primary source because it is machine-collected. It stops being
+// primary when the manual sheet carries a strictly newer snapshot date: taking the stale
+// row would silently roll metrics backwards. Unreadable or absent dates keep SQLite primary.
+function googleSnapshotIsNewer(googleDate, sqliteDate) {
+  if (typeof googleDate !== "string" || typeof sqliteDate !== "string") return false;
+  if (!SNAPSHOT_DATE_SHAPE.test(googleDate) || !SNAPSHOT_DATE_SHAPE.test(sqliteDate)) return false;
+  return googleDate > sqliteDate;
+}
+
 function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, warnings) {
   const sqlite = normalizedSqliteAccounts(sqliteRows);
   const rows = googleResult.rows.map((row) => {
     const latest = sqlite.get(row.账号ID);
     if (!latest) return row;
+    if (googleSnapshotIsNewer(row.数据日期, latest.snapshot_date)) {
+      warnings.push(blocked("stale_sqlite_snapshot", "账号台账", null, {
+        account_id: row.账号ID,
+        primary_source: "google",
+        primary_snapshot_date: row.数据日期,
+        stale_snapshot_date: latest.snapshot_date,
+      }));
+      return row;
+    }
     return {
       ...row,
       粉丝数: latest.followers,
@@ -593,7 +614,7 @@ function uniqueCaptureMap(rows, normalize, sourceName) {
   return result;
 }
 
-function reconcileCaptureSources(googleRows, sqliteRows, blocks) {
+function reconcileCaptureSources(googleRows, sqliteRows, blocks, warnings) {
   const google = uniqueCaptureMap(googleRows, normalizedGoogleCapture, "Google");
   const sqlite = uniqueCaptureMap(sqliteRows, normalizedSqliteCapture, "SQLite");
   const sources = [];
@@ -614,16 +635,30 @@ function reconcileCaptureSources(googleRows, sqliteRows, blocks) {
     if (historical.identity_valid !== true || historical.username !== latest.username) {
       blocks.push(blocked("capture_source_conflict", "采集数据", historical.source_row, { post_id: key }));
     }
-    const merged = { ...historical, ...latest, migration_source: "sqlite" };
+    const googleIsPrimary = googleSnapshotIsNewer(historical.snapshot_date, latest.snapshot_date);
+    const primary = googleIsPrimary ? historical : latest;
+    const secondary = googleIsPrimary ? latest : historical;
+    const merged = { ...secondary, ...primary, migration_source: googleIsPrimary ? "google" : "sqlite" };
     const fallbackFields = [];
     for (const [field, target] of CAPTURE_METRICS) {
-      if (latest[field] === null && historical[field] !== null) {
-        merged[field] = historical[field];
+      if (primary[field] === null && secondary[field] !== null) {
+        merged[field] = secondary[field];
         fallbackFields.push(target);
       }
     }
+    for (const field of CAPTURE_METADATA_FALLBACK) {
+      if (merged[field] === null && secondary[field] !== null) merged[field] = secondary[field];
+    }
+    if (googleIsPrimary) {
+      warnings.push(blocked("stale_sqlite_snapshot", "采集数据", historical.source_row, {
+        post_id: key,
+        primary_source: "google",
+        primary_snapshot_date: historical.snapshot_date,
+        stale_snapshot_date: latest.snapshot_date,
+      }));
+    }
     sources.push(merged);
-    merges.push({ post_id: key, primary_source: "sqlite", fallback_fields: fallbackFields });
+    merges.push({ post_id: key, primary_source: googleIsPrimary ? "google" : "sqlite", fallback_fields: fallbackFields });
   }
   return {
     sources,
@@ -1065,7 +1100,7 @@ export async function planMigration(context = {}) {
   const sqlitePosts = clone(sqlitePostsInput, "migration_source_invalid");
   const source = migrationSourceRevision({ google, sqliteAccounts, sqlitePosts });
   const sourceRevision = source.revision;
-  const captureResult = reconcileCaptureSources(google.captures, sqlitePosts, blocks);
+  const captureResult = reconcileCaptureSources(google.captures, sqlitePosts, blocks, warnings);
   const captureSources = captureResult.sources;
   const accountResult = reconcileAccounts(googleAccounts, sqliteAccounts, captureSources, blocks, warnings);
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
@@ -1206,7 +1241,7 @@ function assertManifest(manifest) {
   const replayWarnings = [];
   const replayGoogleAccounts = validateAccountRows(backupGoogle.accounts, replayBlocks);
   const replayDramas = validateDramaRows(backupGoogle.dramas, replayBlocks, replayWarnings);
-  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks);
+  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks, replayWarnings);
   const replayAccounts = reconcileAccounts(replayGoogleAccounts, sourceCore.sqlite_accounts, replayCaptureResult.sources, replayBlocks, replayWarnings);
   const replayCaptures = validateCaptures(replayCaptureResult.sources, replayAccounts.unique, replayBlocks, manifest.source_revision);
   const replayCapturesByPost = new Map(replayCaptures.map((row) => [row["Post ID"], row]));
