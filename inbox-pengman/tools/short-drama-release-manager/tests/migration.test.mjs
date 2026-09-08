@@ -2650,6 +2650,49 @@ test("data apply materializes every writable field and verification rejects stal
   await assert.rejects(() => verifyMigration({ repos }, manifest), (error) => error.code === "readback_mismatch");
 });
 
+test("phases that never touch the source are not locked out by a normal source edit", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  const verification = await verifyMigration({ repos, now: () => "2026-09-01T11:00:00Z" }, manifest);
+
+  // Someone edits the Google sheet after planning. That is normal: the team keeps
+  // working in it. It must not permanently wedge the two phases that only replay
+  // the manifest's own fixed specs.
+  const drifted = { sourceRevision: "migration-source-v2:someone-edited-the-sheet" };
+
+  const seeds = [];
+  const sequences = await applyMigration({
+    phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest), ...drifted,
+    verification, expectedVerificationSha256: verification.sha256,
+    seedSequence: async (...args) => seeds.push(args),
+  }, manifest);
+  assert.equal(sequences.status, "applied");
+  assert.deepEqual(seeds, [["drama", 1], ["release", 1]]);
+
+  const presentationAdapter = {
+    listViews: async () => [], createView: async () => ({ view_id: "v" }),
+    updateView: async () => {}, readViewConfiguration: async () => ({}),
+    listDashboards: async () => [], createDashboard: async () => ({ dashboard_id: "d" }),
+    listDashboardBlocks: async () => [], updateDashboardBlock: async () => {},
+    readDashboardBlock: async () => ({}),
+  };
+  await assert.rejects(
+    () => applyMigration({ phase: "presentation", expectedSha256: manifest.sha256, ...schemaGate(manifest), ...drifted, presentationAdapter }, manifest),
+    (error) => error.code !== "source_revision_drift",
+    "presentation may fail for its own reasons but never on source drift",
+  );
+
+  // The phases that DO consume source data must still refuse.
+  for (const phase of ["schema", "data"]) {
+    await assert.rejects(
+      () => applyMigration({ phase, repos: memoryRepos(), expectedSha256: manifest.sha256, ...schemaGate(manifest), ...drifted }, manifest),
+      (error) => error.code === "source_revision_drift",
+      phase,
+    );
+  }
+});
+
 test("sequence phase requires a self-consistent same-manifest verification and seeds monotonically in order", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const seeds = [];

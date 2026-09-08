@@ -1435,14 +1435,23 @@ function assertManifest(manifest) {
   }
 }
 
-function assertApplyEnvelope(context, manifest) {
+// Only the phases that actually consume source data need the source snapshot to
+// still match. presentation replays fixed view/dashboard specs from the manifest and
+// sequences writes two manifest integers into the local state DB; neither reads the
+// source, so an ordinary edit to the Google sheet must not lock them out forever --
+// replanning is impossible once the Base is non-empty, so that lockout is permanent.
+const SOURCE_BOUND_PHASES = Object.freeze(new Set(["schema", "data"]));
+
+function assertApplyEnvelope(context, manifest, phase) {
   assertManifest(manifest);
   if (typeof context.baseBindingSha256 !== "string" || context.baseBindingSha256 !== manifest.base_binding_sha256) {
     fail("base_target_mismatch", "Runtime Base does not match the confirmed migration target");
   }
   if (typeof context.expectedSha256 !== "string" || context.expectedSha256 === "") fail("migration_digest_required", "Expected migration digest is required");
   if (context.expectedSha256 !== manifest.sha256) fail("migration_digest_mismatch", "Expected migration digest does not match");
-  if (context.sourceRevision !== manifest.source_revision) fail("source_revision_drift", "Migration sources changed after planning");
+  if (SOURCE_BOUND_PHASES.has(phase) && context.sourceRevision !== manifest.source_revision) {
+    fail("source_revision_drift", "Migration sources changed after planning");
+  }
   if (manifest.blocked.length > 0) fail("migration_blocked", "Migration manifest contains blocked entries", { count: manifest.blocked.length });
 }
 
@@ -2104,9 +2113,9 @@ function assertVerificationProof(context, manifest) {
 
 export async function applyMigration(context = {}, manifest) {
   if (!plainObject(context)) fail("migration_context_invalid", "Migration context is invalid");
-  assertApplyEnvelope(context, manifest);
   const phase = context.phase ?? "data";
   if (!new Set(["schema", "data", "presentation", "sequences"]).has(phase)) fail("migration_phase_invalid", "Migration phase is invalid");
+  assertApplyEnvelope(context, manifest, phase);
   const resumeMode = context.resumePartialData ?? null;
   if (resumeMode !== null && (typeof resumeMode !== "string" || !PARTIAL_RESUME_MODES.has(resumeMode) || phase !== "data")) {
     fail("migration_resume_invalid", "Partial-data resume mode is invalid", { phase });
