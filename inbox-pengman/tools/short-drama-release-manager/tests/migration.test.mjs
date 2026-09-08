@@ -524,7 +524,7 @@ function sourceEvidenceDigest(evidence) {
   return createHash("sha256").update(JSON.stringify(canonicalDigestValue(core))).digest("hex");
 }
 
-async function legacyV1Manifest() {
+async function legacyV1Manifest(policy = "shortdrama-source-reconciliation/v1") {
   const manifest = await planMigration({
     google: sourceWithTables({ captures: [googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })], releases: [] }),
     sqliteAccounts: [latestAccount()],
@@ -532,7 +532,7 @@ async function legacyV1Manifest() {
   });
   assert.equal(manifest.captures[0].播放量, 1000, "v2 plan must disagree with v1 for this to prove anything");
   const legacy = structuredClone(manifest);
-  legacy.source_evidence.policy = "shortdrama-source-reconciliation/v1";
+  legacy.source_evidence.policy = policy;
   const digest = sourceEvidenceDigest(legacy.source_evidence);
   legacy.source_revision = `migration-source-v2:${digest}`;
   Object.assign(legacy.captures[0], {
@@ -553,6 +553,13 @@ test("a v1 manifest replays under the policy it declares, not the current code v
   // assertManifest runs before any Base access, so reaching the binding check proves the
   // replay reproduced every stored row under sqlite-primary.
   await assert.rejects(() => verifyMigrationRaw({}, legacy), (error) => error.code === "base_target_mismatch");
+});
+
+test("an unknown source policy is refused outright, not silently downgraded", async () => {
+  // Without the policy allow-list an unknown tag would fall through to sqlite-primary and a
+  // self-consistent manifest would be accepted under a strategy nobody declared.
+  const forged = await legacyV1Manifest("shortdrama-source-reconciliation/v3");
+  await assert.rejects(() => verifyMigrationRaw({}, forged), (error) => error.code === "migration_manifest_invalid");
 });
 
 test("a v1 manifest carrying v2 reconciliation output is still rejected", async () => {
