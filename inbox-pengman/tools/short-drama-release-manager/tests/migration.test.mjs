@@ -453,6 +453,91 @@ test("partial SQLite rows retain old valid metrics but keep current missing evid
   }]);
 });
 
+test("a newer Google capture snapshot wins over a stale SQLite row and warns", async () => {
+  const google = sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000, 评论: 9 })]);
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+  });
+  assert.equal(manifest.captures[0].播放量, 1000);
+  assert.equal(manifest.captures[0].评论, 9);
+  assert.equal(manifest.captures[0].快照日期, "2026-09-07");
+  assert.deepEqual(manifest.reconciliation.capture_merges, [{
+    post_id: "99",
+    primary_source: "google",
+    fallback_fields: [],
+  }]);
+  assert.equal(manifest.warnings.some((row) =>
+    row.code === "stale_sqlite_snapshot" && row.post_id === "99" &&
+    row.primary_snapshot_date === "2026-09-07" && row.stale_snapshot_date === "2026-09-04"), true);
+});
+
+test("a newer Google capture still falls back to SQLite for metrics it lacks", async () => {
+  const google = sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000, 评论: null })]);
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+  });
+  assert.equal(manifest.captures[0].播放量, 1000);
+  assert.equal(manifest.captures[0].评论, 3);
+  assert.deepEqual(manifest.reconciliation.capture_merges, [{
+    post_id: "99",
+    primary_source: "google",
+    fallback_fields: ["评论"],
+  }]);
+});
+
+test("an equal or newer SQLite capture snapshot stays primary and raises no staleness warning", async () => {
+  for (const snapshot of ["2026-09-07", "2026-09-09"]) {
+    const google = sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })]);
+    const manifest = await planMigration({
+      google,
+      sqliteAccounts: [latestAccount()],
+      sqlitePosts: [latestCapture({ snapshot_date: snapshot, views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+    });
+    assert.equal(manifest.captures[0].播放量, 20);
+    assert.equal(manifest.reconciliation.capture_merges[0].primary_source, "sqlite");
+    assert.equal(manifest.warnings.some((row) => row.code === "stale_sqlite_snapshot"), false);
+  }
+});
+
+test("a newer Google account snapshot is not overwritten by a stale SQLite account", async () => {
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    accounts: [{ ...base.accounts[0], 粉丝数: 999, 数据日期: "2026-09-07" }],
+  });
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount({ snapshot_date: "2026-09-04", followers: 100 })],
+    sqlitePosts: [],
+  });
+  const account = manifest.accounts.find((row) => row.账号ID === "dramaexpedition");
+  assert.equal(account.粉丝数, 999);
+  assert.equal(account.数据日期, "2026-09-07");
+  assert.equal(manifest.warnings.some((row) =>
+    row.code === "stale_sqlite_snapshot" && row.account_id === "dramaexpedition" &&
+    row.primary_snapshot_date === "2026-09-07" && row.stale_snapshot_date === "2026-09-04"), true);
+});
+
+test("a newer SQLite account snapshot still overwrites the Google ledger row", async () => {
+  const base = normalizedSource();
+  const google = sourceWithTables({
+    accounts: [{ ...base.accounts[0], 粉丝数: 999, 数据日期: "2026-09-01" }],
+  });
+  const manifest = await planMigration({
+    google,
+    sqliteAccounts: [latestAccount({ snapshot_date: "2026-09-04", followers: 100 })],
+    sqlitePosts: [],
+  });
+  const account = manifest.accounts.find((row) => row.账号ID === "dramaexpedition");
+  assert.equal(account.粉丝数, 100);
+  assert.equal(account.数据日期, "2026-09-04");
+  assert.equal(account.同步状态, "success");
+  assert.equal(manifest.warnings.some((row) => row.code === "stale_sqlite_snapshot"), false);
+});
+
 test("Google-only captures preserve zero and expose exact missing metrics", async () => {
   const google = normalizedSource();
   google.captures = [googleCapture({
