@@ -63,7 +63,7 @@ const DRAMA_MULTI_FIELDS = Object.freeze(["剧分类", "RS Boost 分类（待确
 const DRAMA_PROVENANCE_TEXT_FIELDS = Object.freeze(["推荐理由", "备注"]);
 const DRAMA_SCALAR_FIELDS = Object.freeze(["上线日期", "账号状态", "平台", "语言", "归档状态"]);
 const REVIEWABLE_MATCH_REASONS = new Set(["manual_post_not_found", "ambiguous_post_match", "no_account_time_candidate"]);
-const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", "stale_sqlite_snapshot", ...REVIEWABLE_MATCH_REASONS]);
+const MIGRATION_WARNING_CODES = new Set(["account_stub_created", "drama_rows_merged", "platform_mapped_to_other", "manual_value_superseded", "stale_sqlite_snapshot", ...REVIEWABLE_MATCH_REASONS]);
 const FIXED_PLATFORMS = new Set(TABLES["选剧池"].options.平台);
 const OPTION_CONTROL = /[\u0000-\u001f\u007f-\u009f]/u;
 
@@ -478,7 +478,7 @@ function distinctValues(rows, field) {
   return result;
 }
 
-function validateDramaRows(rows, blocks, warnings) {
+function validateDramaRows(rows, blocks, warnings, strategy) {
   if (!Array.isArray(rows)) fail("migration_source_invalid", "Google drama rows are missing");
   const groups = new Map();
   rows.forEach((source, at) => {
@@ -487,6 +487,17 @@ function validateDramaRows(rows, blocks, warnings) {
     try { name = text(source.剧名, "剧名"); }
     catch { blocks.push(blocked("invalid_drama_key", "选剧池", source.source_row)); return; }
     const key = canonicalDramaName(name);
+    // 是否已排期 is a formula over 关联发布记录 in the Base, so a value typed into the sheet
+    // cannot be carried across. Dropping it is correct; dropping it silently is not — after
+    // migration there is no way to tell the value ever existed.
+    if (strategy === "snapshot-date" && optionalValue(source.是否已排期) !== null) {
+      warnings.push(blocked("manual_value_superseded", "选剧池", source.source_row ?? null, {
+        field: "是否已排期",
+        drama: name,
+        dropped_value: source.是否已排期,
+        superseded_by: "formula",
+      }));
+    }
     const projected = writableProjection("选剧池", source, { exclude: ["剧ID", "是否已排期"] });
     const platform = normalizeDramaPlatform(projected.平台, source.source_row, blocks);
     projected.平台 = platform.value;
@@ -1115,7 +1126,7 @@ export async function planMigration(context = {}) {
   const blocks = [];
   const warnings = [];
   const googleAccounts = validateAccountRows(google.accounts, blocks);
-  const dramaResult = validateDramaRows(google.dramas, blocks, warnings);
+  const dramaResult = validateDramaRows(google.dramas, blocks, warnings, sourceMergeStrategy(SOURCE_POLICY));
   const sqliteAccounts = clone(context.sqliteAccounts ?? [], "migration_source_invalid");
   const sqlitePostsInput = context.sqlitePosts ?? context.captures ?? (typeof context.readLatestPosts === "function" ? await context.readLatestPosts() : null);
   const sqlitePosts = clone(sqlitePostsInput, "migration_source_invalid");
@@ -1262,7 +1273,7 @@ function assertManifest(manifest) {
   const replayWarnings = [];
   const replayStrategy = sourceMergeStrategy(sourceCore.policy);
   const replayGoogleAccounts = validateAccountRows(backupGoogle.accounts, replayBlocks);
-  const replayDramas = validateDramaRows(backupGoogle.dramas, replayBlocks, replayWarnings);
+  const replayDramas = validateDramaRows(backupGoogle.dramas, replayBlocks, replayWarnings, replayStrategy);
   const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks, replayWarnings, replayStrategy);
   const replayAccounts = reconcileAccounts(replayGoogleAccounts, sourceCore.sqlite_accounts, replayCaptureResult.sources, replayBlocks, replayWarnings, replayStrategy);
   const replayCaptures = validateCaptures(replayCaptureResult.sources, replayAccounts.unique, replayBlocks, manifest.source_revision);
