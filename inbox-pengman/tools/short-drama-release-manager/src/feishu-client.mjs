@@ -607,9 +607,14 @@ function normalizeViewConfiguration(configuration, fields) {
     let value;
     if (Array.isArray(condition)) {
       [field, operator] = condition;
+      const valueless = ["empty", "non_empty"].includes(operator);
+      // Base pads a value-less operator with an explicit null third element. Accept that
+      // exact padding and drop it; any other third element is a real disagreement.
+      const padded = valueless && condition.length === 3 && condition[2] === null;
+      if (padded) condition = condition.slice(0, 2);
       hasValue = condition.length === 3;
       value = condition[2];
-      const expectedLength = ["empty", "non_empty"].includes(operator) ? 2 : 3;
+      const expectedLength = valueless ? 2 : 3;
       if (condition.length !== expectedLength) {
         throw invalidResponse("View filter tuple condition is malformed", {
           operator: typeof operator === "string" ? operator : null,

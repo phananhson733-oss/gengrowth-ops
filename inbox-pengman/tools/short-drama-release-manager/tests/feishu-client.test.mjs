@@ -1966,6 +1966,43 @@ test("fixed views apply filter, sort, group, and visible-field semantics", async
   assert.ok(calls[3][1].visible_fields.includes("同步状态"));
 });
 
+test("view filter accepts Base's null-padded empty condition without loosening arity", async () => {
+  const read = async (conditions) => {
+    const parts = {
+      filter: { logic: "and", conditions },
+      sort: { sort_config: [{ field: "指标同步时间", desc: true }] },
+      group: { group_config: [{ field: "所属组", desc: false }] },
+      visible_fields: { visible_fields: ["账号ID"] },
+    };
+    const client = new FeishuClient({ tokenProvider: async () => "token", fetchJson: async (url) => {
+      const part = new URL(url).pathname.split("/").at(-1);
+      return { code: 0, data: { [part]: parts[part] } };
+    } });
+    const fields = ["状态", "指标同步时间", "所属组", "账号ID"].map((name, index) => ({ field_id: `f${index}`, name }));
+    return client.readViewConfiguration("base", "tbl", "view", "账号台账", "在用账号", { fields });
+  };
+
+  // Base returns a null third element for the value-less operators. Normalize it back
+  // to the two-element form the fixed spec uses.
+  for (const op of ["empty", "non_empty"]) {
+    const got = await read([["状态", op, null]]);
+    assert.deepEqual(got.filter.conditions, [["状态", op]]);
+    const bare = await read([["状态", op]]);
+    assert.deepEqual(bare.filter.conditions, [["状态", op]]);
+  }
+
+  // Only null is padding. A real value on a value-less operator is still malformed.
+  for (const bad of [["状态", "empty", "发布中"], ["状态", "empty", []], ["状态", "empty", null, null]]) {
+    await assert.rejects(read([bad]), (error) =>
+      error.code === "base_response_invalid" && error.message === "View filter tuple condition is malformed",
+      JSON.stringify(bad));
+  }
+
+  // Operators that take a value keep needing exactly three elements.
+  await assert.rejects(read([["状态", "intersects"]]), (error) =>
+    error.details.operator === "intersects" && error.details.expected_length === 3);
+});
+
 test("a malformed view filter condition reports the shape Base actually returned", async () => {
   const parts = (conditions) => ({
     filter: { logic: "and", conditions },
@@ -1991,7 +2028,9 @@ test("a malformed view filter condition reports the shape Base actually returned
     error.details.operator === "intersects" && error.details.length === 4 &&
     error.details.expected_length === 3 && error.details.sample.includes("extra"));
 
-  await assert.rejects(readWith([["状态", "empty", null]]), (error) =>
+  // null padding on a value-less operator is legitimate vendor shape and is normalized
+  // elsewhere; a real value on it is not.
+  await assert.rejects(readWith([["状态", "empty", 0]]), (error) =>
     error.details.operator === "empty" && error.details.length === 3 && error.details.expected_length === 2);
 
   await assert.rejects(readWith(["状态 intersects 发布中"]), (error) =>
