@@ -516,32 +516,24 @@ test("source policies map to exactly one reconciliation strategy each", () => {
   }
 });
 
-test("a manifest replays under the source policy it declares, not the current code version", async () => {
-  // No date disagreement, so v1 and v2 reconcile identically: only the declared policy differs.
-  const manifest = await planMigration({
-    google: sourceWithCaptures([googleCapture({ 快照日期: "2026-08-24" })]),
-    sqliteAccounts: [latestAccount()],
-    sqlitePosts: [latestCapture({ snapshot_date: "2026-08-24" })],
-  });
-  assert.equal(manifest.source_evidence.policy, "shortdrama-source-reconciliation/v2");
-  const legacy = structuredClone(manifest);
-  legacy.source_evidence.policy = "shortdrama-source-reconciliation/v1";
-  legacy.sha256 = manifestDigest(legacy);
-  // assertManifest runs before any Base access, so an empty context proves it passed.
-  await assert.rejects(() => verifyMigrationRaw({}, legacy), (error) => { console.log("LEGACY ERR", error.code, error.message, JSON.stringify(error.details)); return error.code === "base_target_mismatch"; });
-});
-
-test("a declared policy that contradicts the manifest rows is rejected", async () => {
+test("the declared source policy is sealed by the source revision, not just the manifest digest", async () => {
+  // policy is one of the sourceCore keys hashed into source_revision, so a legitimate v1
+  // manifest cannot be synthesised from a v2 plan — which is exactly why replaying under the
+  // declared policy is safe to allow. Downgrading the label alone is caught here.
   const manifest = await planMigration({
     google: sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })]),
     sqliteAccounts: [latestAccount()],
     sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
   });
+  assert.equal(manifest.source_evidence.policy, "shortdrama-source-reconciliation/v2");
   assert.equal(manifest.captures[0].播放量, 1000);
-  const forged = structuredClone(manifest);
-  forged.source_evidence.policy = "shortdrama-source-reconciliation/v1";
-  forged.sha256 = manifestDigest(forged);
-  await assert.rejects(() => verifyMigrationRaw({}, forged), (error) => error.code === "migration_manifest_invalid");
+  for (const policy of ["shortdrama-source-reconciliation/v1", "shortdrama-source-reconciliation/v3"]) {
+    const forged = structuredClone(manifest);
+    forged.source_evidence.policy = policy;
+    forged.sha256 = manifestDigest(forged);
+    await assert.rejects(() => verifyMigrationRaw({}, forged),
+      (error) => error.code === "migration_manifest_invalid", `policy ${policy}`);
+  }
 });
 
 test("googleSnapshotIsNewer swaps sources only for two well-formed dates", () => {
