@@ -1076,7 +1076,7 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
   const wrapperArgs = `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gatewayArgs}`;
   const rows = new Map([
     [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} pool list --config ${SOCIAL_RUNTIME_CONFIG_PATH}` }],
-    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
+    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped.replaceAll("\n", "\\012")}` }],
     [80, { pid: 80, ppid: 70, command: python, args: gatewayArgs }],
     [70, { pid: 70, ppid: 1, command: python, args: wrapperArgs }],
   ]);
@@ -1225,7 +1225,7 @@ test("Hermes provenance accepts the official atomic snapshot wrapper exactly", (
   ].join("\n");
   const rows = new Map([
     [100, { pid: 100, ppid: 90, command: "node", args: `node ${runner} ${argv.join(" ")}` }],
-    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
+    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped.replaceAll("\n", "\\012")}` }],
     [80, { pid: 80, ppid: 70, command: python, args: gateway }],
     [70, { pid: 70, ppid: 1, command: python, args: supervisor }],
   ]);

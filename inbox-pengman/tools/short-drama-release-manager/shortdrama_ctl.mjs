@@ -334,6 +334,7 @@ function exactHermesShell(row, { directCommand, payloadStdin, profile = "social"
   for (const [prefix, candidateLogin] of [[`${row.command} -c `, false], [`${row.command} -l -c `, true]]) {
     if (row.args.startsWith(prefix)) {
       script = row.args.slice(prefix.length);
+      if (!script.includes("\n")) script = script.replaceAll("\\012", "\n");
       login = candidateLogin;
       break;
     }
