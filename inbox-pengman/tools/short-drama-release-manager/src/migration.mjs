@@ -48,6 +48,10 @@ export function sourceMergeStrategy(policy) {
   return SOURCE_POLICIES[policy];
 }
 const PARTIAL_RESUME_MODES = Object.freeze(new Set(["manifest-subset"]));
+// Same window and clock-skew tolerance as the permission attestation, so operators only have
+// one number to remember. Recovery is a plain re-run of the read-only `migrate verify`.
+const MAX_VERIFICATION_AGE_MS = 24 * 60 * 60_000;
+const VERIFICATION_CLOCK_SKEW_MS = 5 * 60_000;
 const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["views", "播放量"]),
   Object.freeze(["likes", "点赞"]),
@@ -217,8 +221,13 @@ export function manifestDigest(manifest) {
   return sha256(withoutDigestEnvelope(manifest));
 }
 
+// Unlike the schema/presentation receipts, a verification report's generated_at is part of
+// what it asserts: the rows matched the manifest *at that moment*. digestWithoutSha keeps the
+// timestamp inside the digest so it cannot be moved. Do not fold this back into
+// withoutDigestEnvelope — that helper also digests the schema receipt, which is not
+// regenerable once the Base is non-empty.
 export function verificationDigest(report) {
-  return sha256(withoutDigestEnvelope(report));
+  return digestWithoutSha(report);
 }
 
 export function schemaReceiptDigest(receipt) {
@@ -2140,6 +2149,10 @@ async function applyPresentation(context, manifest) {
 
 function assertVerificationProof(context, manifest) {
   const report = context.verification;
+  const generatedAtMs = parseQualifiedInstantMs(report?.generated_at);
+  const nowValue = typeof context.now === "function" ? context.now() : new Date();
+  const nowMs = nowValue instanceof Date ? nowValue.getTime() : parseQualifiedInstantMs(nowValue);
+  const age = generatedAtMs === null || !Number.isFinite(nowMs) ? null : nowMs - generatedAtMs;
   const expectedCounts = {
     accounts: manifest.accounts.length,
     dramas: manifest.dramas.length,
@@ -2154,8 +2167,11 @@ function assertVerificationProof(context, manifest) {
       report.details?.exact_primary_key_sets !== true || report.details?.exact_writable_fields !== true ||
       report.details?.exact_relation_ids !== true || report.details?.source_union_verified !== true ||
       report.details?.pending_release_warnings_verified !== true ||
-      !isDeepStrictEqual(report.details?.latest_capture_post_ids, manifest.captures.map((row) => row["Post ID"]).sort())) {
-    fail("migration_verification_required", "A self-consistent verification report for this manifest is required");
+      !isDeepStrictEqual(report.details?.latest_capture_post_ids, manifest.captures.map((row) => row["Post ID"]).sort()) ||
+      age === null || age < -VERIFICATION_CLOCK_SKEW_MS || age > MAX_VERIFICATION_AGE_MS) {
+    const stale = age !== null && (age < -VERIFICATION_CLOCK_SKEW_MS || age > MAX_VERIFICATION_AGE_MS);
+    fail("migration_verification_required", "A self-consistent verification report for this manifest is required",
+      stale ? { age_ms: age, max_age_ms: MAX_VERIFICATION_AGE_MS, remedy: "re-run migrate verify" } : {});
   }
 }
 

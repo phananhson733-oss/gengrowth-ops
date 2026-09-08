@@ -2885,7 +2885,7 @@ test("phases that never touch the source are not locked out by a normal source e
   const seeds = [];
   const sequences = await applyMigration({
     phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest), ...drifted,
-    verification, expectedVerificationSha256: verification.sha256,
+    verification, expectedVerificationSha256: verification.sha256, now: () => "2026-09-01T11:05:00Z",
     seedSequence: async (...args) => seeds.push(args),
   }, manifest);
   assert.equal(sequences.status, "applied");
@@ -2926,7 +2926,7 @@ test("sequence phase requires a self-consistent same-manifest verification and s
   const verification = await verifyMigration({ repos, now: () => "2026-09-01T11:00:00Z" }, manifest);
   await applyMigration({
     phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest),
-    verification, expectedVerificationSha256: verification.sha256,
+    verification, expectedVerificationSha256: verification.sha256, now: () => "2026-09-01T11:05:00Z",
     seedSequence: async (...args) => seeds.push(args),
   }, manifest);
   assert.deepEqual(seeds, [["drama", 1], ["release", 1]]);
@@ -2959,10 +2959,13 @@ test("a stale verification proof cannot seed sequences", async () => {
     verification, expectedVerificationSha256: verification.sha256,
     seedSequence: async () => {}, now: () => now,
   });
-  // Inside the window it still seeds.
-  await applyMigration(sequenceContext("2026-09-01T11:59:00Z"), manifest);
+  // Inside the 24h window it still seeds.
+  await applyMigration(sequenceContext("2026-09-02T10:59:00Z"), manifest);
   // Past it, the proof no longer stands for the current Base.
-  await assert.rejects(() => applyMigration(sequenceContext("2026-09-01T12:30:00Z"), manifest),
+  await assert.rejects(() => applyMigration(sequenceContext("2026-09-02T11:30:00Z"), manifest),
+    (error) => error.code === "migration_verification_required" && error.details?.remedy === "re-run migrate verify");
+  // A report from the future beyond clock skew is refused too.
+  await assert.rejects(() => applyMigration(sequenceContext("2026-09-01T10:50:00Z"), manifest),
     (error) => error.code === "migration_verification_required");
 });
 
