@@ -1046,6 +1046,82 @@ test("macOS process inspection reads full Cellar executables without a combined 
   assert.equal(calls.some(([, args]) => args.some((value) => /ppid=,comm=,args=/.test(value))), false);
 });
 
+test("a refused Social invocation names the stage that refused it", async () => {
+  const argv = ["pool", "list", "--config", SOCIAL_RUNTIME_CONFIG_PATH];
+  const command = parseCommand(argv);
+  const runner = path.resolve(new URL("../shortdrama_ctl.mjs", import.meta.url).pathname);
+  const sessionId = "a1b2c3d4e5f6";
+  const cache = "/var/folders/c8/k7q0dcp13rd8590xbtxs_9n80000gn/T";
+  const snapshot = `${cache}/hermes-snap-${sessionId}.sh`;
+  const cwdFile = `${cache}/hermes-cwd-${sessionId}.txt`;
+  const hermesCwd = "/Users/awayer_mini/.hermes/profiles/social";
+  const direct = `/usr/bin/env node ${runner} ${argv.join(" ")}`;
+  const wrapped = [
+    `source ${snapshot} >/dev/null 2>&1 || true`,
+    `builtin cd -- ${hermesCwd} || exit 126`,
+    `eval '${direct}'`,
+    "__hermes_ec=$?",
+    "umask 077",
+    `{ export -p > ${snapshot}.tmp.$BASHPID && mv -f ${snapshot}.tmp.$BASHPID ${snapshot}; } 2>/dev/null || rm -f ${snapshot}.tmp.$BASHPID 2>/dev/null || true`,
+    `pwd -P > ${cwdFile} 2>/dev/null || true`,
+    `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"`,
+    "exit $__hermes_ec",
+  ].join("\n");
+  const python = "/Users/awayer_mini/hermes-agent/.venv/bin/python";
+  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace --external-supervisor`;
+  const wrapperArgs = `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gatewayArgs}`;
+  const good = new Map([
+    [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} ${argv.join(" ")}` }],
+    [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
+    [80, { pid: 80, ppid: 70, command: python, args: gatewayArgs }],
+    [70, { pid: 70, ppid: 1, command: python, args: wrapperArgs }],
+  ]);
+  const inspect = (rows, overrides = {}) => {
+    const stages = [];
+    const trusted = inspectTrustedSocialInvoker({
+      argv, command, configPath: SOCIAL_RUNTIME_CONFIG_PATH, pid: 100,
+      runnerPath: runner, nodePath: process.execPath,
+      readProcess: (pid) => rows.get(pid), stages, ...overrides,
+    });
+    return { trusted, stages };
+  };
+
+  // A run that passes records nothing.
+  assert.deepEqual(inspect(good), { trusted: true, stages: [] });
+
+  // The exact command shape that failed in production on 2026-09-08: an operator wrapper
+  // built by hand with cd/&&, so the eval line never matches.
+  const handWritten = new Map(good);
+  handWritten.set(90, {
+    ...good.get(90),
+    args: `/bin/bash -c ${wrapped.replace(`eval '${direct}'`, `eval 'cd ${path.dirname(runner)} && node shortdrama_ctl.mjs pool list'`)}`,
+  });
+  assert.deepEqual(inspect(handWritten).stages, ["shell"]);
+
+  // A single extra line in the Hermes wrapper — what a Hermes upgrade looks like from here.
+  const driftedWrapper = new Map(good);
+  driftedWrapper.set(90, { ...good.get(90), args: `/bin/bash -c ${wrapped}\nexport HERMES_EXTRA=1` });
+  assert.deepEqual(inspect(driftedWrapper).stages, ["shell"]);
+
+  const foreignGateway = new Map(good);
+  foreignGateway.set(80, { ...good.get(80), args: gatewayArgs.replace("--profile social", "--profile pm") });
+  assert.deepEqual(inspect(foreignGateway).stages, ["gateway"]);
+
+  const notUnderLaunchd = new Map(good);
+  notUnderLaunchd.set(70, { ...good.get(70), ppid: 999 });
+  assert.deepEqual(inspect(notUnderLaunchd).stages, ["gateway"]);
+
+  const wrongNode = new Map(good);
+  wrongNode.set(100, { ...good.get(100), args: `node ${runner} pool get --key SD-1` });
+  assert.deepEqual(inspect(wrongNode).stages, ["runner"]);
+
+  assert.deepEqual(inspect(good, { configPath: "/tmp/elsewhere.json" }).stages, ["argv"]);
+  assert.deepEqual(inspect(good, { argv: ["pool", "list; rm -rf /"] }).stages, ["argv"]);
+
+  const psBroken = new Map();
+  assert.deepEqual(inspect(psBroken).stages, ["runner"]);
+});
+
 test("Social provenance accepts only direct Runner shell execution from a Hermes gateway anchor", async () => {
   const argv = ["pool", "list", "--config", SOCIAL_RUNTIME_CONFIG_PATH];
   const command = parseCommand(argv);

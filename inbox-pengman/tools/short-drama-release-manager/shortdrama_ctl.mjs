@@ -413,6 +413,10 @@ function exactGatewayWrapper(row, gatewayTokens, profile = "social") {
   return child.length === gatewayTokens.length && child.every((value, index) => value === gatewayTokens[index]);
 }
 
+// `stages` is an optional out-parameter: on refusal it receives one coarse label naming the
+// link of the chain that refused, so the caller can tell "your command is malformed" from
+// "the gate no longer matches this host". It carries no argv, path, id or payload — the
+// labels are a closed set: argv, payload, runner, shell, gateway.
 export function inspectTrustedSocialInvoker({
   argv,
   command,
@@ -422,27 +426,33 @@ export function inspectTrustedSocialInvoker({
   readProcess = readMacProcessRow,
   runnerPath = SCRIPT_PATH,
   nodePath = process.execPath,
+  stages = null,
 } = {}) {
+  const refuse = (stage) => {
+    if (Array.isArray(stages) && stages.length === 0) stages.push(stage);
+    return false;
+  };
   if (!Array.isArray(argv) || argv.length < 2 || argv.some((value) => !safeDirectToken(value)) ||
       !ALLOWED_HERMES_PROFILE_SET.has(profile) ||
       !command || typeof configPath !== "string" || resolve(configPath) !== SOCIAL_RUNTIME_CONFIG_PATH && resolve(configPath) !== resolve(dirname(runnerPath), "shortdrama.runtime.json") ||
-      !Number.isSafeInteger(pid) || pid <= 1 || typeof readProcess !== "function") return false;
+      !Number.isSafeInteger(pid) || pid <= 1 || typeof readProcess !== "function") return refuse("argv");
   const payloadIndexes = argv.flatMap((value, index) => value === "--payload" ? [index] : []);
-  if (payloadIndexes.length > 1 || payloadIndexes.length === 1 && argv[payloadIndexes[0] + 1] !== "-") return false;
+  if (payloadIndexes.length > 1 || payloadIndexes.length === 1 && argv[payloadIndexes[0] + 1] !== "-") return refuse("payload");
   const payloadStdin = payloadIndexes.length === 1;
   const directCommand = `/usr/bin/env node ${resolve(runnerPath)} ${argv.join(" ")}`;
   try {
     const runner = readProcess(pid);
-    if (!exactRunnerProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
+    if (!exactRunnerProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return refuse("runner");
     const shell = readProcess(runner.ppid);
-    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin, profile })) return false;
+    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin, profile })) return refuse("shell");
     const gateway = readProcess(shell.ppid);
     const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway, profile) : null;
-    if (!gatewayTokens) return false;
+    if (!gatewayTokens) return refuse("gateway");
     const wrapper = readProcess(gateway.ppid);
-    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens, profile);
+    if (!exactProcessRow(wrapper, gateway.ppid) || !exactGatewayWrapper(wrapper, gatewayTokens, profile)) return refuse("gateway");
+    return true;
   } catch {
-    return false;
+    return refuse("runner");
   }
 }
 
@@ -1735,8 +1745,12 @@ export async function execute(argv, {
     let preliminaryIdentity = null;
     if (rawHasSession) {
       preliminaryIdentity = resolveInvocationIdentity(command, env);
-      if (isTrustedSocialInvoker({ argv, command, configPath, profile: preliminaryIdentity.profile }) !== true) {
-        fail("social_invoker_untrusted", "Bot commands require direct authorized Hermes gateway execution");
+      const stages = [];
+      if (isTrustedSocialInvoker({ argv, command, configPath, profile: preliminaryIdentity.profile, stages }) !== true) {
+        // stage tells the operator which link refused: argv/payload mean the command itself is
+        // wrong, runner/shell/gateway mean the process chain did not match what this host runs.
+        fail("social_invoker_untrusted", "Bot commands require direct authorized Hermes gateway execution",
+          stages.length === 1 ? { stage: stages[0] } : {});
       }
       await validateSocialConfig(configPath, { expectedPath: socialConfigPath });
     }
