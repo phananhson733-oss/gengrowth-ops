@@ -65,8 +65,39 @@ def main():
     text = SOUL.read_text(encoding="utf-8")
 
     if re.search(r"^## 4\.3 ", text, re.M):
-        print("§4.3 已存在，无需重复添加。")
-        print("若 Bot 仍看不到它，在群里发 /reset —— 工具权限只在会话启动时注入。")
+        # Already patched. If the bot still cannot see it the problem is elsewhere, so print
+        # what can be checked from the file itself without disclosing its contents.
+        print("§4.3 已存在，无需重复添加。\n")
+        print("--- 诊断（Bot 仍看不到时看这里）---")
+        print(f"文件        : {SOUL}")
+        print(f"最后修改    : {datetime.fromtimestamp(SOUL.stat().st_mtime):%Y-%m-%d %H:%M:%S}")
+        print(f"章节顺序    : {' '.join(re.findall(r'^## (\S+)', text, re.M))}")
+        body = re.split(r"^## ", text, flags=re.M)
+        sec43 = next((b for b in body if b.startswith("4.3 ")), "")
+        print(f"§4.3 行数   : {len(sec43.splitlines())}")
+        print(f"含固定命令行: {'/usr/bin/env node' in sec43}")
+        print(f"含绝对路径  : {'/Users/awayer_mini/gengrowth-ops' in sec43}")
+        stale = [a for a, _ in REWORDS if a in text]
+        print(f"残留「两个」: {len(stale)}/2 处" + ("  <- 规则自相矛盾，Bot 会按「只有两个例外」执行" if stale else "  （已修正）"))
+        print()
+        if not stale:
+            print("若以上都正常，那就是会话没重载：在 # social assistant 群发 /reset。")
+            print("再不行，让 Bot 原样列出它当前的 terminal 允许流程——它会照实列，一眼看得出。")
+            return
+        # §4.3 present but the "two exceptions" wording still stands: the bot reads that as
+        # authoritative and ignores the third entry. Fixing the wording is the whole repair.
+        print("§4.3 已在文件中，但上面那句「两个」还在，Bot 会据此忽略它。")
+        fixed = text
+        for a, b in REWORDS:
+            fixed = fixed.replace(a, b)
+        if not args.apply:
+            print("加 --apply 修正措辞（会先备份）。")
+            return
+        backup = SOUL.with_suffix(f".md.bak-{datetime.now():%Y%m%d-%H%M%S}")
+        shutil.copy2(SOUL, backup)
+        SOUL.write_text(fixed, encoding="utf-8")
+        print(f"已修正 {len(stale)} 处措辞。备份: {backup}")
+        print("下一步：在 # social assistant 群里发 /reset。")
         return
 
     m = re.search(r"^## 4\.2 .*$", text, re.M)
