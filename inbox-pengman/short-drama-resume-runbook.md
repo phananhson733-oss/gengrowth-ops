@@ -161,7 +161,33 @@ node shortdrama_ctl.mjs migrate verify --config "$RUNTIME_CONFIG" \
 - Base v3 的读取接口不提供跨表快照或 CAS,门禁读取与写入之间的时间窗无法消除。因此本次
   必须在受控维护窗口内执行,最终一致性由 §5 的 `migrate verify` 给出结论。
 - `采集数据` 的 229 行分两批写入（200 + 29）,批与批之间没有原子性。中断后按 §6 首条处理。
-- 写入重试（429 / auth）没有幂等令牌,提交后重放理论上可能产生重复行。若出现,
-  按 `duplicate_base_key` 一行处理。
+- 迁移写入（`migrate apply`）不走预览回执,没有幂等令牌。重试只在 429 与 auth 失败时发生,
+  这两种情况请求都未被服务端执行,所以重试本身不会重复提交；真正的窗口是响应丢失后由人重跑,
+  此时由 `--resume-partial-data manifest-subset` 门禁兜底（已完整的表零写入）。
+  若仍出现重复,按 `duplicate_base_key` 一行处理。
+  **业务写（`preview-*` → `apply-*`）不在此列,它已经是幂等的**,见 §7b。
 - `verifyMigration` 顺序读取四张表,不绑定统一 revision,所以它证明的是"读取期间各表分别
   与 manifest 一致",不是一个跨表原子快照。
+
+---
+
+## 7b. 业务写路径已经是幂等的（2026-09-08 核实）
+
+Bot 走的 `preview-*` → `apply-*` 这条路,`consumePreview` 有四重防护:
+
+| 防护 | 拒绝码 |
+| --- | --- |
+| 回执一次性,用过即废 | `preview_used` |
+| 回执有效期 | `preview_expired` |
+| 目标行必须与预览时逐字段一致（CAS 语义） | `preview_stale` |
+| SQL `UPDATE ... WHERE used_at IS NULL` 原子标记 | — |
+
+外加 `#withMutationLock` 持久租约。`tests/ids-job-lease.test.mjs` 有跨进程并发测试:
+两个进程同时消费同一回执,恰好一个成功、一个拿到 `preview_used`。
+
+所以人重跑一次 `apply-update` 不会写两遍,而是被 `preview_used` 干净拒绝;
+预览之后目标被别人改过,则被 `preview_stale` 拒绝,需要重新预览。
+
+**飞书 Base API 不提供可用的幂等键。** 实测 `client_token` 放 query 或 body 都被静默忽略
+（三种写法对同一个不存在的表返回完全相同的 `TableIdNotFound`）,所以不能靠它,
+也不要为了"看起来更安全"把它加进请求——那只会制造虚假保证。
