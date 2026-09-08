@@ -2938,6 +2938,34 @@ test("sequence phase requires a self-consistent same-manifest verification and s
   }, manifest), (error) => error.code === "migration_verification_required");
 });
 
+test("a verification report seals its own generated_at", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  const verification = await verifyMigration({ repos, now: () => "2026-09-01T11:00:00Z" }, manifest);
+  const backdated = structuredClone(verification);
+  backdated.generated_at = "2026-09-01T10:00:00Z";
+  assert.notEqual(verificationDigest(backdated), verification.sha256,
+    "moving generated_at must change the digest, or the timestamp is unsigned");
+});
+
+test("a stale verification proof cannot seed sequences", async () => {
+  const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
+  const repos = memoryRepos();
+  await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
+  const verification = await verifyMigration({ repos, now: () => "2026-09-01T11:00:00Z" }, manifest);
+  const sequenceContext = (now) => ({
+    phase: "sequences", expectedSha256: manifest.sha256, ...schemaGate(manifest),
+    verification, expectedVerificationSha256: verification.sha256,
+    seedSequence: async () => {}, now: () => now,
+  });
+  // Inside the window it still seeds.
+  await applyMigration(sequenceContext("2026-09-01T11:59:00Z"), manifest);
+  // Past it, the proof no longer stands for the current Base.
+  await assert.rejects(() => applyMigration(sequenceContext("2026-09-01T12:30:00Z"), manifest),
+    (error) => error.code === "migration_verification_required");
+});
+
 test("artifact writer is exclusive, fixed-root and verifies readback without accepting paths", async () => {
   const manifest = await planMigration({ google: normalizedSource(), captures: [latestCapture()] });
   const name = `test-${process.pid}-${Date.now()}.json`;
