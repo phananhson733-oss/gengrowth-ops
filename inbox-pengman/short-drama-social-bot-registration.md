@@ -70,6 +70,40 @@ Hermes gateway (profile=social)
 
 ---
 
+## 0. 要改的确切位置（2026-09-08 14:36 实测得到）
+
+`/reset` 后的新会话里，Bot 原样列出了它当前的 terminal 允许流程：
+
+> 1. `§4.1 例外：竞品分析自动流程（预授权，直接执行）`
+> 2. `§4.2 例外：社媒流水线 social-pipeline（预授权，直接执行）`
+>
+> 当前规则中没有 `short-drama-release-manager`。
+
+所以规则住在 Social profile 的 **`SOUL.md` 第 4 章「例外」**，条目格式是
+`§4.x 例外：<流程名>（预授权，直接执行）`。需要新增 §4.3。
+
+**下面这段可以直接粘进去**，它就是 Runner 已经在执行的边界（第 1–5 节逐条对应），
+所以不是额外放权，只是把 Runner 自己的门禁在 Bot 侧声明一遍：
+
+```markdown
+### §4.3 例外：短剧发行管理 short-drama-release-manager（预授权，直接执行）
+
+可执行对象（node 直接调起，中间不套 npm/npx/包装脚本）：
+  /usr/bin/env node ~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs
+
+配置固定为 Runner 同目录的 shortdrama.runtime.json，不接受任何其它 --config 路径。
+
+允许的命令组：account、capture、pool、release、metrics、sync start
+禁止的命令组：doctor、migrate、schedule、queue（Runner 自身也会拒绝，无需重复把关）
+
+写操作一律两段式：先 pool/release preview-*，把回执贴给用户，用户确认后才执行 apply-*。
+不得跳过 preview 直接 apply，不得使用 --actor-id / --chat-id 覆盖会话身份。
+```
+
+改完记得按 §5b 发 `/reset`，否则当前会话看不到。
+
+---
+
 ## 5b. 改完配置必须重置会话（否则看不到新配置）
 
 **这是最容易踩的坑。** Social Bot 的工具权限来自会话启动时注入的 `SOUL.md`/权限规则，
