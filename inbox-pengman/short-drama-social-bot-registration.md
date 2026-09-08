@@ -75,6 +75,28 @@ Hermes gateway (profile=social)
 
 ---
 
+## 00. 已经排除的（2026-09-08 实测，不用再查）
+
+加 §4.3 之前，先把「加完还是不通」的可能性砍掉。下面三项都已用真实环境验证过：
+
+| 项 | 结论 | 怎么验证的 |
+| --- | --- | --- |
+| 网关祖先链门禁 | ✅ **ACCEPT** | 抓到 live 网关真实生成的 wrapper（Bot 跑 §4.2 时用 `ps` 抓 bash 进程），只把 `eval` 里的命令换成短剧 Runner，喂给 `inspectTrustedSocialInvoker` → 接受。见 `verify_gateway_live.mjs` |
+| Runner 应用的记录写权限 | ✅ **齐全** | 用 `.env` 里的 app 凭证换 tenant token，对不存在的 record/table 探测：`update` 失败于 `record not found`、`create` 失败于 `TableIdNotFound`、`delete` 成功——全部不是权限问题，零数据变更 |
+| Runner 应用的仪表盘权限 | ❌ **确实缺** | 同一应用：`GET /dashboards` 返回 `code=0` 但 0 条（不报错也看不见），`POST` 返回嵌套 `800004011 no permission to access this base`、`retryable=false` |
+
+**所以聊天链路只剩 §4.3 这一件事**。仪表盘是独立的、只影响 presentation 阶段，与 Bot 无关。
+
+两个容易踩的坑，记下来免得重复：
+
+- **`lark-cli --as bot` 用的不是 Runner 的应用。** lark-cli 是 `cli_aa8edad1…`，Runner 用 `.env` 的
+  `FEISHU_APP_ID` = `cli_aace2f42…`（也就是 Social Bot 那个）。拿 lark-cli 测出来的权限结论对
+  Runner 无效——我就这么误判过一次，`--as bot` 报「缺 `base:record:update`」，而 Runner 的应用其实有。
+- **别用单条 `ps -o pid=,ppid=,comm=,args=` 验证门禁。** `comm` 会被截断到 16 字符，网关 basename
+  变成 `awayer_mi`，产生假的 gateway REJECT。`readMacProcessRow` 是每列单独一次 `ps`，不截断。
+
+---
+
 ## 0. 要改哪个文件（2026-09-08 14:47 Bot 原样确认）
 
 ```
