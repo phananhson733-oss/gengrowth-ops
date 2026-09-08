@@ -252,12 +252,23 @@ function exactProcessRow(row, pid) {
     typeof row.command === "string" && row.command.startsWith("/") && typeof row.args === "string";
 }
 
+function exactRunnerProcessRow(row, pid) {
+  return row !== null && row !== undefined && row.pid === pid &&
+    Number.isSafeInteger(row.ppid) && row.ppid >= 0 &&
+    typeof row.command === "string" && row.command.length > 0 &&
+    typeof row.args === "string";
+}
+
 function safeDirectToken(value) {
   return typeof value === "string" && value.length > 0 && !/[\s'"\\;$&|<>`()]/.test(value);
 }
 
 function directNodeInvocation(row, { nodePath, runnerPath, argv }) {
-  if (!exactProcessRow(row, row?.pid) || resolve(row.command) !== resolve(nodePath)) return false;
+  if (!exactRunnerProcessRow(row, row?.pid)) return false;
+  const nodeBasename = resolve(nodePath).split("/").pop();
+  const nodeCommandMatches = row.command === nodeBasename ||
+    row.command.startsWith("/") && resolve(row.command) === resolve(nodePath);
+  if (!nodeCommandMatches) return false;
   const tokens = row.args.trim().split(/\s+/);
   if (tokens.length !== argv.length + 2 || !["node", nodePath].includes(tokens[0]) ||
       resolve(tokens[1]) !== resolve(runnerPath)) return false;
@@ -421,7 +432,7 @@ export function inspectTrustedSocialInvoker({
   const directCommand = `/usr/bin/env node ${resolve(runnerPath)} ${argv.join(" ")}`;
   try {
     const runner = readProcess(pid);
-    if (!exactProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
+    if (!exactRunnerProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
     const shell = readProcess(runner.ppid);
     if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin, profile })) return false;
     const gateway = readProcess(shell.ppid);

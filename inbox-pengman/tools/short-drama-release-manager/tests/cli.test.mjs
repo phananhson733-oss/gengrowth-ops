@@ -1224,7 +1224,7 @@ test("Hermes provenance accepts the official atomic snapshot wrapper exactly", (
     "exit $__hermes_ec",
   ].join("\n");
   const rows = new Map([
-    [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} ${argv.join(" ")}` }],
+    [100, { pid: 100, ppid: 90, command: "node", args: `node ${runner} ${argv.join(" ")}` }],
     [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
     [80, { pid: 80, ppid: 70, command: python, args: gateway }],
     [70, { pid: 70, ppid: 1, command: python, args: supervisor }],
@@ -1235,6 +1235,9 @@ test("Hermes provenance accepts the official atomic snapshot wrapper exactly", (
   });
 
   assert.equal(inspect(rows), true);
+  const foreignRunner = new Map(rows);
+  foreignRunner.set(100, { ...rows.get(100), command: "python3" });
+  assert.equal(inspect(foreignRunner), false);
   for (const replacement of [
     ["export AI_AGENT=", "export OTHER_AGENT="],
     [".tmp.XXXXXXXXXX", ".tmp.$BASHPID"],
