@@ -1061,18 +1061,40 @@ test("Social provenance accepts only direct Runner shell execution from a Hermes
     "exit $__hermes_ec",
   ].join("\n");
   const python = "/Users/awayer_mini/hermes-agent/.venv/bin/python";
-  // Generated from Hermes f6923bae5c launchd ProgramArguments for the Social profile.
-  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace`;
+  // The live Social gateway on this host: launchd starts a stderr_timestamp supervisor,
+  // which execs the gateway with --external-supervisor. Verified with ps against the
+  // running process; the plist predates the runner and has not changed.
+  const gatewayArgs = `${python} -m hermes_cli.main --profile social gateway run --replace --external-supervisor`;
+  const wrapperArgs = `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gatewayArgs}`;
   const rows = new Map([
     [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} pool list --config ${SOCIAL_RUNTIME_CONFIG_PATH}` }],
     [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrapped}` }],
-    [80, { pid: 80, ppid: 1, command: python, args: gatewayArgs }],
+    [80, { pid: 80, ppid: 70, command: python, args: gatewayArgs }],
+    [70, { pid: 70, ppid: 1, command: python, args: wrapperArgs }],
   ]);
   const inspect = (candidate) => inspectTrustedSocialInvoker({
     argv, command, configPath: SOCIAL_RUNTIME_CONFIG_PATH, pid: 100,
     runnerPath: runner, nodePath: process.execPath, readProcess: (pid) => candidate.get(pid),
   });
   assert.equal(inspect(rows), true);
+
+  // The supervisor is part of the proof, not decoration.
+  const noSupervisor = new Map(rows);
+  noSupervisor.set(80, { ...rows.get(80), ppid: 1 });
+  noSupervisor.delete(70);
+  assert.equal(inspect(noSupervisor), false);
+
+  const foreignErrorLog = new Map(rows);
+  foreignErrorLog.set(70, { ...rows.get(70), args: wrapperArgs.replace("/social/logs/gateway.error.log", "/social/logs/../../../tmp/evil.log") });
+  assert.equal(inspect(foreignErrorLog), false);
+
+  const supervisorArgvMismatch = new Map(rows);
+  supervisorArgvMismatch.set(70, { ...rows.get(70), args: wrapperArgs.replace("--external-supervisor", "--external-supervisor --extra") });
+  assert.equal(inspect(supervisorArgvMismatch), false);
+
+  const supervisorNotUnderLaunchd = new Map(rows);
+  supervisorNotUnderLaunchd.set(70, { ...rows.get(70), ppid: 999 });
+  assert.equal(inspect(supervisorNotUnderLaunchd), false);
 
   const extraWrapperLine = new Map(rows);
   extraWrapperLine.set(90, {
@@ -1127,7 +1149,8 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
   const snapshot = `${tempRoot}/hermes-snap-${sessionId}.sh`;
   const cwdFile = `${tempRoot}/hermes-cwd-${sessionId}.txt`;
   const python = "/Users/awayer_mini/hermes-agent/.venv/bin/python";
-  const gateway = `${python} -m hermes_cli.main --profile social gateway run --replace`;
+  const gateway = `${python} -m hermes_cli.main --profile social gateway run --replace --external-supervisor`;
+  const supervisor = `${python} -m hermes_cli.stderr_timestamp --error-log /Users/awayer_mini/.hermes/profiles/social/logs/gateway.error.log -- ${gateway}`;
   // Exact algorithm/output shape from Hermes f6923bae5c BaseEnvironment._wrap_command().
   const wrap = (commandText) => [
     `source ${snapshot} >/dev/null 2>&1 || true`,
@@ -1144,7 +1167,8 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
     const rows = new Map([
       [100, { pid: 100, ppid: 90, command: process.execPath, args: `node ${runner} ${argv.join(" ")}` }],
       [90, { pid: 90, ppid: 80, command: "/bin/bash", args: `/bin/bash -c ${wrappedScript}` }],
-      [80, { pid: 80, ppid: 1, command: python, args: gateway }],
+      [80, { pid: 80, ppid: 70, command: python, args: gateway }],
+      [70, { pid: 70, ppid: 1, command: python, args: supervisor }],
     ]);
     return inspectTrustedSocialInvoker({
       argv, command: parseCommand(argv), configPath: SOCIAL_RUNTIME_CONFIG_PATH, pid: 100,

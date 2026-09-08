@@ -244,7 +244,9 @@ export function inspectTrustedLocalInvoker({
 }
 
 function exactProcessRow(row, pid) {
-  return row && row.pid === pid && Number.isSafeInteger(row.ppid) && row.ppid >= 0 &&
+  // Return a strict boolean: a missing row must read as false, not undefined, so callers
+  // can compare against false as well as against true.
+  return row !== null && row !== undefined && row.pid === pid && Number.isSafeInteger(row.ppid) && row.ppid >= 0 &&
     typeof row.command === "string" && row.command.startsWith("/") && typeof row.args === "string";
 }
 
@@ -355,8 +357,22 @@ function exactHermesShell(row, { directCommand, payloadStdin }) {
 function exactGatewayProcess(row) {
   if (!exactProcessRow(row, row?.pid) || !/^python(?:3(?:\.\d+)?)?$/.test(row.command.split("/").pop().toLowerCase())) return null;
   const tokens = row.args.trim().split(/\s+/);
-  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace"];
+  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace", "--external-supervisor"];
   return tokens.length === expected.length && tokens.every((value, index) => value === expected[index]) ? tokens : null;
+}
+
+// launchd starts a stderr_timestamp supervisor, which execs the gateway with
+// --external-supervisor. The supervisor is the launchd-rooted anchor, so it is part of
+// the proof: verify its exact argv, that it re-states the gateway argv verbatim, and
+// that it is the one whose parent is launchd.
+function exactGatewayWrapper(row, gatewayTokens) {
+  if (!exactProcessRow(row, row?.pid) || row.ppid !== 1 || row.command !== gatewayTokens[0]) return false;
+  const tokens = row.args.trim().split(/\s+/);
+  const separator = tokens.indexOf("--");
+  if (separator !== 5 || tokens[0] !== row.command || tokens[1] !== "-m" || tokens[2] !== "hermes_cli.stderr_timestamp" ||
+      tokens[3] !== "--error-log" || !/^\/Users\/[^/]+\/\.hermes\/profiles\/social\/logs\/gateway\.error\.log$/.test(tokens[4])) return false;
+  const child = tokens.slice(separator + 1);
+  return child.length === gatewayTokens.length && child.every((value, index) => value === gatewayTokens[index]);
 }
 
 export function inspectTrustedSocialInvoker({
@@ -382,7 +398,9 @@ export function inspectTrustedSocialInvoker({
     if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin })) return false;
     const gateway = readProcess(shell.ppid);
     const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway) : null;
-    return gatewayTokens !== null && gateway.ppid === 1;
+    if (!gatewayTokens) return false;
+    const wrapper = readProcess(gateway.ppid);
+    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens);
   } catch {
     return false;
   }
