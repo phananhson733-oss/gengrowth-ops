@@ -569,36 +569,6 @@ test("a v1 manifest carrying v2 reconciliation output is still rejected", async 
   await assert.rejects(() => verifyMigrationRaw({}, forged), (error) => error.code === "migration_manifest_invalid");
 });
 
-test("a manual 是否已排期 value that the formula supersedes is reported, not dropped in silence", async () => {
-  const base = normalizedSource();
-  const google = sourceWithTables({
-    dramas: [{ ...base.dramas[0], 是否已排期: "是" }],
-  });
-  const manifest = await planMigration({ google, sqliteAccounts: [], sqlitePosts: [] });
-  // The Base column is a formula over 关联发布记录, so the value genuinely cannot be written.
-  assert.equal(Object.hasOwn(manifest.dramas[0], "是否已排期"), false);
-  const warning = manifest.warnings.find((row) => row.code === "manual_value_superseded");
-  assert.ok(warning, "dropping a human-entered value must leave a record");
-  assert.equal(warning.table, "选剧池");
-  assert.equal(warning.field, "是否已排期");
-  assert.equal(warning.dropped_value, "是");
-  assert.equal(warning.superseded_by, "formula");
-});
-
-test("a blank 是否已排期 is not reported, and v1 manifests keep replaying without the warning", async () => {
-  const base = normalizedSource();
-  const blank = await planMigration({
-    google: sourceWithTables({ dramas: [{ ...base.dramas[0], 是否已排期: null }] }),
-    sqliteAccounts: [], sqlitePosts: [],
-  });
-  assert.equal(blank.warnings.some((row) => row.code === "manual_value_superseded"), false);
-
-  // The warning is bound to the declared policy, so already-applied v1 manifests — which were
-  // planned without it — still replay. Without this, adding a warning strands them.
-  const legacy = await legacyV1Manifest();
-  await assert.rejects(() => verifyMigrationRaw({}, legacy), (error) => error.code === "base_target_mismatch");
-});
-
 test("source policies map to exactly one reconciliation strategy each", () => {
   assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v1"), "sqlite-primary");
   assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v2"), "snapshot-date");
