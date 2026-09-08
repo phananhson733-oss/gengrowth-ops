@@ -14,6 +14,7 @@ const MATCH_INPUT_FIELDS = Object.freeze(["Post ID", "视频链接", "账号", "
 // already polls for it (MAX_RECORD_VISIBILITY_ATTEMPTS in feishu-client); the bulk
 // readback needs the same, otherwise a lagging row reads as a lost write.
 const MAX_BULK_READBACK_ATTEMPTS = 3;
+const MAX_UPDATE_READBACK_ATTEMPTS = 5;
 const defaultSleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
 
 function fail(code, message, details = {}) {
@@ -315,16 +316,31 @@ export class TableRepository {
       assertRequestedFields(readback, writeFields, this.tableName);
       return { record: clone(readback), readback: "verified" };
     }
-    const readback = await this.readRecordById(recordId, {
-      requirePrimary: true,
-      validate: (record) => {
-        if (normalizeKey(record.fields[this.primaryField]) !== prepared.key) {
-          fail("readback_mismatch", "Base readback primary key changed", { table: this.tableName });
-        }
-        assertRequestedFields(record, writeFields, this.tableName);
-      },
-      signal,
-    });
+    let readback;
+    for (let attempt = 1; ; attempt += 1) {
+      readback = await this.readRecordById(recordId, {
+        requirePrimary: true,
+        validate: (record) => {
+          if (normalizeKey(record.fields[this.primaryField]) !== prepared.key) {
+            fail("readback_mismatch", "Base readback primary key changed", { table: this.tableName });
+          }
+        },
+        signal,
+      });
+      const mismatches = Object.entries(writeFields).filter(([field, value]) =>
+        !equalValue(fieldValue(readback.fields, field), value));
+      if (mismatches.length === 0) break;
+      // An acknowledged update may still read its previous cells briefly. Poll
+      // only that known old state; a different value is a conflict, not lag.
+      // Never replay the write, and never accept an unverified acknowledgement.
+      const stale = existing && mismatches.every(([field]) =>
+        equalValue(fieldValue(readback.fields, field), fieldValue(existing.fields, field)));
+      if (!stale || attempt >= MAX_UPDATE_READBACK_ATTEMPTS) {
+        assertRequestedFields(readback, writeFields, this.tableName);
+      }
+      await this.sleep(attempt * 1_000, { signal });
+      assertNotAborted(signal);
+    }
     verifiedIndex.set(prepared.key, readback);
     this.index = verifiedIndex;
     return { record: clone(readback), readback: "verified" };

@@ -848,3 +848,63 @@ test("concurrent relation replacement is never cleared by rollback", async () =>
   assert.deepEqual(client.rows[tableIds.releases][0].fields.采集记录, [{ id: "rec-other" }]);
   assert.equal(client.calls.update.length, 1);
 });
+
+
+function staleUpdateClient(staleReads, unexpected = null) {
+  const before = { record_id: "rec-drama", fields: { 剧ID: "SD-000001", 备注: null } };
+  const client = fakeClient({ [tableIds.dramas]: [before] });
+  const get = client.getRecord.bind(client);
+  client.getRecord = async (...args) => {
+    const current = await get(...args);
+    if (unexpected !== null) return { ...current, fields: { ...current.fields, 备注: unexpected } };
+    if (staleReads-- > 0) return structuredClone(before);
+    return current;
+  };
+  return client;
+}
+
+test("single update waits for the acknowledged value when Base still returns the old cell", async () => {
+  const client = staleUpdateClient(1);
+  const sleeps = [];
+  const repos = repoWithSleep(client, sleeps);
+  const result = await repos.dramas.upsertByKey("SD-000001", { 备注: "verified nonce" }, "human");
+  assert.equal(result.readback, "verified");
+  assert.equal(result.record.fields.备注, "verified nonce");
+  assert.equal(client.calls.update.length, 1, "poll reads, never replay the mutation");
+  assert.equal(sleeps.length, 1);
+});
+
+test("single update bounds stale readback and leaves the index invalid on exhaustion", async () => {
+  const client = staleUpdateClient(99);
+  const sleeps = [];
+  const repos = repoWithSleep(client, sleeps);
+  await assert.rejects(() => repos.dramas.upsertByKey("SD-000001", { 备注: "nonce" }, "human"),
+    error => error.code === "readback_mismatch");
+  assert.ok(sleeps.length > 0 && sleeps.length <= 4);
+  assert.equal(client.calls.get.length, sleeps.length + 1);
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(repos.dramas.index, null);
+});
+
+test("single update rejects a third-party value immediately rather than hiding a conflict", async () => {
+  const client = staleUpdateClient(0, "another person's edit");
+  const sleeps = [];
+  const repos = repoWithSleep(client, sleeps);
+  await assert.rejects(() => repos.dramas.upsertByKey("SD-000001", { 备注: "nonce" }, "human"),
+    error => error.code === "readback_mismatch");
+  assert.equal(sleeps.length, 0);
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(repos.dramas.index, null);
+});
+
+test("single update cancellation during visibility wait prevents further reads or writes", async () => {
+  const client = staleUpdateClient(99);
+  const controller = new AbortController();
+  const repos = new BaseRepositories({ client, appToken: "app-token", tableIds,
+    sleep: async () => controller.abort() });
+  await assert.rejects(() => repos.dramas.upsertByKey("SD-000001", { 备注: "nonce" }, "human", { signal: controller.signal }),
+    error => error.code === "base_operation_aborted");
+  assert.equal(client.calls.get.length, 1);
+  assert.equal(client.calls.update.length, 1);
+  assert.equal(repos.dramas.index, null);
+});
