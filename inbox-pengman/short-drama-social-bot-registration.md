@@ -18,10 +18,15 @@
 ## 1. 可执行对象
 
 ```
-/usr/bin/env node ~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs <args>
+/usr/bin/env node /Users/awayer_mini/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs <args>
 ```
 
 必须是 `node` 直接调起 Runner（`directNodeInvocation`），中间不能套 npm / npx / 包装脚本。
+
+**绝对路径，不能用 `~`。** Hermes 会把命令包成 `eval '<命令>'`，而 Runner 用
+`resolve(runnerPath)` 拼出期望值再逐字比对（`exactHermesEval`）——`~` 不会在比对前展开，
+所以写 `~/...` 一定不匹配。2026-09-08 实测：带 `cd` / 相对路径 / `$PWD` 的调用返回
+`social_invoker_untrusted`。
 
 ## 2. 固定配置路径（`assertSocialRuntimeConfig`）
 
@@ -112,10 +117,19 @@ Bot 的原话：「如果管理员修改的是默认 profile 的 `~/.hermes/SOUL
 **与 §4.1、§4.2 的一个结构差异**：这条例外的脚本不在 `~/.hermes/profiles/social/skills/` 下，
 而在 `~/gengrowth-ops/` 内，解释器是 `node` 而不是 venv 里的 python。这是本例外明确允许的。
 
-1. 允许用 `terminal` 跑**唯一入口**
-   `~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs`，
-   用 `node` 直接调起，中间不套 npm / npx / 包装脚本。
-   `--config` 只能是它同目录的 `shortdrama.runtime.json`，不接受任何其它路径（Runner 会逐字比对）。
+1. 允许用 `terminal` 跑**唯一入口** `shortdrama_ctl.mjs`。命令形态是**逐字校验**的，
+   必须正好是下面这一行，多一个字符都会被 Runner 拒绝（`social_invoker_untrusted`）：
+
+   ```
+   /usr/bin/env node /Users/awayer_mini/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs <子命令> <参数...> --config /Users/awayer_mini/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama.runtime.json
+   ```
+
+   - 必须 `/usr/bin/env node` 开头，不能只写 `node`，不能套 npm / npx / 包装脚本。
+   - Runner 和 `--config` 都必须是**完整绝对路径**。
+   - **不能用 `~`**——Runner 比对的是绝对路径，`~` 不会在比对前展开。
+   - **不能有 `cd`、`&&`、`;`、管道、`$PWD` 或任何变量替换**：整条命令必须是单条直接调用，
+     参数里不允许出现空格和 `'"\;$&|<>`()` 这些字符。
+   - 工作目录不用管，由 terminal 工具自己设置，不要写进命令里。
 2. 允许的命令组：`account`、`capture`、`metrics`（只读）；`pool`、`release`（业务读写）；`sync start`。
 3. **禁止**：`doctor`、`migrate`、`schedule`、`queue` 及任何 internal 命令。
    Runner 自己也会返回 `social_command_denied`，不要试图绕过它直连 Base API。
@@ -174,12 +188,22 @@ Bot 的原话：「如果管理员修改的是默认 profile 的 `~/.hermes/SOUL
 **第一步 · 只读**，在 `# social assistant`（`oc_a4dae18b4ffeedc2877fe21dc58633c7`）里发：
 
 ```
-@Social 原样执行并把完整 stdout 贴回：
-cd ~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager && node shortdrama_ctl.mjs pool list --config "$PWD/shortdrama.runtime.json"
+@Social 原样执行这一条，把完整 stdout 贴回（不要加 cd，不要改写）：
+/usr/bin/env node /Users/awayer_mini/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs pool list --config /Users/awayer_mini/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama.runtime.json
 ```
 
-期望 61 条选剧池记录。若仍被拒且理由还是"不在预授权流程"，说明配置改动没有被当前会话加载——
-Bot 的权限列表是会话级的，需要重启会话或新建会话再试。
+期望 61 条选剧池记录。按错误分辨卡在哪一层：
+
+| 现象 | 含义 |
+| --- | --- |
+| 「不在预授权流程」 | §4.3 没生效——改错文件，或改完没 `/reset`（见 §0b、§5b） |
+| `social_invoker_untrusted` | §4.3 已生效、Runner 已被调起，但**命令形态不对**——多半带了 `cd`、相对路径或 `~` |
+| 正常返回 61 条 | 读链路打通 |
+
+**别只看 Bot 的自述。** 它能只读 `gengrowth-ops` 里的文件，包括 Runner 源码和 manifest，
+所以它有能力编出一份格式完全正确的"执行结果"。要判定命令是否真的跑过，让它回报输出里的
+`创建时间` / `最后修改时间`——这两个是飞书 Base 生成的，本地任何文件里都没有，
+然后用 §6 第三步的 `lark-cli` 独立核对。
 
 **第二步 · 写**（`选剧池.SD-000001` 的备注当前为空，改它不覆盖任何真实数据）：
 

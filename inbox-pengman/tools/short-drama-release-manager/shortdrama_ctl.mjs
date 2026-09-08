@@ -252,12 +252,23 @@ function exactProcessRow(row, pid) {
     typeof row.command === "string" && row.command.startsWith("/") && typeof row.args === "string";
 }
 
+function exactRunnerProcessRow(row, pid) {
+  return row !== null && row !== undefined && row.pid === pid &&
+    Number.isSafeInteger(row.ppid) && row.ppid >= 0 &&
+    typeof row.command === "string" && row.command.length > 0 &&
+    typeof row.args === "string";
+}
+
 function safeDirectToken(value) {
   return typeof value === "string" && value.length > 0 && !/[\s'"\\;$&|<>`()]/.test(value);
 }
 
 function directNodeInvocation(row, { nodePath, runnerPath, argv }) {
-  if (!exactProcessRow(row, row?.pid) || resolve(row.command) !== resolve(nodePath)) return false;
+  if (!exactRunnerProcessRow(row, row?.pid)) return false;
+  const nodeBasename = resolve(nodePath).split("/").pop();
+  const nodeCommandMatches = row.command === nodeBasename ||
+    row.command.startsWith("/") && resolve(row.command) === resolve(nodePath);
+  if (!nodeCommandMatches) return false;
   const tokens = row.args.trim().split(/\s+/);
   if (tokens.length !== argv.length + 2 || !["node", nodePath].includes(tokens[0]) ||
       resolve(tokens[1]) !== resolve(runnerPath)) return false;
@@ -323,6 +334,7 @@ function exactHermesShell(row, { directCommand, payloadStdin, profile = "social"
   for (const [prefix, candidateLogin] of [[`${row.command} -c `, false], [`${row.command} -l -c `, true]]) {
     if (row.args.startsWith(prefix)) {
       script = row.args.slice(prefix.length);
+      if (!script.includes("\n")) script = script.replaceAll("\\012", "\n");
       login = candidateLogin;
       break;
     }
@@ -339,6 +351,22 @@ function exactHermesShell(row, { directCommand, payloadStdin, profile = "social"
     if (!sessionId || login) return false;
     at += 1;
   } else if (!login) return false;
+  if (snapshot !== null && lines[at] === 'export AI_AGENT="${AI_AGENT:-hermes-agent}" HERMES_AGENT="${HERMES_AGENT:-true}"') {
+    at += 1;
+    const cd = /^builtin cd -- (?:'([^'\r\n]+)'|(\/[^\s'"\\;|&<>`\r\n]*)) \|\| exit 126$/.exec(lines[at++] ?? "");
+    const workingDirectory = cd?.[1] ?? cd?.[2];
+    if (!workingDirectory || !isAbsolute(workingDirectory) || resolve(workingDirectory) !== workingDirectory) return false;
+    const afterEval = exactHermesEval(lines, at, directCommand, payloadStdin);
+    if (afterEval === null) return false;
+    at = afterEval;
+    if (lines[at++] !== "__hermes_ec=$?" || lines[at++] !== "umask 077") return false;
+    const snapshotTemp = '"$__hermes_snap_tmp"';
+    const atomicSnapshot = `__hermes_snap_tmp=$(mktemp ${snapshot}.tmp.XXXXXXXXXX) && { { ( unset \${!HERMES_SESSION_*} \${!HERMES_CRON_AUTO_DELIVER_*} AI_AGENT HERMES_AGENT HERMES_UI_SESSION_ID 2>/dev/null; export -p; ) || true; } > ${snapshotTemp} && mv -f ${snapshotTemp} ${snapshot}; } 2>/dev/null || rm -f ${snapshotTemp} 2>/dev/null || true`;
+    if (lines[at++] !== atomicSnapshot) return false;
+    if (lines[at++] !== `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"` ||
+        lines[at++] !== "exit $__hermes_ec" || at !== lines.length) return false;
+    return true;
+  }
   const cd = /^builtin cd -- (?:'([^'\r\n]+)'|(\/[^\s'"\\;|&<>`\r\n]*)) \|\| exit 126$/.exec(lines[at++] ?? "");
   const workingDirectory = cd?.[1] ?? cd?.[2];
   if (!workingDirectory || !isAbsolute(workingDirectory) || resolve(workingDirectory) !== workingDirectory) return false;
@@ -405,7 +433,7 @@ export function inspectTrustedSocialInvoker({
   const directCommand = `/usr/bin/env node ${resolve(runnerPath)} ${argv.join(" ")}`;
   try {
     const runner = readProcess(pid);
-    if (!exactProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
+    if (!exactRunnerProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
     const shell = readProcess(runner.ppid);
     if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin, profile })) return false;
     const gateway = readProcess(shell.ppid);
