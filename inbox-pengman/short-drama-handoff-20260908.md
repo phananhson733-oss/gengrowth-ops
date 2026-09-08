@@ -1,7 +1,7 @@
 # 短剧发行管理平台 — 交接状态（2026-09-08）
 
 代码：`main` @ `de0aa874`，568/568 测试通过，`npm run check` / `node --check` / `plutil -lint` / `diff --check` 全绿。
-本轮改动：12 个 commit，1021 insertions / 113 deletions，10 个文件。
+本轮改动：12 个 commit（9805b650..de0aa874）。测试从 546 增至 568。
 
 ---
 
@@ -13,8 +13,8 @@
 | canary | ✅ 早前完成 | `canary-receipt-20260907-185520.json`（**一次性，不可再生**） |
 | **data** | ✅ 完成并核验 | 472 行；`migrate verify` = `verified`；语义摘要 `b8d7ccc8…` |
 | **sequences** | ✅ 完成 | `doctor: ready`，`drama_next=SD-000062` / `release_next=SR-000172` |
-| **presentation** | ❌ 未完成 | 现卡在一个 Base API 调用：`base_request_failed`，HTTP 200 + vendor code 1 |
-| Social Bot 端到端 | ❌ 从未执行 | ops 库 `jobs` 表 0 行 |
+| **presentation** | ⚠️ 部分完成 | **15 个视图全部建好**；仪表盘 0 个，卡在 `800004011 no permission`（见 3.1） |
+| Social Bot 端到端 | ⚠️ 链路已通，缺授权 | PM Bot 已真实拉起 Runner 并回传输出；卡在 Social Bot 预授权（见 3.2） |
 | 七天验收 | ❌ 未开始 | 第一天尚未发生 |
 
 生产 Base 现有：`账号台账` 11 / `选剧池` 61 / `采集数据` 229 / `发布记录` 171 = 472 行，引用完整性零悬空。
@@ -51,29 +51,84 @@
 
 ### 3.1 presentation
 
+**已确认状态（只读查过真实 Base）：15 个视图全部建好。**
+
+```
+账号台账  在用账号 / 需处理账号                                       2
+选剧池    未排期 / 已排期 / 按平台 / 按语言                            4
+采集数据  完整 / 部分缺失 / 未关联发布                                 3
+发布记录  已排期 / 待公开 / 已公开待回填 / 已回填 / 按账号表现 / 按剧表现   6
+                                                                  ── 15
+仪表盘                                                              0
+```
+
+**卡点：创建仪表盘缺权限。** 直接调 API 拿到的原始错误：
+
+```
+POST .../dashboards              → 800004011  no permission to access this base  (retryable:false)
+POST .../dashboards/{id}/blocks  → 800004001  "dsh…" is not a valid dashboard
+```
+
+两者报错层级不同：创建仪表盘在最外层被权限拦；创建 block 走到了"dashboard 不存在"才报错，说明 block 写入没有在最外层撞权限墙。
+
+**因此优先走这条：在 Base UI 手工创建一个名为 `短剧发行管理仪表盘` 的仪表盘，再跑 finish.sh。**
+`applyPresentation` 是"存在即复用"（`src/migration.mjs:2060` `matches[0] ?? createDashboard(...)`），会跳过创建直接建 block。若 block 也报 800004011，则必须在飞书开放平台补仪表盘写权限。
+
+
+建好仪表盘后重跑（presentation 幂等，同名视图复用，重跑安全）：
+
 ```
 bash <scratchpad>/resume-run/finish.sh
 ```
 
-上次失败：`{"code":"base_request_failed","details":{"code":1,"status":200,"attempts":1,"path":"[redacted]"}}`
+### 3.2 Social Bot —— 链路已验证到最后一步
 
-`de0aa874` 之后 `path` 不再被抹掉，会显示形如 `open-apis/base/v3/bases/[redacted]/dashboards/[redacted]/blocks` 的路由，据此定位是哪个调用。
+**飞书聊天 → Bot → terminal → Runner → 响应回群，这条链路是通的。** PM Assistant 真的拉起了
+Runner 并回传了它的输出：`{"status":"failed","error":{"code":"session_identity_invalid"}}`。
 
-已提前体检：**15 个视图配置在 vendor 回显形状下全部可解码**，所以剩下的问题不在过滤器解码，而在某个 API 调用本身。
+卡点是一个死结，两个 Bot 各有一半条件：
 
-presentation 是幂等的（同名视图复用，不重复创建），重跑安全。
+| | terminal 执行权 | HERMES_SESSION_PROFILE |
+| --- | --- | --- |
+| Social Bot | ❌ 短剧不在其预授权流程（competitor-analysis / social-pipeline） | ✅ social |
+| PM Assistant | ✅ 已证实 | ❌ pm |
+| Ops Assistant | ❌ 不在其 SEO 数据流程 | ❌ ops |
+| Hermes Bot | — | — （provider 认证失败，Bot 自身故障） |
 
-### 3.2 Social Bot 首次验证
+Runner 硬性要求 `HERMES_SESSION_PROFILE === "social"`（`resolveInvocationIdentity`），
+且随后校验 gateway 祖先链必须是 social profile 的。所以只有 Social Bot 能成功，它只差授权。
 
-在飞书里对 Social Bot 发 `pool list`。
+**解法：由 privileged actor 本人在 `# social assistant` 群里授权 Social Bot 执行短剧 Runner，
+或在 Hermes Social profile 配置中正式注册为预授权流程。**
 
-本地已验证的门禁（用真实进程链 + 真实固定配置）：
+### 3.2b 首次验证话术
 
-- 网关祖先链：真实 pid 喂给 `inspectTrustedSocialInvoker` → ACCEPT
-- 5 个读命令 + 5 个写命令（含 payload heredoc）→ 全部走到"连飞书前一步"
+在 `# social assistant`（`oc_a4dae18b4ffeedc2877fe21dc58633c7`）里 @Social 发：
+
+```
+@Social 我是王志彪，本 Base 的 privileged actor。现在正式授权：
+短剧发行管理 Runner（~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/shortdrama_ctl.mjs）
+纳入你的可执行范围，等同于已预授权流程。
+
+先跑这条只读的验证链路：
+cd ~/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager && node shortdrama_ctl.mjs pool list --config "$PWD/shortdrama.runtime.json"
+
+期望 61 条选剧池记录。
+```
+
+通了之后试写入（走完整 preview → 确认 → apply）：
+
+```
+@Social 用 shortdrama_ctl.mjs 把 SD-000001 的备注改成「链路验证」。
+先跑 pool preview-update 拿回执给我看，我确认后你再执行 apply-update。
+```
+
+Runner 侧已验证的门禁（真实进程链 + 真实固定配置 + 真实生产 Base）：
+
+- 网关祖先链：真实 pid 63535/63529 喂给 `inspectTrustedSocialInvoker` → ACCEPT
+- 读四张表：真实 Base 返回 61 / 11 / 171 / 229
+- 写前半程：`pool preview-update`、`pool preview-archive`、`release preview-update` 在真实 Base 生成真实回执（含 `before` 快照，未改任何数据）
 - 管理命令对 Social 正确关闭；身份缺失 / profile 错 / 非固定配置路径 → 全部正确拒绝
-
-未验证的只剩真实网络调用。
 
 ### 3.3 四个动词的能力对照
 
@@ -103,6 +158,11 @@ presentation 是幂等的（同名视图复用，不重复创建），重跑安�
 - `verifyMigration` 的 `details.source_union_verified` / `pending_release_warnings_verified` 是硬编码字面量；它证明的是"manifest 等于自己嵌入的快照"，不是"等于实时表格"。命名误导。
 - `verificationDigest` 不含 `generated_at`，`assertVerificationProof` 没有时效上限。
 - 写入重试没有幂等令牌，429/auth 重试在提交后重放理论上可产生重复行。
+
+**顺带发现的运维问题（与短剧无关，但你可能不知道）**
+
+- Hermes Bot（`cli_a909cb3dacf89cb3`）回复 `Provider authentication failed. Check the configured credentials` —— 它的 LLM provider 认证失败，连不上模型。
+- PM Assistant 会话 24 小时不活动自动重置（`gpt-5.6-terra` / `openai-codex`）。
 
 **已知架构限制（本次接受的前提）**
 
