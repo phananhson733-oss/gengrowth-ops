@@ -1,6 +1,6 @@
 # 短剧发行管理平台 — 交接状态（2026-09-08）
 
-代码：`main` @ `7cfb6a72`，582/582 测试通过，`npm run check` / `node --check` / `diff --check` 全绿。
+代码：`main` @ `d66851a9`，584/584 测试通过，`npm run check` / `node --check` / `diff --check` 全绿。
 本轮改动：16 个 commit（9805b650..7cfb6a72，其中两处被 vault backup 进程抢先自动提交，
 rationale 补在空提交 `3bc0824c`）。测试从 546 增至 582。
 
@@ -22,7 +22,7 @@ rationale 补在空提交 `3bc0824c`）。测试从 546 增至 582。
 
 ---
 
-## 2. 本轮修复的 15 个缺陷
+## 2. 本轮修复的 16 个缺陷
 
 **读回解码（5 个）** — 全部是"对 vendor 返回形状的假设"错误，且全部只有在真实数据流过时才暴露：
 
@@ -52,6 +52,8 @@ rationale 补在空提交 `3bc0824c`）。测试从 546 增至 582。
 14. `ee09f5c3` + `67612ecc`（rationale 在 `3bc0824c`）第 13 条引出的死锁：manifest 重放被绑到当前
     代码版本而非它自己声明的策略，会让已应用的生产 manifest 直接失效
 15. `7cfb6a72` 没有任何手段检查"代码改动是否让已应用的 manifest 失效"；新增离线自检脚本
+16. `d66851a9` verification 报告的 `generated_at` 不在签名内且没有时效上限，一份旧证明可无限期
+    复用来给 sequences 播种，时间戳还能随意改而不破坏签名；同时新增证据摘要自检脚本
 
 ---
 
@@ -90,6 +92,21 @@ node verify_manifest_replay.mjs "$MIGRATION_ROOT"/migration-plan-*.json
 ```
 
 已 apply 过的 manifest 出现 `REPLAY FAIL` 是发布阻断项。
+
+**改动任何 digest 辅助函数后必须跑**（同一类风险的另一半）：
+
+```bash
+node verify_receipt_digests.mjs
+```
+
+它会重算盘上每份证据的摘要，并标出哪些**不可再生**：canary receipt 要求四表为空
+（`count_before === 0`），schema receipt 要求写入前的 schema revision——Base 非空后这两样
+都造不出来，摘要一旦对不上就彻底没有前路。`BLOCKING` 是发布阻断项，`STALE` 只是重跑一下
+产出它的命令即可。当前：36 份，2 份 verification 陈旧，0 份不可恢复。
+
+**具体教训**：`withoutDigestEnvelope` 被 manifest / schema receipt / presentation receipt 共用。
+`verificationDigest` 要把 `generated_at` 纳入签名，就**不能**改这个共用函数，否则会连带作废
+不可再生的 schema receipt。改用已有的 `digestWithoutSha` 单独处理。
 
 
 ---
@@ -211,7 +228,6 @@ Runner 侧已验证的门禁（真实进程链 + 真实固定配置 + 真实生�
 **代码层（不阻塞，建议排期）**
 
 - `verifyMigration` 的 `details.source_union_verified` / `pending_release_warnings_verified` 是硬编码字面量；它证明的是"manifest 等于自己嵌入的快照"，不是"等于实时表格"。命名误导。
-- `verificationDigest` 不含 `generated_at`，`assertVerificationProof` 没有时效上限。
 - 写入重试没有幂等令牌，429/auth 重试在提交后重放理论上可产生重复行。
 
 **顺带发现的运维问题（与短剧无关，但你可能不知道）**
