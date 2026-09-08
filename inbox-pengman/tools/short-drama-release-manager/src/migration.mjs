@@ -34,7 +34,19 @@ const POST_ID = /^\d+$/;
 const DRAMA_ID = /^SD-(\d{6})$/;
 const RELEASE_ID = /^SR-(\d{6})$/;
 const EMPTY_KEY_SET_SHA256 = createHash("sha256").update(JSON.stringify([])).digest("hex");
-const SOURCE_POLICY = "shortdrama-source-reconciliation/v1";
+// A manifest is replayed under the policy it declares, not under whatever the current code
+// does. v1 manifests were planned when SQLite was unconditionally authoritative; rejecting
+// them would strand every already-applied migration, because a non-empty Base cannot replan.
+const SOURCE_POLICIES = Object.freeze({
+  "shortdrama-source-reconciliation/v1": "sqlite-primary",
+  "shortdrama-source-reconciliation/v2": "snapshot-date",
+});
+const SOURCE_POLICY = "shortdrama-source-reconciliation/v2";
+
+export function sourceMergeStrategy(policy) {
+  if (typeof policy !== "string" || !Object.hasOwn(SOURCE_POLICIES, policy)) return null;
+  return SOURCE_POLICIES[policy];
+}
 const PARTIAL_RESUME_MODES = Object.freeze(new Set(["manifest-subset"]));
 const CAPTURE_METRICS = Object.freeze([
   Object.freeze(["views", "播放量"]),
@@ -360,12 +372,12 @@ export function googleSnapshotIsNewer(googleDate, sqliteDate) {
   return googleDate > sqliteDate;
 }
 
-function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, warnings) {
+function reconcileAccounts(googleResult, sqliteRows, captureSources, blocks, warnings, strategy) {
   const sqlite = normalizedSqliteAccounts(sqliteRows);
   const rows = googleResult.rows.map((row) => {
     const latest = sqlite.get(row.账号ID);
     if (!latest) return row;
-    if (googleSnapshotIsNewer(row.数据日期, latest.snapshot_date)) {
+    if (strategy === "snapshot-date" && googleSnapshotIsNewer(row.数据日期, latest.snapshot_date)) {
       warnings.push(blocked("stale_sqlite_snapshot", "账号台账", null, {
         account_id: row.账号ID,
         primary_source: "google",
@@ -614,7 +626,7 @@ function uniqueCaptureMap(rows, normalize, sourceName) {
   return result;
 }
 
-function reconcileCaptureSources(googleRows, sqliteRows, blocks, warnings) {
+function reconcileCaptureSources(googleRows, sqliteRows, blocks, warnings, strategy) {
   const google = uniqueCaptureMap(googleRows, normalizedGoogleCapture, "Google");
   const sqlite = uniqueCaptureMap(sqliteRows, normalizedSqliteCapture, "SQLite");
   const sources = [];
@@ -635,7 +647,7 @@ function reconcileCaptureSources(googleRows, sqliteRows, blocks, warnings) {
     if (historical.identity_valid !== true || historical.username !== latest.username) {
       blocks.push(blocked("capture_source_conflict", "采集数据", historical.source_row, { post_id: key }));
     }
-    const googleIsPrimary = googleSnapshotIsNewer(historical.snapshot_date, latest.snapshot_date);
+    const googleIsPrimary = strategy === "snapshot-date" && googleSnapshotIsNewer(historical.snapshot_date, latest.snapshot_date);
     const primary = googleIsPrimary ? historical : latest;
     const secondary = googleIsPrimary ? latest : historical;
     const merged = { ...secondary, ...primary, migration_source: googleIsPrimary ? "google" : "sqlite" };
@@ -1100,9 +1112,9 @@ export async function planMigration(context = {}) {
   const sqlitePosts = clone(sqlitePostsInput, "migration_source_invalid");
   const source = migrationSourceRevision({ google, sqliteAccounts, sqlitePosts });
   const sourceRevision = source.revision;
-  const captureResult = reconcileCaptureSources(google.captures, sqlitePosts, blocks, warnings);
+  const captureResult = reconcileCaptureSources(google.captures, sqlitePosts, blocks, warnings, sourceMergeStrategy(SOURCE_POLICY));
   const captureSources = captureResult.sources;
-  const accountResult = reconcileAccounts(googleAccounts, sqliteAccounts, captureSources, blocks, warnings);
+  const accountResult = reconcileAccounts(googleAccounts, sqliteAccounts, captureSources, blocks, warnings, sourceMergeStrategy(SOURCE_POLICY));
   const captures = validateCaptures(captureSources, accountResult.unique, blocks, sourceRevision);
   const capturesByPost = new Map(captures.map((row) => [row["Post ID"], row]));
   const releases = validateReleases(google.releases, accountResult.unique, dramaResult.unique, captureSources, capturesByPost, blocks, warnings, generatedAtValue);
@@ -1204,7 +1216,7 @@ function assertManifest(manifest) {
     sqlite_posts_sha256: manifest.source_evidence.sqlite_posts_sha256,
   } : null;
   if (!sourceCore || !isDeepStrictEqual(Object.keys(manifest.source_evidence).sort(), sourceEvidenceKeys) ||
-      sourceCore.policy !== SOURCE_POLICY || typeof sourceCore.google_revision !== "string" || sourceCore.google_revision === "" ||
+      sourceMergeStrategy(sourceCore.policy) === null || typeof sourceCore.google_revision !== "string" || sourceCore.google_revision === "" ||
       ![sourceCore.google_captures_sha256, sourceCore.sqlite_accounts_sha256, sourceCore.sqlite_posts_sha256].every((value) => typeof value === "string" && /^[a-f0-9]{64}$/.test(value)) ||
       !Array.isArray(sourceCore.google_capture_post_ids) || !Array.isArray(sourceCore.sqlite_account_ids) ||
       !Array.isArray(sourceCore.sqlite_accounts) || !Array.isArray(sourceCore.sqlite_post_ids) || !Array.isArray(sourceCore.sqlite_posts) ||
@@ -1239,10 +1251,11 @@ function assertManifest(manifest) {
   }
   const replayBlocks = [];
   const replayWarnings = [];
+  const replayStrategy = sourceMergeStrategy(sourceCore.policy);
   const replayGoogleAccounts = validateAccountRows(backupGoogle.accounts, replayBlocks);
   const replayDramas = validateDramaRows(backupGoogle.dramas, replayBlocks, replayWarnings);
-  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks, replayWarnings);
-  const replayAccounts = reconcileAccounts(replayGoogleAccounts, sourceCore.sqlite_accounts, replayCaptureResult.sources, replayBlocks, replayWarnings);
+  const replayCaptureResult = reconcileCaptureSources(backupGoogle.captures, sourceCore.sqlite_posts, replayBlocks, replayWarnings, replayStrategy);
+  const replayAccounts = reconcileAccounts(replayGoogleAccounts, sourceCore.sqlite_accounts, replayCaptureResult.sources, replayBlocks, replayWarnings, replayStrategy);
   const replayCaptures = validateCaptures(replayCaptureResult.sources, replayAccounts.unique, replayBlocks, manifest.source_revision);
   const replayCapturesByPost = new Map(replayCaptures.map((row) => [row["Post ID"], row]));
   const replayReleases = validateReleases(

@@ -21,6 +21,7 @@ import {
   permissionAttestationDigest,
   planMigration as planMigrationRaw,
   schemaReceiptDigest,
+  sourceMergeStrategy,
   verificationDigest,
   verifyMigration as verifyMigrationRaw,
   writeMigrationArtifact,
@@ -505,6 +506,42 @@ test("a newer Google capture keeps the collection timestamps only SQLite knows",
   assert.equal(manifest.captures[0].播放量, 1000);
   assert.equal(manifest.captures[0].采集时间, "2026-09-04T01:02:03Z");
   assert.equal(manifest.captures[0].发布时间, "2026-08-20T00:00:00Z");
+});
+
+test("source policies map to exactly one reconciliation strategy each", () => {
+  assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v1"), "sqlite-primary");
+  assert.equal(sourceMergeStrategy("shortdrama-source-reconciliation/v2"), "snapshot-date");
+  for (const unknown of ["shortdrama-source-reconciliation/v3", "v1", "", null, undefined, 1, {}]) {
+    assert.equal(sourceMergeStrategy(unknown), null, `policy ${JSON.stringify(unknown)}`);
+  }
+});
+
+test("a manifest replays under the source policy it declares, not the current code version", async () => {
+  // No date disagreement, so v1 and v2 reconcile identically: only the declared policy differs.
+  const manifest = await planMigration({
+    google: sourceWithCaptures([googleCapture({ 快照日期: "2026-08-24" })]),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ snapshot_date: "2026-08-24" })],
+  });
+  assert.equal(manifest.source_evidence.policy, "shortdrama-source-reconciliation/v2");
+  const legacy = structuredClone(manifest);
+  legacy.source_evidence.policy = "shortdrama-source-reconciliation/v1";
+  legacy.sha256 = manifestDigest(legacy);
+  // assertManifest runs before any Base access, so an empty context proves it passed.
+  await assert.rejects(() => verifyMigrationRaw({}, legacy), (error) => { console.log("LEGACY ERR", error.code, error.message, JSON.stringify(error.details)); return error.code === "base_target_mismatch"; });
+});
+
+test("a declared policy that contradicts the manifest rows is rejected", async () => {
+  const manifest = await planMigration({
+    google: sourceWithCaptures([googleCapture({ 快照日期: "2026-09-07", 播放量: 1000 })]),
+    sqliteAccounts: [latestAccount()],
+    sqlitePosts: [latestCapture({ snapshot_date: "2026-09-04", views: 20, comments: 3, missing_fields: [], collection_status: "complete" })],
+  });
+  assert.equal(manifest.captures[0].播放量, 1000);
+  const forged = structuredClone(manifest);
+  forged.source_evidence.policy = "shortdrama-source-reconciliation/v1";
+  forged.sha256 = manifestDigest(forged);
+  await assert.rejects(() => verifyMigrationRaw({}, forged), (error) => error.code === "migration_manifest_invalid");
 });
 
 test("googleSnapshotIsNewer swaps sources only for two well-formed dates", () => {
