@@ -45,6 +45,8 @@ const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 export const SOCIAL_RUNTIME_CONFIG_PATH = resolve(dirname(SCRIPT_PATH), "shortdrama.runtime.json");
+export const ALLOWED_HERMES_PROFILES = Object.freeze(["default", "social", "pm", "ops"]);
+const ALLOWED_HERMES_PROFILE_SET = new Set(ALLOWED_HERMES_PROFILES);
 
 const REGISTRY = Object.freeze({
   doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
@@ -262,7 +264,7 @@ function directNodeInvocation(row, { nodePath, runnerPath, argv }) {
   return argv.every((value, index) => tokens[index + 2] === value);
 }
 
-function hermesCachePath(value, kind, sessionId = null) {
+function hermesCachePath(value, kind, sessionId = null, profile = "social") {
   if (!isAbsolute(value) || resolve(value) !== value) return null;
   const basenamePattern = kind === "snapshot"
     ? /^hermes-snap-([a-f0-9]{12})\.sh$/
@@ -271,7 +273,10 @@ function hermesCachePath(value, kind, sessionId = null) {
   const match = basenamePattern.exec(name);
   if (!match || sessionId !== null && match[1] !== sessionId) return null;
   const directory = dirname(value);
-  const allowedDirectory = /^\/Users\/[^/]+\/\.hermes\/profiles\/social\/cache\/terminal$/.test(directory) ||
+  const profileSuffix = profile === "default" ? "" : `/profiles/${profile}`;
+  const profileDirectory = ALLOWED_HERMES_PROFILE_SET.has(profile) &&
+    new RegExp(`^/Users/[^/]+/\\.hermes${profileSuffix}/cache/terminal$`).test(directory);
+  const allowedDirectory = profileDirectory ||
     /^\/(?:private\/)?var\/folders\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\/T$/.test(directory);
   return allowedDirectory ? match[1] : null;
 }
@@ -311,7 +316,7 @@ function exactHermesEval(lines, at, directCommand, payloadStdin) {
   return closing + 1;
 }
 
-function exactHermesShell(row, { directCommand, payloadStdin }) {
+function exactHermesShell(row, { directCommand, payloadStdin, profile = "social" }) {
   if (!exactProcessRow(row, row?.pid) || row.command.split("/").pop().toLowerCase() !== "bash") return false;
   let script;
   let login;
@@ -330,7 +335,7 @@ function exactHermesShell(row, { directCommand, payloadStdin }) {
   const source = /^source (\/\S+) >\/dev\/null 2>&1 \|\| true$/.exec(lines[0] ?? "");
   if (source) {
     snapshot = source[1];
-    sessionId = hermesCachePath(snapshot, "snapshot");
+    sessionId = hermesCachePath(snapshot, "snapshot", null, profile);
     if (!sessionId || login) return false;
     at += 1;
   } else if (!login) return false;
@@ -346,7 +351,7 @@ function exactHermesShell(row, { directCommand, payloadStdin }) {
     if (lines[at++] !== `{ export -p > ${temp} && mv -f ${temp} ${snapshot}; } 2>/dev/null || rm -f ${temp} 2>/dev/null || true`) return false;
   }
   const cwd = /^pwd -P > (\/\S+) 2>\/dev\/null \|\| true$/.exec(lines[at++] ?? "");
-  const cwdSession = cwd ? hermesCachePath(cwd[1], "cwd", sessionId) : null;
+  const cwdSession = cwd ? hermesCachePath(cwd[1], "cwd", sessionId, profile) : null;
   if (!cwdSession) return false;
   sessionId ??= cwdSession;
   if (lines[at++] !== `printf '\\n__HERMES_CWD_${sessionId}__%s__HERMES_CWD_${sessionId}__\\n' "$(pwd -P)"` ||
@@ -354,10 +359,12 @@ function exactHermesShell(row, { directCommand, payloadStdin }) {
   return true;
 }
 
-function exactGatewayProcess(row) {
+function exactGatewayProcess(row, profile = "social") {
   if (!exactProcessRow(row, row?.pid) || !/^python(?:3(?:\.\d+)?)?$/.test(row.command.split("/").pop().toLowerCase())) return null;
   const tokens = row.args.trim().split(/\s+/);
-  const expected = [row.command, "-m", "hermes_cli.main", "--profile", "social", "gateway", "run", "--replace", "--external-supervisor"];
+  if (!ALLOWED_HERMES_PROFILE_SET.has(profile)) return null;
+  const profileTokens = profile === "default" ? [] : ["--profile", profile];
+  const expected = [row.command, "-m", "hermes_cli.main", ...profileTokens, "gateway", "run", "--replace", "--external-supervisor"];
   return tokens.length === expected.length && tokens.every((value, index) => value === expected[index]) ? tokens : null;
 }
 
@@ -365,12 +372,15 @@ function exactGatewayProcess(row) {
 // --external-supervisor. The supervisor is the launchd-rooted anchor, so it is part of
 // the proof: verify its exact argv, that it re-states the gateway argv verbatim, and
 // that it is the one whose parent is launchd.
-function exactGatewayWrapper(row, gatewayTokens) {
+function exactGatewayWrapper(row, gatewayTokens, profile = "social") {
   if (!exactProcessRow(row, row?.pid) || row.ppid !== 1 || row.command !== gatewayTokens[0]) return false;
+  if (!ALLOWED_HERMES_PROFILE_SET.has(profile)) return false;
   const tokens = row.args.trim().split(/\s+/);
   const separator = tokens.indexOf("--");
+  const profileSuffix = profile === "default" ? "" : `/profiles/${profile}`;
+  const errorLog = new RegExp(`^/Users/[^/]+/\\.hermes${profileSuffix}/logs/gateway\\.error\\.log$`);
   if (separator !== 5 || tokens[0] !== row.command || tokens[1] !== "-m" || tokens[2] !== "hermes_cli.stderr_timestamp" ||
-      tokens[3] !== "--error-log" || !/^\/Users\/[^/]+\/\.hermes\/profiles\/social\/logs\/gateway\.error\.log$/.test(tokens[4])) return false;
+      tokens[3] !== "--error-log" || !errorLog.test(tokens[4])) return false;
   const child = tokens.slice(separator + 1);
   return child.length === gatewayTokens.length && child.every((value, index) => value === gatewayTokens[index]);
 }
@@ -379,12 +389,14 @@ export function inspectTrustedSocialInvoker({
   argv,
   command,
   configPath,
+  profile = "social",
   pid = process.pid,
   readProcess = readMacProcessRow,
   runnerPath = SCRIPT_PATH,
   nodePath = process.execPath,
 } = {}) {
   if (!Array.isArray(argv) || argv.length < 2 || argv.some((value) => !safeDirectToken(value)) ||
+      !ALLOWED_HERMES_PROFILE_SET.has(profile) ||
       !command || typeof configPath !== "string" || resolve(configPath) !== SOCIAL_RUNTIME_CONFIG_PATH && resolve(configPath) !== resolve(dirname(runnerPath), "shortdrama.runtime.json") ||
       !Number.isSafeInteger(pid) || pid <= 1 || typeof readProcess !== "function") return false;
   const payloadIndexes = argv.flatMap((value, index) => value === "--payload" ? [index] : []);
@@ -395,12 +407,12 @@ export function inspectTrustedSocialInvoker({
     const runner = readProcess(pid);
     if (!exactProcessRow(runner, pid) || !directNodeInvocation(runner, { nodePath, runnerPath, argv })) return false;
     const shell = readProcess(runner.ppid);
-    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin })) return false;
+    if (!exactProcessRow(shell, runner.ppid) || !exactHermesShell(shell, { directCommand, payloadStdin, profile })) return false;
     const gateway = readProcess(shell.ppid);
-    const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway) : null;
+    const gatewayTokens = exactProcessRow(gateway, shell.ppid) ? exactGatewayProcess(gateway, profile) : null;
     if (!gatewayTokens) return false;
     const wrapper = readProcess(gateway.ppid);
-    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens);
+    return exactProcessRow(wrapper, gateway.ppid) && exactGatewayWrapper(wrapper, gatewayTokens, profile);
   } catch {
     return false;
   }
@@ -451,13 +463,14 @@ export function resolveInvocationIdentity(command, env = {}, policy = {}) {
       fail("social_command_denied", "Feishu Social sessions cannot invoke privileged or internal commands");
     }
     if (command.options.actorId || command.options.chatId) fail("session_identity_override", "Social session identity cannot be overridden");
-    if (env.HERMES_SESSION_PLATFORM !== "feishu" || env.HERMES_SESSION_PROFILE !== "social" ||
+    const profile = env.HERMES_SESSION_PROFILE;
+    if (env.HERMES_SESSION_PLATFORM !== "feishu" || !ALLOWED_HERMES_PROFILE_SET.has(profile) ||
         !env.HERMES_SESSION_USER_ID || !env.HERMES_SESSION_CHAT_ID) {
-      fail("session_identity_invalid", "A complete Feishu Social session is required");
+      fail("session_identity_invalid", "A complete authorized Hermes Feishu session is required");
     }
     return {
       mode: "social", actorId: normalized(env.HERMES_SESSION_USER_ID, "actorId"),
-      chatId: normalized(env.HERMES_SESSION_CHAT_ID, "chatId"), profile: "social",
+      chatId: normalized(env.HERMES_SESSION_CHAT_ID, "chatId"), profile,
     };
   }
   if (["account", "capture", "pool", "release", "metrics"].includes(command.group) || command.group === "sync" && command.action === "start") {
@@ -1694,8 +1707,8 @@ export async function execute(argv, {
     let preliminaryIdentity = null;
     if (rawHasSession) {
       preliminaryIdentity = resolveInvocationIdentity(command, env);
-      if (isTrustedSocialInvoker({ argv, command, configPath }) !== true) {
-        fail("social_invoker_untrusted", "Social commands require direct Hermes gateway execution");
+      if (isTrustedSocialInvoker({ argv, command, configPath, profile: preliminaryIdentity.profile }) !== true) {
+        fail("social_invoker_untrusted", "Bot commands require direct authorized Hermes gateway execution");
       }
       await validateSocialConfig(configPath, { expectedPath: socialConfigPath });
     }
