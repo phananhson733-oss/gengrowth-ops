@@ -101,3 +101,4 @@ Error: Feishu 1254060: TextFieldConvFail
     at async file:///Users/pengman/gengrowth-ops/inbox-pengman/tools/short-drama-release-manager/sync_shortdrama_to_feishu.mjs:382:40
 
 Node.js v24.19.0
+{"status":"failed","error":{"code":"config_invalid"}}
