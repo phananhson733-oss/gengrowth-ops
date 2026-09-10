@@ -168,16 +168,7 @@ batch_summary.json (Step 1 output)
           "label": "钩子：雨中质问 第5集 [18.5s-35.2s]"
         }
       ],
-      "subtitles": [
-        {
-          "text": "你知不知道我是谁",
-          "start_us": 0,
-          "duration_us": 2000000,
-          "words": [
-            {"word": "你", "start": 0.0, "end": 0.3, "confidence": 0.98}
-          ]
-        }
-      ]
+      "subtitles": []
     }
   ]
 }
@@ -191,3 +182,5 @@ batch_summary.json (Step 1 output)
 | `context` | after hook, before backbone | Part 2+ only |
 | `backbone` | after context, before ending | Sorted by episode |
 | `ending` | last | 1 per Part |
+
+ASR text is retained in the transcription and merged planning data only. Production edit plans always use `"subtitles": []`; the workflow does not create a visible text track.

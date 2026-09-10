@@ -40,6 +40,15 @@ def snap_boundary_to_utterance(ep: dict, target_s: float, snap_to: str) -> float
     if not segments:
         return target_s
 
+    # If the requested cut falls inside an ASR utterance, always expand to the
+    # matching utterance edge. A duration target must never win over a complete
+    # spoken line.
+    for seg in segments:
+        seg_start = float(seg.get("start", target_s))
+        seg_end = float(seg.get("end", target_s))
+        if seg_start < target_s < seg_end:
+            return seg_start if snap_to == "start" else seg_end
+
     best_dist = SNAP_TOLERANCE_S
     best_s = target_s
 
@@ -169,38 +178,15 @@ def build_part_edit_plan(part: dict, episodes: list[dict], merged_data: dict) ->
 
     draft_name = f"{merged_data['drama_title']}_Part{part['part_id']}_{part.get('title', '')}"
 
-    # Build subtitle entries from ASR word data
-    subtitles = []
-    for seg in segments:
-        ep = find_episode_by_number(episodes, int(seg.get("episode", 0)))
-        if ep:
-            source_start_s = seg["source_start_us"] / 1_000_000.0
-            source_end_s = (seg["source_start_us"] + seg["source_duration_us"]) / 1_000_000.0
-            for asr_seg in ep.get("segments", []):
-                asr_start = float(asr_seg.get("start", 0))
-                asr_end = float(asr_seg.get("end", 0))
-                # Check overlap with source range
-                if asr_end > source_start_s and asr_start < source_end_s:
-                    # Map to timeline
-                    offset_s = asr_start - source_start_s
-                    tl_start_us = seg["timeline_start_us"] + seconds_to_us(max(offset_s, 0))
-                    tl_duration_us = seconds_to_us(min(asr_end, source_end_s) - max(asr_start, source_start_s))
-                    text = str(asr_seg.get("text", "")).strip()
-                    if text and tl_duration_us > 0:
-                        subtitles.append({
-                            "text": text,
-                            "start_us": tl_start_us,
-                            "duration_us": tl_duration_us,
-                            "words": asr_seg.get("words", []),
-                        })
-
     return {
         "part_id": part["part_id"],
         "draft_name": draft_name,
         "canvas": {"width": 1080, "height": 1920, "ratio": "9:16", "fps": 24},
         "total_duration_us": timeline_cursor,
         "segments": segments,
-        "subtitles": subtitles,
+        # ASR remains planning evidence only. Production plans never insert
+        # captions or other text overlays into the video.
+        "subtitles": [],
     }
 
 

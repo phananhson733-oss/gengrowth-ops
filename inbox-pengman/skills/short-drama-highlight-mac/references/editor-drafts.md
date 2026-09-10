@@ -28,7 +28,7 @@ The script stages one CapCut folder and one Jianying folder. It refuses to overw
 
 ## Silent visual drafts
 
-For a BGM-ready visual montage, add `--mute-audio`. This sets every source-video segment's volume to zero while keeping every clip independently editable:
+For an explicitly requested silent visual montage, add `--mute-audio`. This sets every source-video segment's volume to zero while keeping every clip independently editable; it does not add replacement music, sound effects, or text:
 
 ```bash
 ~/.codex/venvs/short-drama-highlight-mac/bin/python scripts/build_editor_drafts.py \
@@ -72,3 +72,5 @@ Verified on this Mac on 2026-08-24: CapCut 8.9.1 and JianyingPro 11.2.0 both lis
 ## Full drafts
 
 After the direct MP4 and requested editor canaries pass, omit `--canary-seconds` and generate each planned part with a new unique name. Keep the direct MP4 beside the editable projects as the stable preview and recovery output.
+
+When the user requests an account-specific ending preset or a preview → rewind transition, apply that only to the newly staged CapCut draft before installation. Read [capcut-delivery.md](capcut-delivery.md) and use `scripts/apply_capcut_delivery.py`. Do not apply CapCut combination presets to Jianying drafts or to the direct MP4 unless separately requested and verified.
