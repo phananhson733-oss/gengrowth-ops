@@ -1,0 +1,3 @@
+# Local generated outputs; never commit generated data.
+*
+!.gitignore
