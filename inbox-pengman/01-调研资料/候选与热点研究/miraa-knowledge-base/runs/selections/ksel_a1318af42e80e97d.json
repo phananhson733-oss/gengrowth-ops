@@ -1,0 +1,25 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T07:55:44.744577+00:00",
+  "dedupe_checked_at": "2026-08-31T07:55:44Z",
+  "dedupe_note": "已核对Sheet全部H3/H4 pending及KB使用记录；两条均无同题候选",
+  "freshness_checked_at": "2026-08-31T07:55:44.744577+00:00",
+  "freshness_result": "valid",
+  "kb_version": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "Scorpio Aquarius Aries breakup repair undefined relationship competitor hook",
+  "request_summary": "批次A1：Scorpio-Aquarius与Scorpio-Aries两条高流量关系冲突候选",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_a1318af42e80e97d",
+  "source_ids": [
+    "src-7e907d341a",
+    "src-ac246815dd"
+  ],
+  "topic_ids": [
+    "miraa-scorpio-aquarius-复合意愿不等于修复证据",
+    "miraa-scorpio-aries-慢速承诺与模糊边界"
+  ],
+  "week": "2026-W36"
+}

@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:10:18.925520+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "61b514c0f6d8f09379b177c1809fd4f1b140b354c5df7f21f6e802fc4021c0f4",
+  "kb_version_before": "fb345dac568f0678c88dbab72076b7d84ed543e43cd7ae7cdf2e938e14165f44",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_af461e6d16607f13.json",
+  "receipt_sha256": "43610684a38ca31a2591dde7c06cb1632295d01520fe2be36066e4e24f542137",
+  "run_id": "krun-20260831T081018Z-d9a3da",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:10:18.808758+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-gemini-taurus-冒险与安静陪伴可以同时存在"
+  ]
+}

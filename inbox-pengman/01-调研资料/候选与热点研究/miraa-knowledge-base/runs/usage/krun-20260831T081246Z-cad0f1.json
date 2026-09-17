@@ -1,0 +1,21 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:12:46.938657+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "kb_version_before": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_4113fd71b637407a.json",
+  "receipt_sha256": "e2c163406b27022b6c61d484f94edea5765aed6519ca2f56a8cf7bb1117aaad4",
+  "run_id": "krun-20260831T081246Z-cad0f1",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:12:46.870940+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

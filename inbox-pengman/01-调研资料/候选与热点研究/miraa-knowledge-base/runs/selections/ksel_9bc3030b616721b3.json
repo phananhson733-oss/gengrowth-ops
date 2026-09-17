@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T08:03:53.341599+00:00",
+  "dedupe_checked_at": "2026-08-31T08:03:53Z",
+  "dedupe_note": "",
+  "freshness_checked_at": "2026-08-31T08:03:53.341599+00:00",
+  "freshness_result": "valid",
+  "kb_version": "0ec39d85e6b3ce44c514ef7c2e7cfa4b7c7599abc732ca76af5a6efb8ded3c74",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "",
+  "request_summary": "x",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_9bc3030b616721b3",
+  "source_ids": [
+    "src-ba363cbf98"
+  ],
+  "topic_ids": [
+    "miraa-virgo-新月的清理与重启仪式"
+  ],
+  "week": "2026-W36"
+}

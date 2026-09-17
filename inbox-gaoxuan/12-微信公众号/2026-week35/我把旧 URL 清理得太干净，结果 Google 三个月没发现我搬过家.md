@@ -2,7 +2,6 @@
 title: 我把旧 URL 清理得太干净，结果 Google 三个月没发现我搬过家
 type: wechat-official-account-draft
 status: ready-for-layout
-owner: Gao Xuan
 updated: 2026-08-26
 week: 2026-week35
 ---

@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:08:40.554018+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "fb345dac568f0678c88dbab72076b7d84ed543e43cd7ae7cdf2e938e14165f44",
+  "kb_version_before": "82569152f25287ebb343daefddddd8064c597cffbce7306c1b399e1f5085d0db",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_1e1de94c5863ca70.json",
+  "receipt_sha256": "649d69a667ba8e59b7a2d962400c0b616f0e65a1a14697a5ac4e173098bf43fb",
+  "run_id": "krun-20260831T080840Z-025a9b",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:08:40.436689+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-scorpio-aries-慢速承诺与模糊边界"
+  ]
+}

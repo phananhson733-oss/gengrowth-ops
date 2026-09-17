@@ -1,0 +1,22 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-09-05T02:04:55.142326+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "kb_version_before": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "mode": "daily",
+  "patrol_note": "水位2026-09-04T02:05Z(上轮daily no_new_signal, 其后kb_version无变化b95544a9)。①竞品: 索引CSV端点curl读取成功HTTP 200(18账号=16TikTok+1X+1IG, 与上轮一致, 无新增); 抽查正文全不可读——TikTok @thepattern/@costarastrology仅壳层'TikTok - Make Your Day', x.com/satyastrology本轮WebFetch HTTP 402(与上轮一致), instagram.com/astrology.mn仅轮廓页(193K粉丝+bio+栏目高亮, 无具体caption与时间戳); 按§8壳层/摘要不建Source。②社区Topic: Reddit仍全封锁(www r/Scorpio new.json curl 403拦截页; old.reddit 200但渲染Welcome to Reddit登录墙+blocked, 0条帖子); YouTube两个已跟踪Source本轮watch页恢复元数据层可读——oEmbed+watch页确认在线且标题与KB一致, 播放数较09-03继续上涨: src-267587face(Scorpio) 30,287→33,914(+12%), src-ba363cbf98(Virgo新月) 135,303→163,052(+21%), 但commentRenderer仍0条、评论正文不可读, 互动上涨仅到元数据层, 无本轮可读quote_verbatim, 依09-03先例不成receipt, 留档待明日9/6周日weekly复核评论层并同轮处理两predictable topic续期(valid_until均9/7)。③Predictable: 金星入Scorpio 9/10与Virgo新月9/10-11均未进T-72h(9/7开启, 距今约2天); 无T-72/T-24待办。④Hot: WebSearch两轮(9/4占星新闻+TikTok占星趋势)仅命中常规每日运势(9/4 Last Quarter Moon in Gemini三星座聚合)与常青zodiac趋势discover聚合页及长期transit内容(Jupiter in Leo, Chiron 9月回Aries至2027-04属慢速transit非当前爆点), 无需Hot实时评估的新信号。判定no_new_signal。",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "run_id": "krun-20260905T020454Z-d2cb0b",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-09-05T02:04:54.766126+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

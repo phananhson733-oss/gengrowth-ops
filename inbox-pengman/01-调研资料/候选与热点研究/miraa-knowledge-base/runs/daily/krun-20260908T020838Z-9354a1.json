@@ -1,0 +1,22 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-09-08T02:08:39.095666+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "0b5037784ae5b00ccb9c58262d78eba06bce16e748f0653c6e14ecfbd12c5a13",
+  "kb_version_before": "0b5037784ae5b00ccb9c58262d78eba06bce16e748f0653c6e14ecfbd12c5a13",
+  "mode": "daily",
+  "patrol_note": "水位2026-09-07T02:25Z(上轮为W36周更ingest成功, kb_version=0b503778, 其后无写入)。①竞品: 索引CSV端点curl HTTP 200, 18账号=16TikTok+1X+1IG, 与上轮完全一致无新增(首行@birthchart.com仍status=pending)。抽查4个正文全不可读——TikTok @thepattern/@costarastrology仍仅壳层\"TikTok - Make Your Day\"(本轮meta desc可见粉丝/点赞计数 86.1k/352.9k followers, 仍属账号元数据非帖子正文, 无caption无时间戳); x.com/satyastrology本轮HTTP 200但仅bio轮廓(上轮402); instagram.com/astrology.mn仅title壳层。按§8壳层/摘要不建Source。②社区Topic: 【评论层本轮恢复可读】——自09-02以来首次, 方法: watch页ytInitialData取sectionIdentifier=comment-item-section的continuationCommand token, 再POST youtubei/v1/next, 每视频得20条顶部评论正文(注: 直接用watch页首个token取到的是相关视频流, 非评论, 必须走comment-item-section)。据此复核5个已跟踪YouTube Source, 全部在线、锚定quote原文逐字仍在: src-267587face 37,213→38,466 views/59→62评论, 锚引(@TheVeronett)24→26赞3回复; src-ba363cbf98 186,660→200,331 views/482→511评论, 锚引(@cottonfaze6597)299→318赞7→9回复; src-727f75788e 27,115→48,832 views/78→135评论, 锚引(@NanaLine001)24→49赞9→11回复; src-001bde3c69 50,839→57,533 views/127→136评论, 锚引(@stacie3238)17赞未变; src-14c2b86350 19,642→22,349 views/76→82评论, 锚引(@maryheller8560)即支撑miraa-旧情人带着重大承诺回归的压力那条本人评论。src-727f75788e的+80% views/+73%评论看似激增, 但该视频09-06发布, 属2日龄新视频的正常上升段(对照成熟视频ba363cbf98仅+7%/日、267587face +3%/日), 非事件驱动的异常互动, 不作为高互动信号。水位后24h内的新增评论逐条判定: 有实质内容的全部命中昨日W36周更刚建的Topic——@Woodswillows(前伴侣大量书面联系)/@maryheller8560(30年前旧情人回归)→miraa-旧情人带着重大承诺回归的压力; @PalatineGentils(慢性疲劳)/@europeanupholstery1013(发炎消化头痛后好转并回套预测)/@nadiakashani(换办公室+胃部不适)/@LindaOSullivan(下决心练身体)→miraa-virgo-新月的清理与重启仪式; @mariaserralheiro9196(把出书押在9/11)/@lintlemonethi9101(改期后才发现初次约会正好落在本命星座新月日)→择时/预测被当作确认, 已在miraa-virgo-新月的清理与重启仪式与miraa-scorpio-金星入座的期待与现实落差覆盖。其余新增(@SeldomBinary/@angela.f/@jackievaldez4785/@Manifesther17/@VERITEVERITA等)为纯感谢与无内容填充。专门找反方观点: 仅@westernmac5944(越学越不懂)与针对创作者更新频率/晒娃的元讨论(@katietruman5889/@QueenViktor/@KimHarveyCosmicSoul), 均发布于水位之前且指向创作者非选题。全部记为去重命中, 不重复建Source, 不因\"评论层今天能读\"就把旧内容当新发现。Reddit本轮未再尝试(连续5轮全封锁)。③Predictable: 两个predictable topic已进入T-72h窗口内——Virgo新月9/10-11、金星入Scorpio 9/10, 现2026-09-08T02:0xZ距9/10T00:00Z约46h, 即已过T-48h, T-24h将于2026-09-09T00:00Z开启(明日巡逻覆盖)。两topic昨日周更刚续期(last_verified_at 2026-09-07, valid_until 2026-09-14)且各带2条直接可读来源, 证据门已满足, 本轮无续期待办、无需补证。④Hot: WebSearch两轮(9/7占星新闻+TikTok占星趋势)仅命中同一9/10事件簇的常规周运/日运聚合(Yahoo周运9/7-13、astrosofa、Vice日运、Almanac月运)与常青zodiac discover聚合页及长周期transit(Jupiter in Leo 2026-27), 无需Hot实时评估的当前信号。判定no_new_signal: 全部实质发现均为对24小时前已建Topic的去重命中或与视频龄期相符的常规互动漂移, 写receipt只会为产出而产出并平白作废未使用的选题凭据。",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "run_id": "krun-20260908T020838Z-9354a1",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-09-08T02:08:38.712961+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

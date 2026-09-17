@@ -1,0 +1,22 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-09-02T02:04:21.297751+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "kb_version_before": "b95544a9733b2b0912671d4517c87d6fc94dabc4dea59500eeab216512377cd5",
+  "mode": "daily",
+  "patrol_note": "水位2026-08-31T02:27Z(W35周更success)。①竞品: 索引CSV端点读取成功(18账号=16TikTok+1X+1IG, 与上轮一致); 正文全不可读——TikTok @thepattern与@costarastrology仅壳层'TikTok - Make Your Day', x.com/satyastrology HTTP 402, instagram.com/astrology.mn 仅193K粉丝轮廓+栏目高亮与无caption缩略图; 按§8壳层/摘要不建Source。②社区Topic: Reddit仍全入口封锁(www r/Scorpio与r/libra_astrology new.json均403拦截页, old.reddit 200但渲染为Welcome to Reddit登录墙); YouTube试点watch?v=Y3V8Pzd6Xqs仅渲染footer壳层, 无标题/互动/评论正文——60个topic的新讨论核验本轮不可达。③Predictable: 2个predictable标签topic(Scorpio金星入座9/10, Virgo新月9/10-11)均未进T-72h窗口(最早9/7进入), 无待办。④Hot: WebSearch(astrology viral news Sep 1 2026)仅命中常规每日运势(Mars square Saturn等)与2026年运聚合页, 无需Hot实时评估的新信号。另注: 周一(Chicago 08-31)的daily记录缺失, runs/daily最新为08-30T02:03Z, 疑该轮未跑或未落记录。判定no_new_signal。",
+  "receipt_path": "",
+  "receipt_sha256": "",
+  "run_id": "krun-20260902T020420Z-406027",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-09-02T02:04:20.931444+00:00",
+  "status": "no_new_signal",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

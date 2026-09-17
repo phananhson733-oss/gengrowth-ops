@@ -1,3 +1,4 @@
 # Local TikTok capture outputs; never commit generated data.
 *
+/short-drama-release-manager/migrations/
 !.gitignore

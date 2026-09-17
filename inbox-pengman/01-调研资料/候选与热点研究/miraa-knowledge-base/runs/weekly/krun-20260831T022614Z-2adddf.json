@@ -1,0 +1,21 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "readable_pages says 8, but the source list has 7 direct readable pages",
+  "finished_at": "2026-08-31T02:26:15.018045+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": false,
+  "kb_version_after": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "kb_version_before": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "mode": "weekly",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts/weekly-2026-W35-20260831T021924Z.json",
+  "receipt_sha256": "16a8b09a349187cf398dff08a92234ca4f08fba39aaa298bf72d96c44ddc5fdc",
+  "run_id": "krun-20260831T022614Z-2adddf",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T02:26:14.684837+00:00",
+  "status": "failed",
+  "updated_source_ids": [],
+  "updated_topic_ids": []
+}

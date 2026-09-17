@@ -27,7 +27,8 @@ themes:
 title: Libra × Sagittarius：直接表达如何建立安全感
 topic_id: miraa-libra-sagittarius-直接表达如何建立安全感
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-07
 valid_until: '2026-09-02T06:27:14+00:00'
 ---
 # Libra × Sagittarius：直接表达如何建立安全感
@@ -56,4 +57,5 @@ Limitations: Single positive account; no readable replies or counterexamples in 
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-07 via ksel_4113fd71b637407a
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:b77e20fdc147); sources: src-7fda75d24e

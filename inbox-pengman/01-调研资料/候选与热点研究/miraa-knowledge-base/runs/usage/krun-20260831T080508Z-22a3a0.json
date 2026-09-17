@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [],
+  "created_topic_ids": [],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T08:05:08.921432+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "f1d10f751c1b90fa19a671b8f7242896488dcaee98501fd82ebe81d6f453f768",
+  "kb_version_before": "0ec39d85e6b3ce44c514ef7c2e7cfa4b7c7599abc732ca76af5a6efb8ded3c74",
+  "mode": "usage",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/miraa-knowledge-base/runs/selections/ksel_9bc3030b616721b3.json",
+  "receipt_sha256": "3d9d6364ccdd20303b4cf62d52f17afb14af14c4f9640fd327d6b46cd525e10b",
+  "run_id": "krun-20260831T080508Z-22a3a0",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T08:05:08.805049+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-virgo-新月的清理与重启仪式"
+  ]
+}

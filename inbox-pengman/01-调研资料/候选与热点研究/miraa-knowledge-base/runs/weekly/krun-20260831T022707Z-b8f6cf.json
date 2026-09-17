@@ -1,0 +1,38 @@
+{
+  "account": "@miraaastrology",
+  "created_source_ids": [
+    "src-0c9c1e100f",
+    "src-267587face",
+    "src-2d9dd05710",
+    "src-ba363cbf98",
+    "src-bd76081c7a",
+    "src-dda94ec6c9",
+    "src-fb6832a680"
+  ],
+  "created_topic_ids": [
+    "miraa-scorpio-认真后反而变安静",
+    "miraa-scorpio-金星入座的期待与现实落差",
+    "miraa-virgo-新月的清理与重启仪式",
+    "miraa-用独处消化情绪不等于冷落",
+    "miraa-运势内容的疲劳与怀疑"
+  ],
+  "failure_reason": "",
+  "finished_at": "2026-08-31T02:27:08.120537+00:00",
+  "gbrain_sync_status": "skipped",
+  "index_rebuilt": true,
+  "kb_version_after": "2225b630ce8c3ae1c979a84107a6eebd02d149eff8547994c56fb05273ba557d",
+  "kb_version_before": "b4b7b61da6286c07584427a6aed67e2bda4dbc9b6b147a2068c2ce85659caf8e",
+  "mode": "weekly",
+  "receipt_path": "/Users/awayer_mini/gengrowth-ops/inbox-pengman/01-调研资料/候选与热点研究/research-receipts/weekly-2026-W35-20260831T022658Z.json",
+  "receipt_sha256": "11b59582f4edbd4bb822cd33f7b1b6f9019a1d27658e93d465b56f2aa9acbdce",
+  "run_id": "krun-20260831T022707Z-b8f6cf",
+  "schema_version": "social-kb-run/v1",
+  "skipped": [],
+  "started_at": "2026-08-31T02:27:07.495143+00:00",
+  "status": "success",
+  "updated_source_ids": [],
+  "updated_topic_ids": [
+    "miraa-capricorn-退出",
+    "miraa-单向倾诉何时耗尽友情"
+  ]
+}

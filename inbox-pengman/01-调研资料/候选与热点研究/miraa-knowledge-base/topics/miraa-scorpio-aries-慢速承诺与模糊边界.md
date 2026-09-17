@@ -26,7 +26,8 @@ themes:
 title: Scorpio × Aries：慢速承诺与模糊边界
 topic_id: miraa-scorpio-aries-慢速承诺与模糊边界
 type: social-research-topic
-used_content_ids: []
+used_content_ids:
+- miraa-w36-traffic-20260831-05
 valid_until: '2026-09-02T06:17:58+00:00'
 ---
 # Scorpio × Aries：慢速承诺与模糊边界
@@ -55,4 +56,5 @@ Limitations: Single Reddit body; no readable comments in the retained extract an
 
 ## Timeline
 
+- 2026-08-31: used by miraa-w36-traffic-20260831-05 via ksel_1e1de94c5863ca70
 - 2026-08-26: targeted ingest (mode C, week 2026-W35, receipt sha256:cd62f1f99c10); sources: src-7e907d341a

@@ -23,6 +23,7 @@ updated: 2026-08-07
 | 填单条 Brief | [[inbox-pengman/02-生产/00-evergreen-workflows/统一内容 Brief 模板|统一内容要求模板]] | 内容要求和字段完成标准 |
 | 制作 AI Host / 短视频 | [[inbox-pengman/02-生产/00-evergreen-workflows/ai-short-video-production-workflow|AI 短视频制作流程]] | 脚本确认后的生成、剪辑、字幕、排期和发布 |
 | 起号和养号 | [[inbox-pengman/02-生产/00-evergreen-workflows/通用社媒账号起号与轻量养号流程|通用社媒账号起号与轻量养号流程]] | 跨项目账号启动，不是单条内容必读 |
+| TikTok / YouTube 短剧账号起号和养号 | [[inbox-pengman/02-生产/00-evergreen-workflows/TikTok + YouTube 短剧账号起号养号 SOP|TikTok + YouTube 短剧账号起号养号 SOP]] | 双平台短剧新号的注册、养号、首批发布与判断 |
 | 查看总控角色与权威顺序 | [[inbox-pengman/02-生产/00-evergreen-workflows/ai-advisor/社媒运营总控军师工作手册|社媒运营总控军师工作手册]] | AI 决策边界和信息来源口径 |
 | 查看当前滚动状态 | [[inbox-pengman/02-生产/00-evergreen-workflows/ai-advisor/当前状态与决策记录|当前状态与决策记录]] | 可选概览；状态变化后覆盖更新，不作历史档案 |
 

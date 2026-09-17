@@ -227,6 +227,13 @@ def build_document(template: dict, part: dict, platform: dict, canary_seconds: f
     cursor_us = 0
     media_rows: list[dict] = []
     media_cache: dict[str, tuple[str, str, dict]] = {}
+    neutral_material_kinds = {
+        "canvases",
+        "material_colors",
+        "sound_channel_mappings",
+        "speeds",
+        "vocal_separations",
+    }
 
     for source in source_segments:
         media_path = Path(source["video_path"]).expanduser().resolve()
@@ -279,12 +286,13 @@ def build_document(template: dict, part: dict, platform: dict, canary_seconds: f
         segment["common_keyframes"] = []
         segment["keyframe_refs"] = []
         segment["extra_material_refs"] = []
+        segment["hdr_settings"] = None
         for old_ref in segment_template.get("extra_material_refs") or []:
             hit = ref_lookup.get(old_ref)
             if not hit:
                 continue
             kind, ref_template = hit
-            if kind == "videos":
+            if kind not in neutral_material_kinds:
                 continue
             ref_value = copy.deepcopy(ref_template)
             ref_value["id"] = uid()

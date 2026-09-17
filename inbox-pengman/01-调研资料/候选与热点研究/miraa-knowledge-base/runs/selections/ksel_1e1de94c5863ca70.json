@@ -1,0 +1,23 @@
+{
+  "account": "@miraaastrology",
+  "created_at": "2026-08-31T08:07:21.111969+00:00",
+  "dedupe_checked_at": "2026-08-31T08:07:21Z",
+  "dedupe_note": "",
+  "freshness_checked_at": "2026-08-31T08:07:21.111969+00:00",
+  "freshness_result": "valid",
+  "kb_version": "82569152f25287ebb343daefddddd8064c597cffbce7306c1b399e1f5085d0db",
+  "mode": "B",
+  "product": "astrologywiki",
+  "query": "",
+  "request_summary": "x",
+  "schema_version": "social-kb-selection/v1",
+  "search_backend": "fallback_index",
+  "selection_receipt_id": "ksel_1e1de94c5863ca70",
+  "source_ids": [
+    "src-7e907d341a"
+  ],
+  "topic_ids": [
+    "miraa-scorpio-aries-慢速承诺与模糊边界"
+  ],
+  "week": "2026-W36"
+}

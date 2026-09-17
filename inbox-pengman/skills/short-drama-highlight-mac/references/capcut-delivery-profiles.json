@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "default_rewind_transition": {
+    "name": "明亮闪光",
+    "duration_seconds": 2.0
+  },
+  "accounts": {
+    "jolienqaq": {
+      "ending_preset": "我的预设4"
+    },
+    "dramaexpedition": {
+      "ending_preset": "我的预设2"
+    }
+  }
+}
