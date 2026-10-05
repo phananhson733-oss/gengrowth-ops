@@ -1,13 +1,16 @@
 import fs from "node:fs/promises";
+import { DatabaseSync } from "node:sqlite";
+import { captureAccountUsernames, classifyListingResult, classifyProfileStatus, detailMatchesTarget, guardZeroMetrics, isExpiredPost, isPhotoPost, metricCount, parseProfileListing, planCaptureTargets, rotateByDate, runDetailPasses, validateExcludedPostIds, validateMaxPostAgeDays } from "../short-drama-release-manager/src/capture-policy.mjs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
-import { saveLocalHistory, syncGoogleSheets } from "./persistence.mjs";
+import { readViewHighWater, saveLocalHistory, syncGoogleSheets } from "./persistence.mjs";
 import { reconcileProductionRecords } from "./reconcile_published_content.mjs";
 import { syncFeishuFollowerMetrics } from "./feishu_sync.mjs";
 
-const usernames = [
+// Used only by historical standalone calls; production Runner supplies Base accounts.
+const legacyUsernames = [
   "astrologywiki",
   "dramapenelope",
   "miraaastrology",
@@ -19,8 +22,27 @@ const usernames = [
   "dramaclips0364",
   "dramavault163",
   "dramaexpedition",
+  "ngphnggiang40",
+  "lthung263",
+  "hnlinhthng9678",
 ];
 const fromRaw = process.argv.includes("--from-raw");
+const ageArgument = process.argv.indexOf("--max-post-age-days");
+const maxPostAgeDays = validateMaxPostAgeDays(ageArgument === -1 ? undefined : Number(process.argv[ageArgument + 1]));
+let registeredTargets = { posts: [], issues: [] };
+if (process.argv.includes("--registered-posts-stdin")) {
+  const chunks = []; let bytes = 0;
+  for await (const chunk of process.stdin) {
+    bytes += chunk.length;
+    if (bytes > 1024 * 1024) throw new Error("Registered capture targets exceed input limit");
+    chunks.push(chunk);
+  }
+  registeredTargets = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  if (!registeredTargets || !Array.isArray(registeredTargets.posts) || !Array.isArray(registeredTargets.issues)) throw new Error("Invalid registered capture targets");
+}
+const usesAccountLedger = process.argv.includes("--registered-posts-stdin");
+const excludedPostIds = validateExcludedPostIds(registeredTargets.excluded_post_ids);
+const usernames = usesAccountLedger ? captureAccountUsernames(registeredTargets.accounts) : legacyUsernames;
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, "../../..");
 const outputDir = path.join(repoRoot, "inbox-pengman", "output");
@@ -45,14 +67,20 @@ async function fetchText(url, destination) {
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
       const controller = new AbortController();
+      // The deadline covers the body as well as the headers: a stalled body
+      // must not hang the whole capture run.
       const timer = setTimeout(() => controller.abort(), 30000);
-      const response = await fetch(url, {
-        headers: { "user-agent": userAgent, "accept-language": "en-US,en;q=0.9" },
-        redirect: "follow",
-        signal: controller.signal,
-      });
-      clearTimeout(timer);
-      const text = await response.text();
+      let response, text;
+      try {
+        response = await fetch(url, {
+          headers: { "user-agent": userAgent, "accept-language": "en-US,en;q=0.9" },
+          redirect: "follow",
+          signal: controller.signal,
+        });
+        text = await response.text();
+      } finally {
+        clearTimeout(timer);
+      }
       if (!response.ok || text.length < 1000) {
         throw new Error("HTTP " + response.status + ", bytes=" + text.length);
       }
@@ -72,15 +100,19 @@ async function fetchPhotoDetail(photoUrl, destination) {
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 30000);
-      const response = await fetch(
-        "https://www.tikwm.com/api/?url=" + encodeURIComponent(photoUrl) + "&hd=1",
-        {
-          headers: { "user-agent": userAgent, "accept-language": "en-US,en;q=0.9" },
-          signal: controller.signal,
-        },
-      );
-      clearTimeout(timer);
-      const payload = await response.json();
+      let response, payload;
+      try {
+        response = await fetch(
+          "https://www.tikwm.com/api/?url=" + encodeURIComponent(photoUrl) + "&hd=1",
+          {
+            headers: { "user-agent": userAgent, "accept-language": "en-US,en;q=0.9" },
+            signal: controller.signal,
+          },
+        );
+        payload = await response.json();
+      } finally {
+        clearTimeout(timer);
+      }
       if (!response.ok || payload?.code !== 0 || !payload?.data?.id) {
         throw new Error("HTTP " + response.status + ", API code=" + payload?.code + ", message=" + payload?.msg);
       }
@@ -88,6 +120,7 @@ async function fetchPhotoDetail(photoUrl, destination) {
       const data = payload.data;
       return {
         id: String(data.id),
+        author_username: data.author?.unique_id ?? null,
         timestamp: asNumber(data.create_time),
         description: data.title ?? "",
         view_count: asNumber(data.play_count),
@@ -95,6 +128,9 @@ async function fetchPhotoDetail(photoUrl, destination) {
         comment_count: asNumber(data.comment_count),
         save_count: asNumber(data.collect_count),
         repost_count: asNumber(data.share_count),
+        // The fallback is reached through a /photo/ URL for every failed video, so
+        // the media type must come from the payload itself.
+        content_type: Array.isArray(data.images) && data.images.length > 0 ? "photo" : "video",
         extractor: "tikwm-photo-fallback",
         webpage_url: photoUrl,
       };
@@ -123,9 +159,7 @@ function parseProfile(html) {
   return state.__DEFAULT_SCOPE__["webapp.user-detail"];
 }
 
-function asNumber(value) {
-  return value === null || value === undefined || value === "" ? null : Number(value);
-}
+const asNumber = metricCount;
 
 function csvEscape(value) {
   if (value === null || value === undefined) return "";
@@ -143,39 +177,113 @@ await fs.mkdir(rawDir, { recursive: true });
 await fs.mkdir(outputDir, { recursive: true });
 
 const sourceAccounts = [];
-const errors = [];
+const errors = registeredTargets.issues.filter(issue => issue.account_id).map(issue => ({
+  username: issue.account_id, stage: "account_registry", code: issue.code,
+}));
 
-for (const username of usernames) {
-  try {
-    let profileHtml;
-    let embedHtml;
-    const profilePath = path.join(rawDir, username + "_profile.html");
-    const embedPath = path.join(rawDir, username + "_embed.html");
-    if (fromRaw) {
-      [profileHtml, embedHtml] = await Promise.all([
-        fs.readFile(profilePath, "utf8"),
-        fs.readFile(embedPath, "utf8"),
-      ]);
-    } else {
-      profileHtml = await fetchText("https://www.tiktok.com/@" + username, profilePath);
-      await sleep(3000);
-      embedHtml = await fetchText("https://www.tiktok.com/embed/@" + username, embedPath);
-      await sleep(3000);
-    }
-    sourceAccounts.push({
-      username,
-      profile: parseProfile(profileHtml),
-      embed: parseEmbed(embedHtml),
-    });
-  } catch (error) {
-    errors.push({ username, stage: "account", error: String(error) });
+// The embed page only shows the newest ~10 posts, so discovery also pages
+// through the profile with yt-dlp. Only three fields are printed per entry
+// (~75 bytes) so a full page set stays far below the spawn buffer.
+const LISTING_LIMIT = 300;
+const DETAIL_BUDGET_MS = 4 * 60 * 60 * 1000;
+// Real photo posts fail every fallback, so the breaker allows a short run of them.
+const DETAIL_CIRCUIT_FAILURES = 8;
+const LISTING_TIMEOUT_MS = 180000;
+const LISTING_MAX_BUFFER = 16 * 1024 * 1024;
+const listingCutoffSeconds = (Date.parse(capturedAt) - maxPostAgeDays * 86400000) / 1000;
+
+async function listProfileVideos(username, expectedPosts) {
+  const listingPath = path.join(rawDir, username + "_listing.ndjson");
+  if (fromRaw) {
+    try { return { ...parseProfileListing(await fs.readFile(listingPath, "utf8"), { limit: LISTING_LIMIT, cutoffSeconds: listingCutoffSeconds }), error: null }; }
+    catch { return { items: [], rows: 0, truncated: false, error: null }; }
   }
+  const result = spawnSync("yt-dlp", [
+    "--flat-playlist", "--no-warnings", "--playlist-end", String(LISTING_LIMIT),
+    "-O", "%(.{id,timestamp,view_count})j",
+    "https://www.tiktok.com/@" + username,
+  ], { encoding: "utf8", timeout: LISTING_TIMEOUT_MS, maxBuffer: LISTING_MAX_BUFFER });
+  const stdout = result.stdout ?? "";
+  const parsed = parseProfileListing(stdout, { limit: LISTING_LIMIT, cutoffSeconds: listingCutoffSeconds });
+  // A failed listing must not replace a good file saved earlier the same day.
+  if (parsed.rows > 0) await fs.writeFile(listingPath, stdout, "utf8");
+  const error = classifyListingResult({ errorCode: result.error ? (result.error.code ?? "spawn_failed") : null, status: result.status,
+    signal: result.signal, stderr: result.stderr, username, rows: parsed.rows, truncated: parsed.truncated, expectedPosts });
+  return { ...parsed, error, stderr: String(result.stderr ?? "").trim().split("\n").at(-1)?.slice(0, 200) ?? "" };
 }
 
-if (fromRaw && sourceAccounts.length === 0) {
+for (const username of usernames) {
+  const profilePath = path.join(rawDir, username + "_profile.html");
+  const embedPath = path.join(rawDir, username + "_embed.html");
+  // Profile, embed and listing fail independently. An account whose entry pages
+  // fail still has its already-known posts captured below.
+  let profile = null;
+  let embed = null;
+  try {
+    const html = fromRaw ? await fs.readFile(profilePath, "utf8") : await fetchText("https://www.tiktok.com/@" + username, profilePath);
+    profile = parseProfile(html);
+  } catch (error) {
+    errors.push({ username, stage: "account", code: "account_entry_failed", error: String(error).slice(0, 300) });
+  }
+  const profileStatus = profile === null ? "ok" : classifyProfileStatus(profile?.statusCode);
+  const unavailable = profileStatus === "unavailable";
+  if (profileStatus !== "ok") {
+    // Unavailable: TikTok reports the account itself as gone (banned, deleted
+    // or private), so discovery is pointless. Any other code only means this
+    // page read failed; the embed page and the listing are still tried.
+    const statusCode = Number(profile.statusCode);
+    errors.push({ username, stage: "account", code: unavailable ? "account_unavailable" : "account_entry_failed",
+      status_code: Number.isFinite(statusCode) ? statusCode : String(profile.statusCode).slice(0, 32) });
+    profile = null;
+  } else if (profile !== null && !profile?.userInfo) {
+    // The page loaded but carries no account data (a changed layout or a wall).
+    errors.push({ username, stage: "account", code: "account_entry_failed", error: "profile page without account data" });
+    profile = null;
+  }
+  if (!fromRaw) await sleep(3000);
+  if (!unavailable) {
+    try {
+      const html = fromRaw ? await fs.readFile(embedPath, "utf8") : await fetchText("https://www.tiktok.com/embed/@" + username, embedPath);
+      embed = parseEmbed(html) ?? null;
+      if (!embed) errors.push({ username, stage: "embed", code: "account_entry_failed", error: "embed page without account data" });
+    } catch (error) {
+      errors.push({ username, stage: "embed", code: "account_entry_failed", error: String(error).slice(0, 300) });
+    }
+    if (!fromRaw) await sleep(3000);
+  }
+  let listing = { items: [], rows: 0, truncated: false, error: null };
+  if (!unavailable) {
+    listing = await listProfileVideos(username, asNumber(profile?.userInfo?.stats?.videoCount));
+    if (listing.error) errors.push({ username, stage: "listing", code: listing.error, rows: listing.rows, detail: listing.stderr || undefined });
+  }
+  sourceAccounts.push({ username, profile, embed, listing: listing.items, entryOk: Boolean(profile?.userInfo || embed?.userInfo) });
+}
+
+if (fromRaw && !sourceAccounts.some((account) => account.entryOk)) {
   throw new Error(`No readable raw TikTok account files found in ${rawDir}. Run a live capture first, then replay the same Beijing-date raw directory.`);
 }
 
+// Read historical identities and publication dates only, never copy stored metrics.
+let knownPosts = [];
+// Highest stored views per post are read only to recognise a suspicious drop
+// to zero below; they are never written back as this run's metrics.
+let previousViews = new Map();
+const metricsPath = path.join(outputDir, "tiktok_metrics.sqlite");
+try {
+  await fs.access(metricsPath);
+  const history = new DatabaseSync(metricsPath, { readOnly: true });
+  try {
+    knownPosts = history.prepare("SELECT post_id,username,post_url,published_at,caption FROM posts").all();
+    previousViews = readViewHighWater(history, { captureDate, capturedAt });
+  }
+  finally { history.close(); }
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+const targetPlan = planCaptureTargets({ accounts: sourceAccounts, knownPosts: [...registeredTargets.posts, ...knownPosts], now: capturedAt, maxAgeDays: maxPostAgeDays, excludedPostIds });
+const skippedAfterDiscovery = [];
+const expiredMetadata = [];
+for (const account of sourceAccounts) account.captureTargets = targetPlan.targets.filter(item => item.username === account.username);
 const detailPath = path.join(rawDir, "post_details.ndjson");
 let detailRows = [];
 if (fromRaw) {
@@ -184,42 +292,43 @@ if (fromRaw) {
     detailRows = text.split(/\n/).filter(Boolean).map((line) => JSON.parse(line));
   } catch {}
 } else {
-  for (const account of sourceAccounts) {
-    for (const item of account.embed.videoList || []) {
-      const videoUrl = "https://www.tiktok.com/@" + account.username + "/video/" + item.id;
-      const result = spawnSync("yt-dlp", [
-        "--dump-single-json",
-        "--skip-download",
-        "--no-warnings",
-        "--no-progress",
-        videoUrl,
-      ], { encoding: "utf8", timeout: 60000 });
-      if (result.status === 0 && result.stdout.trim()) {
-        try {
-          detailRows.push(JSON.parse(result.stdout.trim().split(/\n/).at(-1)));
-        } catch (error) {
-          errors.push({ username: account.username, post_id: item.id, stage: "detail_parse", error: String(error) });
-        }
-      } else {
-        const photoUrl = "https://www.tiktok.com/@" + account.username + "/photo/" + item.id;
-        try {
-          await fetchText(photoUrl, path.join(rawDir, account.username + "_" + item.id + ".html"));
-        } catch (error) {
-          errors.push({ username: account.username, post_id: item.id, stage: "photo_fallback", error: String(error) });
-        }
-        try {
-          const photoDetail = await fetchPhotoDetail(
-            photoUrl,
-            path.join(rawDir, account.username + "_" + item.id + "_photo_detail.json"),
-          );
-          detailRows.push(photoDetail);
-        } catch (error) {
-          errors.push({ username: account.username, post_id: item.id, stage: "photo_detail", error: String(error) });
-        }
+  const fetchDetail = async (account, item) => {
+    const detailsBefore = detailRows.length;
+    const videoUrl = "https://www.tiktok.com/@" + account.username + "/video/" + item.id;
+    const result = spawnSync("yt-dlp", [
+      "--dump-single-json",
+      "--skip-download",
+      "--no-warnings",
+      "--no-progress",
+      videoUrl,
+    ], { encoding: "utf8", timeout: 60000, maxBuffer: 16 * 1024 * 1024 });
+    if (result.status === 0 && result.stdout.trim()) {
+      try {
+        detailRows.push(JSON.parse(result.stdout.trim().split(/\n/).at(-1)));
+      } catch (error) {
+        errors.push({ username: account.username, post_id: item.id, stage: "detail_parse", error: String(error) });
       }
-      await sleep(2000);
+    } else {
+      const photoUrl = "https://www.tiktok.com/@" + account.username + "/photo/" + item.id;
+      try {
+        const photoDetail = await fetchPhotoDetail(
+          photoUrl,
+          path.join(rawDir, account.username + "_" + item.id + "_photo_detail.json"),
+        );
+        detailRows.push(photoDetail);
+      } catch (error) {
+        errors.push({ username: account.username, post_id: item.id, stage: "photo_detail", error: String(error) });
+      }
     }
-  }
+    await sleep(2000);
+    return detailRows.length > detailsBefore;
+  };
+  // Skipped posts are reported, not hidden.
+  const skippedDetails = await runDetailPasses({
+    accounts: rotateByDate(sourceAccounts, captureDate), deadlineMs: Date.parse(capturedAt) + DETAIL_BUDGET_MS,
+    maxConsecutiveFailures: DETAIL_CIRCUIT_FAILURES, fetchDetail,
+  });
+  for (const { username, code, skipped } of skippedDetails) errors.push({ username, stage: "detail", code, skipped });
   await fs.writeFile(detailPath, detailRows.map((row) => JSON.stringify(row)).join("\n") + "\n", "utf8");
 }
 
@@ -228,29 +337,55 @@ const accounts = [];
 const posts = [];
 
 for (const account of sourceAccounts) {
-  const userInfo = account.profile.userInfo || {};
-  const user = userInfo.user || account.embed.userInfo || {};
-  const stats = userInfo.stats || {};
-  accounts.push({
-    account_url: "https://www.tiktok.com/@" + account.username,
-    username: account.username,
-    nickname: user.nickname ?? account.embed.userInfo.nickname ?? "",
-    followers: asNumber(stats.followerCount ?? account.embed.userInfo.followerCount),
-    following: asNumber(stats.followingCount ?? account.embed.userInfo.followingCount),
-    total_likes: asNumber(stats.heartCount ?? account.embed.userInfo.heartCount),
-    total_posts: asNumber(stats.videoCount),
-    bio: user.signature ?? account.embed.userInfo.signature ?? "",
-    captured_at: capturedAt,
-  });
+  // Without a readable profile or embed there is no fresh account snapshot;
+  // the previous one stays in SQLite, but known posts are still captured.
+  if (account.entryOk) {
+    const userInfo = account.profile?.userInfo || {};
+    const embedUser = account.embed?.userInfo || {};
+    const user = userInfo.user || embedUser;
+    const stats = userInfo.stats || {};
+    accounts.push({
+      account_url: "https://www.tiktok.com/@" + account.username,
+      username: account.username,
+      nickname: user.nickname ?? embedUser.nickname ?? "",
+      followers: asNumber(stats.followerCount ?? embedUser.followerCount),
+      following: asNumber(stats.followingCount ?? embedUser.followingCount),
+      total_likes: asNumber(stats.heartCount ?? embedUser.heartCount),
+      total_posts: asNumber(stats.videoCount),
+      bio: user.signature ?? embedUser.signature ?? "",
+      captured_at: capturedAt,
+    });
+  }
 
-  for (const item of account.embed.videoList || []) {
+  for (const item of account.captureTargets) {
     const detail = detailById.get(String(item.id));
-    const photoFile = path.join(rawDir, account.username + "_" + item.id + ".html");
-    let isPhoto = false;
-    try {
-      await fs.access(photoFile);
-      isPhoto = true;
-    } catch {}
+    if (detail && !detailMatchesTarget(detail, item)) {
+      errors.push({ username: account.username, post_id: item.id, stage: "identity", code: "capture_identity_mismatch" });
+      continue;
+    }
+    if (!detail && item.playCount === undefined) {
+      errors.push({ username: account.username, post_id: item.id, stage: "detail", code: "detail_unavailable" });
+      continue;
+    }
+    const isPhoto = isPhotoPost(detail, item.known_url);
+    const publishedAt = detail?.timestamp ? new Date(detail.timestamp * 1000).toISOString() : item.published_at;
+    if (isExpiredPost(publishedAt, capturedAt, maxPostAgeDays)) {
+      skippedAfterDiscovery.push({ username: account.username, post_id: String(item.id), published_at: publishedAt, reason: "older_than_capture_window" });
+      expiredMetadata.push({ username: account.username, post_id: String(item.id), published_at: publishedAt,
+        post_url: `https://www.tiktok.com/@${account.username}/${isPhoto ? "photo" : "video"}/${item.id}`,
+        content_type: isPhoto ? "photo" : "video", caption: detail?.description ?? item.desc ?? "" });
+      continue;
+    }
+    const listedViews = asNumber(item.playCount);
+    const previousMaxViews = previousViews.get(String(item.id)) ?? null;
+    const { metrics, suspect } = guardZeroMetrics({
+      views: asNumber(detail?.view_count) ?? listedViews,
+      likes: asNumber(detail?.like_count),
+      comments: asNumber(detail?.comment_count),
+      favorites: asNumber(detail?.save_count),
+      shares: asNumber(detail?.repost_count),
+    }, { previousMaxViews, listedViews });
+    if (suspect) errors.push({ username: account.username, post_id: String(item.id), stage: "detail", code: "metrics_zero_suspect", previous_views: previousMaxViews, listed_views: listedViews });
     posts.push({
       username: account.username,
       post_id: String(item.id),
@@ -258,13 +393,9 @@ for (const account of sourceAccounts) {
         ? "https://www.tiktok.com/@" + account.username + "/photo/" + item.id
         : "https://www.tiktok.com/@" + account.username + "/video/" + item.id,
       content_type: isPhoto ? "photo" : (detail ? "video" : "unknown"),
-      published_at: detail && detail.timestamp ? new Date(detail.timestamp * 1000).toISOString() : null,
+      published_at: publishedAt,
       caption: detail?.description ?? item.desc ?? "",
-      views: asNumber(detail?.view_count ?? item.playCount),
-      likes: asNumber(detail?.like_count),
-      comments: asNumber(detail?.comment_count),
-      favorites: asNumber(detail?.save_count),
-      shares: asNumber(detail?.repost_count),
+      ...metrics,
       captured_at: capturedAt,
     });
   }
@@ -298,6 +429,7 @@ const localHistory = saveLocalHistory({
   usernames,
   accounts,
   posts,
+  metadataOnlyPosts: expiredMetadata,
   errors,
 });
 
@@ -391,7 +523,7 @@ await xlsx.save(xlsxPath);
 for (const sheetName of ["accounts", "posts"]) {
   const preview = await workbook.render({
     sheetName,
-    autoCrop: "all",
+    range: sheetName === "accounts" ? `A1:I${Math.min(accountValues.length, 21)}` : `A1:L${Math.min(postValues.length, 21)}`,
     scale: 1,
     format: "png",
   });
@@ -431,6 +563,19 @@ try {
 }
 
 const summary = {
+  capture_policy: {
+    max_age_days: maxPostAgeDays,
+    excluded_post_ids: excludedPostIds,
+    account_source: usesAccountLedger ? "base_account_ledger" : "legacy_standalone",
+    registered_posts: registeredTargets.posts.length,
+    registered_issues: registeredTargets.issues,
+    cutoff: new Date(Date.parse(capturedAt) - maxPostAgeDays * 86400000).toISOString(),
+    detail_targets: targetPlan.targets.length,
+    skipped_expired: targetPlan.skipped.filter(item => item.reason === "older_than_capture_window").length + skippedAfterDiscovery.length,
+    skipped_excluded: targetPlan.skipped.filter(item => item.reason === "excluded_post_id").length,
+    skipped: [...targetPlan.skipped, ...skippedAfterDiscovery],
+    unknown_publication_date: posts.filter(post => !post.published_at).length,
+  },
   run_id: localHistory.run_id,
   captured_at: capturedAt,
   capture_date: captureDate,

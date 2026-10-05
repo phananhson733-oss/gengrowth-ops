@@ -44,17 +44,38 @@ function initDatabase(db) {
   if (!runColumns.has("feishu_error_summary")) db.exec("ALTER TABLE runs ADD COLUMN feishu_error_summary TEXT");
 }
 
+const METRIC_FIELDS = ["views", "likes", "comments", "favorites", "shares"];
+
 function missingMetricFields(post) {
-  return ["views", "likes", "comments", "favorites", "shares"]
-    .filter((field) => post[field] === null || post[field] === undefined);
+  return METRIC_FIELDS.filter((field) => post[field] === null || post[field] === undefined);
 }
 
-export function saveLocalHistory({ outputDir, snapshotDate, capturedAt, usernames, accounts, posts, errors }) {
+// Highest view count stored per post before this run (earlier days, and an
+// earlier run on the same Beijing day). Read only as evidence that a post has
+// had views; never written back as this run's metrics.
+export function readViewHighWater(db, { captureDate, capturedAt }) {
+  const rows = db.prepare(SQL([
+    "SELECT post_id, MAX(views) AS views FROM post_snapshots",
+    "WHERE views IS NOT NULL AND (snapshot_date < ? OR (snapshot_date = ? AND captured_at < ?))",
+    "GROUP BY post_id"
+  ])).all(captureDate, captureDate, capturedAt);
+  return new Map(rows.map((row) => [String(row.post_id), Number(row.views)]));
+}
+
+export function saveLocalHistory({ outputDir, snapshotDate, capturedAt, usernames, accounts, posts, errors, metadataOnlyPosts = [] }) {
   const dbPath = path.join(outputDir, "tiktok_metrics.sqlite");
   const db = new DatabaseSync(dbPath);
   initDatabase(db);
   const runId = randomUUID();
   const accountByUsername = new Map(accounts.map((account) => [account.username, account]));
+  // One row per post and day: a later run on the same day that could not read
+  // a metric keeps the value an earlier run captured instead of erasing it.
+  const sameDay = db.prepare("SELECT views,likes,comments,favorites,shares FROM post_snapshots WHERE post_id=? AND snapshot_date=?");
+  posts = posts.map((post) => {
+    const earlier = sameDay.get(String(post.post_id), snapshotDate);
+    if (!earlier) return post;
+    return { ...post, ...Object.fromEntries(METRIC_FIELDS.map((field) => [field, post[field] ?? earlier[field] ?? null])) };
+  });
   const partialCount = posts.filter((post) => missingMetricFields(post).length > 0).length;
   const failedCount = errors.length;
   const errorSummary = errors.length ? JSON.stringify(errors) : "";
@@ -73,7 +94,9 @@ export function saveLocalHistory({ outputDir, snapshotDate, capturedAt, username
     "INSERT INTO posts (post_id, username, post_url, content_type, published_at, caption, first_seen_at, last_seen_at)",
     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     "ON CONFLICT(post_id) DO UPDATE SET",
-    " username=excluded.username, post_url=excluded.post_url, content_type=excluded.content_type,",
+    " username=excluded.username, post_url=excluded.post_url,",
+    // A run that obtained no detail does not know the media type; keep the known one.
+    " content_type=CASE WHEN excluded.content_type IS NULL OR excluded.content_type='unknown' THEN posts.content_type ELSE excluded.content_type END,",
     " published_at=COALESCE(excluded.published_at, posts.published_at),",
     " caption=CASE WHEN excluded.caption IS NOT NULL AND excluded.caption <> '' THEN excluded.caption ELSE posts.caption END,",
     " last_seen_at=excluded.last_seen_at"
@@ -109,6 +132,11 @@ export function saveLocalHistory({ outputDir, snapshotDate, capturedAt, username
       // 失败情况仍通过 runs.error_summary 和 failed_count 记录。
     }
 
+    // A discovered expiry is durable identity metadata, not a new metric snapshot.
+    for (const post of metadataOnlyPosts) {
+      upsertPost.run(String(post.post_id), post.username, post.post_url, post.content_type ?? null,
+        post.published_at ?? null, post.caption ?? null, capturedAt, capturedAt);
+    }
     for (const post of posts) {
       const missingFields = missingMetricFields(post);
       const collectionStatus = missingFields.length ? "partial" : "complete";
