@@ -16,6 +16,22 @@ updated: 2026-08-07
 - 继续遵守仓库根级权限和安全边界；不访问无关私有账号、凭证或其他工作区。
 - 2026-07-16 起 GSC 输入暂停。除非 Pengman 后续明确重新启用，不读取或索取 Downloads 或仓库内 GSC 导出。
 
+## Social 本地短剧制作权限（2026-09-08）
+
+管理员已明确授权所有已准入 Social 用户执行五个 `short-drama-*-mac` Skill。已注册运行目录为 `/Users/awayer_mini/.hermes/profiles/social/skills/social-media/` 下同名五个子目录；完整命令、输入和 canary 边界见 Social `SOUL.md` §4.4。原 `skills/` 内容为来源资产，实际执行以注册副本为准。
+
+该范围允许读取这五个运行 Skill 及其脚本/参考/字体，使用固定 `/Users/awayer_mini/.hermes/profiles/social/venvs/short-drama-highlight-mac/bin/python`、FFmpeg/FFprobe、whisper-cli、本地 whisper 模型和 macOS say 做转录、抽帧、编译、渲染及验收。允许 `terminal` 和仅管理本次媒体任务的 `process`，允许图像工具检查本任务帧。此为仓库根级“不用 process/media”“只读本仓”等默认限制的明确媒体制作例外，无需重复申请管理员开通。
+
+素材只读；外部素材路径必须由彭满明确指定。所有中间文件、MP4 和暂存工程写在 `inbox-pengman/**` 的独立任务目录，不改原片、不覆盖既有产物。每部先通过 canary，再产剩余版本。编辑器模板由彭满指定或放入 inbox；草稿仅暂存，打开验收和导入由人工完成。发布、上传、付费 API、软件安装、运行 Skill/配置修改、Git 操作及无关账号/凭证访问不在本制作授权中。
+
+## Social ReelShort CPS / 鹊娱素材下载权限（2026-09-10）
+
+管理员已授权所有已准入 Social 用户，从 `https://cps.reelshort.com/resource-square/` 或 `https://cps-distribution.zwnet.cn/promotion/index` 下当前任务明确指定的资源页面，使用账号正式可用的下载入口获取素材。下载由 `short-drama-download` Skill 执行，允许固定解释器执行其中 `scripts/archive_download.py`；剪辑仅在用户明确要求时独立执行。示例资源 ID：`6a967daf71807a57f7059e60`。精确入口、账号、CDN、保存及验收规则以 Social `SOUL.md` §4.4「ReelShort CPS / 鹊娱素材下载授权」为准。
+
+全用户范围及各 actor 输出目录以 Social `SOUL.md` §4.4 为准；本文件中的 `inbox-pengman/**` 仅用于彭满，其他用户使用自己的授权工作目录，不获得本个人目录访问权。
+
+本授权允许任务范围内的既有浏览器工具及必要的 `/usr/bin/curl` 官方 HTTPS 直链下载，是根规则和本文件默认浏览器/外部访问限制的明确例外。登录由人工完成，不读取或导出 Cookie、token 或密码。只下载指定资源/集数，不抓全库、不绕过平台限制。素材存入 `inbox-pengman/**` 独立任务的 `source/`；若浏览器使用默认下载目录，只处理本次下载事件返回的具体文件，不扫描其它下载。下载核验后汇报并停止；只有收到明确剪辑要求才调用已注册制作 Skill，源片只读、先 canary 后其余版本。此授权不含平台版权授予、账号报白、推广申请、新协议、购买、上传、发布或发行表写入。
+
 ## Internet and Browser Permissions
 
 - 为 `inbox-pengman/**` 内的 AstrologyWiki 内容研究、账号研究、内容制作、网页取证、发布准备和工作流评估，允许使用实时 Web 搜索、公开网页抓取、Codex 应用内浏览器和 Codex Chrome 插件。
@@ -45,7 +61,7 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 ### 所有工作区对话的公共规则
 
 - `content_stage` 是内容生命周期唯一真相源；仓库 `status` 只服务文件或 dispatch。
-- Pengman 提供发布或定时时间但未注明时区时，默认按 `America/Chicago` 解释；周计划、工作日和 ISO 周判断仍使用北京时间 `Asia/Shanghai`。
+- Pengman 提供发布或定时时间但未注明时区时，默认按 `America/Chicago` 解释；周计划、工作日和 ISO 周判断仍使用北京时间 `Asia/Shanghai`。短剧发行管理的每日采集日期、快照归档、每日指标统计与调度统一使用北京时间 `Asia/Shanghai`（用户于 2026-09-11 确认）；已核实的视频发布时间保留平台原始精确时刻，并在 Base 按北京时间展示。
 - 当前生命周期只使用 `selected → producing → ready → published`；`hold / cancelled` 仅用于例外。脚本确认写入 `script_status`，定时信息写入 `scheduled_at / publish_date`，复盘写入 `decision / next_test`，不得再为这些动作另建生命周期阶段。候选在被人工选中前留在候选池，不写 `content_stage: idea`。
 - 缺少真实 `published_url`、平台 ID 或实际发布时间时，不把 `published` 表述为完整核验发布；应明确写成“主记录标记 published，发布证据待补”。
 - `tools/internal/skills/social-daily/SKILL.md` 是旧版每日批量生产流程，不再是当前执行入口；不得用它覆盖滚动周 SOP。
@@ -117,3 +133,17 @@ W32 的加速恢复周和同周生产发布安排仅为健康请假后的临时�
 - 输出以当前状态、风险、建议和下一步为主。
 - 对热点区分已核验事实、运营推断和待确认项。
 - 保持方案适合单人执行，优先消除账号切换和任务切换。
+
+下载与剪辑均由用户的明确对话指令独立触发。下载完成只汇报本地文件与验证结果并停止，不自动转录、分析、剪辑或启动后台/定时任务；只有明确收到剪辑要求才调用制作 Skill。
+
+## Social 成片飞书交付（2026-09-10）
+
+所有已准入 Social 用户可在对话中明确要求发送成片，由 Social bot 回传到发起任务的原飞书会话/话题。下载、剪辑、发送三个操作独立触发；剪辑完成不自动外发。按 Social `SOUL.md` §4.4 及 `short-drama-delivery` 执行，允许其范围内的原生 `send_message` 媒体上传/发送，是默认不上传/不对外发送限制的明确例外。只读取该用户本次任务的已确认成片；不改用本机个人飞书身份、PM Assistant 或其他 bot，不群发其他会话。记录真实投递回执；静态工具检查不等于实际送达。
+
+## 原画质云盘交付更新（2026-09-10）
+
+用户已确认成片不得压缩/转码。明确要求发送时，改为 Social bot 将原文件分片上传飞书云盘，再向原请求会话发送可访问下载链接；不再将超30 MB视频用 MEDIA 当作普通IM附件反复上传。限定使用已核实对应 Social 应用的 CLI profile `shortdrama-social-audit` 和 `--as bot`，云盘操作仅限本流程新建交付文件/目录及原收件人阅读权限，按 Social `SOUL.md` §4.4 和 `short-drama-delivery` 执行。下载、剪辑、发送仍独立触发。Social 五项最小云盘应用身份权限已开通并发布，云盘列举实测成功；高光第1条已完成share云盘原文件上传及Social原会话链接投递、回读验收；剩余两条也已完成原文件云盘上传与Social原会话链接投递、回读。
+
+默认成片交付云盘已指定为 share：`https://gengrowth.feishu.cn/drive/folder/OtRgfL9nclQz3rd2lOHcVtZ6ngh`。保留当前五位 Social 成员的共享权限和 Social 的编辑权限；发送链接仍回原请求会话。原文件不压缩、不转码，只有明确发送指令才上传/发送，详情以 short-drama-delivery Skill 为准。
+
+用户说“发送/发给我/交付成片”时，默认含义是：将指定原始成片上传到已配置的 share 共享云盘，核对团队访问权限，再由 Social bot 把下载链接发回原请求会话。默认不走视频 IM 附件，不压缩、不转码；用户只要求上传、不发消息时，仅上传并在当前对话报告。下载、剪辑、发送仍各自需要明确指令。
