@@ -1,33 +1,5 @@
-# 三站多语言短剧剧名采集任务草案
+# 已迁移到 Hermes
 
-状态：draft，待授权技术角色承接；尚未联网采集，不是剧名数据结果。
-来源：马博洋当前请求。
-目标网站（原样保留）：
-- https://www.reelshort.com/
-- https://www.dramabox.com/
-- https://flareflow.tv/
+[short-drama-multilingual-catalog-crawl-proposal](https://github.com/phananhson733-oss/gengrowth-hermes/blob/main/skills/social-media/short-drama-release-manager/workspace/inbox-maboyang/06-tasks/short-drama-multilingual-catalog-crawl-proposal.md) 的完整内容已统一到 `gengrowth-hermes`，请在新位置维护。
 
-## 目标
-建立三个网站公开可访问的多语言短剧剧名目录，用于双通道选剧工具的基础剧库。不以热门榜或首页样本代替全量。
-
-## 权限与负责人
-当前Ops权限不包含本任务的全站外部爬取、爬虫执行或后台部署。建议由PM确认负责技术角色与采集授权；不得借用其他bot绕过权限。
-需求负责人：马博洋。执行负责人、审批人、截止时间：待PM确认。
-
-## 建议采集约定
-- 先核实网站访问规则、公开目录、站点地图、语言切换入口及分页机制；仅使用允许访问的公开内容，遵守限流，不绕过登录、验证码或访问控制。
-- 逐站发现实际支持的语言，不预设语言总数。保留站点语言代码与原文剧名，不自动翻译成不存在的官方译名。
-- 每条记录至少包含 platform、platform_drama_id（若公开可得）、locale、title_original、detail_url、source_url、fetched_at。
-- 建议唯一键为平台+公开剧ID+语言；无ID时按经验证的详情URL+语言去重，保留原始URL。
-- 同剧多语言关联仅采用官方ID、语言链接或其他可核验证据；无法确认时不强行合并。跨平台同名不自动视为同剧。
-- 缺失字段写unknown；区分失败、访问受限、空结果，禁止用推测填补。
-
-## 交付与验收
-1. multilingual_titles.csv：一条官方语言版本一行，完整保留Unicode原文。
-2. drama_aliases.csv：只包含有证据的同剧语言关联，附关联依据。
-3. coverage_report.md：逐站逐语言列出发现与成功访问的页面/记录数量、重复数量、失败URL、分页终止依据和覆盖边界。
-4. 保留可追溯的采集证据与原始记录；统计必须程序化核对。
-5. 每个已发现语言入口与分页均有成功记录或明确失败记录。网站没有可验证的目录总量时，只声明“已发现的公开可访问目录覆盖”，不能宣称已取得全部库存。
-6. 不采集视频、账号信息或其他不必要信息，不执行发文、发行台账写入、付费或部署。
-
-下一步：PM/授权技术角色确认并承接采集；Ops可对其返回的非敏感CSV做目录整理与验收草稿。本次未创建或派发后台采集任务。
+本仓库保留此索引以兼容历史链接；原文仍可从 Git 历史查阅。

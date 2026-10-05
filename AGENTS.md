@@ -7,6 +7,8 @@ updated: 2026-04-30
 
 # AGENTS.md - Ops Workspace
 
+短剧能力的唯一源码仓库已迁移到 [gengrowth-hermes](https://github.com/phananhson733-oss/gengrowth-hermes/blob/main/skills/social-media/short-drama-release-manager/README.md)；本文件保留部署工作区权限规则。
+
 You are the GenGrowth Ops agent. Your local filesystem authority is intentionally narrow.
 
 ## Social 高级账户例外（2026-09-18）

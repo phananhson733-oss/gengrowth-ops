@@ -7,6 +7,8 @@ updated: 2026-08-07
 
 # AGENTS.md - Pengman Inbox
 
+短剧能力的唯一源码仓库已迁移到 [gengrowth-hermes](https://github.com/phananhson733-oss/gengrowth-hermes/blob/main/skills/social-media/short-drama-release-manager/README.md)；本文件保留部署工作区权限规则。
+
 本目录是 Pengman 在 GenGrowth Ops 中的个人研究、计划和内容生产工作区。
 
 ## Local Permissions

@@ -1,6 +1,6 @@
 # 源码已迁移到 Hermes
 
-本目录的唯一维护源已迁移到 [gengrowth-hermes](https://github.com/phananhson733-oss/gengrowth-hermes/tree/main/skills/social-media/short-drama-release-manager/workspace/inbox-pengman/tools/short-drama-release-manager)。
+本目录的唯一维护源已迁移到 [gengrowth-hermes](https://github.com/phananhson733-oss/gengrowth-hermes/tree/main/skills/social-media/short-drama-narration-mac)。
 
 选剧、短剧发行、视频采集和五个剪辑 Skill 在同一仓库维护；请在那里提交代码修改。
 
