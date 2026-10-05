@@ -8,6 +8,7 @@ import test from "node:test";
 import { DatabaseSync } from "node:sqlite";
 
 import * as shortdramaControl from "../shortdrama_ctl.mjs";
+import { seedBusinessIdSequence } from "../src/ids.mjs";
 
 import {
   createCollectorAdapter,
@@ -33,7 +34,7 @@ import {
 } from "../shortdrama_ctl.mjs";
 import { canaryReceiptDigest, manifestDigest, permissionAttestationDigest, schemaReceiptDigest, verificationDigest, writeMigrationArtifact } from "../src/migration.mjs";
 import { normalizeGoogleSource } from "../src/google-source.mjs";
-import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
+import { FeishuClient, fixedFieldDescriptor } from "../src/feishu-client.mjs";
 import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES } from "../src/schema.mjs";
 
 const INTERNAL = {
@@ -810,6 +811,21 @@ test("fixed preview-batch routes exact items to the bound table and Social ident
   );
 });
 
+test("direct daily writes use the fixed table and real Social actor without a confirmation turn", async () => {
+  const calls = [];
+  const dispatch = createDispatcher({ assertRuntimeSchemaReady: async () => {}, humanOps: {
+    applyDirect: async request => { calls.push(request); return { status: "success", readback: "verified" }; },
+  } });
+  const identity = { mode: "social", actorId: "ou_real", chatId: "oc_real", profile: "social" };
+  const command = parseCommand(["pool", "apply-direct", "--payload", "-"]);
+  const result = await dispatch(command, identity, { actorId: "ou_forged", table: "采集数据", action: "create", patch: { 剧名: "A Drama" } });
+  assert.equal(result.readback, "verified");
+  assert.deepEqual(calls[0], { actorId: "ou_real", chatId: "oc_real", table: "选剧池", action: "create", patch: { 剧名: "A Drama" } });
+  await dispatch(parseCommand(["release", "apply-direct", "--payload", "-"]), identity, { action: "update", key: "SR-000001", patch: { 备注: "new" } });
+  assert.equal(calls[1].table, "发布记录");
+  assert.throws(() => resolveInvocationIdentity(command, {}), error => error.code === "social_session_required");
+});
+
 test("pool and release list/get return the same complete readback envelope", async () => {
   const source = {
     选剧池: [{ 剧ID: "SD-000001", 剧名: "One" }],
@@ -1361,6 +1377,7 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
   };
   const inspect = (argv, commandText) => inspectWrapped(argv, wrap(commandText));
   const cases = [
+    [["pool", "beidou-search", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"title":"The Janitor Who Solved the Impossible"}'],
     [["pool", "update-field", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"key":"SD-000001","field":"备注","value":"中文"}'],
     [["pool", "create", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"patch":{"剧名":"New Drama","平台":"ReelShort"}}'],
     [["pool", "preview-update", "--config", SOCIAL_RUNTIME_CONFIG_PATH, "--payload", "-"], '{"key":"SD-000001","patch":{"备注":"preview"}}'],
@@ -1372,7 +1389,7 @@ test("Social provenance accepts only the fixed quoted payload heredoc generated 
     assert.equal(inspect(argv, `${direct} <<'SHORTDRAMA_PAYLOAD'\n${body}\nSHORTDRAMA_PAYLOAD`), true);
   }
 
-  const apostropheArgv = cases[0][0];
+  const apostropheArgv = cases[1][0];
   const apostropheDirect = `/usr/bin/env node ${runner} ${apostropheArgv.join(" ")}`;
   const apostropheCommand = `${apostropheDirect} <<'SHORTDRAMA_PAYLOAD'\n{"key":"SD-000001","field":"备注","value":"Bob's note"}\nSHORTDRAMA_PAYLOAD`;
   const hermesRoot = process.env.HERMES_SOURCE_ROOT ?? "/Users/awayer_mini/hermes-agent";
@@ -2088,9 +2105,12 @@ test("runtime schema metadata rejects an unexpected unbound fifth Base table bef
   } finally { runtime.close(); }
 });
 
-test("runtime schema metadata marks the primary field from table detail", async () => {
+test("runtime schema metadata accepts the bound analytics table while checking business primary fields", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-primary-detail-"));
   const { config, env } = runtimeFixture(root);
+  config.base.daily_views_table_id = "tblDailyViews";
+  config.base.analytics_table_ids = {accountDaily:"tblAccountDaily",dramas:"tblDramaTotals",releaseDays:"tblReleaseDays",firstDays:"tblFirstDays"};
+  config.base.external_tables = {tblExternal:"收益汇总表"};
   const configPath = path.join(root, "runtime.json");
   await writeFile(configPath, JSON.stringify(config));
   const bindings = [
@@ -2102,7 +2122,7 @@ test("runtime schema metadata marks the primary field from table detail", async 
   const byId = new Map(bindings.map(([tableId, name, primary]) => [tableId, { name, primary }]));
   let detailReads = 0;
   const client = repositoryClient({
-    listTables: async () => ({ complete: true, items: bindings.map(([table_id, name]) => ({ table_id, name })) }),
+    listTables: async () => ({ complete: true, items: [...bindings.map(([table_id, name]) => ({ table_id, name })), {table_id:"tblDailyViews",name:"每日播放趋势"},{table_id:"tblExternal",name:"收益汇总表"}, ...Object.entries(config.base.analytics_table_ids).map(([k,table_id])=>({table_id,name:({accountDaily:"每日播放趋势-分账号",dramas:"短剧播放数据汇总",releaseDays:"短剧发布趋势",firstDays:"短剧新发趋势-按日去重"})[k]}))] }),
     getTable: async (_base, tableId) => {
       detailReads += 1;
       return {
@@ -2465,7 +2485,7 @@ test("internal identity rejection happens before runtime construction", async ()
 test("Beijing schedule and daily health are host timezone independent", () => {
   assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T00:00:00Z"), []), true);
   assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T00:09:59Z"), []), true);
-  assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T00:10:00Z"), []), false);
+  assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T00:10:00Z"), []), true);
   assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T00:00:00Z"), [{ trigger: "schedule", beijing_date: "2026-09-01" }]), false);
   assert.deepEqual(evaluateDailyHealth(new Date("2026-09-01T01:59:59Z"), []), { alert: false, reason: "before_health_window" });
   assert.deepEqual(evaluateDailyHealth(new Date("2026-09-01T02:00:00Z"), []), { alert: true, reason: "missing_terminal" });
@@ -2667,6 +2687,30 @@ test("doctor JobStore mode is read-only and peek never creates the sequence tabl
   await assert.rejects(access(missing));
 });
 
+test("a capture that reached no account and no post fails the job so the day is retried", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-collector-"));
+  const collector = path.join(root, "collector.mjs");
+  const sqlite = path.join(root, "metrics.sqlite");
+  await writeFile(collector, "// fixture\n");
+  const db = new DatabaseSync(sqlite);
+  db.exec("CREATE TABLE runs(run_id TEXT PRIMARY KEY); INSERT INTO runs VALUES ('collector-uuid')");
+  db.close();
+  const adapterFor = (counts) => createCollectorAdapter({
+    nodePath: process.execPath, collectorPath: collector, collectorCwd: root, summaryDir: root, metricsSqlitePath: sqlite,
+    now: () => new Date("2026-09-01T00:00:00Z"),
+    spawnFile: async () => {
+      await writeFile(path.join(root, "capture_summary_2026-09-01.json"), JSON.stringify({
+        capture_date: "2026-09-01", captured_at: "2026-09-01T00:00:01Z", run_id: "collector-uuid", files: { sqlite },
+        accounts_requested: ["a", "b"], accounts_successful: [], errors: [{ username: "a", stage: "account" }, { username: "b", stage: "account" }], ...counts,
+      }) + " ".repeat(Math.floor(Math.random() * 40) + 1));
+      return { code: 0 };
+    },
+  });
+  const request = { runId: "SDRUN-20260901-000001", beijingDate: "2026-09-01", signal: new AbortController().signal };
+  await assert.rejects(adapterFor({ account_count: 0, post_count: 0 })(request), (error) => error.code === "capture_failed");
+  assert.equal((await adapterFor({ account_count: 0, post_count: 4 })(request)).status, "partial");
+});
+
 test("collector adapter trusts only fresh same-run summary evidence", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-collector-"));
   const collector = path.join(root, "collector.mjs");
@@ -2678,7 +2722,7 @@ test("collector adapter trusts only fresh same-run summary evidence", async () =
   let spawnCall;
   const adapter = createCollectorAdapter({
     nodePath: process.execPath, collectorPath: collector, collectorCwd: root,
-    summaryDir: root, metricsSqlitePath: sqlite,
+    summaryDir: root, metricsSqlitePath: sqlite, maxPostAgeDays: 14,
     now: () => new Date("2026-09-01T00:00:00Z"),
     spawnFile: async (...args) => {
       spawnCall = args;
@@ -2693,7 +2737,8 @@ test("collector adapter trusts only fresh same-run summary evidence", async () =
   assert.equal(result.run_id, "SDRUN-20260901-000001");
   assert.equal(result.collector_run_id, "collector-uuid");
   assert.equal(result.sqlite_path, sqlite);
-  assert.deepEqual(spawnCall.slice(0, 2), [process.execPath, [collector]]);
+  assert.deepEqual(spawnCall.slice(0, 2), [process.execPath, [collector, "--max-post-age-days", "14"]]);
+  assert.equal(result.captured_at, "2026-09-01T00:00:01Z");
   assert.equal(spawnCall[2].cwd, root);
   assert.equal(spawnCall[2].shell, false);
   assert.equal(spawnCall[2].detached, false);
@@ -2716,4 +2761,431 @@ test("collector adapter rejects an unchanged stale summary before SQLite project
   });
   await assert.rejects(adapter({ runId: "SDRUN-20260901-000001", beijingDate: "2026-09-01" }),
     (error) => error.code === "capture_failed");
+});
+
+test('Google reconciliation retains local provenance and cannot be invoked through Social', async () => {
+  const common=['--config','/tmp/config.json','--baseline','/tmp/baseline.json','--expected-baseline-sha256','a'.repeat(64),'--expected-base-token','base'];
+  const plan=parseCommand(['migrate','reconcile-plan',...common,'--output','reconciliation-plan.json']);
+  assert.throws(()=>resolveInvocationIdentity(plan,{HERMES_SESSION_PLATFORM:'feishu',HERMES_SESSION_PROFILE:'social',HERMES_SESSION_USER_ID:'ou_admin',HERMES_SESSION_CHAT_ID:'oc_social'}),e=>e.code==='social_command_denied');
+  let builds=0;
+  const denied=await execute(['migrate','reconcile-plan',...common,'--actor-id','ou_admin','--output','reconciliation-plan.json'],{env:{},loadEnvironment:passthroughEnvironment,isTrustedLocalInvoker:()=>false,build:()=>{builds++;}});
+  assert.equal(denied.result.error.code,'local_invoker_untrusted');assert.equal(builds,0);
+  const dispatch=createDispatcher({config:{auth:{isPrivilegedAllowed:()=>true}},reconcileGoogle:()=>{throw new Error('must not execute');}});
+  const apply=parseCommand(['migrate','reconcile-apply',...common,'--manifest','/tmp/plan.json','--expected-sha256','b'.repeat(64)]);
+  await assert.rejects(()=>dispatch(apply,{mode:'local',actorId:'ou_admin'},{}),e=>e.code==='action_confirmation_required');
+});
+
+
+test("nested artifact formatting cannot produce evidence larger than the CLI can load", async () => {
+  let nested = Array(100000).fill(0);
+  for (let i=0;i<350;i++) nested={checkpoint:nested};
+  const manifest={version:"fixture",nested};manifest.sha256=manifestDigest(manifest);
+  assert.ok(Buffer.byteLength(JSON.stringify(manifest,null,2))>64*1024*1024);
+  const name=`nested-artifact-${process.pid}-${Date.now()}.json`;
+  const written=await writeMigrationArtifact(manifest,{fileName:name});
+  try {
+    assert.ok(written.bytes<=64*1024*1024);
+    const result=await execute(["migrate","apply","--phase","schema","--manifest",name,"--expected-sha256","f".repeat(64),"--actor-id","admin","--confirm","apply-now","--config","/configured/runtime.json"],{
+      env:{},loadEnvironment:passthroughEnvironment,isTrustedLocalInvoker:trustedLocalInvoker,
+      build:async()=>{throw new Error("must not build");},
+    });
+    assert.equal(result.result.error.code,"migration_evidence_mismatch");
+  } finally {await rm(written.path,{force:true});}
+});
+
+
+test("daily schedule catches up after sleep; only a day whose runs all failed is retried, after a cooldown",()=>{
+ const failedAt=finished_at=>[{trigger:"schedule",state:"failed",beijing_date:"2026-09-01",finished_at}];
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),failedAt("2026-09-01T04:00:01Z")),false);
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),failedAt("2026-09-01T04:00:00Z")),true);
+ for(const state of ["queued","running","success","partial"])assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),[{trigger:"schedule",state,beijing_date:"2026-09-01",finished_at:"2026-09-01T01:00:00Z"}]),false);
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),[]),true);
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T15:59:59Z"),[]),true);
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T16:00:00Z"),[]),false);
+ assert.equal(shouldEnqueueSchedule(new Date("2026-08-31T23:59:59Z"),[]),false);
+ for(const state of ["queued","running","success","partial","failed"]){
+  assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),[{trigger:"schedule",state,beijing_date:"2026-09-01"}]),false);
+ }
+ assert.equal(shouldEnqueueSchedule(new Date("2026-09-01T04:30:00Z"),[{trigger:"schedule",beijing_date:"2026-08-31"}]),true);
+});
+
+
+test("terminal dashboard state handles exact API JSON-wrapped text without accepting arbitrary content",async()=>{
+ const {terminalDashboardState}=await import('../shortdrama_ctl.mjs');const plain='最近一次同步终态 · 状态：partial · run_id：SDRUN-20260909-135436 · 完成时间：2026-09-09T06:17:35.376Z';const legacy='**最近一次同步终态**\n状态：partial\nrun_id：SDRUN-20260909-135436\n完成时间：2026-09-09T06:17:35.376Z';
+ for(const text of [plain,JSON.stringify(plain),legacy,JSON.stringify(legacy)])assert.deepEqual(terminalDashboardState({data_config:{text}}),{state:'partial',runId:'SDRUN-20260909-135436',finishedAtMs:Date.parse('2026-09-09T06:17:35.376Z')});
+ for(const text of ['anything',JSON.stringify({text:plain}),JSON.stringify(JSON.stringify(plain)),plain+' extra'])assert.throws(()=>terminalDashboardState({data_config:{text}}),e=>e.code==='base_response_invalid');
+});
+
+test("runtime accepts extra fields but still rejects missing, duplicate and changed required fields", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-extra-field-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const schema = readySchema(env);
+  const dramas = schema.tables.find((table) => table.name === "选剧池");
+  dramas.fields.push({ field_id: "fld-parent", name: "Parent items", type: "link", bidirectional: false, link_table: env.TD });
+  const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+  const rows = Object.fromEntries(schema.tables.map((table) => [table.table_id, []]));
+  const events = [];
+  const runtime = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client: migrationRecordClient(schema, byId, rows, events) },
+  });
+  try {
+    await runtime.assertRuntimeSchemaReady();
+    const title = dramas.fields.find((field) => field.name === "剧名");
+    dramas.fields.splice(dramas.fields.indexOf(title), 1);
+    await assert.rejects(runtime.assertRuntimeSchemaReady(), (error) => {
+      assert.equal(error.code, "schema_missing");
+      assert.deepEqual(error.details.missing_fields, ["剧名"]);
+      assert.deepEqual(error.details.extra_fields, ["Parent items"]);
+      return true;
+    });
+    dramas.fields.push(title, { ...title, field_id: "fld-duplicate-title" });
+    await assert.rejects(runtime.assertRuntimeSchemaReady(), (error) => error.code === "base_schema_drift" && error.details.reason === "duplicate_field_names");
+    dramas.fields.pop();
+    title.type = "number";
+    await assert.rejects(runtime.assertRuntimeSchemaReady(), (error) => error.code === "base_schema_drift" && error.details.field === "剧名");
+    assert.deepEqual(events.filter((event) => /^records:(create|update)/.test(event)), []);
+  } finally { runtime.close(); }
+});
+
+test("runtime create preview allocates above live manually assigned IDs and keeps previous reservations", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-live-id-floor-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const schema = readySchema(env);
+  const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+  const rows = Object.fromEntries(schema.tables.map((table) => [table.table_id, []]));
+  rows[env.TD] = [{ record_id: "rec-manual", fields: { 剧ID: "SD-000072", 剧名: "Manual", 归档状态: "archived" } }];
+  const events = [];
+  const runtime = await buildRuntime({
+    configPath, env, command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]),
+    services: { client: migrationRecordClient(schema, byId, rows, events) },
+  });
+  try {
+    seedBusinessIdSequence(runtime.jobs.db, "drama", 69);
+    const preview = () => runtime.humanOps.previewMutation({ actorId: "ou_operator", chatId: "oc_ops", action: "create", table: "选剧池", patch: { 剧名: "New" } });
+    const first = await preview();
+    assert.equal(runtime.jobs.getPreview(first.receipt_id).patch.targets[0].key, "SD-000073");
+    const second = await preview();
+    assert.equal(runtime.jobs.getPreview(second.receipt_id).patch.targets[0].key, "SD-000074");
+    assert.equal(rows[env.TD].length, 1);
+    assert.deepEqual(events.filter((event) => /^records:(create|update)/.test(event)), []);
+  } finally { runtime.close(); }
+});
+
+
+test("runtime sync repositories omit derived fields while human queries retain them", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-sync-projection-"));
+  const { config, env } = runtimeFixture(root);
+  config.capture = { max_age_days: 14 };
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const calls = [];
+  const client = repositoryClient({listRecords: async (_base,_table,options) => {calls.push(options);return {complete:true,items:[]};}});
+  const runtime = await buildRuntime({configPath,env,command:parseCommand(["doctor","--init-state","--actor-id","ou_admin"]),services:{client,readSchema:async()=>readySchema(env)}});
+  try {
+    assert.equal(runtime.workerContext.maxPostAgeDays,14);
+    await runtime.workerContext.repos.releases.loadIndex();
+    await runtime.repos.releases.loadIndex();
+    assert.equal(calls[0].writableOnly,true);
+    assert.equal(calls[1].writableOnly,undefined);
+  } finally { runtime.close(); }
+});
+
+
+test("collector adapter passes bounded registered Base targets through stdin without changing caller identity", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-registered-input-"));
+  const collector = path.join(root, "collector.mjs"), sqlite = path.join(root, "metrics.sqlite");
+  await writeFile(collector,"// fixture");
+  const registered = {accounts:["one","new_account"],posts:[{post_id:"55",username:"one",published_at:null}],issues:[]};
+  let actual;
+  const adapter = createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:sqlite,
+    now:()=>new Date("2026-09-01T00:00:00Z"), verifySqliteEvidence:()=>true,
+    excludedPostIds:["55"],
+    readRegisteredPosts:async()=>registered,
+    spawnFile:async(_node,args,options)=>{actual={args,options};await writeFile(path.join(root,"capture_summary_2026-09-01.json"),JSON.stringify({capture_date:"2026-09-01",captured_at:"2026-09-01T00:00:01Z",run_id:"collector",files:{sqlite},accounts_requested:registered.accounts,capture_policy:{excluded_post_ids:["55"]},errors:[]}));return {code:0};},
+  });
+  await adapter({runId:"SDRUN-20260901-000001",beijingDate:"2026-09-01"});
+  assert.equal(actual.args.at(-1),"--registered-posts-stdin");
+  assert.deepEqual(JSON.parse(actual.options.input),{...registered,excluded_post_ids:["55"]});
+  assert.equal(actual.options.shell,false);
+  assert.equal(actual.options.env,undefined);
+  const missingAcknowledgement=createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:sqlite,
+    now:()=>new Date("2026-09-01T00:00:00Z"),verifySqliteEvidence:()=>true,excludedPostIds:["55"],readRegisteredPosts:async()=>registered,
+    spawnFile:async()=>{await writeFile(path.join(root,"capture_summary_2026-09-01.json"),JSON.stringify({capture_date:"2026-09-01",captured_at:"2026-09-01T00:00:02Z",run_id:"collector-2",files:{sqlite},accounts_requested:registered.accounts,errors:[]}));return {code:0};},
+  });
+  await assert.rejects(missingAcknowledgement({runId:"SDRUN-20260901-000002",beijingDate:"2026-09-01"}),error=>error.code==='capture_policy_mismatch');
+});
+
+test("collector stdin carries only registered posts inside the capture window", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-registered-window-"));
+  const collector = path.join(root, "collector.mjs"), sqlite = path.join(root, "metrics.sqlite");
+  await writeFile(collector,"// fixture");
+  const posts = [
+    {post_id:"1",username:"one",published_at:"2026-07-01T00:00:00Z"},
+    {post_id:"2",username:"one",published_at:"2026-08-15T00:00:00Z"},
+    {post_id:"3",username:"one",published_at:null},
+    ...Array.from({length:8000},(_,i)=>({post_id:String(100000+i),username:"one",post_url:"https://www.tiktok.com/@one/video/"+(100000+i),published_at:"2026-06-01T00:00:00Z"})),
+  ];
+  let input;
+  const adapter = createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:sqlite,
+    now:()=>new Date("2026-09-01T00:00:00Z"), verifySqliteEvidence:()=>true, maxPostAgeDays:30,
+    readRegisteredPosts:async()=>({accounts:["one"],posts,issues:[]}),
+    spawnFile:async(_node,_args,options)=>{input=JSON.parse(options.input);await writeFile(path.join(root,"capture_summary_2026-09-01.json"),JSON.stringify({capture_date:"2026-09-01",captured_at:"2026-09-01T00:00:01Z",run_id:"collector",files:{sqlite},accounts_requested:["one"],errors:[]}));return {code:0};},
+  });
+  await adapter({runId:"SDRUN-20260901-000001",beijingDate:"2026-09-01"});
+  assert.deepEqual(input.posts.map(p=>p.post_id),["2","3"]);
+  await rm(root,{recursive:true,force:true});
+});
+
+test("real collector child receives registered targets via bounded stdin and returns same-run SQLite evidence", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-real-collector-input-"));
+  const collector = path.join(root,"collector.mjs"), sqlite = path.join(root,"metrics.sqlite");
+  await writeFile(collector, `import {readFileSync,writeFileSync} from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+const input=JSON.parse(readFileSync(0,'utf8'));
+const {captureAccountUsernames}=await import(${JSON.stringify(new URL('../src/capture-policy.mjs',import.meta.url).href)});
+const usernames=captureAccountUsernames(input.accounts);
+if(usernames.join(',')!=='one,new_account'||input.posts[0].post_id!=='55'||!process.argv.includes('--registered-posts-stdin'))process.exit(2);
+const db=new DatabaseSync(${JSON.stringify(sqlite)});
+db.exec("CREATE TABLE runs(run_id TEXT PRIMARY KEY);INSERT INTO runs VALUES ('real-child')");db.close();
+writeFileSync(${JSON.stringify(path.join(root,'capture_summary_2026-09-01.json'))},JSON.stringify({capture_date:'2026-09-01',captured_at:new Date().toISOString(),run_id:'real-child',files:{sqlite:${JSON.stringify(sqlite)}},accounts_requested:usernames,errors:[]}));`);
+  const adapter=createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:sqlite,
+    now:()=>new Date('2026-09-01T00:00:00Z'),readRegisteredPosts:async()=>({accounts:['one','new_account'],posts:[{post_id:'55',username:'one'}],issues:[]})});
+  const result=await adapter({runId:'SDRUN-20260901-000001',beijingDate:'2026-09-01'});
+  assert.equal(result.collector_run_id,'real-child');
+  assert.equal(result.status,'success');
+});
+test('internal queue project refreshes analytics without collection or notification retries',async()=>{
+ const calls=[];const dispatch=createDispatcher({assertRuntimeSchemaReady:async()=>{calls.push('schema');},projectDailyViews:async()=>{calls.push('daily');return {status:'success'};},projectAnalytics:async()=>{calls.push('analytics');return {status:'partial',issues:[{reason:'missing_drama'}]};},jobs:{claimNext:()=>{throw Error('must not collect');},listUndeliveredTerminal:()=>{throw Error('must not notify');}}});
+ const command=parseCommand(['queue','project','--config','/runtime.json']);assert.throws(()=>resolveInvocationIdentity(command,{}),e=>e.code==='internal_context_required');const result=await dispatch(command,{mode:'internal'},null);assert.deepEqual(calls,['schema','daily','analytics']);assert.equal(result.status,'partial');
+});
+test('report commands keep Social provenance and dispatch account/date filters through configured analytics',async()=>{let received;const dispatch=createDispatcher({assertRuntimeSchemaReady:async()=>{},queryAnalyticsReport:async q=>{received=q;return {status:'success',rows:[]};}});const cmd=parseCommand(['metrics','daily-by-account','--key','alice','--date','2026-09-20']);assert.throws(()=>resolveInvocationIdentity(cmd,{}),e=>e.code==='social_session_required');await dispatch(cmd,{mode:'social',actorId:'ou_reader',chatId:'oc_social',profile:'social'},null);assert.deepEqual(received,{action:'daily-by-account',key:'alice',date:'2026-09-20'});});
+test('configured natural-day scheduler starts after Beijing midnight and retains one job per date',()=>{
+ const schedule={captureHour:0,captureMinute:10,healthHour:2,healthMinute:10};
+ assert.equal(shouldEnqueueSchedule(new Date('2026-09-20T16:09:59Z'),[],schedule),false);
+ assert.equal(shouldEnqueueSchedule(new Date('2026-09-20T16:10:00Z'),[],schedule),true);
+ assert.equal(shouldEnqueueSchedule(new Date('2026-09-20T16:10:00Z'),[{trigger:'schedule',beijing_date:'2026-09-21'}],schedule),false);
+ assert.equal(evaluateDailyHealth(new Date('2026-09-20T18:09:59Z'),[],schedule).reason,'before_health_window');
+ assert.equal(evaluateDailyHealth(new Date('2026-09-20T18:10:00Z'),[],schedule).reason,'missing_terminal');
+});
+
+
+test("runtime adopts Base auto numbers and returns server IDs after confirmed create", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "shortdrama-auto-number-"));
+  const { config, env } = runtimeFixture(root);
+  const configPath = path.join(root, "runtime.json");
+  await writeFile(configPath, JSON.stringify(config));
+  const schema = readySchema(env);
+  const byId = new Map(schema.tables.map((table) => [table.table_id, table]));
+  const rows = Object.fromEntries(schema.tables.map((table) => [table.table_id, []]));
+  rows[env.TA] = [{ record_id: "rec-account", fields: { 账号ID: "account", 账号名: "Account" } }];
+  const events = [];
+  const client = migrationRecordClient(schema, byId, rows, events);
+  const originalCreate = client.createRecords;
+  client.createRecords = async (base, tableId, records, options) => {
+    const field = byId.get(tableId).fields.find((field) => field.is_primary);
+    assert.equal(Object.hasOwn(records[0].fields, field.name), false, "must omit server generated ID");
+    await options?.beforeWrite?.();
+    const result = await originalCreate(base, tableId, records, options);
+    rows[tableId].at(-1).fields[field.name] = tableId === env.TD ? "SD-000731" : "SR-000952";
+    return result;
+  };
+  const runtime = await buildRuntime({ configPath, env,
+    command: parseCommand(["doctor", "--init-state", "--actor-id", "ou_admin"]), services: { client } });
+  const identity = { actorId: "ou_operator", chatId: "oc_ops" };
+  try {
+    seedBusinessIdSequence(runtime.jobs.db, "drama", 1);
+    const oldPreview = await runtime.humanOps.previewMutation({ ...identity, action: "create", table: "选剧池", patch: { 剧名: "Old preview" } });
+    for (const [id, prefix] of [[env.TD, "SD-"], [env.TR, "SR-"]]) {
+      const field = byId.get(id).fields.find((field) => field.is_primary);
+      field.type = "auto_number";
+      field.style = { rules: [{ text: prefix, type: "text" }, { length: 6, type: "incremental_number" }] };
+    }
+    const recommender = byId.get(env.TD).fields.find((field) => field.name === "推荐人");
+    if (!recommender.options.some((option) => option.name === "张凯风")) recommender.options.push({ name: "张凯风" });
+    await runtime.assertRuntimeSchemaReady();
+    await assert.rejects(runtime.humanOps.applyPreview({ ...identity, receiptId: oldPreview.receipt_id }),
+      (error) => error.code === "preview_stale");
+    for (const [table, patch, expectedId] of [
+      ["选剧池", { 剧名: "New drama", 推荐人: ["张凯风"] }, "SD-000731"],
+      ["发布记录", { 日期: "2026-09-20", 账号: "account", 剧: "SD-000731" }, "SR-000952"],
+    ]) {
+      const preview = await runtime.humanOps.previewMutation({ ...identity, action: "create", table, patch });
+      assert.equal(preview.record_id, null);
+      assert.equal(preview.id_generation, "base_auto_number");
+      const result = await runtime.humanOps.applyPreview({ ...identity, receiptId: preview.receipt_id });
+      assert.equal(result.record_id, expectedId);
+      assert.equal(result.status, "success");
+      await assert.rejects(runtime.humanOps.applyPreview({ ...identity, receiptId: preview.receipt_id }));
+    }
+    assert.equal(events.filter((event) => event.startsWith("records:create:")).length, 2);
+    const update = await runtime.humanOps.previewMutation({ ...identity, action: "update", table: "发布记录", key: "SR-000952", patch: { 备注: "Verified update" } });
+    const updated = await runtime.humanOps.applyPreview({ ...identity, receiptId: update.receipt_id });
+    assert.equal(updated.record_id, "SR-000952");
+    assert.equal(rows[env.TR][0].fields.备注, "Verified update");
+    const missingAck = await runtime.humanOps.previewMutation({ ...identity, action: "create", table: "选剧池", patch: { 剧名: "Uncertain write" } });
+    let uncertainWrites = 0;
+    client.createRecords = async (_b,_t,_r,options) => { await options.beforeWrite(); uncertainWrites++; return [{ record_id: null, fields: {} }]; };
+    await assert.rejects(runtime.humanOps.applyPreview({ ...identity, receiptId: missingAck.receipt_id }), (error) => error.code === "readback_mismatch");
+    await assert.rejects(runtime.humanOps.applyPreview({ ...identity, receiptId: missingAck.receipt_id }));
+    assert.equal(uncertainWrites, 1, "uncertain create must never replay");
+    const field = byId.get(env.TD).fields.find((field) => field.is_primary);
+    field.style.rules[0].text = "BAD-";
+    await assert.rejects(runtime.assertRuntimeSchemaReady(), (error) => error.code === "base_schema_drift" && error.details.field === "剧ID" && error.details.mismatches.includes("style"));
+    field.style.rules[0].text = "SD-";
+    field.type = "number";
+    await assert.rejects(runtime.assertRuntimeSchemaReady(), (error) => error.code === "base_schema_drift");
+  } finally { runtime.close(); }
+});
+
+
+test("record codec reads auto-number primary cells but rejects auto-number business text", async () => {
+  for (const [tableName, field, value] of [["选剧池", "剧ID", "SD-000731"], ["发布记录", "发布ID", "SR-000952"]]) {
+    const client = new FeishuClient({ tokenProvider: async () => "fixture-token", fetchJson: async () => ({ code: 0,
+      data: { fields: [field], field_type_list: ["auto_number"], record_id_list: ["rec-new"], data: [[value]], total: 1 } }) });
+    const result = await client.listRecords("base", "tbl-test", { tableName, selectFields: [field] });
+    assert.equal(result.items[0].fields[field], value);
+    assert.equal(result.complete, true);
+  }
+  const client = new FeishuClient({ tokenProvider: async () => "fixture-token", fetchJson: async () => ({ code: 0,
+    data: { fields: ["剧名"], field_type_list: ["auto_number"], record_id_list: ["rec-new"], data: [["SD-000731"]], total: 1 } }) });
+  await assert.rejects(client.listRecords("base", "tbl-test", { tableName: "选剧池", selectFields: ["剧名"] }),
+    (error) => error.code === "base_response_invalid");
+});
+
+test('candidate commands stay schema guarded, read-only query and existing bound apply route',async()=>{
+ const calls=[];const runtime={assertRuntimeSchemaReady:async()=>calls.push('schema'),queryReleaseCandidates:async input=>{calls.push(input);return{status:'success',mutations:0,rows:[{release_id:'SR-000001',candidates:[{post_id:'111',caption:'visible caption'}]}]};},humanOps:{previewCaptureMatch:async input=>{calls.push(input);return{status:'preview',receipt_id:'sdp-example'};}}};
+ const identity={actorId:'ou_operator',chatId:'oc_one'};
+ const query=parseCommand(['release','candidates','--config','config.json','--key','SR-000001']);
+ const result=await createDispatcher(runtime)(query,identity,null);assert.equal(result.mutations,0);assert.equal(calls[0],'schema');
+ const cmd=parseCommand(['release','preview-match','--config','config.json','--payload','-']);
+ const p=await createDispatcher(runtime)(cmd,identity,{key:'SR-000001',postId:'111'});assert.equal(p.status,'preview');assert.deepEqual(calls.at(-1),{actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'111',expectedReleaseVersion:undefined,expectedCaptureVersion:undefined});
+ await assert.rejects(createDispatcher(runtime)(cmd,identity,{key:'SR-000001',postId:'111',actorId:'forged'}));
+ await assert.rejects(createDispatcher(runtime)(cmd,identity,{key:'SR-000001',postId:'222'}),e=>e.code==='candidate_not_available');
+});
+
+
+test('registered account read failure or invalid membership never starts the collector', async () => {
+ const root=await mkdtemp(path.join(os.tmpdir(),'shortdrama-membership-fail-'));
+ const collector=path.join(root,'collector.mjs'); await writeFile(collector,'// fixture');
+ let starts=0;
+ for(const readRegisteredPosts of [async()=>{throw Error('Base read incomplete');}, async()=>({posts:[],issues:[]}), async()=>({accounts:[],posts:[],issues:[]})]){
+  const adapter=createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:path.join(root,'metrics.sqlite'),readRegisteredPosts,spawnFile:async()=>{starts++;return {code:0};}});
+  await assert.rejects(adapter({runId:'run',beijingDate:'2026-09-21'}));
+ }
+ assert.equal(starts,0);
+});
+
+test('collector receipt must acknowledge every ledger account, not a stale hardcoded subset', async () => {
+ const root=await mkdtemp(path.join(os.tmpdir(),'shortdrama-membership-receipt-'));
+ const collector=path.join(root,'collector.mjs'),sqlite=path.join(root,'metrics.sqlite'); await writeFile(collector,'// fixture');
+ const adapter=createCollectorAdapter({collectorPath:collector,collectorCwd:root,summaryDir:root,metricsSqlitePath:sqlite,
+  now:()=>new Date('2026-09-21T00:00:00Z'),verifySqliteEvidence:()=>true,
+  readRegisteredPosts:async()=>({accounts:['one','new_account'],posts:[],issues:[]}),
+  spawnFile:async()=>{await writeFile(path.join(root,'capture_summary_2026-09-21.json'),JSON.stringify({capture_date:'2026-09-21',captured_at:'2026-09-21T00:00:01Z',run_id:'collector',files:{sqlite},accounts_requested:['one'],errors:[]}));return {code:0};}
+ });
+ await assert.rejects(adapter({runId:'run',beijingDate:'2026-09-21'}),e=>e.code==='capture_membership_mismatch');
+});
+
+test('runtime collector reloads ledger membership on every run through the real stdin child', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'shortdrama-live-membership-'));
+  const {config, env} = runtimeFixture(root);
+  const configPath = path.join(root, 'runtime.json'), sqlite = path.join(root, 'metrics.sqlite');
+  const summary = path.join(root, 'summaries', 'capture_summary_2026-09-21.json');
+  await mkdir(path.dirname(summary));
+  await writeFile(configPath, JSON.stringify(config));
+  await writeFile(path.join(root, 'collector.mjs'), `
+import {readFileSync,writeFileSync} from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import {captureAccountUsernames} from ${JSON.stringify(new URL('../src/capture-policy.mjs', import.meta.url).href)};
+const payload=JSON.parse(readFileSync(0,'utf8'));
+const accounts=captureAccountUsernames(payload.accounts);
+const run='child-'+accounts.length;
+const db=new DatabaseSync(${JSON.stringify(sqlite)});
+db.exec('CREATE TABLE IF NOT EXISTS runs(run_id TEXT PRIMARY KEY)');
+db.prepare('INSERT INTO runs VALUES (?)').run(run);db.close();
+writeFileSync(${JSON.stringify(summary)},JSON.stringify({capture_date:'2026-09-21',captured_at:new Date().toISOString(),run_id:run,accounts_requested:accounts,files:{sqlite:${JSON.stringify(sqlite)}},errors:[]}));
+`);
+  const row = name => ({record_id:'rec-'+name,fields:{账号ID:name,主页链接:'https://www.tiktok.com/@'+name}});
+  const accounts = [row('existing')];
+  let reads=0;
+  const client=repositoryClient({listRecords:async(_base,tableId)=>{
+    if(tableId===env.TA)reads++;
+    return {complete:true,items:tableId===env.TA?accounts:[]};
+  }});
+  const runtime=await buildRuntime({configPath,env,now:()=>new Date('2026-09-21T00:00:00Z'),
+    command:parseCommand(['doctor','--init-state','--actor-id','ou_admin']),services:{client}});
+  try {
+    await runtime.workerContext.collector({runId:'first',beijingDate:'2026-09-21'});
+    assert.deepEqual(JSON.parse(await readFile(summary,'utf8')).accounts_requested,['existing']);
+    accounts.push(row('new_account'));
+    await runtime.workerContext.collector({runId:'second',beijingDate:'2026-09-21'});
+    assert.deepEqual(JSON.parse(await readFile(summary,'utf8')).accounts_requested,['existing','new_account']);
+    assert.equal(reads,2);
+  } finally { runtime.close(); }
+});
+
+test('batch commands use guarded release dispatch and session identity, reject local business access',async()=>{
+ const calls=[];const batchOps={query:async p=>({status:'success',rows:[p]}),previewSchedule:async p=>{calls.push(p);return {status:'preview'};},previewMatch:async p=>{calls.push(p);return {status:'preview'};},apply:async p=>{calls.push(p);return {status:'success'};}};
+ const dispatch=createDispatcher({assertRuntimeSchemaReady:async()=>calls.push('schema'),batchOps});
+ const id={actorId:'ou_real',chatId:'oc_real'};
+ for(const action of ['batch-schedule','batch-preview','batch-apply']){const cmd=parseCommand(['release',action,'--payload','-']);await dispatch(cmd,id,{actorId:'ou_spoof'});assert.equal(calls.at(-1).actorId,'ou_real');assert.equal(calls.at(-1).chatId,'oc_real');assert.throws(()=>resolveInvocationIdentity(cmd,{}),e=>e.code==='social_session_required');}
+ const r=await dispatch(parseCommand(['release','batches','--key','SB-1']),id);assert.equal(r.rows[0].key,'SB-1');
+});
+test('direct batch scheduling is a fixed session-bound release command',async()=>{
+ const calls=[];const batchOps={scheduleDirect:async request=>{calls.push(request);return {status:'success',readback:'verified'};}};
+ const dispatch=createDispatcher({assertRuntimeSchemaReady:async()=>calls.push('schema'),batchOps});
+ const command=parseCommand(['release','batch-schedule-direct','--payload','-']);
+ const result=await dispatch(command,{actorId:'ou_real',chatId:'oc_real'},{account:'one',drama:'SD-1',plannedAt:'2026-09-25',count:3,actorId:'ou_spoof'});
+ assert.equal(result.readback,'verified');assert.deepEqual(calls[0],'schema');
+ assert.equal(calls[1].actorId,'ou_real');assert.equal(calls[1].chatId,'oc_real');
+ assert.throws(()=>resolveInvocationIdentity(command,{}),error=>error.code==='social_session_required');
+});
+test('direct batch scheduling requires a payload before dispatch',async()=>{
+ const session={HERMES_SESSION_PLATFORM:'feishu',HERMES_SESSION_PROFILE:'social',HERMES_SESSION_USER_ID:'ou_real',HERMES_SESSION_CHAT_ID:'oc_real'};
+ let dispatched=false;
+ const result=await execute(['release','batch-schedule-direct','--config',SOCIAL_RUNTIME_CONFIG_PATH],{
+  env:session,isTrustedSocialInvoker:()=>true,validateSocialConfig:async()=>{},loadEnvironment:async()=>session,
+  build:async()=>({config:{paths:{payloadRoot:'/tmp'}},assertRuntimeSchemaReady:async()=>{dispatched=true;},close(){}}),
+ });
+ assert.equal(result.result.error.code,'payload_required');assert.equal(dispatched,false);
+});
+
+test('batch review still runs when independent historical analytics fails',async()=>{
+ let reviewed=0;const rt={jobs:{claimNext:()=>null},now:()=>new Date('2026-09-22T00:00:00Z'),processBatchReviews:async()=>{reviewed++;return {status:'success',batches:0,sent:0,errors:[]};},projectDailyViews:async()=>({status:'disabled'}),projectAnalytics:async()=>{throw Error('legacy duplicate');}};
+ await assert.rejects(createDispatcher(rt)(parseCommand(['queue','drain']),{mode:'internal'}),/legacy duplicate/);assert.equal(reviewed,1);
+});
+test('caption repair and backfill run before unrelated analytics and remain visible in the terminal result',async()=>{
+ let repaired=0,planned=0,automated=0;
+ const rt={jobs:{claimNext:()=>null,listUndeliveredTerminal:()=>[]},now:()=>new Date('2026-09-28T06:25:01Z'),
+  processCaptionRepair:async()=>{repaired++;return {status:'complete',release_id:'SR-000731'};},
+  processCaptionBackfill:async()=>{planned++;return {status:'planned',counts:{attach:2,create:1,held:0}};},
+  processCaptionAuto:async()=>{automated++;return {status:'no_op'};},
+  projectDailyViews:async()=>({status:'disabled'}),projectAnalytics:async()=>({status:'disabled'})};
+ const result=await createDispatcher(rt)(parseCommand(['queue','drain']),{mode:'internal'});
+ assert.equal(repaired,1);assert.equal(result.caption_repair.release_id,'SR-000731');
+ assert.equal(planned,1);assert.equal(result.caption_backfill.counts.create,1);
+ assert.equal(automated,1);assert.equal(result.caption_auto.status,'no_op');
+});
+
+
+test('direct matching commands dispatch with session identity and schema guard',async()=>{
+ const calls=[];
+ const humanOps={withMutationLock:async operation=>operation(),previewCaptureMatch:async request=>{calls.push(request);return {receipt_id:'sdp-test'};},applyPreview:async request=>{calls.push(request);return {status:'success',capture_linked:true,readback:'verified'};}};
+ const runtime={assertRuntimeSchemaReady:async()=>calls.push('schema'),humanOps,
+  queryReleaseCandidates:async()=>({rows:[{release_id:'SR-1',release_version:'v1',candidates:[{post_id:'111',capture_version:'v2'}]}]}),
+  batchOps:{matchDirect:async request=>{calls.push(request);return {status:'success',readback:'verified'};}}};
+ const dispatch=createDispatcher(runtime),identity={actorId:'ou_real',chatId:'oc_real'};
+ const one=parseCommand(['release','match-direct','--payload','-']);
+ const result=await dispatch(one,identity,{key:'SR-1',postId:'111'});
+ assert.equal(result.capture_linked,true);assert.equal(calls[1].actorId,'ou_real');assert.equal(calls[1].chatId,'oc_real');
+ const many=parseCommand(['release','batch-match-direct','--payload','-']);
+ await dispatch(many,identity,{batchId:'B-1',postIds:['111'],actorId:'ou_spoof'});
+ assert.equal(calls.at(-1).actorId,'ou_real');assert.equal(calls.at(-1).chatId,'oc_real');
+ assert.throws(()=>resolveInvocationIdentity(one,{}),error=>error.code==='social_session_required');
+ assert.throws(()=>resolveInvocationIdentity(many,{}),error=>error.code==='social_session_required');
 });

@@ -1,9 +1,13 @@
+import {AsyncLocalStorage} from "node:async_hooks";
 import { createHash, randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
 import { ShortDramaError } from "./errors.mjs";
+import { releaseMatchVersion, captureMatchVersion, canonicalCapturePostUrl } from "./match-candidates.mjs";
+import { canonicalDateTimePatch } from "./feishu-client.mjs";
 import { BASE_FIELD_SPECS, TABLES, fieldOwner } from "./schema.mjs";
 import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
+import { withMutationLeaseRetry } from "./mutation-busy-retry.mjs";
 
 const TABLE_REPOSITORIES = Object.freeze({
   "账号台账": "accounts",
@@ -104,7 +108,7 @@ function canonicalHash(value) {
   return createHash("sha256").update(stableJson(value)).digest("hex");
 }
 
-function baseBinding(repos) {
+export function baseBinding(repos) {
   const coordinates = {};
   const appTokens = new Set();
   for (const [binding, table] of Object.entries(TABLE_REPOSITORIES)) {
@@ -244,7 +248,13 @@ function normalizeFieldValue(table, field, value, { internalRelation = false } =
       (typeof value !== "string" || value.trim() !== value || value.length === 0)) {
     fail("mutation_value_invalid", "Drama name must be a nonblank normalized string", { table, field });
   }
+  // Base stores an empty text cell as null. Canonicalize before preview hashing and readback.
+  if (spec.kind === "text" && value === "") return null;
   if (value === null) return value;
+  if (spec.kind === "user") {
+    if (!Array.isArray(value) || value.length !== 1 || !plainObject(value[0]) || Object.keys(value[0]).join() !== "id" || !/^ou_[A-Za-z0-9]+$/.test(value[0].id)) fail("mutation_value_invalid", "Person requires one Feishu open ID", { table, field });
+    return value;
+  }
   if (spec.kind === "number") {
     if (typeof value !== "number" || !Number.isFinite(value)) {
       fail("mutation_value_invalid", "Numeric field requires a finite number", { table, field });
@@ -276,7 +286,9 @@ function normalizeFieldValue(table, field, value, { internalRelation = false } =
       if (milliseconds === null) {
         fail("mutation_value_invalid", "Datetime field requires a date or timezone-qualified ISO instant", { table, field });
       }
-      return new Date(milliseconds).toISOString();
+      return canonicalDateTimePatch(table, {
+        [field]: new Date(milliseconds).toISOString(),
+      })[field];
     }
     return value;
   }
@@ -397,6 +409,7 @@ export class HumanOpsService {
   #allocateDramaId;
   #allocateReleaseId;
   #baseBinding;
+  #mutationScope = new AsyncLocalStorage();
 
   constructor({ repos, jobs, operators, privileged, now, makeReceiptId, allocateDramaId, allocateReleaseId } = {}) {
     const requiredRepos = Object.values(TABLE_REPOSITORIES);
@@ -444,7 +457,12 @@ export class HumanOpsService {
     if (!this.#privileged.has(actor)) fail("privileged_required", "Action requires a privileged actor", { actor });
   }
 
+  // Internal service composition only; never exposed as an actor-controlled CLI option.
+  async withMutationLock(operation) { return this.#withMutationLock(operation); }
+
   async #withMutationLock(operation) {
+    const inherited = this.#mutationScope.getStore();
+    if (inherited?.active) return operation(inherited.renew, inherited.controller.signal);
     return serializeBaseApply(this.#baseBinding, async () => {
       const lockKey = `human-base:${this.#baseBinding}`;
       const ownerId = `human-${randomUUID()}`;
@@ -455,15 +473,19 @@ export class HumanOpsService {
         leaseSeconds: MUTATION_LEASE_SECONDS,
       });
       if (!acquired) fail("mutation_busy", "Another process holds the human Base mutation lease");
-      const renew = () => this.#jobs.renewMutationLease({
-        lockKey,
-        ownerId,
-        now: this.#now(),
-        leaseSeconds: MUTATION_LEASE_SECONDS,
-      });
+      const controller = new AbortController();
+      let pendingRenewal = null;
+      const renew = () => {
+        if (!pendingRenewal) pendingRenewal = Promise.resolve().then(() => this.#jobs.renewMutationLease({
+          lockKey, ownerId, now: this.#now(), leaseSeconds: MUTATION_LEASE_SECONDS,
+        })).catch(error => { controller.abort(error); throw error; }).finally(() => { pendingRenewal = null; });
+        return pendingRenewal;
+      };
+      const scope = {renew, controller, active: true};
       try {
-        return await operation(renew);
+        return await this.#mutationScope.run(scope, () => this.#leasedStep(renew, () => operation(renew, controller.signal)));
       } finally {
+        scope.active = false;
         this.#jobs.releaseMutationLease({ lockKey, ownerId });
       }
     });
@@ -511,8 +533,11 @@ export class HumanOpsService {
   }
 
   async #index(table) {
+    const cache = this.#mutationScope.getStore()?.preflightIndexes;
+    if (cache?.has(table)) return cache.get(table);
     const index = await tableRepository(this.#repos, table).loadIndex();
     if (!(index instanceof Map)) fail("base_response_invalid", "Repository index is invalid", { table });
+    cache?.set(table, index);
     return index;
   }
 
@@ -747,11 +772,121 @@ export class HumanOpsService {
     return this.#savePreview(actor, chat, envelope);
   }
 
+  async applyDirect(request) {
+    exactKeys(request, PREVIEW_KEYS, "mutation_shape_invalid");
+    const input = clone(request);
+    const actor = this.#actor(input.actorId);
+    const chat = this.#chat(input.chatId);
+    this.#assertWriter(actor);
+    const allowed = input.action === "create" && input.table === "选剧池" ||
+      ["update", "batch_update", "archive"].includes(input.action) && ["选剧池", "发布记录"].includes(input.table);
+    if (!allowed) fail("direct_action_invalid", "Use the dedicated direct command for this action and table");
+    return withMutationLeaseRetry(this, async () => {
+      if (input.action === "create") {
+        const title = typeof input.patch?.剧名 === "string" ? input.patch.剧名.normalize("NFKC").trim().toLowerCase() : null;
+        if (!title) fail("drama_title_required", "Direct create requires a drama title");
+        const existing = [...(await this.#index("选剧池"))].find(([,record]) =>
+          typeof record.fields.剧名 === "string" && record.fields.剧名.normalize("NFKC").trim().toLowerCase() === title);
+        if (existing) fail("direct_create_conflict", "A drama with this title already exists; inspect it before creating another", { drama_id: existing[0] });
+      }
+      const preview = await this.previewMutation(input);
+      const apply = { actorId: actor, chatId: chat, receiptId: preview.receipt_id };
+      return input.action === "archive" ? this.applyArchive(apply) : this.applyPreview(apply);
+    });
+  }
+
+  async previewCaptureMatch(request) {
+    exactKeys(request, new Set(["actorId", "chatId", "key", "postId", "expectedReleaseVersion", "expectedCaptureVersion"]), "mutation_shape_invalid");
+    const input = clone(request), actor = this.#actor(input.actorId), chat = this.#chat(input.chatId);
+    this.#assertWriter(actor);
+    const postId = requiredString(input.postId, "postId");
+    if (!/^\d+$/.test(postId)) fail("post_id_invalid", "Post ID must contain digits only");
+    const capture = (await this.#index("采集数据")).get(postId);
+    if (!capture) fail("base_record_not_found", "Capture was not found");
+    const patch = { "Post ID": postId, 视频链接: canonicalCapturePostUrl(capture.fields.视频链接) };
+    const envelope = await this.#prepareEnvelope({ actor, chat, action: "attach-post", table: "发布记录", key: input.key, patch });
+    const release = (await this.#index("发布记录")).get(envelope.targets[0].key);
+    if (!equal(recordSnapshot("发布记录", envelope.targets[0].key, release), envelope.before[0])) {
+      fail("preview_stale", "Release changed while preparing confirmation");
+    }
+    if (input.expectedReleaseVersion !== undefined && releaseMatchVersion(release.fields) !== input.expectedReleaseVersion) {
+      fail("preview_stale", "Release changed after candidate selection; refresh candidates");
+    }
+    envelope.capture_confirmation = await this.#captureConfirmation(envelope.targets[0].key, release, patch);
+    if (input.expectedCaptureVersion !== undefined) {
+      const confirmation = envelope.capture_confirmation;
+      const version = captureMatchVersion({ record_id: confirmation.capture_record_id,
+        fields: Object.fromEntries(Object.entries(confirmation.fields).filter(([, cell]) => cell.present).map(([name, cell]) => [name, cell.value])) });
+      if (version !== input.expectedCaptureVersion) fail("preview_stale", "Capture changed after candidate selection; refresh candidates");
+    }
+    const preview = this.#savePreview(actor, chat, envelope);
+    return { ...preview, capture_confirmation: clone(envelope.capture_confirmation),
+      release: { key: envelope.targets[0].key, date: release.fields.日期 ?? null, notes: release.fields.备注 ?? null,
+        drama: release.fields.剧名 ?? release.fields.剧ID ?? null },
+      confirmation_required: true, next_step: "confirm_then_apply_preview" };
+  }
+
+  async #captureConfirmation(key, release, patch, expected = null, allowConfirmedLink = false) {
+    const relation = release?.fields?.采集记录;
+    const relationValid = allowConfirmedLink
+      ? equal(relation, [{ id: expected?.capture_record_id }])
+      : !relation || Array.isArray(relation) && relation.length === 0;
+    if (!release || release.fields.归档状态 !== "active" || !relationValid) {
+      fail("release_claim_conflict", "Confirmation requires an active unlinked release");
+    }
+    await this.#validateAttachPost(key, release, patch);
+    const capture = (await this.#index("采集数据")).get(patch["Post ID"]);
+    if (!capture) fail("base_record_not_found", "Capture was not found");
+    if (!equal(capture.fields.账号, release.fields.账号) || canonicalCapturePostUrl(capture.fields.视频链接) !== patch.视频链接) {
+      fail("capture_identity_changed", "Capture account or URL does not match confirmation");
+    }
+    const identity = { post_id: patch["Post ID"], capture_record_id: capture.record_id,
+      fields: Object.fromEntries(["Post ID", "账号", "视频链接", "发布时间"].map(field => [field, cellState(capture.fields, field)])) };
+    if (expected && !equal(identity, expected)) fail("preview_stale", "Capture identity changed after preview");
+    return identity;
+  }
+
   async applyPreview(request) {
     exactKeys(request, APPLY_KEYS, "mutation_shape_invalid");
     const input = clone(request);
     // Task 9's single launchd/job-queue worker remains defense in depth over this durable lease.
     return this.#withMutationLock((renew) => this.#applyReceipt(input, false, renew));
+  }
+
+  async applyGeneratedCreateBatch({actorId, chatId, receiptIds, parentReceipt}) {
+    return this.#withMutationLock(async renew => {
+      if (!Array.isArray(receiptIds) || receiptIds.length < 1 || receiptIds.length > 30 || new Set(receiptIds).size !== receiptIds.length) fail("preview_payload_invalid", "Create batch receipts invalid");
+      const prepared = [];
+      const scope = this.#mutationScope.getStore();
+      scope.preflightIndexes = new Map();
+      try {
+        for (const receiptId of receiptIds) {
+          const item = await this.#applyReceipt({actorId, chatId, receiptId}, false, renew, {prepareOnly: true});
+          if (item.envelope.action !== "create" || item.envelope.table !== "发布记录" || item.envelope.id_generation !== "base_auto_number") fail("preview_payload_invalid", "Batch child must be a generated release create");
+          const patch = item.envelope.targets[0].patch;
+          if (patch.批次ID !== parentReceipt.batchId || patch.计划序号 !== prepared.length + 1 || patch.批次计划条数 !== receiptIds.length) fail("preview_payload_invalid", "Batch child identity differs from parent");
+          prepared.push(item);
+        }
+      } finally { delete scope.preflightIndexes; }
+      const requests = [
+        {receiptId: parentReceipt.receiptId, actorId, chatId, beforeHash: parentReceipt.beforeHash},
+        ...prepared.map(({receiptId,beforeHash}) => ({receiptId, actorId, chatId, beforeHash})),
+      ];
+      const patches = prepared.map(p => p.envelope.targets[0].patch);
+      const result = await this.#leasedStep(renew, () => this.#repos.releases.createManyWithGeneratedIds(patches, "human", {
+        signal: scope.controller.signal,
+        beforeWrite: before => this.#leasedStep(renew, () => {
+          parentReceipt.verifyBeforeWrite?.(before);
+          return this.#jobs.consumePreviews(requests, {now: this.#now()});
+        }),
+      }));
+      const completed = result.records.map(r => r.fields.发布ID);
+      for (let i = 0; i < result.records.length; i++) await this.#leasedStep(renew, () => this.#jobs.appendAudit({
+        actorId, action: "create", targetTable: "发布记录", targetKey: completed[i], before: {}, after: patches[i],
+        readback: {record_id: result.records[i].record_id, fields: patches[i], parent_receipt: parentReceipt.receiptId}, now: this.#now(),
+      }));
+      return {completed, readback: "verified"};
+    });
   }
 
   async previewArchive(request) {
@@ -786,6 +921,7 @@ export class HumanOpsService {
       assertDramaNameInvariant(table, patch);
       if (["选剧池", "发布记录"].includes(table)) patch.归档状态 = "active";
       assertProtectedAction(action, table, patch);
+      const index = await this.#index(table);
       if (table === "账号台账") {
         if (typeof request.key !== "string" || request.key.length === 0 || request.key.trim() !== request.key) {
           fail("account_id_required", "Account create requires a canonical account ID");
@@ -794,12 +930,18 @@ export class HumanOpsService {
         if (!/^[a-z0-9._]+$/.test(key)) fail("account_id_required", "Account create requires a canonical account ID");
       } else {
         if (request.key !== undefined) fail("mutation_shape_invalid", "Allocated create does not accept a caller key");
-        key = table === "选剧池" ? this.#allocateDramaId() : this.#allocateReleaseId();
-        requiredString(key, "allocated_id", "business_id_invalid");
+        if (tableRepository(this.#repos, table).serverGeneratedIds) {
+          key = `pending:${randomUUID()}`;
+          return { v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table, id_generation: "base_auto_number",
+            targets: [{ key, patch }], before: [absenceSnapshot(table, key)] };
+        }
         const pattern = table === "选剧池" ? /^SD-\d{6}$/ : /^SR-\d{6}$/;
+        // Include archived rows and preserve already-reserved preview IDs in SQLite.
+        const liveMax = [...index.keys()].reduce((max, id) => pattern.test(id) ? Math.max(max, Number(id.slice(3))) : max, 0);
+        key = table === "选剧池" ? this.#allocateDramaId(liveMax) : this.#allocateReleaseId(liveMax);
+        requiredString(key, "allocated_id", "business_id_invalid");
         if (!pattern.test(key)) fail("business_id_invalid", "Allocated business ID is invalid", { table });
       }
-      const index = await this.#index(table);
       if (index.has(key)) fail("business_key_conflict", "Business key already exists", { table, key });
       return { v: RECEIPT_VERSION, base_binding: this.#baseBinding, action, table, targets: [{ key, patch }], before: [absenceSnapshot(table, key)] };
     }
@@ -879,6 +1021,15 @@ export class HumanOpsService {
       catch { return false; }
     });
     if (claimant) fail("post_id_claimed", "Post ID is already claimed by another release", { release_id: claimant[0] });
+    const capture = (await this.#index("采集数据")).get(patch["Post ID"]);
+    if (capture) {
+      const linkedClaim = [...releases].find(([key, record]) => key !== releaseKey &&
+        (record.fields.采集记录 ?? []).some(link => link.id === capture.record_id));
+      const reverseClaims = capture.fields.关联发布记录 ?? [];
+      if (linkedClaim || !Array.isArray(reverseClaims) || reverseClaims.some(link => link.id !== releaseRecord.record_id)) {
+        fail("post_id_claimed", "Capture is already linked to another release");
+      }
+    }
   }
 
   #savePreview(actor, chat, envelope) {
@@ -892,7 +1043,8 @@ export class HumanOpsService {
     });
     return clone({
       status: "preview", actor, receipt_id: receipt.receipt_id,
-      record_id: envelope.targets.length === 1 ? envelope.targets[0].key : envelope.targets.map((target) => target.key),
+      record_id: envelope.id_generation === "base_auto_number" ? null : envelope.targets.length === 1 ? envelope.targets[0].key : envelope.targets.map((target) => target.key),
+      ...(envelope.id_generation ? { id_generation: envelope.id_generation } : {}),
       action: envelope.action, table: envelope.table, patch: envelope.targets.length === 1 ? envelope.targets[0].patch : envelope.targets,
       expires_at: receipt.expires_at, next_step: envelope.action === "archive" ? "apply_archive" : "apply_preview",
     });
@@ -907,12 +1059,26 @@ export class HumanOpsService {
   }
 
   #validateReceiptEnvelope(receipt, envelope) {
-    if (!plainObject(envelope) || Object.keys(envelope).some((key) => !["v", "base_binding", "action", "table", "targets", "before"].includes(key)) ||
+    if (!plainObject(envelope) || Object.keys(envelope).some((key) => !["v", "base_binding", "action", "table", "targets", "before", "id_generation", "capture_confirmation"].includes(key)) ||
         envelope.v !== RECEIPT_VERSION || !["create", "update", "batch_update", "attach-post", "archive"].includes(envelope.action) ||
         typeof envelope.base_binding !== "string" || !/^[0-9a-f]{64}$/.test(envelope.base_binding) ||
         !TABLE_REPOSITORIES[envelope.table] || !Array.isArray(envelope.targets) || envelope.targets.length === 0 || !Array.isArray(envelope.before) ||
         envelope.before.length !== envelope.targets.length || receipt.action !== envelope.action || receipt.target_table !== envelope.table) {
       fail("preview_payload_invalid", "Preview payload is invalid");
+    }
+    if (envelope.capture_confirmation !== undefined &&
+        (envelope.action !== "attach-post" || envelope.table !== "发布记录" || envelope.targets.length !== 1 ||
+         !plainObject(envelope.capture_confirmation) ||
+         Object.keys(envelope.capture_confirmation).sort().join("|") !== "capture_record_id|fields|post_id" ||
+         envelope.capture_confirmation.post_id !== envelope.targets[0]?.patch?.["Post ID"] ||
+         typeof envelope.capture_confirmation.capture_record_id !== "string" ||
+         !plainObject(envelope.capture_confirmation.fields))) {
+      fail("preview_payload_invalid", "Capture confirmation binding is invalid");
+    }
+    if (envelope.id_generation !== undefined && (envelope.id_generation !== "base_auto_number" ||
+        envelope.action !== "create" || !["选剧池", "发布记录"].includes(envelope.table) ||
+        envelope.targets.length !== 1 || !/^pending:[0-9a-f-]{36}$/.test(envelope.targets[0]?.key) || envelope.before[0]?.exists !== false)) {
+      fail("preview_payload_invalid", "Generated ID preview binding is invalid");
     }
     if (envelope.base_binding !== this.#baseBinding) fail("preview_base_mismatch", "Preview belongs to a different Base binding");
     const expectedTarget = envelope.targets.length === 1 ? envelope.targets[0].key : envelope.targets.map((target) => target.key).join(",");
@@ -952,7 +1118,7 @@ export class HumanOpsService {
     }
   }
 
-  async #applyReceipt(request, archiveOnly, renew) {
+  async #applyReceipt(request, archiveOnly, renew, {prepareOnly = false} = {}) {
     const actor = this.#actor(request.actorId);
     const chat = this.#chat(request.chatId);
     const receiptId = receiptString(request.receiptId);
@@ -978,6 +1144,10 @@ export class HumanOpsService {
         fail("preview_payload_invalid", "Preview patch is not in canonical storage form");
       }
     }
+    if (envelope.action === "create" && Boolean(tableRepository(this.#repos, envelope.table).serverGeneratedIds) !==
+        (envelope.id_generation === "base_auto_number")) {
+      fail("preview_stale", "Base ID generation changed; generate a fresh preview");
+    }
     const currentBefore = await this.#leasedStep(renew, () => this.#currentBefore(envelope));
     for (let index = 0; index < envelope.targets.length; index += 1) {
       const before = currentBefore[index];
@@ -993,10 +1163,17 @@ export class HumanOpsService {
         const current = (await this.#index("发布记录")).get(envelope.targets[0].key);
         if (!current) fail("preview_stale", "Preview target is stale");
         await this.#validateAttachPost(envelope.targets[0].key, current, envelope.targets[0].patch);
+        if (envelope.capture_confirmation) await this.#captureConfirmation(
+          envelope.targets[0].key, current, envelope.targets[0].patch, envelope.capture_confirmation);
       });
     }
     const beforeHash = canonicalHash(currentBefore);
-    await this.#leasedStep(renew, () => this.#jobs.consumePreview(receiptId, { actorId: actor, chatId: chat, beforeHash, now: this.#now() }));
+    if (receipt.used_at) fail("preview_used", "Preview receipt was already used");
+    if (beforeHash !== receipt.before_hash) fail("preview_stale", "Preview target is stale");
+    if (Date.parse(receipt.expires_at) <= this.#now().getTime()) fail("preview_expired", "Preview receipt has expired");
+    if (prepareOnly) return {receiptId, envelope, beforeHash};
+    const consume = () => this.#leasedStep(renew, () => this.#jobs.consumePreview(receiptId, {actorId: actor, chatId: chat, beforeHash, now: this.#now()}));
+    if (envelope.id_generation !== "base_auto_number") await consume();
 
     const repository = tableRepository(this.#repos, envelope.table);
     const results = [];
@@ -1015,7 +1192,12 @@ export class HumanOpsService {
         results.push({ key: target.key, change: null });
         continue;
       }
-      const written = await this.#leasedStep(renew, () => repository.upsertByKey(target.key, target.patch, "human"));
+      const generated = envelope.id_generation === "base_auto_number";
+      const written = await this.#leasedStep(renew, () => generated
+        ? repository.createWithGeneratedId(target.patch, "human", {beforeWrite: consume, signal: this.#mutationScope.getStore()?.controller.signal})
+        : repository.upsertByKey(target.key, target.patch, "human"));
+      const actualKey = generated ? written.record?.fields?.[TABLES[envelope.table].primaryField] : target.key;
+      requiredString(actualKey, "written_id", "readback_mismatch");
       if (written.readback !== "verified" || !plainObject(written.record?.fields)) {
         fail("readback_mismatch", "Human mutation did not return verified readback", { table: envelope.table, key: target.key });
       }
@@ -1024,19 +1206,53 @@ export class HumanOpsService {
           fail("readback_mismatch", "Human mutation readback did not match", { table: envelope.table, key: target.key, field });
         }
       }
-      const change = changedRecord(target.key, beforeFields, target.patch, written.record.fields);
+      const change = changedRecord(actualKey, beforeFields, target.patch, written.record.fields);
       const beforeAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].before)]));
       const afterAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].after)]));
       const readbackAudit = Object.fromEntries(changed.map((field) => [field, clone(change.fields[field].readback)]));
       await this.#leasedStep(renew, () => this.#jobs.appendAudit({
-        actorId: actor, action: envelope.action, targetTable: envelope.table, targetKey: target.key,
+        actorId: actor, action: envelope.action, targetTable: envelope.table, targetKey: actualKey,
         before: beforeAudit, after: afterAudit, readback: readbackAudit, now: this.#now(),
       }));
-      results.push({ key: target.key, change });
+      results.push({ key: actualKey, change });
+    }
+    if (envelope.capture_confirmation) {
+      const target = envelope.targets[0];
+      try {
+        const current = (await this.#leasedStep(renew, () => this.#index("发布记录"))).get(target.key);
+        const expectedBefore = clone(envelope.before[0]);
+        for (const [field, value] of Object.entries(target.patch)) expectedBefore.record.fields[field] = { present: true, value };
+        if (!equal(recordSnapshot("发布记录", target.key, current), expectedBefore)) fail("preview_stale", "Release changed before capture link");
+        await this.#leasedStep(renew, () => this.#captureConfirmation(target.key, current, target.patch, envelope.capture_confirmation));
+        const expected = Object.fromEntries(["Post ID", "视频链接", "账号", "日期"].map(field => [field, current.fields[field]]));
+        const linked = await this.#leasedStep(renew, () => repository.linkCaptureSafely(
+          target.key, envelope.capture_confirmation.capture_record_id, expected));
+        const relation = [{ id: envelope.capture_confirmation.capture_record_id }];
+        if (linked.readback !== "verified" || !equal(linked.record?.fields?.采集记录, relation) ||
+            !equal(recordSnapshot("发布记录", target.key, linked.record), expectedBefore)) {
+          fail("readback_mismatch", "Capture confirmation did not return verified readback");
+        }
+        const finalRelease = (await this.#leasedStep(renew, () => this.#index("发布记录"))).get(target.key);
+        if (!equal(recordSnapshot("发布记录", target.key, finalRelease), expectedBefore)) fail("preview_stale", "Release changed during capture link");
+        await this.#leasedStep(renew, () => this.#captureConfirmation(target.key, finalRelease, target.patch, envelope.capture_confirmation, true));
+        const change = changedRecord(target.key, current.fields, { 采集记录: relation }, linked.record.fields);
+        await this.#leasedStep(renew, () => this.#jobs.appendAudit({ actorId: actor, action: "confirm-capture",
+          targetTable: "发布记录", targetKey: target.key, before: { 采集记录: cellState(current.fields, "采集记录") },
+          after: { 采集记录: { present: true, value: relation } }, readback: { 采集记录: cellState(linked.record.fields, "采集记录") }, now: this.#now() }));
+        if (change) {
+          const existing = results.find(result => result.key === target.key);
+          if (existing.change) Object.assign(existing.change.fields, change.fields);
+          else existing.change = change;
+        }
+      } catch (error) {
+        fail("capture_confirmation_partial", "Exact post registration may be saved but capture confirmation did not complete", {
+          next_step: "inspect_before_retry", receipt_consumed: true, cause_code: error?.code ?? "internal_error",
+        });
+      }
     }
     const allChanged = results.map((result) => result.change).filter(Boolean);
     const allUnchanged = allChanged.length === 0;
-    return mutationResult({
+    const result = mutationResult({
       status: allUnchanged ? "unchanged" : "success",
       actor,
       recordId: results.length === 1 ? results[0].key : results.map((result) => result.key),
@@ -1044,5 +1260,7 @@ export class HumanOpsService {
       receiptId,
       nextStep: "none",
     });
+    if (envelope.capture_confirmation) result.capture_linked = true;
+    return result;
   }
 }

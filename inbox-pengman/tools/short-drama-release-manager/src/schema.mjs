@@ -27,16 +27,16 @@ const formula = (name, expression) => field(name, "formula", { phase: "lookup_fo
 const system = (name, details = {}) => field(name, "system", { phase: "system", ...details });
 
 const SELECT_OPTIONS = Object.freeze({
-  accountLedgerStatus: frozenArray(["未发", "重养", "发布中"]),
+  accountLedgerStatus: frozenArray(["未发", "重养", "发布中", "弃用", "暂停", "买粉中"]),
   dramaAccountStatus: frozenArray(["未发", "重养", "发布中"]),
   syncStatus: frozenArray(["success", "partial", "failed"]),
-  platform: frozenArray(["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]),
-  recommender: frozenArray(["彭满", "高璇", "马博洋"]),
+  platform: frozenArray(["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他", "MoboReels"]),
+  recommender: frozenArray(["彭满", "高璇", "马博洋", "张凯风", "李建卓"]),
   archiveStatus: frozenArray(["active", "archived"]),
   business: frozenArray(["short-drama"]),
   collectionStatus: frozenArray(["complete", "partial"]),
   missingField: frozenArray(["views", "likes", "comments", "favorites", "shares"]),
-  matchMethod: frozenArray(["exact_post_id", "manual_url", "account_time"]),
+  matchMethod: frozenArray(["exact_post_id", "manual_url", "account_time", "batch_title_sequence"]),
 });
 const selected = (name, kind, options, details = {}) => storage(name, kind, {
   ...details,
@@ -45,15 +45,15 @@ const selected = (name, kind, options, details = {}) => storage(name, kind, {
 
 export const TABLE_ORDER = Object.freeze(["账号台账", "选剧池", "采集数据", "发布记录"]);
 export const SCHEMA_APPLY_ORDER = Object.freeze(["storage", "link", "lookup_formula", "system", "view_dashboard"]);
-const PATCH_ACTOR_KINDS = Object.freeze(["human", "machine", "migration"]);
+const PATCH_ACTOR_KINDS = Object.freeze(["human", "machine", "migration", "batch_match", "caption_backfill", "caption_pool"]);
 
 export const TABLES = Object.freeze({
   "账号台账": table(
     "账号ID",
-    ["账号名", "所属组", "定位垂类", "表现形式", "状态"],
+    ["账号名", "所属组", "定位垂类", "表现形式", "状态", "负责人", "接收时间/注册时间", "始发时间", "备注"],
     ["账号ID", "粉丝数", "数据日期", "指标同步时间", "同步状态"],
     ["主页链接"],
-    [],
+    ["日均播放量"],
     { 状态: SELECT_OPTIONS.accountLedgerStatus, 同步状态: SELECT_OPTIONS.syncStatus }
   ),
   "选剧池": table(
@@ -78,7 +78,7 @@ export const TABLES = Object.freeze({
     [],
     [
       "Post ID", "快照日期", "采集时间", "账号", "视频链接", "发布时间",
-      "播放量", "点赞", "评论", "收藏", "转发", "业务", "采集状态",
+      "Caption", "播放量", "点赞", "评论", "收藏", "转发", "业务", "采集状态",
       "缺失字段", "来源 run_id", "Base 同步时间",
     ],
     [],
@@ -91,10 +91,10 @@ export const TABLES = Object.freeze({
   ),
   "发布记录": table(
     "发布ID",
-    ["日期", "账号", "剧", "剧ID（RS Boost）", "RS收益", "备注", "归档状态"],
-    ["发布ID", "采集记录", "匹配方式", "匹配置信度", "指标同步时间", "同步错误"],
+    ["日期", "账号", "剧", "剧ID（RS Boost）", "RS收益", "备注", "归档状态", "批次ID", "计划序号", "批次计划条数", "计划发布时间", "处理负责人"],
+    ["发布ID", "采集记录", "匹配方式", "匹配置信度", "指标同步时间", "同步错误", "批次处理状态", "待处理原因", "候选视频", "最近通知时间"],
     ["视频链接", "Post ID"],
-    ["账号名", "主页链接", "剧ID", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论", "发布状态", "指标日期"],
+    ["账号名", "主页链接", "剧ID", "剧名", "剧分类", "播放量", "点赞", "收藏", "转发", "评论", "发布状态", "指标日期", "实际发布时间"],
     { 匹配方式: SELECT_OPTIONS.matchMethod, 归档状态: SELECT_OPTIONS.archiveStatus }
   ),
 });
@@ -105,9 +105,10 @@ export const BASE_FIELD_SPECS = Object.freeze({
     storage("粉丝数", "number"), manifestAppendSelect("所属组", "single_select"), storage("定位垂类", "text"),
     manifestAppendSelect("表现形式", "single_select"), selected("状态", "single_select", SELECT_OPTIONS.accountLedgerStatus), storage("数据日期", "date"),
     storage("指标同步时间", "datetime"), selected("同步状态", "single_select", SELECT_OPTIONS.syncStatus),
+    storage("负责人", "user"), storage("接收时间/注册时间", "datetime"), storage("始发时间", "datetime"), storage("备注", "text"),
   ]),
   "选剧池": Object.freeze([
-    storage("剧ID", "text", { primary: true }), storage("剧名", "text"), manifestAppendSelect("剧分类", "multi_select"),
+    storage("剧ID", "text", { primary: true, autoNumberPrefix: "SD-" }), storage("剧名", "text"), manifestAppendSelect("剧分类", "multi_select"),
     storage("上线日期", "date"), manifestAppendSelect("生命周期", "single_select"), storage("备注", "text"),
     storage("推荐理由", "text"), manifestAppendSelect("RS Boost 分类（待确认）", "multi_select"), manifestAppendSelect("账号组", "multi_select"),
     selected("账号状态", "single_select", SELECT_OPTIONS.dramaAccountStatus), selected("平台", "single_select", SELECT_OPTIONS.platform), manifestAppendSelect("语言", "single_select"),
@@ -119,7 +120,7 @@ export const BASE_FIELD_SPECS = Object.freeze({
   ]),
   "采集数据": Object.freeze([
     storage("Post ID", "text", { primary: true }), storage("快照日期", "date"), storage("采集时间", "datetime"),
-    storage("视频链接", "url"), storage("发布时间", "datetime"), storage("播放量", "number"),
+    storage("视频链接", "url"), storage("发布时间", "datetime"), storage("Caption", "text"), storage("播放量", "number"),
     storage("点赞", "number"), storage("评论", "number"), storage("收藏", "number"), storage("转发", "number"),
     selected("业务", "single_select", SELECT_OPTIONS.business), selected("采集状态", "single_select", SELECT_OPTIONS.collectionStatus), selected("缺失字段", "multi_select", SELECT_OPTIONS.missingField),
     storage("来源 run_id", "text"), storage("Base 同步时间", "datetime"), link("账号", "账号台账"),
@@ -127,7 +128,10 @@ export const BASE_FIELD_SPECS = Object.freeze({
     lookup("账号名", "账号", "账号名"),
   ]),
   "发布记录": Object.freeze([
-    storage("发布ID", "text", { primary: true }), storage("日期", "datetime"), storage("剧ID（RS Boost）", "text"),
+    storage("发布ID", "text", { primary: true, autoNumberPrefix: "SR-" }), storage("日期", "datetime"), storage("剧ID（RS Boost）", "text"),
+    storage("批次ID", "text"), storage("计划序号", "number"), storage("批次计划条数", "number"),
+    storage("计划发布时间", "datetime"), storage("处理负责人", "user"),
+    storage("批次处理状态", "text"), storage("待处理原因", "text"), storage("候选视频", "text"), storage("最近通知时间", "datetime"),
     storage("视频链接", "url"), storage("Post ID", "text"), storage("RS收益", "number"), storage("备注", "text"),
     selected("匹配方式", "single_select", SELECT_OPTIONS.matchMethod), storage("匹配置信度", "number"), storage("指标同步时间", "datetime"),
     storage("同步错误", "text"), selected("归档状态", "single_select", SELECT_OPTIONS.archiveStatus), link("账号", "账号台账"),
@@ -137,10 +141,18 @@ export const BASE_FIELD_SPECS = Object.freeze({
     lookup("主页链接", "账号", "主页链接"), lookup("剧ID", "剧", "剧ID"), lookup("剧名", "剧", "剧名"),
     lookup("剧分类", "剧", "剧分类"), lookup("播放量", "采集记录", "播放量"), lookup("点赞", "采集记录", "点赞"),
     lookup("收藏", "采集记录", "收藏"), lookup("转发", "采集记录", "转发"), lookup("评论", "采集记录", "评论"),
-    lookup("指标日期", "采集记录", "快照日期"),
+    lookup("指标日期", "采集记录", "快照日期"), lookup("实际发布时间", "采集记录", "发布时间"),
     formula("发布状态", "IF(AND(OR([Post ID]=\"\",ISBLANK([Post ID])),OR([视频链接]=\"\",ISBLANK([视频链接])),ISBLANK([采集记录])),IF([日期]>NOW(),\"已排期\",\"待公开\"),IF(AND(NOT(ISBLANK([播放量])),NOT(ISBLANK([点赞])),NOT(ISBLANK([收藏])),NOT(ISBLANK([转发])),NOT(ISBLANK([评论]))),\"已回填\",\"已公开\"))"),
   ]),
 });
+
+// Post-migration pool enrichment metadata. The original migration manifest must
+// replay against BASE_FIELD_SPECS unchanged, so these fields have a separate
+// optional contract and are checked before the Beidou worker is enabled.
+export const OPTIONAL_POOL_FIELDS = Object.freeze([
+  storage("北斗候选", "text"),
+  storage("北斗选定ID", "text"),
+]);
 
 export function fieldOwner(tableName, fieldName) {
   const definition = TABLES[tableName];
@@ -160,6 +172,9 @@ export function assertPatchAllowed(tableName, patch, actorKind) {
   for (const fieldName of Object.keys(patch)) {
     const owner = fieldOwner(tableName, fieldName);
     const allowed =
+      (actorKind === "caption_pool" && tableName === "选剧池" && ["剧名", "平台", "归档状态"].includes(fieldName)) ||
+      (actorKind === "batch_match" && tableName === "发布记录" && ["Post ID", "视频链接", "采集记录", "匹配方式", "匹配置信度"].includes(fieldName)) ||
+      (actorKind === "caption_backfill" && tableName === "发布记录" && ["日期", "账号", "剧", "归档状态", "处理负责人", "Post ID", "视频链接", "采集记录", "匹配方式", "匹配置信度", "待处理原因"].includes(fieldName)) ||
       (actorKind === "migration" && ["human", "machine", "shared"].includes(owner)) ||
       (owner === actorKind && actorKind !== "migration") ||
       (owner === "shared" && actorKind === "human");
@@ -184,4 +199,15 @@ export function assertPatchAllowed(tableName, patch, actorKind) {
       }
     }
   }
+}
+
+// Base can contain a newly inserted, wholly empty draft. It has no business identity yet.
+// Never skip a partially populated row: a missing ID on real input must still be reported.
+export function isEmptyBusinessRecord(tableName, fields) {
+  const spec = TABLES[tableName];
+  if (!spec || !fields || typeof fields !== 'object') return false;
+  return [...spec.human, ...spec.machine, ...spec.shared].every(name => {
+    const value = fields[name];
+    return value == null || value === '' || Array.isArray(value) && value.length === 0;
+  });
 }

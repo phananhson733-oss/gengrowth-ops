@@ -148,6 +148,8 @@ export function matchReleaseToCapture(release, captures, claimedPostIds) {
     return matched("exact_post_id", "explicit_post_id_exact", post);
   }
 
+  if (release["批次ID"]) return unmatched("batch_review_required");
+
   const releaseDate = release["日期"];
   if (releaseDate === undefined || releaseDate === null || releaseDate === "") {
     return unmatched("release_date_missing", available);

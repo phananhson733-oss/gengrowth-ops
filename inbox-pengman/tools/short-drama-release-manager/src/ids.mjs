@@ -78,11 +78,15 @@ function formatBusinessId(kind, value) {
   return `${prefix}-${String(value).padStart(6, "0")}`;
 }
 
-export function allocateBusinessId(db, kind) {
+export function allocateBusinessId(db, kind, liveMax = 0) {
   definitionFor(kind);
+  if (!Number.isSafeInteger(liveMax) || liveMax < 0) {
+    throw new ShortDramaError("business_id_seed_invalid", "Observed business ID maximum must be a non-negative safe integer", { kind });
+  }
   ensureSequenceTable(db);
   return immediate(db, () => {
-    db.prepare("INSERT INTO id_sequences(kind, last_value) VALUES (?, 0) ON CONFLICT(kind) DO NOTHING").run(kind);
+    db.prepare(`INSERT INTO id_sequences(kind, last_value) VALUES (?, ?)
+      ON CONFLICT(kind) DO UPDATE SET last_value = MAX(id_sequences.last_value, excluded.last_value)`).run(kind, liveMax);
     const row = db.prepare(`
       UPDATE id_sequences
       SET last_value = last_value + 1

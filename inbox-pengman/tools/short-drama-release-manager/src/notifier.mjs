@@ -111,3 +111,5 @@ export class ShortDramaNotifier {
     }
   }
 }
+
+export { processBatchReviews, createBatchReviewSender } from './batch-review-notifier.mjs';

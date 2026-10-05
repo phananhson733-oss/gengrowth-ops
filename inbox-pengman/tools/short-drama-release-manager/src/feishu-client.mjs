@@ -1,5 +1,5 @@
 import { ShortDramaError } from "./errors.mjs";
-import { BASE_FIELD_SPECS, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
+import { BASE_FIELD_SPECS, OPTIONAL_POOL_FIELDS, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 
 const FEISHU_ORIGIN = "https://open.feishu.cn";
@@ -261,7 +261,8 @@ function normalizedResourceItems(data, resource) {
 }
 
 function fieldSpecOrNull(tableName, fieldName) {
-  return BASE_FIELD_SPECS[tableName]?.find((spec) => spec.name === fieldName) ?? null;
+  return BASE_FIELD_SPECS[tableName]?.find((spec) => spec.name === fieldName) ??
+    (tableName === "选剧池" ? OPTIONAL_POOL_FIELDS.find((spec) => spec.name === fieldName) : null) ?? null;
 }
 
 function validCalendarParts(year, month, day, hour = 0, minute = 0, second = 0) {
@@ -301,6 +302,18 @@ function exactIdCells(value, context) {
   return value;
 }
 
+// Base returns a person cell with volatile display fields (name, en_name, email,
+// avatar_url). Keep only the stable id so a rename or a new avatar cannot turn a
+// clean readback into a mismatch.
+function personIdCells(value, context) {
+  if (!Array.isArray(value) || value.some((item) => !plainObject(item) ||
+      typeof item.id !== "string" || item.id.length === 0 || item.id.trim() !== item.id) ||
+      new Set(value.map((item) => item.id)).size !== value.length) {
+    throw invalidResponse(`${context} cell value is malformed`);
+  }
+  return value.map((item) => ({ id: item.id }));
+}
+
 function encodeCell(tableName, fieldName, value) {
   const spec = fieldSpecOrNull(tableName, fieldName);
   if (!spec || value === null || value === undefined) return value;
@@ -315,6 +328,7 @@ function encodeCell(tableName, fieldName, value) {
   }
   if (spec.kind === "date" || spec.kind === "datetime") return shanghaiRaw(value);
   if (spec.kind === "link") return exactIdCells(value, "Link");
+  if (spec.kind === "user") return exactIdCells(value, "Person");
   return value;
 }
 
@@ -323,7 +337,7 @@ function decodeCell(tableName, fieldName, value) {
   // Base renders an absent collection as null, "" or []. The manifest always writes []
   // for an empty multi-select or link, so normalize the set-valued kinds instead of
   // depending on which of the three shapes the vendor happens to return.
-  if (spec && (spec.kind === "multi_select" || spec.kind === "link") &&
+  if (spec && (spec.kind === "multi_select" || spec.kind === "link" || spec.kind === "user") &&
       (value === null || value === undefined || value === "")) return [];
   if (!spec || value === null || value === undefined) return value;
   if (spec.kind === "single_select") {
@@ -340,7 +354,7 @@ function decodeCell(tableName, fieldName, value) {
     if (instantMs === null) throw invalidResponse("Datetime read value is malformed");
     const shanghai = new Date(instantMs + 8 * 60 * 60 * 1000).toISOString();
     if (spec.kind === "date") return shanghai.slice(0, 10);
-    if (tableName === "发布记录" && fieldName === "日期" && shanghai.endsWith("T00:00:00.000Z")) return shanghai.slice(0, 10);
+    if (tableName === "发布记录" && ["日期", "计划发布时间"].includes(fieldName) && shanghai.endsWith("T00:00:00.000Z")) return shanghai.slice(0, 10);
     return new Date(instantMs).toISOString();
   }
   if (spec.kind === "url") {
@@ -351,6 +365,7 @@ function decodeCell(tableName, fieldName, value) {
     return markdown && markdown[1] === markdown[2] ? markdown[1] : value;
   }
   if (spec.kind === "link") return exactIdCells(value, "Link");
+  if (spec.kind === "user") return personIdCells(value, "Person");
   if (spec.kind === "lookup") {
     const linkSpec = fieldSpecOrNull(tableName, spec.linkField);
     const sourceSpec = linkSpec ? fieldSpecOrNull(linkSpec.targetTable, spec.sourceField) : null;
@@ -377,13 +392,22 @@ function decodeCell(tableName, fieldName, value) {
   return value;
 }
 
+// Repository expectations must use the same precision/timezone as the wire
+// codec. Only datetime fields are normalized; ISO-looking human text stays exact.
+export function canonicalDateTimePatch(tableName, fields) {
+  return Object.fromEntries(Object.entries(fields).map(([name, value]) => [name,
+    fieldSpecOrNull(tableName, name)?.kind === "datetime"
+      ? decodeCell(tableName, name, encodeCell(tableName, name, value)) : value,
+  ]));
+}
+
 function expectedVendorFieldTypes(spec) {
   const mapping = {
     text: ["text"], url: ["text", "url"], number: ["number"], single_select: ["single_select", "select"],
     multi_select: ["multi_select", "select"], date: ["datetime"], datetime: ["datetime"], link: ["link"],
-    lookup: ["lookup"], formula: ["formula"], system: [spec?.systemType],
+    lookup: ["lookup"], formula: ["formula"], user: ["user"], system: [spec?.systemType],
   };
-  return new Set((mapping[spec?.kind] ?? []).filter(Boolean));
+  return new Set([...(mapping[spec?.kind] ?? []), ...(spec?.autoNumberPrefix ? ["auto_number"] : [])].filter(Boolean));
 }
 
 function encodeFields(tableName, fields) {
@@ -562,16 +586,18 @@ function decodedRecordMatrix(data, { tableName = null, writableOnly = false, pro
       }
     });
   }
+  const columnOrder = fields.map((_field, index) => index)
+    .sort((left, right) => fields[left].localeCompare(fields[right]));
   return {
     records: rows.map((row, index) => ({
       record_id: recordIds[index],
       fields: Object.fromEntries(fields.map((field, at) => [field, decodeCell(tableName, field, row[at])])),
     })),
     signature: strictList ? {
-      fields: [...fields],
+      fields: columnOrder.map((index) => fields[index]),
       ...(data.total === undefined ? {} : { total: data.total }),
-      ...(fieldIds === undefined ? {} : { field_ids: [...fieldIds] }),
-      ...(fieldTypes === undefined ? {} : { field_types: [...fieldTypes] }),
+      ...(fieldIds === undefined ? {} : { field_ids: columnOrder.map((index) => fieldIds[index]) }),
+      ...(fieldTypes === undefined ? {} : { field_types: columnOrder.map((index) => fieldTypes[index]) }),
       ...(data.timezone === undefined ? {} : { timezone: data.timezone }),
       ...(data.rev === undefined || data.rev === null ? {} : { rev: data.rev }),
       ...(data.query_context === undefined ? {} : {
@@ -696,18 +722,22 @@ function requireRecordIds(payload, expectedIds = null, expectedCount = null) {
   if (expectedCount !== null && ids.length !== expectedCount) {
     throw invalidResponse("Feishu batch create response count does not match request");
   }
-  if (expectedIds !== null && (ids.length !== expectedIds.length || ids.some((id, index) => id !== expectedIds[index]))) {
-    throw invalidResponse("Feishu batch update response IDs do not match request order");
+  if (expectedIds !== null) {
+    const expected = new Set(expectedIds);
+    if (ids.length !== expectedIds.length || ids.some((id) => !expected.has(id))) {
+      throw invalidResponse("Feishu batch update response IDs do not match requested records", {
+        expected_count: expectedIds.length, returned_count: ids.length,
+      });
+    }
   }
   return ids;
 }
 
 function findFieldSpec(tableName, fieldName) {
-  const specs = BASE_FIELD_SPECS[tableName];
-  if (!specs || typeof fieldName !== "string") {
+  if (!BASE_FIELD_SPECS[tableName] || typeof fieldName !== "string") {
     fail("base_schema_drift", "Field is not part of the fixed Base schema", { table: tableName ?? null });
   }
-  const spec = specs.find((candidate) => candidate.name === fieldName);
+  const spec = fieldSpecOrNull(tableName, fieldName);
   if (!spec) {
     fail("base_schema_drift", "Field is not part of the fixed Base schema", { table: tableName, field: fieldName });
   }
@@ -759,6 +789,7 @@ function canonicalFieldBody(tableName, spec, bindings = {}, optionInput = {}) {
   if (spec.kind === "text") return { name: spec.name, type: "text" };
   if (spec.kind === "url") return { name: spec.name, type: "text", style: { type: "url" } };
   if (spec.kind === "number") return { name: spec.name, type: "number" };
+  if (spec.kind === "user") return { name: spec.name, type: "user", multiple: false };
   if (spec.kind === "single_select" || spec.kind === "multi_select") {
     if (spec.options && hasInitialOptions) {
       fail("base_schema_drift", "Fixed Select options cannot be replaced", { field: spec.name });
@@ -905,7 +936,7 @@ export function fixedTerminalDashboardBlockDescriptor(terminal) {
   return {
     name: "最近一次同步终态",
     data_config: {
-      text: `**最近一次同步终态**\n状态：${terminal.state}\nrun_id：${terminal.runId}\n完成时间：${terminal.finishedAt}`,
+      text: `最近一次同步终态 · 状态：${terminal.state} · run_id：${terminal.runId} · 完成时间：${terminal.finishedAt}`,
     },
   };
 }
@@ -955,6 +986,8 @@ async function defaultFetchJson(url, options = {}) {
   return { ...payload, status: response.status, headers: response.headers };
 }
 
+const AUTH_TIMEOUT_MS = 30_000;
+
 export function createTenantTokenProvider({ appId, appSecret, fetchJson = defaultFetchJson, now = Date.now } = {}) {
   if (typeof appId !== "string" || appId.length === 0 || typeof appSecret !== "string" || appSecret.length === 0) {
     fail("base_auth_failed", "Feishu application credentials are required");
@@ -974,6 +1007,8 @@ export function createTenantTokenProvider({ appId, appSecret, fetchJson = defaul
           method: "POST",
           headers: { "content-type": "application/json; charset=utf-8" },
           body: { app_id: appId, app_secret: appSecret },
+          // Every caller waits on this one request; a stalled response must fail.
+          signal: AbortSignal.timeout(AUTH_TIMEOUT_MS),
         });
       } catch (error) {
         if (error instanceof ShortDramaError) throw error;
@@ -1057,17 +1092,18 @@ export class FeishuClient {
     return await awaitWithAbort(run, signal);
   }
 
-  async request(path, { method = "GET", body = undefined, context = undefined, signal = undefined } = {}) {
+  async request(path, { method = "GET", body = undefined, context = undefined, signal = undefined, noRetry = false } = {}) {
     if (typeof path !== "string" || !path.startsWith(BASE_V3_PREFIX) || path.includes("://")) {
       fail("base_response_invalid", "Only fixed Feishu Base v3 API paths are allowed");
     }
     assertNotAborted(signal);
     if (!context) return this.operation(
-      (operationContext) => this.request(path, { method, body, context: operationContext, signal }),
+      (operationContext) => this.request(path, { method, body, context: operationContext, signal, noRetry }),
       { signal },
     );
 
-    for (let attempt = 1; attempt <= MAX_REQUEST_ATTEMPTS; attempt += 1) {
+    const maxAttempts = noRetry ? 1 : MAX_REQUEST_ATTEMPTS;
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       let payload;
       try {
         assertNotAborted(signal);
@@ -1084,11 +1120,11 @@ export class FeishuClient {
       } catch (error) {
         assertNotAborted(signal);
         this.log(method, path, statusOf(error) ?? "error");
-        if (isRateLimited(error) && attempt < MAX_REQUEST_ATTEMPTS) {
+        if (isRateLimited(error) && attempt < maxAttempts) {
           await awaitWithAbort(this.sleep(retryDelay(error, attempt), { signal }), signal);
           continue;
         }
-        if (isAuthorizationFailure(error) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
+        if (isAuthorizationFailure(error) && !context.authRetried && attempt < maxAttempts) {
           context.authRetried = true;
           this.tokenProvider.invalidate?.(context.token);
           context.token = validateToken(await awaitWithAbort(this.tokenProvider(), signal));
@@ -1109,11 +1145,11 @@ export class FeishuClient {
         }
         return payload;
       }
-      if (isRateLimited(payload) && attempt < MAX_REQUEST_ATTEMPTS) {
+      if (isRateLimited(payload) && attempt < maxAttempts) {
         await awaitWithAbort(this.sleep(retryDelay(payload, attempt), { signal }), signal);
         continue;
       }
-      if (isAuthorizationFailure(payload) && !context.authRetried && attempt < MAX_REQUEST_ATTEMPTS) {
+      if (isAuthorizationFailure(payload) && !context.authRetried && attempt < maxAttempts) {
         context.authRetried = true;
         this.tokenProvider.invalidate?.(context.token);
         context.token = validateToken(await awaitWithAbort(this.tokenProvider(), signal));
@@ -1155,17 +1191,25 @@ export class FeishuClient {
           : null;
         const pageItems = decoded ? decoded.records : normalizedResourceItems(payload.data, resource);
         if (decoded?.signature) {
-          for (const [key, value] of Object.entries(decoded.signature)) {
-            if (recordMetadataBaselines.has(key) && JSON.stringify(recordMetadataBaselines.get(key)) !== JSON.stringify(value)) {
-              throw invalidResponse("Feishu record list schema changed during pagination", { path: diagnosticPath(path) });
-            }
+          const entries = Object.entries(decoded.signature);
+          const changes = entries.filter(([key, value]) => recordMetadataBaselines.has(key)
+            && JSON.stringify(recordMetadataBaselines.get(key)) !== JSON.stringify(value)).map(([key]) => key);
+          if (changes.length) {
+            // A count/revision change must not conceal a simultaneous identity
+            // or schema change that post-write readers must never retry away.
+            const key = changes.find((name) => !["rev", "total"].includes(name)) ?? changes[0];
+            throw invalidResponse("Feishu record list schema changed during pagination", {
+              path: diagnosticPath(path), pagination_metadata_key: key, changed_metadata: changes,
+            });
+          }
+          for (const [key, value] of entries) {
             if (!recordMetadataBaselines.has(key)) recordMetadataBaselines.set(key, structuredClone(value));
           }
         }
         const pageRevision = vendorRecords ? payload.data.rev ?? null : payload.data.revision ?? payload.data.revision_id ?? null;
         if (pageRevision !== null) {
           if (revisionObserved && pageRevision !== revision) {
-            throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path) });
+            throw invalidResponse("Feishu list revision changed during pagination", { path: diagnosticPath(path), pagination_metadata_key: "rev" });
           }
           revision = pageRevision;
           revisionObserved = true;
@@ -1316,7 +1360,7 @@ export class FeishuClient {
     }, { signal });
   }
 
-  createRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
+  createRecords(baseToken, tableId, records, { tableName = null, signal, beforeWrite } = {}) {
     const rawRecords = snapshotRecordInputs(records, "Create");
     validateCreateRecords(rawRecords);
     fixedRecordTableName(tableName);
@@ -1332,6 +1376,9 @@ export class FeishuClient {
           const group = encodedRecords.slice(start, start + MAX_WRITE_BATCH);
           const rawGroup = rawRecords.slice(start, start + MAX_WRITE_BATCH);
           const body = { create_records: group.map((record) => record.fields) };
+          // Receipt consumption belongs after select/schema reads and immediately before POST.
+          if (start === 0) await beforeWrite?.();
+          assertNotAborted(signal);
           const payload = await this.request(
             `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_create`,
             { method: "POST", body, context, signal },
@@ -1346,7 +1393,7 @@ export class FeishuClient {
     }, { signal });
   }
 
-  updateRecords(baseToken, tableId, records, { tableName = null, signal } = {}) {
+  updateRecords(baseToken, tableId, records, { tableName = null, signal, noRetry = false } = {}) {
     const rawRecords = snapshotRecordInputs(records, "Update");
     validateUpdateRecords(rawRecords);
     fixedRecordTableName(tableName);
@@ -1364,7 +1411,7 @@ export class FeishuClient {
           const body = { update_records: Object.fromEntries(group.map((record) => [record.record_id, record.fields])) };
           const payload = await this.request(
             `${this.basePath(baseToken)}/tables/${encoded(tableId)}/records/batch_update`,
-            { method: "POST", body, context, signal },
+            { method: "POST", body, context, signal, noRetry },
           );
           assertNotAborted(signal);
           if (payload.data?.record_id_list !== undefined) requireRecordIds(payload, ids);

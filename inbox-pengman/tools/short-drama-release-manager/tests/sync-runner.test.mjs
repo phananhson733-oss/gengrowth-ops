@@ -53,6 +53,7 @@ function terminalStoreRow({ chatId = "oc_social", state = "success", notificatio
 function collectorSummary(overrides = {}) {
   return {
     status: "success",
+    captured_at: "2026-09-01T00:00:05Z",
     run_id: RUN_ID,
     beijing_date: "2026-09-01",
     summary_path: "/tmp/capture_summary_2026-09-01.json",
@@ -436,6 +437,15 @@ test("worker writes accounts then source captures then timestamp then links, wit
   assert.equal(store.db.prepare("SELECT COUNT(*) AS count FROM audit_events WHERE run_id = ? AND action = ?")
     .get(RUN_ID, "sync_terminal").count, 1);
   store.close();
+});
+
+test('worker cannot refresh an excluded Post ID from retained SQLite history',async()=>{
+ const calls=[],store=makeClaimedStore();
+ const result=await runSyncWorker(workerContext(store,successfulRepos(calls),{excludedPostIds:['99']}),RUN_ID);
+ assert.equal(result.counters.capture_rows_upserted,0);
+ assert.equal(calls.some(([name])=>name==='captures:source'||name==='captures:timestamp'),false);
+ assert.equal(calls.some(([name])=>name==='releases:link'),false);
+ store.close();
 });
 
 test("worker preserves null versus zero and an unchanged retry is not counted as updated", async () => {
@@ -1003,4 +1013,72 @@ test("a future active schedule without a capture is a safe no-op, not a partial 
   assert.equal(result.counters.errors, 0);
   assert.equal(calls.filter(([name]) => name === "releases:link").length, 0);
   store.close();
+});
+
+
+test("validated already-linked Base history does not require a SQLite row or fake a fresh timestamp",async()=>{
+ for(const explicit of [true,false]){const calls=[],store=makeClaimedStore();const releases=[{record_id:"rec-r",fields:{发布ID:"SR-000001",账号:[{id:"rec-account"}],"Post ID":explicit?"88":null,视频链接:explicit?"https://www.tiktok.com/@dramaexpedition/video/88":null,日期:"2026-08-01",采集记录:[{id:"rec-capture-88"}],归档状态:"active"}}];
+ const repos=successfulRepos(calls,{releases,captureIds:[]});repos.captures.loadIndex=async()=>new Map([["88",{record_id:"rec-capture-88",fields:{"Post ID":"88",账号:[{id:"rec-account"}],视频链接:"https://www.tiktok.com/@dramaexpedition/video/88",发布时间:null,播放量:12}}]]);
+ const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[]}}),RUN_ID);
+ assert.equal(result.state,"success");assert.equal(calls.some(([name])=>name==='releases:link'||name==='releases:evidence'),false);store.close();}
+});
+test("historical Base fallback still validates explicit account and conflicting identity",async()=>{
+ const calls=[],store=makeClaimedStore(),releases=[{record_id:"rec-r",fields:{发布ID:"SR-000001",账号:[{id:"rec-account"}],"Post ID":"88",视频链接:"https://www.tiktok.com/@wrong/video/88",日期:"2026-08-01",采集记录:[{id:"rec-capture-88"}],归档状态:"active"}}];const repos=successfulRepos(calls,{releases});repos.captures.loadIndex=async()=>new Map([["88",{record_id:"rec-capture-88",fields:{"Post ID":"88",账号:[{id:"rec-account"}],视频链接:"https://www.tiktok.com/@dramaexpedition/video/88",发布时间:null}}]]);
+ const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[]}}),RUN_ID);assert.ok(result.errors.some(e=>e.code==='manual_account_mismatch'));assert.equal(calls.some(([name])=>name==='releases:link'||name==='releases:evidence'),false);store.close();
+});
+
+test("historical explicit fallback can bind a known post without claiming fresh metrics",async()=>{
+ const calls=[],store=makeClaimedStore();const releases=[{record_id:'rec-r',fields:{发布ID:'SR-000001',账号:[{id:'rec-account'}],'Post ID':'88',视频链接:null,日期:'2026-08-01',采集记录:[],归档状态:'active'}}];const repos=successfulRepos(calls,{releases});repos.captures.loadIndex=async()=>new Map([['88',{record_id:'rec-capture-88',fields:{'Post ID':'88',账号:[{id:'rec-account'}],视频链接:'https://www.tiktok.com/@dramaexpedition/video/88',发布时间:null}}]]);
+ const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[]}}),RUN_ID);assert.equal(result.state,'success');assert.equal(result.counters.releases_linked,1);const evidence=calls.find(([name])=>name==='releases:evidence');assert.ok(evidence);assert.equal(Object.hasOwn(evidence[2],'指标同步时间'),false);store.close();
+});
+test("historical captures do not expand unconfirmed date-only inference",async()=>{
+ const calls=[],store=makeClaimedStore(),releases=[{record_id:'rec-r',fields:{发布ID:'SR-000001',账号:[{id:'rec-account'}],'Post ID':null,视频链接:null,日期:'2026-09-01',采集记录:[],归档状态:'active'}}];const repos=successfulRepos(calls,{releases});repos.captures.loadIndex=async()=>new Map([['88',{record_id:'rec-capture-88',fields:{'Post ID':'88',账号:[{id:'rec-account'}],视频链接:'https://www.tiktok.com/@dramaexpedition/video/88',发布时间:'2026-09-01T00:00:00Z'}}]]);
+ const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[]}}),RUN_ID);assert.ok(result.errors.some(e=>e.code==='no_account_time_candidate'));assert.equal(calls.some(([name])=>name==='releases:link'),false);store.close();
+});
+
+test("validated human post evidence replaces only an old account-time inference",async()=>{
+ for(const method of ['account_time','manual_url']){const calls=[],store=makeClaimedStore();const releases=[{record_id:'rec-r',fields:{发布ID:'SR-000001',账号:[{id:'rec-account'}],'Post ID':'100',视频链接:'https://www.tiktok.com/@dramaexpedition/video/100',日期:'2026-09-01',采集记录:[{id:'rec-capture-99'}],匹配方式:method,匹配置信度:method==='account_time'?0.8:1,归档状态:'active'}}];const repos=successfulRepos(calls,{releases,captureIds:[['99','rec-capture-99'],['100','rec-capture-100']]});const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>['99','100'].map(id=>captureSource(id,{comments:0,collection_status:'complete',missing_fields:'[]'}))}}),RUN_ID);
+ if(method==='account_time'){assert.equal(result.state,'success');assert.equal(calls.find(([name])=>name==='releases:link')[2],'rec-capture-100');}else{assert.ok(result.errors.some(e=>e.code==='release_claim_conflict'));assert.equal(calls.some(([name])=>name==='releases:link'),false);}store.close();}
+});
+
+test("unresolved explicit replacement retains the previous link claim until the new post is verified",async()=>{
+ const calls=[],store=makeClaimedStore();const releases=[{record_id:'rec-a',fields:{发布ID:'SR-000001',账号:[{id:'rec-account'}],'Post ID':'1000',视频链接:'https://www.tiktok.com/@dramaexpedition/video/1000',日期:'2026-09-01',采集记录:[{id:'rec-capture-99'}],匹配方式:'account_time',匹配置信度:0.8,归档状态:'active'}},{record_id:'rec-b',fields:{发布ID:'SR-000002',账号:[{id:'rec-account'}],'Post ID':'99',视频链接:null,日期:'2026-09-01',采集记录:[],归档状态:'active'}}];const repos=successfulRepos(calls,{releases});const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[captureSource('99',{comments:0,collection_status:'complete',missing_fields:'[]'})]}}),RUN_ID);assert.ok(result.errors.some(e=>e.code==='manual_post_not_found'));assert.ok(result.errors.some(e=>e.code==='manual_post_claimed'&&e.target==='SR-000002'));assert.equal(calls.some(([name])=>name==='releases:link'),false);store.close();
+});
+
+test("inference replacements release an old link before another release can claim it",async()=>{
+ for(const failMove of [false,true]){const calls=[],store=makeClaimedStore();const releases=[{record_id:'rec-b',fields:{发布ID:'SR-000001',账号:[{id:'rec-account'}],'Post ID':'99',视频链接:null,日期:'2026-09-01',采集记录:[],归档状态:'active'}},{record_id:'rec-a',fields:{发布ID:'SR-000002',账号:[{id:'rec-account'}],'Post ID':'100',视频链接:null,日期:'2026-09-01',采集记录:[{id:'rec-capture-99'}],匹配方式:'account_time',匹配置信度:0.8,归档状态:'active'}}];const repos=successfulRepos(calls,{releases,captureIds:[['99','rec-capture-99'],['100','rec-capture-100']]});const link=repos.releases.linkCaptureSafely;repos.releases.linkCaptureSafely=async(...args)=>{if(failMove&&args[0]==='SR-000002'){calls.push(['move_failed']);const e=Error('readback failed');e.code='readback_mismatch';throw e;}return link(...args);};const result=await runSyncWorker(workerContext(store,repos,{source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>['99','100'].map(id=>captureSource(id,{comments:0,collection_status:'complete',missing_fields:'[]'}))}}),RUN_ID);if(!failMove){assert.equal(result.state,'success');assert.deepEqual(calls.filter(([n])=>n==='releases:link').map(r=>r[1]),['SR-000002','SR-000001']);}else{assert.equal(result.state,'partial');assert.equal(calls.some(([n])=>n==='releases:link'),false);}store.close();}
+});
+
+test('sync refresh does not stamp old snapshots or expired videos as newly collected',async()=>{
+ const store=makeClaimedStore();const calls=[];const repos=successfulRepos(calls);
+ const context=workerContext(store,repos,{
+  collector:async()=>collectorSummary({captured_at:'2026-09-01T00:00:05Z'}),
+  source:{readLatestAccounts:()=>[accountSource()],readLatestPosts:()=>[
+   captureSource('99',{collection_status:'complete',comments:0,missing_fields:'[]'}),
+   captureSource('100',{captured_at:'2026-08-31T00:00:05Z',snapshot_date:'2026-08-31'}),
+   captureSource('101',{published_at:'2026-07-01T00:00:00Z'}),
+  ]},
+ });
+ try{
+  await runSyncWorker(context,RUN_ID);
+  const writes=calls.find(row=>row[0]==='captures:source')[1];
+  assert.deepEqual(writes.map(row=>row.key),['99']);
+  assert.equal(store.get(RUN_ID).state,'success');
+ }finally{store.close();}
+});
+
+
+test('collector remains outside shared Base exclusion and all sync writes run inside it',async()=>{
+ const calls=[],store=makeClaimedStore(),repos=successfulRepos(calls);let locked=false,entries=0;
+ for(const repo of Object.values(repos))for(const name of ['syncManyMachine','linkCaptureSafely','upsertEvidenceSafely'])if(typeof repo[name]==='function'){const original=repo[name];repo[name]=async(...args)=>{assert.equal(locked,true);return original(...args)};}
+ const context=workerContext(store,repos),collector=context.collector;context.collector=async args=>{assert.equal(locked,false);return collector(args)};
+ context.withBaseMutationLock=async operation=>{assert.equal(locked,false);entries++;locked=true;try{return await operation()}finally{locked=false}};
+ const result=await runSyncWorker(context,RUN_ID);assert.equal(entries,1);assert.equal(locked,false);assert.equal(result.state,'partial');assert.deepEqual(result.errors,[{step:'captures',code:'capture_partial',target:'99'}]);store.close();
+});
+
+test('lost shared Base lease aborts pending sync writes through the combined signal',async()=>{
+ const calls=[],store=makeClaimedStore(),repos=successfulRepos(calls),controller=new AbortController();let captured=false;
+ repos.accounts.syncManyMachine=async(_entries,{signal})=>{captured=true;controller.abort(new Error('shared lease lost'));assert.equal(signal.aborted,true);throw signal.reason;};
+ const context=workerContext(store,repos,{withBaseMutationLock:operation=>operation(controller.signal)});
+ const result=await runSyncWorker(context,RUN_ID);assert.equal(captured,true);assert.equal(result.state,'failed');assert.equal(calls.some(([name])=>name==='captures:source'),false);store.close();
 });

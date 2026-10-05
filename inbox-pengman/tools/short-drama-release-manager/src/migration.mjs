@@ -13,6 +13,8 @@ import { parseQualifiedInstantMs } from "./qualified-iso.mjs";
 import { BASE_FIELD_SPECS, SCHEMA_APPLY_ORDER, TABLE_ORDER, TABLES, fieldOwner } from "./schema.mjs";
 import { normalizeAccountId } from "./source-sqlite.mjs";
 
+export const MAX_MIGRATION_ARTIFACT_BYTES = 64 * 1024 * 1024;
+
 const VERSION = "shortdrama-migration/v2";
 const TABLE_BINDINGS = Object.freeze({
   "账号台账": "accounts",
@@ -282,8 +284,9 @@ function blocked(code, table, sourceRow, details = {}) {
 
 function normalizeDramaPlatform(value, sourceRow, blocks) {
   if (value === null) return { value: null, mapped: false };
-  if (FIXED_PLATFORMS.has(value)) return { value, mapped: false };
+  // Historical Google manifests retain their signed normalization despite the live enum expansion.
   if (value === "MoboReels") return { value: "其他", mapped: true };
+  if (FIXED_PLATFORMS.has(value)) return { value, mapped: false };
   blocks.push(blocked("platform_not_allowed", "选剧池", sourceRow, {
     source_value: value,
   }));
@@ -2400,7 +2403,12 @@ export async function reserveMigrationArtifact(fileName) {
       if (complete) fail("migration_artifact_invalid", "Migration artifact reservation is already complete");
       try {
         canonicalize(value);
-        const bytes = `${JSON.stringify(value, null, 2)}\n`;
+        // Compact JSON preserves every value and semantic digest while avoiding
+        // indentation growth in nested checkpoint evidence. Match the reader cap.
+        const bytes = `${JSON.stringify(value)}\n`;
+        if (Buffer.byteLength(bytes, "utf8") > MAX_MIGRATION_ARTIFACT_BYTES) {
+          fail("migration_artifact_too_large", "Migration artifact exceeds the 64 MiB limit");
+        }
         await handle.writeFile(bytes);
         await handle.sync();
         await close();

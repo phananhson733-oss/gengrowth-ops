@@ -9,16 +9,40 @@ import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import { isDeepStrictEqual } from "node:util";
 
+import { captureAccountUsernames, captureYieldedNothing, isExpiredPost, registeredCaptureTargets, validateExcludedPostIds, validateMaxPostAgeDays } from "./src/capture-policy.mjs";
+import { queryAnalyticsReport } from "./src/analytics-query.mjs";
+import { ANALYTICS_TABLES } from "./src/analytics.mjs";
+import { projectAnalytics } from "./src/analytics-projection.mjs";
+import { alertText, boundedAlert, boundedAlertText, captureIncompleteLines, captureReportCutoff, CAPTURE_REPORT_GRACE_HOURS, describeIntegrityIssue, DRAIN_FAILURE_ALERT_THRESHOLD, isAlertRerouted, markIntegrityReported, pendingIntegrityIssues, readDrainHealth, recordDrainOutcome, setAlertRerouted } from "./src/pipeline-health.mjs";
+import { buildCaptureReport } from "./src/capture-report.mjs";
+import { captureSlots, nextCaptureAfter, retryDeadlineOfRun, slotAt, slotOfRun } from "./src/schedule-slots.mjs";
+import { DAILY_VIEWS_TABLE, projectDailyViews } from "./src/daily-views.mjs";
 import { BaseRepositories } from "./src/base-repositories.mjs";
+import { planGoogleReconciliation, applyGoogleReconciliation, createGoogleReconciliationWriter, reconciliationDigest, assertNoUnresolvedReconciliation, recoverGoogleReconciliation, prepareSchemaCheckpointContext, reconciliationJournal, reconciliationSourceDigest } from "./src/google-reconciliation.mjs";
 import { loadRuntimeConfig, loadRuntimeEnvironment } from "./src/config.mjs";
 import { ShortDramaError, toErrorResult } from "./src/errors.mjs";
 import { createTenantTokenProvider, FeishuClient, fixedFieldDescriptor, fixedTerminalDashboardBlockDescriptor } from "./src/feishu-client.mjs";
 import { readGoogleMigrationSource } from "./src/google-source.mjs";
 import { HumanOpsService } from "./src/human-ops.mjs";
+import { processScheduleRepairs } from "./src/batch-schedule-repair.mjs";
+import { processBatchMetadataRepairs } from "./src/batch-metadata-repair.mjs";
+import { processDuplicateRelationRepairs } from "./src/duplicate-relation-repair.mjs";
+import { processAutomaticBatchMatches } from "./src/batch-auto-match.mjs";
+import { stageCaptionBackfillPlan, applyCaptionBackfill, processContinuousCaptionReleases, processCaptionRepair, captionRepositories } from "./src/caption-backfill.mjs";
+import { BatchOpsService } from "./src/release-batches.mjs";
+import { processBatchReviews, createBatchReviewSender } from "./src/batch-review-notifier.mjs";
+import { processCaptionOwnerNotifications, processCaptionAutomationNotifications } from "./src/caption-owner-notifier.mjs";
+import { processBeidouPool } from "./src/beidou-pool.mjs";
+import { findBeidouCandidates, chooseBeidouCandidate } from "./src/beidou-catalog.mjs";
+import { beidouLanguageName, beidouPlatformName, beidouDatePart } from "./src/beidou-enrichment.mjs";
+import { planBeidouFields, applyBeidouFields } from "./src/beidou-schema.mjs";
+import { queryReleaseCandidates } from "./src/match-candidates.mjs";
+import { matchReleaseDirect } from "./src/direct-match.mjs";
 import { allocateBusinessId, makeRunId, seedBusinessIdSequence } from "./src/ids.mjs";
-import { JobStore } from "./src/job-store.mjs";
+import { JobStore, SCHEDULE_MAX_ATTEMPTS, SCHEDULE_RETRY_DELAY_MINUTES } from "./src/job-store.mjs";
 import {
   MIGRATION_ARTIFACT_ROOT,
+  MAX_MIGRATION_ARTIFACT_BYTES,
   applyMigration,
   canaryReceiptDigest,
   createPermissionAttestation,
@@ -39,7 +63,6 @@ import { getSyncStatus, runSyncWorker, startSyncJob } from "./src/sync-runner.mj
 const LABEL = "com.gengrowth.shortdrama-sync";
 const DEFAULT_CAPABILITY_PATH = resolve(homedir(), "Library/Application Support/GenGrowth/shortdrama-sync/internal.capability");
 const MAX_PAYLOAD_BYTES = 1024 * 1024;
-const MAX_MIGRATION_ARTIFACT_BYTES = 64 * 1024 * 1024;
 const MAX_SOCIAL_HEREDOC_BYTES = 64 * 1024;
 const TERMINAL = new Set(["success", "partial", "failed"]);
 const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
@@ -49,8 +72,12 @@ export const ALLOWED_HERMES_PROFILES = Object.freeze(["default", "social", "pm",
 const ALLOWED_HERMES_PROFILE_SET = new Set(ALLOWED_HERMES_PROFILES);
 
 const REGISTRY = Object.freeze({
-  doctor: Object.freeze({ null: ["config", "canary", "init-state", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
+  doctor: Object.freeze({ null: ["config", "canary", "init-state", "beidou-fields", "confirm", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"] }),
   migrate: Object.freeze({
+    "reconcile-recover": ["config", "baseline", "expected-baseline-sha256", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"],
+    "reconcile-checkpoint-plan": ["config", "baseline", "expected-baseline-sha256", "actor-id", "expected-base-token", "manifest", "expected-sha256", "output"],
+    "reconcile-plan": ["config", "baseline", "expected-baseline-sha256", "actor-id", "expected-base-token", "output"],
+    "reconcile-apply": ["config", "baseline", "expected-baseline-sha256", "actor-id", "expected-base-token", "manifest", "expected-sha256", "confirm", "output"],
     plan: ["config", "output", "actor-id", "chat-id", "expected-base-token"],
     "attest-permissions": ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "observations", "expected-observations-file-sha256", "output", "actor-id", "expected-base-token"],
     apply: ["config", "manifest", "expected-sha256", "schema-receipt", "expected-schema-receipt-sha256", "canary-receipt", "expected-canary-sha256", "permission-attestation", "expected-permission-attestation-sha256", "expected-permission-attestation-file-sha256", "verification", "expected-verification-sha256", "output", "phase", "resume-partial-data", "actor-id", "chat-id", "confirm", "expected-base-token"],
@@ -64,23 +91,37 @@ const REGISTRY = Object.freeze({
   }),
   pool: Object.freeze({
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], create: ["config", "payload", "actor-id", "chat-id"],
+    "beidou-search": ["config", "payload"],
     "update-field": ["config", "payload", "actor-id", "chat-id"],
-    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"], "apply-direct": ["config", "payload", "actor-id", "chat-id"],
     "preview-archive": ["config", "key", "payload", "actor-id", "chat-id"], "apply-archive": ["config", "payload", "actor-id", "chat-id"],
   }),
   release: Object.freeze({
+    batches: ["config", "key", "actor-id", "chat-id"],
+    "batch-schedule": ["config", "payload", "actor-id", "chat-id"],
+    "batch-schedule-direct": ["config", "payload", "actor-id", "chat-id"],
+    "batch-match-direct": ["config", "payload", "actor-id", "chat-id"],
+    "batch-preview": ["config", "payload", "actor-id", "chat-id"],
+    "batch-apply": ["config", "payload", "actor-id", "chat-id"],
+    candidates: ["config", "key", "date", "actor-id", "chat-id"],
+    "preview-match": ["config", "payload", "actor-id", "chat-id"],
+    "match-direct": ["config", "payload", "actor-id", "chat-id"],
     list: ["config", "payload", "actor-id", "chat-id"], get: ["config", "key", "payload", "actor-id", "chat-id"], schedule: ["config", "payload", "actor-id", "chat-id"],
     "update-field": ["config", "payload", "actor-id", "chat-id"],
-    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"],
+    "preview-update": ["config", "payload", "actor-id", "chat-id"], "preview-batch": ["config", "payload", "actor-id", "chat-id"], "apply-update": ["config", "payload", "actor-id", "chat-id"], "apply-direct": ["config", "payload", "actor-id", "chat-id"],
     "attach-post": ["config", "payload", "actor-id", "chat-id"],
   }),
-  metrics: Object.freeze({ "by-drama": ["config", "actor-id", "chat-id"], "by-account": ["config", "actor-id", "chat-id"] }),
+  metrics: Object.freeze({ "by-drama": ["config", "actor-id", "chat-id", "key"], "by-account": ["config", "actor-id", "chat-id", "key"], daily: ["config", "actor-id", "chat-id", "date"], "daily-by-account": ["config", "actor-id", "chat-id", "date", "key"], "release-trend": ["config", "actor-id", "chat-id", "date"], "first-release-trend": ["config", "actor-id", "chat-id", "date"], quality: ["config", "actor-id", "chat-id"] }),
   sync: Object.freeze({ start: ["config", "actor-id", "chat-id"], status: ["config", "run-id", "actor-id", "chat-id"] }),
   schedule: Object.freeze({ tick: ["config"], health: ["config"] }),
-  queue: Object.freeze({ drain: ["config"] }),
+  queue: Object.freeze({ drain: ["config"], project: ["config"] }),
 });
 
 const REQUIRED = Object.freeze({
+  "migrate:reconcile-recover": ["baseline", "expectedBaselineSha256", "expectedBaseToken", "manifest", "expectedSha256"],
+  "migrate:reconcile-checkpoint-plan": ["baseline", "expectedBaselineSha256", "expectedBaseToken", "manifest", "expectedSha256", "output"],
+  "migrate:reconcile-plan": ["baseline", "expectedBaselineSha256", "expectedBaseToken", "output"],
+  "migrate:reconcile-apply": ["baseline", "expectedBaselineSha256", "expectedBaseToken", "manifest", "expectedSha256"],
   "migrate:plan": ["output"],
   "migrate:apply": ["phase", "manifest", "expectedSha256"],
   "migrate:verify": ["manifest"],
@@ -123,7 +164,7 @@ export function parseCommand(argv) {
     }
     const key = camel(flag.slice(2));
     if (Object.hasOwn(options, key)) fail("input_invalid", "Duplicate CLI option is not allowed", { option: flag });
-    if (["--canary", "--init-state"].includes(flag)) {
+    if (["--canary", "--init-state", "--beidou-fields"].includes(flag)) {
       if (argv[index + 1] !== undefined && !argv[index + 1].startsWith("--")) fail("input_invalid", "Boolean CLI flag does not accept a value", { option: flag });
       options[key] = true;
       index -= 1;
@@ -148,6 +189,14 @@ export function parseCommand(argv) {
     fail("input_invalid", "Migration output must be a safe JSON file name in the fixed evidence directory", { option: "output" });
   }
   if (group === "doctor" && options.canary && options.initState) fail("input_invalid", "doctor --canary and --init-state are mutually exclusive");
+  if (group === "doctor" && options.beidouFields) {
+    if (options.canary || options.initState || options.manifest || options.output ||
+        options.confirm !== undefined && options.confirm !== "apply-now" ||
+        options.confirm && !/^[a-f0-9]{64}$/.test(options.expectedSha256 ?? ""))
+      fail("input_invalid", "Beidou field maintenance accepts only a plan or digest-bound apply");
+  } else if (group === "doctor" && options.confirm !== undefined) {
+    fail("input_invalid", "doctor --confirm is reserved for Beidou field maintenance");
+  }
   if (group === "doctor" && options.canary &&
       ["manifest", "expectedSha256", "expectedBaseToken", "output"].some((key) => !Object.hasOwn(options, key))) {
     fail("input_invalid", "doctor --canary requires manifest, independent digests/Base target, and fixed-root output", {
@@ -687,6 +736,14 @@ async function readMigrationFile(source) {
 
 async function loadMigrationEvidence(command) {
   const key = `${command.group}:${command.action}`;
+  if (key === "migrate:reconcile-plan" || key === "migrate:reconcile-apply" || key === "migrate:reconcile-recover" || key === "migrate:reconcile-checkpoint-plan") {
+    const baseline = (await readMigrationFile(command.options.baseline)).value;
+    if (baseline.sha256 !== command.options.expectedBaselineSha256 || manifestDigest(baseline) !== baseline.sha256) evidenceMismatch("Original migration baseline digest mismatch");
+    if (key === "migrate:reconcile-plan") return { baseline };
+    const plan = (await readMigrationFile(command.options.manifest)).value;
+    if (plan.sha256 !== command.options.expectedSha256 || reconciliationDigest(plan) !== plan.sha256) evidenceMismatch("Reconciliation plan digest mismatch");
+    return { baseline, plan };
+  }
   const doctorCanary = command.group === "doctor" && command.options.canary === true;
   if ((!key.startsWith("migrate:") || key === "migrate:plan") && !doctorCanary) return null;
   if (!command.options.manifest) evidenceMismatch("Migration manifest evidence is required");
@@ -772,19 +829,248 @@ export function beijingParts(now = new Date()) {
   return { date: `${parts.year}-${parts.month}-${parts.day}`, hour: Number(parts.hour), minute: Number(parts.minute), second: Number(parts.second) };
 }
 
-export function shouldEnqueueSchedule(now, jobs) {
+export const SCHEDULE_MAX_ATTEMPTS_PER_DAY = SCHEDULE_MAX_ATTEMPTS;
+export { SCHEDULE_RETRY_DELAY_MINUTES };
+
+export function shouldEnqueueSchedule(now, jobs, schedule = {}) {
   const parts = beijingParts(now);
-  return parts.hour === 8 && parts.minute <= 9 && !jobs.some((job) => job?.trigger === "schedule" && job?.beijing_date === parts.date);
+  const slot = slotAt(schedule, parts.hour * 60 + parts.minute);
+  if (!slot) return false;
+  // Only the runs started in the slot that is open now count.
+  const today = jobs.filter((job) => job?.trigger === "schedule" && job?.beijing_date === parts.date && slotOfRun(schedule, job).index === slot.index);
+  if (today.length === 0) return true;
+  // A slot whose scheduled runs all failed outright (e.g. the collector crashed)
+  // is retried a bounded number of times. partial/success/active runs are not.
+  if (today.length >= SCHEDULE_MAX_ATTEMPTS_PER_DAY || !today.every((job) => job.state === "failed")) return false;
+  const finished = today.map((job) => Date.parse(job.finished_at ?? ""));
+  if (finished.some((value) => !Number.isFinite(value))) return false;
+  const nowMs = (now instanceof Date ? now : new Date(now)).getTime();
+  return nowMs - Math.max(...finished) >= SCHEDULE_RETRY_DELAY_MINUTES * 60_000;
 }
 
-export function evaluateDailyHealth(now, jobs) {
+// Reports and alerts are meant for the people who work with the data; they go
+// to the report chat when one is configured and to the ops chat otherwise.
+function alertChatId(runtime) {
+  return runtime.reportChatId ?? runtime.opsChatId;
+}
+
+// The same alert always carries the same request id, so a send whose reply got
+// lost is recognised by Feishu when it is repeated instead of posted twice.
+function requestId(alertKey, chatId) {
+  return createHash("sha256").update(`${alertKey}|${chatId}`).digest("hex").slice(0, 40);
+}
+
+const FALLBACK_NOTE = "（通知群发送失败，改发到本会话）\n";
+
+// The chat will not take the message: Feishu said so, or the sender's own
+// allowlist did. Anything else (a timeout, a lost reply, a server error, a
+// rate limit) leaves open whether the message arrived.
+const DELIVERY_REFUSALS = new Set(["notification_target_refused", "notification_target_denied"]);
+
+// Sends one alert or report. A group that refuses the message (bot removed,
+// group dissolved) must not swallow it: the ops chat gets it, marked as
+// rerouted, and keeps it until the delivery is known. After an unknown outcome
+// the same chat is tried again under the same request id, because it may have
+// the message already. The caller holds the claim of the alert. Resolves to
+// the payload of the text that went out.
+async function deliverAlert(runtime, alertKey, draft, { now = new Date(), payload = null } = {}) {
+  const chatId = alertChatId(runtime);
+  const ops = runtime.opsChatId;
+  const db = runtime.jobs?.db;
+  // A text that cannot be kept must not hold the message back.
+  let kept = { text: draft, payload };
+  if (db) { try { kept = alertText(db, alertKey, draft, { payload, now }); } catch {} }
+  const toOps = async () => {
+    try { await runtime.sendOpsHealth({ chatId: ops, text: FALLBACK_NOTE + kept.text, idempotencyKey: requestId(alertKey, ops) }); }
+    catch (error) {
+      // Only the ops chat refusing too proves that nobody has the message,
+      // which frees the next attempt to start with the group again.
+      if (db && DELIVERY_REFUSALS.has(error?.code)) { try { setAlertRerouted(db, alertKey, false); } catch {} }
+      throw error;
+    }
+    return { fallback: true, payload: kept.payload };
+  };
+  const canReroute = Boolean(ops) && ops !== chatId;
+  // The route is different: while it is unknown or cannot be put on record,
+  // trying another chat could leave the message in both.
+  if (canReroute && db) {
+    let rerouted;
+    try { rerouted = isAlertRerouted(db, alertKey); }
+    catch { fail("alert_route_unavailable", "The route of the alert cannot be read"); }
+    if (rerouted) return toOps();
+  }
+  try {
+    await runtime.sendOpsHealth({ chatId, text: kept.text, idempotencyKey: requestId(alertKey, chatId) });
+    return { fallback: false, payload: kept.payload };
+  } catch (error) {
+    if (!DELIVERY_REFUSALS.has(error?.code) || !canReroute) throw error;
+    if (db) { try { setAlertRerouted(db, alertKey, true, { now }); } catch { throw error; } }
+    return toOps();
+  }
+}
+
+// Claims, sends and records one alert. Resolves to the result for the health
+// output and to the payload of the text that went out.
+async function sendAlert(runtime, { kind, date, now, text, key = null, payload = null }) {
+  const alertKey = key ?? `${kind}:${date}`;
+  const ownerId = randomUUID();
+  if (!runtime.jobs.claimHealthAlert(alertKey, { ownerId, now, leaseSeconds: 120 })) return { result: { kind, status: "already_claimed" }, payload: null };
+  let delivered;
+  try {
+    delivered = await deliverAlert(runtime, alertKey, text, { now, payload });
+  } catch (error) {
+    // A failed claim is retried on a later tick; one failed alert must not
+    // suppress the others.
+    const code = typeof error?.code === "string" ? error.code.slice(0, 64) : "notification_delivery_failed";
+    try { runtime.jobs.markHealthAlert(alertKey, "failed", { ownerId, now, error: code }); } catch {}
+    return { result: { kind, status: "failed", error: { code } }, payload: null };
+  }
+  // Delivered. Failing to record that must not turn it into a failed alert.
+  // The record is retried, because while it is missing the claim expires and
+  // the alert goes out a second time.
+  const pause = typeof runtime.sleep === "function" ? runtime.sleep : (ms) => new Promise((done) => setTimeout(done, ms));
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try { runtime.jobs.markHealthAlert(alertKey, "sent", { ownerId, now }); break; }
+    catch { if (attempt < 3) await pause(500); }
+  }
+  return { result: { kind, status: "sent", ...(delivered.fallback ? { fallback: true } : {}) }, payload: delivered.payload };
+}
+
+async function sendDailyAlert(runtime, alert) {
+  return (await sendAlert(runtime, alert)).result;
+}
+
+async function readCaptureSummary(runtime, date) {
+  const dir = runtime.config?.paths?.collectorSummaryDir;
+  if (typeof dir !== "string" || !isAbsolute(dir)) return null;
+  try { return JSON.parse(await readFile(resolve(dir, `capture_summary_${date}.json`), "utf8")); } catch { return null; }
+}
+
+export const CAPTURE_REPORT_MAX_AGE_HOURS = 72;
+// A run is named after the day it started on and may end on the next one, so
+// covering three days of finished runs takes one more day of run ids.
+export const CAPTURE_REPORT_LOOKBACK_DAYS = 4;
+const REPORT_RUN_ID = /^SDRUN-(\d{4})(\d{2})(\d{2})-\d{6}$/;
+const runDate = (job) => { const m = REPORT_RUN_ID.exec(job?.run_id ?? ""); return m ? `${m[1]}-${m[2]}-${m[3]}` : null; };
+const dayBefore = (date) => new Date(Date.parse(`${date}T00:00:00Z`) - 86_400_000).toISOString().slice(0, 10);
+const captureReportKey = (runId) => `capture-report:${runId}`;
+
+// Every scheduled run that finished is reported once, whatever its state. A
+// report that could not be delivered is retried by every later check for three
+// days. Runs from before reporting was switched on are history and stay silent.
+export async function captureReports(runtime, { now, jobs }) {
+  const nowMs = (now instanceof Date ? now : new Date(now)).getTime();
+  const cutoffMs = runtime.jobs?.db ? Date.parse(captureReportCutoff(runtime.jobs.db, { now })) : nowMs - CAPTURE_REPORT_GRACE_HOURS * 3_600_000;
+  const scheduled = jobs.filter((job) => job?.trigger === "schedule" && runDate(job))
+    .sort((a, b) => String(a.run_id).localeCompare(String(b.run_id)));
+  const results = [];
+  for (const job of scheduled) {
+    if (!["success", "partial", "failed"].includes(job.state)) continue;
+    const finished = Date.parse(job.finished_at ?? "");
+    if (!Number.isFinite(finished) || finished > nowMs || nowMs - finished > CAPTURE_REPORT_MAX_AGE_HOURS * 3_600_000) continue;
+    const key = captureReportKey(job.run_id);
+    const delivery = runtime.jobs.healthAlertState?.(key) ?? (runtime.jobs.isHealthAlertSent?.(key) ? "sent" : null);
+    if (delivery === "sent") { results.push({ kind: "capture-report", run_id: job.run_id, status: "already_claimed" }); continue; }
+    // A delivery that was started is owed, whenever the run ended.
+    if (delivery === null && finished < cutoffMs) continue;
+    const date = runDate(job);
+    // Attempts are counted within the capture slot of the run. Nothing in the
+    // report depends on the time it is written or on later runs.
+    const schedule = runtime.config?.schedule;
+    const slot = slotOfRun(schedule, job).index;
+    const attempt = scheduled.filter((other) => runDate(other) === date && slotOfRun(schedule, other).index === slot).indexOf(job) + 1;
+    const retryDeadline = schedule ? retryDeadlineOfRun(schedule, job) : null;
+    let drain = null;
+    try { drain = runtime.jobs?.db ? readDrainHealth(runtime.jobs.db) : null; } catch {}
+    const text = buildCaptureReport({
+      job, summary: await readCaptureSummary(runtime, date), previousSummary: await readCaptureSummary(runtime, dayBefore(date)), drain,
+      attempt, maxAttempts: SCHEDULE_MAX_ATTEMPTS_PER_DAY, retryDelayMinutes: SCHEDULE_RETRY_DELAY_MINUTES,
+      retryDeadline, nextCaptureAt: retryDeadline === null ? null : nextCaptureAfter(schedule, retryDeadline - 1),
+      scope: captureSlots(schedule).length > 1 ? "本时段" : "今日",
+    });
+    results.push({ ...(await sendDailyAlert(runtime, { kind: "capture-report", key, now, text })), run_id: job.run_id });
+  }
+  return results;
+}
+
+function missingRunAlertText(date, state) {
+  const reason = state.reason === "still_running" ? `采集任务仍在运行（当前步骤：${state.step ?? "未知"}）`
+    : state.reason === "failed_terminal" ? (state.slot ? "这个时段的采集全部失败" : "今日采集全部失败")
+      : (state.slot ? "这个时段没有启动采集任务" : "今日没有启动采集任务");
+  if (state.slot) return `【短剧采集告警】${date} ${state.slot} 的采集还没有可用结果\n原因：${reason}\n数据表里还是上一次采集的数据，请留意。`;
+  return `【短剧采集告警】${date} 今日采集还没有可用结果\n原因：${reason}\n数据表可能还是昨天的数据，请留意。`;
+}
+
+export async function pipelineHealthAlerts(runtime, { now, date, jobs }) {
+  const db = runtime.jobs?.db;
+  const results = [];
+  // An alert is kept as it was first written and may go out later.
+  const written = beijingParts(now);
+  const seen = `发现时间：${written.date} ${String(written.hour).padStart(2, "0")}:${String(written.minute).padStart(2, "0")}（北京时间）`;
+  const latest = jobs.filter((job) => ["success", "partial", "failed"].includes(job?.state)).at(-1);
+  // The report of a run already lists its problems; the alert is the fallback
+  // for a run whose report did not go out.
+  const reported = latest && runDate(latest) ? runtime.jobs?.isHealthAlertSent?.(captureReportKey(latest.run_id)) === true : false;
+  if (latest?.state === "partial" && !reported) {
+    const lines = captureIncompleteLines(await readCaptureSummary(runtime, date));
+    if (lines?.length) {
+      results.push(await sendDailyAlert(runtime, { kind: "capture-incomplete", date, now,
+        text: boundedAlertText(`shortdrama 采集不完整\nbeijing_date=${date}\nrun_id=${latest.run_id}\n${seen}`, lines) }));
+    }
+  }
+  if (!db) return results;
+  const drain = readDrainHealth(db);
+  if (drain && drain.consecutive_failures >= DRAIN_FAILURE_ALERT_THRESHOLD) {
+    results.push(await sendDailyAlert(runtime, { kind: "drain-failing", date, now,
+      text: boundedAlertText(`shortdrama queue drain 持续失败\nbeijing_date=${date}\n${seen}`, [
+        `连续失败 ${drain.consecutive_failures} 次，自 ${drain.first_failed_at}`,
+        `最近错误 ${drain.last_error_code}: ${drain.last_error_message ?? ""}`,
+        `最近成功 ${drain.last_success_at ?? "无记录"}`,
+        "影响：统计表停更、失败通知不重试。"]) }));
+  }
+  const pending = pendingIntegrityIssues(db);
+  if (pending.length) {
+    const alert = boundedAlert(`shortdrama 台账/发布记录新增数据问题 ${pending.length} 项\nbeijing_date=${date}\n${seen}`, pending.map(describeIntegrityIssue));
+    const listed = pending.slice(0, alert.used).map((issue) => issue.key);
+    const { result, payload } = await sendAlert(runtime, { kind: "ledger-integrity", date, now, text: alert.text, payload: listed });
+    // Only what the alert that went out listed counts as reported; the rest
+    // stays pending for the next day's alert.
+    if (result.status === "sent" && Array.isArray(payload)) markIntegrityReported(db, payload, { now });
+    results.push(result);
+  }
+  return results;
+}
+
+// Every slot whose check is due, in the order of the day, each judged by the
+// runs started in it. With several captures a day each state names its slot.
+export function evaluateDueSlots(now, jobs, schedule = {}) {
   const parts = beijingParts(now);
-  if (parts.hour < 10) return { alert: false, reason: "before_health_window" };
-  if (jobs.some((job) => job?.state === "success" || job?.state === "partial")) return { alert: false, reason: "terminal_present" };
-  const running = jobs.find((job) => job?.state === "running");
-  if (running) return { alert: true, reason: "still_running", step: running.step, lease_expires_at: running.lease_expires_at };
-  if (jobs.some((job) => job?.state === "failed")) return { alert: true, reason: "failed_terminal" };
-  return { alert: true, reason: "missing_terminal" };
+  const minute = parts.hour * 60 + parts.minute;
+  const slots = captureSlots(schedule);
+  const usable = (job) => job?.state === "success" || job?.state === "partial";
+  return slots.filter((due) => due.healthMinutes <= minute).map((due) => {
+    const own = jobs.filter((job) => slotOfRun(schedule, job).index === due.index);
+    const slot = slots.length > 1 ? { slot: due.label } : {};
+    if (own.some(usable)) return { alert: false, reason: "terminal_present" };
+    // A later capture of the day that delivered makes up for this one: the
+    // data is fresh and its report went out.
+    if (jobs.some((job) => usable(job) && slotOfRun(schedule, job).index > due.index)) return { alert: false, reason: "superseded", ...slot };
+    const running = own.find((job) => job?.state === "running");
+    if (running) return { alert: true, reason: "still_running", step: running.step, lease_expires_at: running.lease_expires_at, ...slot };
+    if (own.some((job) => job?.state === "failed")) return { alert: true, reason: "failed_terminal", ...slot };
+    return { alert: true, reason: "missing_terminal", ...slot };
+  });
+}
+
+// The state of the latest slot whose check is due.
+export function evaluateDailyHealth(now, jobs, schedule = {}) {
+  return evaluateDueSlots(now, jobs, schedule).at(-1) ?? { alert: false, reason: "before_health_window" };
+}
+
+// The first slot keeps the key the day had when it was the only one.
+function missingRunAlertKey(date, state, schedule) {
+  const later = state.slot && state.slot !== captureSlots(schedule)[0].label;
+  return `missing-terminal:${date}${later ? `@${state.slot.replace(":", "")}` : ""}`;
 }
 
 const CANARY_ID = /^CANARY-SDRUN-\d{8}-\d{6}(?:-[A-F0-9]+)?$/;
@@ -916,8 +1202,9 @@ export async function runBaseCanary({ client, appToken, tableIds, canaryId, slee
 
 async function defaultSpawnFile(file, args, options = {}) {
   return new Promise((resolvePromise, reject) => {
-    const { signal: abortSignal, ...spawnOptions } = options;
-    const child = spawn(file, args, { ...spawnOptions, shell: false, detached: false, stdio: "ignore" });
+    const { signal: abortSignal, input, ...spawnOptions } = options;
+    const child = spawn(file, args, { ...spawnOptions, shell: false, detached: false, stdio: input === undefined ? "ignore" : ["pipe", "ignore", "ignore"] });
+    if (input !== undefined) { child.stdin.on("error", reject); child.stdin.end(input); }
     const abort = () => child.kill("SIGTERM");
     abortSignal?.addEventListener("abort", abort, { once: true });
     child.once("error", reject);
@@ -945,9 +1232,12 @@ function sqliteCollectorEvidence(sqlitePath, collectorRunId) {
 
 export function createCollectorAdapter({
   nodePath = process.execPath, collectorPath, collectorCwd, summaryDir, metricsSqlitePath,
-  spawnFile = defaultSpawnFile, now = () => new Date(), verifySqliteEvidence = sqliteCollectorEvidence,
+  spawnFile = defaultSpawnFile, now = () => new Date(), verifySqliteEvidence = sqliteCollectorEvidence, maxPostAgeDays = 30, excludedPostIds = [], readRegisteredPosts = null,
 } = {}) {
   assertNode24(nodePath);
+  validateMaxPostAgeDays(maxPostAgeDays);
+  const excluded = validateExcludedPostIds(excludedPostIds);
+  if (excluded.length && !readRegisteredPosts) fail("collector_config_invalid", "Post exclusions require the registered Runner collector input");
   for (const [value, field] of [[collectorPath, "collectorPath"], [collectorCwd, "collectorCwd"], [summaryDir, "summaryDir"], [metricsSqlitePath, "metricsSqlitePath"]]) {
     if (!isAbsolute(value ?? "")) fail("collector_config_invalid", "Collector paths must be absolute", { field });
   }
@@ -964,8 +1254,20 @@ export function createCollectorAdapter({
     try { [collectorInfo, cwdInfo, collectorReal, cwdReal] = await Promise.all([lstat(collectorPath), lstat(collectorCwd), realpath(collectorPath), realpath(collectorCwd)]); } catch { fail("collector_config_invalid", "Collector path is unavailable"); }
     if (!collectorInfo.isFile() || collectorInfo.isSymbolicLink() || !cwdInfo.isDirectory() || cwdInfo.isSymbolicLink() ||
         dirname(collectorReal) !== cwdReal) fail("collector_config_invalid", "Collector path is not trusted");
+    const loaded = readRegisteredPosts ? await readRegisteredPosts({ signal }) : null;
+    // Every active release is registered, so the list only grows. Posts outside
+    // the capture window are skipped by the collector anyway; dropping them here
+    // keeps stdin far below its 1 MiB cap. Unknown dates stay eligible.
+    const registered = loaded === null ? null : {
+      ...loaded,
+      posts: Array.isArray(loaded.posts) ? loaded.posts.filter((post) => !isExpiredPost(post?.published_at ?? null, startedAt, maxPostAgeDays)) : loaded.posts,
+    };
+    const requestedAccounts = readRegisteredPosts ? captureAccountUsernames(registered?.accounts) : null;
+    const input = registered === null ? undefined : JSON.stringify({ ...registered, excluded_post_ids: excluded });
+    if (input !== undefined && Buffer.byteLength(input) > MAX_PAYLOAD_BYTES) fail("collector_config_invalid", "Registered capture targets exceed the input limit");
+    const args = [collectorPath, "--max-post-age-days", String(maxPostAgeDays), ...(registered === null ? [] : ["--registered-posts-stdin"])];
     let outcome;
-    try { outcome = await spawnFile(nodePath, [collectorPath], { cwd: collectorCwd, shell: false, detached: false, signal }); }
+    try { outcome = await spawnFile(nodePath, args, { cwd: collectorCwd, shell: false, detached: false, signal, ...(input === undefined ? {} : { input }) }); }
     catch { fail("capture_failed", "Collector process could not be started"); }
     if (signal?.aborted) fail("worker_claim_mismatch", "Collector was aborted after lease loss");
     if (outcome?.code !== 0) fail("capture_failed", "Collector process did not exit successfully", { exit_code: outcome?.code ?? null });
@@ -984,9 +1286,16 @@ export function createCollectorAdapter({
         !verifySqliteEvidence(metricsSqlitePath, collectorRunId)) {
       fail("capture_failed", "Collector did not produce fresh same-run SQLite evidence");
     }
+    if (requestedAccounts !== null && !isDeepStrictEqual(summary.accounts_requested, requestedAccounts)) {
+      fail("capture_membership_mismatch", "Collector did not acknowledge the complete Base account list");
+    }
+    if (excluded.length && !isDeepStrictEqual(summary.capture_policy?.excluded_post_ids, excluded)) {
+      fail("capture_policy_mismatch", "Collector did not acknowledge the exact Post ID exclusions");
+    }
+    if (captureYieldedNothing(summary)) fail("capture_failed", "Collector reached no account and no post");
     const status = summary.errors.length > 0 ? "partial" : "success";
     return {
-      status, run_id: runId, collector_run_id: collectorRunId, beijing_date: beijingDate,
+      status, captured_at: summary.captured_at, capture_policy: summary.capture_policy ?? null, run_id: runId, collector_run_id: collectorRunId, beijing_date: beijingDate,
       summary_path: summaryPath, sqlite_path: metricsSqlitePath,
       errors: summary.errors.map((error) => ({ code: typeof error?.code === "string" ? error.code : "capture_partial" })),
     };
@@ -1045,15 +1354,54 @@ export function createDispatcher(runtime) {
   if (!runtime || typeof runtime !== "object") fail("runtime_invalid", "Dispatcher runtime is invalid");
   return async (command, identity, payload) => {
     const key = `${command.group}:${command.action}`;
-    const schemaGuarded = ["account", "capture", "pool", "release", "metrics"].includes(command.group) ||
-      key === "sync:start" || key === "schedule:tick";
+    const schemaGuarded = (["account", "capture", "pool", "release", "metrics"].includes(command.group) && key !== "pool:beidou-search") ||
+      key === "sync:start" || key === "schedule:tick" || key === "queue:project";
     if (schemaGuarded) {
       if (typeof runtime.assertRuntimeSchemaReady !== "function") fail("runtime_invalid", "Runtime schema guard is required");
       await runtime.assertRuntimeSchemaReady();
     }
     if (command.group === "doctor") {
-      if ((command.options.canary || command.options.initState) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
-      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true, identity, payload }) : { status: "ready" };
+      if ((command.options.canary || command.options.initState || command.options.beidouFields) && !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Doctor mutation checks require a privileged actor");
+      return runtime.doctor ? runtime.doctor({ canary: command.options.canary === true, initState: command.options.initState === true,
+        beidouFields: command.options.beidouFields === true, confirm: command.options.confirm,
+        expectedSha256: command.options.expectedSha256, identity, payload }) : { status: "ready" };
+    }
+    if (key === "pool:beidou-search") {
+      if (!payload || typeof payload !== "object" || Array.isArray(payload) || Object.keys(payload).join("|") !== "title" ||
+          typeof payload.title !== "string" || !payload.title.trim() || payload.title !== payload.title.trim() || payload.title.length > 300) {
+        fail("input_invalid", "Beidou search requires exactly one bounded title");
+      }
+      if (typeof runtime.queryBeidouCandidates !== "function") fail("runtime_invalid", "Beidou read-only query is unavailable");
+      return runtime.queryBeidouCandidates({ title: payload.title });
+    }
+    if (key === "release:batches") return runtime.batchOps.query({ key: command.options.key });
+    if (["release:batch-schedule", "release:batch-schedule-direct", "release:batch-match-direct", "release:batch-preview", "release:batch-apply"].includes(key)) {
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) fail("mutation_shape_invalid", "Batch payload required");
+      const request = { ...payload, actorId: identity.actorId, chatId: identity.chatId };
+      const result = await runtime.batchOps[key === "release:batch-schedule" ? "previewSchedule" : key === "release:batch-schedule-direct" ? "scheduleDirect" : key === "release:batch-match-direct" ? "matchDirect" : key === "release:batch-preview" ? "previewMatch" : "apply"](request);
+      return result;
+    }
+    if (key === "release:match-direct") {
+      if (!payload || Object.keys(payload).sort().join("|") !== "key|postId" ||
+          typeof payload.key !== "string" || typeof payload.postId !== "string") {
+        fail("mutation_shape_invalid", "Direct match requires exactly key and postId");
+      }
+      return matchReleaseDirect({ ...payload, actorId: identity.actorId, chatId: identity.chatId,
+        queryReleaseCandidates: runtime.queryReleaseCandidates, humanOps: runtime.humanOps });
+    }
+    if (key === "release:candidates") return runtime.queryReleaseCandidates({ key: command.options.key, date: command.options.date });
+    if (key === "release:preview-match") {
+      if (!payload || Object.keys(payload).sort().join("|") !== "key|postId" ||
+          typeof payload.key !== "string" || typeof payload.postId !== "string") {
+        fail("mutation_shape_invalid", "Candidate preview requires exactly key and postId");
+      }
+      const report = await runtime.queryReleaseCandidates({ key: payload.key });
+      const release = report.rows.find(row => row.release_id === payload.key);
+      const candidate = release?.candidates.find(row => row.post_id === payload.postId);
+      if (!candidate) fail("candidate_not_available", "Candidate changed, is occupied, or is outside the review window; refresh candidates");
+      const preview = await runtime.humanOps.previewCaptureMatch({ ...payload, actorId: identity.actorId, chatId: identity.chatId,
+        expectedReleaseVersion: release.release_version, expectedCaptureVersion: candidate.capture_version });
+      return { ...preview, candidate };
     }
     if (key === "account:list" || key === "capture:list") {
       const table = command.group === "account" ? "账号台账" : "采集数据";
@@ -1077,6 +1425,7 @@ export function createDispatcher(runtime) {
         identity, table, payload ?? {}, { [primary]: command.options.key },
       )), command.options.key);
     }
+    if (command.group === "metrics" && runtime.queryAnalyticsReport) return runtime.queryAnalyticsReport({action: command.action, key: command.options.key, date: command.options.date});
     if (key === "metrics:by-drama" || key === "metrics:by-account") return runtime.humanOps.queryMetrics({ actorId: identity.actorId, groupBy: command.action === "by-drama" ? "drama" : "account" });
     if (key === "pool:create" || key === "release:schedule") {
       requireSequenceSeed(runtime.jobs);
@@ -1101,6 +1450,7 @@ export function createDispatcher(runtime) {
       ));
     }
     if (key === "pool:apply-update" || key === "release:apply-update") return runtime.humanOps.applyPreview({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
+    if (key === "pool:apply-direct" || key === "release:apply-direct") return runtime.humanOps.applyDirect(humanRequest(identity, command.group === "pool" ? "选剧池" : "发布记录", payload ?? {}));
     if (key === "pool:preview-archive") return runtime.humanOps.previewArchive(humanRequest(identity, "选剧池", { ...(payload ?? {}), key: command.options.key }));
     if (key === "pool:apply-archive") return runtime.humanOps.applyArchive({ ...(payload ?? {}), actorId: identity.actorId, chatId: identity.chatId });
     if (key === "release:attach-post") return runtime.humanOps.previewMutation(humanRequest(identity, "发布记录", { ...(payload ?? {}), action: "attach-post" }));
@@ -1116,12 +1466,26 @@ export function createDispatcher(runtime) {
       const now = runtime.now();
       const parts = beijingParts(now);
       const rows = runtime.jobs.listByBeijingDate(parts.date).map((job) => ({ ...job, beijing_date: parts.date }));
-      if (!shouldEnqueueSchedule(now, rows)) return { status: "no_op", reason: "outside_window_or_already_scheduled", beijing_date: parts.date };
+      if (!shouldEnqueueSchedule(now, rows, runtime.config?.schedule)) return { status: "no_op", reason: "outside_window_or_already_scheduled", beijing_date: parts.date };
       requireSequenceSeed(runtime.jobs);
-      return startSyncJob(runtime.syncContext, { trigger: "schedule", chatId: runtime.opsChatId, beijingDate: parts.date });
+      // With one capture a day the whole day is the slot, as it always was.
+      const slots = captureSlots(runtime.config?.schedule);
+      const slot = slots.length > 1 ? slotAt(runtime.config?.schedule, parts.hour * 60 + parts.minute) : null;
+      return startSyncJob(runtime.syncContext, { trigger: "schedule", chatId: runtime.opsChatId, beijingDate: parts.date,
+        ...(slot ? { slotStart: slot.index === 0 ? "000000" : slot.start } : {}) });
+    }
+    if (key === "queue:project") {
+      const dailyViews = await runtime.projectDailyViews();
+      const analytics = await runtime.projectAnalytics();
+      const states = [dailyViews.status, analytics.status];
+      return {status: states.includes("deferred") ? "deferred" : states.includes("partial") ? "partial" : "success", daily_views: dailyViews, analytics};
     }
     if (key === "queue:drain") {
-      const clock = typeof runtime.now === "function" ? runtime.now : () => new Date();
+      const drainClock = typeof runtime.now === "function" ? runtime.now : () => new Date();
+      // Every drain outcome is persisted so schedule:health can alert on a drain
+      // that keeps failing even while the day's sync job reads "partial".
+      const drain = (async () => {
+      const clock = drainClock;
       const claim = runtime.jobs.claimNext({ workerPid: runtime.workerPid, now: clock(), leaseSeconds: 120 });
       let result = { status: "no_op", reason: "queue_empty" };
       let workerError = null;
@@ -1130,27 +1494,134 @@ export function createDispatcher(runtime) {
       } catch (error) {
         workerError = error;
       }
+      let batchReview = null;
+      if (!workerError && runtime.processBatchReviews) {
+        try { batchReview = await runtime.processBatchReviews(); }
+        catch (error) { batchReview = {status: "partial", errors: [{code: error.code ?? "batch_review_failed"}],
+          ...(error.details?.metadata_repair ? {metadata_repair: error.details.metadata_repair} : {})}; }
+      }
+      let captionRepair = null;
+      if (!workerError && runtime.processCaptionRepair) {
+        try { captionRepair = await runtime.processCaptionRepair(); }
+        catch (error) { captionRepair = {status: "partial", error: {code: error.code ?? "caption_repair_failed"}}; }
+      }
+      let captionBackfill = null;
+      if (!workerError && runtime.processCaptionBackfill) {
+        try { captionBackfill = await runtime.processCaptionBackfill(); }
+        catch (error) { captionBackfill = {status: "partial", error: {code: error.code ?? "caption_backfill_failed",
+          message: String(error.message ?? "").slice(0, 400), details: error.details ?? {}}}; }
+      }
+      let captionAuto = null;
+      if (!workerError && runtime.processCaptionAuto) {
+        try { captionAuto = await runtime.processCaptionAuto(); }
+        catch (error) { captionAuto = {status: "partial", error: {code: error.code ?? "caption_auto_failed"}}; }
+      }
+      let beidouPool = null;
+      if (!workerError && runtime.processBeidouPool) {
+        try { beidouPool = await runtime.processBeidouPool(); }
+        catch (error) { beidouPool = {status: "partial", errors: [{code: error.code ?? "beidou_pool_failed"}]}; }
+      }
+      let dailyViews = null, analytics = null;
+      try {
+        dailyViews = runtime.projectDailyViews ? await runtime.projectDailyViews() : null;
+        analytics = runtime.projectAnalytics ? await runtime.projectAnalytics() : null;
+      } catch (error) {
+        if (batchReview) error.details = {...(error.details ?? {}), batch_review: batchReview};
+        if (captionRepair && captionRepair.status !== "disabled") error.details = {...(error.details ?? {}), caption_repair: captionRepair};
+        if (captionBackfill && captionBackfill.status !== "disabled") error.details = {...(error.details ?? {}), caption_backfill: captionBackfill};
+        if (captionAuto && captionAuto.status !== "disabled") error.details = {...(error.details ?? {}), caption_auto: captionAuto};
+        if (beidouPool && beidouPool.status !== "disabled") error.details = {...(error.details ?? {}), beidou_pool: beidouPool};
+        throw error;
+      }
       const notifications = await retryNotifications(runtime);
       if (workerError) throw workerError;
-      return { ...result, notification_retries: notifications.length };
+      return { ...result,
+        ...(beidouPool?.status === "partial" ? {status: "partial"} : beidouPool?.status === "schema_missing" ? {status: "schema_missing"} : {}),
+        ...(batchReview && batchReview.status !== "disabled" ? {batch_review: batchReview} : {}),
+        ...(captionRepair && captionRepair.status !== "disabled" ? {caption_repair: captionRepair} : {}),
+        ...(captionBackfill && captionBackfill.status !== "disabled" ? {caption_backfill: captionBackfill} : {}),
+        ...(captionAuto && captionAuto.status !== "disabled" ? {caption_auto: captionAuto} : {}),
+        ...(beidouPool && beidouPool.status !== "disabled" ? {beidou_pool: beidouPool} : {}),
+        ...(analytics && analytics.status !== "disabled" ? {analytics} : {}), notification_retries: notifications.length,
+        ...(dailyViews && dailyViews.status !== "disabled" ? { daily_views: dailyViews } : {}) };
+      })();
+      // Bookkeeping must never change the drain's own result.
+      const record = (outcome) => { if (runtime.jobs?.db) { try { recordDrainOutcome(runtime.jobs.db, { ...outcome, now: drainClock() }); } catch {} } };
+      try {
+        const drained = await drain;
+        record({ ok: true });
+        return drained;
+      } catch (error) {
+        record({ ok: false, error });
+        throw error;
+      }
     }
     if (key === "schedule:health") {
       const now = runtime.now();
       const parts = beijingParts(now);
       const jobs = runtime.jobs.listByBeijingDate(parts.date).filter((job) => job.trigger === "schedule");
-      const state = evaluateDailyHealth(now, jobs);
-      if (!state.alert) return { status: "no_op", beijing_date: parts.date, ...state };
-      const alertKey = `missing-terminal:${parts.date}`;
-      const ownerId = randomUUID();
-      if (!runtime.jobs.claimHealthAlert(alertKey, { ownerId, now, leaseSeconds: 120 })) return { status: "no_op", reason: "alert_already_claimed", beijing_date: parts.date };
+      const due = evaluateDueSlots(now, jobs, runtime.config?.schedule);
+      const state = due.at(-1) ?? { alert: false, reason: "before_health_window" };
+      // The job state is not proof of healthy data: capture detail, the drain
+      // history and ledger integrity are checked whatever the job state is,
+      // each alerted at most once per day.
+      // A failure in these extra checks must not suppress the missing-run alert below.
+      // Finished runs are reported at any hour, not only inside the health
+      // window, and before the alerts: a delivered report replaces the capture alert.
+      let reports = [];
+      let reportError = {};
       try {
-        await runtime.sendOpsHealth({ chatId: runtime.opsChatId, text: `shortdrama health\nbeijing_date=${parts.date}\nreason=${state.reason}\nstep=${state.step ?? "none"}\nlease=${state.lease_expires_at ?? "none"}` });
+        const dates = [parts.date];
+        for (let back = 0; back < CAPTURE_REPORT_LOOKBACK_DAYS; back += 1) dates.unshift(dayBefore(dates[0]));
+        reports = await captureReports(runtime, { now, jobs: dates.flatMap((date) => runtime.jobs.listByBeijingDate(date)) });
+      } catch (error) {
+        reportError = { reports_error: { code: typeof error?.code === "string" ? error.code.slice(0, 64) : "capture_report_failed" } };
+      }
+      let extra = [];
+      let extraError = {};
+      if (state.reason !== "before_health_window") {
+        try { extra = await pipelineHealthAlerts(runtime, { now, date: parts.date, jobs }); }
+        catch (error) { extraError = { alerts_error: { code: typeof error?.code === "string" ? error.code.slice(0, 64) : "health_check_failed" } }; }
+      }
+      // An alert of an earlier slot that did not go out is still owed once a
+      // later slot is the one being judged.
+      let owed = false;
+      for (const earlier of due.slice(0, -1)) {
+        if (!earlier.alert) continue;
+        const sent = await sendDailyAlert(runtime, { kind: "missing-terminal", key: missingRunAlertKey(parts.date, earlier, runtime.config?.schedule), now, text: missingRunAlertText(parts.date, earlier) });
+        if (sent.status === "already_claimed") continue;
+        extra.push(sent);
+        if (sent.status === "failed") owed = true;
+      }
+      const alerts = { ...(extra.length ? { alerts: extra } : {}), ...extraError, ...(reports.length ? { reports } : {}), ...reportError };
+      // A report that reached nobody, a report or alert that only reached the
+      // ops chat, and reports that could not be produced are trouble of this
+      // run, whatever else went out.
+      const trouble = owed || Boolean(reportError.reports_error) || reports.some((report) => report.status === "failed" || report.fallback === true) ||
+        extra.some((alert) => alert.fallback === true);
+      const extraStatus = trouble ? "partial"
+        : extra.some((alert) => alert.status === "sent") ? "alerted"
+          : reports.some((report) => report.status === "sent") ? "reported" : "no_op";
+      if (!state.alert) return { status: extraStatus, beijing_date: parts.date, ...state, ...alerts };
+      const alertKey = missingRunAlertKey(parts.date, state, runtime.config?.schedule);
+      const ownerId = randomUUID();
+      if (!runtime.jobs.claimHealthAlert(alertKey, { ownerId, now, leaseSeconds: 120 })) return { status: extraStatus, reason: "alert_already_claimed", beijing_date: parts.date, ...alerts };
+      let rerouted = false;
+      try {
+        rerouted = (await deliverAlert(runtime, alertKey, missingRunAlertText(parts.date, state), { now })).fallback;
         runtime.jobs.markHealthAlert(alertKey, "sent", { ownerId, now });
       } catch (error) {
         runtime.jobs.markHealthAlert(alertKey, "failed", { ownerId, now, error: typeof error?.code === "string" ? error.code : "notification_delivery_failed" });
         throw error;
       }
-      return { status: "alerted", beijing_date: parts.date, ...state };
+      return { status: trouble || rerouted ? "partial" : "alerted", beijing_date: parts.date, ...state, ...alerts, ...(rerouted ? { fallback: true } : {}) };
+    }
+    if (key === "migrate:reconcile-plan" || key === "migrate:reconcile-apply" || key === "migrate:reconcile-recover" || key === "migrate:reconcile-checkpoint-plan") {
+      if (identity.mode !== "local" || !runtime.config?.auth?.isPrivilegedAllowed?.(identity.actorId)) fail("privileged_required", "Google reconciliation is a local administrator operation");
+      if (key === "migrate:reconcile-apply" && command.options.confirm !== "apply-now") fail("action_confirmation_required", "Reconciliation requires --confirm apply-now");
+      if (key === "migrate:reconcile-checkpoint-plan") return runtime.reconcileCheckpointPlan(payload);
+      if (key === "migrate:reconcile-recover") return runtime.recoverGoogle(payload, command.options, identity);
+      return runtime.reconcileGoogle(payload, command.options, identity, key === "migrate:reconcile-apply");
     }
     if (key === "migrate:plan") return runtime.migratePlan(payload, command.options);
     if (key === "migrate:attest-permissions") {
@@ -1174,15 +1645,22 @@ async function baseSchemaMetadata(client, config, { includeRecordEvidence = fals
   const tables = await client.listTables(config.base.appToken);
   if (!tables || tables.complete !== true || !Array.isArray(tables.items)) fail("base_response_incomplete", "Complete configured Base table metadata is required");
   const expectedBindings = new Map(CANARY_TABLES.map(([binding, tableName]) => [config.base.tableIds[binding], tableName]));
-  if (tables.items.length !== TABLE_ORDER.length || expectedBindings.size !== TABLE_ORDER.length ||
-      new Set(tables.items.map((table) => table?.table_id)).size !== TABLE_ORDER.length ||
-      new Set(tables.items.map((table) => table?.name)).size !== TABLE_ORDER.length ||
+  if (config.base.dailyViewsTableId) expectedBindings.set(config.base.dailyViewsTableId, DAILY_VIEWS_TABLE);
+  for (const [key, tableId] of Object.entries(config.base.analyticsTableIds ?? {})) expectedBindings.set(tableId, ANALYTICS_TABLES[key].name);
+  const analyticsIds = new Set(Object.values(config.base.analyticsTableIds ?? {}));
+  const externalIds = new Set(Object.keys(config.base.externalTables ?? {}));
+  for (const [tableId, name] of Object.entries(config.base.externalTables ?? {})) expectedBindings.set(tableId, name);
+  const expectedCount = TABLE_ORDER.length + (config.base.dailyViewsTableId ? 1 : 0) + analyticsIds.size + externalIds.size;
+  if (tables.items.length !== expectedCount || expectedBindings.size !== expectedCount ||
+      new Set(tables.items.map((table) => table?.table_id)).size !== expectedCount ||
+      new Set(tables.items.map((table) => table?.name)).size !== expectedCount ||
       tables.items.some((table) => typeof table?.table_id !== "string" ||
         expectedBindings.get(table.table_id) !== table.name)) {
-    fail("base_schema_drift", "Base must contain exactly the four configured tables");
+    fail("base_schema_drift", "Base table inventory differs from configured business, analytics, and external bindings");
   }
   const selected = [];
   for (const table of tables.items) {
+    if (table.table_id === config.base.dailyViewsTableId || analyticsIds.has(table.table_id) || externalIds.has(table.table_id)) continue;
     if (typeof client.getTable !== "function") fail("base_response_incomplete", "Complete Base table detail is required");
     const detail = await client.getTable(config.base.appToken, table.table_id);
     if (!detail || detail.table_id !== table.table_id || detail.name !== table.name ||
@@ -1310,39 +1788,74 @@ export async function readGoogleServiceAccount(path, { openFile = open } = {}) {
   }
 }
 
-function terminalDashboardFinishedAt(block) {
-  const text = block?.data_config?.text;
+export function terminalDashboardState(block) {
+  let text = block?.data_config?.text;
+  // Base PATCH can return a JSON-encoded string while GET/create use plain text.
+  // Decode one string layer only; arbitrary JSON and nested encodings still fail.
+  if (typeof text === "string" && text.startsWith('"')) {
+    try { text = JSON.parse(text); } catch { fail("base_response_invalid", "Terminal dashboard state is malformed"); }
+  }
   if (text === "尚无成功同步记录") return null;
-  const match = typeof text === "string" ? /^\*\*最近一次同步终态\*\*\n状态：(success|partial|failed)\nrun_id：[^\r\n]+\n完成时间：([^\r\n]+)$/.exec(text) : null;
-  const parsed = match ? Date.parse(match[2]) : Number.NaN;
-  if (!match || !Number.isFinite(parsed) || !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(match[2])) {
+  const legacy = typeof text === "string" ? /^\*\*最近一次同步终态\*\*\n状态：(success|partial|failed)\nrun_id：([^\r\n]+)\n完成时间：([^\r\n]+)$/.exec(text) : null;
+  const compact = typeof text === "string" ? /^最近一次同步终态 · 状态：(success|partial|failed) · run_id：([^\r\n]+) · 完成时间：([^\r\n ]+)$/.exec(text) : null;
+  const match = legacy ?? compact;
+  const parsed = match ? Date.parse(match[3]) : Number.NaN;
+  if (!match || !Number.isFinite(parsed) || !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(match[3])) {
     fail("base_response_invalid", "Terminal dashboard state is malformed");
   }
-  return parsed;
+  return { state: match[1], runId: match[2], finishedAtMs: parsed };
 }
 
+function terminalDashboardFinishedAt(block) {
+  return terminalDashboardState(block)?.finishedAtMs ?? null;
+}
+
+const NOTIFICATION_TIMEOUT_MS = 30_000;
+
 async function defaultFeishuFetch(url, options) {
-  const response = await fetch(url, options);
+  // The deadline covers the response body as well: a stalled notification must
+  // fail and be retried on a later tick, not hang the scheduler run.
+  const response = await fetch(url, { ...options, signal: options?.signal ?? AbortSignal.timeout(NOTIFICATION_TIMEOUT_MS) });
   const payload = await response.json();
-  if (!response.ok || payload?.code !== 0) fail("notification_delivery_failed", "Feishu notification request failed", { status: response.status });
+  if (!response.ok || payload?.code !== 0) {
+    fail("notification_delivery_failed", "Feishu notification request failed",
+      { status: response.status, ...(Number.isInteger(payload?.code) ? { feishu_code: payload.code } : {}) });
+  }
   return payload;
 }
+
+// Feishu answers that prove the chat did not get the message and will not take
+// it on a retry either: the bot is not in the chat (230002), may not speak
+// there (230035), or the chat was dissolved (232009).
+const FEISHU_CHAT_REFUSALS = new Set([230002, 230035, 232009]);
+const isChatRefusal = (status, code) => FEISHU_CHAT_REFUSALS.has(code) &&
+  (status === undefined || (Number.isInteger(status) && status >= 400 && status < 500 && status !== 429));
 
 export function createFeishuMessageSender({ tokenProvider, isChatAllowed, fetchJson = defaultFeishuFetch } = {}) {
   if (typeof tokenProvider !== "function" || typeof isChatAllowed !== "function" || typeof fetchJson !== "function") {
     fail("notifier_config_invalid", "Feishu message adapter configuration is invalid");
   }
-  return async ({ chatId, text }) => {
-    if (!isChatAllowed(chatId) || typeof text !== "string" || text.length === 0 || text.length > 2_000) {
+  return async ({ chatId, text, idempotencyKey }) => {
+    if (!isChatAllowed(chatId) || typeof text !== "string" || text.length === 0 || text.length > 2_000 ||
+        (idempotencyKey !== undefined && (typeof idempotencyKey !== "string" || !/^[A-Za-z0-9_-]{1,50}$/.test(idempotencyKey)))) {
       fail("notification_target_denied", "Notification destination or body is invalid");
     }
     const token = await tokenProvider();
     if (typeof token !== "string" || token.length === 0) fail("base_auth_failed", "Feishu tenant token is invalid");
-    const result = await fetchJson("https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id", {
-      method: "POST",
-      headers: { authorization: `Bearer ${token}`, "content-type": "application/json; charset=utf-8" },
-      body: JSON.stringify({ receive_id: chatId, msg_type: "text", content: JSON.stringify({ text }) }),
-    });
+    const refused = () => fail("notification_target_refused", "Feishu chat refused the notification");
+    let result;
+    try {
+      result = await fetchJson("https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id", {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}`, "content-type": "application/json; charset=utf-8" },
+        // Feishu sends at most one message per uuid within an hour.
+        body: JSON.stringify({ receive_id: chatId, msg_type: "text", content: JSON.stringify({ text }), ...(idempotencyKey ? { uuid: idempotencyKey } : {}) }),
+      });
+    } catch (error) {
+      if (error?.code === "notification_delivery_failed" && isChatRefusal(error.details?.status, error.details?.feishu_code)) refused();
+      throw error;
+    }
+    if (isChatRefusal(undefined, result?.code)) refused();
     if (!result || result.code !== 0) fail("notification_delivery_failed", "Feishu notification response is invalid");
     return result;
   };
@@ -1443,7 +1956,7 @@ export function createSchemaAdapters(client, config) {
   return { schemaAdapter, presentationAdapter };
 }
 
-function schemaReadiness(schema, config) {
+export function schemaReadiness(schema, config) {
   if (!schema || schema.complete !== true || !Array.isArray(schema.tables)) {
     return { status: "schema_drift", reason: "unexpected_table_set" };
   }
@@ -1467,17 +1980,40 @@ function schemaReadiness(schema, config) {
     const table = schema.tables.find((candidate) => candidate.name === tableName);
     const actualNames = table.fields.map((field) => field.name).sort();
     const expectedNames = BASE_FIELD_SPECS[tableName].map((field) => field.name).sort();
-    if (JSON.stringify(actualNames) !== JSON.stringify(expectedNames)) return { status: "schema_missing", table: tableName };
+    // User-added fields are outside Runner ownership. Required fields still have
+    // exact descriptors below; duplicate names must never shadow a managed field.
+    const duplicateNames = [...new Set(actualNames.filter((name, index) => index > 0 && name === actualNames[index - 1]))];
+    if (duplicateNames.length) return { status: "schema_drift", table: tableName, reason: "duplicate_field_names", fields: duplicateNames };
+    const missingFields = expectedNames.filter((name) => !actualNames.includes(name));
+    if (missingFields.length) return {
+      status: "schema_missing", table: tableName, missing_fields: missingFields,
+      extra_fields: actualNames.filter((name) => !expectedNames.includes(name)),
+    };
     for (const spec of BASE_FIELD_SPECS[tableName]) {
       const field = table.fields.find((candidate) => candidate.name === spec.name);
       const expected = fixedFieldDescriptor(tableName, spec.name, spec.kind === "link" ? { targetTableId: tableIdsByName[spec.targetTable] } : {});
-      if (spec.primary && field?.is_primary !== true && field?.primary !== true ||
-          !Object.entries(expected).every(([key, value]) => isDeepStrictEqual(field?.[key], value))) {
-        return { status: "schema_drift", table: tableName, field: spec.name };
+      // Base owns numbering on the current live tables; legacy text IDs remain readable.
+      if (spec.autoNumberPrefix && field?.type === "auto_number") {
+        expected.type = "auto_number";
+        expected.style = { rules: [{ text: spec.autoNumberPrefix, type: "text" }, { length: 6, type: "incremental_number" }] };
+      }
+      const mismatches = Object.entries(expected).filter(([key, value]) => !isDeepStrictEqual(field?.[key], value)).map(([key]) => key);
+      if (spec.primary && field?.is_primary !== true && field?.primary !== true) mismatches.push("is_primary");
+      if (mismatches.length) {
+        const optionDetails = mismatches.includes("options") ? {
+          expected_options: expected.options?.map((option) => option.name) ?? null,
+          actual_options: field?.options?.map((option) => option.name) ?? null,
+        } : {};
+        return { status: "schema_drift", table: tableName, field: spec.name, mismatches, expected_type: expected.type, actual_type: field?.type, ...optionDetails };
       }
     }
   }
   return { status: "ready" };
+}
+
+export function jobStoreReadOnly(command) {
+  return command?.group === "doctor" && command.options?.initState !== true &&
+    !(command.options?.beidouFields === true && command.options?.confirm === "apply-now");
 }
 
 export async function buildRuntime({ configPath, env = process.env, now = () => new Date(), spawnFile = defaultSpawnFile, command = null, services = {} } = {}) {
@@ -1496,13 +2032,15 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     fail("privileged_required", "State initialization requires a privileged actor");
   }
   const jobs = new JobStore(config.paths.opsSqlite, {
-    readOnly: command?.group === "doctor" && !initState,
+    readOnly: jobStoreReadOnly(command),
     initialize: initState,
   });
   try {
     const tokenProvider = createTenantTokenProvider({ appId: config.auth.feishuAppId, appSecret: config.getFeishuAppSecret() });
     const client = services.client ?? new FeishuClient({ tokenProvider });
     const repos = new BaseRepositories({ client, appToken: config.base.appToken, tableIds: config.base.tableIds });
+    const workerRepos = new BaseRepositories({ client, appToken: config.base.appToken, tableIds: config.base.tableIds, writableOnly: true });
+    const captionRepos = captionRepositories({full:repos,worker:workerRepos});
     const operatorIds = new Set(config.auth.getOperatorIds());
     const privilegedIds = new Set(config.auth.getPrivilegedIds());
     const notificationChatIds = new Set(config.auth.getNotificationChatIds());
@@ -1511,8 +2049,8 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     const humanOps = new HumanOpsConstructor({
       repos, jobs, operators: operatorIds, privileged: privilegedIds, now,
       makeReceiptId: () => `sdp_${randomUUID()}`,
-      allocateDramaId: () => allocateBusinessId(jobs.db, "drama"),
-      allocateReleaseId: () => allocateBusinessId(jobs.db, "release"),
+      allocateDramaId: (liveMax) => allocateBusinessId(jobs.db, "drama", liveMax),
+      allocateReleaseId: (liveMax) => allocateBusinessId(jobs.db, "release", liveMax),
     });
     const sendMessage = createFeishuMessageSender({ tokenProvider, isChatAllowed: config.auth.isNotificationChatAllowed });
     const updateTerminalDashboard = async (job) => {
@@ -1534,15 +2072,21 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       if (currentFinishedAt !== null && candidateFinishedAt < currentFinishedAt) return;
       await client.updateDashboardTerminalBlock(config.base.appToken, dashboardId, blockId, terminal);
       const readback = await client.readDashboardBlock(config.base.appToken, dashboardId, blockId, expected.name);
-      if (JSON.stringify(readback.data_config) !== JSON.stringify(expected.data_config)) fail("readback_mismatch", "Terminal dashboard readback did not match persisted job");
+      if (!isDeepStrictEqual(terminalDashboardState(readback), terminalDashboardState(expected))) fail("readback_mismatch", "Terminal dashboard readback did not match persisted job");
     };
     const notifier = new NotifierConstructor({ allowedChatIds: notificationChatIds, sendMessage, updateTerminalDashboard, jobs });
     const opsChatId = normalized(env.SHORTDRAMA_OPS_CHAT_ID, "opsChatId");
     if (!config.auth.isNotificationChatAllowed(opsChatId)) fail("notification_target_denied", "Ops chat is not allowlisted");
+    const reportChatId = config.notifications?.getReportChatId?.() ?? opsChatId;
     const wakeWorker = createWakeWorker({ spawnFile });
     const collector = createCollectorAdapter({
       nodePath: process.execPath, collectorPath: config.paths.collector, collectorCwd: dirname(config.paths.collector),
-      summaryDir: config.paths.collectorSummaryDir, metricsSqlitePath: config.paths.metricsSqlite, spawnFile, now,
+      summaryDir: config.paths.collectorSummaryDir, maxPostAgeDays: config.capture.maxAgeDays, excludedPostIds: config.capture.excludedPostIds, metricsSqlitePath: config.paths.metricsSqlite, spawnFile, now,
+      readRegisteredPosts: async ({ signal }) => registeredCaptureTargets({
+        accounts: await workerRepos.accounts.loadIndex({ signal }),
+        captures: await workerRepos.captures.loadIndex({ signal }),
+        releases: await workerRepos.releases.loadIndex({ signal }),
+      }),
     });
     const syncContext = { jobs, makeRunId, wakeWorker, now };
     const workerPid = process.pid;
@@ -1552,17 +2096,135 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
     const assertRuntimeSchemaReady = async () => {
       const schema = await runtimeSchema();
       const readiness = schemaReadiness(schema, config);
-      if (readiness.status === "ready") return schema.revision;
+      if (readiness.status === "ready") {
+        for (const table of schema.tables) {
+          const generated = table.fields.find((field) => field.name === TABLES[table.name].primaryField)?.type === "auto_number";
+          repos.repositoryForTable(table.name).serverGeneratedIds = generated;
+          workerRepos.repositoryForTable(table.name).serverGeneratedIds = generated;
+        }
+        return schema.revision;
+      }
       if (["base_table_missing", "schema_missing"].includes(readiness.status)) {
         fail("schema_missing", "Runtime Base schema is incomplete", readiness);
       }
       fail("base_schema_drift", "Runtime Base schema does not match the fixed contract", readiness);
     };
     const sourceReaders = services.source ?? { readLatestAccounts, readLatestPosts };
+    // Sync only needs stored fields; ambiguous display lookups must not abort unrelated rows.
+    const aliases = config.batchReview.ownerAliases;
+    for (const alias of Object.keys(aliases)) if (!operatorIds.has(alias) && !privilegedIds.has(alias)) fail("batch_alias_denied", "Owner alias must refer to an already authorized actor");
+    const batchOperators = new Set([...operatorIds, ...[...operatorIds].map(id => aliases[id]).filter(Boolean)]);
+    const batchPrivileged = new Set([...privilegedIds, ...[...privilegedIds].map(id => aliases[id]).filter(Boolean)]);
+    const isBatchWriter = id => batchOperators.has(id) || batchPrivileged.has(id);
+    const isBatchNotificationRecipient = id => /^ou_[A-Za-z0-9]+$/.test(id);
+    const batchHumanOps = new HumanOpsConstructor({repos: workerRepos, jobs, operators: batchOperators, privileged: batchPrivileged, now,
+      makeReceiptId: () => `sdp_${randomUUID()}`, allocateDramaId: liveMax => allocateBusinessId(jobs.db,"drama",liveMax), allocateReleaseId: liveMax => allocateBusinessId(jobs.db,"release",liveMax)});
+    const batchOps = new BatchOpsService({ repos: workerRepos, jobs, humanOps: batchHumanOps, now,
+      readPosts: () => sourceReaders.readLatestPosts(config.paths.metricsSqlite),
+      readAccounts: () => sourceReaders.readLatestAccounts(config.paths.metricsSqlite),
+      isWriter: isBatchWriter, isPrivileged: id => batchPrivileged.has(id), canonicalOwner: id => aliases[id] ?? id,
+      waitHours: config.batchReview.waitHours,
+      publicationTimezone: config.batchReview.publicationTimezone,
+      publicationTimezoneSince: config.batchReview.publicationTimezoneSince,
+      publicationTimezones: config.batchReview.publicationTimezones,
+      excludedPostIds: config.capture.excludedPostIds,
+    });
+    const reviewSenderOptions = {reviewChatId:config.batchReview.reviewChatId,reviewGroupRecipients:config.batchReview.reviewGroupRecipients,isChatAllowed:config.auth.isNotificationChatAllowed};
+    const batchSend = createBatchReviewSender({tokenProvider, isRecipientAllowed: isBatchNotificationRecipient, fetchJson: defaultFeishuFetch,...reviewSenderOptions});
+    const processReviews = async () => {
+      if (!config.batchReview.enabled) return {status: "disabled"};
+      await assertRuntimeSchemaReady();
+      const metadataRepair = await processBatchMetadataRepairs({jobs, repos: workerRepos, requests: config.batchReview.metadataRepairs, now});
+      if (["partial", "deferred"].includes(metadataRepair.status)) return {status: "partial", metadata_repair: metadataRepair, errors: metadataRepair.errors ?? []};
+      try {
+      const duplicateRelationRepair = await processDuplicateRelationRepairs({jobs, repos: workerRepos, requests: config.batchReview.duplicateRelationRepairs,
+        readPostEvidence: async id => (await sourceReaders.readLatestPosts(config.paths.metricsSqlite)).find(post => post.post_id === id), now});
+      const scheduleRepair = await processScheduleRepairs({jobs, repos: workerRepos, requests: config.batchReview.scheduleRepairs, now});
+      const automatic = await processAutomaticBatchMatches({jobs, repos: workerRepos, query: request => batchOps.query(request), now,
+        enabled: config.batchReview.autoMatch, since: config.batchReview.autoMatchSince, countOnlySince: config.batchReview.countOnlySince, isOwnerAllowed: isBatchWriter});
+      const held = new Set(automatic.held.map(x => x.batch_id));
+      const reviewQuery = async () => {
+        const report = await batchOps.query();
+        for (const batch of report.rows) if (held.has(batch.batch_id) && !["complete","inactive"].includes(batch.state)) {
+          batch.state = "conflict"; batch.notify = true;
+          batch.reasons = [...new Set([...batch.reasons,"automatic_attempt_requires_review"])];
+        }
+        return report;
+      };
+      const reviewed = await batchHumanOps.withMutationLock((renew, signal) => processBatchReviews({db: jobs.db, query: reviewQuery, now,
+        baseUrl: config.base.url, tableId: config.base.tableIds.releases, viewId: config.batchReview.viewId, reminderHours: config.batchReview.reminderHours,
+        notifyStartHour: config.batchReview.notifyStartHour, notifyEndHour: config.batchReview.notifyEndHour,
+        silentBatchIds: config.batchReview.silentBatchIds,
+        isRecipientAllowed: isBatchNotificationRecipient, send: async message => { await renew(); signal.throwIfAborted(); return batchSend(message); },
+        project: async (batch, patch) => {
+          for (const id of batch.release_ids) {
+            await renew();
+            const record = await workerRepos.releases.getByKey(id, {signal});
+            if (!record || record.fields.批次ID !== batch.batch_id) fail("batch_review_stale", "Batch changed before status projection");
+            const changed = Object.fromEntries(Object.entries(patch).filter(([k,v]) => !isDeepStrictEqual(record.fields[k],v)));
+            if (Object.keys(changed).length) {
+              const result = await workerRepos.releases.machineUpsertWithInvariant(id,changed,{signal});
+              if (result.readback !== "verified") fail("readback_mismatch", "Batch status projection failed");
+            }
+          }
+        },
+      }));
+      return {...reviewed, automatic, metadata_repair: metadataRepair, duplicate_relation_repair: duplicateRelationRepair, schedule_repair: scheduleRepair, status: [reviewed.status, automatic.status, scheduleRepair.status, duplicateRelationRepair.status].includes("partial") ? "partial" : reviewed.status};
+      } catch (error) {
+        error.details = {...(error.details ?? {}), metadata_repair: metadataRepair};
+        throw error;
+      }
+    };
     const workerContext = {
-      jobs, repos, notifier, collector, source: sourceReaders,
+      jobs, repos: workerRepos, maxPostAgeDays: config.capture.maxAgeDays, excludedPostIds: config.capture.excludedPostIds, notifier, collector, source: sourceReaders,
       workerPid, now, metricsSqlitePath: config.paths.metricsSqlite,
       assertSchemaReady: assertRuntimeSchemaReady,
+      withBaseMutationLock: operation => batchHumanOps.withMutationLock((_renew, signal) => operation(signal)),
+    };
+    const processCaptionBackfill = async () => {
+      if (!config.captionBackfill) return {status: "disabled"};
+      await assertRuntimeSchemaReady();
+      const request={jobs,repos:captionRepos,readPosts:()=>sourceReaders.readLatestPosts(config.paths.metricsSqlite),
+        requestId:config.captionBackfill.request_id,mode:config.captionBackfill.mode,cutoff:config.captionBackfill.cutoff,
+        publicationTimezone:config.batchReview.publicationTimezone,publicationTimezoneSince:config.batchReview.publicationTimezoneSince,
+        publicationTimezones:config.batchReview.publicationTimezones,allowUnknownDrama:config.captionBackfill.allowUnknownDrama,
+        leadReviewOnly:config.captionBackfill.leadReviewOnly};
+      if(config.captionBackfill.mode==="plan")return stageCaptionBackfillPlan(request);
+      const applied=await applyCaptionBackfill({...request,expectedDigest:config.captionBackfill.expected_plan_sha256,
+        maxActions:config.captionBackfill.maxActionsPerRun,now});
+      if(!config.captionBackfill.leadReviewOnly)return applied;
+      const captionSend=createBatchReviewSender({tokenProvider,
+        isRecipientAllowed:id=>/^ou_[A-Za-z0-9]+$/.test(id),fetchJson:defaultFeishuFetch,...reviewSenderOptions});
+      const notification=await processCaptionOwnerNotifications({jobs,repos:captionRepos,requestId:request.requestId,
+        baseUrl:config.base.url,tableId:config.base.tableIds.releases,send:captionSend,now});
+      return {...applied,owner_notification:notification};
+    };
+    const processCaptionRepairRequest = async () => {
+      if(!config.captionRepair)return {status:"disabled"};
+      await assertRuntimeSchemaReady();
+      return processCaptionRepair({jobs,repos,request:config.captionRepair,now});
+    };
+    const processCaptionAuto = async () => {
+      if(!config.captionAuto.enabled)return {status:"disabled"};
+      if(config.captionBackfill){
+        const row=jobs.db.prepare('SELECT state FROM caption_backfill_runs WHERE request_id=?').get(config.captionBackfill.request_id);
+        if(row?.state!=="complete")return {status:"deferred",reason:"historical_backfill_not_complete"};
+      }
+      await assertRuntimeSchemaReady();
+      const result=await processContinuousCaptionReleases({jobs,repos:captionRepos,readPosts:()=>sourceReaders.readLatestPosts(config.paths.metricsSqlite),
+        activationAt:config.captionAuto.startAt,maxActions:config.captionAuto.maxActionsPerRun,now,
+        publicationTimezone:config.batchReview.publicationTimezone,publicationTimezoneSince:config.batchReview.publicationTimezoneSince,
+        publicationTimezones:config.batchReview.publicationTimezones,leadReviewOnly:config.captionAuto.leadReviewOnly,
+        recognizeDramas:config.captionAuto.recognizeDramas,verifiedCodes:config.captionAuto.verifiedCodes,partialLinkPostIds:config.captionAuto.partialLinkPostIds,timeOrderTargets:config.captionAuto.timeOrderTargets,observeOnly:config.captionAuto.observeOnly,
+        excludedPostIds:config.capture.excludedPostIds});
+      if(config.captionAuto.observeOnly||!config.captionAuto.leadReviewOnly&&!config.captionAuto.recognizeDramas)return result;
+      const captionSend=createBatchReviewSender({tokenProvider,
+        isRecipientAllowed:id=>/^ou_[A-Za-z0-9]+$/.test(id),fetchJson:defaultFeishuFetch,...reviewSenderOptions});
+      const notification=await processCaptionAutomationNotifications({jobs,repos:captionRepos,
+        baseUrl:config.base.url,tableId:config.base.tableIds.releases,captureTableId:config.base.tableIds.captures,send:captionSend,now,
+        notifyStartHour:config.batchReview.notifyStartHour,notifyEndHour:config.batchReview.notifyEndHour,
+        excludedPostIds:config.capture.excludedPostIds});
+      return {...result,owner_notification:notification};
     };
     const baseBindingSha256 = createHash("sha256").update(JSON.stringify({
       app_token: config.base.appToken,
@@ -1577,11 +2239,34 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
       serviceAccount: await readGoogleServiceAccount(config.paths.googleServiceAccountPath),
     }));
     const runtime = {
-      config, jobs, client, repos, humanOps, notifier, opsChatId, now, workerPid, syncContext, workerContext,
+      config, jobs, client, repos, humanOps, notifier, opsChatId, reportChatId, now, workerPid, syncContext, workerContext, batchOps,
+      processBatchReviews: processReviews, processCaptionRepair:processCaptionRepairRequest, processCaptionBackfill, processCaptionAuto,
+      processBeidouPool: async () => {
+        if (!config.beidou.enabled) return {status: "disabled"};
+        await assertRuntimeSchemaReady();
+        return processBeidouPool({ client, jobs, baseToken: config.base.appToken, tableId: config.base.tableIds.dramas,
+          apiKey: config.getBeidouApiKey(), startAt: config.beidou.startAt, now,
+          withMutationLock: operation => batchHumanOps.withMutationLock(operation) });
+      },
+      queryBeidouCandidates: async ({ title }) => {
+        const rows = await findBeidouCandidates(title, {apiKey: config.getBeidouApiKey()});
+        const choice = chooseBeidouCandidate(title, rows);
+        const ordered = choice.status === "selected" ? [choice.candidate, ...rows.filter(row => row !== choice.candidate)] : rows;
+        return {status: "success", source: "beidou", query: title, match_status: choice.status,
+          total: rows.length, complete: true, display_truncated: rows.length > 20,
+          candidates: ordered.slice(0, 20).map(row => ({...row,
+            platformName: beidouPlatformName(row.platform), languageName: beidouLanguageName(row.languageId),
+            launchDate: beidouDatePart(row.publishAt), description: row.description.slice(0, 800)}))};
+      },
       assertRuntimeSchemaReady,
+      projectDailyViews: () => projectDailyViews({ client, config, jobs, now }),
+      projectAnalytics: () => projectAnalytics({ client, config, jobs, now }),
+      queryAnalyticsReport: (request) => queryAnalyticsReport({client, config, now: now(), ...request}),
+      queryReleaseCandidates: (request) => queryReleaseCandidates({ repos,
+        readPosts: () => sourceReaders.readLatestPosts(config.paths.metricsSqlite), now: now(), ...request }),
       runWorker: runSyncWorker,
       sendOpsHealth: sendMessage,
-      async doctor({ canary, initState: requestedInitState, payload, identity }) {
+      async doctor({ canary, initState: requestedInitState, beidouFields, confirm, expectedSha256, payload, identity }) {
         if (requestedInitState === true && !initState) fail("state_init_context_invalid", "State initialization requires its explicit CLI command");
         const sequence = jobs.peekSequenceState();
         const schema = await runtimeSchema();
@@ -1594,6 +2279,11 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
           };
         }
         if (readiness.status !== "ready") return { ...readiness, tables: schema.tables.length, sequence };
+        if (beidouFields) {
+          const target = { client, baseToken: config.base.appToken, tableId: config.base.tableIds.dramas };
+          if (confirm === "apply-now") return applyBeidouFields({ ...target, jobs, actorId: identity.actorId, expectedSha256, now });
+          return planBeidouFields(target);
+        }
         if (canary) {
           if (!payload?.manifest || payload.manifest.base_binding_sha256 !== baseBindingSha256) fail("base_target_mismatch", "Canary manifest belongs to a different Base");
           const parts = beijingParts(now());
@@ -1616,6 +2306,41 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
         }
         if (!sequence.seeded) return { status: "sequence_unseeded", schema_revision: schema.revision, sequence };
         return { status: "ready", node: process.versions.node, schema_revision: schema.revision, sequence };
+      },
+      async recoverGoogle(payload, options, identity) {
+        return recoverGoogleReconciliation({plan: payload.plan, expectedSha256: options.expectedSha256, baseBindingSha256, config, jobs, repos, client, actorId: identity.actorId, now});
+      },
+      async readReconciliationContext(payload) {
+        if (payload.baseline.base_binding_sha256 !== baseBindingSha256) fail("base_target_mismatch", "Original migration belongs to a different Base");
+        await assertRuntimeSchemaReady();
+        const google = await readGoogle();
+        const snapshot = {};
+        for (const key of ["accounts", "dramas", "captures", "releases"]) snapshot[key] = [...(await repos[key].loadIndex()).values()];
+        const sequence = jobs.peekSequenceState();
+        if (!sequence.seeded) fail("sequence_unseeded", "Reconciliation requires seeded IDs");
+        return {google, snapshot, schema: await runtimeSchema(), baseline: payload.baseline, baseBindingSha256, now: now().toISOString(), sequences: {
+          drama: Number(sequence.drama_next.slice(3)) - 1, release: Number(sequence.release_next.slice(3)) - 1,
+        }};
+      },
+      async reconcileCheckpointPlan(payload) {
+        const current = await runtime.readReconciliationContext(payload);
+        return planGoogleReconciliation(prepareSchemaCheckpointContext({originalPlan: payload.plan, current,
+          journal: reconciliationJournal(jobs, payload.plan.sha256), expectedSourceSha256: reconciliationSourceDigest(current.google)}));
+      },
+      async reconcileGoogle(payload, options, identity, apply) {
+        const checkpoint = payload.plan?.schema_checkpoint;
+        if (!checkpoint) assertNoUnresolvedReconciliation(jobs);
+        let current = await runtime.readReconciliationContext(payload);
+        if (checkpoint) {
+          current = prepareSchemaCheckpointContext({originalPlan: checkpoint, current,
+            journal: reconciliationJournal(jobs, checkpoint.sha256), expectedSourceSha256: payload.plan.source_sha256});
+          if (apply) await recoverGoogleReconciliation({plan: checkpoint, expectedSha256: checkpoint.sha256,
+            baseBindingSha256, config, jobs, repos, client, actorId: identity.actorId, now});
+        }
+        assertNoUnresolvedReconciliation(jobs);
+        if (!apply) return planGoogleReconciliation(current);
+        return applyGoogleReconciliation({plan: payload.plan, expectedSha256: options.expectedSha256, current,
+          writer: createGoogleReconciliationWriter({client, repos, config, jobs, actorId: identity.actorId, now})});
       },
       async migratePlan(_payload, options) {
         const google = await readGoogle();
@@ -1694,14 +2419,18 @@ export async function buildRuntime({ configPath, env = process.env, now = () => 
 
 function payloadRequired(command) {
   return new Set([
-    "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-archive",
-    "pool:preview-batch", "pool:update-field", "release:schedule", "release:update-field", "release:preview-update", "release:preview-batch", "release:apply-update", "release:attach-post",
+    "release:batch-schedule", "release:batch-schedule-direct", "release:batch-match-direct", "release:batch-preview", "release:batch-apply",
+    "pool:beidou-search",
+    "pool:create", "pool:preview-update", "pool:apply-update", "pool:apply-direct", "pool:apply-archive",
+    "pool:preview-batch", "pool:update-field", "release:schedule", "release:update-field", "release:preview-update", "release:preview-batch", "release:apply-update", "release:apply-direct", "release:attach-post", "release:preview-match", "release:match-direct",
   ]).has(`${command.group}:${command.action}`);
 }
 
 export function exitCodeFor(result) {
   const state = result?.state ?? result?.status;
   if (result?.error) return 1;
+  if (result?.beidou_pool?.status === "schema_missing") return 1;
+  if (result?.beidou_pool?.status === "partial") return 2;
   if (state === "partial") return 2;
   if (["failed", "error", "base_table_missing", "schema_missing", "schema_drift", "sequence_unseeded", "unavailable", "not_found"].includes(state)) return 1;
   return 0;
@@ -1778,7 +2507,11 @@ export async function execute(argv, {
     if (outputReservation) {
       const written = await outputReservation.write(result);
       outputReservation = null;
-      if (command.group === "migrate" && command.action === "plan") {
+      if (command.group === "migrate" && ["reconcile-plan", "reconcile-checkpoint-plan"].includes(command.action)) {
+        result = {status: "planned", artifact_file: command.options.output, sha256: result.sha256,
+          counts: Object.fromEntries(Object.entries(result.operations).map(([key, ops]) => [key, {create: ops.creates.length, update: ops.updates.length}])),
+          schema_fields_extended: result.schema_changes.length};
+      } else if (command.group === "migrate" && command.action === "plan") {
         const blockedByCode = {};
         for (const item of result.blocked) blockedByCode[item.code] = (blockedByCode[item.code] ?? 0) + 1;
         const warningsByCode = {};

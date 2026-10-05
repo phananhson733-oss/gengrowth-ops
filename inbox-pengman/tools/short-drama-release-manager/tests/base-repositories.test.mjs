@@ -908,3 +908,236 @@ test("single update cancellation during visibility wait prevents further reads o
   assert.equal(client.calls.update.length, 1);
   assert.equal(repos.dramas.index, null);
 });
+
+
+test("machine datetime expectations match second precision storage and remain idempotent",async()=>{
+ const client=fakeClient({[tableIds.accounts]:[{record_id:"a",fields:{账号ID:"acct",指标同步时间:"2026-09-08T00:00:00.000Z"}}]});const update=client.updateRecords.bind(client);
+ client.updateRecords=async(...args)=>{const result=await update(...args);for(const r of client.rows[tableIds.accounts])r.fields.指标同步时间=new Date(Math.floor(Date.parse(r.fields.指标同步时间)/1000)*1000).toISOString();return result;};
+ const repo=makeRepos(client).accounts;const input={key:"acct",patch:{指标同步时间:"2026-09-09T12:42:14.739+08:00"}};
+ assert.equal((await repo.syncManyMachine([input])).readback,"verified");assert.equal(client.calls.update.length,1);assert.equal(client.rows[tableIds.accounts][0].fields.指标同步时间,"2026-09-09T04:42:14.000Z");
+ assert.equal((await repo.syncManyMachine([input])).unchanged,1);assert.equal(client.calls.update.length,1);assert.equal(input.patch.指标同步时间,"2026-09-09T12:42:14.739+08:00");
+ const drama=makeRepos(fakeClient()).dramas;assert.equal(drama.preparePatch("SD-000001",{备注:"2026-09-09T04:42:14.739Z"},"human").patch.备注,"2026-09-09T04:42:14.739Z");
+});
+test("bulk sync polls known old values without replaying the update",async()=>{
+ const client=fakeClient({[tableIds.accounts]:[{record_id:"a",fields:{账号ID:"acct",粉丝数:10}}]});const list=client.listRecords.bind(client);let reads=0;client.listRecords=async(...args)=>{const r=await list(...args);if(++reads===2)r.items[0].fields.粉丝数=10;return r;};const sleeps=[];
+ const result=await repoWithSleep(client,sleeps).accounts.syncManyMachine([{key:"acct",patch:{粉丝数:20}}]);assert.equal(result.readback,"verified");assert.equal(client.calls.update.length,1);assert.equal(reads,3);assert.equal(sleeps.length,1);
+});
+test("bulk write readback restarts pagination only for revision or total visibility changes",async()=>{
+ for(const kind of ["rev","total","field_ids"]){const client=fakeClient({[tableIds.accounts]:[{record_id:"a",fields:{账号ID:"acct",粉丝数:10}}]});const list=client.listRecords.bind(client);let reads=0;client.listRecords=async(...args)=>{if(++reads===2){const e=Error("pagination changed");e.code="base_response_invalid";e.details={pagination_metadata_key:kind};throw e;}return list(...args);};const repo=repoWithSleep(client,[]).accounts;
+  if(kind==='field_ids')await assert.rejects(repo.syncManyMachine([{key:'acct',patch:{粉丝数:20}}]),e=>e.code==='base_response_invalid');else assert.equal((await repo.syncManyMachine([{key:'acct',patch:{粉丝数:20}}])).readback,'verified');assert.equal(client.calls.update.length,1);
+ }
+});
+
+
+test("release evidence waits for known old machine values while keeping human and relation checks",async()=>{
+ const fields={发布ID:'SR-1','Post ID':'99',视频链接:'https://video/99',账号:[{id:'rec-a'}],日期:'2026-09-01',采集记录:[{id:'rec-c'}],指标同步时间:'2026-08-31T00:00:00.000Z',同步错误:null};
+ const client=fakeClient({[tableIds.captures]:[{record_id:'rec-c',fields:{'Post ID':'99'}}],[tableIds.releases]:[{record_id:'rec-r',fields}]});const get=client.getRecord.bind(client);let reads=0;client.getRecord=async(...args)=>{const r=await get(...args);if(++reads===2)r.fields.指标同步时间=fields.指标同步时间;return r;};const sleeps=[];
+ const result=await repoWithSleep(client,sleeps).releases.upsertEvidenceSafely('SR-1',{指标同步时间:'2026-09-01T00:00:00Z'},{'Post ID':'99',视频链接:'https://video/99',账号:[{id:'rec-a'}],日期:'2026-09-01'},'rec-c');assert.equal(result.readback,'verified');assert.equal(client.calls.update.length,1);assert.equal(sleeps.length,1);
+});
+
+test('sync repository indexes explicitly omit derived display fields on every reload',async()=>{
+ const client=fakeClient({'tbl-releases':[{record_id:'rec-release',fields:{发布ID:'SR-000001',采集记录:[{id:'rec-1'},{id:'rec-2'}]}}]});
+ const original=client.listRecords;
+ client.listRecords=async(base,table,options)=>{
+  assert.equal(options.writableOnly,true);
+  return original(base,table,options);
+ };
+ const repos=new BaseRepositories({client,appToken:'app',tableIds,writableOnly:true});
+ for(let n=0;n<2;n++)assert.equal((await repos.releases.loadIndex()).get('SR-000001').fields.采集记录.length,2);
+});
+test('read and sync indexes ignore wholly empty drafts but reject populated rows without IDs',async()=>{const client=fakeClient({[tableIds.releases]:[{record_id:'r1',fields:{发布ID:'SR-000001',日期:'2026-09-20'}},{record_id:'draft',fields:{发布ID:null,日期:null,账号:[],剧:[],采集记录:[]}}]});const repos=makeRepos(client);assert.equal((await repos.releases.loadIndex()).size,1);client.rows[tableIds.releases][1].fields.日期='2026-09-20';await assert.rejects(repos.releases.loadIndex(),e=>e.code==='duplicate_base_key');});
+
+
+test("account registration time survives metric sync and rejects machine edits", async () => {
+  const field = "接收时间/注册时间";
+  const value = "2026-09-18T02:30:00.000Z";
+  const client = fakeClient({
+    [tableIds.accounts]: [{ record_id: "rec-a", fields: { 账号ID: "a", [field]: value, 粉丝数: 1 } }],
+  });
+  const repos = makeRepos(client);
+  const result = await repos.accounts.syncManyMachine([{ key: "a", patch: { 粉丝数: 20 } }]);
+  assert.equal(result.readback, "verified");
+  assert.equal((await repos.accounts.getByKey("a")).fields[field], value);
+  assert.deepEqual(client.calls.update[0].records, [{ record_id: "rec-a", fields: { 粉丝数: 20 } }]);
+  await assert.rejects(
+    repos.accounts.syncManyMachine([{ key: "a", patch: { [field]: null } }]),
+    (error) => error.code === "field_owner_violation",
+  );
+  assert.equal(client.calls.update.length, 1);
+});
+
+test('candidate confirmation integrates real repositories, persisted receipt, actor gate and independent relation readback',async()=>{
+ const {HumanOpsService}=await import('../src/human-ops.mjs');const {JobStore}=await import('../src/job-store.mjs');const {queryReleaseCandidates}=await import('../src/match-candidates.mjs');
+ const {mkdtempSync,rmSync}=await import('node:fs');const {tmpdir}=await import('node:os');const {join}=await import('node:path');const {randomUUID}=await import('node:crypto');
+ const dir=mkdtempSync(join(tmpdir(),'candidate-confirm-e2e-'));
+ const client=fakeClient({
+  [tableIds.accounts]:[{record_id:'a',fields:{账号ID:'one',账号名:'One'}}],
+  [tableIds.dramas]:[{record_id:'d',fields:{剧ID:'SD-000001',剧名:'Hunter’s Prey'}}],
+  [tableIds.captures]:[{record_id:'c',fields:{'Post ID':'111',账号:[{id:'a'}],视频链接:'https://www.tiktok.com/@one/video/111',发布时间:'2026-09-18T20:00:00+08:00',关联发布记录:[]}}],
+  [tableIds.releases]:[{record_id:'r',fields:{发布ID:'SR-000001',账号:[{id:'a'}],剧:[{id:'d'}],日期:'2026-09-19',备注:'第1条',归档状态:'active',采集记录:[]}}],
+ });
+ const repos=makeRepos(client);const dbPath=join(dir,'ops.sqlite');let jobs=new JobStore(dbPath);const make=()=>new HumanOpsService({repos,jobs,operators:new Set(['op']),privileged:new Set(),now:()=>new Date('2026-09-21T00:00:00Z'),makeReceiptId:()=>`sdp_${randomUUID()}`,allocateDramaId:()=>{throw Error('unexpected allocation')},allocateReleaseId:()=>{throw Error('unexpected allocation')}});
+ try{
+  const q=await queryReleaseCandidates({repos,now:new Date('2026-09-21T00:00:00Z'),readPosts:()=>[{post_id:'111',username:'one',post_url:'https://www.tiktok.com/@one/video/111',published_at:'2026-09-18T12:00:00Z',caption:"Part 1 | Hunter's Prey"}]});
+  assert.equal(q.rows[0].candidates[0].post_id,'111');const p=await make().previewCaptureMatch({actorId:'op',chatId:'chat',key:'SR-000001',postId:'111',expectedReleaseVersion:q.rows[0].release_version});assert.equal(client.calls.update.length,0);
+  jobs.close();jobs=new JobStore(dbPath,{initialize:false});const service=make();
+  await assert.rejects(service.applyPreview({actorId:'op',chatId:'other',receiptId:p.receipt_id}),e=>e.code==='preview_chat_mismatch');
+  const r=await service.applyPreview({actorId:'op',chatId:'chat',receiptId:p.receipt_id});assert.equal(r.capture_linked,true);assert.equal(r.record_id,'SR-000001');assert.equal(r.changed_fields.length,1);assert.ok(r.changed_fields[0].fields.采集记录);
+  const fresh=await repos.releases.getByKey('SR-000001');assert.deepEqual(fresh.fields.采集记录,[{id:'c'}]);assert.equal(fresh.fields.日期,'2026-09-19');assert.equal(client.calls.update.length,2);assert.ok(client.calls.get.some(c=>c.recordId==='r'));
+ }finally{jobs.close();rmSync(dir,{recursive:true,force:true});}
+});
+
+import { captureMatchVersion } from '../src/match-candidates.mjs';
+function automaticFixture(){
+ const release={record_id:'r-auto',fields:{发布ID:'SR-000001',账号:[{id:'a-auto'}],剧:[{id:'d-auto'}],日期:'2026-09-22',计划发布时间:'2026-09-22',批次ID:'SB-test',计划序号:1,批次计划条数:1,处理负责人:[{id:'ou_owner'}],归档状态:'active'}};
+ const capture={record_id:'c-auto',fields:{'Post ID':'123',账号:[{id:'a-auto'}],发布时间:'2026-09-22T01:00:00Z',视频链接:'https://www.tiktok.com/@one/video/123'}};
+ const c=fakeClient({[tableIds.accounts]:[{record_id:'a-auto',fields:{账号ID:'one'}}],[tableIds.dramas]:[{record_id:'d-auto',fields:{剧ID:'SD-000001',剧名:'The Clear Title'}}],[tableIds.releases]:[release],[tableIds.captures]:[capture]});
+ return {client:c,repos:makeRepos(c),release,capture};
+}
+test('automatic batch writer fills three evidence fields together and preserves all human fields',async()=>{
+ const f=automaticFixture();assert.equal(typeof f.repos.releases.registerBatchPostSafely,'function');
+ const r=await f.repos.releases.registerBatchPostSafely('SR-000001','123',f.release,captureMatchVersion(f.capture));
+ assert.equal(r.readback,'verified');assert.equal(r.record.fields['Post ID'],'123');assert.deepEqual(r.record.fields.采集记录,[{id:'c-auto'}]);assert.equal(r.record.fields.日期,'2026-09-22');assert.equal(f.client.calls.update.length,1);
+ assert.equal(r.record.fields.匹配方式,'batch_title_sequence');
+});
+test('caption backfill writer attaches an unbatched or partially identified release without replacing human fields',async()=>{
+ for(const existingPostId of [null,'123']){
+  const f=automaticFixture();delete f.release.fields.批次ID;delete f.client.rows[tableIds.releases][0].fields.批次ID;
+  if(existingPostId){f.release.fields['Post ID']=existingPostId;f.client.rows[tableIds.releases][0].fields['Post ID']=existingPostId;}
+  const result=await f.repos.releases.registerCaptionPostSafely('SR-000001','123',f.release,captureMatchVersion(f.capture),{expectedDramaRecordId:'d-auto'});
+  assert.equal(result.readback,'verified');assert.equal(result.record.fields['Post ID'],'123');assert.deepEqual(result.record.fields.采集记录,[{id:'c-auto'}]);
+  assert.equal(result.record.fields.日期,'2026-09-22');assert.equal(f.client.calls.update.length,1);
+ }
+});
+test('caption backfill writer rejects a changed drama relation before any update',async()=>{
+ const f=automaticFixture();delete f.release.fields.批次ID;delete f.client.rows[tableIds.releases][0].fields.批次ID;
+ await assert.rejects(f.repos.releases.registerCaptionPostSafely('SR-000001','123',f.release,captureMatchVersion(f.capture),{expectedDramaRecordId:'other'}));
+ assert.equal(f.client.calls.update.length,0);
+});
+test('bounded caption repair archives and unlinks only the exact mistaken system-created release',async()=>{
+ const f=automaticFixture(),fields={...f.release.fields};
+ delete fields.剧;delete fields.批次ID;delete fields.计划序号;delete fields.批次计划条数;delete fields.处理负责人;
+ Object.assign(fields,{'Post ID':'123',视频链接:f.capture.fields.视频链接,采集记录:[{id:'c-auto'}],匹配方式:'exact_post_id',匹配置信度:null,待处理原因:'剧名待人工匹配'});
+ f.release.fields=structuredClone(fields);f.client.rows[tableIds.releases][0].fields=structuredClone(fields);
+ f.client.rows[tableIds.captures][0].fields.关联发布记录=[{id:'r-auto'}];
+ const original=f.client.updateRecords;
+ f.client.updateRecords=async(...args)=>{const result=await original(...args);f.client.rows[tableIds.captures][0].fields.关联发布记录=[];return result;};
+ const result=await f.repos.releases.archiveErroneousCaptionReleaseSafely({releaseId:'SR-000001',releaseRecordId:'r-auto',postId:'123',captureRecordId:'c-auto',accountRecordId:'a-auto'});
+ assert.equal(result.readback,'verified');assert.equal(result.record.fields.归档状态,'archived');
+ assert.equal(result.record.fields['Post ID'],null);assert.deepEqual(result.record.fields.采集记录,[]);
+ assert.deepEqual(f.client.rows[tableIds.captures][0].fields.关联发布记录,[]);
+});
+test('caption backfill generated create writes identity and capture relation in one POST with readback',async()=>{
+ const f=automaticFixture();f.client.rows[tableIds.releases]=[];f.repos.releases.serverGeneratedIds=true;
+ f.client.listFields=async()=>({complete:true,items:[{name:'发布ID',type:'auto_number',style:{rules:[{text:'SR-',type:'text'},{length:6,type:'incremental_number'}]}}]});
+ f.client.createRecords=async(_base,table,records,{beforeWrite}={})=>{
+  await beforeWrite?.();const created={record_id:'r-new',fields:{发布ID:'SR-000002',...structuredClone(records[0].fields)}};
+  f.client.rows[table].push(created);f.client.rows[tableIds.captures][0].fields.关联发布记录=[{id:'r-new'}];
+  f.client.calls.create.push(records);return [{record_id:'r-new'}];
+ };
+ const patch={日期:'2026-09-22',账号:[{id:'a-auto'}],剧:[{id:'d-auto'}],归档状态:'active','Post ID':'123',
+  视频链接:'https://www.tiktok.com/@one/video/123',采集记录:[{id:'c-auto'}],匹配方式:'exact_post_id',匹配置信度:null};
+ const result=await f.repos.releases.createWithGeneratedId(patch,'caption_backfill',{beforeWrite:async before=>assert.equal(before.size,0)});
+ assert.equal(result.readback,'verified');assert.equal(result.record.fields.发布ID,'SR-000002');
+ assert.deepEqual(result.record.fields.采集记录,[{id:'c-auto'}]);assert.equal(f.client.calls.create.length,1);
+});
+test('generated create waits for acknowledged fields to become visible without replaying the POST',async()=>{
+ const f=automaticFixture();f.client.rows[tableIds.releases]=[];f.repos.releases.serverGeneratedIds=true;f.repos.releases.sleep=async()=>{};
+ f.client.listFields=async()=>({complete:true,items:[{name:'发布ID',type:'auto_number',style:{rules:[{text:'SR-',type:'text'},{length:6,type:'incremental_number'}]}}]});
+ let posts=0,reads=0;
+ f.client.createRecords=async(_base,table,records,{beforeWrite}={})=>{
+  await beforeWrite?.();posts++;
+  f.client.rows[table].push({record_id:'r-new',fields:{发布ID:'SR-000002',...structuredClone(records[0].fields)}});
+  return [{record_id:'r-new'}];
+ };
+ f.client.getRecord=async()=>{
+  reads++;
+  const full=f.client.rows[tableIds.releases][0];
+  return reads===1?{record_id:'r-new',fields:{发布ID:'SR-000002',日期:full.fields.日期}}:structuredClone(full);
+ };
+ const patch={日期:'2026-09-22',账号:[{id:'a-auto'}],剧:[{id:'d-auto'}],归档状态:'active','Post ID':'123',
+  视频链接:'https://www.tiktok.com/@one/video/123',采集记录:[{id:'c-auto'}],匹配方式:'exact_post_id',匹配置信度:null};
+ const result=await f.repos.releases.createWithGeneratedId(patch,'caption_backfill',{beforeWrite:async()=>{}});
+ assert.equal(result.readback,'verified');assert.equal(reads,2);assert.equal(posts,1);
+});
+test('generated create rejects a nonblank conflicting readback without hiding it as lag',async()=>{
+ const f=automaticFixture();f.client.rows[tableIds.releases]=[];f.repos.releases.serverGeneratedIds=true;let reads=0,posts=0;
+ f.client.listFields=async()=>({complete:true,items:[{name:'发布ID',type:'auto_number',style:{rules:[{text:'SR-',type:'text'},{length:6,type:'incremental_number'}]}}]});
+ f.client.createRecords=async(_base,table,records,{beforeWrite}={})=>{await beforeWrite?.();posts++;f.client.rows[table].push({record_id:'r-new',fields:{发布ID:'SR-000002',...records[0].fields}});return [{record_id:'r-new'}];};
+ f.client.getRecord=async()=>{reads++;return {record_id:'r-new',fields:{发布ID:'SR-000002',日期:'2026-09-22',待处理原因:'someone else changed it'}};};
+ await assert.rejects(f.repos.releases.createWithGeneratedId({日期:'2026-09-22',待处理原因:'剧名待人工匹配'},'caption_backfill',{beforeWrite:async()=>{}}),e=>e.code==='readback_mismatch');
+ assert.equal(reads,1);assert.equal(posts,1);
+});
+test('automatic batch writer rejects human edits, existing evidence, wrong account and archived ownership before writes',async()=>{
+ for(const mutate of [f=>f.client.rows[tableIds.releases][0].fields.备注='changed',f=>f.client.rows[tableIds.releases][0].fields.视频链接='https://example.com/manual',f=>f.client.rows[tableIds.captures][0].fields.账号=[{id:'wrong'}],f=>f.client.rows[tableIds.releases].push({record_id:'r-old',fields:{发布ID:'SR-000099',归档状态:'archived','Post ID':'123'}})]){
+  const f=automaticFixture();assert.equal(typeof f.repos.releases.registerBatchPostSafely,'function');mutate(f);await assert.rejects(f.repos.releases.registerBatchPostSafely('SR-000001','123',f.release,captureMatchVersion(f.capture)));assert.equal(f.client.calls.update.length,0);
+ }
+});
+
+test('complete-index reads restart from page zero for revision drift without accepting mixed metadata',async()=>{
+ const client=fakeClient({[tableIds.releases]:[{record_id:'r',fields:{发布ID:'SR-000001'}}]});const original=client.listRecords;let calls=0;const sleeps=[];
+ client.listRecords=async(...args)=>{if(++calls===1){const e=new Error('Feishu record list schema changed during pagination');e.code='base_response_invalid';e.details={pagination_metadata_key:'rev',changed_metadata:['rev']};throw e;}return original(...args);};
+ const repos=repoWithSleep(client,sleeps);const index=await repos.releases.loadIndex();assert.equal(index.size,1);assert.equal(calls,2);assert.deepEqual(sleeps,[1000]);assert.equal(client.calls.create.length,0);
+});
+test('complete-index reads never retry real schema changes and bound persistent revision churn',async()=>{
+ for(const key of ['field_id_list','rev']){const client=fakeClient();let calls=0;client.listRecords=async()=>{calls++;const e=new Error('drift');e.code='base_response_invalid';e.details={pagination_metadata_key:key};throw e;};const repos=repoWithSleep(client,[]);await assert.rejects(repos.releases.loadIndex());assert.equal(calls,key==='rev'?3:1);assert.equal(repos.releases.index,null);}
+});
+test('generated create records whether a write was attempted and never retries the POST',async()=>{
+ for(const stage of ['preflight','post']){
+  const f=automaticFixture();f.repos.releases.serverGeneratedIds=true;let posts=0;
+  f.client.listFields=async()=>{if(stage==='preflight'){const e=new Error('invalid metadata');e.code='base_response_invalid';throw e;}return {complete:true,items:[{name:'发布ID',type:'auto_number',style:{rules:[{text:'SR-',type:'text'},{length:6,type:'incremental_number'}]}}]};};
+  f.client.createRecords=async(_b,_t,_r,options)=>{await options.beforeWrite?.();posts++;const e=new Error('response lost');e.code='base_response_invalid';throw e;};
+  await assert.rejects(f.repos.releases.createWithGeneratedId({日期:'2026-09-22'},'human'),e=>e.details.write_attempted===(stage==='post')&&e.details.phase===(stage==='post'?'generated_create_write_or_readback':'generated_create_preflight'));
+  assert.equal(posts,stage==='post'?1:0);
+ }
+});
+
+test('recognized caption fills an empty drama and exact capture link while preserving scheduling fields',async()=>{
+ const {captureMatchVersion}=await import('../src/match-candidates.mjs');
+ const release={record_id:'r1',fields:{发布ID:'SR-1',账号:[{id:'a1'}],日期:'2026-09-29',归档状态:'active',备注:'preserve'}};
+ const capture={record_id:'c1',fields:{'Post ID':'123',账号:[{id:'a1'}],视频链接:'https://www.tiktok.com/@one/video/123',发布时间:'2026-09-29T03:00:00Z',关联发布记录:[]}};
+ const client=fakeClient({'tbl-accounts':[{record_id:'a1',fields:{账号ID:'one',表现形式:'AI真人剧'}}],'tbl-dramas':[{record_id:'d1',fields:{剧ID:'SD-1',剧名:'The Ice Man'}}],'tbl-releases':[release],'tbl-captures':[capture]});
+ const repos=makeRepos(client);
+ const written=await repos.releases.registerRecognizedPostSafely('SR-1','123',release,captureMatchVersion(capture),{expectedDramaRecordId:'d1',captureRepository:repos.captures});
+ assert.equal(written.readback,'verified');assert.deepEqual(written.record.fields.剧,[{id:'d1'}]);assert.equal(written.record.fields.备注,'preserve');assert.equal(client.calls.update.length,1);
+});
+test('recognized caption fills only missing evidence on an already matching two-way capture link',async()=>{
+ const {captureMatchVersion}=await import('../src/match-candidates.mjs');
+ const release={record_id:'r1',fields:{发布ID:'SR-1',账号:[{id:'a1'}],剧:[{id:'d1'}],日期:'2026-09-29',归档状态:'active',采集记录:[{id:'c1'}]}};
+ const capture={record_id:'c1',fields:{'Post ID':'123',账号:[{id:'a1'}],视频链接:'https://www.tiktok.com/@one/video/123',发布时间:'2026-09-29T03:00:00Z',关联发布记录:[{id:'r1'}]}};
+ const client=fakeClient({'tbl-accounts':[{record_id:'a1',fields:{账号ID:'one',表现形式:'AI真人剧'}}],'tbl-dramas':[{record_id:'d1',fields:{剧ID:'SD-1',剧名:'The Ice Man'}}],'tbl-releases':[release],'tbl-captures':[capture]});
+ const repos=makeRepos(client);
+ const written=await repos.releases.registerRecognizedPostSafely('SR-1','123',release,captureMatchVersion(capture),{expectedDramaRecordId:'d1',captureRepository:repos.captures});
+ assert.equal(written.readback,'verified');assert.equal(written.record.fields['Post ID'],'123');
+ assert.equal(written.record.fields.视频链接,'https://www.tiktok.com/@one/video/123');
+ assert.deepEqual(written.record.fields.采集记录,[{id:'c1'}]);assert.equal(client.calls.update.length,1);
+});
+test('recognized caption cannot overwrite a nonempty human drama selection',async()=>{
+ const {captureMatchVersion}=await import('../src/match-candidates.mjs');
+ const release={record_id:'r1',fields:{发布ID:'SR-1',账号:[{id:'a1'}],剧:[{id:'d-original'}],归档状态:'active'}};
+ const capture={record_id:'c1',fields:{'Post ID':'123',账号:[{id:'a1'}],视频链接:'https://www.tiktok.com/@one/video/123',关联发布记录:[]}};
+ const client=fakeClient({'tbl-accounts':[{record_id:'a1',fields:{账号ID:'one',表现形式:'AI真人剧'}}],'tbl-releases':[release],'tbl-captures':[capture]});
+ const repos=makeRepos(client);
+ await assert.rejects(()=>repos.releases.registerRecognizedPostSafely('SR-1','123',release,captureMatchVersion(capture),{expectedDramaRecordId:'different',captureRepository:repos.captures}));assert.equal(client.calls.update.length,0);
+});
+
+test('full recognition crosses real repositories and SQLite: new pool, new release, reverse link, idempotent next tick',async()=>{
+ const {JobStore}=await import('../src/job-store.mjs');const {processContinuousCaptionReleases}=await import('../src/caption-backfill.mjs');
+ const caption="Part 1 | The Ice Man A man's weakness is mocked. Watch on ReelShort. Search code 4933302.";
+ const client=fakeClient({'tbl-accounts':[{record_id:'a1',fields:{账号ID:'one',表现形式:'AI真人剧',负责人:[{id:'ou_owner'}]}}],'tbl-captures':[{record_id:'c1',fields:{'Post ID':'123',Caption:caption,账号:[{id:'a1'}],视频链接:'https://www.tiktok.com/@one/video/123',发布时间:'2026-09-29T03:00:00.000Z',业务:'short-drama',关联发布记录:[]}}]});
+ client.listFields=async(_base,tableId)=>({complete:true,items:[{name:tableId==='tbl-dramas'?'剧ID':'发布ID',type:'auto_number',style:{rules:[{text:tableId==='tbl-dramas'?'SD-':'SR-',type:'text'},{length:6,type:'incremental_number'}]}}]});
+ const originalCreate=client.createRecords;
+ client.createRecords=async(base,tableId,records,options)=>{
+  await options?.beforeWrite?.();const field=tableId==='tbl-dramas'?'剧ID':'发布ID',prefix=tableId==='tbl-dramas'?'SD-':'SR-';
+  const created=await originalCreate(base,tableId,records.map((r,i)=>({fields:{...r.fields,[field]:prefix+String((client.rows[tableId]?.length??0)+i+1).padStart(6,'0')}})));
+  if(tableId==='tbl-releases')for(const r of created)for(const link of r.fields.采集记录??[])client.rows['tbl-captures'].find(c=>c.record_id===link.id).fields.关联发布记录=[{id:r.record_id}];
+  return created;
+ };
+ const repos=makeRepos(client);repos.dramas.serverGeneratedIds=true;repos.releases.serverGeneratedIds=true;
+ const jobs=new JobStore(':memory:');
+ const args={jobs,repos,activationAt:'2026-09-29T00:00:00Z',recognizeDramas:true,now:()=>new Date('2026-09-29T08:00:00Z'),readPosts:async()=>[{post_id:'123',username:'one',post_url:'https://www.tiktok.com/@one/video/123',published_at:'2026-09-29T03:00:00.000Z',first_seen_at:'2026-09-29T06:00:00Z',caption}]};
+ const result=await processContinuousCaptionReleases(args);assert.equal(result.status,'complete');assert.equal(client.calls.create.length,2);
+ assert.equal(client.rows['tbl-dramas'][0].fields.剧名,'The Ice Man');assert.equal(client.rows['tbl-releases'][0].fields.剧[0].id,client.rows['tbl-dramas'][0].record_id);
+ assert.equal(client.rows['tbl-captures'][0].fields.关联发布记录[0].id,client.rows['tbl-releases'][0].record_id);
+ await processContinuousCaptionReleases(args);assert.equal(client.calls.create.length,2);jobs.close();
+});

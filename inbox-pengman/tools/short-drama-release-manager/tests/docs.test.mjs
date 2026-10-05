@@ -52,7 +52,6 @@ test("three authoritative docs state the shipped Select-option migration contrac
     "选剧池.平台和选剧池.推荐人是固定闭集",
     "MoboReels → 其他仅用于迁移；其他未知平台必须 blocked",
     "record write 不隐式创建 options",
-    "普通用户当前对四张表只读；人工业务写只经 Social Bot",
     "每次 data apply 必须验证新鲜且绑定相同 manifest/Base/schema 的 schema receipt，并完成 data preflight",
     "schema partial failure 必须 replan_reconfirm，不回滚",
   ];
@@ -245,7 +244,7 @@ test("env example exposes blank v5 keys and keeps legacy follower sync explicitl
     "FEISHU_SHORTDRAMA_ACCOUNTS_TABLE_ID", "FEISHU_SHORTDRAMA_POOL_TABLE_ID",
     "FEISHU_SHORTDRAMA_CAPTURES_TABLE_ID", "FEISHU_SHORTDRAMA_RELEASES_TABLE_ID",
     "GOOGLE_SERVICE_ACCOUNT_JSON", "SHORTDRAMA_OPERATOR_IDS", "SHORTDRAMA_PRIVILEGED_IDS",
-    "SHORTDRAMA_NOTIFICATION_CHAT_IDS", "SHORTDRAMA_OPS_CHAT_ID",
+    "SHORTDRAMA_NOTIFICATION_CHAT_IDS", "SHORTDRAMA_OPS_CHAT_ID", "SHORTDRAMA_REPORT_CHAT_ID",
   ];
   for (const key of keys) assert.match(env, new RegExp(`^${key}=$`, "m"));
   assert.match(env, /v5 Runner/);
@@ -264,4 +263,18 @@ test("runtime example points to the ignored local env file without embedding sec
   assert.match(readme, /O_NOFOLLOW/);
   assert.match(readme, /不.*source\/eval\/expand/);
   assert.doesNotMatch(raw, /tenant_access_token|app-secret-must-not-be-logged/);
+});
+
+test("README documents extra capture times and that every rule applies per slot", async () => {
+  const { readme } = await docs();
+  for (const term of ["extra_capture_times", "16:08", "时段", "每个时段最多补跑到 3 次", "missing-terminal", "已到检查时刻的每个时段", "不承诺补跑", "不晚于当天 24:00", "不再为较早的时段告警"]) {
+    assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+});
+
+test("README documents the daily capture report and where reports and alerts are sent", async () => {
+  const { readme } = await docs();
+  for (const term of ["SHORTDRAMA_REPORT_CHAT_ID", "采集日报", "capture-report", "不论成功、部分成功还是失败", "12 小时", "三天", "改发到 Ops chat", "先于告警", "230002", "230035", "232009", "固定走 Ops chat", "同一份正文", "补跑规则", "不因正文留存失败而扣发", "改发路线读不到或写不进", "发现时间"]) {
+    assert.match(readme, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
 });

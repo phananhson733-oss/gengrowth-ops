@@ -1,3 +1,4 @@
+import { selectFreshPosts } from "./capture-policy.mjs";
 import { basename, isAbsolute } from "node:path";
 
 import { ShortDramaError } from "./errors.mjs";
@@ -114,11 +115,13 @@ function validateStartRequest(request) {
     return { trigger: "manual", actorId: copy.actorId, chatId: copy.chatId, beijingDate: null };
   }
   if (copy.trigger === "schedule") {
-    if (Object.keys(copy).some((key) => !["trigger", "chatId", "beijingDate"].includes(key)) ||
-        !normalizedString(copy.chatId) || !validDate(copy.beijingDate)) {
+    if (Object.keys(copy).some((key) => !["trigger", "chatId", "beijingDate", "slotStart"].includes(key)) ||
+        !normalizedString(copy.chatId) || !validDate(copy.beijingDate) ||
+        (copy.slotStart !== undefined && (typeof copy.slotStart !== "string" || !/^(?:[01]\d|2[0-3])[0-5]\d[0-5]\d$/.test(copy.slotStart)))) {
       fail("sync_request_invalid", "Scheduled sync request is invalid");
     }
-    return { trigger: "schedule", actorId: null, chatId: copy.chatId, beijingDate: copy.beijingDate };
+    return { trigger: "schedule", actorId: null, chatId: copy.chatId, beijingDate: copy.beijingDate,
+      ...(copy.slotStart !== undefined ? { slotStart: copy.slotStart } : {}) };
   }
   fail("sync_request_invalid", "Sync trigger is invalid");
 }
@@ -141,6 +144,7 @@ export async function startSyncJob(context, request) {
     actorId: input.actorId,
     chatId: input.chatId,
     now,
+    ...(input.slotStart !== undefined ? { slotStart: input.slotStart } : {}),
   });
   if (!plainObject(enqueued) || typeof enqueued.created !== "boolean" || !plainObject(enqueued.job)) {
     fail("state_store_response_invalid", "Atomic enqueue response is invalid");
@@ -223,7 +227,7 @@ function validateCollectorSummary(summary, runId, expectedDate, metricsSqlitePat
   const validStatus = summary?.status === "success" || summary?.status === "partial";
   const expectedSummaryName = `capture_summary_${expectedDate}.json`;
   if (!plainObject(summary) || !validStatus || summary.run_id !== runId ||
-      summary.beijing_date !== expectedDate || !isAbsolute(summary.summary_path ?? "") ||
+      summary.beijing_date !== expectedDate || !Number.isFinite(Date.parse(summary.captured_at)) || !isAbsolute(summary.summary_path ?? "") ||
       basename(summary.summary_path) !== expectedSummaryName || !isAbsolute(summary.sqlite_path ?? "") ||
       (metricsSqlitePath && summary.sqlite_path !== metricsSqlitePath) || !Array.isArray(summary.errors ?? [])) {
     fail("capture_failed", "Collector did not produce trusted same-run evidence");
@@ -483,18 +487,25 @@ export async function runSyncWorker(context, runId) {
     if (typeof readAccounts !== "function" || typeof readPosts !== "function") {
       fail("source_adapter_invalid", "SQLite source adapter is invalid");
     }
-    const accountRows = await readAccounts(summary.sqlite_path);
-    const postRows = await readPosts(summary.sqlite_path);
+    const allAccountRows = await readAccounts(summary.sqlite_path);
+    const allPostRows = await readPosts(summary.sqlite_path);
     beat.assertOwned();
-    if (!Array.isArray(accountRows) || !Array.isArray(postRows)) {
+    if (!Array.isArray(allAccountRows) || !Array.isArray(allPostRows)) {
       fail("source_response_invalid", "SQLite source rows are invalid");
     }
+    const postRows = selectFreshPosts(allPostRows, { capturedAt: summary.captured_at, maxAgeDays: context.maxPostAgeDays ?? 30, excludedPostIds: context.excludedPostIds ?? [] });
+    const accountRows = allAccountRows.filter(row => Date.parse(row.captured_at) === Date.parse(summary.captured_at));
     for (const post of postRows) {
       if (post?.collection_status !== "complete") {
         errors.push({ step: "captures", code: "capture_partial", target: post?.post_id });
       }
     }
 
+    // Collection runs without the Base lock. Only the write/readback phase excludes
+    // human batches and status projections, using their same durable lease.
+    const withBaseLock = context.withBaseMutationLock ?? (operation => operation());
+    await withBaseLock(async baseSignal => {
+    if (baseSignal) beat.signal = AbortSignal.any([beat.signal, baseSignal]);
     ownStep("accounts");
     const accountWrittenAt = syncTimestamp(now);
     const accountEntries = accountRows.map((row) => accountEntry(row, accountWrittenAt));
@@ -562,6 +573,20 @@ export async function runSyncWorker(context, runId) {
     const releaseIndex = mapIndex(await context.repos.releases.loadIndex({ signal: beat.signal }), "发布记录");
     beat.assertOwned();
     const capturePostByRecordId = capturePostReverseIndex(captureIndex);
+    const sqlitePostsById = new Map(postRows.map(post => [post.post_id, post]));
+    // Migration keeps Google-only history in Base. Use it only to validate an
+    // explicit/existing identity, never to widen date-based inference or refresh metrics.
+    const knownPost = (postId) => {
+      if (sqlitePostsById.has(postId)) return sqlitePostsById.get(postId);
+      const historical = captureIndex.get(postId)?.fields;
+      const username = historical ? accountIds.get(relationId(historical.账号)) : null;
+      if (!username) return null;
+      const post = { post_id: postId, username, post_url: historical.视频链接 ?? null, published_at: historical.发布时间 ?? null };
+      try {
+        const checked = matchReleaseToCapture({ 账号ID: username, "Post ID": postId, 视频链接: post.post_url }, [post], new Set());
+        return checked.status === "matched" ? post : null;
+      } catch { return null; }
+    };
     const reservations = new Map();
     const reserve = (postId, row) => {
       const rows = reservations.get(postId) ?? [];
@@ -622,21 +647,23 @@ export async function runSyncWorker(context, runId) {
       let explicitPostId = null;
       if (explicit) {
         try {
-          explicitMatch = matchReleaseToCapture({ ...clone(fields), 账号ID: accountId }, postRows, new Set());
+          const historicalClaims = [...rawClaims].filter(id => !sqlitePostsById.has(id)).map(knownPost).filter(Boolean);
+          explicitMatch = matchReleaseToCapture({ ...clone(fields), 账号ID: accountId }, [...postRows, ...historicalClaims], new Set());
         } catch (error) {
           releaseError(errors, releaseId, error, "matcher_failed");
+          reserveInvalidClaims();
           continue;
         }
         if (explicitMatch.status === "matched") explicitPostId = explicitMatch.post.post_id;
         else {
           releaseError(errors, releaseId, { code: explicitMatch.reason }, "release_unmatched");
-          for (const rawPostId of rawClaims) {
-            reserve(rawPostId, { releaseId, invalid: true });
-          }
+          reserveInvalidClaims();
           continue;
         }
       }
-      if (explicitPostId && existingPostId && explicitPostId !== existingPostId) {
+      const replacesInference = explicitPostId && fields.匹配方式 === "account_time" &&
+        fields.匹配置信度 === 0.8;
+      if (explicitPostId && existingPostId && explicitPostId !== existingPostId && !replacesInference) {
         releaseError(errors, releaseId, { code: "release_claim_conflict" });
         for (const claimed of [explicitPostId, existingPostId]) {
           reserve(claimed, { releaseId, invalid: true });
@@ -644,7 +671,7 @@ export async function runSyncWorker(context, runId) {
         continue;
       }
       const reservedPostId = explicitPostId ?? existingPostId ?? null;
-      const candidate = { releaseId, fields, accountId, existingCapture, explicitMatch, reservedPostId };
+      const candidate = { releaseId, fields, accountId, existingCapture, explicitMatch, reservedPostId, replacesInference: !!(replacesInference && existingPostId && explicitPostId !== existingPostId) };
       candidates.push(candidate);
       if (reservedPostId) {
         reserve(reservedPostId, candidate);
@@ -669,7 +696,7 @@ export async function runSyncWorker(context, runId) {
       if (conflicts.has(candidate.releaseId)) continue;
       let match = candidate.explicitMatch;
       if (!match && candidate.reservedPostId) {
-        const post = postRows.find((row) => row.post_id === candidate.reservedPostId);
+        const post = knownPost(candidate.reservedPostId);
         if (!post) {
           releaseError(errors, candidate.releaseId, { code: "manual_post_not_found" });
           continue;
@@ -682,6 +709,7 @@ export async function runSyncWorker(context, runId) {
           candidate.fields.视频链接 ? "manual_url" : "account_time";
         match = { status: "matched", method, confidence: 1, post };
       }
+      if (!match && candidate.fields.批次ID) continue; // Explicit batches require their own review; never infer one slot by account/time.
       if (!match) {
         try {
           match = matchReleaseToCapture(
@@ -701,9 +729,19 @@ export async function runSyncWorker(context, runId) {
         continue;
       }
       claimedPostIds.add(match.post.post_id);
-      plan.push({ ...candidate, match });
+      const historicalOnly = !sqlitePostsById.has(match.post.post_id);
+      if (historicalOnly && candidate.existingCapture === captureIndex.get(match.post.post_id)?.record_id) continue;
+      plan.push({ ...candidate, match, historicalOnly });
     }
 
+    // Move validated replacements first. Never claim a capture still attached to
+    // another record, including when a preceding replacement failed readback.
+    const occupiedCaptures = new Map();
+    for (const [id, record] of releaseIndex) for (const captureId of classifyCaptureRelation(record.fields.采集记录).ids) {
+      if (!occupiedCaptures.has(captureId)) occupiedCaptures.set(captureId, new Set());
+      occupiedCaptures.get(captureId).add(id);
+    }
+    plan.sort((a, b) => Number(b.replacesInference) - Number(a.replacesInference));
     // No relation or evidence mutation occurs until the complete deterministic plan exists.
     for (const item of plan) {
       beat.assertOwned();
@@ -713,14 +751,23 @@ export async function runSyncWorker(context, runId) {
         ["Post ID", "视频链接", "账号", "日期"].map((field) => [field, clone(item.fields[field])]),
       );
       try {
+        if ([...(occupiedCaptures.get(captureRecordId) ?? [])].some(id => id !== item.releaseId)) {
+          releaseError(errors, item.releaseId, { code: "release_claim_conflict" });
+          continue;
+        }
         if (item.existingCapture !== captureRecordId) {
           await context.repos.releases.linkCaptureSafely(item.releaseId, captureRecordId, expected, { signal: beat.signal });
           beat.assertOwned();
           totals.releases_linked += 1;
+          occupiedCaptures.get(item.existingCapture)?.delete(item.releaseId);
+          if (!occupiedCaptures.has(captureRecordId)) occupiedCaptures.set(captureRecordId, new Set());
+          occupiedCaptures.get(captureRecordId).add(item.releaseId);
         }
+        const evidence = requestedEvidence(item.match, syncTimestamp(now));
+        if (item.historicalOnly) delete evidence.指标同步时间;
         await context.repos.releases.upsertEvidenceSafely(
           item.releaseId,
-          requestedEvidence(item.match, syncTimestamp(now)),
+          evidence,
           expected,
           captureRecordId,
           { signal: beat.signal },
@@ -740,6 +787,7 @@ export async function runSyncWorker(context, runId) {
     beat.assertOwned();
     totals.manual_fields_changed_by_sync = 0;
     totals.errors = errors.length;
+    });
     return await finish(errors.length > 0 ? "partial" : "success");
   } catch (error) {
     beat.assertOwned();

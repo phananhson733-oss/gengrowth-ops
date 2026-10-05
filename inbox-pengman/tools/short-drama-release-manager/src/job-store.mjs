@@ -106,6 +106,13 @@ function transitionCounters(data) {
   return counters;
 }
 
+// Daily alerts are keyed by Beijing date; a capture report is keyed by its run,
+// because a day can have several scheduled runs and each one is reported.
+// The missing-run alert of a later capture slot of the day carries the slot's time.
+const HEALTH_ALERT_KEY = /^(?:(?:missing-terminal|capture-incomplete|drain-failing|ledger-integrity):\d{4}-\d{2}-\d{2}|missing-terminal:\d{4}-\d{2}-\d{2}@(?:[01]\d|2[0-3])[0-5]\d|capture-report:SDRUN-\d{8}-\d{6})$/;
+export const SCHEDULE_MAX_ATTEMPTS = 3;
+export const SCHEDULE_RETRY_DELAY_MINUTES = 30;
+
 export class JobStore {
   constructor(path, { readOnly = false, initialize = true } = {}) {
     this.path = requiredString(path, "path");
@@ -256,7 +263,10 @@ export class JobStore {
     });
   }
 
-  enqueueIfIdle({ runId, trigger, actorId, chatId, now = new Date() }) {
+  enqueueIfIdle({ runId, trigger, actorId, chatId, now = new Date(), slotStart = null }) {
+    if (slotStart !== null && (typeof slotStart !== "string" || !/^(?:[01]\d|2[0-3])[0-5]\d[0-5]\d$/.test(slotStart))) {
+      fail("state_store_input_invalid", "Slot start must use HHMMSS", {});
+    }
     const normalizedRunId = requiredString(runId, "runId");
     const normalizedTrigger = requiredString(trigger, "trigger");
     const normalizedActorId = optionalString(actorId, "actorId");
@@ -266,13 +276,23 @@ export class JobStore {
       if (normalizedTrigger === "schedule") {
         const match = /^SDRUN-(\d{8})-\d{6}$/.exec(normalizedRunId);
         if (!match) fail("run_id_invalid", "Scheduled run ID is invalid", { run_id: normalizedRunId });
-        const scheduled = jobFromRow(this.db.prepare(`
+        // A day with several capture times is divided into slots; the runs
+        // that count are those started in the slot of this run.
+        const scheduled = this.db.prepare(`
           SELECT * FROM jobs
           WHERE trigger = 'schedule' AND run_id LIKE ?
           ORDER BY started_at, run_id
-          LIMIT 1
-        `).get(`SDRUN-${match[1]}-%`));
-        if (scheduled) return { created: false, job: scheduled };
+        `).all(`SDRUN-${match[1]}-%`).map(jobFromRow)
+          .filter((job) => slotStart === null || job.run_id.slice(-6) >= slotStart);
+        // One scheduled run per slot, except that a slot whose runs all
+        // failed may be retried up to SCHEDULE_MAX_ATTEMPTS times in total, each
+        // after a cooldown. The cooldown is checked here, inside the transaction,
+        // so a caller that decided from a stale job list cannot start one early.
+        const finished = scheduled.map((job) => Date.parse(job.finished_at ?? ""));
+        const cooled = finished.every((value) => Number.isFinite(value)) &&
+          Date.parse(createdAt) - Math.max(...finished) >= SCHEDULE_RETRY_DELAY_MINUTES * 60_000;
+        const retryable = scheduled.length > 0 && scheduled.length < SCHEDULE_MAX_ATTEMPTS && scheduled.every((job) => job.state === "failed") && cooled;
+        if (scheduled.length && !retryable) return { created: false, job: scheduled.find((job) => job.state !== "failed") ?? scheduled.at(-1) };
       }
       const sameRun = this.get(normalizedRunId);
       if (sameRun && !["queued", "running"].includes(sameRun.state)) {
@@ -465,21 +485,39 @@ export class JobStore {
     );
   }
 
+  findConsumedDirectSchedule(scheduleKey) {
+    return this.db.prepare(`
+      SELECT * FROM preview_receipts
+      WHERE action = 'batch_schedule' AND used_at IS NOT NULL
+        AND json_extract(patch_json, '$.direct') = 1
+        AND json_extract(patch_json, '$.schedule_key') = ?
+      ORDER BY created_at, receipt_id
+    `).all(requiredString(scheduleKey, "scheduleKey")).map(previewFromRow);
+  }
+
   consumePreview(receiptId, { actorId, chatId, beforeHash, now = new Date() }) {
+    return this.consumePreviews([{receiptId, actorId, chatId, beforeHash}], {now})[0];
+  }
+
+  // Validate the entire set in the same transaction before burning any receipt.
+  consumePreviews(requests, {now = new Date()} = {}) {
+    if (!Array.isArray(requests) || requests.length < 1 || requests.length > 31 ||
+        new Set(requests.map(r => r.receiptId)).size !== requests.length) {
+      fail("preview_payload_invalid", "Receipt set is invalid");
+    }
     const usedAt = timestamp(now);
     return this.immediate(() => {
-      const receipt = this.getPreview(receiptId);
-      if (!receipt) fail("preview_not_found", "Preview receipt was not found", { receipt_id: receiptId });
-      if (receipt.actor_id !== actorId) fail("preview_actor_mismatch", "Preview actor does not match");
-      if (receipt.chat_id !== chatId) fail("preview_chat_mismatch", "Preview chat does not match");
-      if (receipt.used_at) fail("preview_used", "Preview receipt was already used");
-      if (new Date(usedAt).getTime() >= new Date(receipt.expires_at).getTime()) {
-        fail("preview_expired", "Preview receipt has expired");
+      for (const {receiptId, actorId, chatId, beforeHash} of requests) {
+        const receipt = this.getPreview(receiptId);
+        if (!receipt) fail("preview_not_found", "Preview receipt was not found", {receipt_id: receiptId});
+        if (receipt.actor_id !== actorId) fail("preview_actor_mismatch", "Preview actor does not match");
+        if (receipt.chat_id !== chatId) fail("preview_chat_mismatch", "Preview chat does not match");
+        if (receipt.used_at) fail("preview_used", "Preview receipt was already used");
+        if (Date.parse(usedAt) >= Date.parse(receipt.expires_at)) fail("preview_expired", "Preview receipt has expired");
+        if (receipt.before_hash !== beforeHash) fail("preview_stale", "Preview target is stale");
       }
-      if (receipt.before_hash !== beforeHash) fail("preview_stale", "Preview target is stale");
-      this.db.prepare("UPDATE preview_receipts SET used_at = ? WHERE receipt_id = ? AND used_at IS NULL")
-        .run(usedAt, receiptId);
-      return this.getPreview(receiptId);
+      for (const {receiptId} of requests) this.db.prepare("UPDATE preview_receipts SET used_at = ? WHERE receipt_id = ? AND used_at IS NULL").run(usedAt, receiptId);
+      return requests.map(r => this.getPreview(r.receiptId));
     });
   }
 
@@ -665,8 +703,8 @@ export class JobStore {
     const owner = requiredString(ownerId, "ownerId");
     const claimedAt = timestamp(now);
     const leaseExpiresAt = futureTimestamp(now, leaseSeconds);
-    if (!/^missing-terminal:\d{4}-\d{2}-\d{2}$/.test(key)) {
-      fail("health_alert_key_invalid", "Health alert key must use the missing-terminal Beijing-date format", {
+    if (!HEALTH_ALERT_KEY.test(key)) {
+      fail("health_alert_key_invalid", "Health alert key must use a known alert kind and Beijing-date format", {
         alert_key: key,
       });
     }
@@ -686,11 +724,22 @@ export class JobStore {
     });
   }
 
+  // 'claimed', 'sent' or 'failed'; null when the alert was never attempted.
+  healthAlertState(alertKey) {
+    const key = requiredString(alertKey, "alertKey");
+    if (!HEALTH_ALERT_KEY.test(key)) fail("health_alert_key_invalid", "Health alert key must use a known alert kind", { alert_key: key });
+    return this.db.prepare("SELECT state FROM health_alerts WHERE alert_key = ?").get(key)?.state ?? null;
+  }
+
+  isHealthAlertSent(alertKey) {
+    return this.healthAlertState(alertKey) === "sent";
+  }
+
   markHealthAlert(alertKey, state, { ownerId, now = new Date(), error = "" } = {}) {
     const key = requiredString(alertKey, "alertKey");
     const owner = requiredString(ownerId, "ownerId");
     const markedAt = timestamp(now);
-    if (!/^missing-terminal:\d{4}-\d{2}-\d{2}$/.test(key) || !["sent", "failed"].includes(state) ||
+    if (!HEALTH_ALERT_KEY.test(key) || !["sent", "failed"].includes(state) ||
         typeof error !== "string" || error.length > 128 || /[\r\n]/.test(error)) {
       fail("health_alert_input_invalid", "Health alert result is invalid");
     }

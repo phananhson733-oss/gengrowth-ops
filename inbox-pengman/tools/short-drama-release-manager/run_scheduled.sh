@@ -41,12 +41,14 @@ if [[ ! "$node_major" =~ '^[0-9]+$' || "$node_major" -lt 24 ]]; then
   exit 1
 fi
 
-status=0
+export PATH="${node_bin:h}:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+scheduler_exit_code=0
 for command in "schedule tick" "queue drain" "schedule health"; do
   parts=( ${(z)command} )
   "$node_bin" "$runner" $parts --config "$config_path"
   code=$?
-  if (( code > status )); then status=$code; fi
+  if (( code > scheduler_exit_code )); then scheduler_exit_code=$code; fi
 done
 unset SHORTDRAMA_INTERNAL_CAPABILITY capability
-exit "$status"
+exit "$scheduler_exit_code"

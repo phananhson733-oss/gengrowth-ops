@@ -367,6 +367,7 @@ export function toCaptureFields(post, runId, accountRecordId) {
     "账号": [{ id: normalizedAccountRecordId }],
     "视频链接": post.post_url,
     "发布时间": post.published_at,
+    ...(typeof post.caption === "string" && post.caption.trim() !== "" ? { "Caption": post.caption } : {}),
     "播放量": normalizedMetrics.views,
     "点赞": normalizedMetrics.likes,
     "评论": normalizedMetrics.comments,

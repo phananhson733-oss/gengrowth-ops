@@ -437,18 +437,31 @@ test("capture mapping emits only writable v3 fields and preserves zero versus nu
     post_id: "99", username: "dramaexpedition",
     post_url: "https://www.tiktok.com/@dramaexpedition/video/99",
     snapshot_date: "2026-09-01", captured_at: "2026-09-01T13:00:00Z", published_at: null,
+    caption: "A real TikTok caption #drama",
     views: 20, likes: 0, comments: null, favorites: 1, shares: 0,
     collection_status: "partial", missing_fields: ["comments"],
   }, " run-1 ", " rec-account ");
   assert.deepEqual(fields, {
     "Post ID": "99", "快照日期": "2026-09-01", "采集时间": "2026-09-01T13:00:00Z",
     "账号": [{ id: "rec-account" }], "视频链接": "https://www.tiktok.com/@dramaexpedition/video/99",
+    "Caption": "A real TikTok caption #drama",
     "发布时间": null, "播放量": 20, "点赞": 0, "评论": null, "收藏": 1, "转发": 0,
     "业务": "short-drama", "采集状态": "partial", "缺失字段": ["comments"], "来源 run_id": "run-1",
   });
   assert.equal(Object.hasOwn(fields, "Base 同步时间"), false);
   assert.equal(Object.hasOwn(fields, "账号名"), false);
   assert.equal(Object.hasOwn(fields, "关联发布记录"), false);
+});
+
+test("capture mapping leaves Caption untouched when source text is unavailable", () => {
+  const fields = toCaptureFields({
+    post_id: "99", username: "dramaexpedition",
+    post_url: "https://www.tiktok.com/@dramaexpedition/video/99",
+    snapshot_date: "2026-09-01", captured_at: "2026-09-01T13:00:00Z", published_at: null,
+    caption: "", views: 20, likes: 0, comments: 0, favorites: 0, shares: 0,
+    collection_status: "complete", missing_fields: [],
+  }, "run-1", "rec-account");
+  assert.equal(Object.hasOwn(fields, "Caption"), false);
 });
 
 test("capture mapping validates missing fields, status, metrics, and identifiers exactly", async (t) => {

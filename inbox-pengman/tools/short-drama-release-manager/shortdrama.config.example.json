@@ -30,5 +30,37 @@
   },
   "acceptance": {
     "privileged_actor_id": "ou_example_not_production"
-  }
+  },
+  "capture": {
+    "max_age_days": 30,
+    "excluded_post_ids": []
+  },
+  "beidou": {
+    "enabled": false,
+    "start_at": null
+  },
+  "batch_review": {
+    "enabled": false,
+    "publication_timezone": "America/Chicago",
+    "publication_timezone_since": "2026-09-24",
+    "wait_hours": 24,
+    "reminder_hours": 24,
+    "notify_start_hour": 9,
+    "notify_end_hour": 20,
+    "owner_aliases": {},
+    "auto_match": false,
+    "auto_match_since": null,
+    "count_only_since": null
+  },
+  "caption_backfill": null,
+  "caption_auto": {
+    "enabled": false,
+    "start_at": null,
+    "max_actions_per_run": 10,
+    "recognize_dramas": true,
+    "lead_review_only": false,
+    "observe_only": false,
+    "verified_codes": []
+  },
+  "caption_repair": null
 }

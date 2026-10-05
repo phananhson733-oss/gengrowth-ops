@@ -310,6 +310,47 @@ test("create reserves drama ID at preview, writes nothing, clones input and appl
   fx.close();
 });
 
+test("direct pool creation writes and verifies in one call, and an exact repeat cannot create a duplicate", async () => {
+  const fx = fixture();
+  const request = { actorId: "ou_operator", chatId: "oc_social", table: "选剧池", action: "create", patch: { 剧名: "New Drama", 平台: "ReelShort" } };
+  const result = await fx.service.applyDirect(request);
+  assert.equal(result.status, "success");
+  assert.equal(result.readback, "verified");
+  assert.equal(result.next_step, "none");
+  assert.equal(fx.repos.dramas.rows.get(result.record_id).fields.剧名, "New Drama");
+  assert.equal(fx.writes.length, 1);
+  await assert.rejects(fx.service.applyDirect(request), error => error.code === "direct_create_conflict");
+  assert.equal(fx.writes.length, 1);
+  fx.close();
+});
+
+test("direct multi-field, batch, and archive writes use current actor and verified readback without a second turn", async () => {
+  const fx = fixture();
+  const base = { actorId: "ou_operator", chatId: "oc_social", table: "选剧池" };
+  const updated = await fx.service.applyDirect({ ...base, action: "update", key: "SD-000001", patch: { 备注: "核对完成", 推荐理由: "新理由" } });
+  assert.equal(updated.readback, "verified");
+  assert.deepEqual(Object.keys(updated.changed_fields[0].fields), ["备注", "推荐理由"]);
+  const batch = await fx.service.applyDirect({ ...base, action: "batch_update", items: [
+    { key: "SD-000001", patch: { 备注: "批量一" } },
+    { key: "SD-000002", patch: { 备注: "批量二" } },
+  ] });
+  assert.equal(batch.readback, "verified");
+  assert.equal(batch.changed_fields.length, 2);
+  const archive = await fx.service.applyDirect({ ...base, action: "archive", key: "SD-000002", patch: { 归档状态: "archived" } });
+  assert.equal(archive.readback, "verified");
+  assert.equal(fx.repos.dramas.rows.get("SD-000002").fields.归档状态, "archived");
+  fx.close();
+});
+
+test("direct daily write rejects unknown actors, release creation, and capture-data mutation before writing", async () => {
+  const fx = fixture();
+  await assert.rejects(fx.service.applyDirect({ actorId: "ou_reader", chatId: "oc_social", table: "选剧池", action: "update", key: "SD-000001", patch: { 备注: "x" } }), error => error.code === "actor_write_denied");
+  await assert.rejects(fx.service.applyDirect({ actorId: "ou_operator", chatId: "oc_social", table: "发布记录", action: "create", patch: { 日期: "2026-09-01" } }), error => error.code === "direct_action_invalid");
+  await assert.rejects(fx.service.applyDirect({ actorId: "ou_operator", chatId: "oc_social", table: "采集数据", action: "update", key: "1", patch: { 视频链接: "x" } }), error => error.code === "direct_action_invalid");
+  assert.equal(fx.writes.length, 0);
+  fx.close();
+});
+
 test("preview snapshots caller input before its first asynchronous repository read", async () => {
   const fx = fixture();
   const originalLoad = fx.repos.dramas.loadIndex.bind(fx.repos.dramas);
@@ -1285,4 +1326,127 @@ test("heartbeat loss during an in-flight write surfaces failure and stops later 
   await pause(1_150);
   assert.equal(renewCount, renewsAfterFailure);
   fx.close();
+});
+
+test('human datetime previews and readback share Base midnight and second precision', async () => {
+  const {canonicalDateTimePatch}=await import('../src/feishu-client.mjs');
+  for(const input of ['2026-09-08T16:00:00.000Z','2026-09-09T00:00:00+08:00','2026-09-08T16:00:00.900Z','2026-09-09T01:02:03.456+08:00']) {
+    const fx=fixture();
+    const original=fx.repos.releases.upsertByKey.bind(fx.repos.releases);
+    fx.repos.releases.upsertByKey=(key,patch,kind)=>original(key,canonicalDateTimePatch('发布记录',patch),kind);
+    try {
+      const p=await fx.service.previewMutation({actorId:'ou_operator',chatId:'oc_social',action:'update',table:'发布记录',key:'SR-000001',patch:{日期:input}});
+      const result=await fx.service.applyPreview({actorId:'ou_operator',chatId:'oc_social',receiptId:p.receipt_id});
+      assert.equal(result.status,'success');
+      assert.equal(result.readback,'verified');
+      assert.equal(fx.jobs.getPreview(p.receipt_id).patch.targets[0].patch.日期,canonicalDateTimePatch('发布记录',{日期:input}).日期);
+    } finally {fx.close();}
+  }
+});
+
+
+test("account registration time accepts qualified dates, clears, and rejects invalid dates", async () => {
+  const fx = fixture();
+  try {
+    const request = { actorId: "ou_operator", chatId: "oc_social", table: "账号台账", key: "dramaexpedition", field: "接收时间/注册时间" };
+    for (const [value, expected] of [
+      ["2026-09-18T10:30:00+08:00", "2026-09-18T02:30:00.000Z"],
+      ["2026-09-19", "2026-09-19"],
+      [null, null],
+    ]) {
+      await fx.service.applySingleField({ ...request, value });
+      assert.equal(fx.repos.accounts.rows.get(request.key).fields[request.field], expected);
+    }
+    const count = fx.writes.length;
+    for (const value of ["2026-02-30", "2026-09-18T10:30:00"]) {
+      await assert.rejects(fx.service.applySingleField({ ...request, value }), error => error.code === "mutation_value_invalid");
+    }
+    assert.equal(fx.writes.length, count);
+  } finally { fx.close(); }
+});
+
+function captureMatchFixture(){
+ const fx=fixture({captureRows:[{record_id:'rec-capture-one',fields:{'Post ID':'111',账号:[{id:'rec-account-one'}],视频链接:'https://www.tiktok.com/@dramaexpedition/video/111',发布时间:'2026-09-01T02:00:00Z',关联发布记录:[]}}]});
+ Object.assign(fx.repos.releases.rows.get('SR-000001').fields,{日期:'2026-09-01',备注:'第1条',采集记录:[]});
+ fx.repos.releases.linkCaptureSafely=async(key,captureId,expected)=>{
+  const r=fx.repos.releases.rows.get(key);for(const [f,v] of Object.entries(expected))assert.deepEqual(r.fields[f],v);
+  if(fx.failLink)throw new Error('link transport failed');r.fields.采集记录=[{id:captureId}];fx.writes.push({table:'发布记录',key,patch:{采集记录:[{id:captureId}]}});return{record:structuredClone(r),readback:'verified'};
+ };
+ return fx;
+}
+const previewMatch=fx=>fx.service.previewCaptureMatch({actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'111'});
+const applyMatch=(fx,receipt,extra={})=>fx.service.applyPreview({actorId:'ou_operator',chatId:'oc_one',receiptId:receipt.receipt_id,...extra});
+test('capture confirmation preview writes nothing; bound apply immediately links and verifies',async()=>{
+ const fx=captureMatchFixture();try{const p=await previewMatch(fx);assert.equal(fx.writes.length,0);assert.equal(p.capture_confirmation.post_id,'111');const r=await applyMatch(fx,p);assert.equal(r.status,'success');assert.equal(r.capture_linked,true);assert.equal(r.readback,'verified');assert.deepEqual(fx.repos.releases.rows.get('SR-000001').fields.采集记录,[{id:'rec-capture-one'}]);assert.equal(fx.repos.releases.rows.get('SR-000001').fields.日期,'2026-09-01');assert.ok(fx.audits.some(a=>a.action==='confirm-capture'));await assert.rejects(applyMatch(fx,p));}finally{fx.close();}
+});
+test('capture confirmation keeps actor/chat/expiry gates',async()=>{
+ for(const mode of ['actor','chat','expiry']){const fx=captureMatchFixture();try{const p=await previewMatch(fx);if(mode==='expiry')fx.setNow('2026-09-01T00:16:00Z');await assert.rejects(applyMatch(fx,p,mode==='actor'?{actorId:'ou_admin'}:mode==='chat'?{chatId:'oc_other'}:{}));assert.equal(fx.writes.length,0);}finally{fx.close();}}
+});
+test('capture confirmation rejects changes to drama notes, capture identity, or newly occupied relation before writes',async()=>{
+ for(const mutate of [fx=>fx.repos.releases.rows.get('SR-000001').fields.备注='第2条',fx=>fx.repos.captures.rows.get('111').fields.发布时间='2026-09-02T02:00:00Z',fx=>fx.repos.releases.rows.get('SR-000002').fields.采集记录=[{id:'rec-capture-one'}],fx=>fx.repos.captures.rows.get('111').fields.关联发布记录=[{id:'other'}],fx=>fx.repos.releases.rows.get('SR-000001').fields.采集记录=[{id:'other'}]]){const fx=captureMatchFixture();try{const p=await previewMatch(fx);mutate(fx);await assert.rejects(applyMatch(fx,p));assert.equal(fx.writes.length,0);}finally{fx.close();}}
+});
+test('capture metric refresh does not invalidate identity confirmation',async()=>{
+ const fx=captureMatchFixture();try{const p=await previewMatch(fx);fx.repos.captures.rows.get('111').fields.播放量=123;assert.equal((await applyMatch(fx,p)).capture_linked,true);}finally{fx.close();}
+});
+test('read-only actor, missing capture and already-linked release cannot create confirmation',async()=>{
+ for(const mutate of [fx=>fx.repos.captures.rows.clear(),fx=>fx.repos.releases.rows.get('SR-000001').fields.采集记录=[{id:'old'}],fx=>fx.repos.releases.rows.get('SR-000001').fields.归档状态='archived']){const fx=captureMatchFixture();try{mutate(fx);await assert.rejects(previewMatch(fx));assert.equal(fx.writes.length,0);}finally{fx.close();}}
+ const fx=captureMatchFixture();try{await assert.rejects(fx.service.previewCaptureMatch({actorId:'reader',chatId:'oc_one',key:'SR-000001',postId:'111'}),e=>e.code==='actor_write_denied');}finally{fx.close();}
+});
+test('link failure is a partial confirmation with consumed receipt, never a false success',async()=>{
+ const fx=captureMatchFixture();try{const p=await previewMatch(fx);fx.failLink=true;await assert.rejects(applyMatch(fx,p),e=>e.code==='capture_confirmation_partial'&&e.details.next_step==='inspect_before_retry');assert.equal(fx.repos.releases.rows.get('SR-000001').fields['Post ID'],'111');await assert.rejects(applyMatch(fx,p));}finally{fx.close();}
+});
+test('existing attach-post also reserves captures claimed only through archived relationships',async()=>{
+ const fx=captureMatchFixture();try{Object.assign(fx.repos.releases.rows.get('SR-000002').fields,{归档状态:'archived',采集记录:[{id:'rec-capture-one'}]});await assert.rejects(fx.service.previewMutation({actorId:'ou_operator',chatId:'oc_one',table:'发布记录',action:'attach-post',key:'SR-000001',patch:{'Post ID':'111',视频链接:'https://www.tiktok.com/@dramaexpedition/video/111'}}),e=>e.code==='post_id_claimed');}finally{fx.close();}
+});
+
+test('candidate capture version prevents a stale candidate description from becoming a fresh receipt',async()=>{
+ const {captureMatchVersion}=await import('../src/match-candidates.mjs');const fx=captureMatchFixture();try{
+  const version=captureMatchVersion(fx.repos.captures.rows.get('111'));fx.repos.captures.rows.get('111').fields.发布时间='2026-08-01T00:00:00Z';
+  await assert.rejects(fx.service.previewCaptureMatch({actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'111',expectedCaptureVersion:version}),e=>e.code==='preview_stale');assert.equal(fx.writes.length,0);
+ }finally{fx.close();}
+});
+test('capture drift or conflicting claim during relation write can never report verified success',async()=>{
+ for(const mutate of [fx=>fx.repos.captures.rows.get('111').fields.发布时间='2026-08-01T00:00:00Z',fx=>fx.repos.captures.rows.get('111').fields.关联发布记录=[{id:'other'}],fx=>fx.repos.releases.rows.get('SR-000002').fields['Post ID']='111']){
+  const fx=captureMatchFixture();try{const p=await previewMatch(fx);const link=fx.repos.releases.linkCaptureSafely;fx.repos.releases.linkCaptureSafely=async(...args)=>{const result=await link(...args);mutate(fx);return result;};await assert.rejects(applyMatch(fx,p),e=>e.code==='capture_confirmation_partial');}finally{fx.close();}
+ }
+});
+
+test('captured http/share URL is canonicalized for confirmation while the raw capture identity stays bound',async()=>{
+ const fx=captureMatchFixture();try{fx.repos.captures.rows.get('111').fields.视频链接='http://tiktok.com/@dramaexpedition/video/111?share=1';const p=await previewMatch(fx);assert.equal(p.patch.视频链接,'https://www.tiktok.com/@dramaexpedition/video/111');assert.equal((await applyMatch(fx,p)).capture_linked,true);}finally{fx.close();}
+});
+
+
+test('an explicitly selected release and Post ID link with verified readback in one call',async()=>{
+ const {matchReleaseDirect}=await import('../src/direct-match.mjs');
+ const {queryReleaseCandidates}=await import('../src/match-candidates.mjs');
+ const fx=captureMatchFixture();try{
+  const query=({key})=>queryReleaseCandidates({repos:fx.repos,key,now:new Date('2026-09-02T00:00:00Z'),readPosts:async()=>[{post_id:'111',username:'dramaexpedition',post_url:'https://www.tiktok.com/@dramaexpedition/video/111',published_at:'2026-09-01T02:00:00Z',caption:'Part 1 | The Phantom Pilot'}]});
+  const result=await matchReleaseDirect({actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'111',queryReleaseCandidates:query,humanOps:fx.service});
+  assert.equal(result.status,'success');assert.equal(result.readback,'verified');assert.equal(result.capture_linked,true);
+  assert.deepEqual(fx.repos.releases.rows.get('SR-000001').fields.采集记录,[{id:'rec-capture-one'}]);
+  assert.equal(fx.writes.filter(w=>w.patch?.['Post ID']).length,1);
+ }finally{fx.close();}
+});
+test('direct release matching rejects an unavailable Post ID without a write',async()=>{
+ const {matchReleaseDirect}=await import('../src/direct-match.mjs');
+ const fx=captureMatchFixture();try{
+  await assert.rejects(matchReleaseDirect({actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'999',queryReleaseCandidates:async()=>({rows:[{release_id:'SR-000001',release_version:'v1',candidates:[]}]}),humanOps:fx.service}),e=>e.code==='candidate_not_available');
+  assert.equal(fx.writes.length,0);
+ }finally{fx.close();}
+});
+
+
+test('direct release matching does not replay an uncertain relation write',async()=>{
+ const {matchReleaseDirect}=await import('../src/direct-match.mjs');
+ const {queryReleaseCandidates}=await import('../src/match-candidates.mjs');
+ const fx=captureMatchFixture();fx.failLink=true;
+ try{
+  const query=({key})=>queryReleaseCandidates({repos:fx.repos,key,now:new Date('2026-09-02T00:00:00Z'),readPosts:async()=>[{post_id:'111',username:'dramaexpedition',post_url:'https://www.tiktok.com/@dramaexpedition/video/111',published_at:'2026-09-01T02:00:00Z',caption:'Part 1 | The Phantom Pilot'}]});
+  const input={actorId:'ou_operator',chatId:'oc_one',key:'SR-000001',postId:'111',queryReleaseCandidates:query,humanOps:fx.service};
+  await assert.rejects(matchReleaseDirect(input),e=>e.code==='capture_confirmation_partial');
+  assert.equal(fx.repos.releases.rows.get('SR-000001').fields['Post ID'],'111');
+  const writes=fx.writes.length;
+  await assert.rejects(matchReleaseDirect(input),e=>e.code==='candidate_not_available');
+  assert.equal(fx.writes.length,writes);
+ }finally{fx.close();}
 });

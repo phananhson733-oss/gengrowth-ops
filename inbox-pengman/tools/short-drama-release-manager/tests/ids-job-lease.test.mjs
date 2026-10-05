@@ -14,6 +14,20 @@ import {
 } from "../src/ids.mjs";
 import { JobStore } from "../src/job-store.mjs";
 
+test('consumed direct schedule identity survives a JobStore reopen', () => {
+  const directory = mkdtempSync(join(tmpdir(), "shortdrama-direct-reopen-"));
+  const dbPath = join(directory, "ops.sqlite");
+  let store = new JobStore(dbPath);
+  try {
+    store.createPreview({receiptId:"sdp_direct",actorId:"ou_owner",chatId:"oc_chat",action:"batch_schedule",targetTable:"发布记录",targetKey:"SB-direct",beforeHash:"empty",patch:{direct:true,schedule_key:"schedule-key"},now:new Date("2026-09-24T00:00:00Z")});
+    store.consumePreview("sdp_direct",{actorId:"ou_owner",chatId:"oc_chat",beforeHash:"empty",now:new Date("2026-09-24T00:01:00Z")});
+    store.close();
+    store = new JobStore(dbPath);
+    assert.deepEqual(store.findConsumedDirectSchedule("schedule-key").map(receipt=>receipt.target_key),["SB-direct"]);
+    assert.deepEqual(store.findConsumedDirectSchedule("different-key"),[]);
+  } finally { store.close();rmSync(directory,{recursive:true,force:true}); }
+});
+
 const JOB_STORE_URL = new URL("../src/job-store.mjs", import.meta.url).href;
 const IDS_URL = new URL("../src/ids.mjs", import.meta.url).href;
 
@@ -635,4 +649,18 @@ test("two worker connections allow exactly one live mutation lease owner", async
     if (setup.db.isOpen) setup.close();
     rmSync(directory, { recursive: true });
   }
+});
+
+test("allocation atomically advances past observed live IDs without lowering reservations", () => {
+  const db = new DatabaseSync(":memory:");
+  try {
+    seedBusinessIdSequence(db, "drama", 70);
+    assert.equal(allocateBusinessId(db, "drama", 78), "SD-000079");
+    assert.equal(allocateBusinessId(db, "drama", 72), "SD-000080");
+    assert.equal(allocateBusinessId(db, "release", 200), "SR-000201");
+    for (const bad of [-1, NaN, 2.5, "78"]) {
+      assert.throws(() => allocateBusinessId(db, "drama", bad), (error) => error.code === "business_id_seed_invalid");
+    }
+    assert.equal(peekNextBusinessId(db, "drama"), "SD-000081");
+  } finally { db.close(); }
 });

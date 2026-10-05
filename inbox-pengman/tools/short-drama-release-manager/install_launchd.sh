@@ -54,18 +54,22 @@ unset capability capability_tmp
 
 rendered_plist="$(/usr/bin/mktemp "$target_dir/.$label.rendered.XXXXXX")"
 /bin/cp "$source_plist" "$rendered_plist"
-/usr/bin/plutil -replace ProgramArguments.1 -string "$script_dir/run_scheduled.sh" "$rendered_plist"
-/usr/bin/plutil -replace ProgramArguments.2 -string "$config_path" "$rendered_plist"
+# macOS plutil indexed replacement can retain the original array entries.
+program_arguments="$("$node_bin" -e 'process.stdout.write(JSON.stringify(["/bin/zsh", process.argv[1], process.argv[2]]))' "$script_dir/run_scheduled.sh" "$config_path")"
+/usr/bin/plutil -replace ProgramArguments -json "$program_arguments" "$rendered_plist"
 /usr/bin/plutil -replace EnvironmentVariables.SHORTDRAMA_NODE_BIN -string "$node_bin" "$rendered_plist"
 /usr/bin/plutil -replace EnvironmentVariables.SHORTDRAMA_CAPABILITY_FILE -string "$capability_file" "$rendered_plist"
 /usr/bin/plutil -replace WorkingDirectory -string "$script_dir" "$rendered_plist"
 /usr/bin/plutil -replace StandardOutPath -string "$script_dir/logs/launchd.stdout.log" "$rendered_plist"
 /usr/bin/plutil -replace StandardErrorPath -string "$script_dir/logs/launchd.stderr.log" "$rendered_plist"
 /usr/bin/plutil -lint "$rendered_plist"
+rendered_arguments="$(/usr/bin/plutil -extract ProgramArguments json -o - "$rendered_plist")"
+"$node_bin" -e 'if (JSON.stringify(JSON.parse(process.argv[1])) !== JSON.stringify(JSON.parse(process.argv[2]))) process.exit(1)' "$rendered_arguments" "$program_arguments" || fail "Rendered launchd arguments mismatch"
 
 cleanup() {
-  [[ -n "$rendered_plist" ]] && /bin/rm -f "$rendered_plist"
-  [[ -n "$backup_plist" ]] && /bin/rm -f "$backup_plist"
+  if [[ -n "$rendered_plist" ]]; then /bin/rm -f "$rendered_plist" || return $?; fi
+  if [[ -n "$backup_plist" ]]; then /bin/rm -f "$backup_plist" || return $?; fi
+  return 0
 }
 
 rollback() {

@@ -27,7 +27,7 @@ import {
   writeMigrationArtifact,
 } from "../src/migration.mjs";
 import { fixedFieldDescriptor } from "../src/feishu-client.mjs";
-import { BASE_FIELD_SPECS, TABLE_ORDER } from "../src/schema.mjs";
+import { TABLES, BASE_FIELD_SPECS, TABLE_ORDER } from "../src/schema.mjs";
 
 const ACCOUNT_HEADERS = ["账号名", "主页链接", "粉丝数", "所属组", "定位垂类", "表现形式", "状态", "数据日期"];
 const DRAMA_HEADERS = ["剧名", "剧ID", "剧分类", "上线日期", "生命周期", "是否已排期", "备注", "推荐理由", "RS Boost 分类（待确认）", "账号组", "账号状态", "平台", "语言", "来源", "推荐人", "归档状态"];
@@ -806,7 +806,7 @@ test("an unknown nonblank drama platform blocks instead of widening the fixed en
   assert.equal(manifest.blocked.some((row) =>
     row.code === "platform_not_allowed" && row.table === "选剧池" && row.source_value === "UnknownPlatform"), true);
   assert.deepEqual(BASE_FIELD_SPECS["选剧池"].find((field) => field.name === "平台").options,
-    ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他"]);
+    ["ReelShort", "DramaBox", "ShortMax", "TopShort", "其他", "MoboReels"]);
 });
 
 test("drama merge preserves distinct notes and advances only the fixed lifecycle", async () => {
@@ -2864,7 +2864,8 @@ test("data apply materializes every writable field and verification rejects stal
   repos.accounts.rows.set("dramaexpedition", { record_id: "rec-accounts-dramaexpedition", fields: { 账号ID: "dramaexpedition", 指标同步时间: "stale", 同步状态: "failed" } });
   await applyMigration({ repos, expectedSha256: manifest.sha256, ...schemaGate(manifest) }, manifest);
   const patch = repos.calls[0][2][0].patch;
-  assert.deepEqual(Object.keys(patch).sort(), ["主页链接", "账号名", "所属组", "定位垂类", "表现形式", "状态", "数据日期", "指标同步时间", "粉丝数", "同步状态"].sort());
+  assert.deepEqual(Object.keys(patch).sort(), [...TABLES["账号台账"].human, ...TABLES["账号台账"].machine, ...TABLES["账号台账"].shared].filter(field => field !== TABLES["账号台账"].primaryField).sort());
+  assert.equal(patch.负责人, null);
   assert.equal(patch.指标同步时间, null);
   assert.equal(repos.accounts.rows.get("dramaexpedition").fields.指标同步时间, null);
   delete repos.accounts.rows.get("dramaexpedition").fields.同步状态;
@@ -3017,3 +3018,42 @@ test("invalid artifact content releases its exclusive reservation", async () => 
   await rm(written.path, { force: true });
 });
 
+
+
+test("oversized compact artifacts fail before publication and release their reservation", async () => {
+  const name=`oversized-artifact-${process.pid}-${Date.now()}.json`;
+  const payload={text:"界".repeat(Math.ceil(64*1024*1024/3))};
+  let published;
+  try {
+    await assert.rejects(async()=>{published=await writeMigrationArtifact(payload,{fileName:name});},e=>e.code==="migration_artifact_too_large");
+    const retry=await writeMigrationArtifact({status:"safe"},{fileName:name});published=retry;
+    assert.deepEqual(JSON.parse(await readFile(retry.path,"utf8")),{status:"safe"});
+  } finally {if(published)await rm(published.path,{force:true});}
+});
+
+test("the ledger owner field is fixed schema, so migration plans it instead of blocking on it", async () => {
+  const context = { google: normalizedSource(), captures: [latestCapture()] };
+  const owner = (table) => table.fields.find((field) => field.name === "负责人");
+
+  // A live Base that already carries the field is not drift.
+  const present = await planMigration({ ...context, baseSchema: completeFixedSchema("owner-present") });
+  assert.equal(present.blocked.length, 0);
+  assert.equal(present.schema_actions.some((action) => action.field === "负责人"), false);
+
+  // A live Base missing it gets a create_field action, like any other fixed storage field.
+  const missing = completeFixedSchema("owner-missing");
+  const ledger = missing.tables.find((table) => table.name === "账号台账");
+  ledger.fields = ledger.fields.filter((field) => field.name !== "负责人");
+  const planned = await planMigration({ ...context, baseSchema: missing });
+  assert.equal(planned.blocked.length, 0);
+  assert.deepEqual(planned.schema_actions.filter((action) => action.field === "负责人").map((action) => action.kind), ["create_field"]);
+  assert.deepEqual(owner(completeFixedSchema("probe").tables[0]).type, "user");
+
+  // A field nobody declared is still drift: the guard was widened for 负责人 only.
+  const rogue = completeFixedSchema("owner-rogue");
+  rogue.tables.find((table) => table.name === "账号台账").fields.push({ field_id: "fld-rogue", name: "随手加的", type: "text" });
+  const drifted = await planMigration({ ...context, baseSchema: rogue });
+  assert.deepEqual(drifted.blocked, [
+    { code: "base_schema_drift", table: "账号台账", source_row: null, field: "随手加的", reason: "unexpected_field" },
+  ]);
+});

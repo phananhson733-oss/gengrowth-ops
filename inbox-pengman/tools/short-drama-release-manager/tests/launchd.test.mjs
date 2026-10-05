@@ -111,3 +111,29 @@ test("offline installer harness rejects system or out-of-fixture launchctl binar
   }
   await assert.rejects(readFile(target));
 });
+
+
+test("production plist rendering replaces the complete argument vector", async()=>{
+ const installer=await readFile(new URL("../install_launchd.sh",import.meta.url),"utf8");
+ const start=installer.indexOf('/bin/cp "$source_plist" "$rendered_plist"');
+ const end=installer.indexOf('\ncleanup()');assert.ok(start>=0&&end>start);
+ const dir=await mkdtemp(path.join(os.tmpdir(),"shortdrama-render-"));const rendered=path.join(dir,"output.plist"),runner=path.join(dir,"runner with spaces"),config=path.join(dir,"config with spaces.json");
+ const script='set -euo pipefail\nfail() { print -u2 -- \"$1\"; exit 1; }\n'+installer.slice(start,end);
+ await execFile("/bin/zsh",["-c",script],{env:{...process.env,source_plist:new URL("../launchd/com.gengrowth.shortdrama-sync.plist",import.meta.url).pathname,rendered_plist:rendered,script_dir:runner,config_path:config,node_bin:process.execPath,capability_file:path.join(dir,"capability")}});
+ const result=await execFile("/usr/bin/plutil",["-extract","ProgramArguments","json","-o","-",rendered]);assert.deepEqual(JSON.parse(result.stdout),["/bin/zsh",runner+"/run_scheduled.sh",config]);assert.doesNotMatch(await readFile(rendered,"utf8"),/__RUNNER_DIR__|__CONFIG_PATH__|__NODE_BIN__|__CAPABILITY_FILE__/);
+ await rm(dir,{recursive:true,force:true});
+});
+test("production cleanup succeeds on first install and preserves following success output",async()=>{
+ const installer=await readFile(new URL("../install_launchd.sh",import.meta.url),"utf8");const cleanup=installer.match(/cleanup\(\) \{[\s\S]*?\n\}/)?.[0];assert.ok(cleanup);
+ const dir=await mkdtemp(path.join(os.tmpdir(),"shortdrama-cleanup-")),rendered=path.join(dir,"rendered");await writeFile(rendered,"fixture");
+ const result=await execFile("/bin/zsh",["-c",'set -euo pipefail\n'+cleanup+'\ncleanup\nprint -- "Installed and verified"'],{env:{...process.env,rendered_plist:rendered,backup_plist:""}});assert.match(result.stdout,/Installed and verified/);await assert.rejects(readFile(rendered));await rm(dir,{recursive:true,force:true});
+});
+
+
+test("production scheduled command loop executes all stages and returns the worst exit",async()=>{
+ const source=await readFile(new URL("../run_scheduled.sh",import.meta.url),"utf8");const start=source.indexOf('export PATH=');assert.ok(start>=0);
+ const dir=await mkdtemp(path.join(os.tmpdir(),"shortdrama-loop-"));const fake=path.join(dir,"fake-node"),log=path.join(dir,"calls");
+ await writeFile(fake,'#!/bin/zsh\nprint -- "$2 $3" >> "$TASK_TEST_LOG"\ncase "$2 $3" in\n"schedule tick") exit 0;;\n"queue drain") exit 2;;\n"schedule health") exit 1;;\n*) exit 9;;\nesac\n');await chmod(fake,0o700);
+ let caught;try{await execFile("/bin/zsh",["-c",'set -u\n'+source.slice(start)],{env:{...process.env,node_bin:fake,runner:path.join(dir,"fixture.mjs"),config_path:path.join(dir,"config.json"),TASK_TEST_LOG:log}});}catch(error){caught=error;}
+ assert.equal(caught?.code,2,caught?.stderr);assert.deepEqual((await readFile(log,"utf8")).trim().split("\n"),["schedule tick","queue drain","schedule health"]);await rm(dir,{recursive:true,force:true});
+});
