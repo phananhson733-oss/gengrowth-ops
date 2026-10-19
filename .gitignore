@@ -41,3 +41,12 @@ node_modules/
 *.cer
 .env
 .env.*
+
+# tools/ 只收 wiki 白名单镜像（目前仅 internal/link-attribution，与 .github/sync-dirs.txt 一致），
+# 其余是内部工具，不入库。旧版 _sync-core.sh 会把 wiki/tools 整个镜像进来，wiki 侧已改为
+# 白名单；还在跑旧脚本的机器靠这里挡住——.gitignore 随 git 走，所有机器 pull 后立即生效。
+# 要新增公开工具：先改 wiki 的 sync-to-ops.yml 与 _sync-core.sh 白名单，再在这里放行。
+/tools/*
+!/tools/internal/
+/tools/internal/*
+!/tools/internal/link-attribution/

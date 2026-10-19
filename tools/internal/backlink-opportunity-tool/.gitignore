@@ -1,4 +1,0 @@
-# Runtime credentials stay only on the machine that runs the service.
-.env
-.env.*
-!.env.example
