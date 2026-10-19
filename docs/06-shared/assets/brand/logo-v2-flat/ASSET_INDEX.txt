@@ -1,0 +1,54 @@
+GenGrowth Direction A Flat Logo v2 - Asset Index
+Generated: 2026-08-10
+Selected concept: A / first concept / Classic Corporate
+
+Brand colors
+- Green: #73D66A
+- Teal:  #46C7A8
+- Blue:  #2B8CF2
+- Navy background: #0B1426
+- Dark text: #0F172A
+
+Master mark
+- source/logo-flat-a-approved-transparent.png: approved transparent A source
+- mark/logo-mark-gradient-2048.png: primary transparent high-resolution master
+- mark/logo-mark-gradient-{1024,512,256,128,64,48,32,16}.png: transparent size variants
+- mark/logo-mark-{black,white,navy}-2048.png: monochrome variants
+- mark/logo-mark-gradient-on-{light,dark}-1024.png: reference previews, not transparent
+
+Browser
+- favicon/favicon.ico: contains 16x16, 32x32, and 48x48
+- favicon/favicon-{16x16,32x32,48x48}.png: individual transparent PNG files
+
+Website
+- web/header-horizontal-on-dark-250x100.png: fixed dark-background header logo
+- web/header-horizontal-transparent-dark-text-250x100.png: transparent, for light backgrounds
+- web/header-horizontal-transparent-white-text-250x100.png: transparent, for dark backgrounds
+- web/header-stacked-on-dark-160x160.png: compact stacked header logo
+- web/brand-lockup-horizontal-*.png: large reusable 1200x360 bilingual lockups
+
+Email
+- email/email-signature-transparent-dark-text-300x100.png: preferred for light email clients
+- email/email-signature-on-light-300x100.png: fixed white background
+- email/email-signature-on-light-en-only-300x100.png: fixed white background, English wordmark only
+- email/email-signature-on-dark-300x100.png: fixed navy background
+
+Social media
+- social/profile-square-500x500.png: square profile upload
+- social/profile-circle-500x500.png: transparent-corner circular version
+- social/profile-square-800x800.png: high-resolution profile upload
+- social/social-cover-og-1200x630.png: Open Graph and social sharing cover
+
+App and PWA
+- app/app-icon-{180x180,192x192,512x512,1024x1024}.png: square RGB upload sources
+- app/app-icon-maskable-512x512.png: PWA maskable source with enlarged safe zone
+- previews/app-icon-rounded-preview-180x180.png: visual preview only
+
+Usage rules
+- The official primary mark is Direction A, the first selected concept. Do not substitute Direction B.
+- Keep clear space of at least 10% of the mark's visible bounding box on every side; see previews/logo-safe-area-guide-1200x1200.png.
+- Use 32px or larger when the full three-node network detail must remain recognizable. The 16px favicon is a shape-first fallback.
+- Do not pre-round the App Store, Apple Touch, or PWA source files; the platform applies its own mask.
+- Use transparent dark-text lockups on light backgrounds and transparent white-text lockups on dark backgrounds.
+- At 16px, prioritize recognition of the G and arrow; the three-node network is secondary detail.
+- Do not add shadows, bevels, extrusion, glow, 3D effects, or overlapping ribbons to the primary logo.

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth detail brand mark draft</title>
+  <desc id="desc">The full-size GenGrowth mark with three evidence nodes, a clear G hook, and a green growth arrow.</desc>
+
+  <!-- The inner terminal is flat and pulled inward to read as G rather than 6. -->
+  <path
+    fill="#16A7B8"
+    d="M92 28
+       C45 42 20 84 20 132
+       C20 192 70 232 129 222
+       C182 213 213 168 205 115
+       L157 115
+       L157 143
+       L180 143
+       C169 167 151 180 128 181
+       C91 183 61 155 60 118
+       C59 82 74 51 92 28Z"
+  />
+
+  <!-- Large-size evidence signals: dots only; the semantically empty connector lines are removed. -->
+  <g fill="#16A7B8">
+    <circle cx="82" cy="50" r="8" />
+    <circle cx="124" cy="51" r="8" />
+    <circle cx="72" cy="88" r="8" />
+  </g>
+
+  <path
+    fill="#78C96B"
+    d="M70 157
+       C91 130 112 119 139 113
+       C159 109 177 91 188 76
+       L175 64
+       L220 49
+       L212 96
+       L198 83
+       C183 106 160 126 136 132
+       C113 138 96 151 87 170
+       C80 167 74 162 70 157Z"
+  />
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth refined overlap brand mark</title>
+  <desc id="desc">The original GenGrowth mark with a rounded green growth path overlapping the cyan evidence foundation.</desc>
+
+  <!-- Original cyan G foundation. -->
+  <path
+    fill="#16A7B8"
+    d="M92 28
+       C45 42 20 84 20 132
+       C20 192 70 232 129 222
+       C182 213 213 168 205 115
+       L153 115
+       L136 146
+       L178 146
+       C168 168 151 180 128 181
+       C91 183 61 155 60 118
+       C59 82 74 51 92 28Z"
+  />
+
+  <!-- Preserve the original three-node connected technology network. -->
+  <path
+    d="M82 49 L126 50 L72 88 Z"
+    fill="none"
+    stroke="#16A7B8"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <g fill="#16A7B8">
+    <circle cx="82" cy="49" r="8"/>
+    <circle cx="126" cy="50" r="8"/>
+    <circle cx="72" cy="88" r="8"/>
+  </g>
+
+  <!-- Rounded tail overlaps the G instead of meeting it edge-to-edge. -->
+  <path
+    d="M82 159
+       C99 135 116 123 141 117
+       C161 112 181 94 197 73"
+    fill="none"
+    stroke="#78C96B"
+    stroke-width="20"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Separate, slightly smaller arrowhead overlaps the curved path. -->
+  <path
+    fill="#78C96B"
+    d="M178 62 L219 50 L211 93 L198 81 L189 91 L178 80 L187 71Z"
+  />
+</svg>

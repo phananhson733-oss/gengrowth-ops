@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>HashPower-BTC 产品与社媒增长调研报告</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --ink:#1f2933; --muted:#647082; --line:#e3e8ef; --bg:#ffffff;
+    --accent:#3b5bdb; --accent-soft:#edf0ff; --code-bg:#0f1729;
+    --hi:#2b8a3e; --hi-bg:#ebfbee; --med:#1c6fb8; --med-bg:#e7f3ff;
+    --low:#b5870b; --low-bg:#fff8e1; --unv:#c0392b; --unv-bg:#fdecea;
+    --star:#f59f00;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:#f5f6f8; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:32px;}
+  #TOC{
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto;
+    width:268px; flex:0 0 268px; padding:28px 18px 60px 0; font-size:13.5px;
+    border-right:1px solid var(--line);
+  }
+  #TOC::before{content:"目录"; display:block; font-weight:700; font-size:12px; letter-spacing:.12em; color:var(--muted); margin-bottom:12px;}
+  #TOC ul{list-style:none; margin:0; padding:0}
+  #TOC ul ul{padding-left:14px}
+  #TOC li{margin:2px 0}
+  #TOC a{color:var(--muted); text-decoration:none; display:block; padding:3px 8px; border-radius:6px; line-height:1.4;}
+  #TOC a:hover{background:var(--accent-soft); color:var(--accent)}
+  #TOC a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
+  main{flex:1 1 auto; min-width:0; background:var(--bg); margin:28px 0;
+    padding:54px 60px 80px; border-radius:14px; box-shadow:0 1px 3px rgba(20,30,50,.06),0 12px 40px rgba(20,30,50,.06);}
+  main>h1:first-child{margin-top:0}
+  h1{font-size:34px; line-height:1.25; letter-spacing:-.01em; margin:0 0 6px; font-weight:800}
+  h2{font-size:25px; margin:54px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--line); font-weight:750}
+  h3{font-size:20px; margin:38px 0 14px; font-weight:700}
+  h4{font-size:16.5px; margin:26px 0 10px; color:var(--accent); font-weight:700}
+  p{margin:12px 0}
+  a{color:var(--accent)}
+  hr{border:0; border-top:1px solid var(--line); margin:40px 0}
+  strong{font-weight:680}
+  table{border-collapse:collapse; width:100%; margin:18px 0; font-size:14.5px; display:block; overflow-x:auto;}
+  thead th{background:#f0f3fa; color:#33415c; text-align:left; font-weight:700; white-space:nowrap}
+  th,td{border:1px solid var(--line); padding:9px 13px; vertical-align:top}
+  tbody tr:nth-child(even){background:#fafbfd}
+  tbody tr:hover{background:var(--accent-soft)}
+  blockquote{
+    margin:18px 0; padding:14px 18px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:#2a3a66;
+  }
+  blockquote p{margin:6px 0}
+  pre{background:var(--code-bg); color:#e7ecf5; padding:18px 20px; border-radius:10px; overflow-x:auto; line-height:1.6; font-size:13.5px;}
+  code{font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+  :not(pre)>code{background:#eef1f6; color:#b5275b; padding:1.5px 6px; border-radius:5px; font-size:.88em}
+  pre code{background:none; color:inherit; padding:0}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; padding:1px 7px; border-radius:999px; line-height:1.6; white-space:nowrap; vertical-align:baseline; margin:0 1px;}
+  .tag-high{color:var(--hi); background:var(--hi-bg)}
+  .tag-med{color:var(--med); background:var(--med-bg)}
+  .tag-low{color:var(--low); background:var(--low-bg)}
+  .tag-unv{color:var(--unv); background:var(--unv-bg)}
+  .stars{color:var(--star); letter-spacing:1px}
+  @media print{ body{background:#fff} main{box-shadow:none;margin:0;padding:0;border-radius:0} #TOC{display:none} .wrap{display:block} }
+  @media(max-width:920px){ #TOC{display:none} main{padding:32px 20px} .wrap{padding:0 12px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#hashpower-btc-产品与社媒增长调研报告"
+id="toc-hashpower-btc-产品与社媒增长调研报告">HashPower-BTC
+产品与社媒增长调研报告</a>
+<ul>
+<li><a href="#执行摘要" id="toc-执行摘要">执行摘要</a>
+<ul>
+<li><a href="#证据边界" id="toc-证据边界">证据边界</a></li>
+</ul></li>
+<li><a href="#一产品总览" id="toc-一产品总览">一、产品总览</a></li>
+<li><a href="#二关键数据趋势"
+id="toc-二关键数据趋势">二、关键数据趋势</a></li>
+<li><a href="#三竞品对比" id="toc-三竞品对比">三、竞品对比</a>
+<ul>
+<li><a href="#主要竞品" id="toc-主要竞品">主要竞品</a></li>
+<li><a href="#次要竞品参照" id="toc-次要竞品参照">次要竞品/参照</a></li>
+</ul></li>
+<li><a href="#四深度分析" id="toc-四深度分析">四、深度分析</a>
+<ul>
+<li><a href="#41-变现与收入模式" id="toc-41-变现与收入模式">4.1
+变现与收入模式</a></li>
+<li><a href="#42-用户增长与获客" id="toc-42-用户增长与获客">4.2
+用户增长与获客</a></li>
+<li><a href="#43-竞争定位-swot-与-porter-五力"
+id="toc-43-竞争定位-swot-与-porter-五力">4.3 竞争定位 SWOT 与 Porter
+五力</a></li>
+<li><a href="#44-产品类型专项分析消费级-fintech--云算力"
+id="toc-44-产品类型专项分析消费级-fintech--云算力">4.4
+产品类型专项分析：消费级 FinTech × 云算力</a></li>
+<li><a href="#45-产品架构与技术栈" id="toc-45-产品架构与技术栈">4.5
+产品架构与技术栈</a></li>
+<li><a href="#46-ux-与产品设计" id="toc-46-ux-与产品设计">4.6 UX
+与产品设计</a></li>
+<li><a href="#47-go-to-market-策略" id="toc-47-go-to-market-策略">4.7
+Go-to-Market 策略</a></li>
+<li><a href="#48-合规与监管" id="toc-48-合规与监管">4.8
+合规与监管</a></li>
+<li><a href="#49-重点市场专项美国" id="toc-49-重点市场专项美国">4.9
+重点市场专项：美国</a></li>
+<li><a href="#410-社媒营销专项评估" id="toc-410-社媒营销专项评估">4.10
+社媒营销专项评估</a></li>
+</ul></li>
+<li><a href="#五综合评估与建议"
+id="toc-五综合评估与建议">五、综合评估与建议</a>
+<ul>
+<li><a href="#综合判断" id="toc-综合判断">综合判断</a></li>
+<li><a href="#优先行动建议" id="toc-优先行动建议">优先行动建议</a></li>
+</ul></li>
+<li><a href="#参考来源" id="toc-参考来源">参考来源</a>
+<ul>
+<li><a href="#产品与竞品" id="toc-产品与竞品">产品与竞品</a></li>
+<li><a href="#平台与广告政策"
+id="toc-平台与广告政策">平台与广告政策</a></li>
+<li><a href="#监管与风险" id="toc-监管与风险">监管与风险</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<main>
+<h1 id="hashpower-btc-产品与社媒增长调研报告">HashPower-BTC
+产品与社媒增长调研报告</h1>
+<blockquote>
+<p>调研日期：2026-07-21 | 产品类型：Consumer App × FinTech | 调研人：AI
+Product Analyst</p>
+</blockquote>
+<h2 id="执行摘要">执行摘要</h2>
+<p><strong>结论先行：HashPower-BTC
+已形成清晰的移动端云算力产品路径，社媒增长机会主要来自教育内容、产品演示、搜索需求和社区支持。</strong>
+该品类的转化高度依赖用户对算力来源、预计产出、费用和提现流程的理解；增加可复核运营信息，有助于提升内容可信度并扩大可使用的营销方式。</p>
+<table>
+<thead>
+<tr>
+<th>判断</th>
+<th>结论</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产品是什么</td>
+<td>iPhone 端 BTC 云算力计划、订单、预计产出与订阅权益管理 App</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>商业化成熟度</td>
+<td>已有多档 IAP，最高可见档位
+$999.99；实际付费人数、收入、退款率未披露</td>
+<td>[High] / [Unverified]</td>
+</tr>
+<tr>
+<td>市场验证</td>
+<td>美区约 30–32 个评分、4.4–4.5
+分，样本仍小；下载、MAU、留存未披露</td>
+<td>[High] / [Unverified]</td>
+</tr>
+<tr>
+<td>供应链可信度</td>
+<td>未公开矿场、矿机、矿池账户、算力规模或可复核的产出对账</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>社媒可行性</td>
+<td>自然内容可试；主流付费平台政策适配度低，且金融推广责任高</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>无行业背景是否构成障碍</td>
+<td>对执行型内容运营不是绝对障碍；对收益模型判断、事实核验和合规审稿是实质障碍</td>
+<td>[Medium]</td>
+</tr>
+<tr>
+<td>建议路径</td>
+<td>先完善证据与内容底座，再用 6–8 周教育内容验证渠道和转化</td>
+<td>[Medium]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="证据边界">证据边界</h3>
+<ul>
+<li>本报告基于公开页面、平台官方政策、监管机关材料、竞品官方页面及上市公司文件；未登录
+App、未充值、未做真实提现测试。</li>
+<li>用户评论只能证明“有人公开提出该体验或指控”，不能单独证明真实履约、同一主体控制或欺诈。</li>
+<li>App Store 上架意味着通过当次平台审核，不等于 Apple
+对算力真实性、收益来源或开发者陈述作出担保。</li>
+<li>本报告不把缺少公开证据等同于欺诈；所有重大缺口均标为待验证，不作法律定性。</li>
+</ul>
+<hr />
+<h2 id="一产品总览">一、产品总览</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产品名</td>
+<td>HashPower-BTC</td>
+</tr>
+<tr>
+<td>App Store 卖方</td>
+<td><code>United states happy Banana Inc</code> [High]</td>
+</tr>
+<tr>
+<td>官方副标题</td>
+<td><code>"Cloud Hashrate Manager"</code> [High]</td>
+</tr>
+<tr>
+<td>定位证据</td>
+<td><code>"HashPower-BTC helps you view, choose, and manage BTC cloud hashrate services from your phone."</code>
+[High]</td>
+</tr>
+<tr>
+<td>核心功能</td>
+<td>云算力方案浏览、预计产出展示、订单/资产记录、Cloud Pass
+订阅、账户活动与提现相关功能 [High]</td>
+</tr>
+<tr>
+<td>平台</td>
+<td>iPhone；要求 iOS 15 或更高版本 [High]</td>
+</tr>
+<tr>
+<td>类目与年龄</td>
+<td>Business；4+ [High]</td>
+</tr>
+<tr>
+<td>商业模式</td>
+<td>免费下载 + 自动续订/IAP；美国商店当前可见 $6.99–$999.99 档位
+[High]</td>
+</tr>
+<tr>
+<td>营收</td>
+<td>Not disclosed；无财报或经核验第三方估算</td>
+</tr>
+<tr>
+<td>用户</td>
+<td>下载、注册、MAU、付费用户均 Not disclosed；美区约 30–32
+个评分不等于用户数</td>
+</tr>
+<tr>
+<td>开发者/卖方</td>
+<td><code>United states happy Banana Inc</code> [High]</td>
+</tr>
+<tr>
+<td>网站</td>
+<td>hashpower.cloud；条款适用科罗拉多州法律 [High]</td>
+</tr>
+<tr>
+<td>数据收集</td>
+<td>开发者声明标识符可能用于跨 App/网站跟踪，Device ID 用于分析；Apple
+标注声明未经其验证 [High]</td>
+</tr>
+<tr>
+<td>核心供给证明</td>
+<td>矿场位置、矿机型号/数量、矿池合作、实时 worker、总
+EH/s、链上产出对账均 Not disclosed</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：公开产品层已经把“购买服务—查看预计产出—提现”闭环表达清楚，但决定云挖矿服务真实性与经济可持续性的供给层证据仍未公开。</p>
+</blockquote>
+<hr />
+<h2 id="二关键数据趋势">二、关键数据趋势</h2>
+<table>
+<thead>
+<tr>
+<th>日期/阶段</th>
+<th>公开变化</th>
+<th>数值或证据</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-05-13</td>
+<td>首版上架</td>
+<td>v1.0.0</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>2026-05 至 07</td>
+<td>高频版本迭代</td>
+<td>多次以 bug fix、critical issue、体验优化为主</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>2026-07-15 旧快照</td>
+<td>美区评分</td>
+<td>4.5 分、28 个评分</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>2026-07-21 附近</td>
+<td>美区评分动态</td>
+<td>官方页面/索引快照在 4.4–4.5 分、30–32 个评分之间变化</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>当前版本</td>
+<td>v1.1.3（官方页面相对时间显示近期更新）</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>当前美国 IAP</td>
+<td>可见
+$6.99、$7、$9.99、$19.99、$28、$59.99、$89.99、$175.99、$299.99、$999.99</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>当前</td>
+<td>下载/MAU/留存/收入</td>
+<td>Not disclosed；无可核验公开数据</td>
+<td>[Unverified]</td>
+</tr>
+</tbody>
+</table>
+<p>产品上线约两个月即密集更新，说明团队仍处早期产品稳定期。评分新增速度不宜被解释为规模增长：从
+28 增至约 30–32
+仅是个位数样本变化，且各地区商店及抓取时间会造成显示差异。</p>
+<blockquote>
+<p><strong>核心洞察</strong>：当前可确认的是“产品存在、持续更新、已配置高价
+IAP”，不能确认已经形成稳定用户规模或健康收入。</p>
+</blockquote>
+<hr />
+<h2 id="三竞品对比">三、竞品对比</h2>
+<h3 id="主要竞品">主要竞品</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>HashPower-BTC</th>
+<th>MinerX-BTC</th>
+<th>HashBit</th>
+<th>Hash Miner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产品形态</td>
+<td>云算力管理 + IAP</td>
+<td>云算力管理 + IAP</td>
+<td>免费初始算力、云矿机、订阅、Spin/挑战</td>
+<td>Android 远程云挖矿管理 + IAP</td>
+</tr>
+<tr>
+<td>商店公开信号</td>
+<td>美区约 30–32 评分，4.4–4.5</td>
+<td>美区 74 评分，4.4</td>
+<td>评分样本不足以显示汇总</td>
+<td>Google Play 5K+ 下载、约 1.7K–2K 评论；口径随地区/时间变化</td>
+</tr>
+<tr>
+<td>开发者</td>
+<td>United States Happy Banana Inc</td>
+<td>HONG KONG APEIRON TECH LIMITED</td>
+<td>Vishal Patel</td>
+<td>CLOUD ECOM LLC / 商店开发者信息显示 Omega Ecom
+LLC，主体表述需核验</td>
+</tr>
+<tr>
+<td>公开算力证明</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>增长机制</td>
+<td>Cloud Pass、预计产出</td>
+<td>合约、提现</td>
+<td>免费 1 TH/s、每日 Spin、连续签到、挑战、广告</td>
+<td>免费体验、IAP、推荐机制</td>
+</tr>
+<tr>
+<td>主要风险</td>
+<td>供应链与规模证据缺失</td>
+<td>同类证据缺失</td>
+<td>游戏化奖励可能弱化用户风险感知</td>
+<td>商店主体信息与用户评论中的提现预期需独立核验</td>
+</tr>
+</tbody>
+</table>
+<h3 id="次要竞品参照">次要竞品/参照</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>NiceHash</th>
+<th>GoMining</th>
+<th>ECOS</th>
+<th>BitFuFu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角色</td>
+<td>买卖双方撮合的算力市场，不是由平台直接出租算力的传统云挖矿合约</td>
+<td>数字矿工、奖励、交易与社区生态</td>
+<td>云挖矿与数字资产平台</td>
+<td>上市云挖矿、自挖矿、矿机销售与托管企业</td>
+</tr>
+<tr>
+<td>与 HashPower 相关度</td>
+<td>中：用户需求相邻，但供给、定价和交易机制不同</td>
+<td>中高：面向消费用户销售挖矿参与体验</td>
+<td>中高：云挖矿服务相邻</td>
+<td>中：商业和披露标杆，不是同体量 App</td>
+</tr>
+<tr>
+<td>公开信任资产</td>
+<td>2014
+年起的市场运营足迹、买卖指南、状态页、计算器、帮助中心和多渠道社区
+[High]</td>
+<td>更长运营足迹、社区与实体基础设施叙事；本报告未独立核验</td>
+<td>较长运营历史与基础设施叙事，关键数据需逐项核验</td>
+<td>SEC 20-F、业务分部收入、用户与算力合同披露</td>
+</tr>
+<tr>
+<td>对 HashPower 的启示</td>
+<td>用市场数据、计算工具、教程、状态与支持内容建立专业信任，不照搬其市场定位</td>
+<td>消费端产品与社区体验参照</td>
+<td>长期信任需要可验证供给与履约信息</td>
+<td>公开财务、合同和运营指标是可审计标杆</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：HashPower-BTC 与 MinerX-BTC、HashBit、Hash
+Miner 的产品和付费闭环最接近；NiceHash
+是“算力市场与专业内容运营”参照，不是最直接的产品竞品。GoMining
+是消费端成熟度参照；BitFuFu
+的价值在于展示可验证云算力企业应披露什么。</p>
+</blockquote>
+<hr />
+<h2 id="四深度分析">四、深度分析</h2>
+<h3 id="41-变现与收入模式">4.1 变现与收入模式</h3>
+<p>收入来自 App Store 自动续订与一次性
+IAP，面向从低价试用到高客单用户。公开 IAP 名称混合了
+<code>Hash Weekly/Month/Yearly</code>、<code>Daily BTC Rewards</code> 和
+<code>v1_xxxp</code>，其中内部式 SKU
+名称会削弱用户对权益和期限的理解。</p>
+<h4 id="收入情景模型非实际收入">收入情景模型（非实际收入）</h4>
+<p>公式：<code>月新增安装 × 付费率 × 付费用户月均购买额</code>。以下只用于判断数量级，不代表历史业绩；Apple
+分成、退款、税费、BTC 发放成本及获客成本均未扣除。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th style="text-align: right;">月新增安装</th>
+<th style="text-align: right;">付费率</th>
+<th style="text-align: right;">月均购买额</th>
+<th style="text-align: right;">月度账单额</th>
+<th style="text-align: right;">年化账单额</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保守</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">$25</td>
+<td style="text-align: right;">$1,250</td>
+<td style="text-align: right;">$15,000</td>
+<td>[Low]</td>
+</tr>
+<tr>
+<td>基准</td>
+<td style="text-align: right;">20,000</td>
+<td style="text-align: right;">2.5%</td>
+<td style="text-align: right;">$60</td>
+<td style="text-align: right;">$30,000</td>
+<td style="text-align: right;">$360,000</td>
+<td>[Low]</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td style="text-align: right;">60,000</td>
+<td style="text-align: right;">4.0%</td>
+<td style="text-align: right;">$100</td>
+<td style="text-align: right;">$240,000</td>
+<td style="text-align: right;">$2.88M</td>
+<td>[Low]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="arpu-分析">ARPU 分析</h4>
+<p>实际 ARPU、ARPPU 和付费用户结构均 Not
+disclosed。情景模型中的付费用户月均购买额 $25/$60/$100 是 ARPPU
+假设，不是观测值；若将总安装作为用户口径，对应月 ARPU 分别约为
+$0.25、$1.50、$4.00。正式评估必须改用“净 IAP 收入 ÷
+月活用户”，并扣除退款、平台分成与促销抵扣。</p>
+<h4 id="tam--sam--som">TAM / SAM / SOM</h4>
+<p>公开研究对“云挖矿市场”的口径差异大，且常把矿机租赁、托管、算力销售与移动订阅混在一起，因此不采用单一第三方市场规模。用上市参照构建可审计下限：BitFuFu
+2025 年云挖矿收入为 $352.584M
+[High]，只证明该细分至少存在数亿美元级已实现收入，不等于全球 TAM。</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>本报告口径</th>
+<th>计算方式</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TAM</td>
+<td>全球零售与机构云挖矿</td>
+<td>需要所有服务商收入去重；当前公开数据不足</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>SAM</td>
+<td>iOS 英语市场、允许访问且可通过 IAP 购买的 C 端用户</td>
+<td>TAM × 地区 × 平台 × 合规可售比例</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>3 年 SOM</td>
+<td>HashPower 可实际获得的年账单额</td>
+<td>采用上方情景模型，不冒充市场份额</td>
+<td>$15K–$2.88M [Low]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：高价 IAP
+提供较强收入弹性，也同步放大退款、投诉、用户损失和监管风险；在无法解释“用户付款如何对应真实算力成本与
+BTC 产出”前，不能评价单位经济健康度。</p>
+</blockquote>
+<h3 id="42-用户增长与获客">4.2 用户增长与获客</h3>
+<p>当前公开增长信号只有评分与版本更新。下载、注册、激活、首购、续费、提现成功率、投诉率均未披露，因此不能从评分数量反推用户规模。</p>
+<h4 id="建议漏斗与基准线">建议漏斗与基准线</h4>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>关键事件</th>
+<th style="text-align: right;">试点观察线（示例假设，不是行业事实）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容触达</td>
+<td>完播、收藏、搜索提升</td>
+<td style="text-align: right;">教育内容 30
+日内形成稳定非付费访问趋势</td>
+</tr>
+<tr>
+<td>App 安装</td>
+<td>Store view → install</td>
+<td
+style="text-align: right;">按平台、创意、地区分组，不用总量掩盖差异</td>
+</tr>
+<tr>
+<td>激活</td>
+<td>注册 + 浏览完整方案/风险提示</td>
+<td style="text-align: right;">≥40% 作为产品体验目标 [Low]</td>
+</tr>
+<tr>
+<td>首购</td>
+<td>首次 IAP</td>
+<td style="text-align: right;">1%–3% 仅作早期情景假设 [Low]</td>
+</tr>
+<tr>
+<td>履约</td>
+<td>首次可提现 → 到账</td>
+<td style="text-align: right;">成功率、到账时间和链上 txid
+必须可审计</td>
+</tr>
+<tr>
+<td>留存</td>
+<td>D7/D30 与续费</td>
+<td
+style="text-align: right;">需将“回来看收益”与“真正续费/成功提现”分开</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>退款、拒付、投诉</td>
+<td style="text-align: right;">任一持续异常即暂停获客并复核</td>
+</tr>
+</tbody>
+</table>
+<p>留存不能从“每日奖励”机制直接推断。高频查看可能只是等待解锁或提现，不等于价值留存；建议用
+<code>D30 成功提现用户留存</code>、<code>净收入留存</code> 和
+<code>退款后净 LTV</code> 作为健康指标。</p>
+<blockquote>
+<p><strong>核心洞察</strong>：增长的北极星指标不应是安装或仪表盘打开次数，而应是“经链上核验的按期履约用户数”。</p>
+</blockquote>
+<h3 id="43-竞争定位-swot-与-porter-五力">4.3 竞争定位 SWOT 与 Porter
+五力</h3>
+<h4 id="swot">SWOT</h4>
+<h4 id="优势">优势</h4>
+<p>上手门槛低；移动端流程简洁；IAP 支付摩擦小；12 种语言覆盖。</p>
+<h4 id="劣势">劣势</h4>
+<p>品牌与评分基数小；算力/矿池/矿场未披露；SKU 命名混乱；4+
+分级与金融感知不协调。</p>
+<h4 id="机遇">机遇</h4>
+<p>消费者需要更易懂的比特币挖矿教育与透明计算工具；可用可核验数据建立差异化。</p>
+<h4 id="威胁">威胁</h4>
+<p>品类诈骗历史、平台广告限制、BTC/难度波动、退款拒付、监管执法与达人连带声誉风险。</p>
+<h4 id="功能对比矩阵">功能对比矩阵</h4>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>HashPower-BTC</th>
+<th>MinerX-BTC</th>
+<th>GoMining</th>
+<th>BitFuFu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移动端易用性</td>
+<td>有</td>
+<td>有</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>预计产出展示</td>
+<td>有</td>
+<td>有</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>提现功能</td>
+<td>条款提及</td>
+<td>商店文案明确</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>公开实体算力规模</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>本报告未核验</td>
+<td>有上市文件与合同披露</td>
+</tr>
+<tr>
+<td>公开财务审计</td>
+<td>无</td>
+<td>无</td>
+<td>Not disclosed</td>
+<td>有</td>
+</tr>
+</tbody>
+</table>
+<h4 id="porter-五力">Porter 五力</h4>
+<table>
+<thead>
+<tr>
+<th>力量</th>
+<th>强度</th>
+<th>数据支持与含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>现有竞争</td>
+<td>高</td>
+<td>同类小 App 与成熟生态并存，功能复制容易</td>
+</tr>
+<tr>
+<td>新进入者</td>
+<td>高</td>
+<td>前端仪表盘和订阅系统门槛低，可信供给才是难点</td>
+</tr>
+<tr>
+<td>替代品</td>
+<td>高</td>
+<td>直接购买 BTC、矿企股票、自己购机/托管均可替代</td>
+</tr>
+<tr>
+<td>买方议价</td>
+<td>中高</td>
+<td>用户切换成本低，但已购合约期限会造成锁定</td>
+</tr>
+<tr>
+<td>供应方议价</td>
+<td>高/未知</td>
+<td>电价、矿机、矿池和网络难度决定产出；HashPower 未披露供应关系</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：表层产品没有明显护城河；唯一可建立的长期壁垒是经得起复核的供应链、履约记录和合规能力。</p>
+</blockquote>
+<h3 id="44-产品类型专项分析消费级-fintech--云算力">4.4
+产品类型专项分析：消费级 FinTech × 云算力</h3>
+<p>云挖矿的经济结果至少受
+<code>合同算力 × 网络单位算力产出 × BTC 价格 − 电力/维护/平台费</code>
+影响。若页面只展示预计
+BTC、却不披露算力单价、能源费、矿池费、网络难度假设和合约终止条件，用户无法独立判断报价是否合理。</p>
+<table>
+<thead>
+<tr>
+<th>必备验证项</th>
+<th>当前公开状态</th>
+<th>合格证据形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运营主体一致性</td>
+<td>App Store 卖方可见；其他公开主体资料有限</td>
+<td>注册主体、客服与收款主体信息保持一致</td>
+</tr>
+<tr>
+<td>矿场和矿机</td>
+<td>Not disclosed</td>
+<td>场址、容量、矿机序列抽样、带时间戳现场审计</td>
+</tr>
+<tr>
+<td>矿池与 worker</td>
+<td>Not disclosed</td>
+<td>矿池合同、只读 worker、连续算力曲线</td>
+</tr>
+<tr>
+<td>用户份额计算</td>
+<td>仅有预计产出描述</td>
+<td>可复算公式、难度/费率/停机规则、历史预测误差</td>
+</tr>
+<tr>
+<td>链上履约</td>
+<td>商店评论有成功与失败的相互冲突陈述</td>
+<td>批次账本、txid、用户订单与链上付款一一对账</td>
+</tr>
+<tr>
+<td>资金隔离</td>
+<td>Not disclosed</td>
+<td>IAP 收入、运营成本和用户 BTC 支付来源的会计说明</td>
+</tr>
+</tbody>
+</table>
+<p>2025 年 BitFuFu 自挖矿收入下降的官方解释包含单位算力日收益下降 52.1%
+与自挖算力分配下降
+47.4%，说明即便是真实大型矿企，产出也会受网络难度与资源分配显著影响
+[High]。任何“稳定、固定、无风险”的传播都不符合行业经济事实。</p>
+<blockquote>
+<p><strong>核心洞察</strong>：是否可信不能靠一次小额提现或 App Store
+星级判断；关键是连续算力、完整成本公式和批量链上对账能否同时成立。</p>
+</blockquote>
+<h3 id="45-产品架构与技术栈">4.5 产品架构与技术栈</h3>
+<p>从公开功能可推断最低架构包括 iOS 客户端、账户系统、IAP receipt
+验证、订单/订阅、产出计算、资产账本、钱包地址/提现、通知和分析。具体语言、云厂商、数据库、安全架构均
+Not disclosed，不能从页面反推。</p>
+<h4 id="技术护城河评估">技术护城河评估</h4>
+<table>
+<thead>
+<tr>
+<th>能力层</th>
+<th style="text-align: right;">复制难度</th>
+<th>当前证据</th>
+<th style="text-align: right;">评分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iOS 界面与订阅</td>
+<td style="text-align: right;">低</td>
+<td>功能成熟、行业通用</td>
+<td style="text-align: right;">1/5</td>
+</tr>
+<tr>
+<td>收益与订单账本</td>
+<td style="text-align: right;">中</td>
+<td>有功能描述，无审计证据</td>
+<td style="text-align: right;">2/5</td>
+</tr>
+<tr>
+<td>归因与多语言</td>
+<td style="text-align: right;">低中</td>
+<td>12 种语言、使用 Device ID 分析</td>
+<td style="text-align: right;">2/5</td>
+</tr>
+<tr>
+<td>矿业供应链</td>
+<td style="text-align: right;">高</td>
+<td>Not disclosed</td>
+<td style="text-align: right;">无法评分</td>
+</tr>
+<tr>
+<td>可验证储备/产出</td>
+<td style="text-align: right;">高</td>
+<td>Not disclosed</td>
+<td style="text-align: right;">0/5（按公开证据）</td>
+</tr>
+<tr>
+<td>风控与合规</td>
+<td style="text-align: right;">高</td>
+<td>有条款和风险声明，无牌照/审计披露</td>
+<td style="text-align: right;">1/5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：真正难复制的不是
+App，而是将订单、算力、矿池产出和链上支付持续对账的可信基础设施；公开材料尚未证明这一层。</p>
+</blockquote>
+<h3 id="46-ux-与产品设计">4.6 UX 与产品设计</h3>
+<p>优点是单一任务明确、术语相对集中、订单和资产记录可被统一查看。风险在于“预计产出”“奖励”“boost”与高价
+IAP 组合可能让非专业用户把服务权益误解为固定收益。</p>
+<p>建议的关键改造：购买前展示完整成本瀑布图；用区间而非单点预计值；将
+BTC 价格、网络难度、停机和矿池费设为可见变量；为每笔提现展示
+txid；高风险产品采用 18+ 与知识确认；SKU
+使用“算力、期限、费用”命名而非内部编号；将风险说明放入决策路径而非只放商店长文案。</p>
+<blockquote>
+<p><strong>核心洞察</strong>：当前体验优化重点不应继续压缩购买步骤，而应让用户在付款前能够复算、付款后能够核验。</p>
+</blockquote>
+<h3 id="47-go-to-market-策略">4.7 Go-to-Market 策略</h3>
+<p>GTM 应采用“证据资产 → 教育内容 → 小规模自然流量 →
+可审计转化”的顺序，而不是从达人喊单开始。</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th style="text-align: right;">周期</th>
+<th>主要动作</th>
+<th>放行条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>尽调</td>
+<td style="text-align: right;">2–4 周</td>
+<td>KYB、矿场/矿池、经济模型、批量提现、隐私与退款核验</td>
+<td>关键证据可由第三方复核</td>
+</tr>
+<tr>
+<td>内容底座</td>
+<td style="text-align: right;">2 周</td>
+<td>建立 proof center、收益计算器、风险 FAQ、状态页</td>
+<td>所有公开数字有来源与更新时间</td>
+</tr>
+<tr>
+<td>自然内容试点</td>
+<td style="text-align: right;">6–8 周</td>
+<td>YouTube/X/短视频/社区，不做收益承诺</td>
+<td>负面反馈和履约数据可闭环</td>
+</tr>
+<tr>
+<td>小额投放</td>
+<td style="text-align: right;">仅在书面获批后</td>
+<td>平台白名单/资格确认、年龄与地域限制</td>
+<td>广告平台和律师书面确认</td>
+</tr>
+<tr>
+<td>放大</td>
+<td style="text-align: right;">持续</td>
+<td>以净 LTV、提现履约和投诉率扩量</td>
+<td>退款、拒付、投诉均在阈值内</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：该产品最需要的不是更强的“赚钱叙事”，而是把验证成本降到用户能理解、媒体敢引用、达人敢承担的程度。</p>
+</blockquote>
+<h3 id="48-合规与监管">4.8 合规与监管</h3>
+<table>
+<thead>
+<tr>
+<th>规则/风险</th>
+<th>公开要求</th>
+<th>对 HashPower 的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple 3.1.5(ii)</td>
+<td>设备不得挖矿；处理在设备外进行的云挖矿可以上架</td>
+<td>当前自述符合“off-device”，但不代表经济/法律合规获认可 [High]</td>
+</tr>
+<tr>
+<td>Apple 3.1.5(v)</td>
+<td>加密 App 不得以下载、拉新、发社交内容等任务奖励加密货币</td>
+<td>不能设计“发帖/邀请即得 BTC”的增长任务 [High]</td>
+</tr>
+<tr>
+<td>X Ads</td>
+<td>明确禁止加密货币挖矿及相关软硬件服务广告</td>
+<td>X 适合自然沟通，不适合该产品付费投放 [High]</td>
+</tr>
+<tr>
+<td>TikTok Ads</td>
+<td>金融服务需满足市场、牌照、年龄与披露规则；多市场限制虚拟货币及高风险/快速致富内容</td>
+<td>云挖矿广告通过率与资格高度不确定，应先获书面确认 [High]</td>
+</tr>
+<tr>
+<td>Google Ads</td>
+<td>部分加密产品需认证；无需认证的挖矿条目明确指向“硬件”，未明确覆盖云挖矿订阅</td>
+<td>不应把“矿机硬件可投”外推为 HashPower 可投 [High]</td>
+</tr>
+<tr>
+<td>FTC Endorsement Guides</td>
+<td>赞助关系须清晰显著披露；广告主、达人和中介均可能承担责任</td>
+<td>KOL 必须披露利益关系，且不能传播无证据收益主张 [High]</td>
+</tr>
+<tr>
+<td>消费者保护</td>
+<td>FTC 持续警示社媒投资/加密骗局；2025 年社媒起源诈骗报告损失约
+$2.1B</td>
+<td>该品类审查敏感度高，投诉可迅速转化为品牌与法律风险 [High]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：自然内容也属于广告合规范畴；“不是付费广告”不等于可以跳过真实性、披露和收益主张审查。</p>
+</blockquote>
+<h3 id="49-重点市场专项美国">4.9 重点市场专项：美国</h3>
+<p>产品以美区 App Store、美元
+IAP、科罗拉多州准据法和英语内容为主要公开信号，美国应作为首要评估市场。美国监管关注点不仅是产品如何自我命名，而是用户是否被引导投入资金、是否形成合理的收益预期、传播是否真实且可证。</p>
+<table>
+<thead>
+<tr>
+<th>市场维度</th>
+<th>状态</th>
+<th>决策含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户需求</td>
+<td>BTC 与被动参与挖矿的认知需求存在</td>
+<td>可做教育，但不可把好奇心直接转为收益承诺</td>
+</tr>
+<tr>
+<td>竞争</td>
+<td>GoMining 等成熟消费产品；BitFuFu 等可审计企业</td>
+<td>新品牌必须以透明度而非更高收益竞争</td>
+</tr>
+<tr>
+<td>平台获客</td>
+<td>主流广告政策严格且口径不完全一致</td>
+<td>自然内容优先，付费资格逐平台书面确认</td>
+</tr>
+<tr>
+<td>消费者风险</td>
+<td>FTC/IC3 持续提示社媒投资骗局</td>
+<td>建立投诉、退款、欺诈举报和危机响应 SOP</td>
+</tr>
+<tr>
+<td>年龄</td>
+<td>产品当前 4+</td>
+<td>营销建议至少 18+ 定向；儿童/青少年不应成为目标人群</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：美国市场不是不能做，而是证据门槛与传播责任远高于普通工具
+App；把它当常规 CPI 产品会低估风险。</p>
+</blockquote>
+<h3 id="410-社媒营销专项评估">4.10 社媒营销专项评估</h3>
+<h4
+id="平台优先级自然内容与付费投放分开">平台优先级：自然内容与付费投放分开</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">优先级</th>
+<th>平台</th>
+<th>最适合的角色</th>
+<th>内容方向</th>
+<th>付费可行性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>YouTube</td>
+<td>深度教育、搜索沉淀、产品证明</td>
+<td>云挖矿原理、收益变量、矿池/txid
+演示、真实成本拆解、每月透明度报告</td>
+<td>KOL/品牌内容需披露；收益主张风险高，尽调前不做</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>X</td>
+<td>加密原生行业沟通、实时透明度</td>
+<td>算力状态、维护公告、难度变化、产品更新、公开问答</td>
+<td>X Ads 明确禁挖矿相关广告；只做自然内容</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Telegram / Discord</td>
+<td>用户支持、留存、危机响应</td>
+<td>状态通知、工单、反冒充提醒、提现进度、AMA</td>
+<td>不是主要冷启动渠道；需 24/7 管理与防诈骗机制</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>TikTok / Reels / Shorts</td>
+<td>泛人群认知与短教育</td>
+<td>30–60 秒解释“云挖矿不是稳赚”、术语拆解、风险清单、产品流程</td>
+<td>高风险/资格不确定；尽调前不投</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>Reddit</td>
+<td>高意图讨论与声誉验证</td>
+<td>公开回答质疑、证据包、技术 AMA；遵守各 subreddit 规则</td>
+<td>许多挖矿社区不接受云挖矿推广，不建议硬广</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>LinkedIn</td>
+<td>企业可信度与 B2B 证明</td>
+<td>公司团队、合规治理、矿场/供应商审计、招聘</td>
+<td>获客效率低，适合信任建设而非消费者转化</td>
+</tr>
+</tbody>
+</table>
+<h4 id="内容支柱">内容支柱</h4>
+<table>
+<thead>
+<tr>
+<th>支柱</th>
+<th style="text-align: right;">占比建议</th>
+<th>示例</th>
+<th>禁区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>教育与风险</td>
+<td style="text-align: right;">30%</td>
+<td>难度、电价、矿池费如何影响产出</td>
+<td>“零风险”“稳定收益”</td>
+</tr>
+<tr>
+<td>可验证运营</td>
+<td style="text-align: right;">25%</td>
+<td>worker、算力曲线、停机记录、txid 对账</td>
+<td>只晒余额截图、隐去失败样本</td>
+</tr>
+<tr>
+<td>产品教学</td>
+<td style="text-align: right;">20%</td>
+<td>如何读方案、费用与预计值</td>
+<td>把估算包装成承诺</td>
+</tr>
+<tr>
+<td>用户支持</td>
+<td style="text-align: right;">15%</td>
+<td>提现时效、退款、常见错误</td>
+<td>删除合理负评或诱导好评</td>
+</tr>
+<tr>
+<td>行业观点</td>
+<td style="text-align: right;">10%</td>
+<td>难度调整、矿机效率、监管变化</td>
+<td>价格预测、投资建议</td>
+</tr>
+</tbody>
+</table>
+<h4 id="竞品内容方式及可复制部分">竞品内容方式及可复制部分</h4>
+<table>
+<thead>
+<tr>
+<th>竞品/参照</th>
+<th>已确认的内容或增长机制</th>
+<th>可复制</th>
+<th>不应照搬</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NiceHash</td>
+<td>官方指南、盈利计算器、市场数据、状态页、App/功能更新、YouTube 教程及
+Reddit/Discord 等社区入口 [High]</td>
+<td>“工具 + 教程 + 实时状态 +
+支持”的专业内容体系；一项内容回答一个可验证问题</td>
+<td>自称“领先/最大”、市场流动性和多年品牌信任不能迁移给新 App</td>
+</tr>
+<tr>
+<td>HashBit</td>
+<td>免费 1 TH/s、Spin、连续签到、每日/每周挑战、广告和算力升级
+[High]</td>
+<td>用产品录屏解释功能与规则；将游戏化机制作为产品演示素材</td>
+<td>用奖励动画代替真实算力/提现证据；用推荐奖励制造收益暗示</td>
+</tr>
+<tr>
+<td>Hash Miner</td>
+<td>免费体验、IAP、推荐机制、远程管理叙事 [High]</td>
+<td>FAQ、操作演示、远程而非本机挖矿的解释</td>
+<td>把单条商店好评或“等待提现”评论包装成提现成功案例</td>
+</tr>
+<tr>
+<td>GoMining/BitFuFu</td>
+<td>基础设施、运营数据、教程与企业披露</td>
+<td>透明度报告、矿业知识和履约证明的结构</td>
+<td>在没有同等证据时模仿成熟企业的权威口吻</td>
+</tr>
+</tbody>
+</table>
+<p>对自有媒体更适合的内容组合是：40% 挖矿教育与风险、25%
+计算器/数据解释、20% 产品实测与对比、10% 运营/提现证据核验、5%
+明示赞助内容。推广链接按内容、产品和版本分别使用
+UTM/深链；产品方无权购买“正面结论”，只购买明确披露的展示和可审计转化事件。</p>
+<h4 id="90-天执行方案">90 天执行方案</h4>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>渠道与频率</th>
+<th>核心 KPI</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–30 天</td>
+<td>YouTube 1 条/周；X 4–5 条/周；短视频 3 条/周</td>
+<td>搜索点击、完播、收藏、证据页访问</td>
+<td>证据无法上线或评论集中质疑无法回答</td>
+</tr>
+<tr>
+<td>31–60 天</td>
+<td>增加月度透明度直播；Discord/Telegram 支持</td>
+<td>问题解决时长、负面主题变化、自然安装</td>
+<td>提现逾期或退款异常未解释</td>
+</tr>
+<tr>
+<td>61–90 天</td>
+<td>仅在合规批准后测试小额合作</td>
+<td>合规通过率、净付费、D30 履约、投诉率</td>
+<td>平台拒绝资格、达人不愿承担披露、风险指标恶化</td>
+</tr>
+</tbody>
+</table>
+<p>归因必须使用独立 UTM/深链和 MMP，将内容曝光、App Store
+访问、安装、IAP、退款和成功提现连接起来。不能用总体下载上涨来证明某平台或某达人有效。</p>
+<h4 id="没有行业背景是否构成障碍">没有行业背景是否构成障碍</h4>
+<p><strong>是实质障碍，但不是不可克服的准入门槛。</strong>
+普通社媒团队可以完成选题、拍摄、剪辑、分发、社群运营和数据分析；不能在无人复核下完成矿业经济判断、收益文案审批、链上取证或美国金融推广合规。</p>
+<table>
+<thead>
+<tr>
+<th>工作</th>
+<th>非行业团队能否独立完成</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容排期、制作、分发</td>
+<td>可以</td>
+<td>先完成术语培训和禁用词清单</td>
+</tr>
+<tr>
+<td>社媒数据与漏斗分析</td>
+<td>可以</td>
+<td>MMP、IAP/退款/提现事件打通</td>
+</tr>
+<tr>
+<td>解释矿池、难度、矿机效率</td>
+<td>不建议</td>
+<td>比特币挖矿 SME 审核</td>
+</tr>
+<tr>
+<td>判断收益模型是否可持续</td>
+<td>不可以</td>
+<td>矿业财务模型 + 供应链证据</td>
+</tr>
+<tr>
+<td>承诺法律/广告合规</td>
+<td>不可以</td>
+<td>美国执业律师或合资格合规顾问</td>
+</tr>
+<tr>
+<td>达人收益脚本审批</td>
+<td>不可以单独完成</td>
+<td>法务 + SME 双签</td>
+</tr>
+</tbody>
+</table>
+<p>最低团队配置：1 名比特币挖矿 SME（兼职可）、1
+名美国广告/消费者保护律师或合规顾问、1 名增长与归因负责人、1
+名社区与客服负责人。建议用 4–6
+周完成行业训练，但训练不能替代独立尽调。</p>
+<blockquote>
+<p><strong>核心洞察</strong>：执行型内容运营可以由通用社媒团队完成；涉及算力、预计产出、提现证据和监管表述的内容，应增加矿业专业与合规审核。</p>
+</blockquote>
+<hr />
+<h2 id="五综合评估与建议">五、综合评估与建议</h2>
+<h3 id="综合判断">综合判断</h3>
+<p>HashPower-BTC 的主要优势是移动端路径简单、IAP
+档位完整、产品持续迭代，并已在商店文案中加入预计产出波动与不保证回报的说明。增长空间主要来自三个方向：把复杂的挖矿机制解释清楚、把产品与履约信息组织成可复用的信任内容、用可审计链路衡量不同内容带来的安装与付费。</p>
+<p>从公开信息看，当前网站和内容资产仍以产品说明及法律页面为主。补充收益变量解释、费用结构、服务状态、常见问题、提现流程和可复核运营信息，能够同时服务社媒内容、搜索访问和用户支持。</p>
+<h3 id="优先行动建议">优先行动建议</h3>
+<ol type="1">
+<li><strong>建立内容底座：</strong>
+完善云算力机制、预计产出变量、费用、风险、提现流程和常见问题页面。</li>
+<li><strong>增加透明度材料：</strong>
+在适当保护商业信息的前提下，提供可验证的算力、矿池、服务状态和提现流程说明。</li>
+<li><strong>开展内容验证：</strong> 先用 6–8 周测试 YouTube 教程、X
+产品更新和短视频产品演示，以内容点击、App Store
+访问、安装及净付费衡量效果。</li>
+<li><strong>统一归因：</strong> 使用独立 UTM、App Store campaign link 和
+MMP，将内容、安装、首次启动、IAP、退款及留存连接起来。</li>
+<li><strong>设置内容规范：</strong>
+预计产出使用区间和假设条件；避免固定回报、保证收益、零风险及快速致富表述；赞助与达人关系清晰披露。</li>
+<li><strong>建设支持渠道：</strong> Telegram 或 Discord
+更适合承接状态通知、提现问题、反冒充提醒和用户答疑，不作为主要冷启动渠道。</li>
+</ol>
+<hr />
+<h2 id="参考来源">参考来源</h2>
+<h3 id="产品与竞品">产品与竞品</h3>
+<ol type="1">
+<li><a
+href="https://apps.apple.com/us/app/hashpower-btc/id6764001819">HashPower-BTC
+— Apple App Store</a> [High]</li>
+<li><a
+href="https://hashpower.cloud/html/Terms_of_Service">HashPower-BTC Terms
+of Service</a> [High]</li>
+<li><a href="https://hashpower.cloud/html/Privacy_Policy">HashPower-BTC
+Privacy Policy</a> [High]</li>
+<li><a
+href="https://apps.apple.com/us/app/minerx-btc/id6756476436">MinerX-BTC
+— Apple App Store</a> [High]</li>
+<li><a
+href="https://apps.apple.com/us/app/gomining-btc-mining-finance/id1622100275">GoMining
+— Apple App Store</a> [High]</li>
+<li><a
+href="https://www.sec.gov/Archives/edgar/data/1921158/000121390026048533/ea0286816-20f_bitfufu.htm">BitFuFu
+2025 Form 20-F — SEC</a> [High]</li>
+<li><a
+href="https://apps.apple.com/za/app/hashbit-btc-cloud-mining/id6763733503">HashBit:
+BTC Cloud Mining — Apple App Store</a> [High]</li>
+<li><a
+href="https://play.google.com/store/apps/details?id=com.hashminer.bitcoinminerhash&amp;hl=en_US">Hash
+Miner-Bitcoin Miner Cloud — Google Play</a> [High]</li>
+<li><a href="https://www.nicehash.com/mobile-apps">NiceHash Mobile
+Apps</a> [High]</li>
+<li><a
+href="https://static.nicehash.com/marketing%2FNiceHash_Buying_Guide_2020.pdf">NiceHash
+Buying Guide</a> [High]</li>
+<li><a href="https://status.nicehash.com/">NiceHash Status</a>
+[High]</li>
+</ol>
+<h3 id="平台与广告政策">平台与广告政策</h3>
+<ol start="12" type="1">
+<li><a
+href="https://developer.apple.com/app-store/review/guidelines/">Apple
+App Review Guidelines 3.1.5</a> [High]</li>
+<li><a
+href="https://business.x.com/en/help/ads-policies/ads-content-policies/financial-services">X
+Financial Services Advertising Policy</a> [High]</li>
+<li><a
+href="https://ads.tiktok.com/help/article/tiktok-ads-policy-financial-services?lang=en">TikTok
+Ads Policy — Financial Services</a> [High]</li>
+<li><a
+href="https://support.google.com/adspolicy/answer/14009787?hl=en">Google
+Ads — Cryptocurrencies and Related Products</a> [High]</li>
+<li><a
+href="https://support.google.com/youtube/answer/7650329?hl=en-EN">YouTube
+Creator Responsibility and Paid Promotion</a> [High]</li>
+</ol>
+<h3 id="监管与风险">监管与风险</h3>
+<ol start="17" type="1">
+<li><a
+href="https://consumer.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking">FTC
+Endorsement Guides: What People Are Asking</a> [High]</li>
+<li><a
+href="https://consumer.ftc.gov/articles/what-know-about-cryptocurrency-scams">FTC
+— What To Know About Cryptocurrency Scams</a> [High]</li>
+<li><a
+href="https://www.ftc.gov/news-events/news/press-releases/2026/04/new-ftc-data-show-people-have-lost-billions-social-media-scams">FTC
+2025 Social Media Scam Loss Data</a> [High]</li>
+<li><a href="https://www.ic3.gov/CrimeInfo/Investment">FBI IC3 —
+Investment Fraud</a> [High]</li>
+</ol>
+</main>
+</div>
+<script>
+(function(){
+  var rx=/\[(High|Medium|Low|Unverified)\]/;
+  function walk(node){
+    if(node.nodeType===3){
+      if(rx.test(node.nodeValue)){
+        var span=document.createElement('span');
+        span.innerHTML=node.nodeValue
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\[High\]/g,'<span class="tag tag-high">High</span>')
+          .replace(/\[Medium\]/g,'<span class="tag tag-med">Medium</span>')
+          .replace(/\[Low\]/g,'<span class="tag tag-low">Low</span>')
+          .replace(/\[Unverified\]/g,'<span class="tag tag-unv">Unverified</span>');
+        node.parentNode.replaceChild(span,node);
+      }
+      return;
+    }
+    if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && !node.classList.contains('tag')){
+      Array.prototype.slice.call(node.childNodes).forEach(walk);
+    }
+  }
+  walk(document.querySelector('main')||document.body);
+
+  document.querySelectorAll('td,li,p').forEach(function(el){
+    if(/★/.test(el.innerHTML) && el.children.length<3){
+      el.innerHTML=el.innerHTML.replace(/([★☆]{2,})/g,'<span class="stars">$1</span>');
+    }
+  });
+
+  var toc=document.getElementById('TOC');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var heads=links.map(function(a){return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));});
+    function onScroll(){
+      var pos=window.scrollY+120, cur=-1;
+      heads.forEach(function(h,i){ if(h && h.offsetTop<=pos) cur=i; });
+      links.forEach(function(a){a.classList.remove('active');});
+      if(cur>=0 && links[cur]) links[cur].classList.add('active');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  }
+})();
+</script>
+</body>
+</html>

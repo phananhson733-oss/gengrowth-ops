@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>GenGrowth SEO 工具用户痛点与需求洞察报告</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --ink:#1f2933; --muted:#647082; --line:#e3e8ef; --bg:#ffffff;
+    --accent:#3b5bdb; --accent-soft:#edf0ff; --code-bg:#0f1729;
+    --hi:#2b8a3e; --hi-bg:#ebfbee; --med:#1c6fb8; --med-bg:#e7f3ff;
+    --low:#b5870b; --low-bg:#fff8e1; --unv:#c0392b; --unv-bg:#fdecea;
+    --star:#f59f00;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:#f5f6f8; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:32px;}
+  #TOC{
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto;
+    width:268px; flex:0 0 268px; padding:28px 18px 60px 0; font-size:13.5px;
+    border-right:1px solid var(--line);
+  }
+  #TOC::before{content:"目录"; display:block; font-weight:700; font-size:12px; letter-spacing:.12em; color:var(--muted); margin-bottom:12px;}
+  #TOC ul{list-style:none; margin:0; padding:0}
+  #TOC ul ul{padding-left:14px}
+  #TOC li{margin:2px 0}
+  #TOC a{color:var(--muted); text-decoration:none; display:block; padding:3px 8px; border-radius:6px; line-height:1.4;}
+  #TOC a:hover{background:var(--accent-soft); color:var(--accent)}
+  #TOC a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
+  main{flex:1 1 auto; min-width:0; background:var(--bg); margin:28px 0;
+    padding:54px 60px 80px; border-radius:14px; box-shadow:0 1px 3px rgba(20,30,50,.06),0 12px 40px rgba(20,30,50,.06);}
+  main>h1:first-child{margin-top:0}
+  h1{font-size:34px; line-height:1.25; letter-spacing:-.01em; margin:0 0 6px; font-weight:800}
+  h2{font-size:25px; margin:54px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--line); font-weight:750}
+  h3{font-size:20px; margin:38px 0 14px; font-weight:700}
+  h4{font-size:16.5px; margin:26px 0 10px; color:var(--accent); font-weight:700}
+  p{margin:12px 0}
+  a{color:var(--accent)}
+  hr{border:0; border-top:1px solid var(--line); margin:40px 0}
+  strong{font-weight:680}
+  table{border-collapse:collapse; width:100%; margin:18px 0; font-size:14.5px; display:block; overflow-x:auto;}
+  thead th{background:#f0f3fa; color:#33415c; text-align:left; font-weight:700; white-space:nowrap}
+  th,td{border:1px solid var(--line); padding:9px 13px; vertical-align:top}
+  tbody tr:nth-child(even){background:#fafbfd}
+  tbody tr:hover{background:var(--accent-soft)}
+  blockquote{
+    margin:18px 0; padding:14px 18px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:#2a3a66;
+  }
+  blockquote p{margin:6px 0}
+  pre{background:var(--code-bg); color:#e7ecf5; padding:18px 20px; border-radius:10px; overflow-x:auto; line-height:1.6; font-size:13.5px;}
+  code{font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+  :not(pre)>code{background:#eef1f6; color:#b5275b; padding:1.5px 6px; border-radius:5px; font-size:.88em}
+  pre code{background:none; color:inherit; padding:0}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; padding:1px 7px; border-radius:999px; line-height:1.6; white-space:nowrap; vertical-align:baseline; margin:0 1px;}
+  .tag-high{color:var(--hi); background:var(--hi-bg)}
+  .tag-med{color:var(--med); background:var(--med-bg)}
+  .tag-low{color:var(--low); background:var(--low-bg)}
+  .tag-unv{color:var(--unv); background:var(--unv-bg)}
+  .stars{color:var(--star); letter-spacing:1px}
+  @media print{ body{background:#fff} main{box-shadow:none;margin:0;padding:0;border-radius:0} #TOC{display:none} .wrap{display:block} }
+  @media(max-width:920px){ #TOC{display:none} main{padding:32px 20px} .wrap{padding:0 12px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#gengrowth-seo-工具用户痛点与需求洞察报告"
+id="toc-gengrowth-seo-工具用户痛点与需求洞察报告">GenGrowth SEO
+工具用户痛点与需求洞察报告</a>
+<ul>
+<li><a href="#一执行结论" id="toc-一执行结论">一、执行结论</a></li>
+<li><a href="#二证据边界与研究方法"
+id="toc-二证据边界与研究方法">二、证据边界与研究方法</a>
+<ul>
+<li><a href="#21-本报告能支持什么" id="toc-21-本报告能支持什么">2.1
+本报告能支持什么</a></li>
+<li><a href="#22-本报告不能直接支持什么"
+id="toc-22-本报告不能直接支持什么">2.2 本报告不能直接支持什么</a></li>
+<li><a href="#23-数据采集" id="toc-23-数据采集">2.3 数据采集</a></li>
+</ul></li>
+<li><a href="#三目标用户细分"
+id="toc-三目标用户细分">三、目标用户细分</a>
+<ul>
+<li><a href="#31-核心用户层" id="toc-31-核心用户层">3.1
+核心用户层</a></li>
+<li><a href="#32-本地商家必须拆成三类"
+id="toc-32-本地商家必须拆成三类">3.2 本地商家必须拆成三类</a></li>
+<li><a href="#33-本地行业优先顺序" id="toc-33-本地行业优先顺序">3.3
+本地行业优先顺序</a></li>
+</ul></li>
+<li><a href="#四搜索需求量级"
+id="toc-四搜索需求量级">四、搜索需求量级</a>
+<ul>
+<li><a href="#41-代表词数据" id="toc-41-代表词数据">4.1
+代表词数据</a></li>
+<li><a href="#42-不能只看搜索量" id="toc-42-不能只看搜索量">4.2
+不能只看搜索量</a></li>
+</ul></li>
+<li><a href="#五痛点搜索词用户工具页映射"
+id="toc-五痛点搜索词用户工具页映射">五、痛点—搜索词—用户—工具页映射</a>
+<ul>
+<li><a href="#51-网站有很多问题但不知道先修什么"
+id="toc-51-网站有很多问题但不知道先修什么">5.1
+网站有很多问题，但不知道先修什么</a></li>
+<li><a href="#52-关键词很多但不知道下一篇下一页做什么"
+id="toc-52-关键词很多但不知道下一篇下一页做什么">5.2
+关键词很多，但不知道“下一篇/下一页做什么”</a></li>
+<li><a href="#53-聚类工具能分组但不能决定站点架构"
+id="toc-53-聚类工具能分组但不能决定站点架构">5.3
+聚类工具能分组，但不能决定站点架构</a></li>
+<li><a href="#54-gsc-有真实数据但不会自动告诉用户先做什么"
+id="toc-54-gsc-有真实数据但不会自动告诉用户先做什么">5.4 GSC
+有真实数据，但不会自动告诉用户先做什么</a></li>
+<li><a href="#55-网站流量突然下降不知道是哪一种原因"
+id="toc-55-网站流量突然下降不知道是哪一种原因">5.5
+网站流量突然下降，不知道是哪一种原因</a></li>
+<li><a href="#56-多个页面互相竞争工具又容易误报"
+id="toc-56-多个页面互相竞争工具又容易误报">5.6
+多个页面互相竞争，工具又容易误报</a></li>
+<li><a href="#57-内链检查能列链接但很难告诉用户该加哪一条"
+id="toc-57-内链检查能列链接但很难告诉用户该加哪一条">5.7
+内链检查能列链接，但很难告诉用户该加哪一条</a></li>
+<li><a href="#58-品牌不知道自己是否被-ai-推荐也不相信一个静态分数"
+id="toc-58-品牌不知道自己是否被-ai-推荐也不相信一个静态分数">5.8
+品牌不知道自己是否被 AI 推荐，也不相信一个静态分数</a></li>
+<li><a href="#59-本地商家不知道自己在顾客所在位置到底排第几"
+id="toc-59-本地商家不知道自己在顾客所在位置到底排第几">5.9
+本地商家不知道自己在“顾客所在位置”到底排第几</a></li>
+<li><a href="#510-工具太贵太多用户只使用其中少量功能"
+id="toc-510-工具太贵太多用户只使用其中少量功能">5.10
+工具太贵、太多，用户只使用其中少量功能</a></li>
+</ul></li>
+<li><a href="#六需求满足度与竞争空白"
+id="toc-六需求满足度与竞争空白">六、需求满足度与竞争空白</a></li>
+<li><a href="#七量化优先级" id="toc-七量化优先级">七、量化优先级</a>
+<ul>
+<li><a href="#71-评分口径" id="toc-71-评分口径">7.1 评分口径</a></li>
+<li><a href="#72-优先级表" id="toc-72-优先级表">7.2 优先级表</a></li>
+<li><a href="#73-local-search-visibility-map-的分项依据"
+id="toc-73-local-search-visibility-map-的分项依据">7.3 Local Search
+Visibility Map 的分项依据</a></li>
+</ul></li>
+<li><a href="#八工具页承接设计"
+id="toc-八工具页承接设计">八、工具页承接设计</a>
+<ul>
+<li><a href="#81-建议工具目录" id="toc-81-建议工具目录">8.1
+建议工具目录</a></li>
+<li><a href="#811-url-层级约定" id="toc-811-url-层级约定">8.1.1 URL
+层级约定</a></li>
+<li><a href="#82-页面不能只复述工具名称"
+id="toc-82-页面不能只复述工具名称">8.2 页面不能只复述工具名称</a></li>
+<li><a href="#83-免费登录与付费边界" id="toc-83-免费登录与付费边界">8.3
+免费、登录与付费边界</a></li>
+</ul></li>
+<li><a href="#九建议开发顺序"
+id="toc-九建议开发顺序">九、建议开发顺序</a></li>
+<li><a href="#十需要验证的关键假设"
+id="toc-十需要验证的关键假设">十、需要验证的关键假设</a></li>
+<li><a href="#十一最终优先级建议"
+id="toc-十一最终优先级建议">十一、最终优先级建议</a>
+<ul>
+<li><a href="#111-命名与溯源表" id="toc-111-命名与溯源表">11.1
+命名与溯源表</a></li>
+<li><a href="#112-搜索承接表" id="toc-112-搜索承接表">11.2
+搜索承接表</a></li>
+<li><a href="#113-外链资源库的定位红线"
+id="toc-113-外链资源库的定位红线">11.3 外链资源库的定位红线</a></li>
+<li><a href="#114-优先级与打分表的关系"
+id="toc-114-优先级与打分表的关系">11.4 优先级与打分表的关系</a></li>
+<li><a href="#对原-6-个旗舰的具体调整"
+id="toc-对原-6-个旗舰的具体调整">对原 6 个旗舰的具体调整</a></li>
+</ul></li>
+<li><a href="#附录-a--google-自动补全实测2026-07-28"
+id="toc-附录-a--google-自动补全实测2026-07-28">附录 A · Google
+自动补全实测（2026-07-28）</a>
+<ul>
+<li><a href="#a1-零补全的措辞命名红线"
+id="toc-a1-零补全的措辞命名红线">A.1 零补全的措辞（命名红线）</a></li>
+<li><a href="#a2-补全饱满的表达可直接用作页面标题"
+id="toc-a2-补全饱满的表达可直接用作页面标题">A.2
+补全饱满的表达（可直接用作页面标题）</a></li>
+<li><a href="#a3-两个被污染或错位的词"
+id="toc-a3-两个被污染或错位的词">A.3 两个被污染或错位的词</a></li>
+<li><a href="#a4-外链方向补测2026-07-2912-组种子"
+id="toc-a4-外链方向补测2026-07-2912-组种子">A.4
+外链方向补测（2026-07-29，12 组种子）</a></li>
+<li><a href="#a5-用户期望的产品形态新增信号"
+id="toc-a5-用户期望的产品形态新增信号">A.5
+用户期望的产品形态（新增信号）</a></li>
+</ul></li>
+<li><a
+href="#附录-b--与gengrowth-seo工具矩阵用户痛点需求洞察报告-v1的对比"
+id="toc-附录-b--与gengrowth-seo工具矩阵用户痛点需求洞察报告-v1的对比">附录
+B · 与《GenGrowth SEO工具矩阵——用户痛点/需求洞察报告 v1》的对比</a>
+<ul>
+<li><a href="#b1-简报-v1-强于本报告的三处"
+id="toc-b1-简报-v1-强于本报告的三处">B.1 简报 v1
+强于本报告的三处</a></li>
+<li><a href="#b2-四处需要修正或补强" id="toc-b2-四处需要修正或补强">B.2
+四处需要修正或补强</a></li>
+<li><a href="#b3-两份报告的覆盖差异" id="toc-b3-两份报告的覆盖差异">B.3
+两份报告的覆盖差异</a></li>
+<li><a href="#b4-合并后的净变化" id="toc-b4-合并后的净变化">B.4
+合并后的净变化</a></li>
+<li><a href="#b5-建议合并的证据方法" id="toc-b5-建议合并的证据方法">B.5
+建议合并的证据方法</a></li>
+</ul></li>
+<li><a href="#十二参考来源" id="toc-十二参考来源">十二、参考来源</a>
+<ul>
+<li><a href="#官方与高置信度来源"
+id="toc-官方与高置信度来源">官方与高置信度来源</a></li>
+<li><a href="#搜索量调查与市场资料"
+id="toc-搜索量调查与市场资料">搜索量、调查与市场资料</a></li>
+<li><a href="#serp-供给与社区证据" id="toc-serp-供给与社区证据">SERP
+供给与社区证据</a></li>
+<li><a href="#url-结构与本地数据可得性811一-相关"
+id="toc-url-结构与本地数据可得性811一-相关">URL
+结构与本地数据可得性（§8.1.1、§一 相关）</a></li>
+<li><a href="#自采数据随本报告归档"
+id="toc-自采数据随本报告归档">自采数据（随本报告归档）</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<main>
+<h1 id="gengrowth-seo-工具用户痛点与需求洞察报告">GenGrowth SEO
+工具用户痛点与需求洞察报告</h1>
+<blockquote>
+<p>研究市场：美国为主的英文市场<br />
+决策对象：<code>参考资料/GenGrowth-全链路原子工具矩阵评估.html</code>
+中的公开原子工具<br />
+研究目的：判断哪些用户问题值得优先做成可搜索、可独立使用、可导入
+GenGrowth 主产品的工具页</p>
+</blockquote>
+<h2 id="一执行结论">一、执行结论</h2>
+<p>现有 6 个旗舰工具的方向基本成立，但有三处需要调整：</p>
+<ol type="1">
+<li><strong>本地 SEO / Google Maps / Google Business Profile
+用户需求没有进入 112
+个候选工具</strong>——这是覆盖面上的真实遗漏。但补足这个遗漏的方式是<strong>先做最小验证，不是直接给旗舰席位</strong>：本地这一格的供给已经成熟且分工明确，用户群与
+GenGrowth 主产品的重合度也需要先验证（见 §7.3）。</li>
+<li><strong>Organic Traffic Drop Diagnosis
+被排得太靠后</strong>——它是全部候选中损失强度最高、且现有供给最空的一个，同时是把用户导向"连接
+GSC"最自然的入口。</li>
+<li><strong>SEO + GEO
+可见度快照的形态需要改</strong>——通用免费快照这一格已被
+Ahrefs、Semrush、Backlinko
+的免费免注册工具占满，差异化只能落在"为什么没被引用"。</li>
+</ol>
+<p>建议把当前第一阶段旗舰组合调整为：</p>
+<table>
+<thead>
+<tr>
+<th>建议级别</th>
+<th>工具方向</th>
+<th>决策</th>
+<th>核心原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Google Search Console Opportunity Finder</td>
+<td>保留并改外部命名</td>
+<td>外部用户不搜 <code>GSC Quick Wins</code>（搜索量 0
+且零补全）；应承接高展现低 CTR、排名
+8–20、下降页面等具体任务，主产品续接最强</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Internal Link &amp; Orphan Page Map</td>
+<td><strong>上调</strong></td>
+<td>排序依据是工程杠杆而非需求量级：数据可复用既有内链系统，且有一手内链审计事故作为问题真实性背书</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Organic Traffic Drop Diagnosis</td>
+<td><strong>进入旗舰组合</strong></td>
+<td>损失强度最高；问题词需求成熟（<code>why is my website traffic dropping</code>
+补全簇完整）而工具词不成熟，SERP
+首屏由教程与官方帮助页占据，几乎无工具承接；连接 GSC
+是最自然的注册触发点。匿名版只做证据分流，根因树在登录后给</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Website SEO Audit / 网站健康地图</td>
+<td>保留</td>
+<td><code>website audit tool</code> 美国月搜索量约 2,400，相关
+<code>seo audit</code> 约
+8,100；但必须以"优先行动"而不是健康分差异化</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Keyword + Prompt Opportunity Map</td>
+<td>保留</td>
+<td><code>keyword research tool</code> 约
+12,100/月，需求最大；需要把传统关键词、Prompt、竞争和下一步页面合并，避免成为关键词列表。话题集群作为其结果视图与长尾入口，不占独立席位</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>AI Search Visibility &amp; Citation Gap</td>
+<td>保留，改变形态</td>
+<td>通用快照已被 Ahrefs / Semrush / Backlinko
+的免费免注册工具占位；差异化落在"为什么没被引用 + 引用来源缺口"</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Content Decay &amp; Cannibalization</td>
+<td>保留</td>
+<td>用户问题真实，但许多工具误把关键词重叠当成真实冲突；需要 GSC
+与时间序列才能可信</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Link Opportunity Library / 外链资源库</td>
+<td><strong>替换原外链计算器</strong></td>
+<td>形态为自然引用与编辑型链接的机会线索库；<code>guest post sites list</code>、<code>how to get backlinks for free</code>、<code>link building tools</code>
+三族补全均为 10/10。定位红线见 §11.3</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>SEO Starter Canvas / 立项画布</td>
+<td>保留低位</td>
+<td><code>seo checklist for new website</code> 500/月、CPC
+$1.20，商业意图弱且同质化免费内容充分</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Local Search Visibility Map</td>
+<td><strong>保留验证门槛</strong></td>
+<td>痛点成立且商业性强，但需求量级低一个数量级、供给已专业化分工、与主产品
+ICP 重合度未验证；进入开发排期前需先过 §十 的三项门槛（依据 §7.3）</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Robots、Sitemap、Schema 等技术微工具</td>
+<td>保持长尾</td>
+<td>搜索意图稳定，但免费供给充分且被 Google
+官方工具占位；差异化空间在插件形态与批量检查</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>决定：第一阶段 5 个 P0</strong>——GSC
+机会发现器、内链关系图与孤岛检查、流量下降诊断、网站健康地图、关键词与
+Prompt 机会地图；其余全部进入 P1。完整清单（含中英文名、页面
+URL、承接搜索词）见 §十一。\n&gt;\n&gt;
+两项约束需要在排期时保留：Organic Traffic Drop Diagnosis
+的瓶颈是工程而非市场，必须排在 GSC 连接能力可用之后（见 §九）；Local
+Search Visibility Map 虽列 P1，但进入开发排期前仍需先过 §十
+的三项验证门槛。</p>
+</blockquote>
+<h2 id="二证据边界与研究方法">二、证据边界与研究方法</h2>
+<h3 id="21-本报告能支持什么">2.1 本报告能支持什么</h3>
+<ul>
+<li><code>[High]</code> Google 官方资料可支持本地搜索、Business
+Profile、Search Console 的功能边界和官方口径。</li>
+<li><code>[Medium]</code>
+公开关键词数据库可支持美国市场代表词的需求量级、CPC
+和相近搜索表达。</li>
+<li><code>[Medium]</code> 有样本说明的行业调查可支持小企业、SEO 团队和
+AI 搜索的共同问题。</li>
+<li><code>[Low]</code> Reddit
+讨论可支持用户原话、任务场景和情绪强度，但不能代表总体市场比例。</li>
+</ul>
+<h3 id="22-本报告不能直接支持什么">2.2 本报告不能直接支持什么</h3>
+<ul>
+<li>不能仅凭第三方搜索量预测 GenGrowth 可获得的流量、注册或收入。</li>
+<li>不能把 Reddit 高赞帖当作人群渗透率。</li>
+<li>不能把 CPC 直接等同于用户愿意为工具付费。</li>
+<li>不能把 AI 可见度、AI 引流和 AI 转化混为一个指标。</li>
+<li>不能把两个相近关键词的搜索量直接相加；高度重叠的词可能属于同一批搜索需求。</li>
+</ul>
+<h3 id="23-数据采集">2.3 数据采集</h3>
+<ol type="1">
+<li><strong>候选工具盘点</strong>：读取现有 112 个候选工具和 6 个 P0
+旗舰工具。</li>
+<li><strong>关键词量级</strong>：2026-07-28 通过 seodata.dev 公开 API
+查询 20 个美国英文代表词，记录月搜索量、CPC、相近词与 SERP 重合度。</li>
+<li><strong>SERP 供给</strong>：对审计、关键词、聚类、内链、AI
+可见度、本地 SEO、蚕食和流量下降等任务执行 40
+余组定向搜索，判断结果页中的免费工具、综合套件、教程和社区内容供给。</li>
+<li><strong>社区需求</strong>：抽样 2025–2026 年 Reddit 的
+r/SEO、r/bigseo、r/TechSEO、r/localseo、r/smallbusiness
+等讨论，提取问题表达、替代工作流与对现有工具的不满。</li>
+<li><strong>行业调查与官方资料</strong>：优先采用
+Google、美国政府、Gartner、YouGov
+及公开披露样本量的行业调查；工具厂商研究只作中等置信度方向信号。</li>
+<li><strong>搜索表达实测</strong>：2026-07-28 抓取 44 组种子词的 Google
+自动补全（<code>hl=en / gl=us</code>），用于校验工具命名是否是用户真实表达、以及用户期望的产品形态（网页工具
+/ 插件 / 模板）。原始数据与脚本随本报告归档，可重跑复核，见附录 A。</li>
+</ol>
+<h2 id="三目标用户细分">三、目标用户细分</h2>
+<h3 id="31-核心用户层">3.1 核心用户层</h3>
+<table>
+<thead>
+<tr>
+<th>用户层</th>
+<th style="text-align: right;">典型规模</th>
+<th>主要工作方式</th>
+<th>最痛的问题</th>
+<th>价格/产品偏好</th>
+<th>优先承接工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>独立站长、创作者、Indie Founder</td>
+<td style="text-align: right;">1 人</td>
+<td>自己做内容、技术和分析</td>
+<td>不知道先修什么；买不起完整套件；缺少可执行下一步</td>
+<td>免费试用、单次付费、低价轻量</td>
+<td>网站健康地图、关键词机会、GSC Opportunities</td>
+</tr>
+<tr>
+<td>小型内部 SEO / 内容团队</td>
+<td style="text-align: right;">2–5 人</td>
+<td>同时管理内容、技术和汇报</td>
+<td>数据分散；任务排不出优先级；结果难交给执行者</td>
+<td>可连接 GSC、协作、导出、历史对比</td>
+<td>GSC Opportunities、内容衰退、内链地图</td>
+</tr>
+<tr>
+<td>精简增长团队</td>
+<td style="text-align: right;">5–10 人</td>
+<td>SEO、内容、产品交叉协作</td>
+<td>SEO 与 GEO 分离；洞察无法变成 Owner 和行动</td>
+<td>项目制、跨工具数据复用、行动追踪</td>
+<td>Keyword + Prompt Map、AI Visibility、Growth Graph</td>
+</tr>
+<tr>
+<td>SEO Freelancer / 小型 Agency</td>
+<td style="text-align: right;">1–10 人，管理 5–50 个站点</td>
+<td>审计、提案、月报、客户沟通</td>
+<td>多项目成本、白标报告、解释成本、工具席位贵</td>
+<td>多项目、批量、白标、客户可读报告</td>
+<td>网站健康地图、Local Visibility、Portfolio Health</td>
+</tr>
+<tr>
+<td>中小电商与 DTC</td>
+<td style="text-align: right;">1–10 人营销团队</td>
+<td>产品页、类目页、内容并行</td>
+<td>页面蚕食、孤岛页、内容衰退、商品结构复杂</td>
+<td>Shopify/WooCommerce 适配、URL 级行动</td>
+<td>内链地图、蚕食诊断、内容衰退</td>
+</tr>
+<tr>
+<td>B2B SaaS / 专业服务</td>
+<td style="text-align: right;">2–10 人增长团队</td>
+<td>长内容、落地页、Lead Gen</td>
+<td>核心更新后流量下降；品牌未被 AI 推荐；归因困难</td>
+<td>GSC/GA4/CRM 连接、竞品与 Prompt 对比</td>
+<td>Traffic Drop、AI Visibility、Keyword + Prompt</td>
+</tr>
+<tr>
+<td>本地商家 Owner / 店长</td>
+<td style="text-align: right;">1–5 人管理</td>
+<td>主要依赖 Maps、GBP、评论、电话和到店</td>
+<td>看不到自己不同位置的真实排名；不知道评论、类目、页面先改哪项</td>
+<td>非技术化、按门店、直接给动作</td>
+<td>Local Search Visibility Map</td>
+</tr>
+<tr>
+<td>多门店品牌 / 本地 SEO Agency</td>
+<td style="text-align: right;">5–20 人营销或代理团队</td>
+<td>管理多个门店、区域和评论</td>
+<td>批量监控、区域差异、异常门店和统一汇报</td>
+<td>按 Location、批量、API、白标</td>
+<td>Multi-location Local Visibility</td>
+</tr>
+<tr>
+<td>技术 SEO / 开发者</td>
+<td style="text-align: right;">1–5 人专项角色</td>
+<td>Crawl、日志、索引、模板修复</td>
+<td>数据量大、误报多、修复优先级不足</td>
+<td>原始数据、API、可复现规则</td>
+<td>网站健康地图、内链与 Crawl Depth</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-本地商家必须拆成三类">3.2 本地商家必须拆成三类</h3>
+<p>Google
+官方将本地商家区分为以下类型，工具入口也应先让用户选择类型：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>官方定义摘要</th>
+<th>典型行业</th>
+<th>首要转化</th>
+<th>核心 SEO 任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storefront 到店型</td>
+<td>顾客在营业时间到固定地点与商家面对面互动</td>
+<td>餐厅、咖啡店、牙医、诊所、美容美发、健身房、零售、汽修</td>
+<td>到店、预约、电话、路线</td>
+<td>Map Pack 排名、类目、评论、营业时间、照片、门店页</td>
+</tr>
+<tr>
+<td>Service-area 上门服务型</td>
+<td>商家前往顾客所在地服务，不在注册地址接待顾客</td>
+<td>水管工、HVAC、电工、清洁、园艺、移动维修、家政</td>
+<td>来电、表单、报价</td>
+<td>服务区域、城市/服务页、GBP 类目、评论、区域排名</td>
+</tr>
+<tr>
+<td>Hybrid 混合型</td>
+<td>既在门店接待，也配送或上门服务</td>
+<td>堂食+外送餐厅、门店+上门汽修、零售+本地配送</td>
+<td>到店与上门并存</td>
+<td>地址与服务区并存、不同转化路径、门店与服务页面</td>
+</tr>
+</tbody>
+</table>
+<p>Google 明确说明 Business Profile
+适用于与顾客面对面互动的实体店和服务区域商家；纯线上业务不属于这一类型。服务区域商家最多可设置
+20 个城市、邮编或其他服务区域，不能简单使用半径。</p>
+<h3 id="33-本地行业优先顺序">3.3 本地行业优先顺序</h3>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>行业</th>
+<th>为什么更痛</th>
+<th>推荐首屏结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高</td>
+<td>牙医、诊所、律师、HVAC、水管、电工、屋顶、家政</td>
+<td>单条 Lead 价值高，Map Pack 与评论直接影响电话/预约</td>
+<td>不同区域排名网格、竞品差距、Top 3 动作</td>
+</tr>
+<tr>
+<td>高</td>
+<td>美容、美发、Spa、健身、汽修</td>
+<td>高频本地发现，评论新鲜度、图片和预约信息重要</td>
+<td>评论与资料完整度、附近竞争、预约缺口</td>
+</tr>
+<tr>
+<td>中高</td>
+<td>餐厅、咖啡、酒吧</td>
+<td>到店和评论强，但平台、菜单、配送渠道复杂</td>
+<td>Maps 可见度、评论、菜单/预订/营业时间</td>
+</tr>
+<tr>
+<td>中</td>
+<td>本地零售、宠物服务、教育培训</td>
+<td>品类差异较大，需结合库存、课程或服务页面</td>
+<td>类目与服务词覆盖、门店页、评论</td>
+</tr>
+<tr>
+<td>中</td>
+<td>多门店与 Franchise</td>
+<td>单店问题不一定高痛，但规模放大后监控成本高</td>
+<td>异常门店、区域差异、批量任务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="四搜索需求量级">四、搜索需求量级</h2>
+<h3 id="41-代表词数据">4.1 代表词数据</h3>
+<p>以下为美国月搜索量。<code>0</code>
+表示该精确短语在数据源中没有可测量量级，不代表需求不存在。</p>
+<table>
+<thead>
+<tr>
+<th>需求簇</th>
+<th>代表搜索词</th>
+<th style="text-align: right;">月搜索量</th>
+<th style="text-align: right;">CPC</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用网站审计</td>
+<td><code>website audit tool</code></td>
+<td style="text-align: right;">2,400</td>
+<td style="text-align: right;">$22.77</td>
+<td>强商业需求；相关 <code>seo audit</code> 约
+8,100、<code>website audit</code> 约 6,600，但高度重合，禁止相加</td>
+</tr>
+<tr>
+<td>关键词研究</td>
+<td><code>keyword research tool</code></td>
+<td style="text-align: right;">12,100</td>
+<td style="text-align: right;">$14.84</td>
+<td>最大的成熟工具需求；<code>keyword research tool free</code> 约
+9,900，免费预期很强</td>
+</tr>
+<tr>
+<td>关键词聚类</td>
+<td><code>keyword clustering tool</code></td>
+<td style="text-align: right;">720</td>
+<td style="text-align: right;">$12.78</td>
+<td>中等但明确；<code>best keyword clustering tool</code> 约 170，CPC
+$42.70，显示强比较/购买意图</td>
+</tr>
+<tr>
+<td>话题集群</td>
+<td><code>topic cluster tool</code></td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">$0</td>
+<td>用户更常使用 keyword clustering，而不是 topic cluster tool</td>
+</tr>
+<tr>
+<td>关键词机会</td>
+<td><code>keyword opportunity</code></td>
+<td style="text-align: right;">390</td>
+<td style="text-align: right;">$0</td>
+<td>词义不够工具化，需要用“find low-competition
+keywords”等任务词承接</td>
+</tr>
+<tr>
+<td>内链检查</td>
+<td><code>internal link checker</code></td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">$6.19</td>
+<td>相关 <code>internal linking checker</code> 约 260；明确但较窄</td>
+</tr>
+<tr>
+<td>GSC 工具</td>
+<td><code>google search console tool</code></td>
+<td style="text-align: right;">390</td>
+<td style="text-align: right;">$5.04</td>
+<td>相关 <code>search console tool</code> 约
+8,100；<code>Google Search Console</code> 30.1
+万主要是导航需求，不可作为本工具需求</td>
+</tr>
+<tr>
+<td>GSC 快速机会</td>
+<td><code>gsc quick wins</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">$0</td>
+<td>内部命名，不是自然搜索表达</td>
+</tr>
+<tr>
+<td>关键词蚕食检查</td>
+<td><code>keyword cannibalization checker</code></td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">$0</td>
+<td>主题词 <code>keyword cannibalization</code> 约
+1,000；用户会先搜问题，再找工具</td>
+</tr>
+<tr>
+<td>内容衰退</td>
+<td><code>content decay</code></td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">$0</td>
+<td>成熟度低，通常从 GSC/流量下降场景进入</td>
+</tr>
+<tr>
+<td>流量下降</td>
+<td><code>seo traffic drop</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">$0</td>
+<td>用户表达高度分散，如
+<code>why did my organic traffic drop</code>、<code>website traffic dropped after Google update</code></td>
+</tr>
+<tr>
+<td>本地 SEO 审计</td>
+<td><code>local seo audit</code></td>
+<td style="text-align: right;">720</td>
+<td style="text-align: right;">$12.32</td>
+<td>明确商业需求；<code>local seo audit tool</code> 约 170，CPC
+$19.43</td>
+</tr>
+<tr>
+<td>本地排名追踪</td>
+<td><code>local rank tracker</code></td>
+<td style="text-align: right;">1,300</td>
+<td style="text-align: right;">$13.67</td>
+<td>本地工具中最强的成熟需求之一</td>
+</tr>
+<tr>
+<td>Google Maps 排名</td>
+<td><code>google maps rank checker</code></td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">$5.52</td>
+<td>相近 <code>google map ranking checker</code> /
+<code>google maps ranking checker</code> 各约 720，但 SERP
+重合不足，不能简单相加</td>
+</tr>
+<tr>
+<td>GBP 审计</td>
+<td><code>google business profile audit</code></td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">$18.48</td>
+<td>量不大但竞争度 0.55；<code>GMB audit</code> 等旧叫法仍在使用</td>
+</tr>
+<tr>
+<td>本地 Citation</td>
+<td><code>local citation checker</code></td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">$11.38</td>
+<td><code>local citation scanner</code> 量小但 CPC 高，偏
+Agency/服务采购</td>
+</tr>
+<tr>
+<td>AI 可见度</td>
+<td><code>ai visibility checker</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">$0</td>
+<td>新兴术语尚未形成稳定量级；SERP 已出现 Semrush、Backlinko
+及多个新工具</td>
+</tr>
+<tr>
+<td>AI Overview</td>
+<td><code>ai overview checker</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">$0</td>
+<td>用户语言仍在变化，需同时覆盖 AI visibility、AI search
+visibility、ChatGPT visibility</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-不能只看搜索量">4.2 不能只看搜索量</h3>
+<p>三类需求会被精确工具词低估：</p>
+<ol type="1">
+<li><strong>问题型需求</strong>：用户搜“为什么流量下降”，不会先搜“Traffic
+Drop Diagnosis Tool”。</li>
+<li><strong>第一方数据型需求</strong>：用户进入 GSC 后才发现需要筛选低
+CTR、排名临界和下降页面。</li>
+<li><strong>新兴术语型需求</strong>：AI visibility、GEO、AEO、AI
+citations 的叫法仍在分化。</li>
+</ol>
+<p>因此优先级应同时使用：</p>
+<p><code>显性工具词需求 + 问题词/社区强度 + 结果损失程度 + 现有供给缺口 + GenGrowth 承接能力</code></p>
+<h2 id="五痛点搜索词用户工具页映射">五、痛点—搜索词—用户—工具页映射</h2>
+<h3 id="51-网站有很多问题但不知道先修什么">5.1
+网站有很多问题，但不知道先修什么</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“审计报告有上百项错误，但哪些真的影响流量？”“修完技术问题仍然不排名。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>seo audit</code>、<code>website audit tool</code>、<code>free seo audit</code>、<code>why is my website not ranking</code>、<code>technical seo audit</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>高。</strong> Service Direct 调查中，51%
+小企业将站内技术实施视为最大 SEO 挑战；网站审计词量和 CPC 均高。Reddit
+讨论反复批评表面化健康分和无关检查项。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>表面高、行动层中低。</strong> SERP
+有大量免费审计和综合套件，但多数仍按检查项数量、健康分或长列表竞争。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>独立站长、小型 SEO 团队、Agency 售前、电商、B2B SaaS</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/seo-audit</code>；产品名可用 <strong>Website SEO Audit
+&amp; Priority Map</strong></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>Top 3 问题、具体
+URL、证据、预计影响、修复动作、验证方式；不要只给总分</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-关键词很多但不知道下一篇下一页做什么">5.2
+关键词很多，但不知道“下一篇/下一页做什么”</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“我不需要关键词
+dump，我需要有信心地选下一篇内容。”“工具数据很多，但本地词不准、意图混合。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>keyword research tool</code>、<code>free keyword research tool</code>、<code>low competition keyword finder</code>、<code>keyword opportunity</code>、<code>content gap tool</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>高且高频。</strong> <code>keyword research tool</code> 约
+12,100/月；25% 的小企业将关键词研究/内容规划列为最大挑战。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>工具供给很高，决策满足度不足。</strong>
+Ahrefs、Semrush、Google Keyword Planner
+以及大量免费工具已满足“给数据”，但用户仍抱怨价格、数据不一致和缺少下一步。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>Solo、内容团队、2–10 人 SEO/增长团队、B2B SaaS、电商、Agency</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/keyword-research-tool</code>、<code>/tools/keyword-clustering-tool</code></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>机会分桶、SERP 可进入性、意图、商业价值、应建/更新页面、关键词与
+Prompt 重合、证据置信度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-聚类工具能分组但不能决定站点架构">5.3
+聚类工具能分组，但不能决定站点架构</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“混合意图词每个工具都分不好。”“聚类结果只能作信号，不能直接当信息架构。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>keyword clustering tool</code>、<code>keyword grouping tool</code>、<code>keyword cluster tool free</code>、<code>topic cluster generator</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>中。</strong>
+明确节省人工整理时间，但结果仍需要专业判断。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>高供给。</strong> SERP 已有免费 10,000
+词聚类、可视化树和多种 AI 聚类工具。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>内容团队、Agency、Programmatic SEO、编辑团队</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/keyword-clustering-tool</code>、<code>/tools/topic-cluster-tool</code></td>
+</tr>
+<tr>
+<td>产品判断</td>
+<td>不独占旗舰位；共享 Keyword + Prompt 引擎，独立页用于长尾获客</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-gsc-有真实数据但不会自动告诉用户先做什么">5.4 GSC
+有真实数据，但不会自动告诉用户先做什么</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“高展现低 CTR、排名 8–15、突然下降的页面怎么批量找？”“GSC
+免费，但分析仍靠导出表格。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>google search console tool</code>、<code>search console insights</code>、<code>how to find low ctr pages in gsc</code>、<code>gsc content decay</code>、<code>pages losing traffic gsc</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>高。</strong> Google 官方将低 CTR、显著变化查询/页面列为
+Performance report 的核心任务；社区把 GSC 视为最被低估的免费工具。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>中。</strong>
+官方提供数据和筛选方法，第三方工具提供报告，但“机会排序—行动—验证”仍分散。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>已有流量的网站、2–10 人团队、内容站、SaaS、Agency</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/google-search-console-opportunities</code></td>
+</tr>
+<tr>
+<td>外部命名</td>
+<td>不使用 <code>GSC Quick Wins Finder</code> 作为唯一 SEO 标题；建议
+<strong>Google Search Console Opportunity Finder</strong></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>高展现低
+CTR、排名临界、下降页、品牌/非品牌、季节性提示、建议动作和修改后验证</td>
+</tr>
+</tbody>
+</table>
+<h3 id="55-网站流量突然下降不知道是哪一种原因">5.5
+网站流量突然下降，不知道是哪一种原因</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>Reddit 案例出现 20%、50%、70%、80% 甚至 99%
+的流量下降；常见疑问包括核心更新、意图变化、AI
+Overview、索引、黑客攻击、蚕食和季节性。</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>why did my website traffic drop</code>、<code>organic traffic dropped</code>、<code>traffic drop after Google update</code>、<code>rankings same but traffic down</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>极高但低频。</strong> 直接影响
+Lead、销售和业务生存；用户情绪明显高于一般审计问题。其中"排名没动、流量却掉"这一类有独立的一手证据支撑：Pew
+Research（n=900 美国成年人，2025-03 数据）显示搜索结果出现 AI
+摘要时，用户点击结果链接的比例为 8%，无 AI 摘要时为 15%；点击 AI
+摘要内引用来源的比例仅 1%
+<code>[High]</code>。这意味着诊断工具必须能把"排名变化"与"点击流失"分开归因，只看排名会得出错误结论。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>低。</strong> SERP 以长教程和咨询服务为主，诊断需要
+GSC、GA4、更新时间线、SERP 与技术数据，难被单个免费扫描解决。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>内容站、B2B SaaS、电商、Publisher、内部 SEO、Agency</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/traffic-drop-diagnosis</code></td>
+</tr>
+<tr>
+<td>产品判断</td>
+<td><strong>P0，但分两层交付</strong>：匿名版只做"需要补哪些证据"的诊断分流（并给出时间线上的可疑变更点），不能给伪确定根因；根因树在连接
+GSC
+后给出。这也是全部候选工具中把"看结果"转成"连数据"最自然的一个入口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="56-多个页面互相竞争工具又容易误报">5.6
+多个页面互相竞争，工具又容易误报</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“两个 URL
+排同一个词究竟是真蚕食还是不同意图？”“很多工具看到两个页面共享关键词就报警。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>keyword cannibalization</code>、<code>keyword cannibalization checker</code>、<code>fix keyword cannibalization</code>、<code>content decay tool</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>中高。</strong>
+对内容规模大的网站影响显著，但不是所有重叠都需要合并。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>中低。</strong> 已有大量 Checker，但不少只做标题、词面或 URL
+重叠；社区明确要求结合意图、URL 轮换和 GSC 表现判断。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>内容站、SaaS 博客、电商类目、Agency、大型编辑库</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/keyword-cannibalization-checker</code>、<code>/tools/content-decay-checker</code></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>是否为真实冲突、置信度、竞争
+URL、时间变化、意图差异、合并/重定向/差异化/不处理建议</td>
+</tr>
+</tbody>
+</table>
+<h3 id="57-内链检查能列链接但很难告诉用户该加哪一条">5.7
+内链检查能列链接，但很难告诉用户该加哪一条</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“旧站页面很多，逐页检查失效链接很痛苦。”“我需要 sitemap
+级别检查，而不是只贴一个页面。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>internal link checker</code>、<code>orphan page checker</code>、<code>internal link analyzer</code>、<code>check website internal links</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>中高、重复发生。</strong>
+内容越多，人工检查成本越高；内部链接优化是持续任务。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>单页检查高，站点级行动不足。</strong>
+免费工具多列出当前链接、锚文本和
+nofollow，真正的孤岛页、重要页深度和推荐链接仍需
+Crawl/GSC/语义数据。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>内容站、电商、Programmatic SEO、技术 SEO、Agency</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/internal-link-checker</code>、<code>/tools/orphan-page-checker</code>、<code>/tools/internal-link-map</code></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>孤岛页、点击深度、流入/流出、正文链接位置、建议来源页与锚文本、修复清单</td>
+</tr>
+</tbody>
+</table>
+<h3 id="58-品牌不知道自己是否被-ai-推荐也不相信一个静态分数">5.8
+品牌不知道自己是否被 AI 推荐，也不相信一个静态分数</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“我每周手动在多个模型重复跑
+Prompt。”“现有工具能显示分数，但难连接到收入。”“我想看真实回答、引用来源、竞品和历史变化。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>ai visibility checker</code>、<code>ai search visibility</code>、<code>chatgpt visibility checker</code>、<code>ai citation tracker</code>、<code>geo tool</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>中高且上升。</strong> Semrush 2026 调查中，45%
+的营销人员难以衡量 AI 生成答案中的可见度，49% 难以衡量 AI 对
+Pipeline/收入的影响；只有 9% 表示能测量全部关键指标。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>工具数量快速增加，但可信度和行动性不足。</strong>
+精确工具词搜索量仍未形成，SERP 已有综合套件与大量新工具；Reddit
+反复质疑采样稳定性和归因。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>B2B SaaS、电商、品牌团队、PR/内容团队、Agency、本地多门店</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/ai-visibility-checker</code>、<code>/tools/ai-citation-gap</code>、<code>/tools/chatgpt-brand-check</code></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>Prompt
+样本、模型、地区、日期、重复次数、提及率区间、引用率、竞品、来源和波动；AI
+可见度与 AI Referral 分开展示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="59-本地商家不知道自己在顾客所在位置到底排第几">5.9
+本地商家不知道自己在“顾客所在位置”到底排第几</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“GBP 已完善，为什么 Maps
+仍排不上？”“距离不同结果不同，单一排名没有意义。”“不知道评论、NAP、类目还是本地页面先做。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>local rank tracker</code>、<code>google maps rank checker</code>、<code>local seo audit</code>、<code>google business profile audit</code>、<code>local citation checker</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>高且接近交易。</strong> Google
+官方说明本地结果主要取决于相关性、距离和知名度，评论数量与评分会影响本地排名。BrightLocal
+研究显示 67% 的消费者在本地搜索后经常或总会查看评论，15% 首先直接使用
+Google Maps。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>单点工具多，统一行动层不足。</strong> BrightLocal
+等成熟产品已经覆盖 Grid、Citation、GBP
+和评论，但用户需要在多个模块中拼接结论；免费工具多只扫网页。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>到店型商户、上门服务商、混合型商家、本地 SEO
+Freelancer、Agency、多门店</td>
+</tr>
+<tr>
+<td>承接工具页</td>
+<td><code>/tools/local-seo-audit</code>、<code>/tools/google-maps-rank-checker</code>、<code>/tools/google-business-profile-audit</code>、<code>/tools/local-citation-checker</code></td>
+</tr>
+<tr>
+<td>必须输出</td>
+<td>不同坐标排名网格、GBP 完整度、主要类目、评论量/评分/新鲜度、Citation
+一致性、本地页面和 Top 3 动作</td>
+</tr>
+<tr>
+<td>产品判断</td>
+<td><strong>痛点成立，但不进入第一阶段开发队列。</strong>
+供给已由专业玩家分工覆盖，机会属于整合型；GBP
+深度数据需商家授权，匿名版能给的有限；用户群与主产品 ICP
+的重合度未验证。先按 §十 的最小验证跑，三项门槛同时成立再进队列（详见
+§7.3）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="510-工具太贵太多用户只使用其中少量功能">5.10
+工具太贵、太多，用户只使用其中少量功能</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户原话/任务</td>
+<td>“Ahrefs + Semrush 接近每年 3,000
+美元，但我只用少数功能。”“付费工具必须告诉我下一步，否则只是另一个
+Dashboard。”</td>
+</tr>
+<tr>
+<td>典型搜索</td>
+<td><code>affordable seo tools</code>、<code>semrush alternative</code>、<code>ahrefs alternative</code>、<code>best seo tool under $50</code>、<code>free seo tools</code></td>
+</tr>
+<tr>
+<td>有多痛</td>
+<td><strong>小团队高痛。</strong> 官方价格显示 Ahrefs Lite
+£99/月、Semrush Pro $139/月；额外席位与 AI 模块进一步增加成本。Reddit
+对低价替代、按量付费和免费 GSC 工作流讨论持续。</td>
+</tr>
+<tr>
+<td>需求满足度</td>
+<td><strong>工具供给高，轻量工作流仍有空间。</strong>
+竞争优势不应是“功能更多”，而应是单任务完成、证据清楚、结果可带入下一工具。</td>
+</tr>
+<tr>
+<td>主要用户</td>
+<td>Solo、小团队、小型 Agency、小企业</td>
+</tr>
+<tr>
+<td>承接方式</td>
+<td>所有原子工具的免费入口；保存、连接数据、历史、批量和持续监控进入主产品</td>
+</tr>
+</tbody>
+</table>
+<h2 id="六需求满足度与竞争空白">六、需求满足度与竞争空白</h2>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>搜索需求</th>
+<th>SERP 供给</th>
+<th>用户满意缺口</th>
+<th>GenGrowth 机会</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用 SEO 审计</td>
+<td>高</td>
+<td>很高</td>
+<td>报告过长、误报、没有业务优先级</td>
+<td>从“检查项”转为“证据—影响—动作—验证”</td>
+</tr>
+<tr>
+<td>关键词研究</td>
+<td>很高</td>
+<td>很高</td>
+<td>关键词 dump、价格高、数据口径不一致</td>
+<td>直接生成机会地图和应建页面</td>
+</tr>
+<tr>
+<td>关键词聚类</td>
+<td>中</td>
+<td>很高，免费工具多</td>
+<td>混合意图处理差，不能直接变信息架构</td>
+<td>作为机会地图的可编辑子视图</td>
+</tr>
+<tr>
+<td>GSC Opportunities</td>
+<td>中高隐性需求</td>
+<td>中</td>
+<td>需要导出和手工筛选，结果不进入任务</td>
+<td>第一方数据、低成本、强行动续接</td>
+</tr>
+<tr>
+<td>流量下降诊断</td>
+<td>高痛、词分散</td>
+<td>低，以教程为主</td>
+<td>无法合并更新、SERP、技术和内容证据</td>
+<td>连接 GSC/GA4 后做证据树，不给单因果</td>
+</tr>
+<tr>
+<td>蚕食/内容衰退</td>
+<td>中</td>
+<td>中高</td>
+<td>词面误报多、修复建议不区分意图</td>
+<td>用 GSC 时间序列和 URL 轮换提高可信度</td>
+</tr>
+<tr>
+<td>内链/孤岛页</td>
+<td>中</td>
+<td>中高</td>
+<td>单页链接清单多，站点级推荐不足</td>
+<td>关系图 + 建议链接 + 修复追踪</td>
+</tr>
+<tr>
+<td>AI 可见度</td>
+<td>新兴</td>
+<td>快速增加</td>
+<td>采样不稳、分数不可解释、难归因</td>
+<td>重复测量、来源地图、改前改后验证</td>
+</tr>
+<tr>
+<td>本地排名/GBP</td>
+<td>中高、商业性强</td>
+<td><strong>高且已专业化分工</strong>：Local Falcon 专做
+geo-grid（$24.99/月起，信用制，1 credit = 1 个网格点）、Whitespark
+分项售卖（Rank Tracker $14–200、Citation Finder $33–149）、BrightLocal
+一体化（$39/月起）</td>
+<td>地理排名、评论、Citation、网页分散在不同工具</td>
+<td>机会属于<strong>整合型</strong>而非空白型——要求在每个模块都不输专业工具，成本高于填补空白；先验证再投入</td>
+</tr>
+<tr>
+<td>技术微工具</td>
+<td>稳定长尾</td>
+<td>很高</td>
+<td>多数问题简单，用户用完即走</td>
+<td>低成本发布，结果写入项目形成续接</td>
+</tr>
+</tbody>
+</table>
+<h2 id="七量化优先级">七、量化优先级</h2>
+<h3 id="71-评分口径">7.1 评分口径</h3>
+<p>总分 100，仅用于同一批候选方向的相对排序：</p>
+<ul>
+<li>痛点与业务后果：25</li>
+<li>显性搜索需求与潜在问题需求：20</li>
+<li>现有供给缺口：20</li>
+<li>与 GenGrowth 主产品及 Growth Graph 的续接：20</li>
+<li>数据成本和 MVP 可行性：15</li>
+</ul>
+<p>分数不是收入预测；证据中含社区抽样或产品推断时，最低置信度随行标注。</p>
+<p>两点口径说明，避免误读：</p>
+<ul>
+<li><strong>"需求"一栏同时计入显性工具词与问题词。</strong> Organic
+Traffic Drop Diagnosis
+的工具词（<code>seo traffic drop</code>）月搜索量为
+0，但问题词簇成熟且稳定（<code>why is my website traffic dropping</code>
+系列补全完整，见附录 A），因此其需求分不能按工具词为 0 处理。</li>
+<li><strong>总分相同不等于同时开工。</strong> Organic Traffic Drop
+Diagnosis 与 Keyword + Prompt Opportunity Map 同为 83
+分，但前者的可行性分是全表最低（7），意味着它是"市场上最该做、工程上最不能先做"的一个——市场优先级与开发顺序在
+§九 分开处理。</li>
+</ul>
+<h3 id="72-优先级表">7.2 优先级表</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>工具方向</th>
+<th style="text-align: right;">痛点</th>
+<th style="text-align: right;">需求</th>
+<th style="text-align: right;">缺口</th>
+<th style="text-align: right;">续接</th>
+<th style="text-align: right;">可行性</th>
+<th style="text-align: right;">总分</th>
+<th>证据等级</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>Website SEO Audit &amp; Priority Map</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;"><strong>85</strong></td>
+<td><code>[Medium]</code></td>
+<td>P0，最适合首个真实纵向切片</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Keyword + Prompt Opportunity Map</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;"><strong>83</strong></td>
+<td><code>[Medium]</code></td>
+<td>P0，避免与通用关键词工具正面同质化</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Organic Traffic Drop Diagnosis</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;"><strong>83</strong></td>
+<td><code>[Medium]</code></td>
+<td>P0；市场分最高但可行性分最低，工程上必须排在 GSC 连接之后</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Google Search Console Opportunity Finder</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;"><strong>82</strong></td>
+<td><code>[Medium]</code></td>
+<td>P0，外部名称和入口任务需要重写</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>AI Search Visibility Baseline</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;"><strong>79</strong></td>
+<td><code>[Medium]</code></td>
+<td>P1；先做可信快照，后做持续监控</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>Internal Link &amp; Orphan Page Map</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;"><strong>76</strong></td>
+<td><code>[Medium]</code></td>
+<td>P1；复用网站 Crawl 与 Page Graph</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>Content Decay &amp; Cannibalization</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;"><strong>75</strong></td>
+<td><code>[Medium]</code></td>
+<td>P1；与 GSC Opportunities 共用数据</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>Local Search Visibility Map</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;"><strong>72</strong></td>
+<td><code>[Low]</code></td>
+<td>验证项；痛点分全表第二但其余四项均受限，先跑最小验证再决定是否进开发队列</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>Topic Cluster Visualizer（独立）</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;"><strong>65</strong></td>
+<td><code>[Medium]</code></td>
+<td>P2；保留页面，不占旗舰位</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>Robots/Sitemap/Schema 等微工具</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;"><strong>52</strong></td>
+<td><code>[Medium]</code></td>
+<td>P2；共享内核完成后批量发布</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-local-search-visibility-map-的分项依据">7.3 Local Search
+Visibility Map 的分项依据</h3>
+<p>它的痛点分（23/25）是全表第二高——本地商家单条 Lead 价值高、Map Pack
+与评论直接影响电话和到店，这一点没有争议。受限的是另外四项：</p>
+<table>
+<thead>
+<tr>
+<th>分项</th>
+<th style="text-align: right;">分数</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求</td>
+<td style="text-align: right;">15/20</td>
+<td>本地簇最大词 <code>local rank tracker</code>
+1,300/月、<code>local seo audit</code> 720/月，比
+<code>keyword research tool</code>（12,100）低一个数量级。CPC
+高（$12–19）说明<strong>单次点击的商业价值高</strong>，但 CPC
+衡量广告主出价，不衡量搜索规模——两者不可互换（§2.2）</td>
+</tr>
+<tr>
+<td>缺口</td>
+<td style="text-align: right;">13/20</td>
+<td>供给成熟且已专业化分工：Local Falcon 专做 geo-grid（$24.99/月起，1
+credit = 1 个网格点）、Whitespark 分项售卖（$14–200 / $33–149 / $79 per
+location）、BrightLocal
+一体化（$39/月起）。机会是<strong>把割裂的模块整合</strong>，而整合型机会要求在每个模块都不输专业工具，成本高于填补空白</td>
+</tr>
+<tr>
+<td>续接</td>
+<td style="text-align: right;">13/20</td>
+<td>本地商家（牙医、水管工、餐厅）与 GenGrowth
+主产品的用户画像重合度低；Growth Graph 现有对象里没有
+Location，需要新增一层数据模型。可能的桥梁是服务本地客户的 Agency（§3.1
+中的 SEO Freelancer / 小型 Agency），但这条路径尚未验证</td>
+</tr>
+<tr>
+<td>可行性</td>
+<td style="text-align: right;">8/15</td>
+<td>geo-grid 是按"网格点 × 关键词"重复采集
+SERP，单次可变成本为全表最高之一；GBP 侧 Google
+官方未提供审计工具，第三方需 GBP Organization 账号 + OAuth + 商家授予
+manager 权限，<strong>未验证前 Google
+将资料按公开处理</strong>，匿名免费版能给出的深度有限</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>口径说明</strong>：证据等级为
+<code>[Low]</code>，因为续接与可行性两项依赖的是产品侧推断和数据可得性判断，而非可直接检索的市场数据。这也是它排在验证队列而非开发队列的原因——不是判定它没有机会，而是判定<strong>现在的证据不足以支撑投产决策</strong>。</p>
+</blockquote>
+<h2 id="八工具页承接设计">八、工具页承接设计</h2>
+<h3 id="81-建议工具目录">8.1 建议工具目录</h3>
+<p>一个产品能力可以有多个搜索入口（例如
+<code>internal link checker</code> 与 <code>orphan page checker</code>
+指向同一个能力）。因此下表把"页面标题"与"产品内正式名"分成两列：<strong>前者服从用户搜索表达，后者全站唯一。</strong></p>
+<table>
+<thead>
+<tr>
+<th>用户搜索任务</th>
+<th>工具页 URL</th>
+<th>页面 H1（用户词）</th>
+<th>产品内正式名（唯一）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>seo audit</code> / <code>website audit tool</code></td>
+<td><code>/tools/seo-audit</code></td>
+<td>Free SEO Audit</td>
+<td>Website Health Map</td>
+</tr>
+<tr>
+<td><code>local seo audit</code></td>
+<td><code>/tools/local-seo-audit</code></td>
+<td>Local SEO Audit</td>
+<td>Local Search Visibility Map</td>
+</tr>
+<tr>
+<td><code>google maps rank checker</code></td>
+<td><code>/tools/google-maps-rank-checker</code></td>
+<td>Google Maps Rank Checker</td>
+<td>Local Search Visibility Map · Rank Grid 视图</td>
+</tr>
+<tr>
+<td><code>google business profile audit</code></td>
+<td><code>/tools/google-business-profile-audit</code></td>
+<td>Google Business Profile Audit</td>
+<td>Local Search Visibility Map · GBP 视图</td>
+</tr>
+<tr>
+<td><code>local citation checker</code></td>
+<td><code>/tools/local-citation-checker</code></td>
+<td>Local Citation Checker</td>
+<td>Local Search Visibility Map · Citation 视图</td>
+</tr>
+<tr>
+<td><code>keyword research tool</code></td>
+<td><code>/tools/keyword-research-tool</code></td>
+<td>Free Keyword Research Tool</td>
+<td>Keyword + Prompt Opportunity Map</td>
+</tr>
+<tr>
+<td><code>keyword clustering tool</code></td>
+<td><code>/tools/keyword-clustering-tool</code></td>
+<td>Keyword Clustering Tool</td>
+<td>Keyword + Prompt Opportunity Map · Cluster 视图</td>
+</tr>
+<tr>
+<td><code>topic cluster tool</code></td>
+<td><code>/tools/topic-cluster-tool</code></td>
+<td>Topic Cluster Tool</td>
+<td>Keyword + Prompt Opportunity Map · Cluster 视图</td>
+</tr>
+<tr>
+<td>GSC 低 CTR / 临界排名 / 下降页</td>
+<td><code>/tools/striking-distance-keywords</code></td>
+<td>Striking Distance Keywords Finder</td>
+<td>GSC Opportunity Finder</td>
+</tr>
+<tr>
+<td><code>internal link checker</code></td>
+<td><code>/tools/internal-link-checker</code></td>
+<td>Internal Link Checker</td>
+<td>Internal Link Map</td>
+</tr>
+<tr>
+<td><code>orphan page checker</code></td>
+<td><code>/tools/orphan-page-checker</code></td>
+<td>Orphan Page Checker</td>
+<td>Internal Link Map · 孤岛与点击深度视图</td>
+</tr>
+<tr>
+<td><code>keyword cannibalization checker</code></td>
+<td><code>/tools/keyword-cannibalization-checker</code></td>
+<td>Keyword Cannibalization Checker</td>
+<td>Cannibalization Diagnosis</td>
+</tr>
+<tr>
+<td><code>content decay</code> / <code>content decay checker</code></td>
+<td><code>/tools/content-decay-checker</code></td>
+<td>Content Decay Checker</td>
+<td>Content Decay Diagnosis</td>
+</tr>
+<tr>
+<td><code>guest post sites list</code></td>
+<td><code>/tools/guest-post-sites-list</code></td>
+<td>Guest Post Sites List</td>
+<td>Link Opportunity Library</td>
+</tr>
+<tr>
+<td><code>link building tools</code> /
+<code>how to get backlinks for free</code></td>
+<td><code>/tools/link-opportunities</code></td>
+<td>Link Opportunity Library</td>
+<td>Link Opportunity Library</td>
+</tr>
+<tr>
+<td>流量下降问题词</td>
+<td><code>/tools/traffic-drop-diagnosis</code></td>
+<td>Why Is My Website Traffic Dropping?</td>
+<td>Organic Traffic Drop Diagnosis</td>
+</tr>
+<tr>
+<td><code>ai visibility checker</code></td>
+<td><code>/tools/ai-visibility-checker</code></td>
+<td>AI Visibility Checker</td>
+<td>AI Visibility Baseline</td>
+</tr>
+<tr>
+<td><code>how to get cited by ai</code> /
+<code>ai citation tracker</code></td>
+<td><code>/tools/ai-citation-gap</code></td>
+<td>AI Citation Gap Finder</td>
+<td>AI Citation Gap</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>striking distance keywords</code>
+是行业与工具方共用的成熟表达（SEOTesting、GSC Wizard
+均以此作入口），但<strong>未包含在附录 A 的 44
+组实测种子中</strong>，上线前应补测其自动补全与搜索量，再确定是否作为主
+H1。</p>
+</blockquote>
+<p><strong>命名规则</strong>（避免"入口叫 A、产品里叫 B"）：</p>
+<ol type="1">
+<li>一个能力只有一个产品内正式名，全站与全文档统一；视图用
+<code>正式名 · 视图名</code> 表达，不另起新名。</li>
+<li>页面 H1
+用用户搜索词，但首屏必须让产品正式名同框出现一次，例如"Internal Link
+Checker —— GenGrowth Internal Link Map 的免费版"。</li>
+<li>从工具页进入产品后不换词：结果页顶部保留同一句"你正在使用 X"。</li>
+</ol>
+<h3 id="811-url-层级约定">8.1.1 URL 层级约定</h3>
+<p><strong>采用扁平结构 <code>/tools/&lt;工具名&gt;</code>，分类通过 hub
+页与内链实现，不写进 URL。</strong></p>
+<p>依据与取舍：</p>
+<ul>
+<li>Google 不按 URL
+中的斜杠数判断层级，子目录深度不是排名因素；真正影响的是<strong>点击深度</strong>（从首页需要点几次）与<strong>内部链接</strong>。Google
+方面给出的建议是：选一个便于维护、能沿用 5–10 年的结构并保持稳定。</li>
+<li>因此把工具放在根目录（<code>/gbp-audit</code>）没有可测量收益，且会与
+<code>/blog</code>、<code>/pricing</code> 争夺根命名空间。</li>
+<li>把分类写进
+URL（<code>/tools/local-seo/gbp-audit</code>）人类可读性更好，但会把工具锁定在单一分类；多数工具天然横跨两类（例如
+citation checker 同时属于本地与外链），后续调整分类即产生 301
+迁移成本。</li>
+<li>取代方案：建
+<code>/tools/local-seo/</code>、<code>/tools/technical/</code>、<code>/tools/ai-search/</code>
+等<strong>聚合 hub 页</strong>，它们本身就是可排名的品类落地页（如
+<code>local seo tools</code>），向下链接扁平的工具页，工具页之间再交叉链接。主题聚合与抓取效率由内链结构提供，不由
+URL 层级提供。</li>
+</ul>
+<blockquote>
+<p>长尾工具页能否获得排名，主要取决于每页是否具备独立价值（原矩阵列出的第
+1 个坑），URL 形态的影响远小于此。</p>
+</blockquote>
+<h3 id="82-页面不能只复述工具名称">8.2 页面不能只复述工具名称</h3>
+<p>每个工具页首屏必须回答：</p>
+<ol type="1">
+<li>用户输入什么。</li>
+<li>多久拿到第一份结果。</li>
+<li>结果具体包含什么。</li>
+<li>哪三类问题能被识别。</li>
+<li>是否免费、是否需连接账户。</li>
+<li>数据日期、来源、限制和置信度。</li>
+<li>下一步可以做什么。</li>
+</ol>
+<h3 id="83-免费登录与付费边界">8.3 免费、登录与付费边界</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>用户获得什么</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>匿名免费</td>
+<td>单域名/单页/少量词快照、Top 3 问题、证据和基础动作</td>
+<td>完成真实任务，建立信任</td>
+</tr>
+<tr>
+<td>注册免费</td>
+<td>保存项目、历史对比、少量 GSC/GBP 连接、继续下一工具</td>
+<td>验证跨工具续接和留存</td>
+</tr>
+<tr>
+<td>付费</td>
+<td>大规模 Crawl、持续 GEO 采样、本地
+Grid、多门店、多项目、第三方关键词/链接数据、白标/API</td>
+<td>覆盖真实可变成本和团队工作流</td>
+</tr>
+</tbody>
+</table>
+<h2 id="九建议开发顺序">九、建议开发顺序</h2>
+<p>市场机会优先级不等于工程开发顺序。建议按共享内核复用和数据成本推进：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">开发顺序</th>
+<th>工作</th>
+<th>原因</th>
+<th>验证指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>统一
+Project、Page、Keyword、Prompt、Location、Observation、Evidence、Action
+数据结构</td>
+<td>防止每个工具形成孤岛</td>
+<td>第二个工具能复用第一个工具输入</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>Website SEO Audit &amp; Priority Map</td>
+<td>单 URL/域名即可启动，成熟需求大，最适合验证“分数 vs 行动”</td>
+<td>完成率、Top 3 展开率、保存率、行动点击率</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Google Search Console Opportunity Finder</td>
+<td>第一方数据、外部成本低、续接主产品最强</td>
+<td>连接率、机会采纳率、修改后复查率</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Organic Traffic Drop Diagnosis</td>
+<td>与第 2 步共用同一套 GSC 连接、Page
+与时间线数据，边际工程成本最低；损失强度最高，最能验证"证据优于分数"</td>
+<td>匿名分流完成率、<strong>分流后 GSC
+连接率</strong>、根因展开率、修复后复查率</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Internal Link &amp; Orphan Page Map</td>
+<td>数据可复用既有内链系统与第 1 步的 Crawl / Page
+Graph，边际工程成本低；问题真实性已有一手内链审计事故背书</td>
+<td>建议链接采纳率、孤岛页修复率</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>Keyword + Prompt Opportunity Map</td>
+<td>需求最大，但第三方数据成本和通用竞品最强</td>
+<td>机会收藏率、建页/更新页动作率</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>AI Search Visibility Baseline</td>
+<td>需要先建立 Prompt、Observation、重复采样与置信度</td>
+<td>重复运行率、跨模型查看率、改前改后验证率</td>
+</tr>
+</tbody>
+</table>
+<p>Local Search Visibility Map 列为
+P1，但不在上述开发队列内。它进入队列的<strong>前置条件</strong>是 §十
+的最小验证通过——在此之前不投入 Location / GBP / Rank Grid
+的数据能力建设，因为这三项都不被现有工具复用（第 0 步的数据结构里保留
+Location 字段即可，不做实现）。</p>
+<p>Content Decay 与 Cannibalization 应建立在 GSC、Page、Observation
+和时间线已经可用之后，不应各自建设独立数据层。Traffic Drop
+同样依赖这层数据，但它排在第 3 位而不是更靠后，是因为它与第 2
+步共用同一套连接和时间线，边际成本低于重新起一个数据层；若第 2 步的 GSC
+连接率未达预期，第 3 步应暂停而不是改用匿名重型扫描替代。</p>
+<h2 id="十需要验证的关键假设">十、需要验证的关键假设</h2>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th>当前证据</th>
+<th>最小验证方式</th>
+<th>升级条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户更愿意为“Top 3 行动”而非健康分保存项目</td>
+<td>Reddit 与 SERP 文案支持，尚无自有行为数据</td>
+<td>同一审计结果做 Score-first vs Action-first A/B</td>
+<td>Action-first 保存率或下一工具续接率显著更高</td>
+</tr>
+<tr>
+<td>本地商家值得 GenGrowth 做，而不只是一个存在的市场</td>
+<td>痛点与商业性有搜索量、CPC
+和官方资料支持；但供给已专业化分工、用户与主产品 ICP 重合度未知、GBP
+数据可得性受限（§7.3）</td>
+<td>建 3 个静态落地页 + 一个不依赖 GBP 授权的轻量 Local
+Audit（仅用公开可得信号）；同时统计现有用户中有多少人管理本地客户</td>
+<td>三项同时成立才进开发队列：工具启动率与报告完成率达到站内前
+25%、留资率不低于其他工具页、<strong>且</strong>留资用户中有可识别比例属于既有
+ICP 或服务本地客户的 Agency</td>
+</tr>
+<tr>
+<td>Topic Cluster 不值得独占旗舰位</td>
+<td>搜索量低且免费供给充分</td>
+<td>作为 Keyword Map 子视图上线</td>
+<td>子视图使用率高但独立入口转化低</td>
+</tr>
+<tr>
+<td>GSC Opportunities 会产生最强主产品续接</td>
+<td>第一方数据、低成本、动作明确</td>
+<td>连接 GSC 后提供 10 个机会</td>
+<td>连接后 7 日内至少一次保存/标记动作</td>
+</tr>
+<tr>
+<td>流量下降的匿名分流能带来 GSC 授权，而不是让用户流失</td>
+<td>供给缺口与问题词需求成立，但"用户愿意为了知道原因而授权"尚无自有数据</td>
+<td>匿名版给出"已排除 / 待确认 /
+需连接数据才能判断"三段结论，测量分流完成 → 点击连接 →
+授权完成三步漏斗</td>
+<td>分流完成用户的 GSC 授权率显著高于站内其他工具的注册率</td>
+</tr>
+<tr>
+<td>AI Visibility 用户需要区间与证据，不需要另一个静态分数</td>
+<td>学术研究和社区质疑支持</td>
+<td>同时展示单次分数与重复采样区间</td>
+<td>区间/来源展开率、历史复查率高于单分数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="十一最终优先级建议">十一、最终优先级建议</h2>
+<p>本节为最终交付清单，分三张表：<strong>命名与溯源</strong>（与原矩阵对齐）、<strong>搜索承接</strong>（URL
+与搜索词对应关系）、<strong>定位红线</strong>。</p>
+<p>搜索量取自
+§4.1（seodata.dev，google_us，2026-07-28）；标注"补全"的依据为附录 A
+的自动补全实测；未标注量级的词表示尚未取到可测量数据。</p>
+<h3 id="111-命名与溯源表">11.1 命名与溯源表</h3>
+<p>命名规则：<strong>产品内正式名沿用原矩阵</strong>（除非原名被验证不可搜索），<strong>对外页面名服从用户搜索表达</strong>，两者的中英文含义必须一一对应。</p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>矩阵编号 · 原名</th>
+<th>产品内正式名（中）</th>
+<th>产品内正式名（英）</th>
+<th>对外页面名（中）</th>
+<th>对外页面名（英）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0-1</strong></td>
+<td>#71 GSC Quick Wins Finder</td>
+<td>临界排名机会发现器</td>
+<td>Striking Distance Opportunity Finder</td>
+<td>临界排名关键词发现器</td>
+<td>Striking Distance Keywords Finder</td>
+</tr>
+<tr>
+<td><strong>P0-2</strong></td>
+<td>#50 内链关系图 · #51 孤岛页面发现器</td>
+<td>内链关系图</td>
+<td>Internal Link Map</td>
+<td>内链检查器 / 孤岛页面检查器</td>
+<td>Internal Link Checker / Orphan Page Checker</td>
+</tr>
+<tr>
+<td><strong>P0-3</strong></td>
+<td>#76 流量下降根因树</td>
+<td>流量下降根因树</td>
+<td>Traffic Drop Root Cause Tree</td>
+<td>自然流量下降诊断</td>
+<td>Organic Traffic Drop Diagnosis</td>
+</tr>
+<tr>
+<td><strong>P0-4</strong></td>
+<td>#37 单页 SEO 审计 · #38 全站技术审计</td>
+<td>网站健康地图</td>
+<td>Website Health Map</td>
+<td>免费 SEO 审计</td>
+<td>Free SEO Audit</td>
+</tr>
+<tr>
+<td><strong>P0-5</strong></td>
+<td>旗舰原名：关键词 + Prompt 机会地图</td>
+<td>关键词 + Prompt 机会地图</td>
+<td>Keyword + Prompt Opportunity Map</td>
+<td>免费关键词研究工具</td>
+<td>Free Keyword Research Tool</td>
+</tr>
+<tr>
+<td>P1-6</td>
+<td>#83 AI Visibility Snapshot · #88 Citation Gap Finder</td>
+<td>AI 可见度快照 · 引用缺口发现器</td>
+<td>AI Visibility Snapshot · Citation Gap Finder</td>
+<td>AI 可见度检查器 / AI 引用缺口发现器</td>
+<td>AI Visibility Checker / AI Citation Gap Finder</td>
+</tr>
+<tr>
+<td>P1-7</td>
+<td>#73 内容衰退检测器 · #74 关键词蚕食诊断器</td>
+<td>内容衰退检测器 · 关键词蚕食诊断器</td>
+<td>Content Decay Detector · Keyword Cannibalization Diagnosis</td>
+<td>内容衰退检查器 / 关键词蚕食检查器</td>
+<td>Content Decay Checker / Keyword Cannibalization Checker</td>
+</tr>
+<tr>
+<td>P1-8</td>
+<td>新增（聚合 #63 未链接品牌提及发现器 · #64 Earned Link 机会雷达 · #65
+Link Prospect 质量散点图 · #67 Linkable Asset 机会分析器）</td>
+<td>外链机会资源库</td>
+<td>Link Opportunity Library</td>
+<td>外链机会资源库</td>
+<td>Link Opportunity Library</td>
+</tr>
+<tr>
+<td>P1-9</td>
+<td>#7 SEO 立项画布</td>
+<td>SEO 立项画布</td>
+<td>SEO Project Canvas</td>
+<td>新站 SEO 清单</td>
+<td>SEO Checklist for New Website</td>
+</tr>
+<tr>
+<td>P1-10</td>
+<td>新增（矩阵未覆盖）</td>
+<td>本地搜索可见度地图</td>
+<td>Local Search Visibility Map</td>
+<td>本地 SEO 审计 等 4 个入口</td>
+<td>Local SEO Audit 等</td>
+</tr>
+<tr>
+<td>P1-11</td>
+<td>#40–#47 技术检查器组</td>
+<td>Robots.txt 检查器 / Sitemap 检查器 / Canonical 冲突检查器 / Redirect
+Chain 可视化器 / Schema 校验器 / Hreflang 审计</td>
+<td>Robots.txt Checker / Sitemap Checker / Canonical Conflict Checker /
+Redirect Chain Visualizer / Schema Validator / Hreflang Checker</td>
+<td>同左（对外去掉"冲突""可视化"等内部限定）</td>
+<td>Robots.txt Checker / Sitemap Checker / Canonical Checker / Redirect
+Chain Checker / Schema Markup Validator / Hreflang Checker</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三处偏离原矩阵命名，均有验证依据：</strong></p>
+<ol type="1">
+<li><strong>#71 GSC Quick Wins Finder → Striking
+Distance</strong>：<code>gsc quick wins</code> 搜索量 0
+且零自动补全，两条独立证据一致（§4.1 与附录
+A.1），原名不可作为对外入口。</li>
+<li><strong>#19 话题集群可视化器 → Topic Cluster
+Tool（对外）</strong>：<code>topical map generator</code>
+补全被地形图占据、<code>topic cluster tool</code> 仅
+50/月，该能力不占独立席位，作为 P0-5 的结果视图与长尾入口保留。</li>
+<li><strong>外链方向由"投资计算器"改为"资源库"</strong>：原矩阵 F
+组已明确不以购买链接为中心，本工具聚合 #63/#64/#65/#67
+四项能力，定位红线见 §11.3。</li>
+</ol>
+<h3 id="112-搜索承接表">11.2 搜索承接表</h3>
+<p>"主词一一对应"指 URL slug
+与该页主要目标搜索词是否逐词对应。<strong>不对应不等于错</strong>——问题词型需求（如"为什么流量下降"）不适合做成永久
+slug，此时由 H1 与 title 承接原始问句，URL 保持简短稳定（依据见
+§8.1.1）。</p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>页面 URL</th>
+<th>主要目标搜索词</th>
+<th>主词一一对应</th>
+<th>同页承接的其他词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0-1</strong></td>
+<td><code>/tools/striking-distance-keywords</code></td>
+<td><code>striking distance keywords</code>（量级待补测）</td>
+<td>✅</td>
+<td><code>google search console tool</code>（390）、<code>search console tool</code>（约
+8,100）<br>❌ 不用 <code>gsc quick wins</code>（量 0 / 零补全）</td>
+</tr>
+<tr>
+<td><strong>P0-2a</strong></td>
+<td><code>/tools/internal-link-checker</code></td>
+<td><code>internal link checker</code>（seodata 140 / google_us
+450）</td>
+<td>✅</td>
+<td><code>internal link checker free / tool / extension</code>、<code>broken internal link checker</code>（补全
+10/10）</td>
+</tr>
+<tr>
+<td><strong>P0-2b</strong></td>
+<td><code>/tools/orphan-page-checker</code></td>
+<td><code>orphan pages checker</code></td>
+<td>⚠ 单复数差异（Google 可归一，不改）</td>
+<td><code>orphan pages finder</code>、<code>orphan pages screaming frog</code></td>
+</tr>
+<tr>
+<td><strong>P0-3</strong></td>
+<td><code>/tools/traffic-drop-diagnosis</code></td>
+<td><code>why is my website traffic dropping</code></td>
+<td>❌ 问题词不做 slug，由 H1 承接</td>
+<td><code>why is my organic traffic down</code>、<code>why is my website getting no traffic</code>、<code>traffic drop after google update</code><br>❌
+不用 <code>seo traffic drop</code>（量
+0）、<code>my rankings dropped</code>（零补全）</td>
+</tr>
+<tr>
+<td><strong>P0-4</strong></td>
+<td><code>/tools/seo-audit</code></td>
+<td><code>seo audit</code>（约 8,100）</td>
+<td>✅</td>
+<td><code>website audit tool</code>（2,400）、<code>website audit</code>（约
+6,600，重合不可相加）、<code>free seo audit tool</code>、<code>free seo audit report generator</code></td>
+</tr>
+<tr>
+<td><strong>P0-5a</strong></td>
+<td><code>/tools/keyword-research-tool</code></td>
+<td><code>keyword research tool</code>（12,100）</td>
+<td>✅</td>
+<td><code>keyword research tool free</code>（约 9,900）</td>
+</tr>
+<tr>
+<td><strong>P0-5b</strong></td>
+<td><code>/tools/keyword-clustering-tool</code></td>
+<td><code>keyword clustering tool</code>（720）</td>
+<td>✅</td>
+<td><code>best keyword clustering tool</code>（170，CPC
+$42.70）、<code>keyword clustering tool free</code></td>
+</tr>
+<tr>
+<td><strong>P0-5c</strong></td>
+<td><code>/tools/topic-cluster-tool</code></td>
+<td><code>topic cluster tool</code>（50）</td>
+<td>✅</td>
+<td><code>free topic cluster tool</code>、<code>ai topic cluster tool generator</code></td>
+</tr>
+<tr>
+<td>P1-6a</td>
+<td><code>/tools/ai-visibility-checker</code></td>
+<td><code>ai visibility checker</code>（精确词量 0，补全 10/10）</td>
+<td>✅</td>
+<td><code>ai search visibility</code>（1,600，CPC
+$12.00，KD55）、<code>chatgpt visibility tracker</code>（250）</td>
+</tr>
+<tr>
+<td>P1-6b</td>
+<td><code>/tools/ai-citation-gap</code></td>
+<td><code>how to get cited by ai</code>（补全 10/10）</td>
+<td>❌ 问题词不做 slug</td>
+<td><code>how to get cited in ai overviews</code>、<code>how to rank in chatgpt</code>、<code>ai citation tracker</code><br>❌
+不用
+<code>share of voice ai search</code>、<code>brand prompt tracking</code>（均零补全）</td>
+</tr>
+<tr>
+<td>P1-7a</td>
+<td><code>/tools/content-decay-checker</code></td>
+<td><code>content decay checker</code></td>
+<td>✅</td>
+<td><code>content decay</code>（90）、<code>content decay tool</code>、<code>content decay analysis</code></td>
+</tr>
+<tr>
+<td>P1-7b</td>
+<td><code>/tools/keyword-cannibalization-checker</code></td>
+<td><code>keyword cannibalization checker</code>（70）</td>
+<td>✅</td>
+<td><code>keyword cannibalization</code>（约
+1,000）、<code>keyword cannibalization tool</code></td>
+</tr>
+<tr>
+<td>P1-8a</td>
+<td><code>/tools/guest-post-sites-list</code></td>
+<td><code>guest post sites list</code>（补全 10/10）</td>
+<td>✅</td>
+<td><code>guest post sites free</code>、<code>guest post sites list 2026</code></td>
+</tr>
+<tr>
+<td>P1-8b</td>
+<td><code>/tools/link-opportunities</code></td>
+<td><code>link building tools</code>（补全 10/10）</td>
+<td>⚠ slug 为聚合页命名，非逐词对应</td>
+<td><code>how to get backlinks for free</code>、<code>where to get quality backlinks</code>、<code>unlinked brand mentions</code><br>❌
+不用
+<code>link building opportunities</code>（被求职意图占据）、<code>digital pr opportunities</code>、<code>free backlink sites</code>（零补全）</td>
+</tr>
+<tr>
+<td>P1-9</td>
+<td><code>/tools/seo-checklist-new-website</code></td>
+<td><code>seo checklist for new website</code>（500，CPC $1.20）</td>
+<td>✅</td>
+<td><code>how to start seo for new website</code>（70）</td>
+</tr>
+<tr>
+<td>P1-10</td>
+<td><code>/tools/local-seo-audit</code><br><code>/tools/local-rank-tracker</code><br><code>/tools/google-maps-rank-checker</code><br><code>/tools/google-business-profile-audit</code><br><code>/tools/local-citation-checker</code></td>
+<td>各自对应同名词</td>
+<td>✅</td>
+<td><code>local rank tracker</code>（1,300）、<code>local seo audit</code>（720，CPC
+$12.32）、<code>google maps rank checker</code>（260）、<code>local citation checker</code>（210）、<code>google business profile audit</code>（90，CPC
+$18.48）</td>
+</tr>
+<tr>
+<td>P1-11</td>
+<td><code>/tools/robots-txt-checker</code><br><code>/tools/sitemap-checker</code><br><code>/tools/canonical-checker</code><br><code>/tools/redirect-chain-checker</code><br><code>/tools/schema-markup-validator</code><br><code>/tools/hreflang-checker</code></td>
+<td>各自对应同名词</td>
+<td>✅</td>
+<td>高频后缀为 <code>chrome extension</code> 与
+<code>bulk</code>，说明期望形态是插件与批量（附录 A.5）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>数据口径备注</strong>：<code>internal link checker</code>
+在两个数据源上为 140（seodata.dev）与 450（google_us），差约 3
+倍但<strong>处于同一数量级</strong>，接受该分歧，仅按"中等量级"参与排序，不取平均、不作精确引用。</p>
+</blockquote>
+<h3 id="113-外链资源库的定位红线">11.3 外链资源库的定位红线</h3>
+<p>原候选"外链投资计算器"替换为<strong>外链机会资源库</strong>。它的形态是<strong>自然引用与编辑型链接的机会线索库</strong>（资源页、行业正规目录、媒体与记者线索、未链接品牌提及、可被引用的数据选题），不是可购买链接的名录。</p>
+<p>界线必须写进产品定义：Google
+将<strong>为排名而买卖链接</strong>列为链接垃圾，付费或赞助性质的链接应标记
+<code>nofollow</code> 或 <code>sponsored</code>。因此本工具：</p>
+<ul>
+<li><strong>做</strong>：机会发现、来源质量评估、外联项目管理、未链接提及监测</li>
+<li><strong>不做</strong>：价格撮合、付费位售卖、把"买多少条链接"作为输出结论</li>
+</ul>
+<p>搜索词侧有一个直接可用的产品信号：<code>guest post sites list site docs.google.com</code>
+出现在补全前十——<strong>用户当前是在共享表格里找这类清单</strong>，说明"结构化、可筛选、有质量分的资源库"本身就是对现状的改进。同时
+<code>guest post sites</code>
+这一族的意图中混有付费投稿，落地页需明确区分编辑型机会与付费位，避免承接错误意图。</p>
+<h3 id="114-优先级与打分表的关系">11.4 优先级与打分表的关系</h3>
+<p>P1-8 外链机会资源库由决策直接进入清单，<strong>尚未经过 §7.1
+的五维打分</strong>，下一版需补分；其余 10 项的排序依据见 §7.2 与
+§7.3。</p>
+<h3 id="对原-6-个旗舰的具体调整">对原 6 个旗舰的具体调整</h3>
+<ul>
+<li>保留：网站健康地图。</li>
+<li>保留：关键词 + Prompt 机会地图。</li>
+<li>保留：GSC Quick Wins，但改外部命名。</li>
+<li>保留：SEO + GEO 可见度快照，优先级调整为 P1。</li>
+<li>保留：内链关系图 + 孤岛检查，优先级调整为 P1。</li>
+<li>调整：话题集群可视化器不再独占旗舰位。</li>
+<li>上调：原矩阵第二阶段的 #76 流量下降根因树进入旗舰组合，对外承接名为
+Organic Traffic Drop Diagnosis；开发顺序排在 GSC 连接能力之后。</li>
+<li>补缺口：本地 SEO 是 112 项候选清单中的真实覆盖遗漏，进入 P1，且保留
+§十 的三项验证门槛作为进入开发排期的前置条件（理由见 §7.3）。</li>
+<li>替换：外链方向由"投资计算器"改为<strong>外链资源库</strong>，定位红线见
+§11.3。</li>
+</ul>
+<p>第一阶段因此定为 <strong>5 个 P0</strong>：GSC
+机会发现器、内链关系图与孤岛检查、流量下降诊断、网站健康地图、关键词与
+Prompt
+机会地图。其中内链一项的排序依据不是市场需求（量级中等），而是<strong>工程杠杆</strong>——数据可复用既有内链系统，且有一手事故作为问题真实性的背书。</p>
+<h2 id="附录-a--google-自动补全实测2026-07-28">附录 A · Google
+自动补全实测（2026-07-28）</h2>
+<p>44
+组种子词，<code>suggestqueries.google.com</code>，<code>hl=en / gl=us</code>，无登录态。原始返回见
+<code>2026-07-28-seo-autocomplete-raw.json</code>，采集脚本见
+<code>2026-07-28-seo-autocomplete-fetch.py</code>，可重跑复核。</p>
+<p><strong>口径</strong>：自动补全反映真实查询的存在与相对常见程度，<strong>不是搜索量</strong>，不能与
+§四
+的月搜索量相加或互相换算。它的判别力主要在负向——<strong>零补全基本可判定该措辞不是用户的自然表达</strong>。</p>
+<h3 id="a1-零补全的措辞命名红线">A.1 零补全的措辞（命名红线）</h3>
+<table>
+<thead>
+<tr>
+<th>种子词</th>
+<th>结论</th>
+<th>与 §四 的交叉印证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>google search console quick wins</code></td>
+<td>零补全</td>
+<td>与 <code>gsc quick wins</code> 月搜索量 0
+一致，两条独立证据同向</td>
+</tr>
+<tr>
+<td><code>my rankings dropped</code></td>
+<td>零补全</td>
+<td>用户描述问题用"流量"不用"排名"；<code>why is my website traffic dropping</code>
+补全完整</td>
+</tr>
+<tr>
+<td><code>brand prompt tracking</code></td>
+<td>零补全</td>
+<td>属内部术语，不能作为工具页命名或落地页标题</td>
+</tr>
+<tr>
+<td><code>share of voice ai search</code></td>
+<td>零补全</td>
+<td>同上；该概念只适合出现在结果页内，不适合做入口</td>
+</tr>
+<tr>
+<td><code>is my website cited by chatgpt</code></td>
+<td>零补全</td>
+<td>用户实际问法是 <code>how to get cited by ai</code> /
+<code>how to rank in chatgpt</code>（均 10 条补全全满）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>结论与 §十一 "GSC Quick Wins 改外部命名"一致，并把命名红线扩大到
+Prompt 追踪与 Share of Voice 两个方向。</p>
+</blockquote>
+<h3 id="a2-补全饱满的表达可直接用作页面标题">A.2
+补全饱满的表达（可直接用作页面标题）</h3>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>补全丰度</th>
+<th>可用表达</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 可见度</td>
+<td>10/10</td>
+<td><code>ai visibility checker / score / tracker / audit / report / tools / platform</code></td>
+</tr>
+<tr>
+<td>AI 引用做法</td>
+<td>10/10</td>
+<td><code>how to get cited by ai</code>、<code>how to get cited in ai overviews</code>、<code>how to rank in chatgpt</code></td>
+</tr>
+<tr>
+<td>内链</td>
+<td>10/10</td>
+<td><code>internal link checker</code>（+
+<code>free / tool / extension / broken</code>）</td>
+</tr>
+<tr>
+<td>通用审计</td>
+<td>10/10</td>
+<td><code>free seo audit tool</code>、<code>free seo audit report generator</code>、<code>site audit tool</code></td>
+</tr>
+<tr>
+<td>关键词聚类</td>
+<td>10/10</td>
+<td><code>keyword clustering tool</code>（+ <code>free</code>）；另有
+<code>keyword clustering python / github</code></td>
+</tr>
+<tr>
+<td>流量下降</td>
+<td>完整簇</td>
+<td><code>why is my website traffic dropping</code>、<code>why is my organic traffic down</code>、<code>why is my website getting no traffic</code></td>
+</tr>
+<tr>
+<td>收录问题</td>
+<td>完整簇</td>
+<td><code>why is my page crawled but not indexed</code>、<code>how to check if google indexed my site</code></td>
+</tr>
+<tr>
+<td>蚕食</td>
+<td>命中</td>
+<td><code>keyword cannibalization checker / tool</code></td>
+</tr>
+<tr>
+<td>内容衰退</td>
+<td>命中</td>
+<td><code>content decay tool / checker / analysis</code></td>
+</tr>
+<tr>
+<td>AI 爬虫</td>
+<td>命中</td>
+<td><code>should i block ai bots</code>、<code>llms.txt generator / checker / validator</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="a3-两个被污染或错位的词">A.3 两个被污染或错位的词</h3>
+<ul>
+<li><code>topical map generator</code>
+的补全<strong>几乎全部被"topographic
+map（地形图）"占据</strong>，只有第一条属于 SEO
+语义。该词不具备入口价值，与 §一 把 Topic Cluster Visualizer
+降为子视图的判断一致。</li>
+<li><code>keyword clustering python / github</code>
+出现在补全前十，说明有一部分用户在自己写脚本解决聚类——现有工具在"价格或可控性"上没有满足他们，属于
+§5.10 的价格痛点在聚类场景的具体表现。</li>
+</ul>
+<h3 id="a4-外链方向补测2026-07-2912-组种子">A.4
+外链方向补测（2026-07-29，12 组种子）</h3>
+<p>用于确定外链资源库的入口词，原始返回见
+<code>2026-07-29-seo-autocomplete-linkbuilding-raw.json</code>。</p>
+<table>
+<thead>
+<tr>
+<th>种子词</th>
+<th>补全丰度</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>guest post sites</code></td>
+<td>10/10（<code>list</code> / <code>free</code> /
+<code>list 2026</code> / <code>list site docs.google.com</code>）</td>
+<td>可用作主入口；<code>docs.google.com</code>
+后缀说明用户当前在共享表格里找这类清单</td>
+</tr>
+<tr>
+<td><code>how to get backlinks for free</code></td>
+<td>10/10</td>
+<td>问题词族最强，适合承接内容与工具混合页</td>
+</tr>
+<tr>
+<td><code>link building tools</code></td>
+<td>10/10（<code>free</code> / <code>best</code> /
+<code>ai link building tools</code>）</td>
+<td>工具词可用</td>
+</tr>
+<tr>
+<td><code>where to get backlinks</code></td>
+<td>4（含 <code>free</code> / <code>quality</code>）</td>
+<td>次级入口</td>
+</tr>
+<tr>
+<td><code>unlinked mentions</code></td>
+<td>10/10 但<strong>被 Obsidian 笔记软件占据</strong>；SEO 语义需用
+<code>unlinked brand mentions</code></td>
+<td>命名需限定</td>
+</tr>
+<tr>
+<td><code>link building opportunities</code></td>
+<td>10/10 但<strong>被 <code>link building jobs</code>
+占据</strong>（求职意图）</td>
+<td>不可用作入口</td>
+</tr>
+<tr>
+<td><code>digital pr opportunities</code></td>
+<td>10/10 但被 <code>digital marketing opportunities</code> 占据</td>
+<td>不可用作入口</td>
+</tr>
+<tr>
+<td><code>resource page link building</code></td>
+<td>4，半污染</td>
+<td>弱</td>
+</tr>
+<tr>
+<td><code>backlink opportunities</code></td>
+<td>2</td>
+<td>弱</td>
+</tr>
+<tr>
+<td><code>directory submission sites</code></td>
+<td>3，全部为地区限定词（uae / australia / instant approval）</td>
+<td>不建议承接，意图偏低质外链</td>
+</tr>
+<tr>
+<td><code>free backlink sites</code></td>
+<td><strong>0</strong></td>
+<td>零补全</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a5-用户期望的产品形态新增信号">A.5
+用户期望的产品形态（新增信号）</h3>
+<p>补全里反复出现的后缀说明了交付形态偏好，直接影响 §8.1
+工具目录的实现方式：</p>
+<table>
+<thead>
+<tr>
+<th>后缀信号</th>
+<th>出现位置</th>
+<th>对产品的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chrome extension</code> / <code>extension</code></td>
+<td><code>hreflang checker</code>、<code>canonical tag checker</code>、<code>sitemap checker</code>、<code>core web vitals test</code>、<code>internal link checker</code></td>
+<td>技术单点检查类，用户想要的是<strong>浏览器插件</strong>，网页版是次选。若只做网页版，即使排上去也接不住这批需求</td>
+</tr>
+<tr>
+<td><code>template</code> +
+<code>excel / ppt / pdf / free download</code></td>
+<td><code>seo audit report template</code>、<code>seo report template for client</code></td>
+<td>报告类需求要的是<strong>可编辑交付物</strong>，不是在线看板。对应
+§八 的客户报告能力应支持导出为可编辑格式</td>
+</tr>
+<tr>
+<td><code>free</code> / <code>no signup</code></td>
+<td>审计、内链、聚类、蚕食、AI 可见度各簇均出现</td>
+<td>印证 §8.3 的免费层设计：注册墙不能放在首次体验之前</td>
+</tr>
+<tr>
+<td><code>bulk</code>（<code>bulk canonical tag checker</code>）</td>
+<td>技术检查类</td>
+<td>单 URL
+检查已被免费工具做满，<strong>批量</strong>是这批长尾工具唯一的差异化空间</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="附录-b--与gengrowth-seo工具矩阵用户痛点需求洞察报告-v1的对比">附录 B
+· 与《GenGrowth SEO工具矩阵——用户痛点/需求洞察报告 v1》的对比</h2>
+<p>对比对象为同期另一份内部简报（以下称"简报
+v1"，依据文件见其文首）。两份报告回答的问题不同：简报 v1 是"已收敛出的 7
+个候选里哪个先做"，本报告是"112
+个候选里哪些值得成为独立入口"。以下记录可信度评估、四处实质分歧与合并结论。</p>
+<h3 id="b1-简报-v1-强于本报告的三处">B.1 简报 v1 强于本报告的三处</h3>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一手证据</strong></td>
+<td>astrologywiki.com 的 3,259 曝光 / 0.12% CTR 单页案例；7/23
+内链系统审计发现 168 篇文章 CTA 误链、62%
+文章孤岛率。这是自有生产数据，<strong>证据等级高于本报告使用的任何第三方调研</strong></td>
+</tr>
+<tr>
+<td><strong>Reddit 一手取证成功</strong></td>
+<td>取得真实帖子的标题、票数、评论数、原文引用与链接。其记录的失败路径与本报告完全一致——通用搜索引擎（含
+<code>site:reddit.com</code>）返回的是 SaaS
+博客与比价站，非社区原文；改用 Reddit 站内搜索 +
+人工浏览后取得一手帖子</td>
+</tr>
+<tr>
+<td><strong>证据完整性声明</strong></td>
+<td>文首明确区分"哪一项过了完整六源＋三关
+SOP、哪四项仅单点数据"，披露纪律高于多数内部文档</td>
+</tr>
+</tbody>
+</table>
+<p>其 §05
+提出的观察——"最该先做来验证痛点的工具"与"最有独立付费搜索流量的工具不是同一批"——与本报告
+§7.2 的"市场优先级 ≠ 开发顺序"是同一类判断，两份报告独立得出。</p>
+<h3 id="b2-四处需要修正或补强">B.2 四处需要修正或补强</h3>
+<p><strong>1. AI 可见度"轻量免费入口是空的"这一判断，与 2026-07-28 的
+SERP 实测不符。</strong></p>
+<p>简报 v1 据此将 GEO 快照排至第 3
+位。本报告同日实测该查询首屏：Ahrefs、Semrush、Backlinko
+均已提供<strong>免费且免注册</strong>的 AI 可见度检查器，另有
+Leapd、SearchIntel、Omnia、rank.ai、GetMentioned
+等一批初创免费工具。该格已被占据。</p>
+<p>根因是证据时效：其引用的 Reddit
+帖为<strong>一年前且已归档</strong>。该品类在此期间变化幅度大（Profound
+于 2026-02 完成 9,600 万美元 C 轮、估值 10
+亿美元）。<strong>在变化最快的品类中，一年前的社区讨论不足以支撑现在时的供给判断。</strong></p>
+<p><strong>2. 一手事故证明问题真实，不证明市场需求规模。</strong></p>
+<p>内链排第 2 主要依据 62%
+孤岛率这一自有数据。它有力证明了问题真实且难以自查，但不能推出搜索该解决方案的人数——自有站点是被选中的样本，不是随机样本。该证据应计入<strong>工程杠杆</strong>（数据可复用、开发成本低），而非需求量级。本报告最终采纳其排序结论，但更换了理由（见
+§11.1 P0-2）。</p>
+<p><strong>3. <code>semrush alternative</code>
+是有效补充，但意图与原子工具错配。</strong></p>
+<p>Vol 3,600 / CPC $8.00，<strong>该词为本报告 §4.1
+未覆盖的有效补充</strong>。但其搜索意图是"寻找更便宜的全能套件"，而非某个单点工具；CPC
+反映竞品争夺 Semrush
+存量用户的付费战场。结论：由对比型内容页承接，不作为工具页主词（已写入
+§11.2 P0-5 备注）。</p>
+<p><strong>4. 关键词数据源分歧。</strong></p>
+<p><code>internal link checker</code> 在简报 v1（google_us）为 Vol 450 /
+CPC $2.50，在本报告（seodata.dev）为 Vol 140 / CPC
+$6.19。两者均为单一数据源单点查询，差约 3
+倍但同处一个数量级。<strong>处理方式：保留分歧、不取平均、仅按"中等量级"参与排序</strong>（§11.2
+备注）。</p>
+<p>另需补充一条影响外链方向决策的事实：Google
+将为排名买卖链接列为链接垃圾，付费或赞助链接应标记 <code>nofollow</code>
+或 <code>sponsored</code>。简报 v1
+将外链计算器挂起的理由是内部定位冲突，该政策约束亦应并列写入——本报告已在
+§11.3 处理。</p>
+<h3 id="b3-两份报告的覆盖差异">B.3 两份报告的覆盖差异</h3>
+<table>
+<thead>
+<tr>
+<th>只在简报 v1 中</th>
+<th>只在本报告中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一手事故数据（CTR 案例、内链审计）</td>
+<td>流量下降诊断（本报告 P0-3，简报 v1 未覆盖）</td>
+</tr>
+<tr>
+<td>真实 Reddit 原帖与票数</td>
+<td>AI 可见度的供给饱和实测</td>
+</tr>
+<tr>
+<td><code>semrush alternative</code> 搜索词</td>
+<td>自动补全命名验证（附录 A）</td>
+</tr>
+<tr>
+<td>定价分层框架（入口型 / 钩子型）</td>
+<td>本地 SEO 覆盖缺口与其验证门槛</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b4-合并后的净变化">B.4 合并后的净变化</h3>
+<p>两套方法、两位撰写者，独立得出的排序在多数项上吻合；实质净变化只有两处：</p>
+<ol type="1">
+<li><strong>AI 可见度从简报 v1 的第 3 位降至 P1</strong>——依据是同日
+SERP 供给实测。</li>
+<li><strong>流量下降诊断插入 P0</strong>——依据是它与 GSC
+机会发现器共用同一套连接与时间线，边际工程成本最低，且问题词需求成熟而供给近乎为零。</li>
+</ol>
+<p>内链的排序采纳简报 v1 的结论（进入
+P0），但理由由"需求"改为"工程杠杆"。</p>
+<h3 id="b5-建议合并的证据方法">B.5 建议合并的证据方法</h3>
+<p>四种方法互不重叠，建议固化为同一套 SOP：简报 v1
+的<strong>一手事故数据</strong>与<strong>Reddit
+人工站内取证</strong>，本报告的<strong>自动补全命名验证</strong>与<strong>SERP
+供给实测</strong>。此外建议定稿前用同一数据源重跑两份报告重叠的约 6
+个关键词，统一口径。</p>
+<h2 id="十二参考来源">十二、参考来源</h2>
+<h3 id="官方与高置信度来源">官方与高置信度来源</h3>
+<ol type="1">
+<li><a
+href="https://support.google.com/business/answer/7091?hl=en-en">Google：改善本地排名</a></li>
+<li><a
+href="https://support.google.com/business/answer/9157481?hl=en">Google：管理服务区域</a></li>
+<li><a
+href="https://support.google.com/business/answer/16394780?hl=en">Google：Business
+Profile 与品牌资料</a></li>
+<li><a
+href="https://support.google.com/business/answer/3038177?hl=en">Google：本地商家展示规范</a></li>
+<li><a
+href="https://support.google.com/business/answer/7249669?hl=en">Google：管理商家类目</a></li>
+<li><a
+href="https://support.google.com/webmasters/answer/17010961?hl=en">Google
+Search Console：Performance report 常见任务</a></li>
+<li><a
+href="https://support.google.com/webmasters/answer/17011259?hl=en">Google
+Search Console：查询与页面维度</a></li>
+<li><a
+href="https://www.gartner.com/en/newsroom/press-releases/gartner-survey-finds-only-one-third-of-consumers-say-genai-rivals-search-engines-marketers-must-optimize-for-both-ai-driven-and-traditional-search">Gartner：消费者同时使用传统搜索与生成式
+AI</a></li>
+<li><a
+href="https://yougov.com/en-us/reports/55071-us-websearch-ai-report-2026">YouGov：美国
+Web Search 与 AI 报告 2026</a></li>
+<li><a
+href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/">Pew
+Research Center：AI 摘要出现时用户更少点击链接（n=900，2025-03
+数据）</a></li>
+</ol>
+<h3 id="搜索量调查与市场资料">搜索量、调查与市场资料</h3>
+<ol start="10" type="1">
+<li><a href="https://www.seodata.dev/llms.txt">seodata.dev：关键词 API
+说明</a></li>
+<li><a
+href="https://www.seodata.dev/keyword/website-audit-tool">seodata.dev：website
+audit tool 数据</a></li>
+<li><a
+href="https://www.seodata.dev/keyword/keyword-research-tool">seodata.dev：keyword
+research tool 数据</a></li>
+<li><a
+href="https://www.brightlocal.com/research/smb-marketing-2025/">BrightLocal：SMB
+Marketing Report 2025</a></li>
+<li><a
+href="https://www.brightlocal.com/research/local-consumer-review-survey-2025/">BrightLocal：Local
+Consumer Review Survey 2025</a></li>
+<li><a
+href="https://www.brightlocal.com/research/consumer-search-behavior/">BrightLocal：Consumer
+Search Behavior</a></li>
+<li><a
+href="https://www.brightlocal.com/research/local-consumer-review-survey/">BrightLocal：2026
+Local Consumer Review Survey</a></li>
+<li><a
+href="https://servicedirect.com/resources/small-business-search-marketing-survey/">Service
+Direct：Small Business Search Marketing Survey</a></li>
+<li><a
+href="https://www.semrush.com/blog/the-operational-gap-ai-seo-study/">Semrush：AI
+Search 与 SEO Operational Gap 研究</a></li>
+<li><a
+href="https://corporateink.com/wp-content/uploads/2026/05/Corporate-Ink-GEO-and-AI-Visibility-2026-Report.pdf">Corporate
+Ink：GEO and AI Visibility 2026 Report</a></li>
+<li><a
+href="https://www.yext.com/resources/consumer-search-behaviors-full-report">Yext：Consumer
+Search Behaviors Report 2026</a></li>
+<li><a href="https://ahrefs.com/pricing/">Ahrefs 官方价格</a></li>
+<li><a href="https://www.semrush.com/pricing/#seo">Semrush SEO Toolkit
+官方价格</a></li>
+<li><a href="https://www.brightlocal.com/pricing/">BrightLocal
+官方价格</a></li>
+<li><a
+href="https://www.screamingfrog.co.uk/seo-spider/pricing/">Screaming
+Frog 官方价格与功能</a></li>
+</ol>
+<h3 id="serp-供给与社区证据">SERP 供给与社区证据</h3>
+<ol start="25" type="1">
+<li><a
+href="https://www.semrush.com/free-tools/ai-search-visibility-checker/">Semrush：免费
+AI Search Visibility Checker</a></li>
+<li><a href="https://searchengineland.com/guide/local-seo-audit">Search
+Engine Land：Local SEO Audit Guide</a></li>
+<li><a
+href="https://www.reddit.com/r/SEO_tools_reviews/comments/1ux6di7/semrush_pro_ahrefs_lite_is_almost_3kyear_which/">Reddit：小团队对
+Ahrefs/Semrush 价格与行动性的讨论</a></li>
+<li><a
+href="https://www.reddit.com/r/bigseo/comments/1ivlae4">Reddit：Affordable
+SEO tools</a></li>
+<li><a
+href="https://www.reddit.com/r/SEO_Digital_Marketing/comments/1pjd6kc/how_do_you_cluster_keywords_these_days_curious/">Reddit：关键词聚类中的混合意图问题</a></li>
+<li><a
+href="https://www.reddit.com/r/TechSEO/comments/1s1cy2z/tool_to_check_internal_links/">Reddit：站点级内链检查需求</a></li>
+<li><a
+href="https://www.reddit.com/r/SEO/comments/1qtm52u/big_traffic_drop_after_dec_11_2025_google_core/">Reddit：核心更新后
+50% 流量下降诊断案例</a></li>
+<li><a
+href="https://www.reddit.com/r/SEO/comments/1mto66w/my_traffic_dropped_70_after_the_gsc_july_update/">Reddit：70%
+流量下降案例</a></li>
+<li><a
+href="https://www.reddit.com/r/WebsiteSEO/comments/1u37d7y/keyword_cannibalization_how_serious_is_it_really/">Reddit：蚕食是否真实影响排名</a></li>
+<li><a
+href="https://www.reddit.com/r/SEO/comments/1tkcg7o/what_tools_do_you_guys_use_to_track_ai_citations/">Reddit：AI
+Citation Tracking 的测量与归因限制</a></li>
+<li><a
+href="https://www.reddit.com/r/GEO_optimization/comments/1ullj7a/are_current_ai_visibility_tools_enough_for_ur/">Reddit：AI
+Visibility 工具仍缺少行动建议</a></li>
+<li><a
+href="https://www.reddit.com/r/localseo/comments/1s8erss/any_tips_to_improve_my_google_business_profile/">Reddit：GBP
+排名改进讨论</a></li>
+<li><a
+href="https://www.reddit.com/r/smallbusiness/comments/1uc2ydk/is_googles_new_layout_starting_to_hurt_traffic/">Reddit：本地服务商面临
+Map Pack 与 AI 搜索挤压</a></li>
+<li><a href="https://arxiv.org/abs/2604.07585">学术研究：Don’t Measure
+Once — AI Search Visibility</a></li>
+</ol>
+<h3 id="url-结构与本地数据可得性811一-相关">URL
+结构与本地数据可得性（§8.1.1、§一 相关）</h3>
+<ol start="39" type="1">
+<li><a
+href="https://developers.google.com/my-business/content/policies">Google
+Business Profile APIs：政策与第三方管理要求</a></li>
+<li><a
+href="https://support.google.com/business/answer/7107242?hl=en">Google：验证商家（未验证前资料按公开处理）</a></li>
+<li><a
+href="https://www.seroundtable.com/google-deep-subfolders-urls-seo-32818.html">Search
+Engine Roundtable：Google 称 URL 中的深层子目录对 SEO 无影响</a></li>
+<li><a
+href="https://www.searchenginejournal.com/google-click-depth-matters-seo-url-structure/256779/">Search
+Engine Journal：Google 称点击深度比 URL 结构更重要</a></li>
+<li><a href="https://whitespark.ca/pricing/">Whitespark
+官方价格（本地工具分项售卖口径）</a></li>
+<li><a href="https://www.localfalcon.com/pricing">Local Falcon
+官方价格（geo-grid 按点数计费口径）</a></li>
+</ol>
+<h3 id="自采数据随本报告归档">自采数据（随本报告归档）</h3>
+<ol start="45" type="1">
+<li>Google 自动补全实测原始返回（44
+组种子词，<code>hl=en / gl=us</code>，2026-07-28）：<code>2026-07-28-seo-autocomplete-raw.json</code></li>
+<li>上述数据的采集脚本（可重跑复核）：<code>2026-07-28-seo-autocomplete-fetch.py</code></li>
+<li>外链方向自动补全实测原始返回（12
+组种子词，<code>hl=en / gl=us</code>，2026-07-29）：<code>2026-07-29-seo-autocomplete-linkbuilding-raw.json</code></li>
+</ol>
+<p>关键词表的其余词可按 API 文档复核，统一请求格式为：</p>
+<p><code>https://app.seodata.dev/v1/keyword?q=&lt;URL 编码后的关键词&gt;&amp;country=us</code></p>
+</main>
+</div>
+<script>
+(function(){
+  var rx=/\[(High|Medium|Low|Unverified)\]/;
+  function walk(node){
+    if(node.nodeType===3){
+      if(rx.test(node.nodeValue)){
+        var span=document.createElement('span');
+        span.innerHTML=node.nodeValue
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\[High\]/g,'<span class="tag tag-high">High</span>')
+          .replace(/\[Medium\]/g,'<span class="tag tag-med">Medium</span>')
+          .replace(/\[Low\]/g,'<span class="tag tag-low">Low</span>')
+          .replace(/\[Unverified\]/g,'<span class="tag tag-unv">Unverified</span>');
+        node.parentNode.replaceChild(span,node);
+      }
+      return;
+    }
+    if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && !node.classList.contains('tag')){
+      Array.prototype.slice.call(node.childNodes).forEach(walk);
+    }
+  }
+  walk(document.querySelector('main')||document.body);
+
+  document.querySelectorAll('td,li,p').forEach(function(el){
+    if(/★/.test(el.innerHTML) && el.children.length<3){
+      el.innerHTML=el.innerHTML.replace(/([★☆]{2,})/g,'<span class="stars">$1</span>');
+    }
+  });
+
+  var toc=document.getElementById('TOC');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var heads=links.map(function(a){return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));});
+    function onScroll(){
+      var pos=window.scrollY+120, cur=-1;
+      heads.forEach(function(h,i){ if(h && h.offsetTop<=pos) cur=i; });
+      links.forEach(function(a){a.classList.remove('active');});
+      if(cur>=0 && links[cur]) links[cur].classList.add('active');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  }
+})();
+</script>
+</body>
+</html>

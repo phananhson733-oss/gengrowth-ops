@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth monochrome brand mark</title>
+  <desc id="desc">A monochrome G built on evidence signals with a path rising into an arrow.</desc>
+
+  <path
+    fill="#0F1B2D"
+    d="M92 28
+       C45 42 20 84 20 132
+       C20 192 70 232 129 222
+       C182 213 213 168 205 115
+       L153 115
+       L136 146
+       L178 146
+       C168 168 151 180 128 181
+       C91 183 61 155 60 118
+       C59 82 74 51 92 28Z"
+  />
+  <g fill="none" stroke="#0F1B2D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M82 49 L126 50 L72 88 Z" />
+  </g>
+  <g fill="#0F1B2D">
+    <circle cx="82" cy="49" r="8" />
+    <circle cx="126" cy="50" r="8" />
+    <circle cx="72" cy="88" r="8" />
+  </g>
+  <path
+    fill="#0F1B2D"
+    d="M72 153
+       C91 130 112 119 139 113
+       C158 109 176 91 187 77
+       L175 65
+       L220 50
+       L212 96
+       L198 83
+       C183 106 160 126 136 132
+       C114 138 97 150 89 169
+       C81 165 76 159 72 153Z"
+  />
+</svg>

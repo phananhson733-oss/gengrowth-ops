@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth responsive mark comparison</title>
+  <desc id="desc">Detail and micro drafts shown at exact 96, 48, 24, and 16 pixel sizes.</desc>
+  <rect width="1200" height="720" fill="#F7F9FC"/>
+
+  <defs>
+    <symbol id="detail" viewBox="0 0 256 256">
+      <path fill="#16A7B8" d="M92 28 C45 42 20 84 20 132 C20 192 70 232 129 222 C182 213 213 168 205 115 L157 115 L157 143 L180 143 C169 167 151 180 128 181 C91 183 61 155 60 118 C59 82 74 51 92 28Z"/>
+      <g fill="#16A7B8">
+        <circle cx="82" cy="50" r="8"/>
+        <circle cx="124" cy="51" r="8"/>
+        <circle cx="72" cy="88" r="8"/>
+      </g>
+      <path fill="#78C96B" d="M70 157 C91 130 112 119 139 113 C159 109 177 91 188 76 L175 64 L220 49 L212 96 L198 83 C183 106 160 126 136 132 C113 138 96 151 87 170 C80 167 74 162 70 157Z"/>
+    </symbol>
+    <symbol id="micro" viewBox="0 0 256 256">
+      <path fill="#16A7B8" d="M92 28 C45 42 20 84 20 132 C20 192 70 232 129 222 C182 213 213 168 205 115 L157 115 L157 143 L180 143 C169 167 151 180 128 181 C91 183 61 155 60 118 C59 82 74 51 92 28Z"/>
+      <path fill="#78C96B" d="M68 160 C90 130 112 118 140 112 C162 107 179 89 190 74 L176 61 L221 48 L211 95 L198 82 C181 107 159 128 135 134 C112 140 95 153 86 172 C78 169 72 165 68 160Z"/>
+    </symbol>
+  </defs>
+
+  <text x="64" y="64" fill="#0F1B2D" font-family="Avenir Next, Arial, sans-serif" font-size="30" font-weight="600">GenGrowth responsive mark test</text>
+  <text x="64" y="98" fill="#526073" font-family="Avenir Next, Arial, sans-serif" font-size="17">Exact 1:1 pixel sizes in the exported 1200 × 720 PNG</text>
+
+  <rect x="48" y="132" width="1104" height="228" rx="20" fill="#FFFFFF" stroke="#DFE6EE"/>
+  <text x="76" y="176" fill="#0F1B2D" font-family="Avenir Next, Arial, sans-serif" font-size="21" font-weight="600">A · Detail mark — connector lines removed</text>
+  <text x="76" y="204" fill="#667487" font-family="Avenir Next, Arial, sans-serif" font-size="15">Use at 32px and above; three signal dots remain.</text>
+
+  <g fill="#526073" font-family="Avenir Next, Arial, sans-serif" font-size="15" text-anchor="middle">
+    <text x="330" y="244">96px</text>
+    <text x="530" y="244">48px</text>
+    <text x="690" y="244">24px</text>
+    <text x="820" y="244">16px</text>
+  </g>
+  <use href="#detail" x="282" y="256" width="96" height="96"/>
+  <use href="#detail" x="506" y="280" width="48" height="48"/>
+  <use href="#detail" x="678" y="292" width="24" height="24"/>
+  <use href="#detail" x="812" y="296" width="16" height="16"/>
+
+  <rect x="48" y="388" width="1104" height="252" rx="20" fill="#FFFFFF" stroke="#DFE6EE"/>
+  <text x="76" y="432" fill="#0F1B2D" font-family="Avenir Next, Arial, sans-serif" font-size="21" font-weight="600">B · Micro mark — responsive redraw</text>
+  <text x="76" y="460" fill="#667487" font-family="Avenir Next, Arial, sans-serif" font-size="15">Use at 24px and below; nodes and lines removed, arrow thickened.</text>
+
+  <g fill="#526073" font-family="Avenir Next, Arial, sans-serif" font-size="15" text-anchor="middle">
+    <text x="330" y="500">96px</text>
+    <text x="530" y="500">48px</text>
+    <text x="690" y="500">24px</text>
+    <text x="820" y="500">16px</text>
+  </g>
+  <use href="#micro" x="282" y="512" width="96" height="96"/>
+  <use href="#micro" x="506" y="536" width="48" height="48"/>
+  <use href="#micro" x="678" y="548" width="24" height="24"/>
+  <use href="#micro" x="812" y="552" width="16" height="16"/>
+
+  <line x1="916" y1="236" x2="916" y2="600" stroke="#DFE6EE" stroke-width="1"/>
+  <text x="956" y="286" fill="#B45309" font-family="Avenir Next, Arial, sans-serif" font-size="16" font-weight="600">24 / 16px</text>
+  <text x="956" y="313" fill="#667487" font-family="Avenir Next, Arial, sans-serif" font-size="14">A exposes the problem.</text>
+  <text x="956" y="340" fill="#667487" font-family="Avenir Next, Arial, sans-serif" font-size="14">B is the production answer.</text>
+  <text x="956" y="548" fill="#168B99" font-family="Avenir Next, Arial, sans-serif" font-size="14" font-weight="600">Recommended switch</text>
+  <text x="956" y="575" fill="#667487" font-family="Avenir Next, Arial, sans-serif" font-size="14">Detail → Micro at 24px</text>
+</svg>

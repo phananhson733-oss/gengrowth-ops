@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Intent Miner - Dynamic Backend</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.1.0"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --primary-green: #166534;
+            --bg-color: #F8FAFC;
+            --surface: #FFFFFF;
+            --table-highlight: #93C5FD;
+            --border: #E2E8F0;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        /* 加载动画蒙版 */
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            z-index: 10;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        th { font-weight: 600; color: var(--text-muted); border-top: 1px solid var(--border); }
+        tr.sweet-spot { background-color: var(--table-highlight); }
+        
+        .table-wrapper {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .stat-box .label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+        .stat-box .value { font-size: 24px; font-weight: 700; }
+        .divider { width: 1px; background-color: var(--border); }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .control-label { color: var(--text-muted); font-weight: 500; font-size: 15px; }
+        .control-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #F8FAFC;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .control-input:focus { outline: none; border-color: var(--primary-blue); background: #FFF; }
+
+        .slider-container { display: flex; align-items: center; gap: 15px; }
+        input[type="range"] { flex-grow: 1; }
+        .number-box {
+            background: #F8FAFC; border: 1px solid var(--border);
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; width: 60px; text-align: center;
+        }
+
+        .btn-generate {
+            grid-column: 1 / -1;
+            background: var(--text-main);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-generate:hover { background: #334155; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Keyword Intent Miner</h1>
+    </div>
+
+    <!-- 统计区域 -->
+    <div class="stats-container">
+        <div class="stat-box">
+            <div class="label">KEYWORDS FOUND</div>
+            <div class="value" id="kwCount">0</div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-box">
+            <div class="label">AVG TARGET SCORE</div>
+            <div class="value" id="avgScore">0.0</div>
+        </div>
+    </div>
+
+    <!-- 控制面板区域 -->
+    <div class="controls-grid">
+        <div class="control-label">Seed Topic</div>
+        <div>
+            <!-- 这里解锁了输入框 -->
+            <input type="text" id="seedTopic" class="control-input" value="marketing agent">
+        </div>
+
+        <div class="control-label">Intent Modifier</div>
+        <div>
+            <select id="intentModifier" class="control-input">
+                <option value="alternatives">alternatives</option>
+                <option value="software like">software like</option>
+                <option value="cheaper">cheaper</option>
+                <option value="best">best</option>
+                <option value="vs">vs (comparison)</option>
+            </select>
+        </div>
+
+        <div class="control-label">Max KD (Difficulty)</div>
+        <div class="slider-container">
+            <input type="range" id="kdSlider" min="0" max="100" value="28">
+            <div class="number-box" id="kdValueDisplay">28</div>
+        </div>
+
+        <div class="control-label">Min Monthly Volume</div>
+        <div>
+            <input type="number" id="volInput" class="control-input" value="800">
+        </div>
+        
+        <button class="btn-generate" onclick="fetchBackendData()">🚀 分析真实意图数据 (Simulate Fetch)</button>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #E2E8F0; margin: 30px 0;">
+
+    <!-- 图表区域 -->
+    <div class="chart-container">
+        <div class="loading-overlay" id="loadingOverlay">正在从后端获取数据...</div>
+        <canvas id="scatterChart"></canvas>
+    </div>
+
+    <!-- 表格区域 -->
+    <div class="table-wrapper">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Keyword</th>
+                    <th>Vol</th>
+                    <th>KD</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JS 动态渲染 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let chartInstance = null;
+    let currentRawData = []; // 保存从后端获取的当前数据集
+
+    // 获取 DOM 元素
+    const seedTopicInput = document.getElementById('seedTopic');
+    const intentModifierInput = document.getElementById('intentModifier');
+    const kdSlider = document.getElementById('kdSlider');
+    const kdValueDisplay = document.getElementById('kdValueDisplay');
+    const volInput = document.getElementById('volInput');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    // ==========================================
+    // 模拟后端 API：根据输入的种子词动态生成数据
+    // ==========================================
+    function simulateBackendAPI(seed, modifier) {
+        return new Promise((resolve) => {
+            // 模拟网络延迟 800ms
+            setTimeout(() => {
+                const results = [];
+                const templates = [
+                    `${modifier} ${seed} options`,
+                    `${modifier} ${seed} replacement`,
+                    `${modifier} ${seed} tools`,
+                    `top ${modifier} ${seed}`,
+                    `${seed} ${modifier} list`,
+                    `is there a ${modifier} ${seed}`,
+                    `free ${seed} ${modifier}`,
+                    `enterprise ${seed} ${modifier}`,
+                    `${modifier} ${seed} for small business`
+                ];
+
+                // 生成 15 - 25 条假数据
+                const numKeywords = Math.floor(Math.random() * 10) + 15; 
+                
+                for(let i=0; i<numKeywords; i++) {
+                    const template = templates[i % templates.length];
+                    // 伪随机生成逼真的 Vol 和 KD
+                    const vol = Math.floor(Math.random() * 4500) + 200; 
+                    const kd = Math.floor(Math.random() * 85) + 5;
+                    const score = Math.floor(vol / (kd * 0.5)); // 简单的权重分数计算
+                    
+                    results.push({
+                        keyword: template + (Math.random() > 0.5 ? ` variation ${i}` : ''),
+                        vol: vol,
+                        kd: kd,
+                        score: score
+                    });
+                }
+                resolve(results);
+            }, 800);
+        });
+    }
+
+    // 触发后端请求的主函数
+    async function fetchBackendData() {
+        const seed = seedTopicInput.value.trim();
+        const modifier = intentModifierInput.value;
+        
+        if(!seed) { alert('请输入 Seed Topic!'); return; }
+
+        // 显示加载动画
+        loadingOverlay.style.display = 'flex';
+        
+        // 🚨 这里是预留给真实 API 的位置：
+        // const response = await fetch(`https://api.your-seo-tool.com/data?seed=${seed}&modifier=${modifier}`);
+        // currentRawData = await response.json();
+        
+        // 目前调用本地模拟引擎
+        currentRawData = await simulateBackendAPI(seed, modifier);
+        
+        // 隐藏加载动画并更新面板
+        loadingOverlay.style.display = 'none';
+        updateDashboard(); 
+    }
+
+    // 核心评估逻辑：判断是否是 Sweet Spot
+    function evaluateData(data, maxKd, minVol) {
+        return data.map(item => ({
+            ...item,
+            isSweet: item.kd <= maxKd && item.vol >= minVol
+        }));
+    }
+
+    // 刷新整个可视化面板
+    function updateDashboard() {
+        if(currentRawData.length === 0) return; // 没有数据则不渲染
+
+        const currentMaxKd = parseInt(kdSlider.value);
+        const currentMinVol = parseInt(volInput.value);
+        
+        kdValueDisplay.innerText = currentMaxKd; // 更新滑块数值显示
+
+        const processedData = evaluateData(currentRawData, currentMaxKd, currentMinVol);
+        
+        renderTable(processedData);
+        updateStats(processedData);
+        renderChart(processedData, currentMaxKd, currentMinVol);
+    }
+
+    // 1. 渲染表格
+    function renderTable(data) {
+        const tbody = document.querySelector('#dataTable tbody');
+        tbody.innerHTML = ''; 
+        // 优先展示 Sweet Spot，并按分数降序
+        const sortedData = [...data].sort((a, b) => b.score - a.score);
+
+        sortedData.forEach(row => {
+            const tr = document.createElement('tr');
+            if (row.isSweet) tr.className = 'sweet-spot';
+            
+            tr.innerHTML = `
+                <td>${row.keyword}</td>
+                <td>${row.vol.toLocaleString()}</td>
+                <td>${row.kd}%</td>
+                <td>${row.score}</td>
+                <td>${row.isSweet ? '🎯 Sweet' : '〇'}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // 2. 更新统计数据
+    function updateStats(data) {
+        const sweetSpots = data.filter(d => d.isSweet);
+        document.getElementById('kwCount').innerText = sweetSpots.length; // 改为显示匹配到的数量
+        
+        const totalScore = sweetSpots.reduce((sum, item) => sum + item.score, 0);
+        const avg = sweetSpots.length > 0 ? (totalScore / sweetSpots.length).toFixed(1) : 0;
+        document.getElementById('avgScore').innerText = avg;
+    }
+
+    // 3. 渲染散点图
+    function renderChart(data, maxKd, minVol) {
+        const ctx = document.getElementById('scatterChart').getContext('2d');
+        const chartData = data.map(item => ({ x: item.vol, y: item.kd, raw: item }));
+        const pointColors = data.map(item => item.isSweet ? '#2563EB' : '#166534'); 
+
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Keywords', data: chartData, backgroundColor: pointColors,
+                    pointRadius: 6, pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `${ctx.raw.raw.keyword} (Vol: ${ctx.raw.raw.vol}, KD: ${ctx.raw.raw.kd})`
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            lineKD: { type: 'line', yMin: maxKd, yMax: maxKd, borderColor: '#94A3B8', borderWidth: 2, borderDash: [5, 5] },
+                            lineVol: { type: 'line', xMin: minVol, xMax: minVol, borderColor: '#94A3B8', borderWidth: 2, borderDash: [5, 5] }
+                        }
+                    }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Monthly Volume →', align: 'end' }, min: 0, max: 5000, grid: { color: '#E2E8F0' } },
+                    y: { title: { display: true, text: 'Difficulty (KD) ↑', align: 'end' }, min: 0, max: 100, grid: { color: '#E2E8F0' } }
+                }
+            }
+        });
+    }
+
+    // 监听本地滑块和输入框（只触发视图更新，不请求后端）
+    kdSlider.addEventListener('input', updateDashboard);
+    volInput.addEventListener('input', updateDashboard);
+    
+    // 页面加载时自动执行一次默认搜索
+    window.onload = fetchBackendData;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth logo</title>
+  <desc id="desc">A geometric G crossed by a three-node evidence path that rises into an arrow, followed by the GenGrowth wordmark.</desc>
+
+  <g transform="translate(18 18)">
+    <path
+      d="M151 45 A72 72 0 0 0 35 126"
+      fill="none"
+      stroke="#16A7B8"
+      stroke-width="24"
+      stroke-linecap="butt"
+    />
+    <path
+      d="M35 126 A72 72 0 0 0 151 145 L151 112 H108"
+      fill="none"
+      stroke="#78C96B"
+      stroke-width="24"
+      stroke-linecap="butt"
+      stroke-linejoin="miter"
+    />
+
+    <path
+      d="M48 126 L80 103 L109 89 L151 40"
+      fill="none"
+      stroke="#16A7B8"
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path d="M143 35 L170 23 L164 51 Z" fill="#16A7B8" />
+
+    <circle cx="53" cy="122" r="7" fill="#16A7B8" />
+    <circle cx="81" cy="102" r="7" fill="#16A7B8" />
+    <circle cx="109" cy="89" r="7" fill="#16A7B8" />
+  </g>
+
+  <text
+    x="230"
+    y="139"
+    fill="#0F1B2D"
+    font-family="Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif"
+    font-size="86"
+    font-weight="700"
+    letter-spacing="-3"
+  >GenGrowth</text>
+</svg>

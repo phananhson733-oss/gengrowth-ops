@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Amy Demure 产品调研报告</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --ink:#1f2933; --muted:#647082; --line:#e3e8ef; --bg:#ffffff;
+    --accent:#3b5bdb; --accent-soft:#edf0ff; --code-bg:#0f1729;
+    --hi:#2b8a3e; --hi-bg:#ebfbee; --med:#1c6fb8; --med-bg:#e7f3ff;
+    --low:#b5870b; --low-bg:#fff8e1; --unv:#c0392b; --unv-bg:#fdecea;
+    --star:#f59f00;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:#f5f6f8; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:32px;}
+  #TOC{
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto;
+    width:268px; flex:0 0 268px; padding:28px 18px 60px 0; font-size:13.5px;
+    border-right:1px solid var(--line);
+  }
+  #TOC::before{content:"目录"; display:block; font-weight:700; font-size:12px; letter-spacing:.12em; color:var(--muted); margin-bottom:12px;}
+  #TOC ul{list-style:none; margin:0; padding:0}
+  #TOC ul ul{padding-left:14px}
+  #TOC li{margin:2px 0}
+  #TOC a{color:var(--muted); text-decoration:none; display:block; padding:3px 8px; border-radius:6px; line-height:1.4;}
+  #TOC a:hover{background:var(--accent-soft); color:var(--accent)}
+  #TOC a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
+  main{flex:1 1 auto; min-width:0; background:var(--bg); margin:28px 0;
+    padding:54px 60px 80px; border-radius:14px; box-shadow:0 1px 3px rgba(20,30,50,.06),0 12px 40px rgba(20,30,50,.06);}
+  main>h1:first-child{margin-top:0}
+  h1{font-size:34px; line-height:1.25; letter-spacing:-.01em; margin:0 0 6px; font-weight:800}
+  h2{font-size:25px; margin:54px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--line); font-weight:750}
+  h3{font-size:20px; margin:38px 0 14px; font-weight:700}
+  h4{font-size:16.5px; margin:26px 0 10px; color:var(--accent); font-weight:700}
+  p{margin:12px 0}
+  a{color:var(--accent)}
+  hr{border:0; border-top:1px solid var(--line); margin:40px 0}
+  strong{font-weight:680}
+  table{border-collapse:collapse; width:100%; margin:18px 0; font-size:14.5px; display:block; overflow-x:auto;}
+  thead th{background:#f0f3fa; color:#33415c; text-align:left; font-weight:700; white-space:nowrap}
+  th,td{border:1px solid var(--line); padding:9px 13px; vertical-align:top}
+  tbody tr:nth-child(even){background:#fafbfd}
+  tbody tr:hover{background:var(--accent-soft)}
+  blockquote{
+    margin:18px 0; padding:14px 18px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:#2a3a66;
+  }
+  blockquote p{margin:6px 0}
+  pre{background:var(--code-bg); color:#e7ecf5; padding:18px 20px; border-radius:10px; overflow-x:auto; line-height:1.6; font-size:13.5px;}
+  code{font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+  :not(pre)>code{background:#eef1f6; color:#b5275b; padding:1.5px 6px; border-radius:5px; font-size:.88em}
+  pre code{background:none; color:inherit; padding:0}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; padding:1px 7px; border-radius:999px; line-height:1.6; white-space:nowrap; vertical-align:baseline; margin:0 1px;}
+  .tag-high{color:var(--hi); background:var(--hi-bg)}
+  .tag-med{color:var(--med); background:var(--med-bg)}
+  .tag-low{color:var(--low); background:var(--low-bg)}
+  .tag-unv{color:var(--unv); background:var(--unv-bg)}
+  .stars{color:var(--star); letter-spacing:1px}
+  @media print{ body{background:#fff} main{box-shadow:none;margin:0;padding:0;border-radius:0} #TOC{display:none} .wrap{display:block} }
+  @media(max-width:920px){ #TOC{display:none} main{padding:32px 20px} .wrap{padding:0 12px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#amy-demure-产品调研报告"
+id="toc-amy-demure-产品调研报告">Amy Demure 产品调研报告</a>
+<ul>
+<li><a href="#执行摘要" id="toc-执行摘要">执行摘要</a>
+<ul>
+<li><a href="#证据边界" id="toc-证据边界">证据边界</a></li>
+</ul></li>
+<li><a href="#一产品总览" id="toc-一产品总览">一、产品总览</a>
+<ul>
+<li><a href="#双站点与-tiktok-的关系"
+id="toc-双站点与-tiktok-的关系">双站点与 TikTok 的关系</a></li>
+</ul></li>
+<li><a href="#二关键数据趋势"
+id="toc-二关键数据趋势">二、关键数据趋势</a></li>
+<li><a href="#三竞品对比" id="toc-三竞品对比">三、竞品对比</a>
+<ul>
+<li><a href="#主要竞品直接争夺相同需求"
+id="toc-主要竞品直接争夺相同需求">主要竞品（直接争夺相同需求）</a></li>
+<li><a href="#次要竞品工具与免费内容替代"
+id="toc-次要竞品工具与免费内容替代">次要竞品（工具与免费内容替代）</a></li>
+</ul></li>
+<li><a href="#四深度分析" id="toc-四深度分析">四、深度分析</a>
+<ul>
+<li><a href="#41-变现与收入模式" id="toc-41-变现与收入模式">4.1
+变现与收入模式</a></li>
+<li><a href="#42-用户增长与获客" id="toc-42-用户增长与获客">4.2
+用户增长与获客</a></li>
+<li><a href="#43-竞争定位swot" id="toc-43-竞争定位swot">4.3
+竞争定位（SWOT）</a></li>
+<li><a href="#44-产品类型专项分析" id="toc-44-产品类型专项分析">4.4
+产品类型专项分析</a></li>
+<li><a href="#45-产品架构与技术栈" id="toc-45-产品架构与技术栈">4.5
+产品架构与技术栈</a></li>
+<li><a href="#46-ux-与产品设计" id="toc-46-ux-与产品设计">4.6 UX
+与产品设计</a></li>
+<li><a href="#47-go-to-market-策略" id="toc-47-go-to-market-策略">4.7
+Go-to-Market 策略</a></li>
+<li><a href="#48-合规与监管" id="toc-48-合规与监管">4.8
+合规与监管</a></li>
+<li><a href="#49-重点市场专项美国与加拿大英语市场"
+id="toc-49-重点市场专项美国与加拿大英语市场">4.9
+重点市场专项：美国与加拿大英语市场</a></li>
+</ul></li>
+<li><a href="#五综合评估与建议"
+id="toc-五综合评估与建议">五、综合评估与建议</a>
+<ul>
+<li><a href="#综合评分" id="toc-综合评分">综合评分</a></li>
+<li><a href="#估值参考" id="toc-估值参考">估值参考</a></li>
+<li><a href="#战略建议" id="toc-战略建议">战略建议</a></li>
+<li><a href="#风险矩阵" id="toc-风险矩阵">风险矩阵</a></li>
+<li><a href="#场景规划20272029"
+id="toc-场景规划20272029">场景规划（2027—2029）</a></li>
+</ul></li>
+<li><a href="#六结论" id="toc-六结论">六、结论</a></li>
+<li><a href="#参考来源" id="toc-参考来源">参考来源</a>
+<ul>
+<li><a href="#amy-demure-官方与直接技术证据"
+id="toc-amy-demure-官方与直接技术证据">Amy Demure
+官方与直接技术证据</a></li>
+<li><a href="#社交与第三方资料"
+id="toc-社交与第三方资料">社交与第三方资料</a></li>
+<li><a href="#竞品" id="toc-竞品">竞品</a></li>
+<li><a href="#市场与监管" id="toc-市场与监管">市场与监管</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<main>
+<h1 id="amy-demure-产品调研报告">Amy Demure 产品调研报告</h1>
+<blockquote>
+<p>调研日期：2026-07-20 | 产品类型：E-commerce / DTC（主）+ Media /
+创作者内容（副） | 调研人：AI Product Analyst</p>
+</blockquote>
+<hr />
+<h2 id="执行摘要">执行摘要</h2>
+<p>Amy Demure
+不是两个平行商城，而是一套由三个层级组成的创作者商业闭环：TikTok
+<code>@amydemure</code> 承担内容触达，<code>amydemure.store</code>
+是托管在 Beacons 上的 link-in-bio 导航层，<code>amydemure.com</code>
+是托管在 Wix 上的交易、预约与交付入口。[High] <code>.store</code>
+的页面配置直接列出 TikTok <code>amydemure</code>、Instagram
+<code>amydemure_</code>，并把
+Guidebooks、占星解读、出生星盘、爱情解读、塔罗和 Zoom 咨询全部导向
+<code>.com</code>；另有一个 Everclear 外部导流链接。</p>
+<p>商业模式是“低价、可重复销售的星座数字指南 +
+高价、受个人工时约束的解读服务 + 团队化低价服务 +
+外部合作导流”。公开价格覆盖 $20 月度指南、$65 团队成员解读、$145
+个人问答/爱情/塔罗解读、约 $207 出生星盘分析及 $300/小时 Zoom。[High]
+该组合具备清晰的价格阶梯，但公开信息不足以确认销量、收入、毛利率、复购率或各业务线占比。</p>
+<p>最大的公开资产是社交分发：官网自述全平台约 200 万粉丝；第三方抓取显示
+TikTok 约 158 万粉丝、近月单条视频约 14.6 万—217 万播放。[Medium/Low]
+最大的可验证短板不是粉丝规模，而是交易信任与数据治理：官网 Terms and
+Conditions 页面仍保留 Wix
+模板占位文本，然而购买解读必须提交出生日期、准确出生时间、出生地点、邮箱，以及部分职业和关系信息。[High]
+这会同时影响购买转化、隐私合规和品牌专业度。</p>
+<h3 id="证据边界">证据边界</h3>
+<table>
+<thead>
+<tr>
+<th>公开数据可以支持</th>
+<th>公开数据不能支持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>两个域名的技术角色、出站链接关系和社交账号映射 [High]</td>
+<td>两个域名是否由同一注册法人持有；公司注册名未披露</td>
+</tr>
+<tr>
+<td>官网在售商品、公开售价、交付形式与承诺周期 [High]</td>
+<td>实际销量、收入、退款率、毛利率、团队分成</td>
+</tr>
+<tr>
+<td>官网自述粉丝规模与第三方可见 TikTok 指标 [Medium/Low]</td>
+<td>TikTok 到 <code>.store</code>、<code>.store</code> 到
+<code>.com</code> 的真实点击率和购买转化率</td>
+</tr>
+<tr>
+<td>公开页面存在模板化条款及所收集的出生信息 [High]</td>
+<td>Wix、Beacons 或支付服务内部保存、共享和删除数据的实际流程</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="一产品总览">一、产品总览</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>产品名</strong></td>
+<td>Amy Demure / Amy Demure's Astrology</td>
+</tr>
+<tr>
+<td><strong>所属公司</strong></td>
+<td>Not disclosed；公开页面呈现为 Amy Demure
+个人创作者品牌，注册法人、母公司及总部未披露 [Unverified]</td>
+</tr>
+<tr>
+<td><strong>创始人/核心团队</strong></td>
+<td>Amy
+Demure；官网自述拥有统计学学位，并以直觉与数据分析结合的方式传播占星内容
+[High]。另有“my astrologers”团队，但成员、雇佣关系与规模未披露</td>
+</tr>
+<tr>
+<td><strong>产品形态</strong></td>
+<td>TikTok 内容账号 + Beacons 导航站 <code>.store</code> + Wix 交易站
+<code>.com</code> + 数字 PDF/音频解读 + Zoom 服务</td>
+</tr>
+<tr>
+<td><strong>营收规模</strong></td>
+<td>Not
+disclosed；本报告仅建立可复核的外部情景模型，不把模型值视为真实收入</td>
+</tr>
+<tr>
+<td><strong>用户规模</strong></td>
+<td>官网自述全平台约 200 万粉丝 [High, company-reported]；TikTok
+第三方抓取约 158 万粉丝 [Low]</td>
+</tr>
+<tr>
+<td><strong>定位证据</strong></td>
+<td>官网原文：<code>"Amy Demure's Astrology"</code>；<code>.store</code>
+页面原文：<code>"@amydemure_: July Guidebooks, Astrology Reading - Ask Up To 8 Questions."</code>
+[High]</td>
+</tr>
+<tr>
+<td><strong>核心功能</strong></td>
+<td>月度十二星座
+Guidebooks、个性化占星问答、出生星盘分析、爱情占星、塔罗、Zoom
+咨询、团队成员解读</td>
+</tr>
+<tr>
+<td><strong>主要市场</strong></td>
+<td>英语用户；创作者出生地和第三方账号地区指向加拿大，商品以美元标价，内容与竞品结构表明美国也是关键可服务市场
+[Medium]</td>
+</tr>
+<tr>
+<td><strong>商业模式</strong></td>
+<td>数字内容一次性购买 + 人工服务一次性购买 + 团队服务 +
+外部合作/潜在联盟导流；未发现会员订阅 [High/Medium]</td>
+</tr>
+<tr>
+<td><strong>融资历程</strong></td>
+<td>Not disclosed；未发现可信融资或估值记录</td>
+</tr>
+<tr>
+<td><strong>核心优势</strong></td>
+<td>约 200 万自有社交受众、个人信任关系、从 $20 到 $300
+的价格阶梯，以及“短视频内容—导航页—交易页”的短链路</td>
+</tr>
+</tbody>
+</table>
+<h3 id="双站点与-tiktok-的关系">双站点与 TikTok 的关系</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>资产</th>
+<th>可验证角色</th>
+<th>关键证据</th>
+<th>结论置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容发现</td>
+<td>TikTok <code>@amydemure</code></td>
+<td>发布占星、星座、月相与解读内容；视频文案持续提示 readings /
+guidebooks 位于 bio</td>
+<td><code>.store</code> 配置的 TikTok 字段为
+<code>amydemure</code>；第三方抓取近期视频文案与账号一致</td>
+<td>[Medium]</td>
+</tr>
+<tr>
+<td>导航与归因</td>
+<td><code>amydemure.store</code></td>
+<td>Beacons 自定义域名 link-in-bio；聚合所有商品和外部合作链接</td>
+<td>HTTP <code>x-middleware-rewrite</code> 指向 Beacons
+<code>amydemure_</code>；页面 JSON 中
+<code>isPartOf: https://beacons.ai</code></td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>交易与交付</td>
+<td><code>amydemure.com</code></td>
+<td>Wix 商店、预约、付款、表单和数字/人工服务说明</td>
+<td><code>.store</code> 六个自有商品按钮均导向 <code>.com</code> 或 Wix
+短链</td>
+<td>[High]</td>
+</tr>
+<tr>
+<td>外部变现</td>
+<td>Everclear</td>
+<td>“favorite tarot readers and psychics”推荐链接</td>
+<td><code>.store</code> 存在带 <code>affiliate_id=1004</code> 与
+<code>offer_id=1</code> 参数的链接</td>
+<td>[High] 链接事实；具体佣金未披露</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：<code>.store</code>
+是社交流量路由器而不是第二套商品数据库；商业效果应按 TikTok 曝光 → bio
+点击 → <code>.store</code> 链接点击 → <code>.com</code> 商品页 →
+支付成功分层归因，不能把社交增长直接等同于交易增长。</p>
+</blockquote>
+<hr />
+<h2 id="二关键数据趋势">二、关键数据趋势</h2>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>用户规模</th>
+<th>收入</th>
+<th>关键事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>第三方人物资料称完成 Western University 统计学学位 [Low]</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>单条视频曾超过 300 万播放 [Low]</td>
+<td>Not disclosed</td>
+<td>以星座、月相与灵性内容获得大规模 TikTok 曝光</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>官网自述全平台约 200 万粉丝 [High, company-reported]</td>
+<td>Not disclosed</td>
+<td>官网 About 页面形成“数据分析 + 直觉占星”个人定位</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>TikTok 第三方抓取约 158 万粉丝、9704 万点赞、约 1810 条视频
+[Low]</td>
+<td>Not disclosed</td>
+<td><code>.store</code> 作为 Beacons 导航页，推广 July
+Guidebooks、个人解读、Zoom 与 Everclear</td>
+</tr>
+</tbody>
+</table>
+<p>公开数据没有连续的收入或购买用户序列，因此不能计算真实 YoY、复购率或
+cohort 留存。报告后续增长与收入数字均为显式假设模型。</p>
+<hr />
+<h2 id="三竞品对比">三、竞品对比</h2>
+<h3 id="主要竞品直接争夺相同需求">主要竞品（直接争夺相同需求）</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Amy Demure</th>
+<th>CHANI</th>
+<th>Co–Star</th>
+<th>Sanctuary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位</td>
+<td>创作者主导的占星指南与人工解读</td>
+<td>创作者品牌、个性化占星、自我成长内容</td>
+<td>超个性化、社交化实时星盘与关系解读</td>
+<td>占星/塔罗/灵媒的实时专家市场</td>
+</tr>
+<tr>
+<td>目标用户</td>
+<td>TikTok 驱动的英语年轻女性与灵性内容受众 [Medium]</td>
+<td>重视包容、自我照护与仪式的用户</td>
+<td>追求社交分享、关系兼容和日常提醒的年轻用户</td>
+<td>需要即时、真人答疑的用户</td>
+</tr>
+<tr>
+<td>用户规模</td>
+<td>官网称全平台约 200 万粉丝 [High, company-reported]</td>
+<td>约 200 万下载 [Medium, Inc.]</td>
+<td>2021 年公司称超 2000 万下载 [Medium, Axios]</td>
+<td>官网称 700 万+用户 [High, company-reported]</td>
+</tr>
+<tr>
+<td>营收规模</td>
+<td>Not disclosed</td>
+<td>Inc. 估算年收入约 $14M [Medium]</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>公开价格</td>
+<td>$20 指南；$65—$300 服务</td>
+<td>$11.99/月 [High]</td>
+<td>$9/单份爱情解读 [High]</td>
+<td>$9.99/月或 $69.99/年；人工服务 $4.99—$19.99/分钟 [High]</td>
+</tr>
+<tr>
+<td>主要变现</td>
+<td>数字指南 + 人工服务 + 外链</td>
+<td>订阅 + 电商 +课程</td>
+<td>单次解读 + 应用内服务/订阅</td>
+<td>订阅 + 按分钟专家服务 + 数字商品</td>
+</tr>
+<tr>
+<td>核心差异点</td>
+<td>大体量个人社交分发和个人声音交付</td>
+<td>稳定订阅、应用留存和价值观品牌</td>
+<td>算法个性化、社交关系图谱、规模</td>
+<td>即时供给、评价体系和专家市场流动性</td>
+</tr>
+<tr>
+<td>主要约束</td>
+<td>个人产能、无原生应用、条款与隐私页面不完整</td>
+<td>订阅竞争与内容持续投入</td>
+<td>个性化内容的信任与数据隐私</td>
+<td>专家质量控制、抽成与实时供给</td>
+</tr>
+</tbody>
+</table>
+<h3 id="次要竞品工具与免费内容替代">次要竞品（工具与免费内容替代）</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Astro.com</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位</td>
+<td>专业星盘计算、星历、解释内容与占星数据库</td>
+</tr>
+<tr>
+<td>目标用户</td>
+<td>从初学者到专业占星师</td>
+</tr>
+<tr>
+<td>用户规模</td>
+<td>官方称每月超过 800 万访问者 [High, company-reported]</td>
+</tr>
+<tr>
+<td>营收规模</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>公开价格</td>
+<td>大量免费工具；付费报告、订阅和广告支持</td>
+</tr>
+<tr>
+<td>核心差异点</td>
+<td>9000 年星历、超过 8 万条 Astro-Databank 数据及专业工具深度</td>
+</tr>
+<tr>
+<td>对 Amy Demure 的替代性</td>
+<td>用户可免费生成星盘和获得基础解释，但缺少 Amy 的个人表达、TikTok
+关系和人工陪伴</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：Amy Demure
+在分发规模上接近成熟创作者品牌，但产品系统仍更像高流量个人工作室。CHANI
+和 Co–Star 的优势是软件化留存，Sanctuary 的优势是专家供给规模，Astro.com
+的优势是免费工具与专业数据深度。</p>
+</blockquote>
+<hr />
+<h2 id="四深度分析">四、深度分析</h2>
+<h3 id="41-变现与收入模式">4.1 变现与收入模式</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：价格阶梯已经成立，增长上限主要取决于能否把
+$20 数字指南做成高复购入口，并把 $145—$300
+的个人产能从“创作者亲自交付”扩展为有质量标准的团队服务。</p>
+</blockquote>
+<h4 id="收入来源与价格架构">收入来源与价格架构</h4>
+<table>
+<thead>
+<tr>
+<th>业务线</th>
+<th style="text-align: right;">公开价格</th>
+<th>交付方式</th>
+<th>收入性质</th>
+<th>产能约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>月度 Guidebooks</td>
+<td style="text-align: right;">$20/星座</td>
+<td>数字内容</td>
+<td>可重复、非订阅</td>
+<td>低边际成本；需要每月更新</td>
+</tr>
+<tr>
+<td>Eclipse Guidebooks</td>
+<td style="text-align: right;">$22/星座</td>
+<td>数字内容</td>
+<td>事件驱动</td>
+<td>低边际成本；季节性</td>
+</tr>
+<tr>
+<td>团队成员解读</td>
+<td style="text-align: right;">$65</td>
+<td>邮件/表单 + 人工解读</td>
+<td>一次性服务</td>
+<td>团队工时；Amy 审核</td>
+</tr>
+<tr>
+<td>Amy 问答/爱情/塔罗</td>
+<td style="text-align: right;">$145</td>
+<td>个人语音，约 7 天交付</td>
+<td>一次性服务</td>
+<td>Amy 工时</td>
+</tr>
+<tr>
+<td>出生星盘分析</td>
+<td style="text-align: right;">约 $207</td>
+<td>个人语音，约 14 天交付</td>
+<td>一次性服务</td>
+<td>Amy 工时更高</td>
+</tr>
+<tr>
+<td>Zoom 咨询</td>
+<td style="text-align: right;">$300/小时</td>
+<td>实时视频</td>
+<td>一次性服务</td>
+<td>最高工时约束</td>
+</tr>
+<tr>
+<td>Everclear 导流</td>
+<td style="text-align: right;">Not disclosed</td>
+<td>外部平台链接</td>
+<td>潜在联盟收入</td>
+<td>取决于点击与成交；佣金未披露</td>
+</tr>
+</tbody>
+</table>
+<h4 id="独立站收入情景模型">独立站收入情景模型</h4>
+<p>公开数据没有 <code>.com</code> 年访问量，因此以下以 TikTok
+内容触达反推可归因会话；这不是实际收入估算。公式：<code>月视频数 × 单条平均播放 × bio 点击率 × </code>.store→.com<code> 点击率 × 购买转化率 × 模型 AOV × 12</code>。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th style="text-align: right;">月视频数</th>
+<th style="text-align: right;">单条播放</th>
+<th style="text-align: right;">Bio CTR</th>
+<th style="text-align: right;"><code>.store→.com</code> CTR</th>
+<th style="text-align: right;">CVR</th>
+<th style="text-align: right;">模型 AOV</th>
+<th style="text-align: right;">年可归因收入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保守</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">250,000</td>
+<td style="text-align: right;">0.15%</td>
+<td style="text-align: right;">55%</td>
+<td style="text-align: right;">1.5%</td>
+<td style="text-align: right;">$45</td>
+<td
+style="text-align: right;"><code>10×250k×0.15%×55%×1.5%×$45×12 ≈ $16.7k</code>
+[Low]</td>
+</tr>
+<tr>
+<td>基准</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">500,000</td>
+<td style="text-align: right;">0.30%</td>
+<td style="text-align: right;">65%</td>
+<td style="text-align: right;">2.0%</td>
+<td style="text-align: right;">$60</td>
+<td style="text-align: right;"><code>≈ $182.5k</code> [Low]</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">750,000</td>
+<td style="text-align: right;">0.50%</td>
+<td style="text-align: right;">70%</td>
+<td style="text-align: right;">3.0%</td>
+<td style="text-align: right;">$75</td>
+<td style="text-align: right;"><code>≈ $850.5k</code> [Low]</td>
+</tr>
+</tbody>
+</table>
+<p>模型只覆盖 TikTok 可归因的独立站成交，不含
+Instagram、直接流量、回访、邮件、Everclear、线下或未公开渠道。公开售价区间不等于
+AOV；表内 AOV 是显式模型假设。</p>
+<h4 id="tam--sam--som">TAM / SAM / SOM</h4>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th style="text-align: right;">市场规模</th>
+<th>推导与数据来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TAM</td>
+<td style="text-align: right;">美国 psychic services 2024 年约 $2.3B
+[Medium]</td>
+<td>AP 援引
+IBISWorld；涵盖占星、塔罗、灵媒与算命服务，口径大于本产品</td>
+</tr>
+<tr>
+<td>SAM</td>
+<td style="text-align: right;">约 $460M—$805M [Low]</td>
+<td><code>TAM $2.3B × 数字/在线可服务比例 40%—50% × Amy 可覆盖的英语年轻受众及价格带比例 50%—70%</code>；后两项为假设</td>
+</tr>
+<tr>
+<td>SOM（3 年）</td>
+<td style="text-align: right;">约 $0.3M—$1.5M 年收入 [Low]</td>
+<td>不是当前收入；对应 SAM 的约
+0.04%—0.33%，并受个人品牌与团队产能限制</td>
+</tr>
+</tbody>
+</table>
+<p>另一份行业研究把 2025 年全球 Horoscope &amp; Astrology Apps 市场估为
+$1.16B、2032 年 $2.16B、CAGR 9.28%
+[Medium]。该口径以应用为主，不应与包含人工服务的 $2.3B 美国 psychic
+services 直接相加。</p>
+<h4 id="单位经济与-arpu-杠杆">单位经济与 ARPU 杠杆</h4>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>当前公开值</th>
+<th>外部模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>付费客单</td>
+<td>Not disclosed</td>
+<td>$45—$75 [Low]</td>
+<td>综合 $20 数字内容与 $65—$300 服务的模型假设</td>
+</tr>
+<tr>
+<td>数字内容贡献毛利</td>
+<td>Not disclosed</td>
+<td>70%—90% [Low]</td>
+<td>未获得平台费、支付费、制作工时与退款数据</td>
+</tr>
+<tr>
+<td>人工服务贡献毛利</td>
+<td>Not disclosed</td>
+<td>不建模</td>
+<td>缺少交付时长、团队分成与返工率</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>Not disclosed</td>
+<td>自有社交流量的现金 CAC 可能较低 [Low]</td>
+<td>不代表总 CAC 为零；创作工时、设备、平台与机会成本仍存在</td>
+</tr>
+<tr>
+<td>LTV/CAC</td>
+<td>Not disclosed</td>
+<td>无法可靠计算</td>
+<td>必须获得客户级复购和渠道成本</td>
+</tr>
+</tbody>
+</table>
+<p>ARPU 提升的可量化杠杆：若 Guidebook 买家中 15% 从单星座 $20
+升级为“Sun + Rising”双份 $36 捆绑，数字内容买家平均订单可增加约
+<code>$16×15%=$2.40</code>；若另有 3% 转化为 $65 团队解读，期望收入增加
+<code>$65×3%=$1.95</code>。在不改变流量的情况下，模型 AOV 可从 $20
+提升至约 $24.35，增幅约 21.8% [Low]。</p>
+<h3 id="42-用户增长与获客">4.2 用户增长与获客</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：增长飞轮强在 TikTok
+内容供给和创作者信任，弱在站内激活与复购机制。真实瓶颈应通过跨域归因验证，而不是由粉丝或播放量直接推断。</p>
+</blockquote>
+<h4 id="渠道排序">渠道排序</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>渠道</th>
+<th>公开证据</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>TikTok 自然内容</td>
+<td><code>.store</code> 绑定 <code>@amydemure</code>；近期视频反复使用
+readings / guidebooks CTA</td>
+<td>核心发现渠道 [Medium]</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Instagram</td>
+<td><code>.store</code> 绑定 <code>@amydemure_</code>；第三方资料称约 75
+万粉丝</td>
+<td>重要辅助渠道 [Low]</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Link-in-bio / Direct</td>
+<td><code>.store</code> 聚合全部产品链接</td>
+<td>核心路由，但流量规模未披露 [High/Unverified]</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>官网 SEO</td>
+<td>商品页已被搜索引擎抓取，但站点内容深度和关键词覆盖未量化</td>
+<td>现有承接渠道 [Medium]</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>合作与联盟</td>
+<td><code>.store</code> 存在 Everclear 参数化链接</td>
+<td>已存在外部合作路径 [High]</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>付费获客</td>
+<td>Not disclosed</td>
+<td>不能从公开数据确认是否投放</td>
+</tr>
+</tbody>
+</table>
+<h4 id="增长飞轮">增长飞轮</h4>
+<p><code>星象事件/星座短视频 → TikTok 推荐扩散 → 关注与重复触达 → Bio 进入 .store → 选择 $20 低门槛指南或高价解读 → 交付体验与社交反馈 → 下一次月相/逆行/星象事件再次购买</code>。</p>
+<p>飞轮中的可验证强化因素是星象事件天然形成内容日历；薄弱环节是官网未展示可审计的会员体系、客户账户价值、复购提醒或跨产品进度。</p>
+<h4 id="漏斗与瓶颈模型">漏斗与瓶颈模型</h4>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th style="text-align: right;">基准假设</th>
+<th style="text-align: right;">100 万视频播放对应人数</th>
+<th>最需要的观测事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视频观看</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">1,000,000</td>
+<td>TikTok views / unique viewers</td>
+</tr>
+<tr>
+<td>Profile/Bio 点击</td>
+<td style="text-align: right;">0.30% [Low]</td>
+<td style="text-align: right;">3,000</td>
+<td>profile_view、bio_click</td>
+</tr>
+<tr>
+<td><code>.store</code> 到商品页</td>
+<td style="text-align: right;">65% [Low]</td>
+<td style="text-align: right;">1,950</td>
+<td>outbound_click，按 link_id 区分</td>
+</tr>
+<tr>
+<td>商品页有效参与</td>
+<td style="text-align: right;">45% [Low]</td>
+<td style="text-align: right;">878</td>
+<td>product_view、scroll、form_start</td>
+</tr>
+<tr>
+<td>购买</td>
+<td style="text-align: right;">2.0% 商品页会话 [Low]</td>
+<td style="text-align: right;">18</td>
+<td>purchase、product、value、currency</td>
+</tr>
+<tr>
+<td>60 天复购</td>
+<td style="text-align: right;">20% [Low]</td>
+<td style="text-align: right;">4</td>
+<td>customer_id、repeat_purchase</td>
+</tr>
+</tbody>
+</table>
+<p>若 <code>.store→.com</code> 点击率从 65% 提升到 75%，其余参数不变，每
+100 万播放的订单模型由约 17.6 单增至 20.3 单，增幅约 15.4%。若商品页 CVR
+从 2% 提升到 2.6%，订单增幅为
+30%。因此优化优先级应由真实数据判断是“路由点击”还是“商品页信任/结账”损失。</p>
+<h4 id="留存推断">留存推断</h4>
+<p>没有 DAU/MAU、客户 cohort 或复购数据，不能推断 D1/D7/D30
+产品留存。对该业务更合理的指标是：Guidebook 30/60/90
+天复购率、首次购买后 90
+天跨品类购买率、解读完成后的二次预约率。行业类比只可作为目标：基准方案可先以
+Guidebook 60 天复购 20%—30% 为实验目标 [Low]，而非声称当前已达到。</p>
+<h3 id="43-竞争定位swot">4.3 竞争定位（SWOT）</h3>
+<h4 id="优势">优势</h4>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自有分发资产</td>
+<td>官网自述约 200 万全平台粉丝；TikTok 第三方抓取约 158 万粉丝
+[Medium/Low]</td>
+</tr>
+<tr>
+<td>价格梯度</td>
+<td>从 $20 数字内容到 $300 实时服务，允许按信任与支付意愿分层
+[High]</td>
+</tr>
+<tr>
+<td>创作者亲自交付</td>
+<td>语音解读强化个人感和感知差异化 [High]</td>
+</tr>
+<tr>
+<td>内容日历天然持续</td>
+<td>月相、逆行、星座季与年度周期提供稳定选题和复购触发点 [Medium]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="劣势">劣势</h4>
+<table>
+<thead>
+<tr>
+<th>劣势</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>个人工时约束</td>
+<td>$145—$300 服务需要 Amy 亲自研究、录音或直播，扩张与一致性受限
+[High]</td>
+</tr>
+<tr>
+<td>交易信任信息不完整</td>
+<td>Terms 页面仍是 Wix
+模板占位文本，无法清晰确认退款、数据保存、争议与服务边界 [High]</td>
+</tr>
+<tr>
+<td>跨域归因复杂</td>
+<td>TikTok、Beacons、Wix 和外部平台分属多套系统，若没有统一
+UTM/事件，漏斗会被拆散 [High]</td>
+</tr>
+<tr>
+<td>软件化留存不足</td>
+<td>未发现原生应用、账户型长期档案、推送或订阅；与 CHANI/Co–Star
+相比重复使用钩子较少 [Medium]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="机遇">机遇</h4>
+<table>
+<thead>
+<tr>
+<th>机遇</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>订阅化月度指南</td>
+<td>把单月 $20
+购买转化为自动续订，可提高收入可预测性；需先验证复购意愿</td>
+</tr>
+<tr>
+<td>团队服务标准化</td>
+<td>已出现 $65 团队层，可用审核 rubric、SLA 与匹配机制扩大供给</td>
+</tr>
+<tr>
+<td>免费工具获客</td>
+<td>Rising Sign / Birth Chart
+基础计算器可承接搜索和社交流量，再升级至人工解读</td>
+</tr>
+<tr>
+<td>合规与信任升级</td>
+<td>完整条款、隐私说明、娱乐用途声明和交付/退款规则可直接降低结账顾虑</td>
+</tr>
+</tbody>
+</table>
+<h4 id="威胁">威胁</h4>
+<table>
+<thead>
+<tr>
+<th>威胁</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平台依赖</td>
+<td>TikTok 推荐或账号政策变化会影响主要触达渠道</td>
+</tr>
+<tr>
+<td>低价自动化替代</td>
+<td>Co–Star 的 $9 报告、免费 Astro.com 工具和 AI
+占星产品压低基础解读价格</td>
+</tr>
+<tr>
+<td>个人品牌风险</td>
+<td>产品、交付质量与创作者声誉高度绑定</td>
+</tr>
+<tr>
+<td>隐私与营销监管</td>
+<td>出生信息、关系/职业问题、推荐链接和效果型措辞提高隐私及误导营销风险</td>
+</tr>
+</tbody>
+</table>
+<h4 id="功能对比矩阵">功能对比矩阵</h4>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Amy Demure</th>
+<th>CHANI</th>
+<th>Co–Star</th>
+<th>Sanctuary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>免费持续内容</td>
+<td>✅ TikTok</td>
+<td>✅ App/内容</td>
+<td>✅ App</td>
+<td>✅ App</td>
+</tr>
+<tr>
+<td>个性化星盘</td>
+<td>✅ 人工</td>
+<td>✅ 软件</td>
+<td>✅ 软件</td>
+<td>✅ 软件+真人</td>
+</tr>
+<tr>
+<td>真人实时咨询</td>
+<td>✅ Amy Zoom</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅ 多专家即时</td>
+</tr>
+<tr>
+<td>低价数字指南</td>
+<td>✅ $20</td>
+<td>⚠️ 订阅内容</td>
+<td>✅ $9 报告</td>
+<td>✅ 数字报告</td>
+</tr>
+<tr>
+<td>订阅</td>
+<td>❌ 未发现</td>
+<td>✅</td>
+<td>✅/应用内</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>社交关系功能</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>⚠️ 兼容内容</td>
+</tr>
+<tr>
+<td>多专家市场</td>
+<td>⚠️ 小团队</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>专业免费工具</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>⚠️</td>
+<td>⚠️</td>
+</tr>
+</tbody>
+</table>
+<h4 id="竞品单位经济对比">竞品单位经济对比</h4>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Amy Demure</th>
+<th>CHANI</th>
+<th>Co–Star</th>
+<th>Sanctuary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公开付费价格</td>
+<td>$20—$300</td>
+<td>$11.99/月</td>
+<td>$9/报告</td>
+<td>$9.99/月；$4.99—$19.99/分钟</td>
+</tr>
+<tr>
+<td>ARPU</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>历史报道称 2021 年前主要靠口碑 [Medium]</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>LTV/CAC</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+<td>Not disclosed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="porters-five-forces">Porter's Five Forces</h4>
+<table>
+<thead>
+<tr>
+<th>力量</th>
+<th>强度</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>供应商议价能力</td>
+<td>中</td>
+<td>Wix、Beacons、TikTok 与支付平台可替换但迁移有成本；个人服务供给对
+Amy 本人依赖高</td>
+</tr>
+<tr>
+<td>买方议价能力</td>
+<td>高</td>
+<td>免费星盘、低价 AI 报告、其他创作者和专家市场大量存在</td>
+</tr>
+<tr>
+<td>新进入者威胁</td>
+<td>高</td>
+<td>创建内容和销售数字 PDF 的技术门槛低；获得百万级信任受众的门槛高</td>
+</tr>
+<tr>
+<td>替代品威胁</td>
+<td>高</td>
+<td>免费工具、心理健康内容、宗教/灵性社群、朋友建议和治疗服务均可满足部分需求</td>
+</tr>
+<tr>
+<td>行业竞争强度</td>
+<td>高</td>
+<td>应用、个人创作者、专家平台与传统占星网站同时争夺用户时间与支付</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>核心洞察</strong>：防御性主要来自“创作者—受众关系”和内容分发，不来自独占数据或复杂技术。若不能把关系沉淀为客户账户、复购、邮件/短信许可和稳定交付标准，平台流量不等于可持续资产。</p>
+</blockquote>
+<h3 id="44-产品类型专项分析">4.4 产品类型专项分析</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：主类型是数字商品与服务电商，副类型是创作者媒体。核心经营指标应从粉丝数转向
+SKU 转化、履约产能、复购和内容到交易的可归因效率。</p>
+</blockquote>
+<h4 id="e-commerce--dtc-专项">E-commerce / DTC 专项</h4>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>公开观察</th>
+<th>核心指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>销售指标</td>
+<td>商品价格公开，真实 GMV/AOV/CVR 未披露</td>
+<td>商品页 CVR、AOV、支付成功率、退款率</td>
+</tr>
+<tr>
+<td>客户经济</td>
+<td>社交自然流量可能降低现金 CAC，但内容成本未知</td>
+<td>CAC（含内容工时）、90 天 LTV、复购频次</td>
+</tr>
+<tr>
+<td>供应与履约</td>
+<td>数字指南低边际成本；个人解读 7—14 天；Zoom 1 小时</td>
+<td>准时交付率、每单工时、积压天数、返工率</td>
+</tr>
+<tr>
+<td>产品策略</td>
+<td>12 星座形成 12 个 SKU；服务形成 $65/$145/$207/$300 梯度</td>
+<td>星座 SKU 集中度、捆绑率、跨品类升级率</td>
+</tr>
+<tr>
+<td>品牌与营销</td>
+<td>TikTok 为高可见渠道，个人品牌是购买信任核心</td>
+<td>每千次播放产生的商品页会话与收入</td>
+</tr>
+<tr>
+<td>跨境</td>
+<td>美元定价、英语内容；税务、消费者保护和隐私适用范围需按客户所在地确认</td>
+<td>国家/州/省收入占比、税费、拒付率</td>
+</tr>
+</tbody>
+</table>
+<h4 id="media--创作者内容专项">Media / 创作者内容专项</h4>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>公开观察</th>
+<th>与成熟媒体产品差距</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容库</td>
+<td>约 1810 条 TikTok 视频 [Low]；月度和事件型指南持续更新</td>
+<td>站内可搜索内容库与主题集群较弱</td>
+</tr>
+<tr>
+<td>参与度</td>
+<td>第三方显示近期视频播放波动大，约 14.6 万—217 万 [Low]</td>
+<td>缺少自有 DAU/MAU、完读率和邮件参与度</td>
+</tr>
+<tr>
+<td>订阅用户</td>
+<td>Not disclosed；未发现内容订阅产品</td>
+<td>CHANI/Sanctuary 用订阅建立经常性收入</td>
+</tr>
+<tr>
+<td>创作者经济</td>
+<td>Amy 为核心创作者，另有小型 astrologer 团队</td>
+<td>需要明确质量标准、署名、分工和审核 SLA</td>
+</tr>
+<tr>
+<td>分发</td>
+<td>TikTok、Instagram、YouTube、Beacons、Wix</td>
+<td>分发高度依赖第三方平台</td>
+</tr>
+</tbody>
+</table>
+<h3 id="45-产品架构与技术栈">4.5 产品架构与技术栈</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：当前架构适合快速运营个人创作者业务，复制技术成本低。真正值得建设的技术资产是跨域归因、客户与出生数据治理、内容复用和团队履约系统。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>可验证技术</th>
+<th>用途</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容平台</td>
+<td>TikTok / Instagram / YouTube</td>
+<td>内容发现与社交证明</td>
+<td>[High] 账号链接存在</td>
+</tr>
+<tr>
+<td>Link-in-bio</td>
+<td>Beacons 自定义域名 + Next.js</td>
+<td><code>.store</code> 导航、出站链接、潜在归因</td>
+<td>[High] HTTP 头与页面源码</td>
+</tr>
+<tr>
+<td>交易站</td>
+<td>Wix</td>
+<td>商品、表单、结账、预约和页面托管</td>
+<td>[High] 页面结构/Wix 短链</td>
+</tr>
+<tr>
+<td>实时交付</td>
+<td>Zoom</td>
+<td>1 小时咨询</td>
+<td>[High] 产品页</td>
+</tr>
+<tr>
+<td>支付</td>
+<td>信用卡、PayPal；底层处理方未完整披露</td>
+<td>收款</td>
+<td>[High/Unverified]</td>
+</tr>
+<tr>
+<td>数据与分析</td>
+<td>Not disclosed</td>
+<td>跨域漏斗、客户数据、留存</td>
+<td>[Unverified]</td>
+</tr>
+<tr>
+<td>AI/ML</td>
+<td>未发现公开证据</td>
+<td>无法确认是否用于内容或交付</td>
+<td>[Unverified]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="技术护城河与复制难度">技术护城河与复制难度</h4>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>复制难度</th>
+<th>复制时间/成本</th>
+<th>防御性判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Beacons + Wix 商业链路</td>
+<td>低</td>
+<td>数天；低四位数美元以内 [Low]</td>
+<td>技术不构成壁垒</td>
+</tr>
+<tr>
+<td>12 星座数字指南商店</td>
+<td>低—中</td>
+<td>数周；内容质量决定成本</td>
+<td>内容可复制，表达与受众关系较难复制</td>
+</tr>
+<tr>
+<td>人工语音解读</td>
+<td>中</td>
+<td>需要占星能力、流程与品牌信任</td>
+<td>可扩展性低但感知差异较强</td>
+</tr>
+<tr>
+<td>百万级社交受众</td>
+<td>高</td>
+<td>通常需要多年内容积累或大量投放</td>
+<td>当前最强防御资产</td>
+</tr>
+<tr>
+<td>客户历史与个性化数据层</td>
+<td>当前未证实</td>
+<td>若建立需 3—6 个月基础系统 [Low]</td>
+<td>可能形成复购与个性化壁垒</td>
+</tr>
+</tbody>
+</table>
+<p>安全重点是跨域身份、出生数据最小化、访问权限、保存期限、导出/删除流程和第三方处理方清单。出生日期、时间和地点能共同形成高度具体的个人资料，关系与职业问题还可能包含敏感主观信息。</p>
+<h3 id="46-ux-与产品设计">4.6 UX 与产品设计</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：发现路径短、价格清晰，但“先产生信任再支付”的信息层不完整。模板化条款是当前最直接的
+UX 与合规共同缺口。</p>
+</blockquote>
+<h4 id="核心旅程">核心旅程</h4>
+<ol type="1">
+<li>用户从 TikTok 内容进入个人主页。</li>
+<li>点击 Bio 到达 <code>.store</code>，看到七个主要链接。</li>
+<li>选择 Guidebook 或解读，跨域进入 <code>.com</code> 商品页。</li>
+<li>提交出生信息、问题和邮箱，完成支付。</li>
+<li>等待数字下载、7—14 天语音交付或预约 Zoom。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>优点</th>
+<th>摩擦点</th>
+<th>优先改进</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TikTok → <code>.store</code></td>
+<td>与用户消费内容场景连续</td>
+<td>页面品牌名显示 <code>@amydemure_</code>，而 TikTok 是
+<code>@amydemure</code>，可能造成轻微账号识别摩擦</td>
+<td>明示“Official links for @amydemure”</td>
+</tr>
+<tr>
+<td><code>.store</code> → 商品</td>
+<td>链接数量适中，直接对应高意图商品</td>
+<td>缺少价格、交付时间与“适合谁”的首屏比较</td>
+<td>在按钮副标题显示 <code>$20 / $145 / 7 days</code></td>
+</tr>
+<tr>
+<td>商品详情</td>
+<td>价格和交付形式较清楚</td>
+<td>多个页面价格存在 $207/$210 显示差异；条款模板化</td>
+<td>统一价格源、补齐政策</td>
+</tr>
+<tr>
+<td>表单</td>
+<td>收集个性化所需信息</td>
+<td>未在输入前解释数据用途、保存期和删除方式</td>
+<td>就地隐私说明 + 必填最小化</td>
+</tr>
+<tr>
+<td>交付后</td>
+<td>人工语音具有高感知价值</td>
+<td>未见结构化复购、评价和后续产品路线</td>
+<td>交付邮件加入下一周期选择和合规评价邀请</td>
+</tr>
+</tbody>
+</table>
+<p>可访问性方面，公开抓取无法完整验证键盘导航、对比度、表单标签和屏幕阅读器体验，应通过
+WCAG 2.2 AA 人工测试确认。多语言和本地币种未见明确支持。</p>
+<h3 id="47-go-to-market-策略">4.7 Go-to-Market 策略</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：GTM
+已从“短视频创作者变现”进入“产品组合与团队供给”阶段，但尚未显示从一次性购买向自有客户关系与软件化留存的跃迁。</p>
+</blockquote>
+<h4 id="gtm-演进">GTM 演进</h4>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>核心动作</th>
+<th>可验证结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容获客</td>
+<td>早期—2022</td>
+<td>星座、月相与灵性短视频</td>
+<td>百万播放案例、粉丝增长 [Low]</td>
+</tr>
+<tr>
+<td>个人服务变现</td>
+<td>2022—2025</td>
+<td>私人占星/塔罗解读</td>
+<td>官网形成 $145—$300 服务层 [High]</td>
+</tr>
+<tr>
+<td>数字商品扩张</td>
+<td>2025—2026</td>
+<td>月度/事件型 12 星座指南</td>
+<td>$20—$22 低价 SKU，降低首次购买门槛 [High]</td>
+</tr>
+<tr>
+<td>团队与合作</td>
+<td>2026</td>
+<td>$65 团队解读、Everclear 外链</td>
+<td>初步扩充供给和外部变现 [High]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可执行-gtm-方案">可执行 GTM 方案</h4>
+<table>
+<thead>
+<tr>
+<th>动作</th>
+<th>设计</th>
+<th>预期影响（模型）</th>
+<th>验证周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>星象事件落地页</td>
+<td>每个高热视频使用独立 UTM 和对应事件页</td>
+<td>将 <code>.store→商品</code> CTR 从 65% 提升至 75%，模型订单 +15%
+[Low]</td>
+<td>4 周</td>
+</tr>
+<tr>
+<td>Sun + Rising 捆绑</td>
+<td>两份指南 $36，而非 $40</td>
+<td>若 15% 买家采用，数字内容 AOV +12% [Low]</td>
+<td>2 个月</td>
+</tr>
+<tr>
+<td>Guidebook 订阅测试</td>
+<td>$17/月自动续订，保留单买 $20</td>
+<td>若单买用户 20% 订阅，收入可预测性提高；真实流失需观察</td>
+<td>3 个月</td>
+</tr>
+<tr>
+<td>团队解读服务等级</td>
+<td>$65 标准版、明确 SLA 和 Amy 审核标准</td>
+<td>扩大产能并保护 $145 个人版定价</td>
+<td>6—8 周</td>
+</tr>
+<tr>
+<td>免费 Rising Sign 工具</td>
+<td>用出生信息生成基础结果，明示隐私选项</td>
+<td>增加搜索承接和邮件许可；不预设转化</td>
+<td>8—12 周</td>
+</tr>
+</tbody>
+</table>
+<p>内容策略应把 TikTok
+的高频话题映射到站内可索引页面：<code>Mercury retrograde + sign</code>、<code>new moon + sign</code>、<code>love astrology reading</code>、<code>birth chart reading</code>。但
+SEO、社交与付费渠道必须分别归因，不能把总流量变化归因于单一动作。</p>
+<h3 id="48-合规与监管">4.8 合规与监管</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：最紧急事项是把真实业务政策替换 Wix
+模板文本，并为出生信息、关系/职业问题、外部推荐和结果型措辞建立清楚的数据与营销边界。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>风险面</th>
+<th>公开现状</th>
+<th>适用原则</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐私政策</td>
+<td>Terms 页面仍是 Wix 占位文案 [High]</td>
+<td>加拿大 PIPEDA
+要求说明目的、同意、最小收集、保存、安全、访问与申诉</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>跨境数据</td>
+<td>Wix/Beacons/支付/Zoom 可能处理跨境数据，实际清单未披露</td>
+<td>PIPEDA 对跨省/跨境商业个人信息适用；美国州法视用户与门槛而定</td>
+<td>High</td>
+</tr>
+<tr>
+<td>出生与主观信息</td>
+<td>收集出生日期、时间、地点、邮箱、职业、关系和问题 [High]</td>
+<td>最小化、用途限制、保存期限、访问/删除、供应商合同</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>娱乐/建议边界</td>
+<td>页面使用“attract love, money and success”“avoid
+disaster”等强结果措辞 [High]</td>
+<td>避免保证结果；明确娱乐/自我反思用途，不替代医疗、法律或财务建议</td>
+<td>High</td>
+</tr>
+<tr>
+<td>推荐披露</td>
+<td>Everclear 链接含 affiliate 参数 [High]</td>
+<td>加拿大 Competition Bureau
+要求显著、清晰披露重大关系；仅链接或标签通常不够</td>
+<td>High</td>
+</tr>
+<tr>
+<td>评价与背书</td>
+<td>未系统核验</td>
+<td>FTC 2024 Consumer Reviews and Testimonials Rule
+禁止虚假/误导评价</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>消费者政策</td>
+<td>退款、取消、迟延、数字商品和预约规则未清楚显示</td>
+<td>按经营地与消费者所在地适用的电商/消费者保护规则确认</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<h4 id="监管竞争优势矩阵">监管竞争优势矩阵</h4>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Amy Demure</th>
+<th>CHANI</th>
+<th>Co–Star</th>
+<th>Sanctuary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐私透明度</td>
+<td>待提升：公开条款为模板文本</td>
+<td>中性：有成熟应用政策</td>
+<td>中性：有应用条款与隐私体系</td>
+<td>中性：有隐私与平台 FAQ</td>
+</tr>
+<tr>
+<td>专家质量披露</td>
+<td>待提升：小团队标准未公开</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>较强：官网称专家经审核并有评分</td>
+</tr>
+<tr>
+<td>服务边界</td>
+<td>待提升</td>
+<td>中性</td>
+<td>中性</td>
+<td>中性</td>
+</tr>
+<tr>
+<td>联盟披露</td>
+<td>待提升：参数可见但页面披露未见</td>
+<td>不适用/未核验</td>
+<td>不适用/未核验</td>
+<td>不适用/未核验</td>
+</tr>
+</tbody>
+</table>
+<p>最低合规包应包括：真实 Legal Name/联系主体、Privacy Policy、Terms of
+Service、Refund/Cancellation、Digital Delivery、Entertainment
+Disclaimer、Affiliate
+Disclosure、数据保存与删除流程、未成年人规则、第三方处理方清单。法律适用需由加拿大和目标美国市场律师确认。</p>
+<h3 id="49-重点市场专项美国与加拿大英语市场">4.9
+重点市场专项：美国与加拿大英语市场</h3>
+<blockquote>
+<p><strong>核心洞察</strong>：美国需求规模充足且年轻女性/LGBTQ+
+用户倾向更强；加拿大是创作者身份和可能的运营基础。市场机会存在，但只有约
+1%
+美国成年人表示在重大决策中高度依赖这类实践，产品表达应强调娱乐、自我反思和个人洞察，而非结果保证。</p>
+</blockquote>
+<h4 id="用户与需求">用户与需求</h4>
+<p>Pew 2024 年调查显示，30%
+美国成年人每年至少一次接触占星、塔罗或算命；约 20% 主要出于娱乐，约 10%
+认为可提供有用洞察，仅约 1% 在重大决策中“高度依赖”。女性 18—49 岁约 40%
+表示相信占星，LGBTQ+ 成年人约一半每年至少接触占星或星座内容
+[High/Medium]。</p>
+<table>
+<thead>
+<tr>
+<th>细分</th>
+<th>公开信号</th>
+<th>产品意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>美国 18—49 岁女性</td>
+<td>相信占星比例约 40% [High, Pew]</td>
+<td>与 TikTok、爱情与自我成长内容高度匹配</td>
+</tr>
+<tr>
+<td>LGBTQ+ 成年人</td>
+<td>约一半每年至少接触相关实践 [High, Pew]</td>
+<td>包容性表达和安全社区标准重要</td>
+</tr>
+<tr>
+<td>娱乐型用户</td>
+<td>约 20% 美国成年人主要为娱乐使用 [High, Pew]</td>
+<td>$20 指南和社交内容比高承诺服务更适合广泛入口</td>
+</tr>
+<tr>
+<td>洞察型用户</td>
+<td>约 10% 认为可提供有用洞察 [High, Pew]</td>
+<td>人工语音和 Zoom 更适合高意图、小规模变现</td>
+</tr>
+</tbody>
+</table>
+<h4 id="市场竞争位置">市场竞争位置</h4>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th>美国/加拿大市场优势</th>
+<th>Amy Demure 的相对位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Co–Star</td>
+<td>规模、社交关系、低价个性化</td>
+<td>Amy 的真人信任更强，软件留存更弱</td>
+</tr>
+<tr>
+<td>CHANI</td>
+<td>创作者品牌、订阅、价值观与应用内容</td>
+<td>商业路径最接近成熟版本</td>
+</tr>
+<tr>
+<td>Sanctuary</td>
+<td>即时真人供给、评分与市场流动性</td>
+<td>Amy 更个人化，但无法提供全天候供给</td>
+</tr>
+<tr>
+<td>Astro.com</td>
+<td>免费专业工具、长期数据和 SEO</td>
+<td>Amy 更具社交表达，但工具和搜索资产较弱</td>
+</tr>
+</tbody>
+</table>
+<p>美国市场需关注 FTC
+背书/评价规则、州隐私法、数字服务消费者保护和销售税；加拿大需关注
+PIPEDA、Competition Act
+的误导营销和联盟披露。是否达到某州隐私法收入/用户门槛未披露，不能直接断言
+CCPA 等已适用。</p>
+<hr />
+<h2 id="五综合评估与建议">五、综合评估与建议</h2>
+<h3 id="综合评分">综合评分</h3>
+<p>评分口径：<code>公开产品完整度 35% + 竞品相对位置 30% + 可验证近期趋势 20% + 数据/合规准备度 15%</code>。星级反映公开证据，不代表内部经营质量。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>评分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产品力</td>
+<td>⭐⭐⭐</td>
+<td>商品与服务梯度清楚，但缺少订阅、账户型体验与专业免费工具</td>
+</tr>
+<tr>
+<td>增长势能</td>
+<td>⭐⭐⭐⭐</td>
+<td>百万级社交受众与事件型内容日历强；跨域归因和平台依赖限制可验证性</td>
+</tr>
+<tr>
+<td>变现能力</td>
+<td>⭐⭐⭐</td>
+<td>已覆盖 $20—$300，但真实 CVR、复购与产能未披露</td>
+</tr>
+<tr>
+<td>竞争壁垒</td>
+<td>⭐⭐⭐</td>
+<td>个人品牌与受众关系较强，技术、数据和转换成本较低</td>
+</tr>
+<tr>
+<td>市场前景</td>
+<td>⭐⭐⭐⭐</td>
+<td>美国需求广泛，行业仍增长；免费/AI 替代和监管表达是长期约束</td>
+</tr>
+</tbody>
+</table>
+<h3 id="估值参考">估值参考</h3>
+<p>目标业务没有公开收入、利润、订阅数或交易量，不能使用可比公司的融资估值直接推导。Co–Star
+的融资体现软件平台资本预期，CHANI
+的收入估算包含成熟订阅应用，二者不适合作为 Amy Demure
+当前业务的直接倍数。</p>
+<table>
+<thead>
+<tr>
+<th>可比参照</th>
+<th>公开事实</th>
+<th>可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHANI</td>
+<td>Inc. 估算年收入约 $14M、约 200 万下载 [Medium]</td>
+<td>可验证创作者品牌向订阅应用扩张的上限，不可直接套倍数</td>
+</tr>
+<tr>
+<td>Co–Star</td>
+<td>2021 年 $15M Series A、公司称 2000 万+下载 [Medium]</td>
+<td>属 VC 软件平台，不可与个人服务业务直接比较</td>
+</tr>
+<tr>
+<td>Sanctuary</td>
+<td>官网称 700 万+用户，订阅与按分钟市场模式 [High,
+company-reported]</td>
+<td>可对标供给扩张，不可推导目标估值</td>
+</tr>
+<tr>
+<td>小型创作者电商</td>
+<td>无可信公开交易样本</td>
+<td>应按可验证 SDE/EBITDA、收入稳定性与创作者依赖折价</td>
+</tr>
+</tbody>
+</table>
+<p>条件式估值模型：若未来可验证年收入为 $0.3M—$1.5M，且形成 ≥40%
+经常性/复购收入、创作者本人不承担全部交付，可用
+<code>0.8×—2.0× revenue</code>
+作为小型创作者数字业务的内部工作区间，对应约 $0.24M—$3.0M
+[Low]。这不是当前估值；缺少报表、利润、客户集中度和知识产权确认时不应对外引用。</p>
+<h3 id="战略建议">战略建议</h3>
+<ol type="1">
+<li><strong>两周内修复信任与合规底座</strong>：替换 Wix 模板条款，发布
+Privacy、Terms、Refund、Delivery、Entertainment 与 Affiliate
+Disclosure。目标是把“政策页可读且完整”覆盖率从当前公开可见的不足状态提升至
+100%。</li>
+<li><strong>建立完整跨域归因</strong>：TikTok 每个 campaign 使用独立
+UTM；<code>.store</code> 记录 link_id；Wix 记录
+product_view、form_start、checkout、purchase；统一匿名
+visitor_id。四周内获得每个视频主题的 bio CTR、出站 CTR 和商品 CVR。</li>
+<li><strong>优先扩张数字产品而非个人工时</strong>：测试 Sun + Rising $36
+捆绑和 $17/月 Guidebook 订阅。以 60
+天复购、退款和取消原因决定是否扩大，不以首次销售额单独判断。</li>
+<li><strong>把 $65
+团队服务产品化</strong>：公开团队成员资料、服务边界、样例、交付 SLA 和
+Amy 审核 rubric；先限定每周容量，在准时交付 ≥95%、返工 ≤5%
+后再扩大。</li>
+<li><strong>建设一个免费工具型入口</strong>：Rising Sign 或基础 Birth
+Chart 工具，输出后提供 $20 指南和 $145
+解读的差异化升级。出生数据默认不保存，只有用户明确同意后才进入账户或营销系统。</li>
+</ol>
+<h3 id="风险矩阵">风险矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>可能性</th>
+<th>影响</th>
+<th>风险等级</th>
+<th>缓解策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐私/条款与真实数据处理不一致</td>
+<td>高</td>
+<td>高</td>
+<td>Critical</td>
+<td>完成数据地图、真实政策、供应商清单、访问/删除与保存期限</td>
+</tr>
+<tr>
+<td>TikTok 分发下降或账号事件</td>
+<td>中</td>
+<td>高</td>
+<td>High</td>
+<td>邮件许可、SEO 工具、Instagram/YouTube 分散、客户账户</td>
+</tr>
+<tr>
+<td>Amy 本人产能或声誉单点依赖</td>
+<td>高</td>
+<td>高</td>
+<td>Critical</td>
+<td>团队标准化、容量上限、交付 QA、数字产品占比提升</td>
+</tr>
+<tr>
+<td>AI/免费产品压低基础解读价格</td>
+<td>高</td>
+<td>中</td>
+<td>High</td>
+<td>强化真人声音、信任、审阅与后续互动，不竞争纯计算价格</td>
+</tr>
+<tr>
+<td>强结果措辞引发误导营销风险</td>
+<td>中</td>
+<td>高</td>
+<td>High</td>
+<td>娱乐/反思定位、删除保证结果式表述、审阅广告和客户评价</td>
+</tr>
+</tbody>
+</table>
+<h3 id="场景规划20272029">场景规划（2027—2029）</h3>
+<p>所有预测从外部情景模型出发，不代表当前经营基线。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th style="text-align: right;">概率</th>
+<th>关键假设</th>
+<th style="text-align: right;">可识别客户规模</th>
+<th style="text-align: right;">年收入</th>
+<th style="text-align: right;">条件式估值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乐观</td>
+<td style="text-align: right;">20%</td>
+<td>订阅成立、团队服务标准化、跨域 CVR 提升、平台流量稳定</td>
+<td style="text-align: right;">15k—30k 付费客户/年 [Low]</td>
+<td style="text-align: right;">$1.5M—$3.0M [Low]</td>
+<td style="text-align: right;">$2.4M—$6.0M [Low]</td>
+</tr>
+<tr>
+<td>基准</td>
+<td style="text-align: right;">50%</td>
+<td>维持社交分发，Guidebook 有一定复购，个人服务受容量限制</td>
+<td style="text-align: right;">5k—12k 付费客户/年 [Low]</td>
+<td style="text-align: right;">$0.4M—$1.2M [Low]</td>
+<td style="text-align: right;">$0.3M—$2.0M [Low]</td>
+</tr>
+<tr>
+<td>悲观</td>
+<td style="text-align: right;">25%</td>
+<td>社交流量下降、复购弱、团队扩张不稳定</td>
+<td style="text-align: right;">1k—4k 付费客户/年 [Low]</td>
+<td style="text-align: right;">$0.08M—$0.35M [Low]</td>
+<td style="text-align: right;">$0.05M—$0.4M [Low]</td>
+</tr>
+<tr>
+<td>极端</td>
+<td style="text-align: right;">5%</td>
+<td>平台/声誉/合规事件使核心漏斗中断</td>
+<td style="text-align: right;">&lt;1k 付费客户/年 [Low]</td>
+<td style="text-align: right;">&lt;$0.08M [Low]</td>
+<td style="text-align: right;">资产出售价值有限 [Low]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="六结论">六、结论</h2>
+<p>Amy Demure
+已拥有大多数早期创作者商业项目最难获得的资产：大规模、持续活跃且与明确主题绑定的自有受众。两个网站并不冲突，<code>.store</code>
+是 TikTok/Instagram 流量的 Beacons 路由层，<code>.com</code> 是 Wix
+交易与交付层。当前战略重点不是再建一个网站，而是把两层之间的归因、信任、隐私和复购补齐。</p>
+<p>短期优先级应是政策与数据治理、跨域漏斗埋点和价格/交付一致性；中期才是
+Guidebook
+订阅、免费工具和团队服务扩张。若这些基础未建立，百万级粉丝只能证明触达能力，不能证明收入质量或企业价值。</p>
+<hr />
+<h2 id="参考来源">参考来源</h2>
+<h3 id="amy-demure-官方与直接技术证据">Amy Demure
+官方与直接技术证据</h3>
+<ul>
+<li><a href="https://www.amydemure.com/">Amy Demure 官方首页</a></li>
+<li><a href="https://www.amydemure.com/about-me">Amy Demure About
+Me</a></li>
+<li><a href="https://amydemure.store/">Amy Demure <code>.store</code>
+Beacons 导航页</a></li>
+<li><a href="https://www.amydemure.com/shop-2">July Guidebooks</a></li>
+<li><a href="https://www.amydemure.com/shop-1">Readings
+商品列表</a></li>
+<li><a
+href="https://www.amydemure.com/product-page/mini-astrology-reading">Astrology
+Reading — Ask Up to 8 Questions</a></li>
+<li><a
+href="https://www.amydemure.com/product-page/birth-chart-reading">Birth
+Chart Reading</a></li>
+<li><a
+href="https://www.amydemure.com/service-page/zoom-call-with-amy-demure">Zoom
+Call With Amy Demure</a></li>
+<li><a href="https://www.amydemure.com/book-an-astrologer">Book with one
+of Amy Demure's astrologers</a></li>
+<li><a href="https://www.amydemure.com/terms-and-conditions">Amy Demure
+Terms and Conditions</a></li>
+<li><a href="https://linktr.ee/amydemure">Amy Demure Linktree</a></li>
+<li><a href="https://www.tiktok.com/search?q=amydemure">TikTok
+<code>@amydemure</code> 搜索页</a></li>
+</ul>
+<h3 id="社交与第三方资料">社交与第三方资料</h3>
+<ul>
+<li><a href="https://urlebird.com/user/amydemure/">Urlebird —
+<code>@amydemure</code> 可见账号指标</a></li>
+<li><a
+href="https://www.famousbirthdays.com/people/amy-demure.html">Famous
+Birthdays — Amy Demure</a></li>
+</ul>
+<h3 id="竞品">竞品</h3>
+<ul>
+<li><a href="https://www.chani.com/about/about-chani">CHANI 官方
+About</a></li>
+<li><a href="https://www.chani.com/app">CHANI App</a></li>
+<li><a
+href="https://www.inc.com/gabrielle-bienasz/how-this-company-uses-astrology-to-make-business-decisions/91254002">Inc.
+— CHANI downloads and estimated revenue</a></li>
+<li><a href="https://www.costarastrology.com/advanced-readings">Co–Star
+Advanced Readings</a></li>
+<li><a
+href="https://www.axios.com/2021/04/14/astrology-app-co-star-raises-15-million-funding">Axios
+— Co–Star $15M Series A and 20M downloads</a></li>
+<li><a href="https://www.sanctuaryworld.co/faq/">Sanctuary FAQ</a></li>
+<li><a href="https://www.sanctuaryworld.co/buy-subscription/">Sanctuary
+Subscription</a></li>
+<li><a
+href="https://www.astro.com/contact/contact_about_j.htm">Astrodienst
+About</a></li>
+<li><a href="https://www.astro.com/free/free_chart_e.htm">Astro.com free
+charts and data</a></li>
+</ul>
+<h3 id="市场与监管">市场与监管</h3>
+<ul>
+<li><a
+href="https://www.pewresearch.org/religion/2025/05/21/3-in-10-americans-consult-astrology-tarot-cards-or-fortune-tellers/">Pew
+Research Center — Astrology, tarot or fortune tellers used by 30% of
+Americans</a></li>
+<li><a
+href="https://apnews.com/article/41a815371e107ddef503910eaa9d8378">AP —
+U.S. psychic services revenue and Pew survey summary</a></li>
+<li><a
+href="https://www.marketresearch.com/360iResearch-v4164/Horoscope-Astrology-Apps-Service-Type-43519388/">Horoscope
+&amp; Astrology Apps market forecast</a></li>
+<li><a
+href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/pipeda_brief">Office
+of the Privacy Commissioner of Canada — PIPEDA requirements</a></li>
+<li><a
+href="https://competition-bureau.canada.ca/en/deceptive-marketing-practices/types-deceptive-marketing-practices/influencer-marketing-and-competition-act">Competition
+Bureau Canada — Influencer marketing and the Competition Act</a></li>
+<li><a
+href="https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers">FTC
+— Consumer Reviews and Testimonials Rule Q&amp;A</a></li>
+<li><a
+href="https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews">FTC
+— Endorsements, Influencers, and Reviews</a></li>
+</ul>
+</main>
+</div>
+<script>
+(function(){
+  var rx=/\[(High|Medium|Low|Unverified)\]/;
+  function walk(node){
+    if(node.nodeType===3){
+      if(rx.test(node.nodeValue)){
+        var span=document.createElement('span');
+        span.innerHTML=node.nodeValue
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\[High\]/g,'<span class="tag tag-high">High</span>')
+          .replace(/\[Medium\]/g,'<span class="tag tag-med">Medium</span>')
+          .replace(/\[Low\]/g,'<span class="tag tag-low">Low</span>')
+          .replace(/\[Unverified\]/g,'<span class="tag tag-unv">Unverified</span>');
+        node.parentNode.replaceChild(span,node);
+      }
+      return;
+    }
+    if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && !node.classList.contains('tag')){
+      Array.prototype.slice.call(node.childNodes).forEach(walk);
+    }
+  }
+  walk(document.querySelector('main')||document.body);
+
+  document.querySelectorAll('td,li,p').forEach(function(el){
+    if(/★/.test(el.innerHTML) && el.children.length<3){
+      el.innerHTML=el.innerHTML.replace(/([★☆]{2,})/g,'<span class="stars">$1</span>');
+    }
+  });
+
+  var toc=document.getElementById('TOC');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var heads=links.map(function(a){return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));});
+    function onScroll(){
+      var pos=window.scrollY+120, cur=-1;
+      heads.forEach(function(h,i){ if(h && h.offsetTop<=pos) cur=i; });
+      links.forEach(function(a){a.classList.remove('active');});
+      if(cur>=0 && links[cur]) links[cur].classList.add('active');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  }
+})();
+</script>
+</body>
+</html>
