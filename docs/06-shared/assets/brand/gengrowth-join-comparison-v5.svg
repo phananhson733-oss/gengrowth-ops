@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" width="1040" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth blue-green join comparison</title>
+  <desc id="desc">Original hard join compared with the revised rounded overlap at large, 96 pixel, and 24 pixel sizes.</desc>
+  <rect width="1040" height="560" fill="#F7F9FC"/>
+
+  <defs>
+    <symbol id="base" viewBox="0 0 256 256">
+      <path fill="#16A7B8" d="M92 28 C45 42 20 84 20 132 C20 192 70 232 129 222 C182 213 213 168 205 115 L153 115 L136 146 L178 146 C168 168 151 180 128 181 C91 183 61 155 60 118 C59 82 74 51 92 28Z"/>
+      <path d="M82 49 L126 50 L72 88 Z" fill="none" stroke="#16A7B8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#16A7B8"><circle cx="82" cy="49" r="8"/><circle cx="126" cy="50" r="8"/><circle cx="72" cy="88" r="8"/></g>
+    </symbol>
+    <symbol id="before" viewBox="0 0 256 256">
+      <use href="#base"/>
+      <path fill="#78C96B" d="M72 153 C91 130 112 119 139 113 C158 109 176 91 187 77 L175 65 L220 50 L212 96 L198 83 C183 106 160 126 136 132 C114 138 97 150 89 169 C81 165 76 159 72 153Z"/>
+    </symbol>
+    <symbol id="after" viewBox="0 0 256 256">
+      <use href="#base"/>
+      <path d="M82 159 C99 135 116 123 141 117 C161 112 181 94 197 73" fill="none" stroke="#78C96B" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill="#78C96B" d="M178 62 L219 50 L211 93 L198 81 L189 91 L178 80 L187 71Z"/>
+    </symbol>
+  </defs>
+
+  <text x="52" y="58" fill="#0F1B2D" font-family="Avenir Next, Arial, sans-serif" font-size="28" font-weight="600">GenGrowth · blue–green join refinement</text>
+  <text x="52" y="90" fill="#607086" font-family="Avenir Next, Arial, sans-serif" font-size="16">Change only the connection geometry; preserve the original G, network, and color semantics.</text>
+
+  <rect x="44" y="122" width="452" height="382" rx="20" fill="#FFFFFF" stroke="#DFE6EE"/>
+  <rect x="544" y="122" width="452" height="382" rx="20" fill="#FFFFFF" stroke="#DFE6EE"/>
+  <text x="270" y="164" text-anchor="middle" fill="#9A3412" font-family="Avenir Next, Arial, sans-serif" font-size="19" font-weight="600">Before · hard butt joint</text>
+  <text x="770" y="164" text-anchor="middle" fill="#168B99" font-family="Avenir Next, Arial, sans-serif" font-size="19" font-weight="600">After · rounded overlap</text>
+
+  <use href="#before" x="155" y="182" width="230" height="230"/>
+  <use href="#after" x="655" y="182" width="230" height="230"/>
+
+  <g fill="#607086" font-family="Avenir Next, Arial, sans-serif" font-size="14" text-anchor="middle">
+    <text x="205" y="398">96px</text><text x="355" y="430">24px</text>
+    <text x="705" y="398">96px</text><text x="855" y="430">24px</text>
+  </g>
+  <use href="#before" x="157" y="404" width="96" height="96"/>
+  <use href="#before" x="343" y="436" width="24" height="24"/>
+  <use href="#after" x="657" y="404" width="96" height="96"/>
+  <use href="#after" x="843" y="436" width="24" height="24"/>
+</svg>

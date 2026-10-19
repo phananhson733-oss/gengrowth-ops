@@ -1,1 +1,3 @@
-shortdrama.runtime.json
+*
+!README.md
+!.gitignore

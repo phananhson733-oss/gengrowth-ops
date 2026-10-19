@@ -31,6 +31,7 @@ const astrology = api.createSiteCore('astrologywiki');
 const gengrowth = api.createSiteCore('gengrowth');
 const aistorygenerator = api.createSiteCore('aistorygenerator');
 const resumetemplate = api.createSiteCore('resumetemplate');
+const shortsbinge = api.createSiteCore('shortsbinge');
 
 test('页面脚本没有语法错误', () => {
   allScripts.forEach((source) => {
@@ -49,7 +50,9 @@ test('统一工具：单个 HTML，站点用页签切换，配置驱动可扩展
   assert.equal(html.includes('astrologywiki.com'), true);
 
   const keys = api.SITES.map((site) => site.key).join(',');
-  assert.equal(keys, 'gengrowth,astrologywiki,aistorygenerator,resumetemplate');
+  assert.equal(keys, 'gengrowth,astrologywiki,aistorygenerator,resumetemplate,shortsbinge');
+  assert.equal(html.includes("key: 'shortsbinge'"), true);
+  assert.equal(html.includes('shortsbinge.com'), true);
   assert.equal(html.includes("key: 'aistorygenerator'"), true);
   assert.equal(html.includes("key: 'resumetemplate'"), true);
   assert.equal(html.includes('aistorygenerator.work'), true);
@@ -533,6 +536,47 @@ test('Resume Template 页签：归一到 googledocsresumetemplate.com 并生成�
     }),
     /googledocsresumetemplate\.com/
   );
+});
+
+test('ShortsBinge 页签：归一到 shortsbinge.com 裸域，短码与站点后端的哈希样例逐位一致', () => {
+  const longUrl = shortsbinge.buildLongUrl({
+    landingUrl: '/trending/',
+    source: 'reddit',
+    medium: 'social',
+    campaign: 'CL-SB-01',
+    content: 'act_social_reddit_20260921',
+  });
+
+  assert.equal(
+    longUrl,
+    'https://shortsbinge.com/trending/?utm_source=reddit&utm_medium=social&utm_campaign=CL-SB-01&utm_content=act_social_reddit_20260921'
+  );
+
+  // 与 shortsbinge 仓库 tests/link-attribution.test.ts 的 TOOL_FIXTURES 同一组：后端注册时重算哈希，不一致直接 400
+  assert.equal(shortsbinge.buildOwnedShortCode({ destinationUrl: longUrl }), 'q1jv5mhrccdllw');
+  assert.equal(shortsbinge.buildOwnedShortCode({ destinationUrl: 'https://shortsbinge.com/' }), 'q121ufedwtsq1z');
+
+  const shortUrl = shortsbinge.buildOwnedShortUrl({ destinationUrl: longUrl });
+  assert.equal(shortUrl, 'https://shortsbinge.com/q1jv5mhrccdllw');
+  assert.equal(shortsbinge.toDisplayShortUrl(shortUrl), 'shortsbinge.com/q1jv5mhrccdllw');
+  // 后端返回带尾斜杠的 short_url，显示与复制仍是 域名/code
+  assert.equal(shortsbinge.toDisplayShortUrl('https://shortsbinge.com/q1jv5mhrccdllw/'), 'shortsbinge.com/q1jv5mhrccdllw');
+
+  assert.throws(
+    () => shortsbinge.buildLongUrl({
+      landingUrl: 'https://www.astrologywiki.com/en/wiki/aura-colors-pillar',
+      source: 'reddit',
+      medium: 'social',
+      campaign: '',
+      content: '',
+    }),
+    /shortsbinge\.com/
+  );
+});
+
+test('ShortsBinge 页签：注册接口带尾斜杠（站点 trailingSlash，不带会 308、CORS 预检失败）', () => {
+  assert.equal(shortsbinge.site.endpoint, 'https://shortsbinge.com/api/link-attribution/redirects/');
+  assert.equal(shortsbinge.site.baseUrl, 'https://shortsbinge.com/');
 });
 
 test('底部「导入Google」备份入口齐全：按钮、webapp 地址输入、本会话累积', () => {

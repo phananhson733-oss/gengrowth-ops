@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">GenGrowth micro brand mark draft</title>
+  <desc id="desc">A responsive micro mark containing only the G ring, inward hook, and one growth arrow.</desc>
+
+  <path
+    fill="#16A7B8"
+    d="M92 28
+       C45 42 20 84 20 132
+       C20 192 70 232 129 222
+       C182 213 213 168 205 115
+       L157 115
+       L157 143
+       L180 143
+       C169 167 151 180 128 181
+       C91 183 61 155 60 118
+       C59 82 74 51 92 28Z"
+  />
+
+  <path
+    fill="#78C96B"
+    d="M68 160
+       C90 130 112 118 140 112
+       C162 107 179 89 190 74
+       L176 61
+       L221 48
+       L211 95
+       L198 82
+       C181 107 159 128 135 134
+       C112 140 95 153 86 172
+       C78 169 72 165 68 160Z"
+  />
+</svg>

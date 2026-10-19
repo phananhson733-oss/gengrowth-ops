@@ -68,28 +68,28 @@ aliases:
 
 ### 主要竞品 — SEO/GEO 战场（网页自然搜索同赛道）
 
-| 维度 | astrologywiki | Astro.com | Cafe Astrology | AstroSeek |
-|---|---|---|---|---|
-| **定位** | 心理向工具+Wiki+订阅 | 专业工具+社区 | 内容+免费报告 | 工具站矩阵 |
-| **月访问** | 未披露 | ~11.43M [Medium] | ~5.94M（下滑）[Medium] | ~0.9–2M [Low] |
-| **organic 占比** | 未知 | ~35% | ~50% | 第 2 来源 |
-| **核心排名词** | 长尾待建 | daily horoscope / natal chart | birth chart / calculator | free birth chart |
-| **内容资产** | Wiki 词条（新） | Astrowiki+工具 | 海量长文报告 | 工具+多语言 |
-| **GEO 就绪度** | 中（Wiki 利于抽取）| 中（内容旧、结构重）| 低（长文难抽取）| 中（工具难被引用）|
-| **可攻击点** | — | 界面老旧、体验重 | **持续掉量** | 品牌弱、UX 一般 |
+| 维度             | astrologywiki | Astro.com                     | Cafe Astrology           | AstroSeek        |
+| -------------- | ------------- | ----------------------------- | ------------------------ | ---------------- |
+| **定位**         | 心理向工具+Wiki+订阅 | 专业工具+社区                       | 内容+免费报告                  | 工具站矩阵            |
+| **月访问**        | 未披露           | ~11.43M [Medium]              | ~5.94M（下滑）[Medium]       | ~0.9–2M [Low]    |
+| **organic 占比** | 未知            | ~35%                          | ~50%                     | 第 2 来源           |
+| **核心排名词**      | 长尾待建          | daily horoscope / natal chart | birth chart / calculator | free birth chart |
+| **内容资产**       | Wiki 词条（新）    | Astrowiki+工具                  | 海量长文报告                   | 工具+多语言           |
+| **GEO 就绪度**    | 中（Wiki 利于抽取）  | 中（内容旧、结构重）                    | 低（长文难抽取）                 | 中（工具难被引用）        |
+| **可攻击点**       | —             | 界面老旧、体验重                      | **持续掉量**                 | 品牌弱、UX 一般        |
 
 > 补充直接竞品 **Astrology.com**：2M UV（历史）、low-8-figures 营收、60% 程序化广告 + premium，Google 为首要入口、刻意放弃社媒、邮件占营收 15%、GEO 就绪度低（广告站）。是"纯 SEO 内容站"路径的最佳范本。
 
 ### 次要竞品 — 社媒营销战场（App + 病毒增长同赛道）
 
-| 维度         | astrologywiki | Co-Star         | The Pattern      | CHANI              |
-| ---------- | ------------- | --------------- | ---------------- | ------------------ |
-| **形态**     | Web 工具+订阅     | App 社交+AI       | App 心理向          | App 媒体+订阅          |
-| **规模**     | 未披露           | 30M 用户 [Medium] | 15M 用户 [Medium]  | 2M+ 下载 [Medium]    |
-| **变现**     | 订阅（待定价）       | 免费+内购           | 免费+内购            | $11.99/月·$107.99/年 |
-| **年营收**    | 未披露           | 未披露             | ~$300K/月推断 [Low] | ~$14M [Medium]     |
-| **社媒核心打法** | 待建            | **推送 meme 病毒**  | 口碑裂变、准到吓人        | 创始人 IP+价值观社群       |
-| **品牌人格**   | 理性/心理学        | 毒舌/深刻/搞笑        | 神秘/精准            | 疗愈/酷儿女性主义          |
+| 维度 | astrologywiki | Co-Star | The Pattern | CHANI |
+|---|---|---|---|---|
+| **形态** | Web 工具+订阅 | App 社交+AI | App 心理向 | App 媒体+订阅 |
+| **规模** | 未披露 | 30M 用户 [Medium] | 15M 用户 [Medium] | 2M+ 下载 [Medium] |
+| **变现** | 订阅（待定价） | 免费+内购 | 免费+内购 | $11.99/月·$107.99/年 |
+| **年营收** | 未披露 | 未披露 | ~$300K/月推断 [Low] | ~$14M [Medium] |
+| **社媒核心打法** | 待建 | **推送 meme 病毒** | 口碑裂变、准到吓人 | 创始人 IP+价值观社群 |
+| **品牌人格** | 理性/心理学 | 毒舌/深刻/搞笑 | 神秘/精准 | 疗愈/酷儿女性主义 |
 
 > 补充社媒竞品 **Sanctuary**（$2.99/分钟真人 1v1，$6.5M 融资，50K+ 付费客）与 **The Astrology Podcast**（Chris Brennan，YouTube+Patreon，具体订阅数 Not disclosed）——分别代表"真人服务口碑"与"长内容 IP"两种社媒路径。
 
@@ -196,13 +196,13 @@ aliases:
 
 #### 4.4.1 关键词地形（英文占星赛道）
 
-| 关键词簇 | 量级 | 当前占据者 | astrologywiki 机会 |
-|---|---|---|---|
-| `birth chart` / `natal chart` / `calculator` | `birth chart reading` ~12K/月，zodiac 类目美国 >5M/月 | Cafe Astrology（掉量）、AstroSeek、Astrology.com | **高**：吃流失份额 |
-| `saturn return` / `saturn return calculator` | 中长尾，稳定 | 分散、无绝对头部 | **极高**：已有专用工具页，可做类目权威 |
-| `synastry` / `compatibility` | 中，情感向高转化 | Astro.com / AstroSeek | 中：需内容深度 |
-| `[planet] in [sign]` / `[house]` 长尾 | 海量碎片长尾，总量巨大 | Astro.com Astrowiki、维基百科 | **极高**：Wiki 结构天然覆盖 |
-| `today's transits` | 中，高复访 | Astro.com | 中：需每日更新机制 |
+| 关键词簇                                         | 量级                                             | 当前占据者                                      | astrologywiki 机会      |
+| -------------------------------------------- | ---------------------------------------------- | ------------------------------------------ | --------------------- |
+| `birth chart` / `natal chart` / `calculator` | `birth chart reading` ~12K/月，zodiac 类目美国 >5M/月 | Cafe Astrology（掉量）、AstroSeek、Astrology.com | **高**：吃流失份额           |
+| `saturn return` / `saturn return calculator` | 中长尾，稳定                                         | 分散、无绝对头部                                   | **极高**：已有专用工具页，可做类目权威 |
+| `synastry` / `compatibility`                 | 中，情感向高转化                                       | Astro.com / AstroSeek                      | 中：需内容深度               |
+| `[planet] in [sign]` / `[house]` 长尾          | 海量碎片长尾，总量巨大                                    | Astro.com Astrowiki、维基百科                   | **极高**：Wiki 结构天然覆盖    |
+| `today's transits`                           | 中，高复访                                          | Astro.com                                  | 中：需每日更新机制             |
 
 **打法（crawl-bait 模型）**：发布 150–200 字关键词密集短博文（如每日行运）作抓取诱饵，内链到 evergreen 深度指南（Saturn Return Meaning / How to Read Your Birth Chart）——长文负责排名与转化，短文负责抓取频次。此为 Astrology.com/Cafe Astrology 验证过的剧本。
 

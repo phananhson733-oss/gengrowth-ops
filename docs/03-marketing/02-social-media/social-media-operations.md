@@ -1,7 +1,7 @@
 ---
 title: GenGrowth 社交媒体运营规范
 date: 2026-03-04
-updated: 2026-04-08
+updated: 2026-07-31
 type: strategy
 tags:
   - social-media
@@ -22,6 +22,7 @@ aliases:
 2. `docs/04-programs/planning/项目规划.md`
 3. `docs/05-governance/account-access/2026-03-12-platform-account-registration-playbook.md`
 4. `docs/05-governance/contracts/2026-03-04-client-data-authorization-terms.md`
+5. `docs/03-marketing/社媒平台心智与创意训练框架.md` —— 各平台内容心智与跨平台改写方法
 
 竞品 / 工具调研（拟体验、参考或合作，存放于研究区 `参考资料/产品分析/`）：
 1. `参考资料/产品分析/社媒自动化营销竞品概览.md` —— AI 红人/社媒自动化营销竞品对比（含重点社媒平台覆盖矩阵）

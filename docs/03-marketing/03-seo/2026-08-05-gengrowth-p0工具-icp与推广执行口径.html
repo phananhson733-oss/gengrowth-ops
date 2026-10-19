@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>GenGrowth P0 SEO 工具种子用户招募计划与 ICP 执行口径</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --ink:#1f2933; --muted:#647082; --line:#e3e8ef; --bg:#ffffff;
+    --accent:#3b5bdb; --accent-soft:#edf0ff; --code-bg:#0f1729;
+    --hi:#2b8a3e; --hi-bg:#ebfbee; --med:#1c6fb8; --med-bg:#e7f3ff;
+    --low:#b5870b; --low-bg:#fff8e1; --unv:#c0392b; --unv-bg:#fdecea;
+    --star:#f59f00;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:#f5f6f8; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:32px;}
+  #TOC{
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto;
+    width:268px; flex:0 0 268px; padding:28px 18px 60px 0; font-size:13.5px;
+    border-right:1px solid var(--line);
+  }
+  #TOC::before{content:"目录"; display:block; font-weight:700; font-size:12px; letter-spacing:.12em; color:var(--muted); margin-bottom:12px;}
+  #TOC ul{list-style:none; margin:0; padding:0}
+  #TOC ul ul{padding-left:14px}
+  #TOC li{margin:2px 0}
+  #TOC a{color:var(--muted); text-decoration:none; display:block; padding:3px 8px; border-radius:6px; line-height:1.4;}
+  #TOC a:hover{background:var(--accent-soft); color:var(--accent)}
+  #TOC a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
+  main{flex:1 1 auto; min-width:0; background:var(--bg); margin:28px 0;
+    padding:54px 60px 80px; border-radius:14px; box-shadow:0 1px 3px rgba(20,30,50,.06),0 12px 40px rgba(20,30,50,.06);}
+  main>h1:first-child{margin-top:0}
+  h1{font-size:34px; line-height:1.25; letter-spacing:-.01em; margin:0 0 6px; font-weight:800}
+  h2{font-size:25px; margin:54px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--line); font-weight:750}
+  h3{font-size:20px; margin:38px 0 14px; font-weight:700}
+  h4{font-size:16.5px; margin:26px 0 10px; color:var(--accent); font-weight:700}
+  p{margin:12px 0}
+  a{color:var(--accent)}
+  hr{border:0; border-top:1px solid var(--line); margin:40px 0}
+  strong{font-weight:680}
+  table{border-collapse:collapse; width:100%; margin:18px 0; font-size:14.5px; display:block; overflow-x:auto;}
+  thead th{background:#f0f3fa; color:#33415c; text-align:left; font-weight:700; white-space:nowrap}
+  th,td{border:1px solid var(--line); padding:9px 13px; vertical-align:top}
+  tbody tr:nth-child(even){background:#fafbfd}
+  tbody tr:hover{background:var(--accent-soft)}
+  blockquote{
+    margin:18px 0; padding:14px 18px; background:var(--accent-soft);
+    border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:#2a3a66;
+  }
+  blockquote p{margin:6px 0}
+  pre{background:var(--code-bg); color:#e7ecf5; padding:18px 20px; border-radius:10px; overflow-x:auto; line-height:1.6; font-size:13.5px;}
+  code{font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+  :not(pre)>code{background:#eef1f6; color:#b5275b; padding:1.5px 6px; border-radius:5px; font-size:.88em}
+  pre code{background:none; color:inherit; padding:0}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; padding:1px 7px; border-radius:999px; line-height:1.6; white-space:nowrap; vertical-align:baseline; margin:0 1px;}
+  .tag-high{color:var(--hi); background:var(--hi-bg)}
+  .tag-med{color:var(--med); background:var(--med-bg)}
+  .tag-low{color:var(--low); background:var(--low-bg)}
+  .tag-unv{color:var(--unv); background:var(--unv-bg)}
+  .stars{color:var(--star); letter-spacing:1px}
+  @media print{ body{background:#fff} main{box-shadow:none;margin:0;padding:0;border-radius:0} #TOC{display:none} .wrap{display:block} }
+  @media(max-width:920px){ #TOC{display:none} main{padding:32px 20px} .wrap{padding:0 12px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#gengrowth-p0-seo-工具种子用户招募计划与-icp-执行口径"
+id="toc-gengrowth-p0-seo-工具种子用户招募计划与-icp-执行口径">GenGrowth
+P0 SEO 工具种子用户招募计划与 ICP 执行口径</a>
+<ul>
+<li><a href="#一阶段定义与核心指标"
+id="toc-一阶段定义与核心指标">一、阶段定义与核心指标</a>
+<ul>
+<li><a href="#首要定性目标" id="toc-首要定性目标">首要定性目标</a></li>
+<li><a href="#辅助量化指标" id="toc-辅助量化指标">辅助量化指标</a></li>
+</ul></li>
+<li><a href="#二原推广方案的方向性修改"
+id="toc-二原推广方案的方向性修改">二、原推广方案的方向性修改</a></li>
+<li><a href="#三icp-与岗位判断" id="toc-三icp-与岗位判断">三、ICP
+与岗位判断</a>
+<ul>
+<li><a href="#核心-icp" id="toc-核心-icp">核心 ICP</a></li>
+<li><a href="#岗位是否是筛选条件"
+id="toc-岗位是否是筛选条件">岗位是否是筛选条件</a></li>
+</ul></li>
+<li><a href="#四新手如何纳入"
+id="toc-四新手如何纳入">四、新手如何纳入</a></li>
+<li><a href="#五五个-p0-的招募场景"
+id="toc-五五个-p0-的招募场景">五、五个 P0 的招募场景</a></li>
+<li><a href="#六行业建议与排除范围"
+id="toc-六行业建议与排除范围">六、行业建议与排除范围</a></li>
+<li><a href="#七各渠道定位"
+id="toc-七各渠道定位">七、各渠道定位</a></li>
+<li><a href="#八推广启动的产品门槛与当前页面调整"
+id="toc-八推广启动的产品门槛与当前页面调整">八、推广启动的产品门槛与当前页面调整</a></li>
+<li><a href="#九运营下一步怎么做内容方案"
+id="toc-九运营下一步怎么做内容方案">九、运营下一步怎么做内容方案</a>
+<ul>
+<li><a href="#内容-brief-参考" id="toc-内容-brief-参考">内容 Brief
+参考</a></li>
+<li><a href="#阶段复盘与大推判断"
+id="toc-阶段复盘与大推判断">阶段复盘与大推判断</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<main>
+<h1 id="gengrowth-p0-seo-工具种子用户招募计划与-icp-执行口径">GenGrowth
+P0 SEO 工具种子用户招募计划与 ICP 执行口径</h1>
+<blockquote>
+<p>适用对象：SEO、社媒、内容与增长运营同学。<br />
+用途：统一种子用户招募阶段的方向、目标人群、产品场景、渠道和判断标准；不是逐项执行
+SOP。<br />
+决策依据：<code>2026-08-05-seo社媒推广方案与P0工具定位评估.md</code>
+第四至第九部分。</p>
+</blockquote>
+<h2 id="一阶段定义与核心指标">一、阶段定义与核心指标</h2>
+<p>本阶段是<strong>种子用户招募计划</strong>，不是规模推广。由 2–3
+名运营在两周内招募目标 ICP，让他们用自己的站点完成真实任务。</p>
+<h3 id="首要定性目标">首要定性目标</h3>
+<p>最重要的目标是：<strong>获得目标用户基于真实使用过程的反馈和产品优化建议，判断产品是否已经具备扩大推广的条件。</strong></p>
+<p>反馈重点回答四个问题：用户的问题是否真实存在；产品结果是否看得懂、可信并能采取行动；哪些问题阻碍首次使用或再次使用；完成哪些产品优化后，用户才愿意继续使用。</p>
+<p>阶段结束只做三种判断：<strong>可以大推、产品优化后复测、暂不大推。</strong>
+达到人数目标不等于可以大推，用户反馈与实际使用表现才是最终依据。</p>
+<h3 id="辅助量化指标">辅助量化指标</h3>
+<p>保留 4
+个人数指标，用于观察招募漏斗和使用深度。播放量、UV、Karma、曝光和排名只用于解释渠道表现；“有转化的
+UV”继续埋点和观测，作为后续规模推广目标。</p>
+<table>
+<thead>
+<tr>
+<th>辅助指标</th>
+<th>统一定义</th>
+<th style="text-align: right;">首轮建议目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标 ICP 人数</td>
+<td>完成资格确认、符合核心或次级
+ICP，并明确同意参与本轮真实测试的独立用户；仅触达、点赞或回复不计入</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td>完成真实输入人数</td>
+<td>使用自己的 URL、域名或 GSC Property 生成一次有效结果</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr>
+<td>连接 GSC 人数</td>
+<td>完成 Google Search Console 授权的独立用户</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td>7 日留存人数</td>
+<td>首次使用后 7 天内回来，完成第二次有效运行、复查或保存动作</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+<p>首轮人数用于约束招募工作量，不代表市场转化率。50
+人相当于团队每个工作日确认 5 人，在社群朋友和定向邀请先行的前提下，2–3
+名运营可以执行。</p>
+<p>“有转化的
+UV”没有被取消，而是从本阶段主目标调整为持续观测指标。统一记录
+<code>工具页 UV → 启动工具 → 完成真实输入 → 注册 / 连接 GSC → 进入主产品</code>；种子阶段先验证人群、任务和产品反馈，样本稳定后再设置
+UV 与转化率目标。</p>
+<h2 id="二原推广方案的方向性修改">二、原推广方案的方向性修改</h2>
+<p>只保留影响目标、ICP、P0
+和渠道定位的修改；具体执行方式由运营在此口径内制定。</p>
+<table>
+<thead>
+<tr>
+<th>原方案</th>
+<th>当前口径</th>
+<th>修改原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面向“想了解 SEO 的人”和“愿意尝试工具的人”</td>
+<td>核心人群改为已有网站和真实搜索数据、但没有资深 SEO
+的小型内容增长团队</td>
+<td>原范围太宽，难判断谁为什么留下</td>
+</tr>
+<tr>
+<td>把“SEO 新手”作为 P0-4 的主要人群</td>
+<td>不把新手作为主
+ICP；只保留“已有真实网站、正在亲自操作”的实操型新手作为次级
+ICP，并与核心样本分开分析</td>
+<td>新手普遍没有 GSC，学习型反馈噪音大；但真实网站仍可验证公开 URL
+工具的首次体验</td>
+</tr>
+<tr>
+<td>按 SEO 从业者 / 新手划分渠道</td>
+<td>先按网站阶段和任务划分，再用岗位语言触达</td>
+<td>岗位名称不稳定，实际职责更能判断需求</td>
+</tr>
+<tr>
+<td>目标是“有转化的 UV”</td>
+<td>保留为后续规模推广目标并持续观测；当前阶段用目标 ICP、真实输入、GSC
+连接、7 日留存 4 个人数作主判断</td>
+<td>原目标方向没有错，但处于漏斗后段；当前先解决产品是否适合目标用户、反馈能否形成闭环</td>
+</tr>
+<tr>
+<td>主要依赖 Reddit 和短视频</td>
+<td>增加科技类素人博主 / KOC、SEO 社群朋友两条招募渠道</td>
+<td>温启动更容易获得符合 ICP 的真实站点和连续反馈</td>
+</tr>
+<tr>
+<td>Reddit 同时负责反馈和短期规模 UV</td>
+<td>Reddit 主要用于问题研究和合规招募</td>
+<td>尚无证据证明 Reddit 能稳定带来规模用户</td>
+</tr>
+<tr>
+<td><code>r/juststart</code>
+可直接发工具帖，严格版块可“结果先行”后带出工具</td>
+<td>删除这两种做法</td>
+<td><code>r/juststart</code>、<code>r/SEO</code>、<code>r/bigseo</code>
+都有限制，不能绕版规自推</td>
+</tr>
+<tr>
+<td>TikTok 人群等于 SEO 新手</td>
+<td>短视频只验证“已有网站的新手”是否会使用 Website Health Map</td>
+<td>原受众判断没有平台数据支持</td>
+</tr>
+<tr>
+<td>6 个 P0，GEO 快照为 P0-6</td>
+<td>保留 5 个产品 P0；GEO / AI Visibility 为 P1 实验</td>
+<td>GEO 方法、稳定性和归因仍未验证</td>
+</tr>
+<tr>
+<td>“SEO 短期拿不到量”“六个词是理论天花板”</td>
+<td>改为“已测关键词在 DR=0 阶段短期获客能力弱”</td>
+<td>少数入口词不能代表整个工具需求</td>
+</tr>
+<tr>
+<td>工具以指标和错误列表为主</td>
+<td>统一输出“输入 → 判断 → Top 3 行动 → 验证 → 保存 / 连接”</td>
+<td>种子测试需要验证用户能否采取行动</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三icp-与岗位判断">三、ICP 与岗位判断</h2>
+<h3 id="核心-icp">核心 ICP</h3>
+<p>美国英文市场、1–10 人的内容型 B2B SaaS、Developer Tools、AI /
+在线工具团队，通常满足：</p>
+<ul>
+<li>网站已经持续运营，并有内容或落地页；</li>
+<li>自然搜索承担 Lead、注册或试用获客；</li>
+<li>已有 GSC 数据，或愿意在测试中连接 GSC；</li>
+<li>团队没有资深全职 SEO；</li>
+<li>当前负责人需要自己判断先改什么。</li>
+</ul>
+<h3 id="岗位是否是筛选条件">岗位是否是筛选条件</h3>
+<p>岗位不是硬门槛，实际职责才是。Founder、Growth Lead、Content Lead、SEO
+Owner、Marketer 都可能是同一种用户：亲自管理网站，但缺少资深 SEO
+支持。</p>
+<p>岗位仍然有两种价值：</p>
+<ol type="1">
+<li><strong>招募判断</strong>：帮助运营找到可能符合条件的人；</li>
+<li><strong>内容共鸣</strong>：可以直接写“for founders and content
+marketers running SEO without a dedicated specialist”。</li>
+</ol>
+<p>招募时可以收集岗位、团队人数、是否亲自管理网站、网站运营时间、GSC
+状态、自然搜索是否承担获客和当前问题。岗位来自用户自报或公开资料，不单靠岗位名称判断是否符合
+ICP。</p>
+<h2 id="四新手如何纳入">四、新手如何纳入</h2>
+<p>不放弃新手，但不让新手样本主导产品判断。新手最大的筛选问题是没有
+GSC、站点和任务不稳定，泛学习反馈容易形成噪音，因此必须按网站和数据阶段区分：</p>
+<table>
+<thead>
+<tr>
+<th>新手类型</th>
+<th>是否为种子 ICP</th>
+<th>合适场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没有网站、只想学习 SEO</td>
+<td>否，可作为内容受众</td>
+<td>SEO 入门内容、品牌认知，不进入产品验证数据，也不计入 50 人</td>
+</tr>
+<tr>
+<td>已有真实网站、正在亲自操作，但没有或几乎没有 GSC 数据</td>
+<td>是，次级 ICP，单独标记</td>
+<td>Website Health Map；有明确内容计划时测试 Keyword + Prompt
+Opportunity Map；页面达到一定规模后测试 Internal Link Map</td>
+</tr>
+<tr>
+<td>已有 GSC 数据，但不会判断机会</td>
+<td>是，接近核心 ICP</td>
+<td>GSC Opportunity Finder；有历史下降时测试 Organic Traffic Drop
+Diagnosis</td>
+</tr>
+</tbody>
+</table>
+<p>面向新手的产品不能只给术语或错误数量。结果必须告诉他：哪个 URL
+有问题、为什么重要、先做哪一步、改完怎么看是否有效。</p>
+<p>50 名目标 ICP 中，建议至少 40 名为有 GSC 或稳定自然搜索任务的核心
+ICP，实操型新手最多 10 名。两类结果分开复盘，新手不参与 GSC
+工具的有效性判断。</p>
+<h2 id="五五个-p0-的招募场景">五、五个 P0 的招募场景</h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>优先用户与触发场景</th>
+<th>用户原话 / 搜索表达</th>
+<th>对外承诺</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GSC Opportunity Finder</td>
+<td>每周看 GSC、但仍靠导表找机会的负责人</td>
+<td><code>high impressions low clicks</code>、“有曝光没点击怎么办”</td>
+<td>找出今天最值得改的页面和查询，并给出证据与验证动作</td>
+</tr>
+<tr>
+<td>Organic Traffic Drop Diagnosis</td>
+<td>近 90 天自然流量明显下降的团队</td>
+<td><code>why is my website traffic dropping</code>、“我是不是被惩罚了”</td>
+<td>区分需求、CTR、排名、索引、技术和季节性因素，说明已排除、待确认和下一步</td>
+</tr>
+<tr>
+<td>Website Health Map</td>
+<td>没有专职 SEO、想知道先修什么的 Founder / Marketer</td>
+<td><code>free seo audit</code>、“我的网站先修哪三个问题”</td>
+<td>3 分钟给出具体 URL、影响、修复方法和验证方式</td>
+</tr>
+<tr>
+<td>Internal Link Map</td>
+<td>管理 100 个以上 URL、持续发布内容的运营者</td>
+<td><code>internal link checker</code>、<code>orphan page checker</code></td>
+<td>找出孤岛和深层页面，并建议从哪里加什么链接</td>
+</tr>
+<tr>
+<td>Keyword + Prompt Opportunity Map</td>
+<td>每月需要决定下一批页面的内容团队</td>
+<td><code>keyword research tool</code>、“下一页应该写什么”</td>
+<td>直接判断新建、更新、合并或暂不做，并展示依据</td>
+</tr>
+</tbody>
+</table>
+<p>招募和内容优先顺序：GSC Opportunity Finder、Organic Traffic Drop
+Diagnosis、Website Health Map、Internal Link Map、Keyword + Prompt
+Opportunity Map。</p>
+<h2 id="六行业建议与排除范围">六、行业建议与排除范围</h2>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>行业</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一</td>
+<td>B2B SaaS、Developer Tools、AI / 在线工具</td>
+<td>五个 P0 的场景重合度最高</td>
+</tr>
+<tr>
+<td>第二</td>
+<td>Publisher、Affiliate / 评测站、Programmatic SEO 站点</td>
+<td>流量下降和内链需求强，单独记录验证结果</td>
+</tr>
+<tr>
+<td>第三</td>
+<td>在线咨询、培训等内容型 Lead-gen 业务</td>
+<td>适合网站健康、GSC 机会和关键词规划</td>
+</tr>
+</tbody>
+</table>
+<p>暂不招募大型企业 SEO 团队、管理 50 个以上客户的大型 Agency、高 SKU
+电商和只做 GBP
+的本地商户。这些人需要批量、权限、垂直数据或本地搜索能力，当前 P0
+尚未覆盖。</p>
+<h2 id="七各渠道定位">七、各渠道定位</h2>
+<p>种子阶段优先用温启动获得高质量反馈，同时用公开内容验证陌生用户是否理解产品，并为后续规模推广积累渠道资产。</p>
+<table>
+<thead>
+<tr>
+<th>渠道</th>
+<th>核心定位</th>
+<th>主要对象与承接工具</th>
+<th>本阶段动作</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEO 社群中的朋友</td>
+<td><strong>高质量种子样本与连续反馈</strong></td>
+<td>核心 ICP、小型顾问、内容负责人；优先 GSC Opportunity Finder、Organic
+Traffic Drop Diagnosis</td>
+<td>一对一定向邀请，用真实站点完成任务，约定 7 日复查</td>
+<td>单独标记熟人来源，避免把礼貌性反馈当作真实留存</td>
+</tr>
+<tr>
+<td>科技类素人博主 / KOC</td>
+<td><strong>借助可信个体触达相邻
+ICP，并验证演示内容是否有传播性</strong></td>
+<td>有自己网站的 AI 工具、建站、独立开发、SaaS 增长创作者；优先 Website
+Health Map，按数据条件承接 GSC 工具</td>
+<td>邀请真实试用和反馈；允许分享真实结果，不要求正面评价</td>
+<td>不以粉丝数作为唯一标准；合作关系需透明标注</td>
+</tr>
+<tr>
+<td>Reddit</td>
+<td><strong>问题研究、用户原话和陌生用户反馈；不是短期规模 UV
+渠道</strong></td>
+<td>SEO 从业者、站长、Publisher；按具体问题承接五个工具</td>
+<td>先贡献问题答案，仅在版规允许处公开招募；记录反例和用户原话</td>
+<td><code>r/SEO</code>、<code>r/bigseo</code>、<code>r/juststart</code>
+不做直接或隐性自推</td>
+</tr>
+<tr>
+<td>短视频</td>
+<td><strong>验证无专职 SEO 用户能否快速理解一个具体结果</strong></td>
+<td>已有网站、SEO 经验较少的 Founder / Marketer；主推 Website Health
+Map</td>
+<td>一个真实 URL、一个发现、一个动作，不做泛 SEO 教程</td>
+<td>无网站的学习型用户不计入种子 ICP</td>
+</tr>
+<tr>
+<td>SEO 工具页</td>
+<td><strong>长期高意图入口和后续规模获客资产</strong></td>
+<td>主动搜索具体任务的人；每个 P0 有独立入口</td>
+<td>持续建设、收录和观测，不要求两周内贡献规模流量</td>
+<td>保留外部任务词入口，持续记录有转化的 UV</td>
+</tr>
+<tr>
+<td>GEO</td>
+<td><strong>P1 产品发现与引用基线实验，不承担本轮招募目标</strong></td>
+<td>固定 Prompt 下的竞品与来源样本</td>
+<td>多模型重复测量，分开记录引用、品牌提及和可识别转化</td>
+<td>不承诺 DR=0 更容易被引用</td>
+</tr>
+</tbody>
+</table>
+<p>所有渠道共用同一招募入口、资格问题和来源标签。熟人样本单独标记，避免把礼貌性反馈当作真实留存。</p>
+<p>统一招募流程：</p>
+<blockquote>
+<p>找到候选人 → 确认 ICP 类型与来源 → 使用真实站点 → 连接 GSC（适用时）→
+记录是否看懂和采取行动 → 7 天后复查。</p>
+</blockquote>
+<h2
+id="八推广启动的产品门槛与当前页面调整">八、推广启动的产品门槛与当前页面调整</h2>
+<p>推广启动门槛：用户能够用真实输入获得随输入变化的结果，并看懂优先行动、证据、下一步和验证方式；无法判断时明确写“待确认”。公开
+URL 工具首次体验不强制注册，GSC 工具可以要求 Google
+授权，但不应在出结果前额外要求注册 GenGrowth。每个主推工具至少经过 5–10
+名符合 ICP 的受控测试；未达到门槛时只做小范围测试，不扩大招募。</p>
+<p>是否可以大推，重点看目标用户能否独立完成任务、是否愿意根据结果行动或再次使用，以及反馈能否形成明确的产品优化清单，而不是只看功能是否存在。</p>
+<p>页面标题只在能减少用户误解时调整。聚合页卡片优先使用用户能直接理解的任务表达；独立工具页的
+SEO Title 和 H1
+继续承接搜索词，产品正式名可在副标题或结果页出现，不为内部统一而全面改名。</p>
+<table>
+<thead>
+<tr>
+<th>必要性</th>
+<th>当前页面内容</th>
+<th>建议调整</th>
+<th>调整原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>立即调整</strong></td>
+<td><code>I HAVE A WEBSITE TO IMPROVE</code> 中混放 SEO Quick
+Wins、Traffic Drop Diagnosis 和两个公开 URL 工具</td>
+<td>拆为两组：① <code>I HAVE SEARCH CONSOLE DATA</code>：GSC Opportunity
+Finder、Traffic Drop Diagnosis；② 保留
+<code>I HAVE A WEBSITE TO IMPROVE</code>：Free site-wide SEO
+audit、Internal Link Audit</td>
+<td>GSC 工具需要授权，不能与“公开 URL、无需账号”的承诺混放</td>
+</tr>
+<tr>
+<td><strong>立即调整</strong></td>
+<td>SEO Quick Wins</td>
+<td>改为 <strong>GSC Opportunity Finder</strong>；保留
+<code>Connect Search Console</code></td>
+<td>原标题既没有说明 GSC
+输入，也没有说明“发现机会”的任务；此处改名直接提升理解，不只是统一正式名</td>
+</tr>
+<tr>
+<td><strong>立即调整</strong></td>
+<td><code>I NEED TO PLAN AND MEASURE</code> 及样本量、置信度文案</td>
+<td>改为 <code>I NEED TO PLAN WHAT TO PUBLISH</code> /
+<code>Decide what to create, update, merge, or skip</code></td>
+<td>当前文案属于实验计算器，与关键词规划工具完全无关</td>
+</tr>
+<tr>
+<td><strong>立即调整</strong></td>
+<td>Keyword Opportunity Map 的 <code>Check availability</code></td>
+<td>已上线时给明确使用入口；未上线时写 <code>Coming soon</code> +
+<code>Join waitlist</code></td>
+<td>当前文案不能说明工具是否可用，也没有明确下一步</td>
+</tr>
+<tr>
+<td><strong>条件性调整</strong></td>
+<td>Keyword Opportunity Map</td>
+<td>仅在 Prompt 能力已经上线时改为 <strong>Keyword + Prompt Opportunity
+Map</strong></td>
+<td>能力未上线前改名会造成过度承诺</td>
+</tr>
+<tr>
+<td><strong>暂不调整</strong></td>
+<td>Traffic Drop Diagnosis</td>
+<td>保留现名</td>
+<td>描述已说明 organic traffic，增加 <code>Organic</code>
+的收益有限</td>
+</tr>
+<tr>
+<td><strong>暂不调整</strong></td>
+<td>Free site-wide SEO audit</td>
+<td>保留现名</td>
+<td>比 Website Health Map 更接近用户搜索表达，也更容易理解</td>
+</tr>
+<tr>
+<td><strong>暂不调整</strong></td>
+<td>Internal Link Audit</td>
+<td>保留现名</td>
+<td>比 Internal Link Map 更直接表达任务；正式名可在结果页出现</td>
+</tr>
+<tr>
+<td><strong>暂不调整</strong></td>
+<td>全部 CTA 重写、英雄卡突出、严格重排和最后单卡满宽</td>
+<td>先保持现状，种子测试后依据点击与完成数据决定</td>
+<td>属于转化与视觉优化，当前没有数据证明优先级高于招募和反馈</td>
+</tr>
+</tbody>
+</table>
+<h2 id="九运营下一步怎么做内容方案">九、运营下一步怎么做内容方案</h2>
+<p>每条内容只服务一个 ICP、一个痛点、一个工具和一个动作。种子阶段的 CTA
+优先使用
+<code>Test it with your site</code>、<code>Join the seed program</code>
+或具体工具动作，不使用泛化的“了解更多”。</p>
+<h3 id="内容-brief-参考">内容 Brief 参考</h3>
+<pre class="text"><code>对应工具：
+核心 ICP / 次级新手 ICP：
+目标岗位及实际职责：
+网站阶段与 GSC 状态：
+触发场景：
+用户原话 / 搜索词：
+本条只讲的一个结论：
+真实证据或案例：
+希望用户完成的一个动作：
+CTA：
+招募渠道与来源标签：</code></pre>
+<p>Brief
+不需要机械填满，但必须明确对应工具、目标用户、真实问题、证据和希望用户完成的动作。运营可以测试
+Hook、案例、格式、发布时间和 CTA 文案；不能自行改变核心
+ICP、两类新手的边界、5 个 P0 的承诺和 GEO 的 P1 定位。</p>
+<h3 id="阶段复盘与大推判断">阶段复盘与大推判断</h3>
+<table>
+<thead>
+<tr>
+<th>结论</th>
+<th>判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可以大推</strong></td>
+<td>核心 ICP
+的问题成立，用户能独立完成任务并理解结果，关键产品问题已处理，出现行动、复用或持续使用意愿</td>
+</tr>
+<tr>
+<td><strong>产品优化后复测</strong></td>
+<td>用户问题真实，但产品理解、可信度、授权、结果或行动建议仍明显阻碍使用；已有明确优化清单</td>
+</tr>
+<tr>
+<td><strong>暂不大推</strong></td>
+<td>目标问题、ICP
+或产品承诺没有得到真实使用验证，反馈分散且无法形成稳定价值</td>
+</tr>
+</tbody>
+</table>
+<p>每周复盘重点是：目标用户反馈、产品优化建议、真实使用与复用表现，以及四个辅助人数指标。UV、注册率、主产品续接率和渠道曝光继续观测，但不替代是否大推的定性判断。</p>
+</main>
+</div>
+<script>
+(function(){
+  var rx=/\[(High|Medium|Low|Unverified)\]/;
+  function walk(node){
+    if(node.nodeType===3){
+      if(rx.test(node.nodeValue)){
+        var span=document.createElement('span');
+        span.innerHTML=node.nodeValue
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\[High\]/g,'<span class="tag tag-high">High</span>')
+          .replace(/\[Medium\]/g,'<span class="tag tag-med">Medium</span>')
+          .replace(/\[Low\]/g,'<span class="tag tag-low">Low</span>')
+          .replace(/\[Unverified\]/g,'<span class="tag tag-unv">Unverified</span>');
+        node.parentNode.replaceChild(span,node);
+      }
+      return;
+    }
+    if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && !node.classList.contains('tag')){
+      Array.prototype.slice.call(node.childNodes).forEach(walk);
+    }
+  }
+  walk(document.querySelector('main')||document.body);
+
+  document.querySelectorAll('td,li,p').forEach(function(el){
+    if(/★/.test(el.innerHTML) && el.children.length<3){
+      el.innerHTML=el.innerHTML.replace(/([★☆]{2,})/g,'<span class="stars">$1</span>');
+    }
+  });
+
+  var toc=document.getElementById('TOC');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var heads=links.map(function(a){return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));});
+    function onScroll(){
+      var pos=window.scrollY+120, cur=-1;
+      heads.forEach(function(h,i){ if(h && h.offsetTop<=pos) cur=i; });
+      links.forEach(function(a){a.classList.remove('active');});
+      if(cur>=0 && links[cur]) links[cur].classList.add('active');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  }
+})();
+</script>
+</body>
+</html>

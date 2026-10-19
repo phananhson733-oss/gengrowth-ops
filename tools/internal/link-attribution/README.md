@@ -10,7 +10,7 @@
 
 1. **双击 `index.html` 用浏览器打开**（地址栏是 `file://…`）。
    - ⚠️ 不要用 `localhost`/本地 http server 打开——各站后端只放行 `file://` 的 `origin: null` 与站点自身域名，走 localhost 会 CORS 失败（`Failed to fetch`）。
-2. 顶部**页签**切换站点（GenGrowth / AstrologyWiki / AI Story Generator / Resume Template）。
+2. 顶部**页签**切换站点（GenGrowth / AstrologyWiki / AI Story Generator / Resume Template / ShortsBinge）。
 3. 填参数：
    - **落地页**：默认是该站主页，可改成任意本站页面（支持 `/相对路径` 或完整 URL；只允许本站域名）。
    - **utm_source**：具体平台。社媒用 `reddit / pinterest / x / tiktok`；KOL 用 `kol-{红人}`；外链用主域名如 `abc.com`。统一小写，同一来源不要两种写法。
@@ -69,12 +69,14 @@ const SITES = [
    - **Next.js + Supabase**（见 `gengrowth-agents`、`ai-story-generator`）：`link_redirects` 表 + service-role 写入 + `proxy.ts`/middleware 把 `/<code>` 改写到 `/go/<code>`。
    - **Express + Supabase/Redis**（见 `oracle`）。
    - **Cloudflare Pages Functions + KV**（见 `google-docs-resume-template`：`functions/api/link-attribution/redirects.ts` 写 KV，`functions/[code].ts` 读 KV 跳转）。
+   - **Next.js + Drizzle/Postgres**（见 `shortsbinge`：`src/lib/link-attribution/` + `link_redirects` 表 + next.config beforeFiles 改写 `/<code>/`）。
+   - 站点若开了 `trailingSlash`（如 shortsbinge），`endpoint` 必须带尾斜杠，否则接口先 308，CORS 预检遇到跳转直接失败。
    - **CORS 必须放行 `"null"`**（file:// 的 origin），否则工具调不通。
 3. **备份**：无需改 `.gs`——它按记录的 `site` 字段自动把新站路由到同名标签页（不存在则自动创建）。
 
 ---
 
-## 各站点后端映射（截至 2026-07）
+## 各站点后端映射（截至 2026-09）
 
 | 页签 | 域名 | 后端仓库 | 存储 |
 |---|---|---|---|
@@ -82,6 +84,9 @@ const SITES = [
 | AstrologyWiki | astrologywiki.com | `oracle`（Express） | Supabase 项目 `snpkanwonccndjtvjmvh`（与 AI Story 共用）表 `link_redirects` |
 | AI Story Generator | aistorygenerator.work | `ai-story-generator`（Next.js 16） | Supabase 项目 `snpkanwonccndjtvjmvh`（共用）表 `link_redirects` |
 | Resume Template | googledocsresumetemplate.com | `google-docs-resume-template`（Astro + CF Pages） | Cloudflare KV，binding `LINK_REDIRECTS` |
+| ShortsBinge | shortsbinge.com | `shortsbinge`（Next.js 16 + Drizzle） | 站点自己的 Supabase Postgres，表 `link_redirects`（迁移 `0010`） |
+
+> ShortsBinge 后端比其他站严格：注册时**重算 code 必须等于目标地址的哈希**（与本工具 `createStableShortCode` 同一算法，两边单测用同一组样例钉住），改本工具的哈希算法会让 ShortsBinge 注册全部 400；只放行 `Origin: null` 与本站，其他来源 403；注册按 IP 限流 20 次/分钟。
 
 > ⚠️ AstrologyWiki 与 AI Story Generator **共用同一张 `link_redirects` 表**（按 `code` 区分，code 按完整目标 URL 哈希，两站不会撞）。**不要在这张共享表上加单域名的 destination CHECK 约束**——域名校验交给各 app 代码层。
 
@@ -113,7 +118,7 @@ const SITES = [
 node --test tools/internal/link-attribution/tests/link-attribution-tool.test.mjs
 ```
 
-覆盖：长链 UTM 归一、域名锁定、短码稳定性/唯一性、四站配置、导入入口等。
+覆盖：长链 UTM 归一、域名锁定、短码稳定性/唯一性、五站配置、ShortsBinge 哈希样例、导入入口等。
 
 ---
 

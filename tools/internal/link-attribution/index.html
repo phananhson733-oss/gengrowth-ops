@@ -501,6 +501,15 @@
           baseUrl: 'https://www.googledocsresumetemplate.com/',
           endpoint: 'https://www.googledocsresumetemplate.com/api/link-attribution/redirects',
         },
+        {
+          key: 'shortsbinge',
+          name: 'ShortsBinge',
+          domain: 'shortsbinge.com',
+          hosts: ['shortsbinge.com', 'www.shortsbinge.com'],
+          baseUrl: 'https://shortsbinge.com/',
+          // 站点开了 trailingSlash，接口必须带尾斜杠：不带会先 308，CORS 预检遇到跳转直接失败
+          endpoint: 'https://shortsbinge.com/api/link-attribution/redirects/',
+        },
       ];
 
       function resolveSite(siteOrKey) {
@@ -864,7 +873,7 @@
           return '短码已被占用且指向不同长链接：请联系管理员处理，不要重复生成。';
         }
         if (errorCode === 'storage_unconfigured') {
-          return `短链存储未配置：请先在 ${activeSite.name} 生产环境配置 SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY，或 REDIS_URL，并确认短链映射表已创建。`;
+          return `短链存储未配置：请先在 ${activeSite.name} 生产环境配置短链存储（数据库连接或 KV 绑定），并确认短链映射表已创建。`;
         }
         const message = payload?.error?.message || payload?.error || payload?.message;
         return typeof message === 'string' && message.trim() ? message : fallback;
