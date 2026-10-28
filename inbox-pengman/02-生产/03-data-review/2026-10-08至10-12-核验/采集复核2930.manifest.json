@@ -1,0 +1,108 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblNTly7d7tV1jG5",
+  "rev": 1600,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "filtered_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 10,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/采集复核2930.ndjson",
+  "record_file_size_bytes": 7801,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/采集复核2930.manifest.json",
+  "columns": {
+    "Caption": {
+      "field_id": "fld2x1wmAU",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 371
+      },
+      "example": "Part 1 | She Chose Her Daughter—and Walked Away After watching her daughter suffer, Grace refuses to stay with the family that k",
+      "example_truncated": true
+    },
+    "Post ID": {
+      "field_id": "fld4FSHS5d",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "7694938513707388173"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "reczz28MO93uvJye"
+    },
+    "发布时间": {
+      "field_id": "fld1kS3U7I",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-10-10T19:59:00.000+08:00",
+        "max": "2026-10-12T12:05:35.000+08:00"
+      },
+      "example": "2026-10-10T19:59:00.000+08:00"
+    },
+    "播放量": {
+      "field_id": "fldUiYxzeL",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 9,
+        "max": 325,
+        "avg": 114.4
+      },
+      "example": 9
+    },
+    "视频链接": {
+      "field_id": "fldogmTzZj",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 132
+      },
+      "example": "[https://www.tiktok.com/@hayleyluella/video/7694938513707388173](https://www.tiktok.com/@hayleyluella/video/7694938513707388173)"
+    },
+    "账号": {
+      "field_id": "fldEMgDB7J",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "reczz28LGTmYAXXZ"
+        }
+      ]
+    },
+    "采集时间": {
+      "field_id": "fldAilNtLA",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-10-12T11:58:04.000+08:00",
+        "max": "2026-10-12T11:58:04.000+08:00"
+      },
+      "example": "2026-10-12T11:58:04.000+08:00"
+    }
+  }
+}

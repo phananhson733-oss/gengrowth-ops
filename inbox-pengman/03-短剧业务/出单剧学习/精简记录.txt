@@ -1,0 +1,22 @@
+精简记录｜2026-10-28
+仅删除本学习目录的副本，原始文件已确认仍存在。
+
+删除：bl/My Two Spy Daddies/My Two Spy Daddies_剧情分析.md
+理由：与后来的独立分析及详细事件稿高度重叠，常用目录只保留较晚分析。
+原文件：/Users/pengman/Movies/My Two Spy Daddies/剧情研究/My Two Spy Daddies_剧情分析.md
+
+删除：bl/Private Tutoring/Private Tutoring_剧情分析.md
+理由：与后来的独立分析及详细事件稿高度重叠，常用目录只保留较晚分析。
+原文件：/Users/pengman/Movies/Private Tutoring/剧情研究/Private Tutoring_剧情分析.md
+
+删除：bl/The Omega's Command/The Omega's Command_公开集剧情分析.md
+理由：与后来的独立分析及详细事件稿高度重叠，常用目录只保留较晚分析。
+原文件：/Users/pengman/Movies/The Omega's Command/公开集剧情研究/The Omega's Command_公开集剧情分析.md
+
+删除：bl/00-三剧业务总结/三部出单男同短剧_面向业务的剧情总结_GPT生成_2026-10-28.md
+理由：作为单独阅读稿已被重写版取代，阅读页仍提供对应版本，事实修正见对照整合版。
+原文件：/Users/pengman/Documents/Codex/2026-10-28/my-two-spy-daddies-1-2-2/outputs/三部出单男同短剧_面向业务的剧情总结_GPT生成_2026-10-28.md
+
+删除：bl/00-三剧业务总结/三部出单男同短剧_面向业务的剧情总结_Claude生成_2026-10-28.md
+理由：作为单独阅读稿已被重写版取代，阅读页仍提供对应版本，事实修正见对照整合版。
+原文件：/Users/pengman/Documents/Codex/2026-10-28/my-two-spy-daddies-1-2-2/outputs/三部出单男同短剧_面向业务的剧情总结_Claude生成_2026-10-28.md

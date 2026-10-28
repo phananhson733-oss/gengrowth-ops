@@ -1,0 +1,119 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblHeWrgRPNshRdE",
+  "rev": 549,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 28,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/账号.ndjson",
+  "record_file_size_bytes": 10930,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/账号.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuwZHjywqNU"
+    },
+    "主页链接": {
+      "field_id": "fldMlLI2Xu",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 90
+      },
+      "example": "[https://www.tiktok.com/@jolienqaq](https://www.tiktok.com/@jolienqaq)"
+    },
+    "始发时间": {
+      "field_id": "fldv1FfeoB",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 2,
+        "min": "2026-08-25T19:22:00.000+08:00",
+        "max": "2026-10-10T08:00:00.000+08:00"
+      },
+      "example": "2026-09-24T00:00:00.000+08:00"
+    },
+    "手机编号": {
+      "field_id": "fldbCxImNC",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 3,
+        "max_length": 8
+      },
+      "example": "22"
+    },
+    "数据日期": {
+      "field_id": "fldcvFsS8f",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-10-09T00:00:00.000+08:00",
+        "max": "2026-10-10T00:00:00.000+08:00"
+      },
+      "example": "2026-10-09T00:00:00.000+08:00"
+    },
+    "状态": {
+      "field_id": "fldXXKnmIN",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 3,
+        "max_length": 1,
+        "avg_length": 0.8928571428571429
+      },
+      "example": [
+        "弃用"
+      ]
+    },
+    "负责人": {
+      "field_id": "fldyJJL18z",
+      "field_type": "user",
+      "physical_type": "array<struct<id string, name string>>",
+      "stats": {
+        "empty_count": 2,
+        "max_length": 1,
+        "avg_length": 0.9285714285714286
+      },
+      "example": [
+        {
+          "id": "ou_2326c8b27ffa89e199064f9af8c37453",
+          "name": "高璇"
+        }
+      ]
+    },
+    "账号ID": {
+      "field_id": "fldTq9hjKu",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "jolienqaq"
+    },
+    "账号名": {
+      "field_id": "fldNPPeZsf",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 6,
+        "max_length": 19
+      },
+      "example": "VoidFaic"
+    }
+  }
+}

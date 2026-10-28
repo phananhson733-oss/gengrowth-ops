@@ -1,0 +1,370 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "id": "fld6UydtAX",
+        "name": "备注",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "[分成比例配置].FILTER(AND(CurrentValue.[匹配键]=[匹配键],CurrentValue.[生效日期]\u003c=[日期])).[生效日期].MAX()",
+        "id": "fldfpzghAm",
+        "name": "适用生效日期",
+        "type": "formula"
+      },
+      {
+        "expression": "[订单金额(USD)]*[适用分成比例]",
+        "id": "fld3hjt2SD",
+        "name": "分成收益",
+        "type": "formula"
+      },
+      {
+        "expression": "IF(ISBLANK([适用生效日期]),0,[分成比例配置].FILTER(AND(CurrentValue.[匹配键]=[匹配键],CurrentValue.[生效日期]=[适用生效日期])).[分成比例].MAX())",
+        "id": "fldgp7FpVt",
+        "name": "适用分成比例",
+        "type": "formula"
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldkm3XUdv",
+        "id": "fldaCtS4YY",
+        "link_table": "tblMelhKOBsexG6S",
+        "name": "关联播放汇总",
+        "type": "link"
+      },
+      {
+        "expression": "IF(UPPER(TRIM([币种]\u0026\"\"))=\"CNY\",[订单金额]/6.7,[订单金额])",
+        "id": "fldR3azia6",
+        "name": "订单金额(USD)",
+        "type": "formula"
+      },
+      {
+        "bidirectional": false,
+        "description": "仅关联一条选剧池记录；多条、悬空或冲突关联不进入单剧统计。",
+        "id": "flddYUVYyW",
+        "link_table": "tbl4efRfwhJRqryA",
+        "name": "关联剧集",
+        "type": "link"
+      },
+      {
+        "default_value": [
+          {
+            "$slot": "current_user"
+          }
+        ],
+        "id": "fld1bV1uiR",
+        "multiple": false,
+        "name": "负责人",
+        "type": "user"
+      },
+      {
+        "default_value": null,
+        "id": "fld1qrrhk6",
+        "name": "订单数（单剧）",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld1vJupmK",
+        "name": "广告收益",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": {
+          "$slot": "record_created_time"
+        },
+        "description": "\n未提供的指标留空，确认真实为零才填0；币种和订单金额口径必须与来源一致。单剧明细与同范围账号合计不可同时纳入汇总。推广资源数按后台定义记录，不跨日期或账号直接累加。广告收益、抽佣收益是否包含于分成未核实前，不计算收益合计。",
+        "id": "fld3uINgJi",
+        "name": "日期",
+        "style": {
+          "format": "yyyy/MM/dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "description": "北京时间日期＋负责人＋合作方＋剧场＋唯一剧ID；用于阻止同一负责人同范围重复统计，不依赖账号ID/账号名，不能代替订单级对账。",
+        "expression": "IF(OR(ISBLANK([日期]),ISBLANK([负责人]),ISBLANK([关联剧ID（出单汇总）]),ISBLANK([合作方]),ISBLANK([剧场])),\"\",TEXT([日期],\"YYYY-MM-DD\")\u0026\"|\"\u0026[负责人]\u0026\"|\"\u0026[合作方]\u0026\"|\"\u0026[剧场]\u0026\"|\"\u0026[关联剧ID（出单汇总）])",
+        "id": "fldMNwHHOG",
+        "name": "出单统计键",
+        "type": "formula"
+      },
+      {
+        "description": "现有关联剧集的唯一剧ID优先，直接关联播放汇总的唯一剧ID作为补充；多关联或两侧ID冲突留空。唯一同名同剧场关联仍须核实数据粒度和日新增口径。",
+        "expression": "IF(OR([关联剧集].[剧ID].COUNTA()\u003e1,[关联播放汇总].[剧ID].COUNTA()\u003e1,AND([关联剧集].[剧ID].COUNTA()=1,[关联播放汇总].[剧ID].COUNTA()=1,[关联剧集].[剧ID].FIRST()!=[关联播放汇总].[剧ID].FIRST())),\"\",IFBLANK([关联剧集].[剧ID].FIRST(),[关联播放汇总].[剧ID].FIRST()))",
+        "id": "fldw6RynG1",
+        "name": "关联剧ID（出单汇总）",
+        "type": "formula"
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldJISQRlj",
+        "id": "fldaAtJiYd",
+        "link_table": "tbl4QucWlrzWhr4b",
+        "name": "关联出单短剧汇总",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fld3DXqOEu",
+        "name": "订单金额",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld3fh5s4V",
+        "name": "账号名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": [
+          "USD"
+        ],
+        "id": "fld1pSQ474",
+        "multiple": false,
+        "name": "币种",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "USD"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "CNY"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "1"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "用户充值金额"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "description": "明确本行全部金额和订单的来源粒度；仅有真实单剧明细时选单剧。关联一部剧不代表整行金额都是单剧收入。",
+        "id": "fldQ76DB3e",
+        "multiple": false,
+        "name": "数据粒度",
+        "options": [
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "待核验"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "单剧"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "账号级"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "平台级"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "description": "核实单剧归属、数据来源和时间口径后才选日新增（已核实）；累计快照不得逐日相加，需先转换为不重叠日增明细。重复明细经核对后选择不纳入。历史空白保持待核验。",
+        "id": "fldTaAf5tw",
+        "multiple": false,
+        "name": "出单统计口径",
+        "options": [
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "待核验"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "日新增（已核实）"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "累计快照（不累加）"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "不纳入"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fld4s3gZos",
+        "name": "当日发布剧名数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "description": "只有已核实日新增、单剧粒度、唯一一致剧ID、剧名剧场一致、完整统计键且无疑似重复录入（同一负责人同日同剧可分多条录入，金额与订单数完全相同才视为重复）的记录可汇总。支持直接关联播放汇总；账号级、平台级、累计快照及待核验明细排除，缺失不当零。",
+        "expression": "IFS([出单统计口径]=\"不纳入\",\"不纳入\",[数据粒度]!=\"单剧\",\"待核验：数据粒度\",[出单统计口径]=\"累计快照（不累加）\",\"待核验：累计快照不能直接累加\",[出单统计口径]!=\"日新增（已核实）\",\"待核验：日新增口径未确认\",ISBLANK([关联剧ID（出单汇总）]),\"待核验：须唯一关联剧集或播放汇总，且两者ID一致\",ISBLANK([出单统计键]),\"待核验：日期、负责人或合作方缺失\",OR(ISBLANK([出单剧名（仅统计出单）]),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE([出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")!=REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(IFBLANK([关联剧集].[剧名].FIRST(),[关联播放汇总].[剧名].FIRST()),\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")),\"待核验：关联剧名冲突\",IF(ISBLANK([关联剧集].[平台].LISTCOMBINE()),NOT(SPLIT(IFBLANK([关联播放汇总].[剧场].FIRST(),\"\"),\"、\").CONTAIN([剧场]\u0026\"\")),NOT([关联剧集].[平台].LISTCOMBINE().CONTAIN([剧场]\u0026\"\"))),\"待核验：关联剧场冲突\",[CPS账号数据明细 手动版].COUNTIF(AND(CurrentValue.[出单统计键]=[出单统计键],CurrentValue.[订单金额]=[订单金额],CurrentValue.[订单数（单剧）]=[订单数（单剧）],CurrentValue.[出单统计口径]!=\"不纳入\"))\u003e1,\"待核验：疑似重复录入（同日同人同剧且金额、订单数都相同）\",TRUE(),\"可汇总\")",
+        "id": "fldSgf1IUS",
+        "name": "单剧汇总校验",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld2Y2VnvA",
+        "multiple": false,
+        "name": "合作方",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "RSBoost"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "MoboBoost"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "鹊娱"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "七星剧浪"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "expression": "IF(OR(ISBLANK([合作方]),ISBLANK([剧场])),\"缺合作方或剧场\",IF([分成比例配置].FILTER(CurrentValue.[匹配键]=[匹配键]).[匹配键].COUNTA()\u003e0,\"是\",\"否\"))",
+        "id": "fld3Nfxh5b",
+        "name": "配置已匹配",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld5N4DnHA",
+        "name": "出单剧名（仅统计出单）",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "SUBSTITUTE(LOWER(SUBSTITUTE([合作方],\" \",\"\"))\u0026\"|\"\u0026LOWER(SUBSTITUTE([剧场],\" \",\"\")),\"yourchanel\",\"yourchannel\")",
+        "id": "fldnD8ZvRi",
+        "name": "匹配键",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld4JQ1bi3",
+        "multiple": false,
+        "name": "剧场",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "ReelShort"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "MoboReels"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "DramaBox"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "NetShort"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "GoodShort"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "ShortMax"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "KalosTV"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "其他"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "FlickReels"
+          }
+        ],
+        "type": "select"
+      }
+    ],
+    "total": 26
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.97",
+      "latest": "1.0.98",
+      "message": "lark-cli 1.0.98 available, current 1.0.97, run: lark-cli update"
+    }
+  }
+}

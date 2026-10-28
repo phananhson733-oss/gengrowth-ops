@@ -1,0 +1,128 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblFQYFDWi7mDNYr",
+  "rev": 81,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 1908,
+  "page_count": 4,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/分账号日增-0.ndjson",
+  "record_file_size_bytes": 813208,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/分账号日增-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvJ0pjvT4Vq"
+    },
+    "可比帖子数": {
+      "field_id": "fldbk3TdY5",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 113,
+        "avg": 15.0062893081761
+      },
+      "example": 0
+    },
+    "新增帖子数": {
+      "field_id": "fldOiOIOjc",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 13,
+        "avg": 1.769916142557652
+      },
+      "example": 0
+    },
+    "新增播放量": {
+      "field_id": "fldujaGRzn",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1085,
+        "min": 0,
+        "max": 290424,
+        "avg": 15900.888213851762
+      },
+      "example": 0
+    },
+    "日期": {
+      "field_id": "fldtZBHlMR",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-04"
+    },
+    "未纳入帖子数": {
+      "field_id": "fldvnOjhJd",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 32,
+        "avg": 0.12473794549266247
+      },
+      "example": 0
+    },
+    "缺失帖子数": {
+      "field_id": "fldTzgZpmY",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 70,
+        "avg": 1.179769392033543
+      },
+      "example": 0
+    },
+    "说明": {
+      "field_id": "fldqHUM3NY",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 204
+      },
+      "example": "统计时区：北京时间（Asia/Shanghai）；缺少当日快照"
+    },
+    "负责人": {
+      "field_id": "fldTP4pqDi",
+      "field_type": "lookup",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 477,
+        "max_length": 3
+      },
+      "example": "高璇"
+    },
+    "账号ID": {
+      "field_id": "fldIIA2kL0",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "jolienqaq"
+    }
+  }
+}

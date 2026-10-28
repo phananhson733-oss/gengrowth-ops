@@ -1,0 +1,153 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl4QucWlrzWhr4b",
+  "rev": 153,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 43,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/出单汇总-0.ndjson",
+  "record_file_size_bytes": 16625,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/出单汇总-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "reczz28NYiBvWIIR"
+    },
+    "万播收益": {
+      "field_id": "fldD6wqbVA",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0"
+    },
+    "关联CPS出单明细": {
+      "field_id": "fldJISQRlj",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 1,
+        "max_length": 15,
+        "avg_length": 2.372093023255814
+      },
+      "example": [
+        {
+          "id": "recvw0IqGTekQF"
+        }
+      ]
+    },
+    "分成收益": {
+      "field_id": "fldsmOO4WI",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0"
+    },
+    "剧名": {
+      "field_id": "fldmzpFmps",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 68
+      },
+      "example": "Man to Man"
+    },
+    "剧场": {
+      "field_id": "fldGmfApDZ",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "MoboReels"
+    },
+    "原币种": {
+      "field_id": "fldtMTar0j",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "USD"
+    },
+    "发布记录数": {
+      "field_id": "fldsrp9yjU",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "5"
+    },
+    "播放量": {
+      "field_id": "fldkPYasAR",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0"
+    },
+    "订单数": {
+      "field_id": "fldkDow1s9",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "7"
+    },
+    "订单金额(USD)": {
+      "field_id": "fldPDEMPUv",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0"
+    },
+    "负责人": {
+      "field_id": "fldUVp9D87",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "高璇"
+    },
+    "首次出单日期": {
+      "field_id": "fld25XZIsY",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-07"
+    }
+  }
+}

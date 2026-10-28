@@ -1,0 +1,4348 @@
+{
+  "audit": {
+    "capture_rows": 1389,
+    "capture_unique": 1389,
+    "release_rows": 1423,
+    "release_unique_posts": 1003,
+    "release_dup_posts": 0
+  },
+  "W40": {
+    "posts": 388,
+    "plays": 706901.0,
+    "accounts": [
+      {
+        "account": "shirley5278789",
+        "posts": 20,
+        "plays": 251853.0,
+        "titles": {
+          "Rechazando a mis cinco compañeras destinadas": 3,
+          "Alfa a jeho chůva Luna": 1,
+          "未关联剧目": 12,
+          "Coronada de sangre de plata": 4
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "magnoliaisabella64",
+        "posts": 16,
+        "plays": 89121.0,
+        "titles": {
+          "未关联剧目": 8,
+          "Paladin Betrays God for the Wolf": 2,
+          "Bloodline Paradox: Silver and Shadows": 2,
+          "My Two Spy Daddies": 2,
+          "The White Snake Wants My Baby": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "nobleltcpnj",
+        "posts": 22,
+        "plays": 68346.0,
+        "titles": {
+          "Abandoned in a Horror Game, Adopted by the Final Boss": 2,
+          "The Fairy Who Slept Her Way to the Throne": 3,
+          "My Dragon Husband": 3,
+          "未关联剧目": 11,
+          "Gone Before the Vows": 3
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "jolienqaq",
+        "posts": 22,
+        "plays": 61201.0,
+        "titles": {
+          "My Pup Became My Alpha": 2,
+          "My Two Dangerous Roommates Crave Me": 3,
+          "My Two Spy Daddies": 3,
+          "The Double Life of My Mafia Husband": 3,
+          "The White Snake Wants My Baby": 3,
+          "未关联剧目": 1,
+          "Seduced by My Boyfriend’s Uncle": 6,
+          "The Wolf's Painter": 1
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "dramaclips0364",
+        "posts": 22,
+        "plays": 46074.0,
+        "titles": {
+          "Step Back! That Homeless Man Is Not to be Messed with": 5,
+          "One Betrayal One Night With My Boss": 1,
+          "未关联剧目": 9,
+          "The Billionaire's Superhuman Maid": 5,
+          "I Don't Need No Alpha Brothers": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "dramavault163",
+        "posts": 20,
+        "plays": 22657.0,
+        "titles": {
+          "Take Me Back to the Night We Met": 5,
+          "未关联剧目": 11,
+          "Dragonblood Alpha": 4
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "plottwistclips11",
+        "posts": 20,
+        "plays": 20133.0,
+        "titles": {
+          "未关联剧目": 13,
+          "Rejected Luna is His Fated Mate": 5,
+          "The Alpha and His Nanny Luna": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "lthung263",
+        "posts": 21,
+        "plays": 18234.0,
+        "titles": {
+          "The Billion-Dollar Heiress’ Reckoning": 2,
+          "Alpha’s Cursed Mate": 3,
+          "Eight Heirs for the Dragon King": 3,
+          "I Woke Up as the Villainous Guide": 3,
+          "Love & Blood": 3,
+          "Off the Ice": 3,
+          "Star Prison": 3,
+          "The True Queen": 1
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "dramadetour0",
+        "posts": 15,
+        "plays": 17655.0,
+        "titles": {
+          "The Weakest Orange Cat Is the Strongest Golden Tiger": 3,
+          "Congratulations, You're Linked to a Walking Disaster": 3,
+          "Five Years of Secret Love, He Married My Best Friend": 1,
+          "未关联剧目": 2,
+          "Accidentally His: The Dragon King Won't Let Go": 5,
+          "The Alpha and His Nanny Luna": 1
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "dramaflick00",
+        "posts": 21,
+        "plays": 15780.0,
+        "titles": {
+          "The Great and Powerful Genie": 1,
+          "One Betrayal One Night With My Boss": 3,
+          "未关联剧目": 4,
+          "The Billionaire's Superhuman Maid": 4,
+          "I Don't Need No Alpha Brothers": 4,
+          "I Married My Cheating Ex’s Uncle": 5
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "scenesbl77",
+        "posts": 13,
+        "plays": 15553.0,
+        "titles": {
+          "未关联剧目": 3,
+          "private tutoring": 4,
+          "The Omega's Command": 5,
+          "Altarboy": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "hcngsn5459",
+        "posts": 15,
+        "plays": 14410.0,
+        "titles": {
+          "未关联剧目": 11,
+          "Forward, Without Him": 2,
+          "I Married My Cheating Ex’s Uncle": 1,
+          "My Twins Picked a Billionaire Dad": 1
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "qqfqvkxrybkjkjnp20",
+        "posts": 16,
+        "plays": 13175.0,
+        "titles": {
+          "Apollo I’d Rather Marry a Monster": 3,
+          "未关联剧目": 5,
+          "Crown of the Nile: My Beggar Husband is the Pharaoh": 2,
+          "The Crown of the Abyss: The Mute Bride of Atlantis": 2,
+          "The Exiled Alpha Queen": 2,
+          "From Omega's Prey to Luna Queen": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "ngphnggiang40",
+        "posts": 21,
+        "plays": 10997.0,
+        "titles": {
+          "He Broke the Heart That Saved Him": 2,
+          "Dragon blood Uprising": 3,
+          "My Taxi Driver Ex Is a Billionaire": 2,
+          "未关联剧目": 10,
+          "Bedded and Buffed: Claiming My Shifter Harem": 2,
+          "Campus Saga: Superpower Teen": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "dramaexpedition",
+        "posts": 20,
+        "plays": 7486.0,
+        "titles": {
+          "King of the Four Seas: Legend Reborn": 2,
+          "The Ice Man": 6,
+          "The Husband She Took for Granted": 6,
+          "Bedded and Buffed: Claiming My Shifter Harem": 1,
+          "未关联剧目": 1,
+          "LadyAid: From Dumped Pauper to Tycoon": 4
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "amariari11",
+        "posts": 12,
+        "plays": 6643.0,
+        "titles": {
+          "未关联剧目": 6,
+          "The Scent That Found Me": 2,
+          "The Reaper's Fated Bride": 2,
+          "Prep School Pop Star!": 2
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "mochiclips55",
+        "posts": 11,
+        "plays": 5883.0,
+        "titles": {
+          "未关联剧目": 5,
+          "Never Fall Alone": 2,
+          "private tutoring": 4
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "hnlinhthng9678",
+        "posts": 15,
+        "plays": 5777.0,
+        "titles": {
+          "Rejected Luna is His Fated Mate": 4,
+          "未关联剧目": 5,
+          "Rejecting My Five Female Mates": 4,
+          "Step Back! That Homeless Man Is Not to be Messed with": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "sofiblmoments",
+        "posts": 19,
+        "plays": 4971.0,
+        "titles": {
+          "未关联剧目": 4,
+          "private tutoring": 5,
+          "The Omega's Command": 5,
+          "Altarboy": 5
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "gaylenepowers350",
+        "posts": 12,
+        "plays": 4201.0,
+        "titles": {
+          "未关联剧目": 8,
+          "The Wolves’ Bride": 2,
+          "Traded My Wolves for a Snake": 2
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "miralinaaa10",
+        "posts": 12,
+        "plays": 2312.0,
+        "titles": {
+          "未关联剧目": 5,
+          "Sinking With My Step-sister": 2,
+          "Siren's Pact: My Pirate Queen": 5
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "jazlynnayeli6",
+        "posts": 13,
+        "plays": 2253.0,
+        "titles": {
+          "未关联剧目": 4,
+          "Daughter of the Four Norse God-Kings": 2,
+          "Married to the Vagabond King": 2,
+          "Never Reject a Dragon Princess": 2,
+          "Stolen by My Fiancé's Uncle": 2,
+          "The Mafia Boss's Stolen Bride": 1
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "felicitypatterson67",
+        "posts": 10,
+        "plays": 2186.0,
+        "titles": {
+          "After My Three Alpha Childhood Sweethearts Abandoned Me, They Regretted It": 1,
+          "未关联剧目": 5,
+          "His Golden Touch on My Body": 2,
+          "The Unchaste Charge:Plaything of My Husband's Godfather": 2
+        },
+        "operators": [
+          "李建卓"
+        ]
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-09-28",
+        "posts": 36,
+        "plays": 190610.0,
+        "daily_increment": 301381,
+        "account_increment_sum": 301381.0,
+        "trend": [
+          {
+            "日期": "2026-09-28",
+            "新增播放量": 301381,
+            "可比帖子数": 616,
+            "新增帖子数": 36,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 7,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-09-28；快照批次 2026-09-28 00:10 → 2026-09-29 00:10；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 0 条，本期未出现 7 条，平台回调 0 条",
+            "新增点赞": 2101,
+            "新增评论": 29,
+            "新增收藏": 625,
+            "新增转发": 85,
+            "互动率": 0.00914125309823778
+          }
+        ]
+      },
+      {
+        "date": "2026-09-29",
+        "posts": 33,
+        "plays": 85164.0,
+        "daily_increment": 215120,
+        "account_increment_sum": 215120.0,
+        "trend": [
+          {
+            "日期": "2026-09-29",
+            "新增播放量": 215120,
+            "可比帖子数": 643,
+            "新增帖子数": 30,
+            "未纳入帖子数": 26,
+            "缺失帖子数": 9,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-09-29；快照批次 2026-09-29 00:10 → 2026-09-30 00:13；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 26 条，本期未出现 9 条，平台回调 0 条",
+            "新增点赞": 1952,
+            "新增评论": 20,
+            "新增收藏": 459,
+            "新增转发": 64,
+            "互动率": 0.0113006693938267
+          }
+        ]
+      },
+      {
+        "date": "2026-09-30",
+        "posts": 53,
+        "plays": 128800.0,
+        "daily_increment": 194802,
+        "account_increment_sum": 194802.0,
+        "trend": [
+          {
+            "日期": "2026-09-30",
+            "新增播放量": 194802,
+            "可比帖子数": 690,
+            "新增帖子数": 53,
+            "未纳入帖子数": 6,
+            "缺失帖子数": 9,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-09-30；快照批次 2026-09-30 00:13 → 2026-10-01 00:07；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 6 条，本期未出现 9 条，平台回调 0 条",
+            "新增点赞": 1552,
+            "新增评论": 17,
+            "新增收藏": 496,
+            "新增转发": 77,
+            "互动率": 0.0106005071816511
+          }
+        ]
+      },
+      {
+        "date": "2026-10-01",
+        "posts": 64,
+        "plays": 75908.0,
+        "daily_increment": 204072,
+        "account_increment_sum": 204072.0,
+        "trend": [
+          {
+            "日期": "2026-10-01",
+            "新增播放量": 204072,
+            "可比帖子数": 732,
+            "新增帖子数": 60,
+            "未纳入帖子数": 1,
+            "缺失帖子数": 17,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-01；快照批次 2026-10-01 00:07 → 2026-10-02 00:05；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 1 条，本期未出现 17 条，平台回调 0 条",
+            "新增点赞": 1806,
+            "新增评论": 8,
+            "新增收藏": 536,
+            "新增转发": 66,
+            "互动率": 0.0115155435336547
+          }
+        ]
+      },
+      {
+        "date": "2026-10-02",
+        "posts": 66,
+        "plays": 61697.0,
+        "daily_increment": 241907,
+        "account_increment_sum": 241907.0,
+        "trend": [
+          {
+            "日期": "2026-10-02",
+            "新增播放量": 241907,
+            "可比帖子数": 778,
+            "新增帖子数": 66,
+            "未纳入帖子数": 1,
+            "缺失帖子数": 15,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-02；快照批次 2026-10-02 00:05 → 2026-10-03 00:02；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 1 条，本期未出现 15 条，平台回调 0 条",
+            "新增点赞": 2733,
+            "新增评论": 45,
+            "新增收藏": 935,
+            "新增转发": 99,
+            "互动率": 0.015348873740735
+          }
+        ]
+      },
+      {
+        "date": "2026-10-03",
+        "posts": 68,
+        "plays": 104511.0,
+        "daily_increment": 276725,
+        "account_increment_sum": 276725.0,
+        "trend": [
+          {
+            "日期": "2026-10-03",
+            "新增播放量": 276725,
+            "可比帖子数": 825,
+            "新增帖子数": 66,
+            "未纳入帖子数": 2,
+            "缺失帖子数": 20,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-03；快照批次 2026-10-03 00:02 → 2026-10-04 00:03；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 2 条，本期未出现 20 条，平台回调 0 条",
+            "新增点赞": 2365,
+            "新增评论": 25,
+            "新增收藏": 742,
+            "新增转发": 76,
+            "互动率": 0.0113180955822567
+          }
+        ]
+      },
+      {
+        "date": "2026-10-04",
+        "posts": 68,
+        "plays": 60211.0,
+        "daily_increment": 283877,
+        "account_increment_sum": 283877.0,
+        "trend": [
+          {
+            "日期": "2026-10-04",
+            "新增播放量": 283877,
+            "可比帖子数": 875,
+            "新增帖子数": 66,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 18,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-04；快照批次 2026-10-04 00:03 → 2026-10-05 00:01；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 0 条，本期未出现 18 条，平台回调 0 条",
+            "新增点赞": 2286,
+            "新增评论": 28,
+            "新增收藏": 719,
+            "新增转发": 101,
+            "互动率": 0.0106842047788302
+          }
+        ]
+      }
+    ],
+    "titles": [
+      {
+        "title": "未关联剧目",
+        "posts": 143,
+        "plays": 259204.0,
+        "accounts": [
+          "amariari11",
+          "dramaclips0364",
+          "dramadetour0",
+          "dramaexpedition",
+          "dramaflick00",
+          "dramavault163",
+          "felicitypatterson67",
+          "gaylenepowers350",
+          "hcngsn5459",
+          "hnlinhthng9678",
+          "jazlynnayeli6",
+          "jolienqaq",
+          "magnoliaisabella64",
+          "miralinaaa10",
+          "mochiclips55",
+          "ngphnggiang40",
+          "nobleltcpnj",
+          "plottwistclips11",
+          "qqfqvkxrybkjkjnp20",
+          "scenesbl77",
+          "shirley5278789",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "Rechazando a mis cinco compañeras destinadas",
+        "posts": 3,
+        "plays": 116100.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "The White Snake Wants My Baby",
+        "posts": 5,
+        "plays": 60029.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "My Dragon Husband",
+        "posts": 3,
+        "plays": 46431.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "Alfa a jeho chůva Luna",
+        "posts": 1,
+        "plays": 38100.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "My Two Spy Daddies",
+        "posts": 5,
+        "plays": 19026.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "One Betrayal One Night With My Boss",
+        "posts": 4,
+        "plays": 14726.0,
+        "accounts": [
+          "dramaclips0364",
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "private tutoring",
+        "posts": 13,
+        "plays": 13746.0,
+        "accounts": [
+          "mochiclips55",
+          "scenesbl77",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "The Fairy Who Slept Her Way to the Throne",
+        "posts": 3,
+        "plays": 12085.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "The Alpha and His Nanny Luna",
+        "posts": 3,
+        "plays": 7865.0,
+        "accounts": [
+          "dramadetour0",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "Eight Heirs for the Dragon King",
+        "posts": 3,
+        "plays": 7358.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Forward, Without Him",
+        "posts": 2,
+        "plays": 6951.0,
+        "accounts": [
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Omega's Command",
+        "posts": 10,
+        "plays": 6640.0,
+        "accounts": [
+          "scenesbl77",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "Coronada de sangre de plata",
+        "posts": 4,
+        "plays": 5328.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "The Billionaire's Superhuman Maid",
+        "posts": 9,
+        "plays": 4942.0,
+        "accounts": [
+          "dramaclips0364",
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "The Exiled Alpha Queen",
+        "posts": 2,
+        "plays": 4856.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Seduced by My Boyfriend’s Uncle",
+        "posts": 6,
+        "plays": 4807.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "Accidentally His: The Dragon King Won't Let Go",
+        "posts": 5,
+        "plays": 4801.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Off the Ice",
+        "posts": 3,
+        "plays": 4608.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Rejected Luna is His Fated Mate",
+        "posts": 9,
+        "plays": 4259.0,
+        "accounts": [
+          "hnlinhthng9678",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "Prep School Pop Star!",
+        "posts": 2,
+        "plays": 3913.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "Bedded and Buffed: Claiming My Shifter Harem",
+        "posts": 3,
+        "plays": 3773.0,
+        "accounts": [
+          "dramaexpedition",
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Dragonblood Alpha",
+        "posts": 4,
+        "plays": 3164.0,
+        "accounts": [
+          "dramavault163"
+        ]
+      },
+      {
+        "title": "The Weakest Orange Cat Is the Strongest Golden Tiger",
+        "posts": 3,
+        "plays": 3157.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "The Double Life of My Mafia Husband",
+        "posts": 3,
+        "plays": 2810.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "Dragon blood Uprising",
+        "posts": 3,
+        "plays": 2760.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Altarboy",
+        "posts": 6,
+        "plays": 2707.0,
+        "accounts": [
+          "scenesbl77",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "My Two Dangerous Roommates Crave Me",
+        "posts": 3,
+        "plays": 2689.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "Rejecting My Five Female Mates",
+        "posts": 4,
+        "plays": 2625.0,
+        "accounts": [
+          "hnlinhthng9678"
+        ]
+      },
+      {
+        "title": "Step Back! That Homeless Man Is Not to be Messed with",
+        "posts": 7,
+        "plays": 2576.0,
+        "accounts": [
+          "dramaclips0364",
+          "hnlinhthng9678"
+        ]
+      },
+      {
+        "title": "Abandoned in a Horror Game, Adopted by the Final Boss",
+        "posts": 2,
+        "plays": 1872.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "Alpha’s Cursed Mate",
+        "posts": 3,
+        "plays": 1868.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Congratulations, You're Linked to a Walking Disaster",
+        "posts": 3,
+        "plays": 1704.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "He Broke the Heart That Saved Him",
+        "posts": 2,
+        "plays": 1661.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "My Pup Became My Alpha",
+        "posts": 2,
+        "plays": 1564.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "The Husband She Took for Granted",
+        "posts": 6,
+        "plays": 1413.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "Gone Before the Vows",
+        "posts": 3,
+        "plays": 1390.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "My Taxi Driver Ex Is a Billionaire",
+        "posts": 2,
+        "plays": 1324.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "The Billion-Dollar Heiress’ Reckoning",
+        "posts": 2,
+        "plays": 1239.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "The Ice Man",
+        "posts": 6,
+        "plays": 1203.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "I Don't Need No Alpha Brothers",
+        "posts": 6,
+        "plays": 1195.0,
+        "accounts": [
+          "dramaclips0364",
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "I Woke Up as the Villainous Guide",
+        "posts": 3,
+        "plays": 1146.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Bloodline Paradox: Silver and Shadows",
+        "posts": 2,
+        "plays": 1022.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Wolves’ Bride",
+        "posts": 2,
+        "plays": 995.0,
+        "accounts": [
+          "gaylenepowers350"
+        ]
+      },
+      {
+        "title": "Take Me Back to the Night We Met",
+        "posts": 5,
+        "plays": 942.0,
+        "accounts": [
+          "dramavault163"
+        ]
+      },
+      {
+        "title": "Star Prison",
+        "posts": 3,
+        "plays": 931.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Paladin Betrays God for the Wolf",
+        "posts": 2,
+        "plays": 925.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Crown of the Abyss: The Mute Bride of Atlantis",
+        "posts": 2,
+        "plays": 863.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "I Married My Cheating Ex’s Uncle",
+        "posts": 6,
+        "plays": 801.0,
+        "accounts": [
+          "dramaflick00",
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "Traded My Wolves for a Snake",
+        "posts": 2,
+        "plays": 789.0,
+        "accounts": [
+          "gaylenepowers350"
+        ]
+      },
+      {
+        "title": "LadyAid: From Dumped Pauper to Tycoon",
+        "posts": 4,
+        "plays": 771.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "Love & Blood",
+        "posts": 3,
+        "plays": 720.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Crown of the Nile: My Beggar Husband is the Pharaoh",
+        "posts": 2,
+        "plays": 689.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Five Years of Secret Love, He Married My Best Friend",
+        "posts": 1,
+        "plays": 632.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Apollo I’d Rather Marry a Monster",
+        "posts": 3,
+        "plays": 615.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "The Wolf's Painter",
+        "posts": 1,
+        "plays": 581.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "The Mafia Boss's Stolen Bride",
+        "posts": 1,
+        "plays": 555.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "From Omega's Prey to Luna Queen",
+        "posts": 2,
+        "plays": 548.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Never Fall Alone",
+        "posts": 2,
+        "plays": 508.0,
+        "accounts": [
+          "mochiclips55"
+        ]
+      },
+      {
+        "title": "Siren's Pact: My Pirate Queen",
+        "posts": 5,
+        "plays": 494.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "Campus Saga: Superpower Teen",
+        "posts": 2,
+        "plays": 426.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Never Reject a Dragon Princess",
+        "posts": 2,
+        "plays": 393.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "Sinking With My Step-sister",
+        "posts": 2,
+        "plays": 375.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "The True Queen",
+        "posts": 1,
+        "plays": 364.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "After My Three Alpha Childhood Sweethearts Abandoned Me, They Regretted It",
+        "posts": 1,
+        "plays": 316.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      },
+      {
+        "title": "The Reaper's Fated Bride",
+        "posts": 2,
+        "plays": 290.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "The Unchaste Charge:Plaything of My Husband's Godfather",
+        "posts": 2,
+        "plays": 267.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      },
+      {
+        "title": "Daughter of the Four Norse God-Kings",
+        "posts": 2,
+        "plays": 261.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "His Golden Touch on My Body",
+        "posts": 2,
+        "plays": 233.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      },
+      {
+        "title": "Stolen by My Fiancé's Uncle",
+        "posts": 2,
+        "plays": 223.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "The Scent That Found Me",
+        "posts": 2,
+        "plays": 210.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "King of the Four Seas: Legend Reborn",
+        "posts": 2,
+        "plays": 200.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "Married to the Vagabond King",
+        "posts": 2,
+        "plays": 175.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "My Twins Picked a Billionaire Dad",
+        "posts": 1,
+        "plays": 87.0,
+        "accounts": [
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Great and Powerful Genie",
+        "posts": 1,
+        "plays": 85.0,
+        "accounts": [
+          "dramaflick00"
+        ]
+      }
+    ],
+    "top": [
+      {
+        "Post ID": "7689058784760663326",
+        "发布时间": "2026-09-28 14:17:00",
+        "账号": "shirley5278789",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@shirley5278789/video/7689058784760663326",
+        "播放量": 88400,
+        "点赞": 1092,
+        "评论": 6,
+        "收藏": 175,
+        "转发": 25,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000804",
+        "账号名": "shirley5278789",
+        "Caption": "Su ceremonia de ascenso se convierte en una amenaza mortal cuando Seth aparece dispuesto a quitarle todo. 😱🐺 🌟 Continúa la historia aquí 👉 Encuentra la serie completa en “ReelShort” 🔍 Busca “4809701” ✨ #Drama #DramaCorto #Alfa #FinalImpactante #ReelShort",
+        "titles": [
+          "Rechazando a mis cinco compañeras destinadas"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-09-28 14:17"
+        ]
+      },
+      {
+        "Post ID": "7690898456709369119",
+        "发布时间": "2026-10-03 23:12:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690898456709369119",
+        "播放量": 43900,
+        "点赞": 2195,
+        "评论": 17,
+        "收藏": 1073,
+        "转发": 109,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001168",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 1 | The White Snake Wants My Baby Noah thinks the giant black python is bullying him, but every bite, touch, and jealous outburst may mean something very different. ✨ Download the ReelShort app. 👉 Copy the code [4957012] and search it. #Drama #AIDrama #ShortDrama #SnakeRomance #FantasyLove",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7690490598633065759",
+        "发布时间": "2026-09-29 11:04:00",
+        "账号": "shirley5278789",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@shirley5278789/video/7690490598633065759",
+        "播放量": 39000,
+        "点赞": 259,
+        "评论": 0,
+        "收藏": 64,
+        "转发": 7,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000944",
+        "账号名": "shirley5278789",
+        "Caption": "Años después, una joven desesperada entra en el castillo del Alfa y conoce a la pequeña que cambiará su destino por completo. 🏰💙 🌟 Continúa la historia aquí 👉 Encuentra la serie completa en “ReelShort” 🔍 Busca “4931565” ✨ #DramaCorto #RomanceConLaNiñera #ReyAlfa #ReelShort",
+        "titles": [],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-09-29 11:04"
+        ]
+      },
+      {
+        "Post ID": "7690778499661024526",
+        "发布时间": "2026-09-30 06:26:00",
+        "账号": "nobleltcpnj",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@nobleltcpnj/video/7690778499661024526",
+        "播放量": 38800,
+        "点赞": 150,
+        "评论": 5,
+        "收藏": 53,
+        "转发": 15,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001526",
+        "账号名": "Mouse glue trap",
+        "Caption": "Part 3 | The Maid Interview Misunderstanding (My Dragon Husband) Madison arrives for a cleaning job, but a dangerous misunderstanding puts her face-to-face with the dragon lord. One slap later, he is determined to discover who she really is. ✨ Download the ReelShort app.   👉 Copy the code [4931268] and search it. #Drama #AIDrama #ShortDrama #RomanticComedy #DragonLord",
+        "titles": [
+          "My Dragon Husband"
+        ],
+        "release_count": 1,
+        "operators": [
+          "张凯风"
+        ],
+        "release_dates": [
+          "2026-09-30 06:26"
+        ]
+      },
+      {
+        "Post ID": "7690490400842304798",
+        "发布时间": "2026-09-28 23:02:00",
+        "账号": "shirley5278789",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@shirley5278789/video/7690490400842304798",
+        "播放量": 38100,
+        "点赞": 235,
+        "评论": 3,
+        "收藏": 72,
+        "转发": 5,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000807",
+        "账号名": "shirley5278789",
+        "Caption": "Traicionada bajo la luna de sangre, una mujer embarazada huye por su vida. Pero el bebé que lleva podría cambiar el mundo de los Alfas para siempre. 🌕🐺 🌟 Continúa la historia aquí 👉 Encuentra la serie completa en “ReelShort” 🔍 Busca “4931565” ✨ #DramaCorto #RomanceDeHombresLobo #DramaDeAlfas #ReelShort",
+        "titles": [
+          "Alfa a jeho chůva Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-09-28 23:02"
+        ]
+      },
+      {
+        "Post ID": "7690912826365316383",
+        "发布时间": "2026-10-01 20:36:00",
+        "账号": "jolienqaq",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@jolienqaq/video/7690912826365316383",
+        "播放量": 17900,
+        "点赞": 911,
+        "评论": 20,
+        "收藏": 426,
+        "转发": 38,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000890",
+        "账号名": "jolienqaq",
+        "Caption": "Part 1 | The White Snake Wants My Baby The giant snake keeps teasing his male keeper. What if it’s actually flirting? 🐍 Full series link in bio. ✨ Download the ReelShort app. 👉 Copy the code 4958222 and search it. #TheWhiteSnakeWantsMyBaby #BLDrama #FantasyRomance #ReelShort",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-01 20:36"
+        ]
+      },
+      {
+        "Post ID": "7690493228100930846",
+        "发布时间": "2026-09-30 10:37:00",
+        "账号": "shirley5278789",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@shirley5278789/video/7690493228100930846",
+        "播放量": 17300,
+        "点赞": 133,
+        "评论": 3,
+        "收藏": 15,
+        "转发": 4,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001530",
+        "账号名": "shirley5278789",
+        "Caption": "El Alfa percibe algo imposible en la nueva niñera de su hija y debe elegir entre sus sospechas y el vínculo que los une. ❤️‍🔥🐺 🌟 Continúa la historia aquí 👉 Encuentra la serie completa en “ReelShort” 🔍 Busca “4931565” ✨ #DramaCorto #RomanceAlfa #ParejasDestinadas #ReelShort",
+        "titles": [],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-09-30 10:37"
+        ]
+      },
+      {
+        "Post ID": "7689059632152661279",
+        "发布时间": "2026-09-28 10:21:00",
+        "账号": "shirley5278789",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@shirley5278789/video/7689059632152661279",
+        "播放量": 16100,
+        "点赞": 324,
+        "评论": 1,
+        "收藏": 46,
+        "转发": 6,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000801",
+        "账号名": "shirley5278789",
+        "Caption": "Quitarle la armadura podría dejarlo inválido para siempre… aun así, las cinco dicen que Seth la merece más. 💔 🌟 Continúa la historia aquí 👉 Encuentra la serie completa en “ReelShort” 🔍 Busca “4809701” ✨ #Drama #DramaCorto #Fantasía #Venganza #ReelShort",
+        "titles": [
+          "Rechazando a mis cinco compañeras destinadas"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-09-28 10:21"
+        ]
+      },
+      {
+        "Post ID": "7690913065793080606",
+        "发布时间": "2026-10-02 01:40:00",
+        "账号": "jolienqaq",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@jolienqaq/video/7690913065793080606",
+        "播放量": 13900,
+        "点赞": 660,
+        "评论": 8,
+        "收藏": 176,
+        "转发": 13,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000891",
+        "账号名": "jolienqaq",
+        "Caption": "Part 2 | The White Snake Wants My Baby One kiss makes the giant snake blush. The vet’s diagnosis explains everything. 😳 Full series link in bio. ✨ Download the ReelShort app. 👉 Copy the code 4958222 and search it. #TheWhiteSnakeWantsMyBaby #BLDrama #FantasyRomance #ReelShort",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-02 01:40"
+        ]
+      },
+      {
+        "Post ID": "7690898987372530974",
+        "发布时间": "2026-10-04 03:13:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690898987372530974",
+        "播放量": 12400,
+        "点赞": 372,
+        "评论": 4,
+        "收藏": 114,
+        "转发": 8,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001169",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 2 | The White Snake Wants My Baby Noah kisses Avery to teach him about love—but one kiss makes the enormous python collapse and blush. ✨ Download the ReelShort app. 👉 Copy the code [4957012] and search it. #Drama #AIDrama #ShortDrama #ForbiddenLove #FantasyRomance",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "张凯风"
+        ],
+        "release_dates": [
+          "2026-10-04 03:13"
+        ]
+      }
+    ],
+    "unlinked": 143,
+    "snapshot_dates": {
+      "2026-10-08": 387,
+      "2026-09-30": 1
+    },
+    "missing_plays": 0,
+    "release_period_rows": 365,
+    "release_period_unique_posts": 271,
+    "capture_no_release": 117,
+    "capture_release_date_conflicts": [],
+    "CPS账号数据明细 手动版": [
+      {
+        "key": [
+          "高璇",
+          "USD",
+          null
+        ],
+        "rows": 13,
+        "orders": 13.0,
+        "order_amount": 41.44,
+        "commission": 21.8,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 13
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-09-29",
+          "2026-09-30",
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-04"
+        ]
+      },
+      {
+        "key": [
+          "马博洋",
+          "USD",
+          null
+        ],
+        "rows": 9,
+        "orders": 10.0,
+        "order_amount": 37.35,
+        "commission": 18.67,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 9
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-09-29",
+          "2026-09-30",
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-03"
+        ]
+      },
+      {
+        "key": [
+          "彭满",
+          "USD",
+          null
+        ],
+        "rows": 3,
+        "orders": 0.0,
+        "order_amount": 9.8,
+        "commission": 4.91,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 3
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-10-01",
+          "2026-10-03"
+        ]
+      }
+    ],
+    "CPS账号数据明细": [
+      {
+        "key": [
+          null,
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 2,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 2
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-09-29"
+        ]
+      },
+      {
+        "key": [
+          null,
+          "CNY",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          null,
+          "USD",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          null,
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 5,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 5
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      }
+    ],
+    "每日剧场收益": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 2,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 2
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-09-29"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      }
+    ],
+    "收益汇总表": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 2,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 2
+        },
+        "dates": [
+          "2026-09-28",
+          "2026-09-29"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "待确认"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-09-28"
+        ]
+      }
+    ]
+  },
+  "W41": {
+    "posts": 201,
+    "plays": 79587.0,
+    "accounts": [
+      {
+        "account": "dramavault163",
+        "posts": 8,
+        "plays": 13965.0,
+        "titles": {
+          "未关联剧目": 7,
+          "Forward, Without Him": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "dramadetour0",
+        "posts": 9,
+        "plays": 11742.0,
+        "titles": {
+          "The Alpha and His Nanny Luna": 2,
+          "Cursed Alpha’s Fated Luna": 3,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "magnoliaisabella64",
+        "posts": 8,
+        "plays": 7309.0,
+        "titles": {
+          "The Wolf's Painter": 2,
+          "未关联剧目": 4,
+          "My Contract Husband is Hades": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "plottwistclips11",
+        "posts": 10,
+        "plays": 6229.0,
+        "titles": {
+          "The Alpha and His Nanny Luna": 3,
+          "Step Back! That Homeless Man Is Not to be Messed with": 3,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "shirley5278789",
+        "posts": 9,
+        "plays": 4976.0,
+        "titles": {
+          "La CEO y El Padre Secreto De Su Hija": 1,
+          "未关联剧目": 8
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "nobleltcpnj",
+        "posts": 9,
+        "plays": 4048.0,
+        "titles": {
+          "Hunted by the Alpha": 2,
+          "未关联剧目": 7
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "jolienqaq",
+        "posts": 9,
+        "plays": 3912.0,
+        "titles": {
+          "The Wolf's Painter": 2,
+          "Paladin Betrays God for the Wolf": 1,
+          "未关联剧目": 6
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "ngphnggiang40",
+        "posts": 9,
+        "plays": 3102.0,
+        "titles": {
+          "Nothing Escapes My Eyes": 2,
+          "未关联剧目": 7
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "dramaexpedition",
+        "posts": 9,
+        "plays": 3042.0,
+        "titles": {
+          "LadyAid: From Dumped Pauper to Tycoon": 2,
+          "The Unbreakables: Super Son Returns": 3,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "lthung263",
+        "posts": 9,
+        "plays": 3042.0,
+        "titles": {
+          "The True Queen": 2,
+          "Ex Locked Me in an Asylum, Then Went Mad When I Married His Enemy": 3,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "miralinaaa10",
+        "posts": 9,
+        "plays": 2829.0,
+        "titles": {
+          "Bitter Burn": 1,
+          "未关联剧目": 8
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "dramaclips0364",
+        "posts": 9,
+        "plays": 2118.0,
+        "titles": {
+          "I Don't Need No Alpha Brothers": 1,
+          "未关联剧目": 8
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "gaylenepowers350",
+        "posts": 9,
+        "plays": 1820.0,
+        "titles": {
+          "未关联剧目": 9
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "qqfqvkxrybkjkjnp20",
+        "posts": 9,
+        "plays": 1654.0,
+        "titles": {
+          "The CEO Who Felt My Pregnancy": 2,
+          "未关联剧目": 7
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "scenesbl77",
+        "posts": 8,
+        "plays": 1618.0,
+        "titles": {
+          "Altarboy": 1,
+          "未关联剧目": 7
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "felicitypatterson67",
+        "posts": 9,
+        "plays": 1266.0,
+        "titles": {
+          "未关联剧目": 8,
+          "The Cartel’s Contract Bride": 1
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "jazlynnayeli6",
+        "posts": 9,
+        "plays": 1170.0,
+        "titles": {
+          "The Mafia Boss's Stolen Bride": 5,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "dramaflick00",
+        "posts": 9,
+        "plays": 1110.0,
+        "titles": {
+          "I Married My Cheating Ex’s Uncle": 1,
+          "One Night with the Vampire Lord": 2,
+          "未关联剧目": 6
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "amariari11",
+        "posts": 9,
+        "plays": 1051.0,
+        "titles": {
+          "未关联剧目": 9
+        },
+        "operators": []
+      },
+      {
+        "account": "hcngsn5459",
+        "posts": 9,
+        "plays": 1036.0,
+        "titles": {
+          "Not Daddy Anymore, Just Alpha": 3,
+          "未关联剧目": 6
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "hnlinhthng9678",
+        "posts": 8,
+        "plays": 1024.0,
+        "titles": {
+          "Step Back! That Homeless Man Is Not to be Messed with": 1,
+          "未关联剧目": 7
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "mochiclips55",
+        "posts": 8,
+        "plays": 840.0,
+        "titles": {
+          "The Stepbrother I Hate to Love": 2,
+          "未关联剧目": 6
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "sofiblmoments",
+        "posts": 7,
+        "plays": 684.0,
+        "titles": {
+          "Never Fall Alone": 1,
+          "未关联剧目": 6
+        },
+        "operators": [
+          "高璇"
+        ]
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-10-05",
+        "posts": 66,
+        "plays": 30912.0,
+        "daily_increment": 293279,
+        "account_increment_sum": 293279.0,
+        "trend": [
+          {
+            "日期": "2026-10-05",
+            "新增播放量": 293279,
+            "可比帖子数": 926,
+            "新增帖子数": 80,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 15,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-05；快照批次 2026-10-05 00:01 → 2026-10-06 03:29；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 0 条，本期未出现 15 条，平台回调 0 条",
+            "新增点赞": 3702,
+            "新增评论": 29,
+            "新增收藏": 1364,
+            "新增转发": 149,
+            "互动率": 0.0173725360492909
+          }
+        ]
+      },
+      {
+        "date": "2026-10-06",
+        "posts": 69,
+        "plays": 24205.0,
+        "daily_increment": null,
+        "account_increment_sum": null,
+        "trend": [
+          {
+            "日期": "2026-10-06",
+            "新增播放量": null,
+            "可比帖子数": 0,
+            "新增帖子数": 0,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 0,
+            "回调帖子数": 0,
+            "说明": "统计时区：北京时间（Asia/Shanghai）；自然日；当日未结束，待结算（次日采集后更新）",
+            "新增点赞": null,
+            "新增评论": null,
+            "新增收藏": null,
+            "新增转发": null,
+            "互动率": null
+          }
+        ]
+      },
+      {
+        "date": "2026-10-07",
+        "posts": 66,
+        "plays": 24470.0,
+        "daily_increment": null,
+        "account_increment_sum": null,
+        "trend": []
+      }
+    ],
+    "titles": [
+      {
+        "title": "未关联剧目",
+        "posts": 146,
+        "plays": 47797.0,
+        "accounts": [
+          "amariari11",
+          "dramaclips0364",
+          "dramadetour0",
+          "dramaexpedition",
+          "dramaflick00",
+          "dramavault163",
+          "felicitypatterson67",
+          "gaylenepowers350",
+          "hcngsn5459",
+          "hnlinhthng9678",
+          "jazlynnayeli6",
+          "jolienqaq",
+          "lthung263",
+          "magnoliaisabella64",
+          "miralinaaa10",
+          "mochiclips55",
+          "ngphnggiang40",
+          "nobleltcpnj",
+          "plottwistclips11",
+          "qqfqvkxrybkjkjnp20",
+          "scenesbl77",
+          "shirley5278789",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "The Alpha and His Nanny Luna",
+        "posts": 5,
+        "plays": 8735.0,
+        "accounts": [
+          "dramadetour0",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "Cursed Alpha’s Fated Luna",
+        "posts": 3,
+        "plays": 5933.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "The Wolf's Painter",
+        "posts": 4,
+        "plays": 4128.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "My Contract Husband is Hades",
+        "posts": 2,
+        "plays": 2054.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "Hunted by the Alpha",
+        "posts": 2,
+        "plays": 1655.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "Step Back! That Homeless Man Is Not to be Messed with",
+        "posts": 4,
+        "plays": 1197.0,
+        "accounts": [
+          "hnlinhthng9678",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "The Unbreakables: Super Son Returns",
+        "posts": 3,
+        "plays": 1183.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "Ex Locked Me in an Asylum, Then Went Mad When I Married His Enemy",
+        "posts": 3,
+        "plays": 885.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "The CEO Who Felt My Pregnancy",
+        "posts": 2,
+        "plays": 776.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Forward, Without Him",
+        "posts": 1,
+        "plays": 719.0,
+        "accounts": [
+          "dramavault163"
+        ]
+      },
+      {
+        "title": "The Mafia Boss's Stolen Bride",
+        "posts": 5,
+        "plays": 610.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "Bitter Burn",
+        "posts": 1,
+        "plays": 565.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "La CEO y El Padre Secreto De Su Hija",
+        "posts": 1,
+        "plays": 475.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "LadyAid: From Dumped Pauper to Tycoon",
+        "posts": 2,
+        "plays": 405.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "Paladin Betrays God for the Wolf",
+        "posts": 1,
+        "plays": 397.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "I Don't Need No Alpha Brothers",
+        "posts": 1,
+        "plays": 381.0,
+        "accounts": [
+          "dramaclips0364"
+        ]
+      },
+      {
+        "title": "The True Queen",
+        "posts": 2,
+        "plays": 363.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Not Daddy Anymore, Just Alpha",
+        "posts": 3,
+        "plays": 362.0,
+        "accounts": [
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Stepbrother I Hate to Love",
+        "posts": 2,
+        "plays": 257.0,
+        "accounts": [
+          "mochiclips55"
+        ]
+      },
+      {
+        "title": "Nothing Escapes My Eyes",
+        "posts": 2,
+        "plays": 254.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Altarboy",
+        "posts": 1,
+        "plays": 188.0,
+        "accounts": [
+          "scenesbl77"
+        ]
+      },
+      {
+        "title": "One Night with the Vampire Lord",
+        "posts": 2,
+        "plays": 121.0,
+        "accounts": [
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "I Married My Cheating Ex’s Uncle",
+        "posts": 1,
+        "plays": 71.0,
+        "accounts": [
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "Never Fall Alone",
+        "posts": 1,
+        "plays": 60.0,
+        "accounts": [
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "The Cartel’s Contract Bride",
+        "posts": 1,
+        "plays": 16.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      }
+    ],
+    "top": [
+      {
+        "Post ID": "7691228638875831566",
+        "发布时间": "2026-10-07 01:01:00",
+        "账号": "dramavault163",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramavault163/video/7691228638875831566",
+        "播放量": 8322,
+        "点赞": 224,
+        "评论": 1,
+        "收藏": 78,
+        "转发": 2,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": null,
+        "账号名": "dramavault163",
+        "Caption": "Forward, Without Him — EP5 Losing Columbia was only the beginning of her comeback. 🎓 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4982348” ✨ #ReelShort #ShortDrama #ForwardWithoutHim #BetrayalDrama #SecondChance",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7691253897112866061",
+        "发布时间": "2026-10-06 00:40:00",
+        "账号": "dramadetour0",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramadetour0/video/7691253897112866061",
+        "播放量": 4322,
+        "点赞": 114,
+        "评论": 1,
+        "收藏": 32,
+        "转发": 5,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000979",
+        "账号名": "dramadetour0",
+        "Caption": "Cursed Alpha’s Fated Luna — His touch burns everyone. She lands in his arms, survives, and asks how much the maid job pays. 🎬 Full episode link in bio 🔎 Or search for 4978122 in the ReelShort app. #drama #shortdrama #dramaseries #werwolf #alpha",
+        "titles": [
+          "Cursed Alpha’s Fated Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-06 00:40"
+        ]
+      },
+      {
+        "Post ID": "7691252788466093325",
+        "发布时间": "2026-10-05 06:30:00",
+        "账号": "dramadetour0",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramadetour0/video/7691252788466093325",
+        "播放量": 2505,
+        "点赞": 21,
+        "评论": 0,
+        "收藏": 9,
+        "转发": 0,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000977",
+        "账号名": "dramadetour0",
+        "Caption": "The Alpha and His Nanny Luna — The new nanny smells familiar. A secret from five years ago sends the Alpha straight to her door. 🎬 Full episode link in bio 🔎 Or search for 4978086 in the ReelShort app. #drama #shortdrama #dramaseries #SecretPast #AlphaRomance",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-05 06:30"
+        ]
+      },
+      {
+        "Post ID": "7691252068006382862",
+        "发布时间": "2026-10-05 00:30:00",
+        "账号": "dramadetour0",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramadetour0/video/7691252068006382862",
+        "播放量": 1938,
+        "点赞": 16,
+        "评论": 0,
+        "收藏": 5,
+        "转发": 0,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000976",
+        "账号名": "dramadetour0",
+        "Caption": "The Alpha and His Nanny Luna — She needs the nanny job to keep searching for her lost child. Then the princess calls her Mommy. 🎬 Full episode link in bio 🔎 Or search for 4978086 in the ReelShort app. #drama #shortdrama #dramaseries #LostChild #NannyRomance",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-05 00:30"
+        ]
+      },
+      {
+        "Post ID": "7691228763098451214",
+        "发布时间": "2026-10-07 07:02:00",
+        "账号": "dramavault163",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramavault163/video/7691228763098451214",
+        "播放量": 1889,
+        "点赞": 45,
+        "评论": 3,
+        "收藏": 16,
+        "转发": 3,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": null,
+        "账号名": "dramavault163",
+        "Caption": "Forward, Without Him — EP6 This time, she is building a future without him. ✨ 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4982348” ✨ #ReelShort #ShortDrama #ForwardWithoutHim #BetrayalDrama #SecondChance",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7691144996782624031",
+        "发布时间": "2026-10-05 23:38:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7691144996782624031",
+        "播放量": 1715,
+        "点赞": 70,
+        "评论": 0,
+        "收藏": 45,
+        "转发": 3,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001174",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 1 | My Contract Husband is Hades A ritual meant to summon a ghost wife locks the church doors—and awakens the god of the underworld instead. ✨ Download the ReelShort app. 👉 Copy the code [4963704] and search it. #Drama #ShortDrama #FantasyRomance #Hades #ContractMarriage",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7690901537744260383",
+        "发布时间": "2026-10-05 09:18:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690901537744260383",
+        "播放量": 1580,
+        "点赞": 50,
+        "评论": 0,
+        "收藏": 31,
+        "转发": 1,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001173",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 3 | The Wolf's Painter Rory insists he is only a painter, but the stranger claims his mark is carved into Rory’s soul—and his face has appeared in Rory’s paintings for twenty years. ✨ Download the ReelShort app. 👉 Copy the code [4928940] and search it. #Drama #AIDrama #ShortDrama #FatedLovers #PastLifeRomance",
+        "titles": [
+          "The Wolf's Painter"
+        ],
+        "release_count": 1,
+        "operators": [
+          "张凯风"
+        ],
+        "release_dates": [
+          "2026-10-05 09:18"
+        ]
+      },
+      {
+        "Post ID": "7691220386259766558",
+        "发布时间": "2026-10-05 10:19:00",
+        "账号": "plottwistclips11",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@plottwistclips11/video/7691220386259766558",
+        "播放量": 1502,
+        "点赞": 21,
+        "评论": 0,
+        "收藏": 8,
+        "转发": 0,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001306",
+        "账号名": "plottwistclips11",
+        "Caption": "The Alpha and His Nanny Luna — EP4 A tiny clue links Tiffany to the child she lost, but someone inside the pack wants the truth buried. 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4802561” ✨ #ShortDrama #ReelShort #DramaSeries",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-10-05 10:19"
+        ]
+      },
+      {
+        "Post ID": "7691220170928295199",
+        "发布时间": "2026-10-05 04:20:00",
+        "账号": "plottwistclips11",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@plottwistclips11/video/7691220170928295199",
+        "播放量": 1401,
+        "点赞": 10,
+        "评论": 0,
+        "收藏": 6,
+        "转发": 0,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001305",
+        "账号名": "plottwistclips11",
+        "Caption": "The Alpha and His Nanny Luna — EP5 The nanny risks everything for the little princess, forcing the Alpha to see her in a completely new light. 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4802561” ✨ #ShortDrama #ReelShort #DramaSeries",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-10-05 04:20"
+        ]
+      },
+      {
+        "Post ID": "7691220221864054047",
+        "发布时间": "2026-10-05 10:20:00",
+        "账号": "plottwistclips11",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@plottwistclips11/video/7691220221864054047",
+        "播放量": 1389,
+        "点赞": 6,
+        "评论": 0,
+        "收藏": 4,
+        "转发": 0,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001307",
+        "账号名": "plottwistclips11",
+        "Caption": "The Alpha and His Nanny Luna — EP6 When danger reaches the Alpha’s home, Tiffany reveals a hidden power that changes their relationship forever. 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4802561” ✨ #ShortDrama #ReelShort #DramaSeries ",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-10-05 10:20"
+        ]
+      }
+    ],
+    "unlinked": 146,
+    "snapshot_dates": {
+      "2026-10-08": 201
+    },
+    "missing_plays": 0,
+    "release_period_rows": 99,
+    "release_period_unique_posts": 57,
+    "capture_no_release": 144,
+    "capture_release_date_conflicts": [],
+    "CPS账号数据明细 手动版": [
+      {
+        "key": [
+          "高璇",
+          "USD",
+          null
+        ],
+        "rows": 1,
+        "orders": 1.0,
+        "order_amount": 4.19,
+        "commission": 2.51,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 1
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      },
+      {
+        "key": [
+          "马博洋",
+          "USD",
+          null
+        ],
+        "rows": 1,
+        "orders": 1.0,
+        "order_amount": 2.09,
+        "commission": 1.04,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 1
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ],
+    "CPS账号数据明细": [
+      {
+        "key": [
+          null,
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          null,
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 5,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 5
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ],
+    "每日剧场收益": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ],
+    "收益汇总表": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ]
+  },
+  "Oct1to7": {
+    "posts": 467,
+    "plays": 381914.0,
+    "accounts": [
+      {
+        "account": "magnoliaisabella64",
+        "posts": 20,
+        "plays": 90112.0,
+        "titles": {
+          "Paladin Betrays God for the Wolf": 2,
+          "未关联剧目": 8,
+          "Bloodline Paradox: Silver and Shadows": 2,
+          "My Two Spy Daddies": 2,
+          "The White Snake Wants My Baby": 2,
+          "The Wolf's Painter": 2,
+          "My Contract Husband is Hades": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "jolienqaq",
+        "posts": 22,
+        "plays": 47632.0,
+        "titles": {
+          "The Double Life of My Mafia Husband": 2,
+          "The White Snake Wants My Baby": 3,
+          "未关联剧目": 7,
+          "Seduced by My Boyfriend’s Uncle": 6,
+          "The Wolf's Painter": 3,
+          "Paladin Betrays God for the Wolf": 1
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "dramavault163",
+        "posts": 19,
+        "plays": 30149.0,
+        "titles": {
+          "未关联剧目": 14,
+          "Dragonblood Alpha": 4,
+          "Forward, Without Him": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "dramadetour0",
+        "posts": 23,
+        "plays": 27583.0,
+        "titles": {
+          "The Weakest Orange Cat Is the Strongest Golden Tiger": 2,
+          "Congratulations, You're Linked to a Walking Disaster": 3,
+          "Five Years of Secret Love, He Married My Best Friend": 1,
+          "未关联剧目": 6,
+          "Accidentally His: The Dragon King Won't Let Go": 5,
+          "The Alpha and His Nanny Luna": 3,
+          "Cursed Alpha’s Fated Luna": 3
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "plottwistclips11",
+        "posts": 21,
+        "plays": 24303.0,
+        "titles": {
+          "未关联剧目": 8,
+          "Rejected Luna is His Fated Mate": 5,
+          "The Alpha and His Nanny Luna": 5,
+          "Step Back! That Homeless Man Is Not to be Messed with": 3
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "shirley5278789",
+        "posts": 20,
+        "plays": 21562.0,
+        "titles": {
+          "未关联剧目": 15,
+          "Coronada de sangre de plata": 4,
+          "La CEO y El Padre Secreto De Su Hija": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "scenesbl77",
+        "posts": 20,
+        "plays": 16786.0,
+        "titles": {
+          "private tutoring": 4,
+          "未关联剧目": 9,
+          "The Omega's Command": 5,
+          "Altarboy": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "dramaclips0364",
+        "posts": 21,
+        "plays": 14259.0,
+        "titles": {
+          "未关联剧目": 13,
+          "The Billionaire's Superhuman Maid": 5,
+          "I Don't Need No Alpha Brothers": 3
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "hcngsn5459",
+        "posts": 21,
+        "plays": 14069.0,
+        "titles": {
+          "Forward, Without Him": 2,
+          "未关联剧目": 14,
+          "I Married My Cheating Ex’s Uncle": 1,
+          "My Twins Picked a Billionaire Dad": 1,
+          "Not Daddy Anymore, Just Alpha": 3
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "qqfqvkxrybkjkjnp20",
+        "posts": 21,
+        "plays": 13920.0,
+        "titles": {
+          "Crown of the Nile: My Beggar Husband is the Pharaoh": 2,
+          "未关联剧目": 11,
+          "The Crown of the Abyss: The Mute Bride of Atlantis": 2,
+          "The Exiled Alpha Queen": 2,
+          "From Omega's Prey to Luna Queen": 2,
+          "The CEO Who Felt My Pregnancy": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "nobleltcpnj",
+        "posts": 21,
+        "plays": 11186.0,
+        "titles": {
+          "未关联剧目": 16,
+          "Gone Before the Vows": 3,
+          "Hunted by the Alpha": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "lthung263",
+        "posts": 21,
+        "plays": 10420.0,
+        "titles": {
+          "I Woke Up as the Villainous Guide": 2,
+          "Love & Blood": 3,
+          "Off the Ice": 3,
+          "Star Prison": 3,
+          "The True Queen": 3,
+          "Ex Locked Me in an Asylum, Then Went Mad When I Married His Enemy": 3,
+          "未关联剧目": 4
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "dramaexpedition",
+        "posts": 20,
+        "plays": 8974.0,
+        "titles": {
+          "The Husband She Took for Granted": 5,
+          "Bedded and Buffed: Claiming My Shifter Harem": 1,
+          "未关联剧目": 5,
+          "LadyAid: From Dumped Pauper to Tycoon": 6,
+          "The Unbreakables: Super Son Returns": 3
+        },
+        "operators": [
+          "彭满"
+        ]
+      },
+      {
+        "account": "amariari11",
+        "posts": 20,
+        "plays": 7667.0,
+        "titles": {
+          "The Scent That Found Me": 2,
+          "未关联剧目": 14,
+          "The Reaper's Fated Bride": 2,
+          "Prep School Pop Star!": 2
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "ngphnggiang40",
+        "posts": 21,
+        "plays": 7435.0,
+        "titles": {
+          "未关联剧目": 15,
+          "Bedded and Buffed: Claiming My Shifter Harem": 2,
+          "Campus Saga: Superpower Teen": 2,
+          "Nothing Escapes My Eyes": 2
+        },
+        "operators": [
+          "张凯风"
+        ]
+      },
+      {
+        "account": "mochiclips55",
+        "posts": 18,
+        "plays": 6666.0,
+        "titles": {
+          "未关联剧目": 10,
+          "Never Fall Alone": 2,
+          "private tutoring": 4,
+          "The Stepbrother I Hate to Love": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "gaylenepowers350",
+        "posts": 20,
+        "plays": 5834.0,
+        "titles": {
+          "未关联剧目": 16,
+          "The Wolves’ Bride": 2,
+          "Traded My Wolves for a Snake": 2
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "hnlinhthng9678",
+        "posts": 20,
+        "plays": 5268.0,
+        "titles": {
+          "Rejected Luna is His Fated Mate": 2,
+          "未关联剧目": 11,
+          "Rejecting My Five Female Mates": 4,
+          "Step Back! That Homeless Man Is Not to be Messed with": 3
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "miralinaaa10",
+        "posts": 20,
+        "plays": 4823.0,
+        "titles": {
+          "未关联剧目": 12,
+          "Sinking With My Step-sister": 2,
+          "Siren's Pact: My Pirate Queen": 5,
+          "Bitter Burn": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "sofiblmoments",
+        "posts": 19,
+        "plays": 4131.0,
+        "titles": {
+          "The Omega's Command": 5,
+          "Altarboy": 5,
+          "未关联剧目": 8,
+          "Never Fall Alone": 1
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "jazlynnayeli6",
+        "posts": 21,
+        "plays": 3212.0,
+        "titles": {
+          "Daughter of the Four Norse God-Kings": 2,
+          "未关联剧目": 7,
+          "Married to the Vagabond King": 2,
+          "Never Reject a Dragon Princess": 2,
+          "Stolen by My Fiancé's Uncle": 2,
+          "The Mafia Boss's Stolen Bride": 6
+        },
+        "operators": [
+          "李建卓"
+        ]
+      },
+      {
+        "account": "dramaflick00",
+        "posts": 21,
+        "plays": 3170.0,
+        "titles": {
+          "The Billionaire's Superhuman Maid": 1,
+          "I Don't Need No Alpha Brothers": 4,
+          "未关联剧目": 8,
+          "I Married My Cheating Ex’s Uncle": 6,
+          "One Night with the Vampire Lord": 2
+        },
+        "operators": [
+          "高璇"
+        ]
+      },
+      {
+        "account": "felicitypatterson67",
+        "posts": 17,
+        "plays": 2753.0,
+        "titles": {
+          "未关联剧目": 12,
+          "His Golden Touch on My Body": 2,
+          "The Unchaste Charge:Plaything of My Husband's Godfather": 2,
+          "The Cartel’s Contract Bride": 1
+        },
+        "operators": [
+          "李建卓"
+        ]
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-10-01",
+        "posts": 64,
+        "plays": 75908.0,
+        "daily_increment": 204072,
+        "account_increment_sum": 204072.0,
+        "trend": [
+          {
+            "日期": "2026-10-01",
+            "新增播放量": 204072,
+            "可比帖子数": 732,
+            "新增帖子数": 60,
+            "未纳入帖子数": 1,
+            "缺失帖子数": 17,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-01；快照批次 2026-10-01 00:07 → 2026-10-02 00:05；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 1 条，本期未出现 17 条，平台回调 0 条",
+            "新增点赞": 1806,
+            "新增评论": 8,
+            "新增收藏": 536,
+            "新增转发": 66,
+            "互动率": 0.0115155435336547
+          }
+        ]
+      },
+      {
+        "date": "2026-10-02",
+        "posts": 66,
+        "plays": 61697.0,
+        "daily_increment": 241907,
+        "account_increment_sum": 241907.0,
+        "trend": [
+          {
+            "日期": "2026-10-02",
+            "新增播放量": 241907,
+            "可比帖子数": 778,
+            "新增帖子数": 66,
+            "未纳入帖子数": 1,
+            "缺失帖子数": 15,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-02；快照批次 2026-10-02 00:05 → 2026-10-03 00:02；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 1 条，本期未出现 15 条，平台回调 0 条",
+            "新增点赞": 2733,
+            "新增评论": 45,
+            "新增收藏": 935,
+            "新增转发": 99,
+            "互动率": 0.015348873740735
+          }
+        ]
+      },
+      {
+        "date": "2026-10-03",
+        "posts": 68,
+        "plays": 104511.0,
+        "daily_increment": 276725,
+        "account_increment_sum": 276725.0,
+        "trend": [
+          {
+            "日期": "2026-10-03",
+            "新增播放量": 276725,
+            "可比帖子数": 825,
+            "新增帖子数": 66,
+            "未纳入帖子数": 2,
+            "缺失帖子数": 20,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-03；快照批次 2026-10-03 00:02 → 2026-10-04 00:03；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 2 条，本期未出现 20 条，平台回调 0 条",
+            "新增点赞": 2365,
+            "新增评论": 25,
+            "新增收藏": 742,
+            "新增转发": 76,
+            "互动率": 0.0113180955822567
+          }
+        ]
+      },
+      {
+        "date": "2026-10-04",
+        "posts": 68,
+        "plays": 60211.0,
+        "daily_increment": 283877,
+        "account_increment_sum": 283877.0,
+        "trend": [
+          {
+            "日期": "2026-10-04",
+            "新增播放量": 283877,
+            "可比帖子数": 875,
+            "新增帖子数": 66,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 18,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-04；快照批次 2026-10-04 00:03 → 2026-10-05 00:01；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 0 条，本期未出现 18 条，平台回调 0 条",
+            "新增点赞": 2286,
+            "新增评论": 28,
+            "新增收藏": 719,
+            "新增转发": 101,
+            "互动率": 0.0106842047788302
+          }
+        ]
+      },
+      {
+        "date": "2026-10-05",
+        "posts": 66,
+        "plays": 30912.0,
+        "daily_increment": 293279,
+        "account_increment_sum": 293279.0,
+        "trend": [
+          {
+            "日期": "2026-10-05",
+            "新增播放量": 293279,
+            "可比帖子数": 926,
+            "新增帖子数": 80,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 15,
+            "回调帖子数": 0,
+            "说明": "北京时间自然日归档 2026-10-05；快照批次 2026-10-05 00:01 → 2026-10-06 03:29；允许采集时间偏差；统计时区：北京时间（Asia/Shanghai）；采集间隔增量；部分覆盖；未纳入 0 条，本期未出现 15 条，平台回调 0 条",
+            "新增点赞": 3702,
+            "新增评论": 29,
+            "新增收藏": 1364,
+            "新增转发": 149,
+            "互动率": 0.0173725360492909
+          }
+        ]
+      },
+      {
+        "date": "2026-10-06",
+        "posts": 69,
+        "plays": 24205.0,
+        "daily_increment": null,
+        "account_increment_sum": null,
+        "trend": [
+          {
+            "日期": "2026-10-06",
+            "新增播放量": null,
+            "可比帖子数": 0,
+            "新增帖子数": 0,
+            "未纳入帖子数": 0,
+            "缺失帖子数": 0,
+            "回调帖子数": 0,
+            "说明": "统计时区：北京时间（Asia/Shanghai）；自然日；当日未结束，待结算（次日采集后更新）",
+            "新增点赞": null,
+            "新增评论": null,
+            "新增收藏": null,
+            "新增转发": null,
+            "互动率": null
+          }
+        ]
+      },
+      {
+        "date": "2026-10-07",
+        "posts": 66,
+        "plays": 24470.0,
+        "daily_increment": null,
+        "account_increment_sum": null,
+        "trend": []
+      }
+    ],
+    "titles": [
+      {
+        "title": "未关联剧目",
+        "posts": 243,
+        "plays": 176094.0,
+        "accounts": [
+          "amariari11",
+          "dramaclips0364",
+          "dramadetour0",
+          "dramaexpedition",
+          "dramaflick00",
+          "dramavault163",
+          "felicitypatterson67",
+          "gaylenepowers350",
+          "hcngsn5459",
+          "hnlinhthng9678",
+          "jazlynnayeli6",
+          "jolienqaq",
+          "lthung263",
+          "magnoliaisabella64",
+          "miralinaaa10",
+          "mochiclips55",
+          "ngphnggiang40",
+          "nobleltcpnj",
+          "plottwistclips11",
+          "qqfqvkxrybkjkjnp20",
+          "scenesbl77",
+          "shirley5278789",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "The White Snake Wants My Baby",
+        "posts": 5,
+        "plays": 60029.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Alpha and His Nanny Luna",
+        "posts": 8,
+        "plays": 16600.0,
+        "accounts": [
+          "dramadetour0",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "private tutoring",
+        "posts": 8,
+        "plays": 12515.0,
+        "accounts": [
+          "mochiclips55",
+          "scenesbl77"
+        ]
+      },
+      {
+        "title": "Forward, Without Him",
+        "posts": 3,
+        "plays": 7670.0,
+        "accounts": [
+          "dramavault163",
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "My Two Spy Daddies",
+        "posts": 2,
+        "plays": 7188.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Omega's Command",
+        "posts": 10,
+        "plays": 6640.0,
+        "accounts": [
+          "scenesbl77",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "Cursed Alpha’s Fated Luna",
+        "posts": 3,
+        "plays": 5933.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Coronada de sangre de plata",
+        "posts": 4,
+        "plays": 5328.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "The Exiled Alpha Queen",
+        "posts": 2,
+        "plays": 4856.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Seduced by My Boyfriend’s Uncle",
+        "posts": 6,
+        "plays": 4807.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "Accidentally His: The Dragon King Won't Let Go",
+        "posts": 5,
+        "plays": 4801.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "The Wolf's Painter",
+        "posts": 5,
+        "plays": 4709.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "Off the Ice",
+        "posts": 3,
+        "plays": 4608.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Rejected Luna is His Fated Mate",
+        "posts": 7,
+        "plays": 3941.0,
+        "accounts": [
+          "hnlinhthng9678",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "Prep School Pop Star!",
+        "posts": 2,
+        "plays": 3913.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "The Billionaire's Superhuman Maid",
+        "posts": 6,
+        "plays": 3895.0,
+        "accounts": [
+          "dramaclips0364",
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "Bedded and Buffed: Claiming My Shifter Harem",
+        "posts": 3,
+        "plays": 3773.0,
+        "accounts": [
+          "dramaexpedition",
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Dragonblood Alpha",
+        "posts": 4,
+        "plays": 3164.0,
+        "accounts": [
+          "dramavault163"
+        ]
+      },
+      {
+        "title": "Altarboy",
+        "posts": 7,
+        "plays": 2895.0,
+        "accounts": [
+          "scenesbl77",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "Rejecting My Five Female Mates",
+        "posts": 4,
+        "plays": 2625.0,
+        "accounts": [
+          "hnlinhthng9678"
+        ]
+      },
+      {
+        "title": "My Contract Husband is Hades",
+        "posts": 2,
+        "plays": 2054.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "Congratulations, You're Linked to a Walking Disaster",
+        "posts": 3,
+        "plays": 1704.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Hunted by the Alpha",
+        "posts": 2,
+        "plays": 1655.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "I Don't Need No Alpha Brothers",
+        "posts": 7,
+        "plays": 1576.0,
+        "accounts": [
+          "dramaclips0364",
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "Step Back! That Homeless Man Is Not to be Messed with",
+        "posts": 6,
+        "plays": 1424.0,
+        "accounts": [
+          "hnlinhthng9678",
+          "plottwistclips11"
+        ]
+      },
+      {
+        "title": "The Double Life of My Mafia Husband",
+        "posts": 2,
+        "plays": 1420.0,
+        "accounts": [
+          "jolienqaq"
+        ]
+      },
+      {
+        "title": "Gone Before the Vows",
+        "posts": 3,
+        "plays": 1390.0,
+        "accounts": [
+          "nobleltcpnj"
+        ]
+      },
+      {
+        "title": "The Weakest Orange Cat Is the Strongest Golden Tiger",
+        "posts": 2,
+        "plays": 1343.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Paladin Betrays God for the Wolf",
+        "posts": 3,
+        "plays": 1322.0,
+        "accounts": [
+          "jolienqaq",
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Husband She Took for Granted",
+        "posts": 5,
+        "plays": 1262.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "The Unbreakables: Super Son Returns",
+        "posts": 3,
+        "plays": 1183.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "LadyAid: From Dumped Pauper to Tycoon",
+        "posts": 6,
+        "plays": 1176.0,
+        "accounts": [
+          "dramaexpedition"
+        ]
+      },
+      {
+        "title": "The Mafia Boss's Stolen Bride",
+        "posts": 6,
+        "plays": 1165.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "Bloodline Paradox: Silver and Shadows",
+        "posts": 2,
+        "plays": 1022.0,
+        "accounts": [
+          "magnoliaisabella64"
+        ]
+      },
+      {
+        "title": "The Wolves’ Bride",
+        "posts": 2,
+        "plays": 995.0,
+        "accounts": [
+          "gaylenepowers350"
+        ]
+      },
+      {
+        "title": "Star Prison",
+        "posts": 3,
+        "plays": 931.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Ex Locked Me in an Asylum, Then Went Mad When I Married His Enemy",
+        "posts": 3,
+        "plays": 885.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "I Married My Cheating Ex’s Uncle",
+        "posts": 7,
+        "plays": 872.0,
+        "accounts": [
+          "dramaflick00",
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Crown of the Abyss: The Mute Bride of Atlantis",
+        "posts": 2,
+        "plays": 863.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Traded My Wolves for a Snake",
+        "posts": 2,
+        "plays": 789.0,
+        "accounts": [
+          "gaylenepowers350"
+        ]
+      },
+      {
+        "title": "The CEO Who Felt My Pregnancy",
+        "posts": 2,
+        "plays": 776.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "I Woke Up as the Villainous Guide",
+        "posts": 2,
+        "plays": 755.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "The True Queen",
+        "posts": 3,
+        "plays": 727.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Love & Blood",
+        "posts": 3,
+        "plays": 720.0,
+        "accounts": [
+          "lthung263"
+        ]
+      },
+      {
+        "title": "Crown of the Nile: My Beggar Husband is the Pharaoh",
+        "posts": 2,
+        "plays": 689.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Five Years of Secret Love, He Married My Best Friend",
+        "posts": 1,
+        "plays": 632.0,
+        "accounts": [
+          "dramadetour0"
+        ]
+      },
+      {
+        "title": "Never Fall Alone",
+        "posts": 3,
+        "plays": 568.0,
+        "accounts": [
+          "mochiclips55",
+          "sofiblmoments"
+        ]
+      },
+      {
+        "title": "Bitter Burn",
+        "posts": 1,
+        "plays": 565.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "From Omega's Prey to Luna Queen",
+        "posts": 2,
+        "plays": 548.0,
+        "accounts": [
+          "qqfqvkxrybkjkjnp20"
+        ]
+      },
+      {
+        "title": "Siren's Pact: My Pirate Queen",
+        "posts": 5,
+        "plays": 494.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "La CEO y El Padre Secreto De Su Hija",
+        "posts": 1,
+        "plays": 475.0,
+        "accounts": [
+          "shirley5278789"
+        ]
+      },
+      {
+        "title": "Campus Saga: Superpower Teen",
+        "posts": 2,
+        "plays": 426.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "Never Reject a Dragon Princess",
+        "posts": 2,
+        "plays": 393.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "Sinking With My Step-sister",
+        "posts": 2,
+        "plays": 375.0,
+        "accounts": [
+          "miralinaaa10"
+        ]
+      },
+      {
+        "title": "Not Daddy Anymore, Just Alpha",
+        "posts": 3,
+        "plays": 362.0,
+        "accounts": [
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Reaper's Fated Bride",
+        "posts": 2,
+        "plays": 290.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "The Unchaste Charge:Plaything of My Husband's Godfather",
+        "posts": 2,
+        "plays": 267.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      },
+      {
+        "title": "Daughter of the Four Norse God-Kings",
+        "posts": 2,
+        "plays": 261.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "The Stepbrother I Hate to Love",
+        "posts": 2,
+        "plays": 257.0,
+        "accounts": [
+          "mochiclips55"
+        ]
+      },
+      {
+        "title": "Nothing Escapes My Eyes",
+        "posts": 2,
+        "plays": 254.0,
+        "accounts": [
+          "ngphnggiang40"
+        ]
+      },
+      {
+        "title": "His Golden Touch on My Body",
+        "posts": 2,
+        "plays": 233.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      },
+      {
+        "title": "Stolen by My Fiancé's Uncle",
+        "posts": 2,
+        "plays": 223.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "The Scent That Found Me",
+        "posts": 2,
+        "plays": 210.0,
+        "accounts": [
+          "amariari11"
+        ]
+      },
+      {
+        "title": "Married to the Vagabond King",
+        "posts": 2,
+        "plays": 175.0,
+        "accounts": [
+          "jazlynnayeli6"
+        ]
+      },
+      {
+        "title": "One Night with the Vampire Lord",
+        "posts": 2,
+        "plays": 121.0,
+        "accounts": [
+          "dramaflick00"
+        ]
+      },
+      {
+        "title": "My Twins Picked a Billionaire Dad",
+        "posts": 1,
+        "plays": 87.0,
+        "accounts": [
+          "hcngsn5459"
+        ]
+      },
+      {
+        "title": "The Cartel’s Contract Bride",
+        "posts": 1,
+        "plays": 16.0,
+        "accounts": [
+          "felicitypatterson67"
+        ]
+      }
+    ],
+    "top": [
+      {
+        "Post ID": "7690898456709369119",
+        "发布时间": "2026-10-03 23:12:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690898456709369119",
+        "播放量": 43900,
+        "点赞": 2195,
+        "评论": 17,
+        "收藏": 1073,
+        "转发": 109,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001168",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 1 | The White Snake Wants My Baby Noah thinks the giant black python is bullying him, but every bite, touch, and jealous outburst may mean something very different. ✨ Download the ReelShort app. 👉 Copy the code [4957012] and search it. #Drama #AIDrama #ShortDrama #SnakeRomance #FantasyLove",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7690912826365316383",
+        "发布时间": "2026-10-01 20:36:00",
+        "账号": "jolienqaq",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@jolienqaq/video/7690912826365316383",
+        "播放量": 17900,
+        "点赞": 911,
+        "评论": 20,
+        "收藏": 426,
+        "转发": 38,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000890",
+        "账号名": "jolienqaq",
+        "Caption": "Part 1 | The White Snake Wants My Baby The giant snake keeps teasing his male keeper. What if it’s actually flirting? 🐍 Full series link in bio. ✨ Download the ReelShort app. 👉 Copy the code 4958222 and search it. #TheWhiteSnakeWantsMyBaby #BLDrama #FantasyRomance #ReelShort",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-01 20:36"
+        ]
+      },
+      {
+        "Post ID": "7690913065793080606",
+        "发布时间": "2026-10-02 01:40:00",
+        "账号": "jolienqaq",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@jolienqaq/video/7690913065793080606",
+        "播放量": 13900,
+        "点赞": 660,
+        "评论": 8,
+        "收藏": 176,
+        "转发": 13,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-000891",
+        "账号名": "jolienqaq",
+        "Caption": "Part 2 | The White Snake Wants My Baby One kiss makes the giant snake blush. The vet’s diagnosis explains everything. 😳 Full series link in bio. ✨ Download the ReelShort app. 👉 Copy the code 4958222 and search it. #TheWhiteSnakeWantsMyBaby #BLDrama #FantasyRomance #ReelShort",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "彭满"
+        ],
+        "release_dates": [
+          "2026-10-02 01:40"
+        ]
+      },
+      {
+        "Post ID": "7690898987372530974",
+        "发布时间": "2026-10-04 03:13:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690898987372530974",
+        "播放量": 12400,
+        "点赞": 372,
+        "评论": 4,
+        "收藏": 114,
+        "转发": 8,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001169",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 2 | The White Snake Wants My Baby Noah kisses Avery to teach him about love—but one kiss makes the enormous python collapse and blush. ✨ Download the ReelShort app. 👉 Copy the code [4957012] and search it. #Drama #AIDrama #ShortDrama #ForbiddenLove #FantasyRomance",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "张凯风"
+        ],
+        "release_dates": [
+          "2026-10-04 03:13"
+        ]
+      },
+      {
+        "Post ID": "7690900374877637919",
+        "发布时间": "2026-10-04 09:14:00",
+        "账号": "magnoliaisabella64",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@magnoliaisabella64/video/7690900374877637919",
+        "播放量": 12300,
+        "点赞": 482,
+        "评论": 13,
+        "收藏": 209,
+        "转发": 10,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001170",
+        "账号名": "Pretty Boy Problems",
+        "Caption": "Part 3 | The White Snake Wants My Baby Avery rejects every female python brought to him, transforms into a man, and asks Noah an impossible question. ✨ Download the ReelShort app. 👉 Copy the code [4957012] and search it. #Drama #AIDrama #ShortDrama #ShapeshifterRomance #SupernaturalLove",
+        "titles": [
+          "The White Snake Wants My Baby"
+        ],
+        "release_count": 1,
+        "operators": [
+          "张凯风"
+        ],
+        "release_dates": [
+          "2026-10-04 09:14"
+        ]
+      },
+      {
+        "Post ID": "7691228638875831566",
+        "发布时间": "2026-10-07 01:01:00",
+        "账号": "dramavault163",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramavault163/video/7691228638875831566",
+        "播放量": 8322,
+        "点赞": 224,
+        "评论": 1,
+        "收藏": 78,
+        "转发": 2,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": null,
+        "账号名": "dramavault163",
+        "Caption": "Forward, Without Him — EP5 Losing Columbia was only the beginning of her comeback. 🎓 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4982348” ✨ #ReelShort #ShortDrama #ForwardWithoutHim #BetrayalDrama #SecondChance",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7691219670166195487",
+        "发布时间": "2026-10-03 23:17:00",
+        "账号": "plottwistclips11",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@plottwistclips11/video/7691219670166195487",
+        "播放量": 6285,
+        "点赞": 19,
+        "评论": 2,
+        "收藏": 13,
+        "转发": 1,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001302",
+        "账号名": "plottwistclips11",
+        "Caption": "The Alpha and His Nanny Luna — EP1 Betrayed and left for dead while pregnant, Tiffany survives—but wakes to find her newborn daughter gone. 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4802561” ✨ #ShortDrama #ReelShort #DramaSeries",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7691224517229808909",
+        "发布时间": "2026-10-01 20:39:00",
+        "账号": "dramavault163",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramavault163/video/7691224517229808909",
+        "播放量": 6108,
+        "点赞": 40,
+        "评论": 0,
+        "收藏": 3,
+        "转发": 2,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001330",
+        "账号名": "dramavault163",
+        "Caption": "Dragonblood Alpha — EP1 Abandoned without a wolf spirit, he returns with dragon blood. 🐉 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4982338” ✨ #ReelShort #ShortDrama #DragonbloodAlpha #WerewolfDrama #FantasyDrama",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7692049488491351310",
+        "发布时间": "2026-10-02 22:30:00",
+        "账号": "dramadetour0",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@dramadetour0/video/7692049488491351310",
+        "播放量": 5797,
+        "点赞": 109,
+        "评论": 0,
+        "收藏": 50,
+        "转发": 1,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": null,
+        "账号名": "dramadetour0",
+        "Caption": "Part 3 | Five Years of Secret Love, He Married My Best Friend Harper learns every excuse Connor made for missing her life hid the time he spent with Maddie's family—even on her birthday.   ✨ Continue the story on ReelShort.   🔎 Search 5014236 in the app.   #ReelShort #ShortDrama #Werewolf#dramaseries #LoveTriangle",
+        "titles": [],
+        "release_count": 0,
+        "operators": [],
+        "release_dates": []
+      },
+      {
+        "Post ID": "7691219861086768415",
+        "发布时间": "2026-10-04 04:17:00",
+        "账号": "plottwistclips11",
+        "快照日期": "2026-10-08 00:00:00",
+        "采集时间": "2026-10-08 10:29:35",
+        "视频链接": "https://www.tiktok.com/@plottwistclips11/video/7691219861086768415",
+        "播放量": 5580,
+        "点赞": 28,
+        "评论": 0,
+        "收藏": 9,
+        "转发": 1,
+        "业务": "short-drama",
+        "采集状态": "complete",
+        "缺失字段": null,
+        "来源 run_id": "SDRUN-20261008-102852",
+        "Base 同步时间": "2026-10-08 13:07:05",
+        "关联发布记录": "SR-001303",
+        "账号名": "plottwistclips11",
+        "Caption": "The Alpha and His Nanny Luna — EP2 Five years later, a nanny meets a little princess who feels strangely familiar, and one secret begins to unravel. 🌟 Continue the story here 👉 Find the full series on “ReelShort” 🔍 Look up “4802561” ✨ #ShortDrama #ReelShort #DramaSeries",
+        "titles": [
+          "The Alpha and His Nanny Luna"
+        ],
+        "release_count": 1,
+        "operators": [
+          "高璇"
+        ],
+        "release_dates": [
+          "2026-10-04 04:17"
+        ]
+      }
+    ],
+    "unlinked": 243,
+    "snapshot_dates": {
+      "2026-10-08": 467
+    },
+    "missing_plays": 0,
+    "release_period_rows": 343,
+    "release_period_unique_posts": 227,
+    "capture_no_release": 240,
+    "capture_release_date_conflicts": [],
+    "CPS账号数据明细 手动版": [
+      {
+        "key": [
+          "高璇",
+          "USD",
+          null
+        ],
+        "rows": 9,
+        "orders": 9.0,
+        "order_amount": 41.33,
+        "commission": 21.73,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 9
+        },
+        "dates": [
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-04",
+          "2026-10-06"
+        ]
+      },
+      {
+        "key": [
+          "马博洋",
+          "USD",
+          null
+        ],
+        "rows": 6,
+        "orders": 7.0,
+        "order_amount": 20.23,
+        "commission": 10.1,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 6
+        },
+        "dates": [
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-06"
+        ]
+      },
+      {
+        "key": [
+          "彭满",
+          "USD",
+          null
+        ],
+        "rows": 2,
+        "orders": 0.0,
+        "order_amount": 6.31,
+        "commission": 3.16,
+        "ad": 0.0,
+        "states": {
+          "无状态字段": 2
+        },
+        "dates": [
+          "2026-10-01",
+          "2026-10-03"
+        ]
+      }
+    ],
+    "CPS账号数据明细": [
+      {
+        "key": [
+          null,
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          null,
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 5,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "未提供": 5
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ],
+    "每日剧场收益": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ],
+    "收益汇总表": [
+      {
+        "key": [
+          "汇总",
+          "CNY",
+          "扣通道费后金额"
+        ],
+        "rows": 1,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 1
+        },
+        "dates": [
+          "2026-10-07"
+        ]
+      },
+      {
+        "key": [
+          "汇总",
+          "USD",
+          "用户充值金额"
+        ],
+        "rows": 4,
+        "orders": 0.0,
+        "order_amount": 0.0,
+        "commission": 0.0,
+        "ad": 0.0,
+        "states": {
+          "部分完成": 4
+        },
+        "dates": [
+          "2026-10-06"
+        ]
+      }
+    ]
+  }
+}

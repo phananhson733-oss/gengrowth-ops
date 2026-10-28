@@ -1,0 +1,59 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl5Kzrhuz9B7LTE",
+  "rev": 31255,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "filtered_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 0,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/发布按视频ID复核2930.ndjson",
+  "record_file_size_bytes": 0,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/发布按视频ID复核2930.manifest.json",
+  "columns": {
+    "Post ID": {
+      "field_id": "fldsVKSNRu",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "视频链接": {
+      "field_id": "fldtOQD4tB",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "账号": {
+      "field_id": "fldlbHxTnY",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 0,
+        "avg_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    }
+  }
+}

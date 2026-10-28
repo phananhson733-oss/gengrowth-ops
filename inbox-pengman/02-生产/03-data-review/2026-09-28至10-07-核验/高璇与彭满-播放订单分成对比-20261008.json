@@ -1,0 +1,34 @@
+{
+  "period_bjt": [
+    "2026-09-28",
+    "2026-10-07"
+  ],
+  "metrics": [
+    {
+      "owner": "高璇",
+      "plays": 426386,
+      "orders": 14,
+      "order_amount_usd": "45.63",
+      "commission_usd": "24.31",
+      "plays_per_order": 30456.14285714286,
+      "commission_per_order": 1.7364285714285714,
+      "commission_per_10000_plays": 0.5701406706599185,
+      "plays_per_1usd_commission": 17539.531057178116,
+      "order_count_source": "飞书手动表14条订单数字段求和"
+    },
+    {
+      "owner": "彭满",
+      "plays": 105038,
+      "orders": 3,
+      "order_amount_usd": "9.80",
+      "commission_usd": "4.91",
+      "plays_per_order": 35012.666666666664,
+      "commission_per_order": 1.6366666666666667,
+      "commission_per_10000_plays": 0.46744987528323084,
+      "plays_per_1usd_commission": 21392.668024439918,
+      "order_count_source": "彭满在本对话确认3条明细各1单，合计3单；飞书原字段为空"
+    }
+  ],
+  "limitation": "Publication cohort cumulative views divided by same-period recorded orders/commission; cohorts are not matched. Not a true attribution or period-increment conversion rate.",
+  "feishu_mutated": false
+}

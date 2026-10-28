@@ -1,0 +1,114 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblMelhKOBsexG6S",
+  "rev": 136,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 300,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/剧目汇总.ndjson",
+  "record_file_size_bytes": 124892,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/剧目汇总.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvJ0sEfZg1o"
+    },
+    "剧ID": {
+      "field_id": "fldoBUJyA9",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "SD-000064"
+    },
+    "剧名": {
+      "field_id": "fldxdVslid",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 152
+      },
+      "example": "Altarboy"
+    },
+    "发布记录数": {
+      "field_id": "fldqJKwGIk",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 25,
+        "avg": 4.723333333333334
+      },
+      "example": 3
+    },
+    "播放量": {
+      "field_id": "fld4RPn4Yu",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 548354,
+        "avg": 23994.576666666668
+      },
+      "example": 0
+    },
+    "数据截至日期": {
+      "field_id": "fldfER52a9",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 2,
+        "min": "2026-09-23T00:00:00.000+08:00",
+        "max": "2026-10-10T00:00:00.000+08:00"
+      },
+      "example": "2026-10-08T00:00:00.000+08:00"
+    },
+    "是否出单": {
+      "field_id": "fldkIijouO",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "已出单"
+    },
+    "统计说明": {
+      "field_id": "fldSCkVHxR",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 94
+      },
+      "example": "统计时区：北京时间（Asia/Shanghai）；当前无符合条件的发布记录"
+    },
+    "首次发布日期": {
+      "field_id": "fld8mCmYn6",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 5,
+        "min": "2026-08-24T00:00:00.000+08:00",
+        "max": "2026-10-09T00:00:00.000+08:00"
+      },
+      "example": "2026-09-10T00:00:00.000+08:00"
+    }
+  }
+}

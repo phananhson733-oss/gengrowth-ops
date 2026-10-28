@@ -1,0 +1,200 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "id": "fldnaZbhBx",
+        "name": "新增点赞",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldLjStL42",
+        "name": "互动率",
+        "style": {
+          "percentage": true,
+          "precision": 2,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldTzgZpmY",
+        "name": "缺失帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldujaGRzn",
+        "name": "新增播放量",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldIIA2kL0",
+        "name": "账号ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldvnOjhJd",
+        "name": "未纳入帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldOiOIOjc",
+        "name": "新增帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldciFKYTl",
+        "name": "账号名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldYv3tChb",
+        "name": "新增收藏",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "aggregate": "raw_value",
+        "description": "按本行账号ID匹配账号台账.账号ID，显示账号台账.负责人；无匹配或未分配时留空。",
+        "from": "账号台账",
+        "id": "fldTP4pqDi",
+        "name": "负责人",
+        "select": "负责人",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "账号ID",
+              "==",
+              {
+                "field": "账号ID",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldtZBHlMR",
+        "name": "日期",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldXxzRa34",
+        "name": "回调帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "description": "每日播放趋势-分账号的统计时区为北京时间（Asia/Shanghai）；日期按该时区解释。数据缺失、部分覆盖和结算状态以单行说明为准。",
+        "id": "fldqHUM3NY",
+        "name": "说明",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldpXcJhTF",
+        "name": "新增评论",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldbk3TdY5",
+        "name": "可比帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldHkwnHhL",
+        "name": "新增转发",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      }
+    ],
+    "total": 16
+  }
+}

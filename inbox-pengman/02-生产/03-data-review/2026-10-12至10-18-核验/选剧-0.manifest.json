@@ -1,0 +1,162 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl4efRfwhJRqryA",
+  "rev": 5195,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 462,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/选剧-0.ndjson",
+  "record_file_size_bytes": 190738,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/选剧-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuxwd57tfNf"
+    },
+    "关联飞书任务": {
+      "field_id": "fldm4Jy9hj",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 454,
+        "max_length": 226
+      },
+      "example": "[What the Animals Told the Police](https://applink.feishu.cn/client/todo/detail?guid=56afa0b0-6baf-41d2-9e8c-95d40419c871)"
+    },
+    "创建时间": {
+      "field_id": "fldAWAaGGK",
+      "field_type": "created_at",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-07T21:09:44.000+08:00",
+        "max": "2026-10-19T11:41:25.000+08:00"
+      },
+      "example": "2026-09-07T21:09:44.000+08:00"
+    },
+    "剧ID": {
+      "field_id": "fldojvZ99z",
+      "field_type": "auto_number",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "SD-000001"
+    },
+    "剧分类": {
+      "field_id": "fldGewuWCY",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 161,
+        "max_length": 6,
+        "avg_length": 1.3138528138528138
+      },
+      "example": [
+        "lgbtq"
+      ]
+    },
+    "剧名": {
+      "field_id": "fldRoa2CMk",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 151
+      },
+      "example": "Altarboy"
+    },
+    "平台": {
+      "field_id": "fldX3ee9TF",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 18,
+        "max_length": 2,
+        "avg_length": 0.9653679653679653
+      },
+      "example": [
+        "其他"
+      ]
+    },
+    "归并主剧ID": {
+      "field_id": "fldf3EuNps",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 462,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "推荐人": {
+      "field_id": "fldpg5gcIT",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 60,
+        "max_length": 3,
+        "avg_length": 1.0173160173160174
+      },
+      "example": [
+        "高璇"
+      ]
+    },
+    "推荐理由": {
+      "field_id": "fldNsqudW4",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 377,
+        "max_length": 151
+      },
+      "example": "28"
+    },
+    "最后修改时间": {
+      "field_id": "fldrIecgDr",
+      "field_type": "updated_at",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-10-12T10:51:49.000+08:00",
+        "max": "2026-10-19T11:41:59.000+08:00"
+      },
+      "example": "2026-10-15T15:33:55.000+08:00"
+    },
+    "生命周期（自动）": {
+      "field_id": "fldFxcHYXx",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "老剧"
+    },
+    "语言": {
+      "field_id": "fldxO4BYta",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 8,
+        "max_length": 1,
+        "avg_length": 0.9826839826839827
+      },
+      "example": [
+        "英语"
+      ]
+    }
+  }
+}

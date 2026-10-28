@@ -1,0 +1,103 @@
+{
+  "source": "Human user message in current conversation",
+  "recorded_at_bjt": "2026-10-08 17:21",
+  "people": [
+    {
+      "name": "高璇",
+      "assigned_short_drama": 12,
+      "currently_posting": 10,
+      "notes": "另外 2 个是 Phone-31、32，仍养号中，待安排给另外两位实习生。"
+    },
+    {
+      "name": "张凯风",
+      "assigned_short_drama": 8,
+      "currently_posting": 5,
+      "notes": "另外 2 个 Phone-29、30 正在买粉；Phone-28 手机坏了。"
+    },
+    {
+      "name": "李建卓",
+      "assigned_short_drama": 7,
+      "currently_posting": 6,
+      "notes": "含 Phone-21：彭满确认已经在发，新账号名称待补；Phone-25 手机坏了。"
+    },
+    {
+      "name": "彭满",
+      "assigned_short_drama": 3,
+      "currently_posting": 3,
+      "notes": "3 个短剧号都在发；另有 2 个暂停的占星号，不算在这 3 个里。"
+    },
+    {
+      "name": "未分配",
+      "assigned_short_drama": 1,
+      "currently_posting": 0,
+      "notes": "micahfie0yg 还需要分配负责人和设备。"
+    }
+  ],
+  "other_accounts": [
+    {
+      "original_account_name": "apdt6w97o2pk",
+      "device": "Phone-21",
+      "owner": "李建卓",
+      "current_status": "已经在发",
+      "evidence": "彭满已确认。可能因建卓改了账号名称，发布数据没能按原名称找到；改名原因还未核实。",
+      "next_action": "补当前账号名和视频链接，把数据接回来。"
+    },
+    {
+      "original_account_name": "marjepurcell71",
+      "device": "Phone-29",
+      "owner": "张凯风",
+      "current_status": "正在买粉",
+      "evidence": "彭满确认，与最新资产标签一致。",
+      "next_action": "完成后核验可用状态，确定首发安排。"
+    },
+    {
+      "original_account_name": "hayleyluella",
+      "device": "Phone-30",
+      "owner": "张凯风",
+      "current_status": "正在买粉",
+      "evidence": "彭满确认，与最新资产标签一致。",
+      "next_action": "完成后核验可用状态，确定首发安排。"
+    },
+    {
+      "original_account_name": "user4056100981161",
+      "device": "Phone-25",
+      "owner": "李建卓",
+      "current_status": "手机坏了",
+      "evidence": "彭满确认暂停原因是设备故障。",
+      "next_action": "确认维修或换机安排，再恢复运营。"
+    },
+    {
+      "original_account_name": "nhanh8497",
+      "device": "Phone-28",
+      "owner": "张凯风",
+      "current_status": "手机坏了",
+      "evidence": "彭满确认暂停原因是设备故障。",
+      "next_action": "确认维修或换机安排，再恢复运营。"
+    },
+    {
+      "original_account_name": "zahramya6",
+      "device": "Phone-31",
+      "owner": "高璇（待转交）",
+      "current_status": "养号中，后续交给实习生",
+      "evidence": "高璇已在发 10 个号；彭满判断可能安排不过来，要求后续转给另外两位实习生。",
+      "next_action": "明确接收人、交接日期和账号资料；目前未完成转交。"
+    },
+    {
+      "original_account_name": "vedalana7",
+      "device": "Phone-32",
+      "owner": "高璇（待转交）",
+      "current_status": "养号中，后续交给实习生",
+      "evidence": "与 Phone-31 一起安排转交。",
+      "next_action": "明确接收人、交接日期和账号资料；目前未完成转交。"
+    },
+    {
+      "original_account_name": "micahfie0yg",
+      "device": "未分配",
+      "owner": "未分配",
+      "current_status": "还需要分配",
+      "evidence": "资产表暂无负责人和设备，彭满确认仍待安排。",
+      "next_action": "确定负责人和设备后，再安排启动。"
+    }
+  ],
+  "coverage_note": "23 accounts have collected period video data; Phone-21 is confirmed posting by user but current handle and metrics remain unjoined. Do not estimate metrics or count the 24 pending rows as actual posts."
+}

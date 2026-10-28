@@ -1,0 +1,133 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl4efRfwhJRqryA",
+  "rev": 3946,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 386,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/选剧.ndjson",
+  "record_file_size_bytes": 123269,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/选剧.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuxwd57tfNf"
+    },
+    "入选依据": {
+      "field_id": "fldyZ4qVRL",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 372,
+        "max_length": 1393
+      },
+      "example": "[2026-10-12 官方版本核验] MoboReels https://www.moboreels.com/drama/the-secret-of-gala-night-68608322；剧目独立版本选择器为English，西语/日语版本详情ID分别1",
+      "example_truncated": true
+    },
+    "创建时间": {
+      "field_id": "fldAWAaGGK",
+      "field_type": "created_at",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-07T21:09:44.000+08:00",
+        "max": "2026-10-12T10:51:27.000+08:00"
+      },
+      "example": "2026-09-07T21:09:44.000+08:00"
+    },
+    "剧ID": {
+      "field_id": "fldojvZ99z",
+      "field_type": "auto_number",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "SD-000001"
+    },
+    "剧名": {
+      "field_id": "fldRoa2CMk",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 4,
+        "max_length": 152
+      },
+      "example": "Altarboy"
+    },
+    "平台": {
+      "field_id": "fldX3ee9TF",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 39,
+        "max_length": 1,
+        "avg_length": 0.8989637305699482
+      },
+      "example": [
+        "其他"
+      ]
+    },
+    "最近核验日期": {
+      "field_id": "fld8fmgN9G",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 372,
+        "min": "2026-10-10T00:00:00.000+08:00",
+        "max": "2026-10-12T10:58:42.222+08:00"
+      },
+      "example": "2026-10-10T00:00:00.000+08:00"
+    },
+    "来源": {
+      "field_id": "fldaYGa6w4",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 169,
+        "max_length": 2,
+        "avg_length": 0.5699481865284974
+      },
+      "example": [
+        "鹊娱"
+      ]
+    },
+    "语言": {
+      "field_id": "fldxO4BYta",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 53,
+        "max_length": 1,
+        "avg_length": 0.8626943005181347
+      },
+      "example": [
+        "英语"
+      ]
+    },
+    "选剧等级": {
+      "field_id": "fldVSSLQRq",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 373,
+        "max_length": 1,
+        "avg_length": 0.03367875647668394
+      },
+      "example": [
+        "A"
+      ]
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "flda2Cc2ZW",
+        "description": "该出单剧在《发布记录》中的全部发布；新发布记录、新增出单剧由工作流自动关联",
+        "id": "fldl1AN1fr",
+        "link_table": "tbl5Kzrhuz9B7LTE",
+        "name": "关联发布记录",
+        "type": "link"
+      },
+      {
+        "description": "《CPS账号数据明细 手动版》中该剧第一次有订单（订单金额\u003e0 或 订单数\u003e0）的日期",
+        "expression": "TEXT([CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键],OR(CurrentValue.[订单金额]\u003e0,CurrentValue.[订单数（单剧）]\u003e0))).[日期].MIN(),\"YYYY-MM-DD\")",
+        "id": "fld25XZIsY",
+        "name": "首次出单日期",
+        "type": "formula"
+      },
+      {
+        "description": "CPS 订单数（单剧）求和；空值不计",
+        "expression": "[CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[订单数（单剧）].LISTCOMBINE().SUM()",
+        "id": "fldkDow1s9",
+        "name": "订单数",
+        "type": "formula"
+      },
+      {
+        "description": "剧名归一化（忽略大小写/空格/常用标点），用于匹配 CPS 与发布记录",
+        "expression": "REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE([剧名],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")",
+        "id": "fld938OzBP",
+        "name": "匹配键",
+        "type": "formula"
+      },
+      {
+        "expression": "[发布记录].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名].ARRAYJOIN(\"\"),\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[点赞].LISTCOMBINE().MAP(VALUE(CurrentValue)).SUM()",
+        "id": "fldTasoOjW",
+        "name": "点赞",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldmzpFmps",
+        "name": "剧名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "description": "分成收益(USD) / 订单数",
+        "expression": "IF([订单数]\u003e0,ROUND([分成收益]/[订单数],2),\"\")",
+        "id": "fldVZZbh9o",
+        "name": "平均订单收益",
+        "type": "formula"
+      },
+      {
+        "expression": "[CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[合作方].LISTCOMBINE().UNIQUE().ARRAYJOIN(\"、\")",
+        "id": "fld5jhJkl1",
+        "name": "合作方",
+        "type": "formula"
+      },
+      {
+        "description": "订单金额(USD) / 订单数",
+        "expression": "IF([订单数]\u003e0,ROUND([订单金额(USD)]/[订单数],2),\"\")",
+        "id": "fldLdoaY0O",
+        "name": "平均订单金额",
+        "type": "formula"
+      },
+      {
+        "description": "该剧名下所有发布ID的最新累计播放量之和",
+        "expression": "[发布记录].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名].ARRAYJOIN(\"\"),\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[播放量].LISTCOMBINE().MAP(VALUE(CurrentValue)).SUM()",
+        "id": "fldkPYasAR",
+        "name": "播放量",
+        "type": "formula"
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldaAtJiYd",
+        "description": "点击追溯 CPS 源记录；新 CPS 记录由工作流自动关联",
+        "id": "fldJISQRlj",
+        "link_table": "tbl2ZkOYGw7BVhaE",
+        "name": "关联CPS出单明细",
+        "type": "link"
+      },
+      {
+        "description": "分成收益(USD) / 播放量 × 10000",
+        "expression": "IF([播放量]\u003e0,ROUND([分成收益]/[播放量]*10000,2),\"\")",
+        "id": "fldD6wqbVA",
+        "name": "万播收益",
+        "type": "formula"
+      },
+      {
+        "description": "该剧所有发布记录中最早的实际发布时间",
+        "expression": "TEXT([发布记录].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名].ARRAYJOIN(\"\"),\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[实际发布时间].LISTCOMBINE().MIN(),\"YYYY-MM-DD\")",
+        "id": "fldtWItfMd",
+        "name": "首次发布日期",
+        "type": "formula"
+      },
+      {
+        "expression": "[发布记录].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名].ARRAYJOIN(\"\"),\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[发布ID].COUNTA()",
+        "id": "fldsrp9yjU",
+        "name": "发布记录数",
+        "type": "formula"
+      },
+      {
+        "description": "CPS 原始填报币种，金额已统一折算为 USD",
+        "expression": "[CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[币种].LISTCOMBINE().UNIQUE().ARRAYJOIN(\"、\")",
+        "id": "fldtMTar0j",
+        "name": "原币种",
+        "type": "formula"
+      },
+      {
+        "description": "取《选剧池》同名剧的语言",
+        "expression": "[选剧池].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[语言].LISTCOMBINE().FILTER(NOT(ISBLANK(CurrentValue))).UNIQUE().ARRAYJOIN(\"、\")",
+        "id": "fldzf5HrRs",
+        "name": "语言",
+        "type": "formula"
+      },
+      {
+        "description": "CPS 订单金额(USD) 求和：CNY 按 CPS 表的汇率（当前 ÷6.7）折算为 USD，其余币种原值",
+        "expression": "ROUND([CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[订单金额(USD)].LISTCOMBINE().MAP(VALUE(CurrentValue)).SUM(),2)",
+        "id": "fldPDEMPUv",
+        "name": "订单金额(USD)",
+        "type": "formula"
+      },
+      {
+        "description": "取《选剧池》同名剧的上线日期（多条取最早）",
+        "expression": "TEXT([选剧池].FILTER(AND(NOT(ISBLANK(CurrentValue.[剧名])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[剧名],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[上线日期].LISTCOMBINE().MIN(),\"YYYY-MM-DD\")",
+        "id": "fldOT6EgmY",
+        "name": "上线日期",
+        "type": "formula"
+      },
+      {
+        "description": "USD，取 CPS 分成收益求和",
+        "expression": "ROUND([CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[分成收益].LISTCOMBINE().MAP(VALUE(CurrentValue)).SUM(),2)",
+        "id": "fldsmOO4WI",
+        "name": "分成收益",
+        "type": "formula"
+      },
+      {
+        "expression": "[CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[剧场].LISTCOMBINE().UNIQUE().ARRAYJOIN(\"、\")",
+        "id": "fldGmfApDZ",
+        "name": "剧场",
+        "type": "formula"
+      },
+      {
+        "expression": "[CPS账号数据明细 手动版].FILTER(AND(NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=[匹配键])).[负责人].LISTCOMBINE().UNIQUE().ARRAYJOIN(\"、\")",
+        "id": "fldUVp9D87",
+        "name": "负责人",
+        "type": "formula"
+      }
+    ],
+    "total": 21
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.97",
+      "latest": "1.0.98",
+      "message": "lark-cli 1.0.98 available, current 1.0.97, run: lark-cli update"
+    }
+  }
+}

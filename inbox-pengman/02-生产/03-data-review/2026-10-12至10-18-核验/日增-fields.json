@@ -1,0 +1,168 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "description": "每日播放趋势的统计时区为北京时间（Asia/Shanghai）；日期按该时区解释。数据缺失、部分覆盖和结算状态以单行说明为准。",
+        "id": "fldLgyj93q",
+        "name": "说明",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldgPkFZhV",
+        "name": "缺失帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldAh9JBZW",
+        "name": "新增播放量",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldJVbcXFS",
+        "name": "新增转发",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld2s0o62S",
+        "name": "未纳入帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldyWbOYMI",
+        "name": "日期",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldDWp82n6",
+        "name": "新增收藏",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldDyV02tA",
+        "name": "可比帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldmMgIMQO",
+        "name": "互动率",
+        "style": {
+          "percentage": true,
+          "precision": 2,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldF3D9mz5",
+        "name": "新增点赞",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldEhEjEbL",
+        "name": "回调帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldQKyVCYR",
+        "name": "新增帖子数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldqCZgOcQ",
+        "name": "新增评论",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      }
+    ],
+    "total": 13
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.97",
+      "latest": "1.0.98",
+      "message": "lark-cli 1.0.98 available, current 1.0.97, run: lark-cli update"
+    }
+  }
+}

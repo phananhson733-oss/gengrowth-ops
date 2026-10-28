@@ -1,0 +1,1223 @@
+{
+  "all_new_records": 24,
+  "new_accounts": [
+    "apdt6w97o2pk"
+  ],
+  "period_posts": 22,
+  "period_plays": 5615,
+  "daily": {
+    "2026-09-30": [
+      1,
+      449
+    ],
+    "2026-10-01": [
+      3,
+      1859
+    ],
+    "2026-10-02": [
+      3,
+      630
+    ],
+    "2026-10-03": [
+      3,
+      751
+    ],
+    "2026-10-04": [
+      3,
+      451
+    ],
+    "2026-10-05": [
+      3,
+      711
+    ],
+    "2026-10-06": [
+      3,
+      395
+    ],
+    "2026-10-07": [
+      3,
+      369
+    ]
+  },
+  "dramas": {
+    "He Left Me at the Altar, So I Married the Man Above Him": [
+      6,
+      2666
+    ],
+    "Offered to the triplet Alpha": [
+      6,
+      1272
+    ],
+    "The Alpha Who Let His Luna Die": [
+      6,
+      1178
+    ],
+    "Accidentally His: The Dragon King Won't Let Go": [
+      4,
+      499
+    ]
+  },
+  "excluded": [
+    {
+      "id": "7691257641577778446",
+      "date": "2026-10-08 00:53:00",
+      "plays": 185
+    },
+    {
+      "id": "7691257532878212365",
+      "date": "2026-10-08 07:54:00",
+      "plays": 133
+    }
+  ],
+  "top": [
+    {
+      "Post ID": "7691246347629890829",
+      "发布时间": "2026-10-01 07:10:00",
+      "账号": "apdt6w97o2pk",
+      "快照日期": "2026-10-08 00:00:00",
+      "采集时间": "2026-10-08 18:33:52",
+      "视频链接": "https://www.tiktok.com/@apdt6w97o2pk/video/7691246347629890829",
+      "播放量": 1049,
+      "点赞": 14,
+      "评论": 0,
+      "收藏": 3,
+      "转发": 0,
+      "业务": "short-drama",
+      "采集状态": "complete",
+      "缺失字段": null,
+      "来源 run_id": "e8723e7c-3d74-4646-9e84-53ccfd1ab294",
+      "Base 同步时间": "2026-10-08 18:36:54",
+      "关联发布记录": "SR-001185",
+      "账号名": null,
+      "Caption": "He Left Me at the Altar, So I Married the Man Above Him After his betrayal, she accepts an alliance he never saw coming. 💍 ✨ Download ReelShort. Copy code 4964931 and search it. #MarriageAlliance #RevengeRomance #Betrayal #ShortDrama"
+    },
+    {
+      "Post ID": "7691245543770590478",
+      "发布时间": "2026-10-01 00:09:00",
+      "账号": "apdt6w97o2pk",
+      "快照日期": "2026-10-08 00:00:00",
+      "采集时间": "2026-10-08 18:33:52",
+      "视频链接": "https://www.tiktok.com/@apdt6w97o2pk/video/7691245543770590478",
+      "播放量": 625,
+      "点赞": 6,
+      "评论": 0,
+      "收藏": 0,
+      "转发": 0,
+      "业务": "short-drama",
+      "采集状态": "complete",
+      "缺失字段": null,
+      "来源 run_id": "e8723e7c-3d74-4646-9e84-53ccfd1ab294",
+      "Base 同步时间": "2026-10-08 18:36:54",
+      "关联发布记录": "SR-001184",
+      "账号名": null,
+      "Caption": "He Left Me at the Altar, So I Married the Man Above Him Abandoned at her own wedding, she removes the disguise she wore for the man who betrayed her. 👰 ✨ Download ReelShort. Copy code 4964931 and search it. #BrideRevenge #HiddenIdentity #WeddingDrama #ShortDrama"
+    },
+    {
+      "Post ID": "7691245825762037006",
+      "发布时间": "2026-09-30 20:07:00",
+      "账号": "apdt6w97o2pk",
+      "快照日期": "2026-10-08 00:00:00",
+      "采集时间": "2026-10-08 18:33:52",
+      "视频链接": "https://www.tiktok.com/@apdt6w97o2pk/video/7691245825762037006",
+      "播放量": 449,
+      "点赞": 4,
+      "评论": 0,
+      "收藏": 0,
+      "转发": 0,
+      "业务": "short-drama",
+      "采集状态": "complete",
+      "缺失字段": null,
+      "来源 run_id": "e8723e7c-3d74-4646-9e84-53ccfd1ab294",
+      "Base 同步时间": "2026-10-08 18:36:54",
+      "关联发布记录": "SR-001183",
+      "账号名": null,
+      "Caption": "He Left Me at the Altar, So I Married the Man Above Him He walks away from the altar even after her ultimatum. Will she really wait for him? 💔 ✨ Download ReelShort. Copy code 4964931 and search it. #LeftAtTheAltar #WeddingBetrayal #RevengeRomance #ShortDrama"
+    }
+  ],
+  "trend_nonnull": [],
+  "new_team_posts": 611,
+  "new_team_plays": 792103,
+  "new_li_posts": 129,
+  "new_li_plays": 41651,
+  "drama_count": 90,
+  "daily_merged": [
+    [
+      "2026-09-28",
+      36,
+      190610
+    ],
+    [
+      "2026-09-29",
+      33,
+      85164
+    ],
+    [
+      "2026-09-30",
+      54,
+      129249
+    ],
+    [
+      "2026-10-01",
+      67,
+      77767
+    ],
+    [
+      "2026-10-02",
+      69,
+      62327
+    ],
+    [
+      "2026-10-03",
+      71,
+      105262
+    ],
+    [
+      "2026-10-04",
+      71,
+      60662
+    ],
+    [
+      "2026-10-05",
+      69,
+      31623
+    ],
+    [
+      "2026-10-06",
+      72,
+      24600
+    ],
+    [
+      "2026-10-07",
+      69,
+      24839
+    ]
+  ],
+  "merged_dramas": [
+    {
+      "title": "Rechazando a mis cinco compañeras destinadas",
+      "accounts": [
+        "@shirley5278789"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 3,
+      "plays": 116100
+    },
+    {
+      "title": "The White Snake Wants My Baby",
+      "accounts": [
+        "@jolienqaq",
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风",
+        "彭满"
+      ],
+      "posts": 5,
+      "plays": 60029
+    },
+    {
+      "title": "My Dragon Husband",
+      "accounts": [
+        "@nobleltcpnj"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 46431
+    },
+    {
+      "title": "Alfa a jeho chůva Luna",
+      "accounts": [
+        "@shirley5278789"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 1,
+      "plays": 38100
+    },
+    {
+      "title": "My Two Spy Daddies",
+      "accounts": [
+        "@jolienqaq",
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风",
+        "彭满"
+      ],
+      "posts": 5,
+      "plays": 19026
+    },
+    {
+      "title": "The Alpha and His Nanny Luna",
+      "accounts": [
+        "@dramadetour0",
+        "@plottwistclips11"
+      ],
+      "owners": [
+        "彭满",
+        "高璇"
+      ],
+      "posts": 8,
+      "plays": 16600
+    },
+    {
+      "title": "One Betrayal One Night With My Boss",
+      "accounts": [
+        "@dramaclips0364",
+        "@dramaflick00"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 4,
+      "plays": 14726
+    },
+    {
+      "title": "private tutoring",
+      "accounts": [
+        "@mochiclips55",
+        "@scenesbl77",
+        "@sofiblmoments"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 13,
+      "plays": 13746
+    },
+    {
+      "title": "The Fairy Who Slept Her Way to the Throne",
+      "accounts": [
+        "@nobleltcpnj"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 12085
+    },
+    {
+      "title": "Forward, Without Him",
+      "accounts": [
+        "@dramavault163",
+        "@hcngsn5459"
+      ],
+      "owners": [
+        "李建卓",
+        "高璇"
+      ],
+      "posts": 3,
+      "plays": 7670
+    },
+    {
+      "title": "Eight Heirs for the Dragon King",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 7358
+    },
+    {
+      "title": "The Omega's Command",
+      "accounts": [
+        "@scenesbl77",
+        "@sofiblmoments"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 10,
+      "plays": 6640
+    },
+    {
+      "title": "Cursed Alpha’s Fated Luna",
+      "accounts": [
+        "@dramadetour0"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 5933
+    },
+    {
+      "title": "Coronada de sangre de plata",
+      "accounts": [
+        "@shirley5278789"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 4,
+      "plays": 5328
+    },
+    {
+      "title": "Accidentally His: The Dragon King Won't Let Go",
+      "accounts": [
+        "@dramadetour0",
+        "@apdt6w97o2pk"
+      ],
+      "owners": [
+        "彭满",
+        "李建卓"
+      ],
+      "posts": 9,
+      "plays": 5300
+    },
+    {
+      "title": "The Billionaire's Superhuman Maid",
+      "accounts": [
+        "@dramaclips0364",
+        "@dramaflick00"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 9,
+      "plays": 4942
+    },
+    {
+      "title": "The Exiled Alpha Queen",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 4856
+    },
+    {
+      "title": "Seduced by My Boyfriend’s Uncle",
+      "accounts": [
+        "@jolienqaq"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 6,
+      "plays": 4807
+    },
+    {
+      "title": "The Wolf's Painter",
+      "accounts": [
+        "@jolienqaq",
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风",
+        "彭满"
+      ],
+      "posts": 5,
+      "plays": 4709
+    },
+    {
+      "title": "Off the Ice",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 4608
+    },
+    {
+      "title": "Rejected Luna is His Fated Mate",
+      "accounts": [
+        "@hnlinhthng9678",
+        "@plottwistclips11"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 9,
+      "plays": 4259
+    },
+    {
+      "title": "Prep School Pop Star!",
+      "accounts": [
+        "@amariari11"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 3913
+    },
+    {
+      "title": "Bedded and Buffed: Claiming My Shifter Harem",
+      "accounts": [
+        "@dramaexpedition",
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风",
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 3773
+    },
+    {
+      "title": "Step Back! That Homeless Man Is Not to be Messed with",
+      "accounts": [
+        "@dramaclips0364",
+        "@hnlinhthng9678",
+        "@plottwistclips11"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 11,
+      "plays": 3773
+    },
+    {
+      "title": "Dragonblood Alpha",
+      "accounts": [
+        "@dramavault163"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 4,
+      "plays": 3164
+    },
+    {
+      "title": "The Weakest Orange Cat Is the Strongest Golden Tiger",
+      "accounts": [
+        "@dramadetour0"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 3157
+    },
+    {
+      "title": "Altarboy",
+      "accounts": [
+        "@scenesbl77",
+        "@sofiblmoments"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 7,
+      "plays": 2895
+    },
+    {
+      "title": "The Double Life of My Mafia Husband",
+      "accounts": [
+        "@jolienqaq"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 2810
+    },
+    {
+      "title": "Dragon blood Uprising",
+      "accounts": [
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 2760
+    },
+    {
+      "title": "My Two Dangerous Roommates Crave Me",
+      "accounts": [
+        "@jolienqaq"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 2689
+    },
+    {
+      "title": "He Left Me at the Altar, So I Married the Man Above Him",
+      "accounts": [
+        "@apdt6w97o2pk"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 6,
+      "plays": 2666
+    },
+    {
+      "title": "Rejecting My Five Female Mates",
+      "accounts": [
+        "@hnlinhthng9678"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 4,
+      "plays": 2625
+    },
+    {
+      "title": "My Contract Husband is Hades",
+      "accounts": [
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 2054
+    },
+    {
+      "title": "Abandoned in a Horror Game, Adopted by the Final Boss",
+      "accounts": [
+        "@nobleltcpnj"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1872
+    },
+    {
+      "title": "Alpha’s Cursed Mate",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 1868
+    },
+    {
+      "title": "Congratulations, You're Linked to a Walking Disaster",
+      "accounts": [
+        "@dramadetour0"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 1704
+    },
+    {
+      "title": "He Broke the Heart That Saved Him",
+      "accounts": [
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1661
+    },
+    {
+      "title": "Hunted by the Alpha",
+      "accounts": [
+        "@nobleltcpnj"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1655
+    },
+    {
+      "title": "I Don't Need No Alpha Brothers",
+      "accounts": [
+        "@dramaclips0364",
+        "@dramaflick00"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 7,
+      "plays": 1576
+    },
+    {
+      "title": "My Pup Became My Alpha",
+      "accounts": [
+        "@jolienqaq"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 2,
+      "plays": 1564
+    },
+    {
+      "title": "The Husband She Took for Granted",
+      "accounts": [
+        "@dramaexpedition"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 6,
+      "plays": 1413
+    },
+    {
+      "title": "Gone Before the Vows",
+      "accounts": [
+        "@nobleltcpnj"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 1390
+    },
+    {
+      "title": "My Taxi Driver Ex Is a Billionaire",
+      "accounts": [
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1324
+    },
+    {
+      "title": "Paladin Betrays God for the Wolf",
+      "accounts": [
+        "@jolienqaq",
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风",
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 1322
+    },
+    {
+      "title": "Offered to the triplet Alpha",
+      "accounts": [
+        "@apdt6w97o2pk"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 6,
+      "plays": 1272
+    },
+    {
+      "title": "The Billion-Dollar Heiress’ Reckoning",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1239
+    },
+    {
+      "title": "The Ice Man",
+      "accounts": [
+        "@dramaexpedition"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 6,
+      "plays": 1203
+    },
+    {
+      "title": "The Unbreakables: Super Son Returns",
+      "accounts": [
+        "@dramaexpedition"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 3,
+      "plays": 1183
+    },
+    {
+      "title": "The Alpha Who Let His Luna Die",
+      "accounts": [
+        "@apdt6w97o2pk"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 6,
+      "plays": 1178
+    },
+    {
+      "title": "LadyAid: From Dumped Pauper to Tycoon",
+      "accounts": [
+        "@dramaexpedition"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 6,
+      "plays": 1176
+    },
+    {
+      "title": "The Mafia Boss's Stolen Bride",
+      "accounts": [
+        "@jazlynnayeli6"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 6,
+      "plays": 1165
+    },
+    {
+      "title": "I Woke Up as the Villainous Guide",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 1146
+    },
+    {
+      "title": "Bloodline Paradox: Silver and Shadows",
+      "accounts": [
+        "@magnoliaisabella64"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 1022
+    },
+    {
+      "title": "The Wolves’ Bride",
+      "accounts": [
+        "@gaylenepowers350"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 995
+    },
+    {
+      "title": "Take Me Back to the Night We Met",
+      "accounts": [
+        "@dramavault163"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 5,
+      "plays": 942
+    },
+    {
+      "title": "Star Prison",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 931
+    },
+    {
+      "title": "Ex Locked Me in an Asylum, Then Went Mad When I Married His Enemy",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 885
+    },
+    {
+      "title": "I Married My Cheating Ex’s Uncle",
+      "accounts": [
+        "@dramaflick00",
+        "@hcngsn5459"
+      ],
+      "owners": [
+        "李建卓",
+        "高璇"
+      ],
+      "posts": 7,
+      "plays": 872
+    },
+    {
+      "title": "The Crown of the Abyss: The Mute Bride of Atlantis",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 863
+    },
+    {
+      "title": "Traded My Wolves for a Snake",
+      "accounts": [
+        "@gaylenepowers350"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 789
+    },
+    {
+      "title": "The CEO Who Felt My Pregnancy",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 776
+    },
+    {
+      "title": "The True Queen",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 727
+    },
+    {
+      "title": "Love & Blood",
+      "accounts": [
+        "@lthung263"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 720
+    },
+    {
+      "title": "Crown of the Nile: My Beggar Husband is the Pharaoh",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 689
+    },
+    {
+      "title": "Five Years of Secret Love, He Married My Best Friend",
+      "accounts": [
+        "@dramadetour0"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 1,
+      "plays": 632
+    },
+    {
+      "title": "Apollo I’d Rather Marry a Monster",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 3,
+      "plays": 615
+    },
+    {
+      "title": "Never Fall Alone",
+      "accounts": [
+        "@mochiclips55",
+        "@sofiblmoments"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 3,
+      "plays": 568
+    },
+    {
+      "title": "Bitter Burn",
+      "accounts": [
+        "@miralinaaa10"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 1,
+      "plays": 565
+    },
+    {
+      "title": "From Omega's Prey to Luna Queen",
+      "accounts": [
+        "@qqfqvkxrybkjkjnp20"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 548
+    },
+    {
+      "title": "Siren's Pact: My Pirate Queen",
+      "accounts": [
+        "@miralinaaa10"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 5,
+      "plays": 494
+    },
+    {
+      "title": "La CEO y El Padre Secreto De Su Hija",
+      "accounts": [
+        "@shirley5278789"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 1,
+      "plays": 475
+    },
+    {
+      "title": "Campus Saga: Superpower Teen",
+      "accounts": [
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 426
+    },
+    {
+      "title": "Never Reject a Dragon Princess",
+      "accounts": [
+        "@jazlynnayeli6"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 393
+    },
+    {
+      "title": "Sinking With My Step-sister",
+      "accounts": [
+        "@miralinaaa10"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 2,
+      "plays": 375
+    },
+    {
+      "title": "Not Daddy Anymore, Just Alpha",
+      "accounts": [
+        "@hcngsn5459"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 3,
+      "plays": 362
+    },
+    {
+      "title": "After My Three Alpha Childhood Sweethearts Abandoned Me, They Regretted It",
+      "accounts": [
+        "@felicitypatterson67"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 1,
+      "plays": 316
+    },
+    {
+      "title": "The Reaper's Fated Bride",
+      "accounts": [
+        "@amariari11"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 290
+    },
+    {
+      "title": "The Unchaste Charge:Plaything of My Husband's Godfather",
+      "accounts": [
+        "@felicitypatterson67"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 267
+    },
+    {
+      "title": "Daughter of the Four Norse God-Kings",
+      "accounts": [
+        "@jazlynnayeli6"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 261
+    },
+    {
+      "title": "The Stepbrother I Hate to Love",
+      "accounts": [
+        "@mochiclips55"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 2,
+      "plays": 257
+    },
+    {
+      "title": "Nothing Escapes My Eyes",
+      "accounts": [
+        "@ngphnggiang40"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "posts": 2,
+      "plays": 254
+    },
+    {
+      "title": "His Golden Touch on My Body",
+      "accounts": [
+        "@felicitypatterson67"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 233
+    },
+    {
+      "title": "Stolen by My Fiancé's Uncle",
+      "accounts": [
+        "@jazlynnayeli6"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 223
+    },
+    {
+      "title": "The Scent That Found Me",
+      "accounts": [
+        "@amariari11"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 210
+    },
+    {
+      "title": "King of the Four Seas: Legend Reborn",
+      "accounts": [
+        "@dramaexpedition"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "posts": 2,
+      "plays": 200
+    },
+    {
+      "title": "Married to the Vagabond King",
+      "accounts": [
+        "@jazlynnayeli6"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 2,
+      "plays": 175
+    },
+    {
+      "title": "One Night with the Vampire Lord",
+      "accounts": [
+        "@dramaflick00"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 2,
+      "plays": 121
+    },
+    {
+      "title": "My Twins Picked a Billionaire Dad",
+      "accounts": [
+        "@hcngsn5459"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 1,
+      "plays": 87
+    },
+    {
+      "title": "The Great and Powerful Genie",
+      "accounts": [
+        "@dramaflick00"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "posts": 1,
+      "plays": 85
+    },
+    {
+      "title": "The Cartel’s Contract Bride",
+      "accounts": [
+        "@felicitypatterson67"
+      ],
+      "owners": [
+        "李建卓"
+      ],
+      "posts": 1,
+      "plays": 16
+    }
+  ],
+  "snapshot_policy": "Only append apdt6w97o2pk 22 period videos to original cohort; preserve all existing values",
+  "export_time_beijing": "2026-10-08 18:46",
+  "new_account_sample_time": "2026-10-08 18:33:52",
+  "missing_increment_dates": [
+    "2026-10-06",
+    "2026-10-07"
+  ]
+}

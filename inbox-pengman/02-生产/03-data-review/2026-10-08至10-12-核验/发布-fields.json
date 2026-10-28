@@ -1,0 +1,571 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldpByLaej",
+        "id": "fldxkYfXbD",
+        "link_table": "tblNTly7d7tV1jG5",
+        "name": "采集记录",
+        "type": "link"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fld6W6OI1b",
+        "name": "指标日期",
+        "select": "快照日期",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fldlGpJSGQ",
+        "name": "点赞",
+        "select": "点赞",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "expression": "IF(OR(ISBLANK([日期]),ISBLANK([账号]),ISBLANK([剧])),\"\",TEXT([日期],\"YYYY-MM-DD\")\u0026\"|\"\u0026[账号].ARRAYJOIN()\u0026\"|\"\u0026[剧].ARRAYJOIN())",
+        "id": "fldsXj0rlH",
+        "name": "日历分组键",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldcAvqmHn",
+        "name": "批次ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldE1NAxO0",
+        "name": "指标同步时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "expression": "IF(AND(OR([Post ID]=\"\",ISBLANK([Post ID])),OR([视频链接]=\"\",ISBLANK([视频链接])),ISBLANK([采集记录])),IF([日期]\u003eNOW(),\"已排期\",\"待公开\"),IF(AND(NOT(ISBLANK([播放量])),NOT(ISBLANK([点赞])),NOT(ISBLANK([收藏])),NOT(ISBLANK([转发])),NOT(ISBLANK([评论]))),\"已回填\",\"已公开\"))",
+        "id": "fldBPSxJNW",
+        "name": "发布状态",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld3b1J9Da",
+        "multiple": false,
+        "name": "处理负责人",
+        "type": "user"
+      },
+      {
+        "default_value": null,
+        "id": "fldtOQD4tB",
+        "name": "视频链接",
+        "style": {
+          "type": "url"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld4Lo076M",
+        "name": "计划发布时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "bidirectional": false,
+        "id": "fldk6YM0az",
+        "link_table": "tbl5Kzrhuz9B7LTE",
+        "name": "Parent items 2",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fldJxN0z3L",
+        "name": "最近通知时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fldLmZxNxc",
+        "name": "播放量",
+        "select": "播放量",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fldpZ8sHXL",
+        "name": "收藏",
+        "select": "收藏",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldNMqqtTD",
+        "name": "RS收益",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4A6WP0u",
+        "multiple": false,
+        "name": "归档状态",
+        "options": [
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "active"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "archived"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldAKoQFB4",
+        "name": "匹配置信度",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4pyzJ9l",
+        "name": "批次计划条数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldoDSs5Cw",
+        "name": "批次处理状态",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "选剧池",
+        "id": "fldiRM4fsa",
+        "name": "剧ID",
+        "select": "剧ID",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "剧ID",
+              "intersects",
+              {
+                "field": "剧",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fld52ipNTh",
+        "name": "推广口令",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "账号台账",
+        "id": "fldUyOzYfH",
+        "name": "主页链接",
+        "select": "主页链接",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "账号ID",
+              "intersects",
+              {
+                "field": "账号",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldsVKSNRu",
+        "name": "Post ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "选剧池",
+        "id": "fldoUxe3bS",
+        "name": "剧名",
+        "select": "剧名",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "剧ID",
+              "intersects",
+              {
+                "field": "剧",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fld3eaz3Wg",
+        "name": "评论",
+        "select": "评论",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldUnkKo9p",
+        "multiple": false,
+        "name": "匹配方式",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "exact_post_id"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "manual_url"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "account_time"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "batch_title_sequence"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "expression": "[账号].[负责人]",
+        "id": "fldb7rcwyH",
+        "name": "运营人员",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld4EpuBuh",
+        "name": "待处理原因",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld5JtvD6S",
+        "name": "计划序号",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "description": "自动显示关联采集记录的视频文案，供匹配剧名时参考。",
+        "expression": "[采集记录].[Caption].ARRAYJOIN(CHAR(10))",
+        "id": "fldErGhjwE",
+        "name": "Caption",
+        "type": "formula"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fldhHVN96a",
+        "name": "转发",
+        "select": "转发",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldNcJ80xG",
+        "name": "同步错误",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "采集数据",
+        "id": "fldgieWLtA",
+        "name": "实际发布时间",
+        "select": "发布时间",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "Post ID",
+              "intersects",
+              {
+                "field": "采集记录",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "expression": "IF(ISBLANK([日历分组键]),0,IF([发布ID]=[发布记录].FILTER(CurrentValue.[日历分组键]=[日历分组键]).[发布ID].SORT().FIRST(),1,0))",
+        "id": "fldouiBieB",
+        "name": "日历显示",
+        "type": "formula"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "账号台账",
+        "id": "fldvt5BD5t",
+        "name": "账号名",
+        "select": "账号名",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "账号ID",
+              "intersects",
+              {
+                "field": "账号",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "id": "fldlardn0H",
+        "name": "发布ID",
+        "style": {
+          "rules": [
+            {
+              "text": "SR-",
+              "type": "text"
+            },
+            {
+              "length": 6,
+              "type": "incremental_number"
+            }
+          ]
+        },
+        "type": "auto_number"
+      },
+      {
+        "default_value": null,
+        "id": "fldrt4GEUN",
+        "name": "备注",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "bidirectional": false,
+        "id": "fldlbHxTnY",
+        "link_table": "tblHeWrgRPNshRdE",
+        "name": "账号",
+        "type": "link"
+      },
+      {
+        "expression": "TEXT([实际发布时间],\"YYYY-MM-DD\")",
+        "id": "fld02OZuT7",
+        "name": "发布日",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldtq0AsRy",
+        "name": "候选视频",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld1PRAbET",
+        "name": "日期",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "选剧池",
+        "id": "fldiKD2Lxo",
+        "name": "剧分类",
+        "select": "剧分类",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "剧ID",
+              "intersects",
+              {
+                "field": "剧",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fld6wukdPo",
+        "id": "fldT24Arvp",
+        "link_table": "tbl4efRfwhJRqryA",
+        "name": "剧",
+        "type": "link"
+      },
+      {
+        "expression": "IF(ISBLANK([日历分组键]),\"\",[账号].ARRAYJOIN()\u0026\"｜\"\u0026[剧名].ARRAYJOIN()\u0026\"｜\"\u0026[发布记录].FILTER(CurrentValue.[日历分组键]=[日历分组键]).[发布ID].COUNTA()\u0026\"条｜\"\u0026[发布记录].FILTER(CurrentValue.[日历分组键]=[日历分组键]).[发布状态].UNIQUE().ARRAYJOIN(\"/\"))",
+        "id": "fldkkWHnGC",
+        "name": "发剧卡片",
+        "type": "formula"
+      }
+    ],
+    "total": 44
+  }
+}
