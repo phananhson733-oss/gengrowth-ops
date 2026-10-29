@@ -87,16 +87,40 @@ ReelShort 有一批 AI 动画剧是早期真人剧的重制，剧情基本一致
 
 **H2 措辞也要每篇重写**，不能有跨篇复用的固定句式（比如 "10 of 63 Episodes Are Free"、"If You Want Another X" 都算模板）。
 
+**2026-10-21 补充（对比自动化稿件后发现的新模板）：**
+
+1. **结尾不能每篇都是同一组板块。** 10/20–10/21 上线的 10 篇自动化稿件，结尾全部是"免费集停在哪"（Where the Free Episodes Leave You / Nine Episodes In…）+"再看三部"（Three More… / Queue These Next）+"FAQ: X, Y, and the Free Run"。这三个固定收尾和 9 月被打回的旧模板是同一个问题。
+   - "免费集停在哪"不必单开 H2，可以写进讲最后一个关键场景的段落里，或放进"去哪看"段。
+   - 同类剧推荐优先嵌进正文（见 4.1 第 6 条），不要每篇都用一个"再推荐三部"的 H2 收尾。
+   - FAQ 的 H2 就写 `FAQ`，不加副标题。
+2. **H2 数量 8–12 个。** 自动化稿件有 10–16 个 H2，很多小节只有一两段，读起来很碎。一个 H2 下面少于 2 段，就并进相邻小节。
+
 ### 3.3 固定元素
 
 | 元素 | 要求 |
 |---|---|
-| H1 标题 | 剧名 + 一句具体的钩子（例：`Never Regret Leaving My Scum Family: Quinn's Second Life, the Coopers, and the Family That Finally Wanted Her`） |
+| H1 标题 | 剧名 + 一句具体的钩子。**不能每篇都用"A, B, and C"三连列举句式**，见下方 3.3.1 |
 | Meta description | 一段，约 150 字符，写清楚剧情钩子和文章能给读者什么 |
 | 表格 | **全文只用一个**表格（放哪里不固定，可以是剧集信息，也可以是两个家庭 / 两个角色的对比） |
 | 列表 | 其他可枚举的内容用 `1. 2. 3.` 编号列表 |
 | FAQ | 约 5 条，只放读者真会问的核心问题。问题用疑问句，答案简短 |
 | 同类剧推荐 | 2–4 部，每部一段，说清楚"为什么看完这部会喜欢那部" + 集数 / 免费集数。优先分散嵌进正文相关段落，不要全堆在结尾 |
+
+#### 3.3.1 H1 句式要轮换（2026-10-21 新增）
+
+10/15–10/20 我们手写的 5 篇英文稿，加上 10/20–10/21 的 10 篇自动化稿件，H1 冒号后面**全部**是三连列举（例：`No More Backing Down: The Rest Stop, the Front Seat, and the Girlfriend Who Finally Stopped Waiting`）。本文档旧版给的 H1 示例本身也是这个句式，自动化程序很可能就是照着学的。列表页上 15 个标题一个模子，搜索引擎和读者都会看出是批量生产。
+
+规则：**任意连续 5 篇里，三连列举句式最多用 1 次。** 可以轮换的句式：
+
+| 句式 | 示例 |
+|---|---|
+| 一句完整的剧情钩子 | `Taming My Bullies: The Transfer Student Who Hit Back on Day One` |
+| 读者会搜的问题 | `Who Is the Mixologist T in Gamble of Love?` |
+| 角色关系 / 反差 | `Where My Love Went Wrong: The Wife Her Own Son Was Ashamed Of` |
+| 一句台词 | `"Let's Get a Divorce": Where My Love Went Wrong, Episode by Episode` |
+| 观看指南直述 | `How to Watch Gamble of Love Free, and Where the Free Episodes End` |
+
+写之前先看站上最近 5 篇的 H1，避开最近用过的句式。
 
 ### 3.4 只交付干净版
 
@@ -115,6 +139,15 @@ ReelShort 有一批 AI 动画剧是早期真人剧的重制，剧情基本一致
 5. 正文文字链接合计约 6–10 条，不堆
 6. **链接要均匀分散到各个 H2**，不能集中在文末推荐区和"去哪看"段。目标是大多数 H2 各有 0–1 条，没有哪一节超过 2 条。同类剧推荐可以直接嵌进相关情节段落（"如果这种慢慢积累的心碎打动你，X 剧……"），不必单开结尾推荐区
 7. 锚文本用描述性短语，不用 "here" / "click here"
+8. **锚文本的硬性要求（2026-10-21 新增，自动化稿件里都出现过）：**
+   - 不能为空。图片或按钮上的链接也算，正文里不要留空锚文本的链接。
+   - 不能是原始 slug，例如 `enemies-to-lovers`，要写成 `Enemies to Lovers collection` 或 `enemies-to-lovers dramas`。
+   - 不能是泛泛的按钮话术，例如 "Open episode page"、"read more"、"this page"。
+   - 不能只是数字或集数，例如 "51 episodes"、"it runs to 60 episodes"。锚文本应该是剧名、合集名，或说明目标页内容的短语（"start from episode 1"、"the Love Triangle collection"）。
+9. **链接分布的量化标准（2026-10-21 新增）：** 自动化稿件的链接只分布在 3–5 个小节，最后 3 个小节占了 50–85%。以后要求：
+   - 去掉 FAQ 后，至少一半的 H2 小节里有链接；
+   - 最后 3 个小节（不含 FAQ）里的链接，不超过全文链接总数的 50%。首页品牌链接按规定放在"去哪看"段，不计入。
+   - 校准依据：10/16 以后我们手写的 5 篇按这个算法是 33–44%；10/16 之前写的 Never Regret 是 83%；自动化稿件是 50–85%。
 
 **常用内链目标：**
 
@@ -151,12 +184,13 @@ ReelShort 有一批 AI 动画剧是早期真人剧的重制，剧情基本一致
 
 1. **用场景开头，不用概括开头。** 第一段就把读者扔进剧里最抓人的那一刻（一句台词、一个动作、一个画面），而不是"This is a drama about..."
 2. **写细节，不写结论。** 不说"Chloe is manipulative"，写她怎么假装受伤、眼泪什么时候掉下来。让读者自己得出结论
-3. **有自己的反应和态度。** 可以吐槽、可以替主角憋屈、可以说"这一幕是我最想快进又舍不得快进的"。像真人追剧会有的情绪，不是中立的百科腔
+3. **有自己的反应和态度。** 可以吐槽、可以替主角憋屈，用 you 带读者一起反应（"you'll want to scream at her to get out of the car"）。像真人追剧会有的情绪，不是中立的百科腔
 4. **句子长短交错。** 一串长句铺完情节后，用一个很短的句子收住（"Then she wakes up and gets to do it all again."）。节奏本身就是情绪
 5. **直接对读者说话。** 适当用 you（"If you've ever wanted to see a family realize too late what they threw away..."），但不要每段都用
 6. **允许一点幽默。** 狗血剧本身就有好笑的地方（反派的离谱操作、过于完美的霸总），可以轻轻调侃，但不嘲笑观众的喜好
 7. **"为什么好看"也要讲故事。** 分析类段落用具体场景支撑，每个观点都落到一个画面上，不要写成 First / Second / Third 的论点清单
 8. **自查方法：** 读一遍，如果某段换成任何一部同类剧都成立，说明写得太空，要换成这部剧独有的细节
+9. **不用第一人称"I"（2026-10-21 新增）。** 自动化稿件里大量出现 "Episode 6 is my favorite"、"where I stopped being able to watch casually"，最多一篇 13 次。这等于虚构了一个"我亲自看过"的观众身份，一旦某个细节写错，可信度比第三人称叙述受损更严重；而且和站上其他文章的口吻不一致。情绪和态度用 you 和叙事本身来传达。台词引语里的 I 不算（加引号的人物对白可以照原样引）
 
 生动不等于编造。所有场景、台词、细节仍然要有出处（见 4.7）。
 
@@ -246,14 +280,17 @@ ReelShort 有一批 AI 动画剧是早期真人剧的重制，剧情基本一致
 4. 不要逐集编号拆解免费集，围绕 1–2 个关键场景写。
 5. FAQ 约 5 条，只放读者真会问的问题。
 6. 推荐 2–4 部同类剧，每部单独一段，说明它和本剧的相似点，附集数和免费集数。优先嵌进正文相关段落，不要全堆在结尾。
+7. H1 冒号后面不要用 "A, B, and C" 三连列举句式。改用一句完整的剧情钩子、读者会搜的问题、角色反差、一句台词或观看指南直述中的一种。我会在 user 消息里给出最近 5 篇的 H1，避开它们用过的句式。
+8. H2 共 8–12 个；一个 H2 下少于 2 段就并入相邻小节。
+9. 不要用"免费集停在哪""再推荐三部"作为固定收尾小节。FAQ 的 H2 只写 "FAQ"。
 
 【链接】
 1. 前三段之内必须有一条站内链接（本剧详情页；本剧未上线则链同类剧或合集页）。
 2. 正文中必须有一条锚文本为 "ShortsBinge"、指向 https://shortsbinge.com/ 的链接，一般放在"去哪看"段落。
 3. 每个自然段最多一条链接；同一个 URL 全文只出现一次。
-4. 链接均匀分散到各个 H2，不要集中在文末推荐区或"去哪看"段；任何一个 H2 下不超过 2 条。同类剧推荐可以嵌进相关情节段落，顺带写集数和免费集数。
+4. 链接均匀分散到各个 H2，不要集中在文末推荐区或"去哪看"段；任何一个 H2 下不超过 2 条；不含 FAQ 时，至少一半的 H2 里有链接，最后 3 个 H2 的链接不超过总数的 50%（首页品牌链接不计）。同类剧推荐可以嵌进相关情节段落，顺带写集数和免费集数。
 5. 站外链接写成 [锚文本](URL "nofollow")，不要写 HTML。站内链接不加 nofollow。
-6. 锚文本用描述性短语，不用 here / click here。
+6. 锚文本用描述性短语（剧名、合集名或说明目标页内容的短语）。不能为空，不能是原始 slug（如 enemies-to-lovers），不能是 "Open episode page"、"read more"、here、click here 这类话术，也不能只是数字（如 "51 episodes"）。
 
 【文风】
 1. 像一个刚追完这部剧、忍不住想安利给朋友的真人在写：生动、有趣、有画面、有情绪、有态度。绝不能写成平铺直叙的论证文或剧情说明书。
@@ -268,6 +305,7 @@ ReelShort 有一批 AI 动画剧是早期真人剧的重制，剧情基本一致
 3. 破折号全文不超过 3 个；不用三连排比；"That's" 开头的句子不超过 2 次；"not X, but Y" 句式不超过 2 次。
 4. 不提醒读者"看完免费集会跳转到某个 App"；平台只在"去哪看"里一句带过。
 5. 不出现盗版、免费金币、mod apk 等内容。
+6. 不用第一人称 I / my / me 叙述（例如 "my favorite episode"、"I couldn't stop watching"）。人物对白放在引号里的可以照原样引。
 
 【输出】
 只输出可直接发布的稿子：H1 标题、Meta description（约 150 字符）、分隔线、正文、FAQ。不要输出任何说明、备注或待办。
@@ -293,6 +331,23 @@ plain = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', body)
 cjk = len(re.findall(r'[\u3040-\u30ff\u4e00-\u9fff]', plain))  # 中日文按字符计
 words = len(plain.split())
 
+h1 = next((l[2:] for l in s.splitlines() if l.startswith('# ')), '')
+def h1_is_list(t):
+    tail = t.split(':', 1)[1] if ':' in t else ''
+    return tail.count(',') >= 1 and re.search(r'\band the\b|,\s*and\b|\band [A-Z]', tail) is not None
+parts = re.split(r'\n(?=## )', body)
+h2s = [p.split('\n', 1)[0][3:].strip() for p in parts if p.startswith('## ')]
+# 每个 H2 小节（不含 FAQ）的链接数
+secs = [len(re.findall(r'\]\(', p)) for p in parts if p.startswith('## ') and not p.startswith('## FAQ')]
+home = len(re.findall(r'\[ShortsBinge\]\(https://shortsbinge\.com/([a-zA-Z-]+/)?\)', body))
+anchors = re.findall(r'\[([^\]]*)\]\(', body)
+bad_anchors = [a for a in anchors if not a.strip()
+               or re.fullmatch(r'[a-z0-9]+(-[a-z0-9]+)+', a.strip())
+               or re.search(r'(?i)^(here|click here|read more|this page|open episode page)$', a.strip())
+               or re.fullmatch(r'(?i)(it runs to )?\d+ episodes?', a.strip())]
+no_quotes = re.sub(r'"[^"\n]*"|“[^”\n]*”', '', plain)
+first_person = re.findall(r"\b(I|I'm|I've|I'd|I'll)\b", no_quotes)
+
 checks = {
     '词数 ≥1500（中日文稿不判）': cjk > 500 or words >= 1500,
     '开头三段有内链': any('shortsbinge.com' in p for p in paras[:3]),
@@ -306,15 +361,26 @@ checks = {
     "That's ≤2": len(re.findall(r"\bThat's", body)) <= 2,
     '没提 official/according to': not re.search(r'(?i)\bofficial (synopsis|description)|according to', body),
     '无 HTML 标签': not re.search(r'<a |<div|<span', body),
+    'H1 不是三连列举': not h1_is_list(h1),
+    'H2 共 8–12 个': 8 <= len(h2s) <= 12,
+    '没有固定收尾小节': not any(re.search(r'(?i)free (run|episodes?) (leave|end|stop)|episodes? in,|queue these|three more|more .* worth|^faq\s*:', h) for h in h2s),
+    '锚文本合格': not bad_anchors,
+    '链接分布到 ≥一半的 H2': len(secs) == 0 or sum(1 for c in secs if c) * 2 >= len(secs),
+    '最后 3 个 H2 链接 ≤50%（不计首页链接）': len(urls) <= home or sum(secs[-3:]) - home <= 0.5 * (len(urls) - home),
+    '第一人称 I ≤2（不含引号内对白）': len(first_person) <= 2,
 }
-print('英文词数', words, '| 中日文字符', cjk, '| 链接', len(urls))
+print('英文词数', words, '| 中日文字符', cjk, '| 链接', len(urls), '| H2', len(h2s))
+if bad_anchors: print('  不合格锚文本：', bad_anchors)
 for k, v in checks.items():
     print('✅' if v else '❌', k)
 ```
 
 用法：`python3 check.py 稿件.md`
 
-说明：1,500 词门槛只针对英文等拼音文字稿。中日文稿的字数门槛还没定，脚本只报字符数，不判达标与否。
+说明：
+- 1,500 词门槛只针对英文等拼音文字稿。
+- "H1 不是三连列举"只看单篇。规则本身是"连续 5 篇最多 1 篇"，偶尔用一次可以人工放行，但不能连续出现。
+- 中日文稿的字数门槛还没定，脚本只报字符数，不判达标与否。
 
 ---
 

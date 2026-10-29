@@ -66,6 +66,7 @@ Text: centered in the lower part of the image, over the dark gradient, with clea
 7. **文字生成失败时的兜底**：遇到下面两种情况，就去掉提示词里的 Text 段，出一张无字的图，再到设计工具里加字：
    - 特殊字母（如罗马尼亚语的 Ș）反复写错。
    - GPT 因为片名里的敏感词拒绝生成。
+8. **校园题材的人物一律写成成年人**：提示词里明确写 "young adults in their early twenties"，不写 school uniform、plaid skirt、students，也不画肢体冲突、湿身、按倒等动作，用"对峙"代替"打斗"。2026-10-19 Taming My Bullies 初版因为"校服学生 + 按倒 + 湿透"被 GPT 判违规。
 
 ---
 
@@ -728,14 +729,17 @@ Text: centered in the lower part of the image, over the dark gradient, with clea
 
 - **大标题**：TAMING MY BULLIES
 - **小字**：SHE DOESN'T BACK DOWN.
-- **构图思路**：画正文开头那一幕：私立学校教室地板上，浑身湿透的金发女主（白衬衫、黄色大领结、深蓝裤子）把一个深色卷发、领带松开的富家少年按倒在地，她居高临下、眼神倔强；周围穿制服的学生举着手机、目瞪口呆。人物用泛化形象，不画真实演员的脸。
+- **构图思路**（2026-10-19 修订版）：初版"浑身湿透的女生把男生按倒在地 + 校服 + 学生围观"被 GPT 判违规，大概率是三个因素叠加：看起来像未成年的校服学生、肢体冲突、湿身。修订版改成：
+  - 人物明确写成大学年纪的成年人（young adults in their early twenties），服装改成精英学院的西装外套，不写短裙、不写"湿透"；
+  - 冲突改成"对峙"而不是"打斗"：宏伟的学院走廊里，金发女主腋下夹着击剑面罩（点题她是击剑冠军），抬着下巴直视前方；对面四个衣着考究的富家子弟站成一排，领头的深色卷发男生双手插兜、带着傲慢的笑；
+  - 不写手机、围观、按倒等词。
 
 ```
-A wide landscape (3:2) cinematic digital painting in the style of a streaming drama's key art: photorealistic but painterly, with moody late-afternoon lighting in deep blue and violet tones and a few warm accent lights from classroom windows. On the floor of an elite private-school classroom, a soaking-wet young blonde woman in a white school shirt with a large yellow satin bow pins down an arrogant, handsome young man with dark curly hair and a loosened striped tie. She looks down at him with fierce, unbreakable defiance while he stares up in shock. Around them, students in navy blazers and plaid skirts gasp and hold up their phones. Use a shallow depth of field and soft rim light on the two leads.
+A wide landscape (3:2) cinematic digital painting in the style of a streaming drama's key art: photorealistic but painterly, with moody late-afternoon lighting in deep blue and violet tones and warm golden light falling through tall arched windows. In the grand marble hallway of an elite private academy, a confident young woman in her early twenties with blonde hair stands on the left, wearing a tailored navy academy blazer over a white shirt with a yellow bow, holding a white fencing mask under one arm. Her chin is raised and her gaze is steady and unafraid. Facing her on the right, a few steps away, four well-dressed young men in their early twenties stand in a loose line in designer blazers. Their leader, a handsome young man with dark curly hair and a loosened tie, stands slightly in front with his hands in his pockets and an arrogant half-smile. The mood is a tense, dramatic standoff with no physical contact. Use a shallow depth of field and soft rim light on the woman and the leader.
 
-Composition: the top 15% of the image contains only the classroom ceiling and tall arched windows, with no heads or important objects, because it will be cropped off. Place the two leads and the onlookers in the middle band of the frame. The bottom third fades into a dark gradient.
+Composition: the top 15% of the image contains only the vaulted ceiling and the tops of the arched windows, with no heads or important objects, because it will be cropped off. Place all figures in the middle band of the frame. The bottom third fades into a dark gradient.
 
-Text: centered in the lower part of the image, over the dark gradient, with clear space below it so it does not touch the bottom edge. The main title reads "TAMING MY BULLIES" in large, bold, white, all-caps geometric sans-serif letters, spelled exactly as written. Directly beneath it, a smaller line reads "SHE DOESN'T BACK DOWN." in the same font at about one third of the size, in warm gold. The text is crisp, evenly spaced and easy to read. Apart from this text, there are no other letters, numbers, logos, app icons or watermarks anywhere in the image, including on phone screens.
+Text: centered in the lower part of the image, over the dark gradient, with clear space below it so it does not touch the bottom edge. The main title reads "TAMING MY BULLIES" in large, bold, white, all-caps geometric sans-serif letters, spelled exactly as written. Directly beneath it, a smaller line reads "SHE DOESN'T BACK DOWN." in the same font at about one third of the size, in warm gold. The text is crisp, evenly spaced and easy to read. Apart from this text, there are no other letters, numbers, logos, crests or watermarks anywhere in the image.
 ```
 
 ---
@@ -752,4 +756,36 @@ A wide landscape (3:2) cinematic digital painting in the style of a streaming dr
 Composition: the top 15% of the image contains only the dark ceiling and chandelier glow, with no heads or important objects, because it will be cropped off. Place all figures in the middle band of the frame. The bottom third fades into a dark gradient.
 
 Text: centered in the lower part of the image, over the dark gradient, with clear space below it so it does not touch the bottom edge. The main title reads "WHERE MY LOVE WENT WRONG" in large, bold, white, all-caps geometric sans-serif letters, spelled exactly as written, on two lines. Directly beneath it, a smaller line reads "SHE WALKED OUT. HE WAS TOO LATE." in the same font at about one third of the size, in warm gold. The text is crisp, evenly spaced and easy to read. Apart from this text, there are no other letters, numbers, logos, app icons or watermarks anywhere in the image, including on the document.
+```
+
+---
+
+### 2026-10-20 · Gamble of Love: Tammy Sullivan, the Brother Who Sold Her and the Husband Who Can't Taste a Thing（计划外加写）
+
+- **大标题**：GAMBLE OF LOVE
+- **小字**：SHE CAN'T SPEAK. SHE CAN MIX.
+- **构图思路**：避开剧中下药、绑架、床戏等开场内容（按规则 8 不画冲突和亲密场景），画"调酒师 T"这个反转：昏暗的高级酒吧，吧台后面是一位二十出头的东亚女性（长发、粉色发带蝴蝶结、浅粉开衫），低头专注地把酒倒进一只插着粉色玫瑰的高脚杯，神情安静自信；吧台另一端，一位穿驼色西装的年轻男人端着酒杯，疑惑地看向她。暖红色吊灯和背景酒架的金色反光。
+
+```
+A wide landscape (3:2) cinematic digital painting in the style of a streaming drama's key art: photorealistic but painterly, with moody night lighting in deep blue and violet tones and warm red and gold accent lights from vintage pendant lamps. Behind the polished bar of an elegant speakeasy lined with glowing bottles, a graceful East Asian woman in her early twenties with long dark hair and a soft pink bow, wearing a light pink cardigan, calmly pours a pale golden cocktail into a stemmed glass decorated with a small pink rose. Her expression is quiet, focused and confident. At the far end of the bar, a handsome East Asian man in his late twenties in a camel double-breasted suit holds a glass and looks toward her with curious, puzzled eyes. Use a shallow depth of field, with the cocktail and her hands in sharp focus.
+
+Composition: the top 15% of the image contains only the dark ceiling and the glow of the pendant lamps, with no heads or important objects, because it will be cropped off. Place both figures and the bar in the middle band of the frame. The bottom third fades into a dark gradient.
+
+Text: centered in the lower part of the image, over the dark gradient, with clear space below it so it does not touch the bottom edge. The main title reads "GAMBLE OF LOVE" in large, bold, white, all-caps geometric sans-serif letters, spelled exactly as written. Directly beneath it, a smaller line reads "SHE CAN'T SPEAK. SHE CAN MIX." in the same font at about one third of the size, in warm gold. The text is crisp, evenly spaced and easy to read. Apart from this text, there are no other letters, numbers, logos, bottle labels or watermarks anywhere in the image.
+```
+
+---
+
+### 2026-10-23 · Female Draco Malfoy Took Over the Internet. One Short Drama Was Already Doing It（热点稿，计划外加写）
+
+- **大标题**：THE RIVAL, BUT MAKE HER A GIRL
+- **小字**：SHORT DRAMAS FOR THE FEMALE DRACO ERA
+- **构图思路**：⚠️ 哈利·波特是版权 IP，封面**不能出现**马尔福、霍格沃茨、斯莱特林院徽、绿银配色的院服、魔杖、"Draco/Malfoy/Harry Potter" 等字样。只画"同款气质"：二十出头的金发女生，穿一件深色西装外套配松开的领带（不带任何徽章），双臂抱胸、下巴微抬、嘴角挂着傲慢的笑，站在一座泛用的古典石砌走廊里；背景虚化处有一个穿橄榄球外套的年轻男人回头看她（呼应 Married to My Alpha Rival）。人物写明成年人，无肢体接触（规则 8）。
+
+```
+A wide landscape (3:2) cinematic digital painting in the style of a streaming drama's key art: photorealistic but painterly, with moody dusk lighting in deep blue and violet tones and a few warm accent lights from tall arched windows. In a generic old stone corridor with Gothic arches, a confident young woman in her early twenties with sleek platinum-blonde hair stands in the foreground, wearing a tailored dark blazer over a white shirt with a loosened dark tie, with no badges, crests or emblems anywhere. Her arms are crossed, her chin is raised, and she wears a smug, teasing half-smile, as if she has just won an argument. In the soft-focus background, a young man in his early twenties wearing a varsity football jacket glances back at her, caught off guard. There is no physical contact. Use a shallow depth of field and soft rim light on her hair.
+
+Composition: the top 15% of the image contains only the vaulted stone ceiling, with no heads or important objects, because it will be cropped off. Place both figures in the middle band of the frame. The bottom third fades into a dark gradient.
+
+Text: centered in the lower part of the image, over the dark gradient, with clear space below it so it does not touch the bottom edge. The main title reads "THE RIVAL, BUT MAKE HER A GIRL" in large, bold, white, all-caps geometric sans-serif letters, spelled exactly as written, on two lines. Directly beneath it, a smaller line reads "SHORT DRAMAS FOR THE FEMALE DRACO ERA" in the same font at about one third of the size, in warm gold. The text is crisp, evenly spaced and easy to read. Apart from this text, there are no other letters, numbers, logos, crests, house colors or watermarks anywhere in the image.
 ```
