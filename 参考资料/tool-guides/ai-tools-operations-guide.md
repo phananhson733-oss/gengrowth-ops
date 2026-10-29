@@ -1,6 +1,8 @@
 # AI 终端工具使用指南
 
 > 写给不写代码的创始人。三款工具：Claude Code、Codex、Gemini CLI。打开终端，照着做就行。
+>
+> 最后核对：2026-10-09（Claude Code 2.1.295 / Codex CLI 0.145.0 / Gemini CLI 0.52.0 / gstack 1.6.1.0）
 
 ---
 
@@ -53,9 +55,13 @@ brew install --cask codex       # 方式二：Homebrew
 | 操作 | 命令 | 说明 |
 |------|------|------|
 | 启动 | `codex` | 进入交互界面 |
-| 继续上次 | `codex resume --last` | 恢复上次会话 |
+| 继续上次 | `codex resume --last` | 恢复上次会话（不带 `--last` 会弹出会话列表） |
 | 带提示词启动 | `codex "帮我看看这段代码"` | 直接带问题启动 |
-| 自动执行模式 | `codex --full-auto "修复所有 lint 错误"` | 无需确认，自动执行 |
+| 自动执行模式 | `codex -s workspace-write -a on-request "修复所有 lint 错误"` | 可直接改当前项目文件，必要时才问你 |
+| 非交互模式 | `codex exec "总结这个项目的结构"` | 跑完直接输出结果 |
+| 联网搜索 | `codex --search` | 开启实时网页搜索 |
+
+> 旧版的 `--full-auto` 参数已经移除，用上面的 `-s workspace-write -a on-request` 代替。
 
 **认证：** 首次运行选 "Sign in with ChatGPT"，需要 ChatGPT Plus/Pro/Business 账号；或输入 OpenAI API Key。
 
@@ -78,7 +84,8 @@ brew install gemini-cli          # 方式三：Homebrew
 | 继续上次 | `gemini --resume latest` | 恢复上次会话 |
 | 非交互模式 | `gemini -p "解释这个项目的架构"` | 直接输出结果 |
 | 只读分析 | `gemini --approval-mode plan` | 只分析不改文件 |
-| 指定模型 | `gemini -m gemini-2.5-flash` | 用更快的模型 |
+| 指定模型 | `gemini -m <模型名>` | 切换到指定模型 |
+| 自动执行 | `gemini -y` | 自动批准所有操作（YOLO 模式），等同 `--approval-mode yolo` |
 
 **认证：** 首次运行选 "Sign in with Google"，用 Google 账号登录（免费额度较多）；或输入 Google AI API Key。
 
@@ -115,11 +122,24 @@ gemini    # Gemini CLI
 | `/status` | 查看当前模型和权限 |
 | `/help` | 帮助 |
 
+**Claude Code 键盘快捷键：**
+
+| 按键 | 说明 |
+|------|------|
+| `Esc` | 打断 Claude 当前的动作 |
+| `Esc` `Esc` | 回到历史消息，从那里重新编辑 |
+| `Shift+Tab` | 切换权限模式（普通 / 自动接受编辑 / Plan 模式） |
+| `\` + `Enter` | 输入框内换行（Mac 终端也可用 `Option+Enter`） |
+| `Ctrl+V` | 粘贴剪贴板里的图片 |
+| `Ctrl+C` | 取消输入；连按两次退出 |
+
+> 完整列表见官方文档：https://code.claude.com/docs/en/interactive-mode ；自定义键位在 `~/.claude/keybindings.json`。
+
 ### Codex
 
 | 命令 | 说明 |
 |------|------|
-| `/model` | 切换模型（GPT-5.4、GPT-5.3-Codex 等） |
+| `/model` | 切换模型（当前可选 gpt-5.6-sol / gpt-5.6-terra / gpt-5.6-luna / gpt-5.5 等，默认 gpt-5.6-sol） |
 | `Ctrl+C` | 退出 |
 
 ### Gemini CLI
@@ -135,7 +155,9 @@ gemini    # Gemini CLI
 
 ## 四、gstack 技能一览
 
-> gstack 技能同时支持 **Claude Code** 和 **Codex**。Claude Code 42 个，Codex 40 个（两者共享 40 个核心技能）。Gemini CLI 暂不支持。
+> gstack 技能同时支持 **Claude Code** 和 **Codex**。Claude Code 42 个，Codex 40 个（两者共享 40 个核心技能；`/codex` 和 `/connect-chrome` 只在 Claude Code 里有）。Gemini CLI 暂不支持。
+>
+> 另外 Claude Code 还装了 29 个飞书技能（`lark-*`），可以直接让它查日历、发消息、读写飞书文档和多维表格。
 >
 > 调用方式：在对话中输入 `/技能名`，或直接描述你想做的事，工具会自动匹配。
 
@@ -189,6 +211,7 @@ gengrowth 是面向中小企业主的AI增长工具，竞品有 HubSpot、Jasper
 | 调用命令 | 做什么 | 什么时候用 |
 |------|------|------|
 | `/browse` | 打开任意网站、截图、点击、对比多个页面 | 看竞品、验证页面效果 |
+| `/open-gstack-browser` | 打开一个看得见的浏览器窗口，实时看 AI 操作 | 想盯着它操作网页时 |
 
 ```
 /browse
@@ -251,6 +274,9 @@ gengrowth 是面向中小企业主的AI增长工具，竞品有 HubSpot、Jasper
 | `/setup-deploy` | 配置 /land-and-deploy 的部署参数 |
 | `/setup-browser-cookies` | 把真实浏览器的 Cookie 导入 browse 无头会话 |
 | `/gstack-upgrade` | 升级 gstack 到最新版本 |
+| `/codex` | 让 Codex 给方案或代码做第二意见评审（仅 Claude Code） |
+| `/pair-agent` | 把浏览器共享给另一个 AI 智能体使用 |
+| `/plan-tune` | 调整 plan review 系列技能的提问偏好 |
 
 ---
 
@@ -311,15 +337,19 @@ codex --full-auto "修复所有 TypeScript 类型错误"
 
 | 调用命令 | 做什么 | 什么时候用 |
 |------|------|------|
-| `/production-survey` | 产品竞品分析专家。覆盖 11 种产品品类，自动搜索并生成投资级深度报告，保存到 `产品分析/` | "帮我调研 HubSpot 这个产品" |
-| `/company-survey` | 公司调研专家。McKinsey/BCG 框架，覆盖商业模式、竞争格局、财务估算，保存到 `公司分析/` | "帮我分析一下 HubSpot 这家公司" |
+| `/production-survey` | 产品竞品分析专家。覆盖 11 种产品品类，自动搜索并生成投资级深度报告，保存到 `参考资料/产品分析/` | "帮我调研 HubSpot 这个产品" |
+| `/company-survey` | 公司调研专家。McKinsey/BCG 框架，覆盖商业模式、竞争格局、财务估算，保存到 `参考资料/公司分析/` | "帮我分析一下 HubSpot 这家公司" |
 | `/web-clipper` | 网页剪藏。把任意 URL 转成带图片的本地 Obsidian Markdown，自动下载图片、更新 wiki link | "把这个链接内容存下来" / "剪藏" |
+| `/wechat-writing` | 多平台内容生产：公众号 + 创始人 X + LinkedIn，从选题到成稿，内置多模型评审 | "写一篇公众号" / "把这个想法写成内容" |
+| `/humanizer-zh` | 去掉文本里的 AI 腔，让文字更像人写的 | 稿子写完后润色 |
+| `/social-daily` | astrologywiki.com 社媒日更：追热点 → 提炼爆款钩子 → 批量出 10+ 条各平台内容 | "社媒日更" / "出 10 条内容" |
+| `/baoxiao` | 报销助手：拉发票、识别、查重、归档、同步飞书 | "处理本月报销" / "拉发票" |
 
 ### 竞品增长情报档案（结合 Ahrefs 报告使用）
 
 模板位置：`参考资料/产品分析/competitor-dossiers/TEMPLATE-competitor-growth-intelligence.md`
 
-已有档案示例：`okara-ai-cmo.md`、`blaze-ai.md`、`babylovegrowth.md` 等。
+已有档案示例：`okara-ai-cmo.md`、`blaze-ai.md`、`babylovegrowth.md`、`hirehelena.md`、`kana.md`。
 
 **目前没有专门处理 Ahrefs 报告的技能**，但可以直接用 Claude Code 完成：
 
@@ -344,12 +374,12 @@ codex --full-auto "修复所有 TypeScript 类型错误"
 ## 六、常见问题
 
 **Q: 三个工具哪个有免费额度？**
-- Gemini CLI：Google 账号登录有较多免费额度（Gemini 2.5 Pro 每天可用）
+- Gemini CLI：Google 账号登录有免费额度（具体额度以 Google 官方为准，可用 `/stats model` 查看）
 - Codex：需要 ChatGPT Plus/Pro 订阅（$20-200/月），或 OpenAI API Key
 - Claude Code：需要 Anthropic 订阅或 API Key
 
 **Q: Claude Code 和 Codex 的技能调用名一样吗？**
-是的，两者都用同一套 gstack 技能，调用名相同（如 `/office-hours`）。Claude Code 的技能装在 `~/.claude/skills/`，Codex 的装在 `~/.codex/skills/`。
+是的，两者都用同一套 gstack 技能，调用名相同（如 `/office-hours`）。Claude Code 的技能装在 `~/.claude/skills/`，Codex 的装在 `~/.codex/skills/`（Codex 那边的文件夹名带 `gstack-` 前缀，如 `gstack-office-hours`，但调用时不用带）。
 
 **Q: 技能没反应 / 找不到？**
 重启工具后再试。技能调用名是 SKILL.md 的 `name:` 字段（如 `/office-hours`），不含 `gstack-` 前缀。
