@@ -1,0 +1,172 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl2ZkOYGw7BVhaE",
+  "rev": 701,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 86,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/出单特征分析-收益.ndjson",
+  "record_file_size_bytes": 36743,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/出单特征分析-收益.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvUF6Mgz6uT"
+    },
+    "关联剧集": {
+      "field_id": "flddYUVYyW",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 85,
+        "max_length": 1,
+        "avg_length": 0.011627906976744186
+      },
+      "example": [
+        {
+          "id": "recvw7O6JTtlHZ"
+        }
+      ]
+    },
+    "出单剧名（仅统计出单）": {
+      "field_id": "fld5N4DnHA",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 7,
+        "max_length": 68
+      },
+      "example": "Private Tutoring"
+    },
+    "分成收益": {
+      "field_id": "fld3hjt2SD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "0"
+    },
+    "剧场": {
+      "field_id": "fld4JQ1bi3",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 1,
+        "max_length": 1,
+        "avg_length": 0.9883720930232558
+      },
+      "example": [
+        "ReelShort"
+      ]
+    },
+    "备注": {
+      "field_id": "fld6UydtAX",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 79,
+        "max_length": 160
+      },
+      "example": "2026-09-24核对：按RSBoost“我的推广”的推广时间、同日剧名去重统计，2026-09-22共2部；该口径不代表社媒实际发布次数。剧名：I'm a Witch, But I Just Want to Farm、The Sun God’s Bel",
+      "example_truncated": true
+    },
+    "币种": {
+      "field_id": "fld1pSQ474",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "USD"
+      ]
+    },
+    "数据粒度": {
+      "field_id": "fldQ76DB3e",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 86,
+        "max_length": 0,
+        "avg_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "日期": {
+      "field_id": "fld3uINgJi",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-07T00:00:00.000+08:00",
+        "max": "2026-10-11T00:00:00.000+08:00"
+      },
+      "example": "2026-09-21T00:00:00.000+08:00"
+    },
+    "订单数（单剧）": {
+      "field_id": "fld1qrrhk6",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 14,
+        "min": 0.69,
+        "max": 2,
+        "avg": 1.0373611111111112
+      },
+      "example": 2
+    },
+    "订单金额": {
+      "field_id": "fld3DXqOEu",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0.01,
+        "max": 27.27,
+        "avg": 5.16670588235294
+      },
+      "example": 4.2
+    },
+    "订单金额(USD)": {
+      "field_id": "fldR3azia6",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "4.2"
+    },
+    "负责人": {
+      "field_id": "fld1bV1uiR",
+      "field_type": "user",
+      "physical_type": "array<struct<id string, name string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "ou_3620f2826a2d122d87d9fbf3ab4dbc5d",
+          "name": "彭满"
+        }
+      ]
+    }
+  }
+}

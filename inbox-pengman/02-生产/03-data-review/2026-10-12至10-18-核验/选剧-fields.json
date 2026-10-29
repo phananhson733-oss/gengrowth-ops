@@ -1,0 +1,564 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "id": "fldojvZ99z",
+        "name": "剧ID",
+        "style": {
+          "rules": [
+            {
+              "text": "SD-",
+              "type": "text"
+            },
+            {
+              "length": 6,
+              "type": "incremental_number"
+            }
+          ]
+        },
+        "type": "auto_number"
+      },
+      {
+        "description": "按剧ID精确对应短剧播放数据汇总的是否出单；该源字段根据CPS账号数据明细 手动版中历史订单金额\u003e0且完整剧名匹配的记录自动计算，不限制订单日期。源表有已出单记录显示已出单，否则留空；空白表示当前暂无匹配出单记录，不断言从未出单。按剧ID联动，不以发布人或模糊标题判断。；已合并的旧播放汇总不参与当前出单剧计数。",
+        "expression": "IF(AND(NOT(ISBLANK([剧ID])),[短剧播放数据汇总].COUNTIF(AND(CurrentValue.[剧ID]=[剧ID],CurrentValue.[是否出单]=\"已出单\",CurrentValue.[统计状态]!=\"已合并\"))\u003e0),\"已出单\",\"\")",
+        "id": "fldjORFyLe",
+        "name": "是否出过单",
+        "type": "formula"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "账号台账",
+        "id": "fldpzJoSNY",
+        "name": "发布手机编号",
+        "select": "手机编号",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "账号ID",
+              "==",
+              {
+                "field": "发布账号",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldxO4BYta",
+        "multiple": false,
+        "name": "语言",
+        "options": [
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "英语"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "保加利亚语"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "韩语"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "西班牙语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "日语"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "越南语"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "俄语"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "繁中"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "葡萄牙语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "泰语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "印尼语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "德语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "法语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "波兰语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "土耳其语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "意大利语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "阿拉伯语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "罗马尼亚语"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "捷克语"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldSfF6nUD",
+        "name": "备注",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "id": "fld0i9ikmS",
+        "name": "创建人",
+        "type": "created_by"
+      },
+      {
+        "expression": "IF(ISBLANK([关联发布记录]),\"否\",\"是\")",
+        "id": "fldiV5YBt9",
+        "name": "是否已排期",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "选剧台稳定 catalog identity 完整JSON字符串 [source, source_id, language]，不是候选结果ID、序号或SD剧ID。仅经核验后填写。",
+        "id": "fldVtLpIUk",
+        "name": "选剧台剧集ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldRoa2CMk",
+        "name": "剧名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldpg5gcIT",
+        "multiple": true,
+        "name": "推荐人",
+        "options": [
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "彭满"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "高璇"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "马博洋"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "张凯风"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "李建卓"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "description": "经用户逐组批准的归并主SD编号；旧记录归档并保留原字段备份。",
+        "id": "fldf3EuNps",
+        "name": "归并主剧ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "id": "fldAWAaGGK",
+        "name": "创建时间",
+        "style": {
+          "format": "yyyy/MM/dd"
+        },
+        "type": "created_at"
+      },
+      {
+        "bidirectional": false,
+        "id": "fld1VKPxTS",
+        "link_table": "tblHeWrgRPNshRdE",
+        "name": "发布账号",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "description": "只有已确认且ID、平台、语言唯一一致的关系进入新反馈统计；旧候选保持原证据。",
+        "id": "fldA1FKpfr",
+        "multiple": false,
+        "name": "选剧台对应状态",
+        "options": [
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "未匹配"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "待确认"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "已确认"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "有冲突"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "id": "fldrIecgDr",
+        "name": "最后修改时间",
+        "style": {
+          "format": "yyyy/MM/dd"
+        },
+        "type": "updated_at"
+      },
+      {
+        "default_value": null,
+        "description": "对应飞书任务的链接，点击直达任务详情。",
+        "id": "fldm4Jy9hj",
+        "name": "关联飞书任务",
+        "style": {
+          "type": "url"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "flddQVzugP",
+        "name": "上线日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldNsqudW4",
+        "name": "推荐理由",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IF(ISBLANK([上线日期]),\"\",IFS(DATE(YEAR([上线日期]),MONTH([上线日期]),DAY([上线日期]))\u003eTODAY(),\"\",DAYS(TODAY(),DATE(YEAR([上线日期]),MONTH([上线日期]),DAY([上线日期])))\u003c=7,\"新剧\",DAYS(TODAY(),DATE(YEAR([上线日期]),MONTH([上线日期]),DAY([上线日期])))\u003c=30,\"在推\",TRUE(),\"老剧\"))",
+        "id": "fldFxcHYXx",
+        "name": "生命周期（自动）",
+        "type": "formula"
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldT24Arvp",
+        "id": "fld6wukdPo",
+        "link_table": "tbl5Kzrhuz9B7LTE",
+        "name": "关联发布记录",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fldGewuWCY",
+        "multiple": true,
+        "name": "剧分类",
+        "options": [
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "狼人"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "复仇"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "扮猪吃虎"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "爱情"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "霸总"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "萌宝"
+          },
+          {
+            "hue": "Lime",
+            "lightness": "Lighter",
+            "name": "吸血鬼"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "女王"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "lgbtq"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "逆袭"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "禁忌"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "身份揭露"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "奇幻"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "校园"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "救赎"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "职场"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "重生"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "家庭"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "末世"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "超能力"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "离婚"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "甜宠"
+          },
+          {
+            "hue": "Lime",
+            "lightness": "Lighter",
+            "name": "男性"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "豪门"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "虐恋"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "多角关系"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "萌宠"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldKxggOp7",
+        "multiple": false,
+        "name": "归档状态",
+        "options": [
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "active"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "archived"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldX3ee9TF",
+        "multiple": true,
+        "name": "平台",
+        "options": [
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "ReelShort"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "DramaBox"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "ShortMax"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "TopShort"
+          },
+          {
+            "hue": "Gray",
+            "lightness": "Lighter",
+            "name": "其他"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "MoboReels"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "FlickReels"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "NetShort"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "button_config": {
+          "title": "点击创建任务"
+        },
+        "id": "fldcUVPeSD",
+        "name": "建任务",
+        "type": "button"
+      }
+    ],
+    "total": 24
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.97",
+      "latest": "1.0.98",
+      "message": "lark-cli 1.0.98 available, current 1.0.97, run: lark-cli update"
+    }
+  }
+}

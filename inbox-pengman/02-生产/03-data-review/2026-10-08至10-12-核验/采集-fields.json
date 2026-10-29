@@ -1,0 +1,244 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "bidirectional": false,
+        "id": "fldEMgDB7J",
+        "link_table": "tblHeWrgRPNshRdE",
+        "name": "账号",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fld4FSHS5d",
+        "name": "Post ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldcKCPxDQ",
+        "name": "转发",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldUiYxzeL",
+        "name": "播放量",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldAC5AgTq",
+        "multiple": false,
+        "name": "业务",
+        "options": [
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "short-drama"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldw2WU09Y",
+        "name": "评论",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld2x1wmAU",
+        "name": "Caption",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld6u2Dm34",
+        "name": "收藏",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "bidirectional": true,
+        "bidirectional_link_field_id": "fldxkYfXbD",
+        "id": "fldpByLaej",
+        "link_table": "tbl5Kzrhuz9B7LTE",
+        "name": "关联发布记录",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fld1kS3U7I",
+        "name": "发布时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldAilNtLA",
+        "name": "采集时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "aggregate": "raw_value",
+        "from": "账号台账",
+        "id": "fldX7cznUR",
+        "name": "账号名",
+        "select": "账号名",
+        "type": "lookup",
+        "where": {
+          "conditions": [
+            [
+              "账号ID",
+              "intersects",
+              {
+                "field": "账号",
+                "type": "field_ref"
+              }
+            ]
+          ],
+          "logic": "and"
+        }
+      },
+      {
+        "default_value": null,
+        "id": "fldiCaInil",
+        "name": "来源 run_id",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldogmTzZj",
+        "name": "视频链接",
+        "style": {
+          "type": "url"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld8fbTe9H",
+        "name": "点赞",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldr1HFhUq",
+        "multiple": true,
+        "name": "缺失字段",
+        "options": [
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "views"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "likes"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "comments"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "favorites"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "shares"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldTzHxnrf",
+        "name": "快照日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fld4whxlvp",
+        "multiple": false,
+        "name": "采集状态",
+        "options": [
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "complete"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "partial"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "flddBQazLt",
+        "name": "Base 同步时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      }
+    ],
+    "total": 19
+  }
+}

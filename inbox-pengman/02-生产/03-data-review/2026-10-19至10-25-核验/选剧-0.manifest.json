@@ -1,0 +1,74 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl4efRfwhJRqryA",
+  "rev": 5847,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 606,
+  "page_count": 2,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/选剧-0.ndjson",
+  "record_file_size_bytes": 84882,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/选剧-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuxwd57tfNf"
+    },
+    "剧ID": {
+      "field_id": "fldojvZ99z",
+      "field_type": "auto_number",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "SD-000001"
+    },
+    "剧名": {
+      "field_id": "fldRoa2CMk",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 4,
+        "max_length": 151
+      },
+      "example": "Altarboy"
+    },
+    "平台": {
+      "field_id": "fldX3ee9TF",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 14,
+        "max_length": 2,
+        "avg_length": 0.9785478547854786
+      },
+      "example": [
+        "其他"
+      ]
+    },
+    "语言": {
+      "field_id": "fldxO4BYta",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 37,
+        "max_length": 1,
+        "avg_length": 0.9389438943894389
+      },
+      "example": [
+        "英语"
+      ]
+    }
+  }
+}

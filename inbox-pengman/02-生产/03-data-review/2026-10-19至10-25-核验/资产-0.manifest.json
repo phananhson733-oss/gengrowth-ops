@@ -1,0 +1,105 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "QhEkbG4cZaDZSAsKX5CciN3knwh",
+  "table_id": "tbl1LkOftGc2aHis",
+  "rev": 5010,
+  "timezone": "America/Los_Angeles",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 37,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/资产-0.ndjson",
+  "record_file_size_bytes": 9749,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-核验/资产-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "rec27YE2AloHUL"
+    },
+    "业务": {
+      "field_id": "fldW1ecBWU",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 1,
+        "max_length": 1,
+        "avg_length": 0.972972972972973
+      },
+      "example": [
+        "短剧"
+      ]
+    },
+    "关联设备": {
+      "field_id": "fldknC5amL",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 3,
+        "max_length": 1,
+        "avg_length": 0.918918918918919
+      },
+      "example": [
+        {
+          "id": "rec27YE2Aloz2r"
+        }
+      ]
+    },
+    "管理者（暂定）": {
+      "field_id": "fldV9olBpT",
+      "field_type": "user",
+      "physical_type": "array<struct<id string, name string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "ou_3620f2826a2d122d87d9fbf3ab4dbc5d",
+          "name": "彭满"
+        }
+      ]
+    },
+    "账号ID": {
+      "field_id": "fldDDvx9v7",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 39
+      },
+      "example": "jolienqaq"
+    },
+    "账号名称": {
+      "field_id": "fld3GNWASE",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 22,
+        "max_length": 19
+      },
+      "example": "emersyniris"
+    },
+    "账号状态": {
+      "field_id": "fld6gCeICM",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 1,
+        "max_length": 2,
+        "avg_length": 1.1891891891891893
+      },
+      "example": [
+        "暂停"
+      ]
+    }
+  }
+}

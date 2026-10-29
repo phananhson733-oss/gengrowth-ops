@@ -1,0 +1,44 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "IjRhb167IaTcJesS4aeciTWfnbc",
+  "table_id": "tbl88FfQ8nJGdKub",
+  "rev": 365,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 6,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/周会人员映射.ndjson",
+  "record_file_size_bytes": 504,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/周会人员映射.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recwDsHY2GizQl"
+    },
+    "人员": {
+      "field_id": "fldPhtzKMt",
+      "field_type": "user",
+      "physical_type": "array<struct<id string, name string>>",
+      "stats": {
+        "empty_count": 2,
+        "max_length": 1,
+        "avg_length": 0.6666666666666666
+      },
+      "example": [
+        {
+          "id": "ou_3620f2826a2d122d87d9fbf3ab4dbc5d",
+          "name": "彭满"
+        }
+      ]
+    }
+  }
+}

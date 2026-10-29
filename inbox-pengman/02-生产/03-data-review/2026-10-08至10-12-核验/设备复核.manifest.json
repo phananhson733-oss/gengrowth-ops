@@ -1,0 +1,86 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "QhEkbG4cZaDZSAsKX5CciN3knwh",
+  "table_id": "tbl7AIGIjE2eCD8T",
+  "rev": 304,
+  "timezone": "America/Los_Angeles",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 35,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/设备复核.ndjson",
+  "record_file_size_bytes": 5875,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/设备复核.manifest.json",
+  "columns": {
+    "Device ID": {
+      "field_id": "fld4qc70uO",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 8
+      },
+      "example": "Phone-01"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "rec27YE2Aloz2r"
+    },
+    "关联tiktok资产表": {
+      "field_id": "fld7EY89V6",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 4,
+        "max_length": 1,
+        "avg_length": 0.8857142857142857
+      },
+      "example": [
+        {
+          "id": "rec27YE2AloHUL"
+        }
+      ]
+    },
+    "备注": {
+      "field_id": "fld5xNDhCD",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 33,
+        "max_length": 80
+      },
+      "example": "替代Phone-03"
+    },
+    "当前TikTok": {
+      "field_id": "fldOzMNNOm",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 30,
+        "max_length": 5
+      },
+      "example": "TT-01"
+    },
+    "当前状态": {
+      "field_id": "fld5CTKePI",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "使用中"
+      ]
+    }
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblNTly7d7tV1jG5",
+  "rev": 1590,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 1574,
+  "page_count": 4,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/采集.ndjson",
+  "record_file_size_bytes": 1202643,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/采集.manifest.json",
+  "columns": {
+    "Caption": {
+      "field_id": "fld2x1wmAU",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 45,
+        "max_length": 498
+      },
+      "example": "#drama #dramaclip #fyp "
+    },
+    "Post ID": {
+      "field_id": "fld4FSHS5d",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "7657074482648993037"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuxAuj3qPPM"
+    },
+    "关联发布记录": {
+      "field_id": "fldpByLaej",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 123,
+        "max_length": 1,
+        "avg_length": 0.9218551461245235
+      },
+      "example": [
+        {
+          "id": "recvuxAxDEWLFj"
+        }
+      ]
+    },
+    "发布时间": {
+      "field_id": "fld1kS3U7I",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 43,
+        "min": "2026-07-13T23:30:00.000+08:00",
+        "max": "2026-10-10T15:51:38.000+08:00"
+      },
+      "example": "2026-07-13T23:30:00.000+08:00"
+    },
+    "播放量": {
+      "field_id": "fldUiYxzeL",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 382400,
+        "avg": 4803.268106734435
+      },
+      "example": 0
+    },
+    "收藏": {
+      "field_id": "fld6u2Dm34",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 1158,
+        "avg": 13.008900190718373
+      },
+      "example": 0
+    },
+    "点赞": {
+      "field_id": "fld8fbTe9H",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 4074,
+        "avg": 45.58486967577877
+      },
+      "example": 3
+    },
+    "视频链接": {
+      "field_id": "fldogmTzZj",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 142
+      },
+      "example": "[https://www.tiktok.com/@jolienqaq/video/7674889997429853470](https://www.tiktok.com/@jolienqaq/video/7674889997429853470)"
+    },
+    "评论": {
+      "field_id": "fldw2WU09Y",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 54,
+        "avg": 0.6058486967577876
+      },
+      "example": 0
+    },
+    "账号": {
+      "field_id": "fldEMgDB7J",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvuwZHjywqNU"
+        }
+      ]
+    },
+    "转发": {
+      "field_id": "fldcKCPxDQ",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 584,
+        "avg": 2.0584869675778767
+      },
+      "example": 1
+    },
+    "采集时间": {
+      "field_id": "fldAilNtLA",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 43,
+        "min": "2026-09-04T15:37:10.000+08:00",
+        "max": "2026-10-10T16:14:51.000+08:00"
+      },
+      "example": "2026-09-11T12:03:13.000+08:00"
+    },
+    "采集状态": {
+      "field_id": "fld4whxlvp",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "partial"
+      ]
+    }
+  }
+}

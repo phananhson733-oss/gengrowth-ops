@@ -1,0 +1,304 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": [
+          {
+            "$slot": "current_user"
+          }
+        ],
+        "id": "fld1bV1uiR",
+        "multiple": false,
+        "name": "负责人",
+        "type": "user"
+      },
+      {
+        "default_value": null,
+        "id": "fld5N4DnHA",
+        "name": "出单剧名（仅统计出单）",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld6UydtAX",
+        "name": "备注",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld1vJupmK",
+        "name": "广告收益",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4s3gZos",
+        "name": "当日发布剧名数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "SUBSTITUTE(LOWER(SUBSTITUTE([合作方],\" \",\"\"))\u0026\"|\"\u0026LOWER(SUBSTITUTE([剧场],\" \",\"\")),\"yourchanel\",\"yourchannel\")",
+        "id": "fldnD8ZvRi",
+        "name": "匹配键",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld1qrrhk6",
+        "name": "订单数（单剧）",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "IF(UPPER(TRIM([币种]\u0026\"\"))=\"CNY\",[订单金额]/6.7,[订单金额])",
+        "id": "fldR3azia6",
+        "name": "订单金额(USD)",
+        "type": "formula"
+      },
+      {
+        "expression": "IF(OR(ISBLANK([合作方]),ISBLANK([剧场])),\"缺合作方或剧场\",IF([分成比例配置].FILTER(CurrentValue.[匹配键]=[匹配键]).[匹配键].COUNTA()\u003e0,\"是\",\"否\"))",
+        "id": "fld3Nfxh5b",
+        "name": "配置已匹配",
+        "type": "formula"
+      },
+      {
+        "default_value": [
+          "USD"
+        ],
+        "id": "fld1pSQ474",
+        "multiple": false,
+        "name": "币种",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "USD"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "CNY"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "1"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "用户充值金额"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fld2Y2VnvA",
+        "multiple": false,
+        "name": "合作方",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "RSBoost"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "MoboBoost"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "鹊娱"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "七星剧浪"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fld3fh5s4V",
+        "name": "账号名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "[订单金额(USD)]*[适用分成比例]",
+        "id": "fld3hjt2SD",
+        "name": "分成收益",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "明确本行全部金额和订单的来源粒度；仅有真实单剧明细时选单剧。关联一部剧不代表整行金额都是单剧收入。",
+        "id": "fldQ76DB3e",
+        "multiple": false,
+        "name": "数据粒度",
+        "options": [
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "待核验"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "单剧"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "账号级"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "平台级"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fld7IREINc",
+        "name": "账号ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld3DXqOEu",
+        "name": "订单金额",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4JQ1bi3",
+        "multiple": false,
+        "name": "剧场",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "ReelShort"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "MoboReels"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "DramaBox"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "NetShort"
+          },
+          {
+            "hue": "Turquoise",
+            "lightness": "Lighter",
+            "name": "GoodShort"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "ShortMax"
+          },
+          {
+            "hue": "Purple",
+            "lightness": "Lighter",
+            "name": "KalosTV"
+          },
+          {
+            "hue": "Green",
+            "lightness": "Lighter",
+            "name": "其他"
+          },
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "FlickReels"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "bidirectional": false,
+        "description": "仅关联一条选剧池记录；多条、悬空或冲突关联不进入单剧统计。",
+        "id": "flddYUVYyW",
+        "link_table": "tbl4efRfwhJRqryA",
+        "name": "关联剧集",
+        "type": "link"
+      },
+      {
+        "expression": "IF(ISBLANK([适用生效日期]),0,[分成比例配置].FILTER(AND(CurrentValue.[匹配键]=[匹配键],CurrentValue.[生效日期]=[适用生效日期])).[分成比例].MAX())",
+        "id": "fldgp7FpVt",
+        "name": "适用分成比例",
+        "type": "formula"
+      },
+      {
+        "default_value": {
+          "$slot": "record_created_time"
+        },
+        "description": "\n未提供的指标留空，确认真实为零才填0；币种和订单金额口径必须与来源一致。单剧明细与同范围账号合计不可同时纳入汇总。推广资源数按后台定义记录，不跨日期或账号直接累加。广告收益、抽佣收益是否包含于分成未核实前，不计算收益合计。",
+        "id": "fld3uINgJi",
+        "name": "日期",
+        "style": {
+          "format": "yyyy/MM/dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "expression": "[分成比例配置].FILTER(AND(CurrentValue.[匹配键]=[匹配键],CurrentValue.[生效日期]\u003c=[日期])).[生效日期].MAX()",
+        "id": "fldfpzghAm",
+        "name": "适用生效日期",
+        "type": "formula"
+      }
+    ],
+    "total": 21
+  }
+}

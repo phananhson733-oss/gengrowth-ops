@@ -1,0 +1,155 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "IjRhb167IaTcJesS4aeciTWfnbc",
+  "table_id": "tblTlFFJBTElnYH0",
+  "rev": 1528,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 80,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/周会任务表.ndjson",
+  "record_file_size_bytes": 39373,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-08至10-12-核验/周会任务表.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recJPAMBenZuKL"
+    },
+    "任务ID": {
+      "field_id": "fld4HAottn",
+      "field_type": "auto_number",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 8
+      },
+      "example": "TSK-0001"
+    },
+    "任务名称": {
+      "field_id": "fldcDbTU6K",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 4,
+        "max_length": 33
+      },
+      "example": "Reddit养号"
+    },
+    "任务状态": {
+      "field_id": "fldLabOHq3",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "Done"
+      ]
+    },
+    "任务目标": {
+      "field_id": "fldVvKBZFQ",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 4,
+        "max_length": 106
+      },
+      "example": "发布合作视频*2"
+    },
+    "任务类型": {
+      "field_id": "fldmGdYOMs",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "一次性"
+      ]
+    },
+    "优先级": {
+      "field_id": "fldIqJ9New",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 8,
+        "max_length": 1,
+        "avg_length": 0.9
+      },
+      "example": [
+        "高"
+      ]
+    },
+    "完成进度": {
+      "field_id": "fldv2P0eOa",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 45,
+        "min": 0,
+        "max": 1,
+        "avg": 0.6857142857142858
+      },
+      "example": 1
+    },
+    "实际完成结果输出": {
+      "field_id": "fld5aFF6k4",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 19,
+        "max_length": 240
+      },
+      "example": "刚开始"
+    },
+    "对应业务线名称": {
+      "field_id": "fld8Q04OTj",
+      "field_type": "lookup",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 4,
+        "max_length": 16
+      },
+      "example": "基础建设"
+    },
+    "截止日期": {
+      "field_id": "fldnDiEjNI",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 20,
+        "min": "2026-08-21T00:00:00.000+08:00",
+        "max": "2026-10-15T00:00:00.000+08:00"
+      },
+      "example": "2026-08-28T00:00:00.000+08:00"
+    },
+    "负责人": {
+      "field_id": "flde8aNxE7",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recwDsHY2GizQl"
+        }
+      ]
+    }
+  }
+}

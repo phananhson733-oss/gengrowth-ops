@@ -1,0 +1,84 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl2DP9zxoJCtrLY",
+  "rev": 103,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 49,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/新发-0.ndjson",
+  "record_file_size_bytes": 16093,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/新发-0.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvJ0w42fAr8"
+    },
+    "剧名数": {
+      "field_id": "fldx990kFT",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 1,
+        "max": 19,
+        "avg": 6.857142857142857
+      },
+      "example": 2
+    },
+    "播放量": {
+      "field_id": "fldavFrCKK",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 1564,
+        "max": 806967,
+        "avg": 162711.306122449
+      },
+      "example": 1720
+    },
+    "数据截至日期": {
+      "field_id": "fldJi4XHJq",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-24T00:00:00.000+08:00",
+        "max": "2026-10-14T00:00:00.000+08:00"
+      },
+      "example": "2026-09-24T00:00:00.000+08:00"
+    },
+    "统计说明": {
+      "field_id": "fldAqp9KMP",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 72
+      },
+      "example": "统计时区：北京时间（Asia/Shanghai）；每帖取最后采集值；超过30天停止刷新；指标日期 2026-09-23 至 2026-09-24"
+    },
+    "首次发布日期": {
+      "field_id": "fldqvjJU0G",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-08-24T00:00:00.000+08:00",
+        "max": "2026-10-13T00:00:00.000+08:00"
+      },
+      "example": "2026-08-24T00:00:00.000+08:00"
+    }
+  }
+}

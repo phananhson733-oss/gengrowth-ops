@@ -1,0 +1,73 @@
+{
+  "basis": "User confirmation + live Feishu device table UI (35 records); exact rows 25,28,29–35 inspected",
+  "device_table_url": "https://gengrowth.feishu.cn/wiki/QCigwFYMCiuQu1k8q94cXy7PnZd?table=tbl7AIGIjE2eCD8T&view=vewuMNctcT",
+  "total_phones": 35,
+  "non_short_drama": [
+    "Phone-01",
+    "Phone-03"
+  ],
+  "broken": [
+    "Phone-25",
+    "Phone-28"
+  ],
+  "available_for_short_drama": 31,
+  "currently_posting": 24,
+  "accounts_with_period_video_metrics": 23,
+  "posting_without_collected_metrics": {
+    "device": "Phone-21",
+    "account": "apdt6w97o2pk"
+  },
+  "remaining_phones": [
+    {
+      "device": "Phone-29",
+      "account": "marjepurcell71",
+      "owner": "张凯风",
+      "current_situation": "正在买粉",
+      "next_action": "完成后确认账号可用，安排首发。"
+    },
+    {
+      "device": "Phone-30",
+      "account": "hayleyluella",
+      "owner": "张凯风",
+      "current_situation": "正在买粉",
+      "next_action": "完成后确认账号可用，安排首发。"
+    },
+    {
+      "device": "Phone-31",
+      "account": "zahramya6",
+      "owner": "高璇名下，待转交",
+      "current_situation": "养号中；后续转给另外两位实习生",
+      "next_action": "确定接收人和交接时间。"
+    },
+    {
+      "device": "Phone-32",
+      "account": "vedalana7",
+      "owner": "高璇名下，待转交",
+      "current_situation": "养号中；后续转给另外两位实习生",
+      "next_action": "确定接收人和交接时间。"
+    },
+    {
+      "device": "Phone-33",
+      "account": "设备表未绑定账号",
+      "owner": "尚未确认",
+      "current_situation": "设备表标记“未启用”，已有 IP 关联记录",
+      "next_action": "确定用哪个账号、谁负责，再安排启用。"
+    },
+    {
+      "device": "Phone-34",
+      "account": "设备表未绑定账号",
+      "owner": "尚未确认",
+      "current_situation": "设备表标记“未启用”，已有 IP 关联记录",
+      "next_action": "确定用哪个账号、谁负责，再安排启用。"
+    },
+    {
+      "device": "Phone-35",
+      "account": "设备表未绑定账号",
+      "owner": "尚未确认",
+      "current_situation": "设备表标记“未启用”，已有 IP 关联记录",
+      "next_action": "确定用哪个账号、谁负责，再安排启用。"
+    }
+  ],
+  "unbound_account": "micahfie0yg",
+  "mutated_feishu": false
+}

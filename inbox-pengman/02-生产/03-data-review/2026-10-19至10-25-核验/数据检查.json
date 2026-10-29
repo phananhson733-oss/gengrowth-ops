@@ -1,0 +1,17 @@
+{
+  "videos": 663,
+  "plays": 2502810,
+  "active_handles": 27,
+  "orders_reported": 80,
+  "revenue_rows": 70,
+  "amount_usd_raw": "762.022666671",
+  "share_usd_raw": "417.1656",
+  "recorded_snapshot_increment": 4406737,
+  "publish_capture_daily_report_counts_match": true,
+  "daily_account_increment_sums_match": true,
+  "cps_daily_report_matches_to_cent": true,
+  "same_day_title_multirow_groups": 2,
+  "read_start": "2026-10-26T13:47:32.726814+08:00",
+  "read_end": "2026-10-26T13:48:06.116262+08:00",
+  "report_path": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-19至10-25-短剧运营周报.md"
+}

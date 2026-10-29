@@ -1,0 +1,178 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tbl5Kzrhuz9B7LTE",
+  "rev": 35231,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "offset": 2000,
+  "requested_limit": 2000,
+  "records_count": 64,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/发布-2000.ndjson",
+  "record_file_size_bytes": 36645,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/发布-2000.manifest.json",
+  "columns": {
+    "Post ID": {
+      "field_id": "fldsVKSNRu",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "7696345708923751694"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "reczz28O3wMcB16R"
+    },
+    "剧": {
+      "field_id": "fldT24Arvp",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvQvkovESB2"
+        }
+      ]
+    },
+    "剧名": {
+      "field_id": "fldoUxe3bS",
+      "field_type": "lookup",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 54
+      },
+      "example": "The Whispering Zoo"
+    },
+    "发布ID": {
+      "field_id": "fldlardn0H",
+      "field_type": "auto_number",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "SR-002137"
+    },
+    "发布状态": {
+      "field_id": "fldBPSxJNW",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "已回填"
+    },
+    "实际发布时间": {
+      "field_id": "fldgieWLtA",
+      "field_type": "lookup",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "2026-10-14 19:58"
+    },
+    "归档状态": {
+      "field_id": "fld4A6WP0u",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "active"
+      ]
+    },
+    "推广口令": {
+      "field_id": "fld52ipNTh",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 64,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "日期": {
+      "field_id": "fld1PRAbET",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-10-14T00:00:00.000+08:00",
+        "max": "2026-10-16T00:00:00.000+08:00"
+      },
+      "example": "2026-10-14T00:00:00.000+08:00"
+    },
+    "视频链接": {
+      "field_id": "fldtOQD4tB",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 140
+      },
+      "example": "[https://www.tiktok.com/@scenesbl77/video/7694928967060442399](https://www.tiktok.com/@scenesbl77/video/7694928967060442399)"
+    },
+    "账号": {
+      "field_id": "fldlbHxTnY",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvuUtTzXd9KY"
+        }
+      ]
+    },
+    "运营人员": {
+      "field_id": "fldb7rcwyH",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "高璇"
+    },
+    "采集记录": {
+      "field_id": "fldxkYfXbD",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "reczz28Nx7qmoOQ1"
+        }
+      ]
+    }
+  }
+}

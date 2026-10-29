@@ -1,0 +1,598 @@
+{
+  "checked_at": "2026-10-12T14:42:03.714609+08:00",
+  "scope": "可访问手动收益表全部86行；79条有剧名；按平台及名称忽略大小写、空白分组，不合并跨语言版本；金额为填报原值非结算核验",
+  "groups": [
+    {
+      "title": "Love After Divorce: My Ex-husband Wants Me Back",
+      "platform": "MoboReels",
+      "records": 7,
+      "dates": [
+        "2026-09-07",
+        "2026-09-08",
+        "2026-09-09",
+        "2026-09-10",
+        "2026-09-11",
+        "2026-09-19",
+        "2026-09-25"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "83.91",
+      "source_record_ids": [
+        "recvw0OXUCf5Ow",
+        "recvw1CJZfAnbp",
+        "recvw1D0imw92J",
+        "recvw1DmK9y8YU",
+        "reczz28HjFniDNGW",
+        "reczz28KklOhKaSy",
+        "reczz28KkmR9e3Rh"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The Unbreakables: Super Son Returns",
+      "platform": "ReelShort",
+      "records": 7,
+      "dates": [
+        "2026-09-21",
+        "2026-09-24",
+        "2026-09-27",
+        "2026-09-30",
+        "2026-10-03",
+        "2026-10-06",
+        "2026-10-10"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "reported_amount_usd": "75.19",
+      "source_record_ids": [
+        "reczz28LGid5ttz8",
+        "reczz28LGijCietv",
+        "reczz28LGikHjthW",
+        "reczz28LGilEGolu",
+        "reczz28LGim9a4Sz",
+        "reczz28LGinHUIae",
+        "reczz28MK3SwIeGi"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Daddy Left His Baby to Die",
+      "platform": "ReelShort",
+      "records": 4,
+      "dates": [
+        "2026-09-15",
+        "2026-09-16",
+        "2026-10-03",
+        "2026-10-09"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "46.86",
+      "source_record_ids": [
+        "recvw0HTfOvmqQ",
+        "recvw0HTtyWVu9",
+        "reczz28JmRMM6z68",
+        "reczz28LeRN3M74J"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Rejecting My Five Female Mates",
+      "platform": "ReelShort",
+      "records": 5,
+      "dates": [
+        "2026-09-20",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-07"
+      ],
+      "owners": [
+        "马博洋",
+        "高璇"
+      ],
+      "reported_amount_usd": "30.05",
+      "source_record_ids": [
+        "recvw0HJo6tGDp",
+        "recvwT9JrW5Czl",
+        "recvwYxJhNvUZT",
+        "reczz28JmRNYGy4W",
+        "reczz28Ks7HKZWUM"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The Secret of Gala Night",
+      "platform": "MoboReels",
+      "records": 4,
+      "dates": [
+        "2026-09-22",
+        "2026-10-01",
+        "2026-10-06"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "27.35",
+      "source_record_ids": [
+        "recvw0PeQuQjgw",
+        "recvwtYEdLLtBu",
+        "reczz28JmTPbnTsA",
+        "reczz28KkjhW7GX7"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Private Tutoring",
+      "platform": "ReelShort",
+      "records": 2,
+      "dates": [
+        "2026-09-22",
+        "2026-10-04"
+      ],
+      "owners": [
+        "彭满",
+        "高璇"
+      ],
+      "reported_amount_usd": "26.58",
+      "source_record_ids": [
+        "recvw7XISvVfCT",
+        "reczz28JmR8xl3k5"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Sent As A Sacrifice, She Became The Queen",
+      "platform": "MoboReels",
+      "records": 15,
+      "dates": [
+        "2026-09-10",
+        "2026-09-11",
+        "2026-09-12",
+        "2026-09-13",
+        "2026-09-14",
+        "2026-09-15",
+        "2026-09-18",
+        "2026-09-19",
+        "2026-09-20",
+        "2026-09-21",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-03"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "26.30",
+      "source_record_ids": [
+        "recvw0ONGIrfVK",
+        "recvw1B0a9C0s6",
+        "recvw1Bp6S9bys",
+        "recvw1BARr0uLq",
+        "recvw1C0TW2mB3",
+        "recvw1Ce1906XN",
+        "recvw1Cl6UoLF3",
+        "recvw1Cx5mW4Cs",
+        "recvw1CHxLVpgj",
+        "recvw1CTODT3eS",
+        "recvwu06dZxZNs",
+        "reczz28Hj7e7324M",
+        "reczz28JmTY1aDvM",
+        "reczz28JmWJYViJp",
+        "reczz28JmYoOmA39"
+      ],
+      "small_amount_records": 10
+    },
+    {
+      "title": "My Black Python Wants My Eggs",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-10-06"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "reported_amount_usd": "13.99",
+      "source_record_ids": [
+        "reczz28LGihyWgg3"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Love Slave to the Mafia Boss's Passion",
+      "platform": "MoboReels",
+      "records": 2,
+      "dates": [
+        "2026-09-15",
+        "2026-09-21"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "12.16",
+      "source_record_ids": [
+        "recvw0J6A17zOj",
+        "recvw1AHtJdAAm"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "НЕВЕСТА СЕРЕБРЯНОГО ЗМЕЯ",
+      "platform": "ReelShort",
+      "records": 6,
+      "dates": [
+        "2026-09-21",
+        "2026-09-26",
+        "2026-09-29",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "11.12",
+      "source_record_ids": [
+        "recvvUJ90ucvW2",
+        "recvwFmZsXat8W",
+        "recvwGH3otFy5M",
+        "recvwTa0TCcaM9",
+        "recvwYxnv1ReBZ",
+        "recvxg8kDg15Vk"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The Omega's Command",
+      "platform": "ReelShort",
+      "records": 2,
+      "dates": [
+        "2026-09-22",
+        "2026-09-28"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "reported_amount_usd": "10.48",
+      "source_record_ids": [
+        "recvw7XM40Empz",
+        "recvwtNsoqeloT"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Alfa și dădaca Luna",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-20"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "9.09",
+      "source_record_ids": [
+        "recvw0GwGzSd5h"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "After I Treated the Lion Prince's Secret Ailment, He Won't Let Me Go",
+      "platform": "MoboReels",
+      "records": 1,
+      "dates": [
+        "2026-10-09"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "8.39",
+      "source_record_ids": [
+        "reczz28MKqF8XiNQ"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Married Off To The Cursed Alpha Daddy",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-10-01"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "7.69",
+      "source_record_ids": [
+        "reczz28JmPfW9D8g"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Erwachen des Alphas: Die Rückkehr des Wolfskönigs",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-28"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "6.99",
+      "source_record_ids": [
+        "recvwFnojS2LF1"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "My Two Spy Daddies",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-10-01"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "reported_amount_usd": "6.29",
+      "source_record_ids": [
+        "reczz28Kkp7cwp0a"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "One Betrayal, One Night with My Boss",
+      "platform": "MoboReels",
+      "records": 2,
+      "dates": [
+        "2026-09-29",
+        "2026-09-30"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "4.20",
+      "source_record_ids": [
+        "reczz28JmZ0Yh0u3",
+        "reczz28JmZAyjlW8"
+      ],
+      "small_amount_records": 1
+    },
+    {
+      "title": "Son from the Future",
+      "platform": "ReelShort",
+      "records": 2,
+      "dates": [
+        "2026-09-24",
+        "2026-10-06"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "4.18",
+      "source_record_ids": [
+        "recvwFmDNWnTBe",
+        "recvxqcsOH0Cyr"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Caught Between Twin Husbands",
+      "platform": "FlickReels",
+      "records": 1,
+      "dates": [
+        "2026-09-27"
+      ],
+      "owners": [
+        "张凯风"
+      ],
+      "reported_amount_usd": "3.49",
+      "source_record_ids": [
+        "recvwtGXtb3y1T"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Don't Harm the Heiress，Her Mom Is the Sable Queen",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-30"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "3.49",
+      "source_record_ids": [
+        "recvwT9iHNjulj"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The CEO Who Felt My Pregnancy",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-28"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "3.14",
+      "source_record_ids": [
+        "recvwFnpRLNaGY"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "O Doutor Que Marcou Meu Destino",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-24"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "1.38",
+      "source_record_ids": [
+        "recvwFm5fCSoqx"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "I Rule the Wasteland Harem",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-20"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "0.69",
+      "source_record_ids": [
+        "recvw0H9y5sVT1"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The mob boss spoils his pregnant wife",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-14"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "0.69",
+      "source_record_ids": [
+        "recvw0IqGTekQF"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "The Alpha Princess Is Gone for Good",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-25"
+      ],
+      "owners": [
+        "马博洋"
+      ],
+      "reported_amount_usd": "0.69",
+      "source_record_ids": [
+        "recvwFmOruQk5Y"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Me acosté con mi cuñado",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-09-27"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "0.69",
+      "source_record_ids": [
+        "reczz28HjJjGGmmn"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "Fake Dating My Football Rival",
+      "platform": "ReelShort",
+      "records": 1,
+      "dates": [
+        "2026-10-10"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "reported_amount_usd": "0.69",
+      "source_record_ids": [
+        "reczz28LfCDk4niF"
+      ],
+      "small_amount_records": 0
+    },
+    {
+      "title": "That Prince Is A Girl: The Princess And Her Grand King",
+      "platform": "MoboReels",
+      "records": 3,
+      "dates": [
+        "2026-09-24",
+        "2026-09-27",
+        "2026-09-28"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "0.03",
+      "source_record_ids": [
+        "recvwtZx5Fsd4O",
+        "recvwtZKAja2Fz",
+        "reczz28HjDKyY7n5"
+      ],
+      "small_amount_records": 3
+    },
+    {
+      "title": "That Prince Is A Girl: The Princess And Her Grand King\n1",
+      "platform": "MoboReels",
+      "records": 1,
+      "dates": [
+        "2026-10-03"
+      ],
+      "owners": [
+        "高璇"
+      ],
+      "reported_amount_usd": "0.03",
+      "source_record_ids": [
+        "reczz28JmTGCvuKW"
+      ],
+      "small_amount_records": 1
+    },
+    {
+      "title": "The Abandoned Wife Is An AI Tycoon",
+      "platform": "MoboReels",
+      "records": 1,
+      "dates": [
+        "2026-10-03"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "reported_amount_usd": "0.02",
+      "source_record_ids": [
+        "reczz28KlVS6DRkU"
+      ],
+      "small_amount_records": 1
+    },
+    {
+      "title": "Fight Me,  Love me",
+      "platform": "MoboReels",
+      "records": 1,
+      "dates": [
+        "2026-09-27"
+      ],
+      "owners": [
+        "彭满"
+      ],
+      "reported_amount_usd": "0.001492537",
+      "source_record_ids": [
+        "recvwtMEdqtWQG"
+      ],
+      "small_amount_records": 1
+    }
+  ]
+}

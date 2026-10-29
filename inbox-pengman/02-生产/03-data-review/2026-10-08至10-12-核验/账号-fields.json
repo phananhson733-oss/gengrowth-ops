@@ -1,0 +1,277 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "description": "首次发布业务视频的实际时间；按北京时间（Asia/Shanghai）显示。未知时留空，不用注册、购买或计划发布时间推断。",
+        "id": "fldv1FfeoB",
+        "name": "始发时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldiSB3I5Y",
+        "name": "累计点赞",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "description": "账号运营备注，由人工维护；未知或无备注时留空，采集同步不得覆盖。",
+        "id": "fldLSce4n8",
+        "name": "备注",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldtXg1mQe",
+        "name": "累计评论",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldHWDCi44",
+        "name": "指标同步时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldNPPeZsf",
+        "name": "账号名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldXXKnmIN",
+        "multiple": false,
+        "name": "状态",
+        "options": [
+          {
+            "hue": "Carmine",
+            "lightness": "Lighter",
+            "name": "未发"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "重养"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "发布中"
+          },
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "弃用"
+          },
+          {
+            "hue": "Wathet",
+            "lightness": "Lighter",
+            "name": "暂停"
+          },
+          {
+            "hue": "Yellow",
+            "lightness": "Lighter",
+            "name": "买粉中"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldMlLI2Xu",
+        "name": "主页链接",
+        "style": {
+          "type": "url"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldTq9hjKu",
+        "name": "账号ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldbCxImNC",
+        "name": "手机编号",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldF1CCILS",
+        "multiple": false,
+        "name": "同步状态",
+        "options": [
+          {
+            "hue": "Blue",
+            "lightness": "Lighter",
+            "name": "success"
+          },
+          {
+            "hue": "Orange",
+            "lightness": "Lighter",
+            "name": "partial"
+          },
+          {
+            "hue": "Red",
+            "lightness": "Lighter",
+            "name": "failed"
+          }
+        ],
+        "type": "select"
+      },
+      {
+        "default_value": null,
+        "id": "fldjMbeGql",
+        "name": "粉丝数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldeeJwdI8",
+        "name": "定位垂类",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldwzRKGHv",
+        "name": "累计数据截至日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "description": "从首次发布业务视频至累计数据截至日期，按北京时间（Asia/Shanghai）自然日含首尾两天计算：累计播放量÷（日期差+1）。任一输入缺失或截至日期早于始发日期时留空。",
+        "expression": "IF(OR(ISBLANK([始发时间]),ISBLANK([累计数据截至日期]),ISBLANK([累计播放量])),\"\",IF(DAYS(DATE(YEAR([累计数据截至日期]),MONTH([累计数据截至日期]),DAY([累计数据截至日期])),DATE(YEAR([始发时间]),MONTH([始发时间]),DAY([始发时间])))\u003c0,\"\",[累计播放量]/(DAYS(DATE(YEAR([累计数据截至日期]),MONTH([累计数据截至日期]),DAY([累计数据截至日期])),DATE(YEAR([始发时间]),MONTH([始发时间]),DAY([始发时间])))+1)))",
+        "id": "fldblO39an",
+        "name": "日均播放量",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "flduA9AA6B",
+        "name": "累计转发",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "description": "累计指标统计时区：北京时间（Asia/Shanghai）。说明包含采集日期范围、30天停止刷新规则和缺失数据；日均播放量按北京时间自然日差计算。",
+        "id": "fldjHT7BGf",
+        "name": "累计统计说明",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "description": "账号注册或购买的实际时间；按北京时间（Asia/Shanghai）显示。未知时留空。",
+        "id": "fld58r9lFJ",
+        "name": "接收时间/注册时间",
+        "style": {
+          "format": "yyyy-MM-dd HH:mm"
+        },
+        "type": "datetime"
+      },
+      {
+        "bidirectional": false,
+        "id": "fldmU4CPQk",
+        "link_table": "tblHeWrgRPNshRdE",
+        "name": "父记录",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fldyJJL18z",
+        "multiple": false,
+        "name": "负责人",
+        "type": "user"
+      },
+      {
+        "default_value": null,
+        "id": "fldr3rFv3Q",
+        "name": "累计收藏",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldcvFsS8f",
+        "name": "数据日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldvJkYlYE",
+        "name": "累计播放量",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      }
+    ],
+    "total": 23
+  }
+}

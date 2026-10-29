@@ -1,0 +1,110 @@
+{
+  "asset_recheck_time_bjt": "2026-10-08 17:10",
+  "release_snapshot_time_bjt": "2026-10-08 16:05",
+  "counts": {
+    "asset_rows": 33,
+    "exact_active_match": 18,
+    "same_device_mapping_pending": 5,
+    "other_short_drama": 8,
+    "paused_astrology": 2
+  },
+  "other_accounts": [
+    {
+      "account": "apdt6w97o2pk",
+      "device": "Phone-21",
+      "owner": "李建卓",
+      "status": "已养好, 买粉中",
+      "period_capture_matches": 0,
+      "period_release_rows": 24,
+      "finding": "9/30–10/7 有 24 条“待公开”，涉及 4 个剧名；均缺 Post ID 和实际发布时间，采集表无该 ID。",
+      "suggestion": "先确认是否已经公开；若已发，补视频链接和 Post ID；若未发，明确首发时间。"
+    },
+    {
+      "account": "marjepurcell71",
+      "device": "Phone-29",
+      "owner": "张凯风",
+      "status": "已养好, 买粉中",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "没有找到同 ID 的本期发布或采集记录；本次复核新看到“买粉中”标签。",
+      "suggestion": "核验账号实际可用状态，确定首发安排。"
+    },
+    {
+      "account": "hayleyluella",
+      "device": "Phone-30",
+      "owner": "张凯风",
+      "status": "已养好, 买粉中",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "没有找到同 ID 的本期发布或采集记录；本次复核新看到“买粉中”标签。",
+      "suggestion": "核验账号实际可用状态，确定首发安排。"
+    },
+    {
+      "account": "user4056100981161",
+      "device": "Phone-25",
+      "owner": "李建卓",
+      "status": "暂停",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "资产表标记暂停；本期未见同 ID 的发布或采集记录。",
+      "suggestion": "李建卓确认暂停原因及恢复条件；不能直接沿用往期故障原因。"
+    },
+    {
+      "account": "nhanh8497",
+      "device": "Phone-28",
+      "owner": "张凯风",
+      "status": "暂停",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "资产表标记暂停；本期未见同 ID 的发布或采集记录。",
+      "suggestion": "张凯风确认暂停原因及恢复条件。"
+    },
+    {
+      "account": "zahramya6",
+      "device": "Phone-31",
+      "owner": "高璇",
+      "status": "养号中",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "资产表标记养号中；本期未见同 ID 的发布或采集记录。",
+      "suggestion": "高璇确认何时可开始首发和回填。"
+    },
+    {
+      "account": "vedalana7",
+      "device": "Phone-32",
+      "owner": "高璇",
+      "status": "养号中",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "资产表标记养号中；本期未见同 ID 的发布或采集记录。",
+      "suggestion": "高璇确认何时可开始首发和回填。"
+    },
+    {
+      "account": "micahfie0yg",
+      "device": "未分配",
+      "owner": "未分配",
+      "status": "未养号",
+      "period_capture_matches": 0,
+      "period_release_rows": 0,
+      "finding": "未养号，设备和负责人均未填写；本期未见同 ID 的发布或采集记录。",
+      "suggestion": "先明确是否纳入短剧运营，再指定负责人和设备。"
+    }
+  ],
+  "pending_release_drama_counts": {
+    "He Left Me at the Altar, So I Married the Man Above Him": 6,
+    "Offered to the triplet Alpha": 6,
+    "The Alpha Who Let His Luna Die": 6,
+    "Accidentally His: The Dragon King Won't Let Go": 6
+  },
+  "status_changes_since_1606": {
+    "marjepurcell71": [
+      "已养好",
+      "已养好, 买粉中"
+    ],
+    "hayleyluella": [
+      "已养好",
+      "已养好, 买粉中"
+    ]
+  },
+  "scope_note": "Only non-sensitive account, device, owner, status and publication evidence preserved. No credentials."
+}

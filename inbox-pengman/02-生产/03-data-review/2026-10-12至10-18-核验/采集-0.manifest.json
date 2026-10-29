@@ -1,0 +1,224 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "OtnsbnRnwaLmnVsJByscTkFMntd",
+  "table_id": "tblNTly7d7tV1jG5",
+  "rev": 1943,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 2000,
+  "page_count": 4,
+  "has_more": true,
+  "next_offset": 2000,
+  "record_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/采集-0.ndjson",
+  "record_file_size_bytes": 1735246,
+  "manifest_file": "/Users/pengman/gengrowth-ops/inbox-pengman/02-生产/03-data-review/2026-10-12至10-18-核验/采集-0.manifest.json",
+  "columns": {
+    "Caption": {
+      "field_id": "fld2x1wmAU",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 45,
+        "max_length": 498
+      },
+      "example": "#drama #dramaclip #fyp "
+    },
+    "Post ID": {
+      "field_id": "fld4FSHS5d",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "7657074482648993037"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvuxAuj3qPPM"
+    },
+    "业务": {
+      "field_id": "fldAC5AgTq",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "short-drama"
+      ]
+    },
+    "关联发布记录": {
+      "field_id": "fldpByLaej",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 7,
+        "max_length": 1,
+        "avg_length": 0.9965
+      },
+      "example": [
+        {
+          "id": "recvuxAxDEWLFj"
+        }
+      ]
+    },
+    "发布时间": {
+      "field_id": "fld1kS3U7I",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 43,
+        "min": "2026-07-13T23:30:00.000+08:00",
+        "max": "2026-10-16T10:34:00.000+08:00"
+      },
+      "example": "2026-07-13T23:30:00.000+08:00"
+    },
+    "快照日期": {
+      "field_id": "fldTzHxnrf",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-07-21T00:00:00.000+08:00",
+        "max": "2026-10-19T00:00:00.000+08:00"
+      },
+      "example": "2026-07-21T00:00:00.000+08:00"
+    },
+    "播放量": {
+      "field_id": "fldUiYxzeL",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 382400,
+        "avg": 5214.837
+      },
+      "example": 0
+    },
+    "收藏": {
+      "field_id": "fld6u2Dm34",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 3128,
+        "avg": 17.834917458729365
+      },
+      "example": 0
+    },
+    "点赞": {
+      "field_id": "fld8fbTe9H",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 17900,
+        "avg": 62.143571785892945
+      },
+      "example": 3
+    },
+    "缺失字段": {
+      "field_id": "fldr1HFhUq",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 1998,
+        "max_length": 4,
+        "avg_length": 0.004
+      },
+      "example": [
+        "likes",
+        "comments",
+        "favorites"
+      ],
+      "example_truncated": true
+    },
+    "视频链接": {
+      "field_id": "fldogmTzZj",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 142
+      },
+      "example": "[https://www.tiktok.com/@jolienqaq/video/7674889997429853470](https://www.tiktok.com/@jolienqaq/video/7674889997429853470)"
+    },
+    "评论": {
+      "field_id": "fldw2WU09Y",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 101,
+        "avg": 0.7123561780890445
+      },
+      "example": 0
+    },
+    "账号": {
+      "field_id": "fldEMgDB7J",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvuwZHjywqNU"
+        }
+      ]
+    },
+    "转发": {
+      "field_id": "fldcKCPxDQ",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 1,
+        "min": 0,
+        "max": 584,
+        "avg": 2.5817908954477238
+      },
+      "example": 1
+    },
+    "采集时间": {
+      "field_id": "fldAilNtLA",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 43,
+        "min": "2026-09-04T15:37:10.000+08:00",
+        "max": "2026-10-19T10:45:57.000+08:00"
+      },
+      "example": "2026-09-11T12:03:13.000+08:00"
+    },
+    "采集状态": {
+      "field_id": "fld4whxlvp",
+      "field_type": "select",
+      "physical_type": "array<string>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        "partial"
+      ]
+    }
+  }
+}

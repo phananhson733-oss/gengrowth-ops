@@ -1,0 +1,176 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "id": "fldDEursiv",
+        "name": "点赞",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld8mCmYn6",
+        "name": "首次发布日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldoBUJyA9",
+        "name": "剧ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld36egyBc",
+        "name": "平台",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld114K72J",
+        "name": "评论",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldL5IIkPS",
+        "name": "转发",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4RPn4Yu",
+        "name": "播放量",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldHi5rnzp",
+        "name": "剧场",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldfER52a9",
+        "name": "数据截至日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldqJKwGIk",
+        "name": "发布记录数",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fldaNkkv3l",
+        "name": "剧分类",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "[播放量]/[发布记录数]",
+        "id": "fldyaOnWj1",
+        "name": "平均播放",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "短剧播放数据汇总的统计时区为北京时间（Asia/Shanghai）；日期按该时区解释。数据缺失、部分覆盖和结算状态以单行说明为准。",
+        "id": "fldSCkVHxR",
+        "name": "统计说明",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld4ju9UiK",
+        "name": "收藏",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": true,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld4bSzChm",
+        "name": "上线日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldxdVslid",
+        "name": "剧名",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "description": "来源：CPS账号数据明细 手动版。存在订单金额\u003e0且完整剧名匹配的记录时标记“已出单”；忽略大小写、空格及常用标点差异。不命中留空，空白不代表确认未出单；源表缺剧名无法判定。随源表自动计算。",
+        "expression": "IF(AND(NOT(ISBLANK([剧名])),[CPS账号数据明细 手动版].COUNTIF(AND(CurrentValue.[订单金额]\u003e0,NOT(ISBLANK(CurrentValue.[出单剧名（仅统计出单）])),REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(CurrentValue.[出单剧名（仅统计出单）],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")=REGEXREPLACE(LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE([剧名],\" \",\"\"),CHAR(9),\"\"),CHAR(10),\"\"),CHAR(13),\"\"),CHAR(160),\"\"),\"　\",\"\")),\"[,，.。:：;；!！?？'’‘\\\"“”()（）_—–-]+\",\"\")))\u003e0),\"已出单\",\"\")",
+        "id": "fldkIijouO",
+        "name": "是否出单",
+        "type": "formula"
+      }
+    ],
+    "total": 17
+  }
+}
